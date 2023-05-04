@@ -1,4 +1,4 @@
-@import "@styles/_utilities";
+@use "@styles/utilities";
 
 .phaseList {
   display: flex;
@@ -10,7 +10,7 @@
   &Item {
     position: relative;
     line-height: 1;
-    color: $color-on-background;
+    color: utilities.$color-on-background;
 
     &:not(:last-child):after {
       content: '';

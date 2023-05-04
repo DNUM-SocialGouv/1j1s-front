@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .articleList {
   @extend %max-container;
@@ -10,10 +10,10 @@
   }
 
   &Wrapper {
-    background-color: $color-background-white-lilac;
+    background-color: utilities.$color-background-white-lilac;
   }
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     margin: auto;
     padding-inline: 0;
   }
@@ -22,19 +22,19 @@
 .notOnlyVertical {
   .illustration {
     height: 7rem;
-    @include media(large) {
+    @include utilities.media(large) {
       width: 20rem;
       height: 10rem;
     }
   }
 
   .title {
-    @include line-clamp(0);
+    @include utilities.line-clamp(0);
   }
 
   .cta {
     text-align: end;
-    @include media(large) {
+    @include utilities.media(large) {
       margin-top: auto;
     }
   }
@@ -65,7 +65,7 @@
 
 .title {
   @extend %text-medium;
-  @include line-clamp(2);
+  @include utilities.line-clamp(2);
   margin-bottom: 0.5rem;
 }
 
@@ -73,7 +73,7 @@
   margin-top: 1.25rem;
   align-self: flex-end;
 
-  @include media(large) {
+  @include utilities.media(large) {
     margin-top: 1rem;
   }
 }

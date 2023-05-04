@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .RechercherStageForm {
   padding: 2rem 1rem;
@@ -6,7 +6,7 @@
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 2rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     grid-template-columns: repeat(2, 1fr);
   }
 }

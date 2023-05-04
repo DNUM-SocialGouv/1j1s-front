@@ -1,17 +1,17 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .pourqui {
   .container {
     padding: 0 1rem 2rem 1rem;
     max-width: 67.5rem;
-    @include media(large) {
+    @include utilities.media(large) {
       padding: 0 2rem 4rem 2rem;
     }
   }
 
   .contenu {
     padding-left: 20px;
-    @include media(large) {
+    @include utilities.media(large) {
       padding-left: 40px;
     }
 
@@ -40,7 +40,7 @@
   }
 
 
-  @include media(large) {
+  @include utilities.media(large) {
     .title {
       text-align: center;
     }

@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .wrapper {
   font-family: inherit;
@@ -12,8 +12,8 @@
 .suggestionList {
   z-index: 2;
   position: absolute;
-  border: 1px solid $color-disabled;
-  background-color: $color-background;
+  border: 1px solid utilities.$color-disabled;
+  background-color: utilities.$color-background;
   width: 100%;
   list-style-type: none;
   margin: 0;
@@ -49,24 +49,24 @@
     height: 2.5rem;
     padding-inline: 1rem;
     border-radius: 1.25rem;
-    border: solid 1px $neutral-grey;
+    border: solid 1px utilities.$neutral-grey;
 
     &:disabled {
-      background-color: $white-lilac;
+      background-color: utilities.$white-lilac;
     }
 
     &:active, &:focus {
-      border-color: $color-primary;
+      border-color: utilities.$color-primary;
     }
 
     &::placeholder {
-      color: $deep-neutral-grey;
+      color: utilities.$deep-neutral-grey;
       opacity: 1;
     }
 
     &Error {
       border: 1px solid transparent;
-      outline: 2px solid $color-error;
+      outline: 2px solid utilities.$color-error;
       outline-offset: -2px;
     }
 
@@ -76,7 +76,7 @@
       height: 2rem;
       @extend %text-small;
       line-height: 1.2;
-      color: $color-error;
+      color: utilities.$color-error;
     }
   }
 }
@@ -91,14 +91,14 @@
   &Error {
     @extend %text-small;
     align-items: center;
-    color: $color-error;
+    color: utilities.$color-error;
   }
 
   & > svg {
     flex-basis: 2em;
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     white-space: nowrap;
   }
 }

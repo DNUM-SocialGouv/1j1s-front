@@ -1,9 +1,9 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .controls {
   z-index: 10;
-  background-color: $color-surface;
-  color: $color-primary;
+  background-color: utilities.$color-surface;
+  color: utilities.$color-primary;
   width: 1.50rem;
   height: 1.50rem;
   border-radius: 50%;

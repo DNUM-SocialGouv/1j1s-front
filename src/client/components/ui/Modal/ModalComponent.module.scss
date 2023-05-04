@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .modal {
   position: fixed;
@@ -51,23 +51,23 @@
   &Close {
     position: sticky;
     top: 0;
-    background-color: $color-background;
+    background-color: utilities.$color-background;
     text-align: right;
     padding: 1rem 1rem 0.5rem;
 
     &Label {
-      color: $color-primary;
+      color: utilities.$color-primary;
       font-size: 0.875rem;
       margin-right: 0.2rem;
     }
     &Icon {
-      fill: $color-primary;
+      fill: utilities.$color-primary;
       vertical-align: bottom;
     }
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .modal {
     padding-left: 50px;
     padding-right: 50px;

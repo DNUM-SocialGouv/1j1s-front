@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .aides {
   @extend %background-surface;
@@ -11,12 +11,12 @@
     gap: 2rem;
     padding: 0 1.5rem;
 
-    @include media(medium) {
+    @include utilities.media(medium) {
       align-items: center;
     }
 
     &Titre {
-      color: $color-primary;
+      color: utilities.$color-primary;
       max-width: 50rem;
       text-align: center;
       font-size: 1.5rem;
@@ -24,7 +24,7 @@
 
       &Accroche {
         font-size: 1.5rem;
-        color: $color-secondary;
+        color: utilities.$color-secondary;
         font-weight: 400;
       }
     }

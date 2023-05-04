@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .skipLinkWrapper {
   --ul-type: none;
@@ -6,8 +6,8 @@
   top: 0;
   padding-top: 1rem;
   transform: translateY(-100%);
-  background-color: $color-separator;
-  color: $color-blue-navy;
+  background-color: utilities.$color-separator;
+  color: utilities.$color-blue-navy;
   --link-underline: none;
 }
 

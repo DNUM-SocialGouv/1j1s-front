@@ -1,23 +1,23 @@
-@import "variables";
-@import "@styles/utilities";
+@use "variables";
+@use "@styles/utilities";
 
 body {
-  background: $color-background;
-  color: $color-on-background;
+  background: utilities.$color-background;
+  color: utilities.$color-on-background;
 }
 
 .background-white {
-  background-color: $color-background;
+  background-color: utilities.$color-background;
 }
 
 .background-white-lilac {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 }
 
 .background-primary {
-  background-color: $color-primary;
+  background-color: utilities.$color-primary;
 }
 
 .background-gradient-to-primary {
-  background: linear-gradient( to right, $color-background-white-lilac 0% 50%, $color-primary 50% 100% );
+  background: linear-gradient( to right, utilities.$color-background-white-lilac 0% 50%, utilities.$color-primary 50% 100% );
 }

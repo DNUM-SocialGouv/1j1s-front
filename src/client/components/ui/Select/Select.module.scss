@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .selectWrapper {
     position: relative;
@@ -21,16 +21,16 @@
     position: absolute;
     padding: 8px;
     width: 100%;
-    border: 1px solid $color-separator;
+    border: 1px solid utilities.$color-separator;
     border-radius: 20px;
-    background-color: $color-background;
+    background-color: utilities.$color-background;
     margin: 4px 0 0 0;
     max-height: 300px;
     overflow-y: auto;
 }
 
 .option:not(:last-child) {
-    border-bottom: 1px solid $color-separator;
+    border-bottom: 1px solid utilities.$color-separator;
     border-radius: 0;
 }
 
@@ -53,20 +53,20 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    color: $color-mention-grey;
+    color: utilities.$color-mention-grey;
     padding: 0.375rem 0.375rem 0.375rem 0.75rem;
-    border: 1px solid $neutral-grey;
+    border: 1px solid utilities.$neutral-grey;
     border-radius: 20px;
 
     &[aria-expanded=true] {
         border: 1px solid transparent;
-        outline: 2px solid $color-primary;
+        outline: 2px solid utilities.$color-primary;
         outline-offset: -2px;
     }
 
     &Invalid {
         border: 1px solid transparent;
-        outline: 2px solid $color-error;
+        outline: 2px solid utilities.$color-error;
         outline-offset: -2px;
     }
 
@@ -83,7 +83,7 @@
 }
 
 .selectedLabel {
-    color: $color-on-background;
+    color: utilities.$color-on-background;
 }
 
 .selectLabel {
@@ -97,5 +97,5 @@
     bottom: 0;
     height: 2rem;
     line-height: 1.2;
-    color: $color-error;
+    color: utilities.$color-error;
 }

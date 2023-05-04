@@ -1,7 +1,7 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .dispositifs {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
   padding-bottom: 3rem;
   h2 {
     @extend %text-xLarge, %bold;

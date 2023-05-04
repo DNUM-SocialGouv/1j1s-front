@@ -1,16 +1,17 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
+@use "@styles/components/link/_placeholders.scss";
 
 .card {
   display: flex;
   flex-direction: column;
-  background: $color-surface;
+  background: utilities.$color-surface;
   border-radius: 1.25rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
 
   &Header {
     display: flex;
     padding: 0.5rem;
-    border-bottom: 4px solid $color-primary;
+    border-bottom: 4px solid utilities.$color-primary;
     height: 5.5rem;
     align-items: center;
     img {
@@ -30,19 +31,19 @@
   margin-left: 1rem;
 
   &Title {
-    color: $color-on-background;
+    color: utilities.$color-on-background;
     @extend %bold;
     @extend %text-medium;
   }
   &SubTitle {
     @extend %text-small;
-    color: $color-on-background;
+    color: utilities.$color-on-background;
   }
 }
 
 .descriptionPublicConcerne {
   @extend %bold;
-  color: $color-secondary;
+  color: utilities.$color-secondary;
   margin-top: 1.25rem;
 }
 
@@ -69,10 +70,10 @@
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .card {
     padding: 1rem 1.5rem;
-    border-left: 4px solid $color-primary;
+    border-left: 4px solid utilities.$color-primary;
     flex-direction: row;
 
     &Header {
@@ -124,7 +125,7 @@
   }
 
   .descriptionEntreprise {
-    color: $color-on-background;
+    color: utilities.$color-on-background;
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
   }

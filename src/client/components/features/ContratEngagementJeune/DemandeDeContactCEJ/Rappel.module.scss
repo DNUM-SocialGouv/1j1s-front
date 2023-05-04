@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rappel {
   padding: 3rem 0;
@@ -14,7 +14,7 @@
     }
 
     h2 {
-      color: $color-primary;
+      color: utilities.$color-primary;
       text-align: center;
       font-size: 1.5rem;
       }

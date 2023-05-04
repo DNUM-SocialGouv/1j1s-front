@@ -1,18 +1,18 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .container {
   padding: 3.5rem 1rem;
-  @include media(medium) {
+  @include utilities.media(medium) {
     padding: 5rem 2.5rem;
   }
 }
 
 .titre {
   font-size: 1rem;
-  color: $color-mine-shaft;
+  color: utilities.$color-mine-shaft;
   @extend %bold;
   margin-bottom: 1.25rem;
-  @include media(medium) {
+  @include utilities.media(medium) {
     font-size: 1.25rem;
   }
 }
@@ -21,7 +21,7 @@
   font-size: 1.5rem;
   margin-bottom: 2.5rem;
   @extend %bold;
-  @include media(medium) {
+  @include utilities.media(medium) {
     font-size: 2.5rem;
     margin-bottom: 4rem;
   }
@@ -30,7 +30,7 @@
  .liste {
    li:not(:last-child) {
      margin-bottom: 1.25rem;
-     @include media(medium) {
+     @include utilities.media(medium) {
        margin-bottom: 2rem;
      }
    }
@@ -44,7 +44,7 @@
      text-decoration: none;
      h3 {
        font-size: 1rem;
-       @include media(medium) {
+       @include utilities.media(medium) {
          font-size: 1.25rem;
        }
      }

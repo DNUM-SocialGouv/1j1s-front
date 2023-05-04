@@ -1,10 +1,10 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .card {
     &Article {
         border-radius: 20px;
         box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
-        background-color: $color-on-primary;
+        background-color: utilities.$color-on-primary;
         position: relative;
         border-radius: 20px;
         display: flex;
@@ -52,16 +52,16 @@
     }
 
     &Action {
-        background-color: $color-primary;
+        background-color: utilities.$color-primary;
         border-radius: 50%;
         padding: 0.25rem;
-        color: $color-on-primary;
+        color: utilities.$color-on-primary;
         width: 2rem;
         height: 2rem;
     }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
     .card {
         &ImageWrapper {
             min-height: 180px;

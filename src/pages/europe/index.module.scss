@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
   &ExperienceEurope {
@@ -16,7 +16,7 @@
       }
       svg {
         flex-shrink: 0;
-        color: $color-primary;
+        color: utilities.$color-primary;
         margin-right: 0.5ch;
       }
     }
@@ -31,7 +31,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      color: $color-primary;
+      color: utilities.$color-primary;
       & svg {
         flex-shrink: 0;
         flex-grow: 0;
@@ -53,7 +53,7 @@
       margin-bottom: 2.5rem;
     }
     &__Card {
-      background-color: $color-background;
+      background-color: utilities.$color-background;
       border-radius: 20px;
       padding: 0.75rem;
       &Content {
@@ -79,7 +79,7 @@
       > h3 {
         @extend %bold;
         font-size: 1.25rem;
-        color: $color-primary;
+        color: utilities.$color-primary;
         text-align: center;
       }
       & h4 {
@@ -93,14 +93,14 @@
     padding: 2.5rem 2rem;
     h2 {
       font-size: 1.25rem;
-      color: $color-primary;
+      color: utilities.$color-primary;
       margin-bottom: 1.25rem;
     }
   }
 
   &NiveauAnglais {
     padding: 2.5rem 2rem;
-    color: $color-on-primary;
+    color: utilities.$color-on-primary;
     display: flex;
     flex-direction: column;
     &__Content {
@@ -134,15 +134,15 @@
 }
 
 .buttonOnDarkBackground {
-  background-color: $color-background;
-  color: $color-primary;
+  background-color: utilities.$color-background;
+  color: utilities.$color-primary;
 
   &:hover {
-    background-color: $color-background-white-titan;
+    background-color: utilities.$color-background-white-titan;
   }
 }
 
-@include media(small) {
+@include utilities.media(small) {
   .sectionDispositif__Title {
     > span {
       display: block;
@@ -150,7 +150,7 @@
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .section {
     &ExperienceEurope {
       max-width: 756px;
@@ -225,7 +225,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .section {
     &Liens {
       .imageWrapper {
@@ -251,12 +251,12 @@
         align-items: center;
         padding: 5rem 2rem;
         width: 36%;
-        background-color: $color-background-white-lilac;
+        background-color: utilities.$color-background-white-lilac;
       }
       &__Content {
         padding: 5rem 0 5rem 2rem;
         width: 64%;
-        background-color: $color-primary;
+        background-color: utilities.$color-primary;
       }
     }
   }

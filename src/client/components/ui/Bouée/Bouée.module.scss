@@ -1,10 +1,10 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .bouée {
   position: fixed;
   z-index: 10;
-  background: $color-primary;
-  color: $color-on-primary;
+  background: utilities.$color-primary;
+  color: utilities.$color-on-primary;
   display: flex;
   --size: 2rem;
   height: var(--size);
@@ -13,14 +13,14 @@
   align-items: center;
   border-radius: var(--size);
   cursor: pointer;
-  right: $gutter;
-  bottom: $gutter;
+  right: utilities.$gutter;
+  bottom: utilities.$gutter;
   box-shadow: 10px 10px 20px rgb(0 0 0 / 10%);
   outline-offset: 4px;
   transition: 400ms ease-in-out;
 
   &.disabled {
-    transform: translate3D(0, calc(var(--size) + $gutter), 0);
+    transform: translate3D(0, calc(var(--size) + utilities.$gutter), 0);
     visibility: hidden;
   }
   &.enabled {

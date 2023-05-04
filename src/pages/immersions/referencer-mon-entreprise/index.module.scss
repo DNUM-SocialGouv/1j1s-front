@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .heroTitle {
   @extend %bold;
@@ -21,10 +21,10 @@
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
-  background-color: $color-cadre-formulaire;
+  background-color: utilities.$color-cadre-formulaire;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .iframe {
     min-height: 2500px;
   }

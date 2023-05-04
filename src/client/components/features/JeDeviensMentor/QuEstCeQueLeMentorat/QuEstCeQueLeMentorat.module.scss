@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .quEstCeQueLeMentorat {
   @extend %background-primary;
@@ -15,7 +15,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .quEstCeQueLeMentorat {
     padding: 4rem 1rem;
   }

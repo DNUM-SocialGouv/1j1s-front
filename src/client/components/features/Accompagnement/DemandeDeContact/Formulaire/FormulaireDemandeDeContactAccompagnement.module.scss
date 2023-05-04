@@ -1,11 +1,11 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 
 
 .formulaire {
   padding: 0 1rem;
   margin-top: 2rem;
-  @include media(medium) {
+  @include utilities.media(medium) {
     display: grid;
     grid-column-gap: 1rem;
     padding: 0 2rem;
@@ -15,7 +15,7 @@
   .commentaireDemandeDeContact {
     margin-top: 1rem;
 
-    @include media(medium) {
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
     }
@@ -28,7 +28,7 @@
     margin-top: 2rem;
     padding-inline: 1rem;
     white-space: normal;
-    @include media(medium) {
+    @include utilities.media(medium) {
       width: 26rem;
       padding-inline: 1.5rem;
       grid-column-start: 1;
@@ -37,16 +37,16 @@
   }
 
   &Décharge {
-    background-color: $color-cadre-formulaire;
+    background-color: utilities.$color-cadre-formulaire;
     border-radius: 1.25rem;
     margin-bottom: 1rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
     }
 
     p {
-      color: $color-mention-grey;
+      color: utilities.$color-mention-grey;
       font-size: 0.7rem;
       padding: 1rem;
     }

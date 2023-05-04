@@ -1,21 +1,21 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .informationChamp {
-  color: $color-primary;
+  color: utilities.$color-primary;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
-  @include media(large) {
+  @include utilities.media(large) {
     margin-top: 3.5rem;
   }
 }
 
 .formulaire {
-  @include media(large) {
+  @include utilities.media(large) {
     border-radius: 40px;
     padding: 0 8rem;
   }
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     padding: 0 8rem 2rem;
   }
 }
@@ -25,7 +25,7 @@
   flex-direction: column;
   flex-wrap: wrap;
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     flex-direction: row;
     justify-content: space-between;
 
@@ -43,7 +43,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .validation {
     display: flex;
     flex-direction: column;

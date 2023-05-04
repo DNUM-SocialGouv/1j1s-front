@@ -1,4 +1,4 @@
-@import "@styles/_utilities";
+@use "@styles/utilities";
 
 .formulaire {
   padding: 0 2rem;
@@ -6,7 +6,7 @@
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: repeat(1, 1fr);
-  @include media(medium) {
+  @include utilities.media(medium) {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -35,17 +35,17 @@
     width: auto;
     justify-self: center;
     margin-bottom: 1rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
     }
   }
 
   &Décharge {
-    background-color: $color-cadre-formulaire;
+    background-color: utilities.$color-cadre-formulaire;
     border-radius: 30px;
     margin-bottom: 1rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
     }
@@ -57,7 +57,7 @@
   }
 }
 
-@include media(large){
+@include utilities.media(large){
   .formulaire {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

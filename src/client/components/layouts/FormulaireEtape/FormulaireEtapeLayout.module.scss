@@ -1,8 +1,8 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .container {
   padding: 0 2rem;
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 0 0 1rem;
   }
 }
@@ -12,14 +12,14 @@
   max-width: 20rem;
   text-align: center;
   padding: 4px;
-  @include media(large) {
+  @include utilities.media(large) {
     margin-left: 8rem;
   }
 }
 
 .boutonRetour {
   margin-top: 2rem;
-  @include media(large) {
+  @include utilities.media(large) {
     margin-left: 8rem;
   }
 }

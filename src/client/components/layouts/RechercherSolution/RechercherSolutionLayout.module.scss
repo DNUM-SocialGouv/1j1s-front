@@ -1,10 +1,10 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rechercheSolution {
   &FormWrapper {
     padding: 1rem 1rem 3rem 1rem;
   }
-  @include media(large) {
+  @include utilities.media(large) {
     .rechercheSolution {
       &FormWrapper {
         padding: 1rem;
@@ -19,7 +19,7 @@
     padding-bottom: 1rem;
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     ul {
       padding-bottom: 2rem;
     }
@@ -50,7 +50,7 @@
 
 .pagination {
   padding-top: 2.5rem;
-  @include media(large) {
+  @include utilities.media(large) {
     padding-top: 5rem;
   }
   & > nav {

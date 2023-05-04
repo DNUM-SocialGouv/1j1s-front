@@ -1,11 +1,11 @@
-@import "@styles/media/mixins";
-@import "@styles/theme/variables.scss";
+@use "@styles/media/mixins";
+@use "@styles/theme/variables.scss";
 
 %text-regular {
   font-size: .875rem;
   line-height: 1.5rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 1rem;
   }
 }
@@ -14,7 +14,7 @@
   font-size: 1rem;
   line-height: 1.5rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 1.125rem;
   }
 }
@@ -23,7 +23,7 @@
   font-size: 1.5rem;
   line-height: 2rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 1.75rem;
   }
 }
@@ -32,7 +32,7 @@
   font-size: 1.125rem;
   line-height: 1.8rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 1.25rem;
     line-height: 2rem;
   }
@@ -42,7 +42,7 @@
   font-size: .75rem;
   line-height: 1.25rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: .875rem;
     line-height: 1.5rem;
   }
@@ -51,9 +51,9 @@
 %headline {
   font-size: 1.25rem;
   line-height: 2rem;
-  color: $color-primary;
+  color: variables.$color-primary;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 2rem;
     line-height: 3rem;
   }
@@ -63,13 +63,16 @@
   font-size: 1.25rem;
   line-height: 2rem;
 
-  @include media(large) {
+  @include mixins.media(large) {
     font-size: 1.5rem;
   }
 }
 
 %bold {
   font-weight: 700;
+}
+@mixin bold {
+  font-weight: 700
 }
 
 %italic {

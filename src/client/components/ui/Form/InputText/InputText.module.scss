@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .textInput {
   position: relative;
@@ -11,7 +11,7 @@
     margin-bottom: 0.5rem;
     &Hint {
       @extend %text-small;
-      color: $color-error;
+      color: utilities.$color-error;
     }
   }
 
@@ -21,36 +21,36 @@
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 1.25rem;
-    border: solid 1px $neutral-grey;
+    border: solid 1px utilities.$neutral-grey;
     font-family: inherit;
 
     &:disabled {
-      background-color: $white-lilac;
+      background-color: utilities.$white-lilac;
     }
 
     &:active, &:focus {
-      border-color: $color-primary;
+      border-color: utilities.$color-primary;
     }
 
     &::placeholder {
-      color: $deep-neutral-grey;
+      color: utilities.$deep-neutral-grey;
       opacity: 1;
     }
 
     &Touched[aria-invalid=true],
     &Touched:invalid {
-      border: solid 2px $color-error;
+      border: solid 2px utilities.$color-error;
     }
   }
 
   &Hint {
     padding-top: 0.25rem;
-    color: $color-primary;
+    color: utilities.$color-primary;
     @extend %text-small;
     line-height: 1rem;
 
     &Error {
-      color: $color-error;
+      color: utilities.$color-error;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .modalTitle {
   @extend %bold;
@@ -11,7 +11,7 @@
   display:block;
   font-size: 1rem;
   margin-top: 1rem;
-  color: $color-primary;
+  color: utilities.$color-primary;
   text-align: center;
 }
 
@@ -20,13 +20,13 @@
 
   &Message {
     margin: 1rem 0;
-    color: $color-primary;
+    color: utilities.$color-primary;
   }
 
   &Icon {
     margin: auto;
     width: 8rem;
     height: 8rem;
-    color: $color-secondary;
+    color: utilities.$color-secondary;
   }
 }

@@ -1,8 +1,8 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 
 .listeDesResultatsWrapper {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
   padding: 2rem 1rem;
 
   & ol {
@@ -27,7 +27,7 @@
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .listeDesResultats {
     & ol {
       gap: 2rem 4rem;
@@ -42,13 +42,13 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  @include media(medium) {
+  @include utilities.media(medium) {
     flex-direction: row;
     justify-content: space-around;
   }
   > li {
     margin-bottom: 1.5rem;
-    @include media(medium) {
+    @include utilities.media(medium) {
       width: 22.5rem;
     }
   }
@@ -59,7 +59,7 @@
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     margin-top: 5rem;
     margin-bottom: 3rem;
   }

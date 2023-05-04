@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .energy .tag {
   min-width: 12.5rem;
@@ -24,7 +24,7 @@
   display: grid;
   gap: 2rem;
 
-  @include media(large) {
+  @include utilities.media(large) {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -32,12 +32,12 @@
 .energy figcaption {
   display: inline;
   width: fit-content;
-  color: $color-primary;
+  color: utilities.$color-primary;
   font-size: 1.25rem;
   line-height: 2rem;
   margin-bottom: 0.75rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     font-size: 1.5rem;
   }
 }

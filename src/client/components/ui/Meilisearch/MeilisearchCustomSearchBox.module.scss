@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .customSearchBox {
   &InputWrapper {
@@ -9,10 +9,10 @@
 
   &Input {
     font-family: inherit;
-    background-color: $color-background;
-    border: 1px solid $color-on-background;
+    background-color: utilities.$color-background;
+    border: 1px solid utilities.$color-on-background;
     border-radius: 1.25rem;
-    color: $color-on-background;
+    color: utilities.$color-on-background;
     height: 2.5rem;
     font-size: 0.875rem;
     line-height: 1.5rem;
@@ -21,7 +21,7 @@
     width: 100%;
 
     &::placeholder {
-      color: $deep-neutral-grey;
+      color: utilities.$deep-neutral-grey;
       opacity: 1;
     }
   }

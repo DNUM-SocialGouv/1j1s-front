@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rechercheAccompagnementForm {
   display: flex;
@@ -24,7 +24,7 @@
   @extend %text-small;
 }
 
-@include media(medium){
+@include utilities.media(medium){
   .filtresRecherche {
     display: flex;
     gap: 1rem;

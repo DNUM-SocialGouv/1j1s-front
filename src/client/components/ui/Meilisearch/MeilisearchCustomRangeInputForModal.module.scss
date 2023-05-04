@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .rangeBox {
   padding: .75rem 0;
@@ -20,8 +20,8 @@
     height: 2rem;
     padding: 4px 16px;
     display: flex;
-    background-color: $color-primary;
-    color: $color-on-primary;
+    background-color: utilities.$color-primary;
+    color: utilities.$color-on-primary;
   }
 }
 

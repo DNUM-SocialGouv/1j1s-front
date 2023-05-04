@@ -1,4 +1,5 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
+@use "@styles/components/link/_placeholders.scss";
 
 .partnerList {
   @extend %max-container;
@@ -10,10 +11,10 @@
   }
 
   &Wrapper {
-    background-color: $color-background-white-lilac;
+    background-color: utilities.$color-background-white-lilac;
   }
 
-  @include media(xlarge) {
+  @include utilities.media(xlarge) {
     margin: auto;
     padding-inline: 0;
   }
@@ -70,7 +71,7 @@
     content: " ";
   }
 
-  @include media(large) {
+  @include utilities.media(large) {
     display: flex;
     align-items: center;
 
@@ -82,7 +83,7 @@
 
     &Body {
       width: 100%;
-      border-left: 1px solid $color-separator;
+      border-left: 1px solid utilities.$color-separator;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .hero {
     &Button {
@@ -33,50 +33,50 @@
     }
 
     &NosOffres {
-        background-color: $color-lighten-blue-navy;
+        background-color: utilities.$color-lighten-blue-navy;
         &Header {
             &Icon {
-                color: $color-blue-navy;
+                color: utilities.$color-blue-navy;
             }
         }
     }
     &FormationsOrientation {
-        background-color: $color-lighten-tapestry;
+        background-color: utilities.$color-lighten-tapestry;
         &Header {
             &Icon {
-                color: $color-tapestry;
+                color: utilities.$color-tapestry;
             }
         }
     }
     &EngagementBénévolat {
-        background-color: $color-lighten-smalt-blue;
+        background-color: utilities.$color-lighten-smalt-blue;
         &Header {
             &Icon {
-                color: $color-smalt-blue;
+                color: utilities.$color-smalt-blue;
             }
         }
     }
     &Logement {
-        background-color: $color-lighten-coral;
+        background-color: utilities.$color-lighten-coral;
         &Header {
             &Icon {
-                color: $color-coral;
+                color: utilities.$color-coral;
             }
         }
     }
     &AidesOrientationAccompagnement {
-        background-color: $color-lighten-blue-navy;
+        background-color: utilities.$color-lighten-blue-navy;
         &Header {
             &Icon {
-                color: $color-blue-navy;
+                color: utilities.$color-blue-navy;
             }
         }
     }
     &AidesEtOutils {
-        background-color: $color-lighten-tapestry;
+        background-color: utilities.$color-lighten-tapestry;
         &Header {
             &Icon {
-                color: $color-tapestry;
+                color: utilities.$color-tapestry;
             }
         }
     }
@@ -86,7 +86,7 @@
     }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
     .sectionHeader {
         margin-bottom: 3rem;
         margin-top: 1rem;

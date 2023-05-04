@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .title {
   height: 0;
@@ -15,7 +15,7 @@
 }
 
 .mesuresJeunesSection {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 }
 
 .cartesActualitesList {
@@ -25,17 +25,17 @@
   flex-wrap: wrap;
   margin-bottom: 2rem;
 
-  @include media(medium) {
+  @include utilities.media(medium) {
     padding-top: 2rem;
   }
 }
 
 .carteActualite {
-  @include media(medium) {
+  @include utilities.media(medium) {
     width: 22.5rem;
   }
 }
 
 .carteActualiteDescription {
-  @include line-clamp(3);
+  @include utilities.line-clamp(3);
 }

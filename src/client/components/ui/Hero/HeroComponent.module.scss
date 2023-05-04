@@ -1,9 +1,9 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .heading {
   position: relative;
   padding: 2.5rem 2rem;
-  background-color: $color-primary;
+  background-color: utilities.$color-primary;
   color: white;
 
   &Container {
@@ -37,12 +37,12 @@
   display: flex;
   justify-content: center;
 
-  @include media(large) {
+  @include utilities.media(large) {
     display: initial;
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .heading {
     padding: 0;
 
@@ -70,7 +70,7 @@
   }
 }
 
-@include media(xxlarge) {
+@include utilities.media(xxlarge) {
   .heading {
     &ContainerWrapper {
       width: 60%;
@@ -78,7 +78,7 @@
 
     &Container {
       max-width: 45rem;
-      margin-right: calc(#{$breakpoint-xl}/1.5 - 45rem);
+      margin-right: calc(#{utilities.$breakpoint-xl}/1.5 - 45rem);
     }
 
     .imageWrapper {

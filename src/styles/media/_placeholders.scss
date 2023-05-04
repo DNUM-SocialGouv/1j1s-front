@@ -1,6 +1,6 @@
-@import "variables";
+@use "variables";
 
 %max-container {
-  max-width: $breakpoint-xl;
+  max-width: variables.$breakpoint-xl;
   margin: 0 auto;
 }

@@ -1,4 +1,4 @@
-@import "@styles/_utilities";
+@use "@styles/utilities";
 
 .pagination {
   text-align: center;
@@ -7,7 +7,7 @@
   align-items: center;
 
   li {
-    color: $color-on-surface;
+    color: utilities.$color-on-surface;
 
     a {
       display: inline-flex;
@@ -34,13 +34,13 @@
     padding: 0.5rem 1rem;
 
     &[aria-disabled="true"] {
-      color: $color-on-disabled;
+      color: utilities.$color-on-disabled;
       pointer-events: none;
     }
 
     &[aria-current="true"] {
-      background-color: $color-primary;
-      color: $color-on-primary;
+      background-color: utilities.$color-primary;
+      color: utilities.$color-on-primary;
     }
   }
 

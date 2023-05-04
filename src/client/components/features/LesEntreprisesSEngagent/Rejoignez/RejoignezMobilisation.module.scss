@@ -1,8 +1,8 @@
-@import "@styles/_utilities";
+@use "@styles/utilities";
 
 .content {
   padding: 2rem 1rem 2rem 1rem;
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 
   .lesEntreprisesSEngagent {
     display: flex;
@@ -10,7 +10,7 @@
     align-items: center;
 
     &Title{
-      color: $color-blue-navy;
+      color: utilities.$color-blue-navy;
       @extend %text-large;
       text-transform: uppercase;
       text-decoration-line: underline;
@@ -23,7 +23,7 @@
     }
 
     &Question {
-      color: $color-primary;
+      color: utilities.$color-primary;
     }
   }
 
@@ -37,7 +37,7 @@
   gap: 1rem;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .content {
     padding: 2rem 1rem 4rem 1rem;
   }

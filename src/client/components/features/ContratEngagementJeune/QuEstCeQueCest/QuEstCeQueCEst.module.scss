@@ -1,8 +1,8 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
   padding: 3rem 0;
-  background: $color-background-white-lilac;
+  background: utilities.$color-background-white-lilac;
 }
 
 .container {
@@ -11,7 +11,7 @@
   gap: 3rem;
   padding: 0 1.5rem;
 
-  @include media(large) {
+  @include utilities.media(large) {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -33,7 +33,7 @@
 }
 
 .article h2 {
-  color: $color-primary;
+  color: utilities.$color-primary;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -44,15 +44,15 @@
   margin-bottom: 1rem;
 
   b {
-    color: $color-primary;
+    color: utilities.$color-primary;
   }
 }
 
 .article ul li::marker {
-  color: $color-primary;
+  color: utilities.$color-primary;
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .illustration {
     height: inherit;
   }

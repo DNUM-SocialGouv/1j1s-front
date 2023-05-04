@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .titre {
   margin: 2.5rem 0;
@@ -88,11 +88,11 @@
   &Wrapper {
     display: flex;
     margin-top: 2rem;
-    border-bottom: 1px solid $color-separator;
+    border-bottom: 1px solid utilities.$color-separator;
   }
 }
 
-@include media(medium) {
+@include utilities.media(medium) {
   .buttonAsLink {
     margin: auto;
     &Wrapper {
@@ -101,7 +101,7 @@
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
   .titre {
     display: flex;;
     flex-direction: column;
@@ -119,7 +119,7 @@
 }
 
 .iframeModal {
-  @include media(large) {
+  @include utilities.media(large) {
     > div:first-child {
       width: 40%;
       max-width: 420px;

@@ -1,9 +1,9 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .allocations {
   @extend %background-surface;
   padding: 2rem 0;
-  background: $color-primary;
+  background: utilities.$color-primary;
 
   &Container {
     display: grid;
@@ -23,14 +23,14 @@
 
   &Article {
     &__Title {
-      color: $color-on-primary;
+      color: utilities.$color-on-primary;
       font-size: 1.5rem;
       margin-bottom: .5rem;
     }
 
     .conditionAllocation {
       @extend %bold;
-      color: $color-on-primary;
+      color: utilities.$color-on-primary;
     }
 
     ul {
@@ -41,16 +41,16 @@
     }
 
     ul, strong, button {
-      color: $color-on-primary;
+      color: utilities.$color-on-primary;
     }
   }
 }
 
-@include media(large) {
+@include utilities.media(large) {
 
   .allocations {
     padding: 0;
-    background: $color-primary;
+    background: utilities.$color-primary;
     margin-top: 5rem;
 
     &Container {
@@ -68,7 +68,7 @@
 
     &Article {
       > *, li > strong {
-        color: $color-on-primary;
+        color: utilities.$color-on-primary;
       }
 
       p {

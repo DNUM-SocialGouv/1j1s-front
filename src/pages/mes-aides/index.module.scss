@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .mesAidesBannière {
   display: flex;
@@ -12,7 +12,7 @@
       margin-bottom: 1rem;
     }
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding: 80px 80px 80px 24px;
 
       h1 {
@@ -25,7 +25,7 @@
     align-self: center;
     margin-top: 2.5rem;
 
-    @include media(large) {
+    @include utilities.media(large) {
       align-self: flex-start;
     }
   }
@@ -34,12 +34,12 @@
     position: relative;
     display: none;
 
-    @include media(large) {
+    @include utilities.media(large) {
       display: initial;
       flex: 0 0 50%;
     }
 
-    @include media(xlarge) {
+    @include utilities.media(xlarge) {
       margin-right: 24px;
     }
   }
@@ -52,7 +52,7 @@
   flex-direction: column;
   padding: 0 16px;
 
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 0 24px;
   }
 
@@ -61,19 +61,19 @@
     flex-direction: row;
     padding: 50px 0 24px 0;
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding: 50px 0 40px 0;
     }
 
     &BoldText {
       font-weight: 700;
-      color: $color-primary;
+      color: utilities.$color-primary;
     }
 
     &Text {
       font-size: 1rem;
 
-      @include media(large) {
+      @include utilities.media(large) {
         font-size: 1.25rem;
       }
     }

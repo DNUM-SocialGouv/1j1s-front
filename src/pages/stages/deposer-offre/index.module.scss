@@ -1,12 +1,12 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .section {
-  background-color: $color-background-white-lilac;
+  background-color: utilities.$color-background-white-lilac;
 }
 
 .hero {
   padding-top: 2rem;
-  @include media(large) {
+  @include utilities.media(large) {
     padding: 4rem 1rem 4rem 1rem;
   }
 }

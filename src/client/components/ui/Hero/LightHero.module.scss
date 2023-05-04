@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .hero {
   text-align: center;
@@ -7,7 +7,7 @@
   @extend %text-xLarge;
   @extend %max-container;
 
-  @include media(large) {
+  @include utilities.media(large) {
     line-height: 2.5rem;
     padding: 4rem 1rem 2rem 1rem;
   }
@@ -17,11 +17,11 @@
   }
 
   &PrimaryText {
-    color: $color-primary;
+    color: utilities.$color-primary;
     @extend %bold;
   }
 
   &SecondaryText {
-    color: $color-secondary;
+    color: utilities.$color-secondary;
   }
 }

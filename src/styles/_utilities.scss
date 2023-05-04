@@ -1,8 +1,7 @@
-@import "media/mixins";
-@import "media/variables";
-@import "media/placeholders";
-@import "theme/placeholders";
-@import "theme/variables";
-@import "typography/mixins";
-@import "typography/placeholders";
-@import "components/link/placeholders";
+@forward "media/mixins";
+@forward "media/variables";
+@forward "media/placeholders";
+@forward "theme/placeholders";
+@forward "theme/variables";
+@forward "typography/mixins";
+@forward "typography/placeholders";

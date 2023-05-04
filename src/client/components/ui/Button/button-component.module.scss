@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .button {
   border-radius: 50px;
@@ -10,45 +10,45 @@
   }
 
   &[disabled] {
-    border: 1px solid $color-disabled;
-    background-color: $color-disabled;
-    color: $color-on-disabled;
+    border: 1px solid utilities.$color-disabled;
+    background-color: utilities.$color-disabled;
+    color: utilities.$color-on-disabled;
     cursor: not-allowed;
 
     &:hover {
-      border: 1px solid $color-disabled;
-      background-color: $color-disabled;
+      border: 1px solid utilities.$color-disabled;
+      background-color: utilities.$color-disabled;
     }
   }
 
   &Primary {
-    border: 1px solid $color-primary;
-    background-color: $color-primary;
-    color: $color-on-primary;
+    border: 1px solid utilities.$color-primary;
+    background-color: utilities.$color-primary;
+    color: utilities.$color-on-primary;
     padding-block: 0.4rem;
 
     &:hover {
-      background-color: $color-primary-on-hover;
-      border-color: $color-primary-on-hover;
+      background-color: utilities.$color-primary-on-hover;
+      border-color: utilities.$color-primary-on-hover;
     }
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding-block: 0.5rem;
     }
   }
 
   &Secondary {
-    border: 1px solid $color-primary;
-    color: $color-primary;
+    border: 1px solid utilities.$color-primary;
+    color: utilities.$color-primary;
     padding-block: 0.4rem;
 
     &:hover {
-      background-color: $color-background-white-titan;
-      border-color: $color-primary-on-hover;
-      color: $color-primary-on-hover;
+      background-color: utilities.$color-background-white-titan;
+      border-color: utilities.$color-primary-on-hover;
+      color: utilities.$color-primary-on-hover;
     }
 
-    @include media(large) {
+    @include utilities.media(large) {
       padding-block: 0.5rem;
     }
   }
@@ -76,7 +76,7 @@
   }
 
   &Tertiary {
-    color: $color-primary;
+    color: utilities.$color-primary;
     padding-block: 0.25rem;
 
     &:hover {

@@ -1,10 +1,10 @@
-@import "variables";
+@use "variables";
 
 @mixin font-face($name, $filename, $font-weight: 400, $font-style: normal, $font-display: swap) {
   @font-face {
     font-family: #{$name};
-    src: url('#{$font-directory}/#{$filename}.woff2') format('woff2'),
-    url('#{$font-directory}/#{$filename}.woff') format('woff');
+    src: url('#{variables.$font-directory}/#{$filename}.woff2') format('woff2'),
+    url('#{variables.$font-directory}/#{$filename}.woff') format('woff');
     font-weight: #{$font-weight};
     font-style: #{$font-style};
     font-display: #{$font-display};

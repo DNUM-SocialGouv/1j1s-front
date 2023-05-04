@@ -1,4 +1,4 @@
-@import "@styles/utilities";
+@use "@styles/utilities";
 
 .tagList {
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 .tagItem {
-  color: $color-on-background;
+  color: utilities.$color-on-background;
   display: flex;
   align-items: center;
 }
