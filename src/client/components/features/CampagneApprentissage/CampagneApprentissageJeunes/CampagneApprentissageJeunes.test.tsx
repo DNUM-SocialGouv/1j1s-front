@@ -9,7 +9,7 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
@@ -34,6 +34,9 @@ describe('CampagneApprentissageJeunes', () => {
 	});
 
 	it('affiche un lien vers la simulation pour les alternants', () => {
+		// GIVEN
+		mockLargeScreen();
+
 		// WHEN
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
@@ -41,6 +44,19 @@ describe('CampagneApprentissageJeunes', () => {
 		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération en tant qu’apprenti/i });
 		expect(simulation).toBeVisible();
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
+	});
+
+	it('raccourci l’intitulé du lien en mobile', () => {
+		// GIVEN
+		mockSmallScreen();
+
+		// WHEN
+		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+
+		// THEN
+		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération/i });
+		expect(simulation).toBeVisible();
+		expect(simulation).not.toHaveTextContent('en tant qu’apprenti');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {

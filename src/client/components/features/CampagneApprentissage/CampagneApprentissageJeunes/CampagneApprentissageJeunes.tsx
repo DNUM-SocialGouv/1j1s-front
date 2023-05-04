@@ -54,7 +54,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 					<h1>L’apprentissage, pour moi c’est le bon choix.</h1>
 					<p className={styles.sousTitre}>Vous apprenez directement sur le terrain et vous êtes payés !</p>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						Simuler votre rémunération en tant qu’apprenti
+						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
 					</Link>
 				</HeroWithIllustration>
 			</header>
