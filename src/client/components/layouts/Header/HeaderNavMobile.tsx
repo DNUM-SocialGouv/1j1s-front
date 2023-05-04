@@ -7,7 +7,7 @@ import { navigationItemList } from '~/client/components/layouts/Header/Navigatio
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { NavItemWithSubItems } from '~/client/components/layouts/Header/NavItemWithSubItems';
 
-export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void, path: string }) {
+export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }) {
 	const {
 		accueil,
 		accompagnementNav,

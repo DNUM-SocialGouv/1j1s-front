@@ -16,16 +16,7 @@ export function HeaderBody() {
 	const { isLargeScreen } = useBreakpoint();
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-	const router = useRouter();
-	const [path, setPath] = useState(() => router.pathname || '');
-
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-
-	useEffect(() => {
-		if (path !== router.pathname){
-			setPath(router.pathname);
-		}
-	}, [path, setPath, router]);
 
 	return (
 		<Container className={styles.headerBody}>
@@ -60,7 +51,7 @@ export function HeaderBody() {
         		<span>Menu</span>
         	</ModalComponent.Title>
         	<ModalComponent.Content>
-        		<HeaderNavMobile toggleModal={toggleModal} path={path}/>
+        		<HeaderNavMobile toggleModal={toggleModal} />
         	</ModalComponent.Content>
         </ModalComponent>
 			}
