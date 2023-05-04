@@ -58,7 +58,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>
 			{ isSmallScreen ? <>
 				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
 				<PreparationApprentissage/>

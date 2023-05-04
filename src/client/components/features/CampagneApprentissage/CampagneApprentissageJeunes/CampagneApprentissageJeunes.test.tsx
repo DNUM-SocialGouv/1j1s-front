@@ -65,8 +65,8 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Choisir l’apprentissage c’est…/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage/i });
 			expect(titre).toBeVisible();
 		});
 
@@ -84,7 +84,7 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
 			const raisonList = within(sectionRaison).getByRole('list');
 			const raisonListItems = within(raisonList).getAllByRole('listitem');
 			raisonListItems.forEach((raison,index) => {
