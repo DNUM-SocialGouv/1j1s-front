@@ -220,9 +220,8 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartTitre = screen.getByText('Je choisis l’apprentissage');
-					const encartLien = screen.getByRole('link', { name: 'Je choisis l’apprentissage' });
-					expect(encartTitre).toBeInTheDocument();
+					const encartLien = screen.getByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					expect(encartLien).toBeVisible();
 					expect(encartLien).toHaveAttribute('href', '/apprentissage');
 				});
 			});
@@ -239,9 +238,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartTitre = screen.queryByText('Je choisis l’apprentissage');
-					const encartLien = screen.queryByRole('link', { name: 'Je choisis l’apprentissage' });
-					expect(encartTitre).not.toBeInTheDocument();
+					const encartLien = screen.queryByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
 					expect(encartLien).not.toBeInTheDocument();
 				});
 			});
