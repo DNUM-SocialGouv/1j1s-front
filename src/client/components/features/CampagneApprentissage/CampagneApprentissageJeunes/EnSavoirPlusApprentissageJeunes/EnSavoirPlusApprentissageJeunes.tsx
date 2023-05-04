@@ -7,8 +7,8 @@ import styles from './EnSavoirPlusApprentissageJeunes.module.scss';
 export default function EnSavoirPlusApprentissageJeunes() {
 	return <Container className={styles.enSavoirPlus}>
 		<div className={styles.enSavoirPlusParents}>
-			<h2 className={styles.heading}>Parents : l’apprentissage, le bon choix pour votre enfant.
-				<span className={styles.headingSecondary}>On répond à toutes vos questions</span></h2>
+			<h2 className={styles.heading}>L’apprentissage vous intéresse ?<span
+				className={styles.headingSecondary}>On répond à toutes vos questions</span></h2>
 			<Link className={styles.link} href="/faq/apprentissage-parents-enfants" appearance="asPrimaryButton">
 				Accéder à la FAQ Parents-Enfants
 			</Link>

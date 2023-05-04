@@ -75,9 +75,9 @@ describe('CampagneApprentissageJeunes', () => {
 			const expectedRaisonList = [
 				'Obtenir un diplôme reconnu',
 				'Apprendre en pratiquant',
-				'Une formation gratuite',
+				'Être formé gratuitement pour l’apprenti',
 				'Avoir une expérience professionnelle complète',
-				'Un salaire chaque mois',
+				'Être rémunéré tous les mois',
 			];
 
 			// WHEN
@@ -119,7 +119,7 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'Parents : l’apprentissage, le bon choix pour votre enfant. On répond à toutes vos questions',
+				name: 'L’apprentissage vous intéresse ? On répond à toutes vos questions',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Accéder à la FAQ Parents-Enfants' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
