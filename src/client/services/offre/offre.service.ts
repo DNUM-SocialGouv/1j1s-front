@@ -24,7 +24,7 @@ export class OffreService {
 		return this.httpClientService.get<RésultatsRechercheOffre>(`jobs-etudiants?${queryString}`);
 	}
 
-	async rechercherJobEtE(query: OffreQueryParams): Promise<Either<RésultatsRechercheOffre>> {
+	async rechercherJobEte(query: OffreQueryParams): Promise<Either<RésultatsRechercheOffre>> {
 		const sanitizedQuery = removeUndefinedKeys(query);
 		const queryString = stringify(sanitizedQuery);
 		return this.httpClientService.get<RésultatsRechercheOffre>(`jobs-ete?${queryString}`);

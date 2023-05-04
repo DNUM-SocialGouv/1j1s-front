@@ -1,33 +1,29 @@
 import { GetServerSidePropsResult } from 'next';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { stringify } from 'querystring';
+import React, { useEffect } from 'react';
 
-import { Head } from '~/client/components/head/Head';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher/RechercherJobEte';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/jobs-ete/index.analytics';
 
-export default function JobsEtePage() {
+export default function RechercherJobsEtePage() {
+	const router = useRouter();
 	useAnalytics(analytics);
 	useReferrer();
 
-	return (
-		<>
-			<Head
-				title="Rechercher un job d‘été | 1jeune1solution"
-				description="Des milliers de jobs d‘été sélectionnés pour vous"
-				robots="index,follow"
-			/>
-			<main id="contenu">
-				<LightHero>
-					<h1>
-						<LightHeroPrimaryText>Des milliers de jobs d‘été</LightHeroPrimaryText>
-						<LightHeroSecondaryText>sélectionnés pour vous par Pôle Emploi</LightHeroSecondaryText>
-					</h1>
-				</LightHero>
-			</main>
-		</>
-	);
+	useEffect(() => {
+		if (router.isReady) {
+			const queryString = stringify(router.query);
+			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
+		}
+	}, [router]);
+
+	if (!Object.keys(router.query).length) {
+		return null;
+	}
+	return <RechercherJobEte />;
 };
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {

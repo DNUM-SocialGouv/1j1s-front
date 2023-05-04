@@ -7,7 +7,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import JobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
+import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
+import { anOffreService } from '~/client/services/offre/offreService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 
 describe('Page rechercher un job d‘été', () => {
 	beforeEach(() => {
@@ -18,10 +20,15 @@ describe('Page rechercher un job d‘été', () => {
 	describe('quand le feature flip n‘est pas actif', () => {
 		it('affiche la page non trouvée', async() => {
 			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
+			mockUseRouter({ query: { page: '1' } });
 
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<JobsEtePage/>
+				<DependenciesProvider
+					analyticsService={anAnalyticsService()}
+					offreService={anOffreService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherJobsEtePage/>
 				</DependenciesProvider>,
 			);
 
@@ -37,26 +44,34 @@ describe('Page rechercher un job d‘été', () => {
 			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
 		});
 
-		it('affiche le titre de la page job d‘été', async () => {
+		it('affiche le titre de la page job d’été', async () => {
+			mockUseRouter({ query: { page: '1' } });
+
 			render(
 				<DependenciesProvider
 					analyticsService={anAnalyticsService()}
+					offreService={anOffreService()}
+					localisationService={aLocalisationService()}
 				>
-					<JobsEtePage/>
+					<RechercherJobsEtePage/>
 				</DependenciesProvider>,
 			);
 
 			const titre = await screen.findByRole('heading', { level: 1 });
-			expect(titre).toHaveTextContent(/Des milliers de jobs d‘été/i);
+			expect(titre).toHaveTextContent(/Des milliers de jobs d’été/i);
 		});
 
 		it('envoie les analytics de la page à son affichage', async () => {
 			const analyticsService = anAnalyticsService();
+			mockUseRouter({ query: { page: '1' } });
+
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
+					offreService={anOffreService()}
+					localisationService={aLocalisationService()}
 				>
-					<JobsEtePage/>
+					<RechercherJobsEtePage/>
 				</DependenciesProvider>,
 			);
 

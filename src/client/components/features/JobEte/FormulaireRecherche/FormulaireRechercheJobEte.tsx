@@ -15,9 +15,8 @@ import {
 	mapRéférentielDomaineToOffreCheckboxFiltre,
 } from '~/client/utils/offreEmploi.mapper';
 
-
-export function FormulaireRechercheJobÉtudiant() {
-	const rechercheJobÉtudiantForm = useRef<HTMLFormElement>(null);
+export function FormulaireRechercheJobEte() {
+	const rechercheJobEteForm = useRef<HTMLFormElement>(null);
 
 	const [inputDomaine, setInputDomaine] = useState('');
 	const [inputMotCle, setInputMotCle] = useState<string>('');
@@ -36,7 +35,7 @@ export function FormulaireRechercheJobÉtudiant() {
 		setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
 	}, [queryParams]);
 
-	async function updateRechercherJobÉtudiantQueryParams(event: FormEvent<HTMLFormElement>) {
+	async function updateRechercherJobEteQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
@@ -44,10 +43,10 @@ export function FormulaireRechercheJobÉtudiant() {
 
 	return (
 		<form
-			ref={rechercheJobÉtudiantForm}
-			role="search"
+			ref={rechercheJobEteForm}
+			role="form"
 			className={styles.rechercheOffreForm}
-			onSubmit={updateRechercherJobÉtudiantQueryParams}
+			onSubmit={updateRechercherJobEteQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
