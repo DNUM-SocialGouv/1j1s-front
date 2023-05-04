@@ -15,9 +15,6 @@ export function InformationSurEmbaucheApprenti() {
 				<h2 id={'titre-section-tout-savoir'}>
 					Comme eux, vous souhaitez faire le choix de l’apprentissage ?
 				</h2>
-				<div className={styles.description}>
-					Des conseils pour bien recruter votre apprenti, le point sur les aides à l’embauche d’un apprenti… Le site “Embaucher un apprenti” met à disposition un ensemble de conseils pratiques à destination des employeurs
-				</div>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'}>
 					Se renseigner sur l’embauche d’un apprenti
 				</Link>

@@ -117,16 +117,6 @@ describe('CampagneApprentissageEntreprises', () => {
 			expect(titre).toBeVisible();
 		});
 
-		it('comprenant une description', () => {
-			// WHEN
-			render(<CampagneApprentissageEntreprises />);
-
-			// THEN
-			const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-			const description = within(section).getByText('Des conseils pour bien recruter votre apprenti, le point sur les aides à l’embauche d’un apprenti… Le site “Embaucher un apprenti” met à disposition un ensemble de conseils pratiques à destination des employeurs');
-			expect(description).toBeVisible();
-		});
-
 		it('comprenant un lien externe vers des renseignements', () => {
 			// WHEN
 			render(<CampagneApprentissageEntreprises />);
