@@ -16,7 +16,7 @@ export function InformationSurEmbaucheApprenti() {
 					Comme eux, vous souhaitez faire le choix de l’apprentissage ?
 				</h2>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'}>
-					Se renseigner sur l’embauche d’un apprenti
+					Se renseigner sur l’embauche
 				</Link>
 			</Container>
 		</section>

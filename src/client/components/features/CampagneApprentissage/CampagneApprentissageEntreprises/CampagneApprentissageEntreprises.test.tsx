@@ -123,7 +123,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 			// THEN
 			const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-			const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche d’un apprenti' });
+			const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche' });
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
 		});
