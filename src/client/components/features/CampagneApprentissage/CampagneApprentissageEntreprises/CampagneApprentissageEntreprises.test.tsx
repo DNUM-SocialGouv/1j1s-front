@@ -21,7 +21,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissageEntreprises />);
-		const titre = screen.getByRole('heading', { level:1, name: /L’apprentissage : le bon choix pour votre entreprise/i });
+		const titre = screen.getByRole('heading', { level:1, name: /L’apprentissage pour mon entreprise, c’est le bon choix !/i });
 
 		// THEN
 		expect(titre).toBeVisible();
