@@ -25,10 +25,12 @@ describe('CampagneApprentissageJeunes', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage : pour moi c’est le bon choix/i });
 
 		// THEN
+		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix./i });
 		expect(titre).toBeVisible();
+		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
+		expect(sousTitre).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation pour les alternants', () => {

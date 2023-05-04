@@ -51,7 +51,8 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		<>
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
-					<h1>L’apprentissage : <small>pour moi c’est le bon choix</small></h1>
+					<h1>L’apprentissage, pour moi c’est le bon choix.</h1>
+					<p className={styles.sousTitre}>Vous apprenez directement sur le terrain et vous êtes payés !</p>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler ma rémunération
 					</Link>

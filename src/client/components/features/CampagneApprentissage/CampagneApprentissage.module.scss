@@ -4,17 +4,19 @@
   & h1 {
     @extend %headline;
     font-weight: bold;
+
+  }
+
+  & .sousTitre {
+    @extend %headline;
+    font-weight: normal;
+    color: utilities.$color-secondary;
     margin-bottom: 1rem;
-
-    & small {
-      font-weight: normal;
-      color: utilities.$color-secondary;
-    }
-
     @include utilities.media(small) {
       margin-bottom: 2rem;
     }
   }
+
 
   & .hero {
     background-color: utilities.$color-background;
