@@ -47,7 +47,7 @@ describe('AnalyticsService', () => {
 			privacyUrl: '/confidentialite',
 			readmoreLink: '/confidentialite',
 			removeCredit: true,
-			serviceDefaultState: true,
+			serviceDefaultState: 'wait',
 			showAlertSmall: false,
 			showIcon: true,
 			useExternalCss: false,
