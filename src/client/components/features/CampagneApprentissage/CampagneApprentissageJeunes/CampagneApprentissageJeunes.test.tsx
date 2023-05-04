@@ -121,7 +121,7 @@ describe('CampagneApprentissageJeunes', () => {
 				level: 2,
 				name: 'L’apprentissage vous intéresse ? On répond à toutes vos questions',
 			})).toBeVisible();
-			expect(screen.getByRole('link', { name: 'Accéder à la FAQ Parents-Enfants' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
+			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
