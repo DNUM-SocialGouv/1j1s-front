@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.62.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.61.0...v3.62.0) (2023-05-04)
+
+
+### Features
+
+* **alternance:** ajout de la section découverte apprentissage ([57da01f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/57da01f590327e4a0cfc88efed8b2933731163d6))
+
 ## [3.61.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.60.0...v3.61.0) (2023-05-03)
 
 
