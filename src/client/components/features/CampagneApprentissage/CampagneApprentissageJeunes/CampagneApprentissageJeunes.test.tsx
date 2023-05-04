@@ -38,7 +38,7 @@ describe('CampagneApprentissageJeunes', () => {
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
 		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler ma rémunération/i });
+		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération en tant qu’apprenti/i });
 		expect(simulation).toBeVisible();
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
 	});
