@@ -7,7 +7,7 @@ import { render, screen, within } from '@testing-library/react';
 import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('CampagneApprentissageEntreprises', () => {
 	beforeEach(() => {
@@ -28,6 +28,8 @@ describe('CampagneApprentissageEntreprises', () => {
 	});
 
 	it('affiche un lien vers la simulation pour les employeurs', () => {
+		// GIVEN
+		mockLargeScreen();
 		// WHEN
 		render(<CampagneApprentissageEntreprises />);
 
@@ -35,6 +37,19 @@ describe('CampagneApprentissageEntreprises', () => {
 		const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
 		expect(simulation).toBeVisible();
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
+	});
+
+	it('raccourci le contenu du lien vers le simulateur en mobile', () => {
+		// GIVEN
+		mockSmallScreen();
+
+		// WHEN
+		render(<CampagneApprentissageEntreprises />);
+
+		// THEN
+		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
+		expect(simulation).toBeVisible();
+		expect(simulation).not.toHaveTextContent('d’un apprenti');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {

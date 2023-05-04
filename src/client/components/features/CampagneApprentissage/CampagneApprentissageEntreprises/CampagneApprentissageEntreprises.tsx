@@ -12,9 +12,11 @@ import {
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
+import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 
 export function CampagneApprentissageEntreprises() {
+	const { isSmallScreen } = useBreakpoint();
 	const raisons: Raisons[] = [
 		{
 			iconName: 'award',
@@ -44,7 +46,7 @@ export function CampagneApprentissageEntreprises() {
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
 					<h1>L’apprentissage pour mon entreprise, <small className={styles.sousTitre}>c’est le bon choix !</small></h1>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						Simuler le coût de l’embauche d’un apprenti
+						{ isSmallScreen ? 'Simuler le coût d’embauche' : 'Simuler le coût de l’embauche d’un apprenti'}
 					</Link>
 				</HeroWithIllustration>
 			</header>
