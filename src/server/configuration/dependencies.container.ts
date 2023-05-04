@@ -72,6 +72,11 @@ import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import {
+	jobsEteDependenciesContainer,
+	OffresJobEteDependencies,
+} from '~/server/jobs-ete/configuration/dependencies.container';
+import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
+import {
 	jobsÉtudiantsDependenciesContainer,
 	OffresJobÉtudiantDependencies,
 } from '~/server/jobs-étudiants/configuration/dependencies.container';
@@ -129,6 +134,7 @@ export type Dependencies = {
 	localisationDependencies: LocalisationDependencies;
 	demandeDeContactDependencies: DemandeDeContactDependencies;
 	entrepriseDependencies: EntrepriseDependencies;
+	offreJobEteDependencies: OffresJobEteDependencies;
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
@@ -174,6 +180,9 @@ export function dependenciesContainer(): Dependencies {
 
 	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
+
+	const apiPoleEmploiJobEteOffreRepository = new ApiPoleEmploiJobEteRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
+	const offreJobEteDependencies = jobsEteDependenciesContainer(apiPoleEmploiJobEteOffreRepository);
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
@@ -242,6 +251,7 @@ export function dependenciesContainer(): Dependencies {
 		loggerService,
 		métierDependencies,
 		offreEmploiDependencies,
+		offreJobEteDependencies,
 		offreJobÉtudiantDependencies,
 		robotsDependencies,
 		sitemapDependencies,

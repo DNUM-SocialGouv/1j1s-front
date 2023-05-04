@@ -1,6 +1,6 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
+import { JobEteFiltre } from '~/server/jobs-ete/domain/jobEte';
 import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
@@ -24,18 +24,18 @@ import { AuthenticatedHttpClientService } from '~/server/services/http/authentic
 import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
-export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
+export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 
 	constructor(
-    private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
-    private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
-    private cacheService: CacheService,
+		private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
+		private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
+		private cacheService: CacheService,
 		private loggerService: LoggerService,
 	) {}
 
-	paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
+	paramètreParDéfaut = 'typeContrat=CDD,MIS,SAI&dureeContratMax=2';
 
-	private ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY = 'ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY';
+	private ECHANTILLON_OFFRE_JOB_ETE_KEY = 'ECHANTILLON_OFFRE_JOB_ETE_KEY';
 
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
@@ -45,47 +45,47 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'job étudiant', this.loggerService);
+			return handleGetFailureError(e, 'job ete', this.loggerService);
 		}
 	}
 
-	async search(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<Either<RésultatsRechercheOffre>> {
-		if (isOffreÉchantillonFiltre(jobÉtudiantFiltre)) return this.getÉchantillonJobÉtudiant(jobÉtudiantFiltre);
-		return this.getOffreJobÉtudiantRecherche(jobÉtudiantFiltre);
+	async search(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		if (isOffreÉchantillonFiltre(jobEteFiltre)) return this.getÉchantillonOffre(jobEteFiltre);
+		return this.getOffreJobEteRecherche(jobEteFiltre);
 	}
 
-	async buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre): Promise<string | undefined> {
+	async buildJobEteParametresRecherche(jobEteFiltre: JobEteFiltre): Promise<string> {
 		const queryList: Record<string, string> = {
-			grandDomaine: jobÉtudiantFiltre.grandDomaineList?.join(',') || '',
+			grandDomaine: jobEteFiltre.grandDomaineList?.join(',') || '',
 		};
-
+		
 		removeUndefinedValueInQueryParameterList(queryList);
-
+		
 		const params = new URLSearchParams(queryList);
-
+		
 		return params.toString();
 	}
-
-	private async getOffreJobÉtudiantRecherche(jobÉtudiantFiltre: JobÉtudiantFiltre) {
-		const paramètresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobÉtudiantFiltre);
-		const jobÉtudiantParamètresRecherche = await this.buildJobÉtudiantParamètresRecherche(jobÉtudiantFiltre);
+	
+	private async getOffreJobEteRecherche(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		const parametresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobEteFiltre);
+		const jobEteParametresRecherche = await this.buildJobEteParametresRecherche(jobEteFiltre);
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
-				`/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
+				`/search?${parametresRecherche}&${jobEteParametresRecherche}&${this.paramètreParDéfaut}`,
 			);
 			if (response.status === 204) {
 				return createSuccess({ nombreRésultats: 0, résultats: [] });
 			}
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e, 'job étudiant', this.loggerService);
+			return handleSearchFailureError(e, 'job ete', this.loggerService);
 		}
 	}
-
-	private async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {
-		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
-		const range = buildRangeParamètre(jobÉtudiantFiltre);
-
+	
+	private async getÉchantillonOffre(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETE_KEY);
+		const range = buildRangeParamètre(jobEteFiltre);
+		
 		if (responseInCache) {
 			return createSuccess(mapRésultatsRechercheOffre(responseInCache));
 		} else {
@@ -93,10 +93,10 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 					`/search?range=${range}&${this.paramètreParDéfaut}`,
 				);
-				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY, response.data, 24);
+				this.cacheService.set(this.ECHANTILLON_OFFRE_JOB_ETE_KEY, response.data, 24);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (e) {
-				return handleSearchFailureError(e, 'échantillon job étudiant', this.loggerService);
+				return handleSearchFailureError(e, 'echantillon job ete', this.loggerService);
 			}
 		}
 	}
