@@ -32,7 +32,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		render(<CampagneApprentissageEntreprises />);
 
 		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
+		const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
 		expect(simulation).toBeVisible();
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
 	});
