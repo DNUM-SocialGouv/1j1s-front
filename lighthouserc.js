@@ -13,7 +13,6 @@ module.exports = {
 				'https://www.1jeune1solution.gouv.fr/',
 				'https://www.1jeune1solution.gouv.fr/emplois',
 				'https://www.1jeune1solution.gouv.fr/apprentissage',
-				'https://www.1jeune1solution.gouv.fr/jobs-ete',
 				'https://www.1jeune1solution.gouv.fr/jobs-etudiants',
 				'https://www.1jeune1solution.gouv.fr/service-civique',
 				'https://www.1jeune1solution.gouv.fr/benevolat',
