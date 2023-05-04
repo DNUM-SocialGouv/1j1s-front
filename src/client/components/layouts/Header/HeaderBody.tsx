@@ -37,8 +37,8 @@ export function HeaderBody() {
 				{ isLargeScreen && displayBanner &&
 				  <Link href="/apprentissage" className={styles.headerBanner}>
 				  	<div>
-					    <div className={styles.headerBannerTitle}>Je choisis l’apprentissage</div>
-					    <div className={styles.headerBannerContent}>Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation</div>
+					    <div className={styles.headerBannerTitle}>L’apprentissage, c’est le bon choix !</div>
+					    <div className={styles.headerBannerContent}>Apprenez en plus sur cette voie de formation.</div>
 				  	</div>
 				  	<Icon className={styles.headerBannerIcon} name='angle-right' />
 				  </Link>
