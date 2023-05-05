@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.64.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.63.0...v3.64.0) (2023-05-05)
+
+
+### Features
+
+* **apprentissage:** Wording ([90f21fb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90f21fb9d771ec7fa75a4f31c2fddd42308010f2))
+
 ## [3.63.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.62.0...v3.63.0) (2023-05-04)
 
 
