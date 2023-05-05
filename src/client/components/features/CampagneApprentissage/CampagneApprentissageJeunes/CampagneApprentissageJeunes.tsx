@@ -35,7 +35,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'sun',
-			text: <>Être formé gratuitement pour l’apprenti</>,
+			text: 'Être formé gratuitement pour l’apprenti',
 		},
 		{
 			iconName: 'thumb-up',
@@ -43,7 +43,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'euro',
-			text: <>Être rémunéré tous les mois</>,
+			text: 'Être rémunéré tous les mois',
 		},
 	];
 
