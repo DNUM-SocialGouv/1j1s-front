@@ -6,6 +6,7 @@ import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Header() {
@@ -27,9 +28,14 @@ export function Header() {
 			}
 			<HeaderBody />
 			{ isLargeScreen && <HeaderNavDesktop />}
-			{displayEnqueteSatisfaction && <Link href={enqueteSatisfactionUrl}>
-				Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes
-			</Link>}
+			{ displayEnqueteSatisfaction &&
+				<div className={styles.enqueteBanner}>
+					<Link href={ enqueteSatisfactionUrl } className={styles.enqueteLink}>
+						Vous souhaitez aider 1jeune1solution à s’améliorer ?{' '}
+						<TextIcon icon="external-redirection">Donnez votre avis en moins de 5 minutes</TextIcon>
+					</Link>
+				</div>
+			}
 		</header>
 	);
 }
