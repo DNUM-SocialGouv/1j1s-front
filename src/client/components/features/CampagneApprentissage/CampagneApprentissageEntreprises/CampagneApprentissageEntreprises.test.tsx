@@ -7,7 +7,7 @@ import { render, screen, within } from '@testing-library/react';
 import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('CampagneApprentissageEntreprises', () => {
 	beforeEach(() => {
@@ -21,20 +21,35 @@ describe('CampagneApprentissageEntreprises', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissageEntreprises />);
-		const titre = screen.getByRole('heading', { level:1, name: /L’apprentissage : le bon choix pour votre entreprise/i });
+		const titre = screen.getByRole('heading', { level:1, name: /L’apprentissage pour mon entreprise, c’est le bon choix !/i });
 
 		// THEN
 		expect(titre).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation pour les employeurs', () => {
+		// GIVEN
+		mockLargeScreen();
+		// WHEN
+		render(<CampagneApprentissageEntreprises />);
+
+		// THEN
+		const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
+		expect(simulation).toBeVisible();
+		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
+	});
+
+	it('raccourci le contenu du lien vers le simulateur en mobile', () => {
+		// GIVEN
+		mockSmallScreen();
+
 		// WHEN
 		render(<CampagneApprentissageEntreprises />);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
 		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
+		expect(simulation).not.toHaveTextContent('d’un apprenti');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
@@ -43,8 +58,8 @@ describe('CampagneApprentissageEntreprises', () => {
 			render(<CampagneApprentissageEntreprises />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage :/i });
 			expect(titre).toBeVisible();
 		});
 
@@ -62,7 +77,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			render(<CampagneApprentissageEntreprises />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Cinq bonnes raisons d’embaucher un apprenti :/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
 			const raisonList = within(sectionRaison).getAllByRole('listitem');
 			expect(raisonList).toHaveLength(expectedRaisonList.length);
 			expectedRaisonList.forEach((raison, index) => {
@@ -102,23 +117,13 @@ describe('CampagneApprentissageEntreprises', () => {
 			expect(titre).toBeVisible();
 		});
 
-		it('comprenant une description', () => {
-			// WHEN
-			render(<CampagneApprentissageEntreprises />);
-
-			// THEN
-			const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-			const description = within(section).getByText('Des conseils pour bien recruter votre apprenti, le point sur les aides à l’embauche d’un apprenti… Le site “Embaucher un apprenti” met à disposition un ensemble de conseils pratiques à destination des employeurs');
-			expect(description).toBeVisible();
-		});
-
 		it('comprenant un lien externe vers des renseignements', () => {
 			// WHEN
 			render(<CampagneApprentissageEntreprises />);
 
 			// THEN
 			const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-			const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche d’un apprenti' });
+			const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche' });
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
 		});

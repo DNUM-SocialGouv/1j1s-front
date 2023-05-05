@@ -9,13 +9,13 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
-		mockUseRouter({ asPath: '/apprentissage-jeunes' });
+		mockUseRouter({ asPath: '/choisir-apprentissage' });
 	});
 
 	afterEach(() => {
@@ -25,20 +25,38 @@ describe('CampagneApprentissageJeunes', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage : pour moi c’est le bon choix/i });
 
 		// THEN
+		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix./i });
 		expect(titre).toBeVisible();
+		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
+		expect(sousTitre).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation pour les alternants', () => {
+		// GIVEN
+		mockLargeScreen();
+
 		// WHEN
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
 		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler ma rémunération/i });
+		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération en tant qu’apprenti/i });
 		expect(simulation).toBeVisible();
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
+	});
+
+	it('raccourci l’intitulé du lien en mobile', () => {
+		// GIVEN
+		mockSmallScreen();
+
+		// WHEN
+		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+
+		// THEN
+		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération/i });
+		expect(simulation).toBeVisible();
+		expect(simulation).not.toHaveTextContent('en tant qu’apprenti');
 	});
 
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
@@ -47,8 +65,8 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /Choisir l’apprentissage c’est…/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
+			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage/i });
 			expect(titre).toBeVisible();
 		});
 
@@ -57,16 +75,16 @@ describe('CampagneApprentissageJeunes', () => {
 			const expectedRaisonList = [
 				'Obtenir un diplôme reconnu',
 				'Apprendre en pratiquant',
-				'Une formation gratuite',
+				'Être formé gratuitement pour l’apprenti',
 				'Avoir une expérience professionnelle complète',
-				'Un salaire chaque mois',
+				'Être rémunéré tous les mois',
 			];
 
 			// WHEN
 			render(<CampagneApprentissageJeunes videos={[]} />);
 
 			// THEN
-			const sectionRaison = screen.getByRole('region', { name: /Choisir l’apprentissage c’est…/i });
+			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
 			const raisonList = within(sectionRaison).getByRole('list');
 			const raisonListItems = within(raisonList).getAllByRole('listitem');
 			raisonListItems.forEach((raison,index) => {
@@ -101,9 +119,9 @@ describe('CampagneApprentissageJeunes', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'Parents : l’apprentissage, le bon choix pour votre enfant. On répond à toutes vos questions',
+				name: 'L’apprentissage vous intéresse ? On répond à toutes vos questions',
 			})).toBeVisible();
-			expect(screen.getByRole('link', { name: 'Accéder à la FAQ Parents-Enfants' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
+			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);

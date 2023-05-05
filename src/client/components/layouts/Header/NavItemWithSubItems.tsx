@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -12,11 +13,10 @@ import { EmbeddedNavItem } from './EmbeddedNavItem';
 
 interface NavItemWithSubItemsProps {
   onClick?: () => void;
-  path: string;
   item: NavigationItemWithChildren;
 }
 
-export function NavItemWithSubItems({ className, onClick, item: root, path }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
+export function NavItemWithSubItems({ className, onClick, item: root }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
 	const optionsRef = useRef<HTMLLIElement>(null);
 	const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
 	const [previousEmbeddedItems, setPreviousEmbeddedItems] = useState<NavigationItemWithChildren[]>([]);
@@ -24,10 +24,10 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
 	const subItems = currentItem.children;
 	const isRoot = root.label === currentItem.label;
 	const { isLargeScreen } = useBreakpoint();
-
+	const router = useRouter();
 	const isActive = useMemo(() => {
-		return isItemActive(root, path);
-	}, [path, root]);
+		return isItemActive(root, router.pathname);
+	}, [router.pathname, root]);
 	const [isExpanded, setIsExpanded] = useState(isActive && !isLargeScreen);
 
 	const reset = useCallback(() => {
@@ -78,13 +78,13 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
 
 	useEffect(() => {
 		for (const item of root.children) {
-			if (!isNavigationItem(item) && isItemActive(item, path)) {
+			if (!isNavigationItem(item) && isItemActive(item, router.pathname)) {
 				selectEmbeddedNavItem(item);
 				break;
 			}
 		}
 		/* eslint-disable */
-  }, [path, root]);
+  }, [router.pathname, root]);
 
   const subNav = subItems.map((item, index) => {
     if (isNavigationItem(item)) {
@@ -93,7 +93,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
           key={index}
           label={item.label}
           link={item.link}
-          isActive={path === item.link}
+          isActive={router.pathname === item.link}
           onClick={onItemSelected}/>
       );
     } else {
@@ -101,7 +101,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, path }: Na
         <EmbeddedNavItem
           label={item.label}
           key={index}
-          isActive={isItemActive(item, path)}
+          isActive={isItemActive(item, router.pathname)}
           onClick={(e) => {
             e.stopPropagation();
             selectEmbeddedNavItem(item);

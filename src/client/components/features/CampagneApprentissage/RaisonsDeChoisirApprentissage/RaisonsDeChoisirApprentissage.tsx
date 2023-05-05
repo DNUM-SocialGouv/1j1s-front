@@ -7,7 +7,7 @@ import { IconName } from '~/client/components/ui/Icon/Icon';
 
 export interface Raisons {
 	iconName: IconName;
-	text: string;
+	text: React.ReactNode;
 }
 
 interface RaisonsDeChoisirApprentissageProps {

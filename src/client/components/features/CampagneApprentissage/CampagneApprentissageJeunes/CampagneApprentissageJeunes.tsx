@@ -35,7 +35,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'sun',
-			text: 'Une formation gratuite',
+			text: 'Être formé gratuitement pour l’apprenti',
 		},
 		{
 			iconName: 'thumb-up',
@@ -43,7 +43,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'euro',
-			text: 'Un salaire chaque mois',
+			text: 'Être rémunéré tous les mois',
 		},
 	];
 
@@ -51,13 +51,14 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		<>
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
-					<h1>L’apprentissage : <small>pour moi c’est le bon choix</small></h1>
+					<h1>L’apprentissage, pour moi c’est le bon choix.</h1>
+					<p className={styles.sousTitre}>Vous apprenez directement sur le terrain et vous êtes payés !</p>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						Simuler ma rémunération
+						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
 					</Link>
 				</HeroWithIllustration>
 			</header>
-			<RaisonsDeChoisirApprentissage titre="Choisir l’apprentissage c’est…" raisons={raisons}/>
+			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>
 			{ isSmallScreen ? <>
 				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
 				<PreparationApprentissage/>

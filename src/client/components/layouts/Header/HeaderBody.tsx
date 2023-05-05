@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
@@ -16,16 +15,7 @@ export function HeaderBody() {
 	const { isLargeScreen } = useBreakpoint();
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-	const router = useRouter();
-	const [path, setPath] = useState(() => router.pathname || '');
-
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-
-	useEffect(() => {
-		if (path !== router.pathname){
-			setPath(router.pathname);
-		}
-	}, [path, setPath, router]);
 
 	return (
 		<Container className={styles.headerBody}>
@@ -46,8 +36,8 @@ export function HeaderBody() {
 				{ isLargeScreen && displayBanner &&
 				  <Link href="/apprentissage" className={styles.headerBanner}>
 				  	<div>
-					    <div className={styles.headerBannerTitle}>Je choisis l’apprentissage</div>
-					    <div className={styles.headerBannerContent}>Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation</div>
+					    <div className={styles.headerBannerTitle}>L’apprentissage, c’est le bon choix !</div>
+					    <div className={styles.headerBannerContent}>Apprenez en plus sur cette voie de formation.</div>
 				  	</div>
 				  	<Icon className={styles.headerBannerIcon} name='angle-right' />
 				  </Link>
@@ -60,7 +50,7 @@ export function HeaderBody() {
         		<span>Menu</span>
         	</ModalComponent.Title>
         	<ModalComponent.Content>
-        		<HeaderNavMobile toggleModal={toggleModal} path={path}/>
+        		<HeaderNavMobile toggleModal={toggleModal} />
         	</ModalComponent.Content>
         </ModalComponent>
 			}

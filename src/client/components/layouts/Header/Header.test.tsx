@@ -105,11 +105,9 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartTitre = screen.getByText('Je choisis l’apprentissage');
-				const encartDescription = screen.getByText('Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation');
-				const encartLien = screen.getByRole('link', { name: 'Je choisis l’apprentissage Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation' });
-				expect(encartTitre).toBeInTheDocument();
-				expect(encartDescription).toBeInTheDocument();
+				const encartLien = screen.getByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
+				expect(encartLien).toBeVisible();
+				expect(encartLien).toHaveTextContent(/Apprenez en plus sur cette voie de formation\./);
 				expect(encartLien).toHaveAttribute('href', '/apprentissage');
 			});
 		});
@@ -126,11 +124,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartTitre = screen.queryByText('Je choisis l’apprentissage');
-				const encartDescription = screen.queryByText('Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation');
-				const encartLien = screen.queryByRole('link', { name: 'Je choisis l’apprentissage Découvrez les avantages de l’apprentissage et trouvez votre contrat ou votre formation' });
-				expect(encartTitre).not.toBeInTheDocument();
-				expect(encartDescription).not.toBeInTheDocument();
+				const encartLien = screen.queryByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
 				expect(encartLien).not.toBeInTheDocument();
 			});
 		});
@@ -226,9 +220,8 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartTitre = screen.getByText('Je choisis l’apprentissage');
-					const encartLien = screen.getByRole('link', { name: 'Je choisis l’apprentissage' });
-					expect(encartTitre).toBeInTheDocument();
+					const encartLien = screen.getByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					expect(encartLien).toBeVisible();
 					expect(encartLien).toHaveAttribute('href', '/apprentissage');
 				});
 			});
@@ -245,9 +238,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartTitre = screen.queryByText('Je choisis l’apprentissage');
-					const encartLien = screen.queryByRole('link', { name: 'Je choisis l’apprentissage' });
-					expect(encartTitre).not.toBeInTheDocument();
+					const encartLien = screen.queryByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
 					expect(encartLien).not.toBeInTheDocument();
 				});
 			});

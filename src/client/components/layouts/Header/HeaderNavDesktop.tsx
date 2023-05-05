@@ -1,8 +1,5 @@
 import { useRouter } from 'next/router';
-import React, {
-	useEffect,
-	useState,
-} from 'react';
+import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
@@ -24,13 +21,6 @@ export function HeaderNavDesktop() {
 		logementsNav,
 	} = navigationItemList();
 	const router = useRouter();
-	const [path, setPath] = useState(() => router.pathname || '');
-
-	useEffect(() => {
-		if (path !== router.pathname){
-			setPath(router.pathname);
-		}
-	}, [path, setPath, router]);
 
 	return (
 		<div className={styles.headerNavigation}>
@@ -40,16 +30,16 @@ export function HeaderNavDesktop() {
 					role="navigation"
 					aria-label="Menu principal">
 					<ul className={styles.headerNavigationListLeft}>
-						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={path === accueil.link} />
-						<NavItemWithSubItems className={styles.navItem} item={offresNav} path={path} />
-						<NavItemWithSubItems className={styles.navItem} item={orientationNav} path={path} />
-						<NavItemWithSubItems className={styles.navItem} item={engagementNav} path={path} />
-						<NavItemWithSubItems className={styles.navItem} item={logementsNav} path={path} />
-						<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} path={path}/>
-						<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav} path={path}/>
+						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} />
+						<NavItemWithSubItems className={styles.navItem} item={offresNav} />
+						<NavItemWithSubItems className={styles.navItem} item={orientationNav} />
+						<NavItemWithSubItems className={styles.navItem} item={engagementNav} />
+						<NavItemWithSubItems className={styles.navItem} item={logementsNav} />
+						<NavItemWithSubItems className={styles.navItem} item={accompagnementNav}/>
+						<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav}/>
 					</ul>
 					<ul className={styles.headerNavigationListRight}>
-						<NavEmployeurs item={employeurNav} path={path}/>
+						<NavEmployeurs item={employeurNav} />
 					</ul>
 				</nav>
 			</Container>
