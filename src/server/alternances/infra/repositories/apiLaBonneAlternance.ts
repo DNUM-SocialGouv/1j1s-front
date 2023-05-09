@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 export namespace MetierLaBonneAlternanceApiResponse {
 	export interface LabelAndRomes {
 		label: string
@@ -92,3 +94,53 @@ export interface AlternanceApiJobsResponse {
 	peJobs: { results: Array<AlternanceApiJobsResponse.PEJobs> }
 	lbaCompanies: { results: Array<AlternanceApiJobsResponse.LbaCompanies> } | []
 }
+
+export const apiLaBonneAlternanceSchemas = {
+	getMatcha: Joi.object({
+		matchas: Joi.array().items(Joi.object({
+			company: Joi.object({
+				name: Joi.string(),
+				place: Joi.object({
+					city: Joi.string(),
+				}),
+			}),
+			contact: Joi.object({
+				phone: Joi.string(),
+			}),
+			diplomaLevel: Joi.string(),
+			job: Joi.object({
+				dureeContrat: Joi.number(),
+				rythmeAlternance: Joi.string(),
+			}).required(),
+			place: Joi.object({
+				city: Joi.string().allow(null),
+				fullAddress: Joi.string(),
+			}),
+			title: Joi.string().required(),
+		})),
+	}).options({ allowUnknown: true }),
+	getPoleEmploi:Joi.object({
+		peJobs: Joi.array().items(Joi.object({
+			company: Joi.object({
+				name: Joi.string(),
+				place: Joi.object({
+					city: Joi.string(),
+				}),
+			}),
+			contact: Joi.object({
+				phone: Joi.string(),
+			}),
+			job: Joi.object({
+				contractDescription: Joi.string(),
+				description: Joi.string().required(),
+				duration: Joi.string(),
+			}).required(),
+			place: Joi.object({
+				city: Joi.string(),
+				fullAddress: Joi.string(),
+			}),
+			title: Joi.string().required(),
+			url: Joi.string(),
+		})),
+	}).options({ allowUnknown: true }),
+};

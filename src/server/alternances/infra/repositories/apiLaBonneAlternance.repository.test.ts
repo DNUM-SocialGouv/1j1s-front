@@ -8,6 +8,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { SentryException } from '~/server/exceptions/sentryException';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -131,6 +132,27 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Then
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/job/1234567'));
+			});
+			describe('lorsque l’api LaBonneAlternance renvoie une donnée différente de l’attendu', () => {
+				it('log un warn dans sentry et continue l’execution', async () => {
+					// Given
+					const httpClientService = aPublicHttpClientService();
+					(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ peJobs: [ { invalid: 'invalid data' } ] }));
+					const logger = aLoggerService();
+					const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', logger);
+
+					// When
+					await repository.get('1234567') as Failure;
+
+					// Then
+					expect(logger.warnWithExtra).toHaveBeenCalledTimes(1);
+					expect(logger.warnWithExtra).toHaveBeenCalledWith(
+						new SentryException('[API LaBonneAlternance] Erreur de validation de la réponse de l’API',
+							expect.anything(),
+							expect.anything(),
+						),
+					);
+				});
 			});
 		});
 		describe('lorsque l’id fournit ne correspond pas à une offre PEJob', () => {
