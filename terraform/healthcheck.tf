@@ -1,9 +1,9 @@
 locals {
   # Tous les Contact Groups
   contact_groups = {
-    prodution = "274651" # "Alertes Production"
-    default   = "286221" # "Alertes Recette"
-    autres    = "286222" # "Alertes hors-production et hors-recette"
+    production = "274651" # "Alertes Production"
+    default    = "286221" # "Alertes Recette"
+    autres     = "286222" # "Alertes hors-production et hors-recette"
   }
 
   domaine_a_tester = coalesce(

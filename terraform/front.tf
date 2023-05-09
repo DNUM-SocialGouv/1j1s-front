@@ -1,5 +1,5 @@
 module "front_app" {
-  source = "github.com/josephpage/terraform-scalingo-app"
+  source = "github.com/scalingo-community/terraform-scalingo-app"
 
   stack = "scalingo-20"
 
@@ -8,7 +8,7 @@ module "front_app" {
   containers = {
     web = {
       size   = terraform.workspace == "production" ? "XL" : "M"
-      amount = 1
+      amount = terraform.workspace == "production" ? 2 : 1
       autoscaler = terraform.workspace == "production" ? {
         min_containers = 2
         max_containers = 10
@@ -19,8 +19,9 @@ module "front_app" {
   }
 
   github_integration = {
-    repo_url = "https://github.com/DNUM-SocialGouv/1j1s-front"
-    branch   = var.branche_git
+    repo_url            = "https://github.com/DNUM-SocialGouv/1j1s-front"
+    branch              = var.branche_git
+    auto_deploy_enabled = (terraform.workspace == "default") ? true : false
   }
 
   environment = local.envs_du_fichier_env

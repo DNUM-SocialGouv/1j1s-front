@@ -1,10 +1,22 @@
 terraform {
+  # Version minimale de Terraform CLI requise pour ce projet
   required_version = "~> 1.4"
 
   backend "s3" {
-    key    = "state/front.tfstate"
+    # Pour la connexion au backend S3 Minio, il faut configurer en variables d'environnements :
+    # AWS_ACCESS_KEY_ID : le login de l'utilisateur Minio
+    # AWS_SECRET_ACCESS_KEY : le mot de passe de l'utilisateur Minio
+    # AWS_S3_ENDPOINT : l'URL de l'API Minio
+
+    # Le chemin du fichier de state sera de la forme : "{workspace_key_prefix}/{TF_WORKSPACE}/{key}"
+    key                  = "state/front.tfstate"
+    workspace_key_prefix = "workspaces"
+
+    # Le bucket S3 doit déjà exister
     bucket = "1j1s-terraform-remote-state-applications"
-    region = "lorem-ipsum" # une région bidon car on utilise Minio au lieu d'AWS
+
+    # On est obligé de configurer une région bidon car on utilise Minio au lieu d'AWS
+    region = "lorem-ipsum"
 
     # Les options ci-dessous sont nécessaires pour utiliser le backend S3 Minio :
 
@@ -31,7 +43,7 @@ terraform {
 
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 4.3"
+      version = "~> 4.5"
     }
   }
 }
