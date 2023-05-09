@@ -1,8 +1,8 @@
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
-const uneDate = () => new Date('2022-01-01T00:00:00.000Z');
-export const uneAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLogement => {
+const aDate = () => new Date('2022-01-01T00:00:00.000Z');
+export const anAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLogement => {
 	return {
 		bilanEnergetique: {
 			consommationEnergetique: 'A',
@@ -29,8 +29,8 @@ export const uneAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLog
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',
-		sourceCreatedAt: uneDate(),
-		sourceUpdatedAt: uneDate(),
+		sourceCreatedAt: aDate(),
+		sourceUpdatedAt: aDate(),
 		surface: 10,
 		surfaceMax: 12,
 		titre: 'mon titre',
@@ -40,7 +40,7 @@ export const uneAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLog
 	};
 };
 
-export const uneAnnonceDeLogement = (): AnnonceDeLogement => {
+export const anAnnonceDeLogement = (): AnnonceDeLogement => {
 	return {
 		bilanEnergetique: {
 			consommationEnergetique: 'A',
