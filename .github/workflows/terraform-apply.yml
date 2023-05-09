@@ -3,8 +3,9 @@ name: Déploiement Terraform
 on:
   push:
     branches: [ main ]
-  release:
-    types: [ published ]
+  # release:
+  #   types: [ published ]
+  workflow_dispatch:
 
 jobs:
 
@@ -21,7 +22,7 @@ jobs:
 
   # Déploiement en production lors de la publication d'une nouvelle release
   production:
-    if: github.event_name == 'release'
+    if: github.event_name == 'workflow_dispatch'
     # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
     uses: ./.github/workflows/terraform.yml
     secrets: inherit
