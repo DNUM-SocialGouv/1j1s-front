@@ -8,6 +8,7 @@
   }
   & .sousTitre {
     @extend %headline;
+    display: block;
     font-weight: normal;
     color: utilities.$color-secondary;
   }
@@ -21,7 +22,7 @@
       margin-top: 1rem;
       @include utilities.media(small) {
         width: fit-content;
-        margin-top: 2rem;
+        margin-top: 5rem;
       }
     }
   }
