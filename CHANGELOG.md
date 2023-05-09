@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.66.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.65.0...v3.66.0) (2023-05-09)
+
+
+### Features
+
+* **apprentissage:** videos coté entreprises ([07cb195](https://github.com/DNUM-SocialGouv/1j1s-front/commit/07cb1954ce98c4d243c8bb521325a0db44b56a58))
+
 ## [3.65.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.64.0...v3.65.0) (2023-05-09)
 
 
