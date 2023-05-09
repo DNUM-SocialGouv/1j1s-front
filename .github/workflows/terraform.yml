@@ -163,6 +163,6 @@ jobs:
         if: ${{ inputs.apply == true }}
         id: apply
         working-directory: terraform
-        run: terraform apply -input=false -no-color
+        run: terraform apply -input=false -no-color -auto-approve
         env:
           TF_VAR_front_fichier_env_secret: "../.env"
