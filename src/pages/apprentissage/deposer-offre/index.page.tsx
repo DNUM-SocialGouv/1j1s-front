@@ -1,4 +1,3 @@
-import * as process from 'process';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';

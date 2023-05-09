@@ -1,4 +1,3 @@
-import * as process from 'process';
 import React from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';

@@ -194,11 +194,6 @@ describe('Header', () => {
 		});
 
 		describe('quand l’enquête de satisfaction est feature flippé', () => {
-
-			beforeEach(() => {
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-			});
-
 			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
@@ -211,13 +206,6 @@ describe('Header', () => {
 				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
 				expect(lienEnquete).toBeVisible();
 				expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
-			});
-		});
-
-		describe('yo', () => {
-			beforeEach(() => {
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
 			});
 
 			it('ON, mais que l’url de l’enquête n’est pas fournie, masque le lien vers l’enquête de satisfaction', () => {
@@ -234,12 +222,6 @@ describe('Header', () => {
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 
-		});
-
-		describe('yoyo', () => {
-			beforeEach(() => {
-				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
-			});
 			it('OFF, masque le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
