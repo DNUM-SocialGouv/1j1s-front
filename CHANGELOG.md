@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.66.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.1...v3.66.2) (2023-05-09)
+
+
+### Bug Fixes
+
+* **git:** fix release please changelog ([0837c56](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0837c5682e0979de02fbb3b6dd5441f8f64f386b))
+
 ## [3.66.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.0...v3.66.1) (2023-05-09)
 
 
