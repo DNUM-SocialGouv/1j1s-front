@@ -7,12 +7,12 @@ import React from 'react';
 
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 
 describe('<InformationsGénérales />', () => {
 	describe('Prix', () => {
 		it('affiche le prix', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.prix = 500;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -22,7 +22,7 @@ describe('<InformationsGénérales />', () => {
 			expect(abbreviation).toHaveAttribute('title', 'Charges Comprises');
 		});
 		it('affiche la bonne devise dans le prix', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -30,7 +30,7 @@ describe('<InformationsGénérales />', () => {
 			expect(prixRow).toHaveTextContent(/\$/i);
 		});
 		it('affiche les charges', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.charge = 500;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -38,7 +38,7 @@ describe('<InformationsGénérales />', () => {
 			expect(chargesRow).toHaveTextContent(/500 €/i);
 		});
 		it('masque la ligne quand pas de charges', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.charge = undefined;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -46,7 +46,7 @@ describe('<InformationsGénérales />', () => {
 			expect(chargesRow).not.toBeInTheDocument();
 		});
 		it('affiche la bonne devise dans les charges', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -54,7 +54,7 @@ describe('<InformationsGénérales />', () => {
 			expect(chargesRow).toHaveTextContent(/\$/i);
 		});
 		it('affiche la caution', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.garantie = 500;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -62,7 +62,7 @@ describe('<InformationsGénérales />', () => {
 			expect(cautionRow).toHaveTextContent(/500 €/i);
 		});
 		it('masque la ligne quand pas de caution', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.garantie = undefined;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -70,7 +70,7 @@ describe('<InformationsGénérales />', () => {
 			expect(cautionRow).not.toBeInTheDocument();
 		});
 		it('affiche la bonne devise dans la caution', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -82,7 +82,7 @@ describe('<InformationsGénérales />', () => {
 		describe('concernant la surface', () => {
 			describe('quand la surfaceMax est renseignée', () => {
 				it('affiche la fourchette de surface', () => {
-					const annonce = uneAnnonceDeLogement();
+					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 100;
 					render(<InformationsGénérales annonce={annonce} />);
@@ -93,7 +93,7 @@ describe('<InformationsGénérales />', () => {
 			});
 			describe('quand la surfaceMax vaut zéro', () => {
 				it('affiche la surface', async () => {
-					const annonce = uneAnnonceDeLogement();
+					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 0;
 					render(<InformationsGénérales annonce={annonce} />);
@@ -104,7 +104,7 @@ describe('<InformationsGénérales />', () => {
 			});
 			describe('quand la surfaceMax vaut undefined', () => {
 				it('affiche la surface', async () => {
-					const annonce = uneAnnonceDeLogement();
+					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = undefined;
 					render(<InformationsGénérales annonce={annonce} />);
@@ -115,7 +115,7 @@ describe('<InformationsGénérales />', () => {
 			});
 		});
 		it('affiche le nombre de pièces', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.nombreDePièces = 2;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -123,7 +123,7 @@ describe('<InformationsGénérales />', () => {
 			expect(piècesRow).toHaveTextContent(/2/i);
 		});
 		it("affiche l'étage", async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.étage = 2;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -131,7 +131,7 @@ describe('<InformationsGénérales />', () => {
 			expect(étageRow).toHaveTextContent(/2ème/i);
 		});
 		it('affiche "Rez-de-chaussée" quand l\'étage est 0', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.étage = 0;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -139,7 +139,7 @@ describe('<InformationsGénérales />', () => {
 			expect(étageRow).toHaveTextContent(/Rez-de-chaussée/i);
 		});
 		it('affiche "1er" quand l\'étage est 1', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.étage = 1;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -147,7 +147,7 @@ describe('<InformationsGénérales />', () => {
 			expect(étageRow).toHaveTextContent(/1er/i);
 		});
 		it("masque la ligne quand pas d'étage", async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.étage = undefined;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -155,7 +155,7 @@ describe('<InformationsGénérales />', () => {
 			expect(étageRow).not.toBeInTheDocument();
 		});
 		it('affiche le type de bien', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.typeBien = 'Appartement';
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -163,7 +163,7 @@ describe('<InformationsGénérales />', () => {
 			expect(typeBienRow).toHaveTextContent(/Appartement/i);
 		});
 		it('affiche "Non" si le logement n\'est pas meublé', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.meublé = false;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -171,7 +171,7 @@ describe('<InformationsGénérales />', () => {
 			expect(meubléRow).toHaveTextContent(/Non/i);
 		});
 		it('affiche "Oui" si le logement est meublé', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.meublé = true;
 			render(<InformationsGénérales annonce={annonce} />);
 
@@ -181,7 +181,7 @@ describe('<InformationsGénérales />', () => {
 	});
 	describe('Localisation', () => {
 		it('affiche la localisation formattée', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.localisation = {
 				adresse: "15 rue de l'impasse",
 				codePostal: '75001',
@@ -193,7 +193,7 @@ describe('<InformationsGénérales />', () => {
 			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
 		});
 		it('masque la localisation quand aucune information affichable', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.localisation = {
 				adresse: undefined,
 				codePostal: undefined,
@@ -207,7 +207,7 @@ describe('<InformationsGénérales />', () => {
 	});
 	describe('Disponibilité', () => {
 		it('affiche la date de disponibilité', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
 			render(
 				<LocaleProvider value="fr-FR">
@@ -219,7 +219,7 @@ describe('<InformationsGénérales />', () => {
 			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
 		});
 		it('affiche la date de disponibilité dépendamment de la locale', async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
 			render(
 				<LocaleProvider value="en-US">
@@ -231,7 +231,7 @@ describe('<InformationsGénérales />', () => {
 			expect(disponibilitéRow).toHaveTextContent(/le February 1, 2022/i);
 		});
 		it("ajoute l'attribut lang à la date", async () => {
-			const annonce = uneAnnonceDeLogement();
+			const annonce = anAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
 			render(
 				<LocaleProvider value="fr-FR">

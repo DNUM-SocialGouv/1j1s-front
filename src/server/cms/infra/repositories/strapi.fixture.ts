@@ -372,7 +372,7 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 	};
 }
 
-export function uneOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
+export function anOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebut: '2024-09-01',
