@@ -13,8 +13,6 @@ declare global {
 
 const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
-const INSTAGRAM_SERVICE = 'instagram';
-const YOUTUBE_SERVICE = 'youtube';
 const ADFORM_SERVICE = 'adform';
 
 export class AnalyticsService {
@@ -24,15 +22,23 @@ export class AnalyticsService {
 		this.initialiserGestionnaireConsentementsCookie();
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
 
-		// POC
-		if (window && window.tarteaucitron) {
-			window.tarteaucitron.job.push(INSTAGRAM_SERVICE);
-			window.tarteaucitron.job.push(YOUTUBE_SERVICE);
+		this.initialiserAnalyticsCampagneDeCommunication();
+	}
 
-			//TODO window.tarteaucitron.user.adformpm = adformpm;
+	private initialiserAnalyticsCampagneDeCommunication(): void {
+		if (window && window.tarteaucitron) {
+
+			window.tarteaucitron.user.adformpm = '2867419-fake';
+			if (window.location.pathname === '/apprentissage-jeunes') {
+				window.tarteaucitron.user.adformpagename = 'adformpagename';
+			} else {
+				window.tarteaucitron.user.adformpagename = undefined;
+			}
+
 			window.tarteaucitron.job.push(ADFORM_SERVICE);
-			//TODO window.tarteaucitron.user.adformpagename = 'adformpagename';
+			// TODO: delete after Campaign
 		}
+
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
