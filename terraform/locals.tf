@@ -8,10 +8,14 @@ locals {
   #   KEY1=VALUE1
   #   KEY2='VALUE2'
   #   KEY3="VALUE3"
-  envs_du_fichier_env = (var.front_fichier_env_secret != null) ? {
-    for tuple in regexall("(.*)=[\"']?(.+)[\"']?", file(var.front_fichier_env_secret)) : tuple[0] => sensitive(tuple[1])
-  } : {}
+  envs_du_fichier_env = data.dotenv.envs_du_fichier_env.env == null ? {} : {
+    for key, value in data.dotenv.envs_du_fichier_env.env : key => sensitive(value)
+  }
 
   # Nom de l'environnement
   nom_environnement = terraform.workspace == "default" ? "recette" : terraform.workspace
+}
+
+data dotenv envs_du_fichier_env {
+  filename = var.front_fichier_env_secret
 }

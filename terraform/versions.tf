@@ -45,6 +45,11 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.5"
     }
+
+    dotenv = {
+      source  = "jrhouston/dotenv"
+      version = "~> 1.0"
+    }
   }
 }
 
