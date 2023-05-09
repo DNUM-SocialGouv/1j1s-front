@@ -5,7 +5,7 @@ import {
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
-	AlternanceApiJobsResponse,
+	AlternanceApiJobsResponse, apiLaBonneAlternanceSchemas,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
 	mapAlternanceListe,
@@ -14,10 +14,14 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { LoggerService } from '~/server/services/logger.service';
+import { validateApiResponse } from '~/server/utils/validateApiResponse';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
+
+const API_NAME = 'API LaBonneAlternance';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
@@ -53,6 +57,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
+				validateApiResponse(apiLaBonneAlternanceSchemas.getPoleEmploi, apiResponse.data, this.loggerService, API_NAME);
 				const offre = apiResponse.data.peJobs[0];
 				return createSuccess(mapPEJob(offre));
 			}
@@ -60,6 +65,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const apiResponse = await this.httpClientService.get<{
 				matchas: AlternanceApiJobsResponse.Matcha[]
 			}>(`/v1/jobs/matcha/${id}`);
+			validateApiResponse(apiLaBonneAlternanceSchemas.getMatcha, apiResponse.data, this.loggerService, API_NAME);
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
