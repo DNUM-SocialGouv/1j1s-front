@@ -25,9 +25,9 @@ __Tenter de reproduire ces étapes sur les `states` déjà initialisés pourraie
 |--------------------------------|---------------------------------------------|----------------------------------|
 | scalingo_app                   | `/v1/apps`                                  | `id` or `name`                   |
 | scalingo_container_type        | `/v1/apps/[:app]/containers`                | `app_name:container_name`        |
-| scalingo_addon                 | `/v1/apps/[:app]/addons`                    | 
-| scalingo_scm_repo_link         | `/v1/apps/[:app]/scm_repo_link`             | `app_name`
-| scalingo_domain                | `/v1/apps/[:app]/domains`                   | `app_name:domain_id`
+| scalingo_addon                 | `/v1/apps/[:app]/addons`                    | `app_name:addon_id`              |
+| scalingo_scm_repo_link         | `/v1/apps/[:app]/scm_repo_link`             | `app_name`                       |
+| scalingo_domain                | `/v1/apps/[:app]/domains`                   | `app_name:domain_id`             |
 | scalingo_collaborator          | `/v1/apps/[:app]/collaborators`             | `app_id:email`                   |
 | scalingo_log_drain             | `/v1/apps/[:app]/log_drains`                | `app_name#drain_url`             |
 | scalingo_autoscaler            | `/v1/apps/[:app]/autoscalers`               | `app_name:autoscaler_id`         |
