@@ -158,8 +158,8 @@
   & .enqueteBanner {
     @extend %text-small;
     text-align: center;
-    background: $white-lilac;
-    color:$color-primary;
+    background: utilities.$white-lilac;
+    color: utilities.$color-primary;
     padding: 20px 8px;
 
     & .enqueteLink:hover {
