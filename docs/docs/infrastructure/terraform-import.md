@@ -123,7 +123,7 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
    https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME/addons \
    | jq '.addons[]|.addon_provider.id+" ("+.plan.name+") => "+.id'
 
-# => "redis (redis-business-256) => ad-534f3384-4850-4f1a-a043-bfdd429c60d7"
+# => "redis (redis-business-256) => ad-********-****-****-****-************"
 ```
 Pour chaque ligne : le *premier élément* (ici "`redis`") est à mettre dans l'emplacement `addonProvider`, le *dernier élement* (qui ressemble à un uuid) est à mettre dans l'emplacement `addonId`.
 Le plan est donné à titre informatif mais n'est pas utilisé pour l'import.
