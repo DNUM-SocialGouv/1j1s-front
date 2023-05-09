@@ -67,7 +67,7 @@ jobs:
         if: ${{ (inputs.plan == true) || (inputs.apply == true) }}
         run: |
           npm install -g envsub
-          envsub --protect .env.example .env
+          envsub --syntax dollar-curly --protect .env.scalingo .env
 
       - name: Vérifier le format et le style du code Terraform
         if: ${{ inputs.lint == true }}
