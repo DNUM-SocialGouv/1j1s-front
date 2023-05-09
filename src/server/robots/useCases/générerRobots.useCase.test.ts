@@ -25,7 +25,7 @@ describe('GénérerRobotsUseCase', () => {
 
 	describe('quand l’environnement n’est pas "production"', () => {
 		it('retourne le contenu de robots.txt de pas production',  async() => {
-			const environment = 'integration';
+			const environment = 'recette';
 			const générerRobotsUseCase = new GénérerRobotsUseCase(environment);
 			const expected = 'User-agent: *\n' +
 				'Disallow: /';

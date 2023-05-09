@@ -1,0 +1,28 @@
+name: Simulation de déploiement Terraform
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  recette:
+    if: (!startsWith(github.head_ref, 'release-please--'))
+
+    # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
+    secrets: inherit
+    with:
+      plan: true
+      environnement_name: scalingo-recette
+      environnement_url: https://recette.1jeune1solution.gouv.fr
+
+  production:
+    if: startsWith(github.head_ref, 'release-please--')
+
+    # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
+    secrets: inherit
+    with:
+      plan: true
+      environnement_name: scalingo-production
+      environnement_url: https://www.1jeune1solution.gouv.fr
