@@ -8,7 +8,7 @@ tarteaucitron.lang = {
   alertBigPrivacy: 'Ce site utilise des cookies et vous donne le contrôle sur ceux que vous souhaitez activer',
   ads: {
     details: 'Les régies publicitaires permettent de générer des revenus en commercialisant les espaces publicitaires du site.',
-    title: 'Régies publicitaires',
+    title: 'Campagnes d’informations gouvernementales',
   },
   alertBigScroll: 'En continuant de défiler,',
   alertSmall: 'Gestion des services',
