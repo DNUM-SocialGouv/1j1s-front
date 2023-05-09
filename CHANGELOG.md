@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.65.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.64.0...v3.65.0) (2023-05-09)
+
+
+### Features
+
+* **jobs d'été:** ajout feature flipping carte page d'accueil ([111f6bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/111f6bd8387834978952c89eb0dc528362d89d86))
+
 ## [3.64.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.63.0...v3.64.0) (2023-05-05)
 
 
