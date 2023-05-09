@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.67.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.2...v3.67.0) (2023-05-09)
+
+
+### Features
+
+* **apprentissage:** modifier l’image d’entête de la campagne d apprentissage ([#1275](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1275)) ([d1f690e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d1f690ed010a340408f11bd75a1a2d0e1d76c13b))
+
 ## [3.66.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.1...v3.66.2) (2023-05-09)
 
 

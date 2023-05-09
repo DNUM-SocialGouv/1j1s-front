@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "3.66.2",
+  "version": "3.67.0",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
