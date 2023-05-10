@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.67.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.67.0...v3.67.1) (2023-05-10)
+
+
+### Bug Fixes
+
+* charge le script eulerian en évitant un script-inline ([#1278](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1278)) ([88d2e21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88d2e21af8bd66721721b888df96c6e0f8fdb510))
+
 ## [3.67.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.2...v3.67.0) (2023-05-09)
 
 
