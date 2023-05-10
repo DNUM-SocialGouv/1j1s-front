@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.68.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.67.1...v3.68.0) (2023-05-10)
+
+
+### Features
+
+* **apprentissage:** modification image encart campagne apprentissage entreprise ([#1282](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1282)) ([b3377cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3377cfd8ab871bbf04a3f7433c03b4c2d0f1235))
+
 ## [3.67.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.67.0...v3.67.1) (2023-05-10)
 
 
