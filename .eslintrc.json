@@ -13,6 +13,8 @@
   },
   "ignorePatterns": [
     "public/scripts/tarteaucitron.js",
+    "public/scripts/eulerian.yssn.recette.1jeune1solution.gouv.fr.js",
+    "public/scripts/eulerian.yssn.1jeune1solution.gouv.fr.js",
     "public/tarteaucitron.service.js",
     "public/lang/*",
     "docs/**/*.tsx"
