@@ -4528,7 +4528,7 @@ tarteaucitron.services.adform = {
       return;
     }
 
-    alert("Lancement du script adform : adformpagename présent ")
+    alert("Lancement du script adform : adformpagename présent ", tarteaucitron.user.adformpagename)
     window._adftrack = {
       divider: encodeURIComponent('|'),
       pagename: encodeURIComponent(tarteaucitron.user.adformpagename),
