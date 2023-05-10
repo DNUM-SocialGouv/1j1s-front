@@ -1,4 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
 import { CookieService } from '~/client/services/cookies/cookies.service';
 
@@ -13,7 +14,6 @@ declare global {
 }
 
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
-
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 	private readonly cookiesService: CookieService;
@@ -31,14 +31,14 @@ export class AnalyticsService {
 
 		try {
 			// Voir https://eulerian.wiki/doku.php?id=fr:modules:collect:gdpr:tarteaucitron
-			window.tarteaucitron.services[EULERIAN_ANALYTICS_SERVICE] = {
+			const config = {
 				cookies: ['etuix'],
 				fallback: function () {
 					this.js();
 				},
 				js: function () {
 					'use strict';
-					(function (x, w) {
+					(function (x: any, w) {
 						if (!x._ld) {
 							x._ld = 1;
 							const ff = function () {
@@ -55,13 +55,8 @@ export class AnalyticsService {
 						}
 					})(this, window);
 				},
-				key: EULERIAN_ANALYTICS_SERVICE,
-				name: 'Eulerian Analytics',
-				needConsent: true,
-				type: 'analytic',
-				uri: 'https://eulerian.com/vie-privee',
 			};
-			window.tarteaucitron.job.push(EULERIAN_ANALYTICS_SERVICE);
+			this.cookiesService.addCookie(EULERIAN_ANALYTICS_SERVICE, config);
 			return window.EA_push;
 		} catch (e) {
 			return fallbackPushDatalayer;

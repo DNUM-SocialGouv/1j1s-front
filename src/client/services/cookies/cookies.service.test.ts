@@ -75,4 +75,13 @@ describe('CookiesService', () => {
 
 		expect(cookieAccepte).toBe(false);
 	});
+
+	it('push le job quand on ajoute un cookie au gestionnaire', () => {
+		const service = new TarteAuCitronService();
+
+		service.addCookie('tracking', {});
+
+		expect(window.tarteaucitron.services['tracking']).toEqual({});
+		expect(window.tarteaucitron.job).toContain('tracking');
+	});
 });

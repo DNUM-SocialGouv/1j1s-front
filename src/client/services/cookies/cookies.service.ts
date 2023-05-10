@@ -7,6 +7,8 @@ export type Environment = {
 
 export interface CookieService {
 	isCookieAccepted(nom: string): boolean;
+	// FIXME (GAFI 10-05-2023): fix le typage de la config
+	addCookie(nom: string, config: unknown): void;
 }
 
 export class TarteAuCitronService implements CookieService {
@@ -59,5 +61,10 @@ export class TarteAuCitronService implements CookieService {
 		} else {
 			return false;
 		}
+	}
+
+	addCookie(nom: string, config: unknown) {
+		window.tarteaucitron.services[nom] = config;
+		window.tarteaucitron.job.push(nom);
 	}
 }
