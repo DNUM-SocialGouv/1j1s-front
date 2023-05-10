@@ -28,15 +28,14 @@ export class AnalyticsService {
 	private initialiserAnalyticsCampagneDeCommunication(): void {
 		if (window && window.tarteaucitron) {
 
-			window.tarteaucitron.user.adformpm = '2867419-fake';
+			window.tarteaucitron.user.adformpm = '2867419';
 			if (window.location.pathname === '/apprentissage-jeunes') {
-				window.tarteaucitron.user.adformpagename = 'adformpagename';
+				window.tarteaucitron.user.adformpagename = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
 			} else {
 				window.tarteaucitron.user.adformpagename = undefined;
 			}
 
 			window.tarteaucitron.job.push(ADFORM_SERVICE);
-			// TODO: delete after Campaign
 		}
 
 	}
