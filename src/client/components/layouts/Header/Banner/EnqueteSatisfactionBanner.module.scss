@@ -1,0 +1,14 @@
+@use '@styles/utilities';
+
+.enqueteBanner {
+  @extend %text-small;
+  text-align: center;
+  background: utilities.$white-lilac;
+  color: utilities.$color-primary;
+  padding: utilities.pixel-to-rem(20) utilities.pixel-to-rem(8);
+
+  & .enqueteLink:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}

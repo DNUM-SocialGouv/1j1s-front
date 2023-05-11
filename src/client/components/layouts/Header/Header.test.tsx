@@ -111,6 +111,7 @@ describe('Header', () => {
 				expect(encartLien).toHaveAttribute('href', '/apprentissage');
 			});
 		});
+
 		describe('quand la fonctionnalité encart est désactivée', () => {
 			it('affiche le composant Header sans l’encart', async () => {
 				// Given
@@ -144,6 +145,7 @@ describe('Header', () => {
 			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 			expect(campagneApprentissageLink).toBeVisible();
 		});
+
 		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
@@ -189,6 +191,50 @@ describe('Header', () => {
 			// THEN
 			const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
 			expect(jobsEteLink).not.toBeInTheDocument();
+		});
+
+		describe('quand l’enquête de satisfaction est feature flippé', () => {
+			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				expect(lienEnquete).toBeVisible();
+				expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
+			});
+
+			it('ON, mais que l’url de l’enquête n’est pas fournie, masque le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				expect(lienEnquete).not.toBeInTheDocument();
+			});
+
+			it('OFF, masque le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				expect(lienEnquete).not.toBeInTheDocument();
+			});
 		});
 	});
 
