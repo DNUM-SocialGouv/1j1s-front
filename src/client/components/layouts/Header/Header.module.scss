@@ -154,23 +154,6 @@
     line-height: 1.6rem;
     @extend %bold;
   }
-
-  & .enqueteBanner {
-    @extend %text-small;
-    text-align: center;
-    background: utilities.$white-lilac;
-    color: utilities.$color-primary;
-    padding: 20px 8px;
-
-    & .enqueteLink:hover {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-    }
-
-    & > svg {
-      flex-shrink: 0;
-    }
-  }
 }
 
 .subNavItemList {

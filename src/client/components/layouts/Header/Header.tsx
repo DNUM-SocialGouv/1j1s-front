@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/EnqueteSatisfactionBanner';
+import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Banner/EnqueteSatisfactionBanner';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
