@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.70.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.69.0...v3.70.0) (2023-05-11)
+
+
+### Features
+
+* **enquete:** ajouter un encart pour accéder à l'enquête de satisfaction ([#1263](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1263)) ([e5dfde8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e5dfde8063c759bc70fabc2a6f5b5ad63179bfae))
+
 ## [3.69.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.68.1...v3.69.0) (2023-05-11)
 
 
