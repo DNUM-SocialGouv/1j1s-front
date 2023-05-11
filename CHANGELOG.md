@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.69.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.68.1...v3.69.0) (2023-05-11)
+
+
+### Features
+
+* **apprentissage:** mise à jour de l'url de la campagne d'apprentissage jeunes et ajout feature flip carte ([bcc29c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bcc29c2aa0d86825855236ae4cbbd49155b47e30))
+
 ## [3.68.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.68.0...v3.68.1) (2023-05-10)
 
 
