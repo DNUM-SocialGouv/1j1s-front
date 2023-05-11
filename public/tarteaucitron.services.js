@@ -4524,11 +4524,9 @@ tarteaucitron.services.adform = {
     'use strict';
 
     if (tarteaucitron.user.adformpm === undefined || tarteaucitron.user.adformpagename === undefined) {
-      alert("Lancement du script adform : adformpagename non renseigné")
       return;
     }
 
-    alert("Lancement du script adform : adformpagename présent ", tarteaucitron.user.adformpagename)
     window._adftrack = {
       divider: encodeURIComponent('|'),
       pagename: encodeURIComponent(tarteaucitron.user.adformpagename),
