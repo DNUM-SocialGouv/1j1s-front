@@ -37,20 +37,22 @@ describe('AuthenticatedHttpClientService', () => {
 
 		describe('quand le token a expiré', () => {
 			describe('quand le renouvellement du token réussit', () => {
-				it('renouvelle le token et rejoue la requête initiale', async () => {
+				it('renouvelle le token et rejoue la requête initiale avec un nouveau token', async () => {
+					const expiredToken = '1234567890';
 					const accessToken = 'uytrdxcvghfrtyh';
 					const body = { some: 'body' };
 					const apiUrl = 'https://some.test.api';
-					const unauthorizedCall = nock(apiUrl)
+					const unauthorizedCall = nock(apiUrl, { reqheaders: { Authorization: `Bearer ${expiredToken}` } })
 						.get('/test')
-						.reply(401);
+						.reply(401)
+						.persist(true);
 
 					const callWithRefreshedCall = nock(apiUrl, { reqheaders: { Authorization: `Bearer ${accessToken}` } })
 						.get('/test')
 						.reply(200, body);
 
 					const tokenAgentStub = {
-						getToken: jest.fn().mockResolvedValue(accessToken),
+						getToken: jest.fn().mockResolvedValueOnce(expiredToken).mockResolvedValueOnce(accessToken),
 					};
 
 					const client = new AuthenticatedHttpClientService({
@@ -58,13 +60,15 @@ describe('AuthenticatedHttpClientService', () => {
 						apiUrl,
 						tokenAgent: tokenAgentStub,
 					},  aLoggerService());
+					// Intialise le token avec un token expiré
+					await client.refreshToken();
 
 					const actual = await client.get('/test');
 
 					unauthorizedCall.isDone();
 					callWithRefreshedCall.isDone();
 					expect(actual.data).toEqual(body);
-					expect(tokenAgentStub.getToken).toHaveBeenCalledTimes(1);
+					expect(tokenAgentStub.getToken).toHaveBeenCalledTimes(2);
 				});
 			});
 
