@@ -4,13 +4,6 @@
   & h1 {
     @extend %headline;
     font-weight: bold;
-
-  }
-  & .sousTitre {
-    @extend %headline;
-    display: block;
-    font-weight: normal;
-    color: utilities.$color-secondary;
   }
 
 
@@ -22,6 +15,9 @@
       margin-top: 1rem;
       @include utilities.media(small) {
         width: fit-content;
+      }
+
+      @include utilities.media(large) {
         margin-top: 5rem;
       }
     }
