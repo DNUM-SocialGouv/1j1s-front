@@ -12,6 +12,7 @@
 .formulaire {
   padding-left: 2rem;
   padding-right: 2rem;
+  padding-top: 1rem;
 }
 
 .iframe {
@@ -21,12 +22,11 @@
   height: 50rem;
 }
 
-.rgpd {
+.cadreInformation {
   @extend %text-small;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
   background-color: utilities.$color-cadre-formulaire;
 }
-
 
