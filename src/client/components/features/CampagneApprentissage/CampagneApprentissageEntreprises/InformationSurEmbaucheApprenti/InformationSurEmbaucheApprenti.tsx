@@ -12,16 +12,16 @@ export function InformationSurEmbaucheApprenti() {
 
 	return (
 		<Container className={styles.informationSurEmbauche}>
-			<section aria-labelledby={'titre-section-tout-savoir'} className={styles.renseignement}>
-				<h2 id={'titre-section-tout-savoir'}>
+			<section aria-labelledby={'titre-section-renseignement'} className={styles.renseignement}>
+				<h2 id={'titre-section-renseignement'}>
 					Comme eux, vous souhaitez faire le choix de l’apprentissage ?
 				</h2>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
 					Se renseigner sur l’embauche
 				</Link>
 			</section>
-			<section aria-labelledby={'toto'} className={styles.aideFinanciere}>
-				<h2 id={'toto'}>
+			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
+				<h2 id={'titre-section-aide'}>
 						Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière
 				</h2>
 				<p>
