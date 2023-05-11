@@ -2,8 +2,11 @@
  * @jest-environment jsdom
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
+import { cookies } from 'next/headers';
+
 import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { CookieService } from '~/client/services/cookies/cookies.service';
 import { aCookieService } from '~/client/services/cookies/cookies.service.fixture';
 
 describe('AnalyticsService', () => {
@@ -83,6 +86,13 @@ describe('AnalyticsService', () => {
 
 				expect(pageSetSpy).not.toHaveBeenCalled();
 			});
+		});
+		it("ajoute le cookie au manager à l'instanciation", () => {
+			const cookiesService = aCookieService({ addCookie: jest.fn() });
+
+			new AnalyticsService(cookiesService);
+
+			expect(cookiesService).toHaveBeenCalledTimes(1);
 		});
 	});
 });
