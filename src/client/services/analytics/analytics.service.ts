@@ -25,6 +25,7 @@ export class AnalyticsService {
 		this.initialiserAnalyticsCampagneDeCommunication();
 	}
 
+	// TODO à supprimer après la campagne autour de l'apprentissage
 	private initialiserAnalyticsCampagneDeCommunication(): void {
 		if (window && window.tarteaucitron) {
 
