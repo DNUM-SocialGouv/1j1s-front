@@ -922,6 +922,7 @@ var tarteaucitron = {
             }
             //end ie compatibility
 
+            console.log("TAC - dispatch", send_event_item.type);
             document.dispatchEvent(send_event_item);
         }
     },
