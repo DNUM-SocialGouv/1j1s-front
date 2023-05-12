@@ -32,8 +32,8 @@ describe('deposer-offre', () => {
 			</DependenciesProvider>,
 		);
 
-		const simulation = screen.getByRole('link', { name: /Formulaire de dépôt d'offre sur La Bonne Alternance/i });
-		expect(simulation).toBeVisible();
-		expect(simulation).toHaveAttribute('href', 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/espace-pro/creation/entreprise/redirec_from_widget_1j1s');
+		const linkFomulaireLBA = screen.getByRole('link', { name: /Formulaire de dépôt d'offre sur La Bonne Alternance/i });
+		expect(linkFomulaireLBA).toBeVisible();
+		expect(linkFomulaireLBA).toHaveAttribute('href', 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/espace-pro/creation/entreprise/redirec_from_widget_1j1s');
 	});
 });

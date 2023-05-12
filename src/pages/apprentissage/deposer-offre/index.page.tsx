@@ -34,7 +34,7 @@ export default function DeposerOffrePage() {
 			</Hero>
 			<Container className={styles.formulaire}>
 				<p className={styles.cadreInformation}>
-					Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="Formulaire de dépôt d'offre sur La Bonne Alternance">ici</Link> pour y accéder.
+					Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</Link> pour y accéder.
 
 					A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la page d’authentification. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.
 				</p>
@@ -46,7 +46,7 @@ export default function DeposerOffrePage() {
 				<p className={styles.cadreInformation}>
 					Vous êtes informé que vos données sont collectées et traitées par La bonne alternance pour traiter votre
 					demande de dépôt d‘offre d’alternace. Pour en savoir plus sur vos droits, consultez la <Link
-						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de La bonne Alternance.
+						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de La bonne alternance.
 					En cliquant sur «&nbsp;envoyer ma demande&nbsp;» vous reconnaissez avoir pris connaissance et accepter les <Link
 						href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</Link> de La bonne alternance.
 				</p>
