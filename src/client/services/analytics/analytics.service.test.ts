@@ -2,11 +2,9 @@
  * @jest-environment jsdom
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import { cookies } from 'next/headers';
 
 import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
-import { CookieService } from '~/client/services/cookies/cookies.service';
 import { aCookieService } from '~/client/services/cookies/cookies.service.fixture';
 
 describe('AnalyticsService', () => {

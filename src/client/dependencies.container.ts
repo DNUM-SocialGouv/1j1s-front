@@ -3,6 +3,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { CookieService, TarteAuCitronService } from '~/client/services/cookies/cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -23,6 +24,7 @@ export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	alternanceService: AlternanceService
 	analyticsService: AnalyticsService
+	cookiesService: CookieService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
@@ -54,7 +56,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
-	const analyticsService = new AnalyticsService();
+	const cookiesService = new TarteAuCitronService();
+	const analyticsService = new AnalyticsService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -78,6 +81,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	return {
 		alternanceService,
 		analyticsService,
+		cookiesService,
 		demandeDeContactService,
 		formationService,
 		lesEntreprisesSEngagentService,
