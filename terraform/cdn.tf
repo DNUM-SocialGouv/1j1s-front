@@ -11,7 +11,7 @@ resource "cloudflare_record" "domaine" {
   value   = module.front_app.origin_domain
   type    = "CNAME"
   ttl     = 1
-  proxied = contains(["default", "production"],  terraform.workspace) ? true : false
+  proxied = contains(["default", "production"], terraform.workspace) ? true : false
   tags    = ["app:front", "env:${local.nom_environnement}"]
 }
 

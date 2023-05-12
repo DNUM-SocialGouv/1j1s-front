@@ -16,6 +16,6 @@ locals {
   nom_environnement = terraform.workspace == "default" ? "recette" : terraform.workspace
 }
 
-data dotenv envs_du_fichier_env {
+data "dotenv" "envs_du_fichier_env" {
   filename = var.front_fichier_env_secret
 }
