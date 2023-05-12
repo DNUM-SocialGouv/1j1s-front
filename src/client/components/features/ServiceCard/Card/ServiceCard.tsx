@@ -29,7 +29,7 @@ export function ServiceCardList({ children }: React.PropsWithChildren) {
 	);
 }
 
-interface PartnerCardProps {
+interface ServiceCardProps {
 	children: React.ReactNode
 	imageFit?: 'cover' | 'contain'
 	logo: string
@@ -39,7 +39,7 @@ interface PartnerCardProps {
 	titleAs: HtmlHeadingTag
 }
 
-export function ServiceCard(props: PartnerCardProps & React.HTMLAttributes<HTMLLinkElement>) {
+export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const {
 		className, imageFit = 'contain', logo, link, linkLabel, title, titleAs, children,
 	} = props;
@@ -54,7 +54,13 @@ export function ServiceCard(props: PartnerCardProps & React.HTMLAttributes<HTMLL
 
 	return (
 		<Link href={link} className={classNames(styles.cardContainer, className, 'underline-none')}>
-			<Card layout={isLargeScreen ? 'horizontal' : 'vertical'} className={classNames(styles.card, imageFit === 'cover' && styles.cardCover)}>
+			<Card
+				layout={isLargeScreen ? 'horizontal' : 'vertical'}
+				className={classNames(
+					styles.card,
+					isLargeScreen ? styles.cardHorizontal : styles.cardVertical,
+					imageFit === 'cover' && styles.cardCover)}
+			>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
 				<Card.Content className={styles.cardBody}>
 					<Card.Title titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>

@@ -21,8 +21,9 @@
 
 .notOnlyVertical {
   .illustration {
-    height: 100%;
+    height: 7rem;
     @include utilities.media(large) {
+      min-width: 18.875rem;
       height: 10rem;
     }
   }
