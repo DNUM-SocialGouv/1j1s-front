@@ -23,12 +23,15 @@ export class AnalyticsService {
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
+		console.log("INIT EULERIAN");
 		const fallbackPushDatalayer = () => ({});
 		if (!this.isEulerianAnalyticsActive()) {
+			console.log("FALLBACK EULERIAN");
 			return fallbackPushDatalayer;
 		}
 
 		try {
+			console.log("INIT EULERIAN TAC");
 			// Voir https://eulerian.wiki/doku.php?id=fr:modules:collect:gdpr:tarteaucitron
 			window.tarteaucitron.services[EULERIAN_ANALYTICS_SERVICE] = {
 				cookies: ['etuix'],
@@ -68,6 +71,7 @@ export class AnalyticsService {
 	}
 
 	private initialiserGestionnaireConsentementsCookie(): void {
+		console.log("INIT TARTE AU CITRON");
 		/**
 		 * adblocker: Show a Warning if an adblocker is detected (true - false)
 		 * AcceptAllCta: Show the accept all button when highPrivacy on (true - false)
@@ -131,7 +135,9 @@ export class AnalyticsService {
 	}
 
 	envoyerAnalyticsPageVue(pageTags: PageTags): void {
-		if (this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE)) {
+		if (this.isAnalyticsAutorisé()) {
+			console.log('Consetement analytics ok');
+			console.log(this.pushDatalayer.toString());
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
@@ -141,6 +147,10 @@ export class AnalyticsService {
 			});
 			this.pushDatalayer(datalayer);
 		}
+	}
+
+	public isAnalyticsAutorisé(): boolean {
+		return this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE);
 	}
 
 	private isEulerianAnalyticsActive(): boolean {
