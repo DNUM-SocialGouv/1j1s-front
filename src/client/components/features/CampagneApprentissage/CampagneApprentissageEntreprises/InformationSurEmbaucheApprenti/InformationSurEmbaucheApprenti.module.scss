@@ -1,37 +1,5 @@
 @use '@styles/utilities';
 
-//.informationSurEmbauche {
-//  padding: 1.75rem 2rem;
-//  background-color: utilities.$color-background-white-lilac;
-//
-//  @include utilities.media(large) {
-//    padding: 5rem 1rem ;
-//    background-color: revert;
-//  }}
-//
-//.informationSurEmbauche .contenu {
-//  display: flex;
-//  flex-direction: column;
-//  gap: 1rem;
-//  align-items: center;
-//  text-align: center;
-//  max-width: 40rem;
-//
-//  @include utilities.media(large) {
-//    gap: 2.5rem;
-//  }
-//
-//  & h2 {
-//    @extend %subheading;
-//    color: utilities.$color-primary;
-//  }
-//
-//  & .description {
-//    @extend %text-regular;
-//  }
-//}
-
-
 .informationSurEmbauche {
 
   @include utilities.media(large) {
@@ -59,7 +27,7 @@
     }
   }
 
-  h2 {
+  & h2 {
     @extend %subheading;
     color: utilities.$color-primary;
     flex-grow: 1;
@@ -69,13 +37,13 @@
     }
   }
 
-  p {
+  & .description {
     @include utilities.media(large) {
       text-align: center;
     }
   }
 
-  .link {
+  & .link {
     max-width: 60ch;
     width: 100%;
     align-self: center;

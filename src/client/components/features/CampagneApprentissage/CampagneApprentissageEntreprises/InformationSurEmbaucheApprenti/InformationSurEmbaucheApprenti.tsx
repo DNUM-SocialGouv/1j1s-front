@@ -24,7 +24,7 @@ export function InformationSurEmbaucheApprenti() {
 				<h2 id={'titre-section-aide'}>
 						Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière
 				</h2>
-				<p>
+				<p className={styles.description}>
 						Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master
 				</p>
 				<Link href={enSavoirPlusSurAideLink} appearance={'asSecondaryButton'} className={styles.link}>
