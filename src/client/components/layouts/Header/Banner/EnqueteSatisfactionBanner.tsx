@@ -12,7 +12,7 @@ export function EnqueteSatisfactionBanner({ enqueteUrl }: EnqueteSatisfactionBan
 	return <div className={styles.enqueteBanner}>
 		<Link href={enqueteUrl} className={styles.enqueteLink}>
             Vous souhaitez aider 1jeune1solution à s’améliorer ?{' '}
-			<TextIcon icon="external-redirection">Donnez votre avis en moins de 5 minutes</TextIcon>
+			<TextIcon icon="external-redirection" className={styles.enqueteUrlDeuxiemePhrase}>Donnez votre avis en moins de 5 minutes</TextIcon>
 		</Link>
 	</div>;
 }
