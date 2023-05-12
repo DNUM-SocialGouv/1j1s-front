@@ -32,10 +32,12 @@ export default function Document() {
 			<body>
 				<Main/>
 				<NextScript/>
-				<Script
-				  src="/scripts/tarteaucitron.js"
-				  strategy="beforeInteractive"
-				/>
+				{ process.env.NODE_ENV === 'production' &&
+					<Script
+						src="/scripts/tarteaucitron.js"
+						strategy="beforeInteractive"
+					/>
+				}
 				{ process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1' &&
           <Script
           	id="eulerianAnalytics"
