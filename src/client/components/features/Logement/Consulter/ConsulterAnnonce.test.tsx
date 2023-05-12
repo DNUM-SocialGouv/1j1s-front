@@ -11,7 +11,7 @@ import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulte
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { uneAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
 describe('<ConsulterAnnonce />', () => {
@@ -23,7 +23,7 @@ describe('<ConsulterAnnonce />', () => {
 	});
 
 	it('affiche le le bouton retour vers la liste des annonces', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -33,7 +33,7 @@ describe('<ConsulterAnnonce />', () => {
 	});
 
 	it("affiche le titre de l'annonce", () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
@@ -46,7 +46,7 @@ describe('<ConsulterAnnonce />', () => {
 	});
 
 	it('affiche le type de logement', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.type = 'Location';
 		annonceDeLogement.typeBien = 'Appartement';
 
@@ -57,7 +57,7 @@ describe('<ConsulterAnnonce />', () => {
 	});
 
 	it('affiche la date de mise à jour au bon format', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
 
 		render(
@@ -70,7 +70,7 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toHaveTextContent(/Annonce mise à jour le 1 février 2020/i);
 	});
 	it('affiche la date de mise à jour au bon format dépendamment de la locale', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
 
 		render(
@@ -83,7 +83,7 @@ describe('<ConsulterAnnonce />', () => {
 		expect(date).toHaveTextContent(/Annonce mise à jour le February 1, 2020/i);
 	});
 	it("ajoute l'attribut lang à la date", () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
 
 		render(
@@ -96,9 +96,9 @@ describe('<ConsulterAnnonce />', () => {
 	});
 
 	describe('carousel', () => {
-		let annonceDeLogement = uneAnnonceDeLogement();
+		let annonceDeLogement = anAnnonceDeLogement();
 		beforeEach(() => {
-			annonceDeLogement = uneAnnonceDeLogement();
+			annonceDeLogement = anAnnonceDeLogement();
 		});
 
 		describe('quand il n‘y a pas d‘image a afficher', () => {
@@ -137,7 +137,7 @@ describe('<ConsulterAnnonce />', () => {
 		});
 	});
 	it('affiche la description du logement', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.description = "C'est un super logement !";
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
@@ -146,7 +146,7 @@ describe('<ConsulterAnnonce />', () => {
 		expect(description).toBeVisible();
 	});
 	it('affiche les informations générales', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 		const section = screen.getByRole('region', { name: /Informations Générales/i });
@@ -156,7 +156,7 @@ describe('<ConsulterAnnonce />', () => {
 
 	describe('bilan énergétique du logement', ()=>{
 		it('affiche la consommation énergétique du logement',  () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -165,7 +165,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(consommationEnergetique).toBeVisible();
 		});
 		it('affiche le libellé de la consommation énergétique du logement',  () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -175,7 +175,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(tag).toHaveAttribute('aria-describedby', description.id);
 		});
 		it('affiche la couleur de la consommation énergétique du logement',  () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.consommationEnergetique = 'A';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -184,7 +184,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(tag).toHaveAttribute('style', '--color: var(--color-a); --text-color: var(--text-color-a);');
 		});
 		it('affiche l’émission de gaz du logement',  ()=>{
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -193,7 +193,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(emissionDeGaz).toBeVisible();
 		});
 		it('affiche le libellé de l’émission de gaz du logement',  () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -202,7 +202,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(tag).toHaveAccessibleDescription(/Très importante émission de gaz à effet de serre/i);
 		});
 		it('affiche la couleur de l’émission de gaz du logement',  () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -211,7 +211,7 @@ describe('<ConsulterAnnonce />', () => {
 			expect(tag).toHaveAttribute('style', '--color: var(--color-g); --text-color: var(--text-color-g);');
 		});
 		it('affiche le titre pour les émissions de gaz à effet de serre', async () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			annonceDeLogement.bilanEnergetique.emissionDeGaz = 'G';
 
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
@@ -227,7 +227,7 @@ describe('<ConsulterAnnonce />', () => {
 	describe('source', () => {
 		describe('quand la source est immojeune', () => {
 			it('retourne le logo immojeune',  () => {
-				const annonceDeLogement = uneAnnonceDeLogement();
+				const annonceDeLogement = anAnnonceDeLogement();
 				annonceDeLogement.source = 'immojeune' as AnnonceDeLogement.Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
@@ -240,7 +240,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est studapart', () => {
 			it('retourne le logo studapart',  () => {
-				const annonceDeLogement = uneAnnonceDeLogement();
+				const annonceDeLogement = anAnnonceDeLogement();
 				annonceDeLogement.source = 'studapart' as AnnonceDeLogement.Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
@@ -253,7 +253,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
-				const annonceDeLogement = uneAnnonceDeLogement();
+				const annonceDeLogement = anAnnonceDeLogement();
 				annonceDeLogement.source = 'seLoger' as AnnonceDeLogement.Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.queryByText('Ce bien est diffusé par');
@@ -266,7 +266,7 @@ describe('<ConsulterAnnonce />', () => {
 
 	describe('call to action Voir l‘annonce', () => {
 		it('affiche un lien externe Voir l‘annonce', () => {
-			const annonceDeLogement = uneAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement();
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce' });
 			expect(lienExterneCandidater).toBeInTheDocument();
@@ -274,7 +274,7 @@ describe('<ConsulterAnnonce />', () => {
 		});
 	});
 	it('affiche les services', () => {
-		const annonceDeLogement = uneAnnonceDeLogement();
+		const annonceDeLogement = anAnnonceDeLogement();
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 		const section = screen.getByRole('region', { name: /Équipements et services/i });

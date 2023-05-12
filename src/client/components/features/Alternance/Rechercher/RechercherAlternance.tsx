@@ -34,6 +34,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
 export default function RechercherAlternance() {
 	const router = useRouter();
+	const isCampagneApprentissageActive = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	const alternanceQuery = useAlternanceQuery();
 
@@ -112,7 +113,8 @@ export default function RechercherAlternance() {
 				},
 				{
 					label: 'Entreprises',
-					listeSolutionElement: <ListeSolutionAlternanceEntreprise entrepriseList={alternanceList.entrepriseList}></ListeSolutionAlternanceEntreprise>,
+					listeSolutionElement: <ListeSolutionAlternanceEntreprise
+						entrepriseList={alternanceList.entrepriseList}></ListeSolutionAlternanceEntreprise>,
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>
@@ -133,7 +135,7 @@ export default function RechercherAlternance() {
 			</ArticleCardList>
 			<EnTete heading="Découvrez des services faits pour vous"/>
 			<ServiceCardList>
-				<DecouvrirApprentissage/>
+				{isCampagneApprentissageActive && <DecouvrirApprentissage/>}
 				<PassPartner/>
 				<OnisepPartner/>
 			</ServiceCardList>
@@ -153,7 +155,9 @@ function BannièreApprentissage() {
 }
 
 
-function ListeSolutionAlternanceEntreprise({ entrepriseList }: { entrepriseList: Array<RésultatRechercheAlternance.Entreprise> }): React.ReactElement {
+function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
+	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+}): React.ReactElement {
 	return (
 		<>
 			<ListeRésultatsRechercherSolution aria-label="Entreprises">
@@ -178,7 +182,9 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: { entrepriseList:
 	);
 }
 
-function ListeSolutionAlternance({ alternanceList } : { alternanceList:  Array<RésultatRechercheAlternance.Offre>}): React.ReactElement {
+function ListeSolutionAlternance({ alternanceList }: {
+	alternanceList: Array<RésultatRechercheAlternance.Offre>
+}): React.ReactElement {
 	const getLogo = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
 			return '/images/logos/la-bonne-alternance.svg';

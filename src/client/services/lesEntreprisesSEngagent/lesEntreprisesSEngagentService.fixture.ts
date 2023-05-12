@@ -12,7 +12,7 @@ export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentServic
 	} as unknown as LesEntreprisesSEngagentService;
 }
 
-export const uneCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation = () => ({
+export const aCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation = () => ({
 	codePostal: '75015',
 	email: 'machin.chose@bidule.com',
 	nom: 'Chose',
@@ -26,7 +26,7 @@ export const uneCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation =
 	ville: 'Paris (15e arrondissement)',
 });
 
-export const uneEntreprise: () => Entreprise = () => ({
+export const anEntreprise: () => Entreprise = () => ({
 	codePostal: '75015',
 	email: 'machin.chose@bidule.com',
 	nom: 'Chose',
@@ -40,7 +40,7 @@ export const uneEntreprise: () => Entreprise = () => ({
 	ville: 'Paris (15e arrondissement)',
 });
 
-export const uneEntrepriseMember = () => ({
+export const anEntrepriseMember = () => ({
 	companyName: 'Bidule co.',
 	companyPostalCode: '75015',
 	companySector: 'other-services',
@@ -54,7 +54,7 @@ export const uneEntrepriseMember = () => ({
 	phone: '+33123456789',
 });
 
-export const unContenuEntreprise = (annotation?: string) => ({
+export const aContenuEntreprise = (annotation?: string) => ({
 	code_postal: '75015',
 	email: 'machin.chose@bidule.com',
 	nom: 'Chose',

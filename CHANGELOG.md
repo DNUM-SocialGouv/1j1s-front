@@ -1,5 +1,40 @@
 # Changelog
 
+## [3.70.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.69.0...v3.70.0) (2023-05-11)
+
+
+### Features
+
+* **enquete:** ajouter un encart pour accéder à l'enquête de satisfaction ([#1263](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1263)) ([e5dfde8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e5dfde8063c759bc70fabc2a6f5b5ad63179bfae))
+
+## [3.69.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.68.1...v3.69.0) (2023-05-11)
+
+
+### Features
+
+* **apprentissage:** mise à jour de l'url de la campagne d'apprentissage jeunes et ajout feature flip carte ([bcc29c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bcc29c2aa0d86825855236ae4cbbd49155b47e30))
+
+## [3.68.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.68.0...v3.68.1) (2023-05-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to ~7.51.0 ([#1257](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1257)) ([d2a5fe1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d2a5fe18736eeccd182a24a952ab1a3a855c77b0))
+
+## [3.68.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.67.1...v3.68.0) (2023-05-10)
+
+
+### Features
+
+* **apprentissage:** modification image encart campagne apprentissage entreprise ([#1282](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1282)) ([b3377cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3377cfd8ab871bbf04a3f7433c03b4c2d0f1235))
+
+## [3.67.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.67.0...v3.67.1) (2023-05-10)
+
+
+### Bug Fixes
+
+* charge le script eulerian en évitant un script-inline ([#1278](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1278)) ([88d2e21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88d2e21af8bd66721721b888df96c6e0f8fdb510))
+
 ## [3.67.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.66.2...v3.67.0) (2023-05-09)
 
 

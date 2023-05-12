@@ -1,8 +1,8 @@
 import nock from 'nock';
 
 import {
-	unContenuEntreprise,
-	uneEntreprise,
+	aContenuEntreprise,
+	anEntreprise,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import {
 	StrapiRejoindreLaMobilisationRepository,
@@ -13,7 +13,7 @@ import { AuthenticatedHttpClientService } from '~/server/services/http/authentic
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('StrapiRejoindreLaMobilisationRepository', () => {
-	const entreprise = uneEntreprise();
+	const entreprise = anEntreprise();
 	afterEach(() => {
 		nock.cleanAll();
 	});
@@ -34,7 +34,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
 			// Given
 			const strapi = nock(strapiUrl)
 				.post('/entreprises', {
-					data: unContenuEntreprise(),
+					data: aContenuEntreprise(),
 				})
 				.reply(201, {});
 			// When
@@ -62,7 +62,7 @@ describe('StrapiRejoindreLaMobilisationRepository', () => {
 				const strapi = nock(strapiUrl)
 					.post('/entreprises', {
 						data: {
-							...unContenuEntreprise(),
+							...aContenuEntreprise(),
 							erreur: annotation,
 						},
 					})

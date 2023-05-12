@@ -11,7 +11,7 @@ import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce
 import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
 
 
-const uneAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {
+const anAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {
 	return {
 		dateDeDisponibilite: '2023-01-01',
 		dateDeMiseAJour: '2022-12-04',
@@ -41,7 +41,7 @@ describe('Annonce Component', () => {
 		it('contient une image par défaut', () => {
 			render(
 				<AnnonceDeLogement
-					hit={uneAnnonceDeLogement({ imagesUrl: [] })}
+					hit={anAnnonceDeLogement({ imagesUrl: [] })}
 					sendEvent={jest.fn()}
 				/>,
 			);
@@ -54,7 +54,7 @@ describe('Annonce Component', () => {
 		it('contient l‘image', () => {
 			render(
 				<AnnonceDeLogement
-					hit={uneAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
+					hit={anAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
 					sendEvent={jest.fn()}
 				/>,
 			);
@@ -67,7 +67,7 @@ describe('Annonce Component', () => {
 		it('contient un carousel d‘images', () => {
 			render(
 				<AnnonceDeLogement
-					hit={uneAnnonceDeLogement()}
+					hit={anAnnonceDeLogement()}
 					sendEvent={jest.fn()}
 				/>,
 			);
@@ -82,7 +82,7 @@ describe('Annonce Component', () => {
 			it('contient le type de logement intérgénérationnel', () => {
 				render(
 					<AnnonceDeLogement
-						hit={uneAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
+						hit={anAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
 						sendEvent={jest.fn()}
 					/>,
 				);
@@ -95,7 +95,7 @@ describe('Annonce Component', () => {
 			it('contient le type de logement', () => {
 				render(
 					<AnnonceDeLogement
-						hit={uneAnnonceDeLogement()}
+						hit={anAnnonceDeLogement()}
 						sendEvent={jest.fn()}
 					/>,
 				);
@@ -109,7 +109,7 @@ describe('Annonce Component', () => {
 	it('contient la date de mise à jours', () => {
 		render(
 			<AnnonceDeLogement
-				hit={uneAnnonceDeLogement()}
+				hit={anAnnonceDeLogement()}
 				sendEvent={jest.fn()}
 			/>,
 		);
@@ -121,7 +121,7 @@ describe('Annonce Component', () => {
 	it('contient le titre de l‘annonce', () => {
 		render(
 			<AnnonceDeLogement
-				hit={uneAnnonceDeLogement()}
+				hit={anAnnonceDeLogement()}
 				sendEvent={jest.fn()}
 			/>,
 		);
@@ -132,7 +132,7 @@ describe('Annonce Component', () => {
 	it('contient la surface et le prix', () => {
 		render(
 			<AnnonceDeLogement
-				hit={uneAnnonceDeLogement()}
+				hit={anAnnonceDeLogement()}
 				sendEvent={jest.fn()}
 			/>,
 		);
@@ -148,7 +148,7 @@ describe('Annonce Component', () => {
 	it('contient la localisation', () => {
 		render(
 			<AnnonceDeLogement
-				hit={uneAnnonceDeLogement()}
+				hit={anAnnonceDeLogement()}
 				sendEvent={jest.fn()}
 			/>,
 		);
@@ -160,7 +160,7 @@ describe('Annonce Component', () => {
 	it('contient le lien externe de l‘annonce', () => {
 		render(
 			<AnnonceDeLogement
-				hit={uneAnnonceDeLogement()}
+				hit={anAnnonceDeLogement()}
 				sendEvent={jest.fn()}
 			/>,
 		);
