@@ -5,6 +5,20 @@
 import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 
+const mockLocation = () => {
+	const mockResponse = jest.fn();
+	Object.defineProperty(window, 'location', {
+		value: {
+			assign: mockResponse,
+			hash: {
+				endsWith: mockResponse,
+				includes: mockResponse,
+			},
+		},
+		writable: true,
+	});
+};
+
 describe('AnalyticsService', () => {
 	const pageSetSpy = jest.fn();
 	const initSpy = jest.fn();
@@ -18,6 +32,7 @@ describe('AnalyticsService', () => {
 			user: {},
 		};
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
+		mockLocation();
 	});
 
 	afterEach(() => {
@@ -57,6 +72,38 @@ describe('AnalyticsService', () => {
 		new AnalyticsService();
 
 		expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
+	});
+
+	describe('initialiserAnalyticsCampagneDeCommunication', () => {
+		it('initialise le service adform', () => {
+			new AnalyticsService();
+
+			expect(window.tarteaucitron.job).toContainEqual('adform');
+		});
+		it('set la valeur adformpm pour la campagne', () => {
+			new AnalyticsService();
+
+			expect(window.tarteaucitron.user.adformpm).toEqual(2867419);
+		});
+		describe('quand on est pas sur la page de campagne jeune', () => {
+			it('la valeur de pagename ne doit pas être définie', () => {
+				window.location.pathname = '/';
+
+				new AnalyticsService();
+
+				expect(window.tarteaucitron.user.adformpagename).toEqual(undefined);
+
+			});
+		});
+		describe('quand on est sur la page de campagne jeune', () => {
+			it('la valeur de pagename ne doit pas être définie', () => {
+				window.location.pathname = '/apprentissage-jeunes';
+
+				new AnalyticsService();
+
+				expect(window.tarteaucitron.user.adformpagename).toEqual('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
+			});
+		});
 	});
 
 	describe('envoyerAnalyticsPageVue', () => {
