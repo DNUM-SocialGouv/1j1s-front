@@ -27,7 +27,7 @@ describe('CampagneApprentissageJeunes', () => {
 		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
 
 		// THEN
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix./i });
+		const titre = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i });
 		expect(titre).toBeVisible();
 		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
 		expect(sousTitre).toBeVisible();
