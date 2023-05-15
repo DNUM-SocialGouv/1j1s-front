@@ -44,6 +44,15 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 						allowFullScreen
 						className={styles.iframe}
 					/>
+					<div className={styles.layoutCookiesNotAccepted}>
+						<p>Cette vidéo est hébergée par{' '}
+							<Link href={'https://www.youtube.com/t/terms'}>
+								<TextIcon icon={'external-redirection'} className={styles.linkToYoutubeTerms}>youtube.com</TextIcon>
+							</Link>
+						</p>
+						<p>En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site.</p>
+						<hr role='presentation'/>
+					</div>
 				</div>
 				<details className={styles.transcription}>
 					<summary>Lire la transcription</summary>

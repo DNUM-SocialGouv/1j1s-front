@@ -42,11 +42,34 @@
     grid-area: video;
   }
 
-  & .iframe {
+  %frame {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 100%;
+  }
+
+  & .iframe {
+    @extend %frame;
+  }
+
+  & .layoutCookiesNotAccepted {
+    @extend %frame;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: utilities.pixel-to-rem(40);
+    background-color: rgba(utilities.$color-on-background, 90%);
+    color: utilities.$color-surface;
+
+    & .linkToYoutubeTerms {
+      @extend %bold;
+      text-decoration: underline;
+    }
+
+    & hr {
+      margin: utilities.pixel-to-rem(24) 0;
+    }
   }
 }
 
