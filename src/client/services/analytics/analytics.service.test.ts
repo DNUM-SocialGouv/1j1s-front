@@ -90,7 +90,7 @@ describe('AnalyticsService', () => {
 
 			new AnalyticsService(cookiesService);
 
-			expect(cookiesService).toHaveBeenCalledTimes(1);
+			expect(cookiesService.addCookie).toHaveBeenCalledTimes(1);
 		});
 	});
 });
