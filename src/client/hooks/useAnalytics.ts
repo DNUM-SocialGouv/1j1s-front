@@ -10,6 +10,7 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAnalyticsAutorisé());
 
 	useEffect(function addEventListeners() {
+		// FIXME (GAFI 15-05-2023): Quick fix, needs rework ASAP (and tests)
 		function RetrySendingAnalytics() {
 			setIsAnalyticsAllowed(!isAnalyticsAutorisé);
 		}
