@@ -34,9 +34,8 @@ export default function DeposerOffrePage() {
 			</Hero>
 			<Container className={styles.formulaire}>
 				<p className={styles.cadreInformation}>
-					Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</Link> pour y accéder.
-
-					A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la page d’authentification. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.
+					<span>Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</Link> pour y accéder.</span>
+					<span>A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la page d’authentification. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.</span>
 				</p>
 				<iframe
 					className={styles.iframe}
