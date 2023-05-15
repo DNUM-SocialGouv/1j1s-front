@@ -1,8 +1,8 @@
 import nock from 'nock';
 
 import {
-	uneEntreprise,
-	uneEntrepriseMember,
+	anEntreprise,
+	anEntrepriseMember,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -30,9 +30,9 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 		it('envoie un POST vers l‘API des entreprise s‘engagent', async () => {
 			// Given
 			const api = nock(entrepriseApiUrl)
-				.post('/api/members', uneEntrepriseMember())
+				.post('/api/members', anEntrepriseMember())
 				.reply(201, {});
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then
@@ -44,7 +44,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 			nock('https://lesentreprisesengagent.france')
 				.post('/api/members')
 				.reply(503, {});
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then
@@ -62,7 +62,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 						status: 400,
 					},
 				});
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then
@@ -80,7 +80,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 						status: 409,
 					},
 				});
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then
@@ -98,7 +98,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 						status: 404,
 					},
 				});
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then
@@ -106,7 +106,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 		});
 		it('résout une erreur quand il y a une erreur réseau', async () => {
 			// Given
-			const entreprise = uneEntreprise();
+			const entreprise = anEntreprise();
 			// When
 			const actual = await repository.save(entreprise);
 			// Then

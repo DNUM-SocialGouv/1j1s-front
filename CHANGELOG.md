@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.71.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.71.0...v3.71.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **multiple:** regression visuelle sur les Cards (repassage en flex) ([41daa72](https://github.com/DNUM-SocialGouv/1j1s-front/commit/41daa72d0e51dc1ebe1fd384f05c64887cb3cb98))
+* **text-icon:** remettre display inline-flex ([99b9d59](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99b9d59a47bff909100023648a04643fb338b8ab))
+
+## [3.71.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.70.1...v3.71.0) (2023-05-15)
+
+
+### Features
+
+* ajout d'un encart informatif avant l'iframe de depot d'offre al… ([#1287](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1287)) ([12df958](https://github.com/DNUM-SocialGouv/1j1s-front/commit/12df958fead54a083b8df062cf4dc87871751b5b))
+
+## [3.70.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.70.0...v3.70.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **strapi:** changement code erreur defaut auth dans strapi empechant l'obtention du token ([508fd77](https://github.com/DNUM-SocialGouv/1j1s-front/commit/508fd77f897442affc4cf98e9c4023d6241064dc))
+
 ## [3.70.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.69.0...v3.70.0) (2023-05-11)
 
 

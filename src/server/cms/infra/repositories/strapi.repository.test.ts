@@ -1,7 +1,7 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
-import { uneAnnonceDeLogement, uneAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { anAnnonceDeLogement, anAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
@@ -22,6 +22,7 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 import {
 	anActualiteFixture,
 	anOffreDeStageDepotStrapi,
+	anOffreDeStageResponse,
 	aStrapiAnnonceDeLogementSlugList,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
@@ -34,7 +35,6 @@ import {
 	aStrapiPage2FicheMetierNomMetierList,
 	aStrapiSingleType,
 	aStrapiVideosCampagneApprentissage,
-	uneOffreDeStageResponse,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createSuccess, Failure, Success } from '~/server/errors/either';
@@ -231,11 +231,11 @@ describe('strapi cms repository', () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([uneAnnonceDeLogementResponse()])));
-				const slug = uneAnnonceDeLogementResponse().slug;
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anAnnonceDeLogementResponse()])));
+				const slug = anAnnonceDeLogementResponse().slug;
 
 				const { result } = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug) as Success<AnnonceDeLogement>;
-				expect(result).toEqual(uneAnnonceDeLogement());
+				expect(result).toEqual(anAnnonceDeLogement());
 				expect(httpClientService.get).toHaveBeenCalledWith(`annonces-de-logement?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 			});
 		});
@@ -260,8 +260,8 @@ describe('strapi cms repository', () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([uneOffreDeStageResponse()])));
-				const slug = uneOffreDeStageResponse().slug;
+				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anOffreDeStageResponse()])));
+				const slug = anOffreDeStageResponse().slug;
 
 				const { result } = await strapiCmsRepository.getOffreDeStageBySlug(slug) as Success<OffreDeStage>;
 				expect(result).toEqual(uneOffreDeStage());

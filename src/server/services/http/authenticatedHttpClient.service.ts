@@ -62,7 +62,8 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 	private isAuthenticationError(error: AxiosError): boolean {
 		// Note : 403, bien que peu standard, est le code d’erreur retourné par Strapi lors d'un défaut d'authentification
-		return (error.response?.status === 401 || error.response?.status === 403);
+		// Note : 500 est le code d’erreur retourné par Strapi lors d'un défaut d'authentification
+		return (error.response?.status === 401 || error.response?.status === 403 || error.response?.status === 500);
 	}
 
 	private isRequestFirstTry(error: AxiosError): boolean {

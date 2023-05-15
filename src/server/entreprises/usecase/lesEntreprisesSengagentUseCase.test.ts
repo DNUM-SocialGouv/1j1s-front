@@ -1,4 +1,4 @@
-import { uneCommandeRejoindreLaMobilisation, uneEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { aCommandeRejoindreLaMobilisation, anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -18,8 +18,8 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 		usecase = new LesEntreprisesSEngagentUseCase(primaryRepository, secondaryRepository);
 	});
 	describe('.rejoindreLaMobilisation(command)', () => {
-		const commande = uneCommandeRejoindreLaMobilisation();
-		const entreprise = uneEntreprise();
+		const commande = aCommandeRejoindreLaMobilisation();
+		const entreprise = anEntreprise();
 
 		describe('Quand tout est valide', () => {
 			it('sauvegarde dans le dépôt primaire', async () => {

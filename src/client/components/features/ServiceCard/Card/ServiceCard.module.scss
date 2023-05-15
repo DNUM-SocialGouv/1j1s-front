@@ -27,13 +27,26 @@
 
 
   & .card {
+    display: grid;
+    &Horizontal {
+      grid-template-columns: 18.875rem 1fr;
+    }
+
+    &Vertical {
+      grid-template-rows: 7.75rem 1fr;
+    }
+
     & .cardLogo {
       align-self: center;
       justify-self: center;
       align-items: center;
       justify-content: center;
+      min-height: 92px;
+      min-width: 310px;
 
       @include utilities.media(large) {
+        width: 100%;
+        min-width: 140px;
         flex-shrink: 0;
         border: 0;
       }
