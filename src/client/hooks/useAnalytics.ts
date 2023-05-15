@@ -9,48 +9,27 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 
 	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAnalyticsAutorisé());
 
-	const onAnalyticsAutorisé = () => {
-		console.log('onAnalyticsAutorisé');
-		setIsAnalyticsAllowed(true);
-	};
-	const onAnalyticsInterdit = () => setIsAnalyticsAllowed(false);
+	useEffect(function addEventListeners() {
+		function RetrySendingAnalytics() {
+			setIsAnalyticsAllowed(!isAnalyticsAutorisé);
+		}
 
-	useEffect(() => {
-		console.log('addEventListener allowed');
-		document.addEventListener('eulerian_allowed', onAnalyticsAutorisé);
+		document.addEventListener('eulerian_allowed', RetrySendingAnalytics);
+		document.addEventListener('eulerian_added', RetrySendingAnalytics);
+		document.addEventListener('eulerian_loaded', RetrySendingAnalytics);
+		document.addEventListener('eulerian_disallowed', RetrySendingAnalytics);
+
 		return () => {
-			console.log('remove addEventListener allowed');
-			document.removeEventListener('eulerian_allowed', onAnalyticsAutorisé);
+			document.removeEventListener('eulerian_allowed', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_added', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_loaded', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_disallowed', RetrySendingAnalytics);
 		};
-	}, []);
+	}, [isAnalyticsAutorisé, setIsAnalyticsAllowed]);
 
-	useEffect(() => {
-		console.log('addEventListener added');
-		document.addEventListener('eulerian_added', onAnalyticsAutorisé);
-		return () => {
-			console.log('remove addEventListener added');
-			document.removeEventListener('eulerian_added', onAnalyticsAutorisé);
-		};
-	}, []);
-
-
-	useEffect(() => {
-		console.log('addEventListener loaded');
-		document.addEventListener('eulerian_loaded', onAnalyticsAutorisé);
-		return () => document.removeEventListener('eulerian_loaded', onAnalyticsAutorisé);
-	}, []);
-
-
-	useEffect(() => {
-		console.log('addEventListener disallowed');
-		document.addEventListener('eulerian_disallowed', onAnalyticsInterdit);
-		return () => document.removeEventListener('eulerian_disallowed', onAnalyticsInterdit);
-	}, []);
-
-	useEffect(() => {
-		console.log('envoyerAnalyticsPageVue');
+	useEffect(function sendAnalytics() {
 		analyticsService.envoyerAnalyticsPageVue(pageTags);
-	}, [isAnalyticsAutorisé]);
+	}, [analyticsService, isAnalyticsAutorisé, pageTags]);
 
 	return analyticsService;
 }
