@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.70.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.70.0...v3.70.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **strapi:** changement code erreur defaut auth dans strapi empechant l'obtention du token ([508fd77](https://github.com/DNUM-SocialGouv/1j1s-front/commit/508fd77f897442affc4cf98e9c4023d6241064dc))
+
 ## [3.70.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.69.0...v3.70.0) (2023-05-11)
 
 
