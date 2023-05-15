@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.72.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.71.1...v3.72.0) (2023-05-15)
+
+
+### Features
+
+* **job-ete:** page detail ([5ed7760](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5ed77600e0df3c8f611f0cdb92fca4b8ebc6645c))
+* **job-ete:** page recherche ([8bf7351](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8bf7351a1e79752c25d3d3c41495bed5974eece2))
+* **jobs-ete:** add server + service ([2677239](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2677239644e6405b9772d893e7fe0d0b4de22770))
+
+
+### Bug Fixes
+
+* **http-client:** refresh token pas appliqué quand la requete precedente avait deja un token ([62eb589](https://github.com/DNUM-SocialGouv/1j1s-front/commit/62eb589f5274173f1960a523a00cafe7aedc8829))
+
 ## [3.71.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.71.0...v3.71.1) (2023-05-15)
 
 
