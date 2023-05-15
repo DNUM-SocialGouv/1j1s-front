@@ -74,7 +74,7 @@ export class AnalyticsService {
 					})(this, window);
 				},
 				key: EULERIAN_ANALYTICS_SERVICE,
-				name: 'Tracking (services : Amnet, Seedtag, Yahoo, Snapchat, Meta, TikTok)',
+				name: 'Eulerian Analytics',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
