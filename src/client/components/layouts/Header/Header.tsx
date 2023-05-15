@@ -20,7 +20,7 @@ export function Header() {
 			className={styles.header}
 			role="banner">
 			{ !isLargeScreen && displayCampagneApprentissageBanner &&
-				<Link href="/apprentissage" className={styles.headerBannerMobile}>
+				<Link href="/choisir-apprentissage" className={styles.headerBannerMobile}>
 				  <div className={styles.headerBannerMobileTitle}>L’apprentissage, c’est le bon choix !</div>
 				  <Icon className={styles.headerBannerMobileIcon} name='angle-right' />
 				</Link>
