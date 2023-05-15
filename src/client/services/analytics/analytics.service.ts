@@ -149,7 +149,7 @@ export class AnalyticsService {
 		}
 	}
 
-	envoyerAnalyticsPageVue(pageTags: PageTags): void {
+	public envoyerAnalyticsPageVue(pageTags: PageTags): void {
 		if (this.isAnalyticsAutorisé()) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
