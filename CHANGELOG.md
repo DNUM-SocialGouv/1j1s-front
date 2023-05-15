@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.73.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.72.0...v3.73.0) (2023-05-15)
+
+
+### Features
+
+* ajout log recette + wording ([a34db71](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a34db7144abad1ce40daea0aca0de2b745187db4))
+* **header:** lien vers la page de campagne ([dfc2aed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dfc2aed9f01a562176587dca8296737715adbe8b))
+* poc activation cookies instagram et facebook ([69e6773](https://github.com/DNUM-SocialGouv/1j1s-front/commit/69e67738e194343b1f77405a363d771b16633091))
+* suppression des alert de test ([4e5ffbc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e5ffbc6d617fa1170d8a4ae5aa12b0cb9efd1ed))
+* test activcation pagename ([9aa17fe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9aa17fe102ac3ccae15252470150c68cdba6e960))
+* test ajout adform ([86ff3df](https://github.com/DNUM-SocialGouv/1j1s-front/commit/86ff3df4bbc7d96db340cc29f648f8275c6e427e))
+* tests ([5381d9d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5381d9daa857ae745318b08f7f5edf31b315fbf1))
+
+
+### Bug Fixes
+
+* active les cookies partout ([847a5ad](https://github.com/DNUM-SocialGouv/1j1s-front/commit/847a5ada8a25b125fdc9982cd2b45fd991bbd295))
+* fix ([25882f4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/25882f440b20925657e227d18edec79a763b06bb))
+* mise a jour adresse page campagne ([0e1ab81](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0e1ab81528653a93a15dabdef1411eb7c12f8913))
+* retour MR ([d59d5d2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d59d5d203ea5c10e2094c922fbc77827b70c87e6))
+
 ## [3.72.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.71.1...v3.72.0) (2023-05-15)
 
 
