@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.71.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.71.0...v3.71.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* **multiple:** regression visuelle sur les Cards (repassage en flex) ([41daa72](https://github.com/DNUM-SocialGouv/1j1s-front/commit/41daa72d0e51dc1ebe1fd384f05c64887cb3cb98))
+* **text-icon:** remettre display inline-flex ([99b9d59](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99b9d59a47bff909100023648a04643fb338b8ab))
+
 ## [3.71.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.70.1...v3.71.0) (2023-05-15)
 
 
