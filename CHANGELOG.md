@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.73.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.73.0...v3.73.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* bug premiere page analytic ([b3d35f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3d35f6b1a6544a773ed4089c3cf308f3079c980))
+
 ## [3.73.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.72.0...v3.73.0) (2023-05-15)
 
 
