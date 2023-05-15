@@ -62,6 +62,10 @@ const moduleExports = {
 				hostname: CMS_HOST,
 				protocol: 'https',
 			},
+			{
+				hostname: 'img.youtube.com',
+				protocol: 'https',
+			},
 		],
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
