@@ -108,7 +108,7 @@ describe('Header', () => {
 				const encartLien = screen.getByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
 				expect(encartLien).toBeVisible();
 				expect(encartLien).toHaveTextContent(/Apprenez en plus sur cette voie de formation\./);
-				expect(encartLien).toHaveAttribute('href', '/apprentissage');
+				expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
 			});
 		});
 
@@ -268,7 +268,7 @@ describe('Header', () => {
 					// Then
 					const encartLien = screen.getByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', '/apprentissage');
+					expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {

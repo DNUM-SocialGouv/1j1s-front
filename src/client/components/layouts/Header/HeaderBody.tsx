@@ -34,7 +34,7 @@ export function HeaderBody() {
 				</div>
 				<div className={styles.headerTitle}>1jeune1solution</div>
 				{ isLargeScreen && displayBanner &&
-				  <Link href="/apprentissage" className={styles.headerBanner}>
+				  <Link href="/choisir-apprentissage" className={styles.headerBanner}>
 				  	<div>
 					    <div className={styles.headerBannerTitle}>L’apprentissage, c’est le bon choix !</div>
 					    <div className={styles.headerBannerContent}>Apprenez en plus sur cette voie de formation.</div>
