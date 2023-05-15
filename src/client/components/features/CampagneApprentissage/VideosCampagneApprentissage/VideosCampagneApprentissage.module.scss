@@ -53,24 +53,51 @@
     @extend %frame;
   }
 
-  & .layoutCookiesNotAccepted {
+  & .videoThumbnail {
     @extend %frame;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: utilities.pixel-to-rem(40);
-    background-color: rgba(utilities.$color-on-background, 90%);
-    color: utilities.$color-surface;
+    object-fit: cover;
+    filter: brightness(20%);
+  }
+
+  & .layoutCookiesNotAccepted {
+    position: absolute;
+    bottom: 0;
+
+    & .textContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      color: utilities.$color-on-primary;
+      width: utilities.pixel-to-rem(475);
+
+      p {
+        margin-bottom: utilities.pixel-to-rem(6);
+
+      }
+      p:last-of-type {
+        padding-bottom: utilities.pixel-to-rem(24);
+        border-bottom: 1px utilities.$color-on-primary solid;
+      }
+
+      & .buttonLaunchVideo {
+        margin-top: utilities.pixel-to-rem(24);
+        width: fit-content;
+        height: utilities.pixel-to-rem(48);
+        background-color: utilities.$color-on-primary;
+
+        & .icon {
+          filter: invert(0%);
+        }
+      }
+    }
 
     & .linkToYoutubeTerms {
-      @extend %bold;
       text-decoration: underline;
-    }
-
-    & hr {
-      margin: utilities.pixel-to-rem(24) 0;
+      @extend %bold;
     }
   }
+
 }
 
 .transcription {

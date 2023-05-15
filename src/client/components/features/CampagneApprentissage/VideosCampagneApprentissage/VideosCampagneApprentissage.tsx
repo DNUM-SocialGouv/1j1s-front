@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -16,8 +17,11 @@ interface VideosCampagneApprentissageProps extends React.HTMLAttributes<HTMLDivE
 	videos: Array<VideoCampagneApprentissage>
 }
 
+const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
+
 export default function VideosCampagneApprentissage({ videos, titre, description, className }: VideosCampagneApprentissageProps) {
 	const [videoToDisplay, setVideoToDisplay] = useState(videos[0]);
+	const [areCookiesAccepted, setAreCookiesAccepted] = useState(false);
 
 	function selectVideo(video: VideoCampagneApprentissage) {
 		setVideoToDisplay(video);
@@ -35,24 +39,50 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 			<Container className={styles.container}>
 				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>{titre}</h2>
 				<div className={styles.video}>
-					<iframe
-						width="326"
-						height="180"
-						src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
-						title={videoToDisplay.titre}
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowFullScreen
-						className={styles.iframe}
-					/>
-					<div className={styles.layoutCookiesNotAccepted}>
-						<p>Cette vidéo est hébergée par{' '}
-							<Link href={'https://www.youtube.com/t/terms'}>
-								<TextIcon icon={'external-redirection'} className={styles.linkToYoutubeTerms}>youtube.com</TextIcon>
-							</Link>
-						</p>
-						<p>En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site.</p>
-						<hr role='presentation'/>
-					</div>
+					{ areCookiesAccepted ? (
+						<iframe
+							width="326"
+							height="180"
+							src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
+							title={videoToDisplay.titre}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+							className={styles.iframe}
+						/>
+					) : (
+						<>
+							<Image
+								src={`${YOUTUBE_THUMBNAIL_URL}${videoToDisplay.videoId}/0.jpg`}
+								alt={''}
+								width="326"
+								height="180"
+								className={styles.videoThumbnail}
+							/>
+							<div className={styles.layoutCookiesNotAccepted}>
+								<div className={styles.textContent}>
+									<p>
+										Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms">
+											<TextIcon icon="external-redirection" iconPosition="right" className={styles.linkToYoutubeTerms}>
+												youtube.com
+											</TextIcon>
+										</Link>
+									</p>
+									<p>
+										En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site.
+									</p>
+									<ButtonComponent
+										label={'Lancer la vidéo'}
+										onClick={() => setAreCookiesAccepted(true)}
+										appearance={'secondary'}
+										className={styles.buttonLaunchVideo}
+										icon={<Icon className={styles.icon} name="play-circle"/>}
+										iconPosition="right"
+									/>
+								</div>
+							</div>
+						</>
+					)
+					}
 				</div>
 				<details className={styles.transcription}>
 					<summary>Lire la transcription</summary>

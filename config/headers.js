@@ -6,7 +6,7 @@ const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
   script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net;
-  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES};
+  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com;
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
   frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr;
