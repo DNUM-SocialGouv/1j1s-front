@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.73.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.73.1...v3.73.2) (2023-05-15)
+
+
+### Bug Fixes
+
+* Fix le wording des cookies ([b5e4545](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b5e4545be520cb790fed38c62474ab8a2520966e))
+
 ## [3.73.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.73.0...v3.73.1) (2023-05-15)
 
 
