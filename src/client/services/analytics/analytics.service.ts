@@ -74,7 +74,7 @@ export class AnalyticsService {
 					})(this, window);
 				},
 				key: EULERIAN_ANALYTICS_SERVICE,
-				name: 'Eulerian Analytics',
+				name: 'Tracking (services : Amnet, Seedtag, Yahoo, Snapchat, Meta, TikTok)',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
@@ -149,8 +149,8 @@ export class AnalyticsService {
 		}
 	}
 
-	envoyerAnalyticsPageVue(pageTags: PageTags): void {
-		if (this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE)) {
+	public envoyerAnalyticsPageVue(pageTags: PageTags): void {
+		if (this.isAnalyticsAutorisé()) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
@@ -160,6 +160,10 @@ export class AnalyticsService {
 			});
 			this.pushDatalayer(datalayer);
 		}
+	}
+
+	public isAnalyticsAutorisé(): boolean {
+		return this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE);
 	}
 
 	private isEulerianAnalyticsActive(): boolean {
