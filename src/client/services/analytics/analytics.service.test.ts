@@ -97,7 +97,7 @@ describe('AnalyticsService', () => {
 		});
 		describe('quand on est sur la page de campagne jeune', () => {
 			it('la valeur de pagename ne doit pas être définie', () => {
-				window.location.pathname = '/apprentissage-jeunes';
+				window.location.pathname = '/choisir-apprentissage';
 
 				new AnalyticsService();
 

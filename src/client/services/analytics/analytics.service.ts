@@ -30,7 +30,7 @@ export class AnalyticsService {
 		if (window && window.tarteaucitron) {
 
 			window.tarteaucitron.user.adformpm = 2867419;
-			if (window.location.pathname === '/apprentissage-jeunes') {
+			if (window.location.pathname === '/choisir-apprentissage') {
 				window.tarteaucitron.user.adformpagename = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
 			} else {
 				window.tarteaucitron.user.adformpagename = undefined;
