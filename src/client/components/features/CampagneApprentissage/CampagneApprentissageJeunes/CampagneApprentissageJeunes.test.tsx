@@ -9,7 +9,7 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen, mockTarteAuCitron } from '~/client/components/window.mock';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
@@ -239,5 +239,46 @@ describe('CampagneApprentissageJeunes', () => {
 				expect(screen.getByText(premièreVideoCampagne.transcription)).toBeVisible();
 			});
 		});
+
+		describe('quand les cookies youtube n’ont pas été acceptés', () => {
+			// TODO : faire en sorte que les cookies ne soit pas acceptés dans ce describe et acceptés dans le describe précédent
+			it('je ne peux pas lire la vidéo', () => {
+				// GIVEN
+				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
+
+				// WHEN
+				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+				// THEN
+				const iframeYoutube = screen.queryByTitle(premiereVideoCampagne.titre);
+				expect(iframeYoutube).not.toBeInTheDocument();
+			});
+
+			it('je vois un message m’indiquant que je dois accepter les cookies pour lire la vidéo', () => {
+				// GIVEN
+
+				// WHEN
+				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+				// THEN
+				const invitationAcceptCookies = screen.getByText(/En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site/);
+				expect(invitationAcceptCookies).toBeVisible();
+			});
+
+			it('je vois un bouton me permettant d’ouvrir la modale des cookies', async () => {
+				// GIVEN
+				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+				const openCookiesButton = screen.getByRole('button', { name: 'Lancer la vidéo' });
+				const user = userEvent;
+				mockTarteAuCitron();
+
+				// WHEN
+				await user.click(openCookiesButton);
+
+				// THEN
+				expect(window.tarteaucitron.userInterface.openPanel).toHaveBeenCalled();
+			});
+		});
+
 	});
 });

@@ -34,6 +34,10 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 			<Icon name="play-circle"/>;
 	}
 
+	function openCookiesPanel() {
+		window.tarteaucitron.userInterface.openPanel();
+	}
+
 	return (
 		<section className={classNames(styles.videos, className)}>
 			<Container className={styles.container}>
@@ -72,7 +76,7 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 									</p>
 									<ButtonComponent
 										label={'Lancer la vidéo'}
-										onClick={() => setAreCookiesAccepted(true)}
+										onClick={() => openCookiesPanel()}
 										appearance={'secondary'}
 										className={styles.buttonLaunchVideo}
 										icon={<Icon className={styles.icon} name="play-circle"/>}
