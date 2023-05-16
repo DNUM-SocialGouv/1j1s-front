@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
+import { VideoFrame } from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideoFrame';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -18,8 +18,6 @@ interface VideosCampagneApprentissageProps extends React.HTMLAttributes<HTMLDivE
 	description: string
 	videos: Array<VideoCampagneApprentissage>
 }
-
-const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 
 export default function VideosCampagneApprentissage({ videos, titre, description, className }: VideosCampagneApprentissageProps) {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
@@ -61,55 +59,10 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 	}
 
 	return (
-		<section className={classNames(styles.videos, className)}>
+		<section className={classNames(styles.sectionVideos, className)}>
 			<Container className={styles.container}>
 				<h2 className={styles.titreSection} id="titre-section-video" tabIndex={-1}>{titre}</h2>
-				<div className={styles.video}>
-					{ areCookiesAccepted ? (
-						<iframe
-							width="326"
-							height="180"
-							src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
-							title={videoToDisplay.titre}
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowFullScreen
-							className={styles.iframe}
-						/>
-					) : (
-						<>
-							<Image
-								src={`${YOUTUBE_THUMBNAIL_URL}${videoToDisplay.videoId}/0.jpg`}
-								alt={''}
-								width="326"
-								height="180"
-								className={styles.videoThumbnail}
-							/>
-							<div className={styles.layoutCookiesNotAccepted}>
-								<div className={styles.textContent}>
-									<p>
-										Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms">
-											<TextIcon icon="external-redirection" iconPosition="right" className={styles.linkToYoutubeTerms}>
-												youtube.com
-											</TextIcon>
-										</Link>
-									</p>
-									<p>
-										En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site.
-									</p>
-									<ButtonComponent
-										label={'Lancer la vidéo'}
-										onClick={() => openCookiesPanel()}
-										appearance={'tertiary'}
-										className={styles.buttonLaunchVideo}
-										icon={<Icon className={styles.icon} name="play-circle"/>}
-										iconPosition="right"
-									/>
-								</div>
-							</div>
-						</>
-					)
-					}
-				</div>
+				<VideoFrame videoToDisplay={videoToDisplay} className={styles.video}/>
 				<details className={styles.transcription}>
 					<summary>Lire la transcription</summary>
 					<p className={styles.content}>{videoToDisplay.transcription}</p>
@@ -138,7 +91,8 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 						}
 					</ul>
 					<div className={styles.lienPlaylistContainer}>
-						<Link href={'https://www.youtube.com/playlist?list=PLr4bjAdWwofltWnk3Ys1m-EhjuMaPAcbh'} className={styles.lienPlaylist}>
+						<Link href={'https://www.youtube.com/playlist?list=PLr4bjAdWwofltWnk3Ys1m-EhjuMaPAcbh'}
+							  className={styles.lienPlaylist}>
 							<TextIcon icon="external-redirection">Découvrir tous les témoignages</TextIcon>
 						</Link>
 					</div>

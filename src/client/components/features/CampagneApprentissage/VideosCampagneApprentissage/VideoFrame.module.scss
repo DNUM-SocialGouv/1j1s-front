@@ -1,0 +1,76 @@
+@use "@styles/utilities";
+
+.video {
+  %frame {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  & .iframe {
+    @extend %frame;
+  }
+
+  & .placeholderThumbnail {
+    @extend %frame;
+    object-fit: cover;
+    filter: brightness(20%);
+  }
+
+  & .placeholderContainer {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.placeholderContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: utilities.pixel-to-rem(6);
+  color: utilities.$color-on-primary;
+  max-width: utilities.pixel-to-rem(475);
+
+  @include utilities.media(small) {
+    padding: utilities.pixel-to-rem(40);
+  }
+
+  & .linkToYoutubeTerms {
+    text-decoration: underline;
+    @extend %bold;
+  }
+
+  p {
+    @extend %text-small;
+    @include utilities.media(small) {
+      font-size: 1rem;
+      margin-bottom: utilities.pixel-to-rem(6);
+    }
+
+  }
+
+  p:last-of-type {
+    padding-bottom: 0;
+    border-bottom: none;
+
+    @include utilities.media(small) {
+      padding-bottom: utilities.pixel-to-rem(24);
+      border-bottom: 1px utilities.$color-on-primary solid;
+    }
+  }
+
+  & .buttonAcceptCookies {
+    color: utilities.$color-on-primary;
+    text-decoration: underline;
+    width: fit-content;
+
+    @include utilities.media(small) {
+      margin-top: utilities.pixel-to-rem(24);
+    }
+
+    & .icon {
+      filter: invert(0%);
+    }
+  }
+}
