@@ -8,8 +8,9 @@ locals {
   #   KEY1=VALUE1
   #   KEY2='VALUE2'
   #   KEY3="VALUE3"
-  envs_du_fichier_env = data.dotenv.envs_du_fichier_env.env == null ? {} : {
-    for key, value in data.dotenv.envs_du_fichier_env.env : key => sensitive(value)
+  envs_du_fichier_env = data.dotenv.envs_du_fichier_env.env == null ? null : {
+    for key, value in data.dotenv.envs_du_fichier_env.env :
+    key => sensitive(value) if value != null && value != ""
   }
 
   # Nom de l'environnement
