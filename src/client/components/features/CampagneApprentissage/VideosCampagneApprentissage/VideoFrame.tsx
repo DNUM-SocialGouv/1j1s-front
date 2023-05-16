@@ -9,7 +9,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService, YOUTUBE_SERVICE } from '~/client/services/analytics/analytics.service';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
@@ -24,42 +24,39 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
-	const [areCookiesAccepted, setAreCookiesAccepted] = useState(false);
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(analyticsService.isConsentementCookieAutorisé(YOUTUBE_SERVICE));
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreCookiesAccepted(analyticsService.isConsentementCookieAutorisé('youtube'));
+			setAreYoutubeCookiesAccepted(analyticsService.isConsentementCookieAutorisé('youtube'));
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);
 		document.addEventListener('youtube_added', updateCookieSettings);
-		document.addEventListener('youtube_allowed', () => setAreCookiesAccepted(true));
-		document.addEventListener('youtube_disallowed', () => setAreCookiesAccepted(false));
+		document.addEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
+		document.addEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 
 		return () => {
 			document.removeEventListener('youtube_loaded', updateCookieSettings);
 			document.removeEventListener('youtube_added', updateCookieSettings);
-			document.removeEventListener('youtube_allowed', () => setAreCookiesAccepted(true));
-			document.removeEventListener('youtube_disallowed', () => setAreCookiesAccepted(false));
+			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
+			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 		};
 	}, [analyticsService]);
 
 
 	return <div className={classNames(styles.video, className)}>
-		{areCookiesAccepted ? (
-		// <iframe
-		// 	width="326"
-		// 	height="180"
-		// 	src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
-		// 	title={videoToDisplay.titre}
-		// 	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-		// 	allowFullScreen
-		// 	className={styles.iframe}
-		// />
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			<div videoID={videoToDisplay.videoId} width="326" height="180" className= 'youtube_player' theme="theme (dark | light)" rel="rel (1 | 0)" controls="controls (1 | 0)" showinfo="showinfo (1 | 0)" autoplay="autoplay (0 | 1)" mute="mute (0 | 1)" srcdoc="srcdoc" loop="loop (0 | 1)" loading="loading (0 | 1)" data-start="start" data-end="end"></div>
+		{areYoutubeCookiesAccepted ? (
+			<iframe
+				width="326"
+				height="180"
+				src={`https://www.youtube-nocookie.com/embed/${videoToDisplay.videoId}`}
+				title={videoToDisplay.titre}
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowFullScreen
+				className={styles.iframe}
+			/>
 		) : (
 			<>
 				<Image
@@ -91,7 +88,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 							onClick={acceptYoutubeCookies}
 							appearance={'tertiary'}
 							className={styles.buttonAcceptCookies}
-							icon={<Icon className={styles.icon} name="check-line"/>}
+							icon={<Icon name="check-line"/>}
 							iconPosition="right"
 						/>
 					</div>

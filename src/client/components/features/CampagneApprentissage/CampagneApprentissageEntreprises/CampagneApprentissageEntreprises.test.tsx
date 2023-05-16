@@ -143,10 +143,10 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('comprenant un titre', () => {
 				// WHEN
 				render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<CampagneApprentissageEntreprises videos={[]} />
-				</DependenciesProvider>,
-			);
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
@@ -157,10 +157,10 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('comprenant un lien externe vers des renseignements', () => {
 				// WHEN
 				render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<CampagneApprentissageEntreprises videos={[]} />
-				</DependenciesProvider>,
-			);
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });

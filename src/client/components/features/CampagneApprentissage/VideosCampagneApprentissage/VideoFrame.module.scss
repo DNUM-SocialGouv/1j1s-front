@@ -68,9 +68,5 @@
     @include utilities.media(small) {
       margin-top: utilities.pixel-to-rem(24);
     }
-
-    & .icon {
-      filter: invert(0%);
-    }
   }
 }

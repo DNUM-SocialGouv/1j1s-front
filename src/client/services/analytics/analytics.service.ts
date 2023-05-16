@@ -14,6 +14,7 @@ declare global {
 const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 const ADFORM_SERVICE = 'adform';
+export const YOUTUBE_SERVICE = 'youtube';
 
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
@@ -187,7 +188,7 @@ export class AnalyticsService {
 
 	private initialiserYoutube(): void {
 		if (window && window.tarteaucitron) {
-			window.tarteaucitron.job.push('youtube');
+			window.tarteaucitron.job.push(YOUTUBE_SERVICE);
 		}
 	}
 }
