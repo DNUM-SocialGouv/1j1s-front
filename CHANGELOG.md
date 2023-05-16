@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.74.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.73.2...v3.74.0) (2023-05-16)
+
+
+### Features
+
+* **apprentissage:** ajouter section vous envisagez de recruter un apprenti ([#1288](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1288)) ([1300840](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13008402bfd8d4da3fc65647f0b43132998a137a))
+
 ## [3.73.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.73.1...v3.73.2) (2023-05-15)
 
 
