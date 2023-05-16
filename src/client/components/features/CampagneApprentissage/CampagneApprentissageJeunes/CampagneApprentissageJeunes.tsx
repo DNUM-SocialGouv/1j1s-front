@@ -39,11 +39,11 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'thumb-up',
-			text: 'Avoir une expérience professionnelle complète',
+			text: 'Avoir une expérience professionnelle',
 		},
 		{
 			iconName: 'euro',
-			text: 'Être rémunéré tous les mois',
+			text: <>Être rémunéré <span>tous les mois</span></>,
 		},
 	];
 
@@ -63,7 +63,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 				{ videos.length > 0 &&
 					<VideosCampagneApprentissage
 						videos={videos}
-						titre={'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?'}
+						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
 						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
 					/>
 				}
@@ -73,7 +73,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 				{ videos.length > 0 &&
 					<VideosCampagneApprentissage
 						videos={videos}
-						titre={'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?'}
+						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
 						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
 					/>
 				}

@@ -7,7 +7,7 @@ import styles from './EnSavoirPlusApprentissageEntreprises.module.scss';
 export default function EnSavoirPlusApprentissageEntreprises() {
 	return <Container className={styles.enSavoirPlus}>
 		<div className={styles.enSavoirPlusFaq}>
-			<h2 className={styles.heading}>On répond à toutes vos questions sur l’apprentissage</h2>
+			<h2 className={styles.heading}>On répond à toutes vos questions<br/> sur l’apprentissage</h2>
 			<Link className={styles.link} href="/faq/apprentissage-employeurs-apprentis" appearance="asPrimaryButton">
 				Consulter la FAQ
 			</Link>

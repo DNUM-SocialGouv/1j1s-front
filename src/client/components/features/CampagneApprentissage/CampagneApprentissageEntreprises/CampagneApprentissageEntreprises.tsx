@@ -31,7 +31,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 		},
 		{
 			iconName: 'account',
-			text: 'Transmettre votre savoir-faire',
+			text: <>Transmettre votre <span>savoir-faire,</span> </>,
 		},
 		{
 			iconName: 'euro',
@@ -63,7 +63,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 			{ videos.length > 0 &&
 				<VideosCampagneApprentissage
 					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
-					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien'}
+					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
 					videos={videos}
 				/>
 			}

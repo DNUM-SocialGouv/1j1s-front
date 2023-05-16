@@ -8,7 +8,7 @@ export function DecouvrirApprentissage() {
 			imageFit="cover"
 			linkLabel="Découvrir l‘apprentissage"
 			link="/choisir-apprentissage"
-			logo="/images/campagne-apprentissage-jeune.webp"
+			logo="/images/campagne-apprentissage-jeune-sans-texte.webp"
 			title="L’apprentissage est-il fait pour vous ?"
 			titleAs="h3"
 		>
