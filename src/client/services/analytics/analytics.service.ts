@@ -13,6 +13,7 @@ declare global {
 
 const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
+const ADFORM_SERVICE = 'adform';
 
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
@@ -20,6 +21,25 @@ export class AnalyticsService {
 	constructor() {
 		this.initialiserGestionnaireConsentementsCookie();
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
+
+		this.initialiserAnalyticsCampagneDeCommunication();
+		this.initialiserYoutube();
+	}
+
+	// TODO à supprimer après la campagne autour de l'apprentissage
+	private initialiserAnalyticsCampagneDeCommunication(): void {
+		if (window && window.tarteaucitron) {
+
+			window.tarteaucitron.user.adformpm = 2867419;
+			if (window.location.pathname === '/choisir-apprentissage') {
+				window.tarteaucitron.user.adformpagename = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
+			} else {
+				window.tarteaucitron.user.adformpagename = undefined;
+			}
+
+			window.tarteaucitron.job.push(ADFORM_SERVICE);
+		}
+
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
@@ -119,7 +139,7 @@ export class AnalyticsService {
 				privacyUrl: '/confidentialite',
 				readmoreLink: '/confidentialite',
 				removeCredit: true,
-				serviceDefaultState: true,
+				serviceDefaultState: 'wait',
 				showAlertSmall: false,
 				showIcon: true,
 				useExternalCss: false,
@@ -130,8 +150,8 @@ export class AnalyticsService {
 		}
 	}
 
-	envoyerAnalyticsPageVue(pageTags: PageTags): void {
-		if (this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE)) {
+	public envoyerAnalyticsPageVue(pageTags: PageTags): void {
+		if (this.isAnalyticsAutorisé()) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
@@ -141,6 +161,10 @@ export class AnalyticsService {
 			});
 			this.pushDatalayer(datalayer);
 		}
+	}
+
+	public isAnalyticsAutorisé(): boolean {
+		return this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE);
 	}
 
 	private isEulerianAnalyticsActive(): boolean {
@@ -158,6 +182,12 @@ export class AnalyticsService {
 				}, {})?.[service] as unknown as boolean;
 		} else {
 			return false;
+		}
+	}
+
+	private initialiserYoutube(): void {
+		if (window && window.tarteaucitron) {
+			window.tarteaucitron.job.push('youtube');
 		}
 	}
 }
