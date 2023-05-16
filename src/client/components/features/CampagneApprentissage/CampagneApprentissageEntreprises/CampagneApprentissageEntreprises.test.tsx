@@ -9,6 +9,8 @@ import {
 	CampagneApprentissageEntreprises,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageEntreprises', () => {
@@ -22,7 +24,11 @@ describe('CampagneApprentissageEntreprises', () => {
 
 	it('affiche le titre de la page', () => {
 		// WHEN
-		render(<CampagneApprentissageEntreprises videos={[]} />);
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<CampagneApprentissageEntreprises videos={[]} />
+			</DependenciesProvider>,
+		);
 		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage pour mon entreprise, c’est le bon choix !/i });
 
 		// THEN
@@ -33,7 +39,11 @@ describe('CampagneApprentissageEntreprises', () => {
 		// GIVEN
 		mockLargeScreen();
 		// WHEN
-		render(<CampagneApprentissageEntreprises videos={[]} />);
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<CampagneApprentissageEntreprises videos={[]} />
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler le coût de l’embauche d’un apprenti/i });
@@ -46,7 +56,11 @@ describe('CampagneApprentissageEntreprises', () => {
 		mockSmallScreen();
 
 		// WHEN
-		render(<CampagneApprentissageEntreprises videos={[]} />);
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<CampagneApprentissageEntreprises videos={[]} />
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
@@ -57,7 +71,11 @@ describe('CampagneApprentissageEntreprises', () => {
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
 		it('comportant un titre', () => {
 			// WHEN
-			render(<CampagneApprentissageEntreprises videos={[]} />);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
@@ -76,7 +94,11 @@ describe('CampagneApprentissageEntreprises', () => {
 			];
 
 			// WHEN
-			render(<CampagneApprentissageEntreprises videos={[]} />);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage :/i });
@@ -91,7 +113,11 @@ describe('CampagneApprentissageEntreprises', () => {
 
 	describe('EnSavoirPlusApprentissageEntreprises', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
-			render(<CampagneApprentissageEntreprises videos={[]}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'On répond à toutes vos questions sur l’apprentissage',
@@ -99,7 +125,11 @@ describe('CampagneApprentissageEntreprises', () => {
 			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-employeurs-apprentis');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
-			render(<CampagneApprentissageEntreprises videos={[]}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Vous êtes à la recherche d’un apprenti ?',
@@ -112,7 +142,11 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('affiche une sous section pour se renseigner', () => {
 			it('comprenant un titre', () => {
 				// WHEN
-				render(<CampagneApprentissageEntreprises videos={[]} />);
+				render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
@@ -122,7 +156,11 @@ describe('CampagneApprentissageEntreprises', () => {
 
 			it('comprenant un lien externe vers des renseignements', () => {
 				// WHEN
-				render(<CampagneApprentissageEntreprises videos={[]} />);
+				render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={[]} />
+				</DependenciesProvider>,
+			);
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
@@ -163,23 +201,39 @@ describe('CampagneApprentissageEntreprises', () => {
 		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
-				render(<CampagneApprentissageEntreprises videos={[]} />);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={[]} />
+					</DependenciesProvider>,
+				);
 				expect(screen.queryByRole('region', { name: /Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?/i })).not.toBeInTheDocument();
 			});
 		});
 		it('je vois le titre de la partie videos', () => {
-			render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?',
 			})).toBeVisible();
 		});
 		it('je vois la description de la partie videos', () => {
-			render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByText('Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien')).toBeVisible();
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
-			render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
 			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien' });
 			const titresVideos = within(sectionVideos).getAllByRole('listitem');
@@ -193,7 +247,11 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('si je n’ai pas sélectionné de vidéo', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
-				render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const iframe = screen.getByTitle(premiereVideoCampagne.titre);
 				expect(iframe).toBeVisible();
@@ -205,7 +263,11 @@ describe('CampagneApprentissageEntreprises', () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
 				await user.click(boutonDeuxiemeVideo);
@@ -219,7 +281,11 @@ describe('CampagneApprentissageEntreprises', () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
 				await user.click(boutonDeuxiemeVideo);
@@ -231,7 +297,11 @@ describe('CampagneApprentissageEntreprises', () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				await user.click(screen.getByRole('button', { name: deuxièmeVideoCampagne.titre }));
 
@@ -242,13 +312,21 @@ describe('CampagneApprentissageEntreprises', () => {
 			});
 		});
 		it('je ne vois pas la transcription de la vidéo', () => {
-			render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
 			const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
 			expect(screen.queryByText(premièreVideoCampagne.transcription)).not.toBeVisible();
 		});
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
-			render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
 			const ouvrirTranscription = screen.getByText('Lire la transcription');
 
@@ -257,7 +335,11 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('si je clique sur le bouton de transcription', () => {
 			it('je vois la transcription de la vidéo', async () => {
 				const user = userEvent.setup();
-				render(<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider analyticsService={anAnalyticsService()}>
+						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 				const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
 				const ouvrirTranscription = screen.getByText('Lire la transcription');
 
