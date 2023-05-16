@@ -57,7 +57,7 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 	}
 
 	function openCookiesPanel() {
-		window.tarteaucitron.userInterface.openPanel();
+		window.tarteaucitron.userInterface.respond(document.getElementById('youtubeAllowed'), true);
 	}
 
 	return (
