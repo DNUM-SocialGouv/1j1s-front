@@ -67,35 +67,41 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: utilities.pixel-to-rem(10);
+      padding: utilities.pixel-to-rem(6);
       color: utilities.$color-on-primary;
       max-width: utilities.pixel-to-rem(475);
 
-      @include utilities.media(large) {
+      @include utilities.media(small) {
         padding: utilities.pixel-to-rem(40);
       }
 
       p {
-        @extend %text-regular;
-        margin-bottom: utilities.pixel-to-rem(6);
+        @extend %text-small;
+        @include utilities.media(small) {
+          font-size: 1rem;
+          margin-bottom: utilities.pixel-to-rem(6);
+        }
 
       }
       p:last-of-type {
         padding-bottom: 0;
         border-bottom: none;
 
-        @include utilities.media(large) {
+        @include utilities.media(small) {
           padding-bottom: utilities.pixel-to-rem(24);
           border-bottom: 1px utilities.$color-on-primary solid;
         }
       }
 
       & .buttonLaunchVideo {
-        margin-top: utilities.pixel-to-rem(8);
+        @include utilities.media(small) {
+          margin-top: utilities.pixel-to-rem(8);
+        }
+        color: utilities.$color-on-primary;
+        text-decoration: underline;
         width: fit-content;
-        background-color: utilities.$color-on-primary;
 
-        @include utilities.media(large) {
+        @include utilities.media(small) {
           margin-top: utilities.pixel-to-rem(24);
         }
 
