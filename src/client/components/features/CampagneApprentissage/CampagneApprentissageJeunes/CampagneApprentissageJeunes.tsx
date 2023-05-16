@@ -64,7 +64,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 					<VideosCampagneApprentissage
 						videos={videos}
 						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
-						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
+						description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'}
 					/>
 				}
 				<PreparationApprentissage/>
@@ -74,7 +74,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 					<VideosCampagneApprentissage
 						videos={videos}
 						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
-						description={'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !'}
+						description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'}
 					/>
 				}
 			</>

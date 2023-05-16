@@ -206,7 +206,7 @@ describe('CampagneApprentissageJeunes', () => {
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
-			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !')).toBeVisible();
+			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !')).toBeVisible();
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
@@ -215,7 +215,7 @@ describe('CampagneApprentissageJeunes', () => {
 				</DependenciesProvider>,
 			);
 
-			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !' });
+			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !' });
 			const titresVideos = within(sectionVideos).getAllByRole('listitem');
 
 			const boutons = titresVideos.map((titreVideo) => within(titreVideo).getByRole('button'));
