@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.75.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.0...v3.75.1) (2023-05-16)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update docusaurus monorepo to v2.4.1 ([#1300](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1300)) ([3254cfa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3254cfa34818fb6dd769543b8f773b227c863150))
+* **terraform:** impossible de déployer avec Terraform en prod à cause d'une variable d'env vide ([e2abe75](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e2abe751c568a0b7ee763c5b1068efe4bc8ce60c))
+* **terraform:** mauvais mapping de var d'env notamment pour API_ENGAGEMENT_BASE_URL ([c96178b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c96178b45c53b4776456c04a93e2085c427dc93e))
+
 ## [3.75.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.74.3...v3.75.0) (2023-05-16)
 
 
