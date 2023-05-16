@@ -64,7 +64,7 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 						}
 					</ul>
 					<div className={styles.lienPlaylistContainer}>
-						<Link href={'https://www.youtube.com/playlist?list=PLr4bjAdWwofltWnk3Ys1m-EhjuMaPAcbh'}
+						<Link href={'https://www.youtube.com/playlist?list=PL380KraUhZWX2ZY_qMbydLn5lqIXpUvw1'}
 							  className={styles.lienPlaylist}>
 							<TextIcon icon="external-redirection">Découvrir tous les témoignages</TextIcon>
 						</Link>

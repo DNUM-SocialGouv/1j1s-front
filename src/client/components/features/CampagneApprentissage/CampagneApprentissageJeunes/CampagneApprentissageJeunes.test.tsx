@@ -33,7 +33,10 @@ describe('CampagneApprentissageJeunes', () => {
 		);
 
 		// THEN
-		const titre = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i });
+		const titre = screen.getByRole('heading', {
+			level: 1,
+			name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i,
+		});
 		expect(titre).toBeVisible();
 		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
 		expect(sousTitre).toBeVisible();
@@ -78,13 +81,16 @@ describe('CampagneApprentissageJeunes', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<CampagneApprentissageJeunes videos={[]} />
+					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage/i });
+			const titre = within(sectionRaison).getByRole('heading', {
+				level: 2,
+				name: /5 bonnes raisons de choisir l’apprentissage/i,
+			});
 			expect(titre).toBeVisible();
 		});
 
@@ -101,7 +107,7 @@ describe('CampagneApprentissageJeunes', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<CampagneApprentissageJeunes videos={[]} />
+					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
 
@@ -109,7 +115,7 @@ describe('CampagneApprentissageJeunes', () => {
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
 			const raisonList = within(sectionRaison).getByRole('list');
 			const raisonListItems = within(raisonList).getAllByRole('listitem');
-			raisonListItems.forEach((raison,index) => {
+			raisonListItems.forEach((raison, index) => {
 				expect(raison).toHaveTextContent(expectedRaisonList[index]);
 				expect(raison).toBeVisible();
 			});
@@ -177,7 +183,7 @@ describe('CampagneApprentissageJeunes', () => {
 			it('n’affiche pas la section', () => {
 				render(
 					<DependenciesProvider analyticsService={anAnalyticsService()}>
-						<CampagneApprentissageJeunes videos={[]} />
+						<CampagneApprentissageJeunes videos={[]}/>
 					</DependenciesProvider>,
 				);
 				expect(screen.queryByRole('region', { name: /Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?/i })).not.toBeInTheDocument();
@@ -221,8 +227,10 @@ describe('CampagneApprentissageJeunes', () => {
 		describe('si je n’ai pas sélectionné de vidéo', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
+				const analyticsService = anAnalyticsService({ isConsentementCookieAutorisé: jest.fn(() => true) });
+
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -364,7 +372,7 @@ describe('CampagneApprentissageJeunes', () => {
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
-				const openCookiesButton = screen.getByRole('button', { name: 'Lancer la vidéo' });
+				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
 				const user = userEvent;
 				mockTarteAuCitron();
 
