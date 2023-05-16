@@ -104,7 +104,7 @@ describe('Page Apprentissage Jeunes', () => {
 			</DependenciesProvider>,
 		);
 
-		const titrePage = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix\./i });
+		const titrePage = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i });
 
 		expect(titrePage).toBeVisible();
 	});
