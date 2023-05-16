@@ -18,6 +18,7 @@ import { BriefCaseIcon } from '~/client/components/ui/Icon/brief-case.icon';
 import { BurgerMenuIcon } from '~/client/components/ui/Icon/burger-menu.icon';
 import { BurgerMenuLeftIcon } from '~/client/components/ui/Icon/burger-menu-left.icon';
 import { CarIcon } from '~/client/components/ui/Icon/car.icon';
+import { CheckLineIcon } from '~/client/components/ui/Icon/check-line.icon';
 import { CleanHandsIcon } from '~/client/components/ui/Icon/clean-hands.icon';
 import { CloseIcon } from '~/client/components/ui/Icon/close.icon';
 import { CommunityIcon } from '~/client/components/ui/Icon/community.icon';
@@ -74,6 +75,7 @@ export type IconName =
     | 'brief-case'
     | 'burger-menu'
     | 'burger-menu-left'
+	| 'check-line'
     | 'car'
     | 'clean-hands'
     | 'close'
@@ -157,6 +159,8 @@ export function Icon({ name, className, ...rest }: IconProps) {
 				return <BurgerMenuLeftIcon className={className} aria-hidden={true} {...rest} />;
 			case 'car':
 				return <CarIcon className={className} aria-hidden={true} {...rest} />;
+			case 'check-line':
+				return <CheckLineIcon className={className} aria-hidden={true} {...rest}/>;
 			case 'clean-hands':
 				return <CleanHandsIcon className={className} aria-hidden={true} {...rest} />;
 			case 'close':
