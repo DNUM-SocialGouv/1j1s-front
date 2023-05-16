@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.75.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.74.3...v3.75.0) (2023-05-16)
+
+
+### 👷 Autres changements
+
+* ajout de nouvelles variables d'environnement ([#1312](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1312)) ([25e3d26](https://github.com/DNUM-SocialGouv/1j1s-front/commit/25e3d262c33439ebfe6ee51ce8cde0ed7270b921))
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Accepte les cookies automatiquement au clique ([719f6c5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/719f6c5609116da39c97e8013d28275c30f12451))
+* Ajoute l'update de l'iframe avec l'update des cookies ([699d1e9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/699d1e9a5a066b7852da39d474712be8f50ab29f))
+* Ajoute le service youtube aux cookies ([4e2b938](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e2b9380c682ac86eb695fb5ef3faae0ff348adb))
+* **alternance:** modification wording et images de la campagne d'app… ([#1311](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1311)) ([c71622d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c71622d835c5e72bdcf8ce531c5fe23db604e749))
+* **apprentissage:** ajout des tests quand cookies youtube non acceptés ([a5b12ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a5b12ae297735529ea04e2293393b2ba13684815))
+* **apprentissage:** ajout layout sur iframe UI ([9330f74](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9330f74d68d974af1d1f3a40c4b1e54ae6b97cbd))
+* **apprentissage:** fix à moitié UI du layout en mobile ([1ef4356](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1ef43561def6b6687313e7140a0d7dc89cc7f357))
+* **apprentissage:** mise a jour UI en mobile video ([aae5a4d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aae5a4d1047c8a569543e9353ca38ab620287f93))
+* **apprentissage:** rebase with cookies from GAFI ([5a30b3f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5a30b3f010cb68854fc358eb52d2e2064cfdf00a))
+* **apprentissage:** refactor extract video frame component ([450f5c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/450f5c6b9f36b287a1ca0779e0e50470690631dd))
+* **apprentissage:** ui gestion cookie video ([d9a109e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9a109e5b33c6fabc8474db4146342662c86bd92))
+* **apprentissage:** video repassage a l'iframe ([01575f4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/01575f411b02795aa1882d8ae4ecb6e5ed661d74))
+
 ## [3.74.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.74.2...v3.74.3) (2023-05-16)
 
 
