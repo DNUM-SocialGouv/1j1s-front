@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.74.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.74.1...v3.74.2) (2023-05-16)
+
+
+### Bug Fixes
+
+* Fix les CSP pour adform et Eulerian ([cda6d4f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cda6d4f32900afcb5a37f6f6bcb7614718dbc7e0))
+
 ## [3.74.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.74.0...v3.74.1) (2023-05-16)
 
 
