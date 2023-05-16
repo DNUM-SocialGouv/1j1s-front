@@ -14,7 +14,7 @@ export function InformationSurEmbaucheApprenti() {
 		<Container className={styles.informationSurEmbauche}>
 			<section aria-labelledby={'titre-section-renseignement'} className={styles.renseignement}>
 				<h2 id={'titre-section-renseignement'}>
-					Comme eux, vous souhaitez faire le choix de l’apprentissage ?
+					Comme eux, vous souhaitez faire<span>le choix de l’apprentissage ?</span> 
 				</h2>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
 					Se renseigner sur l’embauche

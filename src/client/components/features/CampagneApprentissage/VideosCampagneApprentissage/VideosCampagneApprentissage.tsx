@@ -12,7 +12,7 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 import styles from './VideosCampagneApprentissage.module.scss';
 
 interface VideosCampagneApprentissageProps extends React.HTMLAttributes<HTMLDivElement> {
-	titre: string
+	titre: React.ReactNode;
 	description: string
 	videos: Array<VideoCampagneApprentissage>
 }

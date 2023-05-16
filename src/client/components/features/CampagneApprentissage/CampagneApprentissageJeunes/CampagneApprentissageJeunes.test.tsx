@@ -100,7 +100,7 @@ describe('CampagneApprentissageJeunes', () => {
 				'Obtenir un diplôme reconnu',
 				'Apprendre en pratiquant',
 				'Être formé gratuitement pour l’apprenti',
-				'Avoir une expérience professionnelle complète',
+				'Avoir une expérience professionnelle',
 				'Être rémunéré tous les mois',
 			];
 
@@ -206,7 +206,7 @@ describe('CampagneApprentissageJeunes', () => {
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
-			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !')).toBeVisible();
+			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !')).toBeVisible();
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
@@ -215,7 +215,7 @@ describe('CampagneApprentissageJeunes', () => {
 				</DependenciesProvider>,
 			);
 
-			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !' });
+			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !' });
 			const titresVideos = within(sectionVideos).getAllByRole('listitem');
 
 			const boutons = titresVideos.map((titreVideo) => within(titreVideo).getByRole('button'));
@@ -287,7 +287,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 				await user.click(screen.getByRole('button', { name: deuxièmeVideoCampagne.titre }));
 
-				const titre = screen.getByRole('heading', { name: 'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?' });
+				const titre = screen.getByRole('heading', { name: /Ils ont fait le choix de l’apprentissage,/ });
 				const iframe = screen.getByTitle(deuxièmeVideoCampagne.titre);
 				expect(titre).toHaveFocus();
 				expect(titre.compareDocumentPosition(iframe)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);

@@ -13,6 +13,10 @@
     @include utilities.media(large) {
       background-color: revert;
     }
+    
+   & span {
+     display: inline-block;
+   }
   }
 
   & .renseignement, & .aideFinanciere {

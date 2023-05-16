@@ -23,15 +23,17 @@
 
 .titreSection {
   @extend %text-large;
-  @extend %bold;
-
+  @extend %bold;    
   margin-bottom: 1.5rem;
-
+  
+  & span {
+    display: inline-block;
+  }
+  
   @include utilities.media(large) {
     grid-area: titre;
   }
 }
-
 .video {
   position: relative;
   width: 100%;
