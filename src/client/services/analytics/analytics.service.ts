@@ -171,7 +171,7 @@ export class AnalyticsService {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
 	}
 
-	private isConsentementCookieAutorisé(service: string): boolean {
+	public isConsentementCookieAutorisé(service: string): boolean {
 		const filteredConsentementCookieParts = document.cookie.match(new RegExp('(^| )' + CONSENT_MANAGER_COOKIE_NAME + '=([^;]+)'));
 		if (filteredConsentementCookieParts) {
 			const consentementCookieValue: string = filteredConsentementCookieParts[2];
