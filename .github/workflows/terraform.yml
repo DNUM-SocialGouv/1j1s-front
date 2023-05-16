@@ -159,7 +159,7 @@ jobs:
               })
             }
 
-      - name: Deployer en recette (uniquement une fois mergé)
+      - name: Deploiement réel des changements
         if: ${{ inputs.apply == true }}
         id: apply
         working-directory: terraform
