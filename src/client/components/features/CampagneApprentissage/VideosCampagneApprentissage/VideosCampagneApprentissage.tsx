@@ -77,7 +77,7 @@ export default function VideosCampagneApprentissage({ videos, titre, description
 									<ButtonComponent
 										label={'Lancer la vidéo'}
 										onClick={() => openCookiesPanel()}
-										appearance={'secondary'}
+										appearance={'tertiary'}
 										className={styles.buttonLaunchVideo}
 										icon={<Icon className={styles.icon} name="play-circle"/>}
 										iconPosition="right"
