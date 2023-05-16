@@ -23,6 +23,7 @@ export class AnalyticsService {
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
 
 		this.initialiserAnalyticsCampagneDeCommunication();
+		this.initialiserYoutube();
 	}
 
 	// TODO à supprimer après la campagne autour de l'apprentissage
@@ -181,6 +182,12 @@ export class AnalyticsService {
 				}, {})?.[service] as unknown as boolean;
 		} else {
 			return false;
+		}
+	}
+
+	private initialiserYoutube(): void {
+		if (window && window.tarteaucitron) {
+			window.tarteaucitron.job.push('youtube');
 		}
 	}
 }

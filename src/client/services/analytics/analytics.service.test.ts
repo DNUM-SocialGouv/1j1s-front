@@ -106,6 +106,14 @@ describe('AnalyticsService', () => {
 		});
 	});
 
+	describe('initialiserYoutube', () => {
+		it('initialise le service youtube', () => {
+			new AnalyticsService();
+
+			expect(window.tarteaucitron.job).toContainEqual('youtube');
+		});
+	});
+
 	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
 			beforeEach(() => {
