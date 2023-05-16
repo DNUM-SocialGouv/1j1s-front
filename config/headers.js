@@ -5,7 +5,7 @@ const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/multi-search
 const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} track.adform.net;
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net;
   img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES};
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
