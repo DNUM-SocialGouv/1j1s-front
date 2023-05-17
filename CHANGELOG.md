@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.77.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.76.0...v3.77.0) (2023-05-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **logo-minstère:** changement du logo dans le footer ([#1322](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1322)) ([02797aa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02797aaa892936c92a3c216baf1cb9b0398a9b26))
+
 ## [3.76.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.2...v3.76.0) (2023-05-17)
 
 
