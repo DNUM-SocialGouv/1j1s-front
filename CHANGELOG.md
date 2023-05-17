@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.76.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.2...v3.76.0) (2023-05-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** défeature flipper les urls des pages ([#1320](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1320)) ([d2d6073](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d2d6073fbb7f60a4fe912d370c329ffae8ad1ad6))
+
 ## [3.75.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.1...v3.75.2) (2023-05-17)
 
 
