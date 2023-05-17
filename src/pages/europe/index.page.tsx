@@ -236,7 +236,7 @@ export default function EuropePage() {
 					<div className={styles.buttonWrapper}>
 						<LinkStyledAsButton
 							href="https://lp.wallstreetenglish.fr/1jeune-1solution"
-							appearance="asPrimaryButton"
+							appearance="asSecondaryButton"
 							className={styles.buttonOnDarkBackground}>
 							Tester son niveau d‘anglais
 						</LinkStyledAsButton>

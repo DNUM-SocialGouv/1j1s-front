@@ -133,15 +133,6 @@
   }
 }
 
-.buttonOnDarkBackground {
-  background-color: utilities.$color-background;
-  color: utilities.$color-primary;
-
-  &:hover {
-    background-color: utilities.$color-background-white-titan;
-  }
-}
-
 @include utilities.media(small) {
   .sectionDispositif__Title {
     > span {

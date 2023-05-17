@@ -61,8 +61,6 @@
   }
 
   & .buttonAcceptCookies {
-    color: utilities.$color-on-primary;
-    text-decoration: underline;
     width: fit-content;
 
     @include utilities.media(small) {
