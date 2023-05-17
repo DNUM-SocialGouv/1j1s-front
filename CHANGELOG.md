@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.77.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.0...v3.77.1) (2023-05-17)
+
+
+### 🐛 Corrections de bogues
+
+* Fix les CSP adform pour les frames ([c1ba11d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1ba11d5d021e9a411730c74d1fcf1756922d090))
+
 ## [3.77.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.76.0...v3.77.0) (2023-05-17)
 
 
