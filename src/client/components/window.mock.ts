@@ -1,3 +1,4 @@
+import { TarteAuCitron } from '~/client/services/cookies/cookies.service';
 
 export function mockSmallScreen() {
 	Object.defineProperty(window, 'matchMedia', {
@@ -69,8 +70,7 @@ export function mockSessionStorage({
 	});
 }
 
-// FIXME (GAFI 17-05-2023): typage trop large
-export function mockTarteAuCitron(override?: Record<string, unknown>) {
+export function mockTarteAuCitron(override?: Partial<TarteAuCitron>) {
 	Object.defineProperty(window, 'tarteaucitron', {
 		value: {
 			init: jest.fn(),

@@ -1,3 +1,11 @@
+export type TarteAuCitron = {
+	init: (config: Record<string, unknown>) => void,
+	job?: string[],
+	userInterface: {
+		respond: (bouton: HTMLButtonElement, value: boolean) => void
+	}
+}
+
 export interface CookiesService {
 }
 
