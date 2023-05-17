@@ -71,8 +71,11 @@ export function mockSessionStorage({
 
 export function mockTarteAuCitron() {
 	Object.defineProperty(window, 'tarteaucitron', {
-		value: { userInterface: {
-			respond: jest.fn(),
-		} },
+		value: {
+			init: jest.fn(),
+			userInterface: {
+				respond: jest.fn(),
+			},
+		},
 	});
 }

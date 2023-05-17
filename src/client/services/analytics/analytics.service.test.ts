@@ -4,6 +4,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { TarteAuCitronService } from '~/client/services/cookies/cookies.service';
 
 const mockLocation = () => {
 	const mockResponse = jest.fn();
@@ -23,6 +24,7 @@ describe('AnalyticsService', () => {
 	const pageSetSpy = jest.fn();
 	const initSpy = jest.fn();
 	const eulerianAnalyticsPushSpy = jest.fn();
+	const cookiesService = new TarteAuCitronService();
 
 	beforeEach(() => {
 		(global as any).tarteaucitron = {
@@ -69,19 +71,19 @@ describe('AnalyticsService', () => {
 			useExternalJs: false,
 		};
 
-		new AnalyticsService();
+		new AnalyticsService(cookiesService);
 
 		expect(initSpy).toHaveBeenCalledWith(expectedCookiesSettings);
 	});
 
 	describe('initialiserAnalyticsCampagneDeCommunication', () => {
 		it('initialise le service adform', () => {
-			new AnalyticsService();
+			new AnalyticsService(cookiesService);
 
 			expect(window.tarteaucitron.job).toContainEqual('adform');
 		});
 		it('set la valeur adformpm pour la campagne', () => {
-			new AnalyticsService();
+			new AnalyticsService(cookiesService);
 
 			expect(window.tarteaucitron.user.adformpm).toEqual(2867419);
 		});
@@ -89,7 +91,7 @@ describe('AnalyticsService', () => {
 			it('la valeur de pagename ne doit pas être définie', () => {
 				window.location.pathname = '/';
 
-				new AnalyticsService();
+				new AnalyticsService(cookiesService);
 
 				expect(window.tarteaucitron.user.adformpagename).toEqual(undefined);
 
@@ -99,7 +101,7 @@ describe('AnalyticsService', () => {
 			it('la valeur de pagename ne doit pas être définie', () => {
 				window.location.pathname = '/choisir-apprentissage';
 
-				new AnalyticsService();
+				new AnalyticsService(cookiesService);
 
 				expect(window.tarteaucitron.user.adformpagename).toEqual('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 			});
@@ -108,7 +110,7 @@ describe('AnalyticsService', () => {
 
 	describe('initialiserYoutube', () => {
 		it('initialise le service youtube', () => {
-			new AnalyticsService();
+			new AnalyticsService(cookiesService);
 
 			expect(window.tarteaucitron.job).toContainEqual('youtube');
 		});
@@ -121,7 +123,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('envoie un événement page au tracking', () => {
-				const analyticsService = new AnalyticsService();
+				const analyticsService = new AnalyticsService(cookiesService);
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -158,7 +160,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('n’envoie aucun événement page au tracking', () => {
-				const analyticsService = new AnalyticsService();
+				const analyticsService = new AnalyticsService(cookiesService);
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
