@@ -2,17 +2,17 @@
  * @jest-environment jsdom
  */
 
-import { mockTarteAuCitron } from '~/client/components/window.mock';
 import { TarteAuCitronService } from '~/client/services/cookies/cookies.service';
+import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
 
 describe('TarteAuCitronService', () => {
 	it('initialise tarteaucitron quand on instantie le service', () => {
-		mockTarteAuCitron();
+		const tarteaucitron = aTarteAuCitron();
 
-		new TarteAuCitronService();
+		new TarteAuCitronService(tarteaucitron);
 
-		expect(window.tarteaucitron.init).toHaveBeenCalledTimes(1);
-		expect(window.tarteaucitron.init).toHaveBeenCalledWith({
+		expect(tarteaucitron.init).toHaveBeenCalledTimes(1);
+		expect(tarteaucitron.init).toHaveBeenCalledWith({
 			AcceptAllCta: true,
 			DenyAllCta: true,
 			adblocker: false,
@@ -39,31 +39,24 @@ describe('TarteAuCitronService', () => {
 			useExternalCss: false,
 			useExternalJs: false,
 		});
-		expect(window.tarteaucitron.job).toEqual([]);
+		expect(tarteaucitron.job).toEqual([]);
 	});
 	it('n’écrase pas les jobs quand présents', () => {
-		mockTarteAuCitron({ job: ['youtube'] });
+		const tarteaucitron = aTarteAuCitron({ job: ['youtube'] });
 
-		new TarteAuCitronService();
+		new TarteAuCitronService(tarteaucitron);
 
-		expect(window.tarteaucitron.job).toEqual(['youtube']);
-	});
-	it('n’appelle pas tarteaucitron quand il n’est pas disponible', () => {
-		expect(() => new TarteAuCitronService()).not.toThrow(new TypeError("Cannot read properties of undefined (reading 'init')"));
+		expect(tarteaucitron.job).toEqual(['youtube']);
 	});
 
 	describe('addService', () => {
 		it('ajoute le service à la liste', () => {
-			mockTarteAuCitron();
-			const cookieService = new TarteAuCitronService();
+			const tarteaucitron = aTarteAuCitron();
+			const cookieService = new TarteAuCitronService(tarteaucitron);
 
 			cookieService.addService('youtube');
 
-			expect(window.tarteaucitron.job).toEqual(['youtube']);
+			expect(tarteaucitron.job).toEqual(['youtube']);
 		});
-	});
-
-	afterEach(() => {
-		Object.defineProperty(global, 'window', { value: {} });
 	});
 });

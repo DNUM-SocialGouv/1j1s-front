@@ -55,7 +55,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
-	const cookiesService = new TarteAuCitronService();
+	const cookiesService = new TarteAuCitronService(window.tarteaucitron);
 	const analyticsService = new AnalyticsService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
