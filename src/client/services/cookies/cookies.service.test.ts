@@ -40,4 +40,13 @@ describe('TarteAuCitronService', () => {
 			useExternalJs: false,
 		});
 	});
+	it('n’appelle pas tarteaucitron quand il n’est pas disponible', () => {
+		Object.assign(window, { value: undefined });
+
+		expect(() => new TarteAuCitronService()).not.toThrow(new TypeError("Cannot read properties of undefined (reading 'init')"));
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
 });
