@@ -15,7 +15,7 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
-import { validateApiResponse } from '~/server/utils/validateApiResponse';
+import { logWarnIfInvalidResponseSchema } from '~/server/utils/logWarnIfInvalidResponseSchema';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
@@ -57,7 +57,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
-				validateApiResponse(apiLaBonneAlternanceSchemas.getPoleEmploi, apiResponse.data, this.loggerService, API_NAME);
+				logWarnIfInvalidResponseSchema(this.loggerService, API_NAME, apiResponse.data, apiLaBonneAlternanceSchemas.getPoleEmploi);
 				const offre = apiResponse.data.peJobs[0];
 				return createSuccess(mapPEJob(offre));
 			}
@@ -65,7 +65,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const apiResponse = await this.httpClientService.get<{
 				matchas: AlternanceApiJobsResponse.Matcha[]
 			}>(`/v1/jobs/matcha/${id}`);
-			validateApiResponse(apiLaBonneAlternanceSchemas.getMatcha, apiResponse.data, this.loggerService, API_NAME);
+			logWarnIfInvalidResponseSchema(this.loggerService, API_NAME, apiResponse.data, apiLaBonneAlternanceSchemas.getMatcha);
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
