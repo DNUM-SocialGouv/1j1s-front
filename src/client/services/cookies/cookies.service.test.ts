@@ -52,6 +52,17 @@ describe('TarteAuCitronService', () => {
 		expect(() => new TarteAuCitronService()).not.toThrow(new TypeError("Cannot read properties of undefined (reading 'init')"));
 	});
 
+	describe('addService', () => {
+		it('ajoute le service à la liste', () => {
+			mockTarteAuCitron();
+			const cookieService = new TarteAuCitronService();
+
+			cookieService.addService('youtube');
+
+			expect(window.tarteaucitron.job).toEqual(['youtube']);
+		});
+	});
+
 	afterEach(() => {
 		Object.defineProperty(global, 'window', { value: {} });
 	});

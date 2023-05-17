@@ -1,12 +1,15 @@
+import { YOUTUBE_SERVICE } from '~/client/services/analytics/analytics.service';
+
 export type TarteAuCitron = {
 	init: (config: Record<string, unknown>) => void,
 	job?: string[],
 	userInterface: {
-		respond: (bouton: HTMLButtonElement, value: boolean) => void
+		respond: (bouton: HTMLButtonElement, value: boolean) => void,
 	}
 }
 
 export interface CookiesService {
+	addService(nom: string): void;
 }
 
 export class TarteAuCitronService implements CookiesService {
@@ -42,5 +45,9 @@ export class TarteAuCitronService implements CookiesService {
 			});
 			window.tarteaucitron.job = window.tarteaucitron.job || [];
 		}
+	}
+
+	addService(nom: string): void {
+		window.tarteaucitron.job.push(nom);
 	}
 }
