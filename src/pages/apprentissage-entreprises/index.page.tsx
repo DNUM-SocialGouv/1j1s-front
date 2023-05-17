@@ -30,13 +30,6 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<ApprentissageEntreprisesPageProps>> {
-	const featureActivated = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-	if (!featureActivated) {
-		return {
-			notFound: true,
-		};
-	}
-	
 	const videos = await dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle();
 	if (isFailure(videos)) {
 		return {
@@ -45,7 +38,7 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<App
 			},
 		};
 	}
-	
+
 	return {
 		props: {
 			videos: videos.result,

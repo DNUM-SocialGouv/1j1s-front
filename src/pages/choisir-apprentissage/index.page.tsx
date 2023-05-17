@@ -31,13 +31,6 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<ApprentissageJeunesPageProps>> {
-	const featureActivated = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
-	if (!featureActivated) {
-		return {
-			notFound: true,
-		};
-	}
-
 	const videos = await dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle();
 	if (isFailure(videos)) {
 		return {
