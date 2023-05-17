@@ -39,14 +39,20 @@ describe('TarteAuCitronService', () => {
 			useExternalCss: false,
 			useExternalJs: false,
 		});
+		expect(window.tarteaucitron.job).toEqual([]);
+	});
+	it('n’écrase pas les jobs quand présents', () => {
+		mockTarteAuCitron({ job: ['youtube'] });
+
+		new TarteAuCitronService();
+
+		expect(window.tarteaucitron.job).toEqual(['youtube']);
 	});
 	it('n’appelle pas tarteaucitron quand il n’est pas disponible', () => {
-		Object.assign(window, { value: undefined });
-
 		expect(() => new TarteAuCitronService()).not.toThrow(new TypeError("Cannot read properties of undefined (reading 'init')"));
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		Object.defineProperty(global, 'window', { value: {} });
 	});
 });

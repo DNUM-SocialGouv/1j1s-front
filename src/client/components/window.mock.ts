@@ -69,13 +69,16 @@ export function mockSessionStorage({
 	});
 }
 
-export function mockTarteAuCitron() {
+// FIXME (GAFI 17-05-2023): typage trop large
+export function mockTarteAuCitron(override?: Record<string, unknown>) {
 	Object.defineProperty(window, 'tarteaucitron', {
 		value: {
 			init: jest.fn(),
+			job: undefined,
 			userInterface: {
 				respond: jest.fn(),
 			},
+			...override,
 		},
 	});
 }
