@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.75.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.1...v3.75.2) (2023-05-17)
+
+
+### 🐛 Corrections de bogues
+
+* **alternance:** typo sur la deuxieme raison ([#1318](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1318)) ([e25b45e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e25b45e491e908efd380ae08746424004a7d4628))
+
 ## [3.75.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.0...v3.75.1) (2023-05-16)
 
 
