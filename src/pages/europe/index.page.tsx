@@ -10,12 +10,11 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import analytics from '~/pages/europe/index.analytics';
 import styles from '~/pages/europe/index.module.scss';
-
-import { LinkStyledAsButton } from '../../client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 interface LienEmploiEurope {
 	url: string;

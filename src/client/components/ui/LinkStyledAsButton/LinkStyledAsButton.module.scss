@@ -27,8 +27,8 @@
   color: utilities.$color-on-primary;
 
   &:hover {
-    background-color: utilities.$color-primary-2;
-    border-color: utilities.$color-primary-2;
+    background-color: utilities.$color-primary-on-hover;
+    border-color: utilities.$color-primary-on-hover;
   }
 }
 
@@ -52,8 +52,8 @@
   background-color: utilities.$color-background-white-titan;
 
   &:hover {
-    background-color: utilities.$color-tertiary-2;
-    border-color: utilities.$color-tertiary-2;
+    background-color: utilities.$color-tertiary-on-hover;
+    border-color: utilities.$color-tertiary-on-hover;
     color: utilities.$white;
   }
 }

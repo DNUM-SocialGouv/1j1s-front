@@ -9,11 +9,6 @@
     background-color: utilities.$color-on-disabled;
     color: utilities.$color-disabled;
     cursor: not-allowed;
-
-    &:hover {
-      border: 1px solid utilities.$color-on-disabled;
-      background-color: utilities.$color-on-disabled;
-    }
   }
 
   > svg {
@@ -53,9 +48,9 @@
   background-color: utilities.$color-primary;
   color: utilities.$color-on-primary;
 
-  &:hover {
-    background-color: utilities.$color-primary-2;
-    border-color: utilities.$color-primary-2;
+  &:enabled:hover {
+    background-color: utilities.$color-primary-on-hover;
+    border-color: utilities.$color-primary-on-hover;
   }
 }
 
@@ -64,7 +59,7 @@
   color: utilities.$color-primary;
   background-color: utilities.$white;
 
-  &:hover {
+  &:enabled:hover {
     background-color: utilities.$color-background-white-titan;
     border-color: utilities.$color-primary;
     color: utilities.$color-primary;
@@ -76,9 +71,9 @@
   color: utilities.$color-primary;
   background-color: utilities.$color-background-white-titan;
 
-  &:hover {
-    background-color: utilities.$color-tertiary-2;
-    border-color: utilities.$color-tertiary-2;
+  &:enabled:hover {
+    background-color: utilities.$color-tertiary-on-hover;
+    border-color: utilities.$color-tertiary-on-hover;
     color: utilities.$white;
   }
 }
@@ -88,7 +83,7 @@
   border-radius: 0;
   font-size: 1rem;
 
-  &:hover {
+  &:enabled:hover {
     text-decoration: underline;
     text-underline-offset: 3px;
   }

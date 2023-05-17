@@ -26,15 +26,11 @@
 
     & .headerBannerMobileTitle {
       text-decoration: underline;
-      text-underline-offset: 2px;
+      text-underline-offset: 3px;
       margin-right: 0.5rem;
-      line-height: 1.6rem;
+      line-height: 2;
       @extend %bold;
     }
-  }
-
-  > svg {
-    margin-left: 0.5rem;
   }
 
   & .headerBodyContainer {
@@ -85,16 +81,16 @@
         @extend %text-small;
 
         &:hover {
-          border: 1px solid utilities.$color-primary-on-hover;
-          box-shadow: 1px 1px 0 utilities.$color-primary-on-hover,
-          2px 2px 0 utilities.$color-primary-on-hover,
-          3px 3px 0 utilities.$color-primary-on-hover,
-          4px 4px 0 utilities.$color-primary-on-hover,
-          5px 5px 0 utilities.$color-primary-on-hover,
-          6px 6px 0 utilities.$color-primary-on-hover;
+          border: 1px solid utilities.$color-header-on-hover;
+          box-shadow: 1px 1px 0 utilities.$color-header-on-hover,
+          2px 2px 0 utilities.$color-header-on-hover,
+          3px 3px 0 utilities.$color-header-on-hover,
+          4px 4px 0 utilities.$color-header-on-hover,
+          5px 5px 0 utilities.$color-header-on-hover,
+          6px 6px 0 utilities.$color-header-on-hover;
 
           & .headerBodyBannerTitle, .headerBodyBannerIcon {
-            color: utilities.$color-primary-on-hover;
+            color: utilities.$color-header-on-hover;
           }
         }
 

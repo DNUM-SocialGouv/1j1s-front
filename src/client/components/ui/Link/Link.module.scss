@@ -5,28 +5,3 @@
     vertical-align: middle;
   }
 }
-
-.linkWithrightIcon, .linkWithleftIcon, .linkWithtopIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.linkWithrightIcon {
-  & .linkLabel {
-    margin-right: 0.5rem;
-  }
-}
-
-.linkWithleftIcon {
-  & .linkLabel {
-    margin-left: 0.5rem;
-  }
-}
-
-.linkWithtopIcon {
-  & .linkLabel {
-    margin-top: 0.5rem;
-    display: block;
-  }
-}

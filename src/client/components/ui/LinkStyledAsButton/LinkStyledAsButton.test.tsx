@@ -15,7 +15,7 @@ describe('LinkStyledAsButton', () => {
 	});
 
 	describe('quand le lien est un lien externe', () => {
-		it('retourne le composant Link avec un *tag a* directement et les propriétés target et rel', () => {
+		it('retourne le composant Link avec les propriétés de redirection externe', () => {
 			const lienExterne = 'https://mon-lien-externe';
 
 			render(
@@ -24,7 +24,7 @@ describe('LinkStyledAsButton', () => {
 
 			const linkComponent = screen.getByRole('link');
 
-			expect(linkComponent.getAttribute('href')).toEqual('https://mon-lien-externe');
+			expect(linkComponent).toHaveAttribute('href', 'https://mon-lien-externe');
 			expect(linkComponent).toHaveAttribute('target');
 			expect(linkComponent).toHaveAttribute('rel');
 		});
@@ -40,7 +40,7 @@ describe('LinkStyledAsButton', () => {
 
 			const linkComponent = screen.getByRole('link');
 
-			expect(linkComponent.getAttribute('href')).toEqual('/emplois');
+			expect(linkComponent).toHaveAttribute('href', '/emplois');
 			expect(linkComponent).not.toHaveAttribute('target');
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
@@ -58,7 +58,7 @@ describe('LinkStyledAsButton', () => {
 
 			const linkComponent = screen.getByRole('link');
 
-			expect(linkComponent.getAttribute('href')).toEqual('localhost/emplois');
+			expect(linkComponent).toHaveAttribute('href', 'localhost/emplois');
 			expect(linkComponent).not.toHaveAttribute('target');
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
