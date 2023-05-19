@@ -4,7 +4,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
-import { TarteAuCitronService } from '~/client/services/cookies/cookies.service';
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 const mockLocation = () => {

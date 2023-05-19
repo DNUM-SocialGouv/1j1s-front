@@ -49,3 +49,9 @@ export class TarteAuCitronService implements CookiesService {
 		this.tarteaucitron.job?.push(nom);
 	}
 }
+
+export class NullCookiesService implements CookiesService {
+	addService(): void {
+		return;
+	}
+}
