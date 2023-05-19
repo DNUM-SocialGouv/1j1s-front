@@ -1,12 +1,18 @@
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 
-export interface VideoService {}
+export interface VideoService {
+	isAllowed(): boolean;
+}
 
 export class YoutubeService implements VideoService {
-	public static YOUTUBE_SERVICE = 'youtube';
+	public static SERVICE_NAME = 'youtube';
 	private readonly cookiesService: CookiesService;
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
-		this.cookiesService.addService(YoutubeService.YOUTUBE_SERVICE);
+		this.cookiesService.addService(YoutubeService.SERVICE_NAME);
+	}
+
+	isAllowed(): boolean {
+		return this.cookiesService.isServiceAllowed(YoutubeService.SERVICE_NAME);
 	}
 }

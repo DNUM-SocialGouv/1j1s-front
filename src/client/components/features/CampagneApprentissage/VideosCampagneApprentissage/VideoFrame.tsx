@@ -25,12 +25,12 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 	const cookiesService = useDependency<CookiesService>('cookiesService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(cookiesService.isServiceAllowed(YoutubeService.YOUTUBE_SERVICE));
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(cookiesService.isServiceAllowed(YoutubeService.SERVICE_NAME));
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(cookiesService.isServiceAllowed(YoutubeService.YOUTUBE_SERVICE));
+			setAreYoutubeCookiesAccepted(cookiesService.isServiceAllowed(YoutubeService.SERVICE_NAME));
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);

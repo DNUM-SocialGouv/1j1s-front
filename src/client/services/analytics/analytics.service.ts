@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
 import { CookiesService, TarteAuCitron } from '~/client/services/cookies/cookies.service';
-import { YoutubeService } from '~/client/services/video/video.service';
 
 declare global {
 	interface Window {
@@ -25,7 +24,6 @@ export class AnalyticsService {
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
 
 		this.initialiserAnalyticsCampagneDeCommunication();
-		this.initialiserYoutube();
 	}
 
 	// TODO à supprimer après la campagne autour de l'apprentissage
@@ -107,9 +105,5 @@ export class AnalyticsService {
 
 	private static isEulerianAnalyticsActive(): boolean {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
-	}
-
-	private initialiserYoutube(): void {
-		this.cookiesService.addService(YoutubeService.YOUTUBE_SERVICE);
 	}
 }
