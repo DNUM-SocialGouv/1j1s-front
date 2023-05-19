@@ -15,8 +15,7 @@ declare global {
 	}
 }
 
-const CONSENT_MANAGER_COOKIE_NAME = 'consentement';
-const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
+export const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 const ADFORM_SERVICE = 'adform';
 export const YOUTUBE_SERVICE = 'youtube';
 
@@ -49,7 +48,7 @@ export class AnalyticsService {
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
 		const fallbackPushDatalayer = () => ({});
-		if (!this.isEulerianAnalyticsActive()) {
+		if (!AnalyticsService.isEulerianAnalyticsActive()) {
 			return fallbackPushDatalayer;
 		}
 
@@ -106,25 +105,11 @@ export class AnalyticsService {
 	}
 
 	public isAnalyticsAutorisé(): boolean {
-		return this.isConsentementCookieAutorisé(EULERIAN_ANALYTICS_SERVICE);
+		return this.cookiesService.isServiceAllowed(EULERIAN_ANALYTICS_SERVICE);
 	}
 
-	private isEulerianAnalyticsActive(): boolean {
+	private static isEulerianAnalyticsActive(): boolean {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
-	}
-
-	public isConsentementCookieAutorisé(service: string): boolean {
-		const filteredConsentementCookieParts = document.cookie.match(new RegExp('(^| )' + CONSENT_MANAGER_COOKIE_NAME + '=([^;]+)'));
-		if (filteredConsentementCookieParts) {
-			const consentementCookieValue: string = filteredConsentementCookieParts[2];
-			return consentementCookieValue?.split('!')
-				?.reduce((consentements: Record<string, unknown>, consentementCourant: string) => {
-					const [key, value]: string[] = consentementCourant.split('=');
-					return { ...consentements, [key]: value !== 'false' };
-				}, {})?.[service] as unknown as boolean;
-		} else {
-			return false;
-		}
 	}
 
 	private initialiserYoutube(): void {

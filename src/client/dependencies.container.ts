@@ -3,7 +3,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
-import { NullCookiesService, TarteAuCitronService } from '~/client/services/cookies/cookies.service';
+import { CookiesService, NullCookiesService, TarteAuCitronService } from '~/client/services/cookies/cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -23,6 +23,7 @@ import { StageService } from '~/client/services/stage/stage.service';
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	alternanceService: AlternanceService
+	cookiesService: CookiesService
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
@@ -82,6 +83,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	return {
 		alternanceService,
 		analyticsService,
+		cookiesService,
 		demandeDeContactService,
 		formationService,
 		lesEntreprisesSEngagentService,
