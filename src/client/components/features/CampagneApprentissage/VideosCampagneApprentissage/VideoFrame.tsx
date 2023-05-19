@@ -9,8 +9,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { CookiesService } from '~/client/services/cookies/cookies.service';
-import { YoutubeService } from '~/client/services/video/video.service';
+import { VideoService } from '~/client/services/video/video.service';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
@@ -24,13 +23,13 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
-	const cookiesService = useDependency<CookiesService>('cookiesService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(cookiesService.isServiceAllowed(YoutubeService.SERVICE_NAME));
+	const videoService = useDependency<VideoService>('videoService');
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(videoService.isAllowed());
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(cookiesService.isServiceAllowed(YoutubeService.SERVICE_NAME));
+			setAreYoutubeCookiesAccepted(videoService.isAllowed());
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);
@@ -44,7 +43,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
 			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 		};
-	}, [cookiesService]);
+	}, [videoService]);
 
 
 	return <div className={classNames(styles.video, className)}>
