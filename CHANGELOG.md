@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.77.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.0...v3.77.1) (2023-05-17)
+
+
+### 🐛 Corrections de bogues
+
+* Fix les CSP adform pour les frames ([c1ba11d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1ba11d5d021e9a411730c74d1fcf1756922d090))
+
+## [3.77.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.76.0...v3.77.0) (2023-05-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **logo-minstère:** changement du logo dans le footer ([#1322](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1322)) ([02797aa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02797aaa892936c92a3c216baf1cb9b0398a9b26))
+
+## [3.76.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.2...v3.76.0) (2023-05-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** défeature flipper les urls des pages ([#1320](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1320)) ([d2d6073](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d2d6073fbb7f60a4fe912d370c329ffae8ad1ad6))
+
+## [3.75.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.1...v3.75.2) (2023-05-17)
+
+
+### 🐛 Corrections de bogues
+
+* **alternance:** typo sur la deuxieme raison ([#1318](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1318)) ([e25b45e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e25b45e491e908efd380ae08746424004a7d4628))
+
 ## [3.75.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.75.0...v3.75.1) (2023-05-16)
 
 

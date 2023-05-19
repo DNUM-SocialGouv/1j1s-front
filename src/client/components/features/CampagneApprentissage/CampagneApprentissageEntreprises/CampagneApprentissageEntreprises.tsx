@@ -31,7 +31,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 		},
 		{
 			iconName: 'account',
-			text: <>Transmettre votre <span>savoir-faire,</span> </>,
+			text: <>Transmettre votre <span>savoir-faire</span> </>,
 		},
 		{
 			iconName: 'euro',
