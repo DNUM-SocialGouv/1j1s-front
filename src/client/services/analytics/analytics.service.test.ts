@@ -22,63 +22,60 @@ const mockLocation = () => {
 
 describe('AnalyticsService', () => {
 	const pageSetSpy = jest.fn();
-	const initSpy = jest.fn();
 	const eulerianAnalyticsPushSpy = jest.fn();
-	const cookiesService = aCookiesService();
-
 	beforeEach(() => {
-		(global as any).tarteaucitron = {
-			init: initSpy,
-			job: [],
-			services: {},
-			user: {},
-		};
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
 		mockLocation();
 	});
 
 	afterEach(() => {
-		initSpy.mockRestore();
 		eulerianAnalyticsPushSpy.mockRestore();
 	});
 
 	describe('initialiserAnalyticsCampagneDeCommunication', () => {
 		it('initialise le service adform', () => {
+			const cookiesService = aCookiesService();
+
 			new AnalyticsService(cookiesService);
 
-			expect(window.tarteaucitron.job).toContainEqual('adform');
+			expect(cookiesService.addService).toHaveBeenCalledWith('adform');
 		});
 		it('set la valeur adformpm pour la campagne', () => {
+			const cookiesService = aCookiesService();
+
 			new AnalyticsService(cookiesService);
 
-			expect(window.tarteaucitron.user.adformpm).toEqual(2867419);
+			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
 		});
 		describe('quand on est pas sur la page de campagne jeune', () => {
 			it('la valeur de pagename ne doit pas être définie', () => {
 				window.location.pathname = '/';
+				const cookiesService = aCookiesService();
 
 				new AnalyticsService(cookiesService);
 
-				expect(window.tarteaucitron.user.adformpagename).toEqual(undefined);
-
+				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
 			});
 		});
 		describe('quand on est sur la page de campagne jeune', () => {
 			it('la valeur de pagename ne doit pas être définie', () => {
 				window.location.pathname = '/choisir-apprentissage';
+				const cookiesService = aCookiesService();
 
 				new AnalyticsService(cookiesService);
 
-				expect(window.tarteaucitron.user.adformpagename).toEqual('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
+				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 			});
 		});
 	});
 
 	describe('initialiserYoutube', () => {
 		it('initialise le service youtube', () => {
+			const cookiesService = aCookiesService();
+
 			new AnalyticsService(cookiesService);
 
-			expect(window.tarteaucitron.job).toContainEqual('youtube');
+			expect(cookiesService.addService).toHaveBeenCalledWith('youtube');
 		});
 	});
 
@@ -89,7 +86,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('envoie un événement page au tracking', () => {
-				const analyticsService = new AnalyticsService(cookiesService);
+				const analyticsService = new AnalyticsService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -126,7 +123,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('n’envoie aucun événement page au tracking', () => {
-				const analyticsService = new AnalyticsService(cookiesService);
+				const analyticsService = new AnalyticsService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',

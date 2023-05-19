@@ -65,17 +65,8 @@ export class TarteAuCitronService implements CookiesService {
 	}
 
 	isServiceAllowed(serviceName: string): boolean {
-		const filteredConsentementCookieParts = document.cookie.match(new RegExp('(^| )' + TarteAuCitronService.CONSENT_MANAGER_COOKIE_NAME + '=([^;]+)'));
-		if (filteredConsentementCookieParts) {
-			const consentementCookieValue: string = filteredConsentementCookieParts[2];
-			return consentementCookieValue?.split('!')
-				?.reduce((consentements: Record<string, unknown>, consentementCourant: string) => {
-					const [key, value]: string[] = consentementCourant.split('=');
-					return { ...consentements, [key]: value !== 'false' };
-				}, {})?.[serviceName] as unknown as boolean;
-		} else {
-			return false;
-		}
+		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteAuCitronService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
+		return isCookieAllowedRegex.test(document.cookie);
 	}
 }
 

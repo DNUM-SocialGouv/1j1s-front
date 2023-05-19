@@ -122,8 +122,7 @@ describe('TarteAuCitronService', () => {
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
-			// FIXME (GAFI 19-05-2023): Repasser en toBe(false);
-			expect(result).toBeFalsy();
+			expect(result).toBe(false);
 		});
 		it('renvoie false si pas de consentement', () => {
 			document.cookie = '';
@@ -133,6 +132,21 @@ describe('TarteAuCitronService', () => {
 			const result = cookiesService.isServiceAllowed('youtube');
 
 			expect(result).toBe(false);
+		});
+		it.each`
+			  cookie    																																																						| expected
+				${'consentement=!youtube=true!eulerian=false!adform=true'} 																														| ${false}
+				${'aaa=bbb; consentement=!youtube=true!eulerian=true; aaa=bbb; eulerian=false;'} 																			| ${true}
+				${'aa=consentement=!eulerian=true; consentement=!youtube=true!eulerian=false!adform=true; aa=consentement=!youtube'} 	| ${false}
+				${'consentement=!eulerian=true; '} 																																										| ${true}
+		`('renvoie $expected quand le cookie vaut $cookie', ({ cookie, expected }) => {
+			document.cookie = cookie;
+			const tarteaucitron = aTarteAuCitron();
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			const result = cookiesService.isServiceAllowed('eulerian');
+
+			expect(result).toBe(expected);
 		});
 
 		beforeEach(() => {
