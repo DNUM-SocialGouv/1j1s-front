@@ -150,6 +150,7 @@ describe('TarteAuCitronService', () => {
 		});
 
 		beforeEach(() => {
+			// FIXME (GAFI 19-05-2023): Si on inject document (qui est une dépendance externe) on peut se passer de ça et de l'environnement js-dom
 			Object.defineProperty(document, 'cookie', { value: undefined, writable: true });
 		});
 	});
