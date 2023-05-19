@@ -17,6 +17,7 @@ export type TarteAuCitron = {
 export interface CookiesService {
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void;
 	addUser(nom: string, value: TarteAuCitron.User): void;
+	isServiceAllowed(nom: string): boolean;
 }
 
 export class TarteAuCitronService implements CookiesService {
@@ -59,13 +60,29 @@ export class TarteAuCitronService implements CookiesService {
 		}
 		this.tarteaucitron.job?.push(nom);
 	}
+	addUser(userName: string, value: TarteAuCitron.User): void {
+		this.tarteaucitron.user[userName] = value;
+	}
 
-	addUser(nom: string, value: TarteAuCitron.User): void {
-		this.tarteaucitron.user[nom] = value;
+	isServiceAllowed(serviceName: string): boolean {
+		const filteredConsentementCookieParts = document.cookie.match(new RegExp('(^| )' + TarteAuCitronService.CONSENT_MANAGER_COOKIE_NAME + '=([^;]+)'));
+		if (filteredConsentementCookieParts) {
+			const consentementCookieValue: string = filteredConsentementCookieParts[2];
+			return consentementCookieValue?.split('!')
+				?.reduce((consentements: Record<string, unknown>, consentementCourant: string) => {
+					const [key, value]: string[] = consentementCourant.split('=');
+					return { ...consentements, [key]: value !== 'false' };
+				}, {})?.[serviceName] as unknown as boolean;
+		} else {
+			return false;
+		}
 	}
 }
 
 export class NullCookiesService implements CookiesService {
+	isServiceAllowed(): boolean {
+		return false;
+	}
 	addUser(): void {
 		return;
 	}

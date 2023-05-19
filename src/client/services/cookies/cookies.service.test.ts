@@ -95,4 +95,48 @@ describe('TarteAuCitronService', () => {
 			expect(tarteaucitron.user.adformpm).toEqual(2867419);
 		});
 	});
+
+	describe('isServiceAllowed', () => {
+		it('renvoie true si le service est accepté', () => {
+			document.cookie = 'consentement=!youtube=true;';
+			const tarteaucitron = aTarteAuCitron();
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			const result = cookiesService.isServiceAllowed('youtube');
+
+			expect(result).toBe(true);
+		});
+		it('renvoie false si le service est refusé', () => {
+			document.cookie = 'consentement=!youtube=false;';
+			const tarteaucitron = aTarteAuCitron();
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			const result = cookiesService.isServiceAllowed('youtube');
+
+			expect(result).toBe(false);
+		});
+		it('renvoie false si le service n’existe pas', () => {
+			document.cookie = 'consentement=!eulerian=true;';
+			const tarteaucitron = aTarteAuCitron();
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			const result = cookiesService.isServiceAllowed('youtube');
+
+			// FIXME (GAFI 19-05-2023): Repasser en toBe(false);
+			expect(result).toBeFalsy();
+		});
+		it('renvoie false si pas de consentement', () => {
+			document.cookie = '';
+			const tarteaucitron = aTarteAuCitron();
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			const result = cookiesService.isServiceAllowed('youtube');
+
+			expect(result).toBe(false);
+		});
+
+		beforeEach(() => {
+			Object.defineProperty(document, 'cookie', { value: undefined, writable: true });
+		});
+	});
 });

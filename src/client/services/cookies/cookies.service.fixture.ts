@@ -4,6 +4,7 @@ export function aCookiesService(override?: Partial<CookiesService>): CookiesServ
 	return {
 		addService: jest.fn(),
 		addUser: jest.fn(),
+		isServiceAllowed: jest.fn(() => true),
 		...override,
 	};
 }
