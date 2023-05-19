@@ -36,4 +36,17 @@ describe('deposer-offre', () => {
 		expect(linkFomulaireLBA).toBeVisible();
 		expect(linkFomulaireLBA).toHaveAttribute('href', 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/espace-pro/creation/entreprise/redirec_from_widget_1j1s');
 	});
+	it('contient un lien vers la page d’authentification de LBA', () => {
+		const analyticsService = anAnalyticsService();
+		process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL = 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/';
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<DeposerOffrePage/>
+			</DependenciesProvider>,
+		);
+
+		const linkAuthentification = screen.getByRole('link', { name: /page d’authentification/i });
+		expect(linkAuthentification).toBeVisible();
+		expect(linkAuthentification).toHaveAttribute('href', 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/espace-pro/authentification');
+	});
 });

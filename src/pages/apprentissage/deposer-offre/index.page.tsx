@@ -12,6 +12,7 @@ const SOURCE_LBA_IFRAME = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}esp
 const POLITIQUE_CONFIDENTIALITÉ_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}politique-de-confidentialite`;
 const CONDITIONS_GÉNÉRALES_UTILISATION_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}cgu`;
 const FORMULAIRE_DEPOT_OFFRE_LBA_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/creation/entreprise/redirec_from_widget_1j1s`;
+const AUTHENTIFICATION_LBA_URL = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/authentification`;
 
 export default function DeposerOffrePage() {
 	useAnalytics(analytics);
@@ -35,7 +36,7 @@ export default function DeposerOffrePage() {
 			<Container className={styles.formulaire}>
 				<p className={styles.cadreInformation}>
 					<span>Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</Link> pour y accéder.</span>
-					<span>A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la page d’authentification. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.</span>
+					<span>A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la <Link href={AUTHENTIFICATION_LBA_URL}>page d’authentification</Link>. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.</span>
 				</p>
 				<iframe
 					className={styles.iframe}
