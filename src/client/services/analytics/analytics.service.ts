@@ -1,6 +1,9 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
-import { CookiesService } from '~/client/services/cookies/cookies.service';
+import {
+	CookiesService,
+	TarteAuCitron,
+} from '~/client/services/cookies/cookies.service';
 
 declare global {
 	interface Window {
@@ -53,14 +56,14 @@ export class AnalyticsService {
 
 		try {
 			// Voir https://eulerian.wiki/doku.php?id=fr:modules:collect:gdpr:tarteaucitron
-			window.tarteaucitron.services[EULERIAN_ANALYTICS_SERVICE] = {
+			const config: TarteAuCitron.ServiceConfig<any> = {
 				cookies: ['etuix'],
 				fallback: function () {
 					this.js();
 				},
 				js: function () {
 					'use strict';
-					(function (x, w) {
+					(function (x: any, w) {
 						if (!x._ld) {
 							x._ld = 1;
 							const ff = function () {
@@ -78,12 +81,12 @@ export class AnalyticsService {
 					})(this, window);
 				},
 				key: EULERIAN_ANALYTICS_SERVICE,
-				name: 'Eulerian Analytics',
+				name: 'Eulerian Analytics (test)',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
 			};
-			window.tarteaucitron.job.push(EULERIAN_ANALYTICS_SERVICE);
+			this.cookiesService.addService(EULERIAN_ANALYTICS_SERVICE, config);
 			return window.EA_push;
 		} catch (e) {
 			return fallbackPushDatalayer;
@@ -126,8 +129,6 @@ export class AnalyticsService {
 	}
 
 	private initialiserYoutube(): void {
-		if (window && window.tarteaucitron) {
-			window.tarteaucitron.job.push(YOUTUBE_SERVICE);
-		}
+		this.cookiesService.addService('youtube');
 	}
 }

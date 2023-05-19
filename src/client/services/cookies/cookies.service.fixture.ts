@@ -11,6 +11,7 @@ export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron
 	return {
 		init: jest.fn(),
 		job: undefined,
+		services: {},
 		userInterface: {
 			respond: jest.fn(),
 		},

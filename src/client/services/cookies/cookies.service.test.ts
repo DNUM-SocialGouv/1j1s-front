@@ -58,5 +58,22 @@ describe('TarteAuCitronService', () => {
 
 			expect(tarteaucitron.job).toEqual(['youtube']);
 		});
+		it('ajoute le service à la liste avec la configuration', () => {
+			const tarteaucitron = aTarteAuCitron();
+			const cookieService = new TarteAuCitronService(tarteaucitron);
+
+			cookieService.addService('eulerian', { config: 'truc' });
+
+			expect(tarteaucitron.job).toEqual(['eulerian']);
+			expect(tarteaucitron.services).toEqual({ eulerian: { config: 'truc' } });
+		});
+		it('n’écrase pas la config par défaut quand pas de config fournie', () => {
+			const tarteaucitron = aTarteAuCitron({ services: { youtube: { config: 'test' } } });
+			const cookieService = new TarteAuCitronService(tarteaucitron);
+
+			cookieService.addService('youtube');
+
+			expect(tarteaucitron.services['youtube']).toEqual({ config: 'test' });
+		});
 	});
 });
