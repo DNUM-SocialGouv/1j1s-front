@@ -29,7 +29,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage pour mon entreprise, c’est le bon choix !/i });
+		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
 
 		// THEN
 		expect(titre).toBeVisible();
@@ -149,8 +149,8 @@ describe('CampagneApprentissageEntreprises', () => {
 				);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 				expect(titre).toBeVisible();
 			});
 
@@ -163,7 +163,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
@@ -176,8 +176,8 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				const titre = within(section).getByRole('heading', { level: 2, name: /Vous envisagez de recruter un apprenti ?/i });
 				const description = within(section).getByText('Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master');
 				expect(titre).toBeVisible();
 				expect(description).toBeVisible();
@@ -188,7 +188,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
 				const link = within(section).getByRole('link', { name: 'En savoir plus' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance' );

@@ -16,6 +16,7 @@ $padding-horizontal: 2rem;
 
   & h2 {
     @extend %subheading;
+    font-weight: bold;
     color: utilities.$color-primary;
     margin-bottom: 1.5rem;
 
@@ -42,11 +43,11 @@ $padding-horizontal: 2rem;
       min-width: $min-width-tuile;
     }
 
-    & .tuile{
+    & .tuile {
       height: 100%;
       border: 1px solid utilities.$color-primary;
-      
-      & span{
+
+      & span {
         display: inline-block;
       }
 
