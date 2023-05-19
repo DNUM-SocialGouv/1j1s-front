@@ -1,9 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
-import {
-	CookiesService,
-	TarteAuCitron,
-} from '~/client/services/cookies/cookies.service';
+import { CookiesService, TarteAuCitron } from '~/client/services/cookies/cookies.service';
+import { YoutubeService } from '~/client/services/video/video.service';
 
 declare global {
 	interface Window {
@@ -17,7 +15,6 @@ declare global {
 
 export const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 const ADFORM_SERVICE = 'adform';
-export const YOUTUBE_SERVICE = 'youtube';
 
 export class AnalyticsService {
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
@@ -113,6 +110,6 @@ export class AnalyticsService {
 	}
 
 	private initialiserYoutube(): void {
-		this.cookiesService.addService(YOUTUBE_SERVICE);
+		this.cookiesService.addService(YoutubeService.YOUTUBE_SERVICE);
 	}
 }
