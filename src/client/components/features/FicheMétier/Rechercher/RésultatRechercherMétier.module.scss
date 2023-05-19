@@ -1,12 +1,5 @@
 @use "@styles/utilities";
 
-.cardLink:hover {
-  & .fakeLink{
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-}
-
 .resultatCard {
   border-left: 3px solid utilities.$color-primary;
   padding: 1.5rem 2rem;

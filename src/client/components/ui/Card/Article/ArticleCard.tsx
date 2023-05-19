@@ -48,7 +48,7 @@ export function ArticleCard({
 	const { isLargeScreen } = useBreakpoint();
 
 	return (
-		<Link href={link} className={classNames('underline-none', styles.card, !vertical && styles.notOnlyVertical)}>
+		<Link href={link} className={classNames('underline-none', !vertical && styles.notOnlyVertical)}>
 			<Card className={className} layout={vertical || !isLargeScreen ? 'vertical' : 'horizontal'}>
 				<Card.Image className={imageClassName} src={imageSrc} aria-hidden/>
 				<Card.Content className={styles.content}>

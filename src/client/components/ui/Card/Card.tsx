@@ -78,7 +78,7 @@ interface CardLinkProps {
 
 function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof Link>) {
 	const { className, href, label, ...rest } = props;
-	return <Link className={className} href={href} {...rest}>{label}</Link>;
+	return <Link className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</Link>;
 }
 
 interface CardImageProps {

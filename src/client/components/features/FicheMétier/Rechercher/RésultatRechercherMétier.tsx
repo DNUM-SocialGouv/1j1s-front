@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 
@@ -20,7 +19,7 @@ export function RésultatRechercherMétier(props: HitProps<Partial<Strapi.Collec
 	if (!ficheMetier.nomMetier) return null;
 
 	return (
-		<Link href={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`} className={classNames('underline-none', styles.cardLink)}>
+		<Link href={`/decouvrir-les-metiers/${encodeURIComponent(ficheMetier.nomMetier)}`} className={'underline-none'}>
 			<Card className={styles.resultatCard} layout={'horizontal'}>
 				<Card.Content className={styles.content}>
 					<Card.Title className={styles.title} titleAs={'h3'}>{nomMetier}</Card.Title>

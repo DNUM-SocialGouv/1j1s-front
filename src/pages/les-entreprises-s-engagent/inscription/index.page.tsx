@@ -10,10 +10,8 @@ import InputAutocomplétionSecteurActivité, {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import {
@@ -314,12 +312,13 @@ export default function LesEntreprisesSEngagentInscription() {
           		)}
           		<p className={styles.footer}>
                       Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification,{' '}
-          			<Link
+          			<LinkStyledAsButton
+          				appearance={'asQuaternayButton'}
           				href="mailto:contact@lesentreprises-sengagent.org"
           				prefetch={false}
           				className={styles.contactLink}>
-          				<TextIcon icon="external-redirection">nous contacter</TextIcon>
-          			</Link>
+          				nous contacter
+          			</LinkStyledAsButton>
           		</p>
           	</div>
           </>

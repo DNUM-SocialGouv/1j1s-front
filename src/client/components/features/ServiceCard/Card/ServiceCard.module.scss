@@ -25,13 +25,6 @@
 .cardContainer {
   display: block;
 
-  &:hover {
-    & .cardAction {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-  }
-
   & .card {
     display: grid;
 

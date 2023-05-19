@@ -26,6 +26,11 @@
   padding-right: 32px;
 }
 
+.boutonRetour {
+  margin: 1rem 0;
+}
+
+
 
 .formulaire {
   .bodyFormulaire {
@@ -123,8 +128,7 @@
   }
 
   .boutonRetour {
-    margin-top: 1rem;
-    margin-left: 8rem;
+    margin: 1rem 0 0 8rem;
   }
 
   .formulaire {
@@ -193,6 +197,6 @@
   }
 }
 
-.contactLink:hover {
-  text-decoration: underline;
+.contactLink {
+  color: utilities.$black;
 }

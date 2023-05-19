@@ -80,11 +80,11 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWi
 	}, [icon, iconPosition, children, isInternalLink]);
 
 	return isInternalLink ? (
-		<LinkNext href={href} prefetch={prefetch} className={classNames(appearanceClass, iconClass, className)} {...rest}>
+		<LinkNext href={href} prefetch={prefetch} className={classNames(className, appearanceClass, iconClass)} {...rest}>
 			{linkStyledAsButtonWithIconBody}
 		</LinkNext>
 	) : (
-		<a href={href} target="_blank" rel="noreferrer" className={classNames(appearanceClass, iconClass, className)} {...rest}>
+		<a href={href} target="_blank" rel="noreferrer" className={classNames(className, appearanceClass, iconClass)} {...rest}>
 			{linkStyledAsButtonWithIconBody}
 		</a>
 	);
