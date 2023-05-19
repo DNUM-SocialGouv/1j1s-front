@@ -3,6 +3,7 @@ import { CookiesService, TarteAuCitron } from './cookies.service';
 export function aCookiesService(override?: Partial<CookiesService>): CookiesService {
 	return {
 		addService: jest.fn(),
+		addUser: jest.fn(),
 		...override,
 	};
 }
@@ -12,6 +13,7 @@ export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron
 		init: jest.fn(),
 		job: undefined,
 		services: {},
+		user: {},
 		userInterface: {
 			respond: jest.fn(),
 		},

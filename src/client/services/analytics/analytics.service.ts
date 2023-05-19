@@ -34,18 +34,17 @@ export class AnalyticsService {
 
 	// TODO à supprimer après la campagne autour de l'apprentissage
 	private initialiserAnalyticsCampagneDeCommunication(): void {
-		if (window && window.tarteaucitron) {
-
-			window.tarteaucitron.user.adformpm = 2867419;
-			if (window.location.pathname === '/choisir-apprentissage') {
-				window.tarteaucitron.user.adformpagename = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
-			} else {
-				window.tarteaucitron.user.adformpagename = undefined;
-			}
-
-			window.tarteaucitron.job.push(ADFORM_SERVICE);
+		// FIXME (GAFI 19-05-2023): Magic number
+		this.cookiesService.addUser('adformpm', 2867419);
+		// FIXME (GAFI 19-05-2023):  plutôt dans la page que dans le service
+		if (window.location.pathname === '/choisir-apprentissage') {
+			// FIXME (GAFI 19-05-2023): Magic string
+			this.cookiesService.addUser('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
+		} else {
+			this.cookiesService.addUser('adformpagename', undefined);
 		}
 
+		this.cookiesService.addService(ADFORM_SERVICE);
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
@@ -81,7 +80,7 @@ export class AnalyticsService {
 					})(this, window);
 				},
 				key: EULERIAN_ANALYTICS_SERVICE,
-				name: 'Eulerian Analytics (test)',
+				name: 'Eulerian Analytics',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
@@ -129,6 +128,6 @@ export class AnalyticsService {
 	}
 
 	private initialiserYoutube(): void {
-		this.cookiesService.addService('youtube');
+		this.cookiesService.addService(YOUTUBE_SERVICE);
 	}
 }

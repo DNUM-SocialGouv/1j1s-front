@@ -1,9 +1,11 @@
 export namespace TarteAuCitron {
 	export type ServiceConfig<T> = Record<string, T>;
 	export type InitConfig = Record<string, unknown>;
+	export type User = unknown;
 }
 
 export type TarteAuCitron = {
+	user: Record<string, TarteAuCitron.User>,
 	services: Record<string, TarteAuCitron.ServiceConfig<unknown>>,
 	init: (config: TarteAuCitron.InitConfig) => void,
 	job?: string[],
@@ -14,6 +16,7 @@ export type TarteAuCitron = {
 
 export interface CookiesService {
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void;
+	addUser(nom: string, value: TarteAuCitron.User): void;
 }
 
 export class TarteAuCitronService implements CookiesService {
@@ -50,16 +53,22 @@ export class TarteAuCitronService implements CookiesService {
 		});
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
-
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void {
 		if (config != undefined) {
 			this.tarteaucitron.services[nom] = config;
 		}
 		this.tarteaucitron.job?.push(nom);
 	}
+
+	addUser(nom: string, value: TarteAuCitron.User): void {
+		this.tarteaucitron.user[nom] = value;
+	}
 }
 
 export class NullCookiesService implements CookiesService {
+	addUser(): void {
+		return;
+	}
 	addService(): void {
 		return;
 	}

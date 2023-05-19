@@ -76,4 +76,23 @@ describe('TarteAuCitronService', () => {
 			expect(tarteaucitron.services['youtube']).toEqual({ config: 'test' });
 		});
 	});
+
+	describe('addUser', () => {
+		it("ajoute l'utilisateur à la liste des utilisateurs", () => {
+			const tarteaucitron = aTarteAuCitron({ user: {} });
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			cookiesService.addUser('adformpm', 2867419);
+
+			expect(tarteaucitron.user).toMatchObject({ adformpm: 2867419 });
+		});
+		it("écrase l'utilisateur quand il est déjà présent", () => {
+			const tarteaucitron = aTarteAuCitron({ user: { adformpm: 'salut' } });
+			const cookiesService = new TarteAuCitronService(tarteaucitron);
+
+			cookiesService.addUser('adformpm', 2867419);
+
+			expect(tarteaucitron.user.adformpm).toEqual(2867419);
+		});
+	});
 });
