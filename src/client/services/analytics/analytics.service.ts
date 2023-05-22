@@ -27,23 +27,6 @@ export class EulerianService implements AnalyticsService{
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
 		this.pushDatalayer = this.initialiserEulerianAnalytics();
-
-		this.initialiserAnalyticsCampagneDeCommunication();
-	}
-
-	// TODO à supprimer après la campagne autour de l'apprentissage
-	private initialiserAnalyticsCampagneDeCommunication(): void {
-		// FIXME (GAFI 19-05-2023): Magic number
-		this.cookiesService.addUser('adformpm', 2867419);
-		// FIXME (GAFI 19-05-2023):  plutôt dans la page que dans le service
-		if (window.location.pathname === '/choisir-apprentissage') {
-			// FIXME (GAFI 19-05-2023): Magic string
-			this.cookiesService.addUser('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
-		} else {
-			this.cookiesService.addUser('adformpagename', undefined);
-		}
-
-		this.cookiesService.addService(ADFORM_SERVICE);
 	}
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
@@ -111,4 +94,29 @@ export class EulerianService implements AnalyticsService{
 	private static isEulerianAnalyticsActive(): boolean {
 		return process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE === '1';
 	}
+}
+
+// TODO à supprimer après la campagne autour de l'apprentissage
+export class DiscreteAdformService {
+	// FIXME (GAFI 22-05-2023): commentaire
+	// NOTE (GAFI 22-05-2023): Ceci est un service discret
+	private readonly cookiesService: CookiesService;
+	constructor(cookiesService: CookiesService) {
+		this.cookiesService = cookiesService;
+		this.initialiserAnalyticsCampagneDeCommunication();
+	}
+	private initialiserAnalyticsCampagneDeCommunication(): void {
+		// FIXME (GAFI 19-05-2023): Magic number
+		this.cookiesService.addUser('adformpm', 2867419);
+		// FIXME (GAFI 19-05-2023):  plutôt dans la page que dans le service
+		if (window.location.pathname === '/choisir-apprentissage') {
+			// FIXME (GAFI 19-05-2023): Magic string
+			this.cookiesService.addUser('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
+		} else {
+			this.cookiesService.addUser('adformpagename', undefined);
+		}
+
+		this.cookiesService.addService(ADFORM_SERVICE);
+	}
+
 }

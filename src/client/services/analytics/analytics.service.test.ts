@@ -3,7 +3,7 @@
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
-import { EulerianService } from '~/client/services/analytics/analytics.service';
+import { DiscreteAdformService, EulerianService } from '~/client/services/analytics/analytics.service';
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 const mockLocation = () => {
@@ -30,43 +30,6 @@ describe('EulerianService', () => {
 
 	afterEach(() => {
 		eulerianAnalyticsPushSpy.mockRestore();
-	});
-
-	describe('initialiserAnalyticsCampagneDeCommunication', () => {
-		it('initialise le service adform', () => {
-			const cookiesService = aCookiesService();
-
-			new EulerianService(cookiesService);
-
-			expect(cookiesService.addService).toHaveBeenCalledWith('adform');
-		});
-		it('set la valeur adformpm pour la campagne', () => {
-			const cookiesService = aCookiesService();
-
-			new EulerianService(cookiesService);
-
-			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
-		});
-		describe('quand on est pas sur la page de campagne jeune', () => {
-			it('la valeur de pagename ne doit pas être définie', () => {
-				window.location.pathname = '/';
-				const cookiesService = aCookiesService();
-
-				new EulerianService(cookiesService);
-
-				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
-			});
-		});
-		describe('quand on est sur la page de campagne jeune', () => {
-			it('la valeur de pagename ne doit pas être définie', () => {
-				window.location.pathname = '/choisir-apprentissage';
-				const cookiesService = aCookiesService();
-
-				new EulerianService(cookiesService);
-
-				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
-			});
-		});
 	});
 
 	describe('envoyerAnalyticsPageVue', () => {
@@ -124,6 +87,48 @@ describe('EulerianService', () => {
 
 				expect(pageSetSpy).not.toHaveBeenCalled();
 			});
+		});
+	});
+
+});
+
+describe('DiscreteAdformService', () => {
+	beforeEach(() => {
+		mockLocation();
+	});
+
+	it('initialise le service adform', () => {
+		const cookiesService = aCookiesService();
+
+		new DiscreteAdformService(cookiesService);
+
+		expect(cookiesService.addService).toHaveBeenCalledWith('adform');
+	});
+	it('set la valeur adformpm pour la campagne', () => {
+		const cookiesService = aCookiesService();
+
+		new DiscreteAdformService(cookiesService);
+
+		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
+	});
+	describe('quand on n’est pas sur la page de campagne jeune', () => {
+		it('la valeur de pagename ne doit pas être définie', () => {
+			window.location.pathname = '/';
+			const cookiesService = aCookiesService();
+
+			new DiscreteAdformService(cookiesService);
+
+			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
+		});
+	});
+	describe('quand on est sur la page de campagne jeune', () => {
+		it('la valeur de pagename doit être définie', () => {
+			window.location.pathname = '/choisir-apprentissage';
+			const cookiesService = aCookiesService();
+
+			new DiscreteAdformService(cookiesService);
+
+			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 		});
 	});
 });
