@@ -96,8 +96,8 @@ export class EulerianService implements AnalyticsService{
 
 // TODO à supprimer après la campagne autour de l'apprentissage
 export class DiscreteAdformService {
-	// FIXME (GAFI 22-05-2023): commentaire
-	// NOTE (GAFI 22-05-2023): Ceci est un service discret
+	// NOTE (GAFI 22-05-2023): Ceci est un service discret :
+	//  Le tracking est fait via une balise `<img>` qui fait les requêtes appropriées plutôt que par du script JS
 
 	private static ADFORM_SERVICE = 'adform';
 	private readonly cookiesService: CookiesService;
@@ -106,7 +106,6 @@ export class DiscreteAdformService {
 		this.initialiserAnalyticsCampagneDeCommunication();
 	}
 	private initialiserAnalyticsCampagneDeCommunication(): void {
-		// FIXME (GAFI 22-05-2023): Est-ce qu'il ne faudrait pas checker que la feature est activée avant de faire tout ça ?
 		// FIXME (GAFI 19-05-2023): Magic number
 		this.cookiesService.addUser('adformpm', 2867419);
 		// FIXME (GAFI 19-05-2023): plutôt dans la page que dans le service
@@ -119,5 +118,4 @@ export class DiscreteAdformService {
 
 		this.cookiesService.addService(DiscreteAdformService.ADFORM_SERVICE);
 	}
-
 }
