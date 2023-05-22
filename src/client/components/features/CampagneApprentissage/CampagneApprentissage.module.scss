@@ -1,5 +1,9 @@
 @use "@styles/utilities";
 
+.breakOpportunity {
+  display: inline-block;
+};
+
 .titrePage {
   & h1 {
     @extend %headline;

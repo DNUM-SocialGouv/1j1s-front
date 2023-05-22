@@ -16,7 +16,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
-import styles from './CampagneApprentissageJeunes.module.scss';
+import styles from '../CampagneApprentissage.module.scss';
 
 interface CampagneApprentissageJeunesProps {
 	videos: Array<VideoCampagneApprentissage>

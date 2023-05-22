@@ -51,7 +51,7 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 		<>
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
-					<h1>L’apprentissage, pour mon entreprise c’est le bon choix&nbsp;!</h1>
+					<h1>L’apprentissage, pour mon entreprise <span className={styles.breakOpportunity}>c’est le bon choix&nbsp;!</span></h1>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						{ isSmallScreen ? 'Simuler le coût d’embauche' : 'Simuler le coût de l’embauche d’un apprenti'}
 					</Link>
