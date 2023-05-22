@@ -2,7 +2,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService, EulerianService } from '~/client/services/analytics/analytics.service';
 import { CookiesService, NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
@@ -61,7 +61,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
-	const analyticsService = new AnalyticsService(cookiesService);
+	const analyticsService = new EulerianService(cookiesService);
 	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;

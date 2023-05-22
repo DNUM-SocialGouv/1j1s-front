@@ -3,7 +3,7 @@
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { EulerianService } from '~/client/services/analytics/analytics.service';
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 const mockLocation = () => {
@@ -20,7 +20,7 @@ const mockLocation = () => {
 	});
 };
 
-describe('AnalyticsService', () => {
+describe('EulerianService', () => {
 	const pageSetSpy = jest.fn();
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
@@ -36,14 +36,14 @@ describe('AnalyticsService', () => {
 		it('initialise le service adform', () => {
 			const cookiesService = aCookiesService();
 
-			new AnalyticsService(cookiesService);
+			new EulerianService(cookiesService);
 
 			expect(cookiesService.addService).toHaveBeenCalledWith('adform');
 		});
 		it('set la valeur adformpm pour la campagne', () => {
 			const cookiesService = aCookiesService();
 
-			new AnalyticsService(cookiesService);
+			new EulerianService(cookiesService);
 
 			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
 		});
@@ -52,7 +52,7 @@ describe('AnalyticsService', () => {
 				window.location.pathname = '/';
 				const cookiesService = aCookiesService();
 
-				new AnalyticsService(cookiesService);
+				new EulerianService(cookiesService);
 
 				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
 			});
@@ -62,7 +62,7 @@ describe('AnalyticsService', () => {
 				window.location.pathname = '/choisir-apprentissage';
 				const cookiesService = aCookiesService();
 
-				new AnalyticsService(cookiesService);
+				new EulerianService(cookiesService);
 
 				expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 			});
@@ -76,7 +76,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('envoie un événement page au tracking', () => {
-				const analyticsService = new AnalyticsService(aCookiesService());
+				const analyticsService = new EulerianService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -113,7 +113,7 @@ describe('AnalyticsService', () => {
 			});
 
 			it('n’envoie aucun événement page au tracking', () => {
-				const analyticsService = new AnalyticsService(aCookiesService());
+				const analyticsService = new EulerianService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',

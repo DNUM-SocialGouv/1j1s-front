@@ -15,7 +15,12 @@ declare global {
 export const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 const ADFORM_SERVICE = 'adform';
 
-export class AnalyticsService {
+export interface AnalyticsService {
+	envoyerAnalyticsPageVue(tags: PageTags): void;
+	isAllowed(): boolean;
+}
+
+export class EulerianService implements AnalyticsService{
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 	private readonly cookiesService: CookiesService;
 
@@ -43,7 +48,7 @@ export class AnalyticsService {
 
 	private initialiserEulerianAnalytics(): (datalayer: Array<string>) => void {
 		const fallbackPushDatalayer = () => ({});
-		if (!AnalyticsService.isEulerianAnalyticsActive()) {
+		if (!EulerianService.isEulerianAnalyticsActive()) {
 			return fallbackPushDatalayer;
 		}
 
@@ -87,7 +92,7 @@ export class AnalyticsService {
 	}
 
 	public envoyerAnalyticsPageVue(pageTags: PageTags): void {
-		if (this.isAnalyticsAutorisé()) {
+		if (this.isAllowed()) {
 			const datalayer: Array<string> = [];
 			Object.entries(SITE_TAGS).forEach(([key, value]) => {
 				datalayer.push(key, value);
@@ -99,7 +104,7 @@ export class AnalyticsService {
 		}
 	}
 
-	public isAnalyticsAutorisé(): boolean {
+	public isAllowed(): boolean {
 		return this.cookiesService.isServiceAllowed(EULERIAN_ANALYTICS_SERVICE);
 	}
 
