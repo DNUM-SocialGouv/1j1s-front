@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.78.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.4...v3.78.0) (2023-05-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** modification du wording de la campagne ([#1330](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1330)) ([f6f0223](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f6f02238a1826ddcf13868db7dad94fa4ab8324e))
+
 ## [3.77.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.3...v3.77.4) (2023-05-22)
 
 
