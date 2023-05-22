@@ -1,12 +1,11 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
 import { CookiesService, TarteAuCitron } from '~/client/services/cookies/cookies.service';
 
 declare global {
 	interface Window {
-		tarteaucitron: any
+		tarteaucitron: unknown
 
-		__eaGenericCmpApi(f: any): void
+		__eaGenericCmpApi(f: unknown): void
 
 		EA_push(tags: 'event' | Array<string>, eventList?: Array<string>): void
 	}
@@ -35,14 +34,16 @@ export class EulerianService implements AnalyticsService{
 
 		try {
 			// Voir https://eulerian.wiki/doku.php?id=fr:modules:collect:gdpr:tarteaucitron
-			const config: TarteAuCitron.ServiceConfig<any> = {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			type ConfigObject = any;
+			const config: TarteAuCitron.ServiceConfig<ConfigObject> = {
 				cookies: ['etuix'],
 				fallback: function () {
 					this.js();
 				},
 				js: function () {
 					'use strict';
-					(function (x: any, w) {
+					(function (x: ConfigObject, w) {
 						if (!x._ld) {
 							x._ld = 1;
 							const ff = function () {
