@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.79.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.0...v3.79.1) (2023-05-22)
+
+
+### 🐛 Corrections de bogues
+
+* corrige l'espacement entre le titre et le lien dans les pages de la campagne ([#1343](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1343)) ([80a6fd2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/80a6fd2c300eedda6ca86fe7c46e930746f6e9b3))
+
 ## [3.79.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.78.0...v3.79.0) (2023-05-22)
 
 
