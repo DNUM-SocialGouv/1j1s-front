@@ -19,13 +19,15 @@ describe('rechercher une offre d‘emploi', () => {
 	it('retourne la liste des offres d‘emploi filtrée', async () => {
 		nock('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres')
 			.get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
-			.reply(401)
-			.get('/search?range=0-14&motsCles=boulanger&typeContrat=CDD%2CCDI&commune=75101')
 			.reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
 		nock('https://api.pole-emploi.io/partenaire/offresdemploi/v2/referentiel')
 			.get('/communes')
 			.reply(200, aRésultatRéférentielCommuneResponse().data);
+
+		nock('https://entreprise.pole-emploi.fr')
+			.post('/connexion/oauth2/access_token?realm=partenaire')
+			.reply(200, { access_token: 'fake_access_token' });
 
 		nock('https://entreprise.pole-emploi.fr')
 			.post('/connexion/oauth2/access_token?realm=partenaire')

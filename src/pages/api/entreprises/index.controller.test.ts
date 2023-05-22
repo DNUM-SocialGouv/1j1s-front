@@ -49,9 +49,6 @@ describe('enregistrerEntreprisesHandler', () => {
 			.reply(503);
 		let strapiReceivedBody: Record<string, string>;
 		const strapiAuth = nock('http://localhost:1337/api')
-			.post('/entreprises')
-			.once()
-			.reply(401, 'unauthorized')
 			.post('/auth/local', { identifier, password })
 			.once()
 			.reply(200, { jwt });

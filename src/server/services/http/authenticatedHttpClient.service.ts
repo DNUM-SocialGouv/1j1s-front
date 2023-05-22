@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse, InternalAxiosRequestConfig, isAxiosError } from 'axios';
+import { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, isAxiosError } from 'axios';
 
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
@@ -32,7 +32,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 					if (this.shouldRetry(error)) {
 						this.traceRetry(error);
-						await this.refreshToken();
+						await this.retrieveToken();
 						return this.updateRequestWithRefreshedToken(originalRequest);
 					}
 				}
@@ -42,6 +42,19 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		);
 	}
 
+	async get<Response>(endpoint: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Response>> {
+		if (!this.isAuthorizationHeaderInConfig()) {
+			await this.retrieveToken();
+		}
+		return super.get(endpoint, config);
+	}
+
+	async post<Body, Response>(endpoint: string, body: Body): Promise<AxiosResponse<Response>> {
+		if (!this.isAuthorizationHeaderInConfig()) {
+			await this.retrieveToken();
+		}
+		return await this.client.post<Response>(endpoint, body);
+	}
 
 	private updateRequestWithRefreshedToken(originalRequest: InternalAxiosRequestConfig | undefined) {
 		return this.client({
@@ -75,7 +88,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		return this.isAuthenticationError(error) && this.isRequestFirstTry(error);
 	}
 
-	async refreshToken(): Promise<void> {
+	async retrieveToken(): Promise<void> {
 		try {
 			const accessToken = await this.tokenAgent.getToken();
 			this.setAuthorizationHeader(accessToken);
@@ -95,5 +108,9 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 	protected getAuthorizationHeader(): string | undefined {
 		return this.client.defaults.headers.common.Authorization?.toString();
+	}
+
+	private isAuthorizationHeaderInConfig(): boolean {
+		return this.client.defaults.headers.common.Authorization !== undefined;
 	}
 }

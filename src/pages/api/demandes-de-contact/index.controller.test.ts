@@ -14,9 +14,6 @@ describe('enregistrerDemandeDeContactHandler', () => {
 		it('répond une 200 quand tout s’est bien passé', async () => {
 			let strapiReceivedBody: Record<string, string>;
 			const strapiAuth = nock('http://localhost:1337/api')
-				.post('/contact-cejs')
-				.once()
-				.reply(401, 'unauthorized')
 				.post('/auth/local', { identifier, password })
 				.once()
 				.reply(200, { jwt });

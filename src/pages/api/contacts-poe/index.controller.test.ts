@@ -13,9 +13,6 @@ describe('enregistrerContactPOEHandler', () => {
 		it('retourne un status 200', async () => {
 			let strapiReceivedBody: Record<string, string>;
 			const strapiAuth = nock('http://localhost:1337/api')
-				.post('/contacts-poe')
-				.once()
-				.reply(401, 'unauthorized')
 				.post('/auth/local', { identifier, password })
 				.once()
 				.reply(200, { jwt });

@@ -18,9 +18,6 @@ describe('enregistrer une offre de stage', () => {
 		it('retourne 200', async () => {
 			let strapiReceivedBody: {data: Strapi.CollectionType.OffreStageDepot};
 			const strapiAuth = nock('http://localhost:1337/api')
-				.post('/offres-de-stage')
-				.once()
-				.reply(401, 'unauthorized')
 				.post('/auth/local', { identifier, password })
 				.once()
 				.reply(200, { jwt });
