@@ -12,15 +12,13 @@ declare global {
 	}
 }
 
-export const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
-const ADFORM_SERVICE = 'adform';
-
 export interface AnalyticsService {
 	envoyerAnalyticsPageVue(tags: PageTags): void;
 	isAllowed(): boolean;
 }
 
 export class EulerianService implements AnalyticsService{
+	private static EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 	private readonly cookiesService: CookiesService;
 
@@ -61,13 +59,13 @@ export class EulerianService implements AnalyticsService{
 						}
 					})(this, window);
 				},
-				key: EULERIAN_ANALYTICS_SERVICE,
+				key: EulerianService.EULERIAN_ANALYTICS_SERVICE,
 				name: 'Eulerian Analytics',
 				needConsent: true,
 				type: 'analytic',
 				uri: 'https://eulerian.com/vie-privee',
 			};
-			this.cookiesService.addService(EULERIAN_ANALYTICS_SERVICE, config);
+			this.cookiesService.addService(EulerianService.EULERIAN_ANALYTICS_SERVICE, config);
 			return window.EA_push;
 		} catch (e) {
 			return fallbackPushDatalayer;
@@ -88,7 +86,7 @@ export class EulerianService implements AnalyticsService{
 	}
 
 	public isAllowed(): boolean {
-		return this.cookiesService.isServiceAllowed(EULERIAN_ANALYTICS_SERVICE);
+		return this.cookiesService.isServiceAllowed(EulerianService.EULERIAN_ANALYTICS_SERVICE);
 	}
 
 	private static isEulerianAnalyticsActive(): boolean {
@@ -100,15 +98,18 @@ export class EulerianService implements AnalyticsService{
 export class DiscreteAdformService {
 	// FIXME (GAFI 22-05-2023): commentaire
 	// NOTE (GAFI 22-05-2023): Ceci est un service discret
+
+	private static ADFORM_SERVICE = 'adform';
 	private readonly cookiesService: CookiesService;
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
 		this.initialiserAnalyticsCampagneDeCommunication();
 	}
 	private initialiserAnalyticsCampagneDeCommunication(): void {
+		// FIXME (GAFI 22-05-2023): Est-ce qu'il ne faudrait pas checker que la feature est activée avant de faire tout ça ?
 		// FIXME (GAFI 19-05-2023): Magic number
 		this.cookiesService.addUser('adformpm', 2867419);
-		// FIXME (GAFI 19-05-2023):  plutôt dans la page que dans le service
+		// FIXME (GAFI 19-05-2023): plutôt dans la page que dans le service
 		if (window.location.pathname === '/choisir-apprentissage') {
 			// FIXME (GAFI 19-05-2023): Magic string
 			this.cookiesService.addUser('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
@@ -116,7 +117,7 @@ export class DiscreteAdformService {
 			this.cookiesService.addUser('adformpagename', undefined);
 		}
 
-		this.cookiesService.addService(ADFORM_SERVICE);
+		this.cookiesService.addService(DiscreteAdformService.ADFORM_SERVICE);
 	}
 
 }
