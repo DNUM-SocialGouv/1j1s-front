@@ -11,6 +11,7 @@ export type TarteAuCitron = {
 	job?: string[],
 	userInterface: {
 		respond: (bouton: HTMLButtonElement, value: boolean) => void,
+		openPanel: () => void,
 	}
 }
 

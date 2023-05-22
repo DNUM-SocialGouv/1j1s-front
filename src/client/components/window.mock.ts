@@ -1,4 +1,5 @@
 import { TarteAuCitron } from '~/client/services/cookies/cookies.service';
+import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
 
 export function mockSmallScreen() {
 	Object.defineProperty(window, 'matchMedia', {
@@ -72,13 +73,7 @@ export function mockSessionStorage({
 
 export function mockTarteAuCitron(override?: Partial<TarteAuCitron>) {
 	Object.defineProperty(window, 'tarteaucitron', {
-		value: {
-			init: jest.fn(),
-			job: undefined,
-			userInterface: {
-				respond: jest.fn(),
-			},
-			...override,
-		},
+		value: aTarteAuCitron(override),
+		writable: true,
 	});
 }

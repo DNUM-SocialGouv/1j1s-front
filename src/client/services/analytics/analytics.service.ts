@@ -3,7 +3,7 @@ import { CookiesService, TarteAuCitron } from '~/client/services/cookies/cookies
 
 declare global {
 	interface Window {
-		tarteaucitron: unknown
+		tarteaucitron: TarteAuCitron
 
 		__eaGenericCmpApi(f: unknown): void
 

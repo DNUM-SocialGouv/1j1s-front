@@ -34,10 +34,6 @@ describe('EulerianService', () => {
 
 	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
-			beforeEach(() => {
-				document.cookie = 'consentement=!eulerian=true;';
-			});
-
 			it('envoie un événement page au tracking', () => {
 				const analyticsService = new EulerianService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
@@ -46,7 +42,9 @@ describe('EulerianService', () => {
 					pagelabel: 'emplois_liste',
 					'segment-site': 'offres_d_emploi',
 				};
+
 				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
+
 				const expected = [
 					'site_entity',
 					'Min. Travail',
@@ -65,27 +63,24 @@ describe('EulerianService', () => {
 					'segment-site',
 					'offres_d_emploi',
 				];
-
 				expect(eulerianAnalyticsPushSpy).toHaveBeenCalledWith(expected);
 			});
 		});
 
 		describe('quand le consentement n’est pas autorisé', () => {
-			beforeEach(() => {
-				document.cookie = 'consentement=!eulerian=false';
-			});
-
 			it('n’envoie aucun événement page au tracking', () => {
-				const analyticsService = new EulerianService(aCookiesService());
+				const cookiesService = aCookiesService({ isServiceAllowed: () => false });
+				const analyticsService = new EulerianService(cookiesService);
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
 					pagelabel: 'emplois_liste',
 					'segment-site': 'offres_d_emploi',
 				};
+
 				analyticsService.envoyerAnalyticsPageVue(analyticsPageConfig);
 
-				expect(pageSetSpy).not.toHaveBeenCalled();
+				expect(eulerianAnalyticsPushSpy).not.toHaveBeenCalled();
 			});
 		});
 	});
