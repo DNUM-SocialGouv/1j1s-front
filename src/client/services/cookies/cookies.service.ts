@@ -20,15 +20,15 @@ export interface CookiesService {
 	isServiceAllowed(nom: string): boolean;
 }
 
-export class TarteAuCitronService implements CookiesService {
+export class TarteAuCitronCookiesService implements CookiesService {
 	public static CONSENT_MANAGER_COOKIE_NAME = 'consentement';
-	private static CONFIG = {
+	private static INIT_CONFIG = {
 		AcceptAllCta: true,
 		DenyAllCta: true,
 		adblocker: false,
 		bodyPosition: 'bottom',
 		closePopup: false,
-		cookieName: TarteAuCitronService.CONSENT_MANAGER_COOKIE_NAME,
+		cookieName: TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME,
 		cookieslist: true,
 		groupServices: false,
 		handleBrowserDNTRequest: false,
@@ -52,7 +52,7 @@ export class TarteAuCitronService implements CookiesService {
 	private readonly tarteaucitron: TarteAuCitron;
 	constructor(tarteaucitron: TarteAuCitron) {
 		this.tarteaucitron = tarteaucitron;
-		this.tarteaucitron.init(TarteAuCitronService.CONFIG);
+		this.tarteaucitron.init(TarteAuCitronCookiesService.INIT_CONFIG);
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void {
@@ -68,7 +68,7 @@ export class TarteAuCitronService implements CookiesService {
 	isServiceAllowed(serviceName: string): boolean {
 		// NOTE (GAFI 19-05-2023): On a choisi de se servir de document.cookie
 		// 	pour éviter que tarteaucitron.cookie.read nous provoque des potentielles régressions.
-		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteAuCitronService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
+		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
 		return isCookieAllowedRegex.test(document.cookie);
 	}
 }
