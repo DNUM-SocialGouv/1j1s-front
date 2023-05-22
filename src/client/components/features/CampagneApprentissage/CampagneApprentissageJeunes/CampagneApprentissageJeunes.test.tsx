@@ -11,7 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen, mockTarteAuCitron } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
@@ -27,7 +27,7 @@ describe('CampagneApprentissageJeunes', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
 			</DependenciesProvider>,
 		);
@@ -46,7 +46,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
 			</DependenciesProvider>,
 		);
@@ -63,7 +63,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
 			</DependenciesProvider>,
 		);
@@ -78,7 +78,7 @@ describe('CampagneApprentissageJeunes', () => {
 		it('comportant un titre', () => {
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -104,7 +104,7 @@ describe('CampagneApprentissageJeunes', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -123,7 +123,7 @@ describe('CampagneApprentissageJeunes', () => {
 	describe('PreparationApprentissage', () => {
 		it('je vois les informations pour accéder aux offres de formation et d‘alternance', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -136,7 +136,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois les informations pour accéder à l‘article sur la prépa apprentissage', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -151,7 +151,7 @@ describe('CampagneApprentissageJeunes', () => {
 	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
 				</DependenciesProvider>,
 			);
@@ -163,7 +163,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
 				</DependenciesProvider>,
 			);
@@ -180,7 +180,7 @@ describe('CampagneApprentissageJeunes', () => {
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={[]}/>
 					</DependenciesProvider>,
 				);
@@ -189,7 +189,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois le titre de la partie videos', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -200,7 +200,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois la description de la partie videos', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -208,7 +208,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -225,10 +225,9 @@ describe('CampagneApprentissageJeunes', () => {
 		describe('si je n’ai pas sélectionné de vidéo', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
-				const analyticsService = anAnalyticsService({ isConsentementCookieAutorisé: jest.fn(() => true) });
 
 				render(
-					<DependenciesProvider analyticsService={analyticsService}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -244,7 +243,7 @@ describe('CampagneApprentissageJeunes', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -262,7 +261,7 @@ describe('CampagneApprentissageJeunes', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -278,7 +277,7 @@ describe('CampagneApprentissageJeunes', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -293,7 +292,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je ne vois pas la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -303,7 +302,7 @@ describe('CampagneApprentissageJeunes', () => {
 		});
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -316,7 +315,7 @@ describe('CampagneApprentissageJeunes', () => {
 			it('je vois la transcription de la vidéo', async () => {
 				const user = userEvent.setup();
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -332,11 +331,11 @@ describe('CampagneApprentissageJeunes', () => {
 			it('je ne peux pas lire la vidéo', () => {
 				// GIVEN
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
-				const analyticsService = anAnalyticsService({ isConsentementCookieAutorisé: jest.fn(() => false) });
+				const cookiesService = aCookiesService({ isServiceAllowed: jest.fn(() => false) });
 
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={analyticsService}>
+					<DependenciesProvider cookiesService={cookiesService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -348,11 +347,11 @@ describe('CampagneApprentissageJeunes', () => {
 
 			it('je vois un message m’indiquant que je dois accepter les cookies pour lire la vidéo', () => {
 				// GIVEN
-				const analyticsService = anAnalyticsService({ isConsentementCookieAutorisé: jest.fn(() => false) });
+				const cookiesService = aCookiesService({ isServiceAllowed: jest.fn(() => false) });
 
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={analyticsService}>
+					<DependenciesProvider cookiesService={cookiesService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -364,9 +363,9 @@ describe('CampagneApprentissageJeunes', () => {
 
 			it('je vois un bouton me permettant d’accepter les cookies', async () => {
 				// GIVEN
-				const analyticsService = anAnalyticsService({ isConsentementCookieAutorisé: jest.fn(() => false) });
+				const cookiesService = aCookiesService({ isServiceAllowed: jest.fn(() => false) });
 				render(
-					<DependenciesProvider analyticsService={analyticsService}>
+					<DependenciesProvider cookiesService={cookiesService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);

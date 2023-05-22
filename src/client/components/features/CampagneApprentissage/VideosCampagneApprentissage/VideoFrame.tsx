@@ -9,7 +9,8 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { AnalyticsService, YOUTUBE_SERVICE } from '~/client/services/analytics/analytics.service';
+import { YOUTUBE_SERVICE } from '~/client/services/analytics/analytics.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
@@ -23,13 +24,13 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
-	const analyticsService = useDependency<AnalyticsService>('analyticsService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(analyticsService.isConsentementCookieAutorisé(YOUTUBE_SERVICE));
+	const cookiesService = useDependency<CookiesService>('cookiesService');
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(cookiesService.isServiceAllowed(YOUTUBE_SERVICE));
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(analyticsService.isConsentementCookieAutorisé('youtube'));
+			setAreYoutubeCookiesAccepted(cookiesService.isServiceAllowed(YOUTUBE_SERVICE));
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);
@@ -43,7 +44,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
 			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 		};
-	}, [analyticsService]);
+	}, [cookiesService]);
 
 
 	return <div className={classNames(styles.video, className)}>
