@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.79.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.78.0...v3.79.0) (2023-05-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** Ajoute le lien vers la page d'authentification ([e3bc6bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3bc6bd6fa0b7e403b490f28bcd29d38e98d5842))
+
 ## [3.78.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.4...v3.78.0) (2023-05-22)
 
 
