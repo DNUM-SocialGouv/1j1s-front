@@ -38,8 +38,6 @@ describe('CampagneApprentissageJeunes', () => {
 			name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i,
 		});
 		expect(titre).toBeVisible();
-		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
-		expect(sousTitre).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation pour les alternants', () => {
@@ -131,7 +129,7 @@ describe('CampagneApprentissageJeunes', () => {
 			);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'Vous souhaitez faire le choix de l’apprentissage ?',
+				name: 'Vous souhaitez faire le choix de l’apprentissage\u00A0?',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Trouver votre formation en apprentissage' })).toHaveAttribute('href', '/formations/apprentissage');
 			expect(screen.getByRole('link', { name: 'Trouver votre entreprise' })).toHaveAttribute('href', '/apprentissage');
@@ -159,7 +157,7 @@ describe('CampagneApprentissageJeunes', () => {
 			);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'L’apprentissage vous intéresse ? On répond à toutes vos questions',
+				name: 'L’apprentissage vous intéresse\u00A0? On répond à toutes vos questions',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});

@@ -13,10 +13,10 @@
     @include utilities.media(large) {
       background-color: revert;
     }
-    
-   & span {
-     display: inline-block;
-   }
+
+    & span {
+      display: inline-block;
+    }
   }
 
   & .renseignement, & .aideFinanciere {
@@ -28,6 +28,10 @@
     @include utilities.media(large) {
       gap: 2.5rem;
       padding: 5rem 1rem
+    }
+
+    & span {
+      display: inline-block;
     }
   }
 
@@ -58,4 +62,3 @@
     }
   }
 }
-

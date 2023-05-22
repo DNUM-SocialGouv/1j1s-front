@@ -14,7 +14,7 @@ export function InformationSurEmbaucheApprenti() {
 		<Container className={styles.informationSurEmbauche}>
 			<section aria-labelledby={'titre-section-renseignement'} className={styles.renseignement}>
 				<h2 id={'titre-section-renseignement'}>
-					Comme eux, vous souhaitez faire<span>le choix de l’apprentissage ?</span> 
+					Comme eux, vous souhaitez faire <span>le choix de l’apprentissage&nbsp;?</span>
 				</h2>
 				<Link href={embaucherUnApprentiLink} appearance={'asSecondaryButton'} className={styles.link}>
 					Se renseigner sur l’embauche
@@ -22,7 +22,7 @@ export function InformationSurEmbaucheApprenti() {
 			</section>
 			<section aria-labelledby={'titre-section-aide'} className={styles.aideFinanciere}>
 				<h2 id={'titre-section-aide'}>
-						Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière
+					Vous envisagez de recruter un apprenti&nbsp;? <span>Vous pouvez bénéficier d’une aide financière</span>
 				</h2>
 				<p className={styles.description}>
 						Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master

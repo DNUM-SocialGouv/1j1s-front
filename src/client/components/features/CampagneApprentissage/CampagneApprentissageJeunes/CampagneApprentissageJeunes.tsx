@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissage.module.scss';
 import EnSavoirPlusApprentissage
 	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/EnSavoirPlusApprentissageJeunes/EnSavoirPlusApprentissageJeunes';
 import PreparationApprentissage
@@ -16,6 +15,8 @@ import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+
+import styles from './CampagneApprentissageJeunes.module.scss';
 
 interface CampagneApprentissageJeunesProps {
 	videos: Array<VideoCampagneApprentissage>
@@ -51,8 +52,7 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		<>
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
-					<h1>Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !</h1>
-					<p className={styles.sousTitre}>Vous apprenez directement sur le terrain et vous êtes payés !</p>
+					<h1>Avec l’apprentissage, vous apprenez directement sur le terrain <span className={styles.vousEtesPayesBlock}>et vous êtes payés !</span></h1>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
 					</Link>
