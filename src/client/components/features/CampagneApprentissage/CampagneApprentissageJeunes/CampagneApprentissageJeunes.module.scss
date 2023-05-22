@@ -1,7 +1,5 @@
 @forward "../CampagneApprentissage.module";
 
-.apprentissageJeunesHeroTitle {
-    & span.vousEtesPayesBlock {
-        display: block;
-    }
+.vousEtesPayesBlock {
+    display: block;
 };
