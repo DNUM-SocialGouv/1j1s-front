@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.79.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.1...v3.79.2) (2023-05-22)
+
+
+### 🐛 Corrections de bogues
+
+* **apprentissage:** Fix le retour a la ligne et les images ([#1345](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1345)) ([981a484](https://github.com/DNUM-SocialGouv/1j1s-front/commit/981a484bdfc1f0ba06933ea4a70b00a35618c04c))
+
 ## [3.79.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.0...v3.79.1) (2023-05-22)
 
 
