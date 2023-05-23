@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
@@ -20,26 +21,30 @@ describe('Parcours Accompagnement', () => {
 		describe('quand l‘utilisateur lance une recherche', () => {
 			it('affiche les résultats de recherche', () => {
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('par'),
+					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: 'Localisation' }).type('par'),
 					alias: 'recherche-commune',
 					path: '/api/communes?q=par*',
 					response: JSON.stringify({
 						résultats: aCommuneList(),
 					}),
 				});
-				cy.get('ul[role="listbox"]').first().click();
+				cy.findByRole('listbox', { name: 'Localisation' })
+					.within(() => cy.findAllByRole('option').first().click());
 
-				cy.contains('Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.findByRole('button', { name: 'Type d‘accompagnement' }).click();
+				cy.findByRole('listbox')
+					.within(() => cy.findAllByRole('option').first().click());
 
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.contains('Rechercher').click(),
+					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: 'Rechercher' }).click(),
 					alias: 'recherche-accompagnement',
 					path: '/api/etablissements-accompagnement*',
 					response: JSON.stringify(anOrderedÉtablissementAccompagnementList()),
 				});
 
-				cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 3);
+				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
+					.children('li')
+					.should('have.length', 3);
 			});
 		});
 
@@ -51,34 +56,38 @@ describe('Parcours Accompagnement', () => {
 					JSON.stringify({ résultats: aCommuneList() }),
 				).as('get-communes');
 
-				cy.get('input[name="libelleCommune"]').type('par');
+				cy.findByRole('textbox', { name: 'Localisation' }).type('par');
 				cy.wait('@get-communes');
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.findByRole('listbox', { name: 'Localisation' })
+					.within(() => cy.findAllByRole('option').first().click());
 
-				cy.contains('button', 'Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').first().click();
+				cy.findByRole('button', { name: 'Type d‘accompagnement' }).click();
+				cy.findByRole('listbox')
+					.within(() => cy.findAllByRole('option').first().click());
 
 				cy.intercept(
 					'GET',
 					'/api/etablissements-accompagnement*',
 					JSON.stringify(aMissionLocaleÉtablissementAccompagnementList()),
 				).as('recherche-accompagnement');
-				cy.contains('button', 'Rechercher').click();
+				cy.findByRole('button', { name:'Rechercher' }).click();
 				cy.wait('@recherche-accompagnement');
 
-				cy.get('ul[aria-label="Établissements d‘accompagnement"] > li').should('have.length', 1);
+				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
+					.children('li')
+					.should('have.length', 1);
 
-				cy.contains('button', 'Je souhaite être contacté(e)').click();
+				cy.findByRole('button', { name: 'Je souhaite être contacté(e)' }).click();
 
-				cy.get('input[name=firstname]').type('John', { force: true });
-				cy.get('input[name=lastname]').type('Doe', { force: true });
-				cy.get('input[name=mail]').type('john.doe@email.com');
-				cy.get('input[name=phone]').type('0606060606');
-				cy.contains('button', 'Sélectionnez votre choix').click();
-				cy.get('ul[role="listbox"] > li').eq(7).click();
+				cy.findByRole('textbox', { name: 'Prénom' }).type('John', { force: true });
+				cy.findByRole('textbox', { name: 'Nom' }).type('Doe', { force: true });
+				cy.findByRole('textbox', { name: /Adresse e-mail/ }).type('john.doe@email.com');
+				cy.findByRole('textbox', { name: 'Téléphone' }).type('0606060606');
+				cy.findByRole('button', { name: 'Age' }).click();
+				cy.findByRole('option', { name: '23 ans' }).click();
 
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').last().type('par'),
+					actionBeforeWaitTheCall: () => cy.findAllByRole('textbox', { name: 'Localisation' }).last().type('par'),
 					alias: 'recherche-commune',
 					path: '/api/communes?q=par*',
 					response: JSON.stringify({
@@ -86,24 +95,25 @@ describe('Parcours Accompagnement', () => {
 					}),
 				});
 
-				cy.get('ul[role="listbox"]').first().click();
-				cy.get('textarea[name=commentaire]').type('Merci de me recontacter');
+				cy.findByRole('listbox', { name: 'Localisation' })
+					.within(() => cy.findAllByRole('option').first().click());
+				cy.findByRole('textbox', { name: /Commentaires/ }).type('Merci de me recontacter');
 
 				cy.intercept({ method: 'POST', pathname: '/api/etablissements-accompagnement/contact*' }, { statusCode: 201 });
-				cy.contains('button', 'Envoyer mes informations afin d‘être rappelé(e)').click();
+				cy.findByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }).click();
 
-				cy.contains('h1', 'Votre demande a bien été transmise !')
-					.should('exist')
-					.next().click();
+				cy.findByRole('heading', { level: 1, name: 'Votre demande a bien été transmise !' })
+					.should('exist');
+				cy.findByRole('button', { description: 'Fermer, Revenir à la page' }).click();
 
-				cy.get('dialog').should('not.exist');
+				cy.findByRole('dialog').should('not.exist');
 			});
 		});
 
 		describe('quand l‘utilisateur n‘écrit rien et fait une recherche', () => {
 			it('affiche un text indiquant qu‘il faut saisir une localisation', () => {
-				cy.get('button').contains('Rechercher').click();
-				cy.contains('Veuillez saisir une localisation');
+				cy.findByRole('button', { name: 'Rechercher' }).click();
+				cy.findByText('Veuillez saisir une localisation').should('be.visible');
 			});
 		});
 	});
@@ -116,7 +126,7 @@ describe('Parcours Accompagnement', () => {
 
 		it('affiche le message "Erreur - Demande incorrecte"', () => {
 			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
-			cy.contains('Erreur - Demande incorrecte').should('be.visible');
+			cy.findByText('Erreur - Demande incorrecte').should('be.visible');
 		});
 	});
 });
