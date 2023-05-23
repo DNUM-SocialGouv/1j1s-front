@@ -1,5 +1,9 @@
 @use "@styles/utilities";
 
+.avoidLineBreakInside {
+  display: inline-block;
+};
+
 .titrePage {
   & h1 {
     @extend %headline;
@@ -7,6 +11,7 @@
   }
   & .hero {
     background-color: utilities.$color-background;
+
 
     & .cta {
       width: 100%;

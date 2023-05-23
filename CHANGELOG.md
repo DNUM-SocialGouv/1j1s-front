@@ -1,5 +1,54 @@
 # Changelog
 
+## [3.79.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.1...v3.79.2) (2023-05-22)
+
+
+### 🐛 Corrections de bogues
+
+* **apprentissage:** Fix le retour a la ligne et les images ([#1345](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1345)) ([981a484](https://github.com/DNUM-SocialGouv/1j1s-front/commit/981a484bdfc1f0ba06933ea4a70b00a35618c04c))
+
+## [3.79.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.0...v3.79.1) (2023-05-22)
+
+
+### 🐛 Corrections de bogues
+
+* corrige l'espacement entre le titre et le lien dans les pages de la campagne ([#1343](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1343)) ([80a6fd2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/80a6fd2c300eedda6ca86fe7c46e930746f6e9b3))
+
+## [3.79.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.78.0...v3.79.0) (2023-05-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** Ajoute le lien vers la page d'authentification ([e3bc6bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3bc6bd6fa0b7e403b490f28bcd29d38e98d5842))
+
+## [3.78.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.4...v3.78.0) (2023-05-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** modification du wording de la campagne ([#1330](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1330)) ([f6f0223](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f6f02238a1826ddcf13868db7dad94fa4ab8324e))
+
+## [3.77.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.3...v3.77.4) (2023-05-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency react-instantsearch-hooks-web to ~6.44.0 ([#1313](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1313)) ([66d39ba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/66d39bacfc59e650375a4da42751072d2bbcf08d))
+
+## [3.77.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.2...v3.77.3) (2023-05-22)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to ~8.41.0 ([#1333](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1333)) ([62e727c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/62e727c6511cd7df367568d3179b68d14631bf66))
+
+## [3.77.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.1...v3.77.2) (2023-05-19)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/marked to v5 ([#1328](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1328)) ([b4d720b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b4d720bed3b0a326361990a562b2b49acb812372))
+
 ## [3.77.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.77.0...v3.77.1) (2023-05-17)
 
 

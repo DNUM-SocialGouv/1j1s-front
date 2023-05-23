@@ -10,7 +10,7 @@ import {
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageEntreprises', () => {
@@ -25,11 +25,11 @@ describe('CampagneApprentissageEntreprises', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage pour mon entreprise, c’est le bon choix !/i });
+		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour mon entreprise c’est le bon choix\u00A0!/i });
 
 		// THEN
 		expect(titre).toBeVisible();
@@ -40,7 +40,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		mockLargeScreen();
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
@@ -57,7 +57,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider cookiesService={aCookiesService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
@@ -72,7 +72,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		it('comportant un titre', () => {
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={[]} />
 				</DependenciesProvider>,
 			);
@@ -95,7 +95,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={[]} />
 				</DependenciesProvider>,
 			);
@@ -114,7 +114,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	describe('EnSavoirPlusApprentissageEntreprises', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -126,7 +126,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -143,27 +143,27 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('comprenant un titre', () => {
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
+				const titre = within(section).getByRole('heading', { level: 2, name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 				expect(titre).toBeVisible();
 			});
 
 			it('comprenant un lien externe vers des renseignements', () => {
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage ?' });
+				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
 				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
@@ -176,8 +176,8 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
-				const titre = within(section).getByRole('heading', { level: 2, name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
+				const titre = within(section).getByRole('heading', { level: 2, name: /Vous envisagez de recruter un apprenti ?/i });
 				const description = within(section).getByText('Cette aide de 6000 euros maximum est versée pour la première année de contrat, jusqu’au niveau master');
 				expect(titre).toBeVisible();
 				expect(description).toBeVisible();
@@ -188,7 +188,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				render(<CampagneApprentissageEntreprises videos={[]} />);
 
 				// THEN
-				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti ? Vous pouvez bénéficier d’une aide financière' });
+				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
 				const link = within(section).getByRole('link', { name: 'En savoir plus' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance' );
@@ -202,7 +202,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
@@ -211,7 +211,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois le titre de la partie videos', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -222,7 +222,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois la description de la partie videos', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -230,7 +230,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -248,7 +248,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -264,7 +264,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -282,7 +282,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -298,7 +298,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -313,7 +313,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je ne vois pas la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -323,7 +323,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider cookiesService={aCookiesService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -336,7 +336,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('je vois la transcription de la vidéo', async () => {
 				const user = userEvent.setup();
 				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
+					<DependenciesProvider cookiesService={aCookiesService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);

@@ -13,7 +13,7 @@ export default function PreparationApprentissage() {
 			<Container className={styles.contenu}>
 				<section className={styles.choixApprentissage} aria-labelledby={'titre-section-choix-apprentissage'}>
 					<h2 className={styles.titleChoixApprentissage} id={'titre-section-choix-apprentissage'}>
-						Vous souhaitez faire le choix de l’apprentissage ?
+						Vous souhaitez faire le choix de l’apprentissage&nbsp;?
 					</h2>
 					<div className={styles.linkContainerChoixApprentissage}>
 						<Link className={styles.link} href={'/formations/apprentissage'} appearance={'asPrimaryButton'}>
