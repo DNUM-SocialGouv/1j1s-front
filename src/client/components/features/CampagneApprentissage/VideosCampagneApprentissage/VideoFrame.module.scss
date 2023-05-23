@@ -47,7 +47,6 @@
       font-size: 1rem;
       margin-bottom: utilities.pixel-to-rem(6);
     }
-
   }
 
   p:last-of-type {
@@ -62,6 +61,7 @@
 
   & .buttonAcceptCookies {
     width: fit-content;
+    margin-top: utilities.pixel-to-rem(10);
 
     @include utilities.media(small) {
       margin-top: utilities.pixel-to-rem(24);
