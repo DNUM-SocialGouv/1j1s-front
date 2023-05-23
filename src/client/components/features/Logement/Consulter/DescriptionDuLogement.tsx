@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './ConsulterAnnonce.module.scss';
 
@@ -16,15 +17,16 @@ interface BoutonEtendreProps {
 
 function BoutonEtendre({ onClick, estÉtendu, 'aria-controls': ariaControls }: BoutonEtendreProps) {
 	return (
-		<button
+		<ButtonComponent
 			className={styles.readMore}
+			appearance={'quaternary'}
+			label={estÉtendu ? 'Afficher moins' : 'Lire la suite'}
+			icon={estÉtendu ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+			iconPosition={'right'}
 			onClick={onClick}
+			type="button"
 			aria-expanded={estÉtendu}
-			aria-controls={ariaControls}>
-			{ estÉtendu
-				? <TextIcon icon="angle-up">Afficher moins</TextIcon>
-				: <TextIcon icon="angle-down">Lire la suite</TextIcon> }
-		</button>
+			aria-controls={ariaControls}/>
 	);
 }
 
@@ -38,21 +40,22 @@ function cropDescription(description: string) {
 }
 
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
-	const [ descriptionÉtendue, setDescriptionÉtendue ] = useState(false);
+	const [descriptionÉtendue, setDescriptionÉtendue] = useState(false);
 	const longueDescription = children.length > MAX_DESCRIPTION_LENGTH;
 	let description = children;
 	if (longueDescription && !descriptionÉtendue) {
 		description = cropDescription(description) + ' …';
 	}
 	return (
-		<section className={ classNames(styles.card, styles.descriptionDuLogement)} aria-labelledby="description-annonce-title">
+		<section className={classNames(styles.card, styles.descriptionDuLogement)}
+						 aria-labelledby="description-annonce-title">
 			<h2 id="description-annonce-title">Description du Logement</h2>
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
 					onClick={() => setDescriptionÉtendue(!descriptionÉtendue)}
 					estÉtendu={descriptionÉtendue}
-					aria-controls="description-annonce" />
+					aria-controls="description-annonce"/>
 			)}
 		</section>
 	);

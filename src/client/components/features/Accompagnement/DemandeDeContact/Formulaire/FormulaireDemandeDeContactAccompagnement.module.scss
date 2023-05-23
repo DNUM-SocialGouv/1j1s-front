@@ -24,6 +24,7 @@
   &ValidateButton {
     width: 100%;
     justify-self: center;
+    margin-bottom: 1rem;
     @include utilities.media(medium) {
       width: 26rem;
       grid-column-start: 1;
