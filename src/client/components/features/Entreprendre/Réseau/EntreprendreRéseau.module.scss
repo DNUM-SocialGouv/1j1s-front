@@ -8,6 +8,13 @@
   border-radius: 1.25rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
 
+  &:hover {
+    & .callToAction {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
   &Header {
     display: flex;
     padding: 0.5rem;

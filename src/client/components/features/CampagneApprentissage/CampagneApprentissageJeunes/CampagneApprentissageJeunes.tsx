@@ -11,7 +11,7 @@ import {
 import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
@@ -53,9 +53,9 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 			<header className={styles.titrePage}>
 				<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
 					<h1>Avec l’apprentissage, vous apprenez directement <span className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span></h1>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
+					<LinkStyledAsButton href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
-					</Link>
+					</LinkStyledAsButton>
 				</HeroWithIllustration>
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>

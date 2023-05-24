@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 1rem;
 
     @include utilities.media(large) {
       padding: 5rem 1rem
@@ -44,8 +44,7 @@
     max-width: 60ch;
     width: 100%;
     align-self: center;
-    @extend %text-regular;
-    
+
     @include utilities.media(large) {
       max-width: fit-content;
     }

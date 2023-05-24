@@ -5,6 +5,7 @@
 @forward "theme/variables";
 @forward "typography/mixins";
 @forward "typography/placeholders";
+@forward "components/button/placeholders";
 
 $_one-rem-in-pixel: 16;
 @function pixel-to-rem($pixel-size) {

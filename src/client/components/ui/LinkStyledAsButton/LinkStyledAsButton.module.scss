@@ -1,90 +1,92 @@
-@use "@styles/utilities";
+@use "../../../../styles/utilities";
 
-.button {
+.primaryButton, .secondaryButton, .tertiaryButton{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
   border-radius: 50px;
+  text-decoration: none;
   outline-offset: 4px;
 
-  &:disabled {
-    border: 1px solid utilities.$color-on-disabled;
-    background-color: utilities.$color-on-disabled;
-    color: utilities.$color-disabled;
-    cursor: not-allowed;
-  }
-
-  > svg {
+  & > svg {
     vertical-align: middle;
   }
-
-  &.buttonWithRightIcon {
-    & .buttonLabel {
-      margin-right: 0.5rem;
-    }
-  }
-
-  &.buttonWithLeftIcon {
-    & .buttonLabel {
-      margin-left: 0.5rem;
-    }
-  }
-
-  &.buttonWithTopIcon {
-    & .buttonLabel {
-      margin-top: 0.5rem;
-      display: block;
-    }
-  }
 }
 
-.buttonPrimary, .buttonSecondary, .buttonTertiary{
+.primaryButton, .secondaryButton, .tertiaryButton {
   white-space: nowrap;
-  overflow-x: hidden;
   text-overflow: ellipsis;
-  @extend %button;
+  overflow-x: hidden;
 }
 
-
-.buttonPrimary {
+.primaryButton {
+  @extend %button;
   border: 1px solid utilities.$color-primary;
   background-color: utilities.$color-primary;
   color: utilities.$color-on-primary;
 
-  &:enabled:hover {
+  &:hover {
     background-color: utilities.$color-primary-on-hover;
     border-color: utilities.$color-primary-on-hover;
   }
 }
 
-.buttonSecondary {
+.secondaryButton {
+  @extend %button;
   border: 1px solid utilities.$color-primary;
   color: utilities.$color-primary;
   background-color: utilities.$white;
 
-  &:enabled:hover {
+  &:hover {
     background-color: utilities.$color-background-white-titan;
     border-color: utilities.$color-primary;
     color: utilities.$color-primary;
   }
 }
 
-.buttonTertiary {
+.tertiaryButton {
+  @extend %button;
   border: 1px solid utilities.$color-primary;
   color: utilities.$color-primary;
   background-color: utilities.$color-background-white-titan;
 
-  &:enabled:hover {
+  &:hover {
     background-color: utilities.$color-tertiary-on-hover;
     border-color: utilities.$color-tertiary-on-hover;
     color: utilities.$white;
   }
 }
 
-.buttonQuaternary {
+.quaternaryButton {
+  display: flex;
   color: utilities.$color-primary;
+  text-decoration: none;
   border-radius: 0;
-  font-size: 1rem;
+  padding: 0;
+  gap: .5rem;
 
-  &:enabled:hover {
+  &:hover {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+}
+
+.linkWithRightIcon, .linkWithLeftIcon, .linkWithTopIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkWithLeftIcon {
+  & .linkLabel {
+    margin-left: 0.5rem;
+  }
+}
+
+.linkWithTopIcon {
+  & .linkLabel {
+    margin-top: 0.5rem;
+    display: block;
   }
 }

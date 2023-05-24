@@ -1,44 +1,7 @@
 @use "@styles/utilities";
 
-$content-area: 1.35;
-
-.primaryButton, .secondaryButton, .backButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .8rem;
-  border-radius: 50px;
-  padding: 0.5rem 1.5rem;
-  text-decoration: none;
-  line-height: $content-area * 1rem;
-  outline-offset: 4px;
-
+.link {
   & > svg {
-    height: $content-area * 1rem;
-    width: $content-area * 1rem;
-    margin-inline: -.3rem;
-  }
-}
-
-.primaryButton {
-  border: 1px solid utilities.$color-primary;
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
-
-  &:hover {
-    background-color: utilities.$color-primary-on-hover;
-    border-color: utilities.$color-primary-on-hover;
-  }
-}
-
-.secondaryButton, .backButton {
-  border: 1px solid utilities.$color-primary;
-  background-color: utilities.$color-on-primary;
-  color: utilities.$color-primary;
-
-  &:hover {
-    background-color: utilities.$color-background-white-titan;
-    border-color: utilities.$color-primary-on-hover;
-    color: utilities.$color-primary-on-hover;
+    vertical-align: middle;
   }
 }

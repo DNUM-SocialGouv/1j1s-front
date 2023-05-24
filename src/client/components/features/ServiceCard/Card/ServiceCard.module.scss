@@ -25,9 +25,9 @@
 .cardContainer {
   display: block;
 
-
   & .card {
     display: grid;
+
     &Horizontal {
       grid-template-columns: 18.875rem 1fr;
     }

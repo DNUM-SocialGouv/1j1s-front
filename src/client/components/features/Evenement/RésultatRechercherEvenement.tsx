@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import { Evenement } from '~/client/components/features/Evenement/Evenement.type';
@@ -14,7 +13,7 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 	const { titreEvenement, organismeOrganisateur, dateDebut, dateFin, lieuEvenement, slug } = props.hit;
 
 	return (
-		<Link href={`evenements/${slug}`} className={classNames(styles.card, 'underline-none')}>
+		<Link href={`evenements/${slug}`} className={'underline-none'}>
 			<Card className={styles.resultatCard} layout={'vertical'}>
 				<Card.Content className={styles.content}>
 					<div className={styles.event}>
@@ -27,7 +26,7 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 				<div className={styles.tagLink}>
 					<TagList list={[lieuEvenement]} aria-label="Lieu de l‘évènement"/>
 					<Card.FakeLink
-						appearance={'tertiary'}
+						appearance={'quaternary'}
 						icon={<Icon name={'angle-right'}/>}
 						label={'En savoir plus'}
 					/>

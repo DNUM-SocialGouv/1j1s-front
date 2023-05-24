@@ -11,6 +11,11 @@
   }
 
   &Link {
+   &:hover > .cardLinkCallToAction {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
     &Container {
       padding: 1rem;
       text-align: right;
@@ -112,4 +117,3 @@
     }
   }
 }
-

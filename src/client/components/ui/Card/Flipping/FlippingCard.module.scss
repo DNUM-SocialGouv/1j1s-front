@@ -118,14 +118,7 @@
     }
 
     &Button {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      color: utilities.$color-primary;
       font-size: 0.875rem;
-
-      &:hover {
-        color: utilities.$color-primary-on-hover;
-      }
     }
   }
 
