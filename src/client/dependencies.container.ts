@@ -19,6 +19,7 @@ import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
+import { VideoService, YoutubeService } from '~/client/services/video/video.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -34,6 +35,7 @@ export type Dependencies = {
 	rechercheClientService: SearchClient
 	stageService: StageService
 	métierService: MétierService
+	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 }
 
@@ -60,6 +62,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new AnalyticsService(cookiesService);
+	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -93,6 +96,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		offreService,
 		rechercheClientService,
 		stageService,
+		youtubeService,
 		établissementAccompagnementService,
 	};
 }

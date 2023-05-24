@@ -9,12 +9,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { YOUTUBE_SERVICE } from '~/client/services/analytics/analytics.service';
-import { CookiesService } from '~/client/services/cookies/cookies.service';
+import { VideoService } from '~/client/services/video/video.service';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 
+// FIXME (GAFI 24-05-2023): À migrer dans le videoService
 function acceptYoutubeCookies() {
 	window.tarteaucitron.userInterface.respond(document.getElementById('youtubeAllowed'), true);
 }
@@ -24,13 +24,13 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
-	const cookiesService = useDependency<CookiesService>('cookiesService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(cookiesService.isServiceAllowed(YOUTUBE_SERVICE));
+	const youtubeService = useDependency<VideoService>('youtubeService');
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(youtubeService.isAllowed());
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(cookiesService.isServiceAllowed(YOUTUBE_SERVICE));
+			setAreYoutubeCookiesAccepted(youtubeService.isAllowed());
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);
@@ -44,7 +44,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
 			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 		};
-	}, [cookiesService]);
+	}, [youtubeService]);
 
 
 	return <div className={classNames(styles.video, className)}>

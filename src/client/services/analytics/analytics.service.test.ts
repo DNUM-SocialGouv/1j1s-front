@@ -69,16 +69,6 @@ describe('AnalyticsService', () => {
 		});
 	});
 
-	describe('initialiserYoutube', () => {
-		it('initialise le service youtube', () => {
-			const cookiesService = aCookiesService();
-
-			new AnalyticsService(cookiesService);
-
-			expect(cookiesService.addService).toHaveBeenCalledWith('youtube');
-		});
-	});
-
 	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
 			beforeEach(() => {
