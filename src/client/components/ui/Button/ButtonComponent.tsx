@@ -15,7 +15,7 @@ type IconProps = {
 	iconPosition?: never;
 }
 
-export interface ButtonComponentProps extends React.ComponentPropsWithoutRef<'button'> {
+export type ButtonComponentProps = React.ComponentPropsWithoutRef<'button'> & {
 	appearance?: ButtonAppearance
 	label: string
 }

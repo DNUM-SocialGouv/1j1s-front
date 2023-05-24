@@ -5,7 +5,7 @@ import React, {
 
 import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
 
-interface CheckboxProps extends React.ComponentPropsWithoutRef<'input'> {
+type CheckboxProps = React.ComponentPropsWithoutRef<'input'> & {
   label: string
 }
 
