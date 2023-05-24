@@ -35,7 +35,7 @@ export type Dependencies = {
 	rechercheClientService: SearchClient
 	stageService: StageService
 	métierService: MétierService
-	videoService: VideoService
+	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 }
 
@@ -62,7 +62,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new AnalyticsService(cookiesService);
-	const videoService = new YoutubeService(cookiesService);
+	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -96,7 +96,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		offreService,
 		rechercheClientService,
 		stageService,
-		videoService,
+		youtubeService,
 		établissementAccompagnementService,
 	};
 }

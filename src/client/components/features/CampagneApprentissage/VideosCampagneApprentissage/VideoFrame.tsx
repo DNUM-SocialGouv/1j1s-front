@@ -14,6 +14,7 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 
+// FIXME (GAFI 24-05-2023): À migrer dans le videoService
 function acceptYoutubeCookies() {
 	window.tarteaucitron.userInterface.respond(document.getElementById('youtubeAllowed'), true);
 }
@@ -23,13 +24,13 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 }
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
-	const videoService = useDependency<VideoService>('videoService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(videoService.isAllowed());
+	const youtubeService = useDependency<VideoService>('youtubeService');
+	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(youtubeService.isAllowed());
 
 	useEffect(function listenToCookieConsentChanges() {
 		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(videoService.isAllowed());
+			setAreYoutubeCookiesAccepted(youtubeService.isAllowed());
 		}
 
 		document.addEventListener('youtube_loaded', updateCookieSettings);
@@ -43,7 +44,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
 			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
 		};
-	}, [videoService]);
+	}, [youtubeService]);
 
 
 	return <div className={classNames(styles.video, className)}>

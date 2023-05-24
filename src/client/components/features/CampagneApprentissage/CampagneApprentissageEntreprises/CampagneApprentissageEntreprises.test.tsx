@@ -25,7 +25,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	it('affiche le titre de la page', () => {
 		// WHEN
 		render(
-			<DependenciesProvider videoService={aVideoService()}>
+			<DependenciesProvider youtubeService={aVideoService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
@@ -40,7 +40,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		mockLargeScreen();
 		// WHEN
 		render(
-			<DependenciesProvider videoService={aVideoService()}>
+			<DependenciesProvider youtubeService={aVideoService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
@@ -57,7 +57,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider videoService={aVideoService()}>
+			<DependenciesProvider youtubeService={aVideoService()}>
 				<CampagneApprentissageEntreprises videos={[]} />
 			</DependenciesProvider>,
 		);
@@ -72,7 +72,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		it('comportant un titre', () => {
 			// WHEN
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={[]} />
 				</DependenciesProvider>,
 			);
@@ -95,7 +95,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={[]} />
 				</DependenciesProvider>,
 			);
@@ -114,7 +114,7 @@ describe('CampagneApprentissageEntreprises', () => {
 	describe('EnSavoirPlusApprentissageEntreprises', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -126,7 +126,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -143,7 +143,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('comprenant un titre', () => {
 				// WHEN
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
@@ -157,7 +157,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('comprenant un lien externe vers des renseignements', () => {
 				// WHEN
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
@@ -202,7 +202,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={[]} />
 					</DependenciesProvider>,
 				);
@@ -211,7 +211,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois le titre de la partie videos', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -222,7 +222,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois la description de la partie videos', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -230,7 +230,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -248,7 +248,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -264,7 +264,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -282,7 +282,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -298,7 +298,7 @@ describe('CampagneApprentissageEntreprises', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
@@ -313,7 +313,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je ne vois pas la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -323,7 +323,7 @@ describe('CampagneApprentissageEntreprises', () => {
 		});
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
 			render(
-				<DependenciesProvider videoService={aVideoService()}>
+				<DependenciesProvider youtubeService={aVideoService()}>
 					<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 				</DependenciesProvider>,
 			);
@@ -336,7 +336,7 @@ describe('CampagneApprentissageEntreprises', () => {
 			it('je vois la transcription de la vidéo', async () => {
 				const user = userEvent.setup();
 				render(
-					<DependenciesProvider videoService={aVideoService()}>
+					<DependenciesProvider youtubeService={aVideoService()}>
 						<CampagneApprentissageEntreprises videos={aVideoCampagneApprentissagesList}/>
 					</DependenciesProvider>,
 				);
