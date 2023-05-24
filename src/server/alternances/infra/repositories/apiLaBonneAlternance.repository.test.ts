@@ -6,17 +6,19 @@ import {
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
-import {
-	Failure,
-	Success,
-} from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
-import {
-	anAxiosResponse,
-	aPublicHttpClientService,
-} from '~/server/services/http/publicHttpClient.service.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
+
+function anErrorManagementService(override?: Partial<ErrorManagementService>): ErrorManagementService {
+	return {
+		handleFailureError: jest.fn(),
+		...override,
+	};
+} // TODO: voir si c'est mieux de passer les jest.fn en overrride ou de faire un mockreturnvalue
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
@@ -24,7 +26,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -36,7 +38,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('fait l’appel avec les bons paramètres', () => {
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -69,31 +71,42 @@ describe('ApiLaBonneAlternanceRepository', () => {
 					}),
 				],
 			}));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
 			// Then
 			expect(result.result.id).toEqual('abc');
 		});
-		it('crée une erreur quand l’API renvoie une erreur', async () => {
+		it('retourne une erreur quand il y a une erreur', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
+			const httpError = anHttpError(500);
+			const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
+			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const loggerService = aLoggerService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', loggerService, errorManagementService);
+			(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
+
 
 			// When
 			const result = await repository.get('abc') as Failure;
 
 			// Then
-			expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get détail annonce alternance',
+				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+			}, loggerService);
+			expect(result.errorType).toEqual(expectedFailure);
+
 		});
 		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/job', async () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
 
 				// When
 				await repository.get('1234567');
@@ -108,7 +121,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
 
 				// When
 				await repository.get('abc');

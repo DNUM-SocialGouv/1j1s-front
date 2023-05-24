@@ -1,5 +1,6 @@
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { SentryException } from '~/server/exceptions/sentryException';
 import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
@@ -66,6 +67,24 @@ describe('DefaultErrorManagementService', () => {
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
 		});
+
+		it('doit envoyer les logs de l’erreur en précisant que c’est une erreur http', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const httpError = anHttpError();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const expectedLogDetails = new SentryException(
+				`${aLogInformation.message} (erreur http)`,
+				{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+				{ errorDetail: httpError.response?.data },
+			);
+
+			// WHEN
+			errorManagementService.handleFailureError(httpError, aLogInformation);
+
+			// THEN
+			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+		});
 	});
 
 	describe('lorsque l‘erreur est une erreur interne', () => {
@@ -81,6 +100,43 @@ describe('DefaultErrorManagementService', () => {
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
+		});
+
+		describe('doit envoyer les logs de l’erreur en précisant que c’est une erreur interne', () => {
+			it('avec la stack trace lorsque l‘erreur est une Error', () => {
+				// GIVEN
+				const loggerService = aLoggerService();
+				const internalError = new Error('ceci est une erreur interne');
+				const errorManagementService = new DefaultErrorManagementService(loggerService);
+				const expectedLogDetails = new SentryException(
+					`${aLogInformation.message} (erreur interne)`,
+					{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+					{ stacktrace: internalError.stack },
+				);
+
+				// WHEN
+				errorManagementService.handleFailureError(internalError, aLogInformation);
+
+				// THEN
+				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
+			it('avec le contenu entier lorsque l‘erreur n‘est pas une Error', () => {
+				// GIVEN
+				const loggerService = aLoggerService();
+				const internalError = 'une erreur qui n‘est pas une erreur';
+				const errorManagementService = new DefaultErrorManagementService(loggerService);
+				const expectedLogDetails = new SentryException(
+					`${aLogInformation.message} (erreur interne)`,
+					{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+					{ error: internalError },
+				);
+
+				// WHEN
+				errorManagementService.handleFailureError(internalError, aLogInformation);
+
+				// THEN
+				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
 		});
 	});
 });
