@@ -1,5 +1,5 @@
 ---
-sidebar_label: Liste des ADR
+sidebar_label: Liste des ADR (format historique)
 sidebar_position: 1
 ---
 
