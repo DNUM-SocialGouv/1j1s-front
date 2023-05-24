@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.80.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.4...v3.80.0) (2023-05-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **ui:** adaptation du composant bouton ([#1264](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1264)) ([e6aa4cb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e6aa4cbd2f59703d32141c9394c1345534ee2687))
+
 ## [3.79.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.3...v3.79.4) (2023-05-23)
 
 
