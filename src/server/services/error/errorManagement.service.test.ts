@@ -10,17 +10,77 @@ const aLogInformation: LogInformation = {
 	message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
 };
 describe('DefaultErrorManagementService', () => {
-	it('doit créer une failure de service indisponible', () => {
-		// GIVEN
-		const loggerService = aLoggerService();
-		const errorManagementService = new DefaultErrorManagementService(loggerService);
-		const httpError = anHttpError();
-		const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+	describe('lorsque l‘erreur est une Http error', () => {
+		it('qui commence par 50 doit créer une failure service indisponible', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const httpError = anHttpError(500);
+			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 
-		// WHEN
-		const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+			// WHEN
+			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
 
-		// THEN
-		expect(result).toStrictEqual(expectedFailure);
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
+
+		it('qui est une 404 doit créer une failure contenu indisponible', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const httpError = anHttpError(404);
+			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+
+			// WHEN
+			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
+
+		it('qui est une 400 doit créer une failure demande incorrecte', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const httpError = anHttpError(400);
+			const expectedFailure = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+
+			// WHEN
+			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
+
+		it('qui est une autre erreur doit créer une failure contenu indisponible', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const httpError = anHttpError(409);
+			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+
+			// WHEN
+			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
+	});
+
+	describe('lorsque l‘erreur est une erreur interne', () => {
+		it('doit créer une failure de contenu indisponible', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const internalError = new Error('ceci est une erreur interne');
+			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+
+			// WHEN
+			const result = errorManagementService.handleFailureError(internalError, aLogInformation);
+
+			// THEN
+			expect(result).toStrictEqual(expectedFailure);
+		});
 	});
 });
