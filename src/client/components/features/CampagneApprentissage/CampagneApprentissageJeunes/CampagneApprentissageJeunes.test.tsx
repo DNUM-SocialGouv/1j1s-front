@@ -365,7 +365,7 @@ describe('CampagneApprentissageJeunes', () => {
 				// GIVEN
 				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
 				render(
-					<DependenciesProvider videoService={videoService}>
+					<DependenciesProvider youtubeService={videoService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 						<button id="youtubeAllowed">Allow Youtube</button>
 					</DependenciesProvider>,
@@ -403,7 +403,7 @@ describe('CampagneApprentissageJeunes', () => {
 				// GIVEN
 				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
 				render(
-					<DependenciesProvider videoService={videoService}>
+					<DependenciesProvider youtubeService={videoService}>
 						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
 						<div id="youtubeAllowed">Allow Youtube</div>
 					</DependenciesProvider>,

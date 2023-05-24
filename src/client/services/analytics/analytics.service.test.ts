@@ -21,7 +21,6 @@ const mockLocation = () => {
 };
 
 describe('EulerianService', () => {
-	const pageSetSpy = jest.fn();
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
