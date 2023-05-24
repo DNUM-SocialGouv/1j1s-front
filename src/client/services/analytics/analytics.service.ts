@@ -16,7 +16,7 @@ export interface AnalyticsService {
 	isAllowed(): boolean;
 }
 
-export class EulerianService implements AnalyticsService{
+export class EulerianService implements AnalyticsService {
 	private static EULERIAN_ANALYTICS_SERVICE = 'eulerian';
 	private readonly pushDatalayer: (datalayer: Array<string>) => void;
 	private readonly cookiesService: CookiesService;
@@ -107,7 +107,6 @@ export class DiscreteAdformService {
 		this.cookiesService = cookiesService;
 		this.initialiserAnalyticsCampagneDeCommunication();
 	}
-
 
 	private initialiserAnalyticsCampagneDeCommunication(): void {
 		this.cookiesService.addUser('adformpm', DiscreteAdformService.CLIENT_TRACKING_ID);
