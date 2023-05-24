@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.80.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.0...v3.80.1) (2023-05-24)
+
+
+### 👷 Autres changements
+
+* Ajoute des ADR ([#1349](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1349)) ([d48bea7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d48bea78eff070f200101c4378c76475b5fac6bd))
+
+## [3.80.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.4...v3.80.0) (2023-05-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **ui:** adaptation du composant bouton ([#1264](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1264)) ([e6aa4cb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e6aa4cbd2f59703d32141c9394c1345534ee2687))
+
 ## [3.79.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.79.3...v3.79.4) (2023-05-23)
 
 
