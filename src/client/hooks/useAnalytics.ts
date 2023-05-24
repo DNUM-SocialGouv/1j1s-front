@@ -7,7 +7,7 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
 
-	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAnalyticsAutorisé());
+	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAllowed());
 
 	useEffect(function addEventListeners() {
 		// FIXME (GAFI 15-05-2023): Quick fix, needs rework ASAP (and tests)

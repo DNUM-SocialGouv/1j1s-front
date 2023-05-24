@@ -16,6 +16,7 @@ export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron
 		services: {},
 		user: {},
 		userInterface: {
+			openPanel: jest.fn(),
 			respond: jest.fn(),
 		},
 		...override,

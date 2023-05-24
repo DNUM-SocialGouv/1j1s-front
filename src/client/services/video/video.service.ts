@@ -5,7 +5,7 @@ export interface VideoService {
 }
 
 export class YoutubeService implements VideoService {
-	public static SERVICE_NAME = 'youtube';
+	private static SERVICE_NAME = 'youtube';
 	private readonly cookiesService: CookiesService;
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;

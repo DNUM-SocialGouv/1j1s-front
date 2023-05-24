@@ -14,11 +14,12 @@
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
+    "check-types": "tsc --noEmit",
     "test": "jest",
     "test:coverage": "jest --coverage --collectCoverageFrom=src/**/*.{js,jsx,ts,tsx} --coverageReporters=text --coverageReporters=lcov --coverageReporters=html && open coverage/index.html",
+    "test:watch": "jest --watch",
     "e2e:open": "cypress open",
     "e2e": "cypress run --headed",
-    "tw": "jest --watch",
     "analyze": "ANALYZE=true next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build"
   },

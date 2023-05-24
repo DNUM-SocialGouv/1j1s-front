@@ -11,6 +11,7 @@ export type TarteAuCitron = {
 	job?: string[],
 	userInterface: {
 		respond: (bouton: HTMLButtonElement, value: boolean) => void,
+		openPanel: () => void,
 	}
 }
 
@@ -21,7 +22,7 @@ export interface CookiesService {
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {
-	public static CONSENT_MANAGER_COOKIE_NAME = 'consentement';
+	private static CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 	private static INIT_CONFIG = {
 		AcceptAllCta: true,
 		DenyAllCta: true,

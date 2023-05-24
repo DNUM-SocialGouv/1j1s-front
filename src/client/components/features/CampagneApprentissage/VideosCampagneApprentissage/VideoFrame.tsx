@@ -16,7 +16,12 @@ const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 
 // FIXME (GAFI 24-05-2023): À migrer dans le videoService
 function acceptYoutubeCookies() {
-	window.tarteaucitron.userInterface.respond(document.getElementById('youtubeAllowed'), true);
+	const allowYoutube = document.getElementById('youtubeAllowed');
+	if (allowYoutube != null && allowYoutube instanceof HTMLButtonElement) {
+		window.tarteaucitron.userInterface.respond(allowYoutube, true);
+	} else {
+		window.tarteaucitron.userInterface.openPanel();
+	}
 }
 
 interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
