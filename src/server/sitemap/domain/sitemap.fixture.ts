@@ -236,21 +236,6 @@ export function aSitemap() {
 		<loc>http://localhost:3000/apprentissage/deposer-offre-lba</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/plan-du-site</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/cgu</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/accessibilite</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/mentions-legales</loc>
-	</url>
-	<url>
-		<loc>http://localhost:3000/confidentialite</loc>
-	</url>
-	<url>
 		<loc>http://localhost:3000/espace-jeune</loc>
 	</url>
 	<url>
