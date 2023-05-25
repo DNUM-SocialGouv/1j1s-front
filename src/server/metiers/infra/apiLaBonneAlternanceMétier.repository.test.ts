@@ -7,7 +7,6 @@ import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/ap
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiLaBonneAlternanceMétierRepository', () => {
 	describe('getMetierList', () => {
@@ -17,7 +16,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aMetierLaBonneAlternanceApiResponse()));
 				const expected = aListeDeMetierLaBonneAlternance();
 
-				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, aLoggerService(), anErrorManagementService());
+				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, anErrorManagementService());
 
 				const response = await repository.getMetierList('tran');
 
@@ -29,13 +28,15 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 
 		describe('Quand l‘api renvoie une erreur', () => {
 			it("retourne une instance d'erreur", async () => {
-				const httpClientService = aPublicHttpClientService();
 				const httpError = anHttpError(429);
-				(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
-				const errorManagementService = anErrorManagementService();
-				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, aLoggerService(), errorManagementService);
+				const httpClientService = aPublicHttpClientService({
+					get: jest.fn(async () => {
+						throw httpError;
+					}),
+				});
 				const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-				errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
+				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, errorManagementService);
 
 				const response = await repository.getMetierList('tran');
 

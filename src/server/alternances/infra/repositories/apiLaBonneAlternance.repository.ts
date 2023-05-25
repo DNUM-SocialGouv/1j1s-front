@@ -14,14 +14,13 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService, private errorManagementService: ErrorManagementService) {
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async search(filtre: AlternanceFiltre): Promise<Either<RésultatRechercheAlternance>> {

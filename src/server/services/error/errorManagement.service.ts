@@ -16,7 +16,7 @@ export interface ErrorManagementService {
 }
 
 export class DefaultErrorManagementService implements ErrorManagementService {
-	constructor(private loggerService: LoggerService) {
+	constructor(private readonly loggerService: LoggerService) {
 	}
 
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure {
@@ -39,12 +39,10 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	}
 
 	private logInternalError(logInformation: LogInformation, error: unknown) {
-		let extra;
-		if (error instanceof Error) {
-			extra = { stacktrace: error.stack };
-		} else {
-			extra = { error: JSON.stringify(error) };
-		}
+		const extra = error instanceof Error
+			? { stacktrace: error.stack }
+			: { error: JSON.stringify(error) };
+
 		const errorToLog = new SentryException(
 			`${logInformation.message} (erreur interne)`,
 			{ context: logInformation.contexte, source: logInformation.apiSource },

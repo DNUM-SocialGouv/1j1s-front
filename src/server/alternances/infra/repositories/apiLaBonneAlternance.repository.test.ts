@@ -11,7 +11,6 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
@@ -19,7 +18,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -31,7 +30,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('fait l’appel avec les bons paramètres', () => {
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -46,14 +45,16 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
 		it('retourne une erreur quand il y a une erreur', async () => {
-			const httpClientService = aPublicHttpClientService();
-			const caller = '1jeune1solution-test';
 			const httpError = anHttpError(500);
-			const errorManagementService = anErrorManagementService();
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), errorManagementService);
-			(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const caller = '1jeune1solution-test';
+			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
-			errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
 
 			// When
 			const result = await repository.search(anAlternanceFiltre());
@@ -73,18 +74,19 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const httpClientService = aPublicHttpClientService();
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				matchas: [
-					aMatchaResponse({ job: {
-						contractType: 'Apprentissage, CDD',
-						id: 'abc',
-						romeDetails: {
-							competencesDeBase: [],
-							definition: 'Super alternance dans une boucherie',
+					aMatchaResponse({
+						job: {
+							contractType: 'Apprentissage, CDD',
+							id: 'abc',
+							romeDetails: {
+								competencesDeBase: [],
+								definition: 'Super alternance dans une boucherie',
+							},
 						},
-					},
 					}),
 				],
 			}));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
@@ -93,14 +95,15 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		});
 		it('retourne une erreur quand il y a une erreur', async () => {
 			// Given
-			const httpClientService = aPublicHttpClientService();
 			const httpError = anHttpError(500);
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
 			const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-			const errorManagementService = anErrorManagementService();
-			const loggerService = aLoggerService();
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', loggerService, errorManagementService);
-			(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
-			errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
+			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', errorManagementService);
 
 			// When
 			const result = await repository.get('abc');
@@ -120,7 +123,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 				// When
 				await repository.get('1234567');
@@ -135,7 +138,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', aLoggerService(), anErrorManagementService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 				// When
 				await repository.get('abc');

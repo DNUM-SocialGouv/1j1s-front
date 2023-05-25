@@ -5,10 +5,9 @@ import { MétierRepository } from '~/server/metiers/domain/métier.repository';
 import { mapMétier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiLaBonneAlternanceMétierRepository implements MétierRepository {
-	constructor(private httpClientService: PublicHttpClientService, private loggerService: LoggerService, private errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async getMetierList(recherche: string): Promise<Either<Array<Métier>>> {
 		try {
