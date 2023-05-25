@@ -4,7 +4,6 @@ import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
 import { createFailure, Failure } from '../../errors/either';
 import { LoggerService } from '../logger.service';
-import { isError } from 'joi';
 
 export interface LogInformation {
 	message: string
@@ -13,7 +12,7 @@ export interface LogInformation {
 }
 
 export interface ErrorManagementService {
-	handleFailureError(error: unknown, logInformation: LogInformation, loggerService: LoggerService): Failure
+	handleFailureError(error: unknown, logInformation: LogInformation): Failure
 }
 
 export class DefaultErrorManagementService implements ErrorManagementService {

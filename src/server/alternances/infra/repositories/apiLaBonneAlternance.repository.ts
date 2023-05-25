@@ -11,10 +11,6 @@ import {
 	mapAlternanceListe,
 	mapMatcha, mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -32,8 +28,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));
-		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche alternance', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'search la bonne alternance recherche alternance',
+				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+			});
 		}
 	}
 
@@ -68,7 +68,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
 				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
-			}, this.loggerService);
+			});
 		}
 	}
 }

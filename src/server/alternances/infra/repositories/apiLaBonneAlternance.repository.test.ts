@@ -8,17 +8,10 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
-
-function anErrorManagementService(override?: Partial<ErrorManagementService>): ErrorManagementService {
-	return {
-		handleFailureError: jest.fn(),
-		...override,
-	};
-} // TODO: voir si c'est mieux de passer les jest.fn en overrride ou de faire un mockreturnvalue
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
@@ -52,6 +45,26 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*radius=30/));
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
+		it('retourne une erreur quand il y a une erreur', async () => {
+			const httpClientService = aPublicHttpClientService();
+			const caller = '1jeune1solution-test';
+			const httpError = anHttpError(500);
+			const errorManagementService = anErrorManagementService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, aLoggerService(), errorManagementService);
+			(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
+			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
+
+			// When
+			const result = await repository.search(anAlternanceFiltre());
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'search la bonne alternance recherche alternance',
+				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
 	});
 
 	describe('get', () => {
@@ -83,24 +96,25 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const httpClientService = aPublicHttpClientService();
 			const httpError = anHttpError(500);
 			const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const errorManagementService = anErrorManagementService();
 			const loggerService = aLoggerService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', loggerService, errorManagementService);
 			(httpClientService.get as jest.Mock).mockRejectedValue(httpError);
-
+			errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
 
 			// When
-			const result = await repository.get('abc') as Failure;
+			const result = await repository.get('abc');
 
 			// Then
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
 				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
-			}, loggerService);
-			expect(result.errorType).toEqual(expectedFailure);
-
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
+
 		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/job', async () => {
 				// Given
