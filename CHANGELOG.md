@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.80.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.2...v3.80.3) (2023-05-25)
+
+
+### 🐛 Corrections de bogues
+
+* **cms:** appel inutile quand pas de token ([d95da21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d95da21d8e5e0bb51e1dc35ff1f508e84d51ac63))
+
 ## [3.80.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.1...v3.80.2) (2023-05-25)
 
 
