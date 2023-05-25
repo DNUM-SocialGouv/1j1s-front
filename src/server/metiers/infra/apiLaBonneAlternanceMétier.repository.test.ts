@@ -4,10 +4,10 @@ import { Métier } from '~/server/metiers/domain/métier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
 describe('ApiLaBonneAlternanceMétierRepository', () => {
 	describe('getMetierList', () => {
@@ -35,7 +35,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, aLoggerService(), errorManagementService);
 				const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-				errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure))
+				errorManagementService.handleFailureError = jest.fn().mockResolvedValue(createFailure(expectedFailure));
 
 				const response = await repository.getMetierList('tran');
 

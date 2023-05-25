@@ -8,10 +8,10 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
 describe('ApiLaBonneAlternanceRepository', () => {
 	describe('search', () => {
