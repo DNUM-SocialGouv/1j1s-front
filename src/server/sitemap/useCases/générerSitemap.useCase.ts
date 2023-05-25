@@ -20,6 +20,24 @@ const FOOTER_STATIC_PATH_LIST = [
 	'/mentions-legales',
 	'/confidentialite',
 ];
+const OTHER_STATIC_PATH_LIST = [
+	'/les-entreprises-s-engagent/inscription',
+	'/stages/deposer-offre',
+	'/emplois/deposer-offre',
+	'/apprentissage/deposer-offre',
+	'/immersions/referencer-mon-entreprise',
+	'/je-recrute-afpr-poei/inscription',
+	'/apprentissage/deposer-offre-lba',
+	'/plan-du-site',
+	'/cgu',
+	'/accessibilite',
+	'/mentions-legales',
+	'/confidentialite',
+	'/espace-jeune',
+	'/apprentissage-entreprises',
+	'/apprentissage/simulation?simulateur=alternant',
+	'/apprentissage/simulation?simulateur=employeur',
+];
 export class GénérerSitemapUseCase {
 	constructor(private cmsRepository: CmsRepository) {
 	}
@@ -27,6 +45,7 @@ export class GénérerSitemapUseCase {
 	async handle(baseUrl: string): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
 		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
+		staticPathList.push(...OTHER_STATIC_PATH_LIST);
 
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.cmsRepository.listAllFicheMetierNomMetier(),
