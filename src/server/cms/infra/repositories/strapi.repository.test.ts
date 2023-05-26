@@ -319,7 +319,7 @@ describe('strapi cms repository', () => {
 		});
 
 		describe('Si le logement n‘est pas trouvé', () => {
-			it('retourne une erreur et 	appelle le service de management d‘erreur', async () => {
+			it('retourne une erreur', async () => {
 				const httpError = anHttpError(500);
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
