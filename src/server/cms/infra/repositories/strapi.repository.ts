@@ -10,7 +10,6 @@ import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
-import { handleFailureError } from '~/server/cms/infra/repositories/strapi.error';
 import {
 	mapAnnonceLogement,
 	mapArticle,
@@ -36,7 +35,6 @@ import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
@@ -53,7 +51,6 @@ export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
 		private authenticatedHttpClientService: AuthenticatedHttpClientService,
-		private loggerService: LoggerService,
 		private errorManagementService: ErrorManagementService,
 	) {
 	}

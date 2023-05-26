@@ -1,7 +1,7 @@
-import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapi.error';
+import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
+import { LogInformation } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
