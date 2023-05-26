@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.81.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.3...v3.81.0) (2023-05-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **server-error:** ajout d'un error management service ([#1352](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1352)) ([bf306a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bf306a919589fcba191fb2fde76517958dd302ad))
+
 ## [3.80.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.2...v3.80.3) (2023-05-25)
 
 
