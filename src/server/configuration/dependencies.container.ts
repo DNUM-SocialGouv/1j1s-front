@@ -112,6 +112,7 @@ import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
+import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -164,6 +165,7 @@ export function dependenciesContainer(): Dependencies {
 		cacheService = new RedisCacheService(redisUrl, loggerService);
 	}
 
+	const errorManagementService = new DefaultErrorManagementService(loggerService);
 
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
@@ -186,9 +188,9 @@ export function dependenciesContainer(): Dependencies {
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, errorManagementService);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
-	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, loggerService);
+	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, errorManagementService);
 
 	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
