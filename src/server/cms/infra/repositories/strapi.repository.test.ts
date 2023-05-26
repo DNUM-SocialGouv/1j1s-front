@@ -37,10 +37,11 @@ import {
 	aStrapiVideosCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { createSuccess, Failure, Success } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -56,6 +57,7 @@ import {
 	anArticlePathList,
 	anOffreDeStagePathList,
 } from '~/server/sitemap/domain/sitemap.fixture';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -64,11 +66,80 @@ describe('strapi cms repository', () => {
 	let authenticatedHttpClientService: AuthenticatedHttpClientService;
 	let strapiCmsRepository: StrapiRepository;
 
+	describe('getSingleType', () => {
+		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const httpError = anAxiosResponse(anHttpError(404));
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), errorManagementService);
+
+			const result = await strapiCmsRepository.getActualitéList();
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Strapi',
+				contexte: 'get single type strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+	});
+	describe('getCollectionType', () => {
+		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const httpError = anAxiosResponse(anHttpError(404));
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), errorManagementService);
+
+			const result = await strapiCmsRepository.getArticleBySlug('bad slug');
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Strapi',
+				contexte: 'get collection type strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+	});
+	describe('save', () => {
+		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const authenticatedHttpClientService = anAuthenticatedHttpClientService({
+				post: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const httpError = anAxiosResponse(anHttpError(404));
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), errorManagementService);
+			const result = await strapiCmsRepository.save('url', 'body erreur');
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Strapi',
+				contexte: 'save strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+	});
+
 	describe('getActualites', () => {
 		describe('Si les actualités sont trouvées', () => {
 			it('récupère les actualités', async () => {
 				httpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService());
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
 				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
@@ -85,7 +156,8 @@ describe('strapi cms repository', () => {
 			it('récupère l‘article selon le slug', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
 				const expectedArticle = anArticle();
@@ -105,7 +177,8 @@ describe('strapi cms repository', () => {
 
 		beforeEach(() => {
 			httpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 		});
 		afterEach(() => {
 			jest.clearAllMocks();
@@ -141,7 +214,8 @@ describe('strapi cms repository', () => {
 		it('liste tous les noms métier des fiches metier', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 			(httpClientService.get as jest.Mock)
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiFicheMetierNomMetierList()))
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiPage2FicheMetierNomMetierList()));
@@ -159,7 +233,8 @@ describe('strapi cms repository', () => {
 		it('liste tous les identifiants d’article publiés sauf celles des faq', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 			(httpClientService.get as jest.Mock)
 				.mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
 			const expected = anArticlePathList();
@@ -174,7 +249,8 @@ describe('strapi cms repository', () => {
 	describe('getMentionObligatoire', () => {
 		it('retourne le mention obligatoire a consulter', async () => {
 			httpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({
 				data: {
@@ -198,7 +274,8 @@ describe('strapi cms repository', () => {
 	describe('getServiceJeuneList', () => {
 		it('récupère les services jeunes', async () => {
 			httpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiLesMesuresJeunesSingleType()));
 			const expected = anUnorderedServiceJeuneList();
@@ -213,7 +290,8 @@ describe('strapi cms repository', () => {
 		describe('quand les cartes sont trouvées', () => {
 			it('récupère les cartes jeunes', async () => {
 				httpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
 				const expectedMesuresEmployeurs = desMesuresEmployeurs();
@@ -230,7 +308,8 @@ describe('strapi cms repository', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anAnnonceDeLogementResponse()])));
 				const slug = anAnnonceDeLogementResponse().slug;
 
@@ -241,15 +320,27 @@ describe('strapi cms repository', () => {
 		});
 
 		describe('Si le logement n‘est pas trouvé', () => {
-			it('retourne une erreur', async () => {
-				httpClientService = aPublicHttpClientService();
+			it('retourne une erreur et 	appelle le service de management d‘erreur', async () => {
+				const httpError = anHttpError(500);
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
-				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
+				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+				const httpClientService = aPublicHttpClientService({
+					get: jest.fn(async () => {
+						throw httpError;
+					}),
+				});
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), errorManagementService);
 				const slug = 'bad-slug';
 
-				const result = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug) as Failure;
-				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+				const result = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug);
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Strapi',
+					contexte: 'get collection type strapi',
+					message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+				});
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(expectedFailure);
 			});
 		});
 	});
@@ -259,7 +350,8 @@ describe('strapi cms repository', () => {
 			it('récupère l‘offre de stage selon le slug', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anOffreDeStageResponse()])));
 				const slug = anOffreDeStageResponse().slug;
 
@@ -276,7 +368,8 @@ describe('strapi cms repository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				const strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 
 				const offreDeStageDepot = anOffreDeStageDepot();
 				const offreDeStageDepotStrapi = anOffreDeStageDepotStrapi();
@@ -297,7 +390,8 @@ describe('strapi cms repository', () => {
 			it('retourne la liste des questions avec la problématique et le slug', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
 
 
@@ -312,7 +406,8 @@ describe('strapi cms repository', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
 
 				const result = await strapiCmsRepository.getAllFAQ() as Failure;
@@ -327,7 +422,8 @@ describe('strapi cms repository', () => {
 				const slug = uneListeDeQuestionStrapiResponse()[0].slug;
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
 
 
@@ -341,7 +437,8 @@ describe('strapi cms repository', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+				);
 				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
 
 				const result = await strapiCmsRepository.getFAQBySlug('not-found-slug') as Failure;
@@ -354,7 +451,8 @@ describe('strapi cms repository', () => {
 		it('retourne un tableau contenant tous les slugs d’offre de stage', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService(),
+			);
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiOffreDeStageSlugList()));
 			const expected = anOffreDeStagePathList();
 
@@ -370,7 +468,7 @@ describe('strapi cms repository', () => {
 		it('retourne un tableau contenant tous les slugs d’annonce de logement', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService());
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiAnnonceDeLogementSlugList()));
 			const expected = anAnnonceDeLogementPathList();
 
@@ -386,7 +484,7 @@ describe('strapi cms repository', () => {
 		it('retourne la liste de videos', async () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService());
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, aLoggerService(), anErrorManagementService());
 			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideosCampagneApprentissage()));
 
 			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;

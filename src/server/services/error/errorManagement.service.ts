@@ -16,7 +16,7 @@ export interface ErrorManagementService {
 }
 
 export class DefaultErrorManagementService implements ErrorManagementService {
-	constructor(private readonly loggerService: LoggerService) {
+	constructor(protected loggerService: LoggerService) {
 	}
 
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure {
@@ -25,7 +25,7 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 			return this.handleHttpError(error);
 		}
 		this.logInternalError(logInformation, error);
-		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+		return this.handleInternalError();
 	}
 
 	private logHttpError(logInformation: LogInformation, error: HttpError) {
@@ -51,7 +51,11 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		this.loggerService.errorWithExtra(errorToLog);
 	}
 
-	private handleHttpError(error: HttpError) {
+	protected handleInternalError() {
+		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+	}
+
+	protected handleHttpError(error: HttpError) {
 		if (error.response?.status.toString().startsWith('50')) {
 			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
@@ -64,3 +68,4 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 	}
 }
+
