@@ -10,6 +10,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
+import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapi.error';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import {
 	DemandeDeContactDependencies,
@@ -124,7 +125,6 @@ import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
 } from '~/server/sitemap/configuration/dependencies.container';
-import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapi.error';
 
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
