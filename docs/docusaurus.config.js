@@ -28,6 +28,9 @@ const config = {
 		locales: ['fr'],
 	},
 
+	markdown: {
+		mermaid: true,
+	},
 
 	// Usually your repo name.
 	// Cette option ajoute <meta name="robots" content="noindex, nofollow"> à chaque page,
@@ -88,7 +91,6 @@ const config = {
 	// Le slogan de votre site web.
 	tagline: 'Le code source de 1jeune1solution est ouvert pour que chacun puisse contribuer à l\'avenir des jeunes !',
 
-
 	themeConfig:
 	/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
@@ -139,6 +141,9 @@ const config = {
 			},
 			// Replace with your project's social card
 			image: 'img/docusaurus-social-card.jpg',
+			mermaid: {
+				theme: { dark: 'forest', light: 'neutral' },
+			},
 			navbar: {
 				items: [
 					{
@@ -181,7 +186,8 @@ const config = {
 				theme: lightCodeTheme,
 			},
 		}),
-
+	
+	themes: ['@docusaurus/theme-mermaid'],
 
 	// Titre de votre site. Sera utilisé dans les métadonnées et comme titre dans l'onglet du navigateur.
 	title: 'Documentation Technique 1jeune1solution',
