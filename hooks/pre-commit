@@ -1,0 +1,17 @@
+#!/bin/bash
+
+GIT_DIR=${GIT_DIR-`git rev-parse --git-dir`}
+
+TARTE_AU_CITRON_IS_UPDATED=`git diff HEAD@{1} --stat -- ${GIT_DIR}/../public/scripts/tarteaucitron.js | wc -l`
+TARTE_AU_CITRON_SERVICE_IS_UPDATED=`git diff HEAD@{1} --stat -- ${GIT_DIR}/../public/tarteaucitron.services.js | wc -l`
+TARTE_AU_CITRON_TRADS_IS_UPDATED=`git diff HEAD@{1} --stat -- ${GIT_DIR}/../public/lang/tarteaucitron.fr.js | wc -l`
+
+UPDATES_ON_TARTE_AU_CITRON_SUM=`expr $TARTE_AU_CITRON_IS_UPDATED + $TARTE_AU_CITRON_SERVICE_IS_UPDATED + TARTE_AU_CITRON_TRADS_IS_UPDATED`
+
+if [ $UPDATES_ON_TARTE_AU_CITRON_SUM -gt 0 ];
+then
+    AUJOURD_HUI=`date '+%Y%m%d'`
+    sed -i "" "s/\"version\": .*,/\"version\": $AUJOURD_HUI,/" ${GIT_DIR}/../public/scripts/tarteaucitron.js
+    echo "tarteaucitron a été modifié, la version a été mis à jour : $AUJOURD_HUI !"
+    git add ${GIT_DIR}/../public/scripts/tarteaucitron.js
+fi
