@@ -22,6 +22,7 @@ export interface CookiesService {
 	addUser(nom: string, value: TarteAuCitron.User): void;
 	isServiceAllowed(nom: string): boolean;
 	allowService(nom: string): void;
+	openPanel(): void;
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {
@@ -85,6 +86,10 @@ export class TarteAuCitronCookiesService implements CookiesService {
 
 		this.tarteaucitron.userInterface.respond(allowButton, true);
 	}
+
+	openPanel(): void {
+		return this.tarteaucitron.userInterface.openPanel();
+	}
 }
 
 export class NullCookiesService implements CookiesService {
@@ -99,6 +104,10 @@ export class NullCookiesService implements CookiesService {
 	}
 
 	allowService(): void {
+		return;
+	}
+
+	openPanel(): void {
 		return;
 	}
 }

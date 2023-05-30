@@ -180,4 +180,15 @@ describe('TarteAuCitronCookiesService', () => {
 			expect(allowService).toThrow(FailedToAllowServiceError);
 		});
 	});
+
+	describe('openPanel', () => {
+		it('ouvre le panel', () => {
+			const tarteaucitron = aTarteAuCitron({ userInterface: { openPanel: jest.fn(), respond: jest.fn() } });
+			const service = new TarteAuCitronCookiesService(tarteaucitron);
+
+			service.openPanel();
+
+			expect(tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
+		});
+	});
 });
