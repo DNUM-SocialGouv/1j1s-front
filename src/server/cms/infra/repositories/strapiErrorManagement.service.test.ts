@@ -13,7 +13,7 @@ const aLogInformation: LogInformation = {
 describe('StrapiErrorManagementService', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
 		const errorCode = 401;
-		it('doit renvoyer une erreur customisée en fonction du message', () => {
+		it('renvoie une erreur customisée en fonction du message', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
@@ -26,7 +26,7 @@ describe('StrapiErrorManagementService', () => {
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
 		});
-		it('doit renvoyer une erreur par default lorsque le message n‘est pas celui attendu', () => {
+		it('renvoie une erreur par default lorsque le message n‘est pas celui attendu', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
@@ -41,7 +41,7 @@ describe('StrapiErrorManagementService', () => {
 		});
 	});
 	describe('lorsque l‘erreur est une erreur interne', () => {
-		it('doit créer une failure de service indisponible', () => {
+		it('crée une failure de service indisponible', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
