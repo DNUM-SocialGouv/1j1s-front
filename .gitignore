@@ -48,3 +48,6 @@ yarn-error.log*
 
 # terraform
 .terraform
+
+# storybook
+/storybook-static

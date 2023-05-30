@@ -1,0 +1,14 @@
+@use "@styles/utilities";
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+
+  @include utilities.media(large) {
+    flex-direction: row;
+  }
+
+  > * {
+    margin: 0.5rem;
+  }
+}

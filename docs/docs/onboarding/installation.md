@@ -18,17 +18,19 @@ _20 Avril 2023_
 
 ### Commandes utiles
 
-| Commande               | Fonction                                               |
-|------------------------|--------------------------------------------------------|
-| npm run lint           | Vérifie le formatage du code                           |
-| npm run lint:fix       | Formater le code                                       |
-| npm run test           | Lance les tests                                        |
-| npm run tw             | Lance les tests avec un watcher                        |
-| npm run test:coverage  | Lance les tests en indiquant le test coverage          |
-| npm run dev            | Lance le site en mode développeur (avec hot reload)    |
-| npm run start          | Lance le site en mode fixe (sans hot reload)           |
-| npm run build          | build le site comme en production                      |
-| npm run analyze        | Analyze la taille du site et des packages              |
-| npm run analyze:server | Analyze la taille du site et des packages côté serveur |
-| npm run e2e            | Lance les tests cypress (nécessite que le site tourne) |
-| npm run e2e:open       | Lance les tests cypress (nécessite que le site tourne) |
+| Commande                | Fonction                                                                 |
+|-------------------------|--------------------------------------------------------------------------|
+| npm run lint            | Vérifie le formatage du code                                             |
+| npm run lint:fix        | Formater le code                                                         |
+| npm run test            | Lance les tests                                                          |
+| npm run test:watch      | Lance les tests avec un watcher                                          |
+| npm run test:coverage   | Lance les tests en indiquant le test coverage                            |
+| npm run dev             | Lance le site en mode développeur (avec hot reload)                      |
+| npm run start           | Lance le site en mode fixe (sans hot reload)                             |
+| npm run build           | build le site comme en production                                        |
+| npm run analyze         | Analyze la taille du site et des packages                                |
+| npm run analyze:server  | Analyze la taille du site et des packages côté serveur                   |
+| npm run e2e             | Lance les tests cypress (nécessite que le site tourne)                   |
+| npm run e2e:open        | Lance les tests cypress (nécessite que le site tourne)                   |
+| npm run storybook       | Lance la documentation interactive des composants / assets Sass en local |
+| npm run build:storybook | Build une version statique de la documentation storybook                 |
