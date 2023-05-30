@@ -9,7 +9,7 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsAlreadySent = useRef(false);
 
 	const sendAnalytics = useCallback(() => {
-		if (!analyticsAlreadySent.current) {
+		if (analyticsService.isAllowed() && !analyticsAlreadySent.current) {
 			analyticsService.envoyerAnalyticsPageVue(pageTags);
 			analyticsAlreadySent.current = true;
 		}
@@ -22,9 +22,7 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 		};
 	}, [sendAnalytics]);
 
-	if (analyticsService.isAllowed()) {
-		sendAnalytics();
-	}
+	sendAnalytics();
 
 	return analyticsService;
 }
