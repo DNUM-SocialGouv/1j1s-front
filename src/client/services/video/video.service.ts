@@ -1,4 +1,5 @@
 import { CookiesService } from '~/client/services/cookies/cookies.service';
+import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
 
 export interface VideoService {
 	isAllowed(): boolean;
@@ -18,6 +19,14 @@ export class YoutubeService implements VideoService {
 	}
 
 	allow(): void {
-		return this.cookiesService.allowService('youtube');
+		try {
+			return this.cookiesService.allowService('youtube');
+		} catch (error) {
+			if (error instanceof FailedToAllowServiceError) {
+				return this.cookiesService.openPanel();
+			} else {
+				throw error;
+			}
+		}
 	}
 }

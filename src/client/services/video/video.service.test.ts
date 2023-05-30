@@ -1,4 +1,5 @@
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
+import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
 import { YoutubeService } from '~/client/services/video/video.service';
 
 describe('YoutubeService', () => {
@@ -38,6 +39,28 @@ describe('YoutubeService', () => {
 
 			expect(cookiesService.allowService).toHaveBeenCalledTimes(1);
 			expect(cookiesService.allowService).toHaveBeenCalledWith('youtube');
+		});
+		it('ouvre le panel quand impossible d’accepter le cookie', () => {
+			const cookiesService = aCookiesService({ allowService: () => { throw new FailedToAllowServiceError('youtube'); } });
+			const youtubeService = new YoutubeService(cookiesService);
+
+			youtubeService.allow();
+
+			expect(cookiesService.openPanel).toHaveBeenCalledTimes(1);
+		});
+		it('n’ouvre pas le panel quand possible d’accepter le cookie', () => {
+			const cookiesService = aCookiesService({ allowService: jest.fn() });
+			const youtubeService = new YoutubeService(cookiesService);
+
+			youtubeService.allow();
+
+			expect(cookiesService.openPanel).not.toHaveBeenCalled();
+		});
+		it('fait passe-plat sur les autres erreurs', () => {
+			const cookiesService = aCookiesService({ allowService: () => { throw new Error('Something failed'); } });
+			const youtubeService = new YoutubeService(cookiesService);
+
+			expect(() => youtubeService.allow()).toThrow(new Error('Something failed'));
 		});
 	});
 });
