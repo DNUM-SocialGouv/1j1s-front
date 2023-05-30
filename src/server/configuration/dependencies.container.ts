@@ -166,7 +166,7 @@ export function dependenciesContainer(): Dependencies {
 		cacheService = new RedisCacheService(redisUrl, loggerService);
 	}
 
-	const errorManagementService = new DefaultErrorManagementService(loggerService);
+	const errorManagementService = new DefaultErrorManagementService(loggerService); // TODO : voir si c'est ok qu'on renomme la const en defaultError...
 
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
@@ -206,7 +206,7 @@ export function dependenciesContainer(): Dependencies {
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
-	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, loggerService);
+	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, loggerService, errorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
 	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));

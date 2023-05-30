@@ -8,8 +8,10 @@ import {
 	anAmbassadeurDuDonDeVêtementMissionResponse,
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
-import { Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -24,10 +26,12 @@ jest.mock('axios', () => {
 describe('ApiEngagementRepository', () => {
 	let httpClientService: PublicHttpClientService;
 	let apiEngagementRepository: ApiEngagementRepository;
+	let defaultErrorManagementService: ErrorManagementService;
 
 	beforeEach(() => {
 		httpClientService = aPublicHttpClientService();
-		apiEngagementRepository = new ApiEngagementRepository(httpClientService, aLoggerService());
+		defaultErrorManagementService = anErrorManagementService();
+		apiEngagementRepository = new ApiEngagementRepository(httpClientService, aLoggerService(), defaultErrorManagementService);
 	});
 
 	describe('searchMissionServiceCivique', () => {
@@ -60,8 +64,11 @@ describe('ApiEngagementRepository', () => {
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
+			it('retourne une erreur', async () => {
+				const httpError = anHttpError(500);
+				const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(defaultErrorManagementService, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
 					domaine: 'sante',
 					localisation: {
@@ -74,7 +81,13 @@ describe('ApiEngagementRepository', () => {
 				};
 
 				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Failure;
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+
+				expect(defaultErrorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'recherche mission d’engagement',
+					message: '[API Engagement] impossible d’effectuer une recherche',
+				});
+				expect(errorType).toEqual(expectedFailure);
 			});
 		});
 	});
@@ -109,8 +122,11 @@ describe('ApiEngagementRepository', () => {
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
+			it('retourne une erreur', async () => {
+				const httpError = anHttpError(500);
+				const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(defaultErrorManagementService, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
 					domaine: 'sante',
 					localisation: {
@@ -123,7 +139,13 @@ describe('ApiEngagementRepository', () => {
 				};
 
 				const { errorType } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Failure;
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+
+				expect(defaultErrorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'recherche mission d’engagement',
+					message: '[API Engagement] impossible d’effectuer une recherche',
+				});
+				expect(errorType).toEqual(expectedFailure);
 			});
 		});
 	});
