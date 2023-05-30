@@ -16,7 +16,7 @@ import {
 	HeroSecondaryText,
 } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -153,9 +153,14 @@ export default function JeRecruteAfprPoeiInscription() {
           			<div className={styles.etape}>{étape}</div>
           			{
           				isPremièreÉtape && <>
-          					<Link appearance="asBackButton" className={styles.boutonRetour} href="/je-recrute-afpr-poei">
+          					<LinkStyledAsButton
+          						href="/je-recrute-afpr-poei" 
+          						appearance="asSecondaryButton" 
+          						iconPosition={'left'}
+          						icon={<Icon name="angle-left"/>}
+          						className={styles.boutonRetour} >
 												Retour
-          					</Link>
+          					</LinkStyledAsButton>
           					<div className={styles.champsObligatoires}>
           						<p>Etape 1 : Votre entreprise</p>
           						<p>Tous les champs du formulaire sont obligatoires</p>
@@ -390,7 +395,7 @@ export default function JeRecruteAfprPoeiInscription() {
           	<div className={styles.success}>
           		<p>Félicitations, votre formulaire a bien été envoyé !</p>
           		<p>Vous serez recontacté(e) dès que possible</p>
-          		<Link href="/" appearance="asPrimaryButton">Retourner à l‘accueil</Link>
+          		<LinkStyledAsButton href="/" appearance="asPrimaryButton">Retourner à l‘accueil</LinkStyledAsButton>
           	</div>
           </Container>
 			}

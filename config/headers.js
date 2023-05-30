@@ -3,14 +3,13 @@ const LOCAL_MODE_HEADERS = [];
 const STRAPI_MEDIA_HOST = new URL(process.env.STRAPI_MEDIA_URL).hostname;
 const TRUSTED_SOURCES = '*.fabrique.social.gouv.fr *.meilisearch.io/multi-search 1j1s-front.osc-fr1.scalingo.io *.1jeune1solution.gouv.fr';
 const ANALYTICS_SOURCES = `${process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}`;
-const ANALYTICS_SCRIPT_HASH = `${process.env.NEXT_PUBLIC_ANALYTICS_SCRIPT_HASH}`;
 const contentSecurityPolicy = `
   default-src 'self' ${TRUSTED_SOURCES};
-  script-src 'self' ${ANALYTICS_SOURCES} '${ANALYTICS_SCRIPT_HASH}';
-  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST};
+  script-src 'self' ${ANALYTICS_SOURCES} https://*.adform.net;
+  img-src 'self' *.google.com data: ${STRAPI_MEDIA_HOST} ${ANALYTICS_SOURCES} img.youtube.com;
   style-src 'self' 'unsafe-inline';
   frame-ancestors 'none';
-  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr;
+  frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net;
   form-action 'self';
   base-uri 'none';
 `;

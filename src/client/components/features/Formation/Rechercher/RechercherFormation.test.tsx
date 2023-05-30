@@ -158,7 +158,7 @@ describe('RechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const entête =  screen.getByRole('heading', { level: 2 });
+		const entête = screen.getByRole('heading', { level: 2 });
 		expect(entête).toHaveTextContent('Découvrez des services faits pour vous');
 		expect(entête).toBeVisible();
 
@@ -166,19 +166,21 @@ describe('RechercherFormation', () => {
 		expect(listeDePartenaires).toBeVisible();
 	});
 
-	it('filtre les query params envoyés au service', () => {
+	it('filtre les query params envoyés au service', async () => {
 		const formationService = aFormationService();
-		mockUseRouter({ query : {
-			codeCommune: '75056',
-			codeRomes: 'M1805%2CM1806%2CM1802',
-			distanceCommune: '10',
-			latitudeCommune: '48.859',
-			libelleCommune: 'Paris+%2875001%29',
-			libelleMetier: 'Développement+web%2C+intégration',
-			longitudeCommune: '2.347',
-			niveauEtudes: '4',
-			test: 'test',
-		} });
+		mockUseRouter({
+			query: {
+				codeCommune: '75056',
+				codeRomes: 'M1805%2CM1806%2CM1802',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris+%2875001%29',
+				libelleMetier: 'Développement+web%2C+intégration',
+				longitudeCommune: '2.347',
+				niveauEtudes: '4',
+				test: 'test',
+			},
+		});
 
 		render(
 			<DependenciesProvider
@@ -190,8 +192,51 @@ describe('RechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
+		await screen.findByRole('list', { name: 'Formations en alternance' });
 		expect(formationService.rechercherFormation).toHaveBeenCalledWith(expect.not.objectContaining({
 			test: 'test',
 		}));
+	});
+
+	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
+		it('on voit la carte de redirection vers la campagne', () => {
+			const formationService = aFormationService();
+			mockUseRouter({});
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+			render(
+				<DependenciesProvider
+					formationService={formationService}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherFormation/>
+				</DependenciesProvider>,
+			);
+
+			const linkCardApprentissage = screen.getByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ });
+
+			expect(linkCardApprentissage).toBeVisible();
+			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
+		});
+	});
+	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
+		it('on ne voit pas la carte de redirection vers la campagne', () => {
+			const formationService = aFormationService();
+			mockUseRouter({});
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+
+			render(
+				<DependenciesProvider
+					formationService={formationService}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherFormation/>
+				</DependenciesProvider>,
+			);
+
+			expect(screen.queryByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ })).not.toBeInTheDocument();
+		});
 	});
 });

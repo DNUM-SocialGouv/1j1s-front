@@ -45,3 +45,6 @@ yarn-error.log*
 
 # local development
 /tmp
+
+# terraform
+.terraform

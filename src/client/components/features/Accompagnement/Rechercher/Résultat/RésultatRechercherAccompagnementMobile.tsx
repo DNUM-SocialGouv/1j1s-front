@@ -8,7 +8,7 @@ import styles
 import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
 	ÉtablissementAccompagnement,
@@ -43,7 +43,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 			<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
 			{
 				établissement.email && !isMissionLocale &&
-				<Link className={styles.contactFormulaireÉtablissement} href={établissement.email} appearance={'asPrimaryButton'}>Contacter l‘agence</Link>
+					<LinkStyledAsButton className={styles.contactFormulaireÉtablissement} href={établissement.email} appearance={'asPrimaryButton'}>Contacter l‘agence</LinkStyledAsButton>
 			}
 			{
 				établissement.email && isMissionLocale &&

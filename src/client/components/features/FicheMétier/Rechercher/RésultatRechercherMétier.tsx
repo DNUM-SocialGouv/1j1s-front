@@ -24,7 +24,7 @@ export function RésultatRechercherMétier(props: HitProps<Partial<Strapi.Collec
 				<Card.Content className={styles.content}>
 					<Card.Title className={styles.title} titleAs={'h3'}>{nomMetier}</Card.Title>
 					<div className={styles.description} dangerouslySetInnerHTML={{ __html: accrocheMétier || '' }}/>
-					<Card.FakeLink appearance={'tertiary'} className={styles.link} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
+					<Card.FakeLink appearance={'quaternary'} className={styles.fakeLink} icon={<Icon name={'angle-right'}/>} label={'En savoir plus'} />
 				</Card.Content>
 			</Card>
 		</Link>

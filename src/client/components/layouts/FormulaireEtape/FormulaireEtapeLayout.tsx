@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Link } from '~/client/components/ui/Link/Link';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from './FormulaireEtapeLayout.module.scss';
 
@@ -16,13 +17,15 @@ export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
 	return (
 		<Container className={styles.container}>
 			<ÉtapeFormulaire étape={étape} />
-			{ urlÉtapePrécédente && <Link
+			{ urlÉtapePrécédente && <LinkStyledAsButton
 				href={urlÉtapePrécédente}
-				appearance="asBackButton"
+				appearance="asSecondaryButton"
+				iconPosition={'left'}
+				icon={<Icon name="angle-left"/>}
 				className={styles.boutonRetour}
 			>
         Retour à l’étape précédente
-			</Link>}
+			</LinkStyledAsButton>}
 			{ formulaire }
 		</Container>
 	);

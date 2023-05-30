@@ -1,27 +1,27 @@
 @use "@styles/utilities";
 
+.avoidLineBreakInside {
+  display: inline-block;
+};
+
 .titrePage {
   & h1 {
     @extend %headline;
     font-weight: bold;
-
   }
-  & .sousTitre {
-    @extend %headline;
-    font-weight: normal;
-    color: utilities.$color-secondary;
-  }
-
-
   & .hero {
     background-color: utilities.$color-background;
+
 
     & .cta {
       width: 100%;
       margin-top: 1rem;
       @include utilities.media(small) {
         width: fit-content;
-        margin-top: 2rem;
+      }
+
+      @include utilities.media(large) {
+        margin-top: 5rem;
       }
     }
   }

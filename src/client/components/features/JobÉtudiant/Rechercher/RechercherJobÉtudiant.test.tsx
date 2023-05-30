@@ -27,7 +27,7 @@ describe('RechercherJobÉtudiant', () => {
 	});
 
 	describe('quand le composant est affiché sans recherche', () => {
-		it('affiche un formulaire pour la recherche de jobs étudiants,  avec un échantillon de résultat', async () => {
+		it('affiche un formulaire pour la recherche de jobs étudiants, avec un échantillon de résultat', async () => {
 			// GIVEN
 			const offreServiceMock = anOffreService();
 			const localisationServiceMock = aLocalisationService();
@@ -42,7 +42,7 @@ describe('RechercherJobÉtudiant', () => {
 			);
 
 			// WHEN
-			const formulaireRechercheOffreEmploi = screen.getByRole('form');
+			const formulaireRechercheOffreEmploi = screen.getByRole('search');
 			expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalled();
 			expect(await screen.findByText('3 offres de jobs étudiants')).toBeInTheDocument();
 			const errorMessage = screen.queryByText('0 résultat');

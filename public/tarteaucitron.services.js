@@ -4536,7 +4536,7 @@ tarteaucitron.services.adform = {
     tarteaucitron.addScript('https://track.adform.net/serving/scripts/trackpoint/async/');
   },
   key: 'adform',
-  name: 'Adform',
+  name: 'Adform (services : Amnet, Seedtag, Yahoo, Snapchat, Meta, TikTok)',
   needConsent: true,
   type: 'ads',
   uri: 'https://site.adform.com/privacy-center/overview/',

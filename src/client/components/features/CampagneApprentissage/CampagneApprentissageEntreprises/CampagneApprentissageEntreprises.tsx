@@ -10,12 +10,19 @@ import {
 	Raisons,
 	RaisonsDeChoisirApprentissage,
 } from '~/client/components/features/CampagneApprentissage/RaisonsDeChoisirApprentissage/RaisonsDeChoisirApprentissage';
+import VideosCampagneApprentissage
+	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 
-export function CampagneApprentissageEntreprises() {
+interface CampagneApprentissageEntreprisesProps {
+	videos: Array<VideoCampagneApprentissage>
+}
+
+export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissageEntreprisesProps) {
 	const { isSmallScreen } = useBreakpoint();
 	const raisons: Raisons[] = [
 		{
@@ -24,7 +31,7 @@ export function CampagneApprentissageEntreprises() {
 		},
 		{
 			iconName: 'account',
-			text: 'Transmettre votre savoir-faire',
+			text: <>Transmettre votre <span>savoir-faire</span> </>,
 		},
 		{
 			iconName: 'euro',
@@ -43,16 +50,23 @@ export function CampagneApprentissageEntreprises() {
 	return (
 		<>
 			<header className={styles.titrePage}>
-				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
-					<h1>L’apprentissage pour mon entreprise, <small className={styles.sousTitre}>c’est le bon choix !</small></h1>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
+				<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
+					<h1>L’apprentissage, pour mon entreprise <span className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
+					<LinkStyledAsButton href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						{ isSmallScreen ? 'Simuler le coût d’embauche' : 'Simuler le coût de l’embauche d’un apprenti'}
-					</Link>
+					</LinkStyledAsButton>
 				</HeroWithIllustration>
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage :" raisons={raisons}
 			/>
 			<EnSavoirPlusApprentissageEntreprises/>
+			{ videos.length > 0 &&
+				<VideosCampagneApprentissage
+					titre={'Ils ont choisi d’embaucher un apprenti ! Pourquoi pas vous ?'}
+					description={'Découvrez les témoignages des maîtres d’apprentissage et des apprentis qu’ils accompagnent au quotidien.'}
+					videos={videos}
+				/>
+			}
 			<InformationSurEmbaucheApprenti/>
 		</>
 	);

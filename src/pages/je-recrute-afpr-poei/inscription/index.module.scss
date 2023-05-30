@@ -17,10 +17,11 @@
   max-width: 78em;
 }
 
+
 .boutonRetour {
-  @extend %text-regular;
-  margin-block: 1.25rem;
+  margin-top: 1rem;
 }
+
 
 .formulaire {
   .bodyFormulaire {
@@ -116,7 +117,6 @@
   }
 
   .boutonRetour {
-    margin-top: 1rem;
     margin-left: 8rem;
   }
 

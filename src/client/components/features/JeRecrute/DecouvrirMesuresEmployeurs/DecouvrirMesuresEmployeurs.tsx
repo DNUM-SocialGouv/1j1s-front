@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function DecouvrirMesuresEmployeurs() {
 	return (
@@ -14,7 +14,7 @@ export default function DecouvrirMesuresEmployeurs() {
 					<h2 className={styles.sectionContainerTextTitre}>Découvrez les mesures du plan 1jeune1solution pour vous aider
 						<span className={styles.sectionContainerTextTitreAccroche}> à recruter plus facilement</span>
 					</h2>
-					<Link href="/mesures-employeurs" appearance="asSecondaryButton">Découvrir toutes les mesures employeurs</Link>
+					<LinkStyledAsButton href="/mesures-employeurs" appearance="asSecondaryButton">Découvrir toutes les mesures employeurs</LinkStyledAsButton>
 				</span>
 			</Container>
 		</section>

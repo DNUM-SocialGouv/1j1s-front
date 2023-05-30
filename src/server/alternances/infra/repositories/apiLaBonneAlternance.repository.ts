@@ -11,27 +11,28 @@ import {
 	mapAlternanceListe,
 	mapMatcha, mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternanceError';
 import { createSuccess, Either } from '~/server/errors/either';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
+	}
 
 	async search(filtre: AlternanceFiltre): Promise<Either<RésultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));
-		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche alternance', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'search la bonne alternance recherche alternance',
+				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+			});
 		}
 	}
 
@@ -49,16 +50,24 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	async get(id: string): Promise<Either<Alternance>> {
 		try {
 			if (ApiLaBonneAlternanceRepository.isPoleEmploiId(id)) {
-				const apiResponse = await this.httpClientService.get<{ peJobs: AlternanceApiJobsResponse.PEJobs[] }>(`/v1/jobs/job/${id}`);
+				const apiResponse = await this.httpClientService.get<{
+					peJobs: AlternanceApiJobsResponse.PEJobs[]
+				}>(`/v1/jobs/job/${id}`);
 				const offre = apiResponse.data.peJobs[0];
 				return createSuccess(mapPEJob(offre));
 			}
 
-			const apiResponse = await this.httpClientService.get<{ matchas: AlternanceApiJobsResponse.Matcha[] }>(`/v1/jobs/matcha/${id}`);
+			const apiResponse = await this.httpClientService.get<{
+				matchas: AlternanceApiJobsResponse.Matcha[]
+			}>(`/v1/jobs/matcha/${id}`);
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
-			return handleGetFailureError(error, 'détail annonce alternance', this.loggerService);
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get détail annonce alternance',
+				message: '[API LaBonneAlternance] impossible de récuperer le détail d‘une offre d‘alternance',
+			});
 		}
 	}
 }

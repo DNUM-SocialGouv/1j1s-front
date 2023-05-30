@@ -12,8 +12,8 @@
   }
 }
 
-.videos {
-  padding: 1.75rem 2rem;
+.sectionVideos {
+  padding: 1.75rem 1rem;
 
   @include utilities.media(large) {
     padding: 5rem 1rem;
@@ -23,15 +23,17 @@
 
 .titreSection {
   @extend %text-large;
-  @extend %bold;
-
+  @extend %bold;    
   margin-bottom: 1.5rem;
-
+  
+  & span {
+    display: inline-block;
+  }
+  
   @include utilities.media(large) {
     grid-area: titre;
   }
 }
-
 .video {
   position: relative;
   width: 100%;
@@ -40,13 +42,6 @@
 
   @include utilities.media(large) {
     grid-area: video;
-  }
-
-  & .iframe {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
   }
 }
 
@@ -99,12 +94,17 @@
 
   & .boutonsVideosList {
     margin-bottom: 1rem;
+    & li {
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
   }
 
   & .lienPlaylistContainer {
     display: flex;
 
     & .lienPlaylist {
+      color: utilities.$black;
       margin-left: auto;
     }
   }

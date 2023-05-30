@@ -1,7 +1,9 @@
 import { AnalyticsService } from './analytics.service';
 
-export function anAnalyticsService(): AnalyticsService {
+export function anAnalyticsService(overrides?: Partial<AnalyticsService>): AnalyticsService {
 	return {
 		envoyerAnalyticsPageVue: jest.fn(),
-	} as unknown as AnalyticsService;
+		isAllowed: jest.fn(() => true),
+		...overrides,
+	};
 }

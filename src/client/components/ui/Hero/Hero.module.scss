@@ -39,6 +39,7 @@
     img {
       object-fit: cover;
       object-position: top left;
+      max-width: 55ch;
     }
   }
 }
@@ -81,7 +82,7 @@
       @extend %text-Hero;
       &Orange {
         @extend %bold;
-        color: utilities.$color-tertiary;
+        color: utilities.$campagne-CEJ-primary;
         margin-bottom: 1rem;
       }
       margin-bottom: 2.5rem;

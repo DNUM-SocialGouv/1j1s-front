@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroWithButtonLinkProps {
@@ -34,8 +34,8 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 						{content}
 					</p>
 					<div className={styles.linkAsButtonContainer}>
-						<Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</Link><br />
-						{(buttonLabelSecondary && buttonHrefSecondary) && <Link className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</Link>}
+						<LinkStyledAsButton className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButton><br />
+						{(buttonLabelSecondary && buttonHrefSecondary) && <LinkStyledAsButton className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</LinkStyledAsButton>}
 					</div>
 					{additionalInformation}
 				</div>

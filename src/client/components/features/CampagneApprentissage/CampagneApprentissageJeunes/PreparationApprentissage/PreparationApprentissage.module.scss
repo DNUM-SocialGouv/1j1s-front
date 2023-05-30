@@ -14,7 +14,7 @@
 
     & .prepaApprentissage,
     & .choixApprentissage {
-      padding: 1.75rem 2rem;
+      padding: 1.75rem 1rem;
       display: flex;
       flex-direction: column;
       @include utilities.media(large) {
@@ -41,7 +41,6 @@
 
     & .linkContainerChoixApprentissage {
       display: contents;
-      @extend %text-regular;
       @include utilities.media(large) {
         display: flex;
         flex-direction: column;
@@ -72,7 +71,6 @@
     }
 
     & .linkPrepaApprentissage {
-      @extend %text-regular;
       grid-area: linkPrepaApprentissage;
       height: min-content;
 

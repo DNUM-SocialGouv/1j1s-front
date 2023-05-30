@@ -7,8 +7,8 @@ export function DecouvrirApprentissage() {
 		<ServiceCard
 			imageFit="cover"
 			linkLabel="Découvrir l‘apprentissage"
-			link="/apprentissage-jeunes"
-			logo="/images/campagne-apprentissage.webp"
+			link="/choisir-apprentissage"
+			logo="/images/campagne-apprentissage-jeune-sans-texte.webp"
 			title="L’apprentissage est-il fait pour vous ?"
 			titleAs="h3"
 		>

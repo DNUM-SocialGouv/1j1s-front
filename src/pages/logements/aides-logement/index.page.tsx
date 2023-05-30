@@ -37,7 +37,7 @@ export default function AidesLogement() {
 						<section className={styles.section}>
 							<h2 className={styles.sectionHeading}>Découvrez vos aides :</h2>
 							<ul aria-label="Vos aides">
-								<li className={styles.partnerCard}>
+								<li className={styles.serviceCard}>
 									<ServiceCard
 										logo="/images/logos/caisse-allocations-familiales.svg"
 										link="https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation"
@@ -52,7 +52,7 @@ export default function AidesLogement() {
 										RSA ou la Prime d’activité.
 									</ServiceCard>
 								</li>
-								<li className={styles.partnerCard}>
+								<li className={styles.serviceCard}>
 									<ServiceCard
 										logo="/images/logos/mutualite-sociale-agricole.svg"
 										link="https://www.msa.fr/lfp/web/msa/logement/offre-msa"

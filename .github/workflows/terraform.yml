@@ -1,0 +1,168 @@
+name: Déploiement Terraform
+
+# Le déploiement s'éxecute en 4 temps :
+# - un "plan" sur la recette lors d'un push sur une pull_request
+# - un "apply" lors du push sur main (hors commit de release)
+# - un "plan" sur la production lors d'un push sur une pull_request de release (startsWith(github.head_ref, 'release-please--'))
+# - un "apply" lors du push sur main avec un commit de release (github.event.type == 'PushEvent')
+
+on:
+  workflow_call:
+    inputs:
+      lint:
+        default: true
+        type: boolean
+      validate:
+        default: true
+        type: boolean
+      plan:
+        default: true
+        type: boolean
+      apply:
+        default: false
+        type: boolean
+      environnement_name:
+        required: true
+        type: string
+      environnement_url:
+        required: true
+        type: string
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environnement_name }}
+      url: ${{ inputs.environnement_url }}
+
+    steps:
+      - name: Télécharger le code source
+        uses: actions/checkout@v3
+
+      - name: Installation de Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: "< 2.0.0"
+
+      - name: Exposer tous les secrets comme des variables d'environnement
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
+        uses: Firenza/secrets-to-env@v1.2.0
+        with:
+          secrets: ${{ toJSON(secrets) }}
+          env_var_name_lower_case_regex: (?<=TF_VAR_).*
+
+      - name: Exposer toutes les variables comme des variables d'environnement
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
+        uses: Firenza/secrets-to-env@v1.2.0
+        with:
+          secrets: ${{ toJSON(vars) }}
+          env_var_name_lower_case_regex: (?<=TF_VAR_).*
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+      - name: Ecrire les variables d'environnement dans un fichier .env
+        if: ${{ (inputs.plan == true) || (inputs.apply == true) }}
+        run: |
+          npm install -g envsub
+          envsub --syntax dollar-curly --protect .env.scalingo .env
+
+      - name: Vérifier le format et le style du code Terraform
+        if: ${{ inputs.lint == true }}
+        id: fmt
+        run: terraform fmt -check -diff -recursive ./terraform
+        continue-on-error: true
+
+      - name: Terraform Init
+        if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
+        id: init
+        working-directory: terraform
+        run: terraform init -input=false
+      
+      - name: Terraform Validate
+        if: ${{ inputs.validate == true }}
+        id: validate
+        working-directory: terraform
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        if: ${{ inputs.plan == true }}
+        id: plan
+        working-directory: terraform
+        run: terraform plan -detailed-exitcode -input=false -no-color
+        env:
+          TF_VAR_front_fichier_env_secret: "../.env"
+        continue-on-error: true
+
+      - name: Ajouter un commentaire avec le résultat de terraform plan
+        if: ${{ (github.event_name == 'pull_request') && (steps.plan.outputs.exitcode == '2') }}
+        uses: actions/github-script@v6
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // 1. Retrieve existing bot comments for the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('Simulation des changements d\'infrastruture Terraform sur ${{ inputs.environnement_name }}')
+            })
+
+            // 2. Prepare format of the comment
+            const output = `### Simulation des changements d'infrastruture Terraform sur ${{ inputs.environnement_name }}
+            #### Format et Style du code Terraform 🖌 : ${{ (steps.fmt.outcome == 'success') && '✅' || '❌' }}
+            #### Validation de la configuration de Terraform (\`validate\`) 🤖 : ${{ (steps.validate.outcome == 'success') && '✅' || '❌' }}
+            <details><summary>Montrer le résultat de la validation</summary>
+
+            \`\`\`\n
+            ${{ steps.validate.outputs.stdout }}
+            \`\`\`
+
+            </details>
+
+            #### Terraform Plan 📖 : ${{ (steps.plan.outputs.exitcode == '2') && '✅' || '❌' }}
+
+            <details><summary>Montrer les modifications prévues par Terraform</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            Pour appliquer les changements proposés par ce plan :
+            - en recette : il suffit de merger cette PR
+            - en production : il faut merger la PR de release (créée par release-please)
+
+            *Environnement: \`${{ inputs.environnement_name }}\`, Auteur: @${{ github.actor }}, Répertoire: \`./terraform\`*`;
+
+            // 3. If we have a comment, update it, otherwise create a new one
+            if (botComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
+
+      - name: Deploiement réel des changements
+        if: ${{ inputs.apply == true }}
+        id: apply
+        working-directory: terraform
+        run: terraform apply -input=false -no-color -auto-approve
+        env:
+          TF_VAR_front_fichier_env_secret: "../.env"

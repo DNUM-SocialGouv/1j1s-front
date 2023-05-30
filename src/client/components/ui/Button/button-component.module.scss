@@ -4,105 +4,87 @@
   border-radius: 50px;
   outline-offset: 4px;
 
-  &Label {
-    line-height: 1.6rem;
-    @extend %text-regular;
-  }
-
-  &[disabled] {
-    border: 1px solid utilities.$color-disabled;
-    background-color: utilities.$color-disabled;
-    color: utilities.$color-on-disabled;
+  &:disabled {
+    border: 1px solid utilities.$color-on-disabled;
+    background-color: utilities.$color-on-disabled;
+    color: utilities.$color-disabled;
     cursor: not-allowed;
+  }
 
-    &:hover {
-      border: 1px solid utilities.$color-disabled;
-      background-color: utilities.$color-disabled;
+  > svg {
+    vertical-align: middle;
+  }
+
+  &.buttonWithRightIcon {
+    & .buttonLabel {
+      margin-right: 0.5rem;
     }
   }
 
-  &Primary {
-    border: 1px solid utilities.$color-primary;
-    background-color: utilities.$color-primary;
-    color: utilities.$color-on-primary;
-    padding-block: 0.4rem;
-
-    &:hover {
-      background-color: utilities.$color-primary-on-hover;
-      border-color: utilities.$color-primary-on-hover;
-    }
-
-    @include utilities.media(large) {
-      padding-block: 0.5rem;
+  &.buttonWithLeftIcon {
+    & .buttonLabel {
+      margin-left: 0.5rem;
     }
   }
 
-  &Secondary {
-    border: 1px solid utilities.$color-primary;
-    color: utilities.$color-primary;
-    padding-block: 0.4rem;
-
-    &:hover {
-      background-color: utilities.$color-background-white-titan;
-      border-color: utilities.$color-primary-on-hover;
-      color: utilities.$color-primary-on-hover;
-    }
-
-    @include utilities.media(large) {
-      padding-block: 0.5rem;
-    }
-  }
-
-  &Primary, &Secondary {
-    &.buttonWithRightIcon {
-      padding-inline: 1.5rem 1.3rem;
-
-      .buttonLabel {
-        margin-right: 0.5rem;
-      }
-    }
-
-    &.buttonWithLeftIcon {
-      padding-inline: 1.3rem 1.5rem;
-
-      .buttonLabel {
-        margin-left: 0.5rem;
-      }
-    }
-
-    svg {
-      vertical-align: text-top;
-    }
-  }
-
-  &Tertiary {
-    color: utilities.$color-primary;
-    padding-block: 0.25rem;
-
-    &:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    svg {
-      vertical-align: text-top;
-    }
-  }
-
-  &Tertiary.buttonWithRightIcon .buttonLabel {
-    margin-right: 0.5rem;
-  }
-
-  &NoIcon {
-    padding-inline: 1.5rem;
-  }
-
-  &WithTopIcon {
-    border-radius: 20px;
-
-    .buttonLabel {
+  &.buttonWithTopIcon {
+    & .buttonLabel {
+      margin-top: 0.5rem;
       display: block;
-      padding-inline: 1rem;
     }
+  }
+}
+
+.buttonPrimary, .buttonSecondary, .buttonTertiary{
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  @extend %button;
+}
+
+
+.buttonPrimary {
+  border: 1px solid utilities.$color-primary;
+  background-color: utilities.$color-primary;
+  color: utilities.$color-on-primary;
+
+  &:enabled:hover {
+    background-color: utilities.$color-primary-on-hover;
+    border-color: utilities.$color-primary-on-hover;
+  }
+}
+
+.buttonSecondary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$white;
+
+  &:enabled:hover {
+    background-color: utilities.$color-background-white-titan;
+    border-color: utilities.$color-primary;
+    color: utilities.$color-primary;
+  }
+}
+
+.buttonTertiary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$color-background-white-titan;
+
+  &:enabled:hover {
+    background-color: utilities.$color-tertiary-on-hover;
+    border-color: utilities.$color-tertiary-on-hover;
+    color: utilities.$white;
+  }
+}
+
+.buttonQuaternary {
+  color: utilities.$color-primary;
+  border-radius: 0;
+  font-size: 1rem;
+
+  &:enabled:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }

@@ -110,7 +110,7 @@ export function ModalComponent(props: ModalProps) {
 					<div className={styles.modalBody}>
 						<div className={classNames(className, styles.modalClose)}>
 							<ButtonComponent
-								appearance="tertiary"
+								appearance="quaternary"
 								icon={<Icon name="close"/>}
 								iconPosition="right"
 								label={closeLabel}

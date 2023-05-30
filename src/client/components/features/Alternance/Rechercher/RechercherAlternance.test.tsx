@@ -253,4 +253,45 @@ describe('RechercherAlternance', () => {
 			test: 'test',
 		}));
 	});
+	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
+		it('on voit la carte de redirection vers la campagne', () => {
+			const alternanceServiceMock = anAlternanceService();
+			mockUseRouter({});
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const linkCardApprentissage = screen.getByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ });
+
+			expect(linkCardApprentissage).toBeVisible();
+			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
+		});
+	});
+	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
+		it('on ne voit pas la carte de redirection vers la campagne', () => {
+			const alternanceServiceMock = anAlternanceService();
+			mockUseRouter({});
+			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			expect(screen.queryByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ })).not.toBeInTheDocument();
+		});
+	});
 });

@@ -1,3 +1,5 @@
+import { TarteAuCitron } from '~/client/services/cookies/cookies.service';
+import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
 
 export function mockSmallScreen() {
 	Object.defineProperty(window, 'matchMedia', {
@@ -66,5 +68,12 @@ export function mockSessionStorage({
 			removeItem,
 			setItem,
 		},
+	});
+}
+
+export function mockTarteAuCitron(override?: Partial<TarteAuCitron>) {
+	Object.defineProperty(window, 'tarteaucitron', {
+		value: aTarteAuCitron(override),
+		writable: true,
 	});
 }

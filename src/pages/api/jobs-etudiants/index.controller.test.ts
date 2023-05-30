@@ -19,14 +19,15 @@ describe('rechercher un job étudiant', () => {
 	it('retourne la liste des jobs étudiants filtrée', async () => {
 		nock('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres')
 			.get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
-			.reply(401)
-			.get('/search?motsCles=boulanger&range=0-14&tempsPlein=false&typeContrat=CDD%2CMIS%2CSAI&commune=75101&dureeHebdoMax=1600')
 			.reply(200, aRésultatRechercheOffreEmploiAxiosResponse().data);
 
 		nock('https://api.pole-emploi.io/partenaire/offresdemploi/v2/referentiel')
 			.get('/communes')
 			.reply(200, aRésultatRéférentielCommuneResponse().data);
 
+		nock('https://entreprise.pole-emploi.fr')
+			.post('/connexion/oauth2/access_token?realm=partenaire')
+			.reply(200, { access_token: 'fake_access_token' });
 		nock('https://entreprise.pole-emploi.fr')
 			.post('/connexion/oauth2/access_token?realm=partenaire')
 			.reply(200, { access_token: 'fake_access_token' });
@@ -42,7 +43,7 @@ describe('rechercher un job étudiant', () => {
 		});
 	});
 
-	it('map la request parameters to JobÉtudiantFiltre', () => {
+	it('map la request parameters en JobÉtudiantFiltre', () => {
 		const request: NextApiRequest = {
 			query: {
 				codeLocalisation: '75101',

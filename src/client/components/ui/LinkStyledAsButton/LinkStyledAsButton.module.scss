@@ -1,0 +1,92 @@
+@use "../../../../styles/utilities";
+
+.primaryButton, .secondaryButton, .tertiaryButton{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  outline-offset: 4px;
+
+  & > svg {
+    vertical-align: middle;
+  }
+}
+
+.primaryButton, .secondaryButton, .tertiaryButton {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.primaryButton {
+  @extend %button;
+  border: 1px solid utilities.$color-primary;
+  background-color: utilities.$color-primary;
+  color: utilities.$color-on-primary;
+
+  &:hover {
+    background-color: utilities.$color-primary-on-hover;
+    border-color: utilities.$color-primary-on-hover;
+  }
+}
+
+.secondaryButton {
+  @extend %button;
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$white;
+
+  &:hover {
+    background-color: utilities.$color-background-white-titan;
+    border-color: utilities.$color-primary;
+    color: utilities.$color-primary;
+  }
+}
+
+.tertiaryButton {
+  @extend %button;
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-primary;
+  background-color: utilities.$color-background-white-titan;
+
+  &:hover {
+    background-color: utilities.$color-tertiary-on-hover;
+    border-color: utilities.$color-tertiary-on-hover;
+    color: utilities.$white;
+  }
+}
+
+.quaternaryButton {
+  display: flex;
+  color: utilities.$color-primary;
+  text-decoration: none;
+  border-radius: 0;
+  padding: 0;
+  gap: .5rem;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.linkWithRightIcon, .linkWithLeftIcon, .linkWithTopIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkWithLeftIcon {
+  & .linkLabel {
+    margin-left: 0.5rem;
+  }
+}
+
+.linkWithTopIcon {
+  & .linkLabel {
+    margin-top: 0.5rem;
+    display: block;
+  }
+}

@@ -42,17 +42,6 @@
 
 .cta[href] {
   margin-top: 1.5rem;
-  line-height: 1.5em;
-  display: inline-flex;
-  align-items: flex-end;
-  background: #F6F7FB;
-  color: #161616;
-  font-size: 18px;
-  padding: 6px 4px 6px 12px;
-  border-radius: 20px;
-  text-decoration: none;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid #161616;
 }
 
 @include utilities.media(medium) {

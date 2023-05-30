@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { PageTags } from '~/client/services/analytics/analytics';
@@ -6,11 +6,31 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 
 function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
-	
-	useEffect(() => {
+
+	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAllowed());
+
+	useEffect(function addEventListeners() {
+		// FIXME (GAFI 15-05-2023): Quick fix, needs rework ASAP (and tests)
+		function RetrySendingAnalytics() {
+			setIsAnalyticsAllowed(!isAnalyticsAutorisé);
+		}
+
+		document.addEventListener('eulerian_allowed', RetrySendingAnalytics);
+		document.addEventListener('eulerian_added', RetrySendingAnalytics);
+		document.addEventListener('eulerian_loaded', RetrySendingAnalytics);
+		document.addEventListener('eulerian_disallowed', RetrySendingAnalytics);
+
+		return () => {
+			document.removeEventListener('eulerian_allowed', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_added', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_loaded', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_disallowed', RetrySendingAnalytics);
+		};
+	}, [isAnalyticsAutorisé, setIsAnalyticsAllowed]);
+
+	useEffect(function sendAnalytics() {
 		analyticsService.envoyerAnalyticsPageVue(pageTags);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [analyticsService, isAnalyticsAutorisé, pageTags]);
 
 	return analyticsService;
 }

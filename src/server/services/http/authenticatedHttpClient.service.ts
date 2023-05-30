@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse, isAxiosError } from 'axios';
+import { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig, isAxiosError } from 'axios';
 
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
@@ -26,16 +26,14 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 		this.client.interceptors.response.use(
 			(response: AxiosResponse) => response,
-			(error: unknown) => {
+			async (error: unknown) => {
 				if (isAxiosError(error)) {
 					const originalRequest = error.config;
 
-					if (originalRequest !== undefined && this.shouldRetry(error)) {
+					if (this.shouldRetry(error)) {
 						this.traceRetry(error);
-						return this.refreshToken()
-							.then(() => {
-								return this.client(originalRequest);
-							});
+						await this.retrieveToken();
+						return this.updateRequestWithRefreshedToken(originalRequest);
 					}
 				}
 
@@ -44,6 +42,29 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		);
 	}
 
+	async get<Response>(endpoint: string, config?: AxiosRequestConfig): Promise<AxiosResponse<Response>> {
+		if (!this.isAuthorizationHeaderInConfig()) {
+			await this.retrieveToken();
+		}
+		return super.get(endpoint, config);
+	}
+
+	async post<Body, Response>(endpoint: string, body: Body): Promise<AxiosResponse<Response>> {
+		if (!this.isAuthorizationHeaderInConfig()) {
+			await this.retrieveToken();
+		}
+		return await this.client.post<Response>(endpoint, body);
+	}
+
+	private updateRequestWithRefreshedToken(originalRequest: InternalAxiosRequestConfig | undefined) {
+		return this.client({
+			...originalRequest,
+			headers: {
+				...originalRequest?.headers,
+				Authorization: this.getAuthorizationHeader(),
+			},
+		});
+	}
 
 	private traceRetry(error: AxiosError) {
 		const originalRequest = error.config;
@@ -54,7 +75,8 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 	private isAuthenticationError(error: AxiosError): boolean {
 		// Note : 403, bien que peu standard, est le code d’erreur retourné par Strapi lors d'un défaut d'authentification
-		return (error.response?.status === 401 || error.response?.status === 403);
+		// Note : 500 est le code d’erreur retourné par Strapi lors d'un défaut d'authentification
+		return (error.response?.status === 401 || error.response?.status === 403 || error.response?.status === 500);
 	}
 
 	private isRequestFirstTry(error: AxiosError): boolean {
@@ -66,7 +88,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		return this.isAuthenticationError(error) && this.isRequestFirstTry(error);
 	}
 
-	async refreshToken(): Promise<void> {
+	async retrieveToken(): Promise<void> {
 		try {
 			const accessToken = await this.tokenAgent.getToken();
 			this.setAuthorizationHeader(accessToken);
@@ -82,5 +104,13 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 
 	protected setAuthorizationHeader(token: string): void {
 		this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
+	}
+
+	protected getAuthorizationHeader(): string | undefined {
+		return this.client.defaults.headers.common.Authorization?.toString();
+	}
+
+	private isAuthorizationHeaderInConfig(): boolean {
+		return this.client.defaults.headers.common.Authorization !== undefined;
 	}
 }

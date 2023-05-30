@@ -33,11 +33,7 @@ function CardContent({ children, className, ...rest }: React.ComponentPropsWitho
 	return <div className={className} {...rest}>{children}</div>;
 }
 
-type CardCallToActionProps =
-	Required<Pick<ButtonComponentProps, 'appearance'>>
-	& Partial<Pick<ButtonComponentProps, 'label' | 'icon'>>
-
-function CardButton(props: CardCallToActionProps & React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
+function CardButton(props: React.ComponentPropsWithoutRef<typeof ButtonComponent>) {
 	const { appearance = 'tertiary', className, icon, label, ...rest } = props;
 	return <ButtonComponent
 		className={className}
@@ -48,8 +44,11 @@ function CardButton(props: CardCallToActionProps & React.ComponentPropsWithoutRe
 	/>;
 }
 
+type CardCallToActionProps = Required<Pick<ButtonComponentProps, 'appearance' | 'label'>>
+	& { icon: React.ReactNode }
+
 function CardFakeLink(props: CardCallToActionProps & React.ComponentPropsWithoutRef<'span'>) {
-	const { appearance = 'tertiary', className, icon, label, ...rest } = props;
+	const { appearance = 'quaternary', className, icon, label, ...rest } = props;
 	const appearanceClass = useMemo(() => {
 		switch (appearance) {
 			case 'primary':
@@ -58,6 +57,8 @@ function CardFakeLink(props: CardCallToActionProps & React.ComponentPropsWithout
 				return styles.cardButtonSecondary;
 			case 'tertiary':
 				return styles.cardButtonTertiary;
+			case 'quaternary':
+				return styles.cardButtonQuaternary;
 		}
 	}, [appearance]);
 
@@ -70,15 +71,14 @@ function CardFakeLink(props: CardCallToActionProps & React.ComponentPropsWithout
 }
 
 interface CardLinkProps {
-	appearance?: 'default' | 'asPrimaryButton' | 'asSecondaryButton'
 	icon?: React.ReactNode
 	href: string
 	label?: string
 }
 
 function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof Link>) {
-	const { appearance = 'default', className, href, label, ...rest } = props;
-	return <Link className={className} appearance={appearance} href={href} {...rest}>{label}</Link>;
+	const { className, href, label, ...rest } = props;
+	return <Link className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</Link>;
 }
 
 interface CardImageProps {

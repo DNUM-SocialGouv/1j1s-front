@@ -1,6 +1,6 @@
 @use "@styles/utilities";
 
-$padding-horizontal: 2rem;
+$padding-horizontal: 1rem;
 
 %container {
   padding: 1.75rem $padding-horizontal;
@@ -16,6 +16,7 @@ $padding-horizontal: 2rem;
 
   & h2 {
     @extend %subheading;
+    font-weight: bold;
     color: utilities.$color-primary;
     margin-bottom: 1.5rem;
 
@@ -45,6 +46,10 @@ $padding-horizontal: 2rem;
     & .tuile {
       height: 100%;
       border: 1px solid utilities.$color-primary;
+
+      & span {
+        display: inline-block;
+      }
 
       @include utilities.media(large) {
         border-width: 2px;

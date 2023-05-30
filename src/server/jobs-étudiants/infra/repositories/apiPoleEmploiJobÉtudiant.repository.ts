@@ -30,7 +30,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
-	private loggerService: LoggerService,
+		private loggerService: LoggerService,
 	) {}
 
 	paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
@@ -40,7 +40,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
-			if(response.status === 204) {
+			if (response.status === 204) {
 				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 			}
 			return createSuccess(mapOffre(response.data));
@@ -73,7 +73,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 				`/search?${paramètresRecherche}&${jobÉtudiantParamètresRecherche}&${this.paramètreParDéfaut}`,
 			);
-			if(response.status === 204) {
+			if (response.status === 204) {
 				return createSuccess({ nombreRésultats: 0, résultats: [] });
 			}
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
@@ -82,7 +82,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 		}
 	}
 
-	async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {
+	private async getÉchantillonJobÉtudiant(jobÉtudiantFiltre: JobÉtudiantFiltre) {
 		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETUDIANT_KEY);
 		const range = buildRangeParamètre(jobÉtudiantFiltre);
 

@@ -62,7 +62,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 	describe('search', () => {
 		describe('quand la recherche est lancée automatiquement pour les job étudiants', () => {
 			describe('quand les informations ne sont pas encore mis en cache', () => {
-				it('fait s‘appel à s‘api et set les informations dans le cache', async () => {
+				it('fait l‘appel à l‘api et set les informations dans le cache', async () => {
 					jest
 						.spyOn(httpClientServiceWithAuthentification, 'get')
 						.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
@@ -88,7 +88,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 			});
 
 			describe('quand les informations sont déjà en cache', () => {
-				it('ne fait pas s‘appel à s‘api et get les informations du cache', async () => {
+				it('ne fait pas l‘appel à l‘api et get les informations du cache', async () => {
 					jest.spyOn(cacheService, 'get').mockResolvedValue(aRésultatsRechercheOffreEmploiApiResponse());
 					jest.spyOn(cacheService, 'set');
 
@@ -106,8 +106,8 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 			});
 		});
 
-		describe('quand la recherche est lancée par s‘utilisateur', () => {
-			it('ne get pas les informations du cache et fait appel à s‘api avec les filtres', async () => {
+		describe('quand la recherche est lancée par l‘utilisateur', () => {
+			it('ne get pas les informations du cache et fait appel à l‘api avec les filtres', async () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));

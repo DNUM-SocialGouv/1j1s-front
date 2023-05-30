@@ -2,8 +2,9 @@ import classNames from 'classnames';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/SeeMore/SeeMoreItemList.module.scss';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 const SEE_MORE_LABEL_DEFAULT = 'Voir plus';
 const SEE_LESS_LABEL_DEFAULT = 'Voir moins';
@@ -77,16 +78,18 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
           </div>
 			}
 			{itemList.length > numberOfVisibleItems &&
-          <button className={classNames(styles.seeMoreButton, className)}
+          <ButtonComponent className={classNames(styles.seeMoreButton, className)}
+          	appearance={'quaternary'}
+          	label={buttonLabel}
+          	icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+          	iconPosition={'right'}
           	ref={buttonRef}
           	onClick={toggle}
           	type="button"
           	aria-expanded={isOpen}
           	aria-controls={`section-${ariaId.current}`}
           	aria-label={buttonAriaLabel}>
-          	<TextIcon className={styles.seeMoreButtonLabel}
-          		icon={isOpen ? 'angle-up' : 'angle-down'}>{buttonLabel}</TextIcon>
-          </button>
+          </ButtonComponent>
 			}
 		</>
 	);

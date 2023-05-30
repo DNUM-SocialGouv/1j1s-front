@@ -2,7 +2,8 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService, DiscreteAdformService, EulerianService } from '~/client/services/analytics/analytics.service';
+import { CookiesService, NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -18,10 +19,12 @@ import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
+import { VideoService, YoutubeService } from '~/client/services/video/video.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	alternanceService: AlternanceService
+	cookiesService: CookiesService
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
@@ -32,6 +35,7 @@ export type Dependencies = {
 	rechercheClientService: SearchClient
 	stageService: StageService
 	métierService: MétierService
+	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 }
 
@@ -54,7 +58,12 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
-	const analyticsService = new AnalyticsService();
+	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
+		? new TarteAuCitronCookiesService(window.tarteaucitron)
+		: new NullCookiesService();
+	const analyticsService = new EulerianService(cookiesService);
+	new DiscreteAdformService(cookiesService);
+	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -78,6 +87,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	return {
 		alternanceService,
 		analyticsService,
+		cookiesService,
 		demandeDeContactService,
 		formationService,
 		lesEntreprisesSEngagentService,
@@ -87,6 +97,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		offreService,
 		rechercheClientService,
 		stageService,
+		youtubeService,
 		établissementAccompagnementService,
 	};
 }

@@ -43,44 +43,31 @@ describe('Page Apprentissage Jeunes', () => {
 	});
 
 	describe('getServerSideProps', () => {
-		describe('quand le feature flip n‘est pas actif', () => {
-			it('renvoie une 404', async () => {
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+		describe('quand les vidéos ne sont pas récupérées', () => {
+			it('renvoie une liste vide pour les vidéos', async () => {
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 
 				const result = await getServerSideProps();
 
-				expect(result).toMatchObject({ notFound: true });
+				expect(result).toMatchObject({ props: {
+					videos: [],
+				} });
 			});
 		});
 
-		describe('quand le feature flip est actif', () => {
-			describe('quand les vidéos ne sont pas récupérées', () => {
-				it('renvoie une liste vide pour les vidéos', async () => {
-					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+		describe('quand les vidéos sont récupérées', () => {
+			it('renvoie les props', async () => {
+				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
 
-					const result = await getServerSideProps();
+				const result = await getServerSideProps();
 
-					expect(result).toMatchObject({ props: {
-						videos: [],
-					} });
-				});
-			});
-
-			describe('quand les vidéos sont récupérées', () => {
-				it('renvoie les props', async () => {
-					process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-					(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
-
-					const result = await getServerSideProps();
-
-					expect(result).toMatchObject({ props: {
-						videos: aVideoCampagneApprentissageList(),
-					} });
-				});
+				expect(result).toMatchObject({ props: {
+					videos: aVideoCampagneApprentissageList(),
+				} });
 			});
 		});
-
 	});
 
 	describe('<ApprentissageJeunes />', () => {it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
@@ -104,7 +91,7 @@ describe('Page Apprentissage Jeunes', () => {
 			</DependenciesProvider>,
 		);
 
-		const titrePage = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix\./i });
+		const titrePage = screen.getByRole('heading', { level: 1, name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i });
 
 		expect(titrePage).toBeVisible();
 	});

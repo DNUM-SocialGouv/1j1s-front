@@ -1,0 +1,19 @@
+name: Simulation de déploiement Terraform
+
+on:
+  pull_request:
+    branches: [ main ]
+
+env:
+  env_name: ${{ startsWith(github.head_ref, 'release-please--') && 'scalingo-production' || 'scalingo-recette' }}
+  env_url: ${{ startsWith(github.head_ref, 'release-please--') && 'https://www.1jeune1solution.gouv.fr' || 'https://recette.1jeune1solution.gouv.fr' }}
+
+jobs:
+  terraform_plan:
+    # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
+    secrets: inherit
+    with:
+      plan: true
+      environnement_name: ${{ startsWith(github.head_ref, 'release-please--') && 'scalingo-production' || 'scalingo-recette' }}
+      environnement_url: ${{ startsWith(github.head_ref, 'release-please--') && 'https://www.1jeune1solution.gouv.fr' || 'https://recette.1jeune1solution.gouv.fr' }}

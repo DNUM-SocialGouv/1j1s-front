@@ -32,7 +32,6 @@
   }
 
   &Button {
-    width: auto;
     justify-self: center;
     margin-bottom: 1rem;
     @include utilities.media(medium) {

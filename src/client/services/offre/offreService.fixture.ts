@@ -3,6 +3,7 @@ import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/
 
 export function anOffreService(): OffreService {
 	return {
+		rechercherJobEte: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
 		rechercherJobÉtudiant: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
 		rechercherOffreEmploi: jest.fn().mockResolvedValue({ instance: 'success', result: aRésultatsRechercheOffre() }),
 	} as unknown as OffreService;
@@ -10,6 +11,10 @@ export function anOffreService(): OffreService {
 
 export function aSingleResultOffreService(): OffreService {
 	return {
+		rechercherJobEte: jest.fn().mockResolvedValue({
+			instance: 'success',
+			result: aRésultatsRechercheOffre({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
+		}),
 		rechercherJobÉtudiant: jest.fn().mockResolvedValue({
 			instance: 'success',
 			result: aRésultatsRechercheOffre({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
@@ -23,6 +28,10 @@ export function aSingleResultOffreService(): OffreService {
 
 export function aNoResultOffreService(): OffreService {
 	return {
+		rechercherJobEte: jest.fn().mockResolvedValue({
+			instance: 'success',
+			result: aRésultatsRechercheOffre({ nombreRésultats: 0, résultats: [] }),
+		}),
 		rechercherJobÉtudiant: jest.fn().mockResolvedValue({
 			instance: 'success',
 			result: aRésultatsRechercheOffre({ nombreRésultats: 0, résultats: [] }),

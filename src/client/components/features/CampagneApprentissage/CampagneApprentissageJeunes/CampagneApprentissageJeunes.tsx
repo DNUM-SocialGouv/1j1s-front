@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styles from '~/client/components/features/CampagneApprentissage/CampagneApprentissage.module.scss';
 import EnSavoirPlusApprentissage
 	from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/EnSavoirPlusApprentissageJeunes/EnSavoirPlusApprentissageJeunes';
 import PreparationApprentissage
@@ -12,10 +11,12 @@ import {
 import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+
+import styles from '../CampagneApprentissage.module.scss';
 
 interface CampagneApprentissageJeunesProps {
 	videos: Array<VideoCampagneApprentissage>
@@ -39,32 +40,43 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 		},
 		{
 			iconName: 'thumb-up',
-			text: 'Avoir une expérience professionnelle complète',
+			text: 'Avoir une expérience professionnelle',
 		},
 		{
 			iconName: 'euro',
-			text: 'Être rémunéré tous les mois',
+			text: <>Être rémunéré <span>tous les mois</span></>,
 		},
 	];
 
 	return (
 		<>
 			<header className={styles.titrePage}>
-				<HeroWithIllustration image={'/images/campagne-apprentissage.webp'} className={styles.hero}>
-					<h1>L’apprentissage, pour moi c’est le bon choix.</h1>
-					<p className={styles.sousTitre}>Vous apprenez directement sur le terrain et vous êtes payés !</p>
-					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
+				<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
+					<h1>Avec l’apprentissage, vous apprenez directement <span className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span></h1>
+					<LinkStyledAsButton href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
 						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
-					</Link>
+					</LinkStyledAsButton>
 				</HeroWithIllustration>
 			</header>
 			<RaisonsDeChoisirApprentissage titre="5 bonnes raisons de choisir l’apprentissage" raisons={raisons}/>
 			{ isSmallScreen ? <>
-				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+				{ videos.length > 0 &&
+					<VideosCampagneApprentissage
+						videos={videos}
+						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
+						description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'}
+					/>
+				}
 				<PreparationApprentissage/>
 			</> : <>
 				<PreparationApprentissage/>
-				{ videos.length > 0 && <VideosCampagneApprentissage videos={videos}/> }
+				{ videos.length > 0 &&
+					<VideosCampagneApprentissage
+						videos={videos}
+						titre={<>Ils ont fait le choix de l’apprentissage, <span>pourquoi pas vous ?</span> </>}
+						description={'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !'}
+					/>
+				}
 			</>
 			}
 

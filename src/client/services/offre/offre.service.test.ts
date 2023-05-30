@@ -66,4 +66,24 @@ describe('OffreService', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('page=1'));
 		});
 	});
+
+	describe('rechercherJobEte', () => {
+		it('appelle emploi avec la requête', async () => {
+			const httpClientService = anHttpClientService();
+			const offreService = new OffreService(httpClientService);
+			const offreEmploiQuery = {
+				motCle: 'barman',
+				page: '1',
+			};
+
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
+
+			const result = await offreService.rechercherJobEte(offreEmploiQuery);
+
+			expect(result).toEqual({ instance: 'success', result: aRésultatsRechercheOffre() });
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('jobs-ete'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('motCle=barman'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('page=1'));
+		});
+	});
 });

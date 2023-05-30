@@ -5,7 +5,7 @@ import React from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Error/ErrorLayout.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
@@ -22,7 +22,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 	  <div>
 				{children}
 				<div className={styles.buttonWrapper}>
-		  <Link href="/" appearance="asPrimaryButton">Retourner à l‘accueil</Link>
+		  <LinkStyledAsButton href="/" appearance="asPrimaryButton">Retourner à l‘accueil</LinkStyledAsButton>
 				</div>
 	  </div>
 

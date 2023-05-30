@@ -301,5 +301,25 @@ describe('mapAlternance', () => {
 			typeDeContrat: ['CDD'],
 		});
 	});
+
+	describe('lorsque le champ lbaCompanies est une liste vide', () => {
+		it('retourne une liste vide', () => {
+			// Given
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: [],
+				matchas: { results: [] },
+				peJobs: { results: [] },
+			};
+
+			// When
+			const result = mapAlternanceListe(input);
+
+			// Then
+			expect(result).toEqual({
+				entrepriseList: [],
+				offreList: [],
+			});
+		});
+	});
 })
 ;

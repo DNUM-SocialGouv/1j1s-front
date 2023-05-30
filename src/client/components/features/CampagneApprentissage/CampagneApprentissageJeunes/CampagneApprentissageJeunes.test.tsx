@@ -9,7 +9,9 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen, mockTarteAuCitron } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
@@ -24,13 +26,18 @@ describe('CampagneApprentissageJeunes', () => {
 
 	it('affiche le titre de la page', () => {
 		// WHEN
-		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+		render(
+			<DependenciesProvider youtubeService={aVideoService()}>
+				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
-		const titre = screen.getByRole('heading', { level: 1, name: /L’apprentissage, pour moi c’est le bon choix./i });
+		const titre = screen.getByRole('heading', {
+			level: 1,
+			name: /Avec l’apprentissage, vous apprenez directement sur le terrain et vous êtes payés !/i,
+		});
 		expect(titre).toBeVisible();
-		const sousTitre = screen.getByText('Vous apprenez directement sur le terrain et vous êtes payés !');
-		expect(sousTitre).toBeVisible();
 	});
 
 	it('affiche un lien vers la simulation pour les alternants', () => {
@@ -38,7 +45,11 @@ describe('CampagneApprentissageJeunes', () => {
 		mockLargeScreen();
 
 		// WHEN
-		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+		render(
+			<DependenciesProvider youtubeService={aVideoService()}>
+				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération en tant qu’apprenti/i });
@@ -51,7 +62,11 @@ describe('CampagneApprentissageJeunes', () => {
 		mockSmallScreen();
 
 		// WHEN
-		render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+		render(
+			<DependenciesProvider youtubeService={aVideoService()}>
+				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération/i });
@@ -62,11 +77,18 @@ describe('CampagneApprentissageJeunes', () => {
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
 		it('comportant un titre', () => {
 			// WHEN
-			render(<CampagneApprentissageJeunes videos={[]} />);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={[]}/>
+				</DependenciesProvider>,
+			);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
-			const titre = within(sectionRaison).getByRole('heading', { level: 2, name: /5 bonnes raisons de choisir l’apprentissage/i });
+			const titre = within(sectionRaison).getByRole('heading', {
+				level: 2,
+				name: /5 bonnes raisons de choisir l’apprentissage/i,
+			});
 			expect(titre).toBeVisible();
 		});
 
@@ -76,18 +98,22 @@ describe('CampagneApprentissageJeunes', () => {
 				'Obtenir un diplôme reconnu',
 				'Apprendre en pratiquant',
 				'Être formé gratuitement pour l’apprenti',
-				'Avoir une expérience professionnelle complète',
+				'Avoir une expérience professionnelle',
 				'Être rémunéré tous les mois',
 			];
 
 			// WHEN
-			render(<CampagneApprentissageJeunes videos={[]} />);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={[]}/>
+				</DependenciesProvider>,
+			);
 
 			// THEN
 			const sectionRaison = screen.getByRole('region', { name: /5 bonnes raisons de choisir l’apprentissage/i });
 			const raisonList = within(sectionRaison).getByRole('list');
 			const raisonListItems = within(raisonList).getAllByRole('listitem');
-			raisonListItems.forEach((raison,index) => {
+			raisonListItems.forEach((raison, index) => {
 				expect(raison).toHaveTextContent(expectedRaisonList[index]);
 				expect(raison).toBeVisible();
 			});
@@ -96,16 +122,24 @@ describe('CampagneApprentissageJeunes', () => {
 
 	describe('PreparationApprentissage', () => {
 		it('je vois les informations pour accéder aux offres de formation et d‘alternance', () => {
-			render(<CampagneApprentissageJeunes videos={[]}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={[]}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'Vous souhaitez faire le choix de l’apprentissage ?',
+				name: 'Vous souhaitez faire le choix de l’apprentissage\u00A0?',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Trouver votre formation en apprentissage' })).toHaveAttribute('href', '/formations/apprentissage');
 			expect(screen.getByRole('link', { name: 'Trouver votre entreprise' })).toHaveAttribute('href', '/apprentissage');
 		});
 		it('je vois les informations pour accéder à l‘article sur la prépa apprentissage', () => {
-			render(<CampagneApprentissageJeunes videos={[]}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={[]}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'La prépa-apprentissage c’est quoi ?',
@@ -116,15 +150,23 @@ describe('CampagneApprentissageJeunes', () => {
 
 	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
-				name: 'L’apprentissage vous intéresse ? On répond à toutes vos questions',
+				name: 'L’apprentissage vous intéresse\u00A0? On répond à toutes vos questions',
 			})).toBeVisible();
 			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Employeurs : tout ce qu’il y a à savoir sur l’apprentissage pour votre entreprise',
@@ -137,25 +179,41 @@ describe('CampagneApprentissageJeunes', () => {
 		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
-				render(<CampagneApprentissageJeunes videos={[]} />);
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={[]}/>
+					</DependenciesProvider>,
+				);
 				expect(screen.queryByRole('region', { name: /Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?/i })).not.toBeInTheDocument();
 			});
 		});
 		it('je vois le titre de la partie videos', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 			expect(screen.getByRole('heading', {
 				level: 2,
 				name: 'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?',
 			})).toBeVisible();
 		});
 		it('je vois la description de la partie videos', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
-			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !')).toBeVisible();
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
+			expect(screen.getByText('Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !')).toBeVisible();
 		});
 		it('je vois les titres vidéos et ce sont des boutons', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
-			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Romain et tous les autres !' });
+			const sectionVideos = screen.getByRole('region', { name: 'Découvrez les témoignages d’Elyna, Céline, Benoît et tous les autres !' });
 			const titresVideos = within(sectionVideos).getAllByRole('listitem');
 
 			const boutons = titresVideos.map((titreVideo) => within(titreVideo).getByRole('button'));
@@ -167,7 +225,12 @@ describe('CampagneApprentissageJeunes', () => {
 		describe('si je n’ai pas sélectionné de vidéo', () => {
 			it('c’est la première vidéo de la liste qui est visible par défaut', () => {
 				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
-				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const iframe = screen.getByTitle(premiereVideoCampagne.titre);
 				expect(iframe).toBeVisible();
@@ -179,7 +242,11 @@ describe('CampagneApprentissageJeunes', () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
 				await user.click(boutonDeuxiemeVideo);
@@ -189,11 +256,15 @@ describe('CampagneApprentissageJeunes', () => {
 				expect(iframe).toHaveAttribute('src', expect.stringMatching(`${deuxièmeVideoCampagne.videoId}`));
 				expect(boutonDeuxiemeVideo).toHaveAttribute('aria-current', 'true');
 			});
-			it('j’ai l’information que la vidéo courante est celle j’ai selectionné', async () => {
+			it('j’ai l’information que la vidéo courante est celle que j’ai selectionné', async () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				const boutonDeuxiemeVideo = screen.getByRole('button', { name: deuxièmeVideoCampagne.titre });
 				await user.click(boutonDeuxiemeVideo);
@@ -205,24 +276,36 @@ describe('CampagneApprentissageJeunes', () => {
 				const deuxièmeVideoCampagne = aVideoCampagneApprentissagesList[1];
 				const user = userEvent.setup();
 
-				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 
 				await user.click(screen.getByRole('button', { name: deuxièmeVideoCampagne.titre }));
 
-				const titre = screen.getByRole('heading', { name: 'Ils ont fait le choix de l’apprentissage, pourquoi pas vous ?' });
+				const titre = screen.getByRole('heading', { name: /Ils ont fait le choix de l’apprentissage,/ });
 				const iframe = screen.getByTitle(deuxièmeVideoCampagne.titre);
 				expect(titre).toHaveFocus();
 				expect(titre.compareDocumentPosition(iframe)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 			});
 		});
 		it('je ne vois pas la transcription de la vidéo', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
 			const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
 			expect(screen.queryByText(premièreVideoCampagne.transcription)).not.toBeVisible();
 		});
 		it('je vois un bouton me permettant de voir la transcription de la vidéo', () => {
-			render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+			render(
+				<DependenciesProvider youtubeService={aVideoService()}>
+					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+				</DependenciesProvider>,
+			);
 
 			const ouvrirTranscription = screen.getByText('Lire la transcription');
 
@@ -231,7 +314,11 @@ describe('CampagneApprentissageJeunes', () => {
 		describe('si je clique sur le bouton de transcription', () => {
 			it('je vois la transcription de la vidéo', async () => {
 				const user = userEvent.setup();
-				render(<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>);
+				render(
+					<DependenciesProvider youtubeService={aVideoService()}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
 				const premièreVideoCampagne = aVideoCampagneApprentissagesList[0];
 				const ouvrirTranscription = screen.getByText('Lire la transcription');
 
@@ -239,5 +326,100 @@ describe('CampagneApprentissageJeunes', () => {
 				expect(screen.getByText(premièreVideoCampagne.transcription)).toBeVisible();
 			});
 		});
+
+		describe('quand les cookies youtube n’ont pas été acceptés', () => {
+			it('je ne peux pas lire la vidéo', () => {
+				// GIVEN
+				const premiereVideoCampagne = aVideoCampagneApprentissagesList[0];
+				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+
+				// WHEN
+				render(
+					<DependenciesProvider youtubeService={videoService}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const iframeYoutube = screen.queryByTitle(premiereVideoCampagne.titre);
+				expect(iframeYoutube).not.toBeInTheDocument();
+			});
+
+			it('je vois un message m’indiquant que je dois accepter les cookies pour lire la vidéo', () => {
+				// GIVEN
+				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+
+				// WHEN
+				render(
+					<DependenciesProvider youtubeService={videoService}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const invitationAcceptCookies = screen.getByText(/En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés par ce site/);
+				expect(invitationAcceptCookies).toBeVisible();
+			});
+
+			it('je vois un bouton me permettant d’accepter les cookies quand le bouton des cookies existe', async () => {
+				// GIVEN
+				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				render(
+					<DependenciesProvider youtubeService={videoService}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<button id="youtubeAllowed">Allow Youtube</button>
+					</DependenciesProvider>,
+				);
+				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
+				const user = userEvent;
+				mockTarteAuCitron();
+
+				// WHEN
+				await user.click(openCookiesButton);
+
+				// THEN
+				expect(window.tarteaucitron.userInterface.respond).toHaveBeenCalledTimes(1);
+			});
+			it('je vois un bouton me permettant d’ouvrir le panel TarteAuCitron quand le bouton n’existe pas', async () => {
+				// GIVEN
+				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				render(
+					<DependenciesProvider youtubeService={videoService}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+					</DependenciesProvider>,
+				);
+				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
+				const user = userEvent;
+				mockTarteAuCitron();
+
+				// WHEN
+				await user.click(openCookiesButton);
+
+				// THEN
+				expect(window.tarteaucitron.userInterface.respond).not.toHaveBeenCalled();
+				expect(window.tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
+			});
+			it('je vois un bouton me permettant d’ouvrir le panel TarteAuCitron quand le bouton n’est pas un bouton', async () => {
+				// GIVEN
+				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
+				render(
+					<DependenciesProvider youtubeService={videoService}>
+						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
+						<div id="youtubeAllowed">Allow Youtube</div>
+					</DependenciesProvider>,
+				);
+				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
+				const user = userEvent;
+				mockTarteAuCitron();
+
+				// WHEN
+				await user.click(openCookiesButton);
+
+				// THEN
+				expect(window.tarteaucitron.userInterface.respond).not.toHaveBeenCalled();
+				expect(window.tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
+			});
+		});
+
 	});
 });

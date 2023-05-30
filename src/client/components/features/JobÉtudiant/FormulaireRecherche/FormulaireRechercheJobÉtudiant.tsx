@@ -45,7 +45,7 @@ export function FormulaireRechercheJobÉtudiant() {
 	return (
 		<form
 			ref={rechercheJobÉtudiantForm}
-			role="form"
+			role="search"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherJobÉtudiantQueryParams}
 		>

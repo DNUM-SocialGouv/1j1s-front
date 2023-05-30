@@ -1,5 +1,3 @@
-import * as process from 'process';
-
 import {
 	AlternanceDependencies,
 	alternancesDependenciesContainer,
@@ -13,6 +11,7 @@ import {
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import {
 	DemandeDeContactDependencies,
 	demandeDeContactDependenciesContainer,
@@ -74,6 +73,11 @@ import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import {
+	jobsEteDependenciesContainer,
+	OffresJobEteDependencies,
+} from '~/server/jobs-ete/configuration/dependencies.container';
+import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
+import {
 	jobsÉtudiantsDependenciesContainer,
 	OffresJobÉtudiantDependencies,
 } from '~/server/jobs-étudiants/configuration/dependencies.container';
@@ -109,6 +113,7 @@ import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
+import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -131,6 +136,7 @@ export type Dependencies = {
 	localisationDependencies: LocalisationDependencies;
 	demandeDeContactDependencies: DemandeDeContactDependencies;
 	entrepriseDependencies: EntrepriseDependencies;
+	offreJobEteDependencies: OffresJobEteDependencies;
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
@@ -160,10 +166,12 @@ export function dependenciesContainer(): Dependencies {
 		cacheService = new RedisCacheService(redisUrl, loggerService);
 	}
 
+	const errorManagementService = new DefaultErrorManagementService(loggerService);
 
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
-	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, loggerService);
+	const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
+	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 
@@ -177,11 +185,14 @@ export function dependenciesContainer(): Dependencies {
 	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
 	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
 
+	const apiPoleEmploiJobEteOffreRepository = new ApiPoleEmploiJobEteRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
+	const offreJobEteDependencies = jobsEteDependenciesContainer(apiPoleEmploiJobEteOffreRepository);
+
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, errorManagementService);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, loggerService);
-	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, loggerService);
+	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, errorManagementService);
 
 	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
@@ -244,6 +255,7 @@ export function dependenciesContainer(): Dependencies {
 		loggerService,
 		métierDependencies,
 		offreEmploiDependencies,
+		offreJobEteDependencies,
 		offreJobÉtudiantDependencies,
 		robotsDependencies,
 		sitemapDependencies,

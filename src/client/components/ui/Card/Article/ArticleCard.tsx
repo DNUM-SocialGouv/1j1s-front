@@ -54,7 +54,7 @@ export function ArticleCard({
 				<Card.Content className={styles.content}>
 					<Card.Title className={styles.title} titleAs={titleHeadingTag}>{titleLabel}</Card.Title>
 					{children}
-					<Card.FakeLink className={styles.cta} appearance={'tertiary'} icon={iconComponent.current} label={linkLabel}/>
+					<Card.FakeLink className={styles.cta} appearance={'quaternary'} icon={iconComponent.current} label={linkLabel}/>
 				</Card.Content>
 			</Card>
 		</Link>

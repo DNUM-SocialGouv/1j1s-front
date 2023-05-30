@@ -29,21 +29,6 @@
   &Connexion {
     margin-bottom: 1.5rem;
   }
-
-  &Inscription {
-    color: utilities.$color-primary;
-    display: block;
-    text-align: center;
-
-    svg {
-      vertical-align: middle;
-      margin-right: 0.5rem;
-    }
-
-    &:hover {
-      color: utilities.$color-primary-on-hover;
-    }
-  }
 }
 
 @include utilities.media(large) {
@@ -91,8 +76,6 @@
 
     &Inscription {
       &Lien {
-        display: grid;
-        grid-template-columns: 0fr 10fr;
         align-items: center;
       }
     }
