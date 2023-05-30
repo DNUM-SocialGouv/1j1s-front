@@ -215,6 +215,39 @@ export function aSitemap() {
 		<loc>http://localhost:3000/confidentialite</loc>
 	</url>
 	<url>
+		<loc>http://localhost:3000/les-entreprises-s-engagent/inscription</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/stages/deposer-offre</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/emplois/deposer-offre</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/apprentissage/deposer-offre</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/immersions/referencer-mon-entreprise</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/je-recrute-afpr-poei/inscription</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/apprentissage/deposer-offre-lba</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/espace-jeune</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/apprentissage-entreprises</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/apprentissage/simulation?simulateur=alternant</loc>
+	</url>
+	<url>
+		<loc>http://localhost:3000/apprentissage/simulation?simulateur=employeur</loc>
+	</url>
+	<url>
 		<loc>http://localhost:3000/decouvrir-les-metiers/ingénieur%2Fe production en mécanique</loc>
 	</url>
 	<url>

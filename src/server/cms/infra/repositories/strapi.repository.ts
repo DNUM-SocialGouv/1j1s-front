@@ -10,7 +10,6 @@ import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
-import { handleFailureError } from '~/server/cms/infra/repositories/strapi.error';
 import {
 	mapAnnonceLogement,
 	mapArticle,
@@ -33,9 +32,9 @@ import {
 } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
@@ -52,7 +51,7 @@ export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
 		private authenticatedHttpClientService: AuthenticatedHttpClientService,
-		private loggerService: LoggerService,
+		private errorManagementService: ErrorManagementService,
 	) {
 	}
 
@@ -62,8 +61,12 @@ export class StrapiRepository implements CmsRepository {
 			const { data } = await this.httpClientService.get<Strapi.SingleType<Single>>(endpoint);
 			const response = mapper(data.data.attributes);
 			return createSuccess(response);
-		} catch (e) {
-			return handleFailureError(e, resource, this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'get single type strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+			});
 		}
 	}
 
@@ -86,8 +89,12 @@ export class StrapiRepository implements CmsRepository {
 
 			const response = dataResponseList.map((data) => mapper(data.attributes));
 			return createSuccess(response);
-		} catch (e) {
-			return handleFailureError(e, resource, this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'get collection type strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+			});
 		}
 	}
 
@@ -207,10 +214,16 @@ export class StrapiRepository implements CmsRepository {
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {
 		try {
-			const { data } = await this.authenticatedHttpClientService.post<{ data: Body }, Response>(resource, { data: body });
+			const { data } = await this.authenticatedHttpClientService.post<{
+				data: Body
+			}, Response>(resource, { data: body });
 			return createSuccess(data);
-		} catch (e) {
-			return handleFailureError(e, resource, this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'save strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+			});
 		}
 	}
 
@@ -220,7 +233,7 @@ export class StrapiRepository implements CmsRepository {
 	}
 
 	async getFAQBySlug(slug: string): Promise<Either<Question.QuestionRéponse>> {
-		const query =`filters[slug][$eq]=${slug}`;
+		const query = `filters[slug][$eq]=${slug}`;
 		const listeDeQuestion = await this.getCollectionType<Strapi.CollectionType.FAQ.Réponse, Question.QuestionRéponse>(RESOURCE_FAQ, query, mapQuestionRéponse);
 		return this.getFirstFromCollection(listeDeQuestion);
 	}

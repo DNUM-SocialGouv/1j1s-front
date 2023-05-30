@@ -59,6 +59,7 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList().aidesEtOutilsNav)}
 						{displayNavigationTree(navigationItemList().employeurNav)}
 
+						<li><Link href="/espace-jeune">Espace Jeune</Link></li>
 						{ displayFAQ && <li><Link href="/faq">Foire aux questions</Link></li> }
 						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
 						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
