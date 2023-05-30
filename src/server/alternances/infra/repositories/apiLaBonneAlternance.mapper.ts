@@ -143,13 +143,23 @@ function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRe
 	};
 }
 
+function isLbaCompaniesEmpty(lbaCompanies: AlternanceApiJobsResponse['lbaCompanies']): lbaCompanies is [] {
+	return Array.isArray(lbaCompanies);
+}
+
+function mapLbaCompanies(lbaCompanies: AlternanceApiJobsResponse['lbaCompanies']) {
+	if (isLbaCompaniesEmpty(lbaCompanies)) {
+		return [];
+	}
+	return lbaCompanies.results.map(mapRésultatRechercherAlternanceLbaEntreprise);
+}
+
 export const mapAlternanceListe = (response: AlternanceApiJobsResponse): RésultatRechercheAlternance => {
 	const matchas = response.matchas.results.map(mapRésultatRechercherAlternanceMatcha);
 	const peJobs = response.peJobs.results.map(mapRésultatRechercherAlternancePEJob);
-	const lbaCompanies = response.lbaCompanies?.results.map(mapRésultatRechercherAlternanceLbaEntreprise) || [];
+	const lbaCompanies = mapLbaCompanies(response.lbaCompanies);
 	return {
 		entrepriseList: lbaCompanies,
 		offreList: matchas.concat(peJobs),
 	};
 };
-8;

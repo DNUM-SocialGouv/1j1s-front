@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "3.80.1",
+  "version": "3.81.1",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "^0.13.0",
     "@next/bundle-analyzer": "^13.2.4",
-    "@sentry/nextjs": "~7.52.0",
+    "@sentry/nextjs": "~7.53.0",
     "axios": "~1.4.0",
     "axios-cache-interceptor": "~1.1.0",
     "classnames": "~2.3.1",
@@ -64,7 +64,7 @@
     "@types/react-dom": "~18.2.0",
     "@types/uuid": "~9.0.1",
     "@typescript-eslint/eslint-plugin": "~5.59.0",
-    "cypress": "~12.12.0",
+    "cypress": "~12.13.0",
     "eslint": "~8.41.0",
     "eslint-config-next": "^13.2.4",
     "eslint-plugin-cypress": "~2.13.1",

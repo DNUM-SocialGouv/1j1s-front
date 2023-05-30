@@ -1,5 +1,39 @@
 # Changelog
 
+## [3.81.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.81.0...v3.81.1) (2023-05-26)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to ~12.13.0 ([#1353](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1353)) ([632ecbc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/632ecbcb43c76e21136aa16a7eb896366f7b9695))
+
+## [3.81.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.3...v3.81.0) (2023-05-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **server-error:** ajout d'un error management service ([#1352](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1352)) ([bf306a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bf306a919589fcba191fb2fde76517958dd302ad))
+
+## [3.80.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.2...v3.80.3) (2023-05-25)
+
+
+### 🐛 Corrections de bogues
+
+* **cms:** appel inutile quand pas de token ([d95da21](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d95da21d8e5e0bb51e1dc35ff1f508e84d51ac63))
+
+## [3.80.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.1...v3.80.2) (2023-05-25)
+
+
+### 👷 Autres changements
+
+* active le cache des node_modules pour accélerer les Github Actions ([#1355](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1355)) ([65eb872](https://github.com/DNUM-SocialGouv/1j1s-front/commit/65eb872d500075892e9974e932c127ab96050596))
+
+
+### 🐛 Corrections de bogues
+
+* **alternance:** page en erreur quand 0 resultats lbaCompanies ([afb109c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/afb109c33a111d6259afe415d7408ba02b87addc))
+* **deps:** update dependency @sentry/nextjs to ~7.53.0 ([#1348](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1348)) ([2be2a30](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2be2a30ae7f087a4f54b0b004ed72431a0184c3f))
+
 ## [3.80.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.80.0...v3.80.1) (2023-05-24)
 
 
