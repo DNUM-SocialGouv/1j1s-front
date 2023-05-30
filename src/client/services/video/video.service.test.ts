@@ -28,4 +28,16 @@ describe('YoutubeService', () => {
 			expect(result).toBe(false);
 		});
 	});
+
+	describe('allow', () => {
+		it('appelle le service de cookies', () => {
+			const cookiesService = aCookiesService();
+			const youtubeService = new YoutubeService(cookiesService);
+
+			youtubeService.allow();
+
+			expect(cookiesService.allowService).toHaveBeenCalledTimes(1);
+			expect(cookiesService.allowService).toHaveBeenCalledWith('youtube');
+		});
+	});
 });
