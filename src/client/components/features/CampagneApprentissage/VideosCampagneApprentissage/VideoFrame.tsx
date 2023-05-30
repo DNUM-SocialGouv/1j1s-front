@@ -28,29 +28,28 @@ interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 	videoToDisplay: VideoCampagneApprentissage,
 }
 
-export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
+function useYoutubeService() {
 	const youtubeService = useDependency<VideoService>('youtubeService');
-	const [areYoutubeCookiesAccepted, setAreYoutubeCookiesAccepted] = useState(youtubeService.isAllowed());
+	const [isAllowed, setIsAllowed] = useState(youtubeService.isAllowed());
 
 	useEffect(function listenToCookieConsentChanges() {
-		// FIXME (GAFI 16-05-2023): Dirty implementation, to rework ASAP
 		function updateCookieSettings() {
-			setAreYoutubeCookiesAccepted(youtubeService.isAllowed());
+			setIsAllowed(youtubeService.isAllowed());
 		}
 
-		document.addEventListener('youtube_loaded', updateCookieSettings);
-		document.addEventListener('youtube_added', updateCookieSettings);
-		document.addEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
-		document.addEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
-
+		document.addEventListener('youtube_allowed', updateCookieSettings);
+		document.addEventListener('youtube_disallowed', updateCookieSettings);
 		return () => {
-			document.removeEventListener('youtube_loaded', updateCookieSettings);
-			document.removeEventListener('youtube_added', updateCookieSettings);
-			document.removeEventListener('youtube_allowed', () => setAreYoutubeCookiesAccepted(true));
-			document.removeEventListener('youtube_disallowed', () => setAreYoutubeCookiesAccepted(false));
+			document.removeEventListener('youtube_allowed', updateCookieSettings);
+			document.removeEventListener('youtube_disallowed', updateCookieSettings);
 		};
 	}, [youtubeService]);
 
+	return isAllowed;
+}
+
+export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
+	const areYoutubeCookiesAccepted = useYoutubeService();
 
 	return <div className={classNames(styles.video, className)}>
 		{areYoutubeCookiesAccepted ? (
