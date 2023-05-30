@@ -10,7 +10,7 @@ export class StrapiErrorManagementService extends DefaultErrorManagementService 
 	constructor(loggerService: LoggerService) {
 		super(loggerService);
 	}
-	protected handleHttpError(error: HttpError) {
+	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status === 400 && error?.response?.data?.message === '[API Strapi] 400 Bad request pour la ressource') {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		} else if (error.response?.status === 401 && error?.response?.data?.message === '[API Strapi] 401 Unauthorized') {
@@ -26,7 +26,7 @@ export class StrapiErrorManagementService extends DefaultErrorManagementService 
 		}
 	}
 
-	protected handleInternalError(): Failure {
+	protected createFailureForInternalError(): Failure {
 		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 	}
 }

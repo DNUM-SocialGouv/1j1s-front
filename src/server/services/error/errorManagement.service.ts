@@ -22,13 +22,13 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure {
 		if (isHttpError(error)) {
 			this.logHttpError(logInformation, error);
-			return this.handleHttpError(error);
+			return this.createFailureForHttpError(error);
 		}
 		this.logInternalError(logInformation, error);
-		return this.handleInternalError();
+		return this.createFailureForInternalError();
 	}
 
-	private logHttpError(logInformation: LogInformation, error: HttpError) {
+	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		const errorToLog = new SentryException(
 			`${logInformation.message} (erreur http)`,
 			{ context: logInformation.contexte, source: logInformation.apiSource },
@@ -38,7 +38,7 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		this.loggerService.errorWithExtra(errorToLog);
 	}
 
-	private logInternalError(logInformation: LogInformation, error: unknown) {
+	protected logInternalError(logInformation: LogInformation, error: unknown) {
 		const extra = error instanceof Error
 			? { stacktrace: error.stack }
 			: { error: JSON.stringify(error) };
@@ -51,11 +51,11 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		this.loggerService.errorWithExtra(errorToLog);
 	}
 
-	protected handleInternalError() {
+	protected createFailureForInternalError() {
 		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 	}
 
-	protected handleHttpError(error: HttpError) {
+	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status.toString().startsWith('50')) {
 			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
