@@ -4,6 +4,7 @@
 
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
 import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
+import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
 
 describe('TarteAuCitronCookiesService', () => {
 	it('initialise tarteaucitron quand on instantie le service', () => {
@@ -152,6 +153,31 @@ describe('TarteAuCitronCookiesService', () => {
 		beforeEach(() => {
 			// FIXME (GAFI 19-05-2023): Si on inject document (qui est une dépendance externe) on peut se passer de ça et de l'environnement js-dom
 			Object.defineProperty(document, 'cookie', { value: undefined, writable: true });
+		});
+	});
+
+	describe('allowService', () => {
+		it('accepte le cookie', () => {
+			const tarteaucitron = aTarteAuCitron();
+			const service = new TarteAuCitronCookiesService(tarteaucitron);
+			const boutonAllowYoutube = document.createElement('button');
+			boutonAllowYoutube.setAttribute('id', 'youtubeAllowed');
+			document.body.append(boutonAllowYoutube);
+
+			service.allowService('youtube');
+
+			expect(tarteaucitron.userInterface.respond).toHaveBeenCalledTimes(1);
+			expect(tarteaucitron.userInterface.respond).toHaveBeenCalledWith(boutonAllowYoutube, true);
+		});
+		it('throw quand le service ne peut pas être accepté', () => {
+			const tarteaucitron = aTarteAuCitron();
+			const service = new TarteAuCitronCookiesService(tarteaucitron);
+			document.body.innerHTML = '';
+
+			const allowService = () => service.allowService('youtube');
+
+			expect(allowService).toThrow(/^Impossible de trouver le bouton pour accepter les cookies du service youtube$/);
+			expect(allowService).toThrow(FailedToAllowServiceError);
 		});
 	});
 });

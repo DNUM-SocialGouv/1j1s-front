@@ -1,3 +1,5 @@
+import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
+
 export namespace TarteAuCitron {
 	export type ServiceConfig<T> = Record<string, T>;
 	export type InitConfig = Record<string, unknown>;
@@ -19,6 +21,7 @@ export interface CookiesService {
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void;
 	addUser(nom: string, value: TarteAuCitron.User): void;
 	isServiceAllowed(nom: string): boolean;
+	allowService(nom: string): void;
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {
@@ -72,6 +75,16 @@ export class TarteAuCitronCookiesService implements CookiesService {
 		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
 		return isCookieAllowedRegex.test(document.cookie);
 	}
+
+	allowService(nom: string): void {
+		const allowButton = document.getElementById(`${nom}Allowed`);
+
+		if (!allowButton || !(allowButton instanceof HTMLButtonElement)) {
+			throw new FailedToAllowServiceError(nom);
+		}
+
+		this.tarteaucitron.userInterface.respond(allowButton, true);
+	}
 }
 
 export class NullCookiesService implements CookiesService {
@@ -82,6 +95,10 @@ export class NullCookiesService implements CookiesService {
 		return;
 	}
 	addService(): void {
+		return;
+	}
+
+	allowService(): void {
 		return;
 	}
 }
