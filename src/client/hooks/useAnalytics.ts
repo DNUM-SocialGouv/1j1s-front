@@ -9,7 +9,7 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsAlreadySent = useRef(false);
 
 	const sendAnalytics = useCallback(() => {
-		if (analyticsService.isAllowed() && !analyticsAlreadySent.current) {
+		if (!analyticsAlreadySent.current) {
 			analyticsService.envoyerAnalyticsPageVue(pageTags);
 			analyticsAlreadySent.current = true;
 		}
@@ -17,13 +17,14 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 
 	useEffect(function addEventListeners() {
 		document.addEventListener('eulerian_allowed', sendAnalytics);
-		document.addEventListener('eulerian_loaded', sendAnalytics);
-
 		return () => {
 			document.removeEventListener('eulerian_allowed', sendAnalytics);
-			document.removeEventListener('eulerian_loaded', sendAnalytics);
 		};
 	}, [sendAnalytics]);
+
+	if (analyticsService.isAllowed()) {
+		sendAnalytics();
+	}
 
 	return analyticsService;
 }

@@ -26,12 +26,6 @@ async function disallowAnalytics(service: AnalyticsService) {
 		document.dispatchEvent(new Event('eulerian_disallowed'));
 	});
 }
-async function loadAllowedAnalytics(service: AnalyticsService) {
-	return act(() => {
-		service.isAllowed = () => true;
-		document.dispatchEvent(new Event('eulerian_loaded'));
-	});
-}
 
 describe('useAnalytics()', () => {
 	it("envoie les analytics de la page quand l'utilisateur accepte les cookies", async () => {
@@ -49,15 +43,14 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
 	it('envoie les analytics au chargement de la page quand les cookies sont déjà acceptés', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = anAnalyticsService({ isAllowed: () => true });
 		const pageTags = aPageTags();
+
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<TestComponent pageTags={pageTags}/>
 			</DependenciesProvider>,
 		);
-
-		await loadAllowedAnalytics(analyticsService);
 
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
@@ -79,13 +72,12 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
 	});
 	it('n’envoie pas les analytics passé la première fois que les cookies sont acceptés quand la page charge avec les cookies acceptés', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = anAnalyticsService({ isAllowed: () => true });
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<TestComponent pageTags={aPageTags()}/>
 			</DependenciesProvider>,
 		);
-		await loadAllowedAnalytics(analyticsService);
 
 		await disallowAnalytics(analyticsService);
 		await allowAnalytics(analyticsService);
