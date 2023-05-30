@@ -112,7 +112,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
-				message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+				message: '[API LaBonneAlternance] impossible de récuperer le détail d‘une offre d‘alternance',
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);

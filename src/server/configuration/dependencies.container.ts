@@ -11,6 +11,7 @@ import {
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import {
 	DemandeDeContactDependencies,
 	demandeDeContactDependenciesContainer,
@@ -169,7 +170,8 @@ export function dependenciesContainer(): Dependencies {
 
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
-	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, loggerService);
+	const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
+	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 

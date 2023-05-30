@@ -92,12 +92,13 @@ export function aCachedHttpClientService(): CachedHttpClientService {
 	} as unknown as CachedHttpClientService;
 }
 
-export function anAuthenticatedHttpClientService(): AuthenticatedHttpClientService {
+export function anAuthenticatedHttpClientService(override?: Partial<AuthenticatedHttpClientService>): AuthenticatedHttpClientService {
 	return {
 		client: anAxiosInstance(),
 		get: jest.fn(),
 		post: jest.fn(),
 		refreshToken: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
+		...override,
 	} as unknown as AuthenticatedHttpClientService;
 }
