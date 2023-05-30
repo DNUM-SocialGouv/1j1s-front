@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.82.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.81.1...v3.82.0) (2023-05-30)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cms:** utilisation d'un custom error management service pour le cms ([#1363](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1363)) ([9ce02c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9ce02c8841f2f4774548c83e6d0c8c54cea14fd8))
+* **plan-du-site:** ajout espace jeune ([12d21cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/12d21cf3d0f1d402dfbd3140799c2442911da5fc))
+* **sitemap:** ajout pages non presente dans la navigation ([1f2d839](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1f2d839b89767e7c8619d537d113436fa834b935))
+
 ## [3.81.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.81.0...v3.81.1) (2023-05-26)
 
 
