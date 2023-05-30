@@ -25,4 +25,4 @@ export function handleGetFailureError(e: unknown, context: string, loggerService
 		{ stacktrace: (<Error> e).stack },
 	));
 	return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-}
+} // TODO : à supprimer si OK

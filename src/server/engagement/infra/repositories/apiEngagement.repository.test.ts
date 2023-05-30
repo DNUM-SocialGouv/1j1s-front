@@ -82,9 +82,10 @@ describe('ApiEngagementRepository', () => {
 
 				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Failure;
 
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
 				expect(defaultErrorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Engagement',
-					contexte: 'recherche mission d’engagement',
+					contexte: 'search mission d’engagement',
 					message: '[API Engagement] impossible d’effectuer une recherche',
 				});
 				expect(errorType).toEqual(expectedFailure);
@@ -140,9 +141,10 @@ describe('ApiEngagementRepository', () => {
 
 				const { errorType } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Failure;
 
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
 				expect(defaultErrorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Engagement',
-					contexte: 'recherche mission d’engagement',
+					contexte: 'search mission d’engagement',
 					message: '[API Engagement] impossible d’effectuer une recherche',
 				});
 				expect(errorType).toEqual(expectedFailure);
@@ -164,33 +166,52 @@ describe('ApiEngagementRepository', () => {
 			});
 		});
 
-		describe('quand l’api engagement répond avec une 403', () => {
-			it('retourne une erreur contenu indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(403, '', anAxiosResponse(
-					{
-						data: null,
-						error: 'Id not valid',
-						ok: false,
-					},
-					403,
-				)));
+		describe('quand l’api engagement répond avec une erreur', () => {
+			it('retourne une erreur', async () => {
+				const httpError = anHttpError(500);
+				const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(defaultErrorManagementService, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
+				const { errorType } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Failure;
 
-				expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 				expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
+				expect(defaultErrorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'get détail mission d’engagement',
+					message: '[API Engagement] impossible de récupérer le détail d’une mission',
+				});
+				expect(errorType).toEqual(expectedFailure);
 			});
 		});
 
-		describe('quand l’api engagement répond avec un autre code d’erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
-
-				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
-
-				expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
-			});
-		});
+		// describe('quand l’api engagement répond avec une 403', () => {
+		// 	it('retourne une erreur contenu indisponible', async () => {
+		// 		jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(403, '', anAxiosResponse(
+		// 			{
+		// 				data: null,
+		// 				error: 'Id not valid',
+		// 				ok: false,
+		// 			},
+		// 			403,
+		// 		)));
+		//
+		// 		const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
+		//
+		// 		expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+		// 		expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
+		// 	});
+		// });
+		//
+		// describe('quand l’api engagement répond avec un autre code d’erreur', () => {
+		// 	it('retourne une erreur service indisponible', async () => {
+		// 		jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
+		//
+		// 		const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
+		//
+		// 		expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+		// 		expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
+		// 	});
+		// });
 	});
 });

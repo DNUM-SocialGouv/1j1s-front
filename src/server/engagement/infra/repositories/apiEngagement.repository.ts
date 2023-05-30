@@ -11,17 +11,15 @@ import {
 	RésultatsMissionEngagementResponse,
 	RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import { handleGetFailureError } from '~/server/engagement/infra/repositories/apiEngagementError';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
 const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
 
 export class ApiEngagementRepository implements EngagementRepository {
-	constructor(private httpClientService: PublicHttpClientService, private loggerService: LoggerService, private defaultErrorManagementService: ErrorManagementService) {}
+	constructor(private httpClientService: PublicHttpClientService, private defaultErrorManagementService: ErrorManagementService) {}
 
 	async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
 		try {
@@ -30,7 +28,11 @@ export class ApiEngagementRepository implements EngagementRepository {
 			);
 			return createSuccess(mapMission(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'engagement', this.loggerService);
+			return this.defaultErrorManagementService.handleFailureError(e, {
+				apiSource: 'API Engagement',
+				contexte: 'get détail mission d’engagement',
+				message: '[API Engagement] impossible de récupérer le détail d’une mission',
+			});
 		}
 	}
 
@@ -43,7 +45,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 		} catch (e) {
 			return this.defaultErrorManagementService.handleFailureError(e, {
 				apiSource: 'API Engagement',
-				contexte: 'recherche mission d’engagement',
+				contexte: 'search mission d’engagement',
 				message: '[API Engagement] impossible d’effectuer une recherche',
 			});
 		}

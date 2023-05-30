@@ -206,7 +206,7 @@ export function dependenciesContainer(): Dependencies {
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
-	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, loggerService, errorManagementService);
+	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, errorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
 	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
