@@ -14,21 +14,11 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 
-// FIXME (GAFI 24-05-2023): À migrer dans le videoService
-function acceptYoutubeCookies() {
-	const allowYoutube = document.getElementById('youtubeAllowed');
-	if (allowYoutube != null && allowYoutube instanceof HTMLButtonElement) {
-		window.tarteaucitron.userInterface.respond(allowYoutube, true);
-	} else {
-		window.tarteaucitron.userInterface.openPanel();
-	}
-}
-
 interface VideoFrameProps extends React.ComponentPropsWithoutRef<'div'> {
 	videoToDisplay: VideoCampagneApprentissage,
 }
 
-function useYoutubeService() {
+function useYoutubeService(): [boolean, VideoService['allow']] {
 	const youtubeService = useDependency<VideoService>('youtubeService');
 	const [isAllowed, setIsAllowed] = useState(youtubeService.isAllowed());
 
@@ -45,14 +35,14 @@ function useYoutubeService() {
 		};
 	}, [youtubeService]);
 
-	return isAllowed;
+	return [isAllowed, () => youtubeService.allow()];
 }
 
 export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
-	const areYoutubeCookiesAccepted = useYoutubeService();
+	const [youtubeAllowed, allowYoutube] = useYoutubeService();
 
 	return <div className={classNames(styles.video, className)}>
-		{areYoutubeCookiesAccepted ? (
+		{youtubeAllowed ? (
 			<iframe
 				width="326"
 				height="180"
@@ -90,7 +80,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 						</p>
 						<ButtonComponent
 							label={'Accepter les cookies'}
-							onClick={acceptYoutubeCookies}
+							onClick={allowYoutube}
 							appearance={'secondary'}
 							className={styles.buttonAcceptCookies}
 							icon={<Icon name="check-line"/>}
