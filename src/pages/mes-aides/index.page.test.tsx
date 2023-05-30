@@ -46,7 +46,7 @@ describe('MesAidesPage', () => {
 
 		const link = screen.getByRole('link', { name: 'Commencer la simulation' });
 
-		expect(link).toHaveAttribute('href', 'https://mes-aides.1jeune1solution.beta.gouv.fr/simulation/individu/demandeur/date_naissance');
+		expect(link).toHaveAttribute('href', 'https://mes-aides.1jeune1solution.beta.gouv.fr/simulation/individu/demandeur/date_naissance?utm_source=1jeune1solution');
 		expect(link).toHaveAttribute('target', '_blank');
 	});
 });
