@@ -1,6 +1,5 @@
-import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
-
-import { TarteAuCitron } from './cookies.service';
+import { CookiesService } from './cookies.service.interface';
+import { TarteAuCitron } from './tarteaucitron.service';
 
 export function aCookiesService(override?: Partial<CookiesService>): CookiesService {
 	return {

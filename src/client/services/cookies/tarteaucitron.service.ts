@@ -1,21 +1,20 @@
-import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
-import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
+import { CookiesService } from './cookies.service.interface';
+import FailedToAllowServiceError from './FailedToAllowService.error';
 
 export namespace TarteAuCitron {
-	export type ServiceConfig<T> = Record<string, T>;
-	export type InitConfig = Record<string, unknown>;
-	export type User = unknown;
+  export type ServiceConfig<T> = Record<string, T>;
+  export type InitConfig = Record<string, unknown>;
+  export type User = unknown;
 }
-
 export type TarteAuCitron = {
-	user: Record<string, TarteAuCitron.User>,
-	services: Record<string, TarteAuCitron.ServiceConfig<unknown>>,
-	init: (config: TarteAuCitron.InitConfig) => void,
-	job?: string[],
-	userInterface: {
-		respond: (bouton: HTMLButtonElement, value: boolean) => void,
-		openPanel: () => void,
-	}
+  user: Record<string, TarteAuCitron.User>,
+  services: Record<string, TarteAuCitron.ServiceConfig<unknown>>,
+  init: (config: TarteAuCitron.InitConfig) => void,
+  job?: string[],
+  userInterface: {
+    respond: (bouton: HTMLButtonElement, value: boolean) => void,
+    openPanel: () => void,
+  }
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {
@@ -48,17 +47,20 @@ export class TarteAuCitronCookiesService implements CookiesService {
 		useExternalJs: false,
 	};
 	private readonly tarteaucitron: TarteAuCitron;
+
 	constructor(tarteaucitron: TarteAuCitron) {
 		this.tarteaucitron = tarteaucitron;
 		this.tarteaucitron.init(TarteAuCitronCookiesService.INIT_CONFIG);
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
+
 	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void {
 		if (config != undefined) {
 			this.tarteaucitron.services[nom] = config;
 		}
 		this.tarteaucitron.job?.push(nom);
 	}
+
 	addUser(userName: string, value: TarteAuCitron.User): void {
 		this.tarteaucitron.user[userName] = value;
 	}
@@ -82,25 +84,5 @@ export class TarteAuCitronCookiesService implements CookiesService {
 
 	openPanel(): void {
 		return this.tarteaucitron.userInterface.openPanel();
-	}
-}
-
-export class NullCookiesService implements CookiesService {
-	isServiceAllowed(): boolean {
-		return false;
-	}
-	addUser(): void {
-		return;
-	}
-	addService(): void {
-		return;
-	}
-
-	allowService(): void {
-		return;
-	}
-
-	openPanel(): void {
-		return;
 	}
 }

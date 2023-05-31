@@ -1,4 +1,3 @@
-
 export namespace CookiesService {
 	export type ServiceConfig = Record<string, unknown>;
 	export type User = unknown;

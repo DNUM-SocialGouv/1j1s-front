@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
-import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
-import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
+import { aTarteAuCitron } from './cookies.service.fixture';
+import FailedToAllowServiceError from './FailedToAllowService.error';
+import { TarteAuCitronCookiesService } from './tarteaucitron.service';
 
 describe('TarteAuCitronCookiesService', () => {
 	it('initialise tarteaucitron quand on instantie le service', () => {
