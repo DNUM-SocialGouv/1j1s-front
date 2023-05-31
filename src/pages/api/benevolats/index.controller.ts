@@ -11,7 +11,7 @@ import {
 } from '~/server/engagement/domain/engagement';
 import { dependencies } from '~/server/start';
 
-const querySchema = Joi.object({
+export const missionBenevolatQuerySchema = Joi.object({
 	codeCommune: Joi.number().optional(),
 	distanceCommune: Joi.number().optional(),
 	domain: Joi.string().optional().valid('culture-loisirs', 'education', 'environnement', 'mémoire et citoyenneté', 'prevention-protection', 'sante', 'solidarite-insertion', 'sport', 'vivre-ensemble', 'autre'),
@@ -27,7 +27,7 @@ export async function rechercherMissionHandler(req: NextApiRequest, res: NextApi
 	return handleResponse(résultatRechercherMission, res);
 }
 
-export default withMonitoring(withValidation({ query: querySchema }, rechercherMissionHandler));
+export default withMonitoring(withValidation({ query: missionBenevolatQuerySchema }, rechercherMissionHandler));
 
 function missionRequestMapper(request: NextApiRequest): MissionEngagement.Recherche.Benevolat {
 	const { query } = request;
