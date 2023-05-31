@@ -3,7 +3,8 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { AnalyticsService, EulerianService } from '~/client/services/analytics/analytics.service';
-import { CookiesService, NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
+import { NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,

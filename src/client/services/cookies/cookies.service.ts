@@ -1,3 +1,4 @@
+import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
 import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
 
 export namespace TarteAuCitron {
@@ -15,14 +16,6 @@ export type TarteAuCitron = {
 		respond: (bouton: HTMLButtonElement, value: boolean) => void,
 		openPanel: () => void,
 	}
-}
-
-export interface CookiesService {
-	addService(nom: string, config?: TarteAuCitron.ServiceConfig<unknown>): void;
-	addUser(nom: string, value: TarteAuCitron.User): void;
-	isServiceAllowed(nom: string): boolean;
-	allowService(nom: string): void;
-	openPanel(): void;
 }
 
 export class TarteAuCitronCookiesService implements CookiesService {

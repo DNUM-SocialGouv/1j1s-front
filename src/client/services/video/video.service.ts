@@ -1,4 +1,4 @@
-import { CookiesService } from '~/client/services/cookies/cookies.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
 import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
 
 export interface VideoService {
