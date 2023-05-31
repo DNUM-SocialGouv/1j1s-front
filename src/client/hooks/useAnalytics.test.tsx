@@ -55,7 +55,18 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
-	it('n’envoie pas les analytics passé la première fois que les cookies sont acceptés', async () => {
+	it('n’envoie pas les analytics quand les cookies sont refusés', async () => {
+		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<TestComponent pageTags={aPageTags()}/>
+			</DependenciesProvider>,
+		);
+
+		expect(analyticsService.envoyerAnalyticsPageVue).not.toHaveBeenCalled();
+	});
+	it('n’envoie qu’une fois les analytics quand l’utilisateur accepte plusieurs fois les cookies', async () => {
 		const analyticsService = anAnalyticsService({ isAllowed: () => false });
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -64,21 +75,6 @@ describe('useAnalytics()', () => {
 		);
 
 		await allowAnalytics(analyticsService);
-		await disallowAnalytics(analyticsService);
-		await allowAnalytics(analyticsService);
-		await disallowAnalytics(analyticsService);
-		await allowAnalytics(analyticsService);
-
-		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
-	});
-	it('n’envoie pas les analytics passé la première fois que les cookies sont acceptés quand la page charge avec les cookies acceptés', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => true });
-		render(
-			<DependenciesProvider analyticsService={analyticsService}>
-				<TestComponent pageTags={aPageTags()}/>
-			</DependenciesProvider>,
-		);
-
 		await disallowAnalytics(analyticsService);
 		await allowAnalytics(analyticsService);
 		await disallowAnalytics(analyticsService);
