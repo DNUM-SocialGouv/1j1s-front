@@ -3,7 +3,7 @@
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
-import { DiscreteAdformService, EulerianService } from '~/client/services/analytics/analytics.service';
+import { EulerianService } from '~/client/services/analytics/analytics.service';
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 const mockLocation = () => {
@@ -84,42 +84,4 @@ describe('EulerianService', () => {
 		});
 	});
 
-});
-
-describe('DiscreteAdformService', () => {
-	beforeEach(() => {
-		mockLocation();
-	});
-
-	it('initialise le service adform', () => {
-		const cookiesService = aCookiesService();
-
-		new DiscreteAdformService(cookiesService);
-
-		expect(cookiesService.addService).toHaveBeenCalledWith('adform');
-	});
-	it('set la valeur adformpm pour la campagne', () => {
-		const cookiesService = aCookiesService();
-
-		new DiscreteAdformService(cookiesService);
-
-		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
-	});
-	it('reinitialise la valeur de pagename', () => {
-		const cookiesService = aCookiesService();
-
-		new DiscreteAdformService(cookiesService);
-
-		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
-	});
-	describe('trackPage', () => {
-		it('set la valeur de pagename', () => {
-			const cookiesService = aCookiesService();
-			const service = new DiscreteAdformService(cookiesService);
-
-			service.trackPage('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
-
-			expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
-		});
-	});
 });

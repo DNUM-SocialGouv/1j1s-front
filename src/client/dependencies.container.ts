@@ -2,7 +2,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService, DiscreteAdformService, EulerianService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService, EulerianService } from '~/client/services/analytics/analytics.service';
 import { CookiesService, NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
@@ -15,6 +15,7 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
+import { AdformService } from '~/client/services/marketing/marketing.service';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
@@ -62,7 +63,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianService(cookiesService);
-	new DiscreteAdformService(cookiesService);
+	new AdformService(cookiesService);
 	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
