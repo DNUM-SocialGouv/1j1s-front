@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { PageTags } from '~/client/services/analytics/analytics';
@@ -6,31 +6,23 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 
 function useAnalytics(pageTags: PageTags): AnalyticsService {
 	const analyticsService = useDependency<AnalyticsService>('analyticsService');
+	const analyticsAlreadySent = useRef(false);
 
-	const [isAnalyticsAutorisé, setIsAnalyticsAllowed] = useState<boolean>(analyticsService.isAllowed());
+	const sendAnalytics = useCallback(() => {
+		if (analyticsService.isAllowed() && !analyticsAlreadySent.current) {
+			analyticsService.envoyerAnalyticsPageVue(pageTags);
+			analyticsAlreadySent.current = true;
+		}
+	}, [analyticsService, pageTags]);
 
 	useEffect(function addEventListeners() {
-		// FIXME (GAFI 15-05-2023): Quick fix, needs rework ASAP (and tests)
-		function RetrySendingAnalytics() {
-			setIsAnalyticsAllowed(!isAnalyticsAutorisé);
-		}
-
-		document.addEventListener('eulerian_allowed', RetrySendingAnalytics);
-		document.addEventListener('eulerian_added', RetrySendingAnalytics);
-		document.addEventListener('eulerian_loaded', RetrySendingAnalytics);
-		document.addEventListener('eulerian_disallowed', RetrySendingAnalytics);
-
+		document.addEventListener('eulerian_allowed', sendAnalytics);
 		return () => {
-			document.removeEventListener('eulerian_allowed', RetrySendingAnalytics);
-			document.removeEventListener('eulerian_added', RetrySendingAnalytics);
-			document.removeEventListener('eulerian_loaded', RetrySendingAnalytics);
-			document.removeEventListener('eulerian_disallowed', RetrySendingAnalytics);
+			document.removeEventListener('eulerian_allowed', sendAnalytics);
 		};
-	}, [isAnalyticsAutorisé, setIsAnalyticsAllowed]);
+	}, [sendAnalytics]);
 
-	useEffect(function sendAnalytics() {
-		analyticsService.envoyerAnalyticsPageVue(pageTags);
-	}, [analyticsService, isAnalyticsAutorisé, pageTags]);
+	sendAnalytics();
 
 	return analyticsService;
 }

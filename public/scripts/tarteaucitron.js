@@ -1024,6 +1024,9 @@ var tarteaucitron = {
                         tarteaucitron.sendEvent(key + '_loaded');
                     }
                     var itemStatusElem = document.getElementById('tacCurrentStatus'+key);
+                    tarteaucitron.state[key] = status;
+                    tarteaucitron.cookie.create(key, status);
+                    tarteaucitron.userInterface.color(key, status);
                     if(status == true){
                         itemStatusElem.innerHTML = tarteaucitron.lang.allowed;
                         tarteaucitron.sendEvent(key + '_allowed');
@@ -1031,9 +1034,6 @@ var tarteaucitron = {
                         itemStatusElem.innerHTML = tarteaucitron.lang.disallowed;
                         tarteaucitron.sendEvent(key + '_disallowed');
                     }
-                    tarteaucitron.state[key] = status;
-                    tarteaucitron.cookie.create(key, status);
-                    tarteaucitron.userInterface.color(key, status);
                 }
             }
         },
@@ -1072,6 +1072,9 @@ var tarteaucitron = {
                 }
             }
             var itemStatusElem = document.getElementById('tacCurrentStatus'+key);
+            tarteaucitron.state[key] = status;
+            tarteaucitron.cookie.create(key, status);
+            tarteaucitron.userInterface.color(key, status);
             if(status == true){
                 itemStatusElem.innerHTML = tarteaucitron.lang.allowed;
                 tarteaucitron.sendEvent(key + '_allowed');
@@ -1079,9 +1082,6 @@ var tarteaucitron = {
                 itemStatusElem.innerHTML = tarteaucitron.lang.disallowed;
                 tarteaucitron.sendEvent(key + '_disallowed');
             }
-            tarteaucitron.state[key] = status;
-            tarteaucitron.cookie.create(key, status);
-            tarteaucitron.userInterface.color(key, status);
         },
         "color": function (key, status) {
             "use strict";
