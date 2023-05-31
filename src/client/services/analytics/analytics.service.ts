@@ -96,13 +96,18 @@ export class EulerianService implements AnalyticsService {
 }
 
 // TODO à supprimer après la campagne autour de l'apprentissage
-export class DiscreteAdformService {
+export interface DiscreteAnalyticsService {
+	trackPage(pagename: string): void
+}
+
+export class DiscreteAdformService implements DiscreteAnalyticsService {
 	// NOTE (GAFI 22-05-2023): Ceci est un service discret :
 	//  Le tracking est fait via une balise `<img>` qui fait les requêtes appropriées plutôt que par du script JS
 
 	private static ADFORM_SERVICE = 'adform';
 	private static CLIENT_TRACKING_ID = 2867419;
 	private readonly cookiesService: CookiesService;
+
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
 		this.initialiserAnalyticsCampagneDeCommunication();
@@ -119,5 +124,9 @@ export class DiscreteAdformService {
 		}
 
 		this.cookiesService.addService(DiscreteAdformService.ADFORM_SERVICE);
+	}
+
+	trackPage(pagename: string): void {
+		this.cookiesService.addUser('adformpagename', pagename);
 	}
 }
