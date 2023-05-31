@@ -184,34 +184,5 @@ describe('ApiEngagementRepository', () => {
 				expect(errorType).toEqual(expectedFailure);
 			});
 		});
-
-		// describe('quand l’api engagement répond avec une 403', () => {
-		// 	it('retourne une erreur contenu indisponible', async () => {
-		// 		jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(403, '', anAxiosResponse(
-		// 			{
-		// 				data: null,
-		// 				error: 'Id not valid',
-		// 				ok: false,
-		// 			},
-		// 			403,
-		// 		)));
-		//
-		// 		const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
-		//
-		// 		expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
-		// 		expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
-		// 	});
-		// });
-		//
-		// describe('quand l’api engagement répond avec un autre code d’erreur', () => {
-		// 	it('retourne une erreur service indisponible', async () => {
-		// 		jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
-		//
-		// 		const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
-		//
-		// 		expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-		// 		expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
-		// 	});
-		// });
 	});
 });
