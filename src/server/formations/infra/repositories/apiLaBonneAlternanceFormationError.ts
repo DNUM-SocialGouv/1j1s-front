@@ -4,10 +4,6 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { isHttpError } from '~/server/services/http/httpError';
 import { LoggerService } from '~/server/services/logger.service';
 
-export function handleSearchFailureError(e: unknown, context: string, loggerService: LoggerService) {
-	return handleFailureError(e, `search ${context}`, loggerService);
-}
-
 export function handleGetFailureError(e: unknown, context: string, loggerService: LoggerService) {
 	return handleFailureError(e, `get ${context}`, loggerService);
 }

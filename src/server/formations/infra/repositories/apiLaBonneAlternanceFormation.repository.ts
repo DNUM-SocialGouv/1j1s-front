@@ -9,12 +9,11 @@ import {
 import {
 	mapFormation,
 	mapRésultatRechercheFormation,
-	mapRésultatRechercheFormationToFormation, parseIdFormation,
+	mapRésultatRechercheFormationToFormation,
+	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
+import { handleGetFailureError } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { LoggerService } from '~/server/services/logger.service';
@@ -23,7 +22,7 @@ const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly loggerService: LoggerService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -38,8 +37,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		try {
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
 			return createSuccess(response.data);
-		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche formation', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error,
+				{
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'search formation la bonne alternance',
+					message: '[API LaBonneAlternance] impossible d’effectuer une recherche de formation',
+				});
 		}
 	}
 
@@ -55,10 +59,6 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			.concat(filtre.niveauEtudes ? `&diploma=${filtre.niveauEtudes}` : '');
 	}
 
-	private static isFormationNotFound(e: HttpError): boolean {
-		return e.response?.status === 500 && e.response.data.error === 'internal_error';
-	}
-
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
 		const { idRco: formationId, cleMinistereEducatif } = parseIdFormation(id);
 		try {
@@ -67,7 +67,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (e) {
-			if (ApiLaBonneAlternanceFormationRepository.isSearchDoable(e) && filtreRecherchePourRetrouverLaFormation) {
+			if (this.isSearchDoable(e) && filtreRecherchePourRetrouverLaFormation) {
 				try {
 					const formation = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
@@ -80,8 +80,12 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		}
 	}
 
-	private static isSearchDoable(e: unknown) {
-		return isHttpError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e);
+	private isSearchDoable(e: unknown) {
+		return isHttpError(e) && e.response && this.isFormationNotFound(e);
+	}
+
+	private isFormationNotFound(e: HttpError): boolean {
+		return e.response?.status === 500 && e.response.data.error === 'internal_error'; // pourquoi spécifiquement une internal_error pour notfound ?
 	}
 
 	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
