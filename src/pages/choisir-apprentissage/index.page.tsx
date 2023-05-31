@@ -5,6 +5,7 @@ import {
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import useMarketing from '~/client/hooks/useMarketing';
 import useReferrer from '~/client/hooks/useReferrer';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { isFailure } from '~/server/errors/either';
@@ -19,6 +20,7 @@ type ApprentissageJeunesPageProps = {
 export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps) {
 	useReferrer();
 	useAnalytics(analyticsPageConfig);
+	useMarketing('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 
 	return (
 		<>
