@@ -6,6 +6,7 @@ import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
@@ -29,5 +30,6 @@ export interface CmsRepository {
 	listAllFAQSlug(): Promise<Either<Array<string>>>
 	listAllOffreDeStageSlug(): Promise<Either<Array<string>>>
 	saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>>
+	saveEntrepriseRejoindreLaMobilisation(entreprise: Entreprise, annotation: string): Promise<Either<void>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
 }

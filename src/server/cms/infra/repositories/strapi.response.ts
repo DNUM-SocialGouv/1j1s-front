@@ -280,6 +280,21 @@ export namespace Strapi {
 			source: SourceDesDonnées.INTERNE;
 		}
 
+		export interface Entreprise {
+			nom_societe: string
+			code_postal: string
+			ville: string
+			siret: string
+			taille: string
+			secteur: string
+			prenom: string
+			telephone: string
+			email: string
+			nom: string
+			travail: string
+			erreur: string
+		}
+
 		export interface AnnonceLogement {
 			titre: string
 			slug: string

@@ -1,116 +1,60 @@
-import nock from 'nock';
-
 import {
 	anEntreprise,
-	anEntrepriseMember,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
-import { createFailure, createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+
+const logInformation = aLogInformation({
+	apiSource: 'API Rejoindre Mobilisation',
+	contexte: 'formulaire rejoindre la mobilisation',
+	message: '[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
+});
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
-	const entrepriseApiUrl = 'https://lesentreprisesengagent.france';
-	afterEach(() => {
-		nock.cleanAll();
-	});
 	describe('.save', () => {
 		let repository: ApiRejoindreLaMobilisationRepository;
-		let loggerService: LoggerService;
+		let httpClientService: PublicHttpClientService;
+		let errorManagementService: ErrorManagementService;
 		beforeEach(() => {
-			const client = new PublicHttpClientService({
-				apiName: 'test LEE',
-				apiUrl: entrepriseApiUrl,
-			});
-			loggerService = aLoggerService();
-			repository = new ApiRejoindreLaMobilisationRepository(client, loggerService);
+			httpClientService = aPublicHttpClientService();
+			errorManagementService = anErrorManagementService();
+			repository = new ApiRejoindreLaMobilisationRepository(httpClientService, errorManagementService);
 		});
+
 		it('envoie un POST vers l‘API des entreprise s‘engagent', async () => {
 			// Given
-			const api = nock(entrepriseApiUrl)
-				.post('/api/members', anEntrepriseMember())
-				.reply(201, {});
 			const entreprise = anEntreprise();
+			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse({}, 201));
 			// When
-			const actual = await repository.save(entreprise);
+			const result = await repository.save(entreprise);
+
 			// Then
-			expect(actual).toEqual(createSuccess(undefined));
-			expect(api.isDone()).toEqual(true);
+			expect(result).toEqual(createSuccess(undefined));
+			expect(httpClientService.post).toHaveBeenCalledTimes(1);
 		});
+
 		it('résout une erreur quand le service est indisponible', async () => {
 			// Given
-			nock('https://lesentreprisesengagent.france')
-				.post('/api/members')
-				.reply(503, {});
+			const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
 			const entreprise = anEntreprise();
+			const errorHttp = anHttpError(503);
+			jest.spyOn(httpClientService, 'post').mockRejectedValue(errorHttp);
+			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+
 			// When
-			const actual = await repository.save(entreprise);
+			const result = await repository.save(entreprise);
+
 			// Then
-			expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-		});
-		it('résout une erreur quand les données sont invalides', async () => {
-			// Given
-			nock('https://lesentreprisesengagent.france')
-				.post('/api/members')
-				.replyWithError({
-					response: {
-						data: {
-							message: '[API Rejoindre Mobilisation] 400 Bad request pour la ressource',
-						},
-						status: 400,
-					},
-				});
-			const entreprise = anEntreprise();
-			// When
-			const actual = await repository.save(entreprise);
-			// Then
-			expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
-		});
-		it('résout une erreur quand l‘entreprise est déjà engagée', async () => {
-			// Given
-			nock('https://lesentreprisesengagent.france')
-				.post('/api/members')
-				.replyWithError({
-					response: {
-						data: {
-							message: '[API Rejoindre Mobilisation] 409 Conflict Identifiant',
-						},
-						status: 409,
-					},
-				});
-			const entreprise = anEntreprise();
-			// When
-			const actual = await repository.save(entreprise);
-			// Then
-			expect(actual).toEqual(createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT));
-		});
-		it('résout une erreur quand LEE n arrivent pas a insérer le formulaire', async () => {
-			// Given
-			nock('https://lesentreprisesengagent.france')
-				.post('/api/members')
-				.replyWithError({
-					response: {
-						data: {
-							message: '[API Rejoindre Mobilisation] 404 Contenu indisponible',
-						},
-						status: 404,
-					},
-				});
-			const entreprise = anEntreprise();
-			// When
-			const actual = await repository.save(entreprise);
-			// Then
-			expect(actual).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
-		});
-		it('résout une erreur quand il y a une erreur réseau', async () => {
-			// Given
-			const entreprise = anEntreprise();
-			// When
-			const actual = await repository.save(entreprise);
-			// Then
-			expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledTimes(1);
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, logInformation);
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
 });
