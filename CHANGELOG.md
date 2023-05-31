@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.83.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.83.0...v3.83.1) (2023-05-30)
+
+
+### 📚 Documentation
+
+* initie une documentation Storybook ([#1361](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1361)) ([e713939](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e7139397b6c0e4ddcb9b7e6ca5a800606138af79))
+
 ## [3.83.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.82.0...v3.83.0) (2023-05-30)
 
 
