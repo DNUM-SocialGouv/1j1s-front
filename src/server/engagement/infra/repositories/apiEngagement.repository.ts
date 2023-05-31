@@ -11,19 +11,15 @@ import {
 	RésultatsMissionEngagementResponse,
 	RésultatsRechercheMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response';
-import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/engagement/infra/repositories/apiEngagementError';
 import { createSuccess, Either } from '~/server/errors/either';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const JE_VEUX_AIDER_PUBLISHER_ID = '5f5931496c7ea514150a818f';
 const SERVICE_CIVIQUE_PUBLISHER_ID = '5f99dbe75eb1ad767733b206';
 
 export class ApiEngagementRepository implements EngagementRepository {
-	constructor(private httpClientService: PublicHttpClientService, private loggerService: LoggerService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async getMissionEngagement(id: MissionId): Promise<Either<Mission>> {
 		try {
@@ -32,7 +28,11 @@ export class ApiEngagementRepository implements EngagementRepository {
 			);
 			return createSuccess(mapMission(response.data));
 		} catch (e) {
-			return handleGetFailureError(e, 'engagement', this.loggerService);
+			return this.errorManagementService.handleFailureError(e, {
+				apiSource: 'API Engagement',
+				contexte: 'get détail mission d’engagement',
+				message: '[API Engagement] impossible de récupérer le détail d’une mission',
+			});
 		}
 	}
 
@@ -43,7 +43,11 @@ export class ApiEngagementRepository implements EngagementRepository {
 			);
 			return createSuccess(mapRésultatsRechercheMission(response.data));
 		} catch (e) {
-			return handleSearchFailureError(e, this.loggerService);
+			return this.errorManagementService.handleFailureError(e, {
+				apiSource: 'API Engagement',
+				contexte: 'search mission d’engagement',
+				message: '[API Engagement] impossible d’effectuer une recherche',
+			});
 		}
 	}
 

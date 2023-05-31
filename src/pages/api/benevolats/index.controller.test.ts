@@ -1,7 +1,8 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherMissionHandler } from '~/pages/api/benevolats/index.controller';
+import { missionBenevolatQuerySchema, rechercherMissionHandler } from '~/pages/api/benevolats/index.controller';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
@@ -28,12 +29,12 @@ describe('rechercher une mission de bénévolat', () => {
 	describe('quand le schema des paramètres n‘est pas respecté', () => {
 		it('retourne directement une erreur', async () => {
 			await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-				handler: (req, res) => rechercherMissionHandler(req, res),
+				handler: (req, res) => withValidation({ query: missionBenevolatQuerySchema }, rechercherMissionHandler)(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(res.status).toEqual(503);
-					expect(json).toEqual({ error: 'SERVICE_INDISPONIBLE' });
+					expect(res.status).toEqual(400);
+					expect(json).toEqual({ error: 'les paramètres dans l‘url ne respectent pas le schema de validation' });
 				},
 				url: 'benevolats?page=-1',
 			});
