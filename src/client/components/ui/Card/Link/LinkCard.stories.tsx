@@ -4,10 +4,11 @@ import { LinkCard } from './LinkCard';
 
 const meta: Meta<typeof LinkCard> = {
 	args: {
-		imageUrl: '/images/créer-son-cv.webp',
+		children: 'Contenu de la carte',
+		imageUrl: 'https://i0.wp.com/caravanedesdixmots.com/wp-content/uploads/2021/05/placeholder.png',
 		link: 'https://www.google.com',
 		linkLabel: 'Voir plus',
-		title: 'Titre de la carte',
+		title: 'Cartes Homepage',
 		titleAs: 'h2',
 	},
 	component: LinkCard,
