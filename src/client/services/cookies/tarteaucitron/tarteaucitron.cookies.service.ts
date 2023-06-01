@@ -1,5 +1,5 @@
-import { CookiesService } from './cookies.service.interface';
-import FailedToAllowServiceError from './FailedToAllowService.error';
+import { CookiesService } from '../cookies.service';
+import FailedToAllowServiceError from '../FailedToAllowService.error';
 
 export namespace TarteAuCitron {
   export type ServiceConfig<T> = Record<string, T>;
@@ -17,7 +17,7 @@ export type TarteAuCitron = {
   }
 }
 
-export class TarteAuCitronCookiesService implements CookiesService {
+export class TarteaucitronCookiesService implements CookiesService {
 	private static CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 	private static INIT_CONFIG = {
 		AcceptAllCta: true,
@@ -25,7 +25,7 @@ export class TarteAuCitronCookiesService implements CookiesService {
 		adblocker: false,
 		bodyPosition: 'bottom',
 		closePopup: false,
-		cookieName: TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME,
+		cookieName: TarteaucitronCookiesService.CONSENT_MANAGER_COOKIE_NAME,
 		cookieslist: true,
 		groupServices: false,
 		handleBrowserDNTRequest: false,
@@ -50,7 +50,7 @@ export class TarteAuCitronCookiesService implements CookiesService {
 
 	constructor(tarteaucitron: TarteAuCitron) {
 		this.tarteaucitron = tarteaucitron;
-		this.tarteaucitron.init(TarteAuCitronCookiesService.INIT_CONFIG);
+		this.tarteaucitron.init(TarteaucitronCookiesService.INIT_CONFIG);
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
 
@@ -68,7 +68,7 @@ export class TarteAuCitronCookiesService implements CookiesService {
 	isServiceAllowed(serviceName: string): boolean {
 		// NOTE (GAFI 19-05-2023): On a choisi de se servir de document.cookie
 		// 	pour éviter que tarteaucitron.cookie.read nous provoque des potentielles régressions.
-		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
+		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteaucitronCookiesService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
 		return isCookieAllowedRegex.test(document.cookie);
 	}
 

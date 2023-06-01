@@ -1,4 +1,4 @@
-import { CookiesService } from './cookies.service.interface';
+import { CookiesService } from '../cookies.service';
 
 export class NullCookiesService implements CookiesService {
 	isServiceAllowed(): boolean {

@@ -3,9 +3,9 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { AnalyticsService, EulerianService } from '~/client/services/analytics/analytics.service';
-import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
-import { NullCookiesService } from '~/client/services/cookies/nullcookies.service';
-import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service';
+import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
+import { TarteaucitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteaucitron.cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -63,7 +63,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
-		? new TarteAuCitronCookiesService(window.tarteaucitron)
+		? new TarteaucitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianService(cookiesService);
 	const marketingService = new AdformService(cookiesService);

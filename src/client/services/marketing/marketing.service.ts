@@ -1,5 +1,5 @@
 // TODO à supprimer après la campagne autour de l'apprentissage
-import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
+import { CookiesService } from '~/client/services/cookies/cookies.service';
 
 export interface MarketingService {
   trackPage(pagename: string): void

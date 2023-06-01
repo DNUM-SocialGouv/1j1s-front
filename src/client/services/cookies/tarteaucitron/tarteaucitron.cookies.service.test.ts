@@ -2,15 +2,16 @@
  * @jest-environment jsdom
  */
 
-import { aTarteAuCitron } from './cookies.service.fixture';
-import FailedToAllowServiceError from './FailedToAllowService.error';
-import { TarteAuCitronCookiesService } from './tarteaucitron.service';
+import { aTarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteaucitron.fixture';
+
+import FailedToAllowServiceError from '../FailedToAllowService.error';
+import { TarteaucitronCookiesService } from './tarteaucitron.cookies.service';
 
 describe('TarteAuCitronCookiesService', () => {
 	it('initialise tarteaucitron quand on instantie le service', () => {
 		const tarteaucitron = aTarteAuCitron();
 
-		new TarteAuCitronCookiesService(tarteaucitron);
+		new TarteaucitronCookiesService(tarteaucitron);
 
 		expect(tarteaucitron.init).toHaveBeenCalledTimes(1);
 		expect(tarteaucitron.init).toHaveBeenCalledWith({
@@ -45,7 +46,7 @@ describe('TarteAuCitronCookiesService', () => {
 	it('n’écrase pas les jobs quand présents', () => {
 		const tarteaucitron = aTarteAuCitron({ job: ['youtube'] });
 
-		new TarteAuCitronCookiesService(tarteaucitron);
+		new TarteaucitronCookiesService(tarteaucitron);
 
 		expect(tarteaucitron.job).toEqual(['youtube']);
 	});
@@ -53,7 +54,7 @@ describe('TarteAuCitronCookiesService', () => {
 	describe('addService', () => {
 		it('ajoute le service à la liste', () => {
 			const tarteaucitron = aTarteAuCitron();
-			const cookieService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookieService = new TarteaucitronCookiesService(tarteaucitron);
 
 			cookieService.addService('youtube');
 
@@ -61,7 +62,7 @@ describe('TarteAuCitronCookiesService', () => {
 		});
 		it('ajoute le service à la liste avec la configuration', () => {
 			const tarteaucitron = aTarteAuCitron();
-			const cookieService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookieService = new TarteaucitronCookiesService(tarteaucitron);
 
 			cookieService.addService('eulerian', { config: 'truc' });
 
@@ -70,7 +71,7 @@ describe('TarteAuCitronCookiesService', () => {
 		});
 		it('n’écrase pas la config par défaut quand pas de config fournie', () => {
 			const tarteaucitron = aTarteAuCitron({ services: { youtube: { config: 'test' } } });
-			const cookieService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookieService = new TarteaucitronCookiesService(tarteaucitron);
 
 			cookieService.addService('youtube');
 
@@ -81,7 +82,7 @@ describe('TarteAuCitronCookiesService', () => {
 	describe('addUser', () => {
 		it("ajoute l'utilisateur à la liste des utilisateurs", () => {
 			const tarteaucitron = aTarteAuCitron({ user: {} });
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			cookiesService.addUser('adformpm', 2867419);
 
@@ -89,7 +90,7 @@ describe('TarteAuCitronCookiesService', () => {
 		});
 		it("écrase l'utilisateur quand il est déjà présent", () => {
 			const tarteaucitron = aTarteAuCitron({ user: { adformpm: 'salut' } });
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			cookiesService.addUser('adformpm', 2867419);
 
@@ -101,7 +102,7 @@ describe('TarteAuCitronCookiesService', () => {
 		it('renvoie true si le service est accepté', () => {
 			document.cookie = 'consentement=!youtube=true;';
 			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
@@ -110,7 +111,7 @@ describe('TarteAuCitronCookiesService', () => {
 		it('renvoie false si le service est refusé', () => {
 			document.cookie = 'consentement=!youtube=false;';
 			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
@@ -119,7 +120,7 @@ describe('TarteAuCitronCookiesService', () => {
 		it('renvoie false si le service n’existe pas', () => {
 			document.cookie = 'consentement=!eulerian=true;';
 			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
@@ -128,7 +129,7 @@ describe('TarteAuCitronCookiesService', () => {
 		it('renvoie false si pas de consentement', () => {
 			document.cookie = '';
 			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
@@ -143,7 +144,7 @@ describe('TarteAuCitronCookiesService', () => {
 		`('renvoie $expected quand le cookie vaut $cookie', ({ cookie, expected }) => {
 			document.cookie = cookie;
 			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteAuCitronCookiesService(tarteaucitron);
+			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('eulerian');
 
@@ -159,7 +160,7 @@ describe('TarteAuCitronCookiesService', () => {
 	describe('allowService', () => {
 		it('accepte le cookie', () => {
 			const tarteaucitron = aTarteAuCitron();
-			const service = new TarteAuCitronCookiesService(tarteaucitron);
+			const service = new TarteaucitronCookiesService(tarteaucitron);
 			const boutonAllowYoutube = document.createElement('button');
 			boutonAllowYoutube.setAttribute('id', 'youtubeAllowed');
 			document.body.append(boutonAllowYoutube);
@@ -171,7 +172,7 @@ describe('TarteAuCitronCookiesService', () => {
 		});
 		it('throw quand le service ne peut pas être accepté', () => {
 			const tarteaucitron = aTarteAuCitron();
-			const service = new TarteAuCitronCookiesService(tarteaucitron);
+			const service = new TarteaucitronCookiesService(tarteaucitron);
 			document.body.innerHTML = '';
 
 			const allowService = () => service.allowService('youtube');
@@ -184,7 +185,7 @@ describe('TarteAuCitronCookiesService', () => {
 	describe('openPanel', () => {
 		it('ouvre le panel', () => {
 			const tarteaucitron = aTarteAuCitron({ userInterface: { openPanel: jest.fn(), respond: jest.fn() } });
-			const service = new TarteAuCitronCookiesService(tarteaucitron);
+			const service = new TarteaucitronCookiesService(tarteaucitron);
 
 			service.openPanel();
 

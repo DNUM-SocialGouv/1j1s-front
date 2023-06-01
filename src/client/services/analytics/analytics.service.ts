@@ -1,6 +1,6 @@
 import { PageTags, SITE_TAGS } from '~/client/services/analytics/analytics';
-import { CookiesService } from '~/client/services/cookies/cookies.service.interface';
-import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service';
+import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteaucitron.cookies.service';
 
 declare global {
 	interface Window {
