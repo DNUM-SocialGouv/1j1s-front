@@ -13,7 +13,7 @@ import { dependencies } from '~/server/start';
 
 import analyticsPageConfig from './index.analytics';
 
-const PAGENAME = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
+const PAGE_NAME = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
 
 type ApprentissageJeunesPageProps = {
 	videos: VideoCampagneApprentissage[];
@@ -22,7 +22,7 @@ type ApprentissageJeunesPageProps = {
 export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps) {
 	useReferrer();
 	useAnalytics(analyticsPageConfig);
-	useMarketing(PAGENAME);
+	useMarketing(PAGE_NAME);
 
 	return (
 		<>

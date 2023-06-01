@@ -7,12 +7,12 @@ export interface MarketingService {
 
 export class AdformService implements MarketingService {
 	private static ADFORM_SERVICE = 'adform';
-	private static CLIENT_TRACKING_ID = 2867419;
+	private static CLIENT_ID_1J1S = 2867419;
 	private readonly cookiesService: CookiesService;
 
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
-		this.cookiesService.addUser('adformpm', AdformService.CLIENT_TRACKING_ID);
+		this.cookiesService.addUser('adformpm', AdformService.CLIENT_ID_1J1S);
 		this.cookiesService.addUser('adformpagename', undefined);
 		this.cookiesService.addService(AdformService.ADFORM_SERVICE);
 	}

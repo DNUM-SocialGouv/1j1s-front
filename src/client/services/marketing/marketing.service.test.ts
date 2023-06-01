@@ -26,27 +26,17 @@ describe('AdformService', () => {
 
 	it('initialise le service adform', () => {
 		const cookiesService = aCookiesService();
+		const ID_1J1S = 2867419;
 
 		new AdformService(cookiesService);
 
 		expect(cookiesService.addService).toHaveBeenCalledWith('adform');
-	});
-	it('set la valeur adformpm pour la campagne', () => {
-		const cookiesService = aCookiesService();
-
-		new AdformService(cookiesService);
-
-		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', 2867419);
-	});
-	it('reinitialise la valeur de pagename', () => {
-		const cookiesService = aCookiesService();
-
-		new AdformService(cookiesService);
-
+		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', ID_1J1S);
 		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpagename', undefined);
 	});
+
 	describe('trackPage', () => {
-		it('set la valeur de pagename', () => {
+		it('configure le cookie pour envoyer les données vers la bonne page', () => {
 			const cookiesService = aCookiesService();
 			const service = new AdformService(cookiesService);
 
