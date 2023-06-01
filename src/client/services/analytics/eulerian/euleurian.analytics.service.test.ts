@@ -3,7 +3,7 @@
  */
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { PageTags } from '~/client/services/analytics/analytics';
-import { EulerianService } from '~/client/services/analytics/analytics.service';
+import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 const mockLocation = () => {
@@ -34,7 +34,7 @@ describe('EulerianService', () => {
 	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
 			it('envoie un événement page au tracking', () => {
-				const analyticsService = new EulerianService(aCookiesService());
+				const analyticsService = new EulerianAnalyticsService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -69,7 +69,7 @@ describe('EulerianService', () => {
 		describe('quand le consentement n’est pas autorisé', () => {
 			it('n’envoie aucun événement page au tracking', () => {
 				const cookiesService = aCookiesService({ isServiceAllowed: () => false });
-				const analyticsService = new EulerianService(cookiesService);
+				const analyticsService = new EulerianAnalyticsService(cookiesService);
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
