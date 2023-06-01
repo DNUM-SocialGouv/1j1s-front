@@ -6,6 +6,16 @@ import { LoggerService } from '~/server/services/logger.service';
 
 export function handleFailureError(e: unknown, customContext: string, loggerService: LoggerService) {
 	if (isHttpError(e)) {
+		if (e.response?.status === 404) {
+			loggerService.warnWithExtra(
+				new SentryException(
+					'[API Trajectoires Pro] statistique de formation non trouvée',
+					{ context: customContext, source: 'API Trajectoires Pro' },
+					{ errorDetail: e.response?.data },
+				),
+			);
+			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+		}
 		loggerService.errorWithExtra(
 			new SentryException(
 				'[API Trajectoires Pro] statistique de formation non disponible',
