@@ -1,6 +1,5 @@
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
@@ -8,9 +7,8 @@ import {
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiError';
+	PoleEmploiOffreErrorManagementServiceGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
 import {
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
@@ -21,17 +19,19 @@ import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
 export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	constructor(
-    private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
-    private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
-    private cacheService: CacheService,
-	private loggerService: LoggerService,
-	) {}
+		private readonly httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
+		private readonly poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
+		private readonly cacheService: CacheService,
+		private readonly apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
+		private readonly apiPoleEmploiOffreErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet,
+	) {
+	}
 
 	paramètreParDéfaut = 'natureContrat=E1,FA,FJ,FT,FU,I1,NS,FV,FW,FX,FY,PS,PR,CC,CU,EE,ER,CI';
 
@@ -40,12 +40,18 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
-			if(response.status === 204) {
-				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
+				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+				});
 			}
 			return createSuccess(mapOffre(response.data));
-		} catch (e) {
-			return handleGetFailureError(e, 'offre emploi', this.loggerService);
+		} catch (error) {
+			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
+				apiSource: 'API Pole Emploi',
+				contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+			});
 		}
 	}
 
@@ -76,12 +82,15 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(
 				`/search?${emploiParamètresRecherche}&${paramètresRecherche}`,
 			);
-			if(response.status === 204) {
+			if (response.status === 204) {
 				return createSuccess({ nombreRésultats: 0, résultats: [] });
 			}
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
-		} catch (e) {
-			return handleSearchFailureError(e, 'offre emploi', this.loggerService);
+		} catch (error) {
+			return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
+				apiSource: 'API Pole Emploi',
+				contexte: 'recherche offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+			});
 		}
 	}
 
@@ -96,10 +105,12 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 				const response = await this.httpClientServiceWithAuthentification.get<RésultatsRechercheOffreResponse>(`/search?range=${range}&${this.paramètreParDéfaut}`);
 				this.cacheService.set(this.ECHANTILLON_OFFRE_EMPLOI_KEY, response.data, 24);
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
-			} catch (e) {
-				return handleSearchFailureError(e, 'échantillon offre emploi', this.loggerService);
+			} catch (error) {
+				return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'échantillon offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+				});
 			}
 		}
 	}
-
 }

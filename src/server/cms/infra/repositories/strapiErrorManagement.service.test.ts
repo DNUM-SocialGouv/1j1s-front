@@ -1,15 +1,15 @@
 import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { LogInformation } from '~/server/services/error/errorManagement.service';
+import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
-const aLogInformation: LogInformation = {
+const aLogInformationCms = aLogInformation({
 	apiSource: 'API Strapi',
 	contexte: 'détail strapi',
 	message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
-};
+});
 describe('StrapiErrorManagementService', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
 		const errorCode = 401;
@@ -21,7 +21,7 @@ describe('StrapiErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 
 			// WHEN
-			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformationCms);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -34,7 +34,7 @@ describe('StrapiErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 
 			// WHEN
-			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformationCms);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -49,7 +49,7 @@ describe('StrapiErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 
 			// WHEN
-			const result = strapiErrorManagementService.handleFailureError(internalError, aLogInformation);
+			const result = strapiErrorManagementService.handleFailureError(internalError, aLogInformationCms);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);

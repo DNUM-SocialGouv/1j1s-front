@@ -104,6 +104,10 @@ import {
 	getApiPoleEmploiReferentielsConfig,
 } from '~/server/offres/configuration/pole-emploi/poleEmploiHttpClient.config';
 import {
+	ApiPoleEmploiOffreErrorManagementServiceGet,
+	ApiPoleEmploiOffreErrorManagementServiceSearch,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
+import {
 	ApiPoleEmploiRéférentielRepository,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
 import {
@@ -179,7 +183,9 @@ export function dependenciesContainer(): Dependencies {
 	const poleEmploiOffresHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiOffresConfig(serverConfigurationService), loggerService);
 	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiRéférentielsHttpClientService, cacheService);
 	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
-	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
+	const poleEmploiErreurManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
+	const poleEmploiErreurManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
+	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, poleEmploiErreurManagementServiceSearch, poleEmploiErreurManagementServiceGet);
 	const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
 
 	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, loggerService);
