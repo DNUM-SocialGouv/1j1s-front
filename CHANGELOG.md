@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.84.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.1...v3.84.2) (2023-06-01)
+
+
+### 🐛 Corrections de bogues
+
+* **ui:** crop image sur mesures employeurs ([#1368](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1368)) ([be70b49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/be70b4989ae77b03c5fa8af9bdf05ae4c2b9745d))
+
 ## [3.84.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.0...v3.84.1) (2023-06-01)
 
 
