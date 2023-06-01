@@ -1,4 +1,5 @@
-import { Success } from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aJobEteFiltre } from '~/server/jobs-ete/domain/jobEte.fixture';
 import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
@@ -8,6 +9,12 @@ import {
 	anOffreÉchantillonFiltre,
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
+import {
+	anApiPoleEmploiErrorManagementGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.fixture';
+import {
+	PoleEmploiOffreErrorManagementServiceGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
 import {
 	aBarmanOffreEmploiApiResponse, aRésultatsRechercheOffreEmploiApiResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
@@ -19,26 +26,30 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
 	anAuthenticatedHttpClientService,
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { LoggerService } from '~/server/services/logger.service';
-
 
 describe('ApiPoleEmploiJobEteRepository', () => {
 	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
 	let apiPoleEmploiJobEteRepository: ApiPoleEmploiJobEteRepository;
 	let poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService;
 	let cacheService: CacheService;
-	let loggerService: LoggerService;
+	let apiPoleEmploiErrorManagementSearch: ErrorManagementService;
+	let apiPoleEmploiErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet;
 
 	beforeEach(() => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
-		apiPoleEmploiJobEteRepository = new ApiPoleEmploiJobEteRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, loggerService);
+		apiPoleEmploiErrorManagementSearch = anErrorManagementService();
+		apiPoleEmploiErrorManagementGet = anApiPoleEmploiErrorManagementGet();
+		apiPoleEmploiJobEteRepository = new ApiPoleEmploiJobEteRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiErrorManagementSearch, apiPoleEmploiErrorManagementGet);
 	});
 
 	describe('getOffresJobEte', () => {
@@ -54,6 +65,43 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 
 				expect(result).toEqual(expected);
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith('/132LKFB');
+			});
+			describe('lorsqu‘il y a une erreur lors de la récupération de l‘offre', () => {
+				it('retourne une erreur', async () => {
+					const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+					const httpError = anAxiosResponse(anHttpError(404));
+					jest
+						.spyOn(httpClientServiceWithAuthentification, 'get')
+						.mockRejectedValue(httpError);
+					jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+
+					const result = await apiPoleEmploiJobEteRepository.get(aBarmanOffre().id);
+
+					expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
+						apiSource: 'API Pole Emploi',
+						contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer un job d‘été',
+					});
+					expect(result.instance).toEqual('failure');
+					expect((result as Failure).errorType).toEqual(expectedFailure);
+				});
+			});
+			describe('lorsque l‘api nous renvoie une 204', () => {
+				it('retourne une erreur', async () => {
+					const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+					const apiResponse = anAxiosResponse(aBarmanOffreEmploiApiResponse(), 204);
+					jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
+					jest.spyOn(apiPoleEmploiErrorManagementGet, 'isError').mockReturnValue(true);
+					jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+
+					const result = await apiPoleEmploiJobEteRepository.get(aBarmanOffre().id);
+
+					expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
+						apiSource: 'API Pole Emploi',
+						contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer un job d‘été',
+					});
+					expect(result.instance).toEqual('failure');
+					expect((result as Failure).errorType).toEqual(expectedFailure);
+				});
 			});
 		});
 	});
@@ -152,6 +200,51 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 				const { result } = await apiPoleEmploiJobEteRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
 
 				expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
+			});
+		});
+
+		describe('quand l‘api nous renvoie une erreur', () => {
+			it('retourne une erreur', async () => {
+				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const httpError = anAxiosResponse(anHttpError(404));
+				jest
+					.spyOn(httpClientServiceWithAuthentification, 'get')
+					.mockRejectedValue(httpError);
+				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+
+				const result = await apiPoleEmploiJobEteRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
+
+				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'recherche job d‘été',
+					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+				});
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(expectedFailure);
+			});
+		});
+
+		describe('quand le cache nous renvoie rien et que l‘api nous renvoie une erreur', () => {
+			it('retourne une erreur', async () => {
+				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const httpError = anAxiosResponse(anHttpError(404));
+				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				jest
+					.spyOn(httpClientServiceWithAuthentification, 'get')
+					.mockRejectedValue(httpError);
+
+				const offreFiltre = anOffreÉchantillonFiltre();
+
+				const result = await apiPoleEmploiJobEteRepository.search(offreFiltre);
+
+				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'échantillon job d‘été',
+					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+				});
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(expectedFailure);
 			});
 		});
 	});
