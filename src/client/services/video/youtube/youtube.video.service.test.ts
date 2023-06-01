@@ -1,6 +1,7 @@
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowService.error';
-import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
+
+import { YoutubeVideoService } from './youtube.video.service';
 
 describe('YoutubeService', () => {
 	it("initialise le cookie à l'instanciation", () => {

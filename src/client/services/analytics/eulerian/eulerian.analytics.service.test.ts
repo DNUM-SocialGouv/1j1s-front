@@ -1,10 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-import { PageTags } from '~/client/services/analytics/analytics';
-import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
+
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
+
+import { PageTags } from '../analytics';
+import { EulerianAnalyticsService } from './eulerian.analytics.service';
 
 const mockLocation = () => {
 	const mockResponse = jest.fn();
@@ -23,6 +24,7 @@ const mockLocation = () => {
 describe('EulerianService', () => {
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
 		mockLocation();
 	});
@@ -83,5 +85,4 @@ describe('EulerianService', () => {
 			});
 		});
 	});
-
 });

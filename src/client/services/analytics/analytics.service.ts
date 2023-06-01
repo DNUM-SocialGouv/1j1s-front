@@ -4,4 +4,3 @@ export interface AnalyticsService {
 	envoyerAnalyticsPageVue(tags: PageTags): void;
 	isAllowed(): boolean;
 }
-
