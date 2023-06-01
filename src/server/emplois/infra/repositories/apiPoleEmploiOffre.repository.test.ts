@@ -10,6 +10,12 @@ import {
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
 import {
+	anApiPoleEmploiErrorManagementGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.fixture';
+import {
+	PoleEmploiOffreErrorManagementServiceGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
+import {
 	aBarmanOffreEmploiApiResponse,
 	aRésultatsRechercheOffreEmploiApiResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
@@ -35,15 +41,15 @@ describe('ApiPoleEmploiOffreRepository', () => {
 	let apiPoleEmploiOffreRepository: ApiPoleEmploiOffreRepository;
 	let poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService;
 	let cacheService: CacheService;
-	let apiPoleEmploiErrorManagementGet: ErrorManagementService;
 	let apiPoleEmploiErrorManagementSearch: ErrorManagementService;
+	let apiPoleEmploiErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet;
 
 	beforeEach(() => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
-		apiPoleEmploiErrorManagementGet = anErrorManagementService();
 		apiPoleEmploiErrorManagementSearch = anErrorManagementService();
+		apiPoleEmploiErrorManagementGet = anApiPoleEmploiErrorManagementGet();
 		apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiErrorManagementSearch, apiPoleEmploiErrorManagementGet);
 	});
 
@@ -87,12 +93,16 @@ describe('ApiPoleEmploiOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 				const apiResponse = anAxiosResponse(aBarmanOffreEmploiApiResponse(), 204);
-				jest
-					.spyOn(httpClientServiceWithAuthentification, 'get')
-					.mockResolvedValue(apiResponse);
-
+				jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
+				jest.spyOn(apiPoleEmploiErrorManagementGet, 'isError').mockReturnValue(true);
+				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				
 				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
 
+				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
 			});

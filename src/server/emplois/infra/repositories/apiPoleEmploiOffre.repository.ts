@@ -1,12 +1,14 @@
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { isOffreÉchantillonFiltre, Offre, OffreId, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { OffreRepository } from '~/server/offres/domain/offre.repository';
 import {
 	mapOffre,
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
+import {
+	PoleEmploiOffreErrorManagementServiceGet,
+} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
 import {
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
@@ -23,11 +25,11 @@ import { removeUndefinedValueInQueryParameterList } from '~/server/services/util
 
 export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	constructor(
-		private httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
-		private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
-		private cacheService: CacheService,
-		private apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
-		private apiPoleEmploiOffreErrorManagementGet: ErrorManagementService,
+		private readonly httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
+		private readonly poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
+		private readonly cacheService: CacheService,
+		private readonly apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
+		private readonly apiPoleEmploiOffreErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet,
 	) {
 	}
 
@@ -38,8 +40,11 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
-			if (response.status === 204) {
-				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
+				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
@@ -108,5 +113,4 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			}
 		}
 	}
-
 }

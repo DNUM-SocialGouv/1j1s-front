@@ -2,11 +2,10 @@ import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
-	DefaultErrorManagementService,
+	DefaultErrorManagementService, ErrorManagementService,
 	LogInformation,
 } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
-import { LoggerService } from '~/server/services/logger.service';
 
 export const errorFromApiPoleEmploiSearch = [
 	'Format du paramètre « motsCles » incorrect. 7 mots-clé au maximum séparés par des virgules et d\'au moins 2 caractères.',
@@ -24,12 +23,7 @@ export const errorFromApiPoleEmploiSearch = [
 
 export const errorFromApiPoleEmploiGet = 'Le format de l\'id de l\'offre recherchée est incorrect.';
 
-
-export class ApiPoleEmploiOffreErrorManagementSearch extends DefaultErrorManagementService {
-	constructor(loggerService: LoggerService) {
-		super(loggerService);
-	}
-
+export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultErrorManagementService {
 	handleFailureError(error: unknown, logInformation: LogInformation) {
 		if (isHttpError(error)) {
 			return this.handleHttpErrorFailure(error, logInformation);
@@ -57,17 +51,27 @@ export class ApiPoleEmploiOffreErrorManagementSearch extends DefaultErrorManagem
 	}
 }
 
-export class ApiPoleEmploiOffreErrorManagementGet extends DefaultErrorManagementService {
-	constructor(loggerService: LoggerService) {
-		super(loggerService);
-	}
+export interface PoleEmploiOffreErrorManagementServiceGet extends ErrorManagementService {
+	isError(response: unknown): boolean
+}
 
+export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorManagementService implements PoleEmploiOffreErrorManagementServiceGet {
 	handleFailureError(error: unknown, logInformation: LogInformation) {
+		if (this.isError(error) && error.status === 204) {
+			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+		}
 		if (isHttpError(error)) {
 			return this.handleHttpErrorFailure(error, logInformation);
 		}
 		this.logInternalError(logInformation, error);
 		return this.createFailureForInternalError();
+	}
+
+	isError(response: unknown): response is { status: number } {
+		return Boolean(response
+			&& typeof response === 'object'
+			&& 'status' in response
+			&& response.status === 204);
 	}
 
 	protected handleHttpErrorFailure(error: HttpError, logInformation: LogInformation) {
