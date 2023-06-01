@@ -5,10 +5,6 @@ import { Tuile } from './Tuile';
 const meta: Meta<typeof Tuile> = {
 	component: Tuile,
 	title: 'Components/Tuile',
-	argTypes: {
-		children: { control: 'text' },
-	},
-
 };
 
 export default meta;

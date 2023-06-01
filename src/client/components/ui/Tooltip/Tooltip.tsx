@@ -6,9 +6,9 @@ import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
 import styles from '~/client/components/ui/Tooltip/Tooltip.module.scss';
 
 interface TooltipProps {
-	icon: IconName
-	ariaLabel: string
-	ariaDescribedBy: string
+	icon: IconName  //GMO 01-06-2023 Voir si ça doit être une prop ou être `information` tout le temps
+	ariaLabel: string //GMO 01-06-2023 TODO renommer car ariaLabel du bouton et pas du tooltip?
+	ariaDescribedBy: string //GMO 01-06-2023 - TODO renommer en "id" (car id du role=tooltip) et laisser obligatoire
 }
 
 export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
@@ -57,6 +57,10 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				className={styles.tooltipContainer}
 				aria-label={ariaLabel}
 				aria-describedby={ariaDescribedBy}
+				/*
+				GMO 01-06-2023 - TODO déplacer / supprimer ce aria-describedby qui doit être sur l'élément explicité
+				par le tooltip et pas sur le bouton qui permet de l'afficher (voir https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role)
+				*/
 				aria-expanded={isOpen}
 				type="button"
 				onClick={() => setIsOpen(!isOpen)}>
