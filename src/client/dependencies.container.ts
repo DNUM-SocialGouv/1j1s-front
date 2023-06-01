@@ -18,7 +18,8 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
-import { AdformService, MarketingService } from '~/client/services/marketing/marketing.service';
+import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
@@ -67,7 +68,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteaucitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
-	const marketingService = new AdformService(cookiesService);
+	const marketingService = new AdformMarketingService(cookiesService);
 	const youtubeService = new YoutubeService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;

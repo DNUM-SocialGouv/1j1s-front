@@ -3,7 +3,8 @@
  */
 
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
-import { AdformService } from '~/client/services/marketing/marketing.service';
+
+import { AdformMarketingService } from './adform.marketing.service';
 
 const mockLocation = () => {
 	const mockResponse = jest.fn();
@@ -28,7 +29,7 @@ describe('AdformService', () => {
 		const cookiesService = aCookiesService();
 		const ID_1J1S = 2867419;
 
-		new AdformService(cookiesService);
+		new AdformMarketingService(cookiesService);
 
 		expect(cookiesService.addService).toHaveBeenCalledWith('adform');
 		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', ID_1J1S);
@@ -38,7 +39,7 @@ describe('AdformService', () => {
 	describe('trackPage', () => {
 		it('configure le cookie pour envoyer les données vers la bonne page', () => {
 			const cookiesService = aCookiesService();
-			const service = new AdformService(cookiesService);
+			const service = new AdformMarketingService(cookiesService);
 
 			service.trackPage('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 
