@@ -3,7 +3,7 @@ import FailedToAllowServiceError from '~/client/services/cookies/FailedToAllowSe
 
 import { YoutubeVideoService } from './youtube.video.service';
 
-describe('YoutubeService', () => {
+describe('YoutubeVideoService', () => {
 	it("initialise le cookie à l'instanciation", () => {
 		const cookiesService = aCookiesService();
 

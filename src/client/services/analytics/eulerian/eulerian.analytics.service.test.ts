@@ -21,7 +21,7 @@ const mockLocation = () => {
 	});
 };
 
-describe('EulerianService', () => {
+describe('EulerianAnalyticsService', () => {
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,6 +83,25 @@ describe('EulerianService', () => {
 
 				expect(eulerianAnalyticsPushSpy).not.toHaveBeenCalled();
 			});
+		});
+	});
+
+	describe('isAllowed', () => {
+		it('renvoie true quand le service est autorisé', () => {
+			const cookiesService = aCookiesService({ isServiceAllowed: () => true });
+			const analyticsService = new EulerianAnalyticsService(cookiesService);
+
+			const allowed = analyticsService.isAllowed();
+
+			expect(allowed).toBe(true);
+		});
+		it('renvoie false quand le service est interdit', () => {
+			const cookiesService = aCookiesService({ isServiceAllowed: () => false });
+			const analyticsService = new EulerianAnalyticsService(cookiesService);
+
+			const allowed = analyticsService.isAllowed();
+
+			expect(allowed).toBe(false);
 		});
 	});
 });

@@ -20,7 +20,7 @@ const mockLocation = () => {
 	});
 };
 
-describe('AdformService', () => {
+describe('AdformMarketingService', () => {
 	beforeEach(() => {
 		mockLocation();
 	});
