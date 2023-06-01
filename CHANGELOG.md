@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.86.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.85.0...v3.86.0) (2023-06-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois:** ajout d'un error management service pour les emplois ([#1373](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1373)) ([217e460](https://github.com/DNUM-SocialGouv/1j1s-front/commit/217e4600881a90d326798021555cc167d7c3e439))
+
 ## [3.85.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.2...v3.85.0) (2023-06-01)
 
 
