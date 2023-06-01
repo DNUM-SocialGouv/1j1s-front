@@ -7,26 +7,11 @@ import { aCookiesService } from '~/client/services/cookies/cookies.service.fixtu
 import { PageTags } from '../analytics';
 import { EulerianAnalyticsService } from './eulerian.analytics.service';
 
-const mockLocation = () => {
-	const mockResponse = jest.fn();
-	Object.defineProperty(window, 'location', {
-		value: {
-			assign: mockResponse,
-			hash: {
-				endsWith: mockResponse,
-				includes: mockResponse,
-			},
-		},
-		writable: true,
-	});
-};
-
 describe('EulerianAnalyticsService', () => {
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
-		mockLocation();
 	});
 
 	afterEach(() => {

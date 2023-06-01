@@ -5,6 +5,7 @@ export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron
 		init: jest.fn(),
 		job: undefined,
 		services: {},
+		state: {},
 		user: {},
 		userInterface: {
 			openPanel: jest.fn(),

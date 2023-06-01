@@ -5,16 +5,18 @@ export namespace TarteAuCitron {
   export type ServiceConfig<T> = Record<string, T>;
   export type InitConfig = Record<string, unknown>;
   export type User = unknown;
+	export type ServiceName = string;
 }
 export type TarteAuCitron = {
   user: Record<string, TarteAuCitron.User>,
-  services: Record<string, TarteAuCitron.ServiceConfig<unknown>>,
+  services: Record<TarteAuCitron.ServiceName, TarteAuCitron.ServiceConfig<unknown>>,
   init: (config: TarteAuCitron.InitConfig) => void,
-  job?: string[],
+  job?: TarteAuCitron.ServiceName[],
   userInterface: {
     respond: (bouton: HTMLButtonElement, value: boolean) => void,
     openPanel: () => void,
   }
+	state: Record<TarteAuCitron.ServiceName, boolean>;
 }
 
 export class TarteaucitronCookiesService implements CookiesService {
@@ -65,14 +67,11 @@ export class TarteaucitronCookiesService implements CookiesService {
 		this.tarteaucitron.user[userName] = value;
 	}
 
-	isServiceAllowed(serviceName: string): boolean {
-		// NOTE (GAFI 19-05-2023): On a choisi de se servir de document.cookie
-		// 	pour éviter que tarteaucitron.cookie.read nous provoque des potentielles régressions.
-		const isCookieAllowedRegex = new RegExp(`(?:^|;\\s*)${TarteaucitronCookiesService.CONSENT_MANAGER_COOKIE_NAME}=(?:![^!;\\s]+)*!${serviceName}=true`);
-		return isCookieAllowedRegex.test(document.cookie);
+	isServiceAllowed(serviceName: TarteAuCitron.ServiceName): boolean {
+		return Boolean(this.tarteaucitron.state[serviceName]);
 	}
 
-	allowService(nom: string): void {
+	allowService(nom: TarteAuCitron.ServiceName): void {
 		const allowButton = document.getElementById(`${nom}Allowed`);
 
 		if (!allowButton || !(allowButton instanceof HTMLButtonElement)) {

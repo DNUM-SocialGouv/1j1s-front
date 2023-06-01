@@ -99,8 +99,7 @@ describe('TarteAuCitronCookiesService', () => {
 
 	describe('isServiceAllowed', () => {
 		it('renvoie true si le service est accepté', () => {
-			document.cookie = 'consentement=!youtube=true;';
-			const tarteaucitron = aTarteAuCitron();
+			const tarteaucitron = aTarteAuCitron({ state: { youtube: true } });
 			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
@@ -108,8 +107,7 @@ describe('TarteAuCitronCookiesService', () => {
 			expect(result).toBe(true);
 		});
 		it('renvoie false si le service est refusé', () => {
-			document.cookie = 'consentement=!youtube=false;';
-			const tarteaucitron = aTarteAuCitron();
+			const tarteaucitron = aTarteAuCitron({ state: { youtube: false } });
 			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
@@ -117,42 +115,12 @@ describe('TarteAuCitronCookiesService', () => {
 			expect(result).toBe(false);
 		});
 		it('renvoie false si le service n’existe pas', () => {
-			document.cookie = 'consentement=!eulerian=true;';
-			const tarteaucitron = aTarteAuCitron();
+			const tarteaucitron = aTarteAuCitron({ state: {} });
 			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
 
 			const result = cookiesService.isServiceAllowed('youtube');
 
 			expect(result).toBe(false);
-		});
-		it('renvoie false si pas de consentement', () => {
-			document.cookie = '';
-			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
-
-			const result = cookiesService.isServiceAllowed('youtube');
-
-			expect(result).toBe(false);
-		});
-		it.each`
-			  cookie    																																																						| expected
-				${'consentement=!youtube=true!eulerian=false!adform=true'} 																														| ${false}
-				${'aaa=bbb; consentement=!youtube=true!eulerian=true; aaa=bbb; eulerian=false;'} 																			| ${true}
-				${'aa=consentement=!eulerian=true; consentement=!youtube=true!eulerian=false!adform=true; aa=consentement=!youtube'} 	| ${false}
-				${'consentement=!eulerian=true; '} 																																										| ${true}
-		`('renvoie $expected quand le cookie vaut $cookie', ({ cookie, expected }) => {
-			document.cookie = cookie;
-			const tarteaucitron = aTarteAuCitron();
-			const cookiesService = new TarteaucitronCookiesService(tarteaucitron);
-
-			const result = cookiesService.isServiceAllowed('eulerian');
-
-			expect(result).toBe(expected);
-		});
-
-		beforeEach(() => {
-			// FIXME (GAFI 19-05-2023): Si on inject document (qui est une dépendance externe) on peut se passer de ça et de l'environnement js-dom
-			Object.defineProperty(document, 'cookie', { value: undefined, writable: true });
 		});
 	});
 
