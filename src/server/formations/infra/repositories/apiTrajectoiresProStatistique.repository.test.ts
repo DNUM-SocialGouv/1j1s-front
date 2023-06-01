@@ -3,6 +3,7 @@ import {
 	createSuccess,
 } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
@@ -67,15 +68,49 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
-				it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-					(httpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+				describe('lorsque l’erreur est de type 404', () => {
+					it('retourne une erreur CONTENU_INDISPONIBLE et log avec le niveau warning', async () => {
+						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
+						(httpService.get as jest.Mock).mockRejectedValue(anHttpError(404));
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
 
-					const returnValue = await repository.get(codeCertification, codePostal);
+						const returnValue = await repository.get(codeCertification, codePostal);
 
-					expect(httpService.get).toHaveBeenCalledTimes(1);
-					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+						expect(httpService.get).toHaveBeenCalledTimes(1);
+						expect(returnValue).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+						expect(loggerService.warnWithExtra).toHaveBeenCalledTimes(1);
+						expect(loggerService.warnWithExtra).toHaveBeenCalledWith(
+							new SentryException(
+								'[API Trajectoires Pro] statistique de formation non trouvée',
+								{ context: '', source: 'API Trajectoires Pro' },
+								{ errorDetail: '[API Trajectoires Pro] statistique de formation non trouvée' },
+							),
+						);
+					});
+				});
+				describe('lorsque l’erreur est une autre erreur http', () => {
+					it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
+						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
+						(httpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+
+						const returnValue = await repository.get(codeCertification, codePostal);
+
+						expect(httpService.get).toHaveBeenCalledTimes(1);
+						expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+					});
+				});
+				describe('lorsque l’erreur n’est pas une erreur http', () => {
+					it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
+						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
+						(httpService.get as jest.Mock).mockRejectedValue(new Error(''));
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+
+						const returnValue = await repository.get(codeCertification, codePostal);
+
+						expect(httpService.get).toHaveBeenCalledTimes(1);
+						expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+					});
 				});
 			});
 

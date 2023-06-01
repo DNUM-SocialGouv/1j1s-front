@@ -8,12 +8,13 @@ import {
 	anAmbassadeurDuDonDeVêtementMissionResponse,
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
-import { Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 jest.mock('axios', () => {
 	return {
@@ -24,10 +25,12 @@ jest.mock('axios', () => {
 describe('ApiEngagementRepository', () => {
 	let httpClientService: PublicHttpClientService;
 	let apiEngagementRepository: ApiEngagementRepository;
+	let errorManagementService: ErrorManagementService;
 
 	beforeEach(() => {
 		httpClientService = aPublicHttpClientService();
-		apiEngagementRepository = new ApiEngagementRepository(httpClientService, aLoggerService());
+		errorManagementService = anErrorManagementService();
+		apiEngagementRepository = new ApiEngagementRepository(httpClientService, errorManagementService);
 	});
 
 	describe('searchMissionServiceCivique', () => {
@@ -60,8 +63,11 @@ describe('ApiEngagementRepository', () => {
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const httpError = anHttpError(500);
+				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
 					domaine: 'sante',
 					localisation: {
@@ -74,7 +80,14 @@ describe('ApiEngagementRepository', () => {
 				};
 
 				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Failure;
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'search mission d’engagement',
+					message: '[API Engagement] impossible d’effectuer une recherche',
+				}); // TODO SULI : utiliser aLogInformation, idem sur les deux instances ci-dessous
+				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
 	});
@@ -109,8 +122,11 @@ describe('ApiEngagementRepository', () => {
 		});
 
 		describe('quand l’api engagement répond avec une erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const httpError = anHttpError(500);
+				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
 					domaine: 'sante',
 					localisation: {
@@ -123,7 +139,14 @@ describe('ApiEngagementRepository', () => {
 				};
 
 				const { errorType } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Failure;
-				expect(errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'search mission d’engagement',
+					message: '[API Engagement] impossible d’effectuer une recherche',
+				});
+				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
 	});
@@ -142,32 +165,22 @@ describe('ApiEngagementRepository', () => {
 			});
 		});
 
-		describe('quand l’api engagement répond avec une 403', () => {
-			it('retourne une erreur contenu indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(403, '', anAxiosResponse(
-					{
-						data: null,
-						error: 'Id not valid',
-						ok: false,
-					},
-					403,
-				)));
+		describe('quand l’api engagement répond avec une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const httpError = anHttpError(500);
+				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
-				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
+				const { errorType } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Failure;
 
-				expect((result as Failure).errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
 				expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
-			});
-		});
-
-		describe('quand l’api engagement répond avec un autre code d’erreur', () => {
-			it('retourne une erreur service indisponible', async () => {
-				jest.spyOn(httpClientService, 'get').mockRejectedValue(anHttpError(500));
-
-				const result = await apiEngagementRepository.getMissionEngagement(missionEngagementId);
-
-				expect((result as Failure).errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
-				expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Engagement',
+					contexte: 'get détail mission d’engagement',
+					message: '[API Engagement] impossible de récupérer le détail d’une mission',
+				});
+				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
 	});
