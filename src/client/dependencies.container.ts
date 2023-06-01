@@ -24,7 +24,8 @@ import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
-import { VideoService, YoutubeService } from '~/client/services/video/video.service';
+import { VideoService } from '~/client/services/video/video.service';
+import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -69,7 +70,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
 	const marketingService = new AdformMarketingService(cookiesService);
-	const youtubeService = new YoutubeService(cookiesService);
+	const youtubeService = new YoutubeVideoService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
