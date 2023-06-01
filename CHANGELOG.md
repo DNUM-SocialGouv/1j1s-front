@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.85.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.2...v3.85.0) (2023-06-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation:** log erreur 404 api statistique en warn ([#1367](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1367)) ([0312411](https://github.com/DNUM-SocialGouv/1j1s-front/commit/03124116dd8da38eb9d031076513f686f12e4404))
+
 ## [3.84.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.1...v3.84.2) (2023-06-01)
 
 
