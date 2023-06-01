@@ -41,7 +41,7 @@ describe('YoutubeService', () => {
 			expect(cookiesService.allowService).toHaveBeenCalledWith('youtube');
 		});
 		it('ouvre le panel quand impossible d’accepter le cookie', () => {
-			const cookiesService = aCookiesService({ allowService: () => { throw new FailedToAllowServiceError('youtube'); } });
+			const cookiesService = aCookiesService({ allowService: () => { throw new FailedToAllowServiceError('youtube', 'bouton introuvable'); } });
 			const youtubeService = new YoutubeService(cookiesService);
 
 			youtubeService.allow();

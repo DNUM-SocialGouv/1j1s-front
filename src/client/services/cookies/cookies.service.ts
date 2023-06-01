@@ -81,7 +81,7 @@ export class TarteAuCitronCookiesService implements CookiesService {
 		const allowButton = document.getElementById(`${nom}Allowed`);
 
 		if (!allowButton || !(allowButton instanceof HTMLButtonElement)) {
-			throw new FailedToAllowServiceError(nom);
+			throw new FailedToAllowServiceError(nom, 'bouton introuvable');
 		}
 
 		this.tarteaucitron.userInterface.respond(allowButton, true);

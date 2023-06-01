@@ -176,7 +176,7 @@ describe('TarteAuCitronCookiesService', () => {
 
 			const allowService = () => service.allowService('youtube');
 
-			expect(allowService).toThrow(/^Impossible de trouver le bouton pour accepter les cookies du service youtube$/);
+			expect(allowService).toThrow(/^Impossible d'accepter les cookies du service youtube : bouton introuvable$/);
 			expect(allowService).toThrow(FailedToAllowServiceError);
 		});
 	});
