@@ -12,8 +12,8 @@ type Story = StoryObj<typeof Tuile>;
 
 export const Example: Story = {
 	args: {
-		iconName: 'account',
 		children: 'La Tuile peut prendre du texte en children',
+		iconName: 'account',
 	},
 };
 

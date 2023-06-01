@@ -12,8 +12,8 @@ type Story = StoryObj<typeof TimeRange>;
 
 export const Example: Story = {
 	args: {
-		start: "14:14:14",
-		end: "19:00:00"
+		end: '19:00:00',
+		start: '14:14:14',
 	},
 };
 
