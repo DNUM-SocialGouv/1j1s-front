@@ -1,30 +1,8 @@
-/**
- * @jest-environment jsdom
- */
-
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
 import { AdformMarketingService } from './adform.marketing.service';
 
-const mockLocation = () => {
-	const mockResponse = jest.fn();
-	Object.defineProperty(window, 'location', {
-		value: {
-			assign: mockResponse,
-			hash: {
-				endsWith: mockResponse,
-				includes: mockResponse,
-			},
-		},
-		writable: true,
-	});
-};
-
 describe('AdformMarketingService', () => {
-	beforeEach(() => {
-		mockLocation();
-	});
-
 	it('initialise le service adform', () => {
 		const cookiesService = aCookiesService();
 		const ID_1J1S = 2867419;
