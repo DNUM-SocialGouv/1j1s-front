@@ -1,5 +1,40 @@
 # Changelog
 
+## [3.86.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.85.0...v3.86.0) (2023-06-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois:** ajout d'un error management service pour les emplois ([#1373](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1373)) ([217e460](https://github.com/DNUM-SocialGouv/1j1s-front/commit/217e4600881a90d326798021555cc167d7c3e439))
+
+## [3.85.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.2...v3.85.0) (2023-06-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation:** log erreur 404 api statistique en warn ([#1367](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1367)) ([0312411](https://github.com/DNUM-SocialGouv/1j1s-front/commit/03124116dd8da38eb9d031076513f686f12e4404))
+
+## [3.84.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.1...v3.84.2) (2023-06-01)
+
+
+### 🐛 Corrections de bogues
+
+* **ui:** crop image sur mesures employeurs ([#1368](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1368)) ([be70b49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/be70b4989ae77b03c5fa8af9bdf05ae4c2b9745d))
+
+## [3.84.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.84.0...v3.84.1) (2023-06-01)
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare to 4.7.1 in /terraform ([#1380](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1380)) ([281f987](https://github.com/DNUM-SocialGouv/1j1s-front/commit/281f987590497db3445ecb6e887fb5025d9d6b1d))
+
+## [3.84.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.83.1...v3.84.0) (2023-05-31)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **engagement:** error management engagement ([#1374](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1374)) ([9b64063](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b6406359e2485cbc2b733daf9ea2298f2b1e638))
+
 ## [3.83.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.83.0...v3.83.1) (2023-05-30)
 
 

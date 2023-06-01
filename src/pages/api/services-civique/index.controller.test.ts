@@ -1,11 +1,17 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherMissionHandler } from '~/pages/api/services-civique/index.controller';
+import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
+import {
+	missionServiceCiviqueQuerySchema,
+	rechercherMissionHandler,
+} from '~/pages/api/services-civique/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { RésultatsRechercheMission } from '~/server/engagement/domain/engagement';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
-import { aSearchMissionEngagementResponse } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
+import {
+	aSearchMissionEngagementResponse,
+} from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher une mission du service civique', () => {
@@ -25,15 +31,15 @@ describe('rechercher une mission du service civique', () => {
 		});
 	});
 
-	describe('quand le schema des paramètres n‘est pas respecté', () => {
+	describe('quand le schema des paramètres de l’url n‘est pas respecté', () => {
 		it('retourne directement une erreur', async () => {
 			await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-				handler: (req, res) => rechercherMissionHandler(req, res),
+				handler: (req, res) => withValidation({ query: missionServiceCiviqueQuerySchema }, rechercherMissionHandler)(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(res.status).toEqual(503);
-					expect(json).toEqual({ error: 'SERVICE_INDISPONIBLE' });
+					expect(res.status).toEqual(400);
+					expect(json).toEqual({ error: 'les paramètres dans l‘url ne respectent pas le schema de validation' });
 				},
 				url: 'services-civique?page=-1',
 			});

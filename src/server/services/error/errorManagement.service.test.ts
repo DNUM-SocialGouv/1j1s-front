@@ -1,15 +1,16 @@
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
-import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
+import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
+import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
-const aLogInformation: LogInformation = {
+const logInformation = aLogInformation({
 	apiSource: 'API La bonne alternance',
 	contexte: 'search alternance',
 	message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
-};
+});
 describe('DefaultErrorManagementService', () => {
 	describe('lorsque l‘erreur est une Http error', () => {
 		it('qui commence par 50 doit créer une failure service indisponible', () => {
@@ -20,7 +21,7 @@ describe('DefaultErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 
 			// WHEN
-			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = errorManagementService.handleFailureError(httpError, logInformation);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -34,7 +35,7 @@ describe('DefaultErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 
 			// WHEN
-			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = errorManagementService.handleFailureError(httpError, logInformation);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -48,7 +49,7 @@ describe('DefaultErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 
 			// WHEN
-			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = errorManagementService.handleFailureError(httpError, logInformation);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -62,7 +63,7 @@ describe('DefaultErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 
 			// WHEN
-			const result = errorManagementService.handleFailureError(httpError, aLogInformation);
+			const result = errorManagementService.handleFailureError(httpError, logInformation);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -74,13 +75,13 @@ describe('DefaultErrorManagementService', () => {
 			const httpError = anHttpError();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const expectedLogDetails = new SentryException(
-				`${aLogInformation.message} (erreur http)`,
-				{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+				`${logInformation.message} (erreur http)`,
+				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpError.response?.data },
 			);
 
 			// WHEN
-			errorManagementService.handleFailureError(httpError, aLogInformation);
+			errorManagementService.handleFailureError(httpError, logInformation);
 
 			// THEN
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
@@ -96,7 +97,7 @@ describe('DefaultErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 
 			// WHEN
-			const result = errorManagementService.handleFailureError(internalError, aLogInformation);
+			const result = errorManagementService.handleFailureError(internalError, logInformation);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
@@ -109,13 +110,13 @@ describe('DefaultErrorManagementService', () => {
 				const internalError = new Error('ceci est une erreur interne');
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformation.message} (erreur interne)`,
-					{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+					`${logInformation.message} (erreur interne)`,
+					{ context: logInformation.contexte, source: logInformation.apiSource },
 					{ stacktrace: internalError.stack },
 				);
 
 				// WHEN
-				errorManagementService.handleFailureError(internalError, aLogInformation);
+				errorManagementService.handleFailureError(internalError, logInformation);
 
 				// THEN
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
@@ -126,13 +127,13 @@ describe('DefaultErrorManagementService', () => {
 				const internalError = 'une erreur qui n‘est pas une erreur';
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformation.message} (erreur interne)`,
-					{ context: aLogInformation.contexte, source: aLogInformation.apiSource },
+					`${logInformation.message} (erreur interne)`,
+					{ context: logInformation.contexte, source: logInformation.apiSource },
 					{ error: internalError },
 				);
 
 				// WHEN
-				errorManagementService.handleFailureError(internalError, aLogInformation);
+				errorManagementService.handleFailureError(internalError, logInformation);
 
 				// THEN
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
