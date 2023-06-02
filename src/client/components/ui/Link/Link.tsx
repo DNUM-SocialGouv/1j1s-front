@@ -5,7 +5,7 @@ import React from 'react';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 
-interface LinkProps extends React.ComponentPropsWithoutRef<'a'> {
+type LinkProps = React.ComponentPropsWithoutRef<'a'>&{
 	href: string
 	prefetch?: boolean
 }
