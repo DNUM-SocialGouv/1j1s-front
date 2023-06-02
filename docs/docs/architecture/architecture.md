@@ -129,7 +129,7 @@ Tous les fichiers utiles pour composer le style côté client, répartis dans le
 
 Les fichiers sont découpés selon leur destination et suffixés en conséquence :
 * `*.test.tsx` : test d'un composant reprenant le même nom. Ex : `Modal.tsx` et `Modal.test.tsx`.
-* `*.test.ts` : test d'un fichier TypeScript reprenant le même nom. Ex : `analytics.service.ts` et `eulerian.analytics.service.test.ts`. 
+* `*.test.ts` : test d'un fichier TypeScript reprenant le même nom. Ex : `eulerian.analytics.service.ts` et `eulerian.analytics.service.test.ts`. 
 * `*.mock.ts` : fonctions utilitaires pour stub / mock des services, fonctions, etc.
 * `*.fixture.ts` : données de test.
 * `*.module.scss` : style Sass, lié à un composant. Ex : `Modal.tsx` et `Modal.module.scss`.
