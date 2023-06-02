@@ -91,6 +91,9 @@ import {
 } from '~/server/localisations/configuration/dependencies.container';
 import { getApiGeoGouvConfig } from '~/server/localisations/configuration/geo/geoHttpClient.config';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
+import {
+	ApiAdresseErrorManagementService,
+} from '~/server/localisations/infra/repositories/apiAdresseErrorManagement.service';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
@@ -215,8 +218,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
+	const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
 	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
-	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService, loggerService);
+	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService, apiAdresseErrorManagementService);
 	const localisationDependencies = localisationDependenciesContainer(apiGeoLocalisationRepository, apiAdresseRepository, serverConfigurationService);
 
 	const mailClientService = new PublicHttpClientService(getApiTipimailConfig(serverConfigurationService));
