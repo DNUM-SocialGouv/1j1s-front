@@ -95,29 +95,3 @@ export class EulerianService implements AnalyticsService {
 	}
 }
 
-// TODO à supprimer après la campagne autour de l'apprentissage
-export class DiscreteAdformService {
-	// NOTE (GAFI 22-05-2023): Ceci est un service discret :
-	//  Le tracking est fait via une balise `<img>` qui fait les requêtes appropriées plutôt que par du script JS
-
-	private static ADFORM_SERVICE = 'adform';
-	private static CLIENT_TRACKING_ID = 2867419;
-	private readonly cookiesService: CookiesService;
-	constructor(cookiesService: CookiesService) {
-		this.cookiesService = cookiesService;
-		this.initialiserAnalyticsCampagneDeCommunication();
-	}
-
-	private initialiserAnalyticsCampagneDeCommunication(): void {
-		this.cookiesService.addUser('adformpm', DiscreteAdformService.CLIENT_TRACKING_ID);
-		// FIXME (GAFI 19-05-2023): plutôt dans la page que dans le service
-		if (window.location.pathname === '/choisir-apprentissage') {
-			const pagename = '2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage';
-			this.cookiesService.addUser('adformpagename', pagename);
-		} else {
-			this.cookiesService.addUser('adformpagename', undefined);
-		}
-
-		this.cookiesService.addService(DiscreteAdformService.ADFORM_SERVICE);
-	}
-}
