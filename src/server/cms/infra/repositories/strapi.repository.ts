@@ -13,7 +13,7 @@ import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApp
 import {
 	mapAnnonceLogement,
 	mapArticle,
-	mapEnregistrerOffreDeStage,
+	mapEnregistrerOffreDeStage, mapEntrepriseRejoindreLaMobilisation,
 	mapFicheMetier,
 	mapMesuresEmployeurs,
 	mapOffreStage,
@@ -24,6 +24,7 @@ import {
 	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import {
 	createFailure,
 	createSuccess,
@@ -46,7 +47,7 @@ const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_FAQ = 'faqs';
 const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
-
+const RESOURCE_ENTREPRISES = 'entreprises';
 export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
@@ -226,7 +227,6 @@ export class StrapiRepository implements CmsRepository {
 			});
 		}
 	}
-
 	async getAllFAQ(): Promise<Either<Array<Question>>> {
 		const query = 'fields[0]=problematique&fields[1]=slug';
 		return await this.getCollectionType<Strapi.CollectionType.FAQ, Question>(RESOURCE_FAQ, query, mapQuestion);
@@ -241,5 +241,10 @@ export class StrapiRepository implements CmsRepository {
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
 		const query = 'sort[0]=Index';
 		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
+	}
+	
+	async saveEntrepriseRejoindreLaMobilisation(entreprise: Entreprise, annotation: string): Promise<Either<void>> {
+		const entrepriseStrapi = mapEntrepriseRejoindreLaMobilisation(entreprise, annotation);
+		return this.save<Strapi.CollectionType.Entreprise, void>(RESOURCE_ENTREPRISES, entrepriseStrapi);
 	}
 }

@@ -1,20 +1,25 @@
-
-import { handleGetFailureError } from '~/server/entreprises/infra/apiRejoindreLaMobilisationError';
 import { createSuccess, Either } from '~/server/errors/either';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 import { Entreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
-	constructor(private httpClientService: PublicHttpClientService, private loggerService: LoggerService) {}
+	constructor(
+		private readonly httpClientService: PublicHttpClientService,
+		private readonly errorManagementService: ErrorManagementService) {
+	}
 
 	async save(entreprise: Entreprise): Promise<Either<void>> {
 		try {
 			await this.httpClientService.post('/api/members', this.mapEntreprise(entreprise));
-		} catch (e) {
-			return handleGetFailureError(e, 'rejoindre mobilisation', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Rejoindre Mobilisation',
+				contexte: 'formulaire rejoindre la mobilisation',
+				message: '[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
+			});
 		}
 		return createSuccess(undefined);
 	}

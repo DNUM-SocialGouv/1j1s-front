@@ -47,8 +47,8 @@ import {
 } from '~/server/entreprises/configuration/rejoindre-la-mobilisation/rejoindreLaMobilisationHttpClient.config';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import {
-	StrapiRejoindreLaMobilisationRepository,
-} from '~/server/entreprises/infra/strapiRejoindreLaMobilisation.repository';
+	ApiRejoindreLaMobilisationErrorManagementService,
+} from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
 import {
 	ÉtablissementAccompagnementDependencies,
 	établissementAccompagnementDependenciesContainer,
@@ -237,9 +237,9 @@ export function dependenciesContainer(): Dependencies {
 	);
 
 	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
-	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, loggerService);
-	const strapiRejoindreLaMobilisationRepository = new StrapiRejoindreLaMobilisationRepository(strapiAuthenticatedHttpClientService, loggerService);
-	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, strapiRejoindreLaMobilisationRepository);
+	const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
+	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
+	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, cmsRepository);
 
 	const établissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
 	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService, loggerService);
