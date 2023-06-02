@@ -7,8 +7,7 @@ import React from 'react';
 
 import { Services } from '~/client/components/features/Logement/Consulter/Services';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
-import ServiceInclus = AnnonceDeLogement.ServiceInclus;
-import ServiceOptionnel = AnnonceDeLogement.ServiceOptionnel;
+import Service = AnnonceDeLogement.Service;
 
 describe('<Services />', () => {
 	it('affiche une section', async () => {
@@ -19,8 +18,8 @@ describe('<Services />', () => {
 	});
 	it('affiche les services inclus', async () => {
 		const servicesInclus = [
-			ServiceInclus.TV,
-			ServiceInclus.INTERNET,
+			Service.TV,
+			Service.INTERNET,
 		];
 		render(<Services inclus={servicesInclus} optionnels={[]} />);
 
@@ -31,8 +30,8 @@ describe('<Services />', () => {
 	});
 	it('affiche les services optionnels', async () => {
 		const servicesOptionnels = [
-			ServiceOptionnel.TV,
-			ServiceOptionnel.INTERNET,
+			Service.TV,
+			Service.INTERNET,
 		];
 		render(<Services inclus={[]} optionnels={servicesOptionnels} />);
 
@@ -43,8 +42,8 @@ describe('<Services />', () => {
 	});
 	it('affiche le titre des services inclus', async () => {
 		const servicesInclus = [
-			ServiceInclus.TV,
-			ServiceInclus.INTERNET,
+			Service.TV,
+			Service.INTERNET,
 		];
 		render(<Services inclus={servicesInclus} optionnels={[]} />);
 
@@ -54,8 +53,8 @@ describe('<Services />', () => {
 	});
 	it('affiche le titre des services optionnels', async () => {
 		const servicesOptionnels = [
-			ServiceOptionnel.TV,
-			ServiceOptionnel.INTERNET,
+			Service.TV,
+			Service.INTERNET,
 		];
 		render(<Services inclus={[]} optionnels={servicesOptionnels} />);
 
@@ -65,10 +64,10 @@ describe('<Services />', () => {
 	});
 	it('n\'affiche pas le service "Non renseigné"', async () => {
 		const servicesOptionnels = [
-			ServiceOptionnel.NON_RENSEIGNE,
+			Service.NON_RENSEIGNE,
 		];
 		const servicesInclus = [
-			ServiceInclus.NON_RENSEIGNE,
+			Service.NON_RENSEIGNE,
 		];
 		render(<Services inclus={servicesInclus} optionnels={servicesOptionnels} />);
 

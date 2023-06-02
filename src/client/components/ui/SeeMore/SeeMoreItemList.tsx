@@ -83,7 +83,6 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
           	label={buttonLabel}
           	icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
           	iconPosition={'right'}
-          	ref={buttonRef}
           	onClick={toggle}
           	type="button"
           	aria-expanded={isOpen}

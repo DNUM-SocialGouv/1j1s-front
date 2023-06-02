@@ -59,12 +59,12 @@ export const anAnnonceDeLogement = (): AnnonceDeLogement => {
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			AnnonceDeLogement.ServiceInclus.INTERNET,
-			AnnonceDeLogement.ServiceInclus.ASPIRATEUR,
+			AnnonceDeLogement.Service.INTERNET,
+			AnnonceDeLogement.Service.ASPIRATEUR,
 		],
 		servicesOptionnels: [
-			AnnonceDeLogement.ServiceOptionnel.TV,
-			AnnonceDeLogement.ServiceOptionnel.LOCAL_A_VELO,
+			AnnonceDeLogement.Service.TV,
+			AnnonceDeLogement.Service.LOCAL_A_VELO,
 		],
 		source: 'immojeune',
 		surface: 10,
