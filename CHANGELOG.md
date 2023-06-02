@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.87.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.86.3...v3.87.0) (2023-06-02)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **entreprises:** ajout d'un error management service pour l'api rejoindre la mobilisation ([#1378](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1378)) ([ba32f6f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba32f6feb7bcb5e86054bc6b8b28cb35fa9c2427))
+
 ## [3.86.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.86.2...v3.86.3) (2023-06-02)
 
 
