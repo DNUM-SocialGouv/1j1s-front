@@ -17,7 +17,8 @@
     "public/scripts/eulerian.yssn.1jeune1solution.gouv.fr.js",
     "public/tarteaucitron.service.js",
     "public/lang/*",
-    "docs/**/*.tsx"
+    "docs/**/*.tsx",
+    "storybook-static/*"
   ],
   "rules": {
     "prettier/prettier": "off",
