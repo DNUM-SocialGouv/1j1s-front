@@ -12,7 +12,7 @@ const meta: Meta<typeof FlippingCard> = {
 		titleAs: 'h2',
 	},
 	component: FlippingCard,
-	title: 'Components/FlippingCard',
+	title: 'Components/Cards/FlippingCard',
 };
 
 export default meta;

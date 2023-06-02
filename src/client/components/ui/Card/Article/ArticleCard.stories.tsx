@@ -25,7 +25,7 @@ const meta: Meta<typeof ArticleCard> = {
 		vertical: false,
 	},
 	component: ArticleCard,
-	title: 'Components/ArticleCard',
+	title: 'Components/Cards/ArticleCard',
 };
 
 export default meta;

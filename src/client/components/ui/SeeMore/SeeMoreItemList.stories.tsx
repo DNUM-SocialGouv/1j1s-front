@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 
 import SeeMoreItemList from './SeeMoreItemList';
 
 const meta: Meta<typeof SeeMoreItemList> = {
 	component: SeeMoreItemList,
-	title: 'Components/SeeMoreItemList',
+	title: 'Components/SeeMoreItem/SeeMoreItemList',
 };
 
 export default meta;
@@ -24,4 +23,3 @@ export const Example: Story = {
 		seeMoreAriaLabel: 'Voir plus de texte',
 	},
 };
-

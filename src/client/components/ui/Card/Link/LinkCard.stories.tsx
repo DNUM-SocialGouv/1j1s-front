@@ -12,7 +12,7 @@ const meta: Meta<typeof LinkCard> = {
 		titleAs: 'h2',
 	},
 	component: LinkCard,
-	title: 'Components/LinkCard',
+	title: 'Components/Cards/LinkCard',
 };
 
 export default meta;
