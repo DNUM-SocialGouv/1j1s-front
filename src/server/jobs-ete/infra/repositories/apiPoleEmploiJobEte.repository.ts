@@ -30,7 +30,6 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 		private readonly cacheService: CacheService,
 		private readonly apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
 		private readonly apiPoleEmploiOffreErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet,
-
 	) {}
 
 	paramètreParDéfaut = 'typeContrat=CDD,MIS,SAI&dureeContratMax=2';
@@ -107,8 +106,10 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 			} catch (error) {
 				return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'échantillon job d‘été', message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
-				});			}
+					contexte: 'échantillon job d‘été',
+					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+				});
+			}
 		}
 	}
 }
