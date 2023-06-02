@@ -289,5 +289,31 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				});
 			});
 		});
+
+		describe('quand l’api répond avec une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async() => {
+				// GIVEN
+				const id = 'formationId__';
+				const caller = '1jeune1solution-test';
+				const httpError = anHttpError(400);
+				const httpClientService = aPublicHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, aLoggerService(), errorManagementService);
+				const errorReturnedByErrorManagementService = ErreurMétier.DEMANDE_INCORRECTE;
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+
+				// WHEN
+				const { errorType } = await repository.get(id) as Failure;
+
+				// THEN
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'get formation la bonne alternance',
+					message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+				});
+				expect(errorType).toEqual(errorReturnedByErrorManagementService);
+			});
+		});
 	});
 });

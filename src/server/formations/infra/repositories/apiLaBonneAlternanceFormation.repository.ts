@@ -66,8 +66,8 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			const formation = mapFormation(apiResponse.data);
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
-		} catch (e) {
-			if (this.isSearchDoable(e) && filtreRecherchePourRetrouverLaFormation) {
+		} catch (error) {
+			if (this.isSearchDoable(error) && filtreRecherchePourRetrouverLaFormation) {
 				try {
 					const formation = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
@@ -76,7 +76,11 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 					return handleGetFailureError(error, 'la bonne alternance get formation', this.loggerService);
 				}
 			}
-			return handleGetFailureError(e, 'la bonne alternance get formation', this.loggerService);
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+			});
 		}
 	}
 
