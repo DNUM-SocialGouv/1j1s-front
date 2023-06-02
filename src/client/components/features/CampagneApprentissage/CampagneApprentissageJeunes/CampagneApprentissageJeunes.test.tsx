@@ -9,7 +9,7 @@ import {
 	CampagneApprentissageJeunes,
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen, mockTarteAuCitron } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
@@ -372,52 +372,12 @@ describe('CampagneApprentissageJeunes', () => {
 				);
 				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
 				const user = userEvent;
-				mockTarteAuCitron();
 
 				// WHEN
 				await user.click(openCookiesButton);
 
 				// THEN
-				expect(window.tarteaucitron.userInterface.respond).toHaveBeenCalledTimes(1);
-			});
-			it('je vois un bouton me permettant d’ouvrir le panel TarteAuCitron quand le bouton n’existe pas', async () => {
-				// GIVEN
-				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
-				render(
-					<DependenciesProvider youtubeService={videoService}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
-					</DependenciesProvider>,
-				);
-				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
-				const user = userEvent;
-				mockTarteAuCitron();
-
-				// WHEN
-				await user.click(openCookiesButton);
-
-				// THEN
-				expect(window.tarteaucitron.userInterface.respond).not.toHaveBeenCalled();
-				expect(window.tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
-			});
-			it('je vois un bouton me permettant d’ouvrir le panel TarteAuCitron quand le bouton n’est pas un bouton', async () => {
-				// GIVEN
-				const videoService = aVideoService({ isAllowed: jest.fn(() => false) });
-				render(
-					<DependenciesProvider youtubeService={videoService}>
-						<CampagneApprentissageJeunes videos={aVideoCampagneApprentissagesList}/>
-						<div id="youtubeAllowed">Allow Youtube</div>
-					</DependenciesProvider>,
-				);
-				const openCookiesButton = screen.getByRole('button', { name: 'Accepter les cookies' });
-				const user = userEvent;
-				mockTarteAuCitron();
-
-				// WHEN
-				await user.click(openCookiesButton);
-
-				// THEN
-				expect(window.tarteaucitron.userInterface.respond).not.toHaveBeenCalled();
-				expect(window.tarteaucitron.userInterface.openPanel).toHaveBeenCalledTimes(1);
+				expect(videoService.allow).toHaveBeenCalledTimes(1);
 			});
 		});
 
