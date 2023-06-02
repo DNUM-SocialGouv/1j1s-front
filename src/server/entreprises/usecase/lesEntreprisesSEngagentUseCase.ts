@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import phone from 'phone';
 
+import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, createSuccess, Either, isFailure, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
@@ -10,7 +11,7 @@ import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisa
 export class LesEntreprisesSEngagentUseCase {
 	constructor(
     private primaryRepository: RejoindreLaMobilisationRepository,
-    private secondaryRepository: RejoindreLaMobilisationRepository,
+    private secondaryRepository: StrapiRepository,
 	) {}
 
 	async rejoindreLaMobilisation(command: RejoindreLaMobilisation): Promise<Either<void>> {
@@ -22,7 +23,7 @@ export class LesEntreprisesSEngagentUseCase {
 		}
 		const primarySave = await this.primaryRepository.save(entreprise);
 		if (isFailure(primarySave)) {
-			if (isSuccess(await this.secondaryRepository.save(entreprise, primarySave.errorType))) {
+			if (isSuccess(await this.secondaryRepository.saveEntrepriseRejoindreLaMobilisation(entreprise, primarySave.errorType))) {
 				return createSuccess(undefined);
 			} else {
 				return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);

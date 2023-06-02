@@ -1,4 +1,6 @@
 import { aCommandeRejoindreLaMobilisation, anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -6,15 +8,16 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentUseCase', () => {
 	let primaryRepository: jest.Mocked<RejoindreLaMobilisationRepository>;
-	let secondaryRepository: jest.Mocked<RejoindreLaMobilisationRepository>;
+	let secondaryRepository: StrapiRepository;
 	let usecase: LesEntreprisesSEngagentUseCase;
 	beforeEach(() => {
 		primaryRepository = {
 			save: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		};
-		secondaryRepository = {
-			save: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		};
+		secondaryRepository = aStrapiCmsRepository({
+			saveEntrepriseRejoindreLaMobilisation: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		});
+
 		usecase = new LesEntreprisesSEngagentUseCase(primaryRepository, secondaryRepository);
 	});
 	describe('.rejoindreLaMobilisation(command)', () => {
@@ -49,7 +52,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 					// When
 					await usecase.rejoindreLaMobilisation(commande);
 					// Then
-					expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.SERVICE_INDISPONIBLE);
+					expect(secondaryRepository.saveEntrepriseRejoindreLaMobilisation).toHaveBeenCalledWith(entreprise, ErreurMétier.SERVICE_INDISPONIBLE);
 				});
 				it('résout un succès', async () => {
 					// When
@@ -58,9 +61,9 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 					expect(actual).toEqual(createSuccess(undefined));
 				});
 
-				describe('Mais que le dépôt il est pété aussi', () => {
+				describe('et que le deuxième dépot ne fonctionne pas', () => {
 					beforeEach(() => {
-						secondaryRepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+						jest.spyOn(secondaryRepository, 'saveEntrepriseRejoindreLaMobilisation' ).mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 					});
 					it('résout une erreur SERVICE INDISPONIBLE', async () => {
 						// When
@@ -80,7 +83,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 					// When
 					await usecase.rejoindreLaMobilisation(commande);
 					// Then
-					expect(secondaryRepository.save).toHaveBeenCalledWith(entreprise, ErreurMétier.DEMANDE_INCORRECTE);
+					expect(secondaryRepository.saveEntrepriseRejoindreLaMobilisation).toHaveBeenCalledWith(entreprise, ErreurMétier.DEMANDE_INCORRECTE);
 				});
 				it('résout un succès', async () => {
 					// When

@@ -1,4 +1,9 @@
-import { mapVideoCampagneApprentissage } from '~/server/cms/infra/repositories/strapi.mapper';
+import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntrepriseRejoindreLaMobilisationStrapi } from '~/server/cms/infra/repositories/strapi.fixture';
+import {
+	mapEntrepriseRejoindreLaMobilisation,
+	mapVideoCampagneApprentissage,
+} from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 describe('mapVideoCampagneApprentissage', () => {
@@ -40,5 +45,12 @@ describe('mapVideoCampagneApprentissage', () => {
 				videoId: 'F_oOtaxb0L8',
 			});
 		});
+	});
+});
+
+describe('mapEntrepriseRejoindreLaMobilisation', () => {
+	it('fait la conversion dans le modèle de strapi', () => {
+		const result = mapEntrepriseRejoindreLaMobilisation(anEntreprise(), 'annotation');
+		expect(result).toEqual(anEntrepriseRejoindreLaMobilisationStrapi());
 	});
 });
