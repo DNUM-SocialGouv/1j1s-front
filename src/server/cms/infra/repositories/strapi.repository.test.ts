@@ -395,7 +395,7 @@ describe('strapi cms repository', () => {
 				const result = await strapiCmsRepository.saveEntrepriseRejoindreLaMobilisation(entreprise, 'annotation');
 
 				// Then
-				expect(result).toEqual(createSuccess(undefined));
+				expect(result.instance).toEqual('success');
 				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('entreprises', { data: anEntrepriseRejoindreLaMobilisationStrapi() });
 			});
 		});

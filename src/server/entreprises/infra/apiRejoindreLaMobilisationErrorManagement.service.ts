@@ -2,7 +2,6 @@ import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
-import { LoggerService } from '~/server/services/logger.service';
 
 export const enum ApiRejoindreLaMobilisationMessageError {
 	ERROR_400 = '[API Rejoindre Mobilisation] 400 Bad request pour la ressource',
@@ -11,10 +10,6 @@ export const enum ApiRejoindreLaMobilisationMessageError {
 }
 
 export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErrorManagementService {
-	constructor(loggerService: LoggerService) {
-		super(loggerService);
-	}
-
 	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status === 400 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_400) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
