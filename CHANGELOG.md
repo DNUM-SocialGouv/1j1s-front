@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.86.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.86.0...v3.86.1) (2023-06-02)
+
+
+### 🐛 Corrections de bogues
+
+* mise à jour du numéro de version tarteaucitron automatique si modification ([#1375](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1375)) ([2518511](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2518511904de71993c3d3724226290b33862c322))
+
 ## [3.86.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.85.0...v3.86.0) (2023-06-01)
 
 
