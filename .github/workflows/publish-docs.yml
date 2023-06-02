@@ -47,7 +47,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
 
-      - name: Installer les dépendances (storybook)
+      - name: Installer les dépendances
         run: npm ci
 
       - name: Compiler le storybook
@@ -78,9 +78,6 @@ jobs:
         with:
           name: storybook
           path: ./docs/storybook
-
-#      - name: Ajoute le storybook à la doc
-#        run: mv ./storybook-static ./docs/storybook
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus

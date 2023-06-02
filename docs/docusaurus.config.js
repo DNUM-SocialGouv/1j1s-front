@@ -154,6 +154,11 @@ const config = {
 						target: '_self',
 					},
 					{
+						href: './storybook',
+						label: 'Storybook',
+						position: 'left',
+					},
+					{
 						position: 'right',
 						type: 'docsVersionDropdown',
 					},
