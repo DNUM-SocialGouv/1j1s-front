@@ -11,8 +11,8 @@ export default meta;
 type Story = StoryObj<typeof Link>;
 export const Example: Story = {
 	args: {
-		href: 'https//www.1jeune1solution.gouv.fr/',
 		children: 'Cliquez ici ',
+		href: 'https//www.1jeune1solution.gouv.fr/',
 		prefetch:false,  
 	},
 	
