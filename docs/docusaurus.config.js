@@ -154,6 +154,11 @@ const config = {
 						target: '_self',
 					},
 					{
+						href: './storybook',
+						label: 'Design System',
+						position: 'left',
+					},
+					{
 						position: 'right',
 						type: 'docsVersionDropdown',
 					},
