@@ -118,7 +118,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			);
 			return response.data.form_url;
 		} catch (e) {
-			return undefined;
+			return undefined; // à placer dans un handle custom pour pouvoir logguer sans retourner d'erreur ?
 		}
 	}
 }
