@@ -12,17 +12,15 @@ import {
 	mapRésultatRechercheFormationToFormation,
 	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import { handleGetFailureError } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly loggerService: LoggerService, private readonly errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -73,7 +71,11 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 					return createSuccess(formation);
 				} catch (error) {
-					return handleGetFailureError(error, 'la bonne alternance get formation', this.loggerService);
+					return this.errorManagementService.handleFailureError(error, {
+						apiSource: 'API LaBonneAlternance',
+						contexte: 'get formation la bonne alternance',
+						message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+					});
 				}
 			}
 			return this.errorManagementService.handleFailureError(error, {
@@ -89,7 +91,9 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	}
 
 	private isFormationNotFound(e: HttpError): boolean {
-		return e.response?.status === 500 && e.response.data.error === 'internal_error'; // pourquoi spécifiquement une internal_error pour notfound ?
+		// l'api LBA va chercher des infos sur une autre API pour nous fournir le détail d'une formation
+		// quand ils n'arrivent pas à faire leur tambouille interne, ils nous retournent une 500
+		return e.response?.status === 500 && e.response.data.error === 'internal_error';
 	}
 
 	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
