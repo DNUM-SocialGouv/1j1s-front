@@ -5,12 +5,6 @@ import { Select } from './Select';
 const meta: Meta<typeof Select> = {
 	component: Select,
 	title: 'Components/Form/Select',
-};
-
-export default meta;
-type Story = StoryObj<typeof Select>;
-
-export const Example: Story = {
 	args: {
 		label: 'Domaine',
 		optionList: [
@@ -27,6 +21,17 @@ export const Example: Story = {
 				valeur: 'environnement',
 			},
 		],
+	},
+};
+
+export default meta;
+type Story = StoryObj<typeof Select>;
+
+export const SimpleSelect: Story = {};
+
+export const MultiSelect: Story = {
+	args: {
+		multiple: true,
 	},
 };
 
