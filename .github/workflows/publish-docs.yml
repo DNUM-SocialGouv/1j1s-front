@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  build-doc:
-    name: Build doc
+  build-docusaurus:
+    name: Compiler Docusaurus
     runs-on: ubuntu-latest
 
     # All "run" step must be ran inside this subdirectory
@@ -30,14 +30,14 @@ jobs:
         run: npm run build
         working-directory: docs
 
-      - name: Upload artifact
+      - name: Téléverser les fichiers compilés Docusaurus
         uses: actions/upload-artifact@v3
         with:
-          name: doc
+          name: docusaurus
           path: ./docs/build
 
   build-storybook:
-    name: Build Storybook
+    name: Compiler Storybook
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +55,7 @@ jobs:
           cp .env.test .env
           npm run storybook:build
 
-      - name: Upload artifact
+      - name: Téléverser les fichiers compilés Storybook
         uses: actions/upload-artifact@v3
         with:
           name: storybook
@@ -67,13 +67,13 @@ jobs:
     needs: [ build-doc, build-storybook ]
 
     steps:
-      - name: Download doc
+      - name: Télécharger les fichiers Docusaurus
         uses: actions/download-artifact@v3
         with:
-          name: doc
+          name: docusaurus
           path: ./docs
 
-      - name: Download storybook
+      - name: Télécharger les fichiers Storybook
         uses: actions/download-artifact@v3
         with:
           name: storybook

@@ -155,7 +155,7 @@ const config = {
 					},
 					{
 						href: './storybook',
-						label: 'Storybook',
+						label: 'Design System',
 						position: 'left',
 					},
 					{
