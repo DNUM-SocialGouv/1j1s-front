@@ -3,8 +3,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Select } from './Select';
 
 const meta: Meta<typeof Select> = {
-	component: Select,
-	title: 'Components/Form/Select',
 	args: {
 		label: 'Domaine',
 		optionList: [
@@ -22,6 +20,8 @@ const meta: Meta<typeof Select> = {
 			},
 		],
 	},
+	component: Select,
+	title: 'Components/Form/Select',
 };
 
 export default meta;
