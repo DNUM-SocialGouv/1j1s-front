@@ -9,7 +9,7 @@ import { ErrorManagementService } from '~/server/services/error/errorManagement.
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
 export class ApiAdresseRepository implements LocalisationAvecCoordonnéesRepository {
-	constructor(private readonly httpClientService: CachedHttpClientService, private errorManagementService: ErrorManagementService) {
+	constructor(private readonly httpClientService: CachedHttpClientService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
