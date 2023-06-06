@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import React, {
-	useId,
-} from 'react';
+import React, { useId } from 'react';
 
 import styles from '~/client/components/ui/Checkbox/Checkbox.module.scss';
 

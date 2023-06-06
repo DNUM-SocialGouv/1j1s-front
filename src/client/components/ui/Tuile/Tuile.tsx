@@ -5,7 +5,7 @@ import styles from '~/client/components/ui/Tuile/Tuile.module.scss';
 
 import { Icon, IconName } from '../Icon/Icon';
 
-interface TuileProps extends React.ComponentPropsWithoutRef<'div'> {
+type TuileProps = React.ComponentPropsWithoutRef<'div'> & {
     iconName: IconName;
 }
 
