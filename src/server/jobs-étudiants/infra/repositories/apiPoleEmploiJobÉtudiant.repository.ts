@@ -42,14 +42,14 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 			if (response.status === 204) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer un job étudiant',
+					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer un job étudiant',
+				contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
 			});
 		}
 	}

@@ -42,14 +42,14 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer un job d‘été',
+					contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer un job d‘été',
+				contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
 			});
 		}
 	}

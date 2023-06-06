@@ -71,7 +71,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 			});
 		});
 		describe('lorsqu‘il y a une erreur lors de la récupération de l‘offre', () => {
-			it('retourne une erreur', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
 				jest
@@ -83,14 +83,14 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer un job étudiant',
+					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
 			});
 		});
 		describe('lorsque l‘api nous renvoie une 204', () => {
-			it('retourne une erreur', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 				const apiResponse = anAxiosResponse(aBarmanOffreEmploiApiResponse(), 204);
 				jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
@@ -101,7 +101,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer un job étudiant',
+					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -211,7 +211,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 		});
 
 		describe('quand l‘api nous renvoie une erreur', () => {
-			it('retourne une erreur', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
 				jest
@@ -232,7 +232,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 		});
 
 		describe('quand le cache nous renvoie rien et que l‘api nous renvoie une erreur', () => {
-			it('retourne une erreur', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
 				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
