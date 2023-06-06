@@ -18,7 +18,7 @@ const meta: Meta<typeof ArticleCard> = {
 		children: 'Découvrez un argument supplémentaire à avancer pour vous faire embaucher',
 		imageFit: 'cover',
 		imageSrc: 'https://i0.wp.com/caravanedesdixmots.com/wp-content/uploads/2021/05/placeholder.png',
-		link: 'https://www.google.com',
+		link: 'https://www.1jeune1solution.gouv.fr/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures',
 		linkLabel: 'Voir plus',
 		titleHeadingTag: 'h2',
 		titleLabel: 'Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !',
