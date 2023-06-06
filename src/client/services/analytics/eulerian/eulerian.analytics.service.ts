@@ -1,5 +1,5 @@
 import { CookiesService } from '~/client/services/cookies/cookies.service';
-import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteaucitron.cookies.service';
+import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
 
 import { PageTags, SITE_TAGS } from '../analytics';
 import { AnalyticsService } from '../analytics.service';

@@ -3,8 +3,8 @@
  */
 
 import FailedToAllowServiceError from '../FailedToAllowService.error';
-import { TarteAuCitronCookiesService } from './tarteaucitron.cookies.service';
-import { aTarteAuCitron } from './tarteaucitron.fixture';
+import { TarteAuCitronCookiesService } from './tarteAuCitron.cookies.service';
+import { aTarteAuCitron } from './tarteAuCitron.fixture';
 
 describe('TarteAuCitronCookiesService', () => {
 	it('initialise tarteaucitron quand on instantie le service', () => {

@@ -1,4 +1,4 @@
-import { TarteAuCitron } from './tarteaucitron.cookies.service';
+import { TarteAuCitron } from './tarteAuCitron.cookies.service';
 
 export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron {
 	return {
