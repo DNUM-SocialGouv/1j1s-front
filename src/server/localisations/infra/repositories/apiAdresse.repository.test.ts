@@ -129,7 +129,7 @@ describe('ApiAdresseRepository', () => {
 		});
 
 		describe('quand l’api renvoie une erreur connue', () => {
-			it('renvoie une demande incorrecte', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const recherche = 'jou';
 				const errorHttp = anHttpError(400, 'q must contain at least 3 chars and start with a number or a letter');
 				jest
