@@ -1,4 +1,4 @@
-import { createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
@@ -12,7 +12,12 @@ import {
 	mapRésultatRechercheFormationToFormation,
 	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import {
+	LBAFormationErrorManagementServiceGet,
+} from '~/server/formations/infra/repositories/apiLBAFormationErrorManagementServiceGet';
+import {
+	ErrorManagementService,
+} from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -20,7 +25,7 @@ const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService, private readonly lBAFormationErrorManagementServiceGet: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -66,17 +71,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			return createSuccess(formation);
 		} catch (error) {
 			if (this.isSearchDoable(error) && filtreRecherchePourRetrouverLaFormation) {
-				try {
-					const formation = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
+				const formationOrError = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
+				if(isSuccess(formationOrError)) {
+					const formation = formationOrError.result;
 					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 					return createSuccess(formation);
-				} catch (error) {
-					return this.errorManagementService.handleFailureError(error, {
-						apiSource: 'API LaBonneAlternance',
-						contexte: 'get formation la bonne alternance',
-						message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
-					});
 				}
+				return formationOrError;
 			}
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
@@ -96,16 +97,20 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		return e.response?.status === 500 && e.response.data.error === 'internal_error';
 	}
 
-	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
-		const searchResult = await this.search(filtre);
-		if (isSuccess(searchResult)) {
-			const résultatRechercheFormation = searchResult.result.find((f) => f.id === id);
+	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Either<Formation>> {
+		const searchResultOrError = await this.search(filtre);
+		if (isSuccess(searchResultOrError)) {
+			const résultatRechercheFormation = searchResultOrError.result.find((f) => f.id === id);
 			if (résultatRechercheFormation) {
-				return mapRésultatRechercheFormationToFormation(résultatRechercheFormation);
+				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
 			}
-			return Promise.reject(ErreurMétier.DEMANDE_INCORRECTE);
+			return this.lBAFormationErrorManagementServiceGet.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
+			});
 		}
-		return Promise.reject(searchResult.errorType);
+		return searchResultOrError;
 	}
 
 	private async getFormationLienRendezVous(cleMinistereEducatif: string | undefined): Promise<string | undefined> {
@@ -121,8 +126,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 				},
 			);
 			return response.data.form_url;
-		} catch (e) {
-			return undefined; // à placer dans un handle custom pour pouvoir logguer sans retourner d'erreur ?
+		} catch (error) {
+			this.lBAFormationErrorManagementServiceGet.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
+			});
+			return undefined; // ici le log et le retour sont décorrelés
 		}
 	}
 }
