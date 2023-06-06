@@ -8,13 +8,12 @@ const meta: Meta<typeof Accordion> = {
 };
 
 export default meta;
- type Story = StoryObj<typeof Accordion>;
- 
-export const Example:Story={
-	args:{
-		open:true,
-		summary:'titre',
-		summaryAs:'h2',
-		
+type Story = StoryObj<typeof Accordion>;
+
+export const Example: Story = {
+	args: {
+		open: true,
+		summary: 'titre',
+		summaryAs: 'h2',
 	},
 };
