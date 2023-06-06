@@ -15,6 +15,10 @@ export interface ErrorManagementService {
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure
 }
 
+export interface ErrorManagementWithErrorCheckingService extends ErrorManagementService {
+	isError(response: unknown): boolean
+}
+
 export class DefaultErrorManagementService implements ErrorManagementService {
 	constructor(protected loggerService: LoggerService) {
 	}
