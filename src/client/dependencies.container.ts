@@ -6,7 +6,7 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
-import { TarteaucitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteaucitron.cookies.service';
+import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteaucitron.cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -66,7 +66,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const stageService = new StageService(httpClientService);
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
-		? new TarteaucitronCookiesService(window.tarteaucitron)
+		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
 	const marketingService = new AdformMarketingService(cookiesService);

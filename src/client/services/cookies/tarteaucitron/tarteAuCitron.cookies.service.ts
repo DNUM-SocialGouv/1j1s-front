@@ -19,7 +19,7 @@ export type TarteAuCitron = {
 	state: Record<TarteAuCitron.ServiceName, boolean>;
 }
 
-export class TarteaucitronCookiesService implements CookiesService {
+export class TarteAuCitronCookiesService implements CookiesService {
 	private static CONSENT_MANAGER_COOKIE_NAME = 'consentement';
 	private static INIT_CONFIG = {
 		AcceptAllCta: true,
@@ -27,7 +27,7 @@ export class TarteaucitronCookiesService implements CookiesService {
 		adblocker: false,
 		bodyPosition: 'bottom',
 		closePopup: false,
-		cookieName: TarteaucitronCookiesService.CONSENT_MANAGER_COOKIE_NAME,
+		cookieName: TarteAuCitronCookiesService.CONSENT_MANAGER_COOKIE_NAME,
 		cookieslist: true,
 		groupServices: false,
 		handleBrowserDNTRequest: false,
@@ -52,7 +52,7 @@ export class TarteaucitronCookiesService implements CookiesService {
 
 	constructor(tarteaucitron: TarteAuCitron) {
 		this.tarteaucitron = tarteaucitron;
-		this.tarteaucitron.init(TarteaucitronCookiesService.INIT_CONFIG);
+		this.tarteaucitron.init(TarteAuCitronCookiesService.INIT_CONFIG);
 		this.tarteaucitron.job = this.tarteaucitron.job || [];
 	}
 
