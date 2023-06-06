@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.87.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.87.1...v3.87.2) (2023-06-05)
+
+
+### 👷 Autres changements
+
+* Expose le storybook sur GitHub pages ([#1393](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1393)) ([a1a7d56](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a1a7d564e649174d055d181b242ddceb7b4270af))
+* Fix le nom du job de build docusaurus ([#1400](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1400)) ([223fce5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/223fce51f09a27adc1d2fdaa4941aae96986c3f3))
+
+
+### 📚 Documentation
+
+* Ajoute le fallback quand pas de DS ([#1401](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1401)) ([8572d6e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8572d6e3ca8dff8c4a20ae781cddd5cd462991c2))
+* Fix optimization for storybook ([#1403](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1403)) ([c484462](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c48446297a8e7643df4c0223bd99d372b18237bd))
+
+## [3.87.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.87.0...v3.87.1) (2023-06-05)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to ~8.42.0 ([#1397](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1397)) ([b331239](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3312396fdd70ddaca2dbc80f96e52b95fc9b9f7))
+
+## [3.87.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.86.3...v3.87.0) (2023-06-02)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **entreprises:** ajout d'un error management service pour l'api rejoindre la mobilisation ([#1378](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1378)) ([ba32f6f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba32f6feb7bcb5e86054bc6b8b28cb35fa9c2427))
+
 ## [3.86.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.86.2...v3.86.3) (2023-06-02)
 
 

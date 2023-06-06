@@ -1,3 +1,4 @@
+import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
@@ -20,7 +21,7 @@ import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
-	anActualiteFixture,
+	anActualiteFixture, anEntrepriseRejoindreLaMobilisationStrapi,
 	anOffreDeStageDepotStrapi,
 	anOffreDeStageResponse,
 	aStrapiAnnonceDeLogementSlugList,
@@ -41,7 +42,7 @@ import { createFailure, createSuccess, Failure, Success } from '~/server/errors/
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -78,11 +79,11 @@ describe('strapi cms repository', () => {
 
 			const result = await strapiCmsRepository.getActualitéList();
 
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 				apiSource: 'API Strapi',
 				contexte: 'get single type strapi',
 				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
-			});
+			}));
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
@@ -375,6 +376,53 @@ describe('strapi cms repository', () => {
 				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
 				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offres-de-stage', { data: offreDeStageDepotStrapi });
 			});
+		});
+	});
+
+	describe('saveEntrepriseRejoindreLaMobilisation', () => {
+		describe('Si une entreprise est fourni', () => {
+			it('elle est enregistrée dans le cms', async () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const authenticatedHttpClientService = anAuthenticatedHttpClientService();
+				const strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
+				);
+
+				const entreprise = anEntreprise();
+
+				// When
+				(authenticatedHttpClientService.post as jest.Mock).mockResolvedValue({});
+				const result = await strapiCmsRepository.saveEntrepriseRejoindreLaMobilisation(entreprise, 'annotation');
+
+				// Then
+				expect(result.instance).toEqual('success');
+				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('entreprises', { data: anEntrepriseRejoindreLaMobilisationStrapi() });
+			});
+		});
+
+		it('résout une erreur quand le service est indisponible', async () => {
+			// Given
+			const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
+			const errorHttp = anHttpError(503);
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const authenticatedHttpClientService = anAuthenticatedHttpClientService({
+				post: jest.fn(async () => {
+					throw errorHttp;
+				}),
+			});
+			const strapiCmsRepository = new StrapiRepository(aPublicHttpClientService(), authenticatedHttpClientService, errorManagementService);
+			// When
+			const result = await strapiCmsRepository.saveEntrepriseRejoindreLaMobilisation(anEntreprise(), 'annotation');
+
+			// Then
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledTimes(1);
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, {
+				apiSource: 'API Strapi',
+				contexte: 'save strapi',
+				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
 
