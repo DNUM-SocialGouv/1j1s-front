@@ -226,7 +226,7 @@ export function dependenciesContainer(): Dependencies {
 	const mailClientService = new PublicHttpClientService(getApiTipimailConfig(serverConfigurationService));
 	const mailRepository = new TipimailRepository(
 		mailClientService,
-		loggerService,
+		defaultErrorManagementService,
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_ACTIVE === '1',
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
 	);

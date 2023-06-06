@@ -17,7 +17,7 @@ var scripts = document.getElementsByTagName('script'),
 
 
 var tarteaucitron = {
-    "version": 20230602,
+    "version": 20230606,
     "cdn": cdn,
     "user": {},
     "lang": {},
