@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.89.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.88.1...v3.89.0) (2023-06-06)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **job étudiant et été:** Ajout de l'erreur management service sur job été et étudiant ([#1395](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1395)) ([35746ac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/35746accc795335ac44ccfe64ebf97efc85a8aa3))
+
 ## [3.88.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.88.0...v3.88.1) (2023-06-06)
 
 
