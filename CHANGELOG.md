@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.88.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.88.0...v3.88.1) (2023-06-06)
+
+
+### 📚 Documentation
+
+* documenter les composants existants dans l'UI kit - Part 1 ([#1392](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1392)) ([ce487fa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ce487fa68905a124b6abbe4d2577f179bfc03c4b))
+
 ## [3.88.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.87.2...v3.88.0) (2023-06-06)
 
 
