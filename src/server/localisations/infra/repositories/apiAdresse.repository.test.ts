@@ -1,24 +1,31 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
-import { Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
 	aCacheAxiosResponse,
 	aCachedHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
 
+const aLogInformationApiAdresse = aLogInformation({
+	apiSource: 'API Adresse',
+	contexte: 'get commune', message: '[API Adresse] impossible de récupérer une ressource',
+});
 describe('ApiAdresseRepository', () => {
 	let httpClientService: CachedHttpClientService;
 	let apiAdresseRepository: ApiAdresseRepository;
+	let errorManagementService: ErrorManagementService;
 
 	beforeEach(() => {
 		httpClientService = aCachedHttpClientService();
-		apiAdresseRepository = new ApiAdresseRepository(httpClientService, aLoggerService());
+		errorManagementService = anErrorManagementService();
+		apiAdresseRepository = new ApiAdresseRepository(httpClientService, errorManagementService);
 	});
 
 	describe('getCommuneList', () => {
@@ -122,15 +129,21 @@ describe('ApiAdresseRepository', () => {
 		});
 
 		describe('quand l’api renvoie une erreur connue', () => {
-			it('renvoie une demande incorrecte', async () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const recherche = 'jou';
+				const errorHttp = anHttpError(400, 'q must contain at least 3 chars and start with a number or a letter');
 				jest
 					.spyOn(httpClientService, 'get')
-					.mockRejectedValue(anHttpError(400, 'q must contain at least 3 chars and start with a number or a letter'));
-				const recherche = 'jou';
+					.mockRejectedValue(errorHttp);
+				jest
+					.spyOn(errorManagementService, 'handleFailureError')
+					.mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 
-				const result = await apiAdresseRepository.getCommuneList(recherche) as Failure;
+				const result = await apiAdresseRepository.getCommuneList(recherche);
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiAdresse);
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
