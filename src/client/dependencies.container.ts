@@ -2,8 +2,11 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService, EulerianService } from '~/client/services/analytics/analytics.service';
-import { CookiesService, NullCookiesService, TarteAuCitronCookiesService } from '~/client/services/cookies/cookies.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
+import { CookiesService } from '~/client/services/cookies/cookies.service';
+import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
+import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -15,12 +18,14 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
-import { AdformService, MarketingService } from '~/client/services/marketing/marketing.service';
+import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
-import { VideoService, YoutubeService } from '~/client/services/video/video.service';
+import { VideoService } from '~/client/services/video/video.service';
+import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -63,9 +68,9 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
-	const analyticsService = new EulerianService(cookiesService);
-	const marketingService = new AdformService(cookiesService);
-	const youtubeService = new YoutubeService(cookiesService);
+	const analyticsService = new EulerianAnalyticsService(cookiesService);
+	const marketingService = new AdformMarketingService(cookiesService);
+	const youtubeService = new YoutubeVideoService(cookiesService);
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;

@@ -1,5 +1,5 @@
-import { TarteAuCitron } from '~/client/services/cookies/cookies.service';
-import { aTarteAuCitron } from '~/client/services/cookies/cookies.service.fixture';
+import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
+import { aTarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.fixture';
 
 export function mockSmallScreen() {
 	Object.defineProperty(window, 'matchMedia', {

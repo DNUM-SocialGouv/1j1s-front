@@ -1,30 +1,17 @@
 /**
  * @jest-environment jsdom
  */
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-import { PageTags } from '~/client/services/analytics/analytics';
-import { EulerianService } from '~/client/services/analytics/analytics.service';
+
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
 
-const mockLocation = () => {
-	const mockResponse = jest.fn();
-	Object.defineProperty(window, 'location', {
-		value: {
-			assign: mockResponse,
-			hash: {
-				endsWith: mockResponse,
-				includes: mockResponse,
-			},
-		},
-		writable: true,
-	});
-};
+import { PageTags } from '../analytics';
+import { EulerianAnalyticsService } from './eulerian.analytics.service';
 
-describe('EulerianService', () => {
+describe('EulerianAnalyticsService', () => {
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(global as any).EA_push = eulerianAnalyticsPushSpy;
-		mockLocation();
 	});
 
 	afterEach(() => {
@@ -34,7 +21,7 @@ describe('EulerianService', () => {
 	describe('envoyerAnalyticsPageVue', () => {
 		describe('quand le consentement est autorisé', () => {
 			it('envoie un événement page au tracking', () => {
-				const analyticsService = new EulerianService(aCookiesService());
+				const analyticsService = new EulerianAnalyticsService(aCookiesService());
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -69,7 +56,7 @@ describe('EulerianService', () => {
 		describe('quand le consentement n’est pas autorisé', () => {
 			it('n’envoie aucun événement page au tracking', () => {
 				const cookiesService = aCookiesService({ isServiceAllowed: () => false });
-				const analyticsService = new EulerianService(cookiesService);
+				const analyticsService = new EulerianAnalyticsService(cookiesService);
 				const analyticsPageConfig: PageTags = {
 					page_template: 'emplois_liste',
 					pagegroup: 'emplois',
@@ -84,4 +71,22 @@ describe('EulerianService', () => {
 		});
 	});
 
+	describe('isAllowed', () => {
+		it('renvoie true quand le service est autorisé', () => {
+			const cookiesService = aCookiesService({ isServiceAllowed: () => true });
+			const analyticsService = new EulerianAnalyticsService(cookiesService);
+
+			const allowed = analyticsService.isAllowed();
+
+			expect(allowed).toBe(true);
+		});
+		it('renvoie false quand le service est interdit', () => {
+			const cookiesService = aCookiesService({ isServiceAllowed: () => false });
+			const analyticsService = new EulerianAnalyticsService(cookiesService);
+
+			const allowed = analyticsService.isAllowed();
+
+			expect(allowed).toBe(false);
+		});
+	});
 });

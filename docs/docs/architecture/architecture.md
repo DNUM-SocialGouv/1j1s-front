@@ -129,7 +129,7 @@ Tous les fichiers utiles pour composer le style côté client, répartis dans le
 
 Les fichiers sont découpés selon leur destination et suffixés en conséquence :
 * `*.test.tsx` : test d'un composant reprenant le même nom. Ex : `Modal.tsx` et `Modal.test.tsx`.
-* `*.test.ts` : test d'un fichier TypeScript reprenant le même nom. Ex : `analytics.service.ts` et `analytics.service.test.ts`. 
+* `*.test.ts` : test d'un fichier TypeScript reprenant le même nom. Ex : `apiAdresse.repository.ts` et `apiAdresse.repository.test.ts`. 
 * `*.mock.ts` : fonctions utilitaires pour stub / mock des services, fonctions, etc.
 * `*.fixture.ts` : données de test.
 * `*.module.scss` : style Sass, lié à un composant. Ex : `Modal.tsx` et `Modal.module.scss`.
@@ -140,4 +140,4 @@ Les fichiers sont découpés selon leur destination et suffixés en conséquence
 * `*.util.ts` : fonctions utilitaires nécessaires dans le module courant.
 * `*.repository.ts` : dans un domaine, interface d'un repository. Côté infra, implémentation de l'interface.
 * `*.mapper`
-* 
+* `*.<interface>.service.ts` : Implémentation de l'interface `<interface>`. Ex : `tarteAuCitron.cookies.service.ts` est une implémentation de l'interface dans `cookies.service.ts`.

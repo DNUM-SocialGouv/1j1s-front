@@ -1,4 +1,4 @@
-import { CookiesService, TarteAuCitron } from './cookies.service';
+import { CookiesService } from './cookies.service';
 
 export function aCookiesService(override?: Partial<CookiesService>): CookiesService {
 	return {
@@ -7,20 +7,6 @@ export function aCookiesService(override?: Partial<CookiesService>): CookiesServ
 		allowService: jest.fn(),
 		isServiceAllowed: jest.fn(() => true),
 		openPanel: jest.fn(),
-		...override,
-	};
-}
-
-export function aTarteAuCitron(override?: Partial<TarteAuCitron>): TarteAuCitron {
-	return {
-		init: jest.fn(),
-		job: undefined,
-		services: {},
-		user: {},
-		userInterface: {
-			openPanel: jest.fn(),
-			respond: jest.fn(),
-		},
 		...override,
 	};
 }

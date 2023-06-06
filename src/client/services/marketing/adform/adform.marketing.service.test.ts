@@ -1,34 +1,13 @@
-/**
- * @jest-environment jsdom
- */
-
 import { aCookiesService } from '~/client/services/cookies/cookies.service.fixture';
-import { AdformService } from '~/client/services/marketing/marketing.service';
 
-const mockLocation = () => {
-	const mockResponse = jest.fn();
-	Object.defineProperty(window, 'location', {
-		value: {
-			assign: mockResponse,
-			hash: {
-				endsWith: mockResponse,
-				includes: mockResponse,
-			},
-		},
-		writable: true,
-	});
-};
+import { AdformMarketingService } from './adform.marketing.service';
 
-describe('AdformService', () => {
-	beforeEach(() => {
-		mockLocation();
-	});
-
+describe('AdformMarketingService', () => {
 	it('initialise le service adform', () => {
 		const cookiesService = aCookiesService();
 		const ID_1J1S = 2867419;
 
-		new AdformService(cookiesService);
+		new AdformMarketingService(cookiesService);
 
 		expect(cookiesService.addService).toHaveBeenCalledWith('adform');
 		expect(cookiesService.addUser).toHaveBeenCalledWith('adformpm', ID_1J1S);
@@ -38,7 +17,7 @@ describe('AdformService', () => {
 	describe('trackPage', () => {
 		it('configure le cookie pour envoyer les données vers la bonne page', () => {
 			const cookiesService = aCookiesService();
-			const service = new AdformService(cookiesService);
+			const service = new AdformMarketingService(cookiesService);
 
 			service.trackPage('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
 
