@@ -12,12 +12,6 @@ import {
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
 import {
-	anApiPoleEmploiErrorManagementGet,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.fixture';
-import {
-	PoleEmploiOffreErrorManagementServiceGet,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
-import {
 	aBarmanOffreEmploiApiResponse,
 	aRésultatsRechercheOffreEmploiApiResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
@@ -29,8 +23,14 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import {
+	anErrorManagementService,
+	anErrorManagementWithErrorCheckingService,
+} from '~/server/services/error/errorManagement.fixture';
+import {
+	ErrorManagementService,
+	ErrorManagementWithErrorCheckingService,
+} from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
@@ -44,14 +44,14 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 	let poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService;
 	let cacheService: CacheService;
 	let apiPoleEmploiErrorManagementSearch: ErrorManagementService;
-	let apiPoleEmploiErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet;
+	let apiPoleEmploiErrorManagementGet: ErrorManagementWithErrorCheckingService;
 
 	beforeEach(() => {
 		cacheService = new MockedCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
 		apiPoleEmploiErrorManagementSearch = anErrorManagementService();
-		apiPoleEmploiErrorManagementGet = anApiPoleEmploiErrorManagementGet();
+		apiPoleEmploiErrorManagementGet = anErrorManagementWithErrorCheckingService();
 		apiPoleEmploiJobÉtudiantRepository = new ApiPoleEmploiJobÉtudiantRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiErrorManagementSearch, apiPoleEmploiErrorManagementGet);
 	});
 

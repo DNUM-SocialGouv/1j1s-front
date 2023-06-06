@@ -7,9 +7,6 @@ import {
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
-	PoleEmploiOffreErrorManagementServiceGet,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
-import {
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
@@ -18,7 +15,10 @@ import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import {
+	ErrorManagementService,
+	ErrorManagementWithErrorCheckingService,
+} from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
@@ -29,7 +29,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
     private poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
     private cacheService: CacheService,
 		private readonly apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
-		private readonly apiPoleEmploiOffreErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet,
+		private readonly apiPoleEmploiOffreErrorManagementGet: ErrorManagementWithErrorCheckingService,
 	) {}
 
 	paramètreParDéfaut = 'dureeHebdoMax=1600&tempsPlein=false&typeContrat=CDD,MIS,SAI';
@@ -39,7 +39,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 	async get(id: OffreId): Promise<Either<Offre>> {
 		try {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
-			if (response.status === 204) {
+			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',

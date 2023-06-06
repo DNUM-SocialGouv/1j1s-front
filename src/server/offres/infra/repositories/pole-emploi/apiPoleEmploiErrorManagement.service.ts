@@ -2,7 +2,8 @@ import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
-	DefaultErrorManagementService, ErrorManagementService,
+	DefaultErrorManagementService,
+	ErrorManagementWithErrorCheckingService,
 	LogInformation,
 } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
@@ -51,13 +52,9 @@ export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultError
 	}
 }
 
-export interface PoleEmploiOffreErrorManagementServiceGet extends ErrorManagementService {
-	isError(response: unknown): boolean
-}
-
-export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorManagementService implements PoleEmploiOffreErrorManagementServiceGet {
+export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorManagementService implements ErrorManagementWithErrorCheckingService {
 	handleFailureError(error: unknown, logInformation: LogInformation) {
-		if (this.isError(error) && error.status === 204) {
+		if (this.isError(error)) {
 			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 		}
 		if (isHttpError(error)) {

@@ -7,9 +7,6 @@ import {
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
-	PoleEmploiOffreErrorManagementServiceGet,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
-import {
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
@@ -19,7 +16,10 @@ import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import {
+	ErrorManagementService,
+	ErrorManagementWithErrorCheckingService,
+} from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
@@ -29,7 +29,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 		private readonly poleEmploiParamètreBuilderService: PoleEmploiParamètreBuilderService,
 		private readonly cacheService: CacheService,
 		private readonly apiPoleEmploiOffreErrorManagementSearch: ErrorManagementService,
-		private readonly apiPoleEmploiOffreErrorManagementGet: PoleEmploiOffreErrorManagementServiceGet,
+		private readonly apiPoleEmploiOffreErrorManagementGet: ErrorManagementWithErrorCheckingService,
 	) {
 	}
 
