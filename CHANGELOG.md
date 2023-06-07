@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.90.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.2...v3.90.0) (2023-06-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **mail:** ajout d'un service de gestion d'erreur ([#1410](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1410)) ([9a7521b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9a7521b265a5b9bf61271775ed5208b1a5262244))
+
 ## [3.89.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.1...v3.89.2) (2023-06-07)
 
 
