@@ -11,6 +11,7 @@ import {
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import {
@@ -49,9 +50,9 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 						</div>
 						{
 							établissement.email && !isMissionLocale &&
-                <a href={`mailto:${établissement.email}`} className={styles.contactMailÉtablissement}>
+                <Link href={`mailto:${établissement.email}`} className={styles.contactMailÉtablissement}>
                 	<TextIcon icon={'mail'} iconPosition={'right'}>Contacter l‘agence</TextIcon>
-                </a>
+                </Link>
 						}
 						{
 							établissement.email && isMissionLocale &&

@@ -50,10 +50,10 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const icon = useMemo(function () {
 		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'}/>;
 	}, [isInternalLink]);
-
+	const titleAccessibility = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : '';
 
 	return (
-		<Link href={link} className={classNames(styles.cardContainer, className, 'underline-none')}>
+		<Link href={link} title={titleAccessibility} className={classNames(styles.cardContainer, className, 'underline-none')}>
 			<Card
 				layout={isLargeScreen ? 'horizontal' : 'vertical'}
 				className={classNames(

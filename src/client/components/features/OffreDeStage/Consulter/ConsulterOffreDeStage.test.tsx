@@ -57,5 +57,6 @@ describe('ConsulterOffreDeStage', () => {
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreDeStage.urlDeCandidature);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
+		expect(linkPostulerOffreEmploi).toHaveAttribute('title', 'Postuler - nouvelle fenêtre');
 	});
 });

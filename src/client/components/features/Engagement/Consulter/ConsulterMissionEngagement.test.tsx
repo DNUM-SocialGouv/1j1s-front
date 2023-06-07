@@ -33,5 +33,16 @@ describe('ConsulterMission', () => {
 			expect(nomAssociation).toBeInTheDocument();
 			expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);
 		});
+
+		it('affiche un lien pour postuler à la mission', async () => {
+			const offreMission = anAmbassadeurDuDonDeVêtementMission();
+
+			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
+
+			const lienPostuler = screen.getByRole('link', { name: 'Postuler' });
+			expect(lienPostuler).toBeInTheDocument();
+			expect(lienPostuler).toHaveAttribute('href', offreMission.url);
+			expect(lienPostuler).toHaveAttribute('title', 'Postuler - nouvelle fenêtre');
+		});
 	});
 });
