@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.91.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.90.0...v3.91.0) (2023-06-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **établissement:** ajout d'un service de gestion d'erreur ([#1411](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1411)) ([e54db7e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e54db7e15d8c058e6be434d885698a7433878be0))
+
 ## [3.90.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.2...v3.90.0) (2023-06-07)
 
 
