@@ -20,7 +20,7 @@ const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService, private readonly apiLbaFormationErrorManagementServiceGet: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -65,14 +65,8 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (error) {
-			if (this.isSearchDoable(error) && filtreRecherchePourRetrouverLaFormation) {
-				const formationOrError = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
-				if(isSuccess(formationOrError)) {
-					const formation = formationOrError.result;
-					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
-					return createSuccess(formation);
-				}
-				return formationOrError;
+			if (ApiLaBonneAlternanceFormationRepository.isSearchDoable(error) && filtreRecherchePourRetrouverLaFormation) {
+				return await this.getFormationFromSearch(filtreRecherchePourRetrouverLaFormation, id, cleMinistereEducatif);
 			}
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
@@ -82,14 +76,24 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		}
 	}
 
-	private isSearchDoable(e: unknown) {
-		return isHttpError(e) && e.response && this.isFormationNotFound(e);
+	private async getFormationFromSearch(filtreRecherchePourRetrouverLaFormation: FormationFiltre, id: string, cleMinistereEducatif: string | undefined) {
+		const formationOrError = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
+		if (isSuccess(formationOrError)) {
+			const formation = formationOrError.result;
+			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
+			return createSuccess(formation);
+		}
+		return formationOrError;
 	}
 
-	private isFormationNotFound(e: HttpError): boolean {
+	private static isSearchDoable(e: unknown) {
+		return isHttpError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e);
+	}
+
+	private static isFormationNotFound(httpError: HttpError): boolean {
 		// l'api LBA va chercher des infos sur une autre API pour nous fournir le détail d'une formation
 		// quand ils n'arrivent pas à faire leur tambouille interne, ils nous retournent une 500
-		return e.response?.status === 500 && e.response.data.error === 'internal_error';
+		return httpError.response?.status === 500 && httpError.response.data.error === 'internal_error';
 	}
 
 	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Either<Formation>> {
@@ -99,7 +103,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (résultatRechercheFormation) {
 				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
 			}
-			return this.apiLbaFormationErrorManagementServiceGet.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
+			return this.errorManagementService.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
 				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
@@ -122,7 +126,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			);
 			return response.data.form_url;
 		} catch (error) {
-			this.apiLbaFormationErrorManagementServiceGet.handleFailureError(error, {
+			this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
 				message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
