@@ -70,6 +70,9 @@ import {
 	ApiLaBonneAlternanceFormationRepository,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.repository';
 import {
+	ApiLbaFormationErrorManagementServiceGet,
+} from '~/server/formations/infra/repositories/apiLbaFormationErrorManagementServiceGet';
+import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import {
@@ -200,7 +203,8 @@ export function dependenciesContainer(): Dependencies {
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
 	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
-	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
+	const apiLbaFormationErrorManagementGet = new ApiLbaFormationErrorManagementServiceGet(loggerService);
+	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService, apiLbaFormationErrorManagementGet);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
 	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);

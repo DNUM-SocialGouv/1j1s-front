@@ -1,4 +1,4 @@
-import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
@@ -12,12 +12,7 @@ import {
 	mapRésultatRechercheFormationToFormation,
 	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import {
-	LBAFormationErrorManagementServiceGet,
-} from '~/server/formations/infra/repositories/apiLBAFormationErrorManagementServiceGet';
-import {
-	ErrorManagementService,
-} from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -25,7 +20,7 @@ const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService, private readonly lBAFormationErrorManagementServiceGet: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService, private readonly apiLbaFormationErrorManagementServiceGet: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -104,7 +99,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (résultatRechercheFormation) {
 				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
 			}
-			return this.lBAFormationErrorManagementServiceGet.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
+			return this.apiLbaFormationErrorManagementServiceGet.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
 				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
@@ -127,12 +122,12 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			);
 			return response.data.form_url;
 		} catch (error) {
-			this.lBAFormationErrorManagementServiceGet.handleFailureError(error, {
+			this.apiLbaFormationErrorManagementServiceGet.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
 				message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
 			});
-			return undefined; // ici le log et le retour sont décorrelés
+			return undefined;
 		}
 	}
 }
