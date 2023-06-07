@@ -36,7 +36,6 @@ export default function Footer() {
 		},
 	];
 
-	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 	return (
 		<footer id="footer">
 			<p className={styles.preFooter}>
@@ -83,11 +82,6 @@ export default function Footer() {
 					<li><Link href="/accessibilite" className={styles.footerLienUtileItem} prefetch={false}>Accessibilité : Partiellement conforme</Link></li>
 					<li><Link href="/mentions-legales" className={styles.footerLienUtileItem} prefetch={false}>Mentions légales</Link></li>
 					<li><Link href="/confidentialite" className={styles.footerLienUtileItem} prefetch={false}>Politique de confidentialité</Link></li>
-					<li>
-						<Link href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
-							<TextIcon icon="external-redirection">Nous contacter</TextIcon>
-						</Link>
-					</li>
 				</ul>
 				<p className={styles.footerCopyRight}>
           Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;

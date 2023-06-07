@@ -12,6 +12,7 @@ import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
 import { Question } from '~/server/cms/domain/FAQ.type';
 import { dependencies } from '~/server/start';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 type FaqPageProps = {
 	listeDeQuestionRéponse: Array<Question>
@@ -20,6 +21,7 @@ type FaqPageProps = {
 	listeDeQuestionRéponse?: never
 	isFeatureActive: false
 }
+const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
 export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: FaqPageProps) {
 	useAnalytics(analytics);
@@ -46,6 +48,12 @@ export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: Fa
 						</li>) }
 					</ul>
 					}
+					<div className={styles.contact}>
+						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
+						<LinkStyledAsButton appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
+							Nous contacter
+						</LinkStyledAsButton>
+					</div>
 				</Container>
 			</main>
 		</>

@@ -77,7 +77,7 @@ describe('Page FAQ', () => {
 				'segment-site': 'page_de_base',
 			});
 		});
-		
+
 		it('affiche le titre de la page', async () => {
 			render(
 				<DependenciesProvider analyticsService={anAnalyticsService()}>
@@ -138,6 +138,21 @@ describe('Page FAQ', () => {
 				const listeDeQuestion = screen.queryByRole('list');
 				expect(listeDeQuestion).not.toBeInTheDocument();
 			});
+		});
+
+		it('affiche le bouton de contact avec la bonne redirection', () => {
+
+			const analyticsService = anAnalyticsService();
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				</DependenciesProvider>,
+			);
+
+
+			const button = screen.getByRole('link', { name: 'Nous contacter' });
+			expect(button).toBeVisible();
+			expect(button).toHaveAttribute('href', 'mailto:contact-1j1s@sg.social.gouv.fr');
 		});
 	});
 });
