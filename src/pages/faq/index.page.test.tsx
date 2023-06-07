@@ -34,125 +34,95 @@ describe('Page FAQ', () => {
 		jest.clearAllMocks();
 	});
 
-	describe('quand le feature flip n‘est pas actif', () => {
-		beforeEach(() => {
-			process.env = {
-				...process.env,
-				NEXT_PUBLIC_FAQ_FEATURE: '0',
-			};
-		});
+	it('envoie les analytics de la page à son affichage', async () => {
+		const analyticsService = anAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>,
+		);
 
-		it('ne retourne rien', async () => {
-			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<FaqPage isFeatureActive={false}/>
-				</DependenciesProvider>,
-			);
-
-			const serviceIndisponible = screen.queryByText('Service Indisponible');
-			expect(serviceIndisponible).toBeInTheDocument();
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
+			page_template: 'contenu_statique',
+			pagegroup: 'contenu_statique',
+			pagelabel: 'contenu_statique',
+			'segment-site': 'page_de_base',
 		});
 	});
 
-	describe('quand le feature flip est actif', () => {
-		beforeEach(() => {
-			process.env = {
-				...process.env,
-				NEXT_PUBLIC_FAQ_FEATURE: '1',
-			};
+	it('affiche le titre de la page', async () => {
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>);
+
+		const title = await screen.findByRole('heading', { level: 1 });
+		expect(title).toHaveTextContent('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
+	});
+
+	it('affiche le sous titre de la page', async () => {
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>);
+
+		const sousTitre = await screen.findByRole('heading', { level: 2 });
+		expect(sousTitre).toHaveTextContent('Que pouvons-nous faire pour vous ?');
+
+	});
+
+	it('affiche une liste de question', async () => {
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>);
+
+		const listeDeQuestion = screen.getByRole('list');
+		expect(listeDeQuestion).toHaveAttribute('aria-label', 'Foire aux questions');
+
+		const listItem = within(listeDeQuestion).getAllByRole('listitem');
+		expect(listItem.length).toEqual(2);
+	});
+
+	it('affiche les questions sous forme de lien', async () => {
+		render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>);
+
+		const listeDeQuestion = screen.getByRole('list');
+		const questions = within(listeDeQuestion).getAllByRole('listitem');
+
+		questions.forEach((question, index) => {
+			const lien = within(question).getByRole('link');
+			expect(lien).toHaveTextContent(listeDeQuestionRéponse[index].problématique);
+			expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionRéponse[index].slug}`);
 		});
+	});
 
-		it('envoie les analytics de la page à son affichage', async () => {
-			const analyticsService = anAnalyticsService();
-			render(
-				<DependenciesProvider analyticsService={analyticsService}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
-				</DependenciesProvider>,
-			);
-
-			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
-				page_template: 'contenu_statique',
-				pagegroup: 'contenu_statique',
-				pagelabel: 'contenu_statique',
-				'segment-site': 'page_de_base',
-			});
-		});
-
-		it('affiche le titre de la page', async () => {
-			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
-				</DependenciesProvider>);
-
-			const title = await screen.findByRole('heading', { level: 1 });
-			expect(title).toHaveTextContent('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
-		});
-
-		it('affiche le sous titre de la page', async () => {
-			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
-				</DependenciesProvider>);
-
-			const sousTitre = await screen.findByRole('heading', { level: 2 });
-			expect(sousTitre).toHaveTextContent('Que pouvons-nous faire pour vous ?');
-
-		});
-
-		it('affiche une liste de question', async () => {
-			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
-				</DependenciesProvider>);
-
-			const listeDeQuestion = screen.getByRole('list');
-			expect(listeDeQuestion).toHaveAttribute('aria-label', 'Foire aux questions');
-
-			const listItem = within(listeDeQuestion).getAllByRole('listitem');
-			expect(listItem.length).toEqual(2);
-		});
-
-		it('affiche les questions sous forme de lien', async () => {
+	describe('quand la list de question est vide', () => {
+		it('n’affiche pas de liste', async () => {
 			render(
 				<DependenciesProvider analyticsService={anAnalyticsService()}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+					<FaqPage listeDeQuestionRéponse={[]}/>
 				</DependenciesProvider>);
 
-			const listeDeQuestion = screen.getByRole('list');
-			const questions = within(listeDeQuestion).getAllByRole('listitem');
-
-			questions.forEach((question, index) => {
-				const lien = within(question).getByRole('link');
-				expect(lien).toHaveTextContent(listeDeQuestionRéponse[index].problématique);
-				expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionRéponse[index].slug}`);
-			});
+			const listeDeQuestion = screen.queryByRole('list');
+			expect(listeDeQuestion).not.toBeInTheDocument();
 		});
+	});
 
-		describe('quand la list de question est vide', () => {
-			it('n’affiche pas de liste', async () => {
-				render(
-					<DependenciesProvider analyticsService={anAnalyticsService()}>
-						<FaqPage isFeatureActive={true} listeDeQuestionRéponse={[]}/>
-					</DependenciesProvider>);
+	it('affiche le bouton de contact avec la bonne redirection', () => {
 
-				const listeDeQuestion = screen.queryByRole('list');
-				expect(listeDeQuestion).not.toBeInTheDocument();
-			});
-		});
+		const analyticsService = anAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>,
+		);
 
-		it('affiche le bouton de contact avec la bonne redirection', () => {
-
-			const analyticsService = anAnalyticsService();
-			render(
-				<DependenciesProvider analyticsService={analyticsService}>
-					<FaqPage isFeatureActive={true} listeDeQuestionRéponse={listeDeQuestionRéponse}/>
-				</DependenciesProvider>,
-			);
-
-
-			const button = screen.getByRole('link', { name: 'Nous contacter' });
-			expect(button).toBeVisible();
-			expect(button).toHaveAttribute('href', 'mailto:contact-1j1s@sg.social.gouv.fr');
-		});
+		const button = screen.getByRole('link', { name: 'Nous contacter' });
+		expect(button).toBeVisible();
+		expect(button).toHaveAttribute('href', 'mailto:contact-1j1s@sg.social.gouv.fr');
 	});
 });

@@ -3,31 +3,25 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
 import { Question } from '~/server/cms/domain/FAQ.type';
 import { dependencies } from '~/server/start';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 type FaqPageProps = {
 	listeDeQuestionRéponse: Array<Question>
-	isFeatureActive: true
-} | {
-	listeDeQuestionRéponse?: never
-	isFeatureActive: false
-}
+} 
+
 const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
-export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: FaqPageProps) {
+export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 	useAnalytics(analytics);
 	useReferrer();
-
-	if (!isFeatureActive) return <ErrorUnavailableService/>;
 
 	return (
 		<>
@@ -61,13 +55,6 @@ export default function FaqPage({ listeDeQuestionRéponse, isFeatureActive }: Fa
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<FaqPageProps>> {
-	const displayFaq = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
-	if (!displayFaq) return {
-		props: {
-			isFeatureActive: false,
-		},
-	};
-
 	const listeDeQuestionRéponse = await dependencies.cmsDependencies.listerQuestionsFAQ.handle();
 	if (listeDeQuestionRéponse.instance === 'failure') {
 		return { notFound: true };
@@ -75,7 +62,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<FaqPageProp
 
 	return {
 		props: {
-			isFeatureActive: true,
 			listeDeQuestionRéponse: listeDeQuestionRéponse.result,
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
