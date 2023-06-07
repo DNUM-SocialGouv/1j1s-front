@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.89.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.1...v3.89.2) (2023-06-07)
+
+
+### 📚 Documentation
+
+* ajoute les ADRs du 06/06/2022 ([#1407](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1407)) ([e56b9fc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e56b9fccbc543dffa05e3c3cd5b96f6ac37b460e))
+
 ## [3.89.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.0...v3.89.1) (2023-06-07)
 
 
