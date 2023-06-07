@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.89.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.89.0...v3.89.1) (2023-06-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update getmeili/meilisearch docker tag to v1.2.0 ([#1402](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1402)) ([b53eeb6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b53eeb6c578838c3a79fe212a86bfa67b7923ab1))
+
 ## [3.89.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.88.1...v3.89.0) (2023-06-06)
 
 
