@@ -245,9 +245,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
 	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, cmsRepository);
 
-	const établissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
-	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService, loggerService);
-	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiÉtablissementPublicRepository);
+	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
+	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
+	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 

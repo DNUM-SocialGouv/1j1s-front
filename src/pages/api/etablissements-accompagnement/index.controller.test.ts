@@ -42,7 +42,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(json).toEqual({ error: ErreurMétier.DEMANDE_INCORRECTE });
+					expect(json).toEqual({ error: ErreurMétier.CONTENU_INDISPONIBLE });
 				},
 				url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
 			});
