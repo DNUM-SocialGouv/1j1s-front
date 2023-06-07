@@ -271,6 +271,7 @@ describe('<ConsulterAnnonce />', () => {
 			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce' });
 			expect(lienExterneCandidater).toBeInTheDocument();
 			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
+			expect(lienExterneCandidater).toHaveAttribute('title', 'Voir l‘annonce - nouvelle fenêtre');
 		});
 	});
 	it('affiche les services', () => {

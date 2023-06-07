@@ -43,6 +43,7 @@ describe('ConsulterOffreEmploi', () => {
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreEmploi.urlOffreOrigine);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
+		expect(linkPostulerOffreEmploi).toHaveAttribute('title', 'Je postule sur Pôle Emploi - nouvelle fenêtre');
 	});
 
 	it('affiche la formation requise dans un paragraphe', () => {

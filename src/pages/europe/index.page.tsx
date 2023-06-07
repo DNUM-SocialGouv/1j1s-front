@@ -40,7 +40,7 @@ export default function EuropePage() {
 		},
 		{
 			title: 'S‘engager dans une mission de solidarité en Europe',
-			url: 'https://europa.eu/youth/solidarity/young-people/volunteering_fr ',
+			url: 'https://europa.eu/youth/solidarity/young-people/volunteering_fr',
 		},
 	];
 

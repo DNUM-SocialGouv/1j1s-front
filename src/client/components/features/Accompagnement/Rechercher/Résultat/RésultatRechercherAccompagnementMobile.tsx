@@ -43,7 +43,7 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 			<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
 			{
 				établissement.email && !isMissionLocale &&
-					<LinkStyledAsButton className={styles.contactFormulaireÉtablissement} href={établissement.email} appearance={'asPrimaryButton'}>Contacter l‘agence</LinkStyledAsButton>
+					<LinkStyledAsButton className={styles.contactFormulaireÉtablissement} href={`mailto:${établissement.email}`} appearance={'asPrimaryButton'}>Contacter l‘agence</LinkStyledAsButton>
 			}
 			{
 				établissement.email && isMissionLocale &&

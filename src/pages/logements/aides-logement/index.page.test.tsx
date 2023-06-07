@@ -51,6 +51,7 @@ describe('Les aides au logement', () => {
 
 			expect(link).toHaveAttribute('href', 'https://wwwd.caf.fr/wps/portal/caffr/aidesetdemarches/mesdemarches/faireunesimulation/lelogement#/preparation');
 			expect(link).toHaveAttribute('target', '_blank');
+			expect(link).toHaveAttribute('title', 'Tester mon éligibilité pour les aides au logement de la CAF - nouvelle fenêtre');
 		});
 	});
 });

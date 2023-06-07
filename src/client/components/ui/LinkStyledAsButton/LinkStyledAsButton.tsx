@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import LinkNext from 'next/link';
 import React, { PropsWithChildren, useMemo } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import styles from './LinkStyledAsButton.module.scss';
@@ -79,13 +79,9 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWi
 		}
 	}, [icon, iconPosition, children, isInternalLink]);
 
-	return isInternalLink ? (
-		<LinkNext href={href} prefetch={prefetch} className={classNames(className, appearanceClass, iconClass)} {...rest}>
+	return (
+		<Link href={href} prefetch={prefetch} className={classNames(className, appearanceClass, iconClass)} {...rest}>
 			{linkStyledAsButtonWithIconBody}
-		</LinkNext>
-	) : (
-		<a href={href} target="_blank" rel="noreferrer" className={classNames(className, appearanceClass, iconClass)} {...rest}>
-			{linkStyledAsButtonWithIconBody}
-		</a>
+		</Link>
 	);
 }

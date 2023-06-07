@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
-import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreRéseau.module.scss';
+import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau.module.scss';
 import { EntreprendreRéseauPhasesProjet } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -28,7 +28,7 @@ export interface EntreprendreRéseauProps {
   publicConcerné?: string
 }
 
-function EntreprendreRéseau(props: EntreprendreRéseauProps) {
+function EntreprendreReseau(props: EntreprendreRéseauProps) {
 	const { entreprise, phases, publicConcerné } = props;
 	const { isSmallScreen } = useBreakpoint();
 
@@ -80,7 +80,7 @@ function EntreprendreRéseauList({ réseauList, ...rest }: EntreprendreRéseauLi
 		<ul className={styles.réseauList} {...rest}>
 			{réseauList.map((réseau) => (
 				<li key={réseau.entreprise.nom}>
-					<EntreprendreRéseau
+					<EntreprendreReseau
 						entreprise={réseau.entreprise}
 						phases={réseau.phases}
 						publicConcerné={réseau.publicConcerné}
