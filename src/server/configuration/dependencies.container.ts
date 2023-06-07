@@ -60,6 +60,9 @@ import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import {
+	ApiEtablissementPublicErrorManagementService,
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublicErrorManagement.service';
+import {
 	getApiTrajectoiresProConfig,
 } from '~/server/formations/configuration/api-trajectoires-pro/apiTrajectoiresProHttpClient.config';
 import {
@@ -246,7 +249,8 @@ export function dependenciesContainer(): Dependencies {
 	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, cmsRepository);
 
 	const établissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
-	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService, loggerService);
+	const apiEtablissementPublicErrorManagementService = new ApiEtablissementPublicErrorManagementService(loggerService);
+	const apiÉtablissementPublicRepository = new ApiÉtablissementPublicRepository(établissementPublicHttpClientService, apiEtablissementPublicErrorManagementService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiÉtablissementPublicRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);

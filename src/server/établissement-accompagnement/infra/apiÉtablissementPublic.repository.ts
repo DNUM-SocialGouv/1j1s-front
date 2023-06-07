@@ -1,5 +1,4 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import {
 	ÉtablissementAccompagnement,
 	ParamètresRechercheÉtablissementAccompagnement,
@@ -13,12 +12,11 @@ import {
 import {
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
-import { isHttpError } from '~/server/services/http/httpError';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiÉtablissementPublicRepository implements ÉtablissementAccompagnementRepository {
-	constructor(private httpClient: PublicHttpClientService, private loggerService: LoggerService) {
+	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagement: ErrorManagementService) {
 	}
 
 	async search(params: ParamètresRechercheÉtablissementAccompagnement): Promise<Either<ÉtablissementAccompagnement[]>> {
@@ -26,14 +24,12 @@ export class ApiÉtablissementPublicRepository implements ÉtablissementAccompag
 		try {
 			const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
 			return createSuccess(mapÉtablissementAccompagnement(data));
-		} catch (e) {
-			this.loggerService.error('[API Établissement Public] Erreur lors de la recherche d‘Établissement Public');
-			if (isHttpError(e)) {
-				if (e.response?.status === 404) {
-					return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
-				}
-			}
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		} catch (error) {
+			return this.errorManagement.handleFailureError(error, {
+				apiSource: 'API Établissement Public',
+				contexte: 'search établissement public',
+				message: '[API Établissement Public] Impossible d‘effectuer la recherche d‘Établissement Public',
+			});
 		}
 	}
 }
