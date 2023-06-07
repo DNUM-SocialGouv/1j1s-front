@@ -45,11 +45,8 @@ describe('ApiÉtablissementPublicRepository', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				// given
 				const httpError = anHttpError(404, '', anAxiosResponse({}, 404));
-				const httpClient = aPublicHttpClientService({
-					get: jest.fn(async () => {
-						throw httpError;
-					}),
-				});
+				const httpClient = aPublicHttpClientService();
+				jest.spyOn(httpClient, 'get').mockRejectedValue(httpError);
 				const expectedError = ErreurMétier.DEMANDE_INCORRECTE;
 				const errorManagementService = anErrorManagementService({
 					handleFailureError: jest.fn(() => createFailure(expectedError)),
