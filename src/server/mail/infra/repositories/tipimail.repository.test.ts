@@ -1,5 +1,3 @@
-import * as Sentry from '@sentry/nextjs';
-
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aMail } from '~/server/mail/domain/mail.fixture';
@@ -9,9 +7,6 @@ import { aLogInformation, anErrorManagementService } from '~/server/services/err
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
-jest.mock('@sentry/nextjs');
-
-const SentryMock = jest.mocked(Sentry);
 const logInformation = aLogInformation({
 	apiSource: 'API Tipimail',
 	contexte: 'Envoi email',
@@ -19,10 +14,6 @@ const logInformation = aLogInformation({
 });
 
 describe('TipimailRepository', () => {
-	afterEach(() => {
-		SentryMock.captureMessage.mockReset();
-	});
-
 	describe('send', () => {
 		describe('quand le mailer est actif', () => {
 			describe('lorsque l’api retourne une 200', () => {
@@ -30,7 +21,8 @@ describe('TipimailRepository', () => {
 					// given
 					const httpClient = aPublicHttpClientService();
 					jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-					const repository = new TipimailRepository(httpClient, anErrorManagementService(), true);
+					const errorManagementService = anErrorManagementService();
+					const repository = new TipimailRepository(httpClient, errorManagementService, true);
 					const expected = createSuccess(undefined);
 					const tipimailRequest = aTipimailRequest();
 					const mail = aMail();
@@ -41,7 +33,7 @@ describe('TipimailRepository', () => {
 
 					// then
 					expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailRequest);
-					expect(SentryMock.captureMessage).not.toHaveBeenCalled();
+					expect(errorManagementService.handleFailureError).not.toHaveBeenCalled();
 					expect(result).toEqual(expected);
 				});
 			});
@@ -103,7 +95,8 @@ describe('TipimailRepository', () => {
 				const httpClient = aPublicHttpClientService();
 				const redirectTo = 'redirect@email.com';
 				jest.spyOn(httpClient, 'post').mockResolvedValue(anAxiosResponse(undefined));
-				const repository = new TipimailRepository(httpClient, anErrorManagementService(), true, redirectTo);
+				const errorManagementService = anErrorManagementService();
+				const repository = new TipimailRepository(httpClient, errorManagementService, true, redirectTo);
 				const expected = createSuccess(undefined);
 				const tipimailRequest = aTipimailRequestWithRedirection();
 				const mail = aMail();
@@ -113,7 +106,7 @@ describe('TipimailRepository', () => {
 				const result = await repository.send(mail, context);
 
 				expect(httpClient.post).toHaveBeenCalledWith('messages/send', tipimailRequest);
-				expect(SentryMock.captureMessage).not.toHaveBeenCalled();
+				expect(errorManagementService.handleFailureError).not.toHaveBeenCalled();
 				expect(result).toEqual(expected);
 			});
 		});
