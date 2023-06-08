@@ -13,7 +13,7 @@ import {
 	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
-import { HttpError, isHttpError } from '~/server/services/http/httpError';
+import { isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
@@ -65,7 +65,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (error) {
-			if (ApiLaBonneAlternanceFormationRepository.isSearchDoable(error) && filtreRecherchePourRetrouverLaFormation) {
+			if (ApiLaBonneAlternanceFormationRepository.isErrorBecauseLbaFailedToRequestTheirDependencies(error) && filtreRecherchePourRetrouverLaFormation) {
 				return await this.getFormationFromSearch(filtreRecherchePourRetrouverLaFormation, id, cleMinistereEducatif);
 			}
 			return this.errorManagementService.handleFailureError(error, {
@@ -86,14 +86,11 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		return formationOrError;
 	}
 
-	private static isSearchDoable(e: unknown) {
-		return isHttpError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e);
-	}
-
-	private static isFormationNotFound(httpError: HttpError): boolean {
-		// l'api LBA va chercher des infos sur une autre API pour nous fournir le détail d'une formation
-		// quand ils n'arrivent pas à faire leur tambouille interne, ils nous retournent une 500
-		return httpError.response?.status === 500 && httpError.response.data.error === 'internal_error';
+	private static isErrorBecauseLbaFailedToRequestTheirDependencies(error: unknown) {
+		return isHttpError(error)
+			&& error.response !== undefined
+			&& error.response.status === 500
+			&& error.response.data.error === 'internal_error';
 	}
 
 	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Either<Formation>> {

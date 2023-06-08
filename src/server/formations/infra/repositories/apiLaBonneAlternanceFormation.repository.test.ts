@@ -100,7 +100,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			const id = 'formationId__';
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
-			(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+			jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 
 			// When
 			repository.get(id);
@@ -145,8 +145,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							it('retourne la formation trouvée sans lien de demande de rendez vous', async () => {
 								// Given
 								const httpClientService = aPublicHttpClientService();
-								(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-								(httpClientService.get as jest.Mock).mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 
 								const id = '456__';
 
@@ -175,9 +175,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 								it('retourne la formation trouvée avec le lien de demande de rendez vous', async () => {
 									// Given
 									const httpClientService = aPublicHttpClientService();
-									(httpClientService.get as jest.Mock).mockRejectedValueOnce(anHttpError(500, 'internal_error'));
-									(httpClientService.get as jest.Mock).mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
-									(httpClientService.post as jest.Mock).mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+									jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+									jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+									jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 
 									const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 									const id = '123__cleMinistereEducatif-123456';
@@ -303,9 +303,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				it('retourne la formation renvoyée par l’API sans lien de demande de rendez vous', async () => {
 					// Given
 					const httpClientService = aPublicHttpClientService();
-					(httpClientService.get as jest.Mock).mockResolvedValue({
-						data: aLaBonneAlternanceApiFormationResponse(),
-					});
+					jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aLaBonneAlternanceApiFormationResponse()));
 					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 					// When
@@ -321,9 +319,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					it('retourne la formation renvoyée par l’API sans lien de demande de rendez vous', async () => {
 						// Given
 						const httpClientService = aPublicHttpClientService();
-						(httpClientService.get as jest.Mock).mockResolvedValueOnce({
-							data: aLaBonneAlternanceApiFormationResponse(),
-						});
+						jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiFormationResponse()));
 						const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 						// When
@@ -339,10 +335,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						it('retourne la formation renvoyée par l’API avec le lien de demande de rendez vous', async () => {
 							// Given
 							const httpClientService = aPublicHttpClientService();
-							(httpClientService.get as jest.Mock).mockResolvedValueOnce({
-								data: aLaBonneAlternanceApiFormationResponse(),
-							});
-							(httpClientService.post as jest.Mock).mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+							jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiFormationResponse()));
+							jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
 							const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 
 							// When
