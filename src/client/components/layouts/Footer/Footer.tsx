@@ -12,7 +12,6 @@ interface FooterLink {
 }
 
 export default function Footer() {
-	const displayFAQ = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
 	const linkList: Array<FooterLink> = [
 		{
 			title: 'legifrance.gouv.fr',
@@ -36,7 +35,6 @@ export default function Footer() {
 		},
 	];
 
-	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 	return (
 		<footer id="footer">
 			<p className={styles.preFooter}>
@@ -61,11 +59,10 @@ export default function Footer() {
 							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} />
 						</div>
 					</div>
-					{ displayFAQ && <Link href="/faq" className={styles.footerFaq}>
+					<Link href="/faq" className={styles.footerFaq}>
 						<div>Besoin d’aide ?</div>
 						<div>Accéder à la FAQ de 1jeune1solution</div>
 					</Link>
-					}
 					<div className={styles.footerMessageWrapper}>
 						<ul aria-label="Liens externes" className={styles.footerLienExterne}>
 							{linkList.map((link) => (
@@ -83,11 +80,6 @@ export default function Footer() {
 					<li><Link href="/accessibilite" className={styles.footerLienUtileItem} prefetch={false}>Accessibilité : Partiellement conforme</Link></li>
 					<li><Link href="/mentions-legales" className={styles.footerLienUtileItem} prefetch={false}>Mentions légales</Link></li>
 					<li><Link href="/confidentialite" className={styles.footerLienUtileItem} prefetch={false}>Politique de confidentialité</Link></li>
-					<li>
-						<Link href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
-							<TextIcon icon="external-redirection">Nous contacter</TextIcon>
-						</Link>
-					</li>
 				</ul>
 				<p className={styles.footerCopyRight}>
           Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;

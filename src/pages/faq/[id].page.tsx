@@ -4,7 +4,6 @@ import React from 'react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
-import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { Article } from '~/server/cms/domain/article';
 import {
 	Question,
@@ -16,10 +15,6 @@ import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
 	faqRéponse: Question.QuestionRéponse
-	isFeatureActive: true
-} | {
-	faqRéponse?: never
-	isFeatureActive: false
 }
 
 interface FAQRéponse extends ParsedUrlQuery {
@@ -33,9 +28,7 @@ const faqRéponseMapToArticleFormat = (faqRéponse: Question.QuestionRéponse): 
 	};
 };
 
-export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: ConsulterFAQRéponsePageProps) {
-	if (!isFeatureActive) return <ErrorUnavailableService/>;
-
+export default function ConsulterArticlePage({ faqRéponse  }: ConsulterFAQRéponsePageProps) {
 	return (
 		<>
 			<Head
@@ -49,13 +42,6 @@ export default function ConsulterArticlePage({ faqRéponse, isFeatureActive  }: 
 
 
 export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>): Promise<GetStaticPropsResult<ConsulterFAQRéponsePageProps>> {
-	const displayFaq = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
-	if (!displayFaq) return {
-		props: {
-			isFeatureActive: false,
-		},
-	};
-
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
@@ -71,7 +57,6 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 	return {
 		props: {
 			faqRéponse: removeUndefinedKeys(result),
-			isFeatureActive: true,
 		},
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};

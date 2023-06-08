@@ -17,7 +17,6 @@ import styles from '~/pages/plan-du-site/index.module.scss';
 export default function PlanDuSite() {
 	useAnalytics(analytics);
 
-	const displayFAQ = process.env.NEXT_PUBLIC_FAQ_FEATURE === '1';
 	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
 	function displayNavigationTree(item: NavigationItem | NavigationItemWithChildren) {
@@ -60,7 +59,7 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList().employeurNav)}
 
 						<li><Link href="/espace-jeune">Espace Jeune</Link></li>
-						{ displayFAQ && <li><Link href="/faq">Foire aux questions</Link></li> }
+						<li><Link href="/faq">Foire aux questions</Link></li>
 						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
 						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
 						<li><Link href="/mentions-legales">Mentions légales</Link></li>
