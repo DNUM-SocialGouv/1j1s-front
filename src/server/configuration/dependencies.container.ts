@@ -95,6 +95,7 @@ import {
 	ApiAdresseErrorManagementService,
 } from '~/server/localisations/infra/repositories/apiAdresseErrorManagement.service';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
+import { ApiGeoErrorManagementService } from '~/server/localisations/infra/repositories/apiGeoErrorManagement.service';
 import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
@@ -207,7 +208,8 @@ export function dependenciesContainer(): Dependencies {
 
 	const trajectoiresProHttpClientService = new PublicHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService));
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
-	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService, loggerService);
+	const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
+	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService, apiGeoErrorManagementService);
 	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository, loggerService);
 
 	const formationDependencies = formationsDependenciesContainer(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository);

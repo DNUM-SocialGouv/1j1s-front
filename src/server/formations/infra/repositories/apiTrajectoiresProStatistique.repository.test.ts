@@ -7,6 +7,7 @@ import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -30,7 +31,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 		apiGeoLocalisationHttpService = aCachedHttpClientService();
 		httpService = aPublicHttpClientService();
 		loggerService = aLoggerService();
-		apiGeoLocalisationRepository = new ApiGeoRepository(apiGeoLocalisationHttpService, loggerService);
+		apiGeoLocalisationRepository = new ApiGeoRepository(apiGeoLocalisationHttpService, anErrorManagementService());
 
 		codeCertification = '123';
 		codePostal = '75000';

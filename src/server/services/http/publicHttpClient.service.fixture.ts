@@ -83,12 +83,13 @@ export function aPublicHttpClientService(override?: Partial<PublicHttpClientServ
 	} as unknown as PublicHttpClientService;
 }
 
-export function aCachedHttpClientService(): CachedHttpClientService {
+export function aCachedHttpClientService(override? : Partial<CachedHttpClientService>): CachedHttpClientService {
 	return {
 		client: anAxiosInstance(),
 		get: jest.fn(),
 		post: jest.fn(),
 		setAuthorizationHeader: jest.fn(),
+		...override,
 	} as unknown as CachedHttpClientService;
 }
 

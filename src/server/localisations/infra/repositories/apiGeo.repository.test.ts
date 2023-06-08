@@ -1,30 +1,26 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
-import { createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
-import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
 import {
 	aCacheAxiosResponse,
 	aCachedHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { LoggerService } from '~/server/services/logger.service';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
+
+const aLogInformationApiGeo = (contexte: string) => aLogInformation({
+	apiSource: 'API Geo',
+	contexte,
+	message: '[API Geo] impossible de récupérer une ressource',
+});
 
 describe('ApiGeoLocalisationRepository', () => {
-	let httpClientService: CachedHttpClientService;
-	let loggerService: LoggerService;
-	let apiGeoLocalisationRepository: ApiGeoRepository;
-
-	beforeEach(() => {
-		httpClientService = aCachedHttpClientService();
-		loggerService = aLoggerService();
-
-		apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, loggerService);
-	});
-
 	describe('getCommuneListByNom', () => {
 		it('retourne la liste des communes par nom trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.17971023846171058,
 					code: '11177',
@@ -52,6 +48,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '212103253',
 				},
 			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 
 			const result = await apiGeoLocalisationRepository.getCommuneListByNom('jou');
 
@@ -65,12 +62,12 @@ describe('ApiGeoLocalisationRepository', () => {
 					nom: 'Jouey',
 				},
 			]);
-
 			expect(result).toEqual(expected);
 		});
 
 		it('quand les communes contiennent plusieurs code postaux retourne le premier code postal et pas le code insee lui meme', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.3835418052804487,
 					code: '81202',
@@ -118,9 +115,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '217500016',
 				},
 			]) as CacheAxiosResponse);
-
-			const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
-
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess([
 				{
 					code: '81310',
@@ -132,13 +127,33 @@ describe('ApiGeoLocalisationRepository', () => {
 				},
 			]);
 
+			const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
+
 			expect(result).toEqual(expected);
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get communes'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 
 	describe('getDépartementListByNom', () => {
 		it('retourne la liste des départements par nom trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 1,
 					code: '78',
@@ -146,7 +161,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					nom: 'Yvelines',
 				},
 			]) as CacheAxiosResponse);
-
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess([
 				{
 					code: '78',
@@ -158,17 +173,36 @@ describe('ApiGeoLocalisationRepository', () => {
 
 			expect(result).toEqual(expected);
 		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getDépartementListByNom('yve');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get départements'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
+		});
 	});
 
 	describe('getRégionListByNom', () => {
 		it('retourne la liste des régions par nom trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					_score: 0.6920702684582538,
 					code: '32',
 					nom: 'Hauts-de-France',
 				},
 			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 
 			const result = await apiGeoLocalisationRepository.getRégionListByNom('haut');
 
@@ -181,11 +215,29 @@ describe('ApiGeoLocalisationRepository', () => {
 
 			expect(result).toEqual(expected);
 		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getRégionListByNom('haut');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get régions'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
+		});
 	});
 
 	describe('getCommuneListByCodePostal', () => {
 		it('retourne la liste des communes par code postal trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
 					codeDepartement: '92',
@@ -199,6 +251,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '219200227',
 				},
 			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 
 			const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('92370');
 
@@ -213,7 +266,8 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 
 		it('quand les communes contiennent plusieurs code postaux retourne le code insee de la commune avec le premier code postal et pas le code insee lui meme', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '78322',
 					codeDepartement: '78',
@@ -239,9 +293,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '217803436',
 				},
 			]) as CacheAxiosResponse);
-
-			const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('78350');
-
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess([
 				{
 					code: '78350',
@@ -253,13 +305,33 @@ describe('ApiGeoLocalisationRepository', () => {
 				},
 			]);
 
+			const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('78350');
+
 			expect(result).toEqual(expected);
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('78350');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get communes'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 
 	describe('getCommuneListByNuméroDépartement', () => {
 		it('retourne la liste des communes du département par numéro du département trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92002',
 					codeDepartement: '92',
@@ -285,9 +357,7 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '219200045',
 				},
 			]) as CacheAxiosResponse);
-
-			const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
-
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess([
 				{
 					code: '92160',
@@ -299,22 +369,40 @@ describe('ApiGeoLocalisationRepository', () => {
 				},
 			]);
 
+			const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
+
 			expect(result).toEqual(expected);
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get communes'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 
 	describe('getDépartementListByNuméroDépartement', () => {
 		it('retourne la liste du département par numéro du département trouvées par l‘api decoupage administratif', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '78',
 					codeRegion: '11',
 					nom: 'Yvelines',
 				},
 			]) as CacheAxiosResponse);
-
-			const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
-
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess([
 				{
 					code: '78',
@@ -322,13 +410,33 @@ describe('ApiGeoLocalisationRepository', () => {
 				},
 			]);
 
+			const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
+
 			expect(result).toEqual(expected);
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get départements'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 
 	describe('getCodeRegionByCodePostal', () => {
 		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région est défini', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
 					codeDepartement: '92',
@@ -342,16 +450,17 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '219200227',
 				},
 			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
+			const expected = createSuccess('11');
 
 			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
-
-			const expected = createSuccess('11');
 
 			expect(result).toEqual(expected);
 		});
 
 		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région n’est pas défini', async () => {
-			(httpClientService.get as jest.Mock).mockResolvedValue(aCacheAxiosResponse([
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
 					codeDepartement: '92',
@@ -365,12 +474,29 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '219200227',
 				},
 			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
+			const expected = createSuccess(undefined);
 
 			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
 
-			const expected = createSuccess(undefined);
-
 			expect(result).toEqual(expected);
+		});
+
+		describe('quand l’api renvoie une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				const errorHttp = anHttpError(400, 'an http error');
+				const httpClientService = aCachedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+				const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('get communes'));
+				expect(result.instance).toEqual('failure');
+				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			});
 		});
 	});
 });
