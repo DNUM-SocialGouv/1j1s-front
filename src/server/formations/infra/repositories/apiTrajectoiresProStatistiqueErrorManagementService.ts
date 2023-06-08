@@ -4,10 +4,6 @@ import { HttpError } from '~/server/services/http/httpError';
 import { DefaultErrorManagementService, LogInformation } from '../../../services/error/errorManagement.service';
 
 export class ApiTrajectoiresProStatistiqueErrorManagementService extends DefaultErrorManagementService {
-	// handleFailureError(error: unknown, logInformation: LogInformation): Failure {
-	// 	return super.handleFailureError(error, logInformation);
-	// }
-
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		const errorToLog = new SentryException(
 			`${logInformation.message} (erreur http)`,

@@ -47,4 +47,25 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 			expect(failure.errorType).toStrictEqual(ErreurMétier.DEMANDE_INCORRECTE);
 		});
 	});
+
+	describe('quand il y a une erreur interne', () => {
+		it('log en erreur les informations de l’erreur et retourne une erreur métier CONTENU_INDISPONIBLE', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const apiTrajectoiresProStatistiqueErrorManagementService = new ApiTrajectoiresProStatistiqueErrorManagementService(loggerService);
+			const someError = new Error('something is wrong');
+			const logInformation = aLogInformation();
+
+			// WHEN
+			const failure = apiTrajectoiresProStatistiqueErrorManagementService.handleFailureError(someError, logInformation);
+
+			// THEN
+			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(new SentryException(
+				`${logInformation.message} (erreur interne)`,
+				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ stacktrace: someError.stack },
+			));
+			expect(failure.errorType).toStrictEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+		});
+	});
 });
