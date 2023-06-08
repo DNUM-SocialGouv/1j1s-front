@@ -15,5 +15,6 @@ export const Example: Story = {
 		open: true,
 		summary: 'titre',
 		summaryAs: 'h2',
+		children:<p>Je suis un enfant</p>,
 	},
 };
