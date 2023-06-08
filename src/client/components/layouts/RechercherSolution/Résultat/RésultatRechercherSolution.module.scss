@@ -11,7 +11,7 @@
   }
 
   &Link {
-   &:hover > .cardLinkCallToAction {
+    &:hover > .cardLinkCallToAction {
       text-decoration: underline;
       text-underline-offset: 3px;
     }
