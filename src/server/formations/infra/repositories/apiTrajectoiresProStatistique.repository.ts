@@ -8,13 +8,12 @@ import {
 	StatistiquesMappedFromApi,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { mapStatistiques } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
-import { handleFailureError } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistiqueError';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
-	constructor(private httpClientService: PublicHttpClientService, private apiGeoLocalisationRepository: LocalisationRepository, private loggerService: LoggerService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly apiGeoLocalisationRepository: LocalisationRepository, private readonly errorManagementService: ErrorManagementService) {}
 
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
 		try {
@@ -31,8 +30,12 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 				return createSuccess(statistiques);
 			}
 			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
-		} catch (e) {
-			return handleFailureError(e, 'statistique formation', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Trajectoires Pro',
+				contexte: 'get statistique de formation',
+				message: '[API Trajectoires Pro] statistique de formation non trouvée',
+			});
 		}
 	}
 

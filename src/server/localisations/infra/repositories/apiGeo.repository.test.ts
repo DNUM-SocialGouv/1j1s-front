@@ -434,6 +434,15 @@ describe('ApiGeoLocalisationRepository', () => {
 	});
 
 	describe('getCodeRegionByCodePostal', () => {
+		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
+			const codePostal = '92370';
+
+			await apiGeoLocalisationRepository.getCodeRegionByCodePostal(codePostal);
+
+			expect(httpClientService.get).toHaveBeenCalledWith(`communes?codePostal=${codePostal}`);
+
+		});
+
 		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région est défini', async () => {
 			const httpClientService = aCachedHttpClientService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([

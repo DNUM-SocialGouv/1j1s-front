@@ -1,6 +1,5 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { SentryException } from '~/server/exceptions/sentryException';
 import {
 	ApiTrajectoiresProStatistiqueResponse,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
@@ -9,21 +8,20 @@ import {
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { aLocalisationRepository } from '~/server/localisations/domain/localisation.fixture';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
 	aCachedHttpClientService,
+	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { LoggerService } from '~/server/services/logger.service';
-import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 describe('apiTrajectoiresProCertification.repository', () => {
 	let apiGeoLocalisationHttpService: CachedHttpClientService;
 	let httpService: PublicHttpClientService;
 	let apiGeoLocalisationRepository: LocalisationRepository;
-	let loggerService: LoggerService;
 
 	let codeCertification: string;
 	let codePostal: string;
@@ -31,7 +29,6 @@ describe('apiTrajectoiresProCertification.repository', () => {
 	beforeEach(() => {
 		apiGeoLocalisationHttpService = aCachedHttpClientService();
 		httpService = aPublicHttpClientService();
-		loggerService = aLoggerService();
 		apiGeoLocalisationRepository = aLocalisationRepository();
 
 		codeCertification = '123';
@@ -40,16 +37,19 @@ describe('apiTrajectoiresProCertification.repository', () => {
 	});
 	describe('get', () => {
 		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
-			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+			const localisationRepository = aLocalisationRepository();
+			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
+
 			await repository.get(codeCertification, codePostal);
 
-			expect(apiGeoLocalisationHttpService.get).toHaveBeenCalledWith(`communes?codePostal=${codePostal}`);
+			expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(codePostal);
+
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
 			it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
 				jest.spyOn(apiGeoLocalisationHttpService, 'get').mockRejectedValue(anHttpError(500));
-				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, anErrorManagementService());
 
 				const returnValue = await repository.get(codeCertification, codePostal);
 
@@ -63,7 +63,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			describe('mais que le code région récupéré n’est pas défini', () => {
 				it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
 					(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: undefined }] });
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, anErrorManagementService());
 
 					const returnValue = await repository.get(codeCertification, codePostal);
 					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
@@ -71,48 +71,25 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
-				describe('lorsque l’erreur est de type 404', () => {
-					it('retourne une erreur CONTENU_INDISPONIBLE et log avec le niveau warning', async () => {
-						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						(httpService.get as jest.Mock).mockRejectedValue(anHttpError(404));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+				it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+					const localisationRepository = aLocalisationRepository();
+					const errorManagementService = anErrorManagementService();
+					const httpError = anHttpError(404);
+					const expectedFailureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
 
-						const returnValue = await repository.get(codeCertification, codePostal);
+					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+					jest.spyOn(httpService, 'get').mockRejectedValue(httpError);
+					jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedFailureReturnedByErrorManagement);
 
-						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
-						expect(loggerService.warnWithExtra).toHaveBeenCalledTimes(1);
-						expect(loggerService.warnWithExtra).toHaveBeenCalledWith(
-							new SentryException(
-								'[API Trajectoires Pro] statistique de formation non trouvée',
-								{ context: '', source: 'API Trajectoires Pro' },
-								{ errorDetail: '[API Trajectoires Pro] statistique de formation non trouvée' },
-							),
-						);
-					});
-				});
-				describe('lorsque l’erreur est une autre erreur http', () => {
-					it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						(httpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-						const returnValue = await repository.get(codeCertification, codePostal);
+					const returnValue = await repository.get(codeCertification, codePostal);
 
-						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-					});
-				});
-				describe('lorsque l’erreur n’est pas une erreur http', () => {
-					it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						(httpService.get as jest.Mock).mockRejectedValue(new Error(''));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
-
-						const returnValue = await repository.get(codeCertification, codePostal);
-
-						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+					expect(returnValue).toEqual(expectedFailureReturnedByErrorManagement);
+					expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+						apiSource: 'API Trajectoires Pro',
+						contexte: 'get statistique de formation',
+						message: '[API Trajectoires Pro] statistique de formation non trouvée',
 					});
 				});
 			});
@@ -130,7 +107,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, anErrorManagementService());
 
 						const returnValue = await repository.get(codeCertification, codePostal);
 
@@ -156,7 +133,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
 						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, anErrorManagementService());
 
 						const returnValue = await repository.get(codeCertification, codePostal);
 
@@ -177,10 +154,10 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							},
 							taux_en_emploi_6_mois: '77',
 						};
-
-						(apiGeoLocalisationHttpService.get as jest.Mock).mockResolvedValue({ data: [{ codeRegion: '11' }] });
-						(httpService.get as jest.Mock).mockResolvedValue({ data: statistiquesFormation });
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
+						const localisationRepository = aLocalisationRepository();
+						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
 						// When
 						const returnValue = await repository.get(codeCertification, codePostal);
