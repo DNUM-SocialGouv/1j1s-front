@@ -12,7 +12,7 @@ export interface ApiTrajectoiresProStatistiqueResponse {
 	millesime?: string
 }
 
-export interface StatistiquesMappées {
+export interface StatistiquesMappedFromApi {
 	region?: string
 	millesime?: string
 	tauxEnEmploi6Mois?: string
@@ -39,8 +39,3 @@ export type StatistiqueAvecRegionEtAuMoinsUnPourcentage = {
 	millesime?: string
 } & AuMoinsUnPourcentage
 
-export function isRegionEtAuMoinsUnPourcentageDisponible(statistiquesMappées: StatistiquesMappées): statistiquesMappées is StatistiqueAvecRegionEtAuMoinsUnPourcentage {
-	const isRegionStatistiqueDisponible = !!statistiquesMappées.region;
-	const isStatistiqueDisponible = !!statistiquesMappées.tauxEnEmploi6Mois || !!statistiquesMappées.tauxEnFormation || !!statistiquesMappées.tauxAutres6Mois;
-	return isRegionStatistiqueDisponible && isStatistiqueDisponible;
-}

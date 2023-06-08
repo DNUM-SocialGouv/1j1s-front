@@ -1,6 +1,6 @@
 import {
 	ApiTrajectoiresProStatistiqueResponse,
-	StatistiquesMappées,
+	StatistiquesMappedFromApi,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 
 function mapMillesime(millesime?: string) {
@@ -9,7 +9,7 @@ function mapMillesime(millesime?: string) {
 	return millesime.replace('_', '-');
 }
 
-export function mapStatistiques(apiResponse: ApiTrajectoiresProStatistiqueResponse): StatistiquesMappées {
+export function mapStatistiques(apiResponse: ApiTrajectoiresProStatistiqueResponse): StatistiquesMappedFromApi {
 	return {
 		millesime: mapMillesime(apiResponse.millesime),
 		region: apiResponse.region?.nom,

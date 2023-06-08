@@ -1,13 +1,14 @@
-import {
-	createFailure,
-	createSuccess,
-} from '~/server/errors/either';
+import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
-import { ApiTrajectoiresProStatistiqueResponse } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
-import { ApiTrajectoiresProStatistiqueRepository } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
-import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import {
+	ApiTrajectoiresProStatistiqueResponse,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
+import {
+	ApiTrajectoiresProStatistiqueRepository,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
+import { aLocalisationRepository } from '~/server/localisations/domain/localisation.fixture';
+import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -21,7 +22,7 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 describe('apiTrajectoiresProCertification.repository', () => {
 	let apiGeoLocalisationHttpService: CachedHttpClientService;
 	let httpService: PublicHttpClientService;
-	let apiGeoLocalisationRepository: ApiGeoRepository;
+	let apiGeoLocalisationRepository: LocalisationRepository;
 	let loggerService: LoggerService;
 
 	let codeCertification: string;
@@ -31,7 +32,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 		apiGeoLocalisationHttpService = aCachedHttpClientService();
 		httpService = aPublicHttpClientService();
 		loggerService = aLoggerService();
-		apiGeoLocalisationRepository = new ApiGeoRepository(apiGeoLocalisationHttpService, anErrorManagementService());
+		apiGeoLocalisationRepository = aLocalisationRepository();
 
 		codeCertification = '123';
 		codePostal = '75000';
@@ -47,11 +48,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
 			it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-				(apiGeoLocalisationHttpService.get as jest.Mock).mockRejectedValue(anHttpError(500));
+				jest.spyOn(apiGeoLocalisationHttpService, 'get').mockRejectedValue(anHttpError(500));
 				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, apiGeoLocalisationRepository, loggerService);
 
 				const returnValue = await repository.get(codeCertification, codePostal);
 
+				expect(apiGeoLocalisationRepository.getCodeRegionByCodePostal).toHaveBeenCalled();
 				expect(httpService.get).toHaveBeenCalledTimes(0);
 				expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
 			});
