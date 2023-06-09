@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.93.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.92.0...v3.93.0) (2023-06-09)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **sitemap:** supprimer nous contacter du plan du site ([#1423](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1423)) ([4bf3c68](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4bf3c68994fcc5a4436b1ba1129bb61b8fba2979))
+
 ## [3.92.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.91.0...v3.92.0) (2023-06-08)
 
 
