@@ -110,7 +110,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith('/v1/formations/formationDescription/formationId');
 		});
 
-		describe('quand l‘appel à l’api est en erreur', () => {
+		describe('quand l‘appel à l’api est en erreur car LaBonneAlternance n’a pas réussi à récupérer le détail d’une formation de leur côté', () => {
 			describe('si les filtres sont absents', () => {
 				it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 					// Given
