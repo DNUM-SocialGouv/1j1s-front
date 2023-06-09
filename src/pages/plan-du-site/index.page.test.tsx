@@ -49,8 +49,7 @@ describe('Plan du site', () => {
     ${'Conditions Générales d’utilisation'}                   | ${'/cgu'}
     ${'Accessibilité : Partiellement conforme'}               | ${'/accessibilite'}
     ${'Mentions légales'}                                     | ${'/mentions-legales'}
-    ${'Politique de confidentialité'}                         | ${'/confidentialite'}
-    ${'Nous contacter'}                                       | ${'mailto:contact-1j1s@sg.social.gouv.fr'}`(
+    ${'Politique de confidentialité'}                         | ${'/confidentialite'}`(
 		'présente la page $nom du site',
 		async ({ nom, path }) => {
 			const analyticsService = anAnalyticsService();

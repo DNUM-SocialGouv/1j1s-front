@@ -9,15 +9,12 @@ import {
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { Link } from '~/client/components/ui/Link/Link';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/plan-du-site/index.analytics';
 import styles from '~/pages/plan-du-site/index.module.scss';
 
 export default function PlanDuSite() {
 	useAnalytics(analytics);
-
-	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
 	function displayNavigationTree(item: NavigationItem | NavigationItemWithChildren) {
 		if (isNavigationItem(item)) {
@@ -64,9 +61,6 @@ export default function PlanDuSite() {
 						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
 						<li><Link href="/mentions-legales">Mentions légales</Link></li>
 						<li><Link href="/confidentialite">Politique de confidentialité</Link></li>
-						<li><Link href={`mailto:${MAIL_TO}`}>
-							<TextIcon icon="external-redirection">Nous contacter</TextIcon>
-						</Link></li>
 					</ul>
 				</main>
 			</Container>
