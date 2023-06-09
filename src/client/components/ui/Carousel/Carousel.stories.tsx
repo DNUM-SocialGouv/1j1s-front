@@ -15,7 +15,8 @@ export const Example: Story = {
 		hideIndicators: true,
 		imageList: [],
 		imageListLabel: 'Ceci est une image',
-		imagesSize: { height: 0, width:0 },
+		imagesSize: { height: 109, width:34 },
 		
 	},
 };
+
