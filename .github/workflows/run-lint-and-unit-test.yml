@@ -27,6 +27,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
+      - run: npm why typescript
       - run: npm run lint
       - run: tsc --noEmit
       - run: npm run test
