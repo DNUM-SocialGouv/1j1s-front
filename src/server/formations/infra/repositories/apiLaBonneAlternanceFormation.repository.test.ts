@@ -1,5 +1,6 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { Formation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	aFormationQuery,
@@ -13,6 +14,9 @@ import {
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+
+const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
+
 
 describe('apiLaBonneAlternanceFormation.repository', () => {
 	describe('search', () => {
@@ -142,6 +146,78 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				describe('utilise les filtres pour faire une recherche', () => {
 					describe('si la formation est trouvée dans le résultat de recherche', () => {
 						describe('si la cleMinistereEducatif n’est pas trouvée', () => {
+							it('la récupération initiale de la formation est en erreur', async() => {
+								// Given
+								const httpClientService = aPublicHttpClientService();
+								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+
+								const formationId = '456__';
+
+								const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
+
+								// When
+								await repository.get(formationId, aFormationQuery());
+
+								// Then
+								expect(httpClientService.get).toHaveBeenNthCalledWith(1,`/v1/formations/formationDescription/${formationId}`);
+							});
+
+							it('la récupération se fait à partir d’une recherche avec les filtres présents', async () => {
+								// Given
+								const httpClientService = aPublicHttpClientService();
+								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+
+								const formationId = '456';
+
+								const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
+
+								// When
+								await repository.get(formationId, aFormationQuery());
+
+								// Then
+								expect(httpClientService.get).toHaveBeenNthCalledWith(2,expect.stringMatching(/\/v1\/formations\?/ ));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*caller=1jeune1solution-test/));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*romes=F1603,I1308/));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*insee=13180/));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*longitude=29.10/));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*latitude=48.2/));
+								expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*radius=30/));
+							});
+
+
+
+
+							it('pour une formation sans cleMinistereEducatif, ne récupère pas le lien de demande de rendez vous', () => {
+								const httpClientService = aPublicHttpClientService();
+								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+
+								new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
+
+								expect(httpClientService.post).not.toHaveBeenCalled();
+							});
+							it('retourne la formation trouvée sans lien de demande de rendez vous', () => {
+								const httpClientService = aPublicHttpClientService();
+								const expectedFormation : Formation = {
+									adresse: {
+										adresseComplète: undefined,
+										codePostal: undefined,
+									},
+									contact: {},
+									nomEntreprise: 'La Bonne Alternance',
+									tags: [ 'Paris' ],
+									titre: 'Développeur web',
+								};
+								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+
+								const result = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
+
+								expect(result).toEqual(createSuccess(expectedFormation));
+							});
+
+							// todo à enlever
 							it('retourne la formation trouvée sans lien de demande de rendez vous', async () => {
 								// Given
 								const httpClientService = aPublicHttpClientService();
@@ -170,8 +246,34 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 								}));
 							});
 						});
+
+
 						describe('si la cleMinistereEducatif est trouvée', () => {
 							describe('appelle l’api LaBonneAlternance pour créer un lien de demande de rendez-vous', () => {
+								it('appelle l‘api avec les bons arguments', ()=> {
+									const httpClientService = aPublicHttpClientService();
+									jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
+									jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
+									jest.spyOn(httpClientService, 'post').mockResolvedValueOnce(anAxiosResponse({ form_url: 'url Demande de Rendez vous' }));
+
+									const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
+									const id = '123__cleMinistereEducatif-123456';
+
+									// When
+									await repository.get(id, aFormationQuery());
+
+									// Then
+									expect(httpClientService.post).toHaveBeenCalledTimes(1);
+									expect(httpClientService.post).toHaveBeenCalledWith(
+										'/appointment-request/context/create',
+										{
+											idCleMinistereEducatif: id,
+											referrer: DEMANDE_RENDEZ_VOUS_REFERRER,
+										},
+									);
+								});
+
+
 								it('retourne la formation trouvée avec le lien de demande de rendez vous', async () => {
 									// Given
 									const httpClientService = aPublicHttpClientService();
