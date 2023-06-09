@@ -12,9 +12,9 @@ type Story = StoryObj<typeof Accordion>;
 
 export const Example: Story = {
 	args: {
+		children:<p>Je suis un enfant</p>,
 		open: true,
 		summary: 'titre',
 		summaryAs: 'h2',
-		children:<p>Je suis un enfant</p>,
 	},
 };

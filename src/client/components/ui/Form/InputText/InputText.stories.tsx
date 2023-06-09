@@ -13,8 +13,8 @@ type Story = StoryObj<typeof InputText>;
 
 export const Example: Story = {
 	args:{
-		label:"C'est un champ texte",
 		hint:'',
+		label:"C'est un champ texte",
 		necessity:'',
 		validation:'',
 		value:'',

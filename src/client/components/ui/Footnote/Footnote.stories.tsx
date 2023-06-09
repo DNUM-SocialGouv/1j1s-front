@@ -12,8 +12,8 @@ type Story = StoryObj<typeof Footnote>;
 
 export const Example: Story ={
 	args: {
+		children:<p>{'Note de pied de page'}</p>,
 		htmlFor: 'string',
 		id: 'string',
-		children:<p>{'Note de pied de page'}</p>,
 	},
 };
