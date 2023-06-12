@@ -44,7 +44,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'get metier la bonne alternance',
-					message: '[API LaBonneAlternance] impossible de récuperer les métiers',
+					message: 'impossible de récuperer les métiers',
 				});
 				expect(response.instance).toEqual('failure');
 				expect((response as Failure).errorType).toEqual(expectedFailure);

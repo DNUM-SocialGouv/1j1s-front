@@ -66,7 +66,7 @@ export class StrapiRepository implements CmsRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Strapi',
 				contexte: 'get single type strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
 			});
 		}
 	}
@@ -94,7 +94,7 @@ export class StrapiRepository implements CmsRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Strapi',
 				contexte: 'get collection type strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
 			});
 		}
 	}
@@ -223,7 +223,7 @@ export class StrapiRepository implements CmsRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+				message: `Erreur inconnue - Impossible de sauvegarder la ressource ${resource}`,
 			});
 		}
 	}
@@ -242,7 +242,7 @@ export class StrapiRepository implements CmsRepository {
 		const query = 'sort[0]=Index';
 		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
 	}
-	
+
 	async saveEntrepriseRejoindreLaMobilisation(entreprise: Entreprise, annotation: string): Promise<Either<void>> {
 		const entrepriseStrapi = mapEntrepriseRejoindreLaMobilisation(entreprise, annotation);
 		return this.save<Strapi.CollectionType.Entreprise, void>(RESOURCE_ENTREPRISES, entrepriseStrapi);

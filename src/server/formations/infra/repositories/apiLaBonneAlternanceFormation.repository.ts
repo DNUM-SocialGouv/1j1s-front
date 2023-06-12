@@ -40,7 +40,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 				{
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'search formation la bonne alternance',
-					message: '[API LaBonneAlternance] impossible d’effectuer une recherche de formation',
+					message: 'impossible d’effectuer une recherche de formation',
 				});
 		}
 	}
@@ -71,7 +71,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
-				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+				message: 'impossible de récupérer le détail d’une formation',
 			});
 		}
 	}
@@ -103,7 +103,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			return this.errorManagementService.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
-				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
+				message: 'impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
 			});
 		}
 		return searchResultOrError;
@@ -126,7 +126,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
-				message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
+				message: 'impossible de créer le lien de demande de rdv pour une formation',
 			});
 			return undefined;
 		}

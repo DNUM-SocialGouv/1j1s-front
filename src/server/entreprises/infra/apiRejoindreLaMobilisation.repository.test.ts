@@ -13,7 +13,7 @@ import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/htt
 const logInformation = aLogInformation({
 	apiSource: 'API Rejoindre Mobilisation',
 	contexte: 'formulaire rejoindre la mobilisation',
-	message: '[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
+	message: 'impossible d’envoyer le formulaire',
 });
 
 describe('ApiRejoindreLaMobilisationRepository', () => {

@@ -31,7 +31,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'search la bonne alternance recherche alternance',
-				message: '[API LaBonneAlternance] impossible d’effectuer une recherche d’alternance',
+				message: 'impossible d’effectuer une recherche d’alternance',
 			});
 		}
 	}
@@ -66,7 +66,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
-				message: '[API LaBonneAlternance] impossible de récuperer le détail d‘une offre d‘alternance',
+				message: 'impossible de récuperer le détail d‘une offre d‘alternance',
 			});
 		}
 	}

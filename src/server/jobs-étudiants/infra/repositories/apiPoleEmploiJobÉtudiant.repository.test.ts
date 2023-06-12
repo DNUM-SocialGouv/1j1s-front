@@ -83,7 +83,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
+					contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -101,7 +101,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
+					contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -224,7 +224,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'recherche job étudiant',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job étudiant',
+					message: 'impossible d’effectuer une recherche de job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -248,7 +248,7 @@ describe('ApiPoleEmploiJobÉtudiantRepository', () => {
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'échantillon job étudiant',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job étudiant',
+					message: 'impossible d’effectuer une recherche de job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);

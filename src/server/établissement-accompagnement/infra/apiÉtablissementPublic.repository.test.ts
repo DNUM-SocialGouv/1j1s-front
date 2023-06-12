@@ -16,7 +16,7 @@ import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/htt
 const logInformation = aLogInformation({
 	apiSource: 'API Établissement Public',
 	contexte: 'search établissement public',
-	message: '[API Établissement Public] Impossible d‘effectuer la recherche d‘Établissement Public',
+	message: 'impossible d‘effectuer une recherche d‘établissement public',
 });
 describe('ApiÉtablissementPublicRepository', () => {
 	describe('search', () => {

@@ -17,7 +17,7 @@ export class ApiLaBonneAlternanceMétierRepository implements MétierRepository 
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get metier la bonne alternance',
-				message: '[API LaBonneAlternance] impossible de récuperer les métiers',
+				message: 'impossible de récuperer les métiers',
 			});
 		}
 	}
