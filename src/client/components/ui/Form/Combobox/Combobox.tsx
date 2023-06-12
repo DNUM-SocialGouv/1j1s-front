@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent, useCallback, useState } from 'react';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 	children: React.ReactNode,
@@ -6,12 +6,20 @@ type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 
 const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
+	onKeyDown: onKeyDownProps,
 	...inputProps
 }, ref) {
+	const [open, setOpen] = useState(false);
+	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
+		setOpen(true);
+		if (onKeyDownProps) {
+			onKeyDownProps(event);
+		}
+	}, [onKeyDownProps]);
 	return (
 		<div>
-			<input {...inputProps} ref={ref}/>
-			<ul role="listbox">{children}</ul>
+			<input {...inputProps} ref={ref} onKeyDown={onKeyDown}/>
+			<ul role="listbox" hidden={!open}>{children}</ul>
 		</div>
 	);
 });
