@@ -1,5 +1,3 @@
-import { override } from 'joi';
-
 import { Formation, NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 export const aRésultatRechercheFormationList = (): Array<RésultatRechercheFormation> => [
