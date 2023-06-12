@@ -4,14 +4,14 @@ type ComboboxState = {
 	optionCount: number,
 }
 
-type ComboboxAction = 'nextDescendant' | 'previousDescendant'
+type ComboboxAction = 'nextOption' | 'previousOption'
 
 export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
 	const { activeDescendant, optionCount } = state;
 	const lastIndex = optionCount - 1;
 
 	switch (action) {
-		case 'nextDescendant':
+		case 'nextOption':
 			return {
 				...state,
 				activeDescendant: activeDescendant != null
@@ -19,7 +19,7 @@ export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): C
 					: 0,
 				open: true,
 			};
-		case 'previousDescendant':
+		case 'previousOption':
 			return {
 				...state,
 				activeDescendant: activeDescendant != null

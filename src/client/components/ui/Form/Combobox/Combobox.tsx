@@ -21,13 +21,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		{ activeDescendant: null, open: false, optionCount },
 	);
 
-	const activeDescendant = `option-${activeDescendantIndex}`;
+	const activeDescendant = activeDescendantIndex != null ? `option-${activeDescendantIndex}` : undefined;
 
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === KeyBoard.ARROW_DOWN) {
-			dispatch('nextDescendant');
-		} else if (event.key === KeyBoard.ARROW_UP) {
-			dispatch('previousDescendant');
+		if (event.key === KeyBoard.ARROW_UP) {
+			dispatch('previousOption');
+		} else if (event.key === KeyBoard.ARROW_DOWN) {
+			dispatch('nextOption');
 		}
 		if (onKeyDownProps) {
 			onKeyDownProps(event);

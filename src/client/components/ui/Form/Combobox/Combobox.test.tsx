@@ -162,7 +162,6 @@ describe('<Combobox />', () => {
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'true');
 	});
 	it('déselectionne les éléments pas selectionnés', async () => {
-		const user = userEvent.setup();
 		render(
 			<Combobox>
 				<Combobox.Option>Option 1</Combobox.Option>
@@ -172,12 +171,10 @@ describe('<Combobox />', () => {
 		);
 
 		const input = screen.getByRole('textbox');
-		await user.click(input);
-		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
-		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
-
-		const suggestions = screen.getAllByRole('option');
+		expect(input).not.toHaveAttribute('aria-activedescendant');
+		const suggestions = screen.getAllByRole('option', { hidden: true });
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
+		expect(suggestions[1]).toHaveAttribute('aria-selected', 'false');
 		expect(suggestions[2]).toHaveAttribute('aria-selected', 'false');
 	});
 	it('focus le dernier élément de la liste quand on appuie sur la flèche du haut et que la liste est fermée', async () => {
