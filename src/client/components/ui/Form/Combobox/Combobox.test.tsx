@@ -101,4 +101,60 @@ describe('<Combobox />', () => {
 		const suggestions = within(suggestionsList).getAllByRole('option');
 		expect(suggestions).toHaveLength(3);
 	});
+	it('focus le premier élément de la liste quand on appuie sur la flèche du bas et que la liste est fermée', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard('{DownArrow}');
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[0].id);
+		expect(suggestions[0]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('focus l’élément suivant de la liste quand on appuie sur la flèche du bas', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard('{DownArrow}');
+		await user.keyboard('{DownArrow}');
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[1].id);
+		expect(suggestions[1]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('déselectionne les éléments pas selectionnés', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard('{DownArrow}');
+		await user.keyboard('{DownArrow}');
+
+		const suggestions = screen.getAllByRole('option');
+		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
+		expect(suggestions[2]).toHaveAttribute('aria-selected', 'false');
+	});
 });

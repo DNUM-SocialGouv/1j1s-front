@@ -10,28 +10,39 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	...inputProps
 }, ref) {
 	const [open, setOpen] = useState(false);
+	const [activeDescendantIndex, setActiveDescendantIndex] = useState<number | null>(null);
+
+	const activeDescendant = `option-${activeDescendantIndex}`;
+
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
 		setOpen(true);
+		setActiveDescendantIndex((current) => current != null ? current + 1 : 0);
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
 	}, [onKeyDownProps]);
 	return (
 		<div>
-			<input {...inputProps} ref={ref} onKeyDown={onKeyDown}/>
-			<ul role="listbox" hidden={!open}>{children}</ul>
+			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant}/>
+			<ul role="listbox" hidden={!open}>{
+				React.Children.map(children, (child, index) => (
+					React.isValidElement<OptionProps>(child) && child.type === Option
+						? React.cloneElement(child, { 'aria-selected': activeDescendantIndex === index, id: `option-${index}` })
+						: child
+				))
+			}</ul>
 		</div>
 	);
 });
 
-type OptionProps = React.ComponentPropsWithoutRef<'button'>;
+type OptionProps = React.ComponentPropsWithoutRef<'li'>;
 
-const Option = React.forwardRef<HTMLButtonElement, OptionProps>(function Option({
+const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
+	'aria-selected': ariaSelected = false,
 	...optionProps
 }, ref) {
 	return (
-		<li role="option">
-			<button {...optionProps} ref={ref}/>
+		<li role="option" {...optionProps} aria-selected={ariaSelected} ref={ref}>
 		</li>
 	);
 });
