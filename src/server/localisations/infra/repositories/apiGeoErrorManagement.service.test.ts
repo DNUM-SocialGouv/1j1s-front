@@ -6,9 +6,9 @@ import { aLogInformation } from '~/server/services/error/errorManagement.fixture
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
-const aLogInformationApiAdresse = aLogInformation({
+const aLogInformationApiGeo = aLogInformation({
 	apiSource: 'API Geo',
-	contexte: 'get endpoint', message: '[API Localisation] impossible de récupérer une ressource',
+	contexte: 'get endpoint', message: 'impossible de récupérer une commune par son code postal',
 });
 
 const error400IdIncorrect = 'Le format de l\'id de la localisation recherchée est incorrect.';
@@ -19,7 +19,7 @@ describe('apiGeoErrorManagementService', () => {
 
 			const apiGeoErrorManagementService = new ApiGeoErrorManagementService(aLoggerService());
 
-			const result = apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+			const result = apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
 
 			expect(result.instance).toEqual('failure');
 		});
@@ -30,12 +30,12 @@ describe('apiGeoErrorManagementService', () => {
 				const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 				const httpError = anHttpError(400, error400IdIncorrect);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
 
-				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
 
 				expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -47,12 +47,12 @@ describe('apiGeoErrorManagementService', () => {
 				const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
 
-				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
 
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -64,12 +64,12 @@ describe('apiGeoErrorManagementService', () => {
 				const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
 
-				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
 
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -81,12 +81,12 @@ describe('apiGeoErrorManagementService', () => {
 				const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
-					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
+					`[${aLogInformationApiGeo.apiSource}] ${aLogInformationApiGeo.message} (erreur http)`,
+					{ context: aLogInformationApiGeo.contexte, source: aLogInformationApiGeo.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
 
-				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiAdresse);
+				apiGeoErrorManagementService.handleFailureError(httpError, aLogInformationApiGeo);
 
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
@@ -98,7 +98,7 @@ describe('apiGeoErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiPEerrorManagementServiceGet = new ApiGeoErrorManagementService(loggerService);
 			const internalError = new Error('ceci est une erreur interne');
-			apiPEerrorManagementServiceGet.handleFailureError(internalError, aLogInformationApiAdresse);
+			apiPEerrorManagementServiceGet.handleFailureError(internalError, aLogInformationApiGeo);
 
 			expect(loggerService.errorWithExtra).toHaveBeenCalledTimes(1);
 		});
@@ -110,7 +110,7 @@ describe('apiGeoErrorManagementService', () => {
 			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 
 			// WHEN
-			const result = apiGeoErrorManagementService.handleFailureError(internalError, aLogInformationApiAdresse);
+			const result = apiGeoErrorManagementService.handleFailureError(internalError, aLogInformationApiGeo);
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);

@@ -8,7 +8,7 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 const aLogInformationCms = aLogInformation({
 	apiSource: 'API Strapi',
 	contexte: 'détail strapi',
-	message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+	message: 'Erreur inconnue - Impossible de récupérer la ressource',
 });
 describe('StrapiErrorManagementService', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
