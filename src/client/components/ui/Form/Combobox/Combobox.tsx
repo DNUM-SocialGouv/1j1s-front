@@ -1,4 +1,6 @@
-import React, { KeyboardEvent, useCallback, useState } from 'react';
+import React, { KeyboardEvent, useCallback, useReducer, useState } from 'react';
+
+import { ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 	children: React.ReactNode,
@@ -9,14 +11,16 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	onKeyDown: onKeyDownProps,
 	...inputProps
 }, ref) {
-	const [open, setOpen] = useState(false);
-	const [activeDescendantIndex, setActiveDescendantIndex] = useState<number | null>(null);
+
+	const [{ open, activeDescendant: activeDescendantIndex }, dispatch] = useReducer(
+		ComboboxReducer,
+		{ activeDescendant: null, open: false },
+	);
 
 	const activeDescendant = `option-${activeDescendantIndex}`;
 
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
-		setOpen(true);
-		setActiveDescendantIndex((current) => current != null ? current + 1 : 0);
+		dispatch('nextDescendant');
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
