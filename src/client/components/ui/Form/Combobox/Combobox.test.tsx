@@ -6,6 +6,8 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+
 import { Combobox } from './Combobox';
 
 describe('<Combobox />', () => {
@@ -94,7 +96,7 @@ describe('<Combobox />', () => {
 
 		const input = screen.getByRole('textbox');
 		await user.click(input);
-		await user.keyboard('{DownArrow}');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 		const suggestionsList = screen.getByRole('listbox');
 		expect(suggestionsList).toBeVisible();
@@ -113,7 +115,7 @@ describe('<Combobox />', () => {
 
 		const input = screen.getByRole('textbox');
 		await user.click(input);
-		await user.keyboard('{DownArrow}');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 		const suggestions = screen.getAllByRole('option');
 		expect(input).toHaveAttribute('aria-activedescendant', suggestions[0].id);
@@ -131,12 +133,33 @@ describe('<Combobox />', () => {
 
 		const input = screen.getByRole('textbox');
 		await user.click(input);
-		await user.keyboard('{DownArrow}');
-		await user.keyboard('{DownArrow}');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 		const suggestions = screen.getAllByRole('option');
 		expect(input).toHaveAttribute('aria-activedescendant', suggestions[1].id);
 		expect(suggestions[1]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('revient au début de la liste quand on appuie sur la flèche du bas sur le dernier élément', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[0].id);
+		expect(suggestions[0]).toHaveAttribute('aria-selected', 'true');
 	});
 	it('déselectionne les éléments pas selectionnés', async () => {
 		const user = userEvent.setup();
@@ -150,11 +173,67 @@ describe('<Combobox />', () => {
 
 		const input = screen.getByRole('textbox');
 		await user.click(input);
-		await user.keyboard('{DownArrow}');
-		await user.keyboard('{DownArrow}');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 		const suggestions = screen.getAllByRole('option');
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
 		expect(suggestions[2]).toHaveAttribute('aria-selected', 'false');
+	});
+	it('focus le dernier élément de la liste quand on appuie sur la flèche du haut et que la liste est fermée', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[2].id);
+		expect(suggestions[2]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('focus l’élément précédent de la liste quand on appuie sur la flèche du haut', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[1].id);
+		expect(suggestions[1]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('revient à la fin de la liste quand on appuie sur la flèche du haut sur le premier élément', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		const suggestions = screen.getAllByRole('option');
+		expect(input).toHaveAttribute('aria-activedescendant', suggestions[2].id);
+		expect(suggestions[2]).toHaveAttribute('aria-selected', 'true');
 	});
 });

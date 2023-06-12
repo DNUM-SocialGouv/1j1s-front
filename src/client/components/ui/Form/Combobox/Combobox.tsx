@@ -1,6 +1,9 @@
-import React, { KeyboardEvent, useCallback, useReducer, useState } from 'react';
+import React, { KeyboardEvent, useCallback, useReducer } from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+
+import styles from './Combobox.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 	children: React.ReactNode,
@@ -11,22 +14,27 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	onKeyDown: onKeyDownProps,
 	...inputProps
 }, ref) {
+	const optionCount = React.Children.count(children);
 
 	const [{ open, activeDescendant: activeDescendantIndex }, dispatch] = useReducer(
 		ComboboxReducer,
-		{ activeDescendant: null, open: false },
+		{ activeDescendant: null, open: false, optionCount },
 	);
 
 	const activeDescendant = `option-${activeDescendantIndex}`;
 
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
-		dispatch('nextDescendant');
+		if (event.key === KeyBoard.ARROW_DOWN) {
+			dispatch('nextDescendant');
+		} else if (event.key === KeyBoard.ARROW_UP) {
+			dispatch('previousDescendant');
+		}
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
 	}, [onKeyDownProps]);
 	return (
-		<div>
+		<div className={styles.combobox}>
 			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant}/>
 			<ul role="listbox" hidden={!open}>{
 				React.Children.map(children, (child, index) => (

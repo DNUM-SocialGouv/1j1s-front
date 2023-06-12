@@ -1,21 +1,32 @@
-import { InvalidActionError } from '~/client/components/ui/Form/Combobox/InvalidActionError';
-
 type ComboboxState = {
   open: boolean,
   activeDescendant: number | null,
+	optionCount: number,
 }
 
 type ComboboxAction = 'nextDescendant' | 'previousDescendant'
 
-export function ComboboxReducer({ activeDescendant }: ComboboxState, action: ComboboxAction): ComboboxState {
+export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
+	const { activeDescendant, optionCount } = state;
+	const lastIndex = optionCount - 1;
+
 	switch (action) {
 		case 'nextDescendant':
 			return {
-				activeDescendant: activeDescendant != null ? activeDescendant + 1 : 0,
+				...state,
+				activeDescendant: activeDescendant != null
+					? (activeDescendant + 1) % optionCount
+					: 0,
 				open: true,
 			};
-		default:
-			throw new InvalidActionError(action);
+		case 'previousDescendant':
+			return {
+				...state,
+				activeDescendant: activeDescendant != null
+					? (activeDescendant + optionCount - 1) % optionCount
+					: lastIndex,
+				open: true,
+			};
 	}
 }
 
