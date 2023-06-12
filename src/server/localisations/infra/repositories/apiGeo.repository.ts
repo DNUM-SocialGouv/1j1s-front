@@ -1,13 +1,8 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import {
-	mapCodeRégion,
-	mapLocalisationList,
-} from '~/server/localisations/infra/repositories/apiGeo.mapper';
-import {
-	ApiDecoupageAdministratifResponse,
-} from '~/server/localisations/infra/repositories/apiGeo.response';
+import { getCodeRegion, mapLocalisationList } from '~/server/localisations/infra/repositories/apiGeo.mapper';
+import { ApiDecoupageAdministratifResponse } from '~/server/localisations/infra/repositories/apiGeo.response';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
@@ -54,7 +49,7 @@ export class ApiGeoRepository implements LocalisationRepository {
 	async getCodeRegionByCodePostal(codePostalRecherché: string): Promise<Either<string | undefined>> {
 		const endpoint = `communes?codePostal=${codePostalRecherché}`;
 		const contexte = 'communes';
-		return this.request<ApiDecoupageAdministratifResponse[], string | undefined>(endpoint, mapCodeRégion, contexte);
+		return this.request<ApiDecoupageAdministratifResponse[], string>(endpoint, getCodeRegion, contexte);
 	}
 
 	private async request<Data, Response>(endpoint: string, mapper: (data : Data) => Response, contexte: string): Promise<Either<Response>> {

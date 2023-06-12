@@ -436,6 +436,8 @@ describe('ApiGeoLocalisationRepository', () => {
 	describe('getCodeRegionByCodePostal', () => {
 		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
 			const codePostal = '92370';
+			const httpClientService = aCachedHttpClientService();
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 
 			await apiGeoLocalisationRepository.getCodeRegionByCodePostal(codePostal);
 
@@ -443,7 +445,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 		});
 
-		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région est défini', async () => {
+		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif quand le code région est défini', async () => {
 			const httpClientService = aCachedHttpClientService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
@@ -467,8 +469,10 @@ describe('ApiGeoLocalisationRepository', () => {
 			expect(result).toEqual(expected);
 		});
 
-		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif: cas ou le code région n’est pas défini', async () => {
+		it('retourne une failure quand le code région n’est pas défini', async () => {
+			const failureReturnedByErrorManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 			const httpClientService = aCachedHttpClientService();
+			const errorManagementService = anErrorManagementService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
@@ -483,12 +487,13 @@ describe('ApiGeoLocalisationRepository', () => {
 					siren: '219200227',
 				},
 			]) as CacheAxiosResponse);
-			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
-			const expected = createSuccess(undefined);
+			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
+
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
 
-			expect(result).toEqual(expected);
+			expect(result).toEqual(failureReturnedByErrorManagement);
 		});
 
 		describe('quand l’api renvoie une erreur', () => {

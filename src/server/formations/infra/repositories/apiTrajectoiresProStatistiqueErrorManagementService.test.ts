@@ -21,7 +21,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 
 			// THEN
 			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(new SentryException(
-				`${logInformation.message} (erreur http)`,
+				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
@@ -40,7 +40,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 
 			// THEN
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(new SentryException(
-				`${logInformation.message} (erreur http)`,
+				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
@@ -61,6 +61,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 
 			// THEN
 			expect(loggerService.errorWithExtra).toHaveBeenCalledWith(new SentryException(
+				// `[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`, TODO SULI remplacer la ligne d'en dessous par cette ligne après rebase
 				`${logInformation.message} (erreur interne)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ stacktrace: someError.stack },

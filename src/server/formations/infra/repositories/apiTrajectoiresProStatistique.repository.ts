@@ -1,5 +1,4 @@
-import { createFailure, createSuccess, Either, isFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { StatistiqueRepository } from '~/server/formations/domain/statistique.repository';
 import {
@@ -18,8 +17,8 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
 		try {
 			const codeRegionOrFailure = await this.apiGeoLocalisationRepository.getCodeRegionByCodePostal(codePostal);
-			if (isFailure(codeRegionOrFailure) || !codeRegionOrFailure.result) {
-				return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			if (isFailure(codeRegionOrFailure)) {
+				return codeRegionOrFailure;
 			}
 
 			const { data } = await this.httpClientService.get<ApiTrajectoiresProStatistiqueResponse>(
@@ -29,12 +28,18 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 			if (ApiTrajectoiresProStatistiqueRepository.isRegionEtAuMoinsUnPourcentageDisponible(statistiques)) {
 				return createSuccess(statistiques);
 			}
-			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+
+			const incompleteStatistiqueError = new Error(JSON.stringify(statistiques));
+			return this.errorManagementService.handleFailureError(incompleteStatistiqueError, {
+				apiSource: 'API Trajectoires Pro',
+				contexte: 'get statistique de formation',
+				message: 'statistique de formation trouvée mais incomplète',
+			});
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Trajectoires Pro',
 				contexte: 'get statistique de formation',
-				message: '[API Trajectoires Pro] statistique de formation non trouvée',
+				message: 'statistique de formation non trouvée',
 			});
 		}
 	}

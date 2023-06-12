@@ -4,10 +4,14 @@ import {
 	ApiTrajectoiresProStatistiqueResponse,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import {
+	anApiTrajectoiresProStatistiqueResponse,
+	aStatistiquesMappedFromApi,
+} from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.fixture';
+import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { aLocalisationRepository } from '~/server/localisations/domain/localisation.fixture';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -33,33 +37,34 @@ describe('apiTrajectoiresProCertification.repository', () => {
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
-			it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
+			it('retourne l’erreur renvoyée par l’api geoLocalisation', async () => {
 				const httpService = aPublicHttpClientService();
 				const localisationRepository = aLocalisationRepository();
-				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				const failure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(failure);
 				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
 				const returnValue = await repository.get(codeCertification, codePostal);
 
 				expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(codePostal);
 				expect(httpService.get).toHaveBeenCalledTimes(0);
-				expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				expect(returnValue).toEqual(failure);
 			});
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
-			describe('mais que le code région récupéré n’est pas défini', () => {
-				it('retourne une erreur SERVICE_INDISPONIBLE', async () => {
-					const httpService = aPublicHttpClientService();
-					const localisationRepository = aLocalisationRepository();
-					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess(undefined));
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
+			it('appelle l’api trajectoiresProCertification avec les bons paramètres', async() => {
+				const httpService = aPublicHttpClientService();
+				const localisationRepository = aLocalisationRepository();
+				const codeRegion = createSuccess('11');
+				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(codeRegion);
+				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
-					const returnValue = await repository.get(codeCertification, codePostal);
+				await repository.get(codeCertification, codePostal);
 
-					expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(codePostal);
-					expect(returnValue).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-				});
+				// Then
+				expect(httpService.get).toHaveBeenCalledTimes(1);
+				expect(httpService.get).toHaveBeenCalledWith(`inserjeunes/regionales/${codeRegion.result}/certifications/${codeCertification}`);
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
@@ -82,60 +87,87 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 						apiSource: 'API Trajectoires Pro',
 						contexte: 'get statistique de formation',
-						message: '[API Trajectoires Pro] statistique de formation non trouvée',
+						message: 'statistique de formation non trouvée',
 					});
 				});
 			});
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification réussit', () => {
 				describe('et que la région des statistiques n’est pas retournée', () => {
-					it('retourne une erreur CONTENU_INDISPONIBLE', async () => {
+					it('une erreur est logguée', async () => {
 						const httpService = aPublicHttpClientService();
 						const localisationRepository = aLocalisationRepository();
-						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
-							millesime: '2020_2021',
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
 							region: undefined,
-							taux_autres_6_mois: '23',
-							taux_en_emploi_6_mois: '77',
-							taux_en_formation: '0',
-						};
+						});
+						const error = Error(JSON.stringify(aStatistiquesMappedFromApi({ region: undefined })));
+						const errorManagementService = anErrorManagementService();
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
+
+						await repository.get(codeCertification, codePostal);
+
+						expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(error, aLogInformation({
+							apiSource: 'API Trajectoires Pro',
+							contexte: 'get statistique de formation',
+							message: 'statistique de formation trouvée mais incomplète',
+						}));
+					});
+					it('une erreur est retournée par l‘error management service', async () => {
+						const httpService = aPublicHttpClientService();
+						const localisationRepository = aLocalisationRepository();
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
+							region: undefined,
+						});
+						const errorManagementService = anErrorManagementService();
+						const failureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
+						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
 						const returnValue = await repository.get(codeCertification, codePostal);
 
-						// Then
-						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
-
-
+						expect(returnValue).toEqual(failureReturnedByErrorManagement);
 					});
 				});
 
-				describe('et que la région est retournée mais pas les statistiques', () => {
-					it('retourne une erreur CONTENU_INDISPONIBLE', async () => {
+				describe('et que la région est retournée mais pas les statistiques',  () => {
+					it('une erreur est logguée', async () => {
 						const httpService = aPublicHttpClientService();
 						const localisationRepository = aLocalisationRepository();
-						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
-							millesime: '2020_2021',
-							region: {
-								nom: 'Ile-de-France',
-							},
-							taux_autres_6_mois: undefined,
-							taux_en_emploi_6_mois: undefined,
-							taux_en_formation: undefined,
-						};
+						const errorManagementService = anErrorManagementService();
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
+						const error = Error(JSON.stringify(aStatistiquesMappedFromApi()));
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
+						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
+
+						await repository.get(codeCertification, codePostal);
+
+						expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(error, aLogInformation({
+							apiSource: 'API Trajectoires Pro',
+							contexte: 'get statistique de formation',
+							message: 'statistique de formation trouvée mais incomplète',
+						}));
+					});
+					it('une erreur est retournée par la gestion d’erreur', async () => {
+						const httpService = aPublicHttpClientService();
+						const localisationRepository = aLocalisationRepository();
+						const errorManagementService = anErrorManagementService();
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
+						const failureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
+						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
+
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
 						const returnValue = await repository.get(codeCertification, codePostal);
 
-						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
-
-
+						expect(returnValue).toEqual(failureReturnedByErrorManagement);
 					});
 				});
 
@@ -143,13 +175,13 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					it('retourne les statistiques de la formation', async () => {
 						// Given
 						const httpService = aPublicHttpClientService();
-						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = {
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
 							millesime: '2020_2021',
 							region: {
 								nom: 'Ile-de-France',
 							},
 							taux_en_emploi_6_mois: '77',
-						};
+						});
 						const localisationRepository = aLocalisationRepository();
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
@@ -160,13 +192,13 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 						// Then
 						expect(httpService.get).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(createSuccess({
+						expect(returnValue).toEqual(createSuccess(aStatistiquesMappedFromApi({
 							millesime: '2020-2021',
 							region: 'Ile-de-France',
 							tauxAutres6Mois: undefined,
 							tauxEnEmploi6Mois: '77',
 							tauxEnFormation: undefined,
-						}));
+						})));
 					});
 				});
 			});

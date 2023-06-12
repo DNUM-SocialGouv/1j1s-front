@@ -6,10 +6,10 @@ import { DefaultErrorManagementService, LogInformation } from '../../../services
 export class ApiTrajectoiresProStatistiqueErrorManagementService extends DefaultErrorManagementService {
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		const errorToLog = new SentryException(
-			`${logInformation.message} (erreur http)`,
+			`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
 			{ context: logInformation.contexte, source: logInformation.apiSource },
 			{ errorDetail: error.response?.data },
-		);
+		); // TODO SULI utiliser super.buildHttpErrorToLog après rebase
 		if (error.status === 404) {
 			this.loggerService.warnWithExtra(errorToLog);
 		} else {
