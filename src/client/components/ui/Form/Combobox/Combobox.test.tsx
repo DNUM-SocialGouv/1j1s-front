@@ -177,6 +177,25 @@ describe('<Combobox />', () => {
 		expect(suggestions[1]).toHaveAttribute('aria-selected', 'false');
 		expect(suggestions[2]).toHaveAttribute('aria-selected', 'false');
 	});
+	it('affiche la liste de suggestions quand on appuie sur la flèche du haut', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		const suggestionsList = screen.getByRole('listbox');
+		expect(suggestionsList).toBeVisible();
+		const suggestions = within(suggestionsList).getAllByRole('option');
+		expect(suggestions).toHaveLength(3);
+	});
 	it('focus le dernier élément de la liste quand on appuie sur la flèche du haut et que la liste est fermée', async () => {
 		const user = userEvent.setup();
 		render(
@@ -232,5 +251,44 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getAllByRole('option');
 		expect(input).toHaveAttribute('aria-activedescendant', suggestions[2].id);
 		expect(suggestions[2]).toHaveAttribute('aria-selected', 'true');
+	});
+	it('masque la liste quand on appuie sur Escape', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+		await user.keyboard(`{${KeyBoard.ESCAPE}}`);
+
+		const suggestionsList = screen.getByRole('listbox', { hidden: true });
+		expect(suggestionsList).not.toBeVisible();
+	});
+	it('reset la selection quand on appuie sur Escape', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+		await user.keyboard(`{${KeyBoard.ESCAPE}}`);
+
+		const suggestions = screen.getAllByRole('option', { hidden: true });
+		expect(input).not.toHaveAttribute('aria-activedescendant');
+		suggestions.forEach((suggestion) => {
+			expect(suggestion).toHaveAttribute('aria-selected', 'false');
+		});
 	});
 });

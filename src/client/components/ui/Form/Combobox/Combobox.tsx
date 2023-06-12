@@ -28,6 +28,8 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 			dispatch('previousOption');
 		} else if (event.key === KeyBoard.ARROW_DOWN) {
 			dispatch('nextOption');
+		} else if (event.key === KeyBoard.ESCAPE) {
+			dispatch('closeList');
 		}
 		if (onKeyDownProps) {
 			onKeyDownProps(event);

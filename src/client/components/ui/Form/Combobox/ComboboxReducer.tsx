@@ -4,7 +4,7 @@ type ComboboxState = {
 	optionCount: number,
 }
 
-type ComboboxAction = 'nextOption' | 'previousOption'
+type ComboboxAction = 'nextOption' | 'previousOption' | 'closeList'
 
 export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
 	const { activeDescendant, optionCount } = state;
@@ -26,6 +26,12 @@ export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): C
 					? (activeDescendant + optionCount - 1) % optionCount
 					: lastIndex,
 				open: true,
+			};
+		case 'closeList':
+			return {
+				...state,
+				activeDescendant: null,
+				open: false,
 			};
 	}
 }
