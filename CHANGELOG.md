@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.93.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.1...v3.93.2) (2023-06-12)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @storybook/addon-styling to ~1.3.0 ([#1422](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1422)) ([abf6679](https://github.com/DNUM-SocialGouv/1j1s-front/commit/abf66792734a6df5d826bec772ac9f79f862c0dd))
+
 ## [3.93.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.0...v3.93.1) (2023-06-12)
 
 
