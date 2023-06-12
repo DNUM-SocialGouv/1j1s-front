@@ -18,4 +18,5 @@ export const enum KeyBoard {
 	SPACE = ' ',
 	HOME = 'Home',
 	END = 'End',
+	ALT = 'Alt',
 }

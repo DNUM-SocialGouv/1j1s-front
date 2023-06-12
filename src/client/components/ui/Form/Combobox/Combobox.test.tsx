@@ -291,4 +291,24 @@ describe('<Combobox />', () => {
 			expect(suggestion).toHaveAttribute('aria-selected', 'false');
 		});
 	});
+	it('ouvre la liste quand on appuie sur Alt et flèche du bas sans focus le premier élément', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ALT}>}{${KeyBoard.ARROW_DOWN}}{/${KeyBoard.ALT}}`);
+
+		const suggestionsList = screen.getByRole('listbox');
+		expect(suggestionsList).toBeVisible();
+		const suggestions = screen.getAllByRole('option', { hidden: true });
+		expect(input).not.toHaveAttribute('aria-activedescendant');
+		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
+	});
 });
