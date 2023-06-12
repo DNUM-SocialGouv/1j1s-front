@@ -9,21 +9,18 @@ import {
 import {
 	mapFormation,
 	mapRésultatRechercheFormation,
-	mapRésultatRechercheFormationToFormation, parseIdFormation,
+	mapRésultatRechercheFormationToFormation,
+	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
-import {
-	handleGetFailureError,
-	handleSearchFailureError,
-} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationError';
-import { HttpError, isHttpError } from '~/server/services/http/httpError';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
 
 const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private httpClientService: PublicHttpClientService, private caller: string, private loggerService: LoggerService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -38,8 +35,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		try {
 			const response = await this.httpClientService.get<ApiLaBonneAlternanceFormationRechercheResponse>(endpoint);
 			return createSuccess(response.data);
-		} catch (e) {
-			return handleSearchFailureError(e, 'la bonne alternance recherche formation', this.loggerService);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error,
+				{
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'search formation la bonne alternance',
+					message: '[API LaBonneAlternance] impossible d’effectuer une recherche de formation',
+				});
 		}
 	}
 
@@ -55,10 +57,6 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			.concat(filtre.niveauEtudes ? `&diploma=${filtre.niveauEtudes}` : '');
 	}
 
-	private static isFormationNotFound(e: HttpError): boolean {
-		return e.response?.status === 500 && e.response.data.error === 'internal_error';
-	}
-
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
 		const { idRco: formationId, cleMinistereEducatif } = parseIdFormation(id);
 		try {
@@ -66,34 +64,49 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			const formation = mapFormation(apiResponse.data);
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
-		} catch (e) {
-			if (ApiLaBonneAlternanceFormationRepository.isSearchDoable(e) && filtreRecherchePourRetrouverLaFormation) {
-				try {
-					const formation = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
-					formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
-					return createSuccess(formation);
-				} catch (error) {
-					return handleGetFailureError(error, 'la bonne alternance get formation', this.loggerService);
-				}
+		} catch (error) {
+			if (ApiLaBonneAlternanceFormationRepository.isErrorBecauseLbaFailedToRequestTheirDependencies(error) && filtreRecherchePourRetrouverLaFormation) {
+				return await this.getFormationFromSearch(filtreRecherchePourRetrouverLaFormation, id, cleMinistereEducatif);
 			}
-			return handleGetFailureError(e, 'la bonne alternance get formation', this.loggerService);
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+			});
 		}
 	}
 
-	private static isSearchDoable(e: unknown) {
-		return isHttpError(e) && e.response && ApiLaBonneAlternanceFormationRepository.isFormationNotFound(e);
+	private async getFormationFromSearch(filtreRecherchePourRetrouverLaFormation: FormationFiltre, id: string, cleMinistereEducatif: string | undefined) {
+		const formationOrError = await this.getFormationFromRésultatsRecherche(filtreRecherchePourRetrouverLaFormation, id);
+		if (isSuccess(formationOrError)) {
+			const formation = formationOrError.result;
+			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
+			return createSuccess(formation);
+		}
+		return formationOrError;
 	}
 
-	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Formation> {
-		const searchResult = await this.search(filtre);
-		if (isSuccess(searchResult)) {
-			const résultatRechercheFormation = searchResult.result.find((f) => f.id === id);
+	private static isErrorBecauseLbaFailedToRequestTheirDependencies(error: unknown) {
+		return isHttpError(error)
+			&& error.response !== undefined
+			&& error.response.status === 500
+			&& error.response.data.error === 'internal_error';
+	}
+
+	private async getFormationFromRésultatsRecherche(filtre: FormationFiltre, id: string): Promise<Either<Formation>> {
+		const searchResultOrError = await this.search(filtre);
+		if (isSuccess(searchResultOrError)) {
+			const résultatRechercheFormation = searchResultOrError.result.find((f) => f.id === id);
 			if (résultatRechercheFormation) {
-				return mapRésultatRechercheFormationToFormation(résultatRechercheFormation);
+				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
 			}
-			return Promise.reject(ErreurMétier.DEMANDE_INCORRECTE);
+			return this.errorManagementService.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
+			});
 		}
-		return Promise.reject(searchResult.errorType);
+		return searchResultOrError;
 	}
 
 	private async getFormationLienRendezVous(cleMinistereEducatif: string | undefined): Promise<string | undefined> {
@@ -109,7 +122,12 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 				},
 			);
 			return response.data.form_url;
-		} catch (e) {
+		} catch (error) {
+			this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'get formation la bonne alternance',
+				message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
+			});
 			return undefined;
 		}
 	}

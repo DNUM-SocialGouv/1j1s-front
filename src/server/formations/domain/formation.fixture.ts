@@ -1,15 +1,7 @@
 import { Formation, NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 export const aRésultatRechercheFormationList = (): Array<RésultatRechercheFormation> => [
-	{
-		adresse: '1 rue de la République',
-		codeCertification: '999',
-		codePostal: '75001',
-		id: '123__cleMinistereEducatif-123456',
-		nomEntreprise: 'La Bonne Alternance',
-		tags: ['Paris', NiveauRequis['NIVEAU_4']],
-		titre: 'Développeur web',
-	},
+	aResultatRechercheFormation(),
 	{
 		codeCertification: '888',
 		id: '456__',
@@ -18,6 +10,17 @@ export const aRésultatRechercheFormationList = (): Array<RésultatRechercheForm
 		titre: 'Développeur web',
 	},
 ];
+
+export const aResultatRechercheFormation = (override?: Partial<RésultatRechercheFormation>):  RésultatRechercheFormation => ({
+	adresse: '1 rue de la République',
+	codeCertification: '999',
+	codePostal: '75001',
+	id: '123__cleMinistereEducatif-123456',
+	nomEntreprise: 'La Bonne Alternance',
+	tags: ['Paris', NiveauRequis['NIVEAU_4']],
+	titre: 'Développeur web',
+	...override,
+});
 
 export const aFormation = (): Formation => ({
 	adresse: {
