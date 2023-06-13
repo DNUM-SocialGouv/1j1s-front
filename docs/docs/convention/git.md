@@ -51,6 +51,7 @@ Liste des contextes de **fonctionnalités** autorisées (non exhaustive) :
 - jobs d'été
 - emplois europe
 - formations
+- formations init (pour formations initiales)
 - metiers (pour découvrir les métiers)
 - évènement
 - cej (pour contrat engagement jeune)
@@ -94,7 +95,7 @@ _exemple : `chore(deps): mise à jour des dépendances`_
 ## Stratégie pour les branches
 
 Pour une parfaite intégration avec Jira, une branche liée à une user story doit comporter le numéro du ticket. Ex :
-_exemple :`feat/UNJ1S-1307-Afficher-les-statistiques-d-une-formation-avec-InserJeunes`_
+_exemple :`feat/UNJ1S-1307-Afficher-les-statisues-d-une-formation-avec-InserJeunes`_
 
 Les branches peuvent être mergées selon 2 méthodes :
 * squash

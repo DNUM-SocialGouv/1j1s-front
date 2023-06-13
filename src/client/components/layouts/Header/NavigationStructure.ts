@@ -30,6 +30,7 @@ const offresNav = (): NavigationItemWithChildren => ({
 const orientationNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Formations', link: '/formations' },
+		...(process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1' ? [{ label: 'Formations initiales', link: '/formations-initiales' }] : []),
 		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{ label: 'Formations en apprentissage', link: '/formations/apprentissage' }] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à des évènements', link: '/evenements' },

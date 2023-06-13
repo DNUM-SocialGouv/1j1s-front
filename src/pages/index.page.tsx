@@ -29,6 +29,7 @@ export default function Accueil() {
 	const { isLargeScreen } = useBreakpoint();
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
+	const isFormationsInitalesVisble = process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -78,6 +79,13 @@ export default function Accueil() {
 	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
 
 	const formationEtOrientationCardListContent = [
+		isFormationsInitalesVisble ? {
+			children: <p>Plus de 20 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
+			imageUrl: '/images/formations-initiales.webp',
+			link: '/formations-initiales',
+			linkLabel: 'En savoir plus',
+			title: 'Formations initiales',
+		}: undefined,
 		{
 			children: <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
 			imageUrl: '/images/formations-initiales.webp',
@@ -106,7 +114,7 @@ export default function Accueil() {
 			linkLabel: 'En savoir plus',
 			title: 'Participer à des évènements',
 		},
-	];
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
 
 	const engagementEtBenevolatCardListContent = [
 		{
