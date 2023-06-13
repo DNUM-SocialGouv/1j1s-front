@@ -6,7 +6,7 @@ const meta: Meta<typeof FlippingCard> = {
 	args: {
 		category: 'Accompagnement',
 		flippingCardContent: 'Les employeurs du secteur marchand qui recrutent un jeune de moins de 26 ans ou un jeune reconnu travailleur handicapé (jusqu’à 30 ans inclus) en CIE.',
-		imageUrl: 'https://i0.wp.com/caravanedesdixmots.com/wp-content/uploads/2021/05/placeholder.png',
+		imageUrl: '/images/accompagnement.webp',
 		link: 'https://www.1jeune1solution.gouv.fr/articles/aide-a-l-embauche-d-un-jeune-en-contrat-initiative-emploi-jeunes-cie-jeunes-dans-le-secteur-marchand',
 		title: 'Aide à l’embauche d’un jeune en CIE',
 		titleAs: 'h2',

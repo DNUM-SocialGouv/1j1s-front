@@ -17,7 +17,7 @@ const meta: Meta<typeof ArticleCard> = {
 	args: {
 		children: 'Découvrez un argument supplémentaire à avancer pour vous faire embaucher',
 		imageFit: 'cover',
-		imageSrc: 'https://i0.wp.com/caravanedesdixmots.com/wp-content/uploads/2021/05/placeholder.png',
+		imageSrc: '/images/accompagnement.webp',
 		link: 'https://www.1jeune1solution.gouv.fr/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures',
 		linkLabel: 'Voir plus',
 		titleHeadingTag: 'h2',

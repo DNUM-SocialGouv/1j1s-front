@@ -13,10 +13,22 @@ type Story = StoryObj<typeof Carousel>;
 export const Example: Story = {
 	args: {
 		hideIndicators: true,
-		imageList: [],
-		imageListLabel: 'Ceci est une image',
+		imageList: [
+			{
+				alt: '',
+				src: '/images/accompagnement.webp',
+			},
+			{
+				alt: '',
+				src: '/images/accompagnement.webp',
+			},
+			{
+				alt: '',
+				src: '/images/accompagnement.webp',
+			},
+		],
+		imageListLabel: 'liste de photo d´illustration',
 		imagesSize: { height: 109, width:34 },
-		
 	},
 };
 
