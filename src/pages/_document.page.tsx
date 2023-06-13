@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document';
+import { version } from "../../package.json"
 import Script from 'next/script';
 import React from 'react';
 
@@ -34,7 +35,7 @@ export default function Document() {
 				<NextScript/>
 				{ process.env.NODE_ENV === 'production' &&
 					<Script
-						src="/scripts/tarteaucitron.js"
+						src={`/scripts/tarteaucitron.js?v=${version}`}
 						strategy="beforeInteractive"
 					/>
 				}
