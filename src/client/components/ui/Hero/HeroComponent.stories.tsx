@@ -12,7 +12,7 @@ type Story = StoryObj <typeof HeroComponent>;
 export const Example:Story={
 	args:{
 		additionalInformation:'information suplémentaire',
-		imgSrc:'string',
+		imgSrc:'/images/accompagnement.webp',
 		titlePrimaryText:'Je suis un titre primaire',
 		titleSecondaryText:'Je suis un titre secondaire',
 	},  
