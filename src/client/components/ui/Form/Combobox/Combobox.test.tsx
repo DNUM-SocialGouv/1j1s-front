@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -310,5 +310,45 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getAllByRole('option', { hidden: true });
 		expect(input).not.toHaveAttribute('aria-activedescendant');
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
+	});
+	it('conserve la position du curseur quand on appuie sur la flèche du bas', async () => {
+		// NOTE (GAFI 13-06-2023): Impossible de reproduire le problème avec testing-library,
+		//	Pour éviter de laisser du code non testé, test sur le détail d'implémentation
+		const user = userEvent.setup();
+		const onKeyDown = jest.fn();
+		render(
+			<Combobox onKeyDown={onKeyDown}>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+		const input = screen.getByRole<HTMLInputElement>('textbox');
+		await user.type(input, 'test');
+		await user.keyboard(`{${KeyBoard.ARROW_LEFT}}`);
+
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+
+		expect(onKeyDown).toHaveBeenLastCalledWith(expect.objectContaining({ defaultPrevented: true }));
+	});
+	it('conserve la position du curseur quand on appuie sur la flèche du haut', async () => {
+		// NOTE (GAFI 13-06-2023): Impossible de reproduire le problème avec testing-library,
+		//	Pour éviter de laisser du code non testé, test sur le détail d'implémentation
+		const user = userEvent.setup();
+		const onKeyDown = jest.fn();
+		render(
+			<Combobox onKeyDown={onKeyDown}>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+		const input = screen.getByRole<HTMLInputElement>('textbox');
+		await user.type(input, 'test');
+		await user.keyboard(`{${KeyBoard.ARROW_LEFT}}`);
+
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		expect(onKeyDown).toHaveBeenLastCalledWith(expect.objectContaining({ defaultPrevented: true }));
 	});
 });
