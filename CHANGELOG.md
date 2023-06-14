@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.93.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.3...v3.93.4) (2023-06-14)
+
+
+### 🐛 Corrections de bogues
+
+* update le numero de version tarte-au-citron en se basant uniquement sur ce qui est staged pour le commit ([#1434](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1434)) ([074527a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/074527a15251a0f3dfd9898c096841888c9acf5a))
+
 ## [3.93.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.2...v3.93.3) (2023-06-13)
 
 
