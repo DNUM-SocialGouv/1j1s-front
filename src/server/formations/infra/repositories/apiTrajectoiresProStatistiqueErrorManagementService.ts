@@ -1,7 +1,7 @@
 import { SentryException } from '~/server/exceptions/sentryException';
+import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
 
-import { DefaultErrorManagementService, LogInformation } from '../../../services/error/errorManagement.service';
 
 export class ApiTrajectoiresProStatistiqueErrorManagementService extends DefaultErrorManagementService {
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {

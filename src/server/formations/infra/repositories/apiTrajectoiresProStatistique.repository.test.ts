@@ -138,7 +138,14 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						const httpService = aPublicHttpClientService();
 						const localisationRepository = aLocalisationRepository();
 						const errorManagementService = anErrorManagementService();
-						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
+						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
+							region: {
+								nom: 'Ile-de-France',
+							},
+							taux_autres_6_mois: undefined,
+							taux_en_emploi_6_mois: undefined,
+							taux_en_formation: undefined,
+						});
 						const error = Error(JSON.stringify(aStatistiquesMappedFromApi()));
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
@@ -171,7 +178,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					});
 				});
 
-				describe('et que la region et au moins une statistique est disponible', () => {
+				describe('et la réponse contient la région et au moins une statistique', () => {
 					it('retourne les statistiques de la formation', async () => {
 						// Given
 						const httpService = aPublicHttpClientService();
