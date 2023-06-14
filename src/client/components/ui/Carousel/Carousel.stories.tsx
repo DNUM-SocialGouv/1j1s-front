@@ -12,7 +12,6 @@ type Story = StoryObj<typeof Carousel>;
 
 export const Example: Story = {
 	args: {
-		hideIndicators: true,
 		imageList: [
 			{
 				alt: '',
@@ -28,7 +27,7 @@ export const Example: Story = {
 			},
 		],
 		imageListLabel: 'liste de photo d´illustration',
-		imagesSize: { height: 109, width:34 },
+		imagesSize: { height: 109, width: 34 },
 	},
 };
 
