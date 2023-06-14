@@ -2,9 +2,9 @@
 
 GIT_DIR=${GIT_DIR-$(git rev-parse --git-dir)}
 
-TARTE_AU_CITRON_IS_UPDATED=$(git diff HEAD@{1} --stat -- "${GIT_DIR}"/../public/scripts/tarteaucitron.js | wc -l)
-TARTE_AU_CITRON_SERVICE_IS_UPDATED=$(git diff HEAD@{1} --stat -- "${GIT_DIR}"/../public/tarteaucitron.services.js | wc -l)
-TARTE_AU_CITRON_TRADS_IS_UPDATED=$(git diff HEAD@{1} --stat -- "${GIT_DIR}"/../public/lang/tarteaucitron.fr.js | wc -l)
+TARTE_AU_CITRON_IS_UPDATED=$(git diff --staged --stat -- "${GIT_DIR}"/../public/scripts/tarteaucitron.js | wc -l)
+TARTE_AU_CITRON_SERVICE_IS_UPDATED=$(git diff --staged --stat -- "${GIT_DIR}"/../public/tarteaucitron.services.js | wc -l)
+TARTE_AU_CITRON_TRADS_IS_UPDATED=$(git diff --staged --stat -- "${GIT_DIR}"/../public/lang/tarteaucitron.fr.js | wc -l)
 
 UPDATES_ON_TARTE_AU_CITRON_SUM=$((TARTE_AU_CITRON_IS_UPDATED + TARTE_AU_CITRON_SERVICE_IS_UPDATED + TARTE_AU_CITRON_TRADS_IS_UPDATED))
 
