@@ -92,7 +92,8 @@
   "overrides": {
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^8.28.0"
-    }
+    },
+    "aria-query": "<5.1.0"
   },
   "lint-staged": {
     "*.ts": "eslint --fix",
