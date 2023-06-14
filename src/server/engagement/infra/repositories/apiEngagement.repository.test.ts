@@ -10,7 +10,7 @@ import {
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -82,11 +82,11 @@ describe('ApiEngagementRepository', () => {
 				const { errorType } = await apiEngagementRepository.searchMissionServiceCivique(rechercheServiceCivique) as Failure;
 
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
-				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 					apiSource: 'API Engagement',
 					contexte: 'search mission d’engagement',
-					message: '[API Engagement] impossible d’effectuer une recherche',
-				}); // TODO SULI : utiliser aLogInformation, idem sur les deux instances ci-dessous
+					message: 'impossible d’effectuer une recherche de mission d’engagement',
+				}));
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
@@ -141,11 +141,11 @@ describe('ApiEngagementRepository', () => {
 				const { errorType } = await apiEngagementRepository.searchMissionBénévolat(rechercheBénévolat) as Failure;
 
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/^mission\/search/));
-				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 					apiSource: 'API Engagement',
 					contexte: 'search mission d’engagement',
-					message: '[API Engagement] impossible d’effectuer une recherche',
-				});
+					message: 'impossible d’effectuer une recherche de mission d’engagement',
+				}));
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
@@ -175,11 +175,11 @@ describe('ApiEngagementRepository', () => {
 				const { errorType } = await apiEngagementRepository.getMissionEngagement(missionEngagementId) as Failure;
 
 				expect(httpClientService.get).toHaveBeenCalledWith('mission/62b14f22c075d0071ada2ce4');
-				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 					apiSource: 'API Engagement',
 					contexte: 'get détail mission d’engagement',
-					message: '[API Engagement] impossible de récupérer le détail d’une mission',
-				});
+					message: 'impossible de récupérer le détail d’une mission',
+				}));
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});

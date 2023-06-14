@@ -79,7 +79,7 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 
 					expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 						apiSource: 'API Pole Emploi',
-						contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
+						contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 					});
 					expect(result.instance).toEqual('failure');
 					expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -97,7 +97,7 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 
 					expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 						apiSource: 'API Pole Emploi',
-						contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
+						contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 					});
 					expect(result.instance).toEqual('failure');
 					expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -217,7 +217,7 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'recherche job d‘été',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+					message: 'impossible d’effectuer une recherche de job d‘été',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -241,7 +241,7 @@ describe('ApiPoleEmploiJobEteRepository', () => {
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'échantillon job d‘été',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+					message: 'impossible d’effectuer une recherche de job d‘été',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);

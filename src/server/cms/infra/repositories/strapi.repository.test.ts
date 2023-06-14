@@ -82,7 +82,7 @@ describe('strapi cms repository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 				apiSource: 'API Strapi',
 				contexte: 'get single type strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+				message: 'Erreur inconnue - Impossible de récupérer la ressource actualite',
 			}));
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -105,7 +105,7 @@ describe('strapi cms repository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API Strapi',
 				contexte: 'get collection type strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de récupérer la ressource',
+				message: 'Erreur inconnue - Impossible de récupérer la ressource articles',
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -127,7 +127,7 @@ describe('strapi cms repository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+				message: 'Erreur inconnue - Impossible de sauvegarder la ressource url',
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -419,7 +419,7 @@ describe('strapi cms repository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
-				message: '[API Strapi] Erreur inconnue - Impossible de sauvegarder la ressource',
+				message: 'Erreur inconnue - Impossible de sauvegarder la ressource entreprises',
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);

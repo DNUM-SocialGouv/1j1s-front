@@ -28,7 +28,7 @@ export class ApiÉtablissementPublicRepository implements ÉtablissementAccompag
 			return this.errorManagement.handleFailureError(error, {
 				apiSource: 'API Établissement Public',
 				contexte: 'search établissement public',
-				message: '[API Établissement Public] Impossible d‘effectuer la recherche d‘Établissement Public',
+				message: 'impossible d‘effectuer une recherche d‘établissement public',
 			});
 		}
 	}

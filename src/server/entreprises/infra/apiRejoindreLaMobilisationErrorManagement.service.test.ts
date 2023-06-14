@@ -11,7 +11,7 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 const logInformation = aLogInformation({
 	apiSource: 'API Rejoindre Mobilisation',
 	contexte: 'formulaire rejoindre mobilisation',
-	message: '[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
+	message: 'Erreur inconnue - Insertion formulaire',
 });
 
 describe('apiRejoindreLaMobilisationErrorManagementService', () => {

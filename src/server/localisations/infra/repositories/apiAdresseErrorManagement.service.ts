@@ -1,10 +1,6 @@
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { SentryException } from '~/server/exceptions/sentryException';
-import {
-	DefaultErrorManagementService,
-	LogInformation,
-} from '~/server/services/error/errorManagement.service';
+import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
 const error400IdIncorrect = 'Le format de l’id de l’adresse recherchée est incorrect.';
@@ -21,11 +17,7 @@ export class ApiAdresseErrorManagementService extends DefaultErrorManagementServ
 	}
 
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
-		const logSentry = new SentryException(
-			`${logInformation.message} (erreur http)`,
-			{ context: logInformation.contexte, source: logInformation.apiSource },
-			{ errorDetail: error.response?.data },
-		);
+		const logSentry = super.buildHttpErrorToLog(logInformation, error);
 		if (error.response?.status === 400 && error.response.data.message === error400IdIncorrect) {
 			this.loggerService.warnWithExtra(logSentry);
 		} else {

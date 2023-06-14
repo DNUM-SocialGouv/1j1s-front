@@ -15,7 +15,7 @@ import {
 
 const aLogInformationApiAdresse = aLogInformation({
 	apiSource: 'API Adresse',
-	contexte: 'get commune', message: '[API Adresse] impossible de récupérer une ressource',
+	contexte: 'get commune', message: 'impossible de récupérer les communes associées à une adresse',
 });
 describe('ApiAdresseRepository', () => {
 	let httpClientService: CachedHttpClientService;

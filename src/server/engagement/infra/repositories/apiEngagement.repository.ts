@@ -31,7 +31,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 			return this.errorManagementService.handleFailureError(e, {
 				apiSource: 'API Engagement',
 				contexte: 'get détail mission d’engagement',
-				message: '[API Engagement] impossible de récupérer le détail d’une mission',
+				message: 'impossible de récupérer le détail d’une mission',
 			});
 		}
 	}
@@ -46,7 +46,7 @@ export class ApiEngagementRepository implements EngagementRepository {
 			return this.errorManagementService.handleFailureError(e, {
 				apiSource: 'API Engagement',
 				contexte: 'search mission d’engagement',
-				message: '[API Engagement] impossible d’effectuer une recherche',
+				message: 'impossible d’effectuer une recherche de mission d’engagement',
 			});
 		}
 	}

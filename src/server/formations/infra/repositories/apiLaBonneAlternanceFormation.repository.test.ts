@@ -90,7 +90,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'search formation la bonne alternance',
-					message: '[API LaBonneAlternance] impossible d’effectuer une recherche de formation',
+					message: 'impossible d’effectuer une recherche de formation',
 				});
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
@@ -171,7 +171,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorCreationRdv, aLogInformation({
 								apiSource: 'API LaBonneAlternance',
 								contexte: 'get formation la bonne alternance',
-								message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
+								message: 'impossible de créer le lien de demande de rdv pour une formation',
 							}));
 						});
 
@@ -236,7 +236,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 							apiSource: 'API LaBonneAlternance',
 							contexte: 'get formation la bonne alternance',
-							message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+							message: 'impossible de récupérer le détail d’une formation',
 						}));
 						expect(result.instance).toBe('failure');
 						expect((result as Failure).errorType).toEqual(errorReturnedByErrorManagementService);
@@ -379,7 +379,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 											expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorCreationRdv, aLogInformation({
 												apiSource: 'API LaBonneAlternance',
 												contexte: 'get formation la bonne alternance',
-												message: '[API LaBonneAlternance] impossible de créer le lien de demande de rdv pour une formation',
+												message: 'impossible de créer le lien de demande de rdv pour une formation',
 											}));
 										});
 										it('retourne la formation sans lien de rendez-vous', async () => {
@@ -435,7 +435,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 								expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(demandeIncorrecte, aLogInformation({
 									apiSource: 'API LaBonneAlternance',
 									contexte: 'get formation la bonne alternance',
-									message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
+									message: 'impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',
 								}));
 								expect(result).toEqual(createFailure(demandeIncorrecte));
 							});
@@ -485,7 +485,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
 						apiSource: 'API LaBonneAlternance',
 						contexte: 'get formation la bonne alternance',
-						message: '[API LaBonneAlternance] impossible de récupérer le détail d’une formation',
+						message: 'impossible de récupérer le détail d’une formation',
 					}));
 					expect(errorType).toEqual(errorReturnedByErrorManagementService);
 				});

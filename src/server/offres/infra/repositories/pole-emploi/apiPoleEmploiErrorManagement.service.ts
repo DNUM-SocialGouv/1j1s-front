@@ -1,6 +1,5 @@
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { SentryException } from '~/server/exceptions/sentryException';
 import {
 	DefaultErrorManagementService,
 	ErrorManagementWithErrorCheckingService,
@@ -35,11 +34,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultError
 
 	protected handleHttpErrorFailure(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 400 && errorFromApiPoleEmploiSearch.includes(error.response.data?.message)) {
-			const warnToLog = new SentryException(
-				`${logInformation.message} (erreur http)`,
-				{ context: logInformation.contexte, source: logInformation.apiSource },
-				{ errorDetail: error.response?.data },
-			);
+			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
 			this.loggerService.warnWithExtra(warnToLog);
 		} else {
 			this.logHttpError(logInformation, error);
@@ -73,11 +68,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorMan
 
 	protected handleHttpErrorFailure(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 400 && error.response.data?.message === errorFromApiPoleEmploiGet) {
-			const warnToLog = new SentryException(
-				`${logInformation.message} (erreur http)`,
-				{ context: logInformation.contexte, source: logInformation.apiSource },
-				{ errorDetail: error.response?.data },
-			);
+			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
 			this.loggerService.warnWithExtra(warnToLog);
 		} else {
 			this.logHttpError(logInformation, error);

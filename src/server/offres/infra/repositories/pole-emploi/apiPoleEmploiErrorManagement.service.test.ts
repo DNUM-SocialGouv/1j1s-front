@@ -12,11 +12,11 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const aLogInformationGet = aLogInformation({
 	apiSource: 'API Pole Emploi',
-	contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+	contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d‘une offre d’emploi',
 });
 const aLogInformationSearch = aLogInformation({
 	apiSource: 'API Pole Emploi',
-	contexte: 'recherche offre emploi', message: '[API Pole Emploi] impossible d‘effectuer une recherche',
+	contexte: 'recherche offre emploi', message: 'impossible d‘effectuer une recherche d’offre d’emploi',
 });
 describe('handleFailureError', () => {
 	describe('apiPoleEmploiOffreErrorManagementSearch', () => {
@@ -35,7 +35,7 @@ describe('handleFailureError', () => {
 					const apiPEerrorManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
 					const httpError = anHttpError(400, messageErrorFromApiPoleEmploi);
 					const expectedLogDetails = new SentryException(
-						`${aLogInformationSearch.message} (erreur http)`,
+						`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
 						{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
 						{ errorDetail: httpError.response?.data },
 					);
@@ -62,7 +62,7 @@ describe('handleFailureError', () => {
 				const apiPEerrorManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationSearch.message} (erreur http)`,
+					`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
 					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -88,7 +88,7 @@ describe('handleFailureError', () => {
 				const apiPEerrorManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationSearch.message} (erreur http)`,
+					`[${aLogInformationSearch.apiSource}] ${aLogInformationSearch.message} (erreur http)`,
 					{ context: aLogInformationSearch.contexte, source: aLogInformationSearch.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -159,7 +159,7 @@ describe('handleFailureError', () => {
 				const apiPEerrorManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
 				const httpError = anHttpError(400, errorFromApiPoleEmploiGet);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationGet.message} (erreur http)`,
+					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
 					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -185,7 +185,7 @@ describe('handleFailureError', () => {
 				const apiPEerrorManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationGet.message} (erreur http)`,
+					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
 					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -211,7 +211,7 @@ describe('handleFailureError', () => {
 				const apiPEerrorManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationGet.message} (erreur http)`,
+					`[${aLogInformationGet.apiSource}] ${aLogInformationGet.message} (erreur http)`,
 					{ context: aLogInformationGet.contexte, source: aLogInformationGet.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
