@@ -88,7 +88,7 @@ export default function Accueil() {
 		}: undefined,
 		{
 			children: <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
-			imageUrl: '/images/formations-initiales.webp',
+			imageUrl: '/images/formations.webp',
 			link: '/formations',
 			linkLabel: 'En savoir plus',
 			title: 'Formations',
