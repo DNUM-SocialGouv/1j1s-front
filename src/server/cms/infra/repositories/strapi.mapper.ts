@@ -249,9 +249,11 @@ export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionTyp
 	};
 }
 
+// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
 	return {
 		dateDeDebut: body.dateDeDebut,
+		dateDeDebutMin: body.dateDeDebut,
 		description: body.description,
 		domaines: body.domaine ? [{
 			nom: body.domaine.toString() as Strapi.CollectionType.OffreStage.Domaines.Nom,
