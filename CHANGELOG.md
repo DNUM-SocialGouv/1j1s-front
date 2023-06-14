@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.94.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.0...v3.94.1) (2023-06-14)
+
+
+### 👷 Autres changements
+
+* update package-lock to fix CI ([#1442](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1442)) ([710cd28](https://github.com/DNUM-SocialGouv/1j1s-front/commit/710cd28e96828b19bd55f4f831a1734868c30cc2))
+
 ## [3.94.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.4...v3.94.0) (2023-06-14)
 
 
