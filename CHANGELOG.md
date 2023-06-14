@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.94.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.0...v3.94.1) (2023-06-14)
+
+
+### 👷 Autres changements
+
+* update package-lock to fix CI ([#1442](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1442)) ([710cd28](https://github.com/DNUM-SocialGouv/1j1s-front/commit/710cd28e96828b19bd55f4f831a1734868c30cc2))
+
+## [3.94.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.4...v3.94.0) (2023-06-14)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* ajoute la possibilité de charger des feuilles de style depuis l… ([#1433](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1433)) ([0f7b864](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0f7b864d03a9274cbcb6f8c66f83a644faa6335a))
+
 ## [3.93.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.3...v3.93.4) (2023-06-14)
 
 
