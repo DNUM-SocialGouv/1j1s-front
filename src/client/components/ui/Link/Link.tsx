@@ -9,7 +9,6 @@ import { getTextFromChildren } from '~/client/utils/getTextFromChildren.util';
 interface LinkProps extends React.ComponentPropsWithoutRef<'a'> {
 	href: string
 	prefetch?: boolean
-	title?: string
 }
 
 export function Link(props: LinkProps) {
@@ -27,7 +26,7 @@ export function Link(props: LinkProps) {
 		if (isInternalLink) {
 			return title;
 		}
-		return title || `${getTextFromChildren(children)} - nouvelle fenêtre`;
+		return title ?? `${getTextFromChildren(children)} - nouvelle fenêtre`;
 	}
 
 	return isInternalLink ? (

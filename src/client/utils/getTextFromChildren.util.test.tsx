@@ -41,4 +41,19 @@ describe('getTextFromChildren', () => {
 		// Then
 		expect(result).toBe('Hello world !');
 	});
+	it('retourne le texte avec une div et span', () => {
+		// Given
+		const node = (
+			<div>
+				Télécharger sur<br/>
+				<span>APP Store</span>
+			</div>
+		);
+
+		// When
+		const result = getTextFromChildren(node);
+
+		// Then
+		expect(result).toBe('Télécharger sur APP Store');
+	});
 });

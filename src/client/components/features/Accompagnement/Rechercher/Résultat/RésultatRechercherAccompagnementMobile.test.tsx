@@ -58,8 +58,8 @@ describe('RésultatRechercherAccompagnement', () => {
 
 			// THEN
 			const link = screen.getByRole('link', { name: 'Contacter l‘agence' });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', `mailto:${email}`);
-			expect(link).toHaveAttribute('title', 'Contacter l‘agence - nouvelle fenêtre');		});
+			expect(link).toHaveAttribute('title', 'Contacter l‘agence - adresse mail');		});
 	});
 });

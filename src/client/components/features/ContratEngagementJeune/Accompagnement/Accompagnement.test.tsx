@@ -47,9 +47,9 @@ describe('<Accompagnement />', () => {
 			const deuxièmeBouton = screen.getByText('Oui, je suis accompagné(e) par Pôle Emploi');
 			const troisièmeBouton = screen.getByText('Non, je ne bénéficie d‘aucun accompagnement');
 			// Then
-			expect(premierBouton).toBeInTheDocument();
-			expect(deuxièmeBouton).toBeInTheDocument();
-			expect(troisièmeBouton).toBeInTheDocument();
+			expect(premierBouton).toBeVisible();
+			expect(deuxièmeBouton).toBeVisible();
+			expect(troisièmeBouton).toBeVisible();
 		});
 	});
 
@@ -67,8 +67,8 @@ describe('<Accompagnement />', () => {
 
 			// Then
 			const preuveDExistence = screen.getByText(quelÂgeAvezVous);
-			expect(troisièmeBouton).not.toBeInTheDocument();
-			expect(preuveDExistence).toBeInTheDocument();
+			expect(troisièmeBouton).not.toBeVisible();
+			expect(preuveDExistence).toBeVisible();
 		});
 	});
 
@@ -86,8 +86,8 @@ describe('<Accompagnement />', () => {
 			await userEvent.click(screen.getByRole('button',{ name: 'Non' }));
 
 			// Then
-			expect(await screen.findByText(titreModal)).toBeInTheDocument();
-			expect(screen.getByText(contenuModal)).toBeInTheDocument();
+			expect(await screen.findByText(titreModal)).toBeVisible();
+			expect(screen.getByText(contenuModal)).toBeVisible();
 		});
 	});
 
@@ -105,8 +105,8 @@ describe('<Accompagnement />', () => {
 			await userEvent.click(screen.getByRole('button',{ name: 'Non' }));
 
 			// Then
-			expect(await screen.findByText(titreModal)).toBeInTheDocument();
-			expect(screen.getByText(contenuModal)).toBeInTheDocument();
+			expect(await screen.findByText(titreModal)).toBeVisible();
+			expect(screen.getByText(contenuModal)).toBeVisible();
 		});
 		it('ça affiche le formulaire Handicap', async () => {
 			// Given
@@ -120,7 +120,7 @@ describe('<Accompagnement />', () => {
 			await userEvent.click(screen.getByRole('button',{ name: 'Oui' }));
 
 			// Then
-			expect(screen.getByText(contenuModal)).toBeInTheDocument();
+			expect(screen.getByText(contenuModal)).toBeVisible();
 		});
 		it('ça te renvoie chez Pôle Emploi sur la page Inscription', async () => {
 			// Given
@@ -135,9 +135,9 @@ describe('<Accompagnement />', () => {
 			await userEvent.click(screen.getByRole('button',{ name: 'Non' }));
 
 			// Then
-			expect(screen.getByText(contenuModal)).toBeInTheDocument();
+			expect(screen.getByText(contenuModal)).toBeVisible();
 			const link = screen.getByRole('link', { name: inscriptionPoleEmploi });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
 			expect(link).toHaveAttribute('target', '_blank');
 			expect(link).toHaveAttribute('title', `${inscriptionPoleEmploi} - nouvelle fenêtre`);
@@ -172,7 +172,7 @@ describe('<Accompagnement />', () => {
 
 			// Then
 			const link = screen.getByRole('link', { name: jeContacteMonConseiller });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('pole-emploi.fr'));
 			expect(link).toHaveAttribute('target', '_blank');
 			expect(link).toHaveAttribute('title', `${jeContacteMonConseiller} - nouvelle fenêtre`);
@@ -193,18 +193,18 @@ describe('<Accompagnement />', () => {
 			await userEvent.click(screen.getByText(retour));
 
 			// Then
-			expect(screen.getByText(pasDAccompagnement)).toBeInTheDocument();
+			expect(screen.getByText(pasDAccompagnement)).toBeVisible();
 			expect(screen.queryByText(quelÂgeAvezVous)).not.toBeInTheDocument();
 		});
 	});
 });
 
 function expectFormulaireDeContact() {
-	expect(screen.getByText('Prénom')).toBeInTheDocument();
-	expect(screen.getByText('Nom')).toBeInTheDocument();
-	expect(screen.getByText('Adresse email')).toBeInTheDocument();
-	expect(screen.getByText('Age')).toBeInTheDocument();
-	expect(screen.getByText('Téléphone')).toBeInTheDocument();
-	expect(screen.getByText('Ville')).toBeInTheDocument();
-	expect(screen.getByText('Envoyer la demande')).toBeInTheDocument();
+	expect(screen.getByText('Prénom')).toBeVisible();
+	expect(screen.getByText('Nom')).toBeVisible();
+	expect(screen.getByText('Adresse email')).toBeVisible();
+	expect(screen.getByText('Age')).toBeVisible();
+	expect(screen.getByText('Téléphone')).toBeVisible();
+	expect(screen.getByText('Ville')).toBeVisible();
+	expect(screen.getByText('Envoyer la demande')).toBeVisible();
 }

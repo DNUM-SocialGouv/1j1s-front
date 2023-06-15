@@ -50,7 +50,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 						</div>
 						{
 							établissement.email && !isMissionLocale &&
-                <Link href={`mailto:${établissement.email}`} className={styles.contactMailÉtablissement}>
+                <Link href={`mailto:${établissement.email}`} className={styles.contactMailÉtablissement} title="Contacter l‘agence - adresse mail">
                 	<TextIcon icon={'mail'} iconPosition={'right'}>Contacter l‘agence</TextIcon>
                 </Link>
 						}
