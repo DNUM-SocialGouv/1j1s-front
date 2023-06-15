@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.95.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.3...v3.95.0) (2023-06-15)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **statistiques:** utiliser error management statistiques ([#1432](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1432)) ([726518e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/726518ea14373a43130faaef13897595f8b99929))
+
 ## [3.94.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.2...v3.94.3) (2023-06-15)
 
 
