@@ -27,9 +27,13 @@ function useYoutubeService(): [boolean, VideoService['allow']] {
 			setIsAllowed(youtubeService.isAllowed());
 		}
 
+		document.addEventListener('youtube_loaded', updateCookieSettings);
+		document.addEventListener('youtube_added', updateCookieSettings);
 		document.addEventListener('youtube_allowed', updateCookieSettings);
 		document.addEventListener('youtube_disallowed', updateCookieSettings);
 		return () => {
+			document.removeEventListener('youtube_loaded', updateCookieSettings);
+			document.removeEventListener('youtube_added', updateCookieSettings);
 			document.removeEventListener('youtube_allowed', updateCookieSettings);
 			document.removeEventListener('youtube_disallowed', updateCookieSettings);
 		};

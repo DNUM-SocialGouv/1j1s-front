@@ -41,9 +41,13 @@ var tarteaucitron = {
         if (alreadyLaunch === 0) {
             alreadyLaunch = 1;
             if (window.addEventListener) {
-                window.addEventListener("load", function () {
-                    tarteaucitron.initEvents.loadEvent(false);
-                }, false);
+                try {
+                    tarteaucitron.initEvents.loadEvent(false)
+                } catch (e) {
+                    window.addEventListener("load", function () {
+                        tarteaucitron.initEvents.loadEvent(false);
+                    }, false);
+                }
                 window.addEventListener("scroll", function () {
                     tarteaucitron.initEvents.scrollEvent();
                 }, false);

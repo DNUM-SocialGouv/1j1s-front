@@ -34,7 +34,7 @@ export default function Document() {
 				<NextScript/>
 				{ process.env.NODE_ENV === 'production' &&
 					<Script
-						src="/scripts/tarteaucitron.js"
+						src={`/scripts/tarteaucitron.js?v=${encodeURI(process.env.NEXT_PUBLIC_APPLICATION_VERSION)}`}
 						strategy="beforeInteractive"
 					/>
 				}
