@@ -28,8 +28,9 @@ module "front_app" {
 
   addons = [
     {
-      provider = "redis"
-      plan     = terraform.workspace == "production" ? "redis-business-256" : "redis-sandbox"
+      provider          = "redis"
+      plan              = terraform.workspace == "production" ? "redis-business-256" : "redis-starter-256"
+      database_features = ["redis-rdb"]
     }
   ]
 
