@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.94.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.2...v3.94.3) (2023-06-15)
+
+
+### 🐛 Corrections de bogues
+
+* Quick-fix du chargement du script tarteaucitron sur Safari ([#1441](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1441)) ([f8691b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f8691b122474c53e97964b913ca60e17f39eeb3f))
+
 ## [3.94.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.1...v3.94.2) (2023-06-15)
 
 
