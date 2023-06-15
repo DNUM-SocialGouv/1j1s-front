@@ -9,6 +9,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
+	process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 	it.each`
 	  nom                                                       | path
     ${'Accueil'}                                              | ${'/'}
