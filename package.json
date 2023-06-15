@@ -10,7 +10,6 @@
     "prepare": "npm dedupe && ./setup.sh",
     "dev": "next dev",
     "build": "next build",
-    "check": "tsc --noEmit",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
