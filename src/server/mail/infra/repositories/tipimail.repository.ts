@@ -28,7 +28,7 @@ export class TipimailRepository implements MailRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Tipimail',
 				contexte: 'Envoi email',
-				message: '[API Tipimail] impossible d‘envoyer un email',
+				message: 'impossible d‘envoyer un email',
 			});
 		}
 	}

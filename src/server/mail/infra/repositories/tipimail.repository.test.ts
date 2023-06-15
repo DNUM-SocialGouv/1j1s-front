@@ -10,7 +10,7 @@ import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/htt
 const logInformation = aLogInformation({
 	apiSource: 'API Tipimail',
 	contexte: 'Envoi email',
-	message: '[API Tipimail] impossible d‘envoyer un email',
+	message: 'impossible d‘envoyer un email',
 });
 
 describe('TipimailRepository', () => {

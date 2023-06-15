@@ -18,7 +18,7 @@ export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisa
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Rejoindre Mobilisation',
 				contexte: 'formulaire rejoindre la mobilisation',
-				message: '[API Rejoindre Mobilisation] Erreur inconnue - Insertion formulaire',
+				message: 'impossible d’envoyer le formulaire',
 			});
 		}
 		return createSuccess(undefined);

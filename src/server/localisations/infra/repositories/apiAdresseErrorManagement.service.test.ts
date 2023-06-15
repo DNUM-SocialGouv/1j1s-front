@@ -10,7 +10,7 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const aLogInformationApiAdresse = aLogInformation({
 	apiSource: 'API Adresse',
-	contexte: 'get commune', message: '[API Adresse] impossible de récupérer une ressource',
+	contexte: 'get commune', message: 'impossible de récupérer une commune',
 });
 
 const error400IdIncorrect = 'Le format de l’id de l’adresse recherchée est incorrect.';
@@ -32,7 +32,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
 				const httpError = anHttpError(400, error400IdIncorrect);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
+					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
 					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -49,7 +49,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
 				const httpError = anHttpError(400, 'message inconnu');
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
+					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
 					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -66,7 +66,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
+					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
 					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);
@@ -83,7 +83,7 @@ describe('apiAdresseErrorManagementService', () => {
 				const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
 				const httpError = anHttpError(504);
 				const expectedLogDetails = new SentryException(
-					`${aLogInformationApiAdresse.message} (erreur http)`,
+					`[${aLogInformationApiAdresse.apiSource}] ${aLogInformationApiAdresse.message} (erreur http)`,
 					{ context: aLogInformationApiAdresse.contexte, source: aLogInformationApiAdresse.apiSource },
 					{ errorDetail: httpError.response?.data },
 				);

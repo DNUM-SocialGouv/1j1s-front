@@ -58,7 +58,7 @@ export class ApiGeoRepository implements LocalisationRepository {
 			return createSuccess(mapper(data));
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
-				apiSource: 'API Geo', contexte: `get ${contexte}`, message: '[API Geo] impossible de récupérer une ressource',
+				apiSource: 'API Geo', contexte: `get ${contexte}`, message: `impossible de récupérer une ressource de type ${contexte}`,
 			});
 		}
 	}

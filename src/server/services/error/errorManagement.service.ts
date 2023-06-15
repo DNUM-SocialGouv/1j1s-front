@@ -33,26 +33,33 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	}
 
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
-		const errorToLog = new SentryException(
-			`${logInformation.message} (erreur http)`,
-			{ context: logInformation.contexte, source: logInformation.apiSource },
-			{ errorDetail: error.response?.data },
-		);
-
+		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
 		this.loggerService.errorWithExtra(errorToLog);
 	}
 
+	protected buildHttpErrorToLog(logInformation: LogInformation, error: HttpError) {
+		return new SentryException(
+			`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
+			{ context: logInformation.contexte, source: logInformation.apiSource },
+			{ errorDetail: error.response?.data },
+		);
+	}
+
 	protected logInternalError(logInformation: LogInformation, error: unknown) {
+		const errorToLog = this.buildInternalErrorToLog(logInformation, error);
+		this.loggerService.errorWithExtra(errorToLog);
+	}
+
+	protected buildInternalErrorToLog(logInformation: LogInformation, error: unknown) {
 		const extra = error instanceof Error
 			? { stacktrace: error.stack }
 			: { error: JSON.stringify(error) };
 
-		const errorToLog = new SentryException(
-			`${logInformation.message} (erreur interne)`,
+		return new SentryException(
+			`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
 			{ context: logInformation.contexte, source: logInformation.apiSource },
 			extra,
 		);
-		this.loggerService.errorWithExtra(errorToLog);
 	}
 
 	protected createFailureForInternalError() {

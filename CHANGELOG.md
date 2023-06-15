@@ -1,5 +1,54 @@
 # Changelog
 
+## [3.94.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.1...v3.94.2) (2023-06-15)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to ~7.55.0 ([#1439](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1439)) ([cef7460](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cef7460fc5d49d8cd318ff63fe4db19236ef49c7))
+
+## [3.94.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.0...v3.94.1) (2023-06-14)
+
+
+### 👷 Autres changements
+
+* update package-lock to fix CI ([#1442](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1442)) ([710cd28](https://github.com/DNUM-SocialGouv/1j1s-front/commit/710cd28e96828b19bd55f4f831a1734868c30cc2))
+
+## [3.94.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.4...v3.94.0) (2023-06-14)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* ajoute la possibilité de charger des feuilles de style depuis l… ([#1433](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1433)) ([0f7b864](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0f7b864d03a9274cbcb6f8c66f83a644faa6335a))
+
+## [3.93.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.3...v3.93.4) (2023-06-14)
+
+
+### 🐛 Corrections de bogues
+
+* update le numero de version tarte-au-citron en se basant uniquement sur ce qui est staged pour le commit ([#1434](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1434)) ([074527a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/074527a15251a0f3dfd9898c096841888c9acf5a))
+
+## [3.93.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.2...v3.93.3) (2023-06-13)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency axios-cache-interceptor to ~1.2.0 ([8b11683](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b1168323d6eb8624cdd108a2f3d4b28a9f0598c))
+
+## [3.93.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.1...v3.93.2) (2023-06-12)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @storybook/addon-styling to ~1.3.0 ([#1422](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1422)) ([abf6679](https://github.com/DNUM-SocialGouv/1j1s-front/commit/abf66792734a6df5d826bec772ac9f79f862c0dd))
+
+## [3.93.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.93.0...v3.93.1) (2023-06-12)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to ~12.14.0 ([#1417](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1417)) ([20d66c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/20d66c8ce8f796cf02772cad1ad32f40221e5370))
+
 ## [3.93.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.92.0...v3.93.0) (2023-06-09)
 
 

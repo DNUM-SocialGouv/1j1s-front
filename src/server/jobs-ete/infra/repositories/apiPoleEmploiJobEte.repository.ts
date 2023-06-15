@@ -42,14 +42,14 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
+					contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'détail job d‘été', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job d‘été',
+				contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 			});
 		}
 	}
@@ -63,14 +63,14 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 		const queryList: Record<string, string> = {
 			grandDomaine: jobEteFiltre.grandDomaineList?.join(',') || '',
 		};
-		
+
 		removeUndefinedValueInQueryParameterList(queryList);
-		
+
 		const params = new URLSearchParams(queryList);
-		
+
 		return params.toString();
 	}
-	
+
 	private async getOffreJobEteRecherche(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
 		const parametresRecherche = await this.poleEmploiParamètreBuilderService.buildCommonParamètresRecherche(jobEteFiltre);
 		const jobEteParametresRecherche = await this.buildJobEteParametresRecherche(jobEteFiltre);
@@ -85,15 +85,15 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'recherche job d‘été', message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+				contexte: 'recherche job d‘été', message: 'impossible d’effectuer une recherche de job d‘été',
 			});
 		}
 	}
-	
+
 	private async getÉchantillonOffre(jobEteFiltre: JobEteFiltre): Promise<Either<RésultatsRechercheOffre>> {
 		const responseInCache = await this.cacheService.get<RésultatsRechercheOffreResponse>(this.ECHANTILLON_OFFRE_JOB_ETE_KEY);
 		const range = buildRangeParamètre(jobEteFiltre);
-		
+
 		if (responseInCache) {
 			return createSuccess(mapRésultatsRechercheOffre(responseInCache));
 		} else {
@@ -107,7 +107,7 @@ export class ApiPoleEmploiJobEteRepository implements OffreRepository {
 				return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'échantillon job d‘été',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job d‘été',
+					message: 'impossible d’effectuer une recherche de job d‘été',
 				});
 			}
 		}

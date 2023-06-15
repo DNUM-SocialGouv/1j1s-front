@@ -42,14 +42,14 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
+					contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'détail job étudiant', message: '[API Pole Emploi] impossible de récupérer le détail d‘un job étudiant',
+				contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 			});
 		}
 	}
@@ -85,7 +85,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'recherche job étudiant', message: '[API Pole Emploi] impossible d’effectuer une recherche de job étudiant',
+				contexte: 'recherche job étudiant', message: 'impossible d’effectuer une recherche de job étudiant',
 			});
 		}
 	}
@@ -107,7 +107,7 @@ export class ApiPoleEmploiJobÉtudiantRepository implements OffreRepository {
 				return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'échantillon job étudiant',
-					message: '[API Pole Emploi] impossible d’effectuer une recherche de job étudiant',
+					message: 'impossible d’effectuer une recherche de job étudiant',
 				});
 			}
 		}

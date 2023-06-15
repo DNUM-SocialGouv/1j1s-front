@@ -43,14 +43,14 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			if (this.apiPoleEmploiOffreErrorManagementGet.isError(response)) {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+				contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 			});
 		}
 	}
@@ -89,7 +89,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 		} catch (error) {
 			return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 				apiSource: 'API Pole Emploi',
-				contexte: 'recherche offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+				contexte: 'recherche offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 			});
 		}
 	}
@@ -108,7 +108,7 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			} catch (error) {
 				return this.apiPoleEmploiOffreErrorManagementSearch.handleFailureError(error, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'échantillon offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+					contexte: 'échantillon offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 			}
 		}

@@ -9,7 +9,7 @@ import { aLoggerService } from '~/server/services/logger.service.fixture';
 const logInformation = aLogInformation({
 	apiSource: 'API La bonne alternance',
 	contexte: 'search alternance',
-	message: '[API LaBonneAlternance] impossible d’effectuer une recherche',
+	message: 'impossible d’effectuer une recherche d’alternance',
 });
 describe('DefaultErrorManagementService', () => {
 	describe('lorsque l‘erreur est une Http error', () => {
@@ -75,7 +75,7 @@ describe('DefaultErrorManagementService', () => {
 			const httpError = anHttpError();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const expectedLogDetails = new SentryException(
-				`${logInformation.message} (erreur http)`,
+				`[${logInformation.apiSource}] ${logInformation.message} (erreur http)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpError.response?.data },
 			);
@@ -110,7 +110,7 @@ describe('DefaultErrorManagementService', () => {
 				const internalError = new Error('ceci est une erreur interne');
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
-					`${logInformation.message} (erreur interne)`,
+					`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
 					{ context: logInformation.contexte, source: logInformation.apiSource },
 					{ stacktrace: internalError.stack },
 				);
@@ -127,7 +127,7 @@ describe('DefaultErrorManagementService', () => {
 				const internalError = 'une erreur qui n‘est pas une erreur';
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
 				const expectedLogDetails = new SentryException(
-					`${logInformation.message} (erreur interne)`,
+					`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
 					{ context: logInformation.contexte, source: logInformation.apiSource },
 					{ error: internalError },
 				);

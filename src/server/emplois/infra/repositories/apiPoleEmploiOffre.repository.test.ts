@@ -83,7 +83,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -96,12 +96,12 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
 				jest.spyOn(apiPoleEmploiErrorManagementGet, 'isError').mockReturnValue(true);
 				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
-				
+
 				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'détail offre emploi', message: '[API Pole Emploi] impossible de récupérer une ressource',
+					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -225,7 +225,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'recherche offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+					contexte: 'recherche offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -248,7 +248,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API Pole Emploi',
-					contexte: 'échantillon offre emploi', message: '[API Pole Emploi] impossible d’effectuer une recherche',
+					contexte: 'échantillon offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(expectedFailure);
