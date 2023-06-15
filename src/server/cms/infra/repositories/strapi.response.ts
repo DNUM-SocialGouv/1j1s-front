@@ -185,6 +185,7 @@ export namespace Strapi {
 			slug: string
 			dateDeDebut: string
 			dateDeDebutMin: string
+			dateDeDebutMax: string
 			createdAt: string
 			publishedAt: string
 			updatedAt: string
@@ -273,7 +274,7 @@ export namespace Strapi {
 
 		// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 		export type OffreStageDepot =
-			Pick<OffreStage, 'dateDeDebut' | 'dateDeDebutMin' | 'description' | 'domaines' | 'dureeEnJour' | 'remunerationBase' | 'teletravailPossible' | 'titre'>
+			Pick<OffreStage, 'dateDeDebut' | 'dateDeDebutMin' | 'dateDeDebutMax' | 'description' | 'domaines' | 'dureeEnJour' | 'remunerationBase' | 'teletravailPossible' | 'titre'>
 			& {
 			identifiantSource: string;
 			publishedAt: null;

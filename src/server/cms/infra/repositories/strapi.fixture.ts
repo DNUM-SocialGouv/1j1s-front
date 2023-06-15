@@ -377,6 +377,7 @@ export function anOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebut: '2024-09-01',
+		dateDeDebutMax: '2024-09-01',
 		dateDeDebutMin: '2024-09-01',
 		description: 'Poste ouvert aux personnes en situation de handicap',
 		domaines: [],
@@ -417,6 +418,7 @@ export function anOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
 export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDepot {
 	return {
 		dateDeDebut: '2023-02-03',
+		dateDeDebutMax: '2023-02-03',
 		dateDeDebutMin: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
 		domaines: [
