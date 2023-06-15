@@ -17,7 +17,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 		mockUseRouter({});
 	});
 
-	it('ne retourne rien', async () => {
+	it('la page n‘est pas disponbile', async () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
@@ -61,5 +61,6 @@ describe('quand le feature flip est actif', () => {
 		const heading = screen.getByRole('heading', { level: 1 });
 
 		expect(heading).toHaveTextContent('Des milliers de formations pour vous permettre');
+		expect(heading).toHaveTextContent('de réaliser votre projet professionnel');
 	});
 });

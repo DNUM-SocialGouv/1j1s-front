@@ -57,8 +57,8 @@ describe('Page d‘accueil', () => {
 				expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
 			});
 		});
-		describe('quand le feature flip de jobs d‘été est actif', () => {
-			it('je vois la carte de redirection vers les jobs d‘été',  () => {
+		describe('quand le feature flip des formations initales est actif', () => {
+			it('je vois la carte de redirection vers les formations initiales',  () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
 				render(<DependenciesProvider analyticsService={analyticsService}>
