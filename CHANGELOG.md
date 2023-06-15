@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.95.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.0...v3.95.1) (2023-06-15)
+
+
+### 👷 Autres changements
+
+* **terraform:** bump cloudflare/cloudflare in /terraform ([#1446](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1446)) ([faa148d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/faa148d2d029785943f10dac40e359d61eb3ac21))
+* **terraform:** upgrade de redis en recette vers redis-starter-256 ([#1435](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1435)) ([c5910de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5910de58bab1937dc64d93d913732ff13ff7841))
+
 ## [3.95.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.94.3...v3.95.0) (2023-06-15)
 
 
