@@ -87,7 +87,7 @@ describe('Page FormationPage', () => {
 		const link = screen.getByRole('link', { name: /Besoin d‘informations sur les métiers ?/ });
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', '/decouvrir-les-metiers');
-		expect(link).toHaveAttribute('title', '');
+		expect(link).not.toHaveAttribute('title');
 	});
 
 	it('affiche un lien Renseignez-vous sur les métiers du soin', () => {

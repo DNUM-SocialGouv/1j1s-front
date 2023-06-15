@@ -18,7 +18,7 @@ describe('<Application />', () => {
 
 		// Then
 		const link = screen.getByRole('link', { name });
-		expect(link).toBeInTheDocument();
+		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('title', `${name} - nouvelle fenêtre`);
 	});
 
@@ -31,7 +31,7 @@ describe('<Application />', () => {
 
 		// Then
 		const link = screen.getByRole('link', { name });
-		expect(link).toBeInTheDocument();
+		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('title', `${name} - nouvelle fenêtre`);
 	});
 });

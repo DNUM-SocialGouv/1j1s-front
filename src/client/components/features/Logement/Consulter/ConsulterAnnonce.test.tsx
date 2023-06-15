@@ -28,7 +28,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page annonces' });
-		expect(boutonRetour).toBeInTheDocument();
+		expect(boutonRetour).toBeVisible();
 
 	});
 
@@ -132,7 +132,7 @@ describe('<ConsulterAnnonce />', () => {
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
 				const listDesSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
-				expect(listDesSlides).toBeInTheDocument();
+				expect(listDesSlides).toBeVisible();
 			});
 		});
 	});
@@ -231,10 +231,10 @@ describe('<ConsulterAnnonce />', () => {
 				annonceDeLogement.source = 'immojeune' as AnnonceDeLogement.Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
-				expect(diffuseur).toBeInTheDocument();
+				expect(diffuseur).toBeVisible();
 
 				const logoDiffuseur = screen.getByRole('img', { name: 'immojeune' });
-				expect(logoDiffuseur).toBeInTheDocument();
+				expect(logoDiffuseur).toBeVisible();
 			});
 		});
 
@@ -244,10 +244,10 @@ describe('<ConsulterAnnonce />', () => {
 				annonceDeLogement.source = 'studapart' as AnnonceDeLogement.Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
-				expect(diffuseur).toBeInTheDocument();
+				expect(diffuseur).toBeVisible();
 
 				const logoDiffuseur = screen.getByRole('img', { name: 'studapart' });
-				expect(logoDiffuseur).toBeInTheDocument();
+				expect(logoDiffuseur).toBeVisible();
 			});
 		});
 
@@ -269,7 +269,7 @@ describe('<ConsulterAnnonce />', () => {
 			const annonceDeLogement = anAnnonceDeLogement();
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce' });
-			expect(lienExterneCandidater).toBeInTheDocument();
+			expect(lienExterneCandidater).toBeVisible();
 			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
 			expect(lienExterneCandidater).toHaveAttribute('title', 'Voir l‘annonce - nouvelle fenêtre');
 		});

@@ -30,7 +30,7 @@ describe('ConsulterMission', () => {
 			const nomAssociation = screen.getByText('Ebs le relais val de seine');
 			const tagList = screen.getByRole('list', { name: 'Caractéristiques de la mission' });
 
-			expect(nomAssociation).toBeInTheDocument();
+			expect(nomAssociation).toBeVisible();
 			expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);
 		});
 
@@ -40,7 +40,7 @@ describe('ConsulterMission', () => {
 			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 
 			const lienPostuler = screen.getByRole('link', { name: 'Postuler' });
-			expect(lienPostuler).toBeInTheDocument();
+			expect(lienPostuler).toBeVisible();
 			expect(lienPostuler).toHaveAttribute('href', offreMission.url);
 			expect(lienPostuler).toHaveAttribute('title', 'Postuler - nouvelle fenêtre');
 		});
