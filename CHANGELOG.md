@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.95.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.1...v3.95.2) (2023-06-15)
+
+
+### 👷 Autres changements
+
+* fixer les numeros de versions des dependances npm ([2224d60](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2224d60ab8f12e6196a8e304ec1c20504710adf1))
+
 ## [3.95.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.0...v3.95.1) (2023-06-15)
 
 
