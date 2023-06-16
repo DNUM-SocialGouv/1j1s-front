@@ -17,8 +17,12 @@ function useAnalytics(pageTags: PageTags): AnalyticsService {
 
 	useEffect(function addEventListeners() {
 		document.addEventListener('eulerian_allowed', sendAnalytics);
+		document.addEventListener('eulerian_loaded', sendAnalytics);
+		document.addEventListener('eulerian_added', sendAnalytics);
 		return () => {
 			document.removeEventListener('eulerian_allowed', sendAnalytics);
+			document.removeEventListener('eulerian_loaded', sendAnalytics);
+			document.removeEventListener('eulerian_added', sendAnalytics);
 		};
 	}, [sendAnalytics]);
 
