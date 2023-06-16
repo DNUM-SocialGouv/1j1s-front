@@ -319,8 +319,8 @@ export namespace Strapi {
 			bilanEnergetique: AnnonceLogement.BilanEnergetique
 			imagesUrl?: Array<{ value: string }>
 			source: AnnonceLogement.Source
-			servicesInclus: Array<{ nom: AnnonceLogement.ServiceInclus }>
-			servicesOptionnels: Array<{ nom: AnnonceLogement.ServiceOptionnel }>
+			servicesInclus: Array<{ nom: AnnonceLogement.Service }>
+			servicesOptionnels: Array<{ nom: AnnonceLogement.Service }>
 		}
 
 		export namespace AnnonceLogement {
@@ -342,7 +342,7 @@ export namespace Strapi {
 				export type CategorieEnergetique = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
 			}
 
-			export enum ServiceInclus {
+			export enum Service {
 				ASCENSEUR = 'ascenseur',
 				ASPIRATEUR = 'aspirateur',
 				CAVE = 'cave',
@@ -364,19 +364,6 @@ export namespace Strapi {
 				SALLE_DE_SPORT = 'salle de sport',
 				SECHE_LINGE = 'sèche linge',
 				TERRACE = 'terrace',
-				TV = 'télévision',
-				NON_RENSEIGNE = 'non renseigné',
-			}
-
-			export enum ServiceOptionnel {
-				ASPIRATEUR = 'aspirateur',
-				FER_A_REPASSER = 'fer à repasser',
-				INTERNET = 'internet',
-				LOCAL_A_VELO = 'local à vélo',
-				MACHINE_A_LAVER = 'machine à laver',
-				MICRO_ONDE = 'micro-onde',
-				NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
-				SALLE_DE_SPORT = 'salle de sport',
 				TV = 'télévision',
 				NON_RENSEIGNE = 'non renseigné',
 			}

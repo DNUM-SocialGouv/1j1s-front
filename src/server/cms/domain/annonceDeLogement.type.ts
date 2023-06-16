@@ -33,7 +33,7 @@ export namespace AnnonceDeLogement {
     emissionDeGaz?: CategorieEnergetique
   }
 
-  export enum ServiceInclus {
+  export enum Service {
     ASCENSEUR = 'ascenseur',
     ASPIRATEUR = 'aspirateur',
     CAVE = 'cave',
@@ -55,19 +55,6 @@ export namespace AnnonceDeLogement {
     SALLE_DE_SPORT = 'salle de sport',
     SECHE_LINGE = 'sèche linge',
     TERRACE = 'terrace',
-    TV = 'télévision',
-    NON_RENSEIGNE = 'non renseigné',
-  }
-
-  export enum ServiceOptionnel {
-    ASPIRATEUR = 'aspirateur',
-    FER_A_REPASSER = 'fer à repasser',
-    INTERNET = 'internet',
-    LOCAL_A_VELO = 'local à vélo',
-    MACHINE_A_LAVER = 'machine à laver',
-    MICRO_ONDE = 'micro-onde',
-    NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
-    SALLE_DE_SPORT = 'salle de sport',
     TV = 'télévision',
     NON_RENSEIGNE = 'non renseigné',
   }
@@ -96,8 +83,8 @@ export interface AnnonceDeLogement {
   description: string
   devise: string
   imageList: Array<Image>
-  servicesInclus: Array<AnnonceDeLogement.ServiceInclus>
-  servicesOptionnels: Array<AnnonceDeLogement.ServiceOptionnel>
+  servicesInclus: Array<AnnonceDeLogement.Service>
+  servicesOptionnels: Array<AnnonceDeLogement.Service>
   source: AnnonceDeLogement.Source
   urlDeCandidature: string
   bilanEnergetique: AnnonceDeLogement.BilanEnergetique

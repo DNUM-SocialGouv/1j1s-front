@@ -20,12 +20,12 @@ export const anAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLoge
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.INTERNET },
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.ASPIRATEUR },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.INTERNET },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.TV },
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.LOCAL_A_VELO },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.TV },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',
@@ -59,12 +59,12 @@ export const anAnnonceDeLogement = (): AnnonceDeLogement => {
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			AnnonceDeLogement.ServiceInclus.INTERNET,
-			AnnonceDeLogement.ServiceInclus.ASPIRATEUR,
+			AnnonceDeLogement.Service.INTERNET,
+			AnnonceDeLogement.Service.ASPIRATEUR,
 		],
 		servicesOptionnels: [
-			AnnonceDeLogement.ServiceOptionnel.TV,
-			AnnonceDeLogement.ServiceOptionnel.LOCAL_A_VELO,
+			AnnonceDeLogement.Service.TV,
+			AnnonceDeLogement.Service.LOCAL_A_VELO,
 		],
 		source: 'immojeune',
 		surface: 10,
