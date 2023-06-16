@@ -9,6 +9,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
+	process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 	it.each`
 	  nom                                                       | path
     ${'Accueil'}                                              | ${'/'}
@@ -21,6 +22,7 @@ describe('Plan du site', () => {
     ${'Expérience en Europe'}                                 | ${'/europe'}
     
     ${'Formations'}                                           | ${'/formations'}
+    ${'Formations initiales'}                                 | ${'/formations-initiales'}
     ${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
     ${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
     ${'Participer à des évènements'}                          | ${'/evenements'}

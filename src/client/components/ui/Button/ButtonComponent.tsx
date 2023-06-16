@@ -54,7 +54,7 @@ export function ButtonComponent({ appearance = 'primary', className, icon, iconP
 
 	return (
 		<button className={buttonStyles} {...rest}>
-	    {buttonBody}
+			{buttonBody}
 		</button>
 	);
 }

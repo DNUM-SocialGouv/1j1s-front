@@ -24,6 +24,7 @@ type PageGroup =
 	| 'entreprendre'
 	| 'formation'
 	| 'formation_apprentissage_liste'
+	| 'formation_initiale_liste'
 	| 'formation_apprentissage_detail'
 	| 'immersions'
 	| 'je_deviens_mentor'

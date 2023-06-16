@@ -11,51 +11,80 @@ import {
 import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
 
 describe('GénérerSitemapUseCase', () => {
-	describe('quand le feature flip de Formation et Apprentissage n‘est pas actif', () => {
-		beforeEach(() => {
-			process.env = {
-				...process.env,
-				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '0',
-			};
+	describe('feature flip Formation en apprentissage', () => {
+		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
+			it('génère le xml contenant le sitemap',  async() => {
+				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
+				const cmsRepository = aStrapiCmsRepository();
+				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
+				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+				const baseUrl = 'http://localhost:3000';
+
+				const expected = aSitemap();
+
+				const result = await générerSitemapUseCase.handle(baseUrl);
+
+				expect(result).toEqual(expected);
+			});
 		});
-		it('génère le xml contenant le sitemap',  async() => {
-			const cmsRepository = aStrapiCmsRepository();
-			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
-			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
-			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
-			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
-			const baseUrl = 'http://localhost:3000';
 
-			const expected = aSitemap();
+		describe('quand la feature Formation en apprentissage est activée', () => {
+			it('génère le sitamp avec la Formation en apprentissage',  async() => {
+				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
+				const cmsRepository = aStrapiCmsRepository();
+				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
+				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+				const baseUrl = 'http://localhost:3000';
 
-			const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle(baseUrl);
 
-			expect(result).toEqual(expected);
+				expect(result).toContain('<loc>http://localhost:3000/formations/apprentissage</loc>');
+			});
 		});
 	});
+	describe('feature flip Formations initiales', () => {
+		describe('quand la feature Formations initiales n‘est pas activée', () => {
+			it('génère le sitmap sans la formations initiales',  async() => {
+				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
+				const cmsRepository = aStrapiCmsRepository();
+				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
+				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+				const baseUrl = 'http://localhost:3000';
 
-	describe('quand le feature flip de Formation et Apprentissage est actif', () => {
-		beforeEach(() => {
-			process.env = {
-				...process.env,
-				NEXT_PUBLIC_FORMATION_LBA_FEATURE: '1',
-			};
+				const result = await générerSitemapUseCase.handle(baseUrl);
+
+				expect(result).not.toContain('<loc>http://localhost:3000/formations-initiales</loc>');
+			});
 		});
-		it('génère le xml contenant le sitemap',  async() => {
-			const cmsRepository = aStrapiCmsRepository();
-			cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-			cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-			cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
-			cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
-			cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
-			const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
-			const baseUrl = 'http://localhost:3000';
 
-			const result = await générerSitemapUseCase.handle(baseUrl);
+		describe('quand la feature de Formations initiales est activée', () => {
+			it('génère le sitmap avec la formations initiales',  async() => {
+				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
+				const cmsRepository = aStrapiCmsRepository();
+				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
+				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
+				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+				const baseUrl = 'http://localhost:3000';
 
-			expect(result).toContain('<loc>http://localhost:3000/formations/apprentissage</loc>');
+				const result = await générerSitemapUseCase.handle(baseUrl);
+
+				expect(result).toContain('<loc>http://localhost:3000/formations-initiales</loc>');
+			});
 		});
 	});
 });
