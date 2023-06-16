@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.95.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.2...v3.95.3) (2023-06-16)
+
+
+### 👷 Autres changements
+
+* utilise la version de typescript dans le package.json ([#1459](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1459)) ([132c664](https://github.com/DNUM-SocialGouv/1j1s-front/commit/132c664d8cc61cffd344c29163a1c83781108e0a))
+
 ## [3.95.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.1...v3.95.2) (2023-06-15)
 
 
