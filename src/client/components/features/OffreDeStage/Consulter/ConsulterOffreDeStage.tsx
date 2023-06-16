@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
@@ -13,14 +13,12 @@ interface ConsulterOffreDeStageProps {
 }
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
-
-	const listeEtiquettes: Array<string> = offreDeStage.domaines;
-	listeEtiquettes.push(
-		offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region as string,
-		dureeCategorisee(offreDeStage.dureeEnJour || 0),
-		'Débute le : ' + new Date(offreDeStage.dateDeDebut).toLocaleDateString(),
-	);
-
+	const listeEtiquettes = useMemo(() => {
+		return [...offreDeStage.domaines, offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
+			dureeCategorisee(offreDeStage.dureeEnJour || 0),
+			'Débute le : ' + new Date(offreDeStage.dateDeDebut).toLocaleDateString()];
+	}, [offreDeStage]);
+	
 	const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
 	return (
 		<ConsulterOffreLayout>
