@@ -20,12 +20,12 @@ export const anAnnonceDeLogementResponse = (): Strapi.CollectionType.AnnonceLoge
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.INTERNET },
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceInclus.ASPIRATEUR },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.INTERNET },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.TV },
-			{ nom: Strapi.CollectionType.AnnonceLogement.ServiceOptionnel.LOCAL_A_VELO },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.TV },
+			{ nom: Strapi.CollectionType.AnnonceLogement.Service.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',
