@@ -203,7 +203,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
 				expect(lienEnquete).toBeVisible();
 				expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
 			});
@@ -218,7 +218,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 
@@ -232,7 +232,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 5 minutes' });
+				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 		});
