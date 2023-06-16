@@ -32,7 +32,7 @@
     "axios-cache-interceptor": "1.2.0",
     "classnames": "2.3.1",
     "dompurify": "3.0.1",
-    "ioredis": "5.3.1",
+    "ioredis": "5.3.2",
     "joi": "17.8.4",
     "lodash.debounce": "4.0.8",
     "marked": "5.0.0",
