@@ -373,7 +373,7 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 }
 
 // TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
-export function anOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
+export function anOffreDeStageResponse(override? : Partial<Strapi.CollectionType.OffreStage>): Strapi.CollectionType.OffreStage {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebut: '2024-09-01',
@@ -411,6 +411,7 @@ export function anOffreDeStageResponse(): Strapi.CollectionType.OffreStage {
 		titre: 'Alternance Audit - Tours ( H/F)',
 		updatedAt: '2023-01-06T07:49:10.773Z',
 		urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+		...override,
 	};
 }
 
