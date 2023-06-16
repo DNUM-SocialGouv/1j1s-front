@@ -41,13 +41,13 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 
 	const labelsEtape3 = [
 		{ name: 'Nombre de recrutements AFPR/POE que vous souhaitez' },
-		{ name: 'Commentaires ou autres informations utiles' },
+		{ name: 'Commentaires ou autres informations utiles (500 caractères maximum)' },
 	];
 
 	const demandeDeContactServiceMock = aDemandeDeContactService();
 	const localisationService = aLocalisationService();
 	const analyticsService = anAnalyticsService();
-  
+
 	const routerPush = jest.fn();
 
 	function renderComponent() {
@@ -62,7 +62,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 		);
 		return { demandeDeContactServiceMock };
 	}
-	
+
 	beforeAll(() => {
 		mockUseRouter({ push: routerPush });
 	});
@@ -173,6 +173,19 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			expect(screen.getByText('Etape 3 sur 3')).toBeInTheDocument();
 		});
 
+		describe('lorsque l‘on rempli un commentaire', () => {
+			it('on ne peut pas remplir un text de plus de 500 caractères', async () => {
+				renderComponent();
+
+				await remplirFormulaireEtape1();
+				await directionNouvelleEtape();
+				await remplirFormulaireEtape2();
+				await directionNouvelleEtape();
+
+				const input = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (500 caractères maximum)' }) as HTMLInputElement;
+				expect(input.maxLength).toBe(500);
+			});
+		});
 		describe('puis passe à l’étape 3 et qu’il clique sur Retour', () => {
 			it('il repasse à l’étape 2', async () => {
 				renderComponent();
@@ -199,11 +212,11 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 
 			const inputNbRecrutement = screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' });
 			await userEvent.type(inputNbRecrutement, '4');
-			const inputCommentaire = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' });
+			const inputCommentaire = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (500 caractères maximum)' });
 			await userEvent.type(inputCommentaire, 'Coucou le commentaire');
 
 			expect(screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' })).toHaveValue('4');
-			expect(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' })).toHaveValue('Coucou le commentaire');
+			expect(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (500 caractères maximum)' })).toHaveValue('Coucou le commentaire');
 		});
 	});
 
@@ -230,7 +243,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			await directionNouvelleEtape();
 			await remplirFormulaireEtape2();
 			await directionNouvelleEtape();
-			await userEvent.click(screen.getByRole('button',{ name: 'Envoyer mes informations afin d’être rappelé(e)' }));
+			await userEvent.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d’être rappelé(e)' }));
 
 			expect(demandeDeContactServiceMock.envoyerPourLePOE).toHaveBeenCalledWith(expected);
 			expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeInTheDocument();
