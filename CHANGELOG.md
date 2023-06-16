@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.95.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.7...v3.95.8) (2023-06-16)
+
+
+### 👷 Autres changements
+
+* **multiple:** ajouter balise title lien externe ([e1f5aa3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1f5aa3b0df673ea88ba7065f876d04d7bb0e9d7))
+
+
+### 🐛 Corrections de bogues
+
+* retour reviews ([eb279c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/eb279c2cdbf88598238465819cf9fabb22edc347))
+
 ## [3.95.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.6...v3.95.7) (2023-06-16)
 
 
