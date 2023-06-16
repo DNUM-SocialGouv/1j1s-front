@@ -1,7 +1,10 @@
 import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
-import { anEntrepriseRejoindreLaMobilisationStrapi } from '~/server/cms/infra/repositories/strapi.fixture';
 import {
-	mapEntrepriseRejoindreLaMobilisation,
+	anEntrepriseRejoindreLaMobilisationStrapi,
+	anOffreDeStageResponse,
+} from '~/server/cms/infra/repositories/strapi.fixture';
+import {
+	mapEntrepriseRejoindreLaMobilisation, mapOffreStage,
 	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
@@ -52,5 +55,57 @@ describe('mapEntrepriseRejoindreLaMobilisation', () => {
 	it('fait la conversion dans le modèle de strapi', () => {
 		const result = mapEntrepriseRejoindreLaMobilisation(anEntreprise(), 'annotation');
 		expect(result).toEqual(anEntrepriseRejoindreLaMobilisationStrapi());
+	});
+});
+
+// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
+describe('mapOffreDeStage', () => {
+	it('lorsque la dateDeDebutMin n‘est pas fournie mais que la dateDeDebut l‘est, renvoie la dateDeDebut', () => {
+		const result = mapOffreStage(anOffreDeStageResponse({ dateDeDebutMin: undefined }));
+		const expectedResult = {
+			dateDeDebut: '2024-09-01',
+			description: 'Poste ouvert aux personnes en situation de handicap',
+			domaines: [],
+			dureeEnJour: 720,
+			dureeEnJourMax: 800,
+			employeur: {
+				nom: 'La Relève',
+			},
+			id: 'anId',
+			localisation: {
+				pays: 'France',
+			},
+			remunerationBase: 1000,
+			slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
+			source: 'jobteaser',
+			teletravailPossible: true,
+			titre: 'Alternance Audit - Tours ( H/F)',
+			urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+		};
+		expect(result).toEqual(expectedResult);
+	});
+	it('lorsque la dateDeDebut n‘est pas fournie mais que la dateDeDebutMin l‘est, renvoie la dateDeDebutMin', () => {
+		const result = mapOffreStage(anOffreDeStageResponse({ dateDeDebut: undefined }));
+		const expectedResult = {
+			dateDeDebut: '2024-09-01',
+			description: 'Poste ouvert aux personnes en situation de handicap',
+			domaines: [],
+			dureeEnJour: 720,
+			dureeEnJourMax: 800,
+			employeur: {
+				nom: 'La Relève',
+			},
+			id: 'anId',
+			localisation: {
+				pays: 'France',
+			},
+			remunerationBase: 1000,
+			slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
+			source: 'jobteaser',
+			teletravailPossible: true,
+			titre: 'Alternance Audit - Tours ( H/F)',
+			urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+		};
+		expect(result).toEqual(expectedResult);
 	});
 });
