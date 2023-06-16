@@ -31,7 +31,6 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 		...rest
 	} = props;
 	const ariaId = useRef(uuidv4());
-	const buttonRef = useRef<HTMLButtonElement>(null);
 	const divRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -53,7 +52,6 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 			window.scrollBy({ behavior: 'smooth', top: -divPosition.height });
 		}
 		setIsOpen(!isOpen);
-		buttonRef.current?.setAttribute('aria-expanded', `${isOpen}`);
 	}, [isOpen]);
 
 	const buttonLabel = useMemo(() => isOpen ? seeLessLabel : seeMoreLabel,
