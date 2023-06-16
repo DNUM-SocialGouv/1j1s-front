@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.95.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.11...v3.95.12) (2023-06-16)
+
+
+### 👷 Autres changements
+
+* **deps:** update react monorepo ([#1462](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1462)) ([5cc938f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5cc938f325e106f0da80302887e510780c03c05c))
+
 ## [3.95.11](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.10...v3.95.11) (2023-06-16)
 
 
