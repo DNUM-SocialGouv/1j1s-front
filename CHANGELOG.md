@@ -1,5 +1,42 @@
 # Changelog
 
+## [3.96.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.12...v3.96.0) (2023-06-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **storybook:** Ajout d'un Carousel.stories ([479bb0f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/479bb0f4f30ab2cc6c7d295c5e26586339b476f8))
+* **storybook:** Ajout d'un children dans les Args ([6f7c0db](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f7c0db319e4daed0b4f0f84a2c02de424b50832))
+* **storybook:** Ajout d'un FilterAccordion .stories ([94347c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/94347c33cf76566ebc6a2c9109bec835765ba3c3))
+* **storybook:** Ajout d'un InputText.stories ([7569d38](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7569d38144e30e9899c6ef55c3992157b9c7389a))
+* **storybook:** Ajout d'un LinkStyledAsButton.stories ([758b4bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/758b4bd7a315ed28d19c21ec8400cdb4f34bfa1e))
+* **storybook:** Ajout d'un Tab.stories ([b13017b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b13017b5850864b6ae53f15052d30e7461a68908))
+* **storybook:** Ajout d'une Enquete Satisfaction Banner Tab.stories ([7a93673](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7a9367338d1eab76ca008769e4e0e32e9bfde538))
+* **storybook:** Ajout d'une linkstories ([cddb0de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cddb0de43c0e94cac2c61ac509d458ae02476174))
+* **storybook:** Ajout d'une Modal .stories ([ae84f97](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae84f9779b22c6599f4c6b5f1004658749b5a824))
+* **storybook:** Ajout d'une Radio.stories ([1417fde](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1417fde0d3fec3e7158bb7adec09cfadf374f0b3))
+* **storybook:** Ajout du composant Accordion.stories ([dee8044](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dee80440e704be1070ad7e04e9cb768334c6ebd8))
+* **storybook:** Ajout du Header.stories ([0b233de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0b233de63e67448469816d79f68db6ce0a2b3a97))
+* **storybook:** Ajout EnTete.stories ([16cdc4a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/16cdc4ad2e930879ca67fcd64211c708794ac46d))
+* **storybook:** Ajout ErrorComponent.stories ([73159be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/73159be9e92ec7af8f64efb5d6c7cab8c26899e1))
+* **storybook:** Ajout Footnote.stories ([7043ac2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7043ac24ad5a2d7b61e32f3203f3d23231b120ed))
+* **storybook:** Ajout HeroComponent.stories ([574f30d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/574f30db07cc3f81e84af0b7a75e5cc168a591ea))
+* **storybook:** Ajout HeroComponent.stories ([f043b7d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f043b7d2ec24f3f8a3faca8177ba02905a9e29c6))
+* **storybook:** Ajout text Area.stories ([90ac6a8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90ac6a8c6c316e79f3a4ccb3151dbb9a9c696a5a))
+* **storybook:** fix apres rapport eslint ([c3d041f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c3d041f0a8068fe6b75bfe3c0be76e9d35e70ece))
+* **storybook:** refacto ajout du lien vers LinkStyledAsButton ([c4e55ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c4e55ffe6b92f315f7671d67961846a109492cc0))
+* **storybook:** refacto InputText.stories ([20219e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/20219e58a03c0ea90d6763f195aeeb50529101ea))
+* **storybook:** refacto LinkStyledAsButton.Stories ([751430d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/751430dfb4fa617be323c7497c87edfc0302f58a))
+* **storybook:** Typo FilterAccordion.Stories ([ae541bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae541bd2f5e2209bcdefb4f7845cd25f79df9374))
+* **storybook:** Typo Sur quatre fichier stories ([663e1cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/663e1cf4117f13959a20d57c4b5b80a23b3a2e30))
+
+
+### 🐛 Corrections de bogues
+
+* ajoute le dossier public en dossier static du storbook ([5731ea5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5731ea532ac14d7986130ea9c907b4020c113301))
+* carousel non visible ([609c3f7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/609c3f787625f76c8f44f68c2a04a639767f858c))
+* retours MR + tri alphabetique + regroupement dans dossiers ([8cd34fe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8cd34fef6c7efe5874dcc776d40f5d637294acac))
+
 ## [3.95.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.11...v3.95.12) (2023-06-16)
 
 
