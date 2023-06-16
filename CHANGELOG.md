@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.98.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.97.0...v3.98.0) (2023-06-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage:** feature flipping date de début minimum sur les stages ([#1445](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1445)) ([587f0f2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/587f0f2b3c8a9d4ad9a54b860dc9dc0327eb1b61))
+
 ## [3.97.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.96.0...v3.97.0) (2023-06-16)
 
 
