@@ -23,11 +23,7 @@ export class LesEntreprisesSEngagentUseCase {
 		}
 		const primarySave = await this.primaryRepository.save(entreprise);
 		if (isFailure(primarySave)) {
-			if (isSuccess(await this.secondaryRepository.saveEntrepriseRejoindreLaMobilisation(entreprise, primarySave.errorType))) {
-				return createSuccess(undefined);
-			} else {
-				return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-			}
+			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
 		return primarySave;
 	}
