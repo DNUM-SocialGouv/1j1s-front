@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.97.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.96.0...v3.97.0) (2023-06-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** feature flipping et initialisation de la page de formations-initales ([ce50caa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ce50caa542362fcb4cbdcbfe7ae73129d5f15e00))
+
 ## [3.96.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.12...v3.96.0) (2023-06-16)
 
 
