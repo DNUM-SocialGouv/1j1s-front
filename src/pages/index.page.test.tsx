@@ -65,7 +65,7 @@ describe('Page d‘accueil', () => {
 					<Accueil/>
 				</DependenciesProvider>);
 
-				const link = screen.getByRole('link', { name: /Plus de 20 000 formations accessibles pour réaliser votre projet et trouver un emploi/ });
+				const link = screen.getByRole('link', { name: /Plus de 6 000 formations accessibles pour réaliser votre projet et trouver un emploi/ });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', '/formations-initiales');
 			});

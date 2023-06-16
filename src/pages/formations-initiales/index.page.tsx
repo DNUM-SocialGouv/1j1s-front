@@ -13,7 +13,7 @@ export default function FormationsInitialesPage() {
 	return (
 		<>
 			<Head
-				title="Rechercher une formation initiale| 1jeune1solution"
+				title="Rechercher une formation initiale | 1jeune1solution"
 				description="Des milliers de formations pour vous permettre de réaliser votre projet professionnel"
 				robots="index,follow"
 			/>
