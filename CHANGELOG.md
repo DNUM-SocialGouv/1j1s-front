@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.95.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.3...v3.95.4) (2023-06-16)
+
+
+### 👷 Autres changements
+
+* update Typescript et fix types  ([#1465](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1465)) ([9a43215](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9a43215458418a6ca4f6667eac575b4c233d1c4d))
+
 ## [3.95.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.95.2...v3.95.3) (2023-06-16)
 
 
