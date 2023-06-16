@@ -12,7 +12,8 @@ const IMAGE_FIXE = '/images/logos/fallback.svg';
 
 export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	const stage = props.hit;
-
+	// TODO (BRUJ 14-06-2023): à supprimer après la mise en place du nouveau modèle de données
+	const dateDeDebut = stage.dateDeDebut || stage.dateDeDebutMin;
 	const listeEtiquettes: Array<string> = stage.domaines
 		? stage.domaines
 			.filter((domaine) => domaine !== Domaines.NON_RENSEIGNE)
@@ -21,7 +22,7 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	listeEtiquettes.push(
 		stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region as string,
 		stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee as string : '',
-		'Débute le : ' + new Date(stage.dateDeDebut).toLocaleDateString(),
+		'Débute le : ' + new Date(dateDeDebut).toLocaleDateString(),
 	);
 
 	return <RésultatRechercherSolution

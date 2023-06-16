@@ -51,6 +51,7 @@ Liste des contextes de **fonctionnalités** autorisées (non exhaustive) :
 - jobs d'été
 - emplois europe
 - formations
+- formations init (pour formations initiales)
 - metiers (pour découvrir les métiers)
 - évènement
 - cej (pour contrat engagement jeune)

@@ -16,7 +16,9 @@ Ce site web propose aux utilisateurs différents services destinés aux jeunes d
 - [ ] Chercher une offre d'emploi en Europe
 - [x] Chercher une offre d'alternance
 - [x] Chercher une offre de stage
+- [x] Chercher une offre de job d'été
 - [ ] Chercher une formation
+- [ ] Chercher une formation initiale
 - [x] Chercher une formation en apprentissage
 - [x] Chercher un logement étudiant
 - [x] Chercher un service civique
