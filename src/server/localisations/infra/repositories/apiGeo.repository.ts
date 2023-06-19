@@ -55,7 +55,8 @@ export class ApiGeoRepository implements LocalisationRepository {
 	private async request<Data, Response>(endpoint: string, mapper: (data : Data) => Response, contexte: string): Promise<Either<Response>> {
 		try {
 			const { data } = await this.httpClientService.get<Data>(endpoint);
-			return createSuccess(mapper(data));
+			const result = mapper(data);
+			return createSuccess(result);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Geo', contexte: `get ${contexte}`, message: `impossible de récupérer une ressource de type ${contexte}`,

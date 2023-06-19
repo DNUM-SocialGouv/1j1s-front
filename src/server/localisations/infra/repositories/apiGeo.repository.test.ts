@@ -469,10 +469,29 @@ describe('ApiGeoLocalisationRepository', () => {
 			expect(result).toEqual(expected);
 		});
 
-		it('retourne une failure quand le code région n’est pas défini', async () => {
+		it('log une erreur et retourne une failure quand il n’y a aucun résultat', async () => {
 			const failureReturnedByErrorManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 			const httpClientService = aCachedHttpClientService();
 			const errorManagementService = anErrorManagementService();
+			const noAssociatedCodeRegionError = new Error('Il n‘y a pas de code région associé au code postal fourni');
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([]) as CacheAxiosResponse);
+			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
+
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
+
+			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(noAssociatedCodeRegionError,
+				aLogInformation({ apiSource: 'API Geo', contexte: 'get communes', message: 'impossible de récupérer une ressource de type communes' }),
+			);
+			expect(result).toEqual(failureReturnedByErrorManagement);
+		});
+
+		it('log une erreur et retourne une failure quand le code région n’est pas définie', async () => {
+			const failureReturnedByErrorManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const httpClientService = aCachedHttpClientService();
+			const errorManagementService = anErrorManagementService();
+			const noAssociatedCodeRegionError = new Error('Il n‘y a pas de code région associé au code postal fourni');
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
 				{
 					code: '92022',
@@ -493,6 +512,9 @@ describe('ApiGeoLocalisationRepository', () => {
 
 			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
 
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(noAssociatedCodeRegionError,
+				aLogInformation({ apiSource: 'API Geo', contexte: 'get communes', message: 'impossible de récupérer une ressource de type communes' }),
+			);
 			expect(result).toEqual(failureReturnedByErrorManagement);
 		});
 
