@@ -78,6 +78,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [getSelectedValue, onKeyDownProps, triggerChangeEvents]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new ComboboxActions.SetValue(event.currentTarget.value));
+		dispatch(new ComboboxActions.OpenList());
 		if (onChangeProps) { onChangeProps(event); }
 	}, [onChangeProps]);
 

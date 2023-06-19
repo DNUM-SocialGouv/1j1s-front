@@ -437,15 +437,38 @@ describe('<Combobox />', () => {
 		expect(suggestions).not.toBeVisible();
 	});
 
-	it.todo('est compatible IE (keyboard key names)');
+	it('ouvre la liste quand on commence à taper dans le champ', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'Opt');
+
+		const suggestions = screen.getByRole('listbox');
+		expect(suggestions).toBeVisible();
+	});
+
+	it.todo('typing filters list');
+	it.todo('cliquer sur une option');
+
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
 
 	it.todo('enter submits form if not selecting value');
-	it.todo('typing filters list');
-	it.todo('handle value != label on option');
-	it.todo('affiche un bouton qui déplie le menu');
-	it.todo('le bouton est tabindex -1');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 
+	it.todo('affiche un bouton qui déplie le menu');
+	it.todo('le bouton est tabindex -1');
+
+	it.todo('handle value != label on option');
+
+	it.todo('est compatible IE (keyboard key names)');
+
+	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
 });
