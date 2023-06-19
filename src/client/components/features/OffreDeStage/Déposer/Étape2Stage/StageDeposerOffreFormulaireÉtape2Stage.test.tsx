@@ -26,16 +26,16 @@ describe('<Stage />', () => {
 		it('affiche la deuxième étape de formulaire', () => {
 			render(<Stage />);
 
-			expect(screen.getByText('Etape 2 sur 3 : Votre offre de stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Nom de l’offre de stage (200 caractères maximum)')).toBeInTheDocument();
-			expect(screen.getByLabelText('Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeInTheDocument();
-			expect(screen.getByLabelText('Description de l’offre de stage (200 caractères minimum)')).toBeInTheDocument();
-			expect(screen.getByLabelText('Date de début du stage')).toBeInTheDocument();
-			expect(screen.getByText('Durée du stage')).toBeInTheDocument();
-			expect(screen.getByText('Domaine de l’offre de stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Rémunération par mois')).toBeInTheDocument();
-			expect(screen.getByText('Télétravail possible')).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
+			expect(screen.getByText('Etape 2 sur 3 : Votre offre de stage')).toBeVisible();
+			expect(screen.getByLabelText('Nom de l’offre de stage (200 caractères maximum)')).toBeVisible();
+			expect(screen.getByLabelText('Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeVisible();
+			expect(screen.getByLabelText('Description de l’offre de stage (200 caractères minimum)')).toBeVisible();
+			expect(screen.getByText('Date de début du stage')).toBeVisible();
+			expect(screen.getByText('Durée du stage')).toBeVisible();
+			expect(screen.getByText('Domaine de l’offre de stage')).toBeVisible();
+			expect(screen.getByLabelText('Rémunération par mois')).toBeVisible();
+			expect(screen.getByText('Télétravail possible')).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Suivant' })).toBeVisible();
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
@@ -56,7 +56,24 @@ describe('<Stage />', () => {
 			expect(screen.getByText(télétravailPossible)).toBeValid();
 		});
 
-		it('vérifie que le radio bouton soit bien sélectionné', () => {
+		it('affiche par défaut le champ date précise de début de stage', () => {
+			render(<Stage />);
+
+			expect(screen.getByLabelText('Indiquez la date précise du début de stage')).toBeVisible();
+		});
+
+		it('affiche les champ date minimum et maximum de début de stage lorsque la deuxième option du champ date de début est sélectionné', () => {
+			render(<Stage />);
+
+			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
+
+			fireEvent.click(radioDatePrecise);
+
+			expect(screen.getByLabelText('Date de début du stage au plus tôt :')).toBeVisible();
+			expect(screen.getByLabelText('Date de début du stage au plus tard :')).toBeVisible();
+		});
+
+		it('vérifie que le radio bouton de télétravail soit bien sélectionné', () => {
 			render(<Stage />);
 
 			const radioOui = screen.getByRole('radio', { name: 'Oui' });
@@ -78,7 +95,7 @@ describe('<Stage />', () => {
 			render(<Stage />);
 
 			// Then
-			expect(screen.getByText(label)).toBeInTheDocument();
+			expect(screen.getByText(label)).toBeVisible();
 			expect(screen.getByPlaceholderText(placeholder)).toHaveAttribute('minLength', minLengthValue);
 		});
 	});

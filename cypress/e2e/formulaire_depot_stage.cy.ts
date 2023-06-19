@@ -56,7 +56,7 @@ describe('Dépôt de Stage', () => {
 				cy.get('input[name="nomOffre"]').type(aFormulaireÉtapeStage().nomOffre);
 				cy.get('input[name="lienCandidature"]').type(aFormulaireÉtapeStage().lienCandidature);
 				cy.get('textarea[name="descriptionOffre"]').type(aFormulaireÉtapeStage().descriptionOffre);
-				cy.get('input[name="dateDebut"]').type(aFormulaireÉtapeStage().dateDebut);
+				cy.get('input[name="dateDeDebutMin"]').type(aFormulaireÉtapeStage().dateDeDebutMin);
 				cy.get('button').contains('Sélectionnez une durée').click();
 				cy.get('ul[role="listbox"]').first().click();
 

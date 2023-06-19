@@ -7,9 +7,11 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { dependencies } from '~/server/start';
 
-
+// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export const enregistrerOffreDeStageBodySchema = Joi.object({
-	dateDeDebut: Joi.string().required(),
+	dateDeDebut: Joi.string(),
+	dateDeDebutMax: Joi.string(),
+	dateDeDebutMin: Joi.string(),
 	description: Joi.string().min(200).required(),
 	domaine: Joi.string(),
 	duree: Joi.string(),
