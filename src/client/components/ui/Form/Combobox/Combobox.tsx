@@ -1,7 +1,10 @@
 import React, { ChangeEvent, KeyboardEvent, useCallback, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { ComboboxActions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import {
+	ComboboxActions as Actions,
+	ComboboxReducer,
+} from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
 
 import styles from './Combobox.module.scss';
@@ -44,27 +47,27 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
-				dispatch(new ComboboxActions.PreviousOption());
+				dispatch(new Actions.PreviousOption());
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 				if (event.altKey) {
-					dispatch(new ComboboxActions.OpenList());
+					dispatch(new Actions.OpenList());
 				} else {
-					dispatch(new ComboboxActions.NextOption());
+					dispatch(new Actions.NextOption());
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ESCAPE:
-				dispatch(new ComboboxActions.CloseList());
+				dispatch(new Actions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
 				const value = getSelectedValue(event);
 				if (value) {
-					dispatch(new ComboboxActions.SetValue(value));
+					dispatch(new Actions.SetValue(value));
 					triggerChangeEvents(event);
 				}
-				dispatch(new ComboboxActions.CloseList());
+				dispatch(new Actions.CloseList());
 				break;
 			}
 			default:
@@ -76,8 +79,8 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		}
 	}, [getSelectedValue, onKeyDownProps, triggerChangeEvents]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
-		dispatch(new ComboboxActions.SetValue(event.currentTarget.value));
-		dispatch(new ComboboxActions.OpenList());
+		dispatch(new Actions.SetValue(event.currentTarget.value));
+		dispatch(new Actions.OpenList());
 		if (onChangeProps) { onChangeProps(event); }
 	}, [onChangeProps]);
 
