@@ -507,8 +507,23 @@ describe('<Combobox />', () => {
 		expect(input).toHaveAttribute('aria-activedescendant', option.id);
 		expect(option).toHaveAttribute('aria-selected', 'true');
 	});
+	it('ignore la casse quand les options sont filtrées', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>ABC</Combobox.Option>
+				<Combobox.Option>abc</Combobox.Option>
+				<Combobox.Option>Abc</Combobox.Option>
+			</Combobox>,
+		);
 
-	it.todo('ignorer la casse pour le filtre');
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'a');
+
+		const options = screen.getAllByRole('option');
+		expect(options).toHaveLength(3);
+	});
+
 	it.todo('cliquer sur une option');
 
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');

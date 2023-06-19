@@ -94,8 +94,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					React.isValidElement<React.ComponentPropsWithRef<typeof Option>>(child) && child.type === Option
 						? React.cloneElement(child, {
 							'aria-selected': activeDescendant === `option-${index}`,
-							// FIXME (GAFI 19-06-2023): Probablement moyen de rendre ce check safe avec l'id de l'option
-							hidden: !matchesInput(listboxRef.current?.querySelectorAll('[role="option"]')[index], value),
+							hidden: !matchesInput(document.getElementById(`option-${index}`), value),
 							id: `option-${index}`,
 						})
 						: child

@@ -13,6 +13,11 @@ interface ComboboxAction {
 	execute: (previousState: ComboboxState) => ComboboxState;
 }
 
+function filterOptions(suggestionList: RefObject<HTMLUListElement>, value: string) {
+	return Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
+		.filter((node) => matchesInput(node, value));
+}
+
 export namespace ComboboxActions {
 	export class OpenList implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
@@ -34,8 +39,7 @@ export namespace ComboboxActions {
 	export class NextOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList, value } = previousState;
-			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
-				.filter((node) => matchesInput(node, value));
+			const options = filterOptions(suggestionList, value);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
 			return {
@@ -48,8 +52,7 @@ export namespace ComboboxActions {
 	export class PreviousOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList, value } = previousState;
-			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
-				.filter((node) => matchesInput(node, value));
+			const options = filterOptions(suggestionList, value);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
 			return {
