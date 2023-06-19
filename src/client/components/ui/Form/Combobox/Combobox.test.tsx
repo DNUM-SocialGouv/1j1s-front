@@ -482,12 +482,30 @@ describe('<Combobox />', () => {
 		);
 
 		const input = screen.getByRole('textbox');
-		await user.type(input, '3');
+		await user.type(input, '2');
 		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
-		const option3 = screen.getByRole('option', { name: 'Option 3' });
-		expect(input).toHaveAttribute('aria-activedescendant', option3.id);
-		expect(option3).toHaveAttribute('aria-selected', 'true');
+		const option = screen.getByRole('option', { name: 'Option 2' });
+		expect(input).toHaveAttribute('aria-activedescendant', option.id);
+		expect(option).toHaveAttribute('aria-selected', 'true');
+	});
+	it('skip les options masquées quand on passe à l’option précédente', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, '2');
+		await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+		const option = screen.getByRole('option', { name: 'Option 2' });
+		expect(input).toHaveAttribute('aria-activedescendant', option.id);
+		expect(option).toHaveAttribute('aria-selected', 'true');
 	});
 
 	it.todo('ignorer la casse pour le filtre');

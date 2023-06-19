@@ -47,8 +47,9 @@ export namespace ComboboxActions {
 	}
 	export class PreviousOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]')?? []);
+			const { activeDescendant, suggestionList, value } = previousState;
+			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
+				.filter((node) => matchesInput(node, value));
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
 			return {
