@@ -4,40 +4,55 @@ type ComboboxState = {
 	optionCount: number,
 }
 
-type ComboboxAction = 'openList' | 'closeList' | 'nextOption' | 'previousOption'
+interface ComboboxAction {
+	execute: (previousState: ComboboxState) => ComboboxState;
+}
 
-export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
-	const { activeDescendant, optionCount } = state;
-	const lastIndex = optionCount - 1;
-
-	switch (action) {
-		case 'openList':
+export namespace ComboboxActions {
+	export class OpenList implements ComboboxAction {
+		execute(previousState: ComboboxState): ComboboxState {
 			return {
-				...state,
+				...previousState,
 				open: true,
 			};
-		case 'closeList':
+		}
+	}
+	export class CloseList implements ComboboxAction {
+		execute(previousState: ComboboxState): ComboboxState {
 			return {
-				...state,
+				...previousState,
 				activeDescendant: null,
 				open: false,
 			};
-		case 'nextOption':
+		}
+	}
+	export class NextOption implements ComboboxAction {
+		execute(previousState: ComboboxState): ComboboxState {
+			const { activeDescendant, optionCount } = previousState;
 			return {
-				...state,
+				...previousState,
 				activeDescendant: activeDescendant != null
 					? (activeDescendant + 1) % optionCount
 					: 0,
 				open: true,
 			};
-		case 'previousOption':
+		}
+	}
+	export class PreviousOption implements ComboboxAction {
+		execute(previousState: ComboboxState): ComboboxState {
+			const { activeDescendant, optionCount } = previousState;
+			const lastIndex = optionCount - 1;
 			return {
-				...state,
+				...previousState,
 				activeDescendant: activeDescendant != null
 					? (activeDescendant + optionCount - 1) % optionCount
 					: lastIndex,
 				open: true,
 			};
+		}
 	}
+}
+export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
+	return action.execute(state);
 }
 

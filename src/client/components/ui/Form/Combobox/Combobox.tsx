@@ -1,7 +1,7 @@
 import React, { KeyboardEvent, useCallback, useReducer } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import { ComboboxActions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 
 import styles from './Combobox.module.scss';
 
@@ -26,19 +26,19 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
-				dispatch('previousOption');
+				dispatch(new ComboboxActions.PreviousOption());
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 				if (event.altKey) {
-					dispatch('openList');
+					dispatch(new ComboboxActions.OpenList());
 				} else {
-					dispatch('nextOption');
+					dispatch(new ComboboxActions.NextOption());
 				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ESCAPE:
-				dispatch('closeList');
+				dispatch(new ComboboxActions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
 				const activeElement = event.currentTarget.getAttribute('aria-activedescendant');
@@ -46,12 +46,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				const value = document.getElementById(activeElement)?.textContent;
 				if (!value) { break; }
 				event.currentTarget.value = value;
-				const changeEvent: React.ChangeEvent<HTMLInputElement> = {
-					...event,
-					target: event.currentTarget,
-				};
-				if (inputProps.onChange) { inputProps.onChange(changeEvent); }
-				if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+				triggerChangeEvents(event);
 				break;
 			}
 			default:
@@ -62,6 +57,16 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 			onKeyDownProps(event);
 		}
 	}, [onKeyDownProps]);
+
+	function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
+		const changeEvent: React.ChangeEvent<HTMLInputElement> = {
+			...event,
+			target: event.currentTarget,
+		};
+		if (inputProps.onChange) { inputProps.onChange(changeEvent); }
+		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+	}
+
 	return (
 		<div className={styles.combobox}>
 			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant} />
