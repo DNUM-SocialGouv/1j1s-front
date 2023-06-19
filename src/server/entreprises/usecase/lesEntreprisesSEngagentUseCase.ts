@@ -1,8 +1,7 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { createFailure, createSuccess, Either, isFailure, isSuccess } from '~/server/errors/either';
+import { createFailure, Either, isFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
@@ -11,7 +10,6 @@ import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisa
 export class LesEntreprisesSEngagentUseCase {
 	constructor(
     private primaryRepository: RejoindreLaMobilisationRepository,
-    private secondaryRepository: StrapiRepository,
 	) {}
 
 	async rejoindreLaMobilisation(command: RejoindreLaMobilisation): Promise<Either<void>> {
