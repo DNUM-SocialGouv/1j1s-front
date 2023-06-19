@@ -389,6 +389,36 @@ describe('<Combobox />', () => {
 		expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
 		expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
 	});
+	it('ferme la liste quand on sélectionne une valeur', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+		const suggestions = screen.getByRole('listbox', { hidden : true });
+		expect(suggestions).not.toBeVisible();
+	});
+
 	it.todo('pose pas de problème avec la props value');
-	it.todo('ferme la liste quand on selectionne une valeur');
+	it.todo('n’écrase pas les props');
+	it.todo('est compatible IE (keyboard key names)');
+	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
+	it.todo('utilise default value pour le state');
+
+	it.todo('enter closes listbox if displayed');
+	it.todo('enter submits form');
+	it.todo('typing filters list');
+	it.todo('handle value != label on option');
+	it.todo('affiche un bouton qui déplie le menu');
+	it.todo('le bouton est tabindex -1');
+	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 });

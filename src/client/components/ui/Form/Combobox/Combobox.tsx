@@ -31,6 +31,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onChangeProps) { onChangeProps(changeEvent); }
 		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
 	}, [inputProps, onChangeProps]);
+	const getSelectedValue = useCallback(function getSelectedValue(event: React.KeyboardEvent<HTMLInputElement>) {
+		const activeElement = event.currentTarget.getAttribute('aria-activedescendant');
+		if (!activeElement) {
+			return null;
+		}
+		return document.getElementById(activeElement)?.textContent;
+	}, []);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
@@ -50,12 +57,12 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				dispatch(new ComboboxActions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
-				const activeElement = event.currentTarget.getAttribute('aria-activedescendant');
-				if (!activeElement) { break; }
-				const value = document.getElementById(activeElement)?.textContent;
-				if (!value) { break; }
-				dispatch(new ComboboxActions.SetValue(value));
-				triggerChangeEvents(event);
+				const value = getSelectedValue(event);
+				if (value) {
+					dispatch(new ComboboxActions.SetValue(value));
+					triggerChangeEvents(event);
+				}
+				dispatch(new ComboboxActions.CloseList());
 				break;
 			}
 			default:
@@ -65,7 +72,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
-	}, [onKeyDownProps, triggerChangeEvents]);
+	}, [getSelectedValue, onKeyDownProps, triggerChangeEvents]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new ComboboxActions.SetValue(event.currentTarget.value));
 		if (onChangeProps) { onChangeProps(event); }
