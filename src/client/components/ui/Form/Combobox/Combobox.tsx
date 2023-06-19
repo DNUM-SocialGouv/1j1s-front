@@ -24,19 +24,34 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	const activeDescendant = activeDescendantIndex != null ? `option-${activeDescendantIndex}` : undefined;
 
 	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === KeyBoard.ARROW_UP) {
-			dispatch('previousOption');
-			event.preventDefault();
-		} else if (event.key === KeyBoard.ARROW_DOWN) {
-			if (event.altKey) {
-				dispatch('openList');
-			} else {
-				dispatch('nextOption');
+		switch (event.key) {
+			case KeyBoard.ARROW_UP:
+				dispatch('previousOption');
+				event.preventDefault();
+				break;
+			case KeyBoard.ARROW_DOWN:
+				if (event.altKey) {
+					dispatch('openList');
+				} else {
+					dispatch('nextOption');
+				}
+				event.preventDefault();
+				break;
+			case KeyBoard.ESCAPE:
+				dispatch('closeList');
+				break;
+			case KeyBoard.ENTER: {
+				const activeElement = event.currentTarget.getAttribute('aria-activedescendant');
+				if (!activeElement) { break; }
+				const value = document.getElementById(activeElement)?.textContent;
+				if (!value) { break; }
+				event.currentTarget.value = value;
+				break;
 			}
-			event.preventDefault();
-		} else if (event.key === KeyBoard.ESCAPE) {
-			dispatch('closeList');
+			default:
+				break;
 		}
+
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}

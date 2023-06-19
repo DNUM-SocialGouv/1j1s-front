@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -351,4 +351,42 @@ describe('<Combobox />', () => {
 
 		expect(onKeyDown).toHaveBeenLastCalledWith(expect.objectContaining({ defaultPrevented: true }));
 	});
+	it('change la valeur de l’input quand on appuie sur Enter avec le focus sur un élément', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+		expect(input).toHaveValue('Option 1');
+	});
+
+	it.todo('appelle onChange quand on sélectionne une valeur',/*, async () => {
+		const user = userEvent.setup();
+		const onChange = jest.fn();
+		render(
+			<Combobox onChange={onChange}>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+		expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ value: 'Option 1' }));
+	}*/);
+	it.todo('pose pas de problème avec la props value');
+	it.todo('ferme la liste quand on selectionne une valeur');
 });
