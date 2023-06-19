@@ -9,21 +9,23 @@ import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisa
 
 export class LesEntreprisesSEngagentUseCase {
 	constructor(
-    private primaryRepository: RejoindreLaMobilisationRepository,
+    private lEERepository: RejoindreLaMobilisationRepository,
 	) {}
 
 	async rejoindreLaMobilisation(command: RejoindreLaMobilisation): Promise<Either<void>> {
 		let entreprise: Entreprise;
+
 		try {
 			entreprise = Joi.attempt(command, EntrepriseValidator);
 		} catch (e) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
 		}
-		const primarySave = await this.primaryRepository.save(entreprise);
-		if (isFailure(primarySave)) {
+
+		const result = await this.lEERepository.save(entreprise);
+		if (isFailure(result)) {
 			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
 		}
-		return primarySave;
+		return result;
 	}
 }
 
