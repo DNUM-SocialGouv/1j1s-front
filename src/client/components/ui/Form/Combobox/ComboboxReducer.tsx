@@ -1,8 +1,12 @@
+import { RefObject } from 'react';
+
+import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
+
 type ComboboxState = {
   open: boolean,
-  activeDescendant: number | null,
-	optionCount: number,
+  activeDescendant: string | undefined,
 	value: string,
+	suggestionList: RefObject<HTMLUListElement>
 }
 
 interface ComboboxAction {
@@ -22,32 +26,34 @@ export namespace ComboboxActions {
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
 				...previousState,
-				activeDescendant: null,
+				activeDescendant: undefined,
 				open: false,
 			};
 		}
 	}
 	export class NextOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
-			const { activeDescendant, optionCount } = previousState;
+			const { activeDescendant, suggestionList, value } = previousState;
+			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
+				.filter((node) => matchesInput(node, value));
+			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
+			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
 			return {
 				...previousState,
-				activeDescendant: activeDescendant != null
-					? (activeDescendant + 1) % optionCount
-					: 0,
+				activeDescendant: nextDescendant?.id,
 				open: true,
 			};
 		}
 	}
 	export class PreviousOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
-			const { activeDescendant, optionCount } = previousState;
-			const lastIndex = optionCount - 1;
+			const { activeDescendant, suggestionList } = previousState;
+			const options = Array.from(suggestionList.current?.querySelectorAll('[role="option"]')?? []);
+			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
+			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
 			return {
 				...previousState,
-				activeDescendant: activeDescendant != null
-					? (activeDescendant + optionCount - 1) % optionCount
-					: lastIndex,
+				activeDescendant: previousDescendant?.id,
 				open: true,
 			};
 		}

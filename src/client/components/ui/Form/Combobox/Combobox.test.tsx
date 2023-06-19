@@ -471,7 +471,24 @@ describe('<Combobox />', () => {
 		const option2 = screen.getByText('Option 2');
 		expect(option2).not.toBeVisible();
 	});
-	it.todo('gestion du filtre pour les arrow up / down');
+	it('skip les options masquées quand on passe à l’option suivante', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, '3');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+
+		const option3 = screen.getByRole('option', { name: 'Option 3' });
+		expect(input).toHaveAttribute('aria-activedescendant', option3.id);
+		expect(option3).toHaveAttribute('aria-selected', 'true');
+	});
 
 	it.todo('ignorer la casse pour le filtre');
 	it.todo('cliquer sur une option');
@@ -490,4 +507,6 @@ describe('<Combobox />', () => {
 
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
+	it.todo('gérer les children qui ne sont pas des Option');
+	it.todo('gérer les catégories');
 });

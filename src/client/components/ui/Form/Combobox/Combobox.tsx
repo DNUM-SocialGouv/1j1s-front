@@ -1,15 +1,14 @@
-import React, { ChangeEvent, KeyboardEvent, Ref, RefObject, useCallback, useReducer, useRef } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ComboboxActions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
 
 import styles from './Combobox.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 	children: React.ReactNode,
 };
-
-type OptionRef = HTMLLIElement
 
 const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
@@ -18,16 +17,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	value: valueProps,
 	defaultValue,
 	...inputProps
-}, ref) {
-	const optionCount = React.Children.count(children);
-	const options = useRef<RefObject<OptionRef>[]>(new Array(optionCount).fill(null).map(() => React.createRef()));
-	const [{ open, activeDescendant: activeDescendantIndex, value: valueState }, dispatch] = useReducer(
+}, inputRef) {
+	const listboxRef = useRef<HTMLUListElement>(null);
+	const [{ open, activeDescendant, value: valueState }, dispatch] = useReducer(
 		ComboboxReducer,
-		{ activeDescendant: null, open: false, optionCount, value: defaultValue?.toString() ?? '' },
+		{ activeDescendant: undefined, open: false, suggestionList: listboxRef, value: defaultValue?.toString() ?? '' },
 	);
 	const value = valueProps?.toString() ?? valueState;
-
-	const activeDescendant = activeDescendantIndex != null ? `option-${activeDescendantIndex}` : undefined;
 
 	const triggerChangeEvents = useCallback(function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
 		const changeEvent: React.ChangeEvent<HTMLInputElement> = {
@@ -88,19 +84,19 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	return (
 		<div className={styles.combobox}>
 			<input {...inputProps}
-				ref={ref}
+				ref={inputRef}
 				onKeyDown={onKeyDown}
 				aria-activedescendant={activeDescendant}
 				value={value}
 				onChange={onChange} />
-			<ul role="listbox" hidden={!open}>{
+			<ul role="listbox" hidden={!open} ref={listboxRef}>{
 				React.Children.map(children, (child, index) => (
 					React.isValidElement<React.ComponentPropsWithRef<typeof Option>>(child) && child.type === Option
 						? React.cloneElement(child, {
-							'aria-selected': activeDescendantIndex === index,
-							hidden: !((options.current != null && value) ? options.current[index].current?.textContent?.includes(value) : true),
+							'aria-selected': activeDescendant === `option-${index}`,
+							// FIXME (GAFI 19-06-2023): Probablement moyen de rendre ce check safe avec l'id de l'option
+							hidden: !matchesInput(listboxRef.current?.querySelectorAll('[role="option"]')[index], value),
 							id: `option-${index}`,
-							ref: options.current[index],
 						})
 						: child
 				))

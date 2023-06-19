@@ -7,10 +7,12 @@ const meta: Meta<typeof Combobox> = {
 		children: {
 			control: 'array',
 		},
+		value: { type: 'string' },
 	},
 	args: {
 		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne'],
 		disabled: false,
+		value: undefined,
 	},
 	component: Combobox,
 	title: 'Components/Combobox',
