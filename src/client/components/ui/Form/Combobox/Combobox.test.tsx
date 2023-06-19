@@ -453,8 +453,27 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getByRole('listbox');
 		expect(suggestions).toBeVisible();
 	});
+	it('filtre la liste quand on tape dans le champ', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
 
-	it.todo('typing filters list');
+		const input = screen.getByRole('textbox');
+		await user.type(input, '1');
+
+		const option1 = screen.getByRole('option', { name: 'Option 1' });
+		expect(option1).toBeVisible();
+		const option2 = screen.getByText('Option 2');
+		expect(option2).not.toBeVisible();
+	});
+	it.todo('gestion du filtre pour les arrow up / down');
+
+	it.todo('ignorer la casse pour le filtre');
 	it.todo('cliquer sur une option');
 
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');

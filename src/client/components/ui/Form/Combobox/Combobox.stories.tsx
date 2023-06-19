@@ -9,7 +9,7 @@ const meta: Meta<typeof Combobox> = {
 		},
 	},
 	args: {
-		children: ['Option 1', 'Option 2'],
+		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne'],
 		disabled: false,
 	},
 	component: Combobox,

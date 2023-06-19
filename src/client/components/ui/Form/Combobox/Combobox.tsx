@@ -1,4 +1,4 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useReducer } from 'react';
+import React, { ChangeEvent, KeyboardEvent, Ref, RefObject, useCallback, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ComboboxActions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
@@ -9,6 +9,8 @@ type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 	children: React.ReactNode,
 };
 
+type OptionRef = HTMLLIElement
+
 const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	onKeyDown: onKeyDownProps,
@@ -18,11 +20,12 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	...inputProps
 }, ref) {
 	const optionCount = React.Children.count(children);
+	const options = useRef<RefObject<OptionRef>[]>(new Array(optionCount).fill(null).map(() => React.createRef()));
 	const [{ open, activeDescendant: activeDescendantIndex, value: valueState }, dispatch] = useReducer(
 		ComboboxReducer,
 		{ activeDescendant: null, open: false, optionCount, value: defaultValue?.toString() ?? '' },
 	);
-	const value = valueProps ?? valueState;
+	const value = valueProps?.toString() ?? valueState;
 
 	const activeDescendant = activeDescendantIndex != null ? `option-${activeDescendantIndex}` : undefined;
 
@@ -92,8 +95,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				onChange={onChange} />
 			<ul role="listbox" hidden={!open}>{
 				React.Children.map(children, (child, index) => (
-					React.isValidElement<OptionProps>(child) && child.type === Option
-						? React.cloneElement(child, { 'aria-selected': activeDescendantIndex === index, id: `option-${index}` })
+					React.isValidElement<React.ComponentPropsWithRef<typeof Option>>(child) && child.type === Option
+						? React.cloneElement(child, {
+							'aria-selected': activeDescendantIndex === index,
+							hidden: !((options.current != null && value) ? options.current[index].current?.textContent?.includes(value) : true),
+							id: `option-${index}`,
+							ref: options.current[index],
+						})
 						: child
 				))
 			}</ul>
