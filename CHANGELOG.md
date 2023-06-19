@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.98.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.3...v3.98.4) (2023-06-19)
+
+
+### 🐛 Corrections de bogues
+
+* declenchement envoi analytics ([#1486](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1486)) ([8df905d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8df905db8de93d25696623d026686187ed837a07))
+
 ## [3.98.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.2...v3.98.3) (2023-06-19)
 
 
