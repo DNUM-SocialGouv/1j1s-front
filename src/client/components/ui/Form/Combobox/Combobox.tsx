@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useCallback, useReducer } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useReducer } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ComboboxActions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
@@ -12,18 +12,27 @@ type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
 const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	onKeyDown: onKeyDownProps,
+	onChange: onChangeProps,
 	...inputProps
 }, ref) {
 	const optionCount = React.Children.count(children);
-
-	const [{ open, activeDescendant: activeDescendantIndex }, dispatch] = useReducer(
+	const [{ open, activeDescendant: activeDescendantIndex, value }, dispatch] = useReducer(
 		ComboboxReducer,
-		{ activeDescendant: null, open: false, optionCount },
+		{ activeDescendant: null, open: false, optionCount, value: '' },
 	);
 
 	const activeDescendant = activeDescendantIndex != null ? `option-${activeDescendantIndex}` : undefined;
 
-	const onKeyDown = useCallback((event: KeyboardEvent<HTMLInputElement>) => {
+	const triggerChangeEvents = useCallback(function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
+		const changeEvent: React.ChangeEvent<HTMLInputElement> = {
+			...event,
+			target: event.currentTarget,
+		};
+		if (onChangeProps) { onChangeProps(changeEvent); }
+		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+	}, [inputProps, onChangeProps]);
+
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 				dispatch(new ComboboxActions.PreviousOption());
@@ -45,7 +54,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				if (!activeElement) { break; }
 				const value = document.getElementById(activeElement)?.textContent;
 				if (!value) { break; }
-				event.currentTarget.value = value;
+				dispatch(new ComboboxActions.SetValue(value));
 				triggerChangeEvents(event);
 				break;
 			}
@@ -56,20 +65,20 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
-	}, [onKeyDownProps]);
-
-	function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
-		const changeEvent: React.ChangeEvent<HTMLInputElement> = {
-			...event,
-			target: event.currentTarget,
-		};
-		if (inputProps.onChange) { inputProps.onChange(changeEvent); }
-		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
-	}
+	}, [onKeyDownProps, triggerChangeEvents]);
+	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
+		dispatch(new ComboboxActions.SetValue(event.currentTarget.value));
+		if (onChangeProps) { onChangeProps(event); }
+	}, [onChangeProps]);
 
 	return (
 		<div className={styles.combobox}>
-			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant} />
+			<input {...inputProps}
+				ref={ref}
+				onKeyDown={onKeyDown}
+				aria-activedescendant={activeDescendant}
+				value={value}
+				onChange={onChange} />
 			<ul role="listbox" hidden={!open}>{
 				React.Children.map(children, (child, index) => (
 					React.isValidElement<OptionProps>(child) && child.type === Option

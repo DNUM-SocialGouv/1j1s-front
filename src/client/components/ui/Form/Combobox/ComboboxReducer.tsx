@@ -2,6 +2,7 @@ type ComboboxState = {
   open: boolean,
   activeDescendant: number | null,
 	optionCount: number,
+	value: string,
 }
 
 interface ComboboxAction {
@@ -49,6 +50,19 @@ export namespace ComboboxActions {
 					: lastIndex,
 				open: true,
 			};
+		}
+	}
+	export class SetValue implements ComboboxAction {
+		private readonly newValue: string;
+		execute(previousState: ComboboxState): ComboboxState {
+			return {
+				...previousState,
+				value: this.newValue,
+			};
+		}
+
+		constructor(value: { toString: () => string }) {
+			this.newValue = value.toString();
 		}
 	}
 }
