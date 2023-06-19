@@ -20,6 +20,23 @@ async function allowAnalytics(service: AnalyticsService) {
 		document.dispatchEvent(new Event('eulerian_allowed'));
 	});
 }
+
+async function loadPreviouslyAcceptedAnalytics(service: AnalyticsService) {
+	return act(() => {
+		service.isAllowed = () => true;
+		document.dispatchEvent(new Event('eulerian_loaded'));
+	});
+}
+
+async function addPreviouslyAcceptedAnalytics(service: AnalyticsService) {
+	return act(() => {
+		service.isAllowed = () => true;
+		document.dispatchEvent(new Event('eulerian_added'));
+	});
+}
+
+
+
 async function disallowAnalytics(service: AnalyticsService) {
 	return act(() => {
 		service.isAllowed = () => false;
@@ -55,6 +72,37 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
+	it('envoie les analytics une fois le script chargé quand les cookies sont déjà acceptés (mais que le script nétait pas chargé au premier rendu', async () => {
+		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const pageTags = aPageTags();
+
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<TestComponent pageTags={pageTags}/>
+			</DependenciesProvider>,
+		);
+
+		await loadPreviouslyAcceptedAnalytics(analyticsService);
+
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
+	});
+	it('envoie les analytics une fois le script ajouté quand les cookies sont déjà acceptés (mais que le script nétait pas chargé au premier rendu', async () => {
+		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const pageTags = aPageTags();
+
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<TestComponent pageTags={pageTags}/>
+			</DependenciesProvider>,
+		);
+
+		await addPreviouslyAcceptedAnalytics(analyticsService);
+
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledTimes(1);
+		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
+	});
+
 	it('n’envoie pas les analytics quand les cookies sont refusés', async () => {
 		const analyticsService = anAnalyticsService({ isAllowed: () => false });
 
