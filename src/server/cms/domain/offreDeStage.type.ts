@@ -139,8 +139,11 @@ export namespace OffreDeStage {
 	}
 }
 
+// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export interface OffreDeStageDepot {
 	dateDeDebut: string
+	dateDeDebutMin: string
+	dateDeDebutMax: string
 	description: string
 	domaine: Domaines
 	duree: string

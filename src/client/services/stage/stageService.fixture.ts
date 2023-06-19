@@ -9,9 +9,12 @@ export function aStageService(): StageService {
 	} as unknown as StageService;
 }
 
+// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export function anOffreDeStageDepot(): OffreDeStageDepot {
 	return {
 		dateDeDebut: '2023-02-03',
+		dateDeDebutMax: '2023-02-03',
+		dateDeDebutMin: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
 		domaine: 'achats' as Domaines,
 		duree: '30',

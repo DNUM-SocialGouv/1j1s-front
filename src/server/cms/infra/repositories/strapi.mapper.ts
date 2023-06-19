@@ -254,8 +254,8 @@ export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionTyp
 export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
 	return {
 		dateDeDebut: body.dateDeDebut,
-		dateDeDebutMax: body.dateDeDebut,
-		dateDeDebutMin: body.dateDeDebut,
+		dateDeDebutMax: body.dateDeDebutMax,
+		dateDeDebutMin: body.dateDeDebutMin,
 		description: body.description,
 		domaines: body.domaine ? [{
 			nom: body.domaine.toString() as Strapi.CollectionType.OffreStage.Domaines.Nom,

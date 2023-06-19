@@ -6,14 +6,13 @@ import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/Li
 
 import styles from './FormulaireEtapeLayout.module.scss';
 
-interface FormulaireEtapeLayoutProps {
+interface FormulaireEtapeLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 	étape: string
-	formulaire: React.ReactElement
 	urlÉtapePrécédente?: string
 }
 
 export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
-	const { étape, formulaire, urlÉtapePrécédente } = props;
+	const { étape, urlÉtapePrécédente, children } = props;
 	return (
 		<Container className={styles.container}>
 			<ÉtapeFormulaire étape={étape} />
@@ -26,7 +25,7 @@ export function FormulaireÉtapeLayout(props: FormulaireEtapeLayoutProps) {
 			>
         Retour à l’étape précédente
 			</LinkStyledAsButton>}
-			{ formulaire }
+			{ children }
 		</Container>
 	);
 }
