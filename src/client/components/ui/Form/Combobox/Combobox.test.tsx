@@ -369,11 +369,12 @@ describe('<Combobox />', () => {
 		expect(input).toHaveValue('Option 1');
 	});
 
-	it.todo('appelle onChange quand on sélectionne une valeur',/*, async () => {
+	it('appelle onChange et onInput quand on sélectionne une valeur', async () => {
 		const user = userEvent.setup();
 		const onChange = jest.fn();
+		const onInput = jest.fn();
 		render(
-			<Combobox onChange={onChange}>
+			<Combobox onChange={onChange} onInput={onInput}>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -385,8 +386,9 @@ describe('<Combobox />', () => {
 		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 		await user.keyboard(`{${KeyBoard.ENTER}}`);
 
-		expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ value: 'Option 1' }));
-	}*/);
+		expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+		expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+	});
 	it.todo('pose pas de problème avec la props value');
 	it.todo('ferme la liste quand on selectionne une valeur');
 });

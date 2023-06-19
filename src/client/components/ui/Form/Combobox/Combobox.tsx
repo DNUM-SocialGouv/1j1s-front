@@ -46,6 +46,12 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				const value = document.getElementById(activeElement)?.textContent;
 				if (!value) { break; }
 				event.currentTarget.value = value;
+				const changeEvent: React.ChangeEvent<HTMLInputElement> = {
+					...event,
+					target: event.currentTarget,
+				};
+				if (inputProps.onChange) { inputProps.onChange(changeEvent); }
+				if (inputProps.onInput) { inputProps.onInput(changeEvent); }
 				break;
 			}
 			default:
@@ -58,7 +64,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [onKeyDownProps]);
 	return (
 		<div className={styles.combobox}>
-			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant}/>
+			<input {...inputProps} ref={ref} onKeyDown={onKeyDown} aria-activedescendant={activeDescendant} />
 			<ul role="listbox" hidden={!open}>{
 				React.Children.map(children, (child, index) => (
 					React.isValidElement<OptionProps>(child) && child.type === Option
