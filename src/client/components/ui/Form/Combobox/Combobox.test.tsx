@@ -70,6 +70,44 @@ describe('<Combobox />', () => {
 			expect(onKeyDown).toHaveBeenCalledTimes(1);
 			expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'A' }));
 		});
+		it('appelle onChange et onInput quand on sélectionne une valeur', async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			const onInput = jest.fn();
+			render(
+				<Combobox onChange={onChange} onInput={onInput}>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.click(input);
+			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+			await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+			expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+			expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+		});
+		it('accepte la props value', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox value="test">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.click(input);
+			await user.type(input, 'Salut');
+			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+			await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+			expect(input).toHaveValue('test');
+		});
 	});
 
 	it('masque la liste de suggestions par défaut', () => {
@@ -161,7 +199,7 @@ describe('<Combobox />', () => {
 		expect(input).toHaveAttribute('aria-activedescendant', suggestions[0].id);
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'true');
 	});
-	it('déselectionne les éléments pas selectionnés', async () => {
+	it('marque les éléments pas sélectionnés comme tel', async () => {
 		render(
 			<Combobox>
 				<Combobox.Option>Option 1</Combobox.Option>
@@ -368,27 +406,6 @@ describe('<Combobox />', () => {
 
 		expect(input).toHaveValue('Option 1');
 	});
-
-	it('appelle onChange et onInput quand on sélectionne une valeur', async () => {
-		const user = userEvent.setup();
-		const onChange = jest.fn();
-		const onInput = jest.fn();
-		render(
-			<Combobox onChange={onChange} onInput={onInput}>
-				<Combobox.Option>Option 1</Combobox.Option>
-				<Combobox.Option>Option 2</Combobox.Option>
-				<Combobox.Option>Option 3</Combobox.Option>
-			</Combobox>,
-		);
-
-		const input = screen.getByRole('textbox');
-		await user.click(input);
-		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
-		await user.keyboard(`{${KeyBoard.ENTER}}`);
-
-		expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
-		expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
-	});
 	it('ferme la liste quand on sélectionne une valeur', async () => {
 		const user = userEvent.setup();
 		render(
@@ -409,16 +426,17 @@ describe('<Combobox />', () => {
 	});
 
 	it.todo('pose pas de problème avec la props value');
-	it.todo('n’écrase pas les props');
 	it.todo('est compatible IE (keyboard key names)');
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
 	it.todo('utilise default value pour le state');
 
 	it.todo('enter closes listbox if displayed');
-	it.todo('enter submits form');
+	it.todo('enter submits form if not selecting value');
 	it.todo('typing filters list');
 	it.todo('handle value != label on option');
 	it.todo('affiche un bouton qui déplie le menu');
 	it.todo('le bouton est tabindex -1');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
+
+	it.todo('n’écrase pas les props');
 });
