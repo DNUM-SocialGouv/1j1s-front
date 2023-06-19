@@ -14,12 +14,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	onKeyDown: onKeyDownProps,
 	onChange: onChangeProps,
 	value: valueProps,
+	defaultValue,
 	...inputProps
 }, ref) {
 	const optionCount = React.Children.count(children);
 	const [{ open, activeDescendant: activeDescendantIndex, value: valueState }, dispatch] = useReducer(
 		ComboboxReducer,
-		{ activeDescendant: null, open: false, optionCount, value: '' },
+		{ activeDescendant: null, open: false, optionCount, value: defaultValue?.toString() ?? '' },
 	);
 	const value = valueProps ?? valueState;
 

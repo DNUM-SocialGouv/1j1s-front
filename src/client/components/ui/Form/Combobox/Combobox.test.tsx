@@ -90,10 +90,10 @@ describe('<Combobox />', () => {
 			expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
 			expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
 		});
-		it('accepte la props value', async () => {
+		it('accepte une value', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox value="test">
+				<Combobox value="test" onChange={() => null}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -106,6 +106,18 @@ describe('<Combobox />', () => {
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
 
+			expect(input).toHaveValue('test');
+		});
+		it('accepte une defaultValue', () => {
+			render(
+				<Combobox defaultValue="test">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
 			expect(input).toHaveValue('test');
 		});
 	});
@@ -425,12 +437,9 @@ describe('<Combobox />', () => {
 		expect(suggestions).not.toBeVisible();
 	});
 
-	it.todo('pose pas de problème avec la props value');
 	it.todo('est compatible IE (keyboard key names)');
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
-	it.todo('utilise default value pour le state');
 
-	it.todo('enter closes listbox if displayed');
 	it.todo('enter submits form if not selecting value');
 	it.todo('typing filters list');
 	it.todo('handle value != label on option');
