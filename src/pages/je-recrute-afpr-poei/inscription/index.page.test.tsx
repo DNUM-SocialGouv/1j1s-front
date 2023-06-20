@@ -17,10 +17,11 @@ import JeRecruteAfprPoeiInscription, {
 	FormulairesPoleEmploi,
 } from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 
+const MAX_CARACTERES_COMMENTAIRE = 2000;
 describe('<JeRecruteAfprPoeiInscription />', () => {
-
 	beforeEach(() => {
 		mockLargeScreen();
+
 	});
 
 	const labelsEtape1 = [
@@ -41,15 +42,14 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 
 	const labelsEtape3 = [
 		{ name: 'Nombre de recrutements AFPR/POE que vous souhaitez' },
-		{ name: 'Commentaires ou autres informations utiles' },
+		{ name: `Commentaires ou autres informations utiles (${MAX_CARACTERES_COMMENTAIRE} caractères maximum)` },
 	];
-
 	const demandeDeContactServiceMock = aDemandeDeContactService();
 	const localisationService = aLocalisationService();
-	const analyticsService = anAnalyticsService();
-  
-	const routerPush = jest.fn();
 
+	const analyticsService = anAnalyticsService();
+
+	const routerPush = jest.fn();
 	function renderComponent() {
 		render(
 			<DependenciesProvider
@@ -61,10 +61,11 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock };
+
 	}
-	
 	beforeAll(() => {
 		mockUseRouter({ push: routerPush });
+
 	});
 
 	describe('quand l’utilisateur arrive sur la page JeRecruteAfprPoei', () => {
@@ -157,8 +158,8 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			expect(screen.getByRole('textbox', { name: 'Numéro de téléphone' })).toBeInvalid();
 		});
 	});
-
 	describe('quand l’utilisateur clique sur Suivant et qu’il a rempli tous les champs de l’étape 2', () => {
+
 		it('il passe à l’étape 3', async () => {
 			renderComponent();
 
@@ -172,11 +173,23 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			});
 			expect(screen.getByText('Etape 3 sur 3')).toBeInTheDocument();
 		});
-
-		describe('puis passe à l’étape 3 et qu’il clique sur Retour', () => {
-			it('il repasse à l’étape 2', async () => {
+		describe('lorsque l‘on rempli un commentaire', () => {
+			it(`on ne peut pas remplir un text de plus de ${MAX_CARACTERES_COMMENTAIRE} caractères`, async () => {
 				renderComponent();
 
+				await remplirFormulaireEtape1();
+				await directionNouvelleEtape();
+				await remplirFormulaireEtape2();
+				await directionNouvelleEtape();
+
+				const input = screen.getByRole('textbox', { name: `Commentaires ou autres informations utiles (${MAX_CARACTERES_COMMENTAIRE} caractères maximum)` }) as HTMLInputElement;
+				expect(input.maxLength).toBe(MAX_CARACTERES_COMMENTAIRE);
+			});
+		});
+		describe('puis passe à l’étape 3 et qu’il clique sur Retour', () => {
+			it('il repasse à l’étape 2', async () => {
+
+				renderComponent();
 				await remplirFormulaireEtape1();
 				await directionNouvelleEtape();
 				await remplirFormulaireEtape2();
@@ -199,11 +212,11 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 
 			const inputNbRecrutement = screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' });
 			await userEvent.type(inputNbRecrutement, '4');
-			const inputCommentaire = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' });
+			const inputCommentaire = screen.getByRole('textbox', { name: `Commentaires ou autres informations utiles (${MAX_CARACTERES_COMMENTAIRE} caractères maximum)` });
 			await userEvent.type(inputCommentaire, 'Coucou le commentaire');
 
 			expect(screen.getByRole('textbox', { name: 'Nombre de recrutements AFPR/POE que vous souhaitez' })).toHaveValue('4');
-			expect(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles' })).toHaveValue('Coucou le commentaire');
+			expect(screen.getByRole('textbox', { name: `Commentaires ou autres informations utiles (${MAX_CARACTERES_COMMENTAIRE} caractères maximum)` })).toHaveValue('Coucou le commentaire');
 		});
 	});
 
@@ -230,7 +243,7 @@ describe('<JeRecruteAfprPoeiInscription />', () => {
 			await directionNouvelleEtape();
 			await remplirFormulaireEtape2();
 			await directionNouvelleEtape();
-			await userEvent.click(screen.getByRole('button',{ name: 'Envoyer mes informations afin d’être rappelé(e)' }));
+			await userEvent.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d’être rappelé(e)' }));
 
 			expect(demandeDeContactServiceMock.envoyerPourLePOE).toHaveBeenCalledWith(expected);
 			expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeInTheDocument();
