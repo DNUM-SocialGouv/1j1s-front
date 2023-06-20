@@ -1,10 +1,10 @@
-import { marked } from 'marked';
 import React, { useMemo } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { getHtmlFromMd } from '~/client/components/ui/Marked/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
@@ -18,7 +18,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 			dureeCategorisee(offreDeStage.dureeEnJour || 0),
 			'Débute le : ' + new Date(offreDeStage.dateDeDebut).toLocaleDateString()];
 	}, [offreDeStage]);
-	
+
 	const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
 	return (
 		<ConsulterOffreLayout>
@@ -37,12 +37,12 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				{offreDeStage.employeur?.description &&
           <div>
           	<h3>Description de l‘employeur :</h3>
-          	<p dangerouslySetInnerHTML={{ __html: marked.parse(offreDeStage.employeur.description) }}/>
+          	<p dangerouslySetInnerHTML={{ __html: getHtmlFromMd(offreDeStage.employeur.description) }}/>
           </div>}
 				{offreDeStage.description &&
           <div>
           	<h3>Description du poste :</h3>
-          	<p dangerouslySetInnerHTML={{ __html: marked.parse(offreDeStage.description) }}/>
+          	<p dangerouslySetInnerHTML={{ __html: getHtmlFromMd(offreDeStage.description) }}/>
           </div>
 				}
 				{offreDeStage.remunerationBase &&

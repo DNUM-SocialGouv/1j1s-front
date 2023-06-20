@@ -4,3 +4,6 @@ declare module '*.module.scss' {
   };
   export default styles;
 }
+
+declare module 'marked-mangle'
+
