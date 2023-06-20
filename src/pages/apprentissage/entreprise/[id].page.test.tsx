@@ -4,11 +4,14 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { axe, toHaveNoViolations } from 'jest-axe';
+
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
+import {checkA11y} from "~/test-utils";
 
 const siret = '123';
 
@@ -17,10 +20,22 @@ function HeadMock({ children }: { children: React.ReactNode }) {
 	return <>{ReactDOM.createPortal(children, document.head)}</>;
 }
 jest.mock('next/head', () => HeadMock);
+expect.extend(toHaveNoViolations);
 
 describe('<AnnonceAlternanceEntreprisePage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<AnnonceAlternanceEntreprisePage id={siret}/>
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
 	});
 
 	it('le titre du document est correct', async () => {
