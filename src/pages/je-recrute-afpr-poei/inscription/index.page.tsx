@@ -61,7 +61,7 @@ enum Étape {
 }
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
-const MAX_CARACTERES_COMMENTAIRE = 500;
+const MAX_CARACTERES_COMMENTAIRE = 2000;
 
 export default function JeRecruteAfprPoeiInscription() {
 	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
@@ -360,7 +360,7 @@ export default function JeRecruteAfprPoeiInscription() {
           						/>
           						<TextArea
           							className={styles.textArea}
-          							label="Commentaires ou autres informations utiles (500 caractères maximum)"
+          							label={`Commentaires ou autres informations utiles (${MAX_CARACTERES_COMMENTAIRE} caractères maximum)`}
           							name="commentaires"
           							placeholder="Saisissez votre texte ici"
           							defaultValue={formulaireÉtape3.commentaire}

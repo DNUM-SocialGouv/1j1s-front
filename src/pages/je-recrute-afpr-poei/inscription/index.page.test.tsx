@@ -17,7 +17,7 @@ import JeRecruteAfprPoeiInscription, {
 	FormulairesPoleEmploi,
 } from '~/pages/je-recrute-afpr-poei/inscription/index.page';
 
-const MAX_CARACTERES_COMMENTAIRE = 500;
+const MAX_CARACTERES_COMMENTAIRE = 2000;
 describe('<JeRecruteAfprPoeiInscription />', () => {
 	beforeEach(() => {
 		mockLargeScreen();
