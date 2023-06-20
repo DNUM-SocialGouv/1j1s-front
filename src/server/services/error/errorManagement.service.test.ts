@@ -1,3 +1,5 @@
+import { ValidationError } from 'joi';
+
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
@@ -327,6 +329,26 @@ describe('DefaultErrorManagementService', () => {
 					expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 				});
 			});
+		});
+	});
+
+	describe('lorsque l‘erreur est une erreur de validation', () => {
+		it('log en warning', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const errorManagementService = new DefaultErrorManagementService(loggerService);
+			const validationError = new ValidationError('ceci est une erreur de validation', [], []);
+			const expectedLogDetails = new SentryException(
+				`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,
+				{ context: logInformation.contexte, source: logInformation.apiSource },
+				{ errorDetail: validationError },
+			);
+
+			// WHEN
+			errorManagementService.handleValidationError(validationError, logInformation);
+
+			// THEN
+			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 		});
 	});
 });

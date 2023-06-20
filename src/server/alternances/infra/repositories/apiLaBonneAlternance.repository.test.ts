@@ -8,8 +8,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { SentryException } from '~/server/exceptions/sentryException';
-import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { anErrorManagementService, aValidationError } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -115,10 +114,39 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
-				message: 'impossible de récuperer le détail d‘une offre d‘alternance',
+				message: 'impossible de récupérer le détail d‘une offre d‘alternance',
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+		it('log un warning quand il y a une erreur de validation et continue l’execution', async () => {
+			const validationError = aValidationError();
+			const httpClientService = aPublicHttpClientService();
+			const matchaResponseWithAnAttributeWithANumberInsteadOfAString = {
+				company: { name: 'une entreprise' },
+				diplomaLevel: 'débutant',
+				job: {
+					contractType: 'Apprentissage, CDI',
+					id: 'id',
+					romeDetails: {
+						competencesDeBase: [{ libelle: 'savoir faire' }],
+						definition: 'Prépare et confectionne des produits de pâtisserie.',
+					},
+				},
+				place: { city: 'paris' },
+				title: 1,
+			};
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [matchaResponseWithAnAttributeWithANumberInsteadOfAString] }));
+			const caller = '1jeune1solution-test';
+			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+
+			// When
+			const result = await repository.get('abc');
+
+			// Then
+			expect(errorManagementService.handleValidationError).toHaveBeenCalledTimes(1);
+			expect(result.instance).toEqual('success');
 		});
 
 		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
@@ -135,42 +163,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				// Then
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching('/jobs/job/1234567'));
-			});
-			describe('lorsque l’api LaBonneAlternance renvoie une donnée différente de l’attendu', () => {
-				it('log un warn dans sentry et continue l’execution', async () => {
-					// Given
-					const caller = '1jeune1solution-test';
-					const httpClientService = aPublicHttpClientService();
-					(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ peJobs: [{
-						company: undefined,
-						contact: undefined,
-						job: {
-							contractDescription: undefined,
-							contractType: undefined,
-							description: undefined,
-							duration: undefined,
-							id: undefined,
-						},
-						place: undefined,
-						title: undefined,
-						url: undefined,
-					}] }));
-					const logger = aLoggerService();
-					const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, logger);
-
-					// When
-					const result = await repository.get('1234567');
-
-					// Then
-					expect(logger.warnWithExtra).toHaveBeenCalledTimes(1);
-					expect(logger.warnWithExtra).toHaveBeenCalledWith(
-						new SentryException('[API LaBonneAlternance] Erreur de validation de la réponse de l’API',
-							expect.anything(),
-							expect.anything(),
-						),
-					);
-					expect(result.instance).toEqual('success');
-				});
 			});
 		});
 		describe('lorsque l’id fournit ne correspond pas à une offre PEJob', () => {

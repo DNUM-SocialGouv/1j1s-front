@@ -14,14 +14,10 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { LoggerService } from '~/server/services/logger.service';
-import { logWarnIfInvalidResponseSchema } from '~/server/utils/logWarnIfInvalidResponseSchema';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
 const POLE_EMPLOI_ID_LENGTH = 7;
-
-const API_NAME = 'API LaBonneAlternance';
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
@@ -57,7 +53,14 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
-				logWarnIfInvalidResponseSchema(this.loggerService, API_NAME, apiResponse.data, apiLaBonneAlternanceSchemas.getPoleEmploi);
+				const validate = apiLaBonneAlternanceSchemas.getPoleEmploi.validate(apiResponse.data);
+				if (validate.error) {
+					this.errorManagementService.handleValidationError(validate.error, {
+						apiSource: 'API LaBonneAlternance',
+						contexte: 'get détail annonce alternance',
+						message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+					});
+				}
 				const offre = apiResponse.data.peJobs[0];
 				return createSuccess(mapPEJob(offre));
 			}
@@ -65,14 +68,21 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const apiResponse = await this.httpClientService.get<{
 				matchas: AlternanceApiJobsResponse.Matcha[]
 			}>(`/v1/jobs/matcha/${id}`);
-			logWarnIfInvalidResponseSchema(this.loggerService, API_NAME, apiResponse.data, apiLaBonneAlternanceSchemas.getMatcha);
+			const validate = apiLaBonneAlternanceSchemas.getMatcha.validate(apiResponse.data);
+			if (validate.error) {
+				this.errorManagementService.handleValidationError(validate.error, {
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'get détail annonce alternance',
+					message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+				});
+			}
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
-				message: 'impossible de récuperer le détail d‘une offre d‘alternance',
+				message: 'impossible de récupérer le détail d‘une offre d‘alternance',
 			});
 		}
 	}
