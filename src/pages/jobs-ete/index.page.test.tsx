@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -32,10 +32,10 @@ describe('Page rechercher un job d‘été', () => {
 				</DependenciesProvider>,
 			);
 
-
-			const result = await getServerSideProps();
-
-			expect(result).toMatchObject({ notFound: true });
+			await waitFor(async () => {
+				const result = await getServerSideProps();
+				expect(result).toMatchObject({ notFound: true });
+			});
 		});
 	});
 
