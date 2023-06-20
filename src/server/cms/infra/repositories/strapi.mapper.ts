@@ -10,7 +10,6 @@ import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
@@ -309,23 +308,5 @@ export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.Video
 		titre: video.Titre,
 		transcription: video.Transcription,
 		videoId: videoId,
-	};
-}
-
-
-export function mapEntrepriseRejoindreLaMobilisation(entreprise: Entreprise, annotation: string): Strapi.CollectionType.Entreprise {
-	return {
-		code_postal: entreprise.codePostal,
-		email: entreprise.email,
-		erreur: annotation,
-		nom: entreprise.nom,
-		nom_societe: entreprise.nomSociété,
-		prenom: entreprise.prénom,
-		secteur: entreprise.secteur,
-		siret: entreprise.siret,
-		taille: entreprise.taille,
-		telephone: entreprise.téléphone,
-		travail: entreprise.travail,
-		ville: entreprise.ville,
 	};
 }

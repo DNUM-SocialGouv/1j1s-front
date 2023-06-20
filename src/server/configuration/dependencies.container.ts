@@ -249,7 +249,7 @@ export function dependenciesContainer(): Dependencies {
 	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
 	const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
-	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository, cmsRepository);
+	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository);
 
 	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
 	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);

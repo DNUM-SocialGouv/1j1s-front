@@ -6,7 +6,6 @@ export function aStrapiCmsRepository(override?:Partial<StrapiRepository>) {
 	return {
 		getResource: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		save: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		saveEntrepriseRejoindreLaMobilisation: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		...override,
 	} as unknown as StrapiRepository;
 }
