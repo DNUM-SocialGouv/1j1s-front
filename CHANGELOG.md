@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.98.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.4...v3.98.5) (2023-06-20)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v5.60.0 ([06199eb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/06199ebc17d3d46231e02d1e58477ba67b461837))
+
 ## [3.98.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.3...v3.98.4) (2023-06-19)
 
 
