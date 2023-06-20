@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.99.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.6...v3.99.0) (2023-06-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **afpr-poei:** ajout d'une limite de caractères sur le commentaire ([#1489](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1489)) ([ed4c190](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ed4c1907e2c8ec584bf981581c9fb7e7739c89d9))
+
 ## [3.98.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.5...v3.98.6) (2023-06-20)
 
 
