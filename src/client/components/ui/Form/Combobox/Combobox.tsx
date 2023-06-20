@@ -1,11 +1,13 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useReducer, useRef } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useId, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { ComboboxProvider, useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
 import {
 	ComboboxActions as Actions,
 	ComboboxReducer,
 } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
+import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Combobox.module.scss';
 
@@ -22,10 +24,11 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	...inputProps
 }, inputRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
-	const [{ open, activeDescendant, value: valueState }, dispatch] = useReducer(
+	const [state, dispatch] = useReducer(
 		ComboboxReducer,
 		{ activeDescendant: undefined, open: false, suggestionList: listboxRef, value: defaultValue?.toString() ?? '' },
 	);
+	const { open, activeDescendant, value: valueState } = state;
 	const value = valueProps?.toString() ?? valueState;
 
 	const triggerChangeEvents = useCallback(function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -85,37 +88,34 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [onChangeProps]);
 
 	return (
-		<div className={styles.combobox}>
-			<input {...inputProps}
-				ref={inputRef}
-				onKeyDown={onKeyDown}
-				aria-activedescendant={activeDescendant}
-				value={value}
-				onChange={onChange} />
-			<ul role="listbox" hidden={!open} ref={listboxRef}>{
-				React.Children.map(children, (child, index) => (
-					React.isValidElement<React.ComponentPropsWithRef<typeof Option>>(child) && child.type === Option
-						? React.cloneElement(child, {
-							'aria-selected': activeDescendant === `option-${index}`,
-							hidden: !matchesInput(document.getElementById(`option-${index}`), value),
-							id: `option-${index}`,
-						})
-						: child
-				))
-			}</ul>
-		</div>
+		<ComboboxProvider value={{ ...state }}>
+			<div className={styles.combobox}>
+				<input {...inputProps}
+					ref={inputRef}
+					onKeyDown={onKeyDown}
+					aria-activedescendant={activeDescendant}
+					value={value}
+					onChange={onChange} />
+				<ul role="listbox" hidden={!open} ref={listboxRef}>
+					{children}
+				</ul>
+			</div>
+		</ComboboxProvider>
 	);
 });
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'>;
 
 const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
-	'aria-selected': ariaSelected = false,
 	...optionProps
-}, ref) {
+}, outerRef) {
+	const ref = useSynchronizedRef(outerRef);
+	const id = useId();
+	const { activeDescendant, value } = useCombobox();
+	const selected = activeDescendant === id;
+	const hidden = !matchesInput(ref.current, value);
 	return (
-		<li role="option" {...optionProps} aria-selected={ariaSelected} ref={ref}>
-		</li>
+		<li role="option" {...optionProps} aria-selected={selected} hidden={hidden} id={id} ref={ref} />
 	);
 });
 

@@ -543,5 +543,7 @@ describe('<Combobox />', () => {
 	it.todo('n’écrase pas les props');
 	it.todo('gérer les children qui ne sont pas des Option');
 	it.todo('gérer les catégories');
-	it.todo('Gérer Options qui ont du HTML en enfant (e.g. <Option>value <em>test</em></Option>)');
+	it.todo('Gérer Options qui ont du HTML en enfant (e.g. <Option>value <em>test</em></Option>) (devrait être totomatique)');
+	it.todo('styliser le composant');
+	it.todo('validation de la valeur avec liste des options');
 });

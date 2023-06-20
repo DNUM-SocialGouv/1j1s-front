@@ -1,13 +1,7 @@
 import { RefObject } from 'react';
 
+import { ComboboxState } from '~/client/components/ui/Form/Combobox/ComboboxContext';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
-
-type ComboboxState = {
-  open: boolean,
-  activeDescendant: string | undefined,
-	value: string,
-	suggestionList: RefObject<HTMLUListElement>
-}
 
 interface ComboboxAction {
 	execute: (previousState: ComboboxState) => ComboboxState;
