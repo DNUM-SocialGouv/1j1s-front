@@ -3,7 +3,7 @@ import React, { ChangeEvent, KeyboardEvent, useCallback, useId, useReducer, useR
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ComboboxProvider, useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
 import {
-	ComboboxActions as Actions,
+	ComboboxAction as Actions,
 	ComboboxReducer,
 } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
@@ -88,7 +88,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [onChangeProps]);
 
 	return (
-		<ComboboxProvider value={{ ...state }}>
+		<ComboboxProvider value={[ state, dispatch ]}>
 			<div className={styles.combobox}>
 				<input {...inputProps}
 					ref={inputRef}
@@ -111,11 +111,15 @@ const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
 	const id = useId();
-	const { activeDescendant, value } = useCombobox();
+	const [{ activeDescendant, value }, dispatch] = useCombobox();
 	const selected = activeDescendant === id;
 	const hidden = !matchesInput(ref.current, value);
+	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
+		const value = event.currentTarget.textContent ?? '';
+		dispatch(new Actions.SetValue(value));
+	}, [dispatch]);
 	return (
-		<li role="option" {...optionProps} aria-selected={selected} hidden={hidden} id={id} ref={ref} />
+		<li role="option" {...optionProps} aria-selected={selected} hidden={hidden} id={id} ref={ref} onClick={onClick} />
 	);
 });
 

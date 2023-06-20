@@ -1,13 +1,10 @@
-import React, { RefObject, useContext } from 'react';
+import React, { Dispatch, ReducerState, useContext } from 'react';
 
-export type ComboboxState = {
-  open: boolean,
-  activeDescendant: string | undefined,
-  value: string,
-  suggestionList: RefObject<HTMLUListElement>
-}
+import { ComboboxAction, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 
-const Context = React.createContext<ComboboxState | undefined>(undefined);
+type ContextContent = [ReducerState<typeof ComboboxReducer>, Dispatch<ComboboxAction>]
+
+const Context = React.createContext<ContextContent | undefined>(undefined);
 
 export const ComboboxProvider = Context.Provider;
 

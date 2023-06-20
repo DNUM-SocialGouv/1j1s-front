@@ -1,10 +1,12 @@
 import { RefObject } from 'react';
 
-import { ComboboxState } from '~/client/components/ui/Form/Combobox/ComboboxContext';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
 
-interface ComboboxAction {
-	execute: (previousState: ComboboxState) => ComboboxState;
+export type ComboboxState = {
+	open: boolean,
+	activeDescendant: string | undefined,
+	value: string,
+	suggestionList: RefObject<HTMLUListElement>
 }
 
 function filterOptions(suggestionList: RefObject<HTMLUListElement>, value: string) {
@@ -12,7 +14,10 @@ function filterOptions(suggestionList: RefObject<HTMLUListElement>, value: strin
 		.filter((node) => matchesInput(node, value));
 }
 
-export namespace ComboboxActions {
+export interface ComboboxAction {
+	execute: (previousState: ComboboxState) => ComboboxState;
+}
+export namespace ComboboxAction {
 	export class OpenList implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
