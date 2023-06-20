@@ -39,13 +39,6 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onChangeProps) { onChangeProps(changeEvent); }
 		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
 	}, [inputProps, onChangeProps]);
-	const getSelectedValue = useCallback(function getSelectedValue(event: React.KeyboardEvent<HTMLInputElement>) {
-		const activeElement = event.currentTarget.getAttribute('aria-activedescendant');
-		if (!activeElement) {
-			return null;
-		}
-		return document.getElementById(activeElement)?.textContent;
-	}, []);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
@@ -65,12 +58,11 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				dispatch(new Actions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
-				const value = getSelectedValue(event);
-				if (value) {
-					dispatch(new Actions.SetValue(value));
+				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
+				if (selectedOption) {
+					dispatch(new Actions.SelectOption(selectedOption));
 					triggerChangeEvents(event);
 				}
-				dispatch(new Actions.CloseList());
 				break;
 			}
 			default:
@@ -80,7 +72,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
-	}, [getSelectedValue, onKeyDownProps, triggerChangeEvents]);
+	}, [onKeyDownProps, triggerChangeEvents]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
 		dispatch(new Actions.OpenList());
@@ -115,8 +107,7 @@ const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
 	const selected = activeDescendant === id;
 	const hidden = !matchesInput(ref.current, value);
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
-		const value = event.currentTarget.textContent ?? '';
-		dispatch(new Actions.SetValue(value));
+		dispatch(new Actions.SelectOption(event.currentTarget));
 	}, [dispatch]);
 	return (
 		<li role="option" {...optionProps} aria-selected={selected} hidden={hidden} id={id} ref={ref} onClick={onClick} />

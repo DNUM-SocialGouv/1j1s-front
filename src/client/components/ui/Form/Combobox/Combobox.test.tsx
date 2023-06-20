@@ -547,6 +547,26 @@ describe('<Combobox />', () => {
 
 		expect(input).toHaveValue('Option 2');
 	});
+	it('ferme la liste quand on clique sur une option', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'Option');
+		const option = screen.getByRole('option', { name: /Option 2/i });
+		await user.click(option);
+
+		const suggestions = screen.getByRole('listbox', { hidden : true });
+		expect(suggestions).not.toBeVisible();
+	});
+	it.todo('trigger les events quand on click sur une option');
+
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
 	it.todo('enter submits form if not selecting value');
 	it.todo('enter does not submits form if selecting value');

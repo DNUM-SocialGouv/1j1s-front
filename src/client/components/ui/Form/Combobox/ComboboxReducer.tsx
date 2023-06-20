@@ -63,15 +63,30 @@ export namespace ComboboxAction {
 	}
 	export class SetValue implements ComboboxAction {
 		private readonly newValue: string;
+		constructor(value: { toString: () => string }) {
+			this.newValue = value.toString();
+		}
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
 				...previousState,
 				value: this.newValue,
 			};
 		}
+	}
+	export class SelectOption implements ComboboxAction {
+		private readonly option: Element | null;
+		constructor(option: Element | string) {
+			this.option = option instanceof Element
+				? option
+				: document.getElementById(option);
+		}
 
-		constructor(value: { toString: () => string }) {
-			this.newValue = value.toString();
+		execute(previousState: ComboboxState): ComboboxState {
+			return {
+				...previousState,
+				open: false,
+				value: this.option?.textContent ?? '',
+			};
 		}
 	}
 }
