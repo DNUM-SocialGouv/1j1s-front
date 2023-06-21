@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.99.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.99.0...v3.99.1) (2023-06-21)
+
+
+### 🐛 Corrections de bogues
+
+* **geo:** verifier la longueur du tableau de résultats des communes ([#1495](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1495)) ([5806404](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5806404e5a8f478afc0c09f536e25f670c179d7d))
+
 ## [3.99.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.98.6...v3.99.0) (2023-06-20)
 
 
