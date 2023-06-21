@@ -72,13 +72,16 @@ jobs:
       - name: Vérifier que toutes les variables d'environnement sont définies
         run: |
           NUMBER=0
-          REGEX_NON_DEFINED_ENVS='^([a-zA-Z_]+[a-zA-Z0-9_]*)=\${(.+)}$'
-          foreach line (`cat .env.scalingo`)
-            if [[ $line =~ ${~REGEX_NON_DEFINED_ENVS} ]]; then
-              echo "a value is missing for the env $match[1]"
-              let "NUMBER+=1"
+          ENV_FILE=".env"
+          REGEX='^([a-zA-Z_]+[a-zA-Z0-9_]*)=\$\{(.*)\}$'
+
+          while read line
+          do
+            if [[ "$line" =~ $REGEX ]]; then
+              echo "ERROR: value is missing for the env ${BASH_REMATCH[2]}"
+              ((NUMBER++))
             fi
-          end
+          done < "$ENV_FILE"
 
           if [[ $NUMBER -gt 0 ]]; then
             echo "Il y a $NUMBER variables d'environnement non définies, nous ne pouvons pas continuer le déploiement"

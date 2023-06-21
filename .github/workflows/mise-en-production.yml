@@ -1,0 +1,84 @@
+name: Mise en production
+
+on:
+  workflow_dispatch:
+    inputs:
+      purge_cloudflare_cache:
+        description: 'Faut-il vider le cache Cloudflare après le déploiement ?'
+        type: boolean
+        default: false
+  # TODO: remove this trigger before merging
+  push:
+    branches:
+      - ci-ameliorations-diverses
+
+jobs:
+  backup:
+    name: Sauvegarder la base de données
+    runs-on: ubuntu-latest
+    environment:
+    # TODO: switch to production
+      # name: scalingo-production
+      # url: https://www.1jeune1solution.gouv.fr
+      name: scalingo-recette
+      url: https://recette.1jeune1solution.gouv.fr
+    steps:
+      - name: Configurer la CLI Scalingo
+        uses: scalingo-community/setup-scalingo@v0.1.1
+        with:
+          api_token: ${{ secrets.SCALINGO_API_TOKEN }}
+          region: ${{ vars.SCALINGO_REGION }}
+          app_name: ${{ secrets.TF_VAR_FRONT_NOM_DE_L_APPLICATION }}
+
+      - name: Créer une sauvegarde la base Redis Scalingo
+        run: |
+          REDIS_ADDON_ID=$(scalingo addons | grep -i redis | awk 'BEGIN{FS=" [|] "}{print $2}')
+          scalingo backups-create --addon $REDIS_ADDON_ID
+
+  terraform:
+    # uses: DNUM-SocialGouv/1j1s-front/.github/workflows/terraform.yml@main
+    uses: ./.github/workflows/terraform.yml
+    secrets: inherit
+    with:
+      apply: true
+      # TODO: switch to production
+      # environnement_name: scalingo-production
+      # environnement_url: https://www.1jeune1solution.gouv.fr
+      environnement_name: scalingo-recette
+      environnement_url: https://recette.1jeune1solution.gouv.fr
+    # Avoid concurrency on the same terraform state
+    concurrency: terraform-state-recette
+
+  scalingo:
+    name: Déployer le code sur Scalingo
+    needs: [terraform, backup]
+    runs-on: ubuntu-latest
+    environment:
+      # TODO: switch to production
+      # name: scalingo-production
+      # url: https://www.1jeune1solution.gouv.fr
+      name: scalingo-recette
+      url: https://recette.1jeune1solution.gouv.fr
+    steps:
+      - name: Configurer la CLI Scalingo
+        uses: scalingo-community/setup-scalingo@v0.1.1
+        with:
+          api_token: ${{ secrets.SCALINGO_API_TOKEN }}
+          region: ${{ vars.SCALINGO_REGION }}
+          app_name: ${{ secrets.TF_VAR_FRONT_NOM_DE_L_APPLICATION }}
+      - name: Déployer le code sur Scalingo
+        run: |
+          scalingo integration-link-manual-deploy main
+  
+  cloudflare:
+    name: Purger le cache Cloudflare
+    needs: scalingo
+    runs-on: ubuntu-latest
+    if: ${{ inputs.purge_cloudflare_cache == true }}
+
+    steps:
+      - name: Purger le cache Cloudflare
+        uses: nathanvaughn/actions-cloudflare-purge@v3.1.0
+        with:
+            cf_zone: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+            cf_auth: ${{ secrets.CLOUDFLARE_API_TOKEN }}
