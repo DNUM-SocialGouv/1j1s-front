@@ -3,10 +3,9 @@ name: Simulation de déploiement Terraform
 on:
   pull_request:
     branches: [ main ]
-
-env:
-  env_name: ${{ startsWith(github.head_ref, 'release-please--') && 'scalingo-production' || 'scalingo-recette' }}
-  env_url: ${{ startsWith(github.head_ref, 'release-please--') && 'https://www.1jeune1solution.gouv.fr' || 'https://recette.1jeune1solution.gouv.fr' }}
+    paths:
+      - 'terraform/**'
+      - '.env.scalingo'
 
 jobs:
   terraform_plan:
