@@ -21,6 +21,10 @@ function formatterÉtage(étage: number) {
 	);
 }
 
+function formatterNombreDePieces(nombreDePieces: number){
+	return nombreDePieces || 'non renseigné';
+}
+
 export function InformationsGénérales({
 	annonce: {
 		prix,
@@ -75,7 +79,7 @@ export function InformationsGénérales({
 					</tr>
 					<tr>
 						<th scope="row">Nombre de pièces</th>
-						<td>{nombreDePièces}</td>
+						<td>{formatterNombreDePieces(nombreDePièces)}</td>
 					</tr>
 					{étage != null && (
 						<tr>
