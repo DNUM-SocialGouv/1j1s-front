@@ -11,7 +11,7 @@ export function mapLocalisationList(response: ApiDecoupageAdministratifResponse[
 }
 
 export const getCodeRegion = (response: ApiDecoupageAdministratifResponse[]): string =>  {
-	if (!response[0].codeRegion) {
+	if (response.length === 0 || !response[0].codeRegion) {
 		throw new Error('Il n‘y a pas de code région associé au code postal fourni');
 	}
 	return response[0].codeRegion;
