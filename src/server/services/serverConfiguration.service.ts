@@ -21,10 +21,10 @@ export class ServerConfigurationService implements ConfigurationService {
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
-			
+
 			NEXT_PUBLIC_SENTRY_ENVIRONMENT: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
-			
-			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'), 
+
+			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'),
 			NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST')),
 			NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
@@ -88,6 +88,7 @@ export interface EnvironmentVariables {
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
 	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
+	readonly API_ONISEP_BASE_URL: string
 	readonly API_POLE_EMPLOI_OFFRES_URL: string
 	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
@@ -98,6 +99,7 @@ export interface EnvironmentVariables {
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
+	readonly ONISEP_API_BASE_URL: string
 	readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
 	readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
 	readonly POLE_EMPLOI_CONNECT_SCOPE: string
