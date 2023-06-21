@@ -1,3 +1,4 @@
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 import { createSuccess, Either } from '../../errors/either';
@@ -36,11 +37,19 @@ export interface FormationInitialeApiResponse {
 }
 
 export class OnisepFormationInitialeRepository implements FormationInitialeRepository {
-	constructor(private readonly httpClient: AuthenticatedHttpClientService) {}
+	constructor(private readonly httpClient: AuthenticatedHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(): Promise<Either<Array<FormationInitiale>>> {
-		const { data }= await this.httpClient.get<Array<FormationInitialeApiResponse>>('/dataset/5fa591127f501/search');
-		const formationsInitiales = data.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
-		return createSuccess(formationsInitiales);
+		try {
+			const { data }= await this.httpClient.get<Array<FormationInitialeApiResponse>>('/dataset/5fa591127f501/search');
+			const formationsInitiales = data.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
+			return createSuccess(formationsInitiales);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: '[API Onisep]',
+				contexte: 'recherche de formation initiale',
+				message: 'impossible d’effectuer une recherche de formation initiale',
+			});
+		}
 	}
 }
