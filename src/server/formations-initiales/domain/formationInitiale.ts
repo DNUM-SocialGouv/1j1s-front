@@ -1,3 +1,3 @@
 export interface FormationInitiale {
-    title: string;
+    libelle: string;
 }

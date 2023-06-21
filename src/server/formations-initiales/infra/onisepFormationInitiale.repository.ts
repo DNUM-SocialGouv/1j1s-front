@@ -19,7 +19,7 @@ import { FormationInitialeRepository } from '../domain/formationInitiale.reposit
 "url_et_id_onisep": "http://www.onisep.fr/http/redirection/formation/slug/FOR.3311",
 "domainesous-domaine": "mécanique/automatismes | sciences/chimie | électricité, électronique, robotique/électronique | électricité, électronique, robotique/électrotechnique | mécanique/mécanique (généralités) | sciences/physique | électricité, électronique, robotique/télécommunications"
 * */
-interface FormationInitialeResponse {
+export interface FormationInitialeApiResponse {
 	code_nsf: string,
 	sigle_type_formation: string,
 	libelle_type_formation: string,
@@ -39,9 +39,8 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 	constructor(private readonly httpClient: AuthenticatedHttpClientService) {}
 
 	async search(): Promise<Either<Array<FormationInitiale>>> {
-		await this.httpClient.get<Array<FormationInitialeResponse>>('/dataset/5fa591127f501/search');
-		return createSuccess([{
-			title: 'toto',
-		}]);
+		const { data }= await this.httpClient.get<Array<FormationInitialeApiResponse>>('/dataset/5fa591127f501/search');
+		const formationsInitiales = data.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
+		return createSuccess(formationsInitiales);
 	}
 }
