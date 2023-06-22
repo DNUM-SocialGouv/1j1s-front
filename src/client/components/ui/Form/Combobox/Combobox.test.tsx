@@ -70,7 +70,7 @@ describe('<Combobox />', () => {
 			expect(onKeyDown).toHaveBeenCalledTimes(1);
 			expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'A' }));
 		});
-		it('appelle onChange et onInput quand on sélectionne une valeur', async () => {
+		it('appelle onChange et onInput quand on sélectionne une valeur au clavier', async () => {
 			const user = userEvent.setup();
 			const onChange = jest.fn();
 			const onInput = jest.fn();
@@ -89,6 +89,25 @@ describe('<Combobox />', () => {
 
 			expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
 			expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+		});
+		it('appelle onChange et onInput quand on sélectionne une valeur à la souris', async () => {
+			const user = userEvent.setup();
+			const onChange = jest.fn();
+			const onInput = jest.fn();
+			render(
+				<Combobox onChange={onChange} onInput={onInput}>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'Option');
+			await user.click(screen.getByRole('option', { name: /Option 2/i }));
+
+			expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
+			expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
 		});
 		it('accepte une value', async () => {
 			const user = userEvent.setup();

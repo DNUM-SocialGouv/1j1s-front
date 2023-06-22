@@ -1,6 +1,7 @@
-import React, { ChangeEvent, KeyboardEvent, useCallback, useId, useReducer, useRef } from 'react';
+import React, { KeyboardEvent, useCallback, useEffect, useId, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
 import { ComboboxProvider, useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
 import {
 	ComboboxAction as Actions,
@@ -22,8 +23,9 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	value: valueProps,
 	defaultValue,
 	...inputProps
-}, inputRef) {
+}, inputOuterRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
+	const inputRef = useSynchronizedRef(inputOuterRef);
 	const [state, dispatch] = useReducer(
 		ComboboxReducer,
 		{ activeDescendant: undefined, open: false, suggestionList: listboxRef, value: defaultValue?.toString() ?? '' },
@@ -31,14 +33,19 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	const { open, activeDescendant, value: valueState } = state;
 	const value = valueProps?.toString() ?? valueState;
 
-	const triggerChangeEvents = useCallback(function triggerChangeEvents(event: React.KeyboardEvent<HTMLInputElement>) {
-		const changeEvent: React.ChangeEvent<HTMLInputElement> = {
-			...event,
-			target: event.currentTarget,
-		};
-		if (onChangeProps) { onChangeProps(changeEvent); }
-		if (inputProps.onInput) { inputProps.onInput(changeEvent); }
-	}, [inputProps, onChangeProps]);
+	const triggerChangeEvents = useCallback(function triggerChangeEvents() {
+		if (inputRef.current) {
+			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
+			if (onChangeProps) { onChangeProps(changeEvent); }
+			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+		}
+	}, [inputProps, inputRef, onChangeProps]);
+
+	useEffect(() => {
+		triggerChangeEvents();
+		// NOTE (GAFI 22-06-2023): triggerChangeEvents only if value changes, not if the function itself changes
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [value]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
@@ -61,7 +68,6 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
 				if (selectedOption) {
 					dispatch(new Actions.SelectOption(selectedOption));
-					triggerChangeEvents(event);
 				}
 				break;
 			}
@@ -75,7 +81,6 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [onKeyDownProps, triggerChangeEvents]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
-		dispatch(new Actions.OpenList());
 		if (onChangeProps) { onChangeProps(event); }
 	}, [onChangeProps]);
 

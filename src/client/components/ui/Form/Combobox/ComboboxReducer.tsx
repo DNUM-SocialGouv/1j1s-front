@@ -69,6 +69,7 @@ export namespace ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
 				...previousState,
+				open: true,
 				value: this.newValue,
 			};
 		}
