@@ -76,6 +76,13 @@ import {
 	ApiTrajectoiresProStatistiqueErrorManagementService,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistiqueErrorManagementService';
 import {
+	formationInitialeDependenciesContainer,
+} from '~/server/formations-initiales/configuration/dependencies.container';
+import { getApiOnisepConfig } from '~/server/formations-initiales/configuration/onisep/apiOnisepHttpClient.config';
+import {
+	OnisepFormationInitialeRepository,
+} from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
+import {
 	jobsEteDependenciesContainer,
 	OffresJobEteDependencies,
 } from '~/server/jobs-ete/configuration/dependencies.container';
@@ -220,6 +227,10 @@ export function dependenciesContainer(): Dependencies {
 
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
+	const apiOnisepHttpClient = new AuthenticatedHttpClientService(getApiOnisepConfig(serverConfigurationService), loggerService);
+	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
+	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
+
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
@@ -267,6 +278,7 @@ export function dependenciesContainer(): Dependencies {
 		engagementDependencies,
 		entrepriseDependencies,
 		formationDependencies,
+		formationInitialeDependencies,
 		localisationDependencies,
 		loggerService,
 		métierDependencies,

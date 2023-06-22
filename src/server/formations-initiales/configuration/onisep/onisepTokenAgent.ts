@@ -1,17 +1,21 @@
 import axios from 'axios';
 
-import { TokenAgent } from '../../services/http/authenticatedHttpClient.service';
+import { TokenAgent } from '../../../services/http/authenticatedHttpClient.service';
 
-interface TokenResponse {
+interface OnisepLoginResponse {
 	token: string,
 }
 
 export class OnisepTokenAgent implements TokenAgent {
 
-	constructor(private readonly apiAuthenticationUrl: string, private readonly email: string, private readonly password: string ) {}
+	constructor(
+		private readonly apiAuthenticationUrl: string,
+		private readonly email: string,
+		private readonly password: string,
+	) {}
 
 	async getToken(): Promise<string> {
-		const response = await axios.post<TokenResponse>(
+		const response = await axios.post<OnisepLoginResponse>(
 			this.apiAuthenticationUrl,
 			{
 				body: {

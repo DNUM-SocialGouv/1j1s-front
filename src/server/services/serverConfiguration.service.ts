@@ -11,6 +11,9 @@ export class ServerConfigurationService implements ConfigurationService {
 			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
+			API_ONISEP_ACCOUNT_EMAIL: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_EMAIL'),
+			API_ONISEP_ACCOUNT_PASSWORD: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_PASSWORD'),
+			API_ONISEP_BASE_URL: ServerConfigurationService.getOrThrowError('API_ONISEP_BASE_URL'),
 			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
 			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
@@ -89,6 +92,8 @@ export interface EnvironmentVariables {
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
 	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
 	readonly API_ONISEP_BASE_URL: string
+	readonly API_ONISEP_ACCOUNT_EMAIL: string
+	readonly API_ONISEP_ACCOUNT_PASSWORD: string
 	readonly API_POLE_EMPLOI_OFFRES_URL: string
 	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
@@ -99,7 +104,6 @@ export interface EnvironmentVariables {
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
-	readonly ONISEP_API_BASE_URL: string
 	readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
 	readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
 	readonly POLE_EMPLOI_CONNECT_SCOPE: string
