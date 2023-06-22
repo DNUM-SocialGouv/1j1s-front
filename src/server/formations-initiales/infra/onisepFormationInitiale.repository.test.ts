@@ -1,8 +1,8 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
+import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import { aFormationInitialeResponse } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 import {
-	FormationInitialeApiResponse,
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -11,32 +11,6 @@ import {
 	anAuthenticatedHttpClientService,
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-
-function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
-	return {
-		libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-		...override,
-	};
-}
-
-function aFormationInitialeResponse(override?: Partial<FormationInitialeApiResponse>): FormationInitialeApiResponse {
-	return {
-		code_nsf: '110',
-		code_rncp: '',
-		'domainesous-domaine': 'mécanique/automatismes | sciences/chimie | électricité, électronique, robotique/électronique | électricité, électronique, robotique/électrotechnique | mécanique/mécanique (généralités) | sciences/physique | électricité, électronique, robotique/télécommunications',
-		duree: '1 an',
-		libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-		libelle_niveau_de_certification: 'niveau 5 (bac + 2)',
-		libelle_type_formation: 'classe préparatoire scientifique et technologique',
-		niveau_de_certification: '3',
-		niveau_de_sortie_indicatif: 'Bac + 2',
-		sigle_formation: '',
-		sigle_type_formation: 'CPGE',
-		tutelle: "Ministère chargé de l'Enseignement supérieur et de la Recherche",
-		url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
-		...override,
-	};
-}
 
 describe('onisep formation initiales repository', () => {
 	describe('search', () => {
