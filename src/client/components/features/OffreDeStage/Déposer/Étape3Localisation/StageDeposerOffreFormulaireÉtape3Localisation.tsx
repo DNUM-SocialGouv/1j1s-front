@@ -144,18 +144,18 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			étape="Etape 3 sur 3 : Localisation du stage"
 			urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
 		>
-			<FormulaireLocalisation/>
+			<FormulaireLocalisation />
 		</FormulaireÉtapeLayout>
 	);
 };
 
 function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposee.Localisation {
 	return {
-		adresse: formData.get(Localisation.ADRESSE),
-		codePostal: formData.get(Localisation.CODE_POSTAL),
-		departement: formData.get(Localisation.DEPARTEMENT),
-		pays: formData.get(Localisation.PAYS),
-		region: formData.get(Localisation.REGION),
-		ville: formData.get(Localisation.VILLE),
-	} as OffreDeStageDeposee.Localisation;
+		adresse: String(formData.get(Localisation.ADRESSE)),
+		codePostal: String(formData.get(Localisation.CODE_POSTAL)),
+		departement: String(formData.get(Localisation.DEPARTEMENT)),
+		pays: String(formData.get(Localisation.PAYS)),
+		region: String(formData.get(Localisation.REGION)),
+		ville: String(formData.get(Localisation.VILLE)),
+	};
 }

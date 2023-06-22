@@ -12,16 +12,16 @@ export const aFormulaireÉtapeEntreprise = (): OffreDeStageDeposee.Entreprise =>
 	};
 };
 
-// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export const aFormulaireÉtapeStage = (): OffreDeStageDeposee.Stage => {
 	return {
+		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 		dateDeDebut: '2123-01-20',
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
-		dateDeDebutPrecise: 'true',
 		descriptionOffre: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor eu augue ut lectus arcu bibendum. Curabitur gravida arcu ac tortor dignissim convallis aenean. Adipiscing commodo elit at imperdiet. Ipsum a arcu cursus vitae congue. Sed euismod nisi porta lorem. Facilisis gravida neque convallis a cras semper auctor neque vitae. Ante in nibh mauris cursus. In iaculis nunc sed augue lacus. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.',
 		domaineStage: 'achats' as Domaines,
 		dureeStage: '30',
+		isDateDeDebutPrecise: 'true',
 		lienCandidature: 'oui@non.com',
 		nomOffre: 'Nom Offre',
 		remunerationStage: '1',
@@ -40,9 +40,9 @@ export const aFormulaireÉtapeLocalisation = (): OffreDeStageDeposee.Localisatio
 	};
 };
 
-// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export const aFormulaireEnvoyéPostedValue = () => {
 	return {
+		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 		dateDeDebut: '2123-01-20',
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',

@@ -38,6 +38,18 @@ describe('<Stage />', () => {
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeVisible();
 		});
 
+		it('affiche par défaut le champ date précise de début de stage', () => {
+			render(<Stage />);
+
+			expect(screen.getByLabelText('Date précise du début de stage')).toBeVisible();
+		});
+
+		it('le champ date de début de début de stage a par défaut la valeur "Je connais la date précise du début de stage"', async () => {
+			render(<Stage />);
+
+			expect(screen.getByRole('radio', { name: 'Je connais la date précise du début de stage' })).toBeChecked();
+		});
+
 		it('il voit afficher des champs facultatifs', async () => {
 			const labelDomaineOffreStage = 'Domaine de l’offre de stage';
 			const rémunération = 'Rémunération par mois';
@@ -56,21 +68,16 @@ describe('<Stage />', () => {
 			expect(screen.getByText(télétravailPossible)).toBeValid();
 		});
 
-		it('affiche par défaut le champ date précise de début de stage', () => {
-			render(<Stage />);
 
-			expect(screen.getByLabelText('Indiquez la date précise du début de stage')).toBeVisible();
-		});
-
-		it('affiche les champ date minimum et maximum de début de stage lorsque la deuxième option du champ date de début est sélectionné', () => {
+		it('affiche les champs date minimum et maximum de début de stage lorsque l’option "Je ne connais pas la date précise du début de stage" est sélectionnée', () => {
 			render(<Stage />);
 
 			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 
 			fireEvent.click(radioDatePrecise);
 
-			expect(screen.getByLabelText('Date de début du stage au plus tôt :')).toBeVisible();
-			expect(screen.getByLabelText('Date de début du stage au plus tard :')).toBeVisible();
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toBeVisible();
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeVisible();
 		});
 
 		it('vérifie que le radio bouton de télétravail soit bien sélectionné', () => {
