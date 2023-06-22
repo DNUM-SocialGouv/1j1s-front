@@ -77,7 +77,7 @@ describe('InputAutocomplétionMétier', () => {
 				mockUseRouter({});
 
 				render(
-					<form role="form">
+					<form aria-label="Métier">
 						<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
 							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
 						</DependenciesProvider>
@@ -99,11 +99,9 @@ describe('InputAutocomplétionMétier', () => {
 				mockUseRouter({});
 
 				render(
-					<form role="form">
-						<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
-							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
-						</DependenciesProvider>
-					</form>,
+					<DependenciesProvider alternanceService={alternanceServiceMock} métierService={métierServiceMock}>
+						<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+					</DependenciesProvider>,
 				);
 				const inputAutocomplétionMétier = screen.getByLabelText('Rechercher un métier');
 				await user.type(inputAutocomplétionMétier, 'boulang');

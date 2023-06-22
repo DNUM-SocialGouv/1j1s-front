@@ -91,7 +91,7 @@ export function FormulaireRechercheOffreEmploi() {
 	return (
 		<form
 			ref={rechercheOffreEmploiForm}
-			role="form"
+			aria-label="Rechercher une offre d'emploi"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherOffreEmploiQueryParams}
 		>

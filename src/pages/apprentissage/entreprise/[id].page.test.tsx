@@ -4,14 +4,12 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { axe, toHaveNoViolations } from 'jest-axe';
-
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
-import {checkA11y} from "~/test-utils";
+import { checkA11y } from '~/test-utils';
 
 const siret = '123';
 
@@ -20,7 +18,6 @@ function HeadMock({ children }: { children: React.ReactNode }) {
 	return <>{ReactDOM.createPortal(children, document.head)}</>;
 }
 jest.mock('next/head', () => HeadMock);
-expect.extend(toHaveNoViolations);
 
 describe('<AnnonceAlternanceEntreprisePage />', () => {
 	beforeEach(() => {

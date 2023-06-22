@@ -6,6 +6,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { checkA11y } from '~/test-utils';
 
 import SimulateurOffreAlternant from './index.page';
 
@@ -13,6 +14,12 @@ describe('Apprentissage / Simulateur de rémunération en apprentissage', () => 
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(<SimulateurOffreAlternant />);
+
+		await checkA11y(container);
 	});
 
 	it('affiche un sous-titre de page', () => {

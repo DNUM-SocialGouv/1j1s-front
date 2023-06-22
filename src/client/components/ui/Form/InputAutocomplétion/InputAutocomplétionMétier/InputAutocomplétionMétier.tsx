@@ -181,8 +181,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				<div
 					role="combobox"
 					aria-expanded={suggestionsActive}
-					aria-controls={CONTROL_ID}
-					aria-owns={CONTROL_ID}
+					aria-controls={suggestionsActive ? CONTROL_ID : undefined}
+					aria-owns={suggestionsActive ? CONTROL_ID : undefined}
 					aria-haspopup="listbox"
 					onBlur={handleOnBlur}
 				>
@@ -194,7 +194,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 						name={name}
 						autoComplete="off"
 						aria-autocomplete="list"
-						aria-controls={CONTROL_ID}
+						aria-controls={suggestionsActive ? CONTROL_ID : undefined}
 						aria-activedescendant={inputId.current}
 						value={métierRecherchéInput}
 						onChange={

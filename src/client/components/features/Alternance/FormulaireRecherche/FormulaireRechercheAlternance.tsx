@@ -46,7 +46,7 @@ export function FormulaireRechercheAlternance() {
 			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires</p>
 			<form
 				className={styles.rechercheOffreForm}
-				role="form"
+				aria-label="Rechercher une alternance"
 				onSubmit={updateRechercherAlternanceQueryParams}
 			>
 				<div className={styles.filtresRechercherOffre}>

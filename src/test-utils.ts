@@ -1,5 +1,5 @@
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
-import {RenderResult, within} from '@testing-library/react';
+import { within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 expect.extend(toHaveNoViolations);
