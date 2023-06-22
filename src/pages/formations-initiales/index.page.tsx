@@ -9,27 +9,16 @@ import analytics from '~/pages/formations-initiales/index.analytics';
 import {
 	FormulaireRechercheFormationInitiale
 } from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	RechercherFormationInitiale
+} from '~/client/components/features/FormationInitiale/Rechercher/RechercherFormationInitiale';
 
 export default function FormationsInitialesPage() {
 	useAnalytics(analytics);
 	useReferrer();
 	return (
-		<>
-			<Head
-				title="Rechercher une formation initiale | 1jeune1solution"
-				description="Des milliers de formations pour vous permettre de réaliser votre projet professionnel"
-				robots="index,follow"
-			/>
-			<main id="contenu">
-				<LightHero>
-					<h1>
-						<LightHeroPrimaryText>Des milliers de formations pour vous permettre</LightHeroPrimaryText>
-						<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
-					</h1>
-				</LightHero>
-				<FormulaireRechercheFormationInitiale/>
-			</main>
-		</>
+		<RechercherFormationInitiale/>
 	);
 };
 

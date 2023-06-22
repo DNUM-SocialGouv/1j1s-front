@@ -34,7 +34,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			fireEvent.click(buttonRechercher);
 
-			expect(routerPush).toHaveBeenCalledWith({ query: 'domaine=boulanger&page=1' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'domaine=boulanger' }, undefined, { shallow: true });
 		});
 	});
 	it('rempli automatiquement les champs avec les query params', () => {
