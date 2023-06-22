@@ -45,7 +45,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		triggerChangeEvents();
 		// NOTE (GAFI 22-06-2023): triggerChangeEvents only if value changes, not if the function itself changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [value]);
+	}, [valueState]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
