@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.100.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.0...v3.100.1) (2023-06-22)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to v12.15.0 ([#1507](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1507)) ([8520d5a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8520d5a7890ef6890bed677530c1af8187f10848))
+
 ## [3.100.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.99.2...v3.100.0) (2023-06-22)
 
 
