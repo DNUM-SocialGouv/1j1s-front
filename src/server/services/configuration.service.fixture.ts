@@ -20,6 +20,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
 			API_ONISEP_ACCOUNT_EMAIL: 'email@example.com',
 			API_ONISEP_ACCOUNT_PASSWORD: 'password-test',
+			API_ONISEP_APPLICATION_ID: '123456789',
 			API_ONISEP_BASE_URL: 'https://fake-onisep.fr',
 			API_POLE_EMPLOI_OFFRES_URL: 'https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres',
 			API_POLE_EMPLOI_REFERENTIEL_URL: 'https://api.pole-emploi.io/partenaire/offresdemploi/v2/referentiel',

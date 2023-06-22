@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import { OnisepTokenAgent } from '~/server/formations-initiales/configuration/onisep/onisepTokenAgent';
+import { OnisepTokenAgent } from '~/server/formations-initiales/configuration/tokenAgent/onisepTokenAgent';
 
 describe('Onisep token agent', () => {
 	it('doit récupérer un token sur la bonne url', async () => {

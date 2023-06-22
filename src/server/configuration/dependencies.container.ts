@@ -76,9 +76,10 @@ import {
 	ApiTrajectoiresProStatistiqueErrorManagementService,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistiqueErrorManagementService';
 import {
+	FormationInitialeDependencies,
 	formationInitialeDependenciesContainer,
 } from '~/server/formations-initiales/configuration/dependencies.container';
-import { getApiOnisepConfig } from '~/server/formations-initiales/configuration/onisep/apiOnisepHttpClient.config';
+import { getApiOnisepConfig } from '~/server/formations-initiales/configuration/httpClient/apiOnisepHttpClient.config';
 import {
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
@@ -147,6 +148,7 @@ import {
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
+	formationInitialeDependencies: FormationInitialeDependencies;
 	métierDependencies: MétierDependencies;
 	offreEmploiDependencies: OffresEmploiDependencies;
 	cmsDependencies: CmsDependencies;
