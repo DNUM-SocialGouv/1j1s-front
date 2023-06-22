@@ -68,6 +68,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
 				if (selectedOption) {
 					dispatch(new Actions.SelectOption(selectedOption));
+					event.preventDefault();
 				}
 				break;
 			}

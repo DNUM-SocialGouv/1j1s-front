@@ -441,6 +441,45 @@ describe('<Combobox />', () => {
 			const suggestions = screen.getByRole('listbox', { hidden : true });
 			expect(suggestions).not.toBeVisible();
 		});
+		it('submit le formulaire quand on appuie sur Enter sans sélectionner d’option', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn();
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.click(input);
+			await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+			expect(onSubmit).toHaveBeenCalledTimes(1);
+		});
+		it('ne submit pas le formulaire quand on appuie sur Enter pour sélectionner un option', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn();
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.click(input);
+			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+			await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+			expect(onSubmit).not.toHaveBeenCalled();
+		});
 	});
 
 	it('marque les éléments pas sélectionnés comme tel', async () => {
@@ -584,11 +623,8 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getByRole('listbox', { hidden : true });
 		expect(suggestions).not.toBeVisible();
 	});
-	it.todo('trigger les events quand on click sur une option');
 
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
-	it.todo('enter submits form if not selecting value');
-	it.todo('enter does not submits form if selecting value');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 	it.todo('affiche un bouton qui déplie le menu');
 	it.todo('le bouton est tabindex -1');
