@@ -6,6 +6,9 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/index.analytics';
+import {
+	FormulaireRechercheFormationInitiale
+} from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
 
 export default function FormationsInitialesPage() {
 	useAnalytics(analytics);
@@ -24,6 +27,7 @@ export default function FormationsInitialesPage() {
 						<LightHeroSecondaryText>de réaliser votre projet professionnel</LightHeroSecondaryText>
 					</h1>
 				</LightHero>
+				<FormulaireRechercheFormationInitiale/>
 			</main>
 		</>
 	);
