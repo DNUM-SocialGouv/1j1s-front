@@ -458,7 +458,7 @@ describe('<Combobox />', () => {
 		});
 		it('submit le formulaire quand on appuie sur Enter sans sélectionner d’option', async () => {
 			const user = userEvent.setup();
-			const onSubmit = jest.fn();
+			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
 				<form onSubmit={onSubmit}>
 					<Combobox>
