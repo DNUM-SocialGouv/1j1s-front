@@ -15,7 +15,7 @@ export namespace OffreDeStageDeposee {
 		dateDeDebut: string
 		dateDeDebutMin: string
 		dateDeDebutMax: string
-		dateDeDebutPrecise: 'true' | 'false'
+		isDateDeDebutPrecise: 'true' | 'false'
 		descriptionOffre: string
 		domaineStage?: Domaines
 		dureeStage: string

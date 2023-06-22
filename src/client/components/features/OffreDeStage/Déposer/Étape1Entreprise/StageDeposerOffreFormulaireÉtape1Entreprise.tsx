@@ -131,10 +131,10 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposee.Entreprise {
 	return {
-		descriptionEmployeur: formData.get(Employeur.DESCRIPTION),
-		emailEmployeur: formData.get(Employeur.EMAIL),
-		logoEmployeur: formData.get(Employeur.LOGO),
-		nomEmployeur: formData.get(Employeur.NOM),
-		siteEmployeur: formData.get(Employeur.SITE),
-	} as OffreDeStageDeposee.Entreprise;
+		descriptionEmployeur: String(formData.get(Employeur.DESCRIPTION)),
+		emailEmployeur: String(formData.get(Employeur.EMAIL)),
+		logoEmployeur: String(formData.get(Employeur.LOGO)),
+		nomEmployeur: String(formData.get(Employeur.NOM)),
+		siteEmployeur: String(formData.get(Employeur.SITE)),
+	};
 }

@@ -22,7 +22,7 @@ export class StageService {
 		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 		const formData: OffreDeStageDepot = {
 			dateDeDebut: informationsStage.dateDeDebutMin,
-			dateDeDebutMax: informationsStage.dateDeDebutMax || informationsStage.dateDeDebutMin,
+			dateDeDebutMax: informationsStage.dateDeDebutMax,
 			dateDeDebutMin: informationsStage.dateDeDebutMin,
 			description: informationsStage.descriptionOffre,
 			domaine: informationsStage.domaineStage as Domaines || Domaines.NON_RENSEIGNE,

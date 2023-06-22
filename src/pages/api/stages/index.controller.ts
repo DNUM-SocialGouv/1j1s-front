@@ -9,9 +9,9 @@ import { dependencies } from '~/server/start';
 
 // TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 export const enregistrerOffreDeStageBodySchema = Joi.object({
-	dateDeDebut: Joi.string(),
-	dateDeDebutMax: Joi.string(),
-	dateDeDebutMin: Joi.string(),
+	dateDeDebut: Joi.string().required(),
+	dateDeDebutMax: Joi.string().required(),
+	dateDeDebutMin: Joi.string().required(),
 	description: Joi.string().min(200).required(),
 	domaine: Joi.string(),
 	duree: Joi.string(),
