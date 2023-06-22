@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.100.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.99.2...v3.100.0) (2023-06-22)
+
+
+### 👷 Autres changements
+
+* **main:** release 3.99.2 ([98756a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/98756a9972edb45b829c7d2a204d4dcf2f45e526))
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **logement:** afficher 'non renseigné' lorsque le nombre de pièces est 0 ([#1512](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1512)) ([e1f1ad9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1f1ad98c2e50dd5a5a7f392544d4ae9d8cebf75))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update nextjs monorepo to v13.4.7 ([ec62cba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ec62cba6a2f73cd6554b0506e3b43d00d048cfb1))
+
 ## [3.99.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.99.1...v3.99.2) (2023-06-22)
 
 
