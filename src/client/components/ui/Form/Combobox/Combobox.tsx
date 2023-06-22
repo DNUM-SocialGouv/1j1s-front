@@ -48,12 +48,15 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [valueState]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+		console.log(event.key);
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
+			case KeyBoard.IE_ARROW_UP:
 				dispatch(new Actions.PreviousOption());
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
+			case KeyBoard.IE_ARROW_DOWN:
 				if (event.altKey) {
 					dispatch(new Actions.OpenList());
 				} else {
@@ -62,6 +65,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				event.preventDefault();
 				break;
 			case KeyBoard.ESCAPE:
+			case KeyBoard.IE_ESCAPE:
 				dispatch(new Actions.CloseList());
 				break;
 			case KeyBoard.ENTER: {

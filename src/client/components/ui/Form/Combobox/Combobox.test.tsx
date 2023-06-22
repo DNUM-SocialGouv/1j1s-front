@@ -692,7 +692,6 @@ describe('<Combobox />', () => {
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 	it.todo('handle value != label on option');
-	it.todo('est compatible IE (keyboard key names)');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
 	it.todo('gérer les children qui ne sont pas des Option');
