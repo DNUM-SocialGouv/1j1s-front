@@ -35,6 +35,14 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+	export class ToggleList implements ComboboxAction {
+		execute(previousState: ComboboxState): ComboboxState {
+			const { open } = previousState;
+			return open
+				? new CloseList().execute(previousState)
+				: new OpenList().execute(previousState);
+		}
+	}
 	export class NextOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList, value } = previousState;

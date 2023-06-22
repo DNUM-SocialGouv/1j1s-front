@@ -94,6 +94,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					aria-activedescendant={activeDescendant}
 					value={value}
 					onChange={onChange} />
+				<button onClick={() => dispatch(new Actions.ToggleList())} tabIndex={-1}>Déplier</button>
 				<ul role="listbox" hidden={!open} ref={listboxRef}>
 					{children}
 				</ul>

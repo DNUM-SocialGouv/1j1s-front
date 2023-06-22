@@ -139,6 +139,21 @@ describe('<Combobox />', () => {
 			const input = screen.getByRole('textbox');
 			expect(input).toHaveValue('test');
 		});
+		it('accepte du JSX en children des options', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox>
+					<Combobox.Option>Option <strong>1</strong></Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.click(input);
+			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+			await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+			expect(input).toHaveValue('Option 1');
+		});
 	});
 
 	it('masque la liste de suggestions par défaut', () => {
@@ -623,18 +638,65 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getByRole('listbox', { hidden : true });
 		expect(suggestions).not.toBeVisible();
 	});
+	it('affiche un bouton qui déplie le menu', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+
+		const suggestions = screen.getByRole('listbox');
+		expect(suggestions).toBeVisible();
+	});
+	it('affiche un bouton qui replie le menu quand le menu est déplié', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+		await user.click(button);
+
+		const suggestions = screen.getByRole('listbox', { hidden: true });
+		expect(suggestions).not.toBeVisible();
+	});
+	it('enlève le bouton qui déplie la liste du tab order', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const input = screen.getByRole('textbox');
+		await user.click(input);
+		await user.tab();
+
+		const button = screen.getByRole('button');
+		expect(button).not.toHaveFocus();
+	});
 
 	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
-	it.todo('affiche un bouton qui déplie le menu');
-	it.todo('le bouton est tabindex -1');
 	it.todo('handle value != label on option');
 	it.todo('est compatible IE (keyboard key names)');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
 	it.todo('gérer les children qui ne sont pas des Option');
 	it.todo('gérer les catégories');
-	it.todo('Gérer Options qui ont du HTML en enfant (e.g. <Option>value <em>test</em></Option>) (devrait être totomatique)');
 	it.todo('styliser le composant');
 	it.todo('validation de la valeur avec liste des options');
 });
