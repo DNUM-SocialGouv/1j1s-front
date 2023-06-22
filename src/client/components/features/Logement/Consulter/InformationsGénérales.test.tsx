@@ -114,14 +114,26 @@ describe('<InformationsGénérales />', () => {
 				});
 			});
 		});
-		it('affiche le nombre de pièces', async () => {
-			const annonce = anAnnonceDeLogement();
-			annonce.nombreDePièces = 2;
-			render(<InformationsGénérales annonce={annonce} />);
+		describe('concernant le nombre de pièces', () => {
+			it('affiche le nombre de pièces lorsque le nombre de pièces est supérieur à 0', async () => {
+				const annonce = anAnnonceDeLogement();
+				annonce.nombreDePièces = 2;
+				render(<InformationsGénérales annonce={annonce}/>);
 
-			const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
-			expect(piècesRow).toHaveTextContent(/2/i);
+				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
+				expect(piècesRow).toHaveTextContent(/2/i);
+			});
+			it('affiche le message attendu lorsque le nombre de pièces est 0', async () => {
+				const annonce = anAnnonceDeLogement();
+				annonce.nombreDePièces = 0;
+				render(<InformationsGénérales annonce={annonce}/>);
+
+				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
+				expect(piècesRow).toHaveTextContent(/non renseigné/i);
+
+			});
 		});
+
 		it("affiche l'étage", async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 2;
