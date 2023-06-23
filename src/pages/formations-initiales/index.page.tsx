@@ -1,18 +1,12 @@
 import { GetServerSidePropsResult } from 'next';
 import React from 'react';
 
-import { Head } from '~/client/components/head/Head';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import {
+	RechercherFormationInitiale,
+} from '~/client/components/features/FormationInitiale/Rechercher/RechercherFormationInitiale';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/index.analytics';
-import {
-	FormulaireRechercheFormationInitiale
-} from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
-import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	RechercherFormationInitiale
-} from '~/client/components/features/FormationInitiale/Rechercher/RechercherFormationInitiale';
 
 export default function FormationsInitialesPage() {
 	useAnalytics(analytics);
