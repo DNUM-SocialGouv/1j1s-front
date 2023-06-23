@@ -12,7 +12,10 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FormationService } from '~/client/services/formation/formation.service';
-import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
+import {
+	FormationInitialeInterface,
+	FormationInitialeService,
+} from '~/client/services/formationInitiale/formationInitiale.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import {
 	LesEntreprisesSEngagentService,
@@ -35,7 +38,7 @@ export type Dependencies = {
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
-	formationInitialeService: FormationInitialeService
+	formationInitialeService: FormationInitialeInterface
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
 	missionEngagementService: MissionEngagementService

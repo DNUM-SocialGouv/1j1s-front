@@ -19,7 +19,6 @@ import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQu
 import empty from '~/client/utils/empty';
 import { Erreur } from '~/server/errors/erreur.types';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE } from '~/server/offres/domain/offre';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -50,7 +49,7 @@ export function RechercherFormationInitiale() {
 						setResultatList(response.result);
 					} else {
 						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-						setErreurRecherche(response.errorType)
+						setErreurRecherche(response.errorType);
 					}
 					setIsLoading(false);
 				});

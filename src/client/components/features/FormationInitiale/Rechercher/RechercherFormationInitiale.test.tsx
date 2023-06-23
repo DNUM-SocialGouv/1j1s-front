@@ -10,8 +10,11 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aFormationService } from '~/client/services/formation/formation.service.fixture';
-import { aFormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
+import {
+	aFormationInitialeService,
+	aResultatListFormationInitiale,
+} from '~/client/services/formationInitiale/formationInitiale.service.fixture';
+import { createSuccess } from '~/server/errors/either';
 
 describe('RechercherFormationInitiale', () => {
 	beforeEach(() => {
@@ -26,10 +29,16 @@ describe('RechercherFormationInitiale', () => {
 			});
 			const aFormationService = aFormationInitialeService();
 
+			const resultRechercheFormation = createSuccess([aResultatListFormationInitiale({ libelle: 'boulanger' }),
+				aResultatListFormationInitiale({ libelle: 'patissier' })]);
+			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
+
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale/>
 			</DependenciesProvider>,
 			);
+
+			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledTimes(1);
 
 			expect(screen.getByText(/[0-9]+ formations/)).toBeVisible();
 		});
@@ -41,6 +50,8 @@ describe('RechercherFormationInitiale', () => {
 			});
 
 			const aFormationService = aFormationInitialeService();
+			const resultRechercheFormation = createSuccess([]);
+			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale/>
@@ -56,13 +67,15 @@ describe('RechercherFormationInitiale', () => {
 				},
 			});
 			const aFormationService = aFormationInitialeService();
+			const resultRechercheFormation = createSuccess([aResultatListFormationInitiale({ libelle: 'boulanger' })]);
+			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale/>
 			</DependenciesProvider>,
 			);
 
-			expect(screen.queryByText(/1 formation/)).toBeVisible();
+			expect(screen.getByText(/1 formation/)).toBeVisible();
 		});
 	});
 });

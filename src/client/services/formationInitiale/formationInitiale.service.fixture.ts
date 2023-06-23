@@ -3,7 +3,7 @@ import { FormationInitiale } from '~/server/formations-initiales/domain/formatio
 
 import { FormationInitialeInterface } from './formationInitiale.service';
 
-export function aResultatListFormationInitiale (override?: Partial<FormationInitiale>): FormationInitiale {
+export function aResultatListFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
 		libelle: 'Formation Boulanger Chez Pierre Hermé',
 		...override,
