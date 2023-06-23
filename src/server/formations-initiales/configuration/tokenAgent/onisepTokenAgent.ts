@@ -18,10 +18,10 @@ export class OnisepTokenAgent implements TokenAgent {
 		const response = await axios.post<OnisepLoginResponse>(
 			this.apiAuthenticationUrl,
 			{
-				body: {
-					email: this.email,
-					password: this.password,
-				},
+				email: this.email,
+				password: this.password,
+			},
+			{
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			},
 		);

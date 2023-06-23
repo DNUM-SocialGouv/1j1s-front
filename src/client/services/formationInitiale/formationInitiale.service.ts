@@ -1,5 +1,6 @@
 import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
-import { createSuccess, Either } from '~/server/errors/either';
+import { HttpClientService } from '~/client/services/httpClient.service';
+import { Either } from '~/server/errors/either';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 
 export interface FormationInitialeInterface {
@@ -7,14 +8,9 @@ export interface FormationInitialeInterface {
 }
 
 export class FormationInitialeService implements FormationInitialeInterface {
+	constructor(private readonly httpClient: HttpClientService) {}
+
 	async rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>> {
-		return createSuccess([
-			{
-				libelle: 'Formation numero 1!!!',
-			},
-			{
-				libelle: 'Formation numero 2!!!',
-			},
-		]);
+		return await this.httpClient.get<Array<FormationInitiale>>('formations-initiales' );
 	}
 }

@@ -9,7 +9,7 @@ export function getApiOnisepConfig(configurationService: ConfigurationService): 
 	const onisepApplicationId = configurationService.getConfiguration().API_ONISEP_APPLICATION_ID;
 
 	return {
-		apiHeaders: { applicationId: onisepApplicationId },
+		apiHeaders: { 'Application-ID': onisepApplicationId },
 		apiName: 'API_ONISEP',
 		apiUrl: configurationService.getConfiguration().API_ONISEP_BASE_URL,
 		tokenAgent: new OnisepTokenAgent(authenticationUrl, authenticationEmail, authenticationPassword),
