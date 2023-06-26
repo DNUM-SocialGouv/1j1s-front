@@ -721,47 +721,6 @@ describe('<Combobox />', () => {
 		const button = screen.getByRole('button');
 		expect(button).not.toHaveFocus();
 	});
-	it('marque le combobox comme étendu lorsque la liste est affichée', async () => {
-		const user = userEvent.setup();
-		render(
-			<Combobox>
-				<Combobox.Option>Option 1</Combobox.Option>
-				<Combobox.Option>Option 2</Combobox.Option>
-				<Combobox.Option>Option 3</Combobox.Option>
-			</Combobox>,
-		);
-
-		const button = screen.getByRole('button');
-		await user.click(button);
-
-		const combobox = screen.getByRole('combobox');
-		expect(combobox).toHaveAttribute('aria-expanded', 'true');
-	});
-	it('marque le combobox comme replié lorsque la liste est masquée', async () => {
-		render(
-			<Combobox>
-				<Combobox.Option>Option 1</Combobox.Option>
-				<Combobox.Option>Option 2</Combobox.Option>
-				<Combobox.Option>Option 3</Combobox.Option>
-			</Combobox>,
-		);
-
-		const combobox = screen.getByRole('combobox');
-		expect(combobox).toHaveAttribute('aria-expanded', 'false');
-	});
-	it('marque le combobox comme contrôleur de la liste', async () => {
-		render(
-			<Combobox>
-				<Combobox.Option>Option 1</Combobox.Option>
-				<Combobox.Option>Option 2</Combobox.Option>
-				<Combobox.Option>Option 3</Combobox.Option>
-			</Combobox>,
-		);
-
-		const combobox = screen.getByRole('combobox');
-		const liste = screen.getByRole('listbox', { hidden: true });
-		expect(combobox).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
-	});
 	it('génère un id unique pour la liste', () => {
 		render(
 			<>
@@ -778,12 +737,69 @@ describe('<Combobox />', () => {
 		expect(listes[0].id).not.toEqual(listes[1].id);
 	});
 
+	describe('attributs ARIA', () => {
+		it('marque le combobox comme étendu lorsque la liste est affichée', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			await user.click(button);
+
+			const combobox = screen.getByRole('combobox');
+			expect(combobox).toHaveAttribute('aria-expanded', 'true');
+		});
+		it('marque le combobox comme replié lorsque la liste est masquée', async () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			expect(combobox).toHaveAttribute('aria-expanded', 'false');
+		});
+		it('marque le combobox comme contrôleur de la liste', async () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			const liste = screen.getByRole('listbox', { hidden: true });
+			expect(combobox).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
+		});
+		it('marque le combobox comme autocomplété par une liste', () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			expect(combobox).toHaveAttribute('aria-autocomplete', 'list');
+		});
+	});
+
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
-	it.todo('handle value != label on option');
-	it.todo('gérer les children qui ne sont pas des Option');
 	it.todo('styliser le composant');
+
+	it.todo('handle value != label on option');
+	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
 });

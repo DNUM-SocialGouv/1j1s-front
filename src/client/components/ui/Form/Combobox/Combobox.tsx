@@ -98,6 +98,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 				<input
 					role="combobox"
 				 	aria-expanded={open}
+					aria-autocomplete="list"
 					{...inputProps}
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
