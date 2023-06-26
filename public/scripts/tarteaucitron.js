@@ -17,7 +17,7 @@ var scripts = document.getElementsByTagName('script'),
 
 
 var tarteaucitron = {
-    "version": 20230613,
+    "version": 20230628,
     "cdn": cdn,
     "user": {},
     "lang": {},
@@ -1698,12 +1698,20 @@ var tarteaucitron = {
                 }
             } else if (nb === 0) {
                 html = tarteaucitron.lang.noCookie;
+                if (key === 'adform') {
+                    html += tarteaucitron.lang.adform;
+                }
             } else {
                 html += tarteaucitron.lang.useCookie + ' ' + nb + ' cookie';
                 if (nb > 1) {
                     html += 's';
                 }
                 html += '.';
+                if (key === 'eulerian') {
+                    html += tarteaucitron.lang.eulerian;
+                } else if (key === 'youtube') {
+                    html += tarteaucitron.lang.youtube;
+                }
             }
 
             if (document.getElementById('tacCL' + key) !== null) {
