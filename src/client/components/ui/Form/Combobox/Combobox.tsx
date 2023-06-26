@@ -24,6 +24,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	value: valueProps,
 	defaultValue,
 	className,
+	'aria-controls': ariaControls,
 	...inputProps
 }, inputOuterRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
@@ -34,6 +35,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	);
 	const { open, activeDescendant, value: valueState } = state;
 	const value = valueProps?.toString() ?? valueState;
+	const listboxId = useId();
 
 	const triggerChangeEvents = useCallback(function triggerChangeEvents() {
 		if (inputRef.current) {
@@ -97,13 +99,14 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					role="combobox"
 				 	aria-expanded={open}
 					{...inputProps}
+					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
 					onKeyDown={onKeyDown}
 					aria-activedescendant={activeDescendant}
 					value={value}
 					onChange={onChange} />
 				<button onClick={() => dispatch(new Actions.ToggleList())} tabIndex={-1}>Déplier</button>
-				<ul role="listbox" hidden={!open} ref={listboxRef}>
+				<ul role="listbox" id={listboxId} hidden={!open} ref={listboxRef}>
 					{children}
 				</ul>
 			</div>

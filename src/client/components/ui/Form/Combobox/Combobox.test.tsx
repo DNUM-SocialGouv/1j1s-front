@@ -165,6 +165,28 @@ describe('<Combobox />', () => {
 			// eslint-disable-next-line testing-library/no-node-access
 			expect(container.firstChild).toHaveAttribute('class', expect.stringContaining('test'));
 		});
+		it('merge la valeur pour aria-controls donné en props avec celle requise pour la liste', () => {
+			render(
+				<Combobox aria-controls="test">
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			const liste = screen.getByRole('listbox', { hidden: true });
+			expect(combobox).toHaveAttribute('aria-controls', expect.stringContaining('test'));
+			expect(combobox).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
+		});
+		it('n’ajoute pas undefined à la liste des aria-controls quand pas passé en props', () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			expect(combobox).not.toHaveAttribute('aria-controls', expect.stringContaining('undefined'));
+		});
 	});
 
 	it('masque la liste de suggestions par défaut', () => {
@@ -726,6 +748,34 @@ describe('<Combobox />', () => {
 
 		const combobox = screen.getByRole('combobox');
 		expect(combobox).toHaveAttribute('aria-expanded', 'false');
+	});
+	it('marque le combobox comme contrôleur de la liste', async () => {
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const combobox = screen.getByRole('combobox');
+		const liste = screen.getByRole('listbox', { hidden: true });
+		expect(combobox).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
+	});
+	it('génère un id unique pour la liste', () => {
+		render(
+			<>
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>
+			</>,
+		);
+
+		const listes = screen.getAllByRole('listbox', { hidden: true });
+		expect(listes[0].id).not.toEqual(listes[1].id);
 	});
 
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
