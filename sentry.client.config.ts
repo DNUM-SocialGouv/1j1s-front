@@ -17,7 +17,6 @@ const releaseName = (environnement = process.env) => {
 	}
 	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
 };
-
 Sentry.init({
 	beforeSend(event) {
 		if(!SEND_DATA) {
@@ -40,13 +39,6 @@ Sentry.init({
 	initialScope: {
 		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
 	},
-	integrations: [
-		new Sentry.Integrations.RequestData({
-			include: {
-				ip: true,
-			},
-		}),
-	],
 	release: releaseName(),
 	sendClientReports: SEND_DATA,
 	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),

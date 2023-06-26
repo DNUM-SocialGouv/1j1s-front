@@ -40,7 +40,15 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 	initialScope: {
 		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
 	},
+	integrations: [
+		new Sentry.Integrations.RequestData({
+			include: {
+				ip: true,
+			},
+		}),
+	],
 	release: releaseName(),
 	sendClientReports: SEND_DATA,
 	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
+
 });
