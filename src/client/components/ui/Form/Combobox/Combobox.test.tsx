@@ -791,6 +791,46 @@ describe('<Combobox />', () => {
 			const combobox = screen.getByRole('combobox');
 			expect(combobox).toHaveAttribute('aria-autocomplete', 'list');
 		});
+		it('marque le bouton comme étendu lorsque la liste est affichée', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			await user.click(button);
+
+			expect(button).toHaveAttribute('aria-expanded', 'true');
+		});
+		it('marque le bouton comme replié lorsque la liste est masquée', async () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			expect(button).toHaveAttribute('aria-expanded', 'false');
+		});
+		it('marque le bouton comme contrôleur de la liste', async () => {
+			render(
+				<Combobox>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			const liste = screen.getByRole('listbox', { hidden: true });
+			expect(button).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
+		});
 	});
 
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
@@ -798,6 +838,7 @@ describe('<Combobox />', () => {
 	it.todo('n’écrase pas les props');
 	it.todo('styliser le composant');
 
+	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('validation de la valeur avec liste des options');
