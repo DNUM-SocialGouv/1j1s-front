@@ -13,7 +13,7 @@ import { Combobox } from './Combobox';
 describe('<Combobox />', () => {
 	it('affiche un input', () => {
 		render(
-			<Combobox>
+			<Combobox aria-label="Test">
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -30,7 +30,7 @@ describe('<Combobox />', () => {
 			const ref = jest.fn();
 
 			render(
-				<Combobox ref={ref}>
+				<Combobox aria-label='Test' ref={ref}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -42,7 +42,7 @@ describe('<Combobox />', () => {
 		});
 		it('accepte les props d’un input', () => {
 			render(
-				<Combobox disabled>
+				<Combobox aria-label='Test' disabled>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -56,7 +56,7 @@ describe('<Combobox />', () => {
 			const onKeyDown = jest.fn();
 			const user = userEvent.setup();
 			render(
-				<Combobox onKeyDown={onKeyDown}>
+				<Combobox aria-label='Test' onKeyDown={onKeyDown}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -75,7 +75,7 @@ describe('<Combobox />', () => {
 			const onChange = jest.fn();
 			const onInput = jest.fn();
 			render(
-				<Combobox onChange={onChange} onInput={onInput}>
+				<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -95,7 +95,7 @@ describe('<Combobox />', () => {
 			const onChange = jest.fn();
 			const onInput = jest.fn();
 			render(
-				<Combobox onChange={onChange} onInput={onInput}>
+				<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -112,7 +112,7 @@ describe('<Combobox />', () => {
 		it('accepte une value', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox value="test" onChange={() => null}>
+				<Combobox aria-label='Test' value="test" onChange={() => null}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -129,7 +129,7 @@ describe('<Combobox />', () => {
 		});
 		it('accepte une defaultValue', () => {
 			render(
-				<Combobox defaultValue="test">
+				<Combobox aria-label='Test' defaultValue="test">
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -142,7 +142,7 @@ describe('<Combobox />', () => {
 		it('accepte du JSX en children des options', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option <strong>1</strong></Combobox.Option>
 				</Combobox>,
 			);
@@ -156,7 +156,7 @@ describe('<Combobox />', () => {
 		});
 		it('accepte un classname pour styliser tout le composant', () => {
 			const { container } = render(
-				<Combobox className="test">
+				<Combobox aria-label='Test' className="test">
 					<Combobox.Option>Option</Combobox.Option>
 				</Combobox>,
 			);
@@ -167,7 +167,7 @@ describe('<Combobox />', () => {
 		});
 		it('merge la valeur pour aria-controls donné en props avec celle requise pour la liste', () => {
 			render(
-				<Combobox aria-controls="test">
+				<Combobox aria-label='Test' aria-controls="test">
 					<Combobox.Option>Option 1</Combobox.Option>
 				</Combobox>,
 			);
@@ -179,7 +179,7 @@ describe('<Combobox />', () => {
 		});
 		it('n’ajoute pas undefined à la liste des aria-controls quand pas passé en props', () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 				</Combobox>,
 			);
@@ -191,7 +191,7 @@ describe('<Combobox />', () => {
 
 	it('masque la liste de suggestions par défaut', () => {
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -206,7 +206,7 @@ describe('<Combobox />', () => {
 		it('affiche la liste de suggestions quand on appuie sur la flèche du bas', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -225,7 +225,7 @@ describe('<Combobox />', () => {
 		it('focus le premier élément de la liste quand on appuie sur la flèche du bas et que la liste est fermée', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -243,7 +243,7 @@ describe('<Combobox />', () => {
 		it('focus l’élément suivant de la liste quand on appuie sur la flèche du bas', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -262,7 +262,7 @@ describe('<Combobox />', () => {
 		it('revient au début de la liste quand on appuie sur la flèche du bas sur le dernier élément', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -283,7 +283,7 @@ describe('<Combobox />', () => {
 		it('affiche la liste de suggestions quand on appuie sur la flèche du haut', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -302,7 +302,7 @@ describe('<Combobox />', () => {
 		it('focus le dernier élément de la liste quand on appuie sur la flèche du haut et que la liste est fermée', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -320,7 +320,7 @@ describe('<Combobox />', () => {
 		it('focus l’élément précédent de la liste quand on appuie sur la flèche du haut', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -339,7 +339,7 @@ describe('<Combobox />', () => {
 		it('revient à la fin de la liste quand on appuie sur la flèche du haut sur le premier élément', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -358,7 +358,7 @@ describe('<Combobox />', () => {
 		it('masque la liste quand on appuie sur Escape', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -376,7 +376,7 @@ describe('<Combobox />', () => {
 		it('reset la selection quand on appuie sur Escape', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -397,7 +397,7 @@ describe('<Combobox />', () => {
 		it('ouvre la liste sans focus le premier élément quand on appuie sur Alt et flèche du bas', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -420,7 +420,7 @@ describe('<Combobox />', () => {
 			const user = userEvent.setup();
 			const onKeyDown = jest.fn();
 			render(
-				<Combobox onKeyDown={onKeyDown}>
+				<Combobox aria-label='Test' onKeyDown={onKeyDown}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -440,7 +440,7 @@ describe('<Combobox />', () => {
 			const user = userEvent.setup();
 			const onKeyDown = jest.fn();
 			render(
-				<Combobox onKeyDown={onKeyDown}>
+				<Combobox aria-label='Test' onKeyDown={onKeyDown}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -457,7 +457,7 @@ describe('<Combobox />', () => {
 		it('change la valeur de l’input quand on appuie sur Enter avec le focus sur un élément', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -474,7 +474,7 @@ describe('<Combobox />', () => {
 		it('ferme la liste quand on sélectionne une valeur', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -494,7 +494,7 @@ describe('<Combobox />', () => {
 			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
 				<form onSubmit={onSubmit}>
-					<Combobox>
+					<Combobox aria-label='Test'>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -513,7 +513,7 @@ describe('<Combobox />', () => {
 			const onSubmit = jest.fn();
 			render(
 				<form onSubmit={onSubmit}>
-					<Combobox>
+					<Combobox aria-label='Test'>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -532,7 +532,7 @@ describe('<Combobox />', () => {
 
 	it('marque les éléments pas sélectionnés comme tel', async () => {
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -551,7 +551,7 @@ describe('<Combobox />', () => {
 		it('ouvre la liste quand on commence à taper dans le champ', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -567,7 +567,7 @@ describe('<Combobox />', () => {
 		it('filtre la liste quand on tape dans le champ', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -585,7 +585,7 @@ describe('<Combobox />', () => {
 		it('skip les options masquées quand on passe à l’option suivante', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -603,7 +603,7 @@ describe('<Combobox />', () => {
 		it('skip les options masquées quand on passe à l’option précédente', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -621,7 +621,7 @@ describe('<Combobox />', () => {
 		it('ignore la casse quand les options sont filtrées', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>ABC</Combobox.Option>
 					<Combobox.Option>abc</Combobox.Option>
 					<Combobox.Option>Abc</Combobox.Option>
@@ -639,7 +639,7 @@ describe('<Combobox />', () => {
 	it('change la valeur de l’input quand on clique sur une option', async () => {
 		const user = userEvent.setup();
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -656,7 +656,7 @@ describe('<Combobox />', () => {
 	it('ferme la liste quand on clique sur une option', async () => {
 		const user = userEvent.setup();
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -674,7 +674,7 @@ describe('<Combobox />', () => {
 	it('affiche un bouton qui déplie le menu', async () => {
 		const user = userEvent.setup();
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -690,7 +690,7 @@ describe('<Combobox />', () => {
 	it('affiche un bouton qui replie le menu quand le menu est déplié', async () => {
 		const user = userEvent.setup();
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -707,7 +707,7 @@ describe('<Combobox />', () => {
 	it('enlève le bouton qui déplie la liste du tab order', async () => {
 		const user = userEvent.setup();
 		render(
-			<Combobox>
+			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
 				<Combobox.Option>Option 2</Combobox.Option>
 				<Combobox.Option>Option 3</Combobox.Option>
@@ -724,10 +724,10 @@ describe('<Combobox />', () => {
 	it('génère un id unique pour la liste', () => {
 		render(
 			<>
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 				</Combobox>
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 				</Combobox>
 			</>,
@@ -741,7 +741,7 @@ describe('<Combobox />', () => {
 		it('marque le combobox comme étendu lorsque la liste est affichée', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -756,7 +756,7 @@ describe('<Combobox />', () => {
 		});
 		it('marque le combobox comme replié lorsque la liste est masquée', async () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -768,7 +768,7 @@ describe('<Combobox />', () => {
 		});
 		it('marque le combobox comme contrôleur de la liste', async () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -781,7 +781,7 @@ describe('<Combobox />', () => {
 		});
 		it('marque le combobox comme autocomplété par une liste', () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -794,7 +794,7 @@ describe('<Combobox />', () => {
 		it('marque le bouton comme étendu lorsque la liste est affichée', async () => {
 			const user = userEvent.setup();
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -808,7 +808,7 @@ describe('<Combobox />', () => {
 		});
 		it('marque le bouton comme replié lorsque la liste est masquée', async () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -820,7 +820,7 @@ describe('<Combobox />', () => {
 		});
 		it('marque le bouton comme contrôleur de la liste', async () => {
 			render(
-				<Combobox>
+				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -830,6 +830,68 @@ describe('<Combobox />', () => {
 			const button = screen.getByRole('button');
 			const liste = screen.getByRole('listbox', { hidden: true });
 			expect(button).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
+		});
+		it('ajoute un label à la liste de suggestions avec aria-label', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			await user.click(button);
+
+			const liste = screen.getByRole('listbox', { hidden: true });
+			expect(liste).toHaveAccessibleName('Test');
+		});
+		it('ajoute un label à la liste de suggestions avec aria-labelledby', async () => {
+			const user = userEvent.setup();
+			render(
+				<>
+					<label htmlFor="combobox" id="label-combobox">Test</label>
+					<Combobox id="combobox" aria-labelledby='label-combobox'>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</>,
+			);
+
+			const button = screen.getByRole('button');
+			await user.click(button);
+
+			const liste = screen.getByRole('listbox', { hidden: true });
+			expect(liste).toHaveAccessibleName('Test');
+		});
+		it('ajoute un label au bouton avec aria-label', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			expect(button).toHaveAccessibleName('Test');
+		});
+		it('ajoute un label au bouton avec aria-labelledby', async () => {
+			render(
+				<>
+					<label htmlFor="combobox" id="label-combobox">Test</label>
+					<Combobox id="combobox" aria-labelledby='label-combobox'>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</>,
+			);
+
+			const button = screen.getByRole('button');
+			expect(button).toHaveAccessibleName('Test');
 		});
 	});
 

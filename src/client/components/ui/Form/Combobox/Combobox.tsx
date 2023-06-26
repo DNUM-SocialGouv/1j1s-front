@@ -13,9 +13,15 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Combobox.module.scss';
 
-type ComboboxProps = React.ComponentPropsWithoutRef<'input'> & {
+type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby'> & {
 	children: React.ReactNode,
-};
+} & ({
+	'aria-label': string,
+	'aria-labelledby'?: string,
+} | {
+	'aria-label'?: string,
+	'aria-labelledby': string,
+});
 
 const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
@@ -110,10 +116,18 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					onClick={() => dispatch(new Actions.ToggleList())}
 					tabIndex={-1}
 					aria-controls={listboxId}
-					aria-expanded={open}>
+					aria-expanded={open}
+					aria-labelledby={inputProps['aria-labelledby']}
+					aria-label={inputProps['aria-label']}>
 					Déplier
 				</button>
-				<ul role="listbox" id={listboxId} hidden={!open} ref={listboxRef}>
+				<ul
+					role="listbox"
+					id={listboxId}
+					hidden={!open}
+					ref={listboxRef}
+					aria-labelledby={inputProps['aria-labelledby']}
+					aria-label={inputProps['aria-label']}>
 					{children}
 				</ul>
 			</div>
