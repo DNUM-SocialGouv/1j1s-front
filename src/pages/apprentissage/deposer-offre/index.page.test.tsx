@@ -7,9 +7,22 @@ import { render, screen } from '@testing-library/react';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DeposerOffrePage from '~/pages/apprentissage/deposer-offre/index.page';
+import { checkA11y } from '~/test-utils';
 
 
 describe('deposer-offre', () => {
+	
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<DeposerOffrePage/>
+			</DependenciesProvider>,
+		);
+	
+		await checkA11y(container);
+	});
 	it('contient un titre', () => {
 		const analyticsService = anAnalyticsService();
 		render(

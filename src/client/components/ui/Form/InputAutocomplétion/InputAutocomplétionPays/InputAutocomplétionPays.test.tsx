@@ -24,7 +24,7 @@ describe('InputAutocomplétionPays', () => {
 
 		it('le formulaire doit contenir le code du pays', async () => {
 			render(
-				<form role="form">
+				<form aria-label="Pays">
 					<InputAutocomplétionPays name={'pays'} codePays={codePays}/>
 				</form>,
 			);
@@ -33,9 +33,9 @@ describe('InputAutocomplétionPays', () => {
 		});
 	});
 
-	describe('quand un pays est suggérer', () => {
+	describe('quand un pays est suggéré', () => {
 		it('le code du formulaire est mise à jour', async () => {
-			render(<form role="form">
+			render(<form aria-label="Pays">
 				<InputAutocomplétionPays name={'pays'}/>
 			</form>);
 

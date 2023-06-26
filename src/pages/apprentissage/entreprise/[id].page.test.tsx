@@ -9,6 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
+import { checkA11y } from '~/test-utils';
 
 const siret = '123';
 
@@ -21,6 +22,17 @@ jest.mock('next/head', () => HeadMock);
 describe('<AnnonceAlternanceEntreprisePage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<AnnonceAlternanceEntreprisePage id={siret}/>
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
 	});
 
 	it('le titre du document est correct', async () => {

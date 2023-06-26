@@ -49,7 +49,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 							<dd>{annonce.description}</dd>
 						</div>)}
 					{annonce.compétences && annonce.compétences.length > 0 && (
-						<div>
+						<div className={styles.competences}>
 							<dt>Connaissances et compétences requises</dt>
 							<dd>
 								<ul>
@@ -60,50 +60,48 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 							</dd>
 						</div>
 					)}
-					<div>
-						{annonce.niveauRequis && (
-							<div className={styles.niveauRequis}>
-								<dt>Niveau visé en fin d’études</dt>
-								<dd>{annonce.niveauRequis}</dd>
-							</div>
-						)}
-						{annonce.dateDébut && (
-							<div className={styles.dateDebut}>
-								<dt>Début du contrat</dt>
-								<dd>
-									<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time>
-								</dd>
-							</div>
-						)}
-						{annonce.natureDuContrat && annonce.natureDuContrat.length > 0 && (
-							<div className={styles.natureContrat}>
-								<dt>Nature du contrat</dt>
-								<dd>{annonce.natureDuContrat}</dd>
-							</div>
-						)}
-						{annonce.typeDeContrat && annonce.typeDeContrat.length > 0 && (
-							<div className={styles.typeContrat}>
-								<dt>Type de contrat</dt>
-								<dd>{annonce.typeDeContrat.join(', ')}</dd>
-							</div>
-						)}
-						{annonce.durée && (
-							<div className={styles.duree}>
-								<dt>Durée du contrat</dt>
-								<dd>
-									<time>{annonce.durée}</time>
-								</dd>
-							</div>
-						)}
-						{annonce.rythmeAlternance && (
-							<div className={styles.rythme}>
-								<dt>Rythme de l’alternance</dt>
-								<dd>{annonce.rythmeAlternance}</dd>
-							</div>
-						)}
-					</div>
-					{(annonce.entreprise.téléphone || annonce.entreprise.adresse) && (
-						<div>
+					{annonce.niveauRequis && (
+						<div className={styles.niveauRequis}>
+							<dt>Niveau visé en fin d’études</dt>
+							<dd>{annonce.niveauRequis}</dd>
+						</div>
+					)}
+					{annonce.dateDébut && (
+						<div className={styles.dateDebut}>
+							<dt>Début du contrat</dt>
+							<dd>
+								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time>
+							</dd>
+						</div>
+					)}
+					{annonce.natureDuContrat && annonce.natureDuContrat.length > 0 && (
+						<div className={styles.natureContrat}>
+							<dt>Nature du contrat</dt>
+							<dd>{annonce.natureDuContrat}</dd>
+						</div>
+					)}
+					{annonce.typeDeContrat && annonce.typeDeContrat.length > 0 && (
+						<div className={styles.typeContrat}>
+							<dt>Type de contrat</dt>
+							<dd>{annonce.typeDeContrat.join(', ')}</dd>
+						</div>
+					)}
+					{annonce.durée && (
+						<div className={styles.duree}>
+							<dt>Durée du contrat</dt>
+							<dd>
+								<time>{annonce.durée}</time>
+							</dd>
+						</div>
+					)}
+					{annonce.rythmeAlternance && (
+						<div className={styles.rythme}>
+							<dt>Rythme de l’alternance</dt>
+							<dd>{annonce.rythmeAlternance}</dd>
+						</div>
+					)}
+					{(annonce.entreprise.téléphone || annonce.entreprise.adresse) && ( //TODO remplacer row gap par margin ?
+						<div className={styles.informationsEntreprise}>
 							<dt>Informations sur l’entreprise</dt>
 							<dd>
 								<dl>

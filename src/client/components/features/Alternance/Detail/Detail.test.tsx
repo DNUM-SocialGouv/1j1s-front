@@ -10,7 +10,7 @@ import { aDetailAlternance } from '~/client/components/features/Alternance/Detai
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import * as queries from '~/test-utils';
+import { queries } from '~/test-utils';
 
 describe('<Detail />', () => {
 	beforeEach(() => {

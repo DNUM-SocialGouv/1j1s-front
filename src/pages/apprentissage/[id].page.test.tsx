@@ -10,6 +10,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternancePage, { AlternanceSerialized } from '~/pages/apprentissage/[id].page';
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { checkA11y } from '~/test-utils';
 
 const alternanceSerialized: AlternanceSerialized = {
 	compétences: ['savoir faire'],
@@ -36,6 +37,15 @@ jest.mock('next/head', () => HeadMock);
 describe('<AnnonceAlternancePage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
+		</DependenciesProvider>);
+
+		await checkA11y(container); //TODO FIX + verifier CSS
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {
