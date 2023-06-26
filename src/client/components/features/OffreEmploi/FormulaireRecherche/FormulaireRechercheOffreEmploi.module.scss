@@ -1,5 +1,5 @@
 @use "sass:color";
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .rechercheOffreForm {
   display: flex;
@@ -21,10 +21,10 @@
 .filtresAvancésModalContenu {
 
   & details {
-    border-top: 1px solid lighten(utilities.$color-primary, 15%);
+    border-top: 1px solid lighten(utilities-deprecated.$color-primary, 15%);
 
     &:last-of-type {
-      border-bottom: 1px solid lighten(utilities.$color-primary, 15%);
+      border-bottom: 1px solid lighten(utilities-deprecated.$color-primary, 15%);
     }
   }
 }
@@ -38,11 +38,11 @@
 }
 
 .champsObligatoires {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   margin-block: 1.25rem;
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .rechercheOffreForm {
     flex-direction: row;
     align-items: flex-start;

@@ -1,11 +1,11 @@
-@use '@styles/utilities';
+@use '@styles/utilities-deprecated';
 
 .enqueteBanner {
   @extend %text-small;
   text-align: center;
-  background: utilities.$white-lilac;
-  color: utilities.$color-primary;
-  padding: utilities.pixel-to-rem(20) utilities.pixel-to-rem(8);
+  background: utilities-deprecated.$white-lilac;
+  color: utilities-deprecated.$color-primary;
+  padding: utilities-deprecated.pixel-to-rem(20) utilities-deprecated.pixel-to-rem(8);
 
   & .enqueteLink:hover {
     text-decoration: underline;

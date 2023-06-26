@@ -1,7 +1,7 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
-  background: utilities.$color-cej-background;
+  background: utilities-deprecated.$color-cej-background;
   padding: 48px 0 16px;
 }
 
@@ -14,7 +14,7 @@
 .titre {
   @extend %headline;
   @extend %bold;
-  color: utilities.$color-on-primary;
+  color: utilities-deprecated.$color-on-primary;
   width: 325px;
   margin-bottom: 8px;
   font-size: 1.5rem;
@@ -29,8 +29,8 @@
 
   > li {
     @extend %text-regular;
-    background-color: utilities.$color-surface;
-    max-width: utilities.$breakpoint-xl;
+    background-color: utilities-deprecated.$color-surface;
+    max-width: utilities-deprecated.$breakpoint-xl;
     min-height: 60px;
     display: flex;
     flex-direction: row;
@@ -51,7 +51,7 @@
   border-radius: 50%;
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .section {
     padding: 48px 0;
   }

@@ -1,8 +1,8 @@
-@use '@styles/utilities';
+@use '@styles/utilities-deprecated';
 
 .preparationApprentissage {
   & .contenu {
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       display: grid;
       grid-template-areas:
              "titleChoixApprentissage titlePrepaApprentissage"
@@ -17,16 +17,16 @@
       padding: 1.75rem 1rem;
       display: flex;
       flex-direction: column;
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         padding: 0;
         display: contents;
       }
     }
 
     & .choixApprentissage{
-      background-color: utilities.$color-background-white-lilac;
-      @include utilities.media(large) {
-        background-color: utilities.$color-background;
+      background-color: utilities-deprecated.$color-background-white-lilac;
+      @include utilities-deprecated.media(large) {
+        background-color: utilities-deprecated.$color-background;
       }
       }
 
@@ -34,14 +34,14 @@
       max-width: 60ch;
       width: 100%;
       margin: 1.25rem auto 0 auto;
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         margin: 0;
       }
     }
 
     & .linkContainerChoixApprentissage {
       display: contents;
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         display: flex;
         flex-direction: column;
         margin: 0 auto;
@@ -54,7 +54,7 @@
       flex-direction: column;
       gap: 1.5rem;
 
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         grid-area: linkChoixApprentissage;
         max-width: fit-content;
         justify-self: center;
@@ -74,7 +74,7 @@
       grid-area: linkPrepaApprentissage;
       height: min-content;
 
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         justify-self: center;
         max-width: fit-content;
       }
@@ -82,10 +82,10 @@
 
     & h2 {
       @extend %subheading;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       margin-bottom: 1.25rem;
 
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         text-align: center;
         margin: 0;
       }

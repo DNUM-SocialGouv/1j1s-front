@@ -1,10 +1,10 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 @use "@styles/components/link/_placeholders.scss";
 
 .card {
   display: flex;
   flex-direction: column;
-  background: utilities.$color-surface;
+  background: utilities-deprecated.$color-surface;
   border-radius: 1.25rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
 
@@ -18,7 +18,7 @@
   &Header {
     display: flex;
     padding: 0.5rem;
-    border-bottom: 4px solid utilities.$color-primary;
+    border-bottom: 4px solid utilities-deprecated.$color-primary;
     height: 5.5rem;
     align-items: center;
     img {
@@ -38,19 +38,19 @@
   margin-left: 1rem;
 
   &Title {
-    color: utilities.$color-on-background;
+    color: utilities-deprecated.$color-on-background;
     @extend %bold;
     @extend %text-medium;
   }
   &SubTitle {
     @extend %text-small;
-    color: utilities.$color-on-background;
+    color: utilities-deprecated.$color-on-background;
   }
 }
 
 .descriptionPublicConcerne {
   @extend %bold;
-  color: utilities.$color-secondary;
+  color: utilities-deprecated.$color-secondary;
   margin-top: 1.25rem;
 }
 
@@ -77,10 +77,10 @@
   }
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .card {
     padding: 1rem 1.5rem;
-    border-left: 4px solid utilities.$color-primary;
+    border-left: 4px solid utilities-deprecated.$color-primary;
     flex-direction: row;
 
     &Header {
@@ -132,7 +132,7 @@
   }
 
   .descriptionEntreprise {
-    color: utilities.$color-on-background;
+    color: utilities-deprecated.$color-on-background;
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
   }

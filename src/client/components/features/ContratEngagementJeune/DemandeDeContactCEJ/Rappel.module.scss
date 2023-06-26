@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .rappel {
   padding: 3rem 0;
@@ -14,7 +14,7 @@
     }
 
     h2 {
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       text-align: center;
       font-size: 1.5rem;
       }

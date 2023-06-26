@@ -1,16 +1,16 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .enSavoirPlus {
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2.5rem;
   }
 
   &DepotOffre {
-    background-color: utilities.$color-background-white-lilac;
-    @include utilities.media(large) {
+    background-color: utilities-deprecated.$color-background-white-lilac;
+    @include utilities-deprecated.media(large) {
       background-color: revert;
     }
   }
@@ -21,17 +21,17 @@
     justify-content: space-between;
     padding: 1.75rem 1rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       padding: 5rem 1rem
     }
   }
 
   .heading {
     @extend %subheading;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     margin-bottom: 1rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       text-align: center;
       margin-bottom: 1.5rem;
     }
@@ -45,7 +45,7 @@
     width: 100%;
     align-self: center;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       max-width: fit-content;
     }
   }

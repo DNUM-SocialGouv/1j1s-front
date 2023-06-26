@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .hero {
     &Button {
@@ -33,50 +33,50 @@
     }
 
     &NosOffres {
-        background-color: utilities.$color-lighten-blue-navy;
+        background-color: utilities-deprecated.$color-lighten-blue-navy;
         &Header {
             &Icon {
-                color: utilities.$color-blue-navy;
+                color: utilities-deprecated.$color-blue-navy;
             }
         }
     }
     &FormationsOrientation {
-        background-color: utilities.$color-lighten-tapestry;
+        background-color: utilities-deprecated.$color-lighten-tapestry;
         &Header {
             &Icon {
-                color: utilities.$color-tapestry;
+                color: utilities-deprecated.$color-tapestry;
             }
         }
     }
     &EngagementBénévolat {
-        background-color: utilities.$color-lighten-smalt-blue;
+        background-color: utilities-deprecated.$color-lighten-smalt-blue;
         &Header {
             &Icon {
-                color: utilities.$color-smalt-blue;
+                color: utilities-deprecated.$color-smalt-blue;
             }
         }
     }
     &Logement {
-        background-color: utilities.$color-lighten-coral;
+        background-color: utilities-deprecated.$color-lighten-coral;
         &Header {
             &Icon {
-                color: utilities.$color-coral;
+                color: utilities-deprecated.$color-coral;
             }
         }
     }
     &AidesOrientationAccompagnement {
-        background-color: utilities.$color-lighten-blue-navy;
+        background-color: utilities-deprecated.$color-lighten-blue-navy;
         &Header {
             &Icon {
-                color: utilities.$color-blue-navy;
+                color: utilities-deprecated.$color-blue-navy;
             }
         }
     }
     &AidesEtOutils {
-        background-color: utilities.$color-lighten-tapestry;
+        background-color: utilities-deprecated.$color-lighten-tapestry;
         &Header {
             &Icon {
-                color: utilities.$color-tapestry;
+                color: utilities-deprecated.$color-tapestry;
             }
         }
     }
@@ -86,7 +86,7 @@
     }
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
     .sectionHeader {
         margin-bottom: 3rem;
         margin-top: 1rem;

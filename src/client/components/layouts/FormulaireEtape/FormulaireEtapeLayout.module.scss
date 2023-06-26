@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
   padding: 0 2rem;
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding: 0 0 1rem;
   }
 }
@@ -12,14 +12,14 @@
   max-width: 20rem;
   text-align: center;
   padding: 4px;
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-left: 8rem;
   }
 }
 
 .boutonRetour {
   margin-top: 2rem;
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-left: 8rem;
   }
 }

@@ -1,7 +1,7 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 }
 
 .entête {
@@ -21,7 +21,7 @@
     margin-top: 2rem;
   }
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding: 3.5rem 0 1.5rem;
     h3 {
       font-size: 1.125rem;
@@ -43,6 +43,6 @@
   }
 
   &Pourcentage {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
   }
 }

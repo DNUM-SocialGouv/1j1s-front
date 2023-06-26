@@ -1,7 +1,7 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: grid;
     grid-template-columns: 1fr 29rem;
     grid-template-areas:
@@ -15,9 +15,9 @@
 .sectionVideos {
   padding: 1.75rem 1rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding: 5rem 1rem;
-    background-color: utilities.$color-background-white-lilac;
+    background-color: utilities-deprecated.$color-background-white-lilac;
   }
 }
 
@@ -30,7 +30,7 @@
     display: inline-block;
   }
   
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-area: titre;
   }
 }
@@ -40,7 +40,7 @@
   padding-top: calc(100% * 9 / 16); /* 16:9 Aspect Ratio */
   margin-bottom: 1.5rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-area: video;
   }
 }
@@ -48,7 +48,7 @@
 .transcription {
   margin-bottom: 1.5rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-area: transcription;
   }
 
@@ -56,8 +56,8 @@
     padding: 12px 16px 12px 16px;
     max-width: 60rem;
     list-style-type: none;
-    border-top: 1px utilities.$neutral-grey solid;
-    border-bottom: 1px utilities.$neutral-grey solid;
+    border-top: 1px utilities-deprecated.$neutral-grey solid;
+    border-bottom: 1px utilities-deprecated.$neutral-grey solid;
     cursor: pointer;
   }
   summary::after {
@@ -88,7 +88,7 @@
 }
 
 .temoignage {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-area: temoignage;
   }
 
@@ -104,7 +104,7 @@
     display: flex;
 
     & .lienPlaylist {
-      color: utilities.$black;
+      color: utilities-deprecated.$black;
       margin-left: auto;
     }
   }

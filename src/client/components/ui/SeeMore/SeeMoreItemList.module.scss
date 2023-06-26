@@ -1,7 +1,7 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .seeMoreButton {
-  color: utilities.$black;
+  color: utilities-deprecated.$black;
   display: block;
   margin: auto;
 }
@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   margin-bottom: 1rem;
 
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     margin-bottom: 2rem;
   }
 }

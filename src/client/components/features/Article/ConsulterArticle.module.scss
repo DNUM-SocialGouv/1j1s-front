@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .consulterArticle {
   max-width: 78rem;
@@ -31,11 +31,11 @@
 
 .titre {
   @extend %bold, %headline;
-  color: utilities.$color-on-background;
+  color: utilities-deprecated.$color-on-background;
   padding-bottom: 1rem;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .consulterArticle {
     padding-top: 4rem;
 

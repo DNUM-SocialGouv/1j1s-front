@@ -1,9 +1,9 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .entête {
-  background-color: utilities.$color-background-white-titan;
-  border-top: 0.5px solid utilities.$color-on-surface;
-  border-bottom: 0.5px solid utilities.$color-on-surface;
+  background-color: utilities-deprecated.$color-background-white-titan;
+  border-top: 0.5px solid utilities-deprecated.$color-on-surface;
+  border-bottom: 0.5px solid utilities-deprecated.$color-on-surface;
   text-align: center;
   padding: 1.5rem 0;
 

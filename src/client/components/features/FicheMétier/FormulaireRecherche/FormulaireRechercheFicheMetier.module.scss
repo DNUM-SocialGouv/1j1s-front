@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .RechercherMetierForm {
   padding: 2rem 1rem;
@@ -7,11 +7,11 @@
   gap: 1rem;
   justify-content: space-between;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     flex-direction: row;
   }
 
-  @include utilities.media(xlarge) {
+  @include utilities-deprecated.media(xlarge) {
     gap: 1.5rem;
   }
 }

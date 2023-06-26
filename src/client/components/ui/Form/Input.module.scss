@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .wrapper {
   font-family: inherit;
@@ -12,8 +12,8 @@
 .suggestionList {
   z-index: 2;
   position: absolute;
-  border: 1px solid utilities.$color-disabled;
-  background-color: utilities.$color-background;
+  border: 1px solid utilities-deprecated.$color-disabled;
+  background-color: utilities-deprecated.$color-background;
   width: 100%;
   list-style-type: none;
   margin: 0;
@@ -49,24 +49,24 @@
     height: 2.5rem;
     padding-inline: 1rem;
     border-radius: 1.25rem;
-    border: solid 1px utilities.$neutral-grey;
+    border: solid 1px utilities-deprecated.$neutral-grey;
 
     &:disabled {
-      background-color: utilities.$white-lilac;
+      background-color: utilities-deprecated.$white-lilac;
     }
 
     &:active, &:focus {
-      border-color: utilities.$color-primary;
+      border-color: utilities-deprecated.$color-primary;
     }
 
     &::placeholder {
-      color: utilities.$deep-neutral-grey;
+      color: utilities-deprecated.$deep-neutral-grey;
       opacity: 1;
     }
 
     &Error {
       border: 1px solid transparent;
-      outline: 2px solid utilities.$color-error;
+      outline: 2px solid utilities-deprecated.$color-error;
       outline-offset: -2px;
     }
 
@@ -76,7 +76,7 @@
       height: 2rem;
       @extend %text-small;
       line-height: 1.2;
-      color: utilities.$color-error;
+      color: utilities-deprecated.$color-error;
     }
   }
 }
@@ -91,14 +91,14 @@
   &Error {
     @extend %text-small;
     align-items: center;
-    color: utilities.$color-error;
+    color: utilities-deprecated.$color-error;
   }
 
   & > svg {
     flex-basis: 2em;
   }
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     white-space: nowrap;
   }
 }

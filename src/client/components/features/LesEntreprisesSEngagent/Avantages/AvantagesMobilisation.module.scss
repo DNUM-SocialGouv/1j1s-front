@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 
 .container {
@@ -13,7 +13,7 @@
 }
 
 .avantages h2 {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   font-size: 1.5rem;
 }
 
@@ -22,7 +22,7 @@
   margin-left: 1rem;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .container {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;

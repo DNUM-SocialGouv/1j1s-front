@@ -1,14 +1,14 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 $color-tag: #EEEEEE;
 
 .tag {
   @extend %text-small;
   padding: 2px 8px;
-  background-color: utilities.$color-tag;
+  background-color: utilities-deprecated.$color-tag;
   border-radius: calc((2px * 2 + 1.25rem) / 2);
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding: 4px 12px;
     border-radius: calc((4px * 2 + 1.5rem) / 2);
   }

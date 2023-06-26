@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .energy .tag {
   min-width: 12.5rem;
@@ -24,7 +24,7 @@
   display: grid;
   gap: 2rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -32,12 +32,12 @@
 .energy figcaption {
   display: inline;
   width: fit-content;
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   font-size: 1.25rem;
   line-height: 2rem;
   margin-bottom: 0.75rem;
 
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     font-size: 1.5rem;
   }
 }

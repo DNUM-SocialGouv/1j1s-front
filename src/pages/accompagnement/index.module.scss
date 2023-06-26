@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .accompagnementContainer {
   padding: 2rem;
@@ -27,7 +27,7 @@
   }
   display: flex;
   flex-direction: column;
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 }
 
 .poleEmploi {
@@ -40,12 +40,12 @@
   @extend %text-large;
 
   span:first-child {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     @extend %bold;
   }
 
   span:last-child {
-    color: utilities.$color-secondary;
+    color: utilities-deprecated.$color-secondary;
   }
 }
 
@@ -60,9 +60,9 @@
 }
 
 .buttonEnSavoirPlus {
-  background-color: utilities.$color-background-white-lilac;
-  color: utilities.$color-primary;
-  border: 1px solid utilities.$color-primary;
+  background-color: utilities-deprecated.$color-background-white-lilac;
+  color: utilities-deprecated.$color-primary;
+  border: 1px solid utilities-deprecated.$color-primary;
   padding: 1rem 0.8rem;
 }
 
@@ -73,7 +73,7 @@
   margin-top: 3rem;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .accompagnementContainer {
     padding: 4rem 1rem;
   }

@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
   padding: 1rem;
@@ -21,7 +21,7 @@
 .buttonWrapper {
   padding: 3rem 0;
   text-align: center;
-  @include utilities.media(medium){
+  @include utilities-deprecated.media(medium){
     text-align: left;
   }
 }

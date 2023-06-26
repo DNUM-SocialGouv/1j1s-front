@@ -1,23 +1,23 @@
 @use "variables-deprecated";
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 body {
-  background: utilities.$color-background;
-  color: utilities.$color-on-background;
+  background: utilities-deprecated.$color-background;
+  color: utilities-deprecated.$color-on-background;
 }
 
 .background-white {
-  background-color: utilities.$color-background;
+  background-color: utilities-deprecated.$color-background;
 }
 
 .background-white-lilac {
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 }
 
 .background-primary {
-  background-color: utilities.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
 }
 
 .background-gradient-to-primary {
-  background: linear-gradient( to right, utilities.$color-background-white-lilac 0% 50%, utilities.$color-primary 50% 100% );
+  background: linear-gradient( to right, utilities-deprecated.$color-background-white-lilac 0% 50%, utilities-deprecated.$color-primary 50% 100% );
 }

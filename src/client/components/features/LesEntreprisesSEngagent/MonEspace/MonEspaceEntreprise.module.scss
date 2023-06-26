@@ -1,12 +1,12 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .monEspace {
   margin: 0 auto;
   padding: 2rem 1rem 2rem 1rem;
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 
   &Titre {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.75rem;
@@ -14,7 +14,7 @@
   }
 
   &Accroche {
-    color: utilities.$color-secondary;
+    color: utilities-deprecated.$color-secondary;
     font-size: 1.5rem;
     font-weight: 400;
     margin-bottom: 1.25rem;
@@ -31,7 +31,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .monEspace {
     padding: 4rem 1rem 4rem 1rem;
 
@@ -56,14 +56,14 @@
     }
 
     &Titre {
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       font-weight: 700;
       text-align: left;
     }
 
     &Accroche {
       font-weight: 400;
-      color: utilities.$color-secondary;
+      color: utilities-deprecated.$color-secondary;
       margin-bottom: 3.5rem;
       text-align: left;
     }

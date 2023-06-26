@@ -1,9 +1,9 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .heading {
   position: relative;
   padding: 2.5rem 2rem;
-  background-color: utilities.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
   color: white;
 
   &Container {
@@ -37,12 +37,12 @@
   display: flex;
   justify-content: center;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: initial;
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .heading {
     padding: 0;
 
@@ -70,7 +70,7 @@
   }
 }
 
-@include utilities.media(xxlarge) {
+@include utilities-deprecated.media(xxlarge) {
   .heading {
     &ContainerWrapper {
       width: 60%;
@@ -78,7 +78,7 @@
 
     &Container {
       max-width: 45rem;
-      margin-right: calc(#{utilities.$breakpoint-xl}/1.5 - 45rem);
+      margin-right: calc(#{utilities-deprecated.$breakpoint-xl}/1.5 - 45rem);
     }
 
     .imageWrapper {

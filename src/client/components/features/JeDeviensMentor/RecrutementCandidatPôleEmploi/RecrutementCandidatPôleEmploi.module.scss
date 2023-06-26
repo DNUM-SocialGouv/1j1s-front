@@ -1,15 +1,15 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .contenu {
   padding: 2rem 1rem 2rem 1rem;
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 
   .container {
     display: flex;
     flex-direction: column;
   }
   h1 {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 2rem;
@@ -26,7 +26,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .contenu {
     padding: 4rem 1rem 4rem 1rem;
 

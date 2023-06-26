@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .hero {
   text-align: center;
@@ -7,7 +7,7 @@
   @extend %text-xLarge;
   @extend %max-container;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     line-height: 2.5rem;
     padding: 4rem 1rem 2rem 1rem;
   }
@@ -17,11 +17,11 @@
   }
 
   &PrimaryText {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     @extend %bold;
   }
 
   &SecondaryText {
-    color: utilities.$color-secondary;
+    color: utilities-deprecated.$color-secondary;
   }
 }

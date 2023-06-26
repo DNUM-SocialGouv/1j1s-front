@@ -1,13 +1,13 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .button {
   border-radius: 50px;
   outline-offset: 4px;
 
   &:disabled {
-    border: 1px solid utilities.$color-on-disabled;
-    background-color: utilities.$color-on-disabled;
-    color: utilities.$color-disabled;
+    border: 1px solid utilities-deprecated.$color-on-disabled;
+    background-color: utilities-deprecated.$color-on-disabled;
+    color: utilities-deprecated.$color-disabled;
     cursor: not-allowed;
   }
 
@@ -44,42 +44,42 @@
 
 
 .buttonPrimary {
-  border: 1px solid utilities.$color-primary;
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
+  border: 1px solid utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
 
   &:enabled:hover {
-    background-color: utilities.$color-primary-on-hover;
-    border-color: utilities.$color-primary-on-hover;
+    background-color: utilities-deprecated.$color-primary-on-hover;
+    border-color: utilities-deprecated.$color-primary-on-hover;
   }
 }
 
 .buttonSecondary {
-  border: 1px solid utilities.$color-primary;
-  color: utilities.$color-primary;
-  background-color: utilities.$white;
+  border: 1px solid utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$white;
 
   &:enabled:hover {
-    background-color: utilities.$color-background-white-titan;
-    border-color: utilities.$color-primary;
-    color: utilities.$color-primary;
+    background-color: utilities-deprecated.$color-background-white-titan;
+    border-color: utilities-deprecated.$color-primary;
+    color: utilities-deprecated.$color-primary;
   }
 }
 
 .buttonTertiary {
-  border: 1px solid utilities.$color-primary;
-  color: utilities.$color-primary;
-  background-color: utilities.$color-background-white-titan;
+  border: 1px solid utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$color-background-white-titan;
 
   &:enabled:hover {
-    background-color: utilities.$color-tertiary-on-hover;
-    border-color: utilities.$color-tertiary-on-hover;
-    color: utilities.$white;
+    background-color: utilities-deprecated.$color-tertiary-on-hover;
+    border-color: utilities-deprecated.$color-tertiary-on-hover;
+    color: utilities-deprecated.$white;
   }
 }
 
 .buttonQuaternary {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   border-radius: 0;
   font-size: 1rem;
 

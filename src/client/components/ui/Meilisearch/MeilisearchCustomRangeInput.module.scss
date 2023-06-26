@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .customRangeInputWrapper {
   display: inline-flex;
@@ -12,8 +12,8 @@
     height: 2rem;
     padding: 4px 16px;
     display: flex;
-    background-color: utilities.$color-primary;
-    color: utilities.$color-on-primary;
+    background-color: utilities-deprecated.$color-primary;
+    color: utilities-deprecated.$color-on-primary;
   }
 }
 
@@ -32,9 +32,9 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  color: utilities.$color-mention-grey;
+  color: utilities-deprecated.$color-mention-grey;
   padding: 6px 6px 6px 12px;
-  border: 1px solid utilities.$color-on-background;
+  border: 1px solid utilities-deprecated.$color-on-background;
   border-radius: 20px;
   height: 2.5rem;
 }
@@ -44,9 +44,9 @@
   position: absolute;
   padding: .75rem 2rem;
   width: 100%;
-  border: 1px solid utilities.$color-separator;
+  border: 1px solid utilities-deprecated.$color-separator;
   border-radius: 20px;
-  background-color: utilities.$color-background;
+  background-color: utilities-deprecated.$color-background;
   margin: 4px 0 0 0;
   max-height: 300px;
   overflow-y: auto;

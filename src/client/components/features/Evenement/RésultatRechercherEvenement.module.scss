@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 @use "@styles/components/link/_placeholders.scss";
 
 .resultatCard {
-  border-left: 4px solid utilities.$color-primary;
+  border-left: 4px solid utilities-deprecated.$color-primary;
   padding: 1.5rem 2rem;
 }
 

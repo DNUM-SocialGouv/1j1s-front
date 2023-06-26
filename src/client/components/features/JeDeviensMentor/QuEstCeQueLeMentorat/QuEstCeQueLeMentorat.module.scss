@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .quEstCeQueLeMentorat {
   @extend %background-primary;
@@ -15,7 +15,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .quEstCeQueLeMentorat {
     padding: 4rem 1rem;
   }

@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 
 .listeDesResultatsWrapper {
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
   padding: 2rem 1rem;
 
   & ol {
@@ -27,7 +27,7 @@
   }
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .listeDesResultats {
     & ol {
       gap: 2rem 4rem;
@@ -42,13 +42,13 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     flex-direction: row;
     justify-content: space-around;
   }
   > li {
     margin-bottom: 1.5rem;
-    @include utilities.media(medium) {
+    @include utilities-deprecated.media(medium) {
       width: 22.5rem;
     }
   }
@@ -59,7 +59,7 @@
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     margin-top: 5rem;
     margin-bottom: 3rem;
   }

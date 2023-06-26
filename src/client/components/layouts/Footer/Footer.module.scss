@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .footer {
   padding: 2rem 1.5rem;
@@ -59,8 +59,8 @@
   }
 
   &LienUtile {
-    border-top: 1px solid utilities.$color-separator;
-    color: utilities.$color-mention-grey;
+    border-top: 1px solid utilities-deprecated.$color-separator;
+    color: utilities-deprecated.$color-mention-grey;
     margin-top: 0.7rem;
     display: flex;
     flex-wrap: wrap;
@@ -76,7 +76,7 @@
       padding: 0.7rem 0.7rem 0.7rem 0;
 
       &:not(:last-child) {
-        border-right: 1px solid utilities.$color-separator;
+        border-right: 1px solid utilities-deprecated.$color-separator;
         margin-right: 0.7rem;
       }
     }
@@ -98,7 +98,7 @@
 
   &CopyRight {
     padding-top: 0.7rem;
-    color: utilities.$color-mention-grey;
+    color: utilities-deprecated.$color-mention-grey;
     font-size: .75rem;
 
     & > a > svg {
@@ -110,7 +110,7 @@
   &Faq {
     display: block;
     margin-bottom: 1rem;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     @extend %bold;
     font-size: 1rem;
     text-decoration: none;
@@ -121,14 +121,14 @@
 }
 
 .preFooter {
-  background-color: utilities.$color-secondary;
+  background-color: utilities-deprecated.$color-secondary;
   color: white;
   padding: 2.5rem 1rem;
   text-align: center;
   font-weight: 500;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .footer {
     &Header {
       display: flex;

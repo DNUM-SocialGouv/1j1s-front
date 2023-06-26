@@ -1,26 +1,26 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 $padding-horizontal: 1rem;
 
 %container {
   padding: 1.75rem $padding-horizontal;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding: 5rem 1rem;
   }
 }
 
 .raisons {
   @extend %container;
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 
   & h2 {
     @extend %subheading;
     font-weight: bold;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     margin-bottom: 1.5rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       margin-bottom: 2.5rem;
       text-align: center;
     }
@@ -34,7 +34,7 @@ $padding-horizontal: 1rem;
     flex-wrap: wrap;
     gap: $gap-between-tuiles;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       gap: 2.5rem;
     }
 
@@ -45,25 +45,25 @@ $padding-horizontal: 1rem;
 
     & .tuile {
       height: 100%;
-      border: 1px solid utilities.$color-primary;
+      border: 1px solid utilities-deprecated.$color-primary;
 
       & span {
         display: inline-block;
       }
 
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         border-width: 2px;
       }
     }
 
     > li:nth-child(even) .tuile {
-      background-color: utilities.$color-on-primary;
-      color: utilities.$color-primary;
+      background-color: utilities-deprecated.$color-on-primary;
+      color: utilities-deprecated.$color-primary;
     }
 
     > li:nth-child(odd) .tuile {
-      background-color: utilities.$color-primary;
-      color: utilities.$color-on-primary;
+      background-color: utilities-deprecated.$color-primary;
+      color: utilities-deprecated.$color-on-primary;
     }
 
     $three-columns: calc(3 * $min-width-tuile + 2 * $padding-horizontal + 2 * $gap-between-tuiles - 1px);
@@ -71,12 +71,12 @@ $padding-horizontal: 1rem;
 
     @media ((min-width: $two-columns) and (max-width: $three-columns)) {
       > li:nth-child(4n+2) .tuile, li:nth-child(4n+3) .tuile {
-        color: utilities.$color-primary;
-        background-color: utilities.$color-on-primary;
+        color: utilities-deprecated.$color-primary;
+        background-color: utilities-deprecated.$color-on-primary;
       }
       > li:nth-child(4n+0) .tuile, li:nth-child(4n+1) .tuile {
-        background-color: utilities.$color-primary;
-        color: utilities.$color-on-primary;
+        background-color: utilities-deprecated.$color-primary;
+        color: utilities-deprecated.$color-on-primary;
       }
     }
   }
