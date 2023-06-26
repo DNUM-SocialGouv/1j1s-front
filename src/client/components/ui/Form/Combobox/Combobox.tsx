@@ -1,14 +1,12 @@
 import classNames from 'classnames';
-import React, { KeyboardEvent, useCallback, useEffect, useId, useReducer, useRef } from 'react';
+import React, { KeyboardEvent, useCallback, useEffect, useId, useLayoutEffect, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
 import { ComboboxProvider, useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
-import {
-	ComboboxAction as Actions,
-	ComboboxReducer,
-} from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import { ComboboxAction as Actions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Combobox.module.scss';
@@ -50,6 +48,12 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
 		}
 	}, [inputProps, inputRef, onChangeProps]);
+
+	useLayoutEffect(() => {
+		if (activeDescendant) {
+			document.getElementById(activeDescendant)?.scrollIntoView(false);
+		}
+	}, [activeDescendant]);
 
 	useEffect(() => {
 		triggerChangeEvents();
@@ -119,7 +123,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					aria-expanded={open}
 					aria-labelledby={inputProps['aria-labelledby']}
 					aria-label={inputProps['aria-label']}>
-					Déplier
+					<Icon name={'angle-down'} />
 				</button>
 				<ul
 					role="listbox"
@@ -149,7 +153,14 @@ const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
 		dispatch(new Actions.SelectOption(event.currentTarget));
 	}, [dispatch]);
 	return (
-		<li role="option" {...optionProps} aria-selected={selected} hidden={hidden} id={id} ref={ref} onClick={onClick} />
+		<li
+			role="option"
+			{...optionProps}
+			aria-selected={selected}
+			hidden={hidden}
+			id={id}
+			ref={ref}
+			onClick={onClick} />
 	);
 });
 

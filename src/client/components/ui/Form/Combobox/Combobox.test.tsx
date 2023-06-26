@@ -11,6 +11,10 @@ import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Combobox } from './Combobox';
 
 describe('<Combobox />', () => {
+	beforeAll(() => {
+		window.HTMLElement.prototype.scrollIntoView = jest.fn();
+	});
+
 	it('affiche un input', () => {
 		render(
 			<Combobox aria-label="Test">
@@ -528,6 +532,25 @@ describe('<Combobox />', () => {
 
 			expect(onSubmit).not.toHaveBeenCalled();
 		});
+		it('scroll jusqu’à l’option active à la flèche du bas/haut', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+			const option = screen.getByRole('option', { hidden: true, name: /Option 3/i });
+			// NOTE (GAFI 26-06-2023): viewport pas implémenté dans RTL, test sur le détail d'implémentation :(
+			option.scrollIntoView = jest.fn();
+
+			const input = screen.getByRole('combobox');
+			await user.click(input);
+			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
+
+			expect(option.scrollIntoView).toHaveBeenCalledWith(false);
+		});
 	});
 
 	it('marque les éléments pas sélectionnés comme tel', async () => {
@@ -831,6 +854,8 @@ describe('<Combobox />', () => {
 			const liste = screen.getByRole('listbox', { hidden: true });
 			expect(button).toHaveAttribute('aria-controls', expect.stringContaining(liste.id));
 		});
+
+		// NOTE (GAFI 26-06-2023): Force la présence d'un aria-label(ledby), voir si on peut le déduire du label de l'input ?
 		it('ajoute un label à la liste de suggestions avec aria-label', async () => {
 			const user = userEvent.setup();
 			render(
@@ -895,10 +920,10 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
-	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
 	it.todo('styliser le composant');
+	it.todo('styliser le focus autour le l’input **et** du bouton');
+	it.todo('changer le curseur en pointer sur le bouton et les options');
 
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');

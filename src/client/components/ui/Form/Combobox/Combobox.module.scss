@@ -1,3 +1,12 @@
 .combobox li[role="option"]:is([aria-selected="true"], :hover) {
   background-color: #ff00003f;
 }
+
+.combobox button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.combobox [role="listbox"] {
+  height: 5rem;
+  overflow-y: scroll;
+}
