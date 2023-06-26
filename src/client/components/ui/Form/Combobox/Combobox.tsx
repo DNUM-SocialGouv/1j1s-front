@@ -93,7 +93,10 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	return (
 		<ComboboxProvider value={[ state, dispatch ]}>
 			<div className={classNames(styles.combobox, className)}>
-				<input role="combobox" {...inputProps}
+				<input
+					role="combobox"
+				 	aria-expanded={open}
+					{...inputProps}
 					ref={inputRef}
 					onKeyDown={onKeyDown}
 					aria-activedescendant={activeDescendant}

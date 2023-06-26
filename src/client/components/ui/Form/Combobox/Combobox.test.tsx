@@ -699,6 +699,34 @@ describe('<Combobox />', () => {
 		const button = screen.getByRole('button');
 		expect(button).not.toHaveFocus();
 	});
+	it('marque le combobox comme étendu lorsque la liste est affichée', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+
+		const combobox = screen.getByRole('combobox');
+		expect(combobox).toHaveAttribute('aria-expanded', 'true');
+	});
+	it('marque le combobox comme replié lorsque la liste est masquée', async () => {
+		render(
+			<Combobox>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const combobox = screen.getByRole('combobox');
+		expect(combobox).toHaveAttribute('aria-expanded', 'false');
+	});
 
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
