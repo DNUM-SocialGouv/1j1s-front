@@ -23,6 +23,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	onChange: onChangeProps,
 	value: valueProps,
 	defaultValue,
+	className,
 	...inputProps
 }, inputOuterRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
@@ -91,8 +92,8 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 
 	return (
 		<ComboboxProvider value={[ state, dispatch ]}>
-			<div className={classNames(styles.combobox, inputProps.className)}>
-				<input {...inputProps}
+			<div className={classNames(styles.combobox, className)}>
+				<input role="combobox" {...inputProps}
 					ref={inputRef}
 					onKeyDown={onKeyDown}
 					aria-activedescendant={activeDescendant}

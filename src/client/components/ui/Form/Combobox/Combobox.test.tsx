@@ -20,7 +20,7 @@ describe('<Combobox />', () => {
 			</Combobox>,
 		);
 
-		const input = screen.getByRole('textbox');
+		const input = screen.getByRole('combobox');
 
 		expect(input).toBeVisible();
 	});
@@ -37,7 +37,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			expect(ref).toHaveBeenLastCalledWith(input);
 		});
 		it('accepte les props d’un input', () => {
@@ -49,7 +49,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			expect(input).toHaveAttribute('disabled');
 		});
 		it('appelle onKeyDown quand une touche est pressée', async () => {
@@ -63,7 +63,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard('A');
 
@@ -82,7 +82,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
@@ -102,7 +102,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, 'Option');
 			await user.click(screen.getByRole('option', { name: /Option 2/i }));
 
@@ -119,7 +119,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.type(input, 'Salut');
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
@@ -136,7 +136,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			expect(input).toHaveValue('test');
 		});
 		it('accepte du JSX en children des options', async () => {
@@ -147,7 +147,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
@@ -161,6 +161,8 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
+			// NOTE (GAFI 26-06-2023): Test explicitement qu'on place la classe sur le premier élément pour pouvoir tout styliser
+			// eslint-disable-next-line testing-library/no-node-access
 			expect(container.firstChild).toHaveAttribute('class', expect.stringContaining('test'));
 		});
 	});
@@ -189,7 +191,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
@@ -208,7 +210,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
@@ -226,7 +228,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
@@ -245,7 +247,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
@@ -266,7 +268,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
@@ -285,7 +287,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
@@ -303,7 +305,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
@@ -322,7 +324,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
@@ -341,7 +343,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 			await user.keyboard(`{${KeyBoard.ESCAPE}}`);
@@ -359,7 +361,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 			await user.keyboard(`{${KeyBoard.ESCAPE}}`);
@@ -380,7 +382,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ALT}>}{${KeyBoard.ARROW_DOWN}}{/${KeyBoard.ALT}}`);
 
@@ -402,7 +404,7 @@ describe('<Combobox />', () => {
 					<Combobox.Option>Option 3</Combobox.Option>
 				</Combobox>,
 			);
-			const input = screen.getByRole<HTMLInputElement>('textbox');
+			const input = screen.getByRole<HTMLInputElement>('combobox');
 			await user.type(input, 'test');
 			await user.keyboard(`{${KeyBoard.ARROW_LEFT}}`);
 
@@ -422,7 +424,7 @@ describe('<Combobox />', () => {
 					<Combobox.Option>Option 3</Combobox.Option>
 				</Combobox>,
 			);
-			const input = screen.getByRole<HTMLInputElement>('textbox');
+			const input = screen.getByRole<HTMLInputElement>('combobox');
 			await user.type(input, 'test');
 			await user.keyboard(`{${KeyBoard.ARROW_LEFT}}`);
 
@@ -440,7 +442,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
@@ -457,7 +459,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
@@ -478,7 +480,7 @@ describe('<Combobox />', () => {
 				</form>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
 
@@ -497,7 +499,7 @@ describe('<Combobox />', () => {
 				</form>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
@@ -515,7 +517,7 @@ describe('<Combobox />', () => {
 			</Combobox>,
 		);
 
-		const input = screen.getByRole('textbox');
+		const input = screen.getByRole('combobox');
 		expect(input).not.toHaveAttribute('aria-activedescendant');
 		const suggestions = screen.getAllByRole('option', { hidden: true });
 		expect(suggestions[0]).toHaveAttribute('aria-selected', 'false');
@@ -534,7 +536,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, 'Opt');
 
 			const suggestions = screen.getByRole('listbox');
@@ -550,7 +552,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, '1');
 
 			const option1 = screen.getByRole('option', { name: 'Option 1' });
@@ -568,7 +570,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, '2');
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
@@ -586,7 +588,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, '2');
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
@@ -604,7 +606,7 @@ describe('<Combobox />', () => {
 				</Combobox>,
 			);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole('combobox');
 			await user.type(input, 'a');
 
 			const options = screen.getAllByRole('option');
@@ -622,7 +624,7 @@ describe('<Combobox />', () => {
 			</Combobox>,
 		);
 
-		const input = screen.getByRole('textbox');
+		const input = screen.getByRole('combobox');
 		await user.type(input, 'Option');
 		const option = screen.getByRole('option', { name: /Option 2/i });
 		await user.click(option);
@@ -639,7 +641,7 @@ describe('<Combobox />', () => {
 			</Combobox>,
 		);
 
-		const input = screen.getByRole('textbox');
+		const input = screen.getByRole('combobox');
 		await user.type(input, 'Option');
 		const option = screen.getByRole('option', { name: /Option 2/i });
 		await user.click(option);
@@ -690,7 +692,7 @@ describe('<Combobox />', () => {
 			</Combobox>,
 		);
 
-		const input = screen.getByRole('textbox');
+		const input = screen.getByRole('combobox');
 		await user.click(input);
 		await user.tab();
 
@@ -698,7 +700,6 @@ describe('<Combobox />', () => {
 		expect(button).not.toHaveFocus();
 	});
 
-	it.todo('role combobox');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
