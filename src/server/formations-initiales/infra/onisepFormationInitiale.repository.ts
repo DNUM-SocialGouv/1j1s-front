@@ -19,7 +19,7 @@ export interface FormationInitialeApiResponse {
 		tutelle: string,
 		url_et_id_onisep: string,
 		'domainesous-domaine': string
-}
+} // TODO fin dev formation-initiale : supprimer les champs dont on a pas besoin
 
 export interface ResultatRechercheFormationInitialeApiResponse {
 	total: number

@@ -30,5 +30,5 @@ export function aFormationInitialeApiResponse(override?: Partial<FormationInitia
 		tutelle: 'Ministère chargé de l\'Enseignement supérieur et de la Recherche',
 		url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
 		...override,
-	}; // TODO : supprimer les champs dont on a pas besoin
+	};
 }

@@ -14,7 +14,7 @@ import {
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
-describe('onisep formation initiales repository', () => {
+describe('onisep formation initiale repository', () => {
 	describe('search', () => {
 		it('doit appeler l’api onisep avec les bons paramètres', async () => {
 			// GIVEN
@@ -63,7 +63,7 @@ describe('onisep formation initiales repository', () => {
 				}));
 			});
 
-			it('doit retourner une erreur métier correspondant', async () => {
+			it('doit retourner une erreur métier correspondante', async () => {
 				// GIVEN
 				const httpClient = anAuthenticatedHttpClientService();
 				const errorManagementService = anErrorManagementService();
