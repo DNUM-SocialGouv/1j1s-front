@@ -21,7 +21,7 @@ export interface FormationInitialeApiResponse {
 		'domainesous-domaine': string
 }
 
-interface ResultatRechercheFormationInitialeApiResponse {
+export interface ResultatRechercheFormationInitialeApiResponse {
 	total: number
 	size: number
 	from: number

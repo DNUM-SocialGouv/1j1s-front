@@ -1,6 +1,20 @@
-import { FormationInitialeApiResponse } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
+import {
+	FormationInitialeApiResponse,
+	ResultatRechercheFormationInitialeApiResponse,
+} from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 
-export function aFormationInitialeResponse(override?: Partial<FormationInitialeApiResponse>): FormationInitialeApiResponse {
+
+export function aResultatRechercheFormationInitialeApiResponse(override?: Partial<ResultatRechercheFormationInitialeApiResponse>): ResultatRechercheFormationInitialeApiResponse {
+	return {
+		from: 0,
+		results: [aFormationInitialeApiResponse()],
+		size: 5,
+		total: 10,
+		...override,
+	};
+}
+
+export function aFormationInitialeApiResponse(override?: Partial<FormationInitialeApiResponse>): FormationInitialeApiResponse {
 	return {
 		code_nsf: '110',
 		code_rncp: '',

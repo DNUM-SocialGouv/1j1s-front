@@ -1,7 +1,9 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
-import { aFormationInitialeResponse } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
+import {
+	aResultatRechercheFormationInitialeApiResponse,
+} from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 import {
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
@@ -30,7 +32,7 @@ describe('onisep formation initiales repository', () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
-			const responseFromApi = anAxiosResponse([aFormationInitialeResponse()]);
+			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse());
 			const expectedFormationsInitiales = createSuccess([aFormationInitiale()]);
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
