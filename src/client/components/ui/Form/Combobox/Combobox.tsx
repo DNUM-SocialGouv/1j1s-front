@@ -109,13 +109,13 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					role="combobox"
 				 	aria-expanded={open}
 					aria-autocomplete="list"
-					{...inputProps}
+					aria-activedescendant={activeDescendant}
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
 					onKeyDown={onKeyDown}
-					aria-activedescendant={activeDescendant}
 					value={value}
-					onChange={onChange} />
+					onChange={onChange}
+					{...inputProps} />
 				<button
 					onClick={() => dispatch(new Actions.ToggleList())}
 					tabIndex={-1}
@@ -142,23 +142,27 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 type OptionProps = React.ComponentPropsWithoutRef<'li'>;
 
 const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
+	id: idProps,
+	onClick: onClickProps,
 	...optionProps
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
-	const id = useId();
+	const idState = useId();
+	const id = idProps ?? idState;
 	const [{ activeDescendant, value }, dispatch] = useCombobox();
 	const selected = activeDescendant === id;
 	const hidden = !matchesInput(ref.current, value);
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		dispatch(new Actions.SelectOption(event.currentTarget));
-	}, [dispatch]);
+		if (onClickProps) { onClickProps(event); }
+	}, [dispatch, onClickProps]);
 	return (
 		<li
 			role="option"
-			{...optionProps}
 			aria-selected={selected}
 			hidden={hidden}
 			id={id}
+			{...optionProps}
 			ref={ref}
 			onClick={onClick} />
 	);

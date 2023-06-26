@@ -68,8 +68,7 @@ describe('<Combobox />', () => {
 			);
 
 			const input = screen.getByRole('combobox');
-			await user.click(input);
-			await user.keyboard('A');
+			await user.type(input, 'A');
 
 			expect(onKeyDown).toHaveBeenCalledTimes(1);
 			expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'A' }));
@@ -190,6 +189,113 @@ describe('<Combobox />', () => {
 
 			const combobox = screen.getByRole('combobox');
 			expect(combobox).not.toHaveAttribute('aria-controls', expect.stringContaining('undefined'));
+		});
+		it('accepte un role', () => {
+			render(
+				<Combobox aria-label='Test' role="textbox">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('textbox');
+			expect(input).toHaveAttribute('role', 'textbox');
+		});
+		it('accepte un aria-expanded', () => {
+			render(
+				<Combobox aria-label='Test' aria-expanded="true">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toHaveAttribute('aria-expanded', 'true');
+		});
+		it('accepte un aria-autocomplete', () => {
+			render(
+				<Combobox aria-label='Test' aria-autocomplete="both">
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+		});
+		it('accepte un aria-activedescendant', () => {
+			render(
+				<Combobox aria-label='Test' aria-activedescendant="test">
+					<Combobox.Option id="test">Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toHaveAttribute('aria-activedescendant', 'test');
+		});
+		describe('<Combobox.Option />', () => {
+			it('accepte un role', () => {
+				render(
+					<Combobox aria-label='Test'>
+						<Combobox.Option role="listitem">Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const option = screen.getByRole('listitem', { hidden: true });
+				expect(option).toHaveAttribute('role', 'listitem');
+			});
+			it('accepte un aria-selected', () => {
+				render(
+					<Combobox aria-label='Test'>
+						<Combobox.Option aria-selected="true">Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const option = screen.getByRole('option', { hidden: true });
+				expect(option).toHaveAttribute('aria-selected', 'true');
+			});
+			it('accepte un hidden', () => {
+				render(
+					<Combobox aria-label='Test'>
+						<Combobox.Option hidden={false}>Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const option = screen.getByRole('option', { hidden: true });
+				expect(option).not.toHaveAttribute('hidden');
+			});
+			it('accepte un id', () => {
+				render(
+					<Combobox aria-label='Test'>
+						<Combobox.Option id="test">Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const option = screen.getByRole('option', { hidden: true });
+				expect(option).toHaveAttribute('id', 'test');
+			});
+			it('appelle onClick quand on clique sur une option', async () => {
+				const user = userEvent.setup();
+				const onClick = jest.fn();
+				render(
+					<Combobox aria-label='Test'>
+						<Combobox.Option id="test" onClick={onClick}>Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const button = screen.getByRole('button');
+				await user.click(button);
+				const option = screen.getByRole('option');
+				await user.click(option);
+
+				expect(onClick).toHaveBeenCalledTimes(1);
+				expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ target: option }));
+			});
 		});
 	});
 
@@ -920,7 +1026,6 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('n’écrase pas les props');
 	it.todo('styliser le composant');
 	it.todo('styliser le focus autour le l’input **et** du bouton');
 	it.todo('changer le curseur en pointer sur le bouton et les options');
