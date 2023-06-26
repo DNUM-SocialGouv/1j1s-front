@@ -3,17 +3,12 @@ import nock from 'nock';
 
 import {
 	aCommandeRejoindreLaMobilisation,
-	aContenuEntreprise,
 	anEntrepriseMember,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { enregistrerEntreprisesHandler } from '~/pages/api/entreprises/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('enregistrerEntreprisesHandler', () => {
-	const jwt = '3456789098765RFVBGFDRTYHJNfKJHGV';
-	const identifier = '1j1s@gouv.fr'; // défini dans le fichier .env.test
-	const password = 'monmotdepassesécurisé'; // défini dans le fichier .env.test
 	afterEach(() => nock.cleanAll());
 
 	it('répond une 200 quand tout s’est bien passé', async () => {
@@ -37,42 +32,6 @@ describe('enregistrerEntreprisesHandler', () => {
 				});
 				expect(res.status).toEqual(200);
 				expect(strapiReceivedBody).toEqual(anEntrepriseMember());
-				leeApi.done();
-			},
-			url: '/entreprises',
-		});
-	});
-
-	it('sauvegarde dans strapi quand les entreprises sengagent est indisponible', async () => {
-		const leeApi = nock('https://staging.lesentreprises-sengagent.local')
-			.post('/api/members')
-			.reply(503);
-		let strapiReceivedBody: Record<string, string>;
-		const strapiAuth = nock('http://localhost:1337/api')
-			.post('/auth/local', { identifier, password })
-			.once()
-			.reply(200, { jwt });
-		const strapiApi = nock('http://localhost:1337/api', { reqheaders: { Authorization: `Bearer ${jwt}` } })
-			.post('/entreprises', (body) => {
-				strapiReceivedBody = body;
-				return true;
-			})
-			.reply(201);
-
-		await testApiHandler<void | ErrorHttpResponse>({
-			handler: (req, res) => enregistrerEntreprisesHandler(req, res),
-			test: async ({ fetch }) => {
-				const res = await fetch({
-					body: JSON.stringify(aCommandeRejoindreLaMobilisation()),
-					headers: {
-						'content-type': 'application/json',
-					},
-					method: 'POST',
-				});
-				expect(res.status).toEqual(200);
-				expect(strapiReceivedBody).toEqual({ data: aContenuEntreprise(ErreurMétier.SERVICE_INDISPONIBLE) });
-				strapiAuth.done();
-				strapiApi.done();
 				leeApi.done();
 			},
 			url: '/entreprises',

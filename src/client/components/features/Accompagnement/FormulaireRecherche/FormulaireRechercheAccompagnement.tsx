@@ -44,7 +44,7 @@ export function FormulaireRechercheAccompagnement() {
 			<div className={styles.rechercherAccompagnementHint}>Tous les champs sont obligatoires</div>
 			<form
 				ref={rechercheAccompagnementForm}
-				role="form"
+				aria-label="Rechercher un accompagnement"
 				className={styles.rechercheAccompagnementForm}
 				onSubmit={updateRechercheAccompagnementQueryParams}>
 				<div className={styles.filtresRecherche}>

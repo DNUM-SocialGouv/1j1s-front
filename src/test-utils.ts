@@ -1,5 +1,8 @@
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
 import { within } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+
+expect.extend(toHaveNoViolations);
 
 function getTerms(container: HTMLElement, name: string) {
 	const terms = getAllByRole(container, 'term');
@@ -36,6 +39,12 @@ const queryAllByDescriptionTerm = (container: HTMLElement, name: string) => {
 	return definitions as HTMLElement[];
 };
 
+const checkA11y = async (htmlElement: HTMLElement) => {
+	const results = await axe(htmlElement);
+
+	expect(results).toHaveNoViolations();
+};
+
 const [
 	queryByDescriptionTerm,
 	getAllByDescriptionTerm,
@@ -48,11 +57,16 @@ const [
 	(c, name) => `Unable to find a description from term with name of ${name}`,
 );
 
-export {
+const queries = {
 	findAllByDescriptionTerm,
 	findByDescriptionTerm,
 	getAllByDescriptionTerm,
 	getByDescriptionTerm,
 	queryAllByDescriptionTerm,
 	queryByDescriptionTerm,
+};
+
+export {
+	checkA11y,
+	queries,
 };

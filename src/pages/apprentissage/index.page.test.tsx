@@ -11,6 +11,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Page rechercher une alternance', () => {
 	beforeEach(() => {
@@ -53,6 +54,23 @@ describe('Page rechercher une alternance', () => {
 				...process.env,
 				NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '1',
 			};
+		});
+
+		it('n‘a pas de défaut d‘accessibilité', async () => {
+			const alternanceServiceMock = anAlternanceService();
+			const localisationServiceMock = aLocalisationService();
+			const métiersServiceMock = aMétierService();
+			mockUseRouter({ query: { page: '1' } });
+			const { container } = render(<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+				localisationService={localisationServiceMock}
+				alternanceService={alternanceServiceMock}
+				métierService={métiersServiceMock}
+			>
+				<RechercherAlternancePage/>
+			</DependenciesProvider>,
+			);
+			await checkA11y(container);
 		});
 
 		it('affiche le titre propre à la bonne alternance', async () => {

@@ -5,7 +5,7 @@
 import { queries as defaultQueries,render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import * as queries from './test-utils';
+import { queries } from './test-utils';
 
 describe('getByDescriptionTerm', () => {
 	it('match une description unique à un terme unique', () => {

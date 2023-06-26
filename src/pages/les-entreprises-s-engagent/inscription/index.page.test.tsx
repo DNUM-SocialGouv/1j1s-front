@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -15,6 +15,8 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import LesEntreprisesSEngagentInscription, {
 	FormulaireEngagement,
 } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
+import { createFailure } from '~/server/errors/either';
+import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
@@ -184,6 +186,27 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 			expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
 			expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeInTheDocument();
+		});
+	});
+
+	describe('en cas d´erreur', () => {
+		it('montre une modale avec un lien vers les entreprises s`engagent', async () => {
+			renderComponent();
+			jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+
+			await remplirFormulaireEtape1();
+			await clickOnGoToEtape2();
+
+			await remplirFormulaireEtape2();
+			await clickOnEnvoyerLeFormulaire();
+
+			const modale = await screen.findByRole('dialog');
+
+			expect(within(modale).getByRole('heading', { level: 1, name: 'Une erreur est survenue' })).toBeInTheDocument();
+
+			const lien = within(modale).getByRole('link',  { name: /le site des entreprises s‘engagent/i });
+			expect(lien).toHaveAttribute('href', 'https://lesentreprises-sengagent.gouv.fr/');
+
 		});
 	});
 });

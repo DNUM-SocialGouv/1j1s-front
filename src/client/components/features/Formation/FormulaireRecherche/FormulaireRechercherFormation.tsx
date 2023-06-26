@@ -50,7 +50,7 @@ export function FormulaireRechercherFormation() {
 			<p className={styles.champsObligatoires}>Tous les champs sont obligatoires sauf mention contraire</p>
 			<form
 				className={styles.rechercheFormationForm}
-				role="form"
+				aria-label="Rechercher une formation"
 				onSubmit={updateRechercherFormationQueryParams}
 			>
 				<div className={styles.filtresRechercherFormation}>

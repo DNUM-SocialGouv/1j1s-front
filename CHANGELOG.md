@@ -1,5 +1,34 @@
 # Changelog
 
+## [3.100.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.4...v3.100.5) (2023-06-26)
+
+
+### 🐛 Corrections de bogues
+
+* ajout test auto a11y sur certaines pages et corrections des problèmes détectés  ([#1519](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1519)) ([92d5de8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/92d5de8416bf4620e994374c755e455481de754d))
+
+## [3.100.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.3...v3.100.4) (2023-06-26)
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.0.23 ([8f2f947](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8f2f947aa60ea7f3a1c74b702f134d3f5bfa2723))
+
+## [3.100.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.2...v3.100.3) (2023-06-23)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @meilisearch/instant-meilisearch to v0.13.3 ([#1504](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1504)) ([163f41f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/163f41f32a3f5afb780ee502d21a4eff01b572a9))
+* **deps:** update dependency react-instantsearch-hooks-web to v6.45.0 ([#1505](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1505)) ([9c27630](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c27630d9787a8ad65c425be8d7f44fd4b25aef9))
+
+## [3.100.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.1...v3.100.2) (2023-06-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.56.0 ([#1498](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1498)) ([2f6015a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2f6015aaf452eb225463624f5d222a5deb79f959))
+
 ## [3.100.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.0...v3.100.1) (2023-06-22)
 
 

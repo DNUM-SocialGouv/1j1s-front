@@ -1,0 +1,18 @@
+@use "@styles/utilities";
+
+.content {
+  text-align: center;
+  height: 80%;
+
+  display: grid;
+  align-content: center;
+}
+
+.modalHeading {
+  @extend %text-xLarge;
+}
+
+.modalSubHeading {
+  margin-top: 1rem;
+  color: utilities.$color-primary;
+}

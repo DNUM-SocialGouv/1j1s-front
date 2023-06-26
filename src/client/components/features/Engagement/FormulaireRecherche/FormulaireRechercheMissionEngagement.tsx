@@ -48,7 +48,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		<form
 			className={styles.rechercheMissionEngagementForm}
 			onSubmit={rechercherMission}
-			role="form"
+			aria-label="Rechercher une mission d'engagement"
 		>
 			<div className={styles.rechercheMissionEngagementForm__Container}>
 				<div className={styles.inputButtonWrapper}>

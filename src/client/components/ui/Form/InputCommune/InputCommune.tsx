@@ -230,8 +230,8 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 						id={id ? `header-search-${id}` : 'header-search'}
 						role="combobox"
 						aria-expanded={suggestionsActive}
-						aria-controls={LOCALISATION_SUGGESTIONS_ID}
-						aria-owns={LOCALISATION_SUGGESTIONS_ID}
+						aria-controls={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
+						aria-owns={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
 						aria-haspopup="listbox"
 					>
 						<input
@@ -241,7 +241,7 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 							data-testid="InputCommune"
 							autoComplete="off"
 							aria-autocomplete="list"
-							aria-controls={LOCALISATION_SUGGESTIONS_ID}
+							aria-controls={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
 							aria-activedescendant={htmlLabel}
 							placeholder={'Exemples : Paris, Béziers...'}
 							className={classNames(styles.formControlInput, required && invalid && styles.formControlInputError)}
