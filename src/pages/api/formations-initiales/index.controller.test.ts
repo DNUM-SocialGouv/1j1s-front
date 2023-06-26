@@ -6,7 +6,6 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
-	aFormationInitialeApiResponse,
 	aResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 

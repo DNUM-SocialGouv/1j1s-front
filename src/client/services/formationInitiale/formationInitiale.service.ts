@@ -10,6 +10,7 @@ export interface FormationInitialeInterface {
 export class FormationInitialeService implements FormationInitialeInterface {
 	constructor(private readonly httpClient: HttpClientService) {}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>> {
 		return await this.httpClient.get<Array<FormationInitiale>>('formations-initiales' );
 	}
