@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "3.100.1",
+  "version": "3.100.3",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -25,9 +25,9 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.13.2",
+    "@meilisearch/instant-meilisearch": "0.13.3",
     "@next/bundle-analyzer": "13.4.7",
-    "@sentry/nextjs": "7.55.2",
+    "@sentry/nextjs": "7.56.0",
     "axios": "1.4.0",
     "axios-cache-interceptor": "1.2.0",
     "classnames": "2.3.2",
@@ -46,7 +46,7 @@
     "react": "18.2.0",
     "react-autosuggest": "10.1.0",
     "react-dom": "18.2.0",
-    "react-instantsearch-hooks-web": "6.44.3",
+    "react-instantsearch-hooks-web": "6.45.0",
     "redis": "4.6.7",
     "reflect-metadata": "0.1.13",
     "sharp": "0.32.1",
