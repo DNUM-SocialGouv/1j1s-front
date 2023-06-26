@@ -1,5 +1,5 @@
 @use "@styles/media/mixins";
-@use "@styles/theme/variables.scss";
+@use "@styles/theme/variables-deprecated.scss";
 
 %text-regular {
   font-size: .875rem;
@@ -51,7 +51,7 @@
 %headline {
   font-size: 1.25rem;
   line-height: 2rem;
-  color: variables.$color-primary;
+  color: variables-deprecated.$color-primary;
 
   @include mixins.media(large) {
     font-size: 2rem;

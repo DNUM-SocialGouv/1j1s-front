@@ -1,0 +1,74 @@
+@use "sass:color";
+/* ***************
+ * Color palette
+ * ***************/
+$blue-navy: #000091;
+$diva-blue: #566BB1;
+$majorelle-blue: #6E61E9;
+$night-blue: #040085;
+$smalt-blue: #53918C;
+$cornflower-blue: #735BF2;
+$deepslate-blue: #455A64;
+$auricula-purple: #6E445A;
+$tapestry: #A558A0;
+$dark-vinaceous: #A66465;
+$coral: #E4794A;
+$seashell-peach: #FFF4ED;
+$brazil-red: #B34000;
+$scarlet-red: #CE0500;
+$cerro-green: #61803E;
+$duck-green: #18753C;
+$white: #FFFFFF;
+$white-lilac: #F6F7FB;
+$white-titan: #ECECFF;
+$light-neutral-grey: #EEEEEE;
+$neutral-grey: #929292;
+$deep-neutral-grey: #666666;
+$black: #161616;
+
+/* ***************
+ * Semantic colors
+ * ***************/
+$color-primary: $diva-blue;
+$color-primary-on-hover: $night-blue;
+$color-on-primary: $white;
+$color-secondary: $duck-green;
+$color-on-secondary: $white;
+$color-tertiary: $white-titan;
+$color-tertiary-on-hover: $majorelle-blue;
+$color-background-white-lilac: $white-lilac;
+$color-background-white-titan: $white-titan;
+$color-background: $white;
+$color-on-background: $black;
+$color-surface: $white;
+$color-on-surface: $black;
+$color-cej-background : #EA711B;
+$color-header-on-hover: $cornflower-blue;
+$campagne-CEJ-primary: $brazil-red;
+$mentorat-primary: $brazil-red;
+
+$color-error: $scarlet-red;
+$color-mention-grey: $deep-neutral-grey;
+$color-disabled: $white;
+$color-on-disabled: $neutral-grey;
+
+$color-blue-navy: $blue-navy;
+$color-lighten-blue-navy: lighten($color-blue-navy, 67%);
+$color-tapestry: $tapestry;
+$color-lighten-tapestry: lighten($color-tapestry, 45%);
+$color-smalt-blue: $smalt-blue;
+$color-lighten-smalt-blue: lighten($color-smalt-blue, 48%);
+$color-coral: $coral;
+$color-lighten-coral: $seashell-peach;
+
+$color-separator: $light-neutral-grey;
+$color-form-field: $white-lilac;
+$color-mine-shaft: #3A3A3A;
+$color-skeleton: $light-neutral-grey;
+$color-cadre-formulaire: $white-lilac;
+$color-tag: $light-neutral-grey;
+
+/* ***************
+ * Shadows
+ * ***************/
+$box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
