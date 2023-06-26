@@ -10,10 +10,12 @@ describe('Onisep token agent', () => {
 		};
 		const apiAuthenticationUrl = 'https://api.opendata.onisep.fr/api/1.0/login';
 		const email = 'email@example.com';
+		const emailEncoded = 'email%40example.com';
 		const password = 'some-password';
-		const requestBody = { body: { email, password }, headers: { 'Content-Type':'application/x-www-form-urlencoded' } };
+		const requestBody = `email=${emailEncoded}&password=${password}`;
+		const requestHeaders =  { reqheaders: { 'Content-Type':'application/x-www-form-urlencoded' } };
 		nock(apiAuthenticationUrl)
-			.post('', requestBody )
+			.post('', requestBody, requestHeaders)
 			.reply(200, onisepLoginResponse);
 
 		const onisepTokenAgent = new OnisepTokenAgent(apiAuthenticationUrl, email, password );
