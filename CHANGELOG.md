@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.100.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.4...v3.100.5) (2023-06-26)
+
+
+### 🐛 Corrections de bogues
+
+* ajout test auto a11y sur certaines pages et corrections des problèmes détectés  ([#1519](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1519)) ([92d5de8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/92d5de8416bf4620e994374c755e455481de754d))
+
 ## [3.100.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.3...v3.100.4) (2023-06-26)
 
 
