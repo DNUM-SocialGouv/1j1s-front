@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { KeyboardEvent, useCallback, useEffect, useId, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
@@ -48,7 +49,6 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [valueState]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-		console.log(event.key);
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
@@ -91,7 +91,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 
 	return (
 		<ComboboxProvider value={[ state, dispatch ]}>
-			<div className={styles.combobox}>
+			<div className={classNames(styles.combobox, inputProps.className)}>
 				<input {...inputProps}
 					ref={inputRef}
 					onKeyDown={onKeyDown}

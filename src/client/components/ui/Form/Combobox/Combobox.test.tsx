@@ -154,6 +154,15 @@ describe('<Combobox />', () => {
 
 			expect(input).toHaveValue('Option 1');
 		});
+		it('accepte un classname pour styliser tout le composant', () => {
+			const { container } = render(
+				<Combobox className="test">
+					<Combobox.Option>Option</Combobox.Option>
+				</Combobox>,
+			);
+
+			expect(container.firstChild).toHaveAttribute('class', expect.stringContaining('test'));
+		});
 	});
 
 	it('masque la liste de suggestions par défaut', () => {
@@ -689,13 +698,13 @@ describe('<Combobox />', () => {
 		expect(button).not.toHaveFocus();
 	});
 
-	it.todo('permet de styliser tous les éléments (classname sur la div au lieu du input)');
+	it.todo('role combobox');
 	it.todo('attributs ARIA (https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/#rps_label)');
-	it.todo('handle value != label on option');
 	it.todo("checker toutes les features d'accessibilité dans le pattern ARIA");
 	it.todo('n’écrase pas les props');
+	it.todo('handle value != label on option');
 	it.todo('gérer les children qui ne sont pas des Option');
-	it.todo('gérer les catégories');
 	it.todo('styliser le composant');
 	it.todo('validation de la valeur avec liste des options');
+	it.todo('gérer les catégories');
 });
