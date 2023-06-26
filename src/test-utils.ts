@@ -57,12 +57,16 @@ const [
 	(c, name) => `Unable to find a description from term with name of ${name}`,
 );
 
-export {
-	checkA11y,
+const queries = {
 	findAllByDescriptionTerm,
 	findByDescriptionTerm,
 	getAllByDescriptionTerm,
 	getByDescriptionTerm,
 	queryAllByDescriptionTerm,
 	queryByDescriptionTerm,
+};
+
+export {
+	checkA11y,
+	queries,
 };
