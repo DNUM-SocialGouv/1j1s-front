@@ -32,26 +32,15 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 				expect(actual).toEqual(createSuccess(undefined));
 			});
 
-			describe('Mais que le dépôt est indisponible', () => {
-				beforeEach(() => {
-					lEERepository.save.mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-				});
-				it('résout une erreur SERVICE INDISPONIBLE', async () => {
-					// When
-					const actual = await usecase.rejoindreLaMobilisation(commande);
-					// Then
-					expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
-				});
-			});
-			describe('Mais que le dépôt juge la demande invalide', () => {
+			describe('Mais que le dépôt renvoie une erreur métier', () => {
 				beforeEach(() => {
 					lEERepository.save.mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 				});
-				it('résout une erreur SERVICE INDISPONIBLE', async () => {
+				it('résout cette erreur métier', async () => {
 					// When
 					const actual = await usecase.rejoindreLaMobilisation(commande);
 					// Then
-					expect(actual).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+					expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 				});
 			});
 		});

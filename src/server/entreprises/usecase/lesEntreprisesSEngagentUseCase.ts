@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { createFailure, Either, isFailure } from '~/server/errors/either';
+import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
@@ -22,9 +22,7 @@ export class LesEntreprisesSEngagentUseCase {
 		}
 
 		const result = await this.lEERepository.save(entreprise);
-		if (isFailure(result)) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
-		}
+
 		return result;
 	}
 }
