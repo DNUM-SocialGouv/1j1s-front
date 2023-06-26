@@ -22,8 +22,6 @@ export class PublicHttpClientService {
 		config?: AxiosRequestConfig,
 	): Promise<AxiosResponse<Response>> {
 		try {
-			const toto = await this.client.get<Response>(endpoint, config);
-			console.log('toto ', toto);
 			return await this.client.get<Response>(endpoint, config);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {
