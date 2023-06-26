@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.100.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.5...v3.100.6) (2023-06-26)
+
+
+### 🐛 Corrections de bogues
+
+* affiche une modale avec redirection si erreur sur le formulaire LEE ([#1483](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1483)) ([ff6782d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff6782dcc768eb87e8f39de7bf6a674d6f459ef2))
+
 ## [3.100.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.4...v3.100.5) (2023-06-26)
 
 
