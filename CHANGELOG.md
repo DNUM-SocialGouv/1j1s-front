@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.101.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.6...v3.101.0) (2023-06-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage:** formulaire depot ajout champs dateDebutMinMax ([c089efa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c089efa4c5e05f0d470e96373c646db1c93f9fa6))
+
+
+### 🐛 Corrections de bogues
+
+* retour review ([0d9cc39](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0d9cc39d0380f741cfac6051dcdf8439aadabde1))
+
 ## [3.100.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.100.5...v3.100.6) (2023-06-26)
 
 
