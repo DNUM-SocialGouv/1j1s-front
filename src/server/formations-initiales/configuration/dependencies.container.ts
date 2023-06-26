@@ -1,12 +1,12 @@
 import { FormationInitialeRepository } from '../domain/formationInitiale.repository';
-import { RechercherFormationsInitialesUseCase } from '../useCases/rechercherFormationsInitiales.useCase';
+import { RechercherFormationInitialeUseCase } from '../useCases/rechercherFormationInitiale.useCase';
 
 export interface FormationInitialeDependencies {
-	rechercherFormationsInitiales: RechercherFormationsInitialesUseCase
+	rechercherFormationInitiale: RechercherFormationInitialeUseCase
 }
 
 export function formationInitialeDependenciesContainer(formationInitialeRepository: FormationInitialeRepository): FormationInitialeDependencies {
 	return {
-		rechercherFormationsInitiales: new RechercherFormationsInitialesUseCase(formationInitialeRepository),
+		rechercherFormationInitiale: new RechercherFormationInitialeUseCase(formationInitialeRepository),
 	};
 }

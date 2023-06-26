@@ -1,7 +1,7 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherFormationsInitialesHandler } from '~/pages/api/formations-initiales/index.controller';
+import { rechercherFormationInitialeHandler } from '~/pages/api/formations-initiales/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
@@ -38,7 +38,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 
 		// WHEN
 		await testApiHandler<Array<FormationInitiale> | ErrorHttpResponse>({
-			handler: (req, res) => rechercherFormationsInitialesHandler(req, res),
+			handler: (req, res) => rechercherFormationInitialeHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
