@@ -1,10 +1,8 @@
-import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import {
-	anEntrepriseRejoindreLaMobilisationStrapi,
 	anOffreDeStageResponse,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import {
-	mapEntrepriseRejoindreLaMobilisation, mapOffreStage,
+	mapOffreStage,
 	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
@@ -51,12 +49,6 @@ describe('mapVideoCampagneApprentissage', () => {
 	});
 });
 
-describe('mapEntrepriseRejoindreLaMobilisation', () => {
-	it('fait la conversion dans le modèle de strapi', () => {
-		const result = mapEntrepriseRejoindreLaMobilisation(anEntreprise(), 'annotation');
-		expect(result).toEqual(anEntrepriseRejoindreLaMobilisationStrapi());
-	});
-});
 
 // TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 describe('mapOffreDeStage', () => {
