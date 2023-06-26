@@ -9,6 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aFormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import FormationsInitialesPage, { getServerSideProps } from '~/pages/formations-initiales/index.page';
 
 describe('quand le feature flip n‘est pas actif', () => {
@@ -20,7 +21,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 	it('la page n‘est pas disponbile', async () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={anAnalyticsService()} formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>,
 		);
@@ -39,7 +40,7 @@ describe('quand le feature flip est actif', () => {
 	it('envoie les analytics de la page', () => {
 		const analyticsService = anAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>,
 		);
@@ -54,7 +55,7 @@ describe('quand le feature flip est actif', () => {
 
 	it('affiche le titre de la page', () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={anAnalyticsService()} formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>);
 
