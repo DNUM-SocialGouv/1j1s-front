@@ -2,7 +2,11 @@ import React, { Dispatch, ReducerState, useContext } from 'react';
 
 import { ComboboxAction, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 
-type ContextContent = [ReducerState<typeof ComboboxReducer>, Dispatch<ComboboxAction>]
+type ContextContent = {
+	state: ReducerState<typeof ComboboxReducer>,
+	dispatch: Dispatch<ComboboxAction>,
+	focusInput: () => void
+}
 
 const Context = React.createContext<ContextContent | undefined>(undefined);
 

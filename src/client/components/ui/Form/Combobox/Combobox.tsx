@@ -103,7 +103,11 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	}, [onChangeProps]);
 
 	return (
-		<ComboboxProvider value={[ state, dispatch ]}>
+		<ComboboxProvider value={{
+			dispatch,
+			focusInput: () => inputRef.current?.focus(),
+			state,
+		}}>
 			<div className={classNames(styles.combobox, className)}>
 				<input
 					role="combobox"
@@ -154,13 +158,14 @@ const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
 	const ref = useSynchronizedRef(outerRef);
 	const idState = useId();
 	const id = idProps ?? idState;
-	const [{ activeDescendant, value }, dispatch] = useCombobox();
+	const { state: { activeDescendant, value }, dispatch, focusInput } = useCombobox();
 	const selected = activeDescendant === id;
 	const hidden = !matchesInput(ref.current, value);
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		dispatch(new Actions.SelectOption(event.currentTarget));
 		if (onClickProps) { onClickProps(event); }
-	}, [dispatch, onClickProps]);
+		focusInput();
+	}, [dispatch, focusInput, onClickProps]);
 	return (
 		<li
 			role="option"

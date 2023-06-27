@@ -1042,6 +1042,24 @@ describe('<Combobox />', () => {
 		const input = screen.getByRole('combobox');
 		expect(input).toHaveFocus();
 	});
+	it('retourne le focus sur l’input quand on clique sur une option', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox aria-label='Test'>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+		const option = screen.getAllByRole('option')[0];
+		await user.click(option);
+
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveFocus();
+	});
 	it('ne submit pas un formulaire quand on clique sur le bouton', async () => {
 		const user = userEvent.setup();
 		const onSubmit = jest.fn();
@@ -1084,6 +1102,8 @@ describe('<Combobox />', () => {
 		const button = screen.getByRole('button');
 		expect(button).toBeDisabled();
 	});
+
+	it.todo('fermer la liste quand on clique en dehors');
 
 	it.todo('handle value != label on option');
 	it.todo('validation de la valeur avec liste des options');
