@@ -11,8 +11,8 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Combobox.module.scss';
 
-type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby'> & {
-	children: React.ReactNode,
+type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur'> & {
+	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -29,6 +29,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 	defaultValue,
 	className,
 	'aria-controls': ariaControls,
+	onBlur,
 	...inputProps
 }, inputOuterRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
@@ -108,7 +109,15 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 			focusInput: () => inputRef.current?.focus(),
 			state,
 		}}>
-			<div className={classNames(styles.combobox, className)}>
+			<div className={classNames(styles.combobox, className)} onBlur={(event) => {
+				if (event.currentTarget.contains(event.relatedTarget)) {
+					event.preventDefault();
+					event.stopPropagation();
+				} else {
+					dispatch(new Actions.CloseList());
+					if (onBlur) { onBlur(event); }
+				}
+			}}>
 				<input
 					role="combobox"
 				 	aria-expanded={open}

@@ -1103,7 +1103,47 @@ describe('<Combobox />', () => {
 		expect(button).toBeDisabled();
 	});
 
-	it.todo('fermer la liste quand on clique en dehors');
+	it('fermer la liste quand on clique en dehors du combobox', async () => {
+		const user = userEvent.setup();
+		render(
+			<>
+				<Combobox aria-label='Test'>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>
+				Outside
+			</>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+		const outside = screen.getByText('Outside');
+		await user.click(outside);
+
+		const liste = screen.getByRole('listbox', { hidden: true });
+		expect(liste).not.toBeVisible();
+	});
+	it('stop l’event de blur si nouveau focus toujours dans le combobox', async () => {
+		const user = userEvent.setup();
+		const onBlur = jest.fn();
+		render(
+			<>
+				<Combobox aria-label='Test' onBlur={onBlur}>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>
+			</>,
+		);
+
+		const input = screen.getByRole('combobox');
+		await user.click(input);
+		const button = screen.getByRole('button');
+		await user.click(button);
+
+		expect(onBlur).not.toHaveBeenCalled();
+	});
 
 	it.todo('handle value != label on option');
 	it.todo('validation de la valeur avec liste des options');
