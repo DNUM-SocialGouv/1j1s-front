@@ -13,13 +13,13 @@ Elle peut prendre les valeurs suivantes en argument : `small`, `medium`, `large`
 
 Elle s'utilise de la manière suivante :
 ```scss
-@use "styles/utilities-deprecated";
+@use "styles/utilities";
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
     // CSS appliqué aux écrans de taille medium et supérieure
 }
 
-@include utilities-deprecated.media(large) {
+@include utilities.media(large) {
     // CSS appliqué aux écrans de taille large et supérieure
 }
 ```
@@ -31,13 +31,13 @@ Elle s'utilise de la manière suivante :
 
 Le SCSS suivant permet de générer un layout qui change en fonction de la taille de l'écran :
 ```scss
-@use "styles/utilities-deprecated";
+@use "styles/utilities";
 
 .buttonsContainer {
     display: flex;
     flex-direction: column;
 
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
            flex-direction: row;
     }
 }

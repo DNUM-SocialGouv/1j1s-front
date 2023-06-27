@@ -4,8 +4,16 @@ import "./_colors.stories.scss"
 <Meta title="Toolbox/Colors"/>
 
 # Colors
+Pour utiliser une couleur, on procède de la manière suivante :
+```scss
+@use "styles/utilities";
 
-## Primary
+.maClasse {
+  color: utilities.$color-primary
+}
+```
+
+## Exemple
 
 <Canvas>
     <Story name="Example - Colors">
