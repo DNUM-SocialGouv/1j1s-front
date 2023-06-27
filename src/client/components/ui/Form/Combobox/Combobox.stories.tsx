@@ -10,7 +10,7 @@ const meta: Meta<typeof Combobox> = {
 		value: { type: 'string' },
 	},
 	args: {
-		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne'],
+		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne', 'Belgique', 'Japon', 'Australie', 'Chine', 'Canada', 'États-Unis'],
 		disabled: false,
 		value: undefined,
 	},
