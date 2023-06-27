@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .video {
   %frame {
@@ -28,12 +29,12 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: utilities-deprecated.pixel-to-rem(6);
+  padding: utilities.pixel-to-rem(6);
   color: utilities-deprecated.$color-on-primary;
-  max-width: utilities-deprecated.pixel-to-rem(475);
+  max-width: utilities.pixel-to-rem(475);
 
   @include utilities-deprecated.media(small) {
-    padding: utilities-deprecated.pixel-to-rem(40);
+    padding: utilities.pixel-to-rem(40);
   }
 
   & .linkToYoutubeTerms {
@@ -45,7 +46,7 @@
     @extend %text-small;
     @include utilities-deprecated.media(small) {
       font-size: 1rem;
-      margin-bottom: utilities-deprecated.pixel-to-rem(6);
+      margin-bottom: utilities.pixel-to-rem(6);
     }
   }
 
@@ -54,17 +55,17 @@
     border-bottom: none;
 
     @include utilities-deprecated.media(small) {
-      padding-bottom: utilities-deprecated.pixel-to-rem(24);
+      padding-bottom: utilities.pixel-to-rem(24);
       border-bottom: 1px utilities-deprecated.$color-on-primary solid;
     }
   }
 
   & .buttonAcceptCookies {
     width: fit-content;
-    margin-top: utilities-deprecated.pixel-to-rem(10);
+    margin-top: utilities.pixel-to-rem(10);
 
     @include utilities-deprecated.media(small) {
-      margin-top: utilities-deprecated.pixel-to-rem(24);
+      margin-top: utilities.pixel-to-rem(24);
     }
   }
 }

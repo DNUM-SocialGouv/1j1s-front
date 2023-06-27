@@ -6,8 +6,3 @@
 @forward "typography/mixins";
 @forward "typography/placeholders";
 @forward "components/button/placeholders";
-
-$_one-rem-in-pixel: 16;
-@function pixel-to-rem($pixel-size) {
-  @return calc($pixel-size / $_one-rem-in-pixel) * 1rem;
-}
