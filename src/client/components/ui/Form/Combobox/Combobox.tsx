@@ -121,6 +121,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 						dispatch(new Actions.ToggleList());
 						inputRef.current?.focus();
 					}}
+					type="button"
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}

@@ -1042,6 +1042,29 @@ describe('<Combobox />', () => {
 		const input = screen.getByRole('combobox');
 		expect(input).toHaveFocus();
 	});
+	it('ne submit pas un formulaire quand on clique sur le bouton', async () => {
+		const user = userEvent.setup();
+		const onSubmit = jest.fn();
+		render(
+			<form onSubmit={onSubmit}>
+				<Combobox aria-label='Test'>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>
+			</form>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+
+		expect(onSubmit).not.toHaveBeenCalled();
+	});
+
+	it.todo('disable le bouton quand le composant est disabled');
+	it.todo('styliser le composant quand disabled');
+	it.todo('disable le bouton quand le composant est readonly');
+	it.todo('fix le submit au enter ?');
 
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');
