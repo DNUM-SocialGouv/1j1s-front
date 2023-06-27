@@ -1065,7 +1065,6 @@ describe('<Combobox />', () => {
 	it.todo('styliser le composant quand disabled');
 	it.todo('disable le bouton quand le composant est readonly');
 	it.todo('fix le submit au enter ?');
-	it.todo('ajouter le width qui va bien (avec grid probablement)');
 
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');

@@ -3,7 +3,8 @@
 .combobox {
   // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
   position: relative;
-  width: fit-content;
+  display: grid;
+  grid-template-columns: 1fr auto;
 
   --border-radius: 1.25rem;
   border: 1px solid utilities-deprecated.$color-combobox-border;
@@ -34,6 +35,7 @@
   & ul[role="listbox"] {
     z-index: 1;
     position: absolute;
+    top: 100%;
     width: 100%;
     border: 1px solid utilities-deprecated.$color-combobox-list-border;
     border-radius: var(--border-radius);
