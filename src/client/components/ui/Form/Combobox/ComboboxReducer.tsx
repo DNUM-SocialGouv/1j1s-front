@@ -91,9 +91,9 @@ export namespace ComboboxAction {
 		}
 
 		execute(previousState: ComboboxState): ComboboxState {
+			const closeListState = new CloseList().execute(previousState);
 			return {
-				...previousState,
-				open: false,
+				...closeListState,
 				value: this.option?.textContent ?? '',
 			};
 		}

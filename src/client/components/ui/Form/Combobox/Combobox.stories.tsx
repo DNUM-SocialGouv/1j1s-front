@@ -51,7 +51,7 @@ export const intégrationDansUnFormulaire: Story = {
 		>
 			<label>
 				Mot clé
-				<InputText value="Informatique" />
+				<InputText readOnly value="Informatique" />
 			</label>
 			<label htmlFor="localisation">
 				Localisation
