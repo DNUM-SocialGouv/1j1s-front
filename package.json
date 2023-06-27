@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "3.100.5",
+  "version": "3.101.2",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -70,11 +70,11 @@
     "@types/lodash.debounce": "4.0.7",
     "@types/marked": "5.0.0",
     "@types/node": "18.16.18",
-    "@types/react": "18.2.13",
+    "@types/react": "18.2.14",
     "@types/react-autosuggest": "10.1.6",
     "@types/react-dom": "18.2.6",
     "@types/uuid": "9.0.2",
-    "@typescript-eslint/eslint-plugin": "5.60.0",
+    "@typescript-eslint/eslint-plugin": "5.60.1",
     "cypress": "12.15.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",

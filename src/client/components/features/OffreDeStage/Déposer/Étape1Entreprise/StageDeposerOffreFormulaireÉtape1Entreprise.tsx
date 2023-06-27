@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 
 import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
-import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -36,7 +36,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	const router = useRouter();
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
 
 	function ChampsObligatoires() {
@@ -123,17 +123,18 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 	return (
 		<FormulaireÉtapeLayout
 			étape="Etape 1 sur 3 : Votre entreprise"
-			formulaire={<FormulaireEntreprise/>}
-		/>
+		>
+			<FormulaireEntreprise/>
+		</FormulaireÉtapeLayout>
 	);
 };
 
-function parseDonnéesEntreprise(formData: FormData):OffreDeStageDéposée.Entreprise {
+function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposee.Entreprise {
 	return {
-		descriptionEmployeur: formData.get(Employeur.DESCRIPTION),
-		emailEmployeur: formData.get(Employeur.EMAIL),
-		logoEmployeur: formData.get(Employeur.LOGO),
-		nomEmployeur: formData.get(Employeur.NOM),
-		siteEmployeur: formData.get(Employeur.SITE),
-	} as OffreDeStageDéposée.Entreprise;
+		descriptionEmployeur: String(formData.get(Employeur.DESCRIPTION)),
+		emailEmployeur: String(formData.get(Employeur.EMAIL)),
+		logoEmployeur: String(formData.get(Employeur.LOGO)),
+		nomEmployeur: String(formData.get(Employeur.NOM)),
+		siteEmployeur: String(formData.get(Employeur.SITE)),
+	};
 }

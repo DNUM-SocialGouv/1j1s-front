@@ -55,6 +55,43 @@
   }
 }
 
+.contenuDateDeDebut {
+  border: none;
+  width: 100%;
+
+  &InputDate {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    @include utilities.media(xlarge) {
+      flex-direction: row;
+      justify-content: space-between;
+
+      > div {
+        min-width: 48%;
+      }
+    }
+  }
+
+  &InputRadio {
+    padding-bottom: 1rem;
+
+    input[type=radio] {
+      margin-right: 1.5rem;
+
+      &:focus + label::before {
+        outline: 2px solid utilities.$color-primary;
+        outline-offset: 2px;
+      }
+    }
+  }
+}
+
+.dureeStage {
+  width: 100%;
+}
+
 .textareaWrapper {
   margin-top: 1rem;
 

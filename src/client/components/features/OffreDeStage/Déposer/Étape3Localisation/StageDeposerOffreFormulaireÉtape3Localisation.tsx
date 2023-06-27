@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
-import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionPays
@@ -36,13 +36,13 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDéposée.Entreprise>(ETAPE_ENTREPRISE);
+	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
 
-	const sessionStorageStage = useSessionStorage<OffreDeStageDéposée.Stage>(ETAPE_OFFRE_DE_STAGE);
+	const sessionStorageStage = useSessionStorage<OffreDeStageDeposee.Stage>(ETAPE_OFFRE_DE_STAGE);
 	const informationsStage = sessionStorageStage.get();
 
-	const localStorageLocalisation = useLocalStorage<OffreDeStageDéposée.Localisation>(ETAPE_LOCALISATION);
+	const localStorageLocalisation = useLocalStorage<OffreDeStageDeposee.Localisation>(ETAPE_LOCALISATION);
 	const informationsLocalisation = localStorageLocalisation.get();
 
 	useEffect(() => {
@@ -142,19 +142,20 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	return (
 		<FormulaireÉtapeLayout
 			étape="Etape 3 sur 3 : Localisation du stage"
-			formulaire={<FormulaireLocalisation/>}
 			urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
-		/>
+		>
+			<FormulaireLocalisation />
+		</FormulaireÉtapeLayout>
 	);
 };
 
-function parseDonnéesLocalisation(formData: FormData): OffreDeStageDéposée.Localisation {
+function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposee.Localisation {
 	return {
-		adresse: formData.get(Localisation.ADRESSE),
-		codePostal: formData.get(Localisation.CODE_POSTAL),
-		departement: formData.get(Localisation.DEPARTEMENT),
-		pays: formData.get(Localisation.PAYS),
-		region: formData.get(Localisation.REGION),
-		ville: formData.get(Localisation.VILLE),
-	} as OffreDeStageDéposée.Localisation;
+		adresse: String(formData.get(Localisation.ADRESSE)),
+		codePostal: String(formData.get(Localisation.CODE_POSTAL)),
+		departement: String(formData.get(Localisation.DEPARTEMENT)),
+		pays: String(formData.get(Localisation.PAYS)),
+		region: String(formData.get(Localisation.REGION)),
+		ville: String(formData.get(Localisation.VILLE)),
+	};
 }

@@ -1,4 +1,4 @@
-import { OffreDeStageDéposée } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
@@ -9,18 +9,21 @@ export class StageService {
 
 	constructor(private httpClientService: HttpClientService) {}
 
-	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDéposée.Entreprise, informationsStage: OffreDeStageDéposée.Stage, informationsLocalisation: OffreDeStageDéposée.Localisation): Promise<Either<void>> {
+	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Promise<Either<void>> {
 		const offreDeStage = this.préparerDonnéesOffreDeStage(informationsEntreprise, informationsStage, informationsLocalisation);
 		return this.httpClientService.post('stages', offreDeStage);
 	};
 
-	private préparerDonnéesOffreDeStage(informationsEntreprise: OffreDeStageDéposée.Entreprise, informationsStage: OffreDeStageDéposée.Stage, informationsLocalisation: OffreDeStageDéposée.Localisation): Partial<OffreDeStageDepot> {
+	private préparerDonnéesOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Partial<OffreDeStageDepot> {
 		const urlDeCandidature = informationsStage.lienCandidature.startsWith('http')
 			? informationsStage.lienCandidature
 			: 'mailto:' + informationsStage.lienCandidature;
 
+		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 		const formData: OffreDeStageDepot = {
-			dateDeDebut: informationsStage.dateDebut,
+			dateDeDebut: informationsStage.dateDeDebutMin,
+			dateDeDebutMax: informationsStage.dateDeDebutMax,
+			dateDeDebutMin: informationsStage.dateDeDebutMin,
 			description: informationsStage.descriptionOffre,
 			domaine: informationsStage.domaineStage as Domaines || Domaines.NON_RENSEIGNE,
 			duree: informationsStage.dureeStage,
