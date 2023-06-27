@@ -1085,12 +1085,10 @@ describe('<Combobox />', () => {
 		expect(button).toBeDisabled();
 	});
 
-	it.todo('styliser le composant quand disabled');
-	it.todo('fix le submit au enter ?');
-
-	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');
-	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
+
+	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
+	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 });

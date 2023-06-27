@@ -6,13 +6,8 @@
   display: grid;
   grid-template-columns: 1fr auto;
 
-  --border-radius: 1.25rem;
-  border: 1px solid utilities-deprecated.$color-combobox-border;
-  border-radius: var(--border-radius);
-
   & input {
     background-color: transparent;
-    border: none;
     padding: 0.5rem 1rem;
   }
   & button {
@@ -26,10 +21,31 @@
     }
   }
 
+  --border-radius: 1.25rem;
+  border-radius: var(--border-radius);
   @extend %outlined;
   & input,
   & button {
     @extend %no-outline
+  }
+
+  // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
+  & input {
+    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border-right: none;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+  }
+  & button {
+    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border-left: none;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+  & input:disabled,
+  & input:read-only,
+  & button:disabled {
+    border-color: utilities-deprecated.$color-combobox-disabled;
+    color: utilities-deprecated.$color-combobox-disabled;
+    cursor: not-allowed;
   }
 
   & ul[role="listbox"] {
