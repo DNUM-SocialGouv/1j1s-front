@@ -111,7 +111,8 @@ Fichiers de styles partagés, ni lié à un seul composant ni à un layout ou pa
 * `_placeholders` : placeholders Sass
 * `_styles` : style
 * `_variables` : variables Sass
-Tous les fichiers utiles pour composer le style côté client, répartis dans les différents sous-dossiers de `styles/`, sont importés depuis le fichier `_utilities-deprecated/` à la racine de `styles/`, pour que seul ce fichier soit ensuite importé.   
+Tous les fichiers utiles pour composer le style côté client, répartis dans les différents sous-dossiers de `styles/`, sont importés depuis le fichier `_utilities/` à la racine de `styles/`, pour que seul ce fichier soit ensuite importé.   
+On retrouve également `_utilities-deprecated` qui correspond a l'état de nos styles partagés avant la migration vers l'UI kit. Ce fichier n'est plus a utilisé.
 
 ```
 └─── styles
@@ -120,7 +121,8 @@ Tous les fichiers utiles pour composer le style côté client, répartis dans le
      ├── reset/ : style pour reset le CSS des agents utilisateurs
      ├── theme/ : transposition du theme
      ├── typographie/ : tout ce qui concerne le texte
-     ├── _utilities-deprecated.scss : fichier important tout ce qui est utile pour la coposition du style de l'application
+     ├── _utilities.scss : fichier important tout ce qui est utile pour la composition du style de l'application
+     ├── _utilities-deprecated.scss : ancien fichier composant le style de l'application avant la migration vers l'UI kit. Ne plus l'utiliser.
      └── main.css : règles de base communes à tout le site
 ```
 
