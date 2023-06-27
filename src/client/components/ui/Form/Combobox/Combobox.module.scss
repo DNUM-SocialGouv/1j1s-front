@@ -37,6 +37,7 @@
     width: 100%;
     border: 1px solid utilities-deprecated.$color-combobox-list-border;
     border-radius: var(--border-radius);
+    background-color: utilities-deprecated.$color-combobox-list-background;
     margin-top: 4px;
 
     max-height: 10em;

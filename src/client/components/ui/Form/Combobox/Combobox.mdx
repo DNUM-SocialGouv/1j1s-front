@@ -6,7 +6,7 @@ import {Canvas, Controls, Meta} from "@storybook/blocks";
 
 # Definition
 
-
+L'implémentation accessible du combobox est [décrite dans les patterns ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/)
 
 ## Props
 
@@ -16,6 +16,13 @@ Le `Combobox` peut prendre les props suivantes :
 
 **Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)**
 
+Il est nécessaire d'ajouter un nom accessible par une des props `aria-label` ou `aria-labelledby` qui se placera
+automatiquement sur la liste d'options et le bouton permettant de la faire apparaitre.
+
 # Test
 
-<Canvas of={stories.story} />
+<Canvas of={stories.exemple} />
+
+<Canvas of={stories.disabled} />
+
+[//]: # (<Canvas of={stories.intégrationDansUnFormulaire} />)
