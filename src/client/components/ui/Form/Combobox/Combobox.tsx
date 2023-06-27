@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { KeyboardEvent, useCallback, useId, useLayoutEffect, useReducer, useRef } from 'react';
+import React, { KeyboardEvent, useCallback, useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -27,6 +27,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	value: valueProps,
 	defaultValue,
 	className,
+	name,
 	'aria-controls': ariaControls,
 	onBlur,
 	...inputProps
@@ -41,7 +42,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	useLayoutEffect(() => {
+	const matchingOption = useMemo(function findOption(): Element | undefined {
+		return Array.from(listboxRef.current?.querySelectorAll('[role="option"]') ?? [])
+			.find((element) => element.textContent === value);
+		// NOTE (GAFI 27-06-2023): On accède aux children indirectement par le querySelectorAll
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [value, listboxRef, children]);
+
+	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
@@ -128,7 +136,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onKeyDown={onKeyDown}
 					value={value}
 					onChange={onChange}
+					name={`${name}.label`}
 					{...inputProps} />
+				<input type="hidden" name={`${name}.value`} value={matchingOption?.getAttribute('value') ?? ''} />
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());

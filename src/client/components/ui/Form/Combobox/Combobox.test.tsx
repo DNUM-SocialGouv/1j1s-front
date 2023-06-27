@@ -683,7 +683,8 @@ describe('<Combobox />', () => {
 							<Combobox.Option>Option 2</Combobox.Option>
 							<Combobox.Option>Option 3</Combobox.Option>
 						</Combobox>
-					</form>,
+					<button>Submit</button>
+				</form>,
 				);
 
 				const input = screen.getByRole('combobox');
@@ -1190,7 +1191,41 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('handle value != label on option');
+	describe('<Combobox.Option value />', () => {
+		it("submit le label et la value de l'option quand présent", async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
+						'combobox.value': expect.objectContaining({ value: 'test' }),
+					}),
+				}),
+			}));
+		});
+		it.todo('quand pas de name sur l’input');
+		it.todo('quand pas value');
+		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
+		it.todo('passer sur data-value au lieu de value pour éviter un conflit ?');
+	});
+
 	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
 
