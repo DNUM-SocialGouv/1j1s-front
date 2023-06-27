@@ -47,7 +47,7 @@ export const intégrationDansUnFormulaire: Story = {
 	render: ({ children, ...args }) => (
 		<form
 			onSubmit={(event) => { event.preventDefault(); alert('form submitted'); }}
-			style={{ display: 'grid', gap: '2ch', gridTemplateColumns: '1fr 1fr auto' }}
+			style={{ display: 'grid', gap: '2ch', gridTemplateColumns: '1fr 1fr' }}
 		>
 			<label>
 				Mot clé
@@ -59,7 +59,6 @@ export const intégrationDansUnFormulaire: Story = {
 					{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
 				</Combobox>
 			</label>
-			<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass" />} iconPosition="left">Rechercher</ButtonComponent>
 			<label htmlFor="domaine">
 				Domaine
 				<Combobox id="domaine" name="domaine" readOnly value="Informatique" />
@@ -68,6 +67,7 @@ export const intégrationDansUnFormulaire: Story = {
 				Durée
 				<Combobox id="domaine" name="domaine" readOnly value="6 Mois" />
 			</label>
+			<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass" />} iconPosition="left">Rechercher</ButtonComponent>
 		</form>
 	),
 };

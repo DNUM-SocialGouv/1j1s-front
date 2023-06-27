@@ -122,6 +122,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 						inputRef.current?.focus();
 					}}
 					type="button"
+					disabled={inputProps.disabled || inputProps.readOnly}
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}
