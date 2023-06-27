@@ -117,7 +117,10 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 					onChange={onChange}
 					{...inputProps} />
 				<button
-					onClick={() => dispatch(new Actions.ToggleList())}
+					onClick={() => {
+						dispatch(new Actions.ToggleList());
+						inputRef.current?.focus();
+					}}
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}

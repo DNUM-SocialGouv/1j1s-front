@@ -1026,7 +1026,22 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('retourne le focus sur l’input quand on clique sur le bouton');
+	it('retourne le focus sur l’input quand on clique sur le bouton', async () => {
+		const user = userEvent.setup();
+		render(
+			<Combobox aria-label='Test'>
+				<Combobox.Option>Option 1</Combobox.Option>
+				<Combobox.Option>Option 2</Combobox.Option>
+				<Combobox.Option>Option 3</Combobox.Option>
+			</Combobox>,
+		);
+
+		const button = screen.getByRole('button');
+		await user.click(button);
+
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveFocus();
+	});
 
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');
