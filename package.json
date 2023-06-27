@@ -22,7 +22,8 @@
     "analyze": "ANALYZE=true next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
+    "storybook:build": "storybook build",
+    "migration:stage": "node -r dotenv/config ./scripts/cmsMigrationOffreDeStage.ts"
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.13.3",
