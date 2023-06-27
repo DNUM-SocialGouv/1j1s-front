@@ -655,7 +655,7 @@ describe('<Combobox />', () => {
 			await user.click(input);
 			await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
-			expect(option.scrollIntoView).toHaveBeenCalledWith(false);
+			expect(option.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
 		});
 	});
 
@@ -1026,9 +1026,7 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('styliser le composant');
-	it.todo('styliser le focus autour le l’input **et** du bouton');
-	it.todo('changer le curseur en pointer sur le bouton et les options');
+	it.todo('retourne le focus sur l’input quand on clique sur le bouton');
 
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
 	it.todo('handle value != label on option');

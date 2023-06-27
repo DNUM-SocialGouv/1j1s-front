@@ -51,7 +51,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 
 	useLayoutEffect(() => {
 		if (activeDescendant) {
-			document.getElementById(activeDescendant)?.scrollIntoView(false);
+			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
 	}, [activeDescendant]);
 
@@ -96,7 +96,7 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
-	}, [onKeyDownProps, triggerChangeEvents]);
+	}, [onKeyDownProps]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
 		if (onChangeProps) { onChangeProps(event); }

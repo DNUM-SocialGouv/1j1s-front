@@ -1,12 +1,48 @@
-.combobox li[role="option"]:is([aria-selected="true"], :hover) {
-  background-color: #ff00003f;
-}
+@use "@styles/utilities-deprecated";
 
-.combobox button[aria-expanded="true"] svg {
-  transform: rotate(180deg);
-}
+.combobox {
+  // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input
+  position: relative;
+  width: fit-content;
 
-.combobox [role="listbox"] {
-  height: 5rem;
-  overflow-y: scroll;
+  border: 1px solid utilities-deprecated.$color-combobox-border;
+  // NOTE (GAFI 27-06-2023): forme de pilule
+  border-radius: 100vmax;
+
+  & input {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+  }
+  & button {
+    vertical-align: middle;
+    & svg {
+      vertical-align: bottom;
+      transition: transform 75ms ease-in-out;
+    }
+    &[aria-expanded="true"] svg {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @extend %outlined;
+  & input,
+  & button {
+    @extend %no-outline
+  }
+
+  & ul[role="listbox"] {
+    position: absolute;
+    width: 100%;
+    overflow-y: scroll;
+
+    & li[role="option"] {
+      cursor: pointer;
+
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: utilities-deprecated.$color-combobox-option-hover;
+      }
+    }
+  }
 }
