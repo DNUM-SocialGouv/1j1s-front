@@ -15,6 +15,7 @@ const meta: Meta<typeof Combobox> = {
 	args: {
 		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne', 'Belgique', 'Japon', 'Australie', 'Chine', 'Canada', 'États-Unis'],
 		disabled: false,
+		readOnly: false,
 		value: undefined,
 	},
 	component: Combobox,
@@ -26,9 +27,12 @@ type Story = StoryObj<typeof Combobox>;
 export const exemple: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
-		<Combobox {...args}>
-			{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
-		</Combobox>
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+			</Combobox>
+		</>
 	),
 };
 export const disabled: Story = {
@@ -36,9 +40,12 @@ export const disabled: Story = {
 		disabled: true,
 	},
 	render: ({ children, ...args }) => (
-		<Combobox {...args}>
-			{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
-		</Combobox>
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+			</Combobox>
+		</>
 	),
 };
 
