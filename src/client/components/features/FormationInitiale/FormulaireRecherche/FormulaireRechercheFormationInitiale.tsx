@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import styles
 	from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale.module.scss';
@@ -10,7 +10,6 @@ import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQu
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheFormationInitiale() {
-	const refRechercheFormationInitiale = useRef<HTMLFormElement>(null);
 	const queryParams = useFormationInitialeQuery();
 	const router = useRouter();
 	const [inputDomaine, setInputDomaine] = useState<string>('');
@@ -28,7 +27,6 @@ export function FormulaireRechercheFormationInitiale() {
 
 	return (
 		<form
-			ref={refRechercheFormationInitiale}
 			className={styles.RechercheFormationInitialeForm}
 			role="search"
 			onSubmit={updateQueryParams}
@@ -40,7 +38,6 @@ export function FormulaireRechercheFormationInitiale() {
 				name="domaine"
 				autoFocus
 				onChange={(event: ChangeEvent<HTMLInputElement>) => setInputDomaine(event.currentTarget.value)}
-				required
 			/>
 			<div className={styles.buttonWrapper}>
 				<ButtonComponent

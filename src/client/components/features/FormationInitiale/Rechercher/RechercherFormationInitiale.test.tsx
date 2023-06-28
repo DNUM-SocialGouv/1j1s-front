@@ -84,19 +84,4 @@ describe('RechercherFormationInitiale', () => {
 			expect(await screen.findByText(/1 formation/)).toBeVisible();
 		});
 	});
-	describe('footnote', () => {
-		it('affiche la footnote des partenaires', () => {
-			mockUseRouter({});
-			const aFormationService = aFormationInitialeService();
-
-			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
-			</DependenciesProvider>,
-			);
-
-			const CGULink = screen.getByRole('link', { name: 'liste disponible dans les CGU' });
-			expect(CGULink).toBeVisible();
-			expect(CGULink).toHaveAttribute('href','/cgu#3-services');
-		});
-	});
 });

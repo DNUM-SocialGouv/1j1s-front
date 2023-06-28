@@ -1,11 +1,10 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
 } from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
 import { Head } from '~/client/components/head/Head';
-import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -13,7 +12,6 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
@@ -56,14 +54,9 @@ export function RechercherFormationInitiale() {
 		}
 	}, [formationInitialeService, formationInitialeQuery]);
 
-	const messageResultatRecherche: string | React.ReactElement = useMemo(() => {
-		if (resultatList.length > 0) {
-			return (<>{`${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} pour ${router.query.domaine}`}
-				<Footnote.Reference to="partenaires" id="partenaires-reference"/></>);
-		} else {
-			return '';
-		}
-	}, [resultatList.length, router.query.domaine]);
+	const messageResultatTrouve = `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} pour ${router.query.domaine}`;
+	const messageResultatRecherche =
+		resultatList.length > 0 ? messageResultatTrouve : '';
 
 	return (
 		<>
@@ -82,10 +75,6 @@ export function RechercherFormationInitiale() {
 					nombreSolutions={resultatList.length}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
-				<Footnote htmlFor="partenaires-reference" id="partenaires" className={styles.footnote}>
-					les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste
-					disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
-				</Footnote>
 			</main>
 		</>
 	);
@@ -110,6 +99,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		return null;
 	}
 
+	// TODO : pour la key, remplacer formation.libelle par formation.id quand on aura l'id d'une formation
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Formations Initiales">
 			{resultatList.map((formation: FormationInitiale) => (
