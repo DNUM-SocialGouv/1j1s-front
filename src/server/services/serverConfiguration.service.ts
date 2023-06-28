@@ -1,6 +1,6 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
 
-export class ServerConfigurationService implements ConfigurationService {
+export default class ServerConfigurationService implements ConfigurationService {
 	getConfiguration(): EnvironmentVariables {
 		return {
 			API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
@@ -70,6 +70,8 @@ export class ServerConfigurationService implements ConfigurationService {
 		return environmentVariable || defaultValue;
 	}
 }
+
+// export default const environmentConfig = new ServerConfigurationService().getConfiguration();
 
 class EnvironmentVariablesException extends Error {
 	constructor(readonly message: string) {

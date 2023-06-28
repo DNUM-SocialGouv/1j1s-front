@@ -1,5 +1,5 @@
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
-import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 import { createSuccess, Either } from '../../errors/either';
 import { FormationInitiale } from '../domain/formationInitiale';
@@ -29,7 +29,7 @@ export interface ResultatRechercheFormationInitialeApiResponse {
 }
 
 export class OnisepFormationInitialeRepository implements FormationInitialeRepository {
-	constructor(private readonly httpClient: AuthenticatedHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(): Promise<Either<Array<FormationInitiale>>> {
 		try {

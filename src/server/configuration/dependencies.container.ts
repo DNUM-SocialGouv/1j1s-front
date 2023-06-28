@@ -79,7 +79,12 @@ import {
 	FormationInitialeDependencies,
 	formationInitialeDependenciesContainer,
 } from '~/server/formations-initiales/configuration/dependencies.container';
-import { getApiOnisepConfig } from '~/server/formations-initiales/configuration/httpClient/apiOnisepHttpClient.config';
+import {
+	getApiOnisepAuthenticatedConfig,
+} from '~/server/formations-initiales/configuration/httpClient/apiOnisepAuthenticatedHttpClient.config';
+import {
+	getApiOnisepPublicConfig,
+} from '~/server/formations-initiales/configuration/httpClient/apiOnisepPublicHttpClient.config';
 import {
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
@@ -139,7 +144,7 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 import { LoggerService } from '~/server/services/logger.service';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 import { PinoLoggerService } from '~/server/services/pinoLogger.service';
-import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
+import ServerConfigurationService from '~/server/services/serverConfiguration.service';
 import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
@@ -229,7 +234,11 @@ export function dependenciesContainer(): Dependencies {
 
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
-	const apiOnisepHttpClient = new AuthenticatedHttpClientService(getApiOnisepConfig(serverConfigurationService), loggerService);
+	const isProd = serverConfigurationService.getConfiguration().ENVIRONMENT === 'production';
+
+	const apiOnisepHttpClient = isProd
+		? new AuthenticatedHttpClientService(getApiOnisepAuthenticatedConfig(serverConfigurationService), loggerService)
+		: new PublicHttpClientService(getApiOnisepPublicConfig(serverConfigurationService));
 	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
 	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
 

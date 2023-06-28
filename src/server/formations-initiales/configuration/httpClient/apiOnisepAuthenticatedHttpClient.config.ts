@@ -2,7 +2,7 @@ import { ConfigurationService } from '../../../services/configuration.service';
 import { AuthenticatedHttpClientConfig } from '../../../services/http/authenticatedHttpClient.service';
 import { OnisepTokenAgent } from '../tokenAgent/onisepTokenAgent';
 
-export function getApiOnisepConfig(configurationService: ConfigurationService): AuthenticatedHttpClientConfig {
+export function getApiOnisepAuthenticatedConfig(configurationService: ConfigurationService): AuthenticatedHttpClientConfig {
 	const authenticationUrl = `${configurationService.getConfiguration().API_ONISEP_BASE_URL}/login`;
 	const authenticationEmail = configurationService.getConfiguration().API_ONISEP_ACCOUNT_EMAIL;
 	const authenticationPassword = configurationService.getConfiguration().API_ONISEP_ACCOUNT_PASSWORD;

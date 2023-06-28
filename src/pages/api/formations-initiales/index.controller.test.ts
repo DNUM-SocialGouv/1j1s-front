@@ -10,30 +10,13 @@ import {
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 
 describe('lorsque je veux faire une recherche de formations initiales', () => {
-	it('doit récupérer des formations initiales', async () => {
+
+	it('en recette, doit récupérer des formations initiales en mode non authentifié', async () => {
 		// GIVEN
-		const token = 'some-token';
-		const onisepLoginResponse = {
-			token,
-		};
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
-		const apiAuthenticationUrl = `${apiBaseUrl}/login`;
 		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search`;
-		const emailEncoded = 'fake%40example.com';
-		const password = 'password-bidon';
-		const getTokenRequestBody = `email=${emailEncoded}&password=${password}`;
-		const getTokenRequestHeaders =  { reqheaders: { 'Content-Type':'application/x-www-form-urlencoded' } };
-		const requestOptions = {
-			reqheaders: {
-				'Application-ID': '123456789',
-				authorization: `Bearer ${token}`,
-			},
-		};
-		nock(apiAuthenticationUrl)
-			.post('', getTokenRequestBody, getTokenRequestHeaders)
-			.reply(200, onisepLoginResponse);
-		nock(apiSearchUrl)
-			.get('', undefined, requestOptions)
+		const searchFormationInitialeCall = nock(apiSearchUrl)
+			.get('')
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
@@ -43,9 +26,11 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
 				// THEN
+				expect(searchFormationInitialeCall.isDone()).toBe(true);
 				expect(json).toEqual([aFormationInitiale()]);
 			},
 			url: '/formations-initiales',
 		});
 	});
+
 });
