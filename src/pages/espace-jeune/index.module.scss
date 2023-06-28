@@ -24,6 +24,7 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 2rem;
+  flex-direction: column;
 
   @include utilities-deprecated.media(medium) {
     padding-top: 2rem;
