@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import {
 	RechercherFormationInitiale,
@@ -57,7 +57,7 @@ describe('RechercherFormationInitiale', () => {
 
 			expect(await screen.findByText(/[0-9]+ formations/)).toBeVisible();
 		});
-		it('lorsqu‘il n‘y a pas de résultat je ne vois le nombre de résultats affiché', async () => {
+		it('lorsqu‘il n‘y a pas de résultat je ne vois pas le nombre de résultats affiché', async () => {
 			const aFormationService = aFormationInitialeService();
 			const resultRechercheFormation = createSuccess([]);
 			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
@@ -67,7 +67,9 @@ describe('RechercherFormationInitiale', () => {
 			</DependenciesProvider>,
 			);
 
-			expect(screen.queryByText(/[0-9]+ formation(s)?/)).not.toBeInTheDocument();
+			await waitFor(() => {
+				expect(screen.queryByText(/[0-9]+ formation(s)?/)).not.toBeInTheDocument();
+			});
 		});
 		it('lorsqu‘il y a un résultat je vois le nombre de résultats affiché au singulier', async () => {
 			const aFormationService = aFormationInitialeService();

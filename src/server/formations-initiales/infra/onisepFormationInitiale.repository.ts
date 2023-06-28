@@ -32,8 +32,9 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
 	async search(): Promise<Either<Array<FormationInitiale>>> {
+		const ONISEP_FORMATIONS_INITIALES_DATASET_ID = '5fa591127f501';
 		try {
-			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>('/dataset/5fa591127f501/search');
+			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search`);
 			const formationsInitialesApiResponse = apiResponse.data.results;
 			const formationsInitiales = formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
 			return createSuccess(formationsInitiales);

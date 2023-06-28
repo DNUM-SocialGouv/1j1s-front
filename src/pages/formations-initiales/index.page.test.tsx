@@ -64,4 +64,6 @@ describe('quand le feature flip est actif', () => {
 		expect(heading).toHaveTextContent('Des milliers de formations pour vous permettre');
 		expect(heading).toHaveTextContent('de réaliser votre projet professionnel');
 	});
+
+
 });
