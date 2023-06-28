@@ -13,8 +13,8 @@ readline.question('', (answer) => {
 	}
 	readline.close();
 	doMigration();
-	isMigrationOk();
 });
+
 
 const STRAPI_BASE_URL = process.env.STRAPI_BASE_URL.replace('localhost', '127.0.0.1');
 const [login, password] = process.env.STRAPI_AUTH.split(':');
@@ -109,6 +109,7 @@ async function doMigration() {
 		await addDateMinMaxToOffreDeStage(token, offre.id, offre.dateDeDebut);
 		console.log(`Updated ${index + 1}/${offreDeStageDataList.length} !`);
 	}
+	await isMigrationOk()
 	console.log('Migration done !');
 }
 
