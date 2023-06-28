@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.101.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.101.5...v3.101.6) (2023-06-28)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @tsconfig/docusaurus to v2 ([#1542](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1542)) ([43fdf75](https://github.com/DNUM-SocialGouv/1j1s-front/commit/43fdf750a920a7724eff81811a6596f95e3fa3a2))
+
 ## [3.101.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.101.4...v3.101.5) (2023-06-28)
 
 
