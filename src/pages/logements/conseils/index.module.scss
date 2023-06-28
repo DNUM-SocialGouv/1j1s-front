@@ -1,11 +1,11 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .articleList {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
   padding: 1rem;
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2.5rem;
     padding: 5rem 0;
@@ -13,6 +13,6 @@
 }
 
 .articleCard {
-  border: 1px solid utilities.$neutral-grey;
+  border: 1px solid utilities-deprecated.$neutral-grey;
   box-shadow: 10px 10px 20px 0px #0000000D;
 }

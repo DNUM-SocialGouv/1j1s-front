@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .rangeBox {
   padding: .75rem 0;
@@ -20,8 +20,8 @@
     height: 2rem;
     padding: 4px 16px;
     display: flex;
-    background-color: utilities.$color-primary;
-    color: utilities.$color-on-primary;
+    background-color: utilities-deprecated.$color-primary;
+    color: utilities-deprecated.$color-on-primary;
   }
 }
 

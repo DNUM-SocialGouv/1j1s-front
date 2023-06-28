@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
   display: flex;
@@ -23,7 +23,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .container {
     padding: 3rem 0rem;
     max-width: 48rem;

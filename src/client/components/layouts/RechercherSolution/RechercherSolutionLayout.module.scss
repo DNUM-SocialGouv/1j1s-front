@@ -1,10 +1,10 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .rechercheSolution {
   &FormWrapper {
     padding: 1rem 1rem 3rem 1rem;
   }
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     .rechercheSolution {
       &FormWrapper {
         padding: 1rem;
@@ -19,7 +19,7 @@
     padding-bottom: 1rem;
   }
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     ul {
       padding-bottom: 2rem;
     }
@@ -50,7 +50,7 @@
 
 .pagination {
   padding-top: 2.5rem;
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding-top: 5rem;
   }
   & > nav {

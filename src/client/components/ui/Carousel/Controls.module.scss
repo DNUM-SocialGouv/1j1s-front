@@ -1,9 +1,9 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .controls {
   z-index: 10;
-  background-color: utilities.$color-surface;
-  color: utilities.$color-primary;
+  background-color: utilities-deprecated.$color-surface;
+  color: utilities-deprecated.$color-primary;
   width: 1.50rem;
   height: 1.50rem;
   border-radius: 50%;

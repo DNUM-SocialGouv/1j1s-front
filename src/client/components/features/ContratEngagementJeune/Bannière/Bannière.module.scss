@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .bannière {
   background: #ea711b;
@@ -34,8 +34,8 @@
 .titre {
   @extend %bold;
   font-size: 2rem;
-  color: utilities.$color-on-secondary;
-  @include utilities.media(large) {
+  color: utilities-deprecated.$color-on-secondary;
+  @include utilities-deprecated.media(large) {
     font-size: 2.5rem;
   }
 }
@@ -44,21 +44,21 @@
   margin-top: 1.5rem;
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .bannière {
     height: 27.5rem;
   }
   .bannièreContent {
-    padding: 42px 42px 42px utilities.$gutter;
+    padding: 42px 42px 42px utilities-deprecated.$gutter;
   }
 }
 
-@include utilities.media(xlarge) {
+@include utilities-deprecated.media(xlarge) {
   .bannière {
     height: 27.5rem;
   }
   .bannièreContent {
-    padding: 80px 80px 80px calc((100vw - #{utilities.$breakpoint-xl}) / 2 + #{utilities.$gutter});
+    padding: 80px 80px 80px calc((100vw - #{utilities-deprecated.$breakpoint-xl}) / 2 + #{utilities-deprecated.$gutter});
   }
 }
 

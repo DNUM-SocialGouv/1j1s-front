@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .entete {
   margin: 2.5rem 0;
@@ -32,7 +32,7 @@
   padding: 1rem;
   height: 72rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     height: 65rem;
   }
 }
@@ -85,7 +85,7 @@
 }
 
 .contenu .description > * {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: block;
   }
 }

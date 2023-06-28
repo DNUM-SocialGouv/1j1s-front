@@ -1,10 +1,10 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .card {
     &Article {
         border-radius: 20px;
         box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;
-        background-color: utilities.$color-on-primary;
+        background-color: utilities-deprecated.$color-on-primary;
         position: relative;
         border-radius: 20px;
         display: flex;
@@ -52,16 +52,16 @@
     }
 
     &Action {
-        background-color: utilities.$color-primary;
+        background-color: utilities-deprecated.$color-primary;
         border-radius: 50%;
         padding: 0.25rem;
-        color: utilities.$color-on-primary;
+        color: utilities-deprecated.$color-on-primary;
         width: 2rem;
         height: 2rem;
     }
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
     .card {
         &ImageWrapper {
             min-height: 180px;

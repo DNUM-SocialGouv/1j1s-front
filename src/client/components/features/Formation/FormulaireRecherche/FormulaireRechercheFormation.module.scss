@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .rechercheFormationForm {
   display: flex;
@@ -14,12 +14,12 @@
 }
 
 .champsObligatoires {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   margin-block: 1.25rem;
 }
 
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .rechercheFormationForm {
     flex-direction: row;
     align-items: flex-start;

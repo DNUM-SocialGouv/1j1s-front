@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .heroTitle {
   @extend %bold;
@@ -50,7 +50,7 @@
 }
 
 .champsObligatoires {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   margin-top: 1.25rem;
 
   > p:first-child {
@@ -65,7 +65,7 @@
 }
 
 .etape {
-  background-color: utilities.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
   color: white;
   max-width: 8rem;
   text-align: center;
@@ -79,13 +79,13 @@
   gap: 1.5rem;
 
   p:first-child {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     @extend %bold;
     @extend %text-xLarge;
   }
 
   p:last-child {
-    color: utilities.$color-on-surface;
+    color: utilities-deprecated.$color-on-surface;
     @extend %bold;
     @extend %text-medium;
   }
@@ -97,10 +97,10 @@
 
 
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
 
   .content {
-    background-color: utilities.$color-background;
+    background-color: utilities-deprecated.$color-background;
     padding: 0 8rem 2rem;
   }
 
@@ -121,7 +121,7 @@
   }
 
   .formulaire {
-    background-color: utilities.$color-background;
+    background-color: utilities-deprecated.$color-background;
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
     margin-top: 1.5rem;
@@ -158,7 +158,7 @@
 
 }
 
-@include utilities.media(xlarge) {
+@include utilities-deprecated.media(xlarge) {
   .formulaire {
     padding: 2rem 8rem 1rem;
 

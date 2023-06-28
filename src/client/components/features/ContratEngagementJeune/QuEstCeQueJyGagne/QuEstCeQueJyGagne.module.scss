@@ -1,12 +1,12 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
-  background: utilities.$color-on-primary;
+  background: utilities-deprecated.$color-on-primary;
   padding: 2rem 1.5rem 2rem;
 }
 
 .container {
-  max-width: utilities.$breakpoint-xl;
+  max-width: utilities-deprecated.$breakpoint-xl;
 }
 
 .titre {
@@ -33,14 +33,14 @@
 }
 
 .contenu ul > li > b {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
 }
 
 .contenu, .contenu b {
   @extend %text-regular;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .section {
     padding: 5rem;
   }

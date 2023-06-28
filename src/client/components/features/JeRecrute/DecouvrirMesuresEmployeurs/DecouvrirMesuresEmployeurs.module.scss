@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
   padding: 4rem 2rem;
-  background: utilities.$color-background-white-lilac;
+  background: utilities-deprecated.$color-background-white-lilac;
 
   &Container {
     img {
@@ -12,20 +12,20 @@
       display: flex;
       flex-direction: column;
 
-      @include utilities.media(medium) {
+      @include utilities-deprecated.media(medium) {
         align-self: center;
         align-items: center;
       }
 
       &Titre {
-        color: utilities.$color-primary;
+        color: utilities-deprecated.$color-primary;
         font-size: 1.5rem;
         margin-bottom: 2rem;
         font-weight: 700;
 
         &Accroche {
           font-size: 1.5rem;
-          color: utilities.$color-secondary;
+          color: utilities-deprecated.$color-secondary;
           font-weight: 400;
         }
       }
@@ -33,7 +33,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .section {
     padding: 2rem;
     &Container {

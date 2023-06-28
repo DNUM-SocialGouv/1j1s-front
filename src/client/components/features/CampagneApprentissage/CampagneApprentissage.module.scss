@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .avoidLineBreakInside {
   display: inline-block;
@@ -10,17 +10,17 @@
     font-weight: bold;
   }
   & .hero {
-    background-color: utilities.$color-background;
+    background-color: utilities-deprecated.$color-background;
 
 
     & .cta {
       width: 100%;
       margin-top: 1rem;
-      @include utilities.media(small) {
+      @include utilities-deprecated.media(small) {
         width: fit-content;
       }
 
-      @include utilities.media(large) {
+      @include utilities-deprecated.media(large) {
         margin-top: 5rem;
       }
     }

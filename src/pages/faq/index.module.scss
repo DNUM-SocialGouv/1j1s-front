@@ -1,18 +1,18 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
   padding: 3.5rem 1rem;
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     padding: 5rem 2.5rem;
   }
 }
 
 .titre {
   font-size: 1rem;
-  color: utilities.$color-mine-shaft;
+  color: utilities-deprecated.$color-mine-shaft;
   @extend %bold;
   margin-bottom: 1.25rem;
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     font-size: 1.25rem;
   }
 }
@@ -21,7 +21,7 @@
   font-size: 1.5rem;
   margin-bottom: 2.5rem;
   @extend %bold;
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     font-size: 2.5rem;
     margin-bottom: 4rem;
   }
@@ -30,7 +30,7 @@
 .liste {
   li:not(:last-child) {
     margin-bottom: 1.25rem;
-    @include utilities.media(medium) {
+    @include utilities-deprecated.media(medium) {
       margin-bottom: 2rem;
     }
   }
@@ -46,7 +46,7 @@
 
     h3 {
       font-size: 1rem;
-      @include utilities.media(medium) {
+      @include utilities-deprecated.media(medium) {
         font-size: 1.25rem;
       }
     }

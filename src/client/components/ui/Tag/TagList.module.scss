@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .tagList {
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 .tagItem {
-  color: utilities.$color-on-background;
+  color: utilities-deprecated.$color-on-background;
   display: flex;
   align-items: center;
 }

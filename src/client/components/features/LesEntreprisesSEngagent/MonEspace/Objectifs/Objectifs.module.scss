@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .objectifs {
 
@@ -38,9 +38,9 @@
         margin-right: 10px;
         margin-bottom: 0.5rem;
         content: counter(item);
-        background: utilities.$color-primary;
+        background: utilities-deprecated.$color-primary;
         border-radius: 100%;
-        color: utilities.$color-on-primary;
+        color: utilities-deprecated.$color-on-primary;
         width: 1.5rem;
         height: 1.5rem;
         text-align: center;
@@ -51,7 +51,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .objectifs {
     &Container {
       padding: 4rem 1rem 4rem 1rem;

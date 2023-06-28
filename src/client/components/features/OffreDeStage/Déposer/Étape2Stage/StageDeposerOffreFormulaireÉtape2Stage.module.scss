@@ -4,6 +4,7 @@
   &Wrapper {
     padding-bottom: 2rem;
   }
+
   &Label {
     margin-bottom: 0.5rem;
   }
@@ -17,7 +18,7 @@
       @extend %text-small;
       font-family: Marianne;
       padding: 1rem;
-      border: 1px solid utilities.$neutral-grey;
+      border: 1px solid utilities.$color-background-border;
       width: 100%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -28,8 +29,8 @@
       padding: 0 2rem;
       align-items: center;
       display: flex;
-      background-color: utilities.$color-primary;
-      color: utilities.$color-on-primary;
+      background-color: utilities.$color-background-secondary;
+      color: utilities.$color-text-secondary;
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
     }

@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
   padding: 4rem 2rem;
-  background: utilities.$color-background-white-lilac;
+  background: utilities-deprecated.$color-background-white-lilac;
 
   &Box {
     display: flex;
@@ -21,11 +21,11 @@
         align-items: center;
 
         &Icon {
-          color: utilities.$color-primary;
+          color: utilities-deprecated.$color-primary;
         }
 
         &Titre {
-          color: utilities.$color-primary;
+          color: utilities-deprecated.$color-primary;
           font-size: 1.5rem;
           margin-bottom: 2rem;
           font-weight: 700;
@@ -33,7 +33,7 @@
 
           &Accroche {
             font-size: 1.5rem;
-            color: utilities.$color-secondary;
+            color: utilities-deprecated.$color-secondary;
             font-weight: 400;
           }
         }
@@ -41,7 +41,7 @@
         > a {
           margin-top: auto;
           width: 100%;
-          @include utilities.media(medium) {
+          @include utilities-deprecated.media(medium) {
             width: auto;
           }
         }
@@ -53,7 +53,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .section {
     padding: 4rem;
 

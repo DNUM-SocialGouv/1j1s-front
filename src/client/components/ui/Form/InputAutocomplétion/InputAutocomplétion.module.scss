@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .container {
   font-family: Marianne;
@@ -8,8 +8,8 @@
 .suggestionsList {
   z-index: 2;
   position: absolute;
-  border: 1px solid utilities.$color-disabled;
-  background-color: utilities.$color-background;
+  border: 1px solid utilities-deprecated.$color-disabled;
+  background-color: utilities-deprecated.$color-background;
   width: 100%;
   list-style-type: none;
   margin: 0;

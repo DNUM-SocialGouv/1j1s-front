@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .aides {
   @extend %background-surface;
@@ -11,12 +11,12 @@
     gap: 2rem;
     padding: 0 1.5rem;
 
-    @include utilities.media(medium) {
+    @include utilities-deprecated.media(medium) {
       align-items: center;
     }
 
     &Titre {
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       max-width: 50rem;
       text-align: center;
       font-size: 1.5rem;
@@ -24,7 +24,7 @@
 
       &Accroche {
         font-size: 1.5rem;
-        color: utilities.$color-secondary;
+        color: utilities-deprecated.$color-secondary;
         font-weight: 400;
       }
     }

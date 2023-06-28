@@ -1,10 +1,10 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .enSavoirPlus {
   &Parents {
-    background-color: utilities.$color-background-white-lilac;
+    background-color: utilities-deprecated.$color-background-white-lilac;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       background-color: inherit;
     }
   }
@@ -15,17 +15,17 @@
     justify-content: space-between;
     padding: 1.75rem 1rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       padding: 5rem 1rem
     }
   }
 
   .heading {
     @extend %subheading;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     margin-bottom: 1rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       text-align: center;
       margin-bottom: 2.5rem;
       
@@ -35,7 +35,7 @@
     }
 
     &Secondary {
-      color: utilities.$color-secondary;
+      color: utilities-deprecated.$color-secondary;
     }
   }
 
@@ -44,12 +44,12 @@
     width: 100%;
     align-self: center;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       max-width: fit-content;
     }
   }
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2.5rem;

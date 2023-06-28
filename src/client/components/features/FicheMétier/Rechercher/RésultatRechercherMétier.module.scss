@@ -1,7 +1,7 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .resultatCard {
-  border-left: 3px solid utilities.$color-primary;
+  border-left: 3px solid utilities-deprecated.$color-primary;
   padding: 1.5rem 2rem;
 }
 
@@ -16,9 +16,9 @@
 
 .description {
   margin-bottom: 1rem;
-  @include utilities.line-clamp(2);
+  @include utilities-deprecated.line-clamp(2);
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-bottom: 0.5rem;
   }
 }

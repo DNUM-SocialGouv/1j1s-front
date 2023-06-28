@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .card {
   position: relative;
-  background: utilities.$color-surface;
+  background: utilities-deprecated.$color-surface;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
@@ -34,7 +34,7 @@
 
     &CallToAction {
       @extend %text-medium;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
     }
   }
 
@@ -46,7 +46,7 @@
 .cardLead {
   display: flex;
   padding: 1.5rem;
-  border-bottom: 4px solid utilities.$color-primary;
+  border-bottom: 4px solid utilities-deprecated.$color-primary;
 
   > img {
     margin-top: auto;
@@ -78,10 +78,10 @@
 }
 
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .card {
     padding: 2rem 1.5rem;
-    border-left: 4px solid utilities.$color-primary;
+    border-left: 4px solid utilities-deprecated.$color-primary;
 
     &Lead {
       display: flex;

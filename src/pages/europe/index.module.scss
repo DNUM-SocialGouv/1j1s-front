@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
   &ExperienceEurope {
@@ -16,7 +16,7 @@
       }
       svg {
         flex-shrink: 0;
-        color: utilities.$color-primary;
+        color: utilities-deprecated.$color-primary;
         margin-right: 0.5ch;
       }
     }
@@ -31,7 +31,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       & svg {
         flex-shrink: 0;
         flex-grow: 0;
@@ -53,7 +53,7 @@
       margin-bottom: 2.5rem;
     }
     &__Card {
-      background-color: utilities.$color-background;
+      background-color: utilities-deprecated.$color-background;
       border-radius: 20px;
       padding: 0.75rem;
       &Content {
@@ -79,7 +79,7 @@
       > h3 {
         @extend %bold;
         font-size: 1.25rem;
-        color: utilities.$color-primary;
+        color: utilities-deprecated.$color-primary;
         text-align: center;
       }
       & h4 {
@@ -93,14 +93,14 @@
     padding: 2.5rem 2rem;
     h2 {
       font-size: 1.25rem;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       margin-bottom: 1.25rem;
     }
   }
 
   &NiveauAnglais {
     padding: 2.5rem 2rem;
-    color: utilities.$color-on-primary;
+    color: utilities-deprecated.$color-on-primary;
     display: flex;
     flex-direction: column;
     &__Content {
@@ -133,7 +133,7 @@
   }
 }
 
-@include utilities.media(small) {
+@include utilities-deprecated.media(small) {
   .sectionDispositif__Title {
     > span {
       display: block;
@@ -141,7 +141,7 @@
   }
 }
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .section {
     &ExperienceEurope {
       max-width: 756px;
@@ -216,7 +216,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .section {
     &Liens {
       .imageWrapper {
@@ -242,12 +242,12 @@
         align-items: center;
         padding: 5rem 2rem;
         width: 36%;
-        background-color: utilities.$color-background-white-lilac;
+        background-color: utilities-deprecated.$color-background-white-lilac;
       }
       &__Content {
         padding: 5rem 0 5rem 2rem;
         width: 64%;
-        background-color: utilities.$color-primary;
+        background-color: utilities-deprecated.$color-primary;
       }
     }
   }

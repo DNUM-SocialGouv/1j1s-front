@@ -1,14 +1,14 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .section {
   border-radius: 20px;
-  box-shadow: utilities.$box-shadow;
+  box-shadow: utilities-deprecated.$box-shadow;
   overflow: hidden;
 
   &:not(:last-of-type) {
     margin-bottom: 1rem;
 
-    @include utilities.media(xlarge) {
+    @include utilities-deprecated.media(xlarge) {
       margin-bottom: 2rem;
     }
   }
@@ -21,7 +21,7 @@
   &Content {
     padding: 1.5rem 1rem;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       padding-inline: 1.5rem;
     }
   }
@@ -29,11 +29,11 @@
 
 .foldingSectionContent {
   padding: 1.5rem 1rem;
-  border: 1px solid utilities.$color-separator;
+  border: 1px solid utilities-deprecated.$color-separator;
   border-radius: 0 0 20px 20px;
-  background-color: utilities.$color-surface;
+  background-color: utilities-deprecated.$color-surface;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     padding-inline: 1.5rem;
   }
 }
@@ -44,7 +44,7 @@
   row-gap: 1rem;
   column-gap: 1.5rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-template-columns: 1fr 0.5fr 1fr;
     grid-auto-flow: column;
     padding-inline: 1.5rem;
@@ -52,8 +52,8 @@
 }
 
 .mainTitle {
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
+  background-color: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
   text-align: center;
   padding: 1.5rem;
   @extend %text-large;
@@ -61,7 +61,7 @@
 }
 
 .fieldDomaine, .fieldRésumé {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-column-start: 1;
     grid-column-end: 3;
   }
@@ -73,13 +73,13 @@
 }
 
 .fieldDomaine .fieldContent {
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     max-width: 75%;
   }
 }
 
 .fieldRésumé {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: flex;
   }
 
@@ -89,14 +89,14 @@
 }
 
 .fieldNiveauAccès, .fieldStatutsPro {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     grid-column-start: 3;
   }
 
   .fieldContent {
     display: inline-block;
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       display: block;
     }
   }
@@ -107,14 +107,14 @@
   @extend %text-medium;
   @extend %bold;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-right: 1rem;
   }
 }
 
 .lastSectionTitle {
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
+  background-color: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
   padding: 1.5rem;
   @extend %bold;
   @extend %text-medium;

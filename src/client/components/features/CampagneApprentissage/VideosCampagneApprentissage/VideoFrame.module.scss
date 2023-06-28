@@ -1,3 +1,4 @@
+@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
 .video {
@@ -29,10 +30,10 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: utilities.pixel-to-rem(6);
-  color: utilities.$color-on-primary;
+  color: utilities-deprecated.$color-on-primary;
   max-width: utilities.pixel-to-rem(475);
 
-  @include utilities.media(small) {
+  @include utilities-deprecated.media(small) {
     padding: utilities.pixel-to-rem(40);
   }
 
@@ -43,7 +44,7 @@
 
   p {
     @extend %text-small;
-    @include utilities.media(small) {
+    @include utilities-deprecated.media(small) {
       font-size: 1rem;
       margin-bottom: utilities.pixel-to-rem(6);
     }
@@ -53,9 +54,9 @@
     padding-bottom: 0;
     border-bottom: none;
 
-    @include utilities.media(small) {
+    @include utilities-deprecated.media(small) {
       padding-bottom: utilities.pixel-to-rem(24);
-      border-bottom: 1px utilities.$color-on-primary solid;
+      border-bottom: 1px utilities-deprecated.$color-on-primary solid;
     }
   }
 
@@ -63,7 +64,7 @@
     width: fit-content;
     margin-top: utilities.pixel-to-rem(10);
 
-    @include utilities.media(small) {
+    @include utilities-deprecated.media(small) {
       margin-top: utilities.pixel-to-rem(24);
     }
   }

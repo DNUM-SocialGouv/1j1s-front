@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .heading {
   padding: 2.5rem 2rem;
@@ -10,7 +10,7 @@
     &__Title {
       @extend %headline;
       @extend %bold;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       margin-bottom: 1.25rem;
     }
 
@@ -26,7 +26,7 @@
 
       p {
         font-size: 1rem;
-        @include utilities.media(large) {
+        @include utilities-deprecated.media(large) {
           font-size: 1.25rem;
         }
       }
@@ -38,11 +38,11 @@
 
       &Orange {
         font-size: 1rem;
-        @include utilities.media(large) {
+        @include utilities-deprecated.media(large) {
           font-size: 1.5rem;
         }
         @extend %bold;
-        color: utilities.$mentorat-primary;
+        color: utilities-deprecated.$mentorat-primary;
         margin-bottom: 0.75rem;
       }
 
@@ -57,7 +57,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .heading {
     padding: 0;
 
@@ -80,7 +80,7 @@
 
         & > div:first-child {
           margin-bottom: 0;
-          border-right: 1px solid utilities.$color-separator;
+          border-right: 1px solid utilities-deprecated.$color-separator;
           padding-right: 2.5rem;
         }
 
@@ -120,14 +120,14 @@
 
 .contentContainer {
   &OnPrimary {
-    background-color: utilities.$color-primary;
+    background-color: utilities-deprecated.$color-primary;
   }
 }
 
 .QuestCeQueMentorat {
   &Wrapper {
     padding: 5rem 1.5rem;
-    color: utilities.$color-on-primary;
+    color: utilities-deprecated.$color-on-primary;
     @extend %max-container;
   }
 
@@ -166,7 +166,7 @@
 
     h1 {
       font-size: 1.25rem;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       margin-bottom: 1.25rem;
     }
 
@@ -208,7 +208,7 @@
   }
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .contentContainer {
     display: flex;
   }

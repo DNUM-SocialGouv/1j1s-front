@@ -1,12 +1,12 @@
 @use "@styles/typography/_placeholders.scss";
-@use "@styles/theme/_variables.scss";
+@use "@styles/theme/_variables-deprecated.scss";
 
 
 %linkWithRightIcon {
   display: inline-flex;
   align-items: center;
   align-self: flex-end;
-  color: variables.$color-primary;
+  color: variables-deprecated.$color-primary;
   svg {
     margin-left: 0.5ch;
   }

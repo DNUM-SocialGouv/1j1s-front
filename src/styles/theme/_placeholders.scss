@@ -1,25 +1,25 @@
-@use "variables";
+@use "variables-deprecated";
 
 %background-surface {
-  background: variables.$color-surface;
-  color: variables.$color-on-surface;
+  background: variables-deprecated.$color-surface;
+  color: variables-deprecated.$color-on-surface;
 }
 
 %background-primary {
-  background: variables.$color-primary;
-  color: variables.$color-on-primary;
+  background: variables-deprecated.$color-primary;
+  color: variables-deprecated.$color-on-primary;
 }
 
 %background-secondary {
-  background: variables.$color-secondary;
-  color: variables.$color-on-secondary;
+  background: variables-deprecated.$color-secondary;
+  color: variables-deprecated.$color-on-secondary;
 }
 
 %background-tertiary {
-  background: variables.$color-background;
-  color: variables.$color-on-background;
+  background: variables-deprecated.$color-background;
+  color: variables-deprecated.$color-on-background;
 }
 
 %box-shadow {
-  box-shadow: variables.$box-shadow;
+  box-shadow: variables-deprecated.$box-shadow;
 }

@@ -1,9 +1,9 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .cardComponent {
   display: flex;
-  background-color: utilities.$color-surface;
-  box-shadow: utilities.$box-shadow;
+  background-color: utilities-deprecated.$color-surface;
+  box-shadow: utilities-deprecated.$box-shadow;
   border-radius: 20px;
   overflow: hidden;
 
@@ -26,7 +26,7 @@
   min-height: 50px;
   min-width: 50px;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     min-width: 140px;
   }
 }
@@ -51,44 +51,44 @@
 }
 
 .cardButtonPrimary {
-  border: 1px solid utilities.$color-primary;
-  background-color: utilities.$color-primary;
-  color: utilities.$color-on-primary;
+  border: 1px solid utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
 
   &:hover {
-    background-color: utilities.$color-primary-on-hover;
-    border-color: utilities.$color-primary-on-hover;
+    background-color: utilities-deprecated.$color-primary-on-hover;
+    border-color: utilities-deprecated.$color-primary-on-hover;
   }
 }
 
 
 .cardButtonSecondary {
-  border: 1px solid utilities.$color-primary;
-  color: utilities.$color-primary;
-  background-color: utilities.$white;
+  border: 1px solid utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$white;
 
   &:hover {
-    background-color: utilities.$color-background-white-titan;
-    border-color: utilities.$color-primary;
-    color: utilities.$color-primary;
+    background-color: utilities-deprecated.$color-background-white-titan;
+    border-color: utilities-deprecated.$color-primary;
+    color: utilities-deprecated.$color-primary;
   }
 }
 
 .cardButtonQuaternary {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   border-radius: 0;
   padding: 0;
 }
 
 .cardButtonTertiary {
-  border: 1px solid utilities.$color-primary;
-  color: utilities.$color-primary;
-  background-color: utilities.$color-background-white-titan;
+  border: 1px solid utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-primary;
+  background-color: utilities-deprecated.$color-background-white-titan;
 
   &:hover {
-    background-color: utilities.$color-tertiary-on-hover;
-    border-color: utilities.$color-tertiary-on-hover;
-    color: utilities.$white;
+    background-color: utilities-deprecated.$color-tertiary-on-hover;
+    border-color: utilities-deprecated.$color-tertiary-on-hover;
+    color: utilities-deprecated.$white;
   }
 }
 

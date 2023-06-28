@@ -1,9 +1,9 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .card {
   padding: 1rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     align-items: center;
     padding: 1rem 1.5rem;
     box-shadow: 0 0 0 0;
@@ -36,7 +36,7 @@
 }
 
 .mainContent {
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: flex;
     flex-direction: column;
   }
@@ -54,18 +54,18 @@
 .tags {
   list-style-type: none;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-block: 1rem;
   }
 }
 
 .contactMailÉtablissement {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   margin-top: 1.25rem;
   font-weight: bold;
   text-decoration: none;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     align-self: flex-start;
   }
 }
@@ -76,7 +76,7 @@
   align-self: center;
   font-size: 1rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     align-self: flex-start;
   }
 }
@@ -90,7 +90,7 @@
   width: 15rem;
   align-self: center;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-left: auto;
     width: auto;
     padding-right: 1.5rem;
@@ -105,7 +105,7 @@
     text-align: center;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     cursor: pointer;
     list-style: none;
     width: 16rem;
@@ -121,13 +121,13 @@
       margin-left: 0.5rem;
     }
 
-    @include utilities.media(large) {
+    @include utilities-deprecated.media(large) {
       font-size: 1rem;
       padding: 0;
     }
 
     &:hover {
-      color: utilities.$color-primary-on-hover;
+      color: utilities-deprecated.$color-primary-on-hover;
       list-style: none;
 
       &:after {
@@ -146,7 +146,7 @@
   display: flex;
   align-self: center;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     width: calc(100% + 3rem);
   }
 }
@@ -159,7 +159,7 @@
   width: 16rem;
   @extend %text-small;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     margin-left: 0;
     width: auto;
   }

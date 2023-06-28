@@ -1,8 +1,8 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .header {
-  background-color: utilities.$color-on-primary;
-  color: utilities.$color-blue-navy;
+  background-color: utilities-deprecated.$color-on-primary;
+  color: utilities-deprecated.$color-blue-navy;
   padding: 2rem 0;
   display: flex;
 
@@ -66,7 +66,7 @@
 }
 
 .etape {
-  background-color: utilities.$color-primary;
+  background-color: utilities-deprecated.$color-primary;
   color: white;
   max-width: 8rem;
   text-align: center;
@@ -80,19 +80,19 @@
   margin-bottom: 1rem;
 
   > span {
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     cursor: pointer;
   }
 }
 
 .success {
-  color: utilities.$color-primary;
+  color: utilities-deprecated.$color-primary;
   @extend %bold;
   @extend %text-xLarge;
   padding: 40px;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
 
   .header {
     padding: 4rem 16rem;
@@ -182,7 +182,7 @@
   }
 }
 
-@include utilities.media(xlarge) {
+@include utilities-deprecated.media(xlarge) {
   .formulaire {
     padding: 2rem 8rem 1rem;
 
@@ -198,5 +198,5 @@
 }
 
 .contactLink {
-  color: utilities.$black;
+  color: utilities-deprecated.$black;
 }

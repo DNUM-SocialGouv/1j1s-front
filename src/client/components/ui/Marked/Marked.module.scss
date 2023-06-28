@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .markdown {
   ul { list-style-type: disc }
@@ -64,6 +64,6 @@
   }
 
   a:hover {
-    color: utilities.$color-secondary;
+    color: utilities-deprecated.$color-secondary;
   }
 }

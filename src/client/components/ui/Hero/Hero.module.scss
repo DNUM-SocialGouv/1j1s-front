@@ -1,12 +1,12 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .hero {
-  background: utilities.$color-primary;
-  color: utilities.$color-on-primary;
+  background: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     display: grid;
-    grid-template-columns: calc((100% - #{utilities.$breakpoint-xl}) / 2) minmax(min-content, 1fr) minmax(0, calc((100% - #{utilities.$breakpoint-xl}) / 2 + (.33 * #{utilities.$breakpoint-xl})));
+    grid-template-columns: calc((100% - #{utilities-deprecated.$breakpoint-xl}) / 2) minmax(min-content, 1fr) minmax(0, calc((100% - #{utilities-deprecated.$breakpoint-xl}) / 2 + (.33 * #{utilities-deprecated.$breakpoint-xl})));
   }
 
   &PrimaryText {
@@ -19,11 +19,11 @@
     grid-column-start: 2;
     padding: 2rem 1rem;
 
-    @include utilities.media(medium) {
+    @include utilities-deprecated.media(medium) {
       padding-block: 3rem;
     }
 
-    @include utilities.media(xlarge) {
+    @include utilities-deprecated.media(xlarge) {
       padding-block: 4rem;
     }
   }
@@ -48,7 +48,7 @@
   font-size: 1rem;
   line-height: 1.375rem;
 
-  @include utilities.media(large) {
+  @include utilities-deprecated.media(large) {
     font-size: 1.25rem;
     line-height: 2rem;
   }
@@ -69,12 +69,12 @@
 
     &__TitlePrimary {
       @extend %bold;
-      color: utilities.$color-primary;
+      color: utilities-deprecated.$color-primary;
       margin-bottom: 1rem;
     }
 
     &__TitleSecondary {
-      color: utilities.$color-secondary;
+      color: utilities-deprecated.$color-secondary;
       margin-bottom: 1rem;
     }
 
@@ -82,7 +82,7 @@
       @extend %text-Hero;
       &Orange {
         @extend %bold;
-        color: utilities.$campagne-CEJ-primary;
+        color: utilities-deprecated.$campagne-CEJ-primary;
         margin-bottom: 1rem;
       }
       margin-bottom: 2.5rem;
@@ -109,7 +109,7 @@
   flex-direction: column;
 }
 
-@include utilities.media(large) {
+@include utilities-deprecated.media(large) {
   .heading {
     padding: 0;
 
@@ -119,7 +119,7 @@
 
     &Container {
       max-width: 32.5rem;
-      margin-right: calc(#{utilities.$breakpoint-xl}/2 - 32.5rem);
+      margin-right: calc(#{utilities-deprecated.$breakpoint-xl}/2 - 32.5rem);
       padding: 4rem 1rem;
 
       &__TextContent {
@@ -141,7 +141,7 @@
   }
 }
 
-@include utilities.media(xxlarge) {
+@include utilities-deprecated.media(xxlarge) {
   .heading {
     &ContainerWrapper {
       width: 60%;
@@ -149,7 +149,7 @@
 
     &Container {
       max-width: 45rem;
-      margin-right: calc(#{utilities.$breakpoint-xl}/1.5 - 45rem);
+      margin-right: calc(#{utilities-deprecated.$breakpoint-xl}/1.5 - 45rem);
     }
 
     .imageWrapper {

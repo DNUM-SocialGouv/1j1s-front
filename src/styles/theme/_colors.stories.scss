@@ -1,6 +1,11 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
+@use "variables";
 
 .colors {
+  section {
+    margin: 2rem 0;
+  }
+
   h2 {
     margin-top: 1rem;
     @extend %text-xLarge;
@@ -31,118 +36,231 @@
     height: 50px;
     border-radius: 50%;
     border: 1px #000 solid;
-
-    background-image: linear-gradient(45deg, #ffffff 25%, #dedede 25%, #dedede 50%, #ffffff 50%, #ffffff 75%, #dedede 75%, #dedede 100%);
-    background-size: 56.57px 56.57px;
   }
 
-  .color-primary {
-    background-image: unset;
-    background-color: utilities.$color-primary;
+  .colors-main {
+    & .color-primary {
+      background-color: variables.$color-primary;
+    }
+
+    & .color-secondary {
+      background-color: variables.$color-secondary;
+    }
+
+    & .color-tertiary {
+      background-color: variables.$color-tertiary;
+    }
   }
 
-  .color-secondary {
-    background-image: unset;
-    background-color: utilities.$color-secondary;
+  .colors-textual-elements {
+    & .color-title-primary {
+      background-color: variables.$color-title-primary;
+    }
+
+    & .color-title-primary-contrast {
+      background-color: variables.$color-title-primary-contrast;
+    }
+
+    & .color-title-primary-alternative {
+      background-color: variables.$color-title-primary-alternative;
+    }
+
+    & .color-title-secondary {
+      background-color: variables.$color-title-secondary;
+    }
+
+    & .color-text-primary {
+      background-color: variables.$color-text-primary;
+    }
+
+    & .color-text-primary-alternative {
+      background-color: variables.$color-text-primary-alternative;
+    }
+
+    & .color-text-secondary {
+      background-color: variables.$color-text-secondary;
+    }
+
+    & .color-text-placeholder {
+      background-color: variables.$color-text-placeholder;
+    }
   }
 
-  .color-tertiary {
-	background-image: unset;
-    background-color: utilities.$color-tertiary;
+  .colors-system {
+    & .color-error {
+      background-color: variables.$color-error;
+    }
+
+    & .color-warning {
+      background-color: variables.$color-warning;
+    }
+
+    & .color-success {
+      background-color: variables.$color-success;
+    }
   }
 
-  .color-error {
-	background-image: unset;
-    background-color: utilities.$color-error;
+  .colors-background {
+    & .color-background-primary {
+      background-color: variables.$color-background-primary;
+    }
+
+    & .color-background-primary-alternative {
+      background-color: variables.$color-background-primary-alternative;
+    }
+
+    & .color-background-secondary {
+      background-color: variables.$color-background-secondary;
+    }
+
+    & .color-background-border {
+      background-color: variables.$color-background-border
+    }
+
+    & .color-background-tag {
+      background-color: variables.$color-background-tag;
+    }
   }
 
-  .color-primary-on-hover {
-	background-image: unset;
-    background-color: utilities.$color-primary-on-hover;
+  .colors-cta {
+
+    & .colors-cta-background {
+      & .color-cta-background-primary {
+        background-color: variables.$color-cta-background-primary;
+      }
+
+      & .color-cta-background-primary-hover {
+        background-color: variables.$color-cta-background-primary-hover;
+      }
+
+      & .color-cta-background-secondary {
+        background-color: variables.$color-cta-background-secondary;
+      }
+
+      & .color-cta-background-secondary-hover {
+        background-color: variables.$color-cta-background-secondary-hover;
+      }
+
+      & .color-cta-background-tertiary {
+        background-color: variables.$color-cta-background-tertiary;
+      }
+
+      & .color-cta-background-tertiary-hover {
+        background-color: variables.$color-cta-background-tertiary-hover;
+      }
+
+      & .color-cta-background-inactive {
+        background-color: variables.$color-cta-background-inactive;
+      }
+    }
+    & .colors-cta-texte {
+      & .color-cta-texte-primary {
+        background-color: variables.$color-cta-texte-primary;
+      }
+
+      & .color-cta-texte-primary-hover {
+        background-color: variables.$color-cta-texte-primary-hover;
+      }
+
+      & .color-cta-texte-secondary {
+        background-color: variables.$color-cta-texte-secondary;
+      }
+
+      & .color-cta-texte-secondary-hover {
+        background-color: variables.$color-cta-texte-secondary-hover;
+      }
+
+      & .color-cta-texte-tertiary {
+        background-color: variables.$color-cta-texte-tertiary;
+      }
+
+      & .color-cta-texte-tertiary-hover {
+        background-color: variables.$color-cta-texte-tertiary-hover;
+      }
+
+      & .color-cta-texte-inactive {
+        background-color: variables.$color-cta-texte-inactive;
+      }
+    }
+
+    & .colors-cta-link {
+      .color-cta-link-background-light {
+        background-color: variables.$color-cta-link-background-light;
+      }
+
+      .color-cta-link-background-dark {
+        background-color: variables.$color-cta-link-background-dark;
+      }
+
+      .color-cta-link-inactive{
+        background-color: variables.$color-cta-link-inactive;
+      }
+    }
   }
 
-  .color-secondary-defaut {
-    background-image: unset;
-    background-color: utilities.$color-on-secondary;
-  }
+  .colors-complementary{
+    & .colors-group-1 {
+      .color-group-1-purple {
+        background-color: variables.$color-groupe-1-purple;
+      }
 
-  .color-tertiary {
-	background-image: unset;
-    background-color: utilities.$color-tertiary;
-  }
+      .color-group-1-pink{
+        background-color: variables.$color-groupe-1-pink;
+      }
 
-  .color-tertiary-on-hover {
-	background-image: unset;
-    background-color: utilities.$color-tertiary-on-hover;
-  }
+      .color-group-1-green{
+        background-color: variables.$color-groupe-1-green;
+      }
 
-  .color-disabled {
-	background-image: unset;
-    background-color: utilities.$color-on-disabled;
-  }
+      .color-group-1-orange{
+        background-color: variables.$color-groupe-1-orange;
+      }
+    }
 
-  .color-black {
-	background-image: unset;
-    background-color: utilities.$black;
-  }
+    .colors-group-2 {
+      .color-group-2-rust{
+        background-color: variables.$color-groupe-2-rust;
+      }
 
-  .color-white {
-	background-image: unset;
-    background-color: utilities.$white;
-  }
+      .color-group-2-dark-green{
+        background-color: variables.$color-groupe-2-dark-green;
+      }
 
-  .color-deep-grey {
-	background-image: unset;
-    background-color: utilities.$deep-neutral-grey;
-  }
+      .color-group-2-light-green{
+        background-color: variables.$color-groupe-2-light-green;
+      }
 
-  .color-tag {
-	background-image: unset;
-    background-color: utilities.$color-tag;
-  }
+      .color-group-2-burgundy{
+        background-color: variables.$color-groupe-2-burgundy;
+      }
+    }
+    .colors-group-3 {
+      .color-group-3-purple{
+        background-color: variables.$color-groupe-3-purple;
+      }
 
-  .color-grey-background {
-	background-image: unset;
-    background-color: utilities.$color-background-white-lilac;
-  }
+      .color-group-3-green{
+        background-color: variables.$color-groupe-3-green;
+      }
 
-  .color-violet-group-1 {
-	background-image: unset;
-    background-color: utilities.$white-titan;
-  }
+      .color-group-3-brown{
+        background-color: variables.$color-groupe-3-brown;
+      }
 
-  .color-orange-group-1 {
-	background-image: unset;
-    background-color: utilities.$seashell-peach;
-  }
+      .color-group-3-yellow{
+        background-color: variables.$color-groupe-3-yellow;
+      }
 
-  .color-rust-group-2 {
-	background-image: unset;
-    background-color: utilities.$dark-vinaceous;
-  }
+      .color-group-3-pink{
+        background-color: variables.$color-groupe-3-pink;
+      }
 
-  .color-deep-green-group-2 {
-	background-image: unset;
-    background-color: utilities.$deepslate-blue;
-  }
-
-  .color-green-group-2 {
-	background-image: unset;
-    background-color: utilities.$cerro-green;
-  }
-
-  .color-burgundy-group-2 {
-	background-image: unset;
-    background-color: utilities.$auricula-purple;
-  }
-
-  .color-purple-group-3 {
-	background-image: unset;
-    background-color: utilities.$diva-blue;
-  }
-
-  .color-yellow-group-3 {
-	background-image: unset;
-    background-color: utilities.$seashell-peach;
+      .color-group-3-blue{
+        background-color: variables.$color-groupe-3-blue;
+      }
+    }
   }
 }
+
+
+

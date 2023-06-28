@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .heroTitle {
   @extend %bold;
@@ -27,7 +27,7 @@
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
-  background-color: utilities.$color-cadre-formulaire;
+  background-color: utilities-deprecated.$color-cadre-formulaire;
 
   & span {
     display: block;

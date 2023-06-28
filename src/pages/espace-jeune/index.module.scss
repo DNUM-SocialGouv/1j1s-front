@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 .title {
   height: 0;
@@ -15,7 +15,7 @@
 }
 
 .mesuresJeunesSection {
-  background-color: utilities.$color-background-white-lilac;
+  background-color: utilities-deprecated.$color-background-white-lilac;
 }
 
 .cartesActualitesList {
@@ -25,17 +25,17 @@
   flex-wrap: wrap;
   margin-bottom: 2rem;
 
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     padding-top: 2rem;
   }
 }
 
 .carteActualite {
-  @include utilities.media(medium) {
+  @include utilities-deprecated.media(medium) {
     width: 22.5rem;
   }
 }
 
 .carteActualiteDescription {
-  @include utilities.line-clamp(3);
+  @include utilities-deprecated.line-clamp(3);
 }

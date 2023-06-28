@@ -1,4 +1,4 @@
-@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
 
 
 .recruter {
@@ -7,7 +7,7 @@
 
   h1 {
     @extend %bold;
-    color: utilities.$color-primary;
+    color: utilities-deprecated.$color-primary;
     margin-bottom: 1.5em;
     font-size: 1.5rem;
   }
@@ -27,7 +27,7 @@
 
     li {
       width: 100%;
-      @include utilities.media(medium) {
+      @include utilities-deprecated.media(medium) {
         width: auto;
       }
     }
@@ -41,7 +41,7 @@
 }
 
 
-@include utilities.media(medium) {
+@include utilities-deprecated.media(medium) {
   .recruter {
     padding: 4rem;
     margin: auto;
