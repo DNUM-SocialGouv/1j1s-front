@@ -41,22 +41,18 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const triggerChangeEvents = useCallback(function triggerChangeEvents() {
-		if (inputRef.current) {
-			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
-			if (onChangeProps) { onChangeProps(changeEvent); }
-			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
-		}
-	}, [inputProps, inputRef, onChangeProps]);
-
 	useLayoutEffect(() => {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		}
 	}, [activeDescendant]);
 
-	useEffect(() => {
-		triggerChangeEvents();
+	useEffect(function triggerChangeEvents() {
+		if (inputRef.current) {
+			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
+			if (onChangeProps) { onChangeProps(changeEvent); }
+			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+		}
 		// NOTE (GAFI 22-06-2023): triggerChangeEvents only if value changes, not if the function itself changes
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [valueState]);
