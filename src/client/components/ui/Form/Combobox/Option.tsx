@@ -31,8 +31,10 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			aria-selected={selected}
 			hidden={hidden}
 			id={id}
-			{...optionProps}
+			tabIndex={-1}
+			onClick={onClick}
 			ref={ref}
-			onClick={onClick}/>
+			{...optionProps}
+		/>
 	);
 });
