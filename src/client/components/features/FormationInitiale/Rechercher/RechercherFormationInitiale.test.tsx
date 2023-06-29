@@ -24,7 +24,7 @@ describe('RechercherFormationInitiale', () => {
 		beforeEach(() => {
 			mockUseRouter({
 				query: {
-					domaine: 'boulanger',
+					motCle: 'boulanger',
 				},
 			});
 		});
@@ -41,7 +41,7 @@ describe('RechercherFormationInitiale', () => {
 
 			await screen.findByText(/[0-9]+ formations/);
 			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledTimes(1);
-			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ domaine: 'boulanger' });
+			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: 'boulanger' });
 		});
 		it('lorsqu‘il y a plusieurs résultats je vois le nombre de résultats affiché', async () => {
 			const aFormationService = aFormationInitialeService();
