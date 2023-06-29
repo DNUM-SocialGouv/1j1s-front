@@ -2,7 +2,7 @@ import { ErrorManagementService } from '~/server/services/error/errorManagement.
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 import { createSuccess, Either } from '../../errors/either';
-import { FormationInitiale } from '../domain/formationInitiale';
+import { FormationInitiale, FormationInitialeFiltre } from '../domain/formationInitiale';
 import { FormationInitialeRepository } from '../domain/formationInitiale.repository';
 
 export interface FormationInitialeApiResponse {
@@ -31,10 +31,10 @@ export interface ResultatRechercheFormationInitialeApiResponse {
 export class OnisepFormationInitialeRepository implements FormationInitialeRepository {
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {}
 
-	async search(): Promise<Either<Array<FormationInitiale>>> {
+	async search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
 		const ONISEP_FORMATIONS_INITIALES_DATASET_ID = '5fa591127f501';
 		try {
-			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search`);
+			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${filtre.libelle}`);
 			const formationsInitialesApiResponse = apiResponse.data.results;
 			const formationsInitiales = formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
 			return createSuccess(formationsInitiales);
