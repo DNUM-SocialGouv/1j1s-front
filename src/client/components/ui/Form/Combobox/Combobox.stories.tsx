@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { ButtonComponent } from '../../Button/ButtonComponent';
-import { Icon } from '../../Icon/Icon';
-import { InputText } from '../InputText/InputText';
-import { Combobox } from './Combobox';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+
+import { Combobox } from '.';
 
 const meta: Meta<typeof Combobox> = {
 	argTypes: {

@@ -2,14 +2,13 @@ import classNames from 'classnames';
 import React, { KeyboardEvent, useCallback, useEffect, useId, useLayoutEffect, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
-import { ComboboxProvider, useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
-import { ComboboxAction as Actions, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
-import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
+import { ChangeEvent } from './ChangeEvent';
 import styles from './Combobox.module.scss';
+import { ComboboxProvider } from './ComboboxContext';
+import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
@@ -21,7 +20,7 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' 
 	'aria-labelledby': string,
 });
 
-const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
+export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	onKeyDown: onKeyDownProps,
 	onChange: onChangeProps,
@@ -156,35 +155,3 @@ const ComboboxComponent = React.forwardRef<HTMLInputElement, ComboboxProps>(func
 		</ComboboxProvider>
 	);
 });
-
-type OptionProps = React.ComponentPropsWithoutRef<'li'>;
-
-const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
-	id: idProps,
-	onClick: onClickProps,
-	...optionProps
-}, outerRef) {
-	const ref = useSynchronizedRef(outerRef);
-	const idState = useId();
-	const id = idProps ?? idState;
-	const { state: { activeDescendant, value }, dispatch, focusInput } = useCombobox();
-	const selected = activeDescendant === id;
-	const hidden = !matchesInput(ref.current, value);
-	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
-		dispatch(new Actions.SelectOption(event.currentTarget));
-		if (onClickProps) { onClickProps(event); }
-		focusInput();
-	}, [dispatch, focusInput, onClickProps]);
-	return (
-		<li
-			role="option"
-			aria-selected={selected}
-			hidden={hidden}
-			id={id}
-			{...optionProps}
-			ref={ref}
-			onClick={onClick} />
-	);
-});
-
-export const Combobox = Object.assign(ComboboxComponent, { Option });

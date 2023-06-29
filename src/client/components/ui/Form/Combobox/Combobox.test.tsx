@@ -8,7 +8,7 @@ import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 
-import { Combobox } from './Combobox';
+import { Combobox } from '.';
 
 describe('<Combobox />', () => {
 	beforeAll(() => {

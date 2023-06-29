@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 
-import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
+import { matchesInput } from './utils';
 
 export type ComboboxState = {
 	open: boolean,

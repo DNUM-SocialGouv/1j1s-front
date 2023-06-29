@@ -1,6 +1,6 @@
 import React, { Dispatch, ReducerState, useContext } from 'react';
 
-import { ComboboxAction, ComboboxReducer } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
+import { ComboboxAction, ComboboxReducer } from './ComboboxReducer';
 
 type ContextContent = {
 	state: ReducerState<typeof ComboboxReducer>,
