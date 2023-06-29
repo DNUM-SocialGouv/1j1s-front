@@ -596,7 +596,7 @@ describe('<Combobox />', () => {
 			await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 			await user.keyboard(`{${KeyBoard.ENTER}}`);
 
-			const suggestions = screen.getByRole('listbox', { hidden : true });
+			const suggestions = screen.getByRole('listbox', { hidden: true });
 			expect(suggestions).not.toBeVisible();
 		});
 		it('submit le formulaire quand on appuie sur Enter sans sélectionner d’option', async () => {
@@ -659,7 +659,7 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it('marque les éléments pas sélectionnés comme tel', async () => {
+	it('marque les éléments pas sélectionnés comme tel', () => {
 		render(
 			<Combobox aria-label='Test'>
 				<Combobox.Option>Option 1</Combobox.Option>
@@ -797,10 +797,10 @@ describe('<Combobox />', () => {
 		const option = screen.getByRole('option', { name: /Option 2/i });
 		await user.click(option);
 
-		const suggestions = screen.getByRole('listbox', { hidden : true });
+		const suggestions = screen.getByRole('listbox', { hidden: true });
 		expect(suggestions).not.toBeVisible();
 	});
-	it('affiche un bouton qui déplie le menu', async () => {
+	it('affiche la liste de suggestions quand on click sur le bouton', async () => {
 		const user = userEvent.setup();
 		render(
 			<Combobox aria-label='Test'>
@@ -816,7 +816,7 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getByRole('listbox');
 		expect(suggestions).toBeVisible();
 	});
-	it('affiche un bouton qui replie le menu quand le menu est déplié', async () => {
+	it('masque la liste de suggestions quand on click sur le bouton et que le menu est déplié', async () => {
 		const user = userEvent.setup();
 		render(
 			<Combobox aria-label='Test'>
@@ -833,7 +833,7 @@ describe('<Combobox />', () => {
 		const suggestions = screen.getByRole('listbox', { hidden: true });
 		expect(suggestions).not.toBeVisible();
 	});
-	it('enlève le bouton qui déplie la liste du tab order', async () => {
+	it('ne focus pas le bouton avec tab', async () => {
 		const user = userEvent.setup();
 		render(
 			<Combobox aria-label='Test'>
@@ -883,7 +883,7 @@ describe('<Combobox />', () => {
 			const combobox = screen.getByRole('combobox');
 			expect(combobox).toHaveAttribute('aria-expanded', 'true');
 		});
-		it('marque le combobox comme replié lorsque la liste est masquée', async () => {
+		it('marque le combobox comme replié lorsque la liste est masquée', () => {
 			render(
 				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
@@ -895,7 +895,7 @@ describe('<Combobox />', () => {
 			const combobox = screen.getByRole('combobox');
 			expect(combobox).toHaveAttribute('aria-expanded', 'false');
 		});
-		it('marque le combobox comme contrôleur de la liste', async () => {
+		it('marque le combobox comme contrôleur de la liste', () => {
 			render(
 				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
@@ -935,7 +935,7 @@ describe('<Combobox />', () => {
 
 			expect(button).toHaveAttribute('aria-expanded', 'true');
 		});
-		it('marque le bouton comme replié lorsque la liste est masquée', async () => {
+		it('marque le bouton comme replié lorsque la liste est masquée', () => {
 			render(
 				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
@@ -947,7 +947,7 @@ describe('<Combobox />', () => {
 			const button = screen.getByRole('button');
 			expect(button).toHaveAttribute('aria-expanded', 'false');
 		});
-		it('marque le bouton comme contrôleur de la liste', async () => {
+		it('marque le bouton comme contrôleur de la liste', () => {
 			render(
 				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
@@ -1009,7 +1009,7 @@ describe('<Combobox />', () => {
 			const button = screen.getByRole('button');
 			expect(button).toHaveAccessibleName('Test');
 		});
-		it('ajoute un label au bouton avec aria-labelledby', async () => {
+		it('ajoute un label au bouton avec aria-labelledby', () => {
 			render(
 				<>
 					<label htmlFor="combobox" id="label-combobox">Test</label>
@@ -1060,11 +1060,9 @@ describe('<Combobox />', () => {
 		const input = screen.getByRole('combobox');
 		expect(input).toHaveFocus();
 	});
-	it('ne submit pas un formulaire quand on clique sur le bouton', async () => {
-		const user = userEvent.setup();
-		const onSubmit = jest.fn();
+	it('maintient le type du bouton quand le composant est dans un formulaire', () => {
 		render(
-			<form onSubmit={onSubmit}>
+			<form>
 				<Combobox aria-label='Test'>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
@@ -1074,9 +1072,7 @@ describe('<Combobox />', () => {
 		);
 
 		const button = screen.getByRole('button');
-		await user.click(button);
-
-		expect(onSubmit).not.toHaveBeenCalled();
+		expect(button).toHaveAttribute('type', 'button');
 	});
 	it('disable le bouton quand le composant est disabled', () => {
 		render(
