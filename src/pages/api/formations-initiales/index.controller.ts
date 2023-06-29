@@ -9,17 +9,18 @@ import { FormationInitiale, FormationInitialeFiltre } from '~/server/formations-
 import { dependencies } from '~/server/start';
 
 export const formationInitialeQuerySchema = Joi.object({
-	domaine: Joi.string().required(),
+	motCle: Joi.string().required(),
 });
 
 export async function rechercherFormationInitialeHandler(req: NextApiRequest, res: NextApiResponse<Array<FormationInitiale> | ErrorHttpResponse>) {
 	const resultatFormationsInitiales = await dependencies.formationInitialeDependencies.rechercherFormationInitiale.handle(formationInitialeFiltreMapper(req));
 	return handleResponse(resultatFormationsInitiales, res);
 }
+
 export function formationInitialeFiltreMapper(request: NextApiRequest): FormationInitialeFiltre {
 	const { query } = request;
 	return {
-		motCle: query.domaine ? String(query.domaine) : '',
+		motCle: query.motCle ? String(query.motCle) : '',
 	};
 }
 

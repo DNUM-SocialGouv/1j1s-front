@@ -12,7 +12,7 @@ describe('rechercher une formation initiale', () => {
 		jest.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
 
 		// WHEN
-		const resultatFormationInitiale = await formationInitialeService.rechercherFormationInitiale({ domaine: 'informatique' });
+		const resultatFormationInitiale = await formationInitialeService.rechercherFormationInitiale({ motCle: 'informatique' });
 
 		// THEN
 		expect(httpClient.get).toHaveBeenCalledWith('formations-initiales?domaine=informatique');

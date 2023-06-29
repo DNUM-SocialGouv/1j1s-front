@@ -16,37 +16,37 @@ describe('FormulaireRechercheFormationInitiale', () => {
 		mockUseRouter({});
 
 		render(<FormulaireRechercheFormationInitiale/>);
-		const inputRechercheDomaine = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
-		expect(inputRechercheDomaine).toBeVisible();
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+		expect(inputRechercheMotCle).toBeVisible();
 
 		const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 		expect(buttonRechercher).toBeVisible();
 	});
 	describe('lorsque je fais une recherche', () => {
-		it('ajoute le domaine au query params', async () => {
+		it('ajoute le mot clé au query params', async () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
 
 			render(<FormulaireRechercheFormationInitiale/>);
-			const inputRechercheDomaine = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
-			fireEvent.change(inputRechercheDomaine, { target: { value: 'boulanger' } });
+			const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+			fireEvent.change(inputRechercheMotCle, { target: { value: 'boulanger' } });
 
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			fireEvent.click(buttonRechercher);
 
-			expect(routerPush).toHaveBeenCalledWith({ query: 'domaine=boulanger' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger' }, undefined, { shallow: true });
 		});
 	});
 	it('rempli automatiquement les champs avec les query params', () => {
 		mockUseRouter({
 			query: {
-				domaine: 'boulanger',
+				motCle: 'boulanger',
 			},
 		});
 
 		render(<FormulaireRechercheFormationInitiale/>);
 
-		const inputRechercheDomaine = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
-		expect(inputRechercheDomaine).toHaveValue('boulanger');
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+		expect(inputRechercheMotCle).toHaveValue('boulanger');
 	});
 });

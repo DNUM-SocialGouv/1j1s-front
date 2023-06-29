@@ -16,9 +16,9 @@ import {
 describe('lorsque je veux faire une recherche de formations initiales', () => {
 	it('en recette, doit récupérer des formations initiales en mode non authentifié', async () => {
 		// GIVEN
-		const domaine = 'informatique';
+		const motCle = 'informatique';
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
-		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search?q=${domaine}`;
+		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search?q=${motCle}`;
 		const searchFormationInitialeCall = nock(apiSearchUrl)
 			.get('')
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
@@ -33,21 +33,21 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				expect(searchFormationInitialeCall.isDone()).toBe(true);
 				expect(json).toEqual([aFormationInitiale()]);
 			},
-			url: `/formations-initiales?motCle=${domaine}`,
+			url: `/formations-initiales?motCle=${motCle}`,
 		});
 	});
 
 	it('map les params de la requete vers un filtre de formation initiale', () => {
 		const request: NextApiRequest = {
 			query: {
-				domaine: 'informatique',
+				motCle: 'informatique',
 			},
 		} as unknown as NextApiRequest;
 
 		const result = formationInitialeFiltreMapper(request);
 
 		expect(result).toEqual({
-			motClef: 'informatique',
+			motCle: 'informatique',
 		});
 	});
 });

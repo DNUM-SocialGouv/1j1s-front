@@ -12,7 +12,7 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();
 	const router = useRouter();
-	const [inputDomaine, setInputDomaine] = useState<string>('');
+	const [inputMotCle, setInputMotCle] = useState<string>('');
 
 	async function updateQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -21,7 +21,7 @@ export function FormulaireRechercheFormationInitiale() {
 	}
 
 	useEffect(function initFormValues() {
-		setInputDomaine(queryParams.domaine || '');
+		setInputMotCle(queryParams.motCle || '');
 	}, [queryParams]);
 
 
@@ -34,10 +34,10 @@ export function FormulaireRechercheFormationInitiale() {
 			<InputText
 				label="Domaine, mot-clé..."
 				placeholder="Exemples: boulanger, informatique"
-				value={inputDomaine}
-				name="domaine"
+				value={inputMotCle}
+				name="motCle"
 				autoFocus
-				onChange={(event: ChangeEvent<HTMLInputElement>) => setInputDomaine(event.currentTarget.value)}
+				onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 			/>
 			<div className={styles.buttonWrapper}>
 				<ButtonComponent

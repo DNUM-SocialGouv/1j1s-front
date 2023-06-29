@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { getSingleQueryParam } from '../utils/queryParams.utils';
 
 export type FormationInitialeQueryParams = {
-	domaine?: string
+	motCle?: string
 }
 
 export function useFormationInitialeQuery(): FormationInitialeQueryParams {
@@ -12,6 +12,6 @@ export function useFormationInitialeQuery(): FormationInitialeQueryParams {
 	const { query } = useRouter();
 
 	return useMemo(() => ({
-		domaine: getSingleQueryParam(query.domaine),
+		motCle: getSingleQueryParam(query.motCle),
 	}), [query]);
 }

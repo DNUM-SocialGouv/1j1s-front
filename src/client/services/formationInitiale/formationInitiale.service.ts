@@ -11,7 +11,7 @@ export interface FormationInitialeInterface {
 }
 
 interface FormationInitialeQueryFiltre extends ParsedUrlQuery {
-	domaine?: string
+	motCle?: string
 }
 
 
@@ -28,7 +28,7 @@ export class FormationInitialeService implements FormationInitialeInterface {
 
 	private filtreQuery(query: FormationInitialeQueryParams): FormationInitialeQueryFiltre {
 		return {
-			domaine: query.domaine,
+			motCle: query.motCle,
 		};
 	}
 }
