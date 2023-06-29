@@ -1,5 +1,7 @@
 import React, { Dispatch, ReducerState, useContext } from 'react';
 
+import NoProviderError from '~/client/Errors/NoProviderError';
+
 import { ComboboxAction, ComboboxReducer } from './ComboboxReducer';
 
 type ContextContent = {
@@ -9,6 +11,7 @@ type ContextContent = {
 }
 
 const Context = React.createContext<ContextContent | undefined>(undefined);
+Context.displayName = 'ComboboxContext';
 
 export const ComboboxProvider = Context.Provider;
 
@@ -16,8 +19,7 @@ export function useCombobox() {
 	const context = useContext(Context);
 
 	if (context == null) {
-		// FIXME (GAFI 20-06-2023): Throw custom error
-		throw new Error('Provider not found');
+		throw new NoProviderError(Context);
 	}
 
 	return context;
