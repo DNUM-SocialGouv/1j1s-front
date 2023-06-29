@@ -14,11 +14,11 @@ import {
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 
 describe('lorsque je veux faire une recherche de formations initiales', () => {
-
 	it('en recette, doit récupérer des formations initiales en mode non authentifié', async () => {
 		// GIVEN
+		const domaine = 'informatique';
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
-		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search?q=informatique`;
+		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search?q=${domaine}`;
 		const searchFormationInitialeCall = nock(apiSearchUrl)
 			.get('')
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
@@ -33,9 +33,10 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				expect(searchFormationInitialeCall.isDone()).toBe(true);
 				expect(json).toEqual([aFormationInitiale()]);
 			},
-			url: '/formations-initiales',
+			url: `/formations-initiales?motCle=${domaine}`,
 		});
 	});
+
 	it('map les params de la requete vers un filtre de formation initiale', () => {
 		const request: NextApiRequest = {
 			query: {
@@ -46,7 +47,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 		const result = formationInitialeFiltreMapper(request);
 
 		expect(result).toEqual({
-			libelle: 'informatique',
+			motClef: 'informatique',
 		});
 	});
 });

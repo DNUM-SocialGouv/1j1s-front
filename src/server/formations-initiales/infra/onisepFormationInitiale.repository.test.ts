@@ -21,7 +21,7 @@ describe('onisep formation initiale repository', () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
-			const filtre = aFormationInitialeFiltre({ libelle: 'informatique' });
+			const filtre = aFormationInitialeFiltre({ motCle: 'informatique' });
 
 			// WHEN
 			await formationInitialeRepository.search(filtre);

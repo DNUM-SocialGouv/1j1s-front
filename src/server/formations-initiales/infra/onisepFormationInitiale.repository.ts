@@ -34,7 +34,7 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 	async search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
 		const ONISEP_FORMATIONS_INITIALES_DATASET_ID = '5fa591127f501';
 		try {
-			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${filtre.libelle}`);
+			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${filtre.motCle}`);
 			const formationsInitialesApiResponse = apiResponse.data.results;
 			const formationsInitiales = formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
 			return createSuccess(formationsInitiales);

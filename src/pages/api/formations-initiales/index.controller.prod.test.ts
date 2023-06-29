@@ -97,7 +97,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				expect(searchFormationInitialeCall.isDone()).toBe(true);
 				expect(json).toEqual([aFormationInitiale()]);
 			},
-			url: '/formations-initiales',
+			url: '/formations-initiales?libelle=informatique',
 		});
 	});
 

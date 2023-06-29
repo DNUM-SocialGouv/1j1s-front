@@ -7,7 +7,7 @@ import {
 
 export function aFormationInitialeFiltre(override?: Partial<FormationInitialeFiltre>): FormationInitialeFiltre {
 	return {
-		libelle: 'classe préparatoire',
+		motCle: 'classe préparatoire',
 		...override,
 	};
 }

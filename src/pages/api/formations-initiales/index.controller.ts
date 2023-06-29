@@ -19,7 +19,7 @@ export async function rechercherFormationInitialeHandler(req: NextApiRequest, re
 export function formationInitialeFiltreMapper(request: NextApiRequest): FormationInitialeFiltre {
 	const { query } = request;
 	return {
-		libelle: query.domaine ? String(query.domaine) : '',
+		motCle: query.domaine ? String(query.domaine) : '',
 	};
 }
 
