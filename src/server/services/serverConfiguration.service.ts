@@ -1,6 +1,6 @@
 import { ConfigurationService } from '~/server/services/configuration.service';
 
-export class ServerConfigurationService implements ConfigurationService {
+export default class ServerConfigurationService implements ConfigurationService {
 	getConfiguration(): EnvironmentVariables {
 		return {
 			API_ADRESSE_BASE_URL: ServerConfigurationService.getOrThrowError('API_ADRESSE_BASE_URL'),
@@ -11,6 +11,10 @@ export class ServerConfigurationService implements ConfigurationService {
 			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
+			API_ONISEP_ACCOUNT_EMAIL: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_EMAIL'),
+			API_ONISEP_ACCOUNT_PASSWORD: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_PASSWORD'),
+			API_ONISEP_APPLICATION_ID: ServerConfigurationService.getOrThrowError('API_ONISEP_APPLICATION_ID'),
+			API_ONISEP_BASE_URL: ServerConfigurationService.getOrThrowError('API_ONISEP_BASE_URL'),
 			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
 			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
@@ -21,10 +25,10 @@ export class ServerConfigurationService implements ConfigurationService {
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
-			
+
 			NEXT_PUBLIC_SENTRY_ENVIRONMENT: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
-			
-			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'), 
+
+			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'),
 			NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST')),
 			NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
@@ -67,6 +71,8 @@ export class ServerConfigurationService implements ConfigurationService {
 	}
 }
 
+// export default const environmentConfig = new ServerConfigurationService().getConfiguration();
+
 class EnvironmentVariablesException extends Error {
 	constructor(readonly message: string) {
 		super(message);
@@ -88,6 +94,10 @@ export interface EnvironmentVariables {
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
 	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
+	readonly API_ONISEP_BASE_URL: string
+	readonly API_ONISEP_ACCOUNT_EMAIL: string
+	readonly API_ONISEP_ACCOUNT_PASSWORD: string
+	readonly API_ONISEP_APPLICATION_ID: string
 	readonly API_POLE_EMPLOI_OFFRES_URL: string
 	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
