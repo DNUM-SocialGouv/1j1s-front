@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.103.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.102.1...v3.103.0) (2023-06-29)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-init:** recuperer les formations initiales depuis l api onisep ([#1524](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1524)) ([f2763a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f2763a93402b49860e34621919712f4d002d0e3e))
+
 ## [3.102.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.102.0...v3.102.1) (2023-06-28)
 
 
