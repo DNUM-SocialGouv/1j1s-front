@@ -18,9 +18,9 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 		// GIVEN
 		const motCle = 'informatique';
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
-		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search?q=${motCle}`;
+		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501`;
 		const searchFormationInitialeCall = nock(apiSearchUrl)
-			.get('')
+			.get(`/search?q=${motCle}`)
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
