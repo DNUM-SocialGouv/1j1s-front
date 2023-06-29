@@ -15,7 +15,7 @@ describe('rechercher une formation initiale', () => {
 		const resultatFormationInitiale = await formationInitialeService.rechercherFormationInitiale({ motCle: 'informatique' });
 
 		// THEN
-		expect(httpClient.get).toHaveBeenCalledWith('formations-initiales?domaine=informatique');
+		expect(httpClient.get).toHaveBeenCalledWith('formations-initiales?motCle=informatique');
 		expect(resultatFormationInitiale).toStrictEqual(formationsInitialesSuccessResponse);
 	});
 });
