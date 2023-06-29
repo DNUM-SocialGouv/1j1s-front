@@ -11,6 +11,7 @@ const meta: Meta<typeof Combobox> = {
 		children: {
 			control: 'array',
 		},
+		onBlur: { type: 'function' },
 		value: { type: 'string' },
 	},
 	args: {
@@ -20,7 +21,7 @@ const meta: Meta<typeof Combobox> = {
 		value: undefined,
 	},
 	component: Combobox,
-	title: 'Components/Combobox',
+	title: 'Components/Form/Combobox',
 };
 
 export default meta;

@@ -1,5 +1,7 @@
 import { ChangeEvent as SyntheticChangeEvent } from 'react';
 
+// NOTE (GAFI 29-06-2023): React gère ses events différemment du JavaScript vanilla et ne propose pas de méthode pour
+//	créer des event custom (cf. https://github.com/facebook/react/issues/26991)
 export class ChangeEvent<T = Element> extends Event implements SyntheticChangeEvent<T> {
 	nativeEvent: Event;
 	private propagationStopped = false;
