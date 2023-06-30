@@ -98,3 +98,23 @@ export const optionAvecValue: Story = {
 		</form>
 	),
 };
+
+export const validation: Story = {
+	args: {
+		requireDefinedOption: true,
+	},
+	render: ({ children, ...args }) => (
+		<form onSubmit={(event) => {
+			event.preventDefault();
+			alert(`
+				label: ${event.currentTarget['pays.label'].value},
+				value: ${event.currentTarget['pays.value'].value}
+			`);
+		}}>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" name="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
+			</Combobox>
+		</form>
+	),
+};

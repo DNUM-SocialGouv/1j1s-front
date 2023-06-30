@@ -1,5 +1,14 @@
 import classNames from 'classnames';
-import React, { KeyboardEvent, useCallback, useId, useLayoutEffect, useMemo, useReducer, useRef } from 'react';
+import React, {
+	KeyboardEvent,
+	useCallback,
+	useEffect,
+	useId,
+	useLayoutEffect,
+	useMemo,
+	useReducer,
+	useRef,
+} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -12,6 +21,7 @@ import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
+	requireDefinedOption?: boolean,
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -30,6 +40,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	name,
 	'aria-controls': ariaControls,
 	onBlur,
+	requireDefinedOption = false,
 	...inputProps
 }, inputOuterRef) {
 	const listboxRef = useRef<HTMLUListElement>(null);
@@ -48,6 +59,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		// NOTE (GAFI 27-06-2023): On accède aux children indirectement par le querySelectorAll
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value, listboxRef, children]);
+
+	useEffect(() => {
+		if (requireDefinedOption) {
+			inputRef.current?.setCustomValidity(matchingOption ? '' : 'erreur');
+		}
+	}, [inputRef, matchingOption, requireDefinedOption]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {

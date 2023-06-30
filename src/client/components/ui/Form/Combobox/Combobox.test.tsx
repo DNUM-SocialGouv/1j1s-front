@@ -1307,6 +1307,42 @@ describe('<Combobox />', () => {
 		it.todo('pouvoir renommer le name de la value pour le submit');
 	});
 
+	describe('validation avec requireDefinedOption', () => {
+		it('est invalide quand l’entrée n’appartient pas à la liste d’options', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test' requireDefinedOption>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+
+			expect(input).toBeInvalid();
+		});
+		it('est valide quand on sélectionne une options', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test' requireDefinedOption>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>,
+			);
+
+			const button = screen.getByRole('button');
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toBeValid();
+		});
+		it.todo('est valide quand le texte entré à la main correspond à une option');
+		it.todo('message d’erreur');
+	});
+
 	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
 
