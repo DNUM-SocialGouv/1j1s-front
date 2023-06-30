@@ -21,8 +21,8 @@
     }
   }
 
-  --border-radius: 1.25rem;
-  border-radius: var(--border-radius);
+  $border-radius: 1.25rem;
+  border-radius: $border-radius;
   @extend %outlined;
   & input,
   & button {
@@ -33,12 +33,12 @@
   & input {
     border: 1px solid utilities-deprecated.$color-combobox-border;
     border-right: none;
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    border-radius: $border-radius 0 0 $border-radius;
   }
   & button {
     border: 1px solid utilities-deprecated.$color-combobox-border;
     border-left: none;
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    border-radius: 0 $border-radius $border-radius 0;
   }
   & input:disabled,
   & input:read-only,
@@ -54,7 +54,7 @@
     top: 100%;
     width: 100%;
     border: 1px solid utilities-deprecated.$color-combobox-list-border;
-    border-radius: var(--border-radius);
+    border-radius: $border-radius;
     background-color: utilities-deprecated.$color-combobox-list-background;
     margin-top: 4px;
 
