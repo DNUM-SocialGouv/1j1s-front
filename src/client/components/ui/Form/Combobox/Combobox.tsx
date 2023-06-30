@@ -55,6 +55,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 	}, [inputProps, inputRef, onChangeProps]);
 
+	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
+		dispatch(new Actions.SelectOption(option));
+		triggerChangeEvent();
+		inputRef.current?.focus();
+	}, [inputRef, triggerChangeEvent]);
+
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
@@ -100,9 +106,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	return (
 		<ComboboxProvider value={{
 			dispatch,
-			focusInput: () => inputRef.current?.focus(),
+			onOptionSelection,
 			state,
-			triggerChangeEvent,
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={(event) => {
 				if (event.currentTarget.contains(event.relatedTarget)) {

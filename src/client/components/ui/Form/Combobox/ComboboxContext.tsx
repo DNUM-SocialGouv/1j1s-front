@@ -7,8 +7,7 @@ import { ComboboxAction, ComboboxReducer } from './ComboboxReducer';
 type ContextContent = {
 	state: ReducerState<typeof ComboboxReducer>,
 	dispatch: Dispatch<ComboboxAction>,
-	focusInput: () => void,
-	triggerChangeEvent: () => void,
+	onOptionSelection: (option: Element) => void,
 }
 
 const Context = React.createContext<ContextContent | undefined>(undefined);
