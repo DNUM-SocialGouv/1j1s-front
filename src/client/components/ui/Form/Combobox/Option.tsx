@@ -3,7 +3,6 @@ import React, { useCallback, useId } from 'react';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { useCombobox } from './ComboboxContext';
-import { ComboboxAction as Actions } from './ComboboxReducer';
 import { matchesInput } from './utils';
 
 type OptionProps = React.ComponentPropsWithoutRef<'li'>;
