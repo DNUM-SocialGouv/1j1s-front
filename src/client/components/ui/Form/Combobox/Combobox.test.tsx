@@ -1339,7 +1339,19 @@ describe('<Combobox />', () => {
 			const input = screen.getByRole('combobox');
 			expect(input).toBeValid();
 		});
-		it.todo('est valide quand le texte entré à la main correspond à une option');
+		it('est valide quand entre le texte exacte d’une option', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test' requireDefinedOption>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'Option 1');
+
+			expect(input).toBeValid();
+		});
 		it.todo('message d’erreur');
 	});
 
