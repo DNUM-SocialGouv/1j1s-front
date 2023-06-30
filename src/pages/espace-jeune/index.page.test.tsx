@@ -21,8 +21,8 @@ describe('Page Espace Jeune', () => {
 	});
 
 	describe('Si des actualités sont récupérées', () => {
-		it('n‘affiche pas le bouton voir plus si moins de 7 actualités', () => {
-			const carteActualites = [anActualite({ titre: 'Actualité 1' })];
+		it('n‘affiche pas le bouton voir plus si moins de 4 actualités', () => {
+			const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
 			const serviceJeuneList = aServiceJeuneList();
 			const analyticsService = anAnalyticsService();
 
@@ -38,8 +38,12 @@ describe('Page Espace Jeune', () => {
 			expect(within(actualitesSection).queryByRole('button', { name: 'Voir plus de résultats sur les actualités' })).not.toBeInTheDocument();
 		});
 
-		it('affiche pas le bouton voir plus si plus de 6 actualités', () => {
-			const carteActualites = anActualiteList();
+		it('affiche le bouton voir plus si plus de 3 actualités', () => {
+			const carteActualites = [anActualite({ titre: 'Actualité 1' }),
+				anActualite({ titre: 'Actualité 2' }),
+				anActualite({ titre: 'Actualité 3' }),
+				anActualite({ titre: 'Actualité 4' })];
+			
 			const serviceJeuneList = aServiceJeuneList();
 			const analyticsService = anAnalyticsService();
 
@@ -52,7 +56,7 @@ describe('Page Espace Jeune', () => {
 			);
 			const actualitesSection = screen.getByTestId('actualites');
 
-			expect(within(actualitesSection).getByRole('button', { name: 'Voir plus de résultats sur les actualités' })).toBeInTheDocument();
+			expect(within(actualitesSection).getByRole('button', { name: 'Voir plus de résultats sur les actualités' })).toBeVisible();
 		});
 
 		it('envoie les analytics de la page à son affichage', () => {
