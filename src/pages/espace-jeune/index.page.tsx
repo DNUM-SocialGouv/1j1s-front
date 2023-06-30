@@ -22,7 +22,7 @@ interface EspaceJeunePageProps {
 	serviceJeuneList: Array<ServiceJeune>
 }
 
-const MAX_VISIBLE_ACTUALITES_LENGTH = 6;
+const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
