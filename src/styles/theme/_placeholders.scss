@@ -23,3 +23,20 @@
 %box-shadow {
   box-shadow: variables-deprecated.$box-shadow;
 }
+
+%outlined {
+  outline-color: variables-deprecated.$color-focus-outline;
+  outline-offset: 0;
+  outline-width: 2px;
+
+  &:focus-visible,
+  &:focus-within {
+    outline-style: solid;
+  }
+}
+%no-outline {
+  &:focus-visible,
+  &:focus-within {
+    outline-style: none;
+  }
+}

@@ -1,0 +1,54 @@
+import * as stories from './Combobox.stories';
+import {Canvas, Controls, Meta} from "@storybook/blocks";
+
+<Meta of={stories} />
+
+
+# Definition
+
+L'implémentation accessible du combobox est [décrite dans les patterns ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-autocomplete-list/)
+
+Ce composant expose un sous-composant `Combobox.Option`, ce qui permet de l'utiliser à la manière d'un `<select>`
+natif HTML :
+```tsx
+<select>
+  <option>France</option>
+  <option>Allemagne</option>
+  <option>Espagne</option>
+</select>
+
+<Combobox>
+  <Combobox.Option>France</Combobox.Option>
+  <Combobox.Option>Allemagne</Combobox.Option>
+  <Combobox.Option>Espagne</Combobox.Option>
+</Combobox>
+```
+
+## Props
+
+### Combobox
+
+Le `Combobox` peut prendre les props suivantes :
+
+<Controls />
+
+**Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)**
+
+Il est nécessaire d'ajouter un nom accessible par une des props `aria-label` ou `aria-labelledby` qui se placera
+automatiquement sur la liste d'options et le bouton permettant de la faire apparaitre.
+
+### Combobox.Option
+
+Les `Combobox.Option` peuvent prendre tous [les attributs d'un `li` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
+
+# Exemples
+
+<Canvas of={stories.exemple} />
+
+## Disabled
+
+<Canvas of={stories.disabled} />
+
+## Dans un formulaire
+
+<Canvas of={stories.intégrationDansUnFormulaire} />

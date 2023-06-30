@@ -1,0 +1,74 @@
+@use "@styles/utilities-deprecated";
+
+.combobox {
+  // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  & input {
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+  }
+  & button {
+    vertical-align: middle;
+    & svg {
+      vertical-align: bottom;
+      transition: transform 75ms ease-in-out;
+    }
+    &[aria-expanded="true"] svg {
+      transform: rotate(-180deg);
+    }
+  }
+
+  $border-radius: 1.25rem;
+  border-radius: $border-radius;
+  @extend %outlined;
+  & input,
+  & button {
+    @extend %no-outline
+  }
+
+  // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
+  & input {
+    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border-right: none;
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+  & button {
+    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border-left: none;
+    border-radius: 0 $border-radius $border-radius 0;
+  }
+  & input:disabled,
+  & input:read-only,
+  & button:disabled {
+    border-color: utilities-deprecated.$color-combobox-disabled;
+    color: utilities-deprecated.$color-combobox-disabled;
+    cursor: not-allowed;
+  }
+
+  & ul[role="listbox"] {
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    border: 1px solid utilities-deprecated.$color-combobox-list-border;
+    border-radius: $border-radius;
+    background-color: utilities-deprecated.$color-combobox-list-background;
+    margin-top: 4px;
+
+    max-height: 10em;
+    overflow-y: scroll;
+
+    & li[role="option"] {
+      padding: .25rem 1ch;
+      cursor: pointer;
+
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: utilities-deprecated.$color-combobox-option-hover;
+      }
+    }
+  }
+}
