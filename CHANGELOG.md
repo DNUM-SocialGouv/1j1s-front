@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.103.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.103.4...v3.103.5) (2023-06-30)
+
+
+### 🐛 Corrections de bogues
+
+* Re-implémentation combobox ([#1428](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1428)) ([6175692](https://github.com/DNUM-SocialGouv/1j1s-front/commit/617569228c75d218928e9e7829985bd24700f250))
+
 ## [3.103.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.103.3...v3.103.4) (2023-06-30)
 
 
