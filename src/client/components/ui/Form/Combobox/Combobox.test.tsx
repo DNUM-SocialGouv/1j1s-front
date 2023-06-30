@@ -1304,7 +1304,7 @@ describe('<Combobox />', () => {
 		});
 
 		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
-		it.todo('passer sur data-value au lieu de value pour éviter un conflit ?');
+		it.todo('pouvoir renommer le name de la value pour le submit');
 	});
 
 	it.todo('validation de la valeur avec liste des options');
