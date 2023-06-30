@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.104.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.103.5...v3.104.0) (2023-06-30)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @storybook/addon-styling to v1.3.2 ([#1560](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1560)) ([5e29a47](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5e29a477fa4161bd51aa0271f6bcc62f0fad2a84))
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **espaceJeune:** Limiter l'affichage du nombre de cartes d'actualité ([#1548](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1548)) ([bff05d3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bff05d3142ee1011a28445bf213290794d95dbea))
+
 ## [3.103.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.103.4...v3.103.5) (2023-06-30)
 
 
