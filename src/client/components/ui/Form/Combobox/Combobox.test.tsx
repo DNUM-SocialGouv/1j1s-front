@@ -683,8 +683,8 @@ describe('<Combobox />', () => {
 							<Combobox.Option>Option 2</Combobox.Option>
 							<Combobox.Option>Option 3</Combobox.Option>
 						</Combobox>
-					<button>Submit</button>
-				</form>,
+						<button>Submit</button>
+					</form>,
 				);
 
 				const input = screen.getByRole('combobox');
@@ -1192,7 +1192,7 @@ describe('<Combobox />', () => {
 	});
 
 	describe('<Combobox.Option value />', () => {
-		it("submit le label et la value de l'option quand présent", async () => {
+		it('submit le label et la value de l’option quand présent', async () => {
 			const user = userEvent.setup();
 			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
@@ -1216,6 +1216,34 @@ describe('<Combobox />', () => {
 					elements: expect.objectContaining({
 						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
 						'combobox.value': expect.objectContaining({ value: 'test' }),
+					}),
+				}),
+			}));
+		});
+		it('ne submit pas le label et la value de l’option quand aucun nom n’est passé au combobox', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).not.toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'undefined.label': expect.anything(),
+						'undefined.value': expect.anything(),
 					}),
 				}),
 			}));
