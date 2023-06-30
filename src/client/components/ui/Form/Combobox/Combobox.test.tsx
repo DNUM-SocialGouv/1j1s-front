@@ -1248,8 +1248,61 @@ describe('<Combobox />', () => {
 				}),
 			}));
 		});
-		it.todo('quand pas de name sur l’input');
-		it.todo('quand pas value');
+		it('submit le label comme value quand l’option n’a pas de value', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
+						'combobox.value': expect.objectContaining({ value: 'Option 1' }),
+					}),
+				}),
+			}));
+		});
+		it('submit une value vide quand on submit sans selectionner de valeur', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'test' }),
+						'combobox.value': expect.objectContaining({ value: '' }),
+					}),
+				}),
+			}));
+		});
+
 		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
 		it.todo('passer sur data-value au lieu de value pour éviter un conflit ?');
 	});

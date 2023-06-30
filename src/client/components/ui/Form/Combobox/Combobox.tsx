@@ -138,7 +138,10 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onChange={onChange}
 					name={name && `${name}.label`}
 					{...inputProps} />
-				<input type="hidden" name={name && `${name}.value`} value={matchingOption?.getAttribute('value') ?? ''} />
+				<input
+					type="hidden"
+					name={name && `${name}.value`}
+					value={matchingOption?.getAttribute('value') ?? matchingOption?.textContent ?? ''} />
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
