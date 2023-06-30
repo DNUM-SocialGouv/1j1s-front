@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { KeyboardEvent, useCallback, useEffect, useId, useLayoutEffect, useReducer, useRef } from 'react';
+import React, { KeyboardEvent, useCallback, useId, useLayoutEffect, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -47,15 +47,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 	}, [activeDescendant]);
 
-	useEffect(function triggerChangeEvents() {
+	const triggerChangeEvent = useCallback(function triggerChangeEvents() {
 		if (inputRef.current) {
 			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
 			if (onChangeProps) { onChangeProps(changeEvent); }
 			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
 		}
-		// NOTE (GAFI 22-06-2023): triggerChangeEvents only if value changes, not if the function itself changes
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [valueState]);
+	}, [inputProps, inputRef, onChangeProps]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
@@ -81,6 +79,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
 				if (selectedOption) {
 					dispatch(new Actions.SelectOption(selectedOption));
+					triggerChangeEvent();
 					event.preventDefault();
 				}
 				break;
@@ -92,7 +91,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		if (onKeyDownProps) {
 			onKeyDownProps(event);
 		}
-	}, [onKeyDownProps]);
+	}, [onKeyDownProps, triggerChangeEvent]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
 		if (onChangeProps) { onChangeProps(event); }
@@ -103,6 +102,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			dispatch,
 			focusInput: () => inputRef.current?.focus(),
 			state,
+			triggerChangeEvent,
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={(event) => {
 				if (event.currentTarget.contains(event.relatedTarget)) {

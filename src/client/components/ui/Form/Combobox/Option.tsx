@@ -15,7 +15,12 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	const ref = useSynchronizedRef(outerRef);
 	const idState = useId();
 	const id = idProps ?? idState;
-	const { state: { activeDescendant, value }, dispatch, focusInput } = useCombobox();
+	const {
+		state: { activeDescendant, value },
+		dispatch,
+		focusInput,
+		triggerChangeEvent,
+	} = useCombobox();
 	const selected = activeDescendant === id;
 	const hidden = !matchesInput(ref.current, value);
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
@@ -23,8 +28,9 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 		if (onClickProps) {
 			onClickProps(event);
 		}
+		triggerChangeEvent();
 		focusInput();
-	}, [dispatch, focusInput, onClickProps]);
+	}, [dispatch, focusInput, onClickProps, triggerChangeEvent]);
 	return (
 		<li
 			role="option"

@@ -235,6 +235,26 @@ describe('<Combobox />', () => {
 				expect(onKeyDown).toHaveBeenCalledTimes(1);
 				expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'A' }));
 			});
+			it('appelle onChange et onInput quand on tape dans le champ', async () => {
+				const user = userEvent.setup();
+				const onChange = jest.fn();
+				const onInput = jest.fn();
+				render(
+					<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'Opt');
+
+				expect(onChange).toHaveBeenCalledTimes(3);
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+				expect(onInput).toHaveBeenCalledTimes(3);
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+			});
 			it('appelle onChange et onInput quand on sélectionne une valeur au clavier', async () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
