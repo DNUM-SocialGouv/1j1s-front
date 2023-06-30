@@ -18,11 +18,10 @@ interface FormationInitialeQueryFiltre extends ParsedUrlQuery {
 export class FormationInitialeService implements FormationInitialeInterface {
 	constructor(private readonly httpClient: HttpClientService) {}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>> {
 		const filteredQuery = this.filtreQuery(query);
 		const sanitizedQuery = removeUndefinedKeys(filteredQuery);
-		const queryString = stringify(sanitizedQuery);
+		const queryString = filteredQuery.motCle === '' ? '' : stringify(sanitizedQuery);
 		return await this.httpClient.get<Array<FormationInitiale>>(`formations-initiales?${queryString}`);
 	}
 

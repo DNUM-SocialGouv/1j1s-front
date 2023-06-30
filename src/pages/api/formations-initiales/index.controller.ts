@@ -9,7 +9,7 @@ import { FormationInitiale, FormationInitialeFiltre } from '~/server/formations-
 import { dependencies } from '~/server/start';
 
 export const formationInitialeQuerySchema = Joi.object({
-	motCle: Joi.string().required(),
+	motCle: Joi.string(),
 });
 
 export async function rechercherFormationInitialeHandler(req: NextApiRequest, res: NextApiResponse<Array<FormationInitiale> | ErrorHttpResponse>) {

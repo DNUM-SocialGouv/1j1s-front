@@ -7,16 +7,16 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
-import { getFormAsQuery } from '~/client/utils/form.util';
+import { getFormAsQueryWithEmptyString } from '~/client/utils/form.util';
 
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();
 	const router = useRouter();
 	const [inputMotCle, setInputMotCle] = useState<string>('');
 
-	async function updateQueryParams(event: FormEvent<HTMLFormElement>) {
+	async function submitForm(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		const query = getFormAsQueryWithEmptyString(event.currentTarget, queryParams, false);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
@@ -29,7 +29,7 @@ export function FormulaireRechercheFormationInitiale() {
 		<form
 			className={styles.RechercheFormationInitialeForm}
 			role="search"
-			onSubmit={updateQueryParams}
+			onSubmit={submitForm}
 		>
 			<InputText
 				label="Domaine, mot-clé..."

@@ -37,6 +37,19 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger' }, undefined, { shallow: true });
 		});
 	});
+	describe('lorsque je fais une recherche sans remplir le formulaire', () => {
+		it('ajoute un mot clé vide au query params', async () => {
+			const routerPush = jest.fn();
+			mockUseRouter({ push: routerPush });
+
+			render(<FormulaireRechercheFormationInitiale/>);
+
+			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+			fireEvent.click(buttonRechercher);
+
+			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=' }, undefined, { shallow: true });
+		});
+	});
 	it('rempli automatiquement les champs avec les query params', () => {
 		mockUseRouter({
 			query: {
