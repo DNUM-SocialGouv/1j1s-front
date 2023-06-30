@@ -39,7 +39,7 @@ automatiquement sur la liste d'options et le bouton permettant de la faire appar
 
 ### Combobox.Option
 
-Les `Combobox.Option` peuvent prendre tous [les attributs d'un `li` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
+Les `Combobox.Option` peuvent prendre tous [les attributs d'un `li` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li).
 
 # Exemples
 
@@ -55,6 +55,18 @@ Les `Combobox.Option` peuvent prendre tous [les attributs d'un `li` HTML natif](
 
 ## Avec des values dans les options
 
-Todo: Ecrire l'API concrête
+Il est également possible de renseigner une valeur différente du libellé avec la propriété `value`.
+Un formulaire serait donc soumis avec les champs `<name>.value` contenant la valeur et `<name>.label` contenant le libellé.
+E.g. :
+```jsx
+<form onSubmit={event => (
+    alert(`
+        label: ${event.currentTarget['pays.label'].value},
+        value: ${event.currentTarget['pays.value'].value}
+    `)
+)}>
+    {/* ... */}
+</form>
+```
 
 <Canvas of={stories.optionAvecValue} />
