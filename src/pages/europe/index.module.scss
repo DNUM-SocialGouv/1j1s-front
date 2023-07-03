@@ -97,33 +97,6 @@
       margin-bottom: 1.25rem;
     }
   }
-
-  &NiveauAnglais {
-    padding: 2.5rem 2rem;
-    color: utilities-deprecated.$color-on-primary;
-    display: flex;
-    flex-direction: column;
-    &__Content {
-      h2 {
-        font-size: 1.25rem;
-        margin-bottom: 1.25rem;
-      }
-      > p {
-        margin-bottom: 2rem;
-      }
-      > span {
-        font-size: 0.75rem;
-      }
-      .buttonWrapper {
-        margin-bottom: 1.25rem;
-      }
-    }
-    > img {
-      margin: auto;
-    }
-
-
-  }
 }
 
 .buttonWrapper {
@@ -194,25 +167,6 @@
         text-align: center;
       }
     }
-
-    &NiveauAnglais {
-      &__Content {
-        display: flex;
-        flex-direction: column;
-        h2 {
-          font-weight: bold;
-          font-size: 1.50rem;
-        }
-        p {
-          font-size: 1.25rem;
-          margin-bottom: 3.25rem;
-        }
-        > span {
-          font-size: 1rem;
-          margin: 0 auto;
-        }
-      }
-    }
   }
 }
 
@@ -232,22 +186,6 @@
           height: 160px;
           object-fit: cover;
         }
-      }
-    }
-    &NiveauAnglais {
-      padding: 0;
-      flex-direction: row;
-      &__ImageWrapper {
-        display: flex;
-        align-items: center;
-        padding: 5rem 2rem;
-        width: 36%;
-        background-color: utilities-deprecated.$color-background-white-lilac;
-      }
-      &__Content {
-        padding: 5rem 0 5rem 2rem;
-        width: 64%;
-        background-color: utilities-deprecated.$color-primary;
       }
     }
   }
