@@ -119,19 +119,4 @@ describe('Page Europe', () => {
 		expect(link).toHaveAttribute('href', 'https://info.erasmusplus.fr/');
 		expect(link).toHaveAttribute('title', 'En savoir plus - nouvelle fenêtre');
 	});
-
-	it('affiche un lien Tester son niveau d‘anglais', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getByRole('link', { name: 'Tester son niveau d‘anglais' });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://lp.wallstreetenglish.fr/1jeune-1solution');
-		expect(link).toHaveAttribute('title', 'Tester son niveau d‘anglais - nouvelle fenêtre');
-	});
 });

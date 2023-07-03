@@ -3,13 +3,8 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -24,7 +19,6 @@ interface LienEmploiEurope {
 export default function EuropePage() {
 	useAnalytics(analytics);
 	const { isLargeScreen } = useBreakpoint();
-	const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 	const linkList: Array<LienEmploiEurope> = [
 		{
 			title: 'Trouver un emploi en Europe',
@@ -211,42 +205,6 @@ export default function EuropePage() {
 		</div>
 	);
 
-	const sectionNiveauAnglais = () => (
-		<div className={!isLargeScreen ? 'background-primary' : 'background-gradient-to-primary'}>
-			<Container className={styles.sectionNiveauAnglais}>
-				{isLargeScreen
-					? (
-						<div className={styles.sectionNiveauAnglais__ImageWrapper}>
-							<Image src={'/images/logos/wall-street-english-blue.svg'} alt="" width={210} height={150}/>
-						</div>
-					)
-					: (
-						<Image src={'/images/logos/wall-street-english.svg'} alt="" width={132} height={100}/>
-					)
-				}
-
-				<div className={styles.sectionNiveauAnglais__Content}>
-					<h2>
-						<strong>J’évalue mon niveau </strong>d’anglais grâce à un<strong> test gratuit </strong>avec “Wall Street
-						English”
-					</h2>
-					<p>Quel est mon niveau d‘anglais ? Rien de plus simple avec le test en ligne de Wall Street English. Vous êtes
-						évalué sur votre niveau de grammaire, de vocabulaire, de compréhension écrite et orale.</p>
-					<div className={styles.buttonWrapper}>
-						<LinkStyledAsButton
-							href="https://lp.wallstreetenglish.fr/1jeune-1solution"
-							appearance="asSecondaryButton"
-							className={styles.buttonOnDarkBackground}>
-							Tester son niveau d‘anglais
-						</LinkStyledAsButton>
-					</div>
-					<span>Vous êtes une entreprise et souhaitez vous aussi proposer un test en ligne, <Link
-						href={`mailto:${MAIL_TO}`}>écrivez-nous</Link>.</span>
-				</div>
-			</Container>
-		</div>
-	);
-
 	return (
 		<>
 			<Head
@@ -258,7 +216,6 @@ export default function EuropePage() {
 				{sectionLiens()}
 				{sectionDispositif()}
 				{sectionAidesFinancieres()}
-				{sectionNiveauAnglais()}
 			</main>
 		</>
 	);
