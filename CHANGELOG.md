@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.105.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.104.2...v3.105.0) (2023-07-03)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** suppression du bloc wall street english ([#1570](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1570)) ([38efe62](https://github.com/DNUM-SocialGouv/1j1s-front/commit/38efe62df1cb76ed9a7b55de4b598eff57238514))
+
 ## [3.104.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.104.1...v3.104.2) (2023-07-03)
 
 
