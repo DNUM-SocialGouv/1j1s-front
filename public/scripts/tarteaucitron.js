@@ -1,5 +1,12 @@
 /*jslint browser: true, evil: true */
 /* eslint-disable */
+
+
+/**
+ * MODIFICATIONS EFFECTUÉES PAR L'ÉQUIPE ET À REPORTER DANS UNE NOUVELLE VERSION DU SCRIPT :
+ * - ajout d'une 'additionalDescription' basée sur des nouvelles clefs dans le fichier lang/tarteaucitron.fr.js (ex: youtube, eulerian, adform...)\
+**/
+
 var scripts = document.getElementsByTagName('script'),
     path = scripts[scripts.length - 1].src.split('?')[0],
     tarteaucitronForceCDN = (tarteaucitronForceCDN === undefined) ? '' : tarteaucitronForceCDN,
@@ -17,7 +24,7 @@ var scripts = document.getElementsByTagName('script'),
 
 
 var tarteaucitron = {
-    "version": 20230628,
+    "version": 20230703,
     "cdn": cdn,
     "user": {},
     "lang": {},
@@ -814,6 +821,13 @@ var tarteaucitron = {
             html += '       <span class="tacCurrentStatus" id="tacCurrentStatus' + service.key + '">'+currentStatus+'</span>';
             html += '       <span class="tarteaucitronReadmoreSeparator"> - </span>';
             html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
+
+            var additionalDescription = tarteaucitron.lang[service.key]
+            if (additionalDescription) {
+                html += '<span class="tarteaucitronListCookies" style="display: block; padding: 1rem 0;">' + additionalDescription +  '</span>';
+            }
+
+
             if (tarteaucitron.parameters.moreInfoLink == true) {
 
                 var link = 'https://tarteaucitron.io/service/' + service.key + '/';
@@ -1704,14 +1718,6 @@ var tarteaucitron = {
                     html += 's';
                 }
                 html += '.';
-            }
-            if (key === 'adform') {
-                html += tarteaucitron.lang.adform;
-            }
-            if (key === 'eulerian') {
-                html += tarteaucitron.lang.eulerian;
-            } else if (key === 'youtube') {
-                html += tarteaucitron.lang.youtube;
             }
 
             if (document.getElementById('tacCL' + key) !== null) {
