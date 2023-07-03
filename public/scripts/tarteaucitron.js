@@ -4,8 +4,9 @@
 
 /**
  * MODIFICATIONS EFFECTUÉES PAR L'ÉQUIPE ET À REPORTER DANS UNE NOUVELLE VERSION DU SCRIPT :
- * - ajout d'une 'additionalDescription' basée sur des nouvelles clefs dans le fichier lang/tarteaucitron.fr.js (ex: youtube, eulerian, adform...)\
-**/
+ * - ajout d'une 'additionalDescription' basée sur des nouvelles clefs dans le fichier lang/tarteaucitron.fr.js (ex: youtube, eulerian, adform...)
+ * - modification du load
+ * **/
 
 var scripts = document.getElementsByTagName('script'),
     path = scripts[scripts.length - 1].src.split('?')[0],
@@ -48,6 +49,7 @@ var tarteaucitron = {
         if (alreadyLaunch === 0) {
             alreadyLaunch = 1;
             if (window.addEventListener) {
+                /** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
                 try {
                     tarteaucitron.initEvents.loadEvent(false)
                 } catch (e) {
@@ -55,6 +57,7 @@ var tarteaucitron = {
                         tarteaucitron.initEvents.loadEvent(false);
                     }, false);
                 }
+                /** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
                 window.addEventListener("scroll", function () {
                     tarteaucitron.initEvents.scrollEvent();
                 }, false);
@@ -822,11 +825,12 @@ var tarteaucitron = {
             html += '       <span class="tarteaucitronReadmoreSeparator"> - </span>';
             html += '       <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span><br/>';
 
+            /** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
             var additionalDescription = tarteaucitron.lang[service.key]
             if (additionalDescription) {
                 html += '<span class="tarteaucitronListCookies" style="display: block; padding: 1rem 0;">' + additionalDescription +  '</span>';
             }
-
+            /** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
 
             if (tarteaucitron.parameters.moreInfoLink == true) {
 
