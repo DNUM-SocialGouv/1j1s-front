@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.104.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.104.1...v3.104.2) (2023-07-03)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.16.19 ([#1566](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1566)) ([8b69795](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b69795a95968d4fd5b5e3f5c1d6485ca0c6738d))
+
 ## [3.104.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.104.0...v3.104.1) (2023-07-03)
 
 
