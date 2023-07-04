@@ -1,7 +1,7 @@
-import { NextApiRequest } from 'next';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
+import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
 import {
 	formationInitialeFiltreMapper,
 	rechercherFormationInitialeHandler,
@@ -38,13 +38,11 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 	});
 
 	it('map les params de la requete vers un filtre de formation initiale', () => {
-		const request: NextApiRequest = {
-			query: {
-				motCle: 'informatique',
-			},
-		} as unknown as NextApiRequest;
+		const query: FormationInitialeQueryParams = {
+			motCle: 'informatique',
+		};
 
-		const result = formationInitialeFiltreMapper(request);
+		const result = formationInitialeFiltreMapper(query);
 
 		expect(result).toEqual({
 			motCle: 'informatique',

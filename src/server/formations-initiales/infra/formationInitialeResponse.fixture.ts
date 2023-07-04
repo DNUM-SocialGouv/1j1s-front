@@ -1,16 +1,8 @@
-import { FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	FormationInitialeApiResponse,
 	ResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 
-
-export function aFormationInitialeFiltre(override?: Partial<FormationInitialeFiltre>): FormationInitialeFiltre {
-	return {
-		motCle: 'classe préparatoire',
-		...override,
-	};
-}
 
 export function aResultatRechercheFormationInitialeApiResponse(override?: Partial<ResultatRechercheFormationInitialeApiResponse>): ResultatRechercheFormationInitialeApiResponse {
 	return {

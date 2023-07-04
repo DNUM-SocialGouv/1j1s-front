@@ -1,8 +1,10 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
+	aFormationInitiale,
 	aFormationInitialeFiltre,
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import {
 	aResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 import {

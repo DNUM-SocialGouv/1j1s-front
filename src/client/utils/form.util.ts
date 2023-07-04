@@ -14,7 +14,7 @@ export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelis
 	return new URLSearchParams(formEntries).toString();
 }
 
-export function getFormAsQueryWithEmptyString(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, unknown>, appendPageQueryParam = true): string {
+export function getFormAsQueryIncludingEmptyString(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, unknown>, appendPageQueryParam = true): string {
 	const formData = new FormData(formElement);
 	const formEntries = Array.from(
 		formData,

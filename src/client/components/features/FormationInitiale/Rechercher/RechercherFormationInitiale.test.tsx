@@ -111,7 +111,7 @@ describe('RechercherFormationInitiale', () => {
 			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: '' });
 		});
 
-		it('lorsqu‘il y a plusieurs résultats je vois le nombre de résultats affiché avec le bon libellé', async () => {
+		it('lorsqu‘il y a plusieurs résultats je vois le nombre de résultats affiché sans précision sur le mot clé recherché', async () => {
 			const aFormationService = aFormationInitialeService();
 
 			const resultRechercheFormation = createSuccess([aResultatListFormationInitiale({ libelle: 'boulanger' }),
