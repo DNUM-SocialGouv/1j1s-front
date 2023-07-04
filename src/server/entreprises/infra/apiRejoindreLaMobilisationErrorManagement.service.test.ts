@@ -16,6 +16,20 @@ const logInformation = aLogInformation({
 
 describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
+		it('log les informations avec le bon niveau de sécurité', () => {
+			// GIVEN
+			const errorCode = 404;
+			const loggerService = aLoggerService();
+			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
+			const httpError = anHttpError(errorCode, ApiRejoindreLaMobilisationMessageError.ERROR_404);
+
+			// WHEN
+			apiRejoindreLaMobilisationErrorManagementService.handleFailureError(httpError, logInformation);
+
+			// THEN
+			expect(loggerService.fatalWithExtra).toHaveBeenCalledTimes(1);
+		});
+
 		it('lorsque l‘erreur est une erreur 400 et le message est celui attendu renvoie la bonne failure', () => {
 			// GIVEN
 			const errorCode = 400;
@@ -86,6 +100,18 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
+		});
+		it('log les informations avec le bon niveau de sécurité', () => {
+			// GIVEN
+			const loggerService = aLoggerService();
+			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
+			const internalError = new Error('ceci est une erreur interne');
+
+			// WHEN
+			apiRejoindreLaMobilisationErrorManagementService.handleFailureError(internalError, logInformation);
+
+			// THEN
+			expect(loggerService.fatalWithExtra).toHaveBeenCalledTimes(1);
 		});
 	});
 });

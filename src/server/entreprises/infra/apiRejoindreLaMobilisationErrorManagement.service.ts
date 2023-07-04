@@ -1,6 +1,6 @@
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { DefaultErrorManagementService, LogInformation } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
 
 export const enum ApiRejoindreLaMobilisationMessageError {
@@ -10,6 +10,16 @@ export const enum ApiRejoindreLaMobilisationMessageError {
 }
 
 export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErrorManagementService {
+	protected logHttpError(logInformation: LogInformation, error: HttpError) {
+		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
+		this.loggerService.fatalWithExtra(errorToLog);
+	}
+
+	protected logInternalError(logInformation: LogInformation, error: unknown) {
+		const errorToLog = this.buildInternalErrorToLog(logInformation, error);
+		this.loggerService.fatalWithExtra(errorToLog);
+	}
+
 	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status === 400 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_400) {
 			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
