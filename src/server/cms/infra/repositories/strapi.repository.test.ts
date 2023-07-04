@@ -56,6 +56,7 @@ import {
 	anArticlePathList,
 	anOffreDeStagePathList,
 } from '~/server/sitemap/domain/sitemap.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -127,6 +128,7 @@ describe('strapi cms repository', () => {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
 				message: 'Erreur inconnue - Impossible de sauvegarder la ressource url',
+				severity: Severity.FATAL,
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
