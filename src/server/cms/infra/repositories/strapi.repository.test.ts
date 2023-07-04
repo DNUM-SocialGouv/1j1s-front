@@ -88,6 +88,7 @@ describe('strapi cms repository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
+
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
@@ -111,6 +112,7 @@ describe('strapi cms repository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
+
 	describe('save', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;

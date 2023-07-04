@@ -39,7 +39,6 @@ describe('TipimailRepository', () => {
 					expect(result).toEqual(expected);
 				});
 			});
-
 			describe('lorsque l‘api retourne une erreur 400', () => {
 				it('renvoie une erreur demande incorrecte', async () => {
 					// given
