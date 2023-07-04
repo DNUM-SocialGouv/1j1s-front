@@ -6,11 +6,13 @@ import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.re
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 
 const logInformation = aLogInformation({
 	apiSource: 'API Tipimail',
 	contexte: 'Envoi email',
 	message: 'impossible d‘envoyer un email',
+	severity: Severity.FATAL,
 });
 
 describe('TipimailRepository', () => {
