@@ -52,7 +52,7 @@ export function RechercherFormationInitiale() {
 	}, [formationInitialeService, formationInitialeQuery]);
 
 	const messageResultatTrouve = useMemo(() => {
-		const formationName = router.query.motCle === '' ? '' : `pour ${router.query.motCle}`;
+		const formationName = router.query.motCle === undefined ? '' : `pour ${router.query.motCle}`;
 		return `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} ${formationName}`;
 	}, [resultatList.length, router.query.motCle]);
 

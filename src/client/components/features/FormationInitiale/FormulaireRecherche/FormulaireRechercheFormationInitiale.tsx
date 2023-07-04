@@ -16,7 +16,7 @@ export function FormulaireRechercheFormationInitiale() {
 
 	async function submitForm(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQueryIncludingEmptyString(event.currentTarget, queryParams, false);
+		const query = getFormAsQueryIncludingEmptyString(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
