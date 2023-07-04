@@ -19,7 +19,6 @@ export function aLogInformation(override?: Partial<LogInformation>): LogInformat
 		apiSource: 'API Source',
 		contexte: 'contexte de la requête',
 		message: 'message d‘erreur',
-		severity: Severity.ERROR,
 		...override,
 	};
 }
