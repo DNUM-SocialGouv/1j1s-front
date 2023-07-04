@@ -4,9 +4,9 @@ import { aMail } from '~/server/mail/domain/mail.fixture';
 import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail/infra/repositories/tipimail.fixture';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { Severity } from '~/server/services/error/errorManagement.service';
 
 const logInformation = aLogInformation({
 	apiSource: 'API Tipimail',

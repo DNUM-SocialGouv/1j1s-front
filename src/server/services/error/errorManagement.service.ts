@@ -68,7 +68,7 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 
 	protected logInternalError(logInformation: LogInformation, error: unknown) {
 		const errorToLog = this.buildInternalErrorToLog(logInformation, error);
-		this.loggerService.errorWithExtra(errorToLog);
+		this.logError(errorToLog, logInformation.severity);
 	}
 
 	protected buildInternalErrorToLog(logInformation: LogInformation, error: unknown) {

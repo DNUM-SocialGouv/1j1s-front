@@ -89,13 +89,13 @@ describe('DefaultErrorManagementService', () => {
 
 		describe('Gère la sévérité de l‘erreur', () => {
 			it('lorsque la sévérité est warning doit envoyer les logs en warning', () => {
+				// GIVEN
 				const logInformation = aLogInformation({
 					apiSource: 'API La bonne alternance',
 					contexte: 'search alternance',
 					message: 'impossible d’effectuer une recherche d’alternance',
 					severity: Severity.WARNING,
 				});
-				// GIVEN
 				const loggerService = aLoggerService();
 				const httpError = anHttpError();
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
@@ -112,13 +112,13 @@ describe('DefaultErrorManagementService', () => {
 				expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
 			it('lorsque la sévérité est fatal doit envoyer les logs en fatal', () => {
+				// GIVEN
 				const logInformation = aLogInformation({
 					apiSource: 'API La bonne alternance',
 					contexte: 'search alternance',
 					message: 'impossible d’effectuer une recherche d’alternance',
 					severity: Severity.FATAL,
 				});
-				// GIVEN
 				const loggerService = aLoggerService();
 				const httpError = anHttpError();
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
@@ -135,13 +135,13 @@ describe('DefaultErrorManagementService', () => {
 				expect(loggerService.fatalWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
 			it('lorsque la sévérité est erreur doit envoyer les logs en erreur', () => {
+				// GIVEN
 				const logInformation = aLogInformation({
 					apiSource: 'API La bonne alternance',
 					contexte: 'search alternance',
 					message: 'impossible d’effectuer une recherche d’alternance',
 					severity: Severity.ERROR,
 				});
-				// GIVEN
 				const loggerService = aLoggerService();
 				const httpError = anHttpError();
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
@@ -158,13 +158,13 @@ describe('DefaultErrorManagementService', () => {
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
 			});
 			it('lorsque la sévérité n‘est pas précisée doit envoyer les logs en erreur', () => {
+				// GIVEN
 				const logInformation = aLogInformation({
 					apiSource: 'API La bonne alternance',
 					contexte: 'search alternance',
 					message: 'impossible d’effectuer une recherche d’alternance',
 					severity: undefined,
 				});
-				// GIVEN
 				const loggerService = aLoggerService();
 				const httpError = anHttpError();
 				const errorManagementService = new DefaultErrorManagementService(loggerService);
@@ -232,6 +232,100 @@ describe('DefaultErrorManagementService', () => {
 
 				// THEN
 				expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+			});
+			describe('Gère la sévérité de l‘erreur', () => {
+				it('lorsque la sévérité est warning doit envoyer les logs en warning', () => {
+					// GIVEN
+					const logInformation = aLogInformation({
+						apiSource: 'API La bonne alternance',
+						contexte: 'search alternance',
+						message: 'impossible d’effectuer une recherche d’alternance',
+						severity: Severity.WARNING,
+					});
+					const loggerService = aLoggerService();
+					const internalError = new Error('ceci est une erreur interne');
+					const errorManagementService = new DefaultErrorManagementService(loggerService);
+					const expectedLogDetails = new SentryException(
+						`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
+						{ context: logInformation.contexte, source: logInformation.apiSource },
+						{ stacktrace: internalError.stack },
+					);
+
+					// WHEN
+					errorManagementService.handleFailureError(internalError, logInformation);
+
+					// THEN
+					expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+				});
+				it('lorsque la sévérité est fatal doit envoyer les logs en fatal', () => {
+					// GIVEN
+					const logInformation = aLogInformation({
+						apiSource: 'API La bonne alternance',
+						contexte: 'search alternance',
+						message: 'impossible d’effectuer une recherche d’alternance',
+						severity: Severity.FATAL,
+					});
+					const loggerService = aLoggerService();
+					const internalError = new Error('ceci est une erreur interne');
+					const errorManagementService = new DefaultErrorManagementService(loggerService);
+					const expectedLogDetails = new SentryException(
+						`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
+						{ context: logInformation.contexte, source: logInformation.apiSource },
+						{ stacktrace: internalError.stack },
+					);
+
+					// WHEN
+					errorManagementService.handleFailureError(internalError, logInformation);
+
+					// THEN
+					expect(loggerService.fatalWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+				});
+				it('lorsque la sévérité est erreur doit envoyer les logs en erreur', () => {
+					// GIVEN
+					const logInformation = aLogInformation({
+						apiSource: 'API La bonne alternance',
+						contexte: 'search alternance',
+						message: 'impossible d’effectuer une recherche d’alternance',
+						severity: Severity.ERROR,
+					});
+					const loggerService = aLoggerService();
+					const internalError = new Error('ceci est une erreur interne');
+					const errorManagementService = new DefaultErrorManagementService(loggerService);
+					const expectedLogDetails = new SentryException(
+						`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
+						{ context: logInformation.contexte, source: logInformation.apiSource },
+						{ stacktrace: internalError.stack },
+					);
+
+					// WHEN
+					errorManagementService.handleFailureError(internalError, logInformation);
+
+					// THEN
+					expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+				});
+				it('lorsque la sévérité n‘est pas précisée doit envoyer les logs en erreur', () => {
+					const logInformation = aLogInformation({
+						apiSource: 'API La bonne alternance',
+						contexte: 'search alternance',
+						message: 'impossible d’effectuer une recherche d’alternance',
+						severity: undefined,
+					});
+					// GIVEN
+					const loggerService = aLoggerService();
+					const internalError = new Error('ceci est une erreur interne');
+					const errorManagementService = new DefaultErrorManagementService(loggerService);
+					const expectedLogDetails = new SentryException(
+						`[${logInformation.apiSource}] ${logInformation.message} (erreur interne)`,
+						{ context: logInformation.contexte, source: logInformation.apiSource },
+						{ stacktrace: internalError.stack },
+					);
+
+					// WHEN
+					errorManagementService.handleFailureError(internalError, logInformation);
+
+					// THEN
+					expect(loggerService.errorWithExtra).toHaveBeenCalledWith(expectedLogDetails);
+				});
 			});
 		});
 	});
