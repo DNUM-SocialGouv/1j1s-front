@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.106.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.105.0...v3.106.0) (2023-07-04)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cookie:** wording tarteaucitron ([#1531](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1531)) ([39ab3f9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/39ab3f99149dccb7b15b6958f91429b73beea838))
+
 ## [3.105.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.104.2...v3.105.0) (2023-07-03)
 
 
