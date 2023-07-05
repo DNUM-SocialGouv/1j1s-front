@@ -3,5 +3,5 @@ export interface FormationInitiale {
 }
 
 export interface FormationInitialeFiltre {
-    motCle: string;
+    motCle?: string;
 }

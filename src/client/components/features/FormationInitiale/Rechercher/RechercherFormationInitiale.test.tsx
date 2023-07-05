@@ -24,6 +24,7 @@ describe('RechercherFormationInitiale', () => {
 		beforeEach(() => {
 			mockUseRouter({
 				query: {
+					page: '1',
 					motCle: 'boulanger',
 				},
 			});
@@ -91,7 +92,7 @@ describe('RechercherFormationInitiale', () => {
 		beforeEach(() => {
 			mockUseRouter({
 				query: {
-					motCle: '',
+					page: '1',
 				},
 			});
 		});
@@ -125,6 +126,5 @@ describe('RechercherFormationInitiale', () => {
 
 			expect(await screen.findByText(/[0-9]+ formations$/)).toBeVisible();
 		});
-
 	});
 });

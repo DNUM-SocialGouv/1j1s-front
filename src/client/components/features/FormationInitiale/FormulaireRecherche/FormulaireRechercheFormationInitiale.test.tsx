@@ -34,7 +34,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			fireEvent.click(buttonRechercher);
 
-			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
 		});
 	});
 	describe('lorsque je fais une recherche sans remplir le formulaire', () => {
@@ -47,7 +47,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			fireEvent.click(buttonRechercher);
 
-			expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: 'page=1' }, undefined, { shallow: true });
 		});
 	});
 	it('rempli automatiquement les champs avec les query params', () => {
