@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.107.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.106.3...v3.107.0) (2023-07-05)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** ajout de la recherche par mot clef ([#1559](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1559)) ([2515032](https://github.com/DNUM-SocialGouv/1j1s-front/commit/251503202c7e67552bee74e91178328288e2fb37))
+
 ## [3.106.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.106.2...v3.106.3) (2023-07-05)
 
 
