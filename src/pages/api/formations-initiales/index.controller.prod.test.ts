@@ -58,16 +58,16 @@ jest.mock('~/server/services/serverConfiguration.service', () => {
 });
 
 describe('lorsque je veux faire une recherche de formations initiales', () => {
-
 	it('en production, doit récupérer des formations initiales en mode authentifié', async () => {
 		// GIVEN
+		const motCle = 'informatique';
 		const token = 'some-token';
 		const onisepLoginResponse = {
 			token,
 		};
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
 		const apiAuthenticationUrl = `${apiBaseUrl}/login`;
-		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501/search`;
+		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501`;
 		const emailEncoded = 'fake%40example.com';
 		const password = 'password-bidon';
 		const getTokenRequestBody = `email=${emailEncoded}&password=${password}`;
@@ -82,7 +82,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 			.post('', getTokenRequestBody, getTokenRequestHeaders)
 			.reply(200, onisepLoginResponse);
 		const searchFormationInitialeCall = nock(apiSearchUrl)
-			.get('', undefined, requestOptions)
+			.get(`/search?q=${motCle}`, undefined, requestOptions)
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
@@ -97,8 +97,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				expect(searchFormationInitialeCall.isDone()).toBe(true);
 				expect(json).toEqual([aFormationInitiale()]);
 			},
-			url: '/formations-initiales',
+			url: `/formations-initiales?motCle=${motCle}`,
 		});
 	});
-
 });

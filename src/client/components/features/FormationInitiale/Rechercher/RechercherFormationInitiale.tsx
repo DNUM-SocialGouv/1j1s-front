@@ -16,7 +16,6 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
-import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
@@ -36,27 +35,29 @@ export function RechercherFormationInitiale() {
 	const formationInitialeQuery = useFormationInitialeQuery();
 
 	useEffect(() => {
-		if (!empty(formationInitialeQuery)) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
+		setIsLoading(true);
+		setErreurRecherche(undefined);
 
-			formationInitialeService.rechercherFormationInitiale(formationInitialeQuery)
-				.then((response) => {
-					if (response.instance === 'success') {
-						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
-						setResultatList(response.result);
-					} else {
-						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
-		}
+		formationInitialeService.rechercherFormationInitiale(formationInitialeQuery)
+			.then((response) => {
+				if (response.instance === 'success') {
+					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
+					setResultatList(response.result);
+				} else {
+					setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
+					setErreurRecherche(response.errorType);
+				}
+				setIsLoading(false);
+			});
 	}, [formationInitialeService, formationInitialeQuery]);
 
-	const messageResultatTrouve = `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} pour ${router.query.domaine}`;
+	function getMessageResultatTrouve() {
+		const formationName = router.query.motCle === undefined ? '' : `pour ${router.query.motCle}`;
+		return `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} ${formationName}`;
+	}
+
 	const messageResultatRecherche =
-		resultatList.length > 0 ? messageResultatTrouve : '';
+		resultatList.length > 0 ? getMessageResultatTrouve(): '';
 
 	return (
 		<>

@@ -1,7 +1,7 @@
 import { Either } from '../../errors/either';
-import { FormationInitiale } from './formationInitiale';
+import { FormationInitiale, FormationInitialeFiltre } from './formationInitiale';
 
 export interface FormationInitialeRepository {
-    search(): Promise<Either<Array<FormationInitiale>>>;
+    search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>>;
 }
 
