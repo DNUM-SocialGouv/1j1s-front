@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type FormationInitialeQueryParams = {

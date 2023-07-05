@@ -7,7 +7,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
-import { getFormAsQueryIncludingEmptyString } from '~/client/utils/form.util';
+import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();
@@ -16,7 +16,7 @@ export function FormulaireRechercheFormationInitiale() {
 
 	async function submitForm(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQueryIncludingEmptyString(event.currentTarget, queryParams);
+		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 

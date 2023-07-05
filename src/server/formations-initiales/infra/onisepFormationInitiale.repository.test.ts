@@ -19,7 +19,7 @@ import {
 
 describe('onisep formation initiale repository', () => {
 	describe('search', () => {
-		it('doit appeler l’api onisep avec les bons paramètres', async () => {
+		it('lorsqu‘il y a un filtre, doit appeler l’api onisep avec les bons paramètres', async () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
@@ -30,6 +30,19 @@ describe('onisep formation initiale repository', () => {
 
 			// THEN
 			expect(httpClient.get).toHaveBeenCalledWith('/dataset/5fa591127f501/search?q=informatique');
+		});
+
+		it('lorsqu‘il n‘y a pas de filtre et que la recherche est demandée, doit appeler l’api onisep', async () => {
+			// GIVEN
+			const httpClient = anAuthenticatedHttpClientService();
+			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
+			const filtre = aFormationInitialeFiltre({ motCle: '' });
+
+			// WHEN
+			await formationInitialeRepository.search(filtre);
+
+			// THEN
+			expect(httpClient.get).toHaveBeenCalledWith('/dataset/5fa591127f501/search?q=');
 		});
 
 		it('doit retourner les formations initiales', async () => {

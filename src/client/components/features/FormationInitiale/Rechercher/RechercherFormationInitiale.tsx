@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
@@ -51,13 +51,13 @@ export function RechercherFormationInitiale() {
 			});
 	}, [formationInitialeService, formationInitialeQuery]);
 
-	const messageResultatTrouve = useMemo(() => {
+	function getMessageResultatTrouve() {
 		const formationName = router.query.motCle === undefined ? '' : `pour ${router.query.motCle}`;
 		return `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} ${formationName}`;
-	}, [resultatList.length, router.query.motCle]);
+	}
 
 	const messageResultatRecherche =
-		resultatList.length > 0 ? messageResultatTrouve : '';
+		resultatList.length > 0 ? getMessageResultatTrouve(): '';
 
 	return (
 		<>

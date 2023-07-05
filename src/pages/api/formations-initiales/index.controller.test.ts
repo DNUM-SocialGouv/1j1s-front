@@ -3,9 +3,9 @@ import nock from 'nock';
 
 import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
 import {
-	formationInitialeFiltreMapper,
 	rechercherFormationInitialeHandler,
 } from '~/pages/api/formations-initiales/index.controller';
+import { formationInitialeFiltreMapper } from '~/pages/api/formations-initiales/index.controller.mapper';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
@@ -34,18 +34,6 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 				expect(json).toEqual([aFormationInitiale()]);
 			},
 			url: `/formations-initiales?motCle=${motCle}`,
-		});
-	});
-
-	it('map les params de la requete vers un filtre de formation initiale', () => {
-		const query: FormationInitialeQueryParams = {
-			motCle: 'informatique',
-		};
-
-		const result = formationInitialeFiltreMapper(query);
-
-		expect(result).toEqual({
-			motCle: 'informatique',
 		});
 	});
 });

@@ -4,6 +4,7 @@ import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitial
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { Either } from '~/server/errors/either';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
+import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 
 export interface FormationInitialeInterface {
 	rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>>
@@ -19,7 +20,8 @@ export class FormationInitialeService implements FormationInitialeInterface {
 
 	async rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>> {
 		const formationInitialeUrlQuery = this.removeUnnecessaryParams(query);
-		const queryString = formationInitialeUrlQuery.motCle === '' ? '' : stringify(formationInitialeUrlQuery);
+		const sanitizedQuery = removeUndefinedKeys(formationInitialeUrlQuery);
+		const queryString = stringify(sanitizedQuery);
 		return await this.httpClient.get<Array<FormationInitiale>>(`formations-initiales?${queryString}`);
 	}
 
