@@ -24,8 +24,8 @@ describe('RechercherFormationInitiale', () => {
 		beforeEach(() => {
 			mockUseRouter({
 				query: {
-					page: '1',
 					motCle: 'boulanger',
+					page: '1',
 				},
 			});
 		});
@@ -109,7 +109,7 @@ describe('RechercherFormationInitiale', () => {
 
 			await screen.findByText(/[0-9]+ formations$/);
 			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledTimes(1);
-			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: '' });
+			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: undefined });
 		});
 
 		it('lorsqu‘il y a plusieurs résultats je vois le nombre de résultats affiché sans précision sur le mot clé recherché', async () => {
