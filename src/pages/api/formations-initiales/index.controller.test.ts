@@ -1,11 +1,9 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
 import {
 	rechercherFormationInitialeHandler,
 } from '~/pages/api/formations-initiales/index.controller';
-import { formationInitialeFiltreMapper } from '~/pages/api/formations-initiales/index.controller.mapper';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
