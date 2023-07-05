@@ -2,7 +2,8 @@ import { OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStag
 
 export function uneOffreDeStage(): OffreDeStage {
 	return {
-		dateDeDebut: '2024-09-01',
+		dateDeDebutMax: '2024-09-01',
+		dateDeDebutMin: '2024-09-01',
 		description: 'Poste ouvert aux personnes en situation de handicap',
 		domaines: [],
 		dureeEnJour: 720,

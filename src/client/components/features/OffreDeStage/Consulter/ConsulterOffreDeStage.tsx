@@ -16,7 +16,10 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 	const listeEtiquettes = useMemo(() => {
 		return [...offreDeStage.domaines, offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
 			dureeCategorisee(offreDeStage.dureeEnJour || 0),
-			'Débute le : ' + new Date(offreDeStage.dateDeDebut).toLocaleDateString()];
+			offreDeStage.dateDeDebutMin === offreDeStage.dateDeDebutMax
+				? `Débute le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()}`
+				: `Débute entre le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()} et ${new Date(offreDeStage.dateDeDebutMax).toLocaleDateString()}`,
+		];
 	}, [offreDeStage]);
 
 	const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();

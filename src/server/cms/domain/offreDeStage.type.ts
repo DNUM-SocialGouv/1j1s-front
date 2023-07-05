@@ -116,7 +116,8 @@ export interface OffreDeStage {
 	titre: string
 	id: string
 	slug: string
-	dateDeDebut: string
+	dateDeDebutMin: string
+	dateDeDebutMax: string
 	description: string
 	urlDeCandidature?: string
 	domaines: Array<Domaines>

@@ -1,10 +1,6 @@
-import {
-	anOffreDeStageResponse,
-} from '~/server/cms/infra/repositories/strapi.fixture';
-import {
-	mapOffreStage,
-	mapVideoCampagneApprentissage,
-} from '~/server/cms/infra/repositories/strapi.mapper';
+import { Domaines, OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { anOffreDeStageResponse } from '~/server/cms/infra/repositories/strapi.fixture';
+import { mapOffreStage, mapVideoCampagneApprentissage } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 describe('mapVideoCampagneApprentissage', () => {
@@ -49,13 +45,12 @@ describe('mapVideoCampagneApprentissage', () => {
 	});
 });
 
-
-// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 describe('mapOffreDeStage', () => {
-	it('lorsque la dateDeDebutMin n‘est pas fournie mais que la dateDeDebut l‘est, renvoie la dateDeDebut', () => {
-		const result = mapOffreStage(anOffreDeStageResponse({ dateDeDebutMin: undefined }));
-		const expectedResult = {
-			dateDeDebut: '2024-09-01',
+	it('map vers une offre de stage à afficher', () => {
+		const result: OffreDeStage = mapOffreStage(anOffreDeStageResponse());
+		const expectedResult: OffreDeStage = {
+			dateDeDebutMax: '2024-09-01',
+			dateDeDebutMin: '2024-09-01',
 			description: 'Poste ouvert aux personnes en situation de handicap',
 			domaines: [],
 			dureeEnJour: 720,
@@ -69,35 +64,51 @@ describe('mapOffreDeStage', () => {
 			},
 			remunerationBase: 1000,
 			slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
-			source: 'jobteaser',
+			source: SourceDesDonnées.JOBTEASER,
 			teletravailPossible: true,
 			titre: 'Alternance Audit - Tours ( H/F)',
 			urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
 		};
 		expect(result).toEqual(expectedResult);
 	});
-	it('lorsque la dateDeDebut n‘est pas fournie mais que la dateDeDebutMin l‘est, renvoie la dateDeDebutMin', () => {
-		const result = mapOffreStage(anOffreDeStageResponse({ dateDeDebut: undefined }));
-		const expectedResult = {
-			dateDeDebut: '2024-09-01',
-			description: 'Poste ouvert aux personnes en situation de handicap',
-			domaines: [],
-			dureeEnJour: 720,
-			dureeEnJourMax: 800,
-			employeur: {
-				nom: 'La Relève',
-			},
-			id: 'anId',
-			localisation: {
-				pays: 'France',
-			},
-			remunerationBase: 1000,
-			slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
-			source: 'jobteaser',
-			teletravailPossible: true,
-			titre: 'Alternance Audit - Tours ( H/F)',
-			urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
-		};
-		expect(result).toEqual(expectedResult);
+	describe('pour les domaines associés au stage', () => {
+		it('ne prend pas en compte le domaine "Non renseigné"', () => {
+			const domainesAvecUnDomaineNonRenseigne = {
+				domaines: [
+					{ nom: Strapi.CollectionType.OffreStage.Domaines.Nom.ACHAT },
+					{ nom: Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE },
+				],
+			};
+			const result = mapOffreStage(anOffreDeStageResponse(domainesAvecUnDomaineNonRenseigne));
+			const expectedResult: OffreDeStage = {
+				dateDeDebutMax: '2024-09-01',
+				dateDeDebutMin: '2024-09-01',
+				description: 'Poste ouvert aux personnes en situation de handicap',
+				domaines: [Domaines.ACHAT],
+				dureeEnJour: 720,
+				dureeEnJourMax: 800,
+				employeur: {
+					description: undefined,
+					logoUrl: undefined,
+					nom: 'La Relève',
+					siteUrl: undefined,
+				},
+				id: 'anId',
+				localisation: {
+					codePostal: undefined,
+					departement: undefined,
+					pays: 'France',
+					region: undefined,
+					ville: undefined,
+				},
+				remunerationBase: 1000,
+				slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
+				source: SourceDesDonnées.JOBTEASER,
+				teletravailPossible: true,
+				titre: 'Alternance Audit - Tours ( H/F)',
+				urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+			};
+			expect(result).toStrictEqual(expectedResult);
+		});
 	});
 });
