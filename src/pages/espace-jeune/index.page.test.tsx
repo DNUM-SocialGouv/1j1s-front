@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -10,6 +10,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
 import { aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
+import { checkA11y } from '~/test-utils';
 
 describe('Page Espace Jeune', () => {
 	beforeEach(() => {
@@ -18,6 +19,28 @@ describe('Page Espace Jeune', () => {
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
+		const serviceJeuneList = aServiceJeuneList();
+
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<EspaceJeunePage
+					cartesActualites={carteActualites}
+					serviceJeuneList={serviceJeuneList}
+				/>);
+			</DependenciesProvider>);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
 	});
 
 	describe('Si des actualités sont récupérées', () => {

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -10,6 +10,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EuropePage from '~/pages/europe/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Page Europe', () => {
 	let analyticsService: AnalyticsService;
@@ -17,6 +18,22 @@ describe('Page Europe', () => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<EuropePage />);
+			</DependenciesProvider>);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
 	});
 
 	it('affiche le titre de la page', () => {

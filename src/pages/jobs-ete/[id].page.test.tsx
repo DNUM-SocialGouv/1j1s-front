@@ -10,12 +10,24 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
+import { checkA11y } from '~/test-utils';
 
 jest.mock('next/head', () => HeadMock);
 
 describe('<ConsulterJobEtePage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const jobEte = aBarmanOffre();
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<ConsulterJobEtePage jobEte={jobEte}/>
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

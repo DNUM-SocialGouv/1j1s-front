@@ -42,6 +42,20 @@ describe('quand le feature flip est actif', () => {
 		mockUseRouter({});
 	});
 
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+				formationInitialeService={aFormationInitialeService()}>
+				<FormationsInitialesPage/>
+			</DependenciesProvider>,
+		);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
+	});
+
 	it('envoie les analytics de la page', async () => {
 		const analyticsService = anAnalyticsService();
 		render(
@@ -72,18 +86,5 @@ describe('quand le feature flip est actif', () => {
 			expect(heading).toHaveTextContent('Des milliers de formations pour vous permettre');
 		});
 		expect(heading).toHaveTextContent('de réaliser votre projet professionnel');
-	});
-
-	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const { container } = render(
-			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
-			</DependenciesProvider>,
-		);
-		await waitFor(() => {
-			checkA11y(container);
-		});
 	});
 });

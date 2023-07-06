@@ -16,7 +16,7 @@ import { aFormationInitialeDetailCMS } from '~/server/cms/domain/formationInitia
 import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { desMesuresEmployeurs } from '~/server/cms/domain/mesureEmployeur.fixture';
+import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import { uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
@@ -299,7 +299,7 @@ describe('strapi cms repository', () => {
 				);
 
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
-				const expectedMesuresEmployeurs = desMesuresEmployeurs();
+				const expectedMesuresEmployeurs = aMesureEmployeurList();
 				const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesureEmployeur[]>;
 
 				expect(result.result).toEqual(expectedMesuresEmployeurs);

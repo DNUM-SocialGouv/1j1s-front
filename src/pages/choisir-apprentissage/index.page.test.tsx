@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import * as process from 'process';
 
 import { HeadMock } from '~/client/components/head.mock';
@@ -12,10 +12,12 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
+import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
+import { checkA11y } from '~/test-utils';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
 
@@ -72,6 +74,24 @@ describe('Page Apprentissage Jeunes', () => {
 	});
 
 	describe('<ApprentissageJeunes />', () => {
+		it('n‘a pas de défaut d‘accessibilité', async () => {
+			mockSmallScreen();
+
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+					marketingService={aMarketingService()}
+					youtubeService={aVideoService()}
+				>
+					<ApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				</DependenciesProvider>,
+			);
+
+			await waitFor(async () => {
+				await checkA11y(container);
+			});
+		});
+
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
 		// WHEN
 			render(

@@ -2,19 +2,35 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConseilsLogement from '~/pages/logements/conseils/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('ConseilsLogement', () => {
 	beforeEach(() => {
 		mockUseRouter({ pathname: 'logements/conseils' });
 		mockSmallScreen();
 	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<ConseilsLogement/>
+			</DependenciesProvider>,
+		);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
+	});
+
 	it('envoie les analytics de la page à son affichage', () => {
 		const analyticsService = anAnalyticsService();
 
