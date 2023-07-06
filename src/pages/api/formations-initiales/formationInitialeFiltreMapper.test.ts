@@ -1,5 +1,5 @@
 import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
-import { formationInitialeFiltreMapper } from '~/pages/api/formations-initiales/formationInitialeFiltreMapper';
+import { formationInitialeRechercheFiltreMapper } from '~/pages/api/formations-initiales/formationInitialeFiltreMapper';
 
 
 describe('formationInitialeFiltreMapper', () => {
@@ -8,7 +8,7 @@ describe('formationInitialeFiltreMapper', () => {
 			motCle: 'informatique',
 		};
 
-		const result = formationInitialeFiltreMapper(query);
+		const result = formationInitialeRechercheFiltreMapper(query);
 
 		expect(result).toEqual({
 			motCle: 'informatique',
