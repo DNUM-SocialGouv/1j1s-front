@@ -12,16 +12,16 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();
 	const router = useRouter();
-	const [inputDomaine, setInputDomaine] = useState<string>('');
+	const [inputMotCle, setInputMotCle] = useState<string>('');
 
-	async function updateQueryParams(event: FormEvent<HTMLFormElement>) {
+	async function submitForm(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
 	useEffect(function initFormValues() {
-		setInputDomaine(queryParams.domaine || '');
+		setInputMotCle(queryParams.motCle || '');
 	}, [queryParams]);
 
 
@@ -29,15 +29,15 @@ export function FormulaireRechercheFormationInitiale() {
 		<form
 			className={styles.RechercheFormationInitialeForm}
 			role="search"
-			onSubmit={updateQueryParams}
+			onSubmit={submitForm}
 		>
 			<InputText
 				label="Domaine, mot-clé..."
 				placeholder="Exemples: boulanger, informatique"
-				value={inputDomaine}
-				name="domaine"
+				value={inputMotCle}
+				name="motCle"
 				autoFocus
-				onChange={(event: ChangeEvent<HTMLInputElement>) => setInputDomaine(event.currentTarget.value)}
+				onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 			/>
 			<div className={styles.buttonWrapper}>
 				<ButtonComponent
