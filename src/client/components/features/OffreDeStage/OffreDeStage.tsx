@@ -18,8 +18,8 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 			.map((domaine) => getCapitalizedItems(domaine))
 		: [];
 	listeEtiquettes.push(
-		stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region,
-		stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee.toString() : '',
+		stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region || '',
+		stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee : '',
 		stage.dateDeDebutMin === stage.dateDeDebutMax
 			? `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`
 			: `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`,
