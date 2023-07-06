@@ -5,21 +5,24 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useCombobox } from './ComboboxContext';
 import { matchesInput } from './utils';
 
-type OptionProps = React.ComponentPropsWithoutRef<'li'>;
+type OptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
+	value?: { toString: () => string },
+};
 export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
 	id: idProps,
 	onClick: onClickProps,
+	value,
 	...optionProps
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
 	const idState = useId();
 	const id = idProps ?? idState;
 	const {
-		state: { activeDescendant, value },
+		state: { activeDescendant, value: inputValue },
 		onOptionSelection,
 	} = useCombobox();
 	const selected = activeDescendant === id;
-	const hidden = !matchesInput(ref.current, value);
+	const hidden = !matchesInput(ref.current, inputValue);
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);
 		if (onClickProps) {
@@ -35,6 +38,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			tabIndex={-1}
 			onClick={onClick}
 			ref={ref}
+			data-value={value?.toString()}
 			{...optionProps}
 		/>
 	);

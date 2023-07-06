@@ -683,6 +683,7 @@ describe('<Combobox />', () => {
 							<Combobox.Option>Option 2</Combobox.Option>
 							<Combobox.Option>Option 3</Combobox.Option>
 						</Combobox>
+						<button>Submit</button>
 					</form>,
 				);
 
@@ -1190,7 +1191,122 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('handle value != label on option');
+	describe('<Combobox.Option value />', () => {
+		it('submit le label et la value de l’option quand présent', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
+						'combobox.value': expect.objectContaining({ value: 'test' }),
+					}),
+				}),
+			}));
+		});
+		it('ne submit pas le label et la value de l’option quand aucun nom n’est passé au combobox', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).not.toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'undefined.label': expect.anything(),
+						'undefined.value': expect.anything(),
+					}),
+				}),
+			}));
+		});
+		it('submit le label comme value quand l’option n’a pas de value', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const button = screen.getByRole('button', { name: /Test/i });
+			await user.click(button);
+			const option = screen.getByRole('option');
+			await user.click(option);
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
+						'combobox.value': expect.objectContaining({ value: 'Option 1' }),
+					}),
+				}),
+			}));
+		});
+		it('submit une value vide quand on submit sans selectionner de valeur', async () => {
+			const user = userEvent.setup();
+			const onSubmit = jest.fn((event) => event.preventDefault());
+			render(
+				<form onSubmit={onSubmit}>
+					<Combobox name="combobox" aria-label='Test'>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>
+					<button>Submit</button>
+				</form>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+			const submit = screen.getByRole('button', { name: /Submit/i });
+			await user.click(submit);
+
+			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
+				target: expect.objectContaining({
+					elements: expect.objectContaining({
+						'combobox.label': expect.objectContaining({ value: 'test' }),
+						'combobox.value': expect.objectContaining({ value: '' }),
+					}),
+				}),
+			}));
+		});
+
+		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
+		it.todo('pouvoir renommer le name de la value pour le submit');
+	});
+
 	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
 
