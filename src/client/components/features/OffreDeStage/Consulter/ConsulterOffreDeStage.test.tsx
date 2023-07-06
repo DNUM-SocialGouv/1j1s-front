@@ -2,15 +2,18 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
+import * as domain from 'domain';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { anOffreDeStageLocalisation, uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { Domaines, OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 describe('ConsulterOffreDeStage', () => {
 	const offreDeStage: OffreDeStage = {
-		dateDeDebut: '2022-09-01',
+		dateDeDebutMax: '2024-09-01',
+		dateDeDebutMin: '2024-09-01',
 		description: 'stage en graphisme description',
 		domaines: [],
 		dureeEnJour: 180,
@@ -40,14 +43,77 @@ describe('ConsulterOffreDeStage', () => {
 		mockUseRouter({});
 	});
 
-	it('affiche l‘offre de stage', () => {
-		render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+	describe('affiche l’offre de stage avec les bonnes informations', () => {
+		it('concernant l‘intitulé du stage', () => {
+			render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
-		const nomEntreprise = screen.getByText('Gras Fisme');
-		const intituléOffreDeStage = screen.getByText('stage en graphisme');
+			const intituléOffreDeStage = screen.getByText('stage en graphisme');
 
-		expect(nomEntreprise).toBeInTheDocument();
-		expect(intituléOffreDeStage).toBeInTheDocument();
+			expect(intituléOffreDeStage).toBeVisible();
+		});
+
+		it('concernant l‘entreprise du stage', () => {
+			render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+			const nomEntreprise = screen.getByText('Gras Fisme');
+
+			expect(nomEntreprise).toBeVisible();
+		});
+
+		describe('dans les étiquettes', () => {
+			it('pour les domaines du stage', () => {
+				const offreDeStage = uneOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
+
+				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+				const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+				expect(displayedTagsTextContents).toContain(Domaines.ACHAT);
+				expect(displayedTagsTextContents).toContain(Domaines.CONSEIL);
+			});
+			describe('pour la localisation du stage', () => {
+				it('affiche la ville du stage quand elle est présente', () => {
+					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
+					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain(localisation.ville);
+				});
+
+				it('quand la ville du stage n’est pas présente, affiche le département si présent', () => {
+					const localisation = anOffreDeStageLocalisation({ departement: 'Val de marne' });
+					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain(localisation.departement);
+				});
+
+				it('quand la ville et le département du stage ne sont pas présents, affiche la région si présente', () => {
+					const localisation = anOffreDeStageLocalisation({ region: 'Ile de France' });
+					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain(localisation.region);
+				});
+			});
+			describe('pour la durée du stage', () => {
+			  it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
+
+			  });
+			});
+			describe('concernant la date de début du stage', () => {
+
+			});
+		});
 	});
 
 	it('permet de postuler à l‘offre de stage', () => {
