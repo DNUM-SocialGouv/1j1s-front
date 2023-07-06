@@ -3,7 +3,6 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	DefaultErrorManagementService,
 	LogInformation,
-	Severity,
 } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
 
@@ -16,12 +15,12 @@ export const enum ApiRejoindreLaMobilisationMessageError {
 export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErrorManagementService {
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
-		this.logError(errorToLog, Severity.FATAL);
+		this.logError(errorToLog, logInformation.severity);
 	}
 
 	protected logInternalError(logInformation: LogInformation, error: unknown) {
 		const errorToLog = this.buildInternalErrorToLog(logInformation, error);
-		this.logError(errorToLog, Severity.FATAL);
+		this.logError(errorToLog, logInformation.severity);
 	}
 
 	protected createFailureForHttpError(error: HttpError) {

@@ -5,6 +5,7 @@ import {
 import { createFailure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
@@ -12,11 +13,12 @@ const logInformation = aLogInformation({
 	apiSource: 'API Rejoindre Mobilisation',
 	contexte: 'formulaire rejoindre mobilisation',
 	message: 'Erreur inconnue - Insertion formulaire',
+	severity: Severity.FATAL,
 });
 
 describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
-		it('log les informations avec le bon niveau de sécurité', () => {
+		it('log les informations avec le bon niveau de sévérité', () => {
 			// GIVEN
 			const errorCode = 404;
 			const loggerService = aLoggerService();
@@ -101,7 +103,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			// THEN
 			expect(result).toStrictEqual(expectedFailure);
 		});
-		it('log les informations avec le bon niveau de sécurité', () => {
+		it('log les informations avec le bon niveau de sévérité', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);

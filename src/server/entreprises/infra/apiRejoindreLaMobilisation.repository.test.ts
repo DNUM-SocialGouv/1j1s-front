@@ -1,11 +1,9 @@
-import {
-	anEntreprise,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -14,6 +12,7 @@ const logInformation = aLogInformation({
 	apiSource: 'API Rejoindre Mobilisation',
 	contexte: 'formulaire rejoindre la mobilisation',
 	message: 'impossible d’envoyer le formulaire',
+	severity: Severity.FATAL,
 });
 
 describe('ApiRejoindreLaMobilisationRepository', () => {
