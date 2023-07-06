@@ -15,6 +15,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
+import { checkA11y } from '~/test-utils';
 
 jest.mock('~/server/start', () => ({
 	dependencies: {
@@ -138,6 +139,22 @@ describe('getServerSideProps', () => {
 });
 
 describe('Page Consulter Formations en Apprentissage', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const formation = aFormation();
+		const analyticsService = anAnalyticsService();
+		mockUseRouter({});
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<ConsulterFormationPage formation={formation} />
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
+	});
+
 	it('retourne une page avec les informations de la formation', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();

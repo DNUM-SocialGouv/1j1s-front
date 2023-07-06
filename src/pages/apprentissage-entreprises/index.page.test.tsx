@@ -1,11 +1,22 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import { render, waitFor } from '@testing-library/react';
 import * as process from 'process';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
+import { checkA11y } from '~/test-utils';
 
-import { getServerSideProps } from './index.page';
+import ApprentissageEntreprises, { getServerSideProps } from './index.page';
 
 jest.mock('~/server/start', () => ({
 	dependencies: {
@@ -18,6 +29,23 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('<ApprentissageEntreprises />', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		mockSmallScreen();
+		mockUseRouter({ query: { page: '1' } });
+		const videos = aVideoCampagneApprentissageList();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+				youtubeService={aVideoService()}
+			>
+				<ApprentissageEntreprises videos={videos} />);
+			</DependenciesProvider>);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
+	});
 
 	describe('getServerSideProps', () => {
 

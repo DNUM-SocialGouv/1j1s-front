@@ -2,7 +2,7 @@ import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 
-export function desMesuresEmployeurs(): MesureEmployeur[] {
+export function aMesureEmployeurList(): MesureEmployeur[] {
 	return [aMesureEmployeur()];
 }
 

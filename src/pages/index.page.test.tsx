@@ -3,7 +3,7 @@
  */
 
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -13,6 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accueil from '~/pages/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Page d‘accueil', () => {
 	let analyticsService: AnalyticsService;
@@ -21,6 +22,19 @@ describe('Page d‘accueil', () => {
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
 	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<Accueil/>
+			</DependenciesProvider>,
+		);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
+	});
+
 	describe('jobs d‘été', () => {
 		describe('quand le feature flip de jobs d‘été n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les jobs d‘été', () => {

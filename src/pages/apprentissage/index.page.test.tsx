@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -70,7 +70,10 @@ describe('Page rechercher une alternance', () => {
 				<RechercherAlternancePage/>
 			</DependenciesProvider>,
 			);
-			await checkA11y(container);
+
+			await waitFor(async () => {
+				await checkA11y(container);
+			});
 		});
 
 		it('affiche le titre propre à la bonne alternance', async () => {

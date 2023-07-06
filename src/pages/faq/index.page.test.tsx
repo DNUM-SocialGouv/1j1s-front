@@ -3,7 +3,7 @@
  */
 import {
 	render,
-	screen,
+	screen, waitFor,
 	within,
 } from '@testing-library/react';
 
@@ -13,6 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
 import { Question } from '~/server/cms/domain/FAQ.type';
+import { checkA11y } from '~/test-utils';
 
 const listeDeQuestionRéponse: Array<Question> = [
 	{
@@ -32,6 +33,20 @@ describe('Page FAQ', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>,
+		);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
 	});
 
 	it('envoie les analytics de la page à son affichage', async () => {

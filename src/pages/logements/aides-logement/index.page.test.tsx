@@ -2,18 +2,33 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AidesLogement from '~/pages/logements/aides-logement/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Les aides au logement', () => {
 	beforeEach(() => {
 		mockUseRouter({});
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<AidesLogement/>
+			</DependenciesProvider>,
+		);
+
+		await waitFor(async () => {
+			await checkA11y(container);
+		});
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

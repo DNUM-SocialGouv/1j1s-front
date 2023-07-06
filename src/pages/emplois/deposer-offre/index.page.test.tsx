@@ -8,10 +8,23 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Je recrute / Déposer une offre d‘emploi', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<DéposerUneOffreDEmploi />
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

@@ -45,7 +45,7 @@ describe('<AnnonceAlternancePage />', () => {
 			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 		</DependenciesProvider>);
 
-		await checkA11y(container); //TODO FIX + verifier CSS
+		await checkA11y(container);
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

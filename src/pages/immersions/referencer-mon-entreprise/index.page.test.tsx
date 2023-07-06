@@ -8,10 +8,23 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ImmersionReferenceMonEntreprisePage from '~/pages/immersions/referencer-mon-entreprise/index.page';
+import { checkA11y } from '~/test-utils';
 
 describe('Immersion / Référencer mon entreprise', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<ImmersionReferenceMonEntreprisePage />
+			</DependenciesProvider>,
+		);
+
+		await checkA11y(container);
 	});
   
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
