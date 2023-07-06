@@ -1352,10 +1352,8 @@ describe('<Combobox />', () => {
 
 			expect(input).toBeValid();
 		});
-		it.todo('message d’erreur');
 	});
 
-	it.todo('validation de la valeur avec liste des options');
 	it.todo('gérer les catégories');
 
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');

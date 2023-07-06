@@ -5,6 +5,7 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import { Combobox } from '.';
+import styles from './Combobox.stories.module.scss';
 
 const meta: Meta<typeof Combobox> = {
 	argTypes: {
@@ -56,7 +57,7 @@ export const intégrationDansUnFormulaire: Story = {
 	render: ({ children, ...args }) => (
 		<form
 			onSubmit={(event) => { event.preventDefault(); alert('form submitted'); }}
-			style={{ display: 'grid', gap: '2ch', gridTemplateColumns: '1fr 1fr' }}
+			className={styles.completeForm}
 		>
 			<label>
 				Mot clé
@@ -101,6 +102,8 @@ export const optionAvecValue: Story = {
 
 export const validation: Story = {
 	args: {
+		className: styles.combobox,
+		defaultValue: 'test',
 		requireDefinedOption: true,
 	},
 	render: ({ children, ...args }) => (
@@ -115,6 +118,7 @@ export const validation: Story = {
 			<Combobox id="pays" name="pays" {...args}>
 				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
 			</Combobox>
+			<ButtonComponent label="Envoyer">Envoyer</ButtonComponent>
 		</form>
 	),
 };

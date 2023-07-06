@@ -62,7 +62,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 	useEffect(() => {
 		if (requireDefinedOption) {
-			inputRef.current?.setCustomValidity(matchingOption ? '' : 'erreur');
+			inputRef.current?.setCustomValidity(matchingOption ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
 	}, [inputRef, matchingOption, requireDefinedOption]);
 
