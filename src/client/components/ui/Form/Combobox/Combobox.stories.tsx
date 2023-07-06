@@ -102,7 +102,6 @@ export const optionAvecValue: Story = {
 
 export const validation: Story = {
 	args: {
-		className: styles.combobox,
 		defaultValue: 'test',
 		requireDefinedOption: true,
 	},

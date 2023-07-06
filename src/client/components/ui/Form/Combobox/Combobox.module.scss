@@ -47,6 +47,11 @@
     color: utilities-deprecated.$color-combobox-disabled;
     cursor: not-allowed;
   }
+  & input:invalid,
+  & input:invalid ~ button {
+    border-color: utilities-deprecated.$color-combobox-error;
+    border-width: 2px;
+  }
 
   & ul[role="listbox"] {
     z-index: 1;

@@ -3,10 +3,3 @@
   gap: 2ch;
   grid-template-columns: 1fr 1fr;
 }
-
-.combobox input:invalid {
-  background-color: hsla(0, 100%, 50%, 30%);
-}
-.combobox input:valid {
-  background-color: hsla(100, 100%, 50%, 30%);
-}
