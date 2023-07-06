@@ -3,7 +3,6 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
-import * as domain from 'domain';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -61,7 +60,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 
 		describe('dans les étiquettes', () => {
-			it('pour les domaines du stage', () => {
+			it('concernant les domaines du stage', () => {
 				const offreDeStage = uneOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
 
 				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
@@ -71,7 +70,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(displayedTagsTextContents).toContain(Domaines.ACHAT);
 				expect(displayedTagsTextContents).toContain(Domaines.CONSEIL);
 			});
-			describe('pour la localisation du stage', () => {
+			describe('concernant la localisation du stage', () => {
 				it('affiche la ville du stage quand elle est présente', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
 					const offreDeStage = uneOffreDeStage({ localisation: localisation });
@@ -105,13 +104,36 @@ describe('ConsulterOffreDeStage', () => {
 					expect(displayedTagsTextContents).toContain(localisation.region);
 				});
 			});
-			describe('pour la durée du stage', () => {
-			  it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
+			describe('concernant la durée du stage', () => {
+				it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
+					const offreDeStage = uneOffreDeStage({ dureeEnJour: 60 });
 
-			  });
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain('2 mois');
+				});
 			});
 			describe('concernant la date de début du stage', () => {
+				it('affiche la date de début précise quand il y a une date précise', () => {
+					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
 
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
+				});
+				it('affiche la période de date de début quand la date de début est une période de date', () => {
+					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
+
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					expect(displayedTagsTextContents).toContain('Débute entre le : 9/1/2024 et 9/30/2024');
+				});
 			});
 		});
 	});

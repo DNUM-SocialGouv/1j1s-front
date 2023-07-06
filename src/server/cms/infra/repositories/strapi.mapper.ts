@@ -161,7 +161,6 @@ function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | unde
 	};
 }
 
-// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 export function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
 	return {
 		dateDeDebutMax: response.dateDeDebutMax,
