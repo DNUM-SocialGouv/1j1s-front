@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.108.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.0...v3.108.1) (2023-07-07)
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#1553](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1553)) ([3669db9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3669db9c3627d62fef362834133946d3806dad85))
+* **sentry:** ajout de la gestion de la sévérité et application aux méthodes post en erreur fatal ([#1579](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1579)) ([30b37ba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/30b37badf1da0b241617f0ca524852494828f782))
+
 ## [3.108.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.107.2...v3.108.0) (2023-07-07)
 
 
