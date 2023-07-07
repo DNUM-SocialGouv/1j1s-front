@@ -1,3 +1,5 @@
+import { ValidationError } from 'joi';
+
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	aMatchaResponse,
@@ -8,7 +10,11 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { anErrorManagementService, aValidationError } from '~/server/services/error/errorManagement.fixture';
+import {
+	aLogInformation,
+	anErrorManagementService,
+	aValidationError,
+} from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -119,7 +125,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
-		it('log un warning quand il y a une erreur de validation et continue l’execution', async () => {
+		it('appelle le management d’erreur de validation quand il y a une erreur de validation et continue l’execution', async () => {
 			const validationError = aValidationError();
 			const httpClientService = aPublicHttpClientService();
 			const matchaResponseWithAnAttributeWithANumberInsteadOfAString = {
@@ -145,7 +151,14 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const result = await repository.get('abc');
 
 			// Then
-			expect(errorManagementService.handleValidationError).toHaveBeenCalledTimes(1);
+			expect(errorManagementService.handleValidationError).toHaveBeenCalledWith(
+				new ValidationError('"matchas[0].title" must be a string', [], 'matchas[0].title'),
+				aLogInformation({
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'get détail annonce alternance',
+					message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+				}),
+			);
 			expect(result.instance).toEqual('success');
 		});
 
