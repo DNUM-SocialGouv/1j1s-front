@@ -50,12 +50,13 @@
   }
 
   $error-border-width: 2px;
-  & input:invalid,
-  & input:invalid ~ button {
+  & input[role="combobox"][data-touched="true"]:invalid,
+  & input[role="combobox"][data-touched="true"]:invalid ~ button {
     border-color: utilities-deprecated.$color-combobox-error;
     border-width: $error-border-width;
   }
-  & input:valid {
+  & input[role="combobox"]:valid,
+  & input[role="combobox"]:not([data-touched="true"]) {
     // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
     $border-width-compensation: calc($error-border-width - $border-width);
     margin:
@@ -93,6 +94,7 @@
       &:hover,
       &[aria-selected="true"] {
         background-color: utilities-deprecated.$color-combobox-option-hover;
+        font-weight: bold;
       }
     }
   }
