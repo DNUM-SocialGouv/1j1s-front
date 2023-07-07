@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.108.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.107.2...v3.108.0) (2023-07-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Gestion de value différente du label pour le combobox ([#1543](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1543)) ([9b2fc74](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b2fc741dc75e192a547b99c5b35ece74a6e1076))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to v12.17.0 ([#1591](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1591)) ([a8a1a6f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a8a1a6f952b78618d984cb4698848c356b06bee2))
+
 ## [3.107.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.107.1...v3.107.2) (2023-07-06)
 
 
