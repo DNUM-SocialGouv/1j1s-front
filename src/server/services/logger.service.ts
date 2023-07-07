@@ -6,4 +6,5 @@ export interface LoggerService {
 	error(msg: string): void
 	warnWithExtra(exception: SentryException): void
 	errorWithExtra(exception: SentryException): void
+	fatalWithExtra(exception: SentryException): void
 }

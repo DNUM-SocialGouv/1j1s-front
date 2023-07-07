@@ -74,5 +74,13 @@ export class PinoLoggerService implements LoggerService {
 			tags: exception.tag,
 		});
 	}
+
+	public fatalWithExtra(exception: SentryException) {
+		this.logger.fatal({
+			extra: exception.extra,
+			msg: exception.message,
+			tags: exception.tag,
+		});
+	}
 }
 

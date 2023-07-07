@@ -2,9 +2,7 @@ import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import {
-	Question,
-} from '~/server/cms/domain/FAQ.type';
+import { Question } from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
@@ -24,15 +22,10 @@ import {
 	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import {
-	createFailure,
-	createSuccess,
-	Either,
-	isSuccess,
-} from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -222,6 +215,7 @@ export class StrapiRepository implements CmsRepository {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
 				message: `Erreur inconnue - Impossible de sauvegarder la ressource ${resource}`,
+				severity: Severity.FATAL,
 			});
 		}
 	}

@@ -5,10 +5,17 @@ import { HttpError, isHttpError } from '~/server/services/http/httpError';
 import { createFailure, Failure } from '../../errors/either';
 import { LoggerService } from '../logger.service';
 
+export enum Severity {
+	FATAL = 'fatal',
+	ERROR = 'error',
+	WARNING = 'warning',
+}
+
 export interface LogInformation {
 	message: string
 	contexte: string
 	apiSource: string
+	severity?: Severity
 }
 
 export interface ErrorManagementService {
@@ -34,7 +41,21 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
-		this.loggerService.errorWithExtra(errorToLog);
+		this.logError(errorToLog, logInformation.severity);
+	}
+
+	protected logError(errorToLog: SentryException, severity: Severity | undefined) {
+		switch (severity) {
+			case Severity.WARNING:
+				this.loggerService.warnWithExtra(errorToLog);
+				break;
+			case Severity.FATAL:
+				this.loggerService.fatalWithExtra(errorToLog);
+				break;
+			default:
+				this.loggerService.errorWithExtra(errorToLog);
+				break;
+		}
 	}
 
 	protected buildHttpErrorToLog(logInformation: LogInformation, error: HttpError) {
@@ -47,7 +68,7 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 
 	protected logInternalError(logInformation: LogInformation, error: unknown) {
 		const errorToLog = this.buildInternalErrorToLog(logInformation, error);
-		this.loggerService.errorWithExtra(errorToLog);
+		this.logError(errorToLog, logInformation.severity);
 	}
 
 	protected buildInternalErrorToLog(logInformation: LogInformation, error: unknown) {

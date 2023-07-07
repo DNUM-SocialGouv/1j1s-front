@@ -2,7 +2,7 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { Mail } from '~/server/mail/domain/mail';
 import { MailRepository } from '~/server/mail/domain/mail.repository';
 import { mapTipimailRequest } from '~/server/mail/infra/repositories/tipimail.mapper';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 export class TipimailRepository implements MailRepository {
@@ -29,6 +29,7 @@ export class TipimailRepository implements MailRepository {
 				apiSource: 'API Tipimail',
 				contexte: 'Envoi email',
 				message: 'impossible d‘envoyer un email',
+				severity: Severity.FATAL,
 			});
 		}
 	}

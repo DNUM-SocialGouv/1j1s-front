@@ -4,6 +4,7 @@ import { aMail } from '~/server/mail/domain/mail.fixture';
 import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail/infra/repositories/tipimail.fixture';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -11,6 +12,7 @@ const logInformation = aLogInformation({
 	apiSource: 'API Tipimail',
 	contexte: 'Envoi email',
 	message: 'impossible d‘envoyer un email',
+	severity: Severity.FATAL,
 });
 
 describe('TipimailRepository', () => {
@@ -37,7 +39,6 @@ describe('TipimailRepository', () => {
 					expect(result).toEqual(expected);
 				});
 			});
-
 			describe('lorsque l‘api retourne une erreur 400', () => {
 				it('renvoie une erreur demande incorrecte', async () => {
 					// given
