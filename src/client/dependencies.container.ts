@@ -12,6 +12,10 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { FormationService } from '~/client/services/formation/formation.service';
+import {
+	FormationInitialeInterface,
+	FormationInitialeService,
+} from '~/client/services/formationInitiale/formationInitiale.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import {
 	LesEntreprisesSEngagentService,
@@ -34,6 +38,7 @@ export type Dependencies = {
 	analyticsService: AnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
+	formationInitialeService: FormationInitialeInterface
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
 	missionEngagementService: MissionEngagementService
@@ -58,6 +63,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const alternanceService = new AlternanceService(httpClientService);
 	const métierService = new MétierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
+	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);
 	const localisationService = new LocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
@@ -96,6 +102,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		analyticsService,
 		cookiesService,
 		demandeDeContactService,
+		formationInitialeService,
 		formationService,
 		lesEntreprisesSEngagentService,
 		localisationService,

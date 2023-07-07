@@ -42,6 +42,7 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -87,6 +88,7 @@ describe('strapi cms repository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
+
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
@@ -110,6 +112,7 @@ describe('strapi cms repository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 	});
+
 	describe('save', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
@@ -127,6 +130,7 @@ describe('strapi cms repository', () => {
 				apiSource: 'API Strapi',
 				contexte: 'save strapi',
 				message: 'Erreur inconnue - Impossible de sauvegarder la ressource url',
+				severity: Severity.FATAL,
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);

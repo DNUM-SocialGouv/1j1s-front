@@ -76,6 +76,19 @@ import {
 	ApiTrajectoiresProStatistiqueErrorManagementService,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistiqueErrorManagementService';
 import {
+	FormationInitialeDependencies,
+	formationInitialeDependenciesContainer,
+} from '~/server/formations-initiales/configuration/dependencies.container';
+import {
+	getApiOnisepAuthenticatedConfig,
+} from '~/server/formations-initiales/configuration/httpClient/apiOnisepAuthenticatedHttpClient.config';
+import {
+	getApiOnisepPublicConfig,
+} from '~/server/formations-initiales/configuration/httpClient/apiOnisepPublicHttpClient.config';
+import {
+	OnisepFormationInitialeRepository,
+} from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
+import {
 	jobsEteDependenciesContainer,
 	OffresJobEteDependencies,
 } from '~/server/jobs-ete/configuration/dependencies.container';
@@ -131,7 +144,7 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 import { LoggerService } from '~/server/services/logger.service';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 import { PinoLoggerService } from '~/server/services/pinoLogger.service';
-import { ServerConfigurationService } from '~/server/services/serverConfiguration.service';
+import ServerConfigurationService from '~/server/services/serverConfiguration.service';
 import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
@@ -140,6 +153,7 @@ import {
 export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
+	formationInitialeDependencies: FormationInitialeDependencies;
 	métierDependencies: MétierDependencies;
 	offreEmploiDependencies: OffresEmploiDependencies;
 	cmsDependencies: CmsDependencies;
@@ -220,6 +234,14 @@ export function dependenciesContainer(): Dependencies {
 
 	const métierDependencies = métiersDependenciesContainer(apiLaBonneAlternanceMétierRepository);
 
+	const isProd = serverConfigurationService.getConfiguration().ENVIRONMENT === 'production';
+
+	const apiOnisepHttpClient = isProd
+		? new AuthenticatedHttpClientService(getApiOnisepAuthenticatedConfig(serverConfigurationService), loggerService)
+		: new PublicHttpClientService(getApiOnisepPublicConfig(serverConfigurationService));
+	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
+	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
+
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
@@ -267,6 +289,7 @@ export function dependenciesContainer(): Dependencies {
 		engagementDependencies,
 		entrepriseDependencies,
 		formationDependencies,
+		formationInitialeDependencies,
 		localisationDependencies,
 		loggerService,
 		métierDependencies,

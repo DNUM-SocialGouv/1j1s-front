@@ -16,7 +16,8 @@ export function anErrorManagementService(override?: Partial<ErrorManagementServi
 export function aLogInformation(override?: Partial<LogInformation>): LogInformation {
 	return {
 		apiSource: 'API Source',
-		contexte: 'contexte de la requête', message: 'message d‘erreur',
+		contexte: 'contexte de la requête',
+		message: 'message d‘erreur',
 		...override,
 	};
 }

@@ -1,9 +1,8 @@
+import { Entreprise } from '~/server/entreprises/domain/Entreprise';
+import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { createSuccess, Either } from '~/server/errors/either';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-
-import { Entreprise } from '../domain/Entreprise';
-import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisationRepository {
 	constructor(
@@ -19,6 +18,7 @@ export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisa
 				apiSource: 'API Rejoindre Mobilisation',
 				contexte: 'formulaire rejoindre la mobilisation',
 				message: 'impossible d’envoyer le formulaire',
+				severity: Severity.FATAL,
 			});
 		}
 		return createSuccess(undefined);

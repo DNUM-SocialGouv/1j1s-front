@@ -6,12 +6,20 @@
 @use "typography/styles" as typography-styles;
 @use "utilities-deprecated";
 
-[contenteditable]:not([contenteditable="false"]), [tabindex], a, audio[controls], button,
-details, details > summary:first-of-type, input, input[type="checkbox"] + label::before,
-input[type="radio"] + label::before, select, textarea, video[controls] {
-  outline-color: utilities-deprecated.$color-primary;
-  outline-offset: 0;
-  outline-width: 2px;
+[contenteditable]:not([contenteditable="false"]),
+[tabindex="0"],
+a,
+audio[controls],
+button,
+details,
+details > summary:first-of-type,
+input,
+input[type="checkbox"] + label::before,
+input[type="radio"] + label::before,
+select,
+textarea,
+video[controls] {
+  @extend %outlined;
 }
 
 .sr-only {

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
@@ -15,7 +15,7 @@ interface RechercherSolutionLayoutProps {
 	étiquettesRecherche?: React.ReactElement
 	formulaireRecherche: React.ReactElement
 	isLoading: boolean
-	messageRésultatRecherche: string
+	messageRésultatRecherche: string | ReactElement
 	nombreSolutions: number
 	paginationOffset?: number
 	maxPage?: number

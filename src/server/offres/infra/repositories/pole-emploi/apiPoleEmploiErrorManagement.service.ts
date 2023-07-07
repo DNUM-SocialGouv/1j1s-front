@@ -4,6 +4,7 @@ import {
 	DefaultErrorManagementService,
 	ErrorManagementWithErrorCheckingService,
 	LogInformation,
+	Severity,
 } from '~/server/services/error/errorManagement.service';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
@@ -35,7 +36,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultError
 	protected handleHttpErrorFailure(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 400 && errorFromApiPoleEmploiSearch.includes(error.response.data?.message)) {
 			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
-			this.loggerService.warnWithExtra(warnToLog);
+			this.logError(warnToLog, Severity.WARNING);
 		} else {
 			this.logHttpError(logInformation, error);
 		}
@@ -69,7 +70,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorMan
 	protected handleHttpErrorFailure(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 400 && error.response.data?.message === errorFromApiPoleEmploiGet) {
 			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
-			this.loggerService.warnWithExtra(warnToLog);
+			this.logError(warnToLog, Severity.WARNING);
 		} else {
 			this.logHttpError(logInformation, error);
 		}

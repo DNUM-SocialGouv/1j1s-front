@@ -1,0 +1,19 @@
+@use "@styles/utilities";
+
+
+.RechercheFormationInitialeForm {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 2rem;
+  padding: 1.25rem 0;
+
+  @include utilities.media(medium) {
+    grid-template-columns: 1fr auto;
+  }
+
+  & .buttonWrapper {
+   padding-top: 1.75rem;
+  }
+}
+
+
