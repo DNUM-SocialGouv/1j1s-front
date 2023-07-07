@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.108.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.1...v3.108.2) (2023-07-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update jest monorepo to v29.6.1 ([73bdd07](https://github.com/DNUM-SocialGouv/1j1s-front/commit/73bdd07f15fe55d1f4438710dcbd1fa22f3428b1))
+
 ## [3.108.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.0...v3.108.1) (2023-07-07)
 
 
