@@ -1484,8 +1484,6 @@ describe('<Combobox />', () => {
 			const category = screen.getByRole('group', { hidden: true });
 			expect(category).not.toBeVisible();
 		});
-		it.todo('allow JSX as name ?');
-		it.todo('doc');
 	});
 
 	it.todo('gérer les catégories');
