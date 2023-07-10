@@ -9,10 +9,10 @@ import {
 } from '@testing-library/react';
 import React from 'react';
 
-import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/ÉtiquettesFiltreFormation';
+import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
-describe('ÉtiquettesFiltreFormation', () => {
+describe('EtiquettesFiltreFormation', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -30,7 +30,7 @@ describe('ÉtiquettesFiltreFormation', () => {
 					longitudeCommune: '2.397152',
 				},
 			});
-			render(<ÉtiquettesFiltreFormation/>);
+			render(<EtiquettesFiltreFormation/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeInTheDocument();
@@ -51,7 +51,7 @@ describe('ÉtiquettesFiltreFormation', () => {
 					longitudeCommune: '2.397152',
 				},
 			});
-			render(<ÉtiquettesFiltreFormation/>);
+			render(<EtiquettesFiltreFormation/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(filtresRecherche).toBeInTheDocument();
@@ -77,7 +77,7 @@ describe('ÉtiquettesFiltreFormation', () => {
 						niveauEtudes: '6',
 					},
 				});
-				render(<ÉtiquettesFiltreFormation/>);
+				render(<EtiquettesFiltreFormation/>);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 				expect(filtresRecherche).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe('ÉtiquettesFiltreFormation', () => {
 						niveauEtudes: 'indifférent',
 					},
 				});
-				render(<ÉtiquettesFiltreFormation/>);
+				render(<EtiquettesFiltreFormation/>);
 
 				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 				expect(filtresRecherche).toBeInTheDocument();

@@ -4,8 +4,8 @@ import {
 	FormulaireRechercheOffreEmploi,
 } from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
 import {
-	ÉtiquettesFiltreOffreEmploi,
-} from '~/client/components/features/OffreEmploi/Rechercher/ÉtiquettesFiltreOffreEmploi';
+	EtiquettesFiltreOffreEmploi,
+} from '~/client/components/features/OffreEmploi/Rechercher/EtiquettesFiltreOffreEmploi';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { LaBonneBoitePartner } from '~/client/components/features/ServiceCard/LaBonneBoitePartner';
 import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
@@ -85,7 +85,7 @@ export function RechercherOffreEmploi() {
 				<RechercherSolutionLayout
 					bannière={<BannièreOffreEmploi/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={<ÉtiquettesFiltreOffreEmploi/>}
+					étiquettesRecherche={<EtiquettesFiltreOffreEmploi/>}
 					formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageRésultatRecherche}

@@ -7,7 +7,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { Formation } from '~/server/formations/domain/formation';
 
-export const ÉtiquettesFiltreFormation = () => {
+export const EtiquettesFiltreFormation = () => {
 	const [filtres, setFiltres] = useState<string[]>([]);
 	const formationQuery = useFormationQuery();
 
