@@ -1423,7 +1423,27 @@ describe('<Combobox />', () => {
 		});
 	});
 
+	describe('<Combobox.Category />', () => {
+		it('render un group d’options', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const group = screen.getByRole('group', { hidden: true });
+			expect(group).toBeInTheDocument();
+		});
+		it.todo('nomme la catégorie');
+		it.todo('allow JSX as name ?');
+	});
+
 	it.todo('gérer les catégories');
+	it.todo('async version');
 
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');

@@ -121,3 +121,26 @@ export const validation: Story = {
 		</form>
 	),
 };
+
+export const categories: Story = {
+	args: {},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>{
+				Object.entries<string[]>(children.sort()
+					.reduce((accumulator, current) => {
+						const key = current.charAt(0);
+						if (accumulator[key] == undefined) { accumulator[key] = []; }
+						accumulator[key].push(current);
+						return accumulator;
+					}, {}))
+					.map(([category, entries]) => (
+						<Combobox.Category key={category}>{
+							entries.map((entry, index) => (<Combobox.Option key={index}>{entry}</Combobox.Option>))
+						}</Combobox.Category>
+					))
+			}</Combobox>
+		</>
+	),
+};
