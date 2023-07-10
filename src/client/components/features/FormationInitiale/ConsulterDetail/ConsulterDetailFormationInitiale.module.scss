@@ -9,3 +9,8 @@
   @extend %bold, %subheading;
   margin: 0 0 1rem;
 }
+
+.entete .tags {
+  margin-top: 2rem;
+  justify-content: center;
+}

@@ -13,7 +13,7 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
-				<TagList list={formationInitialeDetail.tags}/>
+				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
 		</ConsulterOffreLayout>
 	);
