@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.109.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.2...v3.109.0) (2023-07-10)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v5.1.1 ([4519cab](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4519cabd675b32bc89ab6ffbdfc430b358d80460))
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation init:** initialisation de la page et récupération du détail partie 1 ([#1590](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1590)) ([df260f1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/df260f1794275fd5e90792fdff91b0f17b09d983))
+
 ## [3.108.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.1...v3.108.2) (2023-07-07)
 
 
