@@ -66,7 +66,7 @@ describe('ConsulterOffreDeStage', () => {
 				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-				const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 				expect(displayedTagsTextContents).toContain(Domaines.ACHAT);
 				expect(displayedTagsTextContents).toContain(Domaines.CONSEIL);
 			});
@@ -78,7 +78,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain(localisation.ville);
 				});
 
@@ -89,7 +89,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain(localisation.departement);
 				});
 
@@ -100,7 +100,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain(localisation.region);
 				});
 			});
@@ -111,7 +111,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain('2 mois');
 				});
 			});
@@ -122,7 +122,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
 				});
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
@@ -131,7 +131,7 @@ describe('ConsulterOffreDeStage', () => {
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
 					expect(displayedTagsTextContents).toContain('Débute entre le : 9/1/2024 et 9/30/2024');
 				});
 			});
