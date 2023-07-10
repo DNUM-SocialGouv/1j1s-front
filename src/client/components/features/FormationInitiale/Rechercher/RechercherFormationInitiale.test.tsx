@@ -15,6 +15,7 @@ import {
 	aResultatFormationInitiale,
 } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import { createSuccess } from '~/server/errors/either';
+import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 
 describe('RechercherFormationInitiale', () => {
 	beforeEach(() => {
@@ -71,19 +72,16 @@ describe('RechercherFormationInitiale', () => {
 					</DependenciesProvider>,
 					);
 
-					expect(await screen.findByText(/[0-9]+ formations pour boulanger/)).toBeVisible();
+					expect(await screen.findByText(/2 formations pour boulanger/)).toBeVisible();
 				});
 			});
 			describe('les cartes', () => {
 				it('lorsqu‘il y a des résultats doit affiché le bon nombre de cards', async () => {
 					const aFormationService = aFormationInitialeService();
-					const resultRechercheFormation = createSuccess([aResultatFormationInitiale({ libelle: 'boulanger' }),
-						aResultatFormationInitiale({ libelle: 'patissier' })]);
+					const resultRechercheFormation = createSuccess([aFormationInitiale({ libelle: 'boulanger' }), aFormationInitiale({ libelle: 'patissier' })]);
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultRechercheFormation);
-					render(<DependenciesProvider formationInitialeService={aFormationService}>
-						<RechercherFormationInitiale/>
-					</DependenciesProvider>,
-					);
+					render(<DependenciesProvider formationInitialeService={aFormationService}> <RechercherFormationInitiale/>
+					</DependenciesProvider>);
 					const listeCards = await screen.findByRole('list', { name: 'Formations Initiales' });
 					const cardTitles = within(listeCards).getAllByRole('heading', { level: 3 });
 					expect(cardTitles).toHaveLength(2);
@@ -94,20 +92,21 @@ describe('RechercherFormationInitiale', () => {
 				});
 				it('je vois les tags', async () => {
 					const aFormationService = aFormationInitialeService();
-					const resultRechercheFormation = createSuccess([aResultatFormationInitiale({ libelle: 'boulanger' }),
-						aResultatFormationInitiale({ libelle: 'patissier' })]);
+					const resultRechercheFormation = createSuccess([aResultatFormationInitiale({ tags: ['Certifiante', 'Bac + 2', '1 ans'] })]);
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultRechercheFormation);
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
 						<RechercherFormationInitiale/>
 					</DependenciesProvider>,
 					);
-					const listeCards = await screen.findByRole('list', { name: 'Formations Initiales' });
-					const cardTitles = within(listeCards).getAllByRole('heading', { level: 3 });
-					expect(cardTitles).toHaveLength(2);
-					expect(cardTitles[0]).toBeVisible();
-					expect(cardTitles[0]).toHaveTextContent('boulanger');
-					expect(cardTitles[1]).toBeVisible();
-					expect(cardTitles[1]).toHaveTextContent('patissier');
+					const listeCards = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
+					const tags = within(listeCards).getAllByRole('listitem');
+					expect(tags).toHaveLength(3);
+					expect(tags[0]).toBeVisible();
+					expect(tags[0]).toHaveTextContent('Certifiante');
+					expect(tags[1]).toBeVisible();
+					expect(tags[1]).toHaveTextContent('Bac + 2');
+					expect(tags[2]).toBeVisible();
+					expect(tags[2]).toHaveTextContent('1 ans');
 				});
 			});
 		});
