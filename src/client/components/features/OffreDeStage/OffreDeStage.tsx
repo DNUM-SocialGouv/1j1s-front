@@ -17,8 +17,13 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 			.filter((domaine) => domaine !== Domaines.NON_RENSEIGNE)
 			.map((domaine) => getCapitalizedItems(domaine))
 		: [];
+
+	const etiquetteLocalisation = stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region
+	if (etiquetteLocalisation) {
+		listeEtiquettes.push(etiquetteLocalisation)
+	}
+
 	listeEtiquettes.push(
-		stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region || '',
 		stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee : '',
 		stage.dateDeDebutMin === stage.dateDeDebutMax
 			? `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`

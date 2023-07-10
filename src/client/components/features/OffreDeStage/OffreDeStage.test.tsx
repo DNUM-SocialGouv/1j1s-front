@@ -93,8 +93,6 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
 			expect(displayedTagsTextContents).toContain(localisationWithRegion.region);
 		});
-
-		// comment je peux tester le cas où quand pas de localisation, aucun tag ?
 	});
 
 	describe('concernant la durée du stage', () => {

@@ -47,6 +47,45 @@ describe('mapVideoCampagneApprentissage', () => {
 
 describe('mapOffreDeStage', () => {
 	it('map vers une offre de stage à afficher', () => {
+		const offreDeStageResponse: Strapi.CollectionType.OffreStage = {
+			createdAt: '2023-01-06T07:49:10.773Z',
+			dateDeDebutMax: '2024-09-01',
+			dateDeDebutMin: '2024-09-01',
+			description: 'Poste ouvert aux personnes en situation de handicap',
+			domaines: [],
+			dureeEnJour: 720,
+			dureeEnJourMax: 800,
+			employeur: {
+				description: null,
+				email: null,
+				logoUrl: null,
+				nom: 'La Relève',
+				siteUrl: null,
+			},
+			id: 'anId',
+			identifiantSource: '036780b7-95ba-4711-bf26-471d1f95051c',
+			localisation: {
+				adresse: null,
+				codePostal: null,
+				departement: null,
+				pays: 'France',
+				region: null,
+				ville: null,
+			},
+			publishedAt: '2023-01-06T07:49:10.756Z',
+			remunerationBase: 1000,
+			slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
+			source: 'jobteaser' as SourceDesDonnées,
+			sourceCreatedAt: '',
+			sourcePublishedAt: '',
+			sourceUpdatedAt: '',
+			teletravailPossible: true,
+			titre: 'Alternance Audit - Tours ( H/F)',
+			updatedAt: '2023-01-06T07:49:10.773Z',
+			urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
+		};
+		
+		
 		const result: OffreDeStage = mapOffreStage(anOffreDeStageResponse());
 		const expectedResult: OffreDeStage = {
 			dateDeDebutMax: '2024-09-01',
@@ -80,35 +119,8 @@ describe('mapOffreDeStage', () => {
 				],
 			};
 			const result = mapOffreStage(anOffreDeStageResponse(domainesAvecUnDomaineNonRenseigne));
-			const expectedResult: OffreDeStage = {
-				dateDeDebutMax: '2024-09-01',
-				dateDeDebutMin: '2024-09-01',
-				description: 'Poste ouvert aux personnes en situation de handicap',
-				domaines: [Domaines.ACHAT],
-				dureeEnJour: 720,
-				dureeEnJourMax: 800,
-				employeur: {
-					description: undefined,
-					logoUrl: undefined,
-					nom: 'La Relève',
-					siteUrl: undefined,
-				},
-				id: 'anId',
-				localisation: {
-					codePostal: undefined,
-					departement: undefined,
-					pays: 'France',
-					region: undefined,
-					ville: undefined,
-				},
-				remunerationBase: 1000,
-				slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
-				source: SourceDesDonnées.JOBTEASER,
-				teletravailPossible: true,
-				titre: 'Alternance Audit - Tours ( H/F)',
-				urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
-			};
-			expect(result).toStrictEqual(expectedResult);
+
+			expect(result.domaines).toStrictEqual([Domaines.ACHAT]);
 		});
 	});
 });
