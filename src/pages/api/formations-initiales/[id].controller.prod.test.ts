@@ -70,7 +70,7 @@ describe('lorsque je veux consulter le détail d‘une formation initiale', () =
 		const apiBaseUrl = 'https://api.opendata.onisep.fr/api/1.0';
 		const apiAuthenticationUrl = `${apiBaseUrl}/login`;
 		const apiSearchUrl = `${apiBaseUrl}/dataset/5fa591127f501`;
-		const emailEncoded = 'fake%40example.com';
+		const emailEncoded = encodeURIComponent('fake@example.com');
 		const password = 'password-bidon';
 		const getTokenRequestBody = `email=${emailEncoded}&password=${password}`;
 		const getTokenRequestHeaders =  { reqheaders: { 'Content-Type':'application/x-www-form-urlencoded' } };
@@ -93,11 +93,11 @@ describe('lorsque je veux consulter le détail d‘une formation initiale', () =
 			params: { id: id },
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
-				const json = await res.json();
+				const reponseBody = await res.json();
 				// THEN
 				expect(getTokenCall.isDone()).toBe(true);
 				expect(getDetailFormationInitialeCall.isDone()).toBe(true);
-				expect(json).toEqual(aFormationInitialeDetail());
+				expect(reponseBody).toEqual(aFormationInitialeDetail());
 			},
 			url: `/formations-initiales/${id}`,
 		});

@@ -28,7 +28,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2', ''],
+			tags: ['1 an', 'Bac + 2'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
@@ -44,7 +44,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('lorsque le niveau de certification est vide, la formation n‘est pas certifiante', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2', ''],
+			tags: ['1 an', 'Bac + 2'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({

@@ -9,6 +9,7 @@ import analytics from '~/pages/formations-initiales/[id].analytics';
 export default function ConsulterFormationInitialePage() {
 	useAnalytics(analytics);
 	useReferrer();
+	// FIXME (BRUJ 10-07-2023): Ajouter le titre de la formation
 	return (
 		<>
 			<Head
