@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.110.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.109.0...v3.110.0) (2023-07-10)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** ajouter les tags aux cartes de recherche ([#1584](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1584)) ([27c0aa3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/27c0aa3eddc10e907bc065aafc2b7df3a96a9a1d))
+
 ## [3.109.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.108.2...v3.109.0) (2023-07-10)
 
 
