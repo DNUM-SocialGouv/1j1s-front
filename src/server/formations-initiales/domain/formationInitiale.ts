@@ -1,5 +1,6 @@
 export interface FormationInitiale {
-    libelle: string;
+	libelle: string;
+	tags: Array<string>
 }
 
 export interface FormationInitialeDetail {

@@ -100,13 +100,14 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		return null;
 	}
 
+
 	// TODO : pour la key, remplacer formation.libelle par formation.id quand on aura l'id d'une formation
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Formations Initiales">
 			{resultatList.map((formation: FormationInitiale) => (
 				<li key={formation.libelle}>
 					<RésultatRechercherSolution
-						étiquetteOffreList={[]}
+						étiquetteOffreList={formation.tags}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
 						lienOffre={`/formations-initiales/${encodeURIComponent(formation.libelle)}`}
@@ -116,3 +117,4 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		</ListeRésultatsRechercherSolution>
 	);
 }
+

@@ -1,7 +1,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { FormationInitiale, FormationInitialeDetail, FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
-import { formationInitialeDetailMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
+import { formationInitialeDetailMapper , formationsInitialesMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -36,11 +36,11 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 
 	async search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
 		try {
-			const apiQueryParams = createApiQueryParams(filtre);
+			const apiQueryParams = this.createApiQueryParams(filtre);
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?${apiQueryParams}`);
 			const formationsInitialesApiResponse = apiResponse.data.results;
-			const formationsInitiales = formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({ libelle: formationInitialeApiResponse.libelle_formation_principal }));
-			return createSuccess(formationsInitiales);
+			const formationsInitialesMapped = formationsInitialesMapper(formationsInitialesApiResponse);
+			return createSuccess(formationsInitialesMapped);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: '[API Onisep]',
@@ -48,6 +48,9 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 				message: 'impossible d’effectuer une recherche de formation initiale',
 			});
 		}
+	}
+	private createApiQueryParams(filtre: FormationInitialeFiltre) {
+		return new URLSearchParams({ q: filtre.motCle || '' });
 	}
 
 	async getDetail(id: string): Promise<Either<FormationInitialeDetail>> {
@@ -66,7 +69,5 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 	}
 }
 
-function createApiQueryParams(filtre: FormationInitialeFiltre) {
-	return new URLSearchParams({ q: filtre.motCle || '' });
-}
+
 
