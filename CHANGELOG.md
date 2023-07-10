@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.111.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.110.0...v3.111.0) (2023-07-10)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** ajout validation contrat api sur le get ([99f1f14](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99f1f14e4767d9418247d6472005738d53e01420))
+* nouvelle version integre avec l'error management ([3e27112](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3e271120c0eb0591e4b9b5ef5940fb6197fc5536))
+
+
+### 🐛 Corrections de bogues
+
+* retour review ([dd15197](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dd15197045acc96aee914de3aa1bcf82f3c390a1))
+
 ## [3.110.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.109.0...v3.110.0) (2023-07-10)
 
 
