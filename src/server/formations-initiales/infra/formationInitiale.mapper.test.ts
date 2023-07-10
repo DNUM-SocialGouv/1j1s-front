@@ -2,8 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { aFormationInitiale , aFormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale.fixture';
-import { formationInitialeDetailMapper,formationsInitialesMapper  } from '~/server/formations-initiales/infra/formationInitiale.mapper';
+import {
+	aFormationInitiale,
+	aFormationInitialeDetail,
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import {
+	formationInitialeDetailMapper,
+	formationsInitialesMapper,
+} from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { aFormationInitialeApiResponse } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 
 describe('formationInitialeMapper', () => {
@@ -18,14 +24,14 @@ describe('formationInitialeMapper', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '0' });
 			const formationInitialeListApiResponse = [formationInitialeApiResponse];
 			const formationInitialeMapped = formationsInitialesMapper(formationInitialeListApiResponse);
-			expect(formationInitialeMapped[0].tags).toEqual(['', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est une string vide, je renvoie une string vide', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '' });
 			const formationInitialeListApiResponse = [formationInitialeApiResponse];
 			const formationInitialeMapped = formationsInitialesMapper(formationInitialeListApiResponse);
-			expect(formationInitialeMapped[0].tags).toEqual(['', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est fourni, je renvoie l‘information attendue', () => {
@@ -41,7 +47,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('map une formation initiale pour afficher le détail', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2', 'Certifiante'],
+			tags: ['Certifiante', 'Bac + 2', '1 an'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
@@ -57,7 +63,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2'],
+			tags: ['Bac + 2', '1 an'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
@@ -73,7 +79,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('lorsque le niveau de certification est vide, la formation n‘est pas certifiante', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2'],
+			tags: ['Bac + 2', '1 an'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
@@ -89,7 +95,7 @@ describe('formationInitialeDetailMapper', () => {
 	it('lorsque le niveau de certification est valide, la formation est certifiante', () => {
 		const formationInitialeResultExpected = aFormationInitialeDetail({
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['1 an', 'Bac + 2', 'Certifiante'],
+			tags: ['Certifiante', 'Bac + 2', '1 an'],
 		});
 
 		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
