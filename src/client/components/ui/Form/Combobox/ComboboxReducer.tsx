@@ -7,7 +7,6 @@ export type ComboboxState = {
 	activeDescendant: string | undefined,
 	value: string,
 	suggestionList: RefObject<HTMLUListElement>,
-	touched: boolean
 }
 
 function filterOptions(suggestionList: RefObject<HTMLUListElement>, value: string) {
@@ -96,14 +95,6 @@ export namespace ComboboxAction {
 			return {
 				...closeListState,
 				value: this.option?.textContent ?? '',
-			};
-		}
-	}
-	export class Touch implements ComboboxAction {
-		execute(previousState: ComboboxState): ComboboxState {
-			return {
-				...previousState,
-				touched: true,
 			};
 		}
 	}
