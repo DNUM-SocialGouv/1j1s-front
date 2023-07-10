@@ -3,15 +3,16 @@ import { FormationInitiale } from '~/server/formations-initiales/domain/formatio
 
 import { FormationInitialeInterface } from './formationInitiale.service';
 
-export function aResultatListFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
+export function aResultatFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
 		libelle: 'Formation Boulanger Chez Pierre Hermé',
+		tags: ['Certifiante', 'Bac + 2', '1 an'],
 		...override,
 	};
 }
 
 export function aFormationInitialeService(
-	rechercherFormationInitialeValue = aResultatListFormationInitiale(),
+	rechercherFormationInitialeValue = aResultatFormationInitiale(),
 ): FormationInitialeInterface {
 	return {
 		rechercherFormationInitiale: jest.fn().mockResolvedValue(createSuccess([rechercherFormationInitialeValue])),

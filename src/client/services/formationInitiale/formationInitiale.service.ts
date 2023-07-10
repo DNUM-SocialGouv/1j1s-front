@@ -16,7 +16,8 @@ interface FormationInitialeUrlQuery extends ParsedUrlQuery {
 
 
 export class FormationInitialeService implements FormationInitialeInterface {
-	constructor(private readonly httpClient: HttpClientService) {}
+	constructor(private readonly httpClient: HttpClientService) {
+	}
 
 	async rechercherFormationInitiale(query: FormationInitialeQueryParams): Promise<Either<Array<FormationInitiale>>> {
 		const formationInitialeUrlQuery = this.removeUnnecessaryParams(query);

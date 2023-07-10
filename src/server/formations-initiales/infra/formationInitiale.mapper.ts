@@ -1,4 +1,5 @@
-import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+
+import { FormationInitiale, FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeApiResponse } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 
 function getTags(formationInitialeApiResponse: FormationInitialeApiResponse) {
@@ -15,3 +16,16 @@ export function formationInitialeDetailMapper(formationInitialeApiResponse: Form
 		tags: getTags(formationInitialeApiResponse),
 	};
 }
+
+function getCertification(niveauDeCertification: string) {
+	return niveauDeCertification === '0' || niveauDeCertification === '' ? '' : 'Certifiante';
+}
+
+export function formationsInitialesMapper(formationsInitialesApiResponse: Array<FormationInitialeApiResponse>): Array<FormationInitiale> {
+	return formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({
+		libelle: formationInitialeApiResponse.libelle_formation_principal,
+		tags: [getCertification(formationInitialeApiResponse.niveau_de_certification),
+			formationInitialeApiResponse.niveau_de_sortie_indicatif,
+			formationInitialeApiResponse.duree],
+	}));
+};

@@ -7,6 +7,7 @@ import {
 export function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
 		libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+		tags: ['Certifiante', 'Bac + 2', '1 an'],
 		...override,
 	};
 }

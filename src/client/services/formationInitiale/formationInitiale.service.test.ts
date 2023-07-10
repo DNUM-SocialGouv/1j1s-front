@@ -1,5 +1,5 @@
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
-import { aResultatListFormationInitiale } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
+import { aResultatFormationInitiale } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -8,7 +8,7 @@ describe('rechercher une formation initiale', () => {
 		// GIVEN
 		const httpClient = anHttpClientService();
 		const formationInitialeService = new FormationInitialeService(httpClient);
-		const formationsInitialesSuccessResponse = createSuccess([aResultatListFormationInitiale()]);
+		const formationsInitialesSuccessResponse = createSuccess([aResultatFormationInitiale()]);
 		jest.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
 
 		// WHEN
@@ -22,7 +22,7 @@ describe('rechercher une formation initiale', () => {
 		// GIVEN
 		const httpClient = anHttpClientService();
 		const formationInitialeService = new FormationInitialeService(httpClient);
-		const formationsInitialesSuccessResponse = createSuccess([aResultatListFormationInitiale()]);
+		const formationsInitialesSuccessResponse = createSuccess([aResultatFormationInitiale()]);
 		jest.spyOn(httpClient, 'get').mockResolvedValueOnce(formationsInitialesSuccessResponse);
 
 		// WHEN
