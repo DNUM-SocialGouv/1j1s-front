@@ -1427,7 +1427,7 @@ describe('<Combobox />', () => {
 		it('render un group d’options', () => {
 			render(
 				<Combobox aria-label='Test'>
-					<Combobox.Category>
+					<Combobox.Category name="Options">
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -1466,12 +1466,31 @@ describe('<Combobox />', () => {
 			const categoryName = screen.getByText('Options');
 			expect(categoryName).toBeInTheDocument();
 		});
-		it.todo('masque les catégories vides');
+		it('masque les catégories vides', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+
+			const category = screen.getByRole('group', { hidden: true });
+			expect(category).not.toBeVisible();
+		});
 		it.todo('allow JSX as name ?');
+		it.todo('doc');
 	});
 
 	it.todo('gérer les catégories');
 	it.todo('async version');
+	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
 
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');

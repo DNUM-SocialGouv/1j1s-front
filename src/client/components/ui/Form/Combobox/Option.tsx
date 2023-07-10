@@ -1,4 +1,4 @@
-import React, { useCallback, useId } from 'react';
+import React, { useCallback, useEffect,useId, useState } from 'react';
 
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -15,14 +15,19 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	...optionProps
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
-	const idState = useId();
-	const id = idProps ?? idState;
+	const localId = useId();
+	const id = idProps ?? localId;
 	const {
 		state: { activeDescendant, value: inputValue },
 		onOptionSelection,
 	} = useCombobox();
 	const selected = activeDescendant === id;
-	const hidden = !matchesInput(ref.current, inputValue);
+	const [ hidden, setHidden ] = useState(false);
+
+	useEffect(function checkIfHidden() {
+		setHidden(!matchesInput(ref.current, inputValue));
+	}, [inputValue, ref]);
+
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);
 		if (onClickProps) {
