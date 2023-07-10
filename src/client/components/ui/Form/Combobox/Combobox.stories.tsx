@@ -13,6 +13,7 @@ const meta: Meta<typeof Combobox> = {
 			control: 'array',
 		},
 		onBlur: { type: 'function' },
+		onFocus: { type: 'function' },
 		value: { type: 'string' },
 	},
 	args: {
@@ -102,8 +103,7 @@ export const optionAvecValue: Story = {
 
 export const validation: Story = {
 	args: {
-		defaultValue: 'test',
-		requireDefinedOption: true,
+		requiredValidOption: true,
 	},
 	render: ({ children, ...args }) => (
 		<form onSubmit={(event) => {
@@ -113,7 +113,7 @@ export const validation: Story = {
 				value: ${event.currentTarget['pays.value'].value}
 			`);
 		}}>
-			<label htmlFor="pays">Pays</label>
+			<label htmlFor="pays">Pays (sélectionnez une valeur dans la liste)</label>
 			<Combobox id="pays" name="pays" {...args}>
 				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
 			</Combobox>
