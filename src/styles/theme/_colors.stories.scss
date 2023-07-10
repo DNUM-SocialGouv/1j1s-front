@@ -98,6 +98,12 @@
     & .color-success {
       background-color: variables.$color-success;
     }
+    & .color-disabled {
+      background-color: variables.$color-disabled;
+    }
+    & .color-disabled-background {
+      background-color: variables.$color-disabled-background;
+    }
   }
 
   .colors-background {
