@@ -1,9 +1,9 @@
+import { createSuccess, Either } from '~/server/errors/either';
+import { FormationInitiale, FormationInitialeDetail, FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
+import { formationInitialeDetailMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-
-import { createSuccess, Either } from '../../errors/either';
-import { FormationInitiale, FormationInitialeFiltre } from '../domain/formationInitiale';
-import { FormationInitialeRepository } from '../domain/formationInitiale.repository';
 
 export interface FormationInitialeApiResponse {
 	code_nsf: string,
@@ -28,12 +28,13 @@ export interface ResultatRechercheFormationInitialeApiResponse {
 	results: Array<FormationInitialeApiResponse>
 }
 
+const ONISEP_FORMATIONS_INITIALES_DATASET_ID = '5fa591127f501';
+
 export class OnisepFormationInitialeRepository implements FormationInitialeRepository {
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
-		const ONISEP_FORMATIONS_INITIALES_DATASET_ID = '5fa591127f501';
 		try {
 			const apiQueryParams = createApiQueryParams(filtre);
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?${apiQueryParams}`);
@@ -48,8 +49,24 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 			});
 		}
 	}
+
+	async getDetail(id: string): Promise<Either<FormationInitialeDetail>> {
+		try {
+			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${id}`);
+			const formationInitialeApiResponse = apiResponse.data.results[0];
+			const formationsInitiales = formationInitialeDetailMapper(formationInitialeApiResponse);
+			return createSuccess(formationsInitiales);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: '[API Onisep]',
+				contexte: 'détail d‘une formation initiale',
+				message: 'impossible de récupérer le détail d‘une formation initiale',
+			});
+		}
+	}
 }
 
 function createApiQueryParams(filtre: FormationInitialeFiltre) {
 	return new URLSearchParams({ q: filtre.motCle || '' });
 }
+

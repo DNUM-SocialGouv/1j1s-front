@@ -1,10 +1,12 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherFormationInitialeHandler } from '~/pages/api/formations-initiales/index.controller';
+import { consulterDetailFormationInitialeHandler } from '~/pages/api/formations-initiales/[id].controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	aFormationInitialeDetail,
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
@@ -57,10 +59,10 @@ jest.mock('~/server/services/serverConfiguration.service', () => {
 	});
 });
 
-describe('lorsque je veux faire une recherche de formations initiales', () => {
-	it('en production, doit récupérer des formations initiales en mode authentifié', async () => {
+describe('lorsque je veux consulter le détail d‘une formation initiale', () => {
+	it('en production, doit récupérer le détail de la formation initiale en mode authentifié', async () => {
 		// GIVEN
-		const motCle = 'informatique';
+		const id = 'FOR.1234';
 		const token = 'some-token';
 		const onisepLoginResponse = {
 			token,
@@ -81,23 +83,23 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 		const getTokenCall = nock(apiAuthenticationUrl)
 			.post('', getTokenRequestBody, getTokenRequestHeaders)
 			.reply(200, onisepLoginResponse);
-		const searchFormationInitialeCall = nock(apiSearchUrl)
-			.get(`/search?q=${motCle}`, undefined, requestOptions)
+		const getDetailFormationInitialeCall = nock(apiSearchUrl)
+			.get(`/search?q=${id}`, undefined, requestOptions)
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
-		await testApiHandler<Array<FormationInitiale> | ErrorHttpResponse>({
-			handler: (req, res) => rechercherFormationInitialeHandler(req, res),
+		await testApiHandler<FormationInitialeDetail | ErrorHttpResponse>({
+			handler: (req, res) => consulterDetailFormationInitialeHandler(req, res),
+			params: { id: id },
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const reponseBody = await res.json();
-
 				// THEN
 				expect(getTokenCall.isDone()).toBe(true);
-				expect(searchFormationInitialeCall.isDone()).toBe(true);
-				expect(reponseBody).toEqual([aFormationInitiale()]);
+				expect(getDetailFormationInitialeCall.isDone()).toBe(true);
+				expect(reponseBody).toEqual(aFormationInitialeDetail());
 			},
-			url: `/formations-initiales?motCle=${motCle}`,
+			url: `/formations-initiales/${id}`,
 		});
 	});
 });

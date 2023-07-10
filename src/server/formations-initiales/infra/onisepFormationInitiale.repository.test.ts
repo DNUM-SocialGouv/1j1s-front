@@ -1,10 +1,11 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
-	aFormationInitiale,
+	aFormationInitiale, aFormationInitialeDetail,
 	aFormationInitialeFiltre,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
+	aFormationInitialeApiResponse,
 	aResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 import {
@@ -95,6 +96,79 @@ describe('onisep formation initiale repository', () => {
 
 				// WHEN
 				const businessError = await formationInitialeRepository.search(filtre);
+
+				// THEN
+				expect(businessError).toStrictEqual(expectedErrorFromErromManagement);
+			});
+		});
+	});
+
+	describe('getDetail', () => {
+		it('doit appeler l’api onisep avec l‘identifiant', async () => {
+			// GIVEN
+			const httpClient = anAuthenticatedHttpClientService();
+			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
+			const identifiant = 'FOR.1234';
+
+			// WHEN
+			await formationInitialeRepository.getDetail(identifiant);
+
+			// THEN
+			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?q=${identifiant}`);
+		});
+
+		it('doit retourner la formation initiale', async () => {
+			// GIVEN
+			const httpClient = anAuthenticatedHttpClientService();
+			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
+			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse({
+				results: [aFormationInitialeApiResponse()],
+			}));
+			const expectedFormationsInitialesDetail = createSuccess(aFormationInitialeDetail());
+			const identifiant = 'FOR.1234';
+			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
+
+			// WHEN
+			const formationsInitiales = await formationInitialeRepository.getDetail(identifiant);
+
+			// THEN
+			expect(formationsInitiales).toStrictEqual(expectedFormationsInitialesDetail);
+		});
+
+		describe('en cas d’erreur', () => {
+			it('doit logguer les informations de l’erreur', async () => {
+				// GIVEN
+				const httpClient = anAuthenticatedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService);
+				const httpError = anHttpError(500);
+				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				const identifiant = 'FOR.1234';
+
+				// WHEN
+				await formationInitialeRepository.getDetail(identifiant);
+
+				// THEN
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
+					apiSource: '[API Onisep]',
+					contexte: 'détail d‘une formation initiale',
+					message: 'impossible de récupérer le détail d‘une formation initiale',
+				}));
+			});
+
+			it('doit retourner une erreur métier correspondante', async () => {
+				// GIVEN
+				const httpClient = anAuthenticatedHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService);
+				const httpError = anHttpError(500);
+				const expectedErrorFromErromManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
+				const identifiant = 'FOR.1234';
+
+				// WHEN
+				const businessError = await formationInitialeRepository.getDetail(identifiant);
 
 				// THEN
 				expect(businessError).toStrictEqual(expectedErrorFromErromManagement);
