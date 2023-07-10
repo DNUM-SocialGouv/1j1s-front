@@ -136,7 +136,7 @@ export const categories: Story = {
 						return accumulator;
 					}, {}))
 					.map(([category, entries]) => (
-						<Combobox.Category key={category}>{
+						<Combobox.Category key={category} name={category}>{
 							entries.map((entry, index) => (<Combobox.Option key={index}>{entry}</Combobox.Option>))
 						}</Combobox.Category>
 					))

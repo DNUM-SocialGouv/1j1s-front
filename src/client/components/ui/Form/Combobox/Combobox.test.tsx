@@ -1438,7 +1438,35 @@ describe('<Combobox />', () => {
 			const group = screen.getByRole('group', { hidden: true });
 			expect(group).toBeInTheDocument();
 		});
-		it.todo('nomme la catégorie');
+		it('nomme la catégorie', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const group = screen.getByRole('group', { hidden: true });
+			expect(group).toHaveAccessibleName('Options');
+		});
+		it('affiche le nom la catégorie', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const categoryName = screen.getByText('Options');
+			expect(categoryName).toBeInTheDocument();
+		});
+		it.todo('masque les catégories vides');
 		it.todo('allow JSX as name ?');
 	});
 
