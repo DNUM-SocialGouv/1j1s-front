@@ -1486,7 +1486,6 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('gérer les catégories');
 	it.todo('async version');
 	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
 
