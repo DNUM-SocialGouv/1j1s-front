@@ -100,8 +100,10 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		return null;
 	}
 
+	function getLienOffre(identifiant?: string){
+		return identifiant ? `/formations-initiales/${encodeURIComponent(identifiant)}` : undefined;
+	}
 
-	// TODO : pour la key, remplacer formation.libelle par formation.id quand on aura l'id d'une formation
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Formations Initiales">
 			{resultatList.map((formation: FormationInitiale) => (
@@ -110,7 +112,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 						étiquetteOffreList={formation.tags}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
-						lienOffre={`/formations-initiales/${encodeURIComponent(formation.libelle)}`}
+						lienOffre={getLienOffre(formation.identifiant)}
 					/>
 				</li>
 			))}

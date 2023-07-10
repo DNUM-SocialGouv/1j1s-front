@@ -4,6 +4,7 @@ import { FormationInitialeApiResponse } from '~/server/formations-initiales/infr
 function getTags(formationInitialeApiResponse: FormationInitialeApiResponse) {
 	const tags = [];
 	const isCertifiante = !(formationInitialeApiResponse.niveau_de_certification === '0' || formationInitialeApiResponse.niveau_de_certification === '');
+
 	if (isCertifiante) tags.push('Certifiante');
 	tags.push(formationInitialeApiResponse.niveau_de_sortie_indicatif);
 	tags.push(formationInitialeApiResponse.duree);
@@ -17,9 +18,19 @@ export function formationInitialeDetailMapper(formationInitialeApiResponse: Form
 	};
 }
 
-export function formationsInitialesMapper(formationsInitialesApiResponse: Array<FormationInitialeApiResponse>): Array<FormationInitiale> {
+export function formationInitialeRechercheMapper(formationsInitialesApiResponse: Array<FormationInitialeApiResponse>): Array<FormationInitiale> {
 	return formationsInitialesApiResponse.map((formationInitialeApiResponse) => ({
+		identifiant: getIdentifiant(formationInitialeApiResponse.url_et_id_onisep),
 		libelle: formationInitialeApiResponse.libelle_formation_principal,
 		tags: getTags(formationInitialeApiResponse),
 	}));
+}
+
+function getIdentifiant(url: string) {
+	const regex = /slug\/([^/]+)/;
+	const match = url.match(regex);
+	if (match && match.length >= 2) {
+		return match[1];
+	}
+	return undefined;
 };
