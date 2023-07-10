@@ -86,7 +86,7 @@ describe('mapOffreDeStage', () => {
 		};
 		
 		
-		const result: OffreDeStage = mapOffreStage(anOffreDeStageResponse());
+		const result: OffreDeStage = mapOffreStage(offreDeStageResponse);
 		const expectedResult: OffreDeStage = {
 			dateDeDebutMax: '2024-09-01',
 			dateDeDebutMin: '2024-09-01',

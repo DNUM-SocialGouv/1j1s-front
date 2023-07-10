@@ -18,9 +18,9 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 			.map((domaine) => getCapitalizedItems(domaine))
 		: [];
 
-	const etiquetteLocalisation = stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region
+	const etiquetteLocalisation = stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region;
 	if (etiquetteLocalisation) {
-		listeEtiquettes.push(etiquetteLocalisation)
+		listeEtiquettes.push(etiquetteLocalisation);
 	}
 
 	listeEtiquettes.push(
