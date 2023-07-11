@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.112.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.111.1...v3.112.0) (2023-07-11)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Validation de l'option sélectionnée dans le combobox ([#1565](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1565)) ([b28f727](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b28f7276612671e6e839aba232b0cb0880b3b998))
+
 ## [3.111.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.111.0...v3.111.1) (2023-07-11)
 
 
