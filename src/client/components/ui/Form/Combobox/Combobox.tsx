@@ -37,17 +37,17 @@ function useTouchedInput() {
 	const [touched, setTouched] = useState(false);
 	const valueOnFocus = useRef<string | null>(null);
 
-	const onFocus = useCallback(function saveCurrentValue(value: string) {
+	const saveValueOnFocus = useCallback(function saveCurrentValue(value: string) {
 		valueOnFocus.current = value;
 	}, []);
 
-	const onBlur = useCallback(function touch(currentValue: string) {
+	const setTouchedOnBlur = useCallback(function touch(currentValue: string) {
 		if (valueOnFocus.current !== currentValue) {
 			setTouched(true);
 		}
 	}, []);
 
-	return { onBlur, onFocus, touched };
+	return { saveValueOnFocus, setTouchedOnBlur, touched };
 }
 
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
@@ -64,7 +64,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	requireValidOption = false,
 	...inputProps
 }, inputOuterRef) {
-	const { touched, onFocus: onFocusTouched, onBlur: OnBlurTouched } = useTouchedInput();
+	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
 
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const inputRef = useSynchronizedRef(inputOuterRef);
@@ -160,14 +160,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			event.stopPropagation();
 		} else {
 			dispatch(new Actions.CloseList());
-			OnBlurTouched(value);
+			setTouchedOnBlur(value);
 			if (onBlurProps) { onBlurProps(event); }
 		}
-	}, [OnBlurTouched, onBlurProps, value]);
+	}, [setTouchedOnBlur, onBlurProps, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
-		onFocusTouched(value);
+		saveValueOnFocus(value);
 		if (onFocusProps) { onFocusProps(event); }
-	}, [onFocusProps, onFocusTouched, value]);
+	}, [onFocusProps, saveValueOnFocus, value]);
 
 	return (
 		<ComboboxProvider value={{
