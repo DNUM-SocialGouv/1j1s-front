@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, {
 	FocusEvent,
 	KeyboardEvent,
+	SyntheticEvent,
 	useCallback,
 	useEffect,
 	useId,
@@ -9,8 +10,7 @@ import React, {
 	useMemo,
 	useReducer,
 	useRef,
-	useState,
-} from 'react';
+	useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -155,14 +155,15 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		if (onChangeProps) { onChangeProps(event); }
 	}, [onChangeProps]);
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
-		if (event.currentTarget.contains(event.relatedTarget)) {
-			event.preventDefault();
-			event.stopPropagation();
-		} else {
-			dispatch(new Actions.CloseList());
-			setTouchedOnBlur(value);
-			if (onBlurProps) { onBlurProps(event); }
+		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
+		if (newFocusStillInCombobox) {
+			cancelEvent(event);
+			return;
 		}
+
+		dispatch(new Actions.CloseList());
+		setTouchedOnBlur(value);
+		if (onBlurProps) { onBlurProps(event); }
 	}, [setTouchedOnBlur, onBlurProps, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
@@ -221,3 +222,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		</ComboboxProvider>
 	);
 });
+
+function cancelEvent(event: SyntheticEvent) {
+	event.preventDefault();
+	event.stopPropagation();
+}
