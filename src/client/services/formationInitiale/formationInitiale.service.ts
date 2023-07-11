@@ -14,6 +14,7 @@ export interface FormationInitialeInterface {
 
 interface FormationInitialeUrlQuery extends ParsedUrlQuery {
 	motCle?: string
+	page?: string
 }
 
 
@@ -31,6 +32,7 @@ export class FormationInitialeService implements FormationInitialeInterface {
 	private removeUnnecessaryParams(query: FormationInitialeQueryParams): FormationInitialeUrlQuery {
 		return {
 			motCle: query.motCle,
+			page: query.page,
 		};
 	}
 }

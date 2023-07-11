@@ -16,4 +16,8 @@ export interface FormationInitialeDetail {
 
 export interface FormationInitialeFiltre {
 	motCle?: string;
+	page: number
 }
+
+
+export const NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE = 15;

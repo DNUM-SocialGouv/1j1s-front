@@ -1,7 +1,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import {
 	FormationInitialeDetail,
-	FormationInitialeFiltre,
+	FormationInitialeFiltre, NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
 	ResultatRechercheFormationsInitiales,
 } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
@@ -57,7 +57,8 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		}
 	}
 	private createApiQueryParams(filtre: FormationInitialeFiltre) {
-		return new URLSearchParams({ q: filtre.motCle || '' });
+		const from = String((filtre.page - 1 ) * NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE);
+		return new URLSearchParams({ from, q: filtre.motCle || '', size: String(NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE) });
 	}
 
 	async getDetail(id: string): Promise<Either<FormationInitialeDetail>> {

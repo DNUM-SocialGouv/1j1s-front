@@ -45,16 +45,16 @@ describe('RechercherFormationInitiale', () => {
 
 			await screen.findByText(/150 formations pour boulanger/);
 			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledTimes(1);
-			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: 'boulanger' });
+			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: 'boulanger', page: '1' });
 		});
 
 		describe('lorsqu‘il y a au moins un résultat', () => {
 			it('la carte redirige vers la bonne url', async () => {
 				const aFormationService = aFormationInitialeService();
 				const identifiant = 'FOR.1234';
-				const formationsInitiales = aFormationInitiale({ identifiant: identifiant, libelle: 'boulanger' });
+				const formationsInitiales = [aFormationInitiale({ identifiant: identifiant, libelle: 'boulanger' })];
 				const resultatFormationInitiale = aResultatFormationInitiale({
-					formationsInitiales: [formationsInitiales],
+					formationsInitiales: formationsInitiales,
 				});
 				const resultRechercheFormation = createSuccess(resultatFormationInitiale);
 				jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
@@ -93,7 +93,10 @@ describe('RechercherFormationInitiale', () => {
 
 					const formationsInitiales = [aFormationInitiale({ libelle: 'boulanger' }),
 						aFormationInitiale({ libelle: 'patissier' })];
-					const resultRechercheFormation = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales, nombreDeResultat: 2 }));
+					const resultRechercheFormation = createSuccess(aResultatFormationInitiale({
+						formationsInitiales: formationsInitiales,
+						nombreDeResultat: 2,
+					}));
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultRechercheFormation);
 
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
@@ -104,13 +107,27 @@ describe('RechercherFormationInitiale', () => {
 					expect(await screen.findByText(/2 formations pour boulanger/)).toBeVisible();
 				});
 			});
+
+			it('lorsqu‘il n‘y a pas de résultat je ne vois pas le nombre de résultats affiché', async () => {
+				const aFormationService = aFormationInitialeService();
+				const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({  nombreDeResultat: 0 }));
+				jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
+
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>,
+				);
+
+				expect(await screen.findByText(/0 formation pour boulanger/)).toBeVisible();
+			});
+
 			describe('les cartes', () => {
 				it('lorsqu‘il y a des résultats doit affiché le bon nombre de cards', async () => {
 					const aFormationService = aFormationInitialeService();
-					const formationInitiales = aResultatFormationInitiale({
-						formationsInitiales: [aFormationInitiale({ libelle: 'boulanger' }), aFormationInitiale({ libelle: 'patissier' })],
-					});
-					const resultatFormationInitiale = createSuccess(formationInitiales);
+					const formationsInitiales = [aFormationInitiale({ libelle: 'boulanger' }), aFormationInitiale({ libelle: 'patissier' })];
+					const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({
+						formationsInitiales: formationsInitiales,
+					}));
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 					render(<DependenciesProvider formationInitialeService={aFormationService}> <RechercherFormationInitiale/>
 					</DependenciesProvider>);
@@ -125,11 +142,11 @@ describe('RechercherFormationInitiale', () => {
 
 				it('je vois les tags', async () => {
 					const aFormationService = aFormationInitialeService();
-					const formationsInitiale = [aFormationInitiale({ tags: ['Certifiante', 'Bac + 2', '1 ans'] })];
-					const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiale }));
+					const formationsInitiales = [aFormationInitiale({ tags: ['Certifiante', 'Bac + 2', '1 ans'] })];
+					const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
 					jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValueOnce(resultatFormationInitiale);
 					render(<DependenciesProvider formationInitialeService={aFormationService}>
-						<RechercherFormationInitiale/>[
+						<RechercherFormationInitiale/>
 					</DependenciesProvider>);
 					const listeCards = await screen.findByRole('list', { name: 'Caractéristiques de l‘offre' });
 					const tags = within(listeCards).getAllByRole('listitem');
@@ -144,20 +161,7 @@ describe('RechercherFormationInitiale', () => {
 			});
 		});
 
-		it('lorsqu‘il n‘y a pas de résultat je ne vois pas le nombre de résultats affiché', async () => {
-			const aFormationService = aFormationInitialeService();
-			const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({ formationsInitiales: [] }));
-			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 
-			render(<DependenciesProvider formationInitialeService={aFormationService}>
-				<RechercherFormationInitiale/>
-			</DependenciesProvider>,
-			);
-
-			await waitFor(() => {
-				expect(screen.queryByText(/[0-9]+ formation(s)?/)).not.toBeInTheDocument();
-			});
-		});
 	});
 
 	describe('Lorsque je fais une recherche de formation initiale avec une query vide', () => {
@@ -178,9 +182,9 @@ describe('RechercherFormationInitiale', () => {
 				<RechercherFormationInitiale/>
 			</DependenciesProvider>);
 
-			await screen.findByText(/[0-9]+ formations$/);
+			await screen.findByText(/[0-9]+ formations/);
 			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledTimes(1);
-			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: undefined });
+			expect(aFormationService.rechercherFormationInitiale).toHaveBeenCalledWith({ motCle: undefined, page: '1' });
 		});
 
 		it('lorsqu‘il y a plusieurs résultats je vois le nombre de résultats affiché sans précision sur le mot clé recherché', async () => {

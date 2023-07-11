@@ -13,10 +13,12 @@ import { dependencies } from '~/server/start';
 
 export const formationInitialeQuerySchema = Joi.object({
 	motCle: Joi.string(),
+	page: Joi.string(),
 });
 
 export type FormationInitialeQueryParams = {
 	motCle?: string
+	page?: string
 }
 
 export async function rechercherFormationInitialeHandler(req: NextApiRequest, res: NextApiResponse<ResultatRechercheFormationsInitiales | ErrorHttpResponse>) {

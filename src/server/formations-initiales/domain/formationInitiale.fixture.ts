@@ -32,6 +32,7 @@ export function aFormationInitialeDetail(override?: Partial<FormationInitialeDet
 export function aFormationInitialeFiltre(override?: Partial<FormationInitialeFiltre>): FormationInitialeFiltre {
 	return {
 		motCle: 'classe préparatoire',
+		page: 1,
 		...override,
 	};
 }

@@ -18,8 +18,10 @@ import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQu
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE } from '~/server/offres/domain/offre';
+import {
+	FormationInitiale,
+	NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
+} from '~/server/formations-initiales/domain/formationInitiale';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation initiale';
 
@@ -76,9 +78,8 @@ export function RechercherFormationInitiale() {
 					formulaireRecherche={<FormulaireRechercheFormationInitiale/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageResultatRecherche}
-					nombreSolutions={resultatList?.length}
-					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
-					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
+					nombreSolutions={nombreDeResultat}
+					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
 			</main>
