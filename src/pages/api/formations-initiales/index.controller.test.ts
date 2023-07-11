@@ -5,8 +5,13 @@ import {
 	rechercherFormationInitialeHandler,
 } from '~/pages/api/formations-initiales/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import {
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	aFormationInitiale,
+	aResultatFormationInitiale,
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
 } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
@@ -22,14 +27,14 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
-		await testApiHandler<Array<FormationInitiale> | ErrorHttpResponse>({
+		await testApiHandler<ResultatRechercheFormationsInitiales | ErrorHttpResponse>({
 			handler: (req, res) => rechercherFormationInitialeHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
 				// THEN
 				expect(searchFormationInitialeCall.isDone()).toBe(true);
-				expect(json).toEqual([aFormationInitiale()]);
+				expect(json).toEqual(aResultatFormationInitiale({ formationsInitiales: [aFormationInitiale()] }));
 			},
 			url: `/formations-initiales?motCle=${motCle}`,
 		});

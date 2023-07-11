@@ -1,9 +1,17 @@
 import {
 	FormationInitiale,
 	FormationInitialeDetail,
-	FormationInitialeFiltre,
+	FormationInitialeFiltre, ResultatRechercheFormationsInitiales,
 } from '~/server/formations-initiales/domain/formationInitiale';
 
+
+export function aResultatFormationInitiale(override?: Partial<ResultatRechercheFormationsInitiales>): ResultatRechercheFormationsInitiales{
+	return {
+		formationsInitiales: [aFormationInitiale()], 
+		nombreDeResultat: 150,
+		...override,
+	};
+}
 export function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
 		identifiant: 'FOR.1234',

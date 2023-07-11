@@ -2,61 +2,64 @@
  * @jest-environment jsdom
  */
 
-import { 	aFormationInitiale, aFormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale.fixture';
-import { formationInitialeDetailMapper, formationInitialeRechercheMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
-import { aFormationInitialeApiResponse } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
+import {
+	aFormationInitialeDetail, aResultatFormationInitiale,
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import {
+	formationInitialeDetailMapper,
+	formationInitialeRechercheMapper,
+} from '~/server/formations-initiales/infra/formationInitiale.mapper';
+import {
+	aFormationInitialeApiResponse, aResultatRechercheFormationInitialeApiResponse,
+} from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 
 describe('formationInitialeRechercheMapper', () => {
 	it('l‘identifiant ne peut pas être récupéré', () => {
-		const formationsInitialesResultExpected = [aFormationInitiale({
-			identifiant: undefined,
-		})];
+		const formationsInitialesMapped = formationInitialeRechercheMapper(aResultatRechercheFormationInitialeApiResponse({
+			results: [aFormationInitialeApiResponse({
+				url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/pasUnSlug/FOR.3311',
+			})],
+		}));
 
-		const formationsInitialesMapped = formationInitialeRechercheMapper([aFormationInitialeApiResponse({
-			url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/pasUnSlug/FOR.3311',
-		})]);
-
-		expect(formationsInitialesMapped).toEqual(formationsInitialesResultExpected);
+		expect(formationsInitialesMapped.formationsInitiales[0].identifiant).toEqual(undefined);
 	});
 
 	it('l‘identifiant est récupéré', () => {
-		const formationsInitialesResultExpected = [aFormationInitiale({
-			identifiant: 'FOR.3311',
-		})];
+		const formationsInitialesMapped = formationInitialeRechercheMapper(aResultatRechercheFormationInitialeApiResponse({
+			results: [aFormationInitialeApiResponse({
+				url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
+			})],
+		}));
 
-		const formationsInitialesMapped = formationInitialeRechercheMapper([aFormationInitialeApiResponse({
-			url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
-		})]);
-
-		expect(formationsInitialesMapped).toEqual(formationsInitialesResultExpected);
+		expect(formationsInitialesMapped.formationsInitiales[0].identifiant).toEqual('FOR.3311');
 	});
-	
+
 	it('map les formations initiales', () => {
-		const apiResponse = [aFormationInitialeApiResponse()];
+		const apiResponse = aResultatRechercheFormationInitialeApiResponse();
 		const formationInitialeMapped = formationInitialeRechercheMapper(apiResponse);
-		expect(formationInitialeMapped).toEqual([aFormationInitiale()]);
+		expect(formationInitialeMapped).toEqual(aResultatFormationInitiale());
 	});
 
 	describe('map la certification', () => {
 		it('lorsque le niveau de certification est 0, je renvoie une string vide', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '0' });
-			const formationInitialeListApiResponse = [formationInitialeApiResponse];
-			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
-			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			const apiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
+			const formationInitialeMapped = formationInitialeRechercheMapper(apiResponse);
+			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est une string vide, je renvoie une string vide', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '' });
-			const formationInitialeListApiResponse = [formationInitialeApiResponse];
-			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
-			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			const apiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
+			const formationInitialeMapped = formationInitialeRechercheMapper(apiResponse);
+			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est fourni, je renvoie l‘information attendue', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: 'niveau 5 (bac + 2)' });
-			const formationInitialeListApiResponse = [formationInitialeApiResponse];
+			const formationInitialeListApiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
 			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
-			expect(formationInitialeMapped[0].tags).toEqual(['Certifiante', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual(['Certifiante', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 	});
 });

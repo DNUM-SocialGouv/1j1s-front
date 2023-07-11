@@ -2,7 +2,7 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import {
 	aFormationInitiale, aFormationInitialeDetail,
-	aFormationInitialeFiltre,
+	aFormationInitialeFiltre, aResultatFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aFormationInitialeApiResponse,
@@ -51,15 +51,16 @@ describe('onisep formation initiale repository', () => {
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
 			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse());
-			const expectedFormationsInitiales = createSuccess([aFormationInitiale()]);
+			const formationsInitiales = [aFormationInitiale()];
+			const expectedFormationsInitiales = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
 			const filtre = aFormationInitialeFiltre();
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
 			// WHEN
-			const formationsInitiales = await formationInitialeRepository.search(filtre);
+			const resultRecherche = await formationInitialeRepository.search(filtre);
 
 			// THEN
-			expect(formationsInitiales).toStrictEqual(expectedFormationsInitiales);
+			expect(resultRecherche).toStrictEqual(expectedFormationsInitiales);
 		});
 
 		describe('en cas d’erreur', () => {

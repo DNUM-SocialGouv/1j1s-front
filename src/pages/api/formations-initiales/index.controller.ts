@@ -6,7 +6,9 @@ import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.mi
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 export const formationInitialeQuerySchema = Joi.object({
@@ -17,7 +19,7 @@ export type FormationInitialeQueryParams = {
 	motCle?: string
 }
 
-export async function rechercherFormationInitialeHandler(req: NextApiRequest, res: NextApiResponse<Array<FormationInitiale> | ErrorHttpResponse>) {
+export async function rechercherFormationInitialeHandler(req: NextApiRequest, res: NextApiResponse<ResultatRechercheFormationsInitiales | ErrorHttpResponse>) {
 	const filtreMapped = formationInitialeRechercheFiltreMapper(req.query);
 	const resultatFormationsInitiales = await dependencies.formationInitialeDependencies.rechercherFormationInitiale.handle(filtreMapped);
 	return handleResponse(resultatFormationsInitiales, res);
