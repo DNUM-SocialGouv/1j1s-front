@@ -52,15 +52,16 @@ function useTouchedInput() {
 
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
-	onKeyDown: onKeyDownProps,
-	onChange: onChangeProps,
 	value: valueProps,
 	defaultValue,
 	className,
 	name,
 	'aria-controls': ariaControls,
-	onBlur: onBlurProps,
-	onFocus: onFocusProps,
+	onKeyDown: onKeyDownProps = doNothing,
+	onChange: onChangeProps = doNothing,
+	onBlur: onBlurProps = doNothing,
+	onFocus: onFocusProps= doNothing,
+	onInput: onInputProps= doNothing,
 	requireValidOption = false,
 	...inputProps
 }, inputOuterRef) {
@@ -102,8 +103,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const triggerChangeEvent = useCallback(function triggerChangeEvents() {
 		if (inputRef.current) {
 			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
-			if (onChangeProps) { onChangeProps(changeEvent); }
-			if (inputProps.onInput) { inputProps.onInput(changeEvent); }
+			onChangeProps(changeEvent);
+			onInputProps(changeEvent);
 		}
 	}, [inputProps, inputRef, onChangeProps]);
 
@@ -145,14 +146,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			default:
 				break;
 		}
-
-		if (onKeyDownProps) {
-			onKeyDownProps(event);
-		}
+		onKeyDownProps(event);
 	}, [onKeyDownProps, triggerChangeEvent]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
-		if (onChangeProps) { onChangeProps(event); }
+		onChangeProps(event);
 	}, [onChangeProps]);
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -163,11 +161,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 		dispatch(new Actions.CloseList());
 		setTouchedOnBlur(value);
-		if (onBlurProps) { onBlurProps(event); }
+		onBlurProps(event);
 	}, [setTouchedOnBlur, onBlurProps, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
-		if (onFocusProps) { onFocusProps(event); }
+		onFocusProps(event);
 	}, [onFocusProps, saveValueOnFocus, value]);
 
 	return (
@@ -184,11 +182,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-activedescendant={activeDescendant}
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
-					onKeyDown={onKeyDown}
 					value={value}
-					onChange={onChange}
 					name={name && `${name}.label`}
 					data-touched={touched}
+					onChange={onChange}
+					onKeyDown={onKeyDown}
+					onInput={onInputProps}
 					{...inputProps} />
 				<input
 					type="hidden"
@@ -226,4 +225,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 function cancelEvent(event: SyntheticEvent) {
 	event.preventDefault();
 	event.stopPropagation();
+}
+
+function doNothing() {
+	return;
 }
