@@ -14,6 +14,8 @@ $white: #FFFFFF;
 $color-error: #CE0500;
 $color-warning: #E4794A;
 $color-success: #18753C;
+$color-text-disabled: #929292;
+$color-background-disabled: #EEEEEE;
 
 
 /* ***************
@@ -48,7 +50,7 @@ $color-cta-background-secondary: #FFFFFF;
 $color-cta-background-secondary-hover: #ECECFF;
 $color-cta-background-tertiary: #ECECFF;
 $color-cta-background-tertiary-hover: #6E61E9;
-$color-cta-background-inactive: #929292;
+$color-cta-background-inactive: $color-text-disabled;
 
 $color-cta-texte-primary: #FFFFFF;
 $color-cta-texte-primary-hover: #FFFFFF;
@@ -56,11 +58,11 @@ $color-cta-texte-secondary: #566BB1;
 $color-cta-texte-secondary-hover: #566BB1;
 $color-cta-texte-tertiary: #566BB1;
 $color-cta-texte-tertiary-hover: #FFFFFF;
-$color-cta-texte-inactive: #FFFFFF;
+$color-cta-texte-inactive: $color-text-disabled;
 
 $color-cta-link-background-light: #566BB1;
 $color-cta-link-background-dark: #FFFFFF;
-$color-cta-link-inactive: #929292;
+$color-cta-link-inactive: $color-text-disabled;
 
 /* ***************
  * Complementary colors - groupe 1

@@ -103,7 +103,7 @@ export const optionAvecValue: Story = {
 
 export const validation: Story = {
 	args: {
-		requiredValidOption: true,
+		requireValidOption: true,
 	},
 	render: ({ children, ...args }) => (
 		<form onSubmit={(event) => {

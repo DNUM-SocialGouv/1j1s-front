@@ -1,10 +1,22 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .combobox {
   // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
+
+  $color-text: utilities.$color-text-primary;
+  $color-border: utilities.$color-background-border;
+  $color-text-disabled: inherit;
+  $color-background-disabled: utilities.$color-background-disabled;
+  $color-error: utilities.$color-error;
+  $color-list-border: $color-border;
+  $color-list-background: utilities.$color-background-primary;
+  $color-option-hover: utilities.$color-background-primary-alternative;
+
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
+  color: $color-text;
 
   & input {
     background-color: transparent;
@@ -32,27 +44,27 @@
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
   & input {
-    border: $border-width solid utilities-deprecated.$color-combobox-border;
+    border: $border-width solid $color-border;
     border-right: none;
     border-radius: $border-radius 0 0 $border-radius;
   }
   & button {
-    border: $border-width solid utilities-deprecated.$color-combobox-border;
+    border: $border-width solid $color-border;
     border-left: none;
     border-radius: 0 $border-radius $border-radius 0;
   }
   & input:disabled,
   & input:read-only,
   & button:disabled {
-    border-color: utilities-deprecated.$color-combobox-disabled;
-    color: utilities-deprecated.$color-combobox-disabled;
+    color: $color-text-disabled;
+    background-color: $color-background-disabled;
     cursor: not-allowed;
   }
 
   $error-border-width: 2px;
   & input[role="combobox"][data-touched="true"]:invalid,
   & input[role="combobox"][data-touched="true"]:invalid ~ button {
-    border-color: utilities-deprecated.$color-combobox-error;
+    border-color: $color-error;
     border-width: $error-border-width;
   }
   & input[role="combobox"]:valid,
@@ -79,9 +91,9 @@
     position: absolute;
     top: 100%;
     width: 100%;
-    border: 1px solid utilities-deprecated.$color-combobox-list-border;
+    border: 1px solid $color-list-border;
     border-radius: $border-radius;
-    background-color: utilities-deprecated.$color-combobox-list-background;
+    background-color: $color-list-background;
     margin-top: 4px;
 
     max-height: 10em;
@@ -93,7 +105,7 @@
 
       &:hover,
       &[aria-selected="true"] {
-        background-color: utilities-deprecated.$color-combobox-option-hover;
+        background-color: $color-option-hover;
         font-weight: bold;
       }
     }

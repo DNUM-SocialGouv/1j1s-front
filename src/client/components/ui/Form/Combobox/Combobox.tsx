@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, {
 	FocusEvent,
 	KeyboardEvent,
+	SyntheticEvent,
 	useCallback,
 	useEffect,
 	useId,
@@ -9,7 +10,7 @@ import React, {
 	useMemo,
 	useReducer,
 	useRef,
-} from 'react';
+	useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -23,7 +24,7 @@ import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
-	requiredValidOption?: boolean,
+	requireValidOption?: boolean,
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -31,6 +32,23 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' 
 	'aria-label'?: string,
 	'aria-labelledby': string,
 });
+
+function useTouchedInput() {
+	const [touched, setTouched] = useState(false);
+	const valueOnFocus = useRef<string | null>(null);
+
+	const saveValueOnFocus = useCallback(function saveCurrentValue(value: string) {
+		valueOnFocus.current = value;
+	}, []);
+
+	const setTouchedOnBlur = useCallback(function touch(currentValue: string) {
+		if (valueOnFocus.current !== currentValue) {
+			setTouched(true);
+		}
+	}, []);
+
+	return { saveValueOnFocus, setTouchedOnBlur, touched };
+}
 
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
@@ -43,22 +61,22 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	'aria-controls': ariaControls,
 	onBlur: onBlurProps,
 	onFocus: onFocusProps,
-	requiredValidOption = false,
+	requireValidOption = false,
 	...inputProps
 }, inputOuterRef) {
+	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
+
 	const listboxRef = useRef<HTMLUListElement>(null);
-	const valueOnFocus = useRef<string | null>(null);
 	const inputRef = useSynchronizedRef(inputOuterRef);
 	const [state, dispatch] = useReducer(
 		ComboboxReducer, {
 			activeDescendant: undefined,
 			open: false,
 			suggestionList: listboxRef,
-			touched: false,
 			value: defaultValue?.toString() ?? '',
 		},
 	);
-	const { open, activeDescendant, value: valueState, touched } = state;
+	const { open, activeDescendant, value: valueState } = state;
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
@@ -70,10 +88,10 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [value, listboxRef, children]);
 
 	useEffect(() => {
-		if (requiredValidOption) {
+		if (requireValidOption) {
 			inputRef.current?.setCustomValidity(matchingOption ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
-	}, [inputRef, matchingOption, requiredValidOption]);
+	}, [inputRef, matchingOption, requireValidOption]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -137,21 +155,20 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		if (onChangeProps) { onChangeProps(event); }
 	}, [onChangeProps]);
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
-		if (event.currentTarget.contains(event.relatedTarget)) {
-			event.preventDefault();
-			event.stopPropagation();
-		} else {
-			dispatch(new Actions.CloseList());
-			if (valueOnFocus.current !== value) {
-				dispatch(new Actions.Touch());
-			}
-			if (onBlurProps) { onBlurProps(event); }
+		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
+		if (newFocusStillInCombobox) {
+			cancelEvent(event);
+			return;
 		}
-	}, [onBlurProps, value]);
+
+		dispatch(new Actions.CloseList());
+		setTouchedOnBlur(value);
+		if (onBlurProps) { onBlurProps(event); }
+	}, [setTouchedOnBlur, onBlurProps, value]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
-		valueOnFocus.current = value;
+		saveValueOnFocus(value);
 		if (onFocusProps) { onFocusProps(event); }
-	}, [onFocusProps, value]);
+	}, [onFocusProps, saveValueOnFocus, value]);
 
 	return (
 		<ComboboxProvider value={{
@@ -177,7 +194,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					type="hidden"
 					name={name && `${name}.value`}
 					value={matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? ''}
-					required={requiredValidOption}/>
+					required={requireValidOption}/>
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
@@ -205,3 +222,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		</ComboboxProvider>
 	);
 });
+
+function cancelEvent(event: SyntheticEvent) {
+	event.preventDefault();
+	event.stopPropagation();
+}
