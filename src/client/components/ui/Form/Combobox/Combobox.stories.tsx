@@ -17,6 +17,7 @@ const meta: Meta<typeof Combobox> = {
 		value: { type: 'string' },
 	},
 	args: {
+		'aria-label': 'Pays',
 		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne', 'Belgique', 'Japon', 'Australie', 'Chine', 'Canada', 'États-Unis'],
 		disabled: false,
 		readOnly: false,
