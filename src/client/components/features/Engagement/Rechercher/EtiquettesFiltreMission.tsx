@@ -6,7 +6,7 @@ import React, {
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 
-export function ÉtiquettesFiltreMission() {
+export function EtiquettesFiltreMission() {
 	const [filtreList, setFiltreList] = useState<string[]>([]);
 	const missionEngagementQuery = useMissionEngagementQuery();
 

@@ -4,7 +4,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { Offre } from '~/server/offres/domain/offre';
 
-export function ÉtiquettesFiltreOffreEmploi() {
+export function EtiquettesFiltreOffreEmploi() {
 	const [filtres, setFiltres] = useState<string[]>([]);
 	const offreEmploiQuery = useOffreQuery();
 

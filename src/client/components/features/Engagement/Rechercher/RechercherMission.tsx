@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import {
 	FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
-import { ÉtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ÉtiquettesFiltreMission';
+import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/EtiquettesFiltreMission';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -98,7 +98,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 				<RechercherSolutionLayout
 					bannière={<BannièreMission isServiceCivique={isServiceCivique}/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={<ÉtiquettesFiltreMission/>}
+					étiquettesRecherche={<EtiquettesFiltreMission/>}
 					formulaireRecherche={<FormulaireRechercheMissionEngagement
 						domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isLoading={isLoading}

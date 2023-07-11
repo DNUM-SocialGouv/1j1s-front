@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
 	FormulaireRechercherFormation,
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
-import { ÉtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/ÉtiquettesFiltreFormation';
+import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
@@ -89,7 +89,7 @@ export default function RechercherFormation() {
 			<RechercherSolutionLayout
 				bannière={<BannièreFormation/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={<ÉtiquettesFiltreFormation/>}
+				étiquettesRecherche={<EtiquettesFiltreFormation/>}
 				formulaireRecherche={<FormulaireRechercherFormation/>}
 				isLoading={isLoading}
 				messageRésultatRecherche={messageRésultatRecherche}
