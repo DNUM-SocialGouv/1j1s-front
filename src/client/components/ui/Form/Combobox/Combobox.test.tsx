@@ -1307,7 +1307,122 @@ describe('<Combobox />', () => {
 		it.todo('pouvoir renommer le name de la value pour le submit');
 	});
 
-	it.todo('validation de la valeur avec liste des options');
+	describe('validation', () => {
+		describe('touched', () => {
+			// NOTE (GAFI 07-07-2023): Ré-implémentation du sélecteur `:user-valid` (https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid)
+			//	qui n'est pas encore suffisamment supporté (https://caniuse.com/mdn-css_selectors_user-valid)
+			it('n’est pas marqué comme touché par défaut', () => {
+				render(
+					<Combobox aria-label="Test">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				expect(input).not.toHaveAttribute('data-touched', 'true');
+			});
+			it('marque le champ comme touché quand on quite le champ après avoir écrit dedans', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label="Test">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'Opt');
+				await user.tab();
+
+				expect(input).toHaveAttribute('data-touched', 'true');
+			});
+			it('ne marque pas le champ tant qu’on ne quite pas le champ', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label="Test">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'Opt');
+
+				expect(input).not.toHaveAttribute('data-touched', 'true');
+
+			});
+			it('ne marque pas le champ comme touché quand on quite le champ sans avoir écrit dedans', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label="Test">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.click(input);
+				await user.tab();
+
+				expect(input).not.toHaveAttribute('data-touched', 'true');
+			});
+			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
+			it.todo('quand on submit le form ?');
+		});
+
+		describe('requiredValidOption', () => {
+			it('est invalide quand l’entrée n’appartient pas à la liste d’options', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label='Test' requiredValidOption>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'test');
+
+				expect(input).toBeInvalid();
+			});
+			it('est valide quand on sélectionne une options', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label='Test' requiredValidOption>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const button = screen.getByRole('button');
+				await user.click(button);
+				const option = screen.getByRole('option');
+				await user.click(option);
+
+				const input = screen.getByRole('combobox');
+				expect(input).toBeValid();
+			});
+			it('est valide quand entre le texte exacte d’une option', async () => {
+				const user = userEvent.setup();
+				render(
+					<Combobox aria-label='Test' requiredValidOption>
+						<Combobox.Option>Option 1</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'Option 1');
+
+				expect(input).toBeValid();
+			});
+		});
+	});
+
 	it.todo('gérer les catégories');
 
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');

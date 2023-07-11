@@ -22,6 +22,7 @@
   }
 
   $border-radius: 1.25rem;
+  $border-width: 1px;
   border-radius: $border-radius;
   @extend %outlined;
   & input,
@@ -31,12 +32,12 @@
 
   // NOTE (GAFI 27-06-2023): Impossible de changer la couleur de la bordure quand disabled si elle est sur la div parent
   & input {
-    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border: $border-width solid utilities-deprecated.$color-combobox-border;
     border-right: none;
     border-radius: $border-radius 0 0 $border-radius;
   }
   & button {
-    border: 1px solid utilities-deprecated.$color-combobox-border;
+    border: $border-width solid utilities-deprecated.$color-combobox-border;
     border-left: none;
     border-radius: 0 $border-radius $border-radius 0;
   }
@@ -46,6 +47,31 @@
     border-color: utilities-deprecated.$color-combobox-disabled;
     color: utilities-deprecated.$color-combobox-disabled;
     cursor: not-allowed;
+  }
+
+  $error-border-width: 2px;
+  & input[role="combobox"][data-touched="true"]:invalid,
+  & input[role="combobox"][data-touched="true"]:invalid ~ button {
+    border-color: utilities-deprecated.$color-combobox-error;
+    border-width: $error-border-width;
+  }
+  & input[role="combobox"]:valid,
+  & input[role="combobox"]:not([data-touched="true"]) {
+    // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
+    $border-width-compensation: calc($error-border-width - $border-width);
+    margin:
+      $border-width-compensation
+      0
+      $border-width-compensation
+      $border-width-compensation;
+
+    & ~ button {
+      margin:
+        $border-width-compensation
+        $border-width-compensation
+        $border-width-compensation
+        0;
+    }
   }
 
   & ul[role="listbox"] {
@@ -68,6 +94,7 @@
       &:hover,
       &[aria-selected="true"] {
         background-color: utilities-deprecated.$color-combobox-option-hover;
+        font-weight: bold;
       }
     }
   }

@@ -5,6 +5,7 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import { Combobox } from '.';
+import styles from './Combobox.stories.module.scss';
 
 const meta: Meta<typeof Combobox> = {
 	argTypes: {
@@ -12,6 +13,7 @@ const meta: Meta<typeof Combobox> = {
 			control: 'array',
 		},
 		onBlur: { type: 'function' },
+		onFocus: { type: 'function' },
 		value: { type: 'string' },
 	},
 	args: {
@@ -56,7 +58,7 @@ export const intégrationDansUnFormulaire: Story = {
 	render: ({ children, ...args }) => (
 		<form
 			onSubmit={(event) => { event.preventDefault(); alert('form submitted'); }}
-			style={{ display: 'grid', gap: '2ch', gridTemplateColumns: '1fr 1fr' }}
+			className={styles.completeForm}
 		>
 			<label>
 				Mot clé
@@ -95,6 +97,27 @@ export const optionAvecValue: Story = {
 			<Combobox id="pays" name="pays" {...args}>
 				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
 			</Combobox>
+		</form>
+	),
+};
+
+export const validation: Story = {
+	args: {
+		requiredValidOption: true,
+	},
+	render: ({ children, ...args }) => (
+		<form onSubmit={(event) => {
+			event.preventDefault();
+			alert(`
+				label: ${event.currentTarget['pays.label'].value},
+				value: ${event.currentTarget['pays.value'].value}
+			`);
+		}}>
+			<label htmlFor="pays">Pays (sélectionnez une valeur dans la liste)</label>
+			<Combobox id="pays" name="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
+			</Combobox>
+			<ButtonComponent label="Envoyer">Envoyer</ButtonComponent>
 		</form>
 	),
 };
