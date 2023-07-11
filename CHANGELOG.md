@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.111.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.111.0...v3.111.1) (2023-07-11)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency react-instantsearch-hooks-web to v6.46.0 ([#1599](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1599)) ([9d2ae08](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9d2ae0816a2cd760b4b9f2910003b85691108c38))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency jest-axe to v8 ([840d21e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/840d21ef35d237b80bca4bfe285d4d823ed8e535))
+
 ## [3.111.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.110.0...v3.111.0) (2023-07-10)
 
 
