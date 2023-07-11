@@ -99,10 +99,10 @@
       background-color: variables.$color-success;
     }
     & .color-disabled {
-      background-color: variables.$color-disabled;
+      background-color: variables.$color-text-disabled;
     }
     & .color-disabled-background {
-      background-color: variables.$color-disabled-background;
+      background-color: variables.$color-background-disabled;
     }
   }
 
