@@ -2,20 +2,38 @@
  * @jest-environment jsdom
  */
 
-import {
-	aFormationInitiale,
-	aFormationInitialeDetail,
-} from '~/server/formations-initiales/domain/formationInitiale.fixture';
-import {
-	formationInitialeDetailMapper,
-	formationsInitialesMapper,
-} from '~/server/formations-initiales/infra/formationInitiale.mapper';
+import { 	aFormationInitiale, aFormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale.fixture';
+import { formationInitialeDetailMapper, formationInitialeRechercheMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { aFormationInitialeApiResponse } from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
 
-describe('formationInitialeMapper', () => {
+describe('formationInitialeRechercheMapper', () => {
+	it('l‘identifiant ne peut pas être récupéré', () => {
+		const formationsInitialesResultExpected = [aFormationInitiale({
+			identifiant: undefined,
+		})];
+
+		const formationsInitialesMapped = formationInitialeRechercheMapper([aFormationInitialeApiResponse({
+			url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/pasUnSlug/FOR.3311',
+		})]);
+
+		expect(formationsInitialesMapped).toEqual(formationsInitialesResultExpected);
+	});
+
+	it('l‘identifiant est récupéré', () => {
+		const formationsInitialesResultExpected = [aFormationInitiale({
+			identifiant: 'FOR.3311',
+		})];
+
+		const formationsInitialesMapped = formationInitialeRechercheMapper([aFormationInitialeApiResponse({
+			url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
+		})]);
+
+		expect(formationsInitialesMapped).toEqual(formationsInitialesResultExpected);
+	});
+	
 	it('map les formations initiales', () => {
 		const apiResponse = [aFormationInitialeApiResponse()];
-		const formationInitialeMapped = formationsInitialesMapper(apiResponse);
+		const formationInitialeMapped = formationInitialeRechercheMapper(apiResponse);
 		expect(formationInitialeMapped).toEqual([aFormationInitiale()]);
 	});
 
@@ -23,21 +41,21 @@ describe('formationInitialeMapper', () => {
 		it('lorsque le niveau de certification est 0, je renvoie une string vide', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '0' });
 			const formationInitialeListApiResponse = [formationInitialeApiResponse];
-			const formationInitialeMapped = formationsInitialesMapper(formationInitialeListApiResponse);
+			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
 			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est une string vide, je renvoie une string vide', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '' });
 			const formationInitialeListApiResponse = [formationInitialeApiResponse];
-			const formationInitialeMapped = formationsInitialesMapper(formationInitialeListApiResponse);
+			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
 			expect(formationInitialeMapped[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 
 		it('lorsque le niveau de certification est fourni, je renvoie l‘information attendue', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: 'niveau 5 (bac + 2)' });
 			const formationInitialeListApiResponse = [formationInitialeApiResponse];
-			const formationInitialeMapped = formationsInitialesMapper(formationInitialeListApiResponse);
+			const formationInitialeMapped = formationInitialeRechercheMapper(formationInitialeListApiResponse);
 			expect(formationInitialeMapped[0].tags).toEqual(['Certifiante', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
 		});
 	});
@@ -60,51 +78,53 @@ describe('formationInitialeDetailMapper', () => {
 		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
 	});
 
-	it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
-		const formationInitialeResultExpected = aFormationInitialeDetail({
-			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['Bac + 2', '1 an'],
+	describe('affiche les tags', () => {
+		it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
+			const formationInitialeResultExpected = aFormationInitialeDetail({
+				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				tags: ['Bac + 2', '1 an'],
+			});
+
+			const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
+				duree: '1 an',
+				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				niveau_de_certification: '0',
+				niveau_de_sortie_indicatif: 'Bac + 2',
+			}));
+
+			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
 		});
 
-		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
-			duree: '1 an',
-			libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			niveau_de_certification: '0',
-			niveau_de_sortie_indicatif: 'Bac + 2',
-		}));
+		it('lorsque le niveau de certification est vide, la formation n‘est pas certifiante', () => {
+			const formationInitialeResultExpected = aFormationInitialeDetail({
+				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				tags: ['Bac + 2', '1 an'],
+			});
 
-		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-	});
+			const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
+				duree: '1 an',
+				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				niveau_de_certification: '',
+				niveau_de_sortie_indicatif: 'Bac + 2',
+			}));
 
-	it('lorsque le niveau de certification est vide, la formation n‘est pas certifiante', () => {
-		const formationInitialeResultExpected = aFormationInitialeDetail({
-			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['Bac + 2', '1 an'],
+			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
 		});
 
-		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
-			duree: '1 an',
-			libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			niveau_de_certification: '',
-			niveau_de_sortie_indicatif: 'Bac + 2',
-		}));
+		it('lorsque le niveau de certification est valide, la formation est certifiante', () => {
+			const formationInitialeResultExpected = aFormationInitialeDetail({
+				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				tags: ['Certifiante', 'Bac + 2', '1 an'],
+			});
 
-		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-	});
+			const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
+				duree: '1 an',
+				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				niveau_de_certification: '3',
+				niveau_de_sortie_indicatif: 'Bac + 2',
+			}));
 
-	it('lorsque le niveau de certification est valide, la formation est certifiante', () => {
-		const formationInitialeResultExpected = aFormationInitialeDetail({
-			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['Certifiante', 'Bac + 2', '1 an'],
+			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
 		});
-
-		const formationInitialeMapped = formationInitialeDetailMapper(aFormationInitialeApiResponse({
-			duree: '1 an',
-			libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			niveau_de_certification: '3',
-			niveau_de_sortie_indicatif: 'Bac + 2',
-		}));
-
-		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
 	});
 });

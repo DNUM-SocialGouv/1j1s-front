@@ -1,7 +1,10 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { FormationInitiale, FormationInitialeDetail, FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
-import { formationInitialeDetailMapper , formationsInitialesMapper } from '~/server/formations-initiales/infra/formationInitiale.mapper';
+import {
+	formationInitialeDetailMapper,
+	formationInitialeRechercheMapper,
+} from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -39,8 +42,8 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 			const apiQueryParams = this.createApiQueryParams(filtre);
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?${apiQueryParams}`);
 			const formationsInitialesApiResponse = apiResponse.data.results;
-			const formationsInitialesMapped = formationsInitialesMapper(formationsInitialesApiResponse);
-			return createSuccess(formationsInitialesMapped);
+			const formationsInitiales = formationInitialeRechercheMapper(formationsInitialesApiResponse);
+			return createSuccess(formationsInitiales);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: '[API Onisep]',
@@ -68,6 +71,3 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		}
 	}
 }
-
-
-

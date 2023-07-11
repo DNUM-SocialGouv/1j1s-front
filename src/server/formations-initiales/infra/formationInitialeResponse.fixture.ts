@@ -28,7 +28,7 @@ export function aFormationInitialeApiResponse(override?: Partial<FormationInitia
 		sigle_formation: '',
 		sigle_type_formation: 'CPGE',
 		tutelle: 'Ministère chargé de l\'Enseignement supérieur et de la Recherche',
-		url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.3311',
+		url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 		...override,
 	};
 }

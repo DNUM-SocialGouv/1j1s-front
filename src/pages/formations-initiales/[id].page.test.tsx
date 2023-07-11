@@ -11,6 +11,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
+import { aFormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import { checkA11y } from '~/test-utils';
 
 describe('quand le feature flip est actif', () => {
@@ -23,7 +24,7 @@ describe('quand le feature flip est actif', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterFormationInitialePage/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail()}/>
 			</DependenciesProvider>,
 		);
 
@@ -38,7 +39,7 @@ describe('quand le feature flip est actif', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<ConsulterFormationInitialePage/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail()}/>
 			</DependenciesProvider>,
 		);
 
@@ -55,7 +56,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<ConsulterFormationInitialePage/>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail()}/>
 			</DependenciesProvider>,
 		);
 
