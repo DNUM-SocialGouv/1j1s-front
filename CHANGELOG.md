@@ -7,6 +7,18 @@
 
 * **formations init:** récupération du détail partie 2 ([#1598](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1598)) ([5eae8ed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5eae8eddeace9b69ec867db4a117019df5c03cbe))
 
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest to v29.5.3 ([#1603](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1603)) ([aaaab83](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aaaab83800ccf57117172d85a27c068295f45eea))
+
+## [3.113.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.112.2...v3.113.0) (2023-07-11)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** récupération du détail partie 2 ([#1598](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1598)) ([5eae8ed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5eae8eddeace9b69ec867db4a117019df5c03cbe))
+
 ## [3.112.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.112.1...v3.112.2) (2023-07-11)
 
 
