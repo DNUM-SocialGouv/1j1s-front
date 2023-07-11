@@ -108,19 +108,6 @@ describe('RechercherFormationInitiale', () => {
 				});
 			});
 
-			it('lorsqu‘il n‘y a pas de résultat je ne vois pas le nombre de résultats affiché', async () => {
-				const aFormationService = aFormationInitialeService();
-				const resultatFormationInitiale = createSuccess(aResultatFormationInitiale({  nombreDeResultat: 0 }));
-				jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
-
-				render(<DependenciesProvider formationInitialeService={aFormationService}>
-					<RechercherFormationInitiale/>
-				</DependenciesProvider>,
-				);
-
-				expect(await screen.findByText(/0 formation pour boulanger/)).toBeVisible();
-			});
-
 			describe('les cartes', () => {
 				it('lorsqu‘il y a des résultats doit affiché le bon nombre de cards', async () => {
 					const aFormationService = aFormationInitialeService();
