@@ -1375,11 +1375,11 @@ describe('<Combobox />', () => {
 			it.todo('quand on submit le form ?');
 		});
 
-		describe('requiredValidOption', () => {
+		describe('requireValidOption', () => {
 			it('est invalide quand l’entrée n’appartient pas à la liste d’options', async () => {
 				const user = userEvent.setup();
 				render(
-					<Combobox aria-label='Test' requiredValidOption>
+					<Combobox aria-label='Test' requireValidOption>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -1394,7 +1394,7 @@ describe('<Combobox />', () => {
 			it('est valide quand on sélectionne une options', async () => {
 				const user = userEvent.setup();
 				render(
-					<Combobox aria-label='Test' requiredValidOption>
+					<Combobox aria-label='Test' requireValidOption>
 						<Combobox.Option>Option 1</Combobox.Option>
 					</Combobox>,
 				);
@@ -1410,7 +1410,7 @@ describe('<Combobox />', () => {
 			it('est valide quand entre le texte exacte d’une option', async () => {
 				const user = userEvent.setup();
 				render(
-					<Combobox aria-label='Test' requiredValidOption>
+					<Combobox aria-label='Test' requireValidOption>
 						<Combobox.Option>Option 1</Combobox.Option>
 					</Combobox>,
 				);

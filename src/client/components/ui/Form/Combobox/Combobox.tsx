@@ -24,7 +24,7 @@ import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
-	requiredValidOption?: boolean,
+	requireValidOption?: boolean,
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -61,7 +61,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	'aria-controls': ariaControls,
 	onBlur: onBlurProps,
 	onFocus: onFocusProps,
-	requiredValidOption = false,
+	requireValidOption = false,
 	...inputProps
 }, inputOuterRef) {
 	const { touched, onFocus: onFocusTouched, onBlur: OnBlurTouched } = useTouchedInput();
@@ -88,10 +88,10 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [value, listboxRef, children]);
 
 	useEffect(() => {
-		if (requiredValidOption) {
+		if (requireValidOption) {
 			inputRef.current?.setCustomValidity(matchingOption ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
-	}, [inputRef, matchingOption, requiredValidOption]);
+	}, [inputRef, matchingOption, requireValidOption]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -193,7 +193,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					type="hidden"
 					name={name && `${name}.value`}
 					value={matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? ''}
-					required={requiredValidOption}/>
+					required={requireValidOption}/>
 				<button
 					onClick={() => {
 						dispatch(new Actions.ToggleList());
