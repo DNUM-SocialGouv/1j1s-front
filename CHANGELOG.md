@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.113.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.0...v3.113.1) (2023-07-11)
+
+
+### 👷 Autres changements
+
+* **main:** release 3.113.0 ([#1617](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1617)) ([0e3b18d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0e3b18da174a8c1713def748bbe5ab507de6e78e))
+
 ## [3.113.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.112.2...v3.113.0) (2023-07-11)
 
 
