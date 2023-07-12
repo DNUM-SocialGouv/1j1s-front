@@ -12,6 +12,7 @@
 
   a {
     text-decoration: none;
+    outline-offset: 8px;
   }
 
   & .headerBannerMobile {
@@ -169,7 +170,7 @@
 }
 
 .navItem {
-  &:hover > a > .navItemLabel, &:hover .subNavItemLabel {
+  &:hover > a.navItemLabel, &:hover .subNavItemLabel {
     @include underline;
   }
 
@@ -178,6 +179,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    outline-offset: -2px;
   }
 
   &Label {
@@ -200,10 +202,12 @@
 .subNavItem {
   color: utilities-deprecated.$color-on-surface;
 
-  &:hover {
-    & > a > .navItemLabel {
+  &:hover > a.navItemLabel {
       @include underline;
-    }
+  }
+
+  > a.navItemLabel{
+    outline-offset: -2px;
   }
 
   &:not(:last-child) {
