@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.113.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.1...v3.113.2) (2023-07-12)
+
+
+### 🐛 Corrections de bogues
+
+* corrige la visibilité du focus dans le header ([#1608](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1608)) ([ff4f700](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff4f700e61ca8d6d68d8f5c96211539dfac3d911))
+
 ## [3.113.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.0...v3.113.1) (2023-07-11)
 
 
