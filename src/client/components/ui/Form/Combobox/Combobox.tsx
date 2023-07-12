@@ -106,7 +106,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			onChangeProps(changeEvent);
 			onInputProps(changeEvent);
 		}
-	}, [inputProps, inputRef, onChangeProps]);
+	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
 		dispatch(new Actions.SelectOption(option));
