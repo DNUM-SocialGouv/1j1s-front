@@ -16,10 +16,25 @@ describe('formationInitialeFiltreMapper', () => {
 			page: 1,
 		});
 	});
+
 	it('lorsque la page n‘est pas fournise', () => {
 		const query: FormationInitialeQueryParams = {
 			motCle: 'informatique',
 			page: undefined,
+		};
+
+		const result = formationInitialeRechercheFiltreMapper(query);
+
+		expect(result).toEqual({
+			motCle: 'informatique',
+			page: 1,
+		});
+	});
+
+	it('lorsque la page est incorrect', () => {
+		const query: FormationInitialeQueryParams = {
+			motCle: 'informatique',
+			page: 'pas une page',
 		};
 
 		const result = formationInitialeRechercheFiltreMapper(query);

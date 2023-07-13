@@ -4,6 +4,6 @@ import { FormationInitialeFiltre } from '~/server/formations-initiales/domain/fo
 export function formationInitialeRechercheFiltreMapper(query: FormationInitialeQueryParams): FormationInitialeFiltre {
 	return {
 		motCle: query.motCle,
-		page: query.page ? Number(query.page) : 1,
+		page: Number(query.page) ? Number(query.page) : 1,
 	};
 }
