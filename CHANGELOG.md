@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.113.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.3...v3.113.4) (2023-07-13)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/react-dom to v18.2.7 ([#1624](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1624)) ([69afecd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/69afecd0ed6135f2749dc2f4a8a357c2cc5b544d))
+* **deps:** update storybook monorepo to v7.0.27 ([#1622](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1622)) ([bf942b5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bf942b5088f44b9e18158e3ef7fa15ac26bca90d))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency dompurify to v3.0.5 ([#1610](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1610)) ([caca879](https://github.com/DNUM-SocialGouv/1j1s-front/commit/caca8797e15e826bea6ce02a09158044e00860b9))
+* **deps:** update dependency sharp to v0.32.2 ([#1611](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1611)) ([52b9df9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/52b9df9faf66c74832850a3558aea0733cd002a3))
+
 ## [3.113.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.2...v3.113.3) (2023-07-12)
 
 
