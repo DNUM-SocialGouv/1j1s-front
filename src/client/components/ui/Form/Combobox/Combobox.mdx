@@ -86,4 +86,29 @@ L'implémentation est inspirée du [pattern ARIA "Listbox Example with Grouped O
 
 <Canvas of={stories.categories} />
 
+## Version asynchrone
+
+Si les options du combobox sont obtenues par appel d'API par exemple, ajouter un message avec le composant `<Combobox.AsyncMessage />`.
+E.g. :
+```tsx
+<Combobox>
+  {options.map(option => <Combobox.Option>{option}</Combobox.Option>)}
+  <Combobox.AsyncMessage>
+    {
+      loading && 'Chargement des suggestions ...'
+      || error && 'Une erreur est survenue.'
+      || `${options.length} résultats trouvés`
+    }
+  </Combobox.AsyncMessage>
+</Combobox>
+```
+
 <Canvas of={stories.async} />
+
+Il est également possible de définir une stratégie de filtre des options par la props `filter`.
+Cette props est utile notamment lorsque l'appel API renvoie une liste d'option déjà filtrée.
+Deux stratégies sont déjà définies :
+- `Combobox.filterOnValueAndLabel()` est la valeur par défaut et filtre sur la valeur de l'option ainsi que son libelle
+- `Combobox.noFilter()` ne filtre pas du tout les options
+
+<Canvas of={stories.filterStrategy} />

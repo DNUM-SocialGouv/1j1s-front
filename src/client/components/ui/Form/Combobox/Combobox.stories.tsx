@@ -13,6 +13,7 @@ const meta: Meta<typeof Combobox> = {
 		children: {
 			control: 'array',
 		},
+		filter: { type: 'function' },
 		onBlur: { type: 'function' },
 		onFocus: { type: 'function' },
 		value: { type: 'string' },
@@ -54,7 +55,6 @@ export const disabled: Story = {
 		</>
 	),
 };
-
 export const intégrationDansUnFormulaire: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
@@ -177,4 +177,18 @@ export const async: Story = {
 			</>
 		);
 	},
+};
+
+export const filterStrategy: Story = {
+	args: {
+		filter: () => true,
+	},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+			</Combobox>
+		</>
+	),
 };
