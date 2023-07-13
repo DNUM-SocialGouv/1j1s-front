@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.114.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.4...v3.114.0) (2023-07-13)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** ajout de la pagination ([#1615](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1615)) ([b74595b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b74595bd38ffc04c47d7b21ac2a854d4cd01d2c9))
+
 ## [3.113.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.3...v3.113.4) (2023-07-13)
 
 
