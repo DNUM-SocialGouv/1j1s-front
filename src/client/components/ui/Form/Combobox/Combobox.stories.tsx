@@ -179,9 +179,9 @@ export const async: Story = {
 	},
 };
 
-export const filterStrategy: Story = {
+export const filterStrategyNoFilter: Story = {
 	args: {
-		filter: () => true,
+		filter: Combobox.noFilter,
 	},
 	render: ({ children, ...args }) => (
 		<>

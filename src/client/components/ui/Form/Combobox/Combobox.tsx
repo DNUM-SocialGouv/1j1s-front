@@ -13,7 +13,7 @@ import React, {
 	useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { filterOnValueAndLabel } from '~/client/components/ui/Form/Combobox/filterOnValueAndLabel';
+import { filterOnValueAndLabel } from '~/client/components/ui/Form/Combobox/filterStrategies/filterOnValueAndLabel';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
