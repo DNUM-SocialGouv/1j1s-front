@@ -1466,7 +1466,7 @@ describe('<Combobox />', () => {
 			const categoryName = screen.getByText('Options');
 			expect(categoryName).toBeInTheDocument();
 		});
-		it('masque les catégories vides', async () => {
+		it('masque les catégories qui n’ont pas de résultats de recherche', async () => {
 			const user = userEvent.setup();
 			render(
 				<Combobox aria-label='Test'>

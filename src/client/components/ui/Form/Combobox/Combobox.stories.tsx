@@ -35,7 +35,7 @@ export const exemple: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" {...args}>
-				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+				{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 			</Combobox>
 		</>
 	),
@@ -48,7 +48,7 @@ export const disabled: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" {...args}>
-				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+				{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 			</Combobox>
 		</>
 	),
@@ -68,7 +68,7 @@ export const intégrationDansUnFormulaire: Story = {
 			<label htmlFor="localisation">
 				Localisation
 				<Combobox id="localisation" name="localisation" {...args}>
-					{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+					{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 				</Combobox>
 			</label>
 			<label htmlFor="domaine">
@@ -123,22 +123,28 @@ export const validation: Story = {
 	),
 };
 
+function grouperParPremiereLettre(children) {
+	return Object.entries<string[]>(children.sort()
+		.reduce((accumulator, current) => {
+			const key = current.charAt(0);
+			if (accumulator[key] == undefined) {
+				accumulator[key] = [];
+			}
+			accumulator[key].push(current);
+			return accumulator;
+		}, {}));
+}
+
 export const categories: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
 		<>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" {...args}>{
-				Object.entries<string[]>(children.sort()
-					.reduce((accumulator, current) => {
-						const key = current.charAt(0);
-						if (accumulator[key] == undefined) { accumulator[key] = []; }
-						accumulator[key].push(current);
-						return accumulator;
-					}, {}))
+				grouperParPremiereLettre(children)
 					.map(([category, entries]) => (
 						<Combobox.Category key={category} name={category}>{
-							entries.map((entry, index) => (<Combobox.Option key={index}>{entry}</Combobox.Option>))
+							entries.map((entry) => (<Combobox.Option key={entry}>{entry}</Combobox.Option>))
 						}</Combobox.Category>
 					))
 			}</Combobox>

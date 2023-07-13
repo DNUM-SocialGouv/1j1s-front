@@ -34,6 +34,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			onClickProps(event);
 		}
 	}, [onClickProps, onOptionSelection]);
+	// NOTE (GAFI 13-07-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
 		event.preventDefault();
 	}, []);
