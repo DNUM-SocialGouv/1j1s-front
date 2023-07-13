@@ -4,7 +4,6 @@
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { UserEvent } from '@testing-library/user-event/setup/setup';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
@@ -223,22 +222,21 @@ describe('Pagination', () => {
 		});
 	});
 	describe('je peux naviguer au clavier', () => {
-		let user: UserEvent;
 		let routerPush: jest.Mock;
 
 		beforeEach(() => {
 			routerPush = jest.fn();
-			user = userEvent.setup();
 			mockUseRouter({ push: routerPush, query: { page: '3' } });
-			
+
 		});
 
 		it('la flèche retour', async () => {
+			const user = userEvent.setup();
 			render(
 				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66}/>,
 			);
 
-			const linkPagePrécédente = screen.getByRole('link', { name: 'Revenir à la page précédente' });
+			const linkPagePrécédente = screen.getByRole('link', { name: REVENIR_A_LA_PAGE_PRECENDENTE });
 			linkPagePrécédente.focus();
 			await user.keyboard(KeyBoard.ENTER);
 
@@ -246,33 +244,36 @@ describe('Pagination', () => {
 		});
 
 		it('la flèche suivante', async () => {
+			const user = userEvent.setup();
 			render(
 				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
 			);
 
-			const linkPagePrécédente = screen.getByRole('link', { name: 'Aller à la page suivante' });
+			const linkPagePrécédente = screen.getByRole('link', { name: ALLER_A_LA_PAGE_SUIVANTE });
 			linkPagePrécédente.focus();
 			await user.keyboard(KeyBoard.ENTER);
 
 			expect(routerPush).toHaveBeenCalledWith({ query: { page: 4 } });
 		});
 		it('la flèche aller au début', async () => {
+			const user = userEvent.setup();
 			render(
 				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
 			);
 
-			const linkPagePrécédente = screen.getByRole('link', { name: 'Revenir à la première page' });
+			const linkPagePrécédente = screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE });
 			linkPagePrécédente.focus();
 			await user.keyboard(KeyBoard.ENTER);
 
 			expect(routerPush).toHaveBeenCalledWith({ query: { page: 1 } });
 		});
 		it('la flèche aller à la fin', async () => {
+			const user = userEvent.setup();
 			render(
 				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
 			);
 
-			const linkPagePrécédente = screen.getByRole('link', { name: 'Aller à la dernière page' });
+			const linkPagePrécédente = screen.getByRole('link', { name: ALLER_A_LA_DERNIERE_PAGE });
 			linkPagePrécédente.focus();
 			await user.keyboard(KeyBoard.ENTER);
 
