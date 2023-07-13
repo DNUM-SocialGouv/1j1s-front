@@ -1,8 +1,12 @@
 import { Either } from '~/server/errors/either';
-import { FormationInitiale, FormationInitialeDetail, FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	FormationInitialeDetail,
+	FormationInitialeFiltre,
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
 
 export interface FormationInitialeRepository {
-    search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>>;
+    search(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>>;
     getDetail(id: string): Promise<Either<FormationInitialeDetail>>
 }
 

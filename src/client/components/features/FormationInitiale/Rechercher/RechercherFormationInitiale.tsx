@@ -18,7 +18,10 @@ import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQu
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	FormationInitiale,
+	NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
+} from '~/server/formations-initiales/domain/formationInitiale';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation initiale';
 
@@ -30,7 +33,8 @@ export function RechercherFormationInitiale() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [isLoading, setIsLoading] = useState(false);
 
-	const [resultatList, setResultatList] = useState<FormationInitiale[]>([]);
+	const [resultatList, setResultatList] = useState<Array<FormationInitiale>>([]);
+	const [nombreDeResultat, setNombreDeResultat] = useState<number>(0);
 
 	const formationInitialeQuery = useFormationInitialeQuery();
 
@@ -41,8 +45,10 @@ export function RechercherFormationInitiale() {
 		formationInitialeService.rechercherFormationInitiale(formationInitialeQuery)
 			.then((response) => {
 				if (response.instance === 'success') {
-					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
-					setResultatList(response.result);
+					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultat === 0 ? ' - Aucun résultat' : ''}`));
+					const formationInitiales = response.result.formationsInitiales;
+					setResultatList(formationInitiales);
+					setNombreDeResultat(response.result.nombreDeResultat);
 				} else {
 					setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
 					setErreurRecherche(response.errorType);
@@ -53,11 +59,10 @@ export function RechercherFormationInitiale() {
 
 	function getMessageResultatTrouve() {
 		const formationName = router.query.motCle === undefined ? '' : `pour ${router.query.motCle}`;
-		return `${resultatList.length} formation${resultatList.length > 1 ? 's' : ''} ${formationName}`;
+		return `${nombreDeResultat} formation${nombreDeResultat > 1 ? 's' : ''} ${formationName}`;
 	}
 
-	const messageResultatRecherche =
-		resultatList.length > 0 ? getMessageResultatTrouve(): '';
+	const messageResultatRecherche = resultatList?.length > 0 ? getMessageResultatTrouve() : '';
 
 	return (
 		<>
@@ -73,7 +78,8 @@ export function RechercherFormationInitiale() {
 					formulaireRecherche={<FormulaireRechercheFormationInitiale/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageResultatRecherche}
-					nombreSolutions={resultatList.length}
+					nombreSolutions={nombreDeResultat}
+					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
 			</main>
@@ -92,7 +98,7 @@ function banniere() {
 }
 
 interface ListResultatProps {
-	resultatList: FormationInitiale[]
+	resultatList: Array<FormationInitiale>
 }
 
 function ListeFormationInitiale({ resultatList }: ListResultatProps) {

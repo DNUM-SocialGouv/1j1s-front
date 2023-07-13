@@ -1,8 +1,9 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	aFormationInitiale, aFormationInitialeDetail,
-	aFormationInitialeFiltre,
+	aFormationInitialeFiltre, aResultatFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aFormationInitialeApiResponse,
@@ -24,13 +25,13 @@ describe('onisep formation initiale repository', () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
-			const filtre = aFormationInitialeFiltre({ motCle: 'informatique' });
+			const filtre = aFormationInitialeFiltre({ motCle: 'informatique', page: 1 });
 
 			// WHEN
 			await formationInitialeRepository.search(filtre);
 
 			// THEN
-			expect(httpClient.get).toHaveBeenCalledWith('/dataset/5fa591127f501/search?q=informatique');
+			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?from=0&q=informatique&size=${NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}`);
 		});
 
 		it('lorsqu‘il n‘y a pas de filtre et que la recherche est demandée, doit appeler l’api onisep', async () => {
@@ -43,7 +44,20 @@ describe('onisep formation initiale repository', () => {
 			await formationInitialeRepository.search(filtre);
 
 			// THEN
-			expect(httpClient.get).toHaveBeenCalledWith('/dataset/5fa591127f501/search?q=');
+			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?from=0&q=&size=${NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}`);
+		});
+
+		it('gère la pagination', async () => {
+			// GIVEN
+			const httpClient = anAuthenticatedHttpClientService();
+			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
+			const filtre = aFormationInitialeFiltre({ motCle: undefined, page: 3 });
+
+			// WHEN
+			await formationInitialeRepository.search(filtre);
+
+			// THEN
+			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?from=30&q=&size=${NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}`);
 		});
 
 		it('doit retourner les formations initiales', async () => {
@@ -51,15 +65,16 @@ describe('onisep formation initiale repository', () => {
 			const httpClient = anAuthenticatedHttpClientService();
 			const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, anErrorManagementService());
 			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse());
-			const expectedFormationsInitiales = createSuccess([aFormationInitiale()]);
+			const formationsInitiales = [aFormationInitiale()];
+			const expectedFormationsInitiales = createSuccess(aResultatFormationInitiale({ formationsInitiales: formationsInitiales }));
 			const filtre = aFormationInitialeFiltre();
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
 			// WHEN
-			const formationsInitiales = await formationInitialeRepository.search(filtre);
+			const resultRecherche = await formationInitialeRepository.search(filtre);
 
 			// THEN
-			expect(formationsInitiales).toStrictEqual(expectedFormationsInitiales);
+			expect(resultRecherche).toStrictEqual(expectedFormationsInitiales);
 		});
 
 		describe('en cas d’erreur', () => {

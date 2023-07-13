@@ -4,11 +4,20 @@ export interface FormationInitiale {
     identifiant?: string
 }
 
+export interface ResultatRechercheFormationsInitiales {
+	nombreDeResultat: number
+	formationsInitiales: Array<FormationInitiale>
+}
+
 export interface FormationInitialeDetail {
-    libelle: string,
-    tags:	string[],
+	libelle: string,
+	tags: string[],
 }
 
 export interface FormationInitialeFiltre {
-    motCle?: string;
+	motCle?: string;
+	page: number
 }
+
+
+export const NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE = 15;

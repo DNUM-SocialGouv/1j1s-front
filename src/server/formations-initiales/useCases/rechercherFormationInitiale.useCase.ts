@@ -1,11 +1,14 @@
-import { Either } from '../../errors/either';
-import { FormationInitiale, FormationInitialeFiltre } from '../domain/formationInitiale';
-import { FormationInitialeRepository } from '../domain/formationInitiale.repository';
+import { Either } from '~/server/errors/either';
+import {
+	FormationInitialeFiltre,
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
 
 export class RechercherFormationInitialeUseCase {
 	constructor(private readonly formationInitialeRepository: FormationInitialeRepository) {}
 
-	async handle(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
+	async handle(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>> {
 		return this.formationInitialeRepository.search(filtre);
 	}
 }

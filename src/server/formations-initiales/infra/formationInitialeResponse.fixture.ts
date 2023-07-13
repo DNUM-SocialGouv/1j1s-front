@@ -9,7 +9,7 @@ export function aResultatRechercheFormationInitialeApiResponse(override?: Partia
 		from: 0,
 		results: [aFormationInitialeApiResponse()],
 		size: 5,
-		total: 10,
+		total: 150,
 		...override,
 	};
 }

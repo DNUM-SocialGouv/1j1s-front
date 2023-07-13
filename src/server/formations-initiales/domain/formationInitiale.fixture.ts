@@ -1,9 +1,17 @@
 import {
 	FormationInitiale,
 	FormationInitialeDetail,
-	FormationInitialeFiltre,
+	FormationInitialeFiltre, ResultatRechercheFormationsInitiales,
 } from '~/server/formations-initiales/domain/formationInitiale';
 
+
+export function aResultatFormationInitiale(override?: Partial<ResultatRechercheFormationsInitiales>): ResultatRechercheFormationsInitiales{
+	return {
+		formationsInitiales: [aFormationInitiale()], 
+		nombreDeResultat: 150,
+		...override,
+	};
+}
 export function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
 		identifiant: 'FOR.1234',
@@ -24,6 +32,7 @@ export function aFormationInitialeDetail(override?: Partial<FormationInitialeDet
 export function aFormationInitialeFiltre(override?: Partial<FormationInitialeFiltre>): FormationInitialeFiltre {
 	return {
 		motCle: 'classe préparatoire',
+		page: 1,
 		...override,
 	};
 }

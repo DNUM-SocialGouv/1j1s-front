@@ -8,14 +8,14 @@ const NOMBRE_ELEMENT_SUR_MOBILE_AVANT_ET_APRES_LA_CURRENT_PAGE = 2;
 const NOMBRE_ELEMENT_SUR_DESKTOP_AVANT_ET_APRES_LA_CURRENT_PAGE = 4;
 
 export interface CommonPaginationProps {
-  currentPage: number
-  onPageClick: (page: number) => void
-  numberOfPageList: number[]
-  createURL?: (page: number) => string
-  isFirstPage: boolean
-  isLastPage: boolean
-  lastPage: number
-  maxPage?: number
+	currentPage: number
+	onPageClick: (page: number) => void
+	numberOfPageList: number[]
+	createURL?: (page: number) => string
+	isFirstPage: boolean
+	isLastPage: boolean
+	lastPage: number
+	maxPage?: number
 }
 
 export function CommonPagination(props: CommonPaginationProps) {
@@ -54,12 +54,8 @@ export function CommonPagination(props: CommonPaginationProps) {
 					aria-label="Revenir à la première page"
 					onClick={(event) => {
 						event.preventDefault();
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						if(!event.target.ariaDisabled) {
-							if (!isFirstPage) {
-								onPageClick(0);
-							}
+						if (!isFirstPage) {
+							onPageClick(0);
 						}
 					}}
 				>
@@ -74,12 +70,8 @@ export function CommonPagination(props: CommonPaginationProps) {
 					aria-label="Revenir à la page précédente"
 					onClick={(event) => {
 						event.preventDefault();
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						if(!event.target.ariaDisabled) {
-							if (!isFirstPage) {
-								onPageClick(currentPage - 1);
-							}
+						if (!isFirstPage) {
+							onPageClick(currentPage - 1);
 						}
 					}}
 				>
@@ -98,8 +90,8 @@ export function CommonPagination(props: CommonPaginationProps) {
 
 	const displayNext = () => {
 		return <>
-			{ displayElement(computedLastPage) }
-			<li key='NextPageLiPagination'>
+			{displayElement(computedLastPage)}
+			<li key="NextPageLiPagination">
 				<a
 					href={createURL ? createURL(currentPage + 1) : '#'}
 					className={'underline-none'}
@@ -107,19 +99,15 @@ export function CommonPagination(props: CommonPaginationProps) {
 					aria-label="Aller à la page suivante"
 					onClick={(event) => {
 						event.preventDefault();
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						if(!event.target.ariaDisabled) {
-							if(!isLastPage) {
-								onPageClick(currentPage+1);
-							}
+						if (!isLastPage) {
+							onPageClick(currentPage + 1);
 						}
 					}}
 				>
-					{isSmallScreen ? <Icon name={'angle-right'}/> : <><span>Page suivante</span>  <Icon name={'angle-right'}/></>}
+					{isSmallScreen ? <Icon name={'angle-right'}/> : <><span>Page suivante</span> <Icon name={'angle-right'}/></>}
 				</a>
 			</li>
-			<li key='LastLiPagination'>
+			<li key="LastLiPagination">
 				<a
 					href={createURL ? createURL(computedLastPage) : '#'}
 					className={'underline-none'}
@@ -127,33 +115,30 @@ export function CommonPagination(props: CommonPaginationProps) {
 					aria-label="Aller à la dernière page"
 					onClick={(event) => {
 						event.preventDefault();
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-						if(!event.target.ariaDisabled) {
-							if(!isLastPage) {
-								onPageClick(computedLastPage);
-							}
+						if (!isLastPage) {
+							onPageClick(computedLastPage);
 						}
 					}}
 				>
 					<Icon name={'angle-right-from-line'}/>
 				</a>
-			</li></>;
+			</li>
+		</>;
 	};
 
 	return (
 		<>
 			{
 				numberOfPageList.length >= 1
-        &&
-        <nav role="navigation" aria-label="pagination">
-        	<ul key='Pagination' className={styles.pagination}>
-	          { displayPrevious() }
-	          { displayIntermediatePages() }
-	          { displayEllipsis() }
-	          { displayNext() }
-	        </ul>
-        </nav>
+				&&
+          <nav role="navigation" aria-label="pagination">
+          	<ul key="Pagination" className={styles.pagination}>
+          		{displayPrevious()}
+          		{displayIntermediatePages()}
+          		{displayEllipsis()}
+          		{displayNext()}
+          	</ul>
+          </nav>
 			}
 		</>
 	);

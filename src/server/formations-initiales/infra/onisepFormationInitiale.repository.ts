@@ -1,5 +1,9 @@
 import { createSuccess, Either } from '~/server/errors/either';
-import { FormationInitiale, FormationInitialeDetail, FormationInitialeFiltre } from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	FormationInitialeDetail,
+	FormationInitialeFiltre, NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
 import {
 	formationInitialeDetailMapper,
@@ -37,13 +41,13 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async search(filtre: FormationInitialeFiltre): Promise<Either<Array<FormationInitiale>>> {
+	async search(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>> {
 		try {
 			const apiQueryParams = this.createApiQueryParams(filtre);
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?${apiQueryParams}`);
-			const formationsInitialesApiResponse = apiResponse.data.results;
-			const formationsInitiales = formationInitialeRechercheMapper(formationsInitialesApiResponse);
-			return createSuccess(formationsInitiales);
+			const formationsInitialesApiResponse = apiResponse.data;
+			const formationsInitialesMapped = formationInitialeRechercheMapper(formationsInitialesApiResponse);
+			return createSuccess(formationsInitialesMapped);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: '[API Onisep]',
@@ -53,7 +57,8 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		}
 	}
 	private createApiQueryParams(filtre: FormationInitialeFiltre) {
-		return new URLSearchParams({ q: filtre.motCle || '' });
+		const from = String((filtre.page - 1 ) * NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE);
+		return new URLSearchParams({ from, q: filtre.motCle || '', size: String(NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE) });
 	}
 
 	async getDetail(id: string): Promise<Either<FormationInitialeDetail>> {
