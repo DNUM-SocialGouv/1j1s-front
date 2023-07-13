@@ -4,8 +4,10 @@
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { UserEvent } from '@testing-library/user-event/setup/setup';
 import React from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
@@ -16,12 +18,14 @@ const ALLER_A_LA_PAGE_SUIVANTE = 'Aller à la page suivante';
 const ALLER_A_LA_DERNIERE_PAGE = 'Aller à la dernière page';
 
 describe('Pagination', () => {
+	beforeEach(() => {
+		mockLargeScreen();
+	});
 	describe('quand il y a deja une page dans l‘url', () => {
 		it('affiche directement la page dans la pagination', () => {
-			mockLargeScreen();
 			mockUseRouter({ query: { page: '3' } });
 			render(
-				<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+				<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
 			);
 
 			expect(screen.getByRole('link', { current: true, name: '3' })).toBeInTheDocument();
@@ -30,10 +34,9 @@ describe('Pagination', () => {
 
 	describe('quand on souhaite limiter le nombre maximum de page visible', () => {
 		it('doit afficher seulement les pages souhaitées', () => {
-			mockLargeScreen();
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66} />,
+				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66}/>,
 			);
 
 			expect(screen.getByText('1')).toBeInTheDocument();
@@ -46,10 +49,9 @@ describe('Pagination', () => {
 	describe('quand il y a 100 résultats et 1O résultats par page à afficher', () => {
 		describe('doit désactiver la return to first page et Page précédente', () => {
 			it('doit afficher les 4 premières pages, une ellipse, la page 16, Page suivante et le go to last page', () => {
-				mockLargeScreen();
 				mockUseRouter({});
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
 				);
 
 				expect(screen.getByRole('link', { name: REVENIR_A_LA_PREMIERE_PAGE }).getAttribute('aria-disabled')).toBe('true');
@@ -73,7 +75,7 @@ describe('Pagination', () => {
 					mockSmallScreen();
 					mockUseRouter({});
 					render(
-						<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+						<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
 					);
 
 					const page3 = screen.getByRole('link', { current: false, name: '3' });
@@ -97,10 +99,9 @@ describe('Pagination', () => {
 			});
 
 			it('doit afficher return to the first page, Page précédente, 4 pages avant et après la page 9, une ellipse, Page suivante et le go to last page', async () => {
-				mockLargeScreen();
 				mockUseRouter({});
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
 				);
 
 				const page5 = screen.getByRole('link', { current: false, name: '5' });
@@ -146,12 +147,11 @@ describe('Pagination', () => {
 
 		describe('quand l utilisateur clique sur la pagination', () => {
 			it('met à jour l url avec la valeur sélectionné', async () => {
-				mockLargeScreen();
 				const routerPush = jest.fn();
 
 				mockUseRouter({ push: routerPush });
 				render(
-					<Pagination numberOfResult={470} numberOfResultPerPage={30} />,
+					<Pagination numberOfResult={470} numberOfResultPerPage={30}/>,
 				);
 
 				// l‘utilisateur clique sur la troisière page
@@ -200,11 +200,10 @@ describe('Pagination', () => {
 	});
 
 	describe('quand il y moins de 2 résultats', () => {
-		it('n affiche pas la pagination', () => {
-			mockLargeScreen();
+		it('n‘affiche pas la pagination', () => {
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={2} numberOfResultPerPage={25} />,
+				<Pagination numberOfResult={2} numberOfResultPerPage={25}/>,
 			);
 
 			expect(screen.queryByRole('list')).not.toBeInTheDocument();
@@ -213,15 +212,71 @@ describe('Pagination', () => {
 
 	describe('quand il y moins de 12 résultats et 1O résultats par page à afficher', () => {
 		it('affiche la pagination avec 2 pages', () => {
-			mockLargeScreen();
 			mockUseRouter({});
 			render(
-				<Pagination numberOfResult={12} numberOfResultPerPage={10} />,
+				<Pagination numberOfResult={12} numberOfResultPerPage={10}/>,
 			);
 			expect(screen.getByRole('link', { current: true, name: '1' })).toBeInTheDocument();
 			expect(screen.getByText('2')).toBeInTheDocument();
 			expect(screen.queryByText('3')).not.toBeInTheDocument();
 
+		});
+	});
+	describe('je peux naviguer au clavier', () => {
+		let user: UserEvent;
+		let routerPush: jest.Mock;
+
+		beforeEach(() => {
+			routerPush = jest.fn();
+			user = userEvent.setup();
+			mockUseRouter({ push: routerPush, query: { page: '3' } });
+			
+		});
+
+		it('la flèche retour', async () => {
+			render(
+				<Pagination numberOfResult={70000} numberOfResultPerPage={15} maxPage={66}/>,
+			);
+
+			const linkPagePrécédente = screen.getByRole('link', { name: 'Revenir à la page précédente' });
+			linkPagePrécédente.focus();
+			await user.keyboard(KeyBoard.ENTER);
+
+			expect(routerPush).toHaveBeenCalledWith({ query: { page: 2 } });
+		});
+
+		it('la flèche suivante', async () => {
+			render(
+				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+			);
+
+			const linkPagePrécédente = screen.getByRole('link', { name: 'Aller à la page suivante' });
+			linkPagePrécédente.focus();
+			await user.keyboard(KeyBoard.ENTER);
+
+			expect(routerPush).toHaveBeenCalledWith({ query: { page: 4 } });
+		});
+		it('la flèche aller au début', async () => {
+			render(
+				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+			);
+
+			const linkPagePrécédente = screen.getByRole('link', { name: 'Revenir à la première page' });
+			linkPagePrécédente.focus();
+			await user.keyboard(KeyBoard.ENTER);
+
+			expect(routerPush).toHaveBeenCalledWith({ query: { page: 1 } });
+		});
+		it('la flèche aller à la fin', async () => {
+			render(
+				<Pagination numberOfResult={10} numberOfResultPerPage={2}/>,
+			);
+
+			const linkPagePrécédente = screen.getByRole('link', { name: 'Aller à la dernière page' });
+			linkPagePrécédente.focus();
+			await user.keyboard(KeyBoard.ENTER);
+
+			expect(routerPush).toHaveBeenCalledWith({ query: { page: 5 } });
 		});
 	});
 });
