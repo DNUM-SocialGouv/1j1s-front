@@ -1486,9 +1486,20 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('async version');
-	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
+	describe('<Combobox.AsyncMessage />', () => {
+		it('render un élément avec le rôle status', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.AsyncMessage>Chargement ...</Combobox.AsyncMessage>
+				</Combobox>,
+			);
 
-	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
-	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
+			const loader = screen.getByRole('status', { hidden: true });
+			expect(loader).toBeInTheDocument();
+		});
+	});
+
+	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
+	it.todo('stratégie de filtre');
+	it.todo('nommer les fonctions des useCallbacks et autres (plutôt que juste "onClick", ...)');
 });

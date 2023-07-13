@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { useEffect,useState } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -150,4 +151,30 @@ export const categories: Story = {
 			}</Combobox>
 		</>
 	),
+};
+
+export const async: Story = {
+	args: {},
+	render: function AsyncCombobox({ children, ...args }) {
+		const [ value, setValue] = useState('');
+		const [ loading, setLoading ] = useState(true);
+
+		useEffect(() => {
+			setLoading(true);
+			const timeout = setTimeout(() => {
+				setLoading(false);
+			}, 2000);
+			return () => clearTimeout(timeout);
+		}, [value]);
+
+		return (
+			<>
+				<label htmlFor="pays">Pays</label>
+				<Combobox id="pays" value={value} onChange={(event) => setValue(event.currentTarget.value)} {...args}>
+					{!loading && children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
+					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${children.length} résultats trouvés`}</Combobox.AsyncMessage>
+				</Combobox>
+			</>
+		);
+	},
 };
