@@ -34,14 +34,17 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			onClickProps(event);
 		}
 	}, [onClickProps, onOptionSelection]);
+	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
+		event.preventDefault();
+	}, []);
 	return (
 		<li
 			role="option"
 			aria-selected={selected}
 			hidden={hidden}
 			id={id}
-			tabIndex={-1}
 			onClick={onClick}
+			onMouseDown={onMouseDown}
 			ref={ref}
 			data-value={value?.toString()}
 			{...optionProps}
