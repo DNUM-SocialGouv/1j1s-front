@@ -107,8 +107,25 @@ E.g. :
 
 Il est également possible de définir une stratégie de filtre des options par la props `filter`.
 Cette props est utile notamment lorsque l'appel API renvoie une liste d'option déjà filtrée.
-Deux stratégies sont déjà définies :
-- `Combobox.filterOnValueAndLabel()` est la valeur par défaut et filtre sur la valeur de l'option ainsi que son libelle
+Deux stratégies sont déjà prédéfinies :
+- `Combobox.filterOnValueAndLabel()` est la **valeur par défaut** et filtre sur la valeur de l'option ainsi que son libellé
 - `Combobox.noFilter()` ne filtre pas du tout les options
+
+Mais il est quand même possible de passer sa propre stratégie de filtre sous forme `(element: Element, currentValue: string) => boolean`
+
+E.g. :
+```tsx
+<Combobox filter={Combobox.noFilter}>
+  {/* ... */}
+</Combobox>
+
+{/* --- */}
+
+<Combobox filter={(element, currentValue) => (
+  element.getAttribute('data-value') === currentValue
+)}>
+  {/* ... */}
+</Combobox>
+```
 
 <Canvas of={stories.filterStrategyNoFilter} />
