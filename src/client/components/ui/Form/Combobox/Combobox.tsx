@@ -13,6 +13,7 @@ import React, {
 	useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { filterOnValueAndLabel } from '~/client/components/ui/Form/Combobox/filterOnValueAndLabel';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -25,6 +26,7 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' 
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	requireValidOption?: boolean,
+	filter?: (element: Element, currentValue: string) => boolean
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -63,6 +65,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
 	requireValidOption = false,
+	filter = filterOnValueAndLabel,
 	...inputProps
 }, inputOuterRef) {
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
@@ -171,6 +174,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	return (
 		<ComboboxProvider value={{
 			dispatch,
+			filter,
 			onOptionSelection,
 			state,
 		}}>

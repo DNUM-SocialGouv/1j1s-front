@@ -1,7 +1,5 @@
 import { RefObject } from 'react';
 
-import { matchesInput } from './utils';
-
 export type ComboboxState = {
 	open: boolean,
 	activeDescendant: string | undefined,
@@ -9,9 +7,8 @@ export type ComboboxState = {
 	suggestionList: RefObject<HTMLUListElement>,
 }
 
-function filterOptions(suggestionList: RefObject<HTMLUListElement>, value: string) {
-	return Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? [])
-		.filter((node) => matchesInput(node, value));
+function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
+	return Array.from(suggestionList.current?.querySelectorAll('[role="option"]:not([hidden])') ?? []);
 }
 
 export interface ComboboxAction {
@@ -46,7 +43,7 @@ export namespace ComboboxAction {
 	export class NextOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList, value } = previousState;
-			const options = filterOptions(suggestionList, value);
+			const options = getVisibleOptions(suggestionList);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
 			return {
@@ -59,7 +56,7 @@ export namespace ComboboxAction {
 	export class PreviousOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList, value } = previousState;
-			const options = filterOptions(suggestionList, value);
+			const options = getVisibleOptions(suggestionList);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
 			return {

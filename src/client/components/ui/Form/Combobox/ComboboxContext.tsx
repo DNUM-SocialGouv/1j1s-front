@@ -8,6 +8,7 @@ type ContextContent = {
 	state: ReducerState<typeof ComboboxReducer>,
 	dispatch: Dispatch<ComboboxAction>,
 	onOptionSelection: (option: Element) => void,
+	filter: (element: Element, value: string) => boolean,
 }
 
 const Context = React.createContext<ContextContent | undefined>(undefined);
