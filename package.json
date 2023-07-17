@@ -89,7 +89,7 @@
     "sass": "1.63.6",
     "storybook": "7.0.27",
     "ts-node": "10.9.1",
-    "tsconfig-paths-webpack-plugin": "4.0.1",
+    "tsconfig-paths-webpack-plugin": "4.1.0",
     "typescript": "5.1.6"
   },
   "overrides": {
