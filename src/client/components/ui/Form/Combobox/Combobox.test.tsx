@@ -1423,7 +1423,71 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('gérer les catégories');
+	describe('<Combobox.Category />', () => {
+		it('render un group d’options', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const group = screen.getByRole('group', { hidden: true });
+			expect(group).toBeInTheDocument();
+		});
+		it('nomme la catégorie', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const group = screen.getByRole('group', { hidden: true });
+			expect(group).toHaveAccessibleName('Options');
+		});
+		it('affiche le nom la catégorie', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const categoryName = screen.getByText('Options');
+			expect(categoryName).toBeInTheDocument();
+		});
+		it('masque les catégories qui n’ont pas de résultats de recherche', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.Category name="Options">
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox.Category>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+
+			const category = screen.getByRole('group', { hidden: true });
+			expect(category).not.toBeVisible();
+		});
+	});
+
+	it.todo('async version');
+	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
 
 	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
 	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');

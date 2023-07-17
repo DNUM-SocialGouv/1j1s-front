@@ -1,4 +1,4 @@
-import React, { useCallback, useId } from 'react';
+import React, { useCallback, useEffect,useId, useState } from 'react';
 
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -15,28 +15,37 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	...optionProps
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
-	const idState = useId();
-	const id = idProps ?? idState;
+	const localId = useId();
+	const id = idProps ?? localId;
 	const {
 		state: { activeDescendant, value: inputValue },
 		onOptionSelection,
 	} = useCombobox();
 	const selected = activeDescendant === id;
-	const hidden = !matchesInput(ref.current, inputValue);
+	const [ hidden, setHidden ] = useState(false);
+
+	useEffect(function checkIfHidden() {
+		setHidden(!matchesInput(ref.current, inputValue));
+	}, [inputValue, ref]);
+
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);
 		if (onClickProps) {
 			onClickProps(event);
 		}
 	}, [onClickProps, onOptionSelection]);
+	// NOTE (GAFI 13-07-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
+	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
+		event.preventDefault();
+	}, []);
 	return (
 		<li
 			role="option"
 			aria-selected={selected}
 			hidden={hidden}
 			id={id}
-			tabIndex={-1}
 			onClick={onClick}
+			onMouseDown={onMouseDown}
 			ref={ref}
 			data-value={value?.toString()}
 			{...optionProps}
