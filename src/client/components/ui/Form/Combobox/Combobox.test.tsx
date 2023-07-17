@@ -7,12 +7,13 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 
 import { Combobox } from '.';
 
 describe('<Combobox />', () => {
 	beforeAll(() => {
-		window.HTMLElement.prototype.scrollIntoView = jest.fn();
+		mockScrollIntoView();
 	});
 
 	it('affiche un combobox', () => {
