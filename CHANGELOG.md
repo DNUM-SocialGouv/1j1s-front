@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.3...v3.116.4) (2023-07-17)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.45.0 ([c483d38](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c483d382ba035a703b2ec4368ec97953fde8c0b0))
+
 ## [3.116.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.2...v3.116.3) (2023-07-17)
 
 
