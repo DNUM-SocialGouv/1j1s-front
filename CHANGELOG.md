@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.115.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.114.0...v3.115.0) (2023-07-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage:** mettre a jour le wording sur la page de detail dun stage ([#1589](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1589)) ([f418062](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f418062e6280d46850e972bd1169de60b5c15c72))
+
 ## [3.114.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.113.4...v3.114.0) (2023-07-13)
 
 
