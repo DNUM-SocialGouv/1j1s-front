@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.116.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.1...v3.116.2) (2023-07-17)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/react to v18.2.15 ([#1630](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1630)) ([982240c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/982240c0e5a9dba2f601a35555bd83a79b8cb9c7))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.58.1 ([f1a8e6c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f1a8e6c0c3f970af9a39efce0dcac1a4f90aec39))
+
 ## [3.116.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.0...v3.116.1) (2023-07-17)
 
 

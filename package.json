@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "9"
   },
-  "version": "3.116.1",
+  "version": "3.116.2",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -27,7 +27,7 @@
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.13.3",
     "@next/bundle-analyzer": "13.4.9",
-    "@sentry/nextjs": "7.57.0",
+    "@sentry/nextjs": "7.58.1",
     "axios": "1.4.0",
     "axios-cache-interceptor": "1.2.0",
     "classnames": "2.3.2",
@@ -70,7 +70,7 @@
     "@types/lodash.debounce": "4.0.7",
     "@types/marked": "5.0.1",
     "@types/node": "18.16.19",
-    "@types/react": "18.2.14",
+    "@types/react": "18.2.15",
     "@types/react-autosuggest": "10.1.6",
     "@types/react-dom": "18.2.7",
     "@types/uuid": "9.0.2",
