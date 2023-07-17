@@ -12,6 +12,7 @@
   $color-list-border: $color-border;
   $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
+  $color-category-separator: $color-border;
 
   position: relative;
   display: grid;
@@ -99,15 +100,19 @@
     max-height: 10em;
     overflow-y: scroll;
 
-    & li[role="option"] {
+    & li {
       padding: .25rem 1ch;
       cursor: pointer;
 
-      &:hover,
-      &[aria-selected="true"] {
+      &[role="option"]:hover,
+      &[role="option"][aria-selected="true"] {
         background-color: $color-option-hover;
         font-weight: bold;
       }
+    }
+
+    & ul[role="group"] {
+      border-bottom: 1px solid $color-category-separator;
     }
   }
 }

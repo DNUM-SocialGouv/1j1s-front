@@ -17,6 +17,7 @@ const meta: Meta<typeof Combobox> = {
 		value: { type: 'string' },
 	},
 	args: {
+		'aria-label': 'Pays',
 		children: ['France', 'Suisse', 'Allemagne', 'Royaume-Uni', 'Espagne', 'Belgique', 'Japon', 'Australie', 'Chine', 'Canada', 'États-Unis'],
 		disabled: false,
 		readOnly: false,
@@ -34,7 +35,7 @@ export const exemple: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" {...args}>
-				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+				{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 			</Combobox>
 		</>
 	),
@@ -47,7 +48,7 @@ export const disabled: Story = {
 		<>
 			<label htmlFor="pays">Pays</label>
 			<Combobox id="pays" {...args}>
-				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+				{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 			</Combobox>
 		</>
 	),
@@ -67,7 +68,7 @@ export const intégrationDansUnFormulaire: Story = {
 			<label htmlFor="localisation">
 				Localisation
 				<Combobox id="localisation" name="localisation" {...args}>
-					{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+					{children.map((child) => <Combobox.Option key={child}>{child}</Combobox.Option>)}
 				</Combobox>
 			</label>
 			<label htmlFor="domaine">
@@ -119,5 +120,34 @@ export const validation: Story = {
 			</Combobox>
 			<ButtonComponent label="Envoyer">Envoyer</ButtonComponent>
 		</form>
+	),
+};
+
+function grouperParPremiereLettre(children) {
+	return Object.entries<string[]>(children.sort()
+		.reduce((accumulator, current) => {
+			const key = current.charAt(0);
+			if (accumulator[key] == undefined) {
+				accumulator[key] = [];
+			}
+			accumulator[key].push(current);
+			return accumulator;
+		}, {}));
+}
+
+export const categories: Story = {
+	args: {},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>{
+				grouperParPremiereLettre(children)
+					.map(([category, entries]) => (
+						<Combobox.Category key={category} name={category}>{
+							entries.map((entry) => (<Combobox.Option key={entry}>{entry}</Combobox.Option>))
+						}</Combobox.Category>
+					))
+			}</Combobox>
+		</>
 	),
 };
