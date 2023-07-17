@@ -67,11 +67,9 @@ export enum SourceDesDonnées {
 	STAGEFR_DECOMPRESSE = 'stagefr-decompresse',
 }
 
-// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 export type OffreDeStageIndexée = {
 	titre: string
 	description: string
-	dateDeDebut: string
 	dateDeDebutMin: string
 	dateDeDebutMax: string
 	id: string
@@ -116,7 +114,8 @@ export interface OffreDeStage {
 	titre: string
 	id: string
 	slug: string
-	dateDeDebut: string
+	dateDeDebutMin: string
+	dateDeDebutMax: string
 	description: string
 	urlDeCandidature?: string
 	domaines: Array<Domaines>

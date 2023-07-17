@@ -161,10 +161,10 @@ function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | unde
 	};
 }
 
-// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 export function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
 	return {
-		dateDeDebut: response.dateDeDebut || response.dateDeDebutMin,
+		dateDeDebutMax: response.dateDeDebutMax,
+		dateDeDebutMin: response.dateDeDebutMin,
 		description: response.description,
 		domaines: response.domaines
 			.filter((domaine) => domaine.nom !== Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE)
@@ -249,10 +249,8 @@ export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionTyp
 	};
 }
 
-// TODO (BRUJ 14-06-2023): à changer après la mise en place du nouveau modèle de données
 export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
 	return {
-		dateDeDebut: body.dateDeDebut,
 		dateDeDebutMax: body.dateDeDebutMax,
 		dateDeDebutMin: body.dateDeDebutMin,
 		description: body.description,

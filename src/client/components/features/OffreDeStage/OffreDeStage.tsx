@@ -12,17 +12,22 @@ const IMAGE_FIXE = '/images/logos/fallback.svg';
 
 export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	const stage = props.hit;
-	// TODO (BRUJ 14-06-2023): à supprimer après la mise en place du nouveau modèle de données
-	const dateDeDebut = stage.dateDeDebut || stage.dateDeDebutMin;
 	const listeEtiquettes: Array<string> = stage.domaines
 		? stage.domaines
 			.filter((domaine) => domaine !== Domaines.NON_RENSEIGNE)
 			.map((domaine) => getCapitalizedItems(domaine))
 		: [];
+
+	const etiquetteLocalisation = stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region;
+	if (etiquetteLocalisation) {
+		listeEtiquettes.push(etiquetteLocalisation);
+	}
+
 	listeEtiquettes.push(
-		stage.localisation?.ville || stage.localisation?.departement || stage.localisation?.region as string,
-		stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee as string : '',
-		'Débute le : ' + new Date(dateDeDebut).toLocaleDateString(),
+		stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee : '',
+		stage.dateDeDebutMin === stage.dateDeDebutMax
+			? `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`
+			: `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`,
 	);
 
 	return <RésultatRechercherSolution
