@@ -26,7 +26,8 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' 
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	requireValidOption?: boolean,
-	filter?: (element: Element, currentValue: string) => boolean
+	filter?: (element: Element, currentValue: string) => boolean,
+	onTouch?: (touched: true) => void;
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -97,6 +98,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 	}, [inputRef, matchingOption, requireValidOption]);
 
+	useEffect(function checkValidity() {
+		if (touched) {
+			inputRef.current?.checkValidity();
+		}
+	}, [inputRef, touched, value]);
+
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -165,7 +172,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		dispatch(new Actions.CloseList());
 		setTouchedOnBlur(value);
 		onBlurProps(event);
-	}, [setTouchedOnBlur, onBlurProps, value]);
+	}, [setTouchedOnBlur, value, onBlurProps]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);

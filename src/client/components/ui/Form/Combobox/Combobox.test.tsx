@@ -1368,6 +1368,53 @@ describe('<Combobox />', () => {
 
 				expect(input).not.toHaveAttribute('data-touched', 'true');
 			});
+			it('rapporte la validité du champ quand on marque le champ comme touché', async () => {
+				const user = userEvent.setup();
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required defaultValue="Option 1" onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.clear(input);
+				await user.tab();
+
+				expect(onInvalid).toHaveBeenCalled();
+			});
+			it('rapporte la validité du champ quand on change la valeur après l’avoir touché', async () => {
+				const user = userEvent.setup();
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'A');
+				await user.tab();
+				await user.type(input, '{Backspace}');
+
+				expect(onInvalid).toHaveBeenCalled();
+			});
+			it('ne rapporte pas la validité du champ tant que le champ n’est pas touché', () => {
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required value="" onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				expect(onInvalid).not.toHaveBeenCalled();
+			});
 			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
 		});
 
