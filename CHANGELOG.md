@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.5...v3.116.6) (2023-07-17)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency tsconfig-paths-webpack-plugin to v4.1.0 ([#1619](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1619)) ([71d5344](https://github.com/DNUM-SocialGouv/1j1s-front/commit/71d53440e8c9f6346ff46f27661d7cacd3cdb36c))
+
 ## [3.116.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.4...v3.116.5) (2023-07-17)
 
 
