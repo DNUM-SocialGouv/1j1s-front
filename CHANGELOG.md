@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.115.0...v3.116.0) (2023-07-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Ajoute les catégories au combobox ([#1607](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1607)) ([b7acc0a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b7acc0a4f2ad6be9ff23abced684867bd65af636))
+
 ## [3.115.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.114.0...v3.115.0) (2023-07-17)
 
 
