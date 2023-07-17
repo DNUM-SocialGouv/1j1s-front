@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.4...v3.116.5) (2023-07-17)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency sharp to v0.32.3 ([#1633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1633)) ([b630315](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b630315adecedb71690773e957ce287efe2f7620))
+
 ## [3.116.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.3...v3.116.4) (2023-07-17)
 
 
