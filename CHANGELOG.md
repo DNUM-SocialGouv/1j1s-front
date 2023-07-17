@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.0...v3.116.1) (2023-07-17)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/marked to v5.0.1 ([#1634](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1634)) ([1bbf2b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1bbf2b174f555711d705b62fe40424405e70bd70))
+
 ## [3.116.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.115.0...v3.116.0) (2023-07-17)
 
 
