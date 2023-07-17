@@ -28,6 +28,7 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' 
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
 	onTouch?: (touched: true) => void;
+	valueName?: string;
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -59,6 +60,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	defaultValue,
 	className,
 	name,
+	valueName,
 	'aria-controls': ariaControls,
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
@@ -194,7 +196,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
 					value={value}
-					name={name && `${name}.label`}
+					name={(valueName && name) || (name && `${name}.label`)}
 					data-touched={touched}
 					onChange={onChange}
 					onKeyDown={onKeyDown}
@@ -202,7 +204,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					{...inputProps} />
 				<input
 					type="hidden"
-					name={name && `${name}.value`}
+					name={valueName ?? (name && `${name}.value`)}
 					value={matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? ''}
 					required={requireValidOption}/>
 				<button
