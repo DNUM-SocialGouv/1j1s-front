@@ -152,7 +152,7 @@ describe('InputAutocomplétionMétier', () => {
 		expect(message).toHaveTextContent('Une erreur est survenue lors de la récupération des métiers.');
 	});
 
-	it.skip('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
+	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
 		const user = userEvent.setup();
 		const métierServiceMock = {
 			rechercherMétier: jest.fn(() => new Promise<Either<Métier[]>>(() => {

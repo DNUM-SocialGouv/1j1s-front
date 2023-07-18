@@ -15,9 +15,10 @@ type InputAutocomplétionMétierProps = Omit<React.ComponentPropsWithoutRef<type
 	codeRomes?: string;
 }
 
-const ERROR_RETRIEVE_METIER = 'Une erreur est survenue lors de la récupération des métiers.';
+const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers.';
 const MESSAGE_PAS_DE_RESULTAT
 	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
+const MESSAGE_CHARGEMENT = 'Chargement ...';
 
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
 	const {
@@ -37,13 +38,14 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 
 	const [ fieldError, setFieldError] = useState<string | null>(null);
 	const [ métiers, setMétiers ] = useState<Métier[]>([]);
-	const [ status, setStatus ] = useState<'success' | 'failure'>('success');
+	const [ status, setStatus ] = useState<'pending' | 'success' | 'failure'>('success');
 
 	const inputId = useId();
 	const errorId = useId();
 
 	const getMetiers = useCallback(async function getMetiers(motCle: string) {
 		if (motCle) {
+			setStatus('pending');
 			const response = await métierRecherchéService.rechercherMétier(motCle);
 			if (isSuccess(response)) {
 				setStatus('success');
@@ -99,7 +101,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				}
 				<Combobox.AsyncMessage>
 					{
-						status === 'failure' && ERROR_RETRIEVE_METIER
+						status === 'failure' && MESSAGE_ERREUR_FETCH
+						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
 					}
 				</Combobox.AsyncMessage>
