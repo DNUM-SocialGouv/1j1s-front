@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import React, { ChangeEvent, useCallback, useEffect, useId,useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId,useMemo, useRef, useState } from 'react';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import styles from '~/client/components/ui/Form/Input.module.scss';
@@ -19,6 +19,7 @@ const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération 
 const MESSAGE_PAS_DE_RESULTAT
 	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
+const MESSAGE_CHAMP_VIDE = 'Commencer à taper pour rechercher un métier';
 
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
 	const {
@@ -38,7 +39,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 
 	const [ fieldError, setFieldError] = useState<string | null>(null);
 	const [ métiers, setMétiers ] = useState<Métier[]>([]);
-	const [ status, setStatus ] = useState<'pending' | 'success' | 'failure'>('success');
+	const [ status, setStatus ] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
 
 	const inputId = useId();
 	const errorId = useId();
@@ -102,7 +103,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				}
 				<Combobox.AsyncMessage>
 					{
-						status === 'failure' && MESSAGE_ERREUR_FETCH
+						status === 'init' && MESSAGE_CHAMP_VIDE
+						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
 						|| `${métiers.length} métiers trouvés`

@@ -217,5 +217,24 @@ describe('InputAutocomplétionMétier', () => {
 		expect(combobox).toHaveAccessibleDescription('Veuillez sélectionner une option dans la liste');
 	});
 
+	it('affiche un message quand rien n’est entré dans le champ', async () => {
+		const user = userEvent.setup();
+		const métierServiceMock = aMétierService([]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</DependenciesProvider>,
+		);
+
+		await user.click(screen.getByRole('button', { name: 'Rechercher un métier' }));
+
+		const message = screen.getByRole('status');
+		expect(message).toBeVisible();
+		expect(message).toHaveTextContent('Commencer à taper pour rechercher un métier');
+	});
+
 	it.todo('pas de test sur la valeur qui est submit pour le libellé ?');
 });
