@@ -84,12 +84,14 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
+	const [ matchingOption, setMatchingOption ] = useState<Element | undefined>();
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const matchingOption = useMemo(function findOption(): Element | undefined {
-		return Array.from(listboxRef.current?.querySelectorAll('[role="option"]') ?? [])
+	useEffect(function findMatchingOption() {
+		const matchingOption = Array.from(listboxRef.current?.querySelectorAll('[role="option"]') ?? [])
 			.find((element) => element.textContent === value);
+		setMatchingOption(matchingOption);
 		// NOTE (GAFI 27-06-2023): On accède aux children indirectement par le querySelectorAll
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value, listboxRef, children]);
