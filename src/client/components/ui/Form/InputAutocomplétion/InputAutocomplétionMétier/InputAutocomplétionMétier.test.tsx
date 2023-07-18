@@ -136,12 +136,10 @@ describe('InputAutocomplétionMétier', () => {
 		} as unknown as MétierService;
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<form aria-label="form">
-					<InputAutocomplétionMétier
-						name='métier'
-						label='Rechercher un métier'
-					/>
-				</form>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
 			</DependenciesProvider>,
 		);
 
@@ -161,12 +159,10 @@ describe('InputAutocomplétionMétier', () => {
 		} as unknown as MétierService;
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<form aria-label="form">
-					<InputAutocomplétionMétier
-						name='métier'
-						label='Rechercher un métier'
-					/>
-				</form>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
 			</DependenciesProvider>,
 		);
 
@@ -186,12 +182,10 @@ describe('InputAutocomplétionMétier', () => {
 		]);
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<form aria-label="form">
-					<InputAutocomplétionMétier
-						name='métier'
-						label='Rechercher un métier'
-					/>
-				</form>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
 			</DependenciesProvider>,
 		);
 
@@ -201,6 +195,27 @@ describe('InputAutocomplétionMétier', () => {
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('3 métiers trouvés');
 	});
+
+	it('affiche un message d’erreur quand le champ est en erreur', async () => {
+		const user = userEvent.setup();
+		const métierServiceMock = aMétierService([]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</DependenciesProvider>,
+		);
+
+		await user.type(screen.getByRole('combobox'), 'test');
+		await user.tab();
+
+		const erreur = screen.getByText('Veuillez sélectionner une option dans la liste');
+		expect(erreur).toBeVisible();
+		const combobox = screen.getByRole('combobox');
+		expect(combobox).toHaveAccessibleDescription('Veuillez sélectionner une option dans la liste');
+	});
+
 	it.todo('pas de test sur la valeur qui est submit pour le libellé ?');
-	it.todo('aria-describedby pour le message d’erreur');
 });

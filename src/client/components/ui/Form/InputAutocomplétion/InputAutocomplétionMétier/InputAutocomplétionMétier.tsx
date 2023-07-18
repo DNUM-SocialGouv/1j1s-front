@@ -91,6 +91,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 				defaultValue={libellé}
 				requireValidOption
 				filter={Combobox.noFilter}
+				aria-describedby={errorId}
 				{...comboboxProps}
 			>
 				{
