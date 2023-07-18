@@ -92,6 +92,10 @@
     @extend %text-small;
     align-items: center;
     color: utilities-deprecated.$color-error;
+
+    &:empty {
+      display: none;
+    }
   }
 
   & > svg {

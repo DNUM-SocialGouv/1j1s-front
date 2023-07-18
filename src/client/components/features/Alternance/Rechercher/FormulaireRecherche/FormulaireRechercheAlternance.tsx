@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent } from 'react';
 
 import styles
 	from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
@@ -13,27 +13,18 @@ import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheAlternance() {
-	const [inputLibelleMetier, setInputLibelleMetier] = useState<string>('');
-	const [inputCodeRomes, setInputCodeRomes] = useState<string>('');
-	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
-	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
-	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
-	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
+	const queryParams = useAlternanceQuery();
+	const {
+		libelleMetier,
+		codeRomes,
+		codeCommune,
+		libelleCommune,
+		distanceCommune,
+		longitudeCommune,
+		latitudeCommune,
+	} = queryParams;
 
 	const router = useRouter();
-
-	const queryParams = useAlternanceQuery();
-
-	useEffect(function initFormValues() {
-		setInputLibelleMetier(queryParams.libelleMetier || '');
-		setInputCodeRomes(queryParams.codeRomes || '');
-		setInputCodeCommune(queryParams.codeCommune || '');
-		setInputLibelléCommune(queryParams.libelleCommune || '');
-		setInputDistanceCommune(queryParams.distanceCommune || '');
-		setInputLongitudeCommune(queryParams.longitudeCommune || '');
-		setInputLatitudeCommune(queryParams.latitudeCommune || '');
-	}, [queryParams]);
 
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -54,18 +45,18 @@ export function FormulaireRechercheAlternance() {
 						<InputAutocomplétionMétier
 							name={'libelleMetier'}
 							label={'Domaine'}
-							libellé={inputLibelleMetier}
-							codeRomes={inputCodeRomes}
+							libellé={libelleMetier}
+							codeRomes={codeRomes}
 							required
 							autoFocus
 							placeholder={'Exemples : enseignement, recherche...'}
 						/>
 						<InputCommune
-							code={inputCodeCommune}
-							libellé={inputLibelléCommune}
-							longitude={inputLongitudeCommune}
-							latitude={inputLatitudeCommune}
-							distance={inputDistanceCommune}
+							code={codeCommune ?? ''}
+							libellé={libelleCommune ?? ''}
+							longitude={longitudeCommune ?? ''}
+							latitude={latitudeCommune ?? ''}
+							distance={distanceCommune ?? ''}
 							required
 							placeholder={'Exemples : Toulouse, Paris...'}
 							showRadius
