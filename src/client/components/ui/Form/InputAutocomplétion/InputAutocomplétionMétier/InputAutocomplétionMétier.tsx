@@ -104,6 +104,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 						status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
+						|| `${métiers.length} métiers trouvés`
 					}
 				</Combobox.AsyncMessage>
 			</Combobox>

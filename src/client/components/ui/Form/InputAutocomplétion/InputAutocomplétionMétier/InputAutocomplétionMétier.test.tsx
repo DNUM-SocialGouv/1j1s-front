@@ -177,7 +177,30 @@ describe('InputAutocomplétionMétier', () => {
 		expect(message).toHaveTextContent('Chargement ...');
 	});
 
-	it.todo('message avec nombre de résultats');
+	it('affiche un message avec le nombre de résultats quand la liste de suggestions est chargée', async () => {
+		const user = userEvent.setup();
+		const métierServiceMock = aMétierService([
+			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+			{ label: 'Aéronautique', romes: ['I1304', 'I1602'] },
+			{ label: 'Chimie', romes: ['H1201', 'H1505', 'H2301'] },
+		]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<form aria-label="form">
+					<InputAutocomplétionMétier
+						name='métier'
+						label='Rechercher un métier'
+					/>
+				</form>
+			</DependenciesProvider>,
+		);
+
+		await user.type(screen.getByRole('combobox'), 'test');
+
+		const message = screen.getByRole('status');
+		expect(message).toBeVisible();
+		expect(message).toHaveTextContent('3 métiers trouvés');
+	});
 	it.todo('pas de test sur la valeur qui est submit pour le libellé ?');
 	it.todo('aria-describedby pour le message d’erreur');
 });
