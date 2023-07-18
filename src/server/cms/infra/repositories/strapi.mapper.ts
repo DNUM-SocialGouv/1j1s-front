@@ -11,7 +11,6 @@ import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
 	return {
@@ -20,45 +19,6 @@ export function mapArticle(articleResponse: Strapi.CollectionType.Article): Arti
 		slug: articleResponse.slug,
 		titre: articleResponse.titre,
 	};
-}
-
-export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): FicheMétier {
-	return {
-		accesMetier: response.acces_metier,
-		accrocheMetier: response.accroche_metier,
-		centresInteret: response.centres_interet.map((centreInteret) => ({
-			idOnisep: centreInteret.identifiant,
-			libelle: capitalizeFirstLetter(centreInteret.libelle),
-		})),
-		competences: response.competences,
-		conditionTravail: response.condition_travail,
-		formationsMinRequise: response.formations_min_requise.map((formationMinRequise) => ({
-			idOnisep: formationMinRequise.identifiant,
-			libelle: capitalizeFirstLetter(formationMinRequise.libelle),
-		})),
-		id: response.id,
-		idOnisep: response.identifiant,
-		natureTravail: response.nature_travail,
-		niveauAccesMin: response.niveau_acces_min.map((niveauAccesMin) => ({
-			idOnisep: niveauAccesMin.identifiant,
-			libelle: capitalizeFirstLetter(niveauAccesMin.libelle),
-		})),
-		nomMetier: response.nom_metier,
-		secteursActivite: response.secteurs_activite.map((secteurActivite) => ({
-			idOnisep: secteurActivite.identifiant,
-			libelle: capitalizeFirstLetter(secteurActivite.libelle),
-		})),
-		statuts: response.statuts.map((statut) => ({
-			idIdeo: statut.id_ideo1,
-			idOnisep: statut.identifiant,
-			libelle: capitalizeFirstLetter(statut.libelle),
-		})),
-		vieProfessionnelle: response.vie_professionnelle,
-	};
-}
-
-function capitalizeFirstLetter(sentence: string) {
-	return `${sentence.charAt(0).toUpperCase()}${sentence.slice(1)}`;
 }
 
 function flatMapSingleRelation<StrapiType, ReturnType>(relation: Strapi.SingleRelation<StrapiType> | undefined, mapper: (data: NonNullable<StrapiType>) => ReturnType): ReturnType | undefined {

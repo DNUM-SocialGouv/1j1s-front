@@ -57,6 +57,11 @@ import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
 import {
+	FicheMetierDependencies,
+	ficheMetierDependenciesContainer,
+} from '~/server/fiche-metier/configuration/dependencies.container';
+import { StrapiFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
+import {
 	getApiTrajectoiresProConfig,
 } from '~/server/formations/configuration/api-trajectoires-pro/apiTrajectoiresProHttpClient.config';
 import {
@@ -152,6 +157,7 @@ import {
 } from '~/server/sitemap/configuration/dependencies.container';
 
 export type Dependencies = {
+	ficheMetierDependencies: FicheMetierDependencies
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	formationInitialeDependencies: FormationInitialeDependencies;
@@ -279,6 +285,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
+	const strapiFicheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
+	const ficheMetierDependencies=  ficheMetierDependenciesContainer(strapiFicheMetierRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository);
@@ -290,6 +299,7 @@ export function dependenciesContainer(): Dependencies {
 		demandeDeContactDependencies,
 		engagementDependencies,
 		entrepriseDependencies,
+		ficheMetierDependencies,
 		formationDependencies,
 		formationInitialeDependencies,
 		formationInitialeDetailDependencies,

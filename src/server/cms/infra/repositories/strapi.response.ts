@@ -21,7 +21,7 @@ export namespace Strapi {
 		id: number;
 	}
 
-	interface Meta {
+	export interface Meta {
 		pagination: Meta.Pagination;
 	}
 

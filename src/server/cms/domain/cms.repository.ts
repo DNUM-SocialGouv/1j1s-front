@@ -4,13 +4,11 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
 import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Either } from '~/server/errors/either';
-import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-
-import { MesureEmployeur } from './mesureEmployeur';
 
 export interface CmsRepository {
   getActualitéList(): Promise<Either<Actualité[]>>
@@ -19,12 +17,10 @@ export interface CmsRepository {
   getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
   getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>>
 	getFAQBySlug(slug: QuestionSlug): Promise<Either<Question.QuestionRéponse>>
-  getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>>
   getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
   getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
 	getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>>
-  listAllFicheMetierNomMetier(): Promise<Either<Array<string>>>
 	listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
   listAllArticleSlug(): Promise<Either<Array<string>>>
 	listAllFAQSlug(): Promise<Either<Array<string>>>

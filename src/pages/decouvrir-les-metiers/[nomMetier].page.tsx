@@ -64,7 +64,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 	}
 
 	const { nomMetier } = context.params;
-	const response = await dependencies.cmsDependencies.consulterFicheMetier.handle(nomMetier);
+	const response = await dependencies.ficheMetierDependencies.consulterFicheMetier.handle(nomMetier);
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
@@ -80,7 +80,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-	const NomMétierFicheMétierList = await dependencies.cmsDependencies.listerNomMétierFicheMétier.handle();
+	const NomMétierFicheMétierList = await dependencies.ficheMetierDependencies.listerNomMetierFicheMetier.handle();
 
 	if (isFailure(NomMétierFicheMétierList)) {
 		return {
