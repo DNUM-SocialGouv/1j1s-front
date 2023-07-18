@@ -616,3 +616,17 @@ export function aStrapiVideosCampagneApprentissage(): Strapi.CollectionType<Stra
 		Url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I',
 	}]);
 }
+
+export function aStrapiFormationInitialeDetail(): Strapi.CollectionType<Strapi.CollectionType.FormationInitialeDetail>{
+	return aStrapiCollectionType([{
+		attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
+		certification: 'Bac + 5',
+		conditionsAcces: 'Le diplomé peut débuter comme chef de partie, second de cuisine, avant d‘accéder à des postes d‘encadrement ou de direction.',
+		description: 'Je suis une description de formation initiale',
+		duree: '1 an',
+		identifiant: 'FOR.495',
+		intitule: 'BM boulanger',
+		niveauEtudesVise: '5',
+		poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
+	}]);
+}

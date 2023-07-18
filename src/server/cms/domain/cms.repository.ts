@@ -10,6 +10,7 @@ import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
 import { MesureEmployeur } from './mesureEmployeur';
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 
 export interface CmsRepository {
   getActualitéList(): Promise<Either<Actualité[]>>
@@ -30,4 +31,5 @@ export interface CmsRepository {
 	listAllOffreDeStageSlug(): Promise<Either<Array<string>>>
 	saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
+	getFormationInitialeById(identifiant: string): Promise<Either<FormationInitialeDetailCMS>>
 }

@@ -15,6 +15,9 @@ import {
 	RecupererVideosCampagneApprentissageUseCase,
 } from '~/server/cms/useCases/recupererVideosCampagneApprentissage.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
+import {
+	ConsulterDetailFormationInitialeUseCase
+} from '~/server/cms/useCases/consulterDetailFormationInitiale.useCase';
 
 export interface CmsDependencies {
 	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
@@ -31,6 +34,7 @@ export interface CmsDependencies {
 	listerServicesJeunes: ListerServicesJeunesUseCase
 	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 	recupererVideosCampagneApprentissage: RecupererVideosCampagneApprentissageUseCase
+	consulterDetailFormationInitiale: ConsulterDetailFormationInitialeUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;

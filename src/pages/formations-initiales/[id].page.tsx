@@ -8,13 +8,16 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/[id].analytics';
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 type ConsulterDetailFormationInitialePageProps = {
-	formationInitialeDetail: FormationInitialeDetail;
+	formationInitialeDetail: FormationInitialeDetailComplete;
 }
+
+type FormationInitialeDetailComplete =  FormationInitialeDetail & FormationInitialeDetailCMS | FormationInitialeDetail;
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{
 	id: string
@@ -31,13 +34,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	}
 	const { id } = context.params;
 	const formationInitiale = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+	const formationInitialeCMS = await dependencies.cmsDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
 
 	if (formationInitiale.instance === 'failure') {
 		return { notFound: true };
 	}
+
+	const formationInitialeCMSData = formationInitialeCMS.instance === 'failure' ? {} : formationInitialeCMS.result;
+	const formationInitialeDetail: FormationInitialeDetailComplete = { ...formationInitiale.result, ...formationInitialeCMSData };
+
 	return {
 		props: {
-			formationInitialeDetail: formationInitiale.result,
+			formationInitialeDetail: formationInitialeDetail,
 		},
 	};
 }

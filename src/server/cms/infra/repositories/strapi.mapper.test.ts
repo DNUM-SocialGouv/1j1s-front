@@ -1,6 +1,11 @@
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { Domaines, OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { anOffreDeStageResponse } from '~/server/cms/infra/repositories/strapi.fixture';
-import { mapOffreStage, mapVideoCampagneApprentissage } from '~/server/cms/infra/repositories/strapi.mapper';
+import {
+	mapFormationInitiale,
+	mapOffreStage,
+	mapVideoCampagneApprentissage,
+} from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 describe('mapVideoCampagneApprentissage', () => {
@@ -122,5 +127,32 @@ describe('mapOffreDeStage', () => {
 
 			expect(result.domaines).toStrictEqual([Domaines.ACHAT]);
 		});
+	});
+});
+
+describe('mapFormationInitialeDetail', () => {
+	it('map vers le détail d‘une formation initiale', () => {
+		const formationInitialeStrapiReponse = {
+			attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
+			certification: 'Bac + 5',
+			conditionsAcces: 'Le diplomé peut débuter comme chef de partie, second de cuisine, avant d‘accéder à des postes d‘encadrement ou de direction.',
+			description: 'Je suis une description de formation initiale',
+			duree: '1 an',
+			identifiant: 'FOR.495',
+			intitule: 'BM boulanger',
+			niveauEtudesVise: '5',
+			poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
+		};
+		const formationExpected: FormationInitialeDetailCMS = {
+			attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
+			conditionsAcces: 'Le diplomé peut débuter comme chef de partie, second de cuisine, avant d‘accéder à des postes d‘encadrement ou de direction.',
+			description: 'Je suis une description de formation initiale',
+			poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
+		};
+
+
+		const formationInitialeMapped = mapFormationInitiale(formationInitialeStrapiReponse);
+
+		expect(formationInitialeMapped).toMatchObject(formationExpected);
 	});
 });
