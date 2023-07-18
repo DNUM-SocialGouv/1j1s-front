@@ -7,10 +7,10 @@ import React, {
 	useEffect,
 	useId,
 	useLayoutEffect,
-	useMemo,
 	useReducer,
 	useRef,
-	useState } from 'react';
+	useState,
+} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -84,29 +84,31 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
-	const [ matchingOption, setMatchingOption ] = useState<Element | undefined>();
+	const [ matchingOptionValue, setMatchingOptionValue ] = useState<string>('');
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	useEffect(function findMatchingOption() {
-		const matchingOption = Array.from(listboxRef.current?.querySelectorAll('[role="option"]') ?? [])
+	const findMatchingOption = useCallback(function findMatchingOption(list: Element | null) {
+		return Array.from(list?.querySelectorAll('[role="option"]') ?? [])
 			.find((element) => element.textContent === value);
-		setMatchingOption(matchingOption);
-		// NOTE (GAFI 27-06-2023): On accède aux children indirectement par le querySelectorAll
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [value, listboxRef, children]);
+	}, [value]);
+
+	useEffect(function setValue() {
+		const matchingOption = findMatchingOption(listboxRef.current);
+		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
+	}, [value, listboxRef, children, findMatchingOption]);
 
 	useEffect(() => {
 		if (requireValidOption) {
-			inputRef.current?.setCustomValidity(matchingOption ? '' : 'Veuillez sélectionner une option dans la liste');
+			inputRef.current?.setCustomValidity(findMatchingOption(listboxRef.current) ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
-	}, [inputRef, matchingOption, requireValidOption]);
+	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption]);
 
 	useEffect(function checkValidity() {
 		if (touched) {
 			inputRef.current?.checkValidity();
 		}
-	}, [inputRef, touched, value]);
+	}, [inputRef, touched, value, children]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -207,7 +209,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				<input
 					type="hidden"
 					name={valueName ?? (name && `${name}.value`)}
-					value={matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? ''}
+					value={matchingOptionValue}
 					required={requireValidOption}/>
 				<button
 					onClick={() => {
