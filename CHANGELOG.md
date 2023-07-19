@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.116.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.6...v3.116.7) (2023-07-18)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency clsx to v2 ([#1636](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1636)) ([2348873](https://github.com/DNUM-SocialGouv/1j1s-front/commit/23488734c9c36f22dcca2c6b8520fe094359225c))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.1.0 ([#1645](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1645)) ([1b41e88](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1b41e8820d848e07ceffa12c9ebac0daf431da3a))
+
 ## [3.116.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.5...v3.116.6) (2023-07-17)
 
 
