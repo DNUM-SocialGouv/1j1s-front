@@ -252,16 +252,16 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Opt');
 
 				expect(onChange).toHaveBeenCalledTimes(3);
-				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }), 'Opt');
 				expect(onInput).toHaveBeenCalledTimes(3);
-				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }), 'Opt');
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur au clavier', async () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
 				const onInput = jest.fn();
 				render(
-					<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
+					<Combobox aria-label='Test' value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -273,15 +273,15 @@ describe('<Combobox />', () => {
 				await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 				await user.keyboard(`{${KeyBoard.ENTER}}`);
 
-				expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
-				expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 1');
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 1');
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur à la souris', async () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
 				const onInput = jest.fn();
 				render(
-					<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
+					<Combobox aria-label='Test' value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -292,8 +292,8 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Option');
 				await user.click(screen.getByRole('option', { name: /Option 2/i }));
 
-				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
-				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 2');
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 2');
 			});
 			it('stop l’event de blur si nouveau focus toujours dans le combobox', async () => {
 				const user = userEvent.setup();

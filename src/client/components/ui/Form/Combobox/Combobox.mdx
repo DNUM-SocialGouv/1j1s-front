@@ -37,6 +37,13 @@ Le `Combobox` peut prendre les props suivantes :
 Il est nécessaire d'ajouter un nom accessible par une des props `aria-label` ou `aria-labelledby` qui se placera
 automatiquement sur la liste d'options et le bouton permettant de la faire apparaitre.
 
+**Attention**, les handlers `onChange` et `onInput` prennent en second argument la nouvelle valeur qui ne sera pas reflétée dans l'`event.target` dans certains cas :
+
+```tsx
+<Combobox onChange={(event) => setValue(event.target.value)} /> // Invalide
+<Combobox onChange={(event, newValue) => setValue(newValue)} /> // Valide
+```
+
 ### Combobox.Option
 
 Les `Combobox.Option` peuvent prendre tous [les attributs d'un `li` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li).

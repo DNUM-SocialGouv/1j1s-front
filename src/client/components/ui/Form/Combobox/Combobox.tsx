@@ -22,9 +22,14 @@ import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
-type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
+type ComboboxProps = Omit<
+	React.ComponentPropsWithoutRef<'input'>,
+	'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
+> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
+	onInput?: (event: React.FormEvent<HTMLInputElement>, newValue: string) => void,
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
 	onTouch?: (touched: true) => void;
@@ -80,7 +85,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			activeDescendant: undefined,
 			open: false,
 			suggestionList: listboxRef,
-			value: defaultValue?.toString() ?? '',
+			value: valueProps?.toString() ?? defaultValue?.toString() ?? '',
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
@@ -116,17 +121,17 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 	}, [activeDescendant]);
 
-	const triggerChangeEvent = useCallback(function triggerChangeEvents() {
+	const triggerChangeEvent = useCallback(function triggerChangeEvents(newValue: string) {
 		if (inputRef.current) {
 			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
-			onChangeProps(changeEvent);
-			onInputProps(changeEvent);
+			onChangeProps(changeEvent, newValue);
+			onInputProps(changeEvent, newValue);
 		}
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
 		dispatch(new Actions.SelectOption(option));
-		triggerChangeEvent();
+		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();
 	}, [inputRef, triggerChangeEvent]);
 
@@ -151,10 +156,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				dispatch(new Actions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
-				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
-				if (selectedOption) {
-					dispatch(new Actions.SelectOption(selectedOption));
-					triggerChangeEvent();
+				const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+				if (selectedOptionID) {
+					dispatch(new Actions.SelectOption(selectedOptionID));
+					const selectedElement = document.getElementById(selectedOptionID);
+					triggerChangeEvent(selectedElement?.textContent ?? '');
 					event.preventDefault();
 				}
 				break;
@@ -166,7 +172,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [onKeyDownProps, triggerChangeEvent]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
-		onChangeProps(event);
+		onChangeProps(event, event.currentTarget.value);
 	}, [onChangeProps]);
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -189,7 +195,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			dispatch,
 			filter,
 			onOptionSelection,
-			state,
+			state: { ...state, value },
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<input
@@ -204,7 +210,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					data-touched={touched}
 					onChange={onChange}
 					onKeyDown={onKeyDown}
-					onInput={onInputProps}
+					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					{...inputProps} />
 				<input
 					type="hidden"
