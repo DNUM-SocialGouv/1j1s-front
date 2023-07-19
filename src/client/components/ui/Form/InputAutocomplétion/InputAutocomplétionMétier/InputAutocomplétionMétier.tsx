@@ -26,7 +26,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 		label,
 		name,
 
-		// default value
+		// FIXME (GAFI 19-07-2023): Passer sous la forme d'une default value pour expliciter l'usage :
+		//	defaultValue: { libellé, codeRomes }
 		libellé,
 		codeRomes,
 
