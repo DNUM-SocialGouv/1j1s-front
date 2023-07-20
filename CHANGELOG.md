@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.117.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.12...v3.117.0) (2023-07-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **Entreprise:** Modification du type Link en LinkStyledButton dans … ([#1652](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1652)) ([9c6e609](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c6e609f7cae7b6d78a1252b25e7d0257c267882))
+
 ## [3.116.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.11...v3.116.12) (2023-07-20)
 
 
