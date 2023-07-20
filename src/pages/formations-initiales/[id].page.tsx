@@ -32,20 +32,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
-	const { id } = context.params;
-	const formationInitiale = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
-	const formationInitialeCMS = await dependencies.cmsDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
 
-	if (formationInitiale.instance === 'failure') {
+	const { id } = context.params;
+	const formationInitialeDetail = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+	const formationInitialeDetailCMS = await dependencies.cmsDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+
+	if (formationInitialeDetail.instance === 'failure') {
 		return { notFound: true };
 	}
 
-	const formationInitialeCMSData = formationInitialeCMS.instance === 'failure' ? {} : formationInitialeCMS.result;
-	const formationInitialeDetail: FormationInitialeDetailComplete = { ...formationInitiale.result, ...formationInitialeCMSData };
+	const formationInitialeDetailCMSResult = formationInitialeDetailCMS.instance === 'failure' ? {} : formationInitialeDetailCMS.result;
+	const formationInitialeDetailComplete: FormationInitialeDetailComplete = { ...formationInitialeDetail.result, ...formationInitialeDetailCMSResult };
 
 	return {
 		props: {
-			formationInitialeDetail: formationInitialeDetail,
+			formationInitialeDetail: formationInitialeDetailComplete,
 		},
 	};
 }

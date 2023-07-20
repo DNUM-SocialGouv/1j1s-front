@@ -2,6 +2,7 @@ import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
@@ -10,7 +11,6 @@ import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 
 import { MesureEmployeur } from './mesureEmployeur';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 
 export interface CmsRepository {
   getActualitéList(): Promise<Either<Actualité[]>>

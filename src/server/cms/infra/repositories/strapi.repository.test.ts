@@ -12,7 +12,7 @@ import {
 	uneQuestionRéponse,
 } from '~/server/cms/domain/FAQ.fixture';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { aFormationInitialeDetail } from '~/server/cms/domain/formationInitiale.fixture';
+import { aFormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.fixture';
 import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
@@ -503,7 +503,7 @@ describe('strapi cms repository', () => {
 	describe('getFormationInitialeById', () => {
 		it('retour le détail de la formation initiale', async () => {
 			const identifiant = 'FOR.1234';
-			const expectedFormationInitiale = aFormationInitialeDetail({
+			const expectedFormationInitiale = aFormationInitialeDetailCMS({
 				attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
 				conditionsAcces: 'Le diplomé peut débuter comme chef de partie, second de cuisine, avant d‘accéder à des postes d‘encadrement ou de direction.',
 				description: 'Je suis une description de formation initiale',

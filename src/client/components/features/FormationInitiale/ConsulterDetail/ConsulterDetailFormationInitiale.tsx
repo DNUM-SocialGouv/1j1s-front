@@ -2,9 +2,9 @@ import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import { FormationInitialeDetailComplete } from '~/pages/formations-initiales/[id].page';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
-import { FormationInitialeDetailComplete } from '~/pages/formations-initiales/[id].page';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
 	return (
