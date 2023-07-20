@@ -1,6 +1,6 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { Either } from '~/server/errors/either';
 import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
+import { Either } from '~/server/errors/either';
 
 export class ConsulterDetailFormationInitialeUseCase {
 	constructor(private cmsRepository: CmsRepository) {}

@@ -17,7 +17,7 @@ type ConsulterDetailFormationInitialePageProps = {
 	formationInitialeDetail: FormationInitialeDetailComplete;
 }
 
-type FormationInitialeDetailComplete =  FormationInitialeDetail & FormationInitialeDetailCMS | FormationInitialeDetail;
+export type FormationInitialeDetailComplete =  FormationInitialeDetail & FormationInitialeDetailCMS;
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{
 	id: string
@@ -54,7 +54,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 export default function ConsulterFormationInitialePage({ formationInitialeDetail }: ConsulterDetailFormationInitialePageProps) {
 	useAnalytics(analytics);
 	useReferrer();
-
 	return (
 		<>
 			<Head

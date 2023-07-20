@@ -14,3 +14,56 @@
   margin-top: 2rem;
   justify-content: center;
 }
+
+.contenu {
+  display: grid;
+  grid-auto-flow: row;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contenu dt {
+  @extend %bold;
+  margin-bottom: 0.2rem;
+}
+
+.contenu dt::after {
+  content: " : ";
+}
+
+.contenu dd ul,
+.contenu dd dl {
+  padding-left: 40px;
+  list-style: disc;
+}
+
+.contenu dd dl > * {
+  display: list-item;
+}
+
+.description > *,
+.attendusParcoursup > *,
+.conditionsAcces > *,
+.poursuiteEtudes > *,
+{
+  display: inline;
+  white-space: pre-line;
+}
+
+.description,
+.attendusParcoursup,
+.conditionsAcces ,
+{
+  margin-bottom: 1em;
+}
+
+.contenu .description > *,
+.attendusParcoursup > *,
+.conditionsAcces > *,
+.poursuiteEtudes > * {
+  @include utilities.media(large) {
+    display: block;
+  }
+}
+
