@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { LinkStyledAsButton } from '~/../../../../ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useReferrer from '~/client/hooks/useReferrer';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
