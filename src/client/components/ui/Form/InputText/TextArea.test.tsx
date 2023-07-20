@@ -186,7 +186,7 @@ describe('<TextArea />', () => {
 			await userEvent.click(input);
 			await userEvent.tab();
 
-			expect(input).toHaveErrorMessage('Constraints not satisfied');
+			expect(input).toHaveAccessibleErrorMessage('Constraints not satisfied');
 		});
 	});
 
