@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.116.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.8...v3.116.9) (2023-07-20)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v5.17.0 ([#1647](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1647)) ([44511c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/44511c63486969be1bf924520381cf07ddedb5d3))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.59.3 ([89cb681](https://github.com/DNUM-SocialGouv/1j1s-front/commit/89cb6819449fa535036dffdbb8fc88414258eba4))
+
 ## [3.116.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.7...v3.116.8) (2023-07-20)
 
 
