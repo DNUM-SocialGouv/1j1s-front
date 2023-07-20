@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.116.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.9...v3.116.10) (2023-07-20)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update nextjs monorepo to v13.4.10 ([f2b7279](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f2b72791070ea150f61343ef08877262efee7944))
+
 ## [3.116.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.8...v3.116.9) (2023-07-20)
 
 
