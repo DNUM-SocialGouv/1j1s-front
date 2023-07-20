@@ -1,4 +1,4 @@
-export function filterOnValueAndLabel(element: Element | null | undefined, currentValue: string): boolean {
+export function filterValueOrLabelStartsWith(element: Element | null | undefined, currentValue: string): boolean {
 	if (!currentValue) {
 		return true;
 	}
@@ -9,7 +9,7 @@ export function filterOnValueAndLabel(element: Element | null | undefined, curre
 	const value = element?.getAttribute('data-value')?.toLowerCase();
 	const lowerCasedValue = currentValue.toLowerCase();
 	return Boolean(
-		label?.includes(lowerCasedValue)
-		|| value?.includes(lowerCasedValue),
+		label?.startsWith(lowerCasedValue)
+		|| value?.startsWith(lowerCasedValue),
 	);
 }

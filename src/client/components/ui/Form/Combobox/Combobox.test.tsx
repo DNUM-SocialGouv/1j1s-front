@@ -947,7 +947,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '1');
+				await user.type(input, 'Option 1');
 
 				const option1 = screen.getByRole('option', { name: 'Option 1' });
 				expect(option1).toBeVisible();
@@ -965,7 +965,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '2');
+				await user.type(input, 'Option 2');
 				await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 				const option = screen.getByRole('option', { name: 'Option 2' });
@@ -983,7 +983,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '2');
+				await user.type(input, 'Option 2');
 				await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
 				const option = screen.getByRole('option', { name: 'Option 2' });
@@ -1302,9 +1302,6 @@ describe('<Combobox />', () => {
 				}),
 			}));
 		});
-
-		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
-		it.todo('pouvoir renommer le name de la value pour le submit');
 	});
 
 	describe('validation', () => {
@@ -1372,7 +1369,6 @@ describe('<Combobox />', () => {
 				expect(input).not.toHaveAttribute('data-touched', 'true');
 			});
 			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
-			it.todo('quand on submit le form ?');
 		});
 
 		describe('requireValidOption', () => {

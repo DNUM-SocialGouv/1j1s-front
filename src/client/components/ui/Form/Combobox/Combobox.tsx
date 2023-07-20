@@ -13,7 +13,6 @@ import React, {
 	useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { filterOnValueAndLabel } from '~/client/components/ui/Form/Combobox/filterStrategies/filterOnValueAndLabel';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -21,6 +20,7 @@ import { ChangeEvent } from './ChangeEvent';
 import styles from './Combobox.module.scss';
 import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
+import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
@@ -65,7 +65,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
 	requireValidOption = false,
-	filter = filterOnValueAndLabel,
+	filter = filterValueOrLabelStartsWith,
 	...inputProps
 }, inputOuterRef) {
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
