@@ -155,7 +155,7 @@ describe('Select', () => {
 
 					// Then
 					const input = await screen.findByTestId('Select-InputHidden');
-					expect(input).toHaveErrorMessage('Veuillez sélectionner un choix');
+					expect(input).toHaveAccessibleErrorMessage('Veuillez sélectionner un choix');
 				});
 			});
 		});
