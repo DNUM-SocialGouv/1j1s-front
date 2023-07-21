@@ -85,3 +85,47 @@ Il accepte également [les attributs d'un `ul` HTML natif](https://developer.moz
 L'implémentation est inspirée du [pattern ARIA "Listbox Example with Grouped Options"](https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-grouped/)
 
 <Canvas of={stories.categories} />
+
+## Version asynchrone
+
+Si les options du combobox sont obtenues par appel d'API par exemple, ajouter un message avec le composant `<Combobox.AsyncMessage />`.
+E.g. :
+```tsx
+<Combobox>
+  {options.map(option => <Combobox.Option>{option}</Combobox.Option>)}
+  <Combobox.AsyncMessage>
+    {
+      loading && 'Chargement des suggestions ...'
+      || error && 'Une erreur est survenue.'
+      || `${options.length} résultats trouvés`
+    }
+  </Combobox.AsyncMessage>
+</Combobox>
+```
+
+<Canvas of={stories.async} />
+
+Il est également possible de définir une stratégie de filtre des options par la props `filter`.
+Cette props est utile notamment lorsque l'appel API renvoie une liste d'option déjà filtrée.
+Deux stratégies sont déjà prédéfinies :
+- `Combobox.filterValueOrLabelStartsWith()` est la **valeur par défaut** et filtre sur la valeur de l'option ainsi que son libellé
+- `Combobox.noFilter()` ne filtre pas du tout les options
+
+Mais il est quand même possible de passer sa propre stratégie de filtre sous forme `(element: Element, currentValue: string) => boolean`
+
+E.g. :
+```tsx
+<Combobox filter={Combobox.noFilter}>
+  {/* ... */}
+</Combobox>
+
+{/* --- */}
+
+<Combobox filter={(element, currentValue) => (
+  element.getAttribute('data-value') === currentValue
+)}>
+  {/* ... */}
+</Combobox>
+```
+
+<Canvas of={stories.filterStrategyNoFilter} />

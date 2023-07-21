@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { useEffect,useState } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -12,6 +13,7 @@ const meta: Meta<typeof Combobox> = {
 		children: {
 			control: 'array',
 		},
+		filter: { type: 'function' },
 		onBlur: { type: 'function' },
 		onFocus: { type: 'function' },
 		value: { type: 'string' },
@@ -53,7 +55,6 @@ export const disabled: Story = {
 		</>
 	),
 };
-
 export const intégrationDansUnFormulaire: Story = {
 	args: {},
 	render: ({ children, ...args }) => (
@@ -148,6 +149,46 @@ export const categories: Story = {
 						}</Combobox.Category>
 					))
 			}</Combobox>
+		</>
+	),
+};
+
+export const async: Story = {
+	args: {},
+	render: function AsyncCombobox({ children, ...args }) {
+		const [ value, setValue] = useState('');
+		const [ loading, setLoading ] = useState(true);
+
+		useEffect(() => {
+			setLoading(true);
+			const timeout = setTimeout(() => {
+				setLoading(false);
+			}, 2000);
+			return () => clearTimeout(timeout);
+		}, [value]);
+
+		return (
+			<>
+				<label htmlFor="pays">Pays</label>
+				<Combobox id="pays" value={value} onChange={(event) => setValue(event.currentTarget.value)} {...args}>
+					{!loading && children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
+					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${children.length} résultats trouvés`}</Combobox.AsyncMessage>
+				</Combobox>
+			</>
+		);
+	},
+};
+
+export const filterStrategyNoFilter: Story = {
+	args: {
+		filter: Combobox.noFilter,
+	},
+	render: ({ children, ...args }) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Combobox id="pays" {...args}>
+				{children.map((child, index) => <Combobox.Option key={index}>{child}</Combobox.Option>)}
+			</Combobox>
 		</>
 	),
 };

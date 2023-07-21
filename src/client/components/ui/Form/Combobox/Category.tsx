@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import { useCombobox } from '~/client/components/ui/Form/Combobox/ComboboxContext';
-import { matchesInput } from '~/client/components/ui/Form/Combobox/utils';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 type CategoryProps = React.ComponentPropsWithoutRef<'ul'> & {
@@ -15,13 +14,13 @@ export const Category = React.forwardRef<HTMLUListElement, CategoryProps>(functi
 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
 	const [hidden, setHidden] = useState(false);
-	const { state: { value } } = useCombobox();
+	const { state: { value }, filter } = useCombobox();
 
 	useEffect(function checkIfHidden() {
 		const options = Array.from(ref.current?.querySelectorAll('[role="option"]') ?? []);
-		const hasDisplayedOption = options.some((option) => matchesInput(option, value));
+		const hasDisplayedOption = options.some((option) => filter(option, value));
 		setHidden(!hasDisplayedOption);
-	}, [ref, children, value]);
+	}, [ref, children, value, filter]);
 
 
 	return (

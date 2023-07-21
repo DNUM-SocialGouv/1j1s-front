@@ -3,7 +3,6 @@ import React, { useCallback, useEffect,useId, useState } from 'react';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { useCombobox } from './ComboboxContext';
-import { matchesInput } from './utils';
 
 type OptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
 	value?: { toString: () => string },
@@ -20,13 +19,14 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	const {
 		state: { activeDescendant, value: inputValue },
 		onOptionSelection,
+		filter,
 	} = useCombobox();
 	const selected = activeDescendant === id;
 	const [ hidden, setHidden ] = useState(false);
 
 	useEffect(function checkIfHidden() {
-		setHidden(!matchesInput(ref.current, inputValue));
-	}, [inputValue, ref]);
+		setHidden(ref.current != null && !filter(ref.current, inputValue));
+	}, [filter, inputValue, ref]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);

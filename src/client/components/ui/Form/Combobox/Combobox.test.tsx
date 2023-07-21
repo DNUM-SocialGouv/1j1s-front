@@ -947,7 +947,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '1');
+				await user.type(input, 'Option 1');
 
 				const option1 = screen.getByRole('option', { name: 'Option 1' });
 				expect(option1).toBeVisible();
@@ -965,7 +965,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '2');
+				await user.type(input, 'Option 2');
 				await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 
 				const option = screen.getByRole('option', { name: 'Option 2' });
@@ -983,7 +983,7 @@ describe('<Combobox />', () => {
 				);
 
 				const input = screen.getByRole('combobox');
-				await user.type(input, '2');
+				await user.type(input, 'Option 2');
 				await user.keyboard(`{${KeyBoard.ARROW_UP}}`);
 
 				const option = screen.getByRole('option', { name: 'Option 2' });
@@ -1302,9 +1302,6 @@ describe('<Combobox />', () => {
 				}),
 			}));
 		});
-
-		it.todo('renommer la value en juste le name plutôt que name.value et garder le label comme name.label');
-		it.todo('pouvoir renommer le name de la value pour le submit');
 	});
 
 	describe('validation', () => {
@@ -1372,7 +1369,6 @@ describe('<Combobox />', () => {
 				expect(input).not.toHaveAttribute('data-touched', 'true');
 			});
 			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
-			it.todo('quand on submit le form ?');
 		});
 
 		describe('requireValidOption', () => {
@@ -1486,9 +1482,33 @@ describe('<Combobox />', () => {
 		});
 	});
 
-	it.todo('async version');
-	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
+	describe('<Combobox.AsyncMessage />', () => {
+		it('render un élément avec le rôle status', () => {
+			render(
+				<Combobox aria-label='Test'>
+					<Combobox.AsyncMessage>Chargement ...</Combobox.AsyncMessage>
+				</Combobox>,
+			);
 
-	it.todo('gérer les children qui ne sont pas des Option (devrait être automatique ?)');
-	it.todo('calculer automatiquement le label de la liste et du bouton avec le label de l’input');
+			const loader = screen.getByRole('status', { hidden: true });
+			expect(loader).toBeInTheDocument();
+		});
+		it('accepte une stratégie de filtre', async () => {
+			const user = userEvent.setup();
+			render(
+				<Combobox aria-label='Test' filter={() => true}>
+					<Combobox.Option>Option 1</Combobox.Option>
+				</Combobox>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'test');
+
+			const option = screen.getByRole('option', { name: 'Option 1' });
+			expect(option).toBeVisible();
+		});
+	});
+
+	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
+	it.todo('nommer les fonctions des useCallbacks et autres (plutôt que juste "onClick", ...)');
 });

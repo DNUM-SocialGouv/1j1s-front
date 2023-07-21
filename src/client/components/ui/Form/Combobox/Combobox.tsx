@@ -20,11 +20,13 @@ import { ChangeEvent } from './ChangeEvent';
 import styles from './Combobox.module.scss';
 import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
+import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	requireValidOption?: boolean,
+	filter?: (element: Element, currentValue: string) => boolean
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -63,6 +65,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
 	requireValidOption = false,
+	filter = filterValueOrLabelStartsWith,
 	...inputProps
 }, inputOuterRef) {
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
@@ -171,6 +174,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	return (
 		<ComboboxProvider value={{
 			dispatch,
+			filter,
 			onOptionSelection,
 			state,
 		}}>
