@@ -61,10 +61,6 @@
   line-height: 1.5;
   display: flex;
   flex-direction: column;
-  :first-letter {
-    text-transform: capitalize;
-  }
-
 
   &Title {
     @extend %bold;
