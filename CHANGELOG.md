@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.118.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.117.0...v3.118.0) (2023-07-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Gestion de l'async pour le combobox ([#1627](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1627)) ([11c1dfc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/11c1dfc8f1f4c124a26f80047cac42e0789e3dfd))
+
 ## [3.117.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.116.12...v3.117.0) (2023-07-20)
 
 
