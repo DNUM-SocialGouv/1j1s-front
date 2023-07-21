@@ -15,11 +15,20 @@ type InputAutocomplétionMétierProps = Omit<React.ComponentPropsWithoutRef<type
 	codeRomes?: string;
 }
 
-const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers.';
+const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
 	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
-const MESSAGE_CHAMP_VIDE = 'Commencer à taper pour rechercher un métier';
+const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un métier';
+function MetiersTrouves({ quantity }: { quantity: number }) {
+	return (
+		<small className={styles.nombreResultats}>{
+			quantity > 1
+				? `${quantity} métiers trouvés`
+				: `${quantity} métier trouvé`
+		}</small>
+	);
+}
 
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
 	const {
@@ -108,7 +117,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
-						|| `${métiers.length} métiers trouvés`
+						|| <MetiersTrouves quantity={métiers.length} />
 					}
 				</Combobox.AsyncMessage>
 			</Combobox>

@@ -31,7 +31,7 @@ describe('InputAutocomplétionMétier', () => {
 		mockScrollIntoView();
 		mockUseRouter({});
 	});
-	describe('quand la recherche le correspond a aucun métier', () => {
+	describe('quand la recherche ne correspond a aucun métier', () => {
 		it('affiche un message vide et ne propose pas de métier', async () => {
 			const métierServiceMock = aMétierService([]);
 			const user = userEvent.setup();
@@ -147,7 +147,7 @@ describe('InputAutocomplétionMétier', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Une erreur est survenue lors de la récupération des métiers.');
+		expect(message).toHaveTextContent('Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.');
 	});
 
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
@@ -195,6 +195,26 @@ describe('InputAutocomplétionMétier', () => {
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('3 métiers trouvés');
 	});
+	it('conjugue le message du nombre de résultats quand un seul résultat est trouvé', async () => {
+		const user = userEvent.setup();
+		const métierServiceMock = aMétierService([
+			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+		]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</DependenciesProvider>,
+		);
+
+		await user.type(screen.getByRole('combobox'), 'test');
+
+		const message = screen.getByRole('status');
+		expect(message).toBeVisible();
+		expect(message).toHaveTextContent('1 métier trouvé');
+	});
 
 	it('affiche un message d’erreur quand le champ est en erreur', async () => {
 		const user = userEvent.setup();
@@ -233,8 +253,6 @@ describe('InputAutocomplétionMétier', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Commencer à taper pour rechercher un métier');
+		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
 	});
-
-	it.todo('pas de test sur la valeur qui est submit pour le libellé ?');
 });
