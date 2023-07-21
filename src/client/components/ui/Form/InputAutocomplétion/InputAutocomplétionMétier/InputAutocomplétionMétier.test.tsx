@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -254,5 +254,42 @@ describe('InputAutocomplétionMétier', () => {
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+	});
+
+	it('reset le composant si la defaultValue change (query params asynchrones)', async () => {
+		let setDefaultValue: (value: string) => void = () => {
+			throw new Error('render error');
+		};
+
+		function DelayedDefaultValue() {
+			const [libelle, setLibelle] = React.useState('');
+
+			new Promise<string>((resolve) => {
+				setDefaultValue = resolve;
+			})
+				.then((value) => setLibelle(value));
+
+			return (
+				<InputAutocomplétionMétier
+					name='métier'
+					label='Rechercher un métier'
+					libellé={libelle}
+				/>
+			);
+		}
+
+		const métierServiceMock = aMétierService([]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<DelayedDefaultValue/>
+			</DependenciesProvider>,
+		);
+
+		setDefaultValue('Ingénieur en ingénierie');
+
+		await waitFor(() => {
+			const combobox = screen.getByRole('combobox');
+			return expect(combobox).toHaveValue('Ingénieur en ingénierie');
+		});
 	});
 });
