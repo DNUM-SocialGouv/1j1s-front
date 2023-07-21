@@ -25,7 +25,7 @@ export default function ConsulterJobEtePage({ jobEte }: ConsulterJobEtePageProps
 				title={`${jobEte.intitulé} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<ConsulterOffreEmploi offreEmploi={jobEte} />
+			<ConsulterOffreEmploi offreEmploi={jobEte}/>
 		</>
 	);
 }
