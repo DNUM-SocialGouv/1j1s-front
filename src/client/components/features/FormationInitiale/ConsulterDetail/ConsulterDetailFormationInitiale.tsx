@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { FormationInitialeDetailComplete } from '~/pages/formations-initiales/[id].page';
+import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 

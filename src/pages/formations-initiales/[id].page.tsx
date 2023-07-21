@@ -8,16 +8,13 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/[id].analytics';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
-import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 type ConsulterDetailFormationInitialePageProps = {
 	formationInitialeDetail: FormationInitialeDetailComplete;
 }
-
-export type FormationInitialeDetailComplete =  FormationInitialeDetail & FormationInitialeDetailCMS;
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{
 	id: string
@@ -34,19 +31,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	}
 
 	const { id } = context.params;
-	const formationInitialeDetail = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
-	const formationInitialeDetailCMS = await dependencies.cmsDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
 
-	if (formationInitialeDetail.instance === 'failure') {
+	if (formationInitialeDetailComplete.instance === 'failure') {
 		return { notFound: true };
 	}
-
-	const formationInitialeDetailCMSResult = formationInitialeDetailCMS.instance === 'failure' ? {} : formationInitialeDetailCMS.result;
-	const formationInitialeDetailComplete: FormationInitialeDetailComplete = { ...formationInitialeDetail.result, ...formationInitialeDetailCMSResult };
-
+	
 	return {
 		props: {
-			formationInitialeDetail: formationInitialeDetailComplete,
+			formationInitialeDetail: formationInitialeDetailComplete.result,
 		},
 	};
 }
