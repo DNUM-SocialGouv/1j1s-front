@@ -59,6 +59,7 @@ export function FormulaireRechercherFormation() {
 							name={'libelleMetier'}
 							label={'Domaine'}
 							libellé={libelleMetier}
+							key={libelleMetier}
 							codeRomes={codeRomes}
 							required
 							autoFocus

@@ -85,7 +85,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Domaine');
+			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -124,7 +124,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Domaine');
+			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -199,7 +199,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Domaine');
+			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -225,7 +225,7 @@ describe('FormulaireRechercherFormation', () => {
 	});
 
 	it('rempli automatiquement les champs lorsque les query params sont présents', () => {
-		mockUseRouter({ query: {
+		const query = {
 			codeCommune: '75056',
 			codeRomes: 'D1102,D1104',
 			distanceCommune: '10',
@@ -233,8 +233,9 @@ describe('FormulaireRechercherFormation', () => {
 			libelleCommune: 'Paris (75001)',
 			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
 			longitudeCommune: '2.347',
-			niveauEtudes: '3',
-		} });
+			niveauEtudes: '4',
+		};
+		mockUseRouter({ query });
 
 		render(
 			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
@@ -242,22 +243,15 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('textbox', { name: /Domaine/i });
+		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
-
-		// FIXME (GAFI 17-03-2023): Le composant utilisé pour ces champs ne génère pas un HTML valide et cause des problèmes
-		//  de test-ids
-		/* eslint-disable testing-library/no-node-access */
-		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
-			const labelElement = screen.getByText(fieldLabel);
-			const fieldId = labelElement.getAttribute('for');
-			const field = fieldId && document.getElementById(fieldId);
-			expect(field).toHaveValue(expectedValue);
-		}
-		checkSelectValue('Rayon', '10');
-		checkSelectValue('Niveau d’études visé (facultatif)', '3');
-		/* eslint-enable testing-library/no-node-access */
+		const rayon = screen.getByRole('button', { hidden: true, name: /Rayon/i });
+		expect(rayon).toHaveTextContent('10');
+		const niveau = screen.getByRole('button', { name: /Niveau d’études visé/i });
+		expect(niveau).toHaveTextContent('Bac, autres formations niveau 4');
+		const formulaireRechercheFormation = screen.getByRole('form');
+		expect(formulaireRechercheFormation).toHaveFormValues(query);
 	});
 });

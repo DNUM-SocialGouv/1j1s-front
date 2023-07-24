@@ -255,41 +255,4 @@ describe('InputAutocomplétionMétier', () => {
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
 	});
-
-	it('reset le composant si la defaultValue change (query params asynchrones)', async () => {
-		let setDefaultValue: (value: string) => void = () => {
-			throw new Error('render error');
-		};
-
-		function DelayedDefaultValue() {
-			const [libelle, setLibelle] = React.useState('');
-
-			new Promise<string>((resolve) => {
-				setDefaultValue = resolve;
-			})
-				.then((value) => setLibelle(value));
-
-			return (
-				<InputAutocomplétionMétier
-					name='métier'
-					label='Rechercher un métier'
-					libellé={libelle}
-				/>
-			);
-		}
-
-		const métierServiceMock = aMétierService([]);
-		render(
-			<DependenciesProvider métierService={métierServiceMock}>
-				<DelayedDefaultValue/>
-			</DependenciesProvider>,
-		);
-
-		setDefaultValue('Ingénieur en ingénierie');
-
-		await waitFor(() => {
-			const combobox = screen.getByRole('combobox');
-			return expect(combobox).toHaveValue('Ingénieur en ingénierie');
-		});
-	});
 });
