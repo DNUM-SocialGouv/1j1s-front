@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.118.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.1...v3.118.2) (2023-07-24)
+
+
+### 🐛 Corrections de bogues
+
+* **stage:** suppression du retour à la ligne sur Firefox ([faa8355](https://github.com/DNUM-SocialGouv/1j1s-front/commit/faa8355ab3d76b3c926ad4811ca2a44c7989bdcf))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency sass to v1.64.1 ([#1673](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1673)) ([8072eb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8072eb3109de90afa7d3be8fcbd2c04843934396))
+
 ## [3.118.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.0...v3.118.1) (2023-07-21)
 
 
