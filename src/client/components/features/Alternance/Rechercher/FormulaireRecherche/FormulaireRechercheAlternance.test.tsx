@@ -90,7 +90,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Domaine');
+			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -133,7 +133,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByLabelText('Domaine');
+			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
@@ -200,8 +200,8 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('textbox', { name: /Domaine/i });
-		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
+		const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMétiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByTestId('Select-InputHidden');
