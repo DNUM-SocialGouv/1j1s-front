@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.118.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.2...v3.118.3) (2023-07-25)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency nock to v13.3.2 ([f479e3f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f479e3fbd3c5615c411c8fc282ae59272a8ccd54))
+
 ## [3.118.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.1...v3.118.2) (2023-07-24)
 
 
