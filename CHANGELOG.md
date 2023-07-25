@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.118.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.5...v3.118.6) (2023-07-25)
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.1.1 ([ca639f0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ca639f0daf2f14ea9af81a3fdbf5b6cf64dd32cb))
+
 ## [3.118.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.4...v3.118.5) (2023-07-25)
 
 
