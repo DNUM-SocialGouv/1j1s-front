@@ -50,7 +50,7 @@ describe('<ConsulterJobEtePage />', () => {
 
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'emplois_detail',
-			pagegroup: 'job_etudiants',
+			pagegroup: 'job_ete',
 			pagelabel: 'emplois_detail',
 			'segment-site': 'offres_d_emploi',
 		});
