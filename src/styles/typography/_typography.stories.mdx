@@ -1,0 +1,41 @@
+import {Canvas, Meta, Story} from "@storybook/blocks"
+import "./_typography.stories.scss"
+
+<Meta title="Toolbox/Typography"/>
+
+# Taille des typographies
+
+Pour utiliser une taille de typographie, on procède de la manière suivante :
+```scss
+@use "styles/utilities";
+
+.maClasse {
+  @extend %text-medium;
+}
+```
+La taille sera alors conforme à la taille médium du Kit UI en desktop et en mobile.
+
+### Les différentes tailles disponibles
+<Canvas>
+    <Story name="Example - Taille de police">
+        <div className="title">
+            <h2>Titres</h2>
+            <div className="title-xLarge">
+                <h2>Titre Xlarge</h2>
+                <p>%text-xLarge</p>
+            </div>
+            <div className="title-large">
+                <h2>Titre large</h2>
+                <p>%text-large</p>
+            </div>
+            <div className="title-medium">
+                <h2>Titre medium</h2>
+                <p>%text-medium</p>
+            </div>
+            <div className="title-small">
+                <h2>Titre small</h2>
+                <p>%text-small</p>
+            </div>
+        </div>
+    </Story>
+</Canvas>

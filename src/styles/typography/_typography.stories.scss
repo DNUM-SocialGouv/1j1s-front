@@ -1,0 +1,27 @@
+@use "@styles/utilities";
+
+.title > h2 {
+  margin-bottom: 1rem;
+  color: utilities.$color-title-primary;
+  @extend %text-large
+}
+
+.title > *:not(last-child){
+  margin-bottom: 20px;
+}
+
+.title-xLarge > h2 {
+  @extend %text-xLarge
+}
+
+.title-large > h2 {
+  @extend %text-large
+}
+
+.title-medium > h2 {
+  @extend %text-medium
+}
+
+.title-small > h2 {
+  @extend %text-small
+}
