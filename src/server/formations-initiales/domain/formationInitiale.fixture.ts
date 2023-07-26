@@ -6,7 +6,7 @@ import {
 
 export function aResultatFormationInitiale(override?: Partial<ResultatRechercheFormationsInitiales>): ResultatRechercheFormationsInitiales{
 	return {
-		formationsInitiales: [aFormationInitiale()], 
+		formationsInitiales: [aFormationInitiale()],
 		nombreDeResultat: 150,
 		...override,
 	};

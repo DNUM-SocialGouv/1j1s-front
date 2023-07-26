@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ServiceCard } from './Card/ServiceCard';
 
-export function OnisepPartner() {
+export function OnisepMetierPartner() {
 	return (
 		<ServiceCard
 			linkLabel="Découvrir les métiers"

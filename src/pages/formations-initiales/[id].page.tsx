@@ -4,10 +4,15 @@ import React from 'react';
 import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
+import { OnisepGeneralCard } from '~/client/components/features/ServiceCard/OnisepGeneralCard';
 import { Head } from '~/client/components/head/Head';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
+import { formatToFRLongDate } from '~/client/utils/formatDate.util';
 import analytics from '~/pages/formations-initiales/[id].analytics';
+import styles from '~/pages/formations-initiales/[id].module.scss';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 import { dependencies } from '~/server/start';
@@ -36,7 +41,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	if (formationInitialeDetailComplete.instance === 'failure') {
 		return { notFound: true };
 	}
-	
+
 	return {
 		props: {
 			formationInitialeDetail: formationInitialeDetailComplete.result,
@@ -48,6 +53,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 export default function ConsulterFormationInitialePage({ formationInitialeDetail }: ConsulterDetailFormationInitialePageProps) {
 	useAnalytics(analytics);
 	useReferrer();
+
+	const dataUpdateDate = formationInitialeDetail.updatedAt ? formatToFRLongDate(formationInitialeDetail.updatedAt) : formatToFRLongDate(new Date().toLocaleString());
+	// todo : ajouter la date dans le retour après merge de Julie
+
 	return (
 		<>
 			<Head
@@ -55,6 +64,14 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 				robots="noindex"
 			/>
 			<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
+
+			<Container className={styles.container}>
+				<OnisepGeneralCard headingLevel={'h2'}/>
+				<div className={styles.partnerInfo}>
+					<Icon name="information" className={styles.partnerInfoIcon}/>
+					<span>{`Idéo-fiches formations, Onisep, ${dataUpdateDate}, sous licence ODBL`}</span>
+				</div>
+			</Container>
 		</>
 	);
 };

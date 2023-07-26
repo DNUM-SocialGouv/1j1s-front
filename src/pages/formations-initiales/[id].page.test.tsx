@@ -4,11 +4,11 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
@@ -21,6 +21,7 @@ describe('quand le feature flip est actif', () => {
 	beforeEach(() => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 		mockUseRouter({});
+		mockLargeScreen();
 	});
 
 	it('envoie les analytics de la page', () => {
@@ -47,6 +48,60 @@ describe('quand le feature flip est actif', () => {
 		);
 
 		expect(container).toBeAccessible();
+	});
+
+	describe('affiche des informations sur l‘origine de la donnée', () => {
+		it('le partnenaire est ONISEP', () => {
+			// GIVEN
+			const analyticsService = anAnalyticsService();
+
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail()}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const onisepCardTitle = screen.getByRole('heading', { level: 2, name: /Onisep : l’information pour l’orientation/ });
+			expect(onisepCardTitle).toBeVisible();
+		});
+
+		it('la date de mise à jour de la donnée est celle de la mise à jour des fiches détails quand le détail provient des idéo-fiches formations', () => {
+			// GIVEN
+			const analyticsService = anAnalyticsService();
+			const updateDate = '2023-05-15T09:37:44.283Z';
+			const detailsUpdateDate = '15 mai 2023';
+
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail({ updatedAt: updateDate })}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${detailsUpdateDate}, sous licence ODBL`);
+			expect(onisepCardTitle).toBeVisible();
+		});
+
+		it('la date de mise à jour de la donnée est la date du jour quand il n‘il y a pas de détail provenant d’idéo-fiches formations', () => {
+			// GIVEN
+			const analyticsService = anAnalyticsService();
+			const todayDate = '26 juillet 2023';
+			jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(todayDate);
+
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail({ updatedAt: undefined })}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayDate}, sous licence ODBL`);
+			expect(onisepCardTitle).toBeVisible();
+		});
 	});
 });
 describe('quand le feature flip n‘est pas actif', () => {

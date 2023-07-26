@@ -1,5 +1,8 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 @use "@styles/components/link/_placeholders.scss";
+
+$card-border-color: utilities.$color-background-border;
 
 .services {
   background-color: utilities-deprecated.$color-background-white-lilac;
@@ -24,6 +27,8 @@
 
 .cardContainer {
   display: block;
+  border: 1px solid $card-border-color;
+  border-radius: 20px;
 
   & .card {
     display: grid;
@@ -54,6 +59,9 @@
 
     img {
       object-fit: contain;
+      @include utilities-deprecated.media(large) {
+        padding: 0 64px;
+      }
     }
   }
 

@@ -6,7 +6,7 @@ import {
 } from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
-import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { PassPartner } from '~/client/components/features/ServiceCard/PassPartner';
 import { Head } from '~/client/components/head/Head';
 import {
@@ -137,7 +137,7 @@ export default function RechercherAlternance() {
 			<ServiceCardList>
 				{isCampagneApprentissageActive && <DecouvrirApprentissage/>}
 				<PassPartner/>
-				<OnisepPartner/>
+				<OnisepMetierPartner/>
 			</ServiceCardList>
 		</main>
 	</>;
