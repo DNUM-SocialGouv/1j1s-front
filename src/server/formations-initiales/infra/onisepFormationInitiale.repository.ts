@@ -1,12 +1,12 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import {
-	FormationInitialeDetail,
+	FormationInitiale,
 	FormationInitialeFiltre, NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
 	ResultatRechercheFormationsInitiales,
 } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeRepository } from '~/server/formations-initiales/domain/formationInitiale.repository';
 import {
-	formationInitialeDetailMapper,
+	formationInitialeMapper,
 	formationInitialeRechercheMapper,
 } from '~/server/formations-initiales/infra/formationInitiale.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -61,11 +61,11 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		return new URLSearchParams({ from, q: filtre.motCle || '', size: String(NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE) });
 	}
 
-	async getDetail(id: string): Promise<Either<FormationInitialeDetail>> {
+	async getDetail(id: string): Promise<Either<FormationInitiale>> {
 		try {
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${id}`);
 			const formationInitialeApiResponse = apiResponse.data.results[0];
-			const formationsInitiales = formationInitialeDetailMapper(formationInitialeApiResponse);
+			const formationsInitiales = formationInitialeMapper(formationInitialeApiResponse);
 			return createSuccess(formationsInitiales);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {

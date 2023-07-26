@@ -2,7 +2,7 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE } from '~/server/formations-initiales/domain/formationInitiale';
 import {
-	aFormationInitiale, aFormationInitialeDetail,
+	aFormationInitiale,
 	aFormationInitialeFiltre, aResultatFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
@@ -139,7 +139,7 @@ describe('onisep formation initiale repository', () => {
 			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse({
 				results: [aFormationInitialeApiResponse()],
 			}));
-			const expectedFormationsInitialesDetail = createSuccess(aFormationInitialeDetail());
+			const expectedFormationsInitialesDetail = createSuccess(aFormationInitiale());
 			const identifiant = 'FOR.1234';
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 

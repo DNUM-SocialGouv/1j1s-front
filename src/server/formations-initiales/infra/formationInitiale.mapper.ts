@@ -1,5 +1,5 @@
 import {
-	FormationInitialeDetail, ResultatRechercheFormationsInitiales,
+	FormationInitiale, ResultatRechercheFormationsInitiales,
 } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	FormationInitialeApiResponse, ResultatRechercheFormationInitialeApiResponse,
@@ -15,8 +15,10 @@ function getTags(formationInitialeApiResponse: FormationInitialeApiResponse) {
 	return tags;
 }
 
-export function formationInitialeDetailMapper(formationInitialeApiResponse: FormationInitialeApiResponse): FormationInitialeDetail {
+
+export function formationInitialeMapper(formationInitialeApiResponse: FormationInitialeApiResponse): FormationInitiale {
 	return {
+		identifiant: getIdentifiant(formationInitialeApiResponse.url_et_id_onisep),
 		libelle: formationInitialeApiResponse.libelle_formation_principal,
 		tags: getTags(formationInitialeApiResponse),
 	};
@@ -24,11 +26,7 @@ export function formationInitialeDetailMapper(formationInitialeApiResponse: Form
 
 export function formationInitialeRechercheMapper(resultatRechercheFormationInitialeApiResponse: ResultatRechercheFormationInitialeApiResponse): ResultatRechercheFormationsInitiales {
 	return {
-		formationsInitiales: resultatRechercheFormationInitialeApiResponse.results.map((formationInitiale) => ({
-			identifiant: getIdentifiant(formationInitiale.url_et_id_onisep),
-			libelle: formationInitiale.libelle_formation_principal,
-			tags: getTags(formationInitiale),
-		})),
+		formationsInitiales: resultatRechercheFormationInitialeApiResponse.results.map((formationInitiale) => formationInitialeMapper(formationInitiale)),
 		nombreDeResultat: resultatRechercheFormationInitialeApiResponse.total,
 	};
 };
