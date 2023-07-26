@@ -1,6 +1,6 @@
 @use "@styles/theme/variables-deprecated" as theme-variables;
 @use "mixins";
-@use "placeholders";
+@use "placeholders-deprecated";
 @use "variables";
 
 @include mixins.font-face(variables.$font-family, "Marianne-Light", 300);

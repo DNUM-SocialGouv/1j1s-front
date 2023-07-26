@@ -1,27 +1,55 @@
 @use "@styles/utilities";
 
-.title > h2 {
-  margin-bottom: 1rem;
-  color: utilities.$color-title-primary;
-  @extend %text-large
+.typographie {
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
-.title > *:not(last-child){
+.title > h2, .text > h2 {
+  margin-bottom: 1rem;
+  text-decoration: underline;
+  color: utilities.$color-title-primary;
+  @extend %title-large
+}
+
+.title > *:not(last-child),
+.text > *:not(last-child) {
   margin-bottom: 20px;
 }
 
-.title-xLarge > h2 {
-  @extend %text-xLarge
+.title {
+  .title-xLarge > h2 {
+    @extend %title-xLarge
+  }
+
+  .title-large > h2 {
+    @extend %title-large
+  }
+
+  .title-medium > h2 {
+    @extend %title-medium
+  }
+
+  .title-small > h2 {
+    @extend %title-small
+  }
 }
 
-.title-large > h2 {
-  @extend %text-large
+.text {
+  .text-xLarge > h2 {
+    @extend %text-xLarge
+  }
+
+  .text-large > h2 {
+    @extend %text-large
+  }
+
+  .text-medium > h2 {
+    @extend %text-medium
+  }
+
+  .text-small > h2 {
+    @extend %text-small
+  }
 }
 
-.title-medium > h2 {
-  @extend %text-medium
-}
-
-.title-small > h2 {
-  @extend %text-small
-}
