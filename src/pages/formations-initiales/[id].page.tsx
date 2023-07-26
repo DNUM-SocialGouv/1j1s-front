@@ -9,11 +9,11 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
-import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 type ConsulterDetailFormationInitialePageProps = {
-	formationInitialeDetail: FormationInitialeDetail;
+	formationInitialeDetail: FormationInitialeDetailComplete;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{
@@ -29,15 +29,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	if (!context.params) {
 		throw new PageContextParamsException();
 	}
-	const { id } = context.params;
-	const formationInitiale = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
 
-	if (formationInitiale.instance === 'failure') {
+	const { id } = context.params;
+	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+
+	if (formationInitialeDetailComplete.instance === 'failure') {
 		return { notFound: true };
 	}
+	
 	return {
 		props: {
-			formationInitialeDetail: formationInitiale.result,
+			formationInitialeDetail: formationInitialeDetailComplete.result,
 		},
 	};
 }
@@ -46,7 +48,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 export default function ConsulterFormationInitialePage({ formationInitialeDetail }: ConsulterDetailFormationInitialePageProps) {
 	useAnalytics(analytics);
 	useReferrer();
-
 	return (
 		<>
 			<Head

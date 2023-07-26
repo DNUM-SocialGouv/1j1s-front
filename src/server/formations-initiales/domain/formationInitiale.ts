@@ -9,11 +9,6 @@ export interface ResultatRechercheFormationsInitiales {
 	formationsInitiales: Array<FormationInitiale>
 }
 
-export interface FormationInitialeDetail {
-	libelle: string,
-	tags: string[],
-}
-
 export interface FormationInitialeFiltre {
 	motCle?: string;
 	page: number

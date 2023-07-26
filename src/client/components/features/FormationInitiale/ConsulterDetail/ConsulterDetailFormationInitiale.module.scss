@@ -14,3 +14,36 @@
   margin-top: 2rem;
   justify-content: center;
 }
+
+.contenu {
+  display: grid;
+  grid-auto-flow: row;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contenu > *:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.contenu dt {
+  @extend %bold;
+  margin-bottom: 0.2rem;
+}
+
+.contenu dt::after {
+  content: " : ";
+}
+
+.contenu dd ul,
+.contenu dd dl {
+  padding-left: 40px;
+}
+
+.contenu > *,
+{
+  display: block;
+  white-space: pre-line;
+}
+

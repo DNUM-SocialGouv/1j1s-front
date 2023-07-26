@@ -3,9 +3,9 @@ import nock from 'nock';
 
 import { consulterDetailFormationInitialeHandler } from '~/pages/api/formations-initiales/[id].controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import {
-	aFormationInitialeDetail,
+	aFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
@@ -22,7 +22,7 @@ describe('getDetail', () => {
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
-		await testApiHandler<FormationInitialeDetail | ErrorHttpResponse>({
+		await testApiHandler<FormationInitiale | ErrorHttpResponse>({
 			handler: (req, res) => consulterDetailFormationInitialeHandler(req, res),
 			params: { id: id },
 			test: async ({ fetch }) => {
@@ -30,7 +30,7 @@ describe('getDetail', () => {
 				const json = await res.json();
 				// THEN
 				expect(getDetailFormationInitialeCall.isDone()).toBe(true);
-				expect(json).toEqual(aFormationInitialeDetail());
+				expect(json).toEqual(aFormationInitiale());
 			},
 			url: `/formations-initiales/${id}`,
 		});

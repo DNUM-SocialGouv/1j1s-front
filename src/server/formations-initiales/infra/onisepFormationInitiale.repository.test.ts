@@ -2,7 +2,7 @@ import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE } from '~/server/formations-initiales/domain/formationInitiale';
 import {
-	aFormationInitiale, aFormationInitialeDetail,
+	aFormationInitiale,
 	aFormationInitialeFiltre, aResultatFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
@@ -118,7 +118,7 @@ describe('onisep formation initiale repository', () => {
 		});
 	});
 
-	describe('getDetail', () => {
+	describe('getFormationInitiale', () => {
 		it('doit appeler l’api onisep avec l‘identifiant', async () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
@@ -126,7 +126,7 @@ describe('onisep formation initiale repository', () => {
 			const identifiant = 'FOR.1234';
 
 			// WHEN
-			await formationInitialeRepository.getDetail(identifiant);
+			await formationInitialeRepository.getFormationInitiale(identifiant);
 
 			// THEN
 			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?q=${identifiant}`);
@@ -139,12 +139,12 @@ describe('onisep formation initiale repository', () => {
 			const responseFromApi = anAxiosResponse(aResultatRechercheFormationInitialeApiResponse({
 				results: [aFormationInitialeApiResponse()],
 			}));
-			const expectedFormationsInitialesDetail = createSuccess(aFormationInitialeDetail());
+			const expectedFormationsInitialesDetail = createSuccess(aFormationInitiale());
 			const identifiant = 'FOR.1234';
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
 			// WHEN
-			const formationsInitiales = await formationInitialeRepository.getDetail(identifiant);
+			const formationsInitiales = await formationInitialeRepository.getFormationInitiale(identifiant);
 
 			// THEN
 			expect(formationsInitiales).toStrictEqual(expectedFormationsInitialesDetail);
@@ -161,7 +161,7 @@ describe('onisep formation initiale repository', () => {
 				const identifiant = 'FOR.1234';
 
 				// WHEN
-				await formationInitialeRepository.getDetail(identifiant);
+				await formationInitialeRepository.getFormationInitiale(identifiant);
 
 				// THEN
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
@@ -183,7 +183,7 @@ describe('onisep formation initiale repository', () => {
 				const identifiant = 'FOR.1234';
 
 				// WHEN
-				const businessError = await formationInitialeRepository.getDetail(identifiant);
+				const businessError = await formationInitialeRepository.getFormationInitiale(identifiant);
 
 				// THEN
 				expect(businessError).toStrictEqual(expectedErrorFromErromManagement);

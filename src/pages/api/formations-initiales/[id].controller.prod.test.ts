@@ -3,9 +3,9 @@ import nock from 'nock';
 
 import { consulterDetailFormationInitialeHandler } from '~/pages/api/formations-initiales/[id].controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { FormationInitialeDetail } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import {
-	aFormationInitialeDetail,
+	aFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
@@ -88,7 +88,7 @@ describe('lorsque je veux consulter le détail d‘une formation initiale', () =
 			.reply(200, aResultatRechercheFormationInitialeApiResponse);
 
 		// WHEN
-		await testApiHandler<FormationInitialeDetail | ErrorHttpResponse>({
+		await testApiHandler<FormationInitiale | ErrorHttpResponse>({
 			handler: (req, res) => consulterDetailFormationInitialeHandler(req, res),
 			params: { id: id },
 			test: async ({ fetch }) => {
@@ -97,7 +97,7 @@ describe('lorsque je veux consulter le détail d‘une formation initiale', () =
 				// THEN
 				expect(getTokenCall.isDone()).toBe(true);
 				expect(getDetailFormationInitialeCall.isDone()).toBe(true);
-				expect(reponseBody).toEqual(aFormationInitialeDetail());
+				expect(reponseBody).toEqual(aFormationInitiale());
 			},
 			url: `/formations-initiales/${id}`,
 		});
