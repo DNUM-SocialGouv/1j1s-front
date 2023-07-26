@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -9,7 +11,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobÉtudiantPage from '~/pages/jobs-etudiants/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
-import { checkA11y } from '~/test-utils';
 
 describe('<ConsulterJobÉtudiantPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -24,6 +25,6 @@ describe('<ConsulterJobÉtudiantPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 });

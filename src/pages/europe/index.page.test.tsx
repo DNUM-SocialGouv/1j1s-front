@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -10,7 +12,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EuropePage from '~/pages/europe/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('Page Europe', () => {
 	let analyticsService: AnalyticsService;
@@ -31,9 +32,9 @@ describe('Page Europe', () => {
 				<EuropePage />);
 			</DependenciesProvider>);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('Trouver un emploi en Europe');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

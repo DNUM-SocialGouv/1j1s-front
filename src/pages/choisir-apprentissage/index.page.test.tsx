@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 import * as process from 'process';
 
 import { HeadMock } from '~/client/components/head.mock';
@@ -17,7 +19,6 @@ import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampag
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
-import { checkA11y } from '~/test-utils';
 
 import ApprentissageJeunes, { getServerSideProps } from './index.page';
 
@@ -87,9 +88,9 @@ describe('Page Apprentissage Jeunes', () => {
 				</DependenciesProvider>,
 			);
 
-			await waitFor(async () => {
-				await checkA11y(container);
-			});
+			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
+
+			expect(container).toBeAccessible();
 		});
 
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {

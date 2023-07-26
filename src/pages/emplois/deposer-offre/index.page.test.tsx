@@ -2,13 +2,14 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('Je recrute / Déposer une offre d‘emploi', () => {
 	beforeEach(() => {
@@ -24,7 +25,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

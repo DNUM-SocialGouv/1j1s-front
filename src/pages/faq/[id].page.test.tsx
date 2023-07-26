@@ -2,12 +2,13 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import ConsulterArticlePage from '~/pages/faq/[id].page';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { checkA11y } from '~/test-utils';
 
 describe('<ConsulterArticlePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -23,6 +24,6 @@ describe('<ConsulterArticlePage />', () => {
 			<ConsulterArticlePage faqRéponse={faqRéponse} />,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 });

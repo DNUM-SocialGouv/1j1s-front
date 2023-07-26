@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -15,7 +17,6 @@ import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
-import { checkA11y } from '~/test-utils';
 
 jest.mock('~/server/start', () => ({
 	dependencies: {
@@ -152,7 +153,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('retourne une page avec les informations de la formation', () => {

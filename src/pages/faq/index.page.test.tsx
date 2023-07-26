@@ -1,9 +1,11 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import {
 	render,
-	screen, waitFor,
+	screen,
 	within,
 } from '@testing-library/react';
 
@@ -13,7 +15,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { checkA11y } from '~/test-utils';
 
 const listeDeQuestionRéponse: Array<Question> = [
 	{
@@ -44,9 +45,9 @@ describe('Page FAQ', () => {
 			</DependenciesProvider>,
 		);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', async () => {

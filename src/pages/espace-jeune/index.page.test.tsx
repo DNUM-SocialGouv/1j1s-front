@@ -1,7 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen, waitFor, within } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -10,7 +12,6 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
 import { aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
-import { checkA11y } from '~/test-utils';
 
 describe('Page Espace Jeune', () => {
 	beforeEach(() => {
@@ -38,9 +39,9 @@ describe('Page Espace Jeune', () => {
 				/>);
 			</DependenciesProvider>);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('Actualité 1');
+
+		expect(container).toBeAccessible();
 	});
 
 	describe('Si des actualités sont récupérées', () => {

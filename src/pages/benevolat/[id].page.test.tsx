@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -11,7 +13,6 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagementService.fixture';
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
-import { checkA11y } from '~/test-utils';
 
 describe('<ConsulterMissionEngagementPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -40,6 +41,6 @@ describe('<ConsulterMissionEngagementPage />', () => {
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 });

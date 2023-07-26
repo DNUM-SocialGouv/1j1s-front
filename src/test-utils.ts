@@ -39,11 +39,13 @@ const queryAllByDescriptionTerm = (container: HTMLElement, name: string) => {
 	return definitions as HTMLElement[];
 };
 
-const checkA11y = async (htmlElement: HTMLElement) => {
-	const results = await axe(htmlElement);
+expect.extend({
+	toBeAccessible: async (htmlElement: HTMLElement) => {
+		const results = await axe(htmlElement);
 
-	expect(results).toHaveNoViolations();
-};
+		return toHaveNoViolations.toHaveNoViolations(results);
+	},
+});
 
 const [
 	queryByDescriptionTerm,
@@ -67,6 +69,5 @@ const queries = {
 };
 
 export {
-	checkA11y,
 	queries,
 };

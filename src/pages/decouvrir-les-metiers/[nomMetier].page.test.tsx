@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -9,7 +11,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[nomMetier].page';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
-import { checkA11y } from '~/test-utils';
 
 describe('Page consulter fiche métier', () => {
 	beforeEach(() => {
@@ -31,7 +32,7 @@ describe('Page consulter fiche métier', () => {
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,
 		);
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('affiche les informations disponibles de la fiche métier', async () => {

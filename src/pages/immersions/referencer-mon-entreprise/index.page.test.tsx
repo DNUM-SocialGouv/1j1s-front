@@ -2,13 +2,14 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ImmersionReferenceMonEntreprisePage from '~/pages/immersions/referencer-mon-entreprise/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('Immersion / Référencer mon entreprise', () => {
 	beforeEach(() => {
@@ -24,7 +25,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
   
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
