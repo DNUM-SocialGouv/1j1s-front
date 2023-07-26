@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.119.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.11...v3.119.0) (2023-07-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **jobs d'été:** modification du taggage analytic ([#1669](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1669)) ([fad2eef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fad2eef063ce5bf87c3a5533077e3dd6441f7db2))
+
 ## [3.118.11](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.10...v3.118.11) (2023-07-26)
 
 
