@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.118.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.7...v3.118.8) (2023-07-26)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/react to v18.2.16 ([#1677](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1677)) ([5c14688](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c14688910d8db10649c31d12262ad9fffa2c69a))
+
 ## [3.118.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.6...v3.118.7) (2023-07-25)
 
 
