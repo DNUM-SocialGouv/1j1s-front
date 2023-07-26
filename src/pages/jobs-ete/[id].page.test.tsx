@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -10,7 +12,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
-import { checkA11y } from '~/test-utils';
 
 jest.mock('next/head', () => HeadMock);
 
@@ -27,7 +28,7 @@ describe('<ConsulterJobEtePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

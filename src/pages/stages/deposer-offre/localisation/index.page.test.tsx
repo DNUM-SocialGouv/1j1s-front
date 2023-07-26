@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { render, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 
 import {
 	aFormulaireÉtapeEntreprise,
@@ -13,7 +15,6 @@ import { mockLocalStorage, mockSessionStorage } from '~/client/components/window
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStageService } from '~/client/services/stage/stageService.fixture';
 import DeposerOffreStageEtape3Page from '~/pages/stages/deposer-offre/localisation/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('<DeposerOffreStageEtape3Page />', () => {
 	let getSessionItem: jest.Mock;
@@ -41,8 +42,8 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 			</DependenciesProvider>,
 		);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('Etape 3 sur 3 : Localisation du stage');
+
+		expect(container).toBeAccessible();
 	});
 });

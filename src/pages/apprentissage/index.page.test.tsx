@@ -1,7 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-import { render, screen, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -11,7 +13,6 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('Page rechercher une alternance', () => {
 	beforeEach(() => {
@@ -71,9 +72,9 @@ describe('Page rechercher une alternance', () => {
 			</DependenciesProvider>,
 			);
 
-			await waitFor(async () => {
-				await checkA11y(container);
-			});
+			await screen.findByRole('heading', { level: 1 });
+
+			expect(container).toBeAccessible();
 		});
 
 		it('affiche le titre propre à la bonne alternance', async () => {

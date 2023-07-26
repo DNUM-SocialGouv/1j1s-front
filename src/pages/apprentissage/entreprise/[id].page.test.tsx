@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,7 +11,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
-import { checkA11y } from '~/test-utils';
 
 const siret = '123';
 
@@ -32,7 +33,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('le titre du document est correct', async () => {

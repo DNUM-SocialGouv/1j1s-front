@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { render, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render,screen } from '@testing-library/react';
 import * as process from 'process';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -14,7 +16,6 @@ import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampag
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
-import { checkA11y } from '~/test-utils';
 
 import ApprentissageEntreprises, { getServerSideProps } from './index.page';
 
@@ -42,9 +43,9 @@ describe('<ApprentissageEntreprises />', () => {
 				<ApprentissageEntreprises videos={videos} />);
 			</DependenciesProvider>);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('5 bonnes raisons de choisir l’apprentissage :');
+
+		expect(container).toBeAccessible();
 	});
 
 	describe('getServerSideProps', () => {

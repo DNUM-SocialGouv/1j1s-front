@@ -2,13 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { render, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('<LesEntreprisesSEngagent />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -21,8 +22,8 @@ describe('<LesEntreprisesSEngagent />', () => {
 			</DependenciesProvider>,
 		);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('Rejoignez la mobilisation !');
+
+		expect(container).toBeAccessible();
 	});
 });

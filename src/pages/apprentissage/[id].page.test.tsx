@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -10,7 +12,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternancePage, { AlternanceSerialized } from '~/pages/apprentissage/[id].page';
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { checkA11y } from '~/test-utils';
 
 const alternanceSerialized: AlternanceSerialized = {
 	compétences: ['savoir faire'],
@@ -45,7 +46,7 @@ describe('<AnnonceAlternancePage />', () => {
 			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 		</DependenciesProvider>);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

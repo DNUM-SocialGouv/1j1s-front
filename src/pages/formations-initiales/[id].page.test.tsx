@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render } from '@testing-library/react';
 import React from 'react';
 
@@ -14,7 +16,6 @@ import { getServerSideProps } from '~/pages/formations-initiales/index.page';
 import {
 	aFormationInitialeDetailComplete,
 } from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
-import { checkA11y } from '~/test-utils';
 
 describe('quand le feature flip est actif', () => {
 	beforeEach(() => {
@@ -45,7 +46,7 @@ describe('quand le feature flip est actif', () => {
 			</DependenciesProvider>,
 		);
 
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 });
 describe('quand le feature flip n‘est pas actif', () => {

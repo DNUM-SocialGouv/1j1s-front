@@ -3,7 +3,9 @@
  */
 
 
-import { render, screen, waitFor } from '@testing-library/react';
+import '~/test-utils';
+
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -13,7 +15,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accueil from '~/pages/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('Page d‘accueil', () => {
 	let analyticsService: AnalyticsService;
@@ -30,9 +31,9 @@ describe('Page d‘accueil', () => {
 			</DependenciesProvider>,
 		);
 
-		await waitFor(async () => {
-			await checkA11y(container);
-		});
+		await screen.findByText('À chacun sa solution.');
+
+		expect(container).toBeAccessible();
 	});
 
 	describe('jobs d‘été', () => {

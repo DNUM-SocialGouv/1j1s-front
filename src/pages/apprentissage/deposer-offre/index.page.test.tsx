@@ -2,12 +2,13 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DeposerOffrePage from '~/pages/apprentissage/deposer-offre/index.page';
-import { checkA11y } from '~/test-utils';
 
 
 describe('deposer-offre', () => {
@@ -21,7 +22,7 @@ describe('deposer-offre', () => {
 			</DependenciesProvider>,
 		);
 	
-		await checkA11y(container);
+		expect(container).toBeAccessible();
 	});
 	it('contient un titre', () => {
 		const analyticsService = anAnalyticsService();
