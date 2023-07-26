@@ -16,24 +16,24 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 			<section>
 				<dl className={styles.contenu}>
 					{formationInitialeDetail.description && (
-						<div className={styles.description}>
+						<div>
 							<dt>Description</dt>
 							<dd>{formationInitialeDetail.description}</dd>
 						</div>)}
 					{formationInitialeDetail.attendusParcoursup && (
-						<div className={styles.attendusParcoursup}>
+						<div>
 							<dt>Attendus Parcoursup</dt>
 							<dd>{formationInitialeDetail.attendusParcoursup}</dd>
 						</div>
 					)}
 					{formationInitialeDetail.conditionsAcces && (
-						<div className={styles.conditionsAcces}>
+						<div>
 							<dt>Conditions d‘accès</dt>
 							<dd>{formationInitialeDetail.conditionsAcces}</dd>
 						</div>
 					)}
 					{formationInitialeDetail.poursuiteEtudes && (
-						<div className={styles.poursuiteEtudes}>
+						<div>
 							<dt>Poursuite d‘études</dt>
 							<dd>{formationInitialeDetail.poursuiteEtudes}</dd>
 						</div>

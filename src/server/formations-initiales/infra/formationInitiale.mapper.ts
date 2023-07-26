@@ -29,7 +29,7 @@ export function formationInitialeRechercheMapper(resultatRechercheFormationIniti
 		formationsInitiales: resultatRechercheFormationInitialeApiResponse.results.map((formationInitiale) => formationInitialeMapper(formationInitiale)),
 		nombreDeResultat: resultatRechercheFormationInitialeApiResponse.total,
 	};
-};
+}
 
 function getIdentifiant(url: string) {
 	const regex = /slug\/([^/]+)/;
@@ -38,4 +38,4 @@ function getIdentifiant(url: string) {
 		return match[1];
 	}
 	return undefined;
-};
+}

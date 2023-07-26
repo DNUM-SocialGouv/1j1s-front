@@ -6,6 +6,6 @@ export class ConsulterDetailFormationInitialeUseCase {
 	constructor(private readonly formationInitialeRepository: FormationInitialeRepository) {}
 
 	async handle(id: string): Promise<Either<FormationInitiale>> {
-		return this.formationInitialeRepository.getDetail(id);
+		return this.formationInitialeRepository.getFormationInitiale(id);
 	}
 }

@@ -7,6 +7,6 @@ import {
 
 export interface FormationInitialeRepository {
     search(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>>;
-    getDetail(id: string): Promise<Either<FormationInitiale>>
+    getFormationInitiale(id: string): Promise<Either<FormationInitiale>>
 }
 

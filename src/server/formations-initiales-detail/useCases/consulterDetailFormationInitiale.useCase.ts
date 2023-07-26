@@ -8,13 +8,13 @@ export class ConsulterDetailFormationInitialeUseCase {
 	}
 
 	async handle(id: string): Promise<Either<FormationInitialeDetailComplete>> {
-		const formationInitialeDetail = await this.formationInitialeRepository.getDetail(id);
-		const formationInitialeDetailCMS = await this.cmsRepository.getFormationInitialeById(id);
+		const formationInitiale = await this.formationInitialeRepository.getFormationInitiale(id);
+		const detailsFormationInitiale = await this.cmsRepository.getFormationInitialeById(id);
 
-		if (isFailure(formationInitialeDetail) || isFailure(formationInitialeDetailCMS)) {
-			return formationInitialeDetail;
+		if (isFailure(formationInitiale) || isFailure(detailsFormationInitiale)) {
+			return formationInitiale;
 		}
 
-		return createSuccess({ ...formationInitialeDetail.result, ...formationInitialeDetailCMS.result });
+		return createSuccess({ ...formationInitiale.result, ...detailsFormationInitiale.result });
 	}
 }

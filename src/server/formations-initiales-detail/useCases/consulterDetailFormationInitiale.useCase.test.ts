@@ -19,23 +19,23 @@ import {
 describe('consulterDetailFormationInitiale', () => {
 	it('appelle les repositories avec les bons arguments', async () => {
 		const id = 'FOR.1234';
-		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getDetail: jest.fn() });
+		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getFormationInitiale: jest.fn() });
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
-		jest.spyOn(formationInitialeRepository, 'getDetail').mockResolvedValue(createSuccess(aFormationInitiale()));
+		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createSuccess(aFormationInitiale()));
 		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createSuccess(aFormationInitialeDetailCMS()));
 
 		const consulterDetailFormationInitialeUseCase = await new ConsulterDetailFormationInitialeUseCase(formationInitialeRepository, cmsRepository);
 		await consulterDetailFormationInitialeUseCase.handle(id);
 
-		expect(formationInitialeRepository.getDetail).toHaveBeenCalledWith(id);
+		expect(formationInitialeRepository.getFormationInitiale).toHaveBeenCalledWith(id);
 		expect(cmsRepository.getFormationInitialeById).toHaveBeenCalledWith(id);
 	});
 	it('renvoie le detail de la formation initiale complete', async () => {
 		const id = 'FOR.1234';
-		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getDetail: jest.fn() });
+		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getFormationInitiale: jest.fn() });
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
 		const expectedResult = aFormationInitialeDetailComplete();
-		jest.spyOn(formationInitialeRepository, 'getDetail').mockResolvedValue(createSuccess(aFormationInitiale()));
+		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createSuccess(aFormationInitiale()));
 		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createSuccess(aFormationInitialeDetailCMS()));
 
 		const consulterDetailFormationInitialeUseCase = await new ConsulterDetailFormationInitialeUseCase(formationInitialeRepository, cmsRepository);
@@ -46,10 +46,10 @@ describe('consulterDetailFormationInitiale', () => {
 	});
 	it('renvoie le detail de la formation initiale provenant de l‘onsiep si le cms est en erreur', async () => {
 		const id = 'FOR.1234';
-		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getDetail: jest.fn() });
+		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getFormationInitiale: jest.fn() });
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
 		const formationInitialeDetail = aFormationInitiale();
-		jest.spyOn(formationInitialeRepository, 'getDetail').mockResolvedValue(createSuccess(formationInitialeDetail));
+		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createSuccess(formationInitialeDetail));
 		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
 
 		const consulterDetailFormationInitialeUseCase = await new ConsulterDetailFormationInitialeUseCase(formationInitialeRepository, cmsRepository);
@@ -60,10 +60,10 @@ describe('consulterDetailFormationInitiale', () => {
 	});
 	it('renvoie une erreur si le detail de la formation initiale provenant de l‘onisep est en erreur', async () => {
 		const id = 'FOR.1234';
-		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getDetail: jest.fn() });
+		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getFormationInitiale: jest.fn() });
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
 		const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-		jest.spyOn(formationInitialeRepository, 'getDetail').mockResolvedValue(createFailure(expectedFailure));
+		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createFailure(expectedFailure));
 		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createSuccess(aFormationInitialeDetailCMS()));
 
 		const consulterDetailFormationInitialeUseCase = await new ConsulterDetailFormationInitialeUseCase(formationInitialeRepository, cmsRepository);

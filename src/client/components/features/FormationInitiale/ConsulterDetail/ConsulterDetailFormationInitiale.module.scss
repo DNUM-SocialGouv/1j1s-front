@@ -23,6 +23,10 @@
   margin-bottom: 1.5rem;
 }
 
+.contenu > *:not(:last-child) {
+  margin-bottom: 1em;
+}
+
 .contenu dt {
   @extend %bold;
   margin-bottom: 0.2rem;
@@ -35,35 +39,11 @@
 .contenu dd ul,
 .contenu dd dl {
   padding-left: 40px;
-  list-style: disc;
 }
 
-.contenu dd dl > * {
-  display: list-item;
-}
-
-.description > *,
-.attendusParcoursup > *,
-.conditionsAcces > *,
-.poursuiteEtudes > *,
+.contenu > *,
 {
-  display: inline;
+  display: block;
   white-space: pre-line;
-}
-
-.description,
-.attendusParcoursup,
-.conditionsAcces ,
-{
-  margin-bottom: 1em;
-}
-
-.contenu .description > *,
-.attendusParcoursup > *,
-.conditionsAcces > *,
-.poursuiteEtudes > * {
-  @include utilities.media(large) {
-    display: block;
-  }
 }
 

@@ -118,7 +118,7 @@ describe('onisep formation initiale repository', () => {
 		});
 	});
 
-	describe('getDetail', () => {
+	describe('getFormationInitiale', () => {
 		it('doit appeler l’api onisep avec l‘identifiant', async () => {
 			// GIVEN
 			const httpClient = anAuthenticatedHttpClientService();
@@ -126,7 +126,7 @@ describe('onisep formation initiale repository', () => {
 			const identifiant = 'FOR.1234';
 
 			// WHEN
-			await formationInitialeRepository.getDetail(identifiant);
+			await formationInitialeRepository.getFormationInitiale(identifiant);
 
 			// THEN
 			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?q=${identifiant}`);
@@ -144,7 +144,7 @@ describe('onisep formation initiale repository', () => {
 			jest.spyOn(httpClient, 'get').mockResolvedValueOnce(responseFromApi);
 
 			// WHEN
-			const formationsInitiales = await formationInitialeRepository.getDetail(identifiant);
+			const formationsInitiales = await formationInitialeRepository.getFormationInitiale(identifiant);
 
 			// THEN
 			expect(formationsInitiales).toStrictEqual(expectedFormationsInitialesDetail);
@@ -161,7 +161,7 @@ describe('onisep formation initiale repository', () => {
 				const identifiant = 'FOR.1234';
 
 				// WHEN
-				await formationInitialeRepository.getDetail(identifiant);
+				await formationInitialeRepository.getFormationInitiale(identifiant);
 
 				// THEN
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
@@ -183,7 +183,7 @@ describe('onisep formation initiale repository', () => {
 				const identifiant = 'FOR.1234';
 
 				// WHEN
-				const businessError = await formationInitialeRepository.getDetail(identifiant);
+				const businessError = await formationInitialeRepository.getFormationInitiale(identifiant);
 
 				// THEN
 				expect(businessError).toStrictEqual(expectedErrorFromErromManagement);

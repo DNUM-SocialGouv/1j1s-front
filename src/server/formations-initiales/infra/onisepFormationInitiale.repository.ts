@@ -61,7 +61,7 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		return new URLSearchParams({ from, q: filtre.motCle || '', size: String(NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE) });
 	}
 
-	async getDetail(id: string): Promise<Either<FormationInitiale>> {
+	async getFormationInitiale(id: string): Promise<Either<FormationInitiale>> {
 		try {
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${id}`);
 			const formationInitialeApiResponse = apiResponse.data.results[0];

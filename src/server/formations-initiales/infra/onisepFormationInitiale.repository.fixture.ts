@@ -11,7 +11,7 @@ import { FormationInitialeRepository } from '../domain/formationInitiale.reposit
 
 export function anOnisepFormationInitialeRepository(override?: Partial<FormationInitialeRepository>): FormationInitialeRepository{
 	return {
-		getDetail(): Promise<Either<FormationInitiale>> {
+		getFormationInitiale(): Promise<Either<FormationInitiale>> {
 			return Promise.resolve(createSuccess(aFormationInitiale()));
 		},
 		search(): Promise<Either<ResultatRechercheFormationsInitiales>> {
