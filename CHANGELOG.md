@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.120.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.119.0...v3.120.0) (2023-07-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** récupération depuis le cms du détail ([#1662](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1662)) ([878ff49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/878ff4909fb02ecd51f0468f7cdf46213fc96a5d))
+
 ## [3.119.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.118.11...v3.119.0) (2023-07-26)
 
 
