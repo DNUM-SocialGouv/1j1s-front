@@ -1,6 +1,6 @@
-@use "@styles/theme/variables-deprecated" as theme-variables;
+@use "@styles/theme/variables" as theme-variables;
 @use "mixins";
-@use "placeholders-deprecated";
+@use "placeholders";
 @use "variables";
 
 @include mixins.font-face(variables.$font-family, "Marianne-Light", 300);
@@ -12,11 +12,7 @@
 
 body {
   font-family: Marianne, arial, sans-serif;
-  color: theme-variables.$color-on-surface;
-}
-
-.text-regular, .paragraph {
-  @extend %text-regular;
+  color: theme-variables.$color-text-primary;
 }
 
 .text-large {
@@ -44,7 +40,7 @@ body {
 }
 
 .separator {
-  border-bottom: 1px solid theme-variables.$color-separator;
+  border-bottom: 1px solid theme-variables.$color-background-border;
 }
 
 .underline-none {

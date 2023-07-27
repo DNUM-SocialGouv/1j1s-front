@@ -53,3 +53,12 @@
   }
 }
 
+.titre-headline {
+  @extend %headline;
+  margin-bottom: 1rem;
+}
+
+.titre-subheading {
+  @extend %subheading
+}
+

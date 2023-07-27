@@ -93,3 +93,14 @@
 %italic {
   font-style: italic;
 }
+
+
+%headline {
+  color: variables.$color-primary;
+  @extend %title-xLarge;
+}
+
+%subheading {
+  @extend %title-large;
+}
+

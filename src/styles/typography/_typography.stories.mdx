@@ -60,3 +60,29 @@ La taille sera alors conforme à la taille médium du Kit UI en desktop et en mo
         </div>
     </Story>
 </Canvas>
+
+
+### Les titres
+
+Pour réaliser un titre et un sous titre, on procède de la manière suivante :
+
+```scss
+@use "styles/utilities";
+
+.monTitre {
+  @extend %headline;
+}
+
+.monSousTitre {
+  @extend %subheading;
+}
+```
+
+## Exemple
+
+<Canvas>
+    <Story name="Example - Titre et sous-titre">
+        <h2 className="titre-headline">Un titre 'headline'</h2>
+        <h2 className="titre-subheading">Un sous-titre 'subheading'</h2>
+    </Story>
+</Canvas>
