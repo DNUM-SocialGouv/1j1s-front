@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.120.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.2...v3.120.3) (2023-07-27)
+
+
+### 🐛 Corrections de bogues
+
+* retour review ([77a417f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/77a417f6cefae9422d8767ca428b2bbed27fe126))
+
+
+### 👷 Autres changements
+
+* **test:** test a11y sur toutes les pages n'ayant pas de problemes d'a11y ([f6c0d3c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f6c0d3c2863d71e0b06342419bf1f53e5c1249bc))
+
 ## [3.120.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.1...v3.120.2) (2023-07-27)
 
 
