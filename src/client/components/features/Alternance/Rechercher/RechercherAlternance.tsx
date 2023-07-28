@@ -45,7 +45,6 @@ export default function RechercherAlternance() {
 		offreList: [],
 	});
 	const [isLoading, setIsLoading] = useState(false);
-	const [nombreRésultats, setNombreRésultats] = useState(0);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
 	useEffect(() => {
@@ -59,7 +58,6 @@ export default function RechercherAlternance() {
 						const numberResult = response.result.offreList.length + response.result.entrepriseList.length;
 						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${numberResult === 0 ? ' - Aucun résultat' : ''}`));
 						setAlternanceList(response.result);
-						setNombreRésultats(numberResult);
 					} else {
 						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
 						setErreurRecherche(response.errorType);
@@ -69,7 +67,8 @@ export default function RechercherAlternance() {
 		}
 	}, [alternanceQuery, alternanceService]);
 
-	const messageRésultatRecherche: string = useMemo(() => {
+
+	function getMessageRésultatRecherche(nombreRésultats: number) {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
 		if (nombreRésultats > 1) {
 			messageRésultatRechercheSplit.push('résultats');
@@ -82,7 +81,7 @@ export default function RechercherAlternance() {
 			messageRésultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
 		}
 		return messageRésultatRechercheSplit.join(' ');
-	}, [nombreRésultats, router.query.libelleMetier]);
+	}
 
 	const étiquettesRecherche = useMemo(() => {
 		if (router.query.libelleCommune) {
@@ -105,16 +104,16 @@ export default function RechercherAlternance() {
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
-				messageRésultatRecherche={messageRésultatRecherche}
 				nombreSolutions={alternanceList.offreList.length + alternanceList.entrepriseList.length}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
+					messageRésultatRecherche: getMessageRésultatRecherche(alternanceList.offreList.length),
 				},
 				{
 					label: 'Entreprises',
-					listeSolutionElement: <ListeSolutionAlternanceEntreprise
-						entrepriseList={alternanceList.entrepriseList}></ListeSolutionAlternanceEntreprise>,
+					listeSolutionElement: <ListeSolutionAlternanceEntreprise entrepriseList={alternanceList.entrepriseList}/>,
+					messageRésultatRecherche: getMessageRésultatRecherche(alternanceList.entrepriseList.length),
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>

@@ -16,6 +16,10 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+	anAlternanceEntreprise, anAlternanceEntrepriseSansCandidature,
+	anAlternanceMatcha, anAlternancePEJobs,
+} from '~/server/alternances/domain/alternance.fixture';
 
 describe('RechercherAlternance', () => {
 	beforeEach(() => {
@@ -177,6 +181,48 @@ describe('RechercherAlternance', () => {
 				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
 			});
 		});
+
+		it('quand je click sur contrat d‘alternance, affiche le bon nombre de résultats', async () => {
+			const user = userEvent.setup();
+			const offreAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
+			const alternanceServiceMock = anAlternanceService(offreAlternance);
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const onglet = await screen.findByText('Contrats d‘alternance');
+			await user.click(onglet);
+
+			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+		});
+
+		it('quand je click sur entreprise, affiche le bon nombre de résultats', async () => {
+			const user = userEvent.setup();
+			const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
+			const alternanceServiceMock = anAlternanceService([], entrepriseList);
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const onglet = await screen.findByText('Entreprises');
+			await user.click(onglet);
+
+			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+		});
 	});
 
 	it('affiche la section "nos articles"', () => {
@@ -253,6 +299,7 @@ describe('RechercherAlternance', () => {
 			test: 'test',
 		}));
 	});
+
 	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
 		it('on voit la carte de redirection vers la campagne', () => {
 			const alternanceServiceMock = anAlternanceService();
@@ -275,6 +322,7 @@ describe('RechercherAlternance', () => {
 			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
 		});
 	});
+
 	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
 		it('on ne voit pas la carte de redirection vers la campagne', () => {
 			const alternanceServiceMock = anAlternanceService();
