@@ -3,4 +3,5 @@ export interface FormationInitialeDetailCMS {
 	attendusParcoursup?: string,
 	conditionsAcces?: string,
 	poursuiteEtudes?: string,
+	updatedAt: string,
 }
