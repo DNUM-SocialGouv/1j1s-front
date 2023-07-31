@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.120.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.6...v3.120.7) (2023-07-31)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency pino to v8.14.2 ([#1702](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1702)) ([f0281f7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f0281f72dd03562cb16688cf536d7a4eb1da3b9a))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.46.0 ([#1705](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1705)) ([4bc86fd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4bc86fdbfda87348eea437fa354907b664f6fb16))
+
 ## [3.120.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.5...v3.120.6) (2023-07-31)
 
 
