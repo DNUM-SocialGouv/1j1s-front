@@ -36,7 +36,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	}
 
 	const { id } = context.params;
-	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id.toUpperCase());
+	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id);
 
 	if (formationInitialeDetailComplete.instance === 'failure') {
 		return { notFound: true };

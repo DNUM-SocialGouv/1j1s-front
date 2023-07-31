@@ -58,7 +58,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail()}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 				</DependenciesProvider>,
 			);
 
@@ -76,7 +76,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail({ updatedAt: updateDate })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ updatedAt: updateDate })}/>
 				</DependenciesProvider>,
 			);
 
@@ -94,7 +94,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetail({ updatedAt: undefined })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ updatedAt: undefined })}/>
 				</DependenciesProvider>,
 			);
 
