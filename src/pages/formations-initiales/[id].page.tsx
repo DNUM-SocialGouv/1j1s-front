@@ -13,7 +13,9 @@ import useReferrer from '~/client/hooks/useReferrer';
 import { formatToFRLongDate } from '~/client/utils/formatDate.util';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import styles from '~/pages/formations-initiales/[id].module.scss';
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
@@ -54,8 +56,11 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 	useAnalytics(analytics);
 	useReferrer();
 
-	const dataUpdateDate = formationInitialeDetail.updatedAt ? formatToFRLongDate(formationInitialeDetail.updatedAt) : formatToFRLongDate(new Date().toLocaleString());
-	// todo : ajouter la date dans le retour après merge de Julie
+	function isFormationWithDetails(formation: FormationInitialeDetailComplete): formation is (FormationInitiale & FormationInitialeDetailCMS) {
+		return 'updatedAt' in formation;
+	}
+
+	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? formatToFRLongDate(formationInitialeDetail.updatedAt) : formatToFRLongDate(new Date().toString());
 
 	return (
 		<>
@@ -69,7 +74,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 				<OnisepGeneralCard headingLevel={'h2'}/>
 				<div className={styles.partnerInfo}>
 					<Icon name="information" className={styles.partnerInfoIcon}/>
-					<span>{`Idéo-fiches formations, Onisep, ${dataUpdateDate}, sous licence ODBL`}</span>
+					<span>{`Idéo-fiches formations, Onisep, ${dataUpdatedDate}, sous licence ODBL`}</span>
 				</div>
 			</Container>
 		</>
