@@ -26,7 +26,7 @@ export function HeroWithIllustration({ children, className, image, ...rest }: He
 					{children}
 				</div>
 				<div className={styles.heroIllustration}>
-					<Image src={image} alt="" fill sizes="(min-width: 992px) 50vw" priority />
+					<Image src={image} alt="" fill sizes="(min-width: 992px) 50vw" />
 				</div>
 			</div>
 		);
