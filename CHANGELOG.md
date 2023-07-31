@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.120.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.5...v3.120.6) (2023-07-31)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update nextjs monorepo to v13.4.12 ([ab2e344](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ab2e344dbf45d3bc52c97ba13b7487e8ad5321ef))
+* **multiple:** remove priority prop on Image to fix failing tests ([7cb4ffb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7cb4ffbf7361161d43e29c7f9964234f84ee2f93))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-plugin-storybook to v0.6.13 ([#1660](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1660)) ([b3af2a2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3af2a2a344de7a7e9a8e526fb3c84c260210332))
+
 ## [3.120.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.4...v3.120.5) (2023-07-31)
 
 
