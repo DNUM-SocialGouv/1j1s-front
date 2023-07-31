@@ -112,7 +112,8 @@ export default function RechercherAlternance() {
 				},
 				{
 					label: 'Entreprises',
-					listeSolutionElement: <ListeSolutionAlternanceEntreprise entrepriseList={alternanceList.entrepriseList}/>,
+					listeSolutionElement: <ListeSolutionAlternanceEntreprise
+						entrepriseList={alternanceList.entrepriseList}/>,
 					messageRésultatRecherche: getMessageRésultatRecherche(alternanceList.entrepriseList.length),
 				}]}
 			/>
@@ -127,8 +128,8 @@ export default function RechercherAlternance() {
 					titleHeadingTag={'h3'}
 				>
 					<p>
-						Découvrez un argument supplémentaire à avancer pour vous faire
-						embaucher
+                        Découvrez un argument supplémentaire à avancer pour vous faire
+                        embaucher
 					</p>
 				</ArticleCard>
 			</ArticleCardList>
@@ -146,7 +147,8 @@ function BannièreApprentissage() {
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
+				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous
+                    faut</LightHeroPrimaryText>
 			</h1>
 			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
 		</LightHero>
@@ -155,8 +157,9 @@ function BannièreApprentissage() {
 
 
 function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
-	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+    entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
 }): React.ReactElement {
+
 	return (
 		<>
 			<ListeRésultatsRechercherSolution aria-label="Entreprises">
@@ -170,7 +173,8 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 							étiquetteOffreList={entreprise.tags}
 						>
 							<ul>
-								{entreprise.secteurs && entreprise.secteurs.length > 0 && <li>{entreprise.secteurs.join(', ')}</li>}
+								{entreprise.secteurs && entreprise.secteurs.length > 0 &&
+                                    <li>{entreprise.secteurs.join(', ')}</li>}
 								{entreprise.adresse && <li>{entreprise.adresse}</li>}
 							</ul>
 						</RésultatRechercherSolution>
@@ -182,13 +186,20 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 }
 
 function ListeSolutionAlternance({ alternanceList }: {
-	alternanceList: Array<RésultatRechercheAlternance.Offre>
+    alternanceList: Array<RésultatRechercheAlternance.Offre>
 }): React.ReactElement {
 	const getLogo = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
 			return '/images/logos/la-bonne-alternance.svg';
 		}
 		return '/images/logos/pole-emploi.svg';
+	};
+
+	const getAltertnativeTextuelle = (alternance: Alternance) => {
+		if (alternance.source === Alternance.Source.MATCHA) {
+			return 'labonnealternance';
+		}
+		return 'pôleemploi';
 	};
 
 	return (
@@ -202,6 +213,8 @@ function ListeSolutionAlternance({ alternanceList }: {
 							logo={getLogo(alternance)}
 							étiquetteOffreList={alternance.tags}
 							sousTitreOffre={alternance.entreprise.nom}
+							alt={getAltertnativeTextuelle(alternance)}
+
 						/>
 					</li>
 				))}
