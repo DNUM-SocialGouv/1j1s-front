@@ -101,7 +101,6 @@ $card-border-color: utilities.$color-background-border;
 
     @include utilities-deprecated.media(large) {
       width: 100%;
-      border-left: 1px solid utilities-deprecated.$color-separator;
     }
 
     > p {

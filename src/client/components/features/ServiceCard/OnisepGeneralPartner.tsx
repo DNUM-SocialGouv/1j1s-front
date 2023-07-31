@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { HtmlHeadingTag } from '../../props';
-import { ServiceCard } from './Card/ServiceCard';
+import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { HtmlHeadingTag } from '~/client/components/props';
 
 export interface OnisepGeneralCardProps {
 	headingLevel?: HtmlHeadingTag
 }
 
-export function OnisepGeneralCard({ headingLevel }: OnisepGeneralCardProps) {
+export function OnisepGeneralPartner({ headingLevel }: OnisepGeneralCardProps) {
 	return (
 		<ServiceCard
 			logo="/images/logos/onisep.svg"

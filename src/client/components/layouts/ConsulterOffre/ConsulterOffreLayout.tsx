@@ -14,7 +14,7 @@ export function ConsulterOffreLayout(props: React.PropsWithChildren<ConsulterOff
 	return (
 		<main id="contenu" className={styles.container}>
 			<ButtonRetour className={styles.layoutButton}/>
-			<Container>
+			<Container className={styles.layoutContainer}>
 				<article className={styles.layout}>
 					{children}
 				</article>

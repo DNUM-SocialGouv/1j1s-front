@@ -4,7 +4,7 @@ import React from 'react';
 import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
-import { OnisepGeneralCard } from '~/client/components/features/ServiceCard/OnisepGeneralCard';
+import { OnisepGeneralPartner } from '~/client/components/features/ServiceCard/OnisepGeneralPartner';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -71,7 +71,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 			<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>
 
 			<Container className={styles.container}>
-				<OnisepGeneralCard headingLevel={'h2'}/>
+				<OnisepGeneralPartner headingLevel={'h2'}/>
 				<div className={styles.partnerInfo}>
 					<Icon name="information" className={styles.partnerInfoIcon}/>
 					<span>{`Idéo-fiches formations, Onisep, ${dataUpdatedDate}, sous licence ODBL`}</span>

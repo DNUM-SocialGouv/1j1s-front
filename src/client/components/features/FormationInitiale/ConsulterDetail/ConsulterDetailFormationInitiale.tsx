@@ -2,18 +2,24 @@ import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
+import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
+	function isFormationWithDetails(formation: FormationInitialeDetailComplete): formation is (FormationInitiale & FormationInitialeDetailCMS) {
+		return 'updatedAt' in formation;
+	}
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
 				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
-			<section>
+			{isFormationWithDetails(formationInitialeDetail) && <section>
 				<dl className={styles.contenu}>
 					{formationInitialeDetail.description && (
 						<div>
@@ -39,7 +45,7 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 						</div>
 					)}
 				</dl>
-			</section>
+			</section>}
 		</ConsulterOffreLayout>
 	);
 }

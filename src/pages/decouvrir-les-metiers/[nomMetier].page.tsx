@@ -4,8 +4,7 @@ import React from 'react';
 
 import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
-import { ServiceCard } from '~/client/components/features/ServiceCard/Card/ServiceCard';
-import { OnisepGeneralCard } from '~/client/components/features/ServiceCard/OnisepGeneralCard';
+import { OnisepGeneralPartner } from '~/client/components/features/ServiceCard/OnisepGeneralPartner';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
@@ -43,7 +42,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 				<div className={'background-white-lilac'}>
 					<EnTete heading="Informations fournies par ONISEP"/>
 					<Container className={styles.container}>
-						<OnisepGeneralCard/>
+						<OnisepGeneralPartner/>
 						<div className={styles.partnerInfo}>
 							<Icon name="information" className={styles.partnerInfoIcon}/>
 							<span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>
