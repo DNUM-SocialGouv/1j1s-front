@@ -312,7 +312,7 @@ export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.Video
 
 export function mapFormationInitiale(formationInitiale: Strapi.CollectionType.FormationInitialeDetail): FormationInitialeDetailCMS {
 	return {
-		attendusParcoursup: formationInitiale.attendusParcoursup, // est ce que le mapper peut être invoqué avec une frmation initiale vide ?
+		attendusParcoursup: formationInitiale.attendusParcoursup,
 		conditionsAcces: formationInitiale.conditionsAcces,
 		description: formationInitiale.description,
 		poursuiteEtudes: formationInitiale.poursuiteEtudes,

@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .container {
   padding: 0 1rem;
@@ -14,13 +15,9 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 
-  &Icon {
-    color: utilities-deprecated.$color-primary;
+  & .icon {
+    color: utilities.$color-primary;
     vertical-align: bottom;
     margin-right: 0.5rem;
-  }
-
-  span {
-    line-height: 1.6rem;
   }
 }

@@ -73,7 +73,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 			<Container className={styles.container}>
 				<OnisepGeneralPartner headingLevel={'h2'}/>
 				<div className={styles.partnerInfo}>
-					<Icon name="information" className={styles.partnerInfoIcon}/>
+					<Icon name="information" className={styles.icon}/>
 					<span>{`Idéo-fiches formations, Onisep, ${dataUpdatedDate}, sous licence ODBL`}</span>
 				</div>
 			</Container>
