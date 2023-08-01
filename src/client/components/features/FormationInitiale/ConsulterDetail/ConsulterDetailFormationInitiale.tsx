@@ -4,14 +4,14 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
+import {
+	FormationInitialeDetailComplete,
+	isFormationWithDetails,
+} from '~/server/formations-initiales-detail/domain/formationInitiale';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
-	function isFormationWithDetails(formation: FormationInitialeDetailComplete): formation is (FormationInitiale & FormationInitialeDetailCMS) {
-		return 'updatedAt' in formation;
-	}
 
 	return (
 		<ConsulterOffreLayout>

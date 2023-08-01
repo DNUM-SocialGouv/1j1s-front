@@ -76,7 +76,7 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ updatedAt: updateDate })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDate })}/>
 				</DependenciesProvider>,
 			);
 
@@ -89,12 +89,14 @@ describe('quand le feature flip est actif', () => {
 			// GIVEN
 			const analyticsService = anAnalyticsService();
 			const todayDate = '26 juillet 2023';
-			jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(todayDate);
-
+			// jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(todayDate);
+			jest.mock('~/client/utils/formatDate.util', () => ({
+				formatToFRLongDate:  jest.fn().mockReturnValueOnce(todayDate),
+			}));
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ updatedAt: undefined })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: undefined })}/>
 				</DependenciesProvider>,
 			);
 

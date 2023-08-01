@@ -60,7 +60,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 		return 'updatedAt' in formation;
 	}
 
-	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? formatToFRLongDate(formationInitialeDetail.updatedAt) : formatToFRLongDate(new Date().toString());
+	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? formatToFRLongDate(formationInitialeDetail.dateDeMiseAJour) : formatToFRLongDate(new Date().toString());
 
 	return (
 		<>

@@ -152,7 +152,6 @@ describe('mapFormationInitialeDetail', () => {
 			poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
 		});
 
-
 		const formationInitialeMapped = mapFormationInitiale(formationInitialeStrapiReponse);
 
 		expect(formationInitialeMapped).toMatchObject(formationExpected);

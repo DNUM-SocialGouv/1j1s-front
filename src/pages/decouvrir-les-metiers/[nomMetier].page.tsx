@@ -42,7 +42,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 				<div className={'background-white-lilac'}>
 					<EnTete heading="Informations fournies par ONISEP"/>
 					<Container className={styles.container}>
-						<OnisepGeneralPartner/>
+						<OnisepGeneralPartner headingLevel={'h3'}/>
 						<div className={styles.partnerInfo}>
 							<Icon name="information" className={styles.partnerInfoIcon}/>
 							<span>Idéo-fiches métiers, Onisep, 14/09/2022, sous licence ODBL</span>

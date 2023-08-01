@@ -314,8 +314,8 @@ export function mapFormationInitiale(formationInitiale: Strapi.CollectionType.Fo
 	return {
 		attendusParcoursup: formationInitiale.attendusParcoursup,
 		conditionsAcces: formationInitiale.conditionsAcces,
+		dateDeMiseAJour: formationInitiale.updatedAt,
 		description: formationInitiale.description,
 		poursuiteEtudes: formationInitiale.poursuiteEtudes,
-		updatedAt: formationInitiale.updatedAt,
 	};
 }
