@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.122.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.121.0...v3.122.0) (2023-08-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-init:** Consulter le detail dune formation carte onisep ([#1709](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1709)) ([59272ea](https://github.com/DNUM-SocialGouv/1j1s-front/commit/59272ea6db986fcc171e6ddcff0eeb2ad6571c7d))
+
 ## [3.121.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.9...v3.121.0) (2023-08-01)
 
 
