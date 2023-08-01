@@ -14,6 +14,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
+import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aFormationInitialeDetailComplete,
 } from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
@@ -94,7 +95,8 @@ describe('quand le feature flip est actif', () => {
 			// GIVEN
 			const analyticsService = anAnalyticsService();
 			const dateService = aDateService();
-			const todayDate = new Date('Tue Aug 01 2023 16:45:25 GMT+0200');
+			const todayDate = new Date('2023-08-01T14:45:25.000Z');
+			const todayDateString = todayDate.toString();
 			const todayFormattedDate = '01 août 2023';
 			jest.spyOn(dateService, 'today').mockReturnValueOnce(todayDate);
 			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(todayFormattedDate);
@@ -102,14 +104,14 @@ describe('quand le feature flip est actif', () => {
 			// WHEN
 			render(
 				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: undefined })}/>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitiale()}/>
 				</DependenciesProvider>,
 			);
 
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayFormattedDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDate);
+			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDateString);
 		});
 	});
 });
