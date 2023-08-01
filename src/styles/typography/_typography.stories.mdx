@@ -1,0 +1,88 @@
+import {Canvas, Meta, Story} from "@storybook/blocks"
+import "./_typography.stories.scss"
+
+<Meta title="Toolbox/Typography"/>
+
+# Taille des typographies
+
+Pour utiliser une taille de typographie, on procède de la manière suivante :
+```scss
+@use "styles/utilities";
+
+.maClasse {
+  @extend %text-medium;
+}
+```
+La taille sera alors conforme à la taille médium du Kit UI en desktop et en mobile.
+
+### Les différentes tailles disponibles
+<Canvas>
+    <Story name="Example - Taille de police">
+        <div className="typographie">
+        <section className="title">
+            <h2>Titres</h2>
+            <div className="title-xLarge">
+                <h2>Titre Xlarge - H1</h2>
+                <p>%title-xLarge</p>
+            </div>
+            <div className="title-large">
+                <h2>Titre large - H2</h2>
+                <p>%title-large</p>
+            </div>
+            <div className="title-medium">
+                <h2>Titre medium - H3</h2>
+                <p>%title-medium</p>
+            </div>
+            <div className="title-small">
+                <h2>Titre small - H4</h2>
+                <p>%title-small</p>
+            </div>
+        </section>
+        <section className="text">
+            <h2>Textes</h2>
+            <div className="text-xLarge">
+                <h2>Texte Xlarge</h2>
+                <p>%text-xLarge</p>
+            </div>
+            <div className="text-large">
+                <h2>Texte large</h2>
+                <p>%text-large</p>
+            </div>
+            <div className="text-medium">
+                <h2>Texte medium</h2>
+                <p>%text-medium</p>
+            </div>
+            <div className="text-small">
+                <h2>Texte small</h2>
+                <p>%text-small</p>
+            </div>
+        </section>
+        </div>
+    </Story>
+</Canvas>
+
+
+### Les titres
+
+Pour réaliser un titre et un sous titre, on procède de la manière suivante :
+
+```scss
+@use "styles/utilities";
+
+.monTitre {
+  @extend %headline;
+}
+
+.monSousTitre {
+  @extend %subheading;
+}
+```
+
+## Exemple
+
+<Canvas>
+    <Story name="Example - Titre et sous-titre">
+        <h2 className="titre-headline">Un titre 'headline'</h2>
+        <h2 className="titre-subheading">Un sous-titre 'subheading'</h2>
+    </Story>
+</Canvas>
