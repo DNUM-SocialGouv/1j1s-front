@@ -75,7 +75,7 @@ describe('quand le feature flip est actif', () => {
 			const dateService = aDateService();
 			const updateDateFromFormationInitiale = '2023-05-15T09:37:44.283Z';
 			const detailsUpdateDate = '15 mai 2023';
-			jest.spyOn(dateService, 'formatToFRLongDate').mockReturnValueOnce(detailsUpdateDate);
+			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(detailsUpdateDate);
 
 			// WHEN
 			render(
@@ -87,7 +87,7 @@ describe('quand le feature flip est actif', () => {
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${detailsUpdateDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToFRLongDate).toHaveBeenCalledWith(updateDateFromFormationInitiale);
+			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(updateDateFromFormationInitiale);
 		});
 
 		it('la date de mise à jour de la donnée est la date du jour quand il n‘il y a pas de détail provenant d’idéo-fiches formations', () => {
@@ -97,7 +97,7 @@ describe('quand le feature flip est actif', () => {
 			const todayDate = new Date('Tue Aug 01 2023 16:45:25 GMT+0200');
 			const todayFormattedDate = '01 août 2023';
 			jest.spyOn(dateService, 'today').mockReturnValueOnce(todayDate);
-			jest.spyOn(dateService, 'formatToFRLongDate').mockReturnValueOnce(todayFormattedDate);
+			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(todayFormattedDate);
 
 			// WHEN
 			render(
@@ -109,7 +109,7 @@ describe('quand le feature flip est actif', () => {
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayFormattedDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToFRLongDate).toHaveBeenCalledWith(todayDate);
+			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDate);
 		});
 	});
 });

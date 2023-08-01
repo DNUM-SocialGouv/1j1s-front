@@ -2,7 +2,7 @@ import { DateService } from './date.service';
 
 export function aDateService(override?: Partial<DateService>): DateService {
 	return {
-		formatToFRLongDate: jest.fn(),
+		formatToHumanReadableDate: jest.fn(),
 		today: jest.fn(),
 		...override,
 	};

@@ -60,7 +60,7 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 	useAnalytics(analytics);
 	useReferrer();
 
-	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToFRLongDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToFRLongDate(dateService.today().toString());
+	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today().toString());
 
 	return (
 		<>
