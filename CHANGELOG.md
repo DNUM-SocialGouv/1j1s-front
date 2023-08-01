@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.121.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.9...v3.121.0) (2023-08-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** modification de la typographie ([#1700](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1700)) ([6fc65f9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6fc65f909950a4607ad4f1e1d1af676e520f0f51))
+
 ## [3.120.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.120.8...v3.120.9) (2023-08-01)
 
 
