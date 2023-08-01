@@ -1,5 +1,4 @@
 @use "@styles/utilities";
-@use "@styles/utilities";
 
 $layout-border-color: utilities.$color-background-border;
 
@@ -12,7 +11,7 @@ $layout-border-color: utilities.$color-background-border;
     width: 100%;
     padding: 0 1rem;
 
-    @include utilities-deprecated.media(xlarge) {
+    @include utilities.media(xlarge) {
         padding: 0;
     }
 }
@@ -24,7 +23,6 @@ $layout-border-color: utilities.$color-background-border;
 
     &Button {
         padding: 1.5rem 1rem;
-        border-bottom: 1px solid utilities.$color-background-border;
     }
 }
 

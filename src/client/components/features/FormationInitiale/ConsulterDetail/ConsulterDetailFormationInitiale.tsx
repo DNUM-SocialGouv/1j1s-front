@@ -2,8 +2,6 @@ import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	FormationInitialeDetailComplete,
 	isFormationWithDetails,

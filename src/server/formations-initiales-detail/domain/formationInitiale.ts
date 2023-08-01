@@ -4,5 +4,5 @@ import { FormationInitiale } from '~/server/formations-initiales/domain/formatio
 export type FormationInitialeDetailComplete =  FormationInitiale | (FormationInitiale & FormationInitialeDetailCMS);
 
 export function isFormationWithDetails(formation: FormationInitialeDetailComplete): formation is (FormationInitiale & FormationInitialeDetailCMS) {
-	return 'updatedAt' in formation;
+	return 'dateDeMiseAJour' in formation;
 }

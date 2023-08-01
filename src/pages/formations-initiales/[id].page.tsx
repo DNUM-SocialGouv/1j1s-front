@@ -8,15 +8,17 @@ import { OnisepGeneralPartner } from '~/client/components/features/ServiceCard/O
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useReferrer from '~/client/hooks/useReferrer';
-import { formatToFRLongDate } from '~/client/utils/formatDate.util';
+import { DateService } from '~/client/services/date/date.service';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import styles from '~/pages/formations-initiales/[id].module.scss';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
-import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
-import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
+import {
+	FormationInitialeDetailComplete,
+	isFormationWithDetails,
+} from '~/server/formations-initiales-detail/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 type ConsulterDetailFormationInitialePageProps = {
@@ -53,14 +55,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 
 
 export default function ConsulterFormationInitialePage({ formationInitialeDetail }: ConsulterDetailFormationInitialePageProps) {
+	const dateService = useDependency<DateService>('dateService');
+
 	useAnalytics(analytics);
 	useReferrer();
 
-	function isFormationWithDetails(formation: FormationInitialeDetailComplete): formation is (FormationInitiale & FormationInitialeDetailCMS) {
-		return 'updatedAt' in formation;
-	}
-
-	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? formatToFRLongDate(formationInitialeDetail.dateDeMiseAJour) : formatToFRLongDate(new Date().toString());
+	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToFRLongDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToFRLongDate(dateService.today().toString());
 
 	return (
 		<>

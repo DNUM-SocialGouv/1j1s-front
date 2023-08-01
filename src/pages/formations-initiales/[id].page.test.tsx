@@ -11,6 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
 import {
@@ -27,7 +28,7 @@ describe('quand le feature flip est actif', () => {
 	it('envoie les analytics de la page', () => {
 		const analyticsService = anAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} dateService={aDateService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -42,7 +43,7 @@ describe('quand le feature flip est actif', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={anAnalyticsService()} dateService={aDateService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -54,10 +55,11 @@ describe('quand le feature flip est actif', () => {
 		it('le partnenaire est ONISEP', () => {
 			// GIVEN
 			const analyticsService = anAnalyticsService();
+			const dateService = aDateService();
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 				</DependenciesProvider>,
 			);
@@ -70,39 +72,44 @@ describe('quand le feature flip est actif', () => {
 		it('la date de mise à jour de la donnée est celle de la mise à jour des fiches détails quand le détail provient des idéo-fiches formations', () => {
 			// GIVEN
 			const analyticsService = anAnalyticsService();
-			const updateDate = '2023-05-15T09:37:44.283Z';
+			const dateService = aDateService();
+			const updateDateFromFormationInitiale = '2023-05-15T09:37:44.283Z';
 			const detailsUpdateDate = '15 mai 2023';
+			jest.spyOn(dateService, 'formatToFRLongDate').mockReturnValueOnce(detailsUpdateDate);
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
-					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDate })}/>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDateFromFormationInitiale })}/>
 				</DependenciesProvider>,
 			);
 
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${detailsUpdateDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
+			expect(dateService.formatToFRLongDate).toHaveBeenCalledWith(updateDateFromFormationInitiale);
 		});
 
 		it('la date de mise à jour de la donnée est la date du jour quand il n‘il y a pas de détail provenant d’idéo-fiches formations', () => {
 			// GIVEN
 			const analyticsService = anAnalyticsService();
-			const todayDate = '26 juillet 2023';
-			// jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue(todayDate);
-			jest.mock('~/client/utils/formatDate.util', () => ({
-				formatToFRLongDate:  jest.fn().mockReturnValueOnce(todayDate),
-			}));
+			const dateService = aDateService();
+			const todayDate = new Date('Tue Aug 01 2023 16:45:25 GMT+0200');
+			const todayFormattedDate = '01 août 2023';
+			jest.spyOn(dateService, 'today').mockReturnValueOnce(todayDate);
+			jest.spyOn(dateService, 'formatToFRLongDate').mockReturnValueOnce(todayFormattedDate);
+
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService}>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: undefined })}/>
 				</DependenciesProvider>,
 			);
 
 			// THEN
-			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayDate}, sous licence ODBL`);
+			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayFormattedDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
+			expect(dateService.formatToFRLongDate).toHaveBeenCalledWith(todayDate);
 		});
 	});
 });
@@ -112,10 +119,10 @@ describe('quand le feature flip n‘est pas actif', () => {
 		mockUseRouter({});
 	});
 
-	it('la page n‘est pas disponbile', async () => {
+	it('la page n‘est pas disponible', async () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={anAnalyticsService()} dateService={aDateService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
