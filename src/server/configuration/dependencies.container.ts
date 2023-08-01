@@ -285,12 +285,12 @@ export function dependenciesContainer(): Dependencies {
 	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
-	const strapiFicheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
-	const ficheMetierDependencies=  ficheMetierDependenciesContainer(strapiFicheMetierRepository);
+	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
+	const ficheMetierDependencies=  ficheMetierDependenciesContainer(ficheMetierRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
 
 
 	return {

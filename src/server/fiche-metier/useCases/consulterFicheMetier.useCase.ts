@@ -1,11 +1,11 @@
 import { Either } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
-import { StrapiFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
+import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 
 export class ConsulterFicheMetierUseCase {
-	constructor(private strapiFicheMetierRepository: StrapiFicheMetierRepository) {}
+	constructor(private ficheMetierRepository: FicheMetierRepository) {}
 
 	async handle(nom: string): Promise<Either<FicheMétier>> {
-		return this.strapiFicheMetierRepository.getFicheMetierByNom(nom);
+		return this.ficheMetierRepository.getFicheMetierByNom(nom);
 	}
 }

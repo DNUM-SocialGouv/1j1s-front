@@ -7,9 +7,9 @@ export interface FicheMetierDependencies {
 	listerNomMetierFicheMetier: ListerNomMetierFicheMétierUseCase
 }
 
-export function ficheMetierDependenciesContainer(strapiFicheMetierRepository: StrapiFicheMetierRepository): FicheMetierDependencies {
+export function ficheMetierDependenciesContainer(ficheMetierRepository: StrapiFicheMetierRepository): FicheMetierDependencies {
 	return {
-		consulterFicheMetier: new ConsulterFicheMetierUseCase(strapiFicheMetierRepository),
-		listerNomMetierFicheMetier: new ListerNomMetierFicheMétierUseCase(strapiFicheMetierRepository),
+		consulterFicheMetier: new ConsulterFicheMetierUseCase(ficheMetierRepository),
+		listerNomMetierFicheMetier: new ListerNomMetierFicheMétierUseCase(ficheMetierRepository),
 	};
 }

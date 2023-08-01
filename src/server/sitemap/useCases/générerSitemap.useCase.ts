@@ -6,6 +6,7 @@ import {
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either, isSuccess } from '~/server/errors/either';
+import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
@@ -33,7 +34,7 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/simulation?simulateur=employeur',
 ];
 export class GénérerSitemapUseCase {
-	constructor(private cmsRepository: CmsRepository) {
+	constructor(private cmsRepository: CmsRepository, private ficheMetierRepository: FicheMetierRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
@@ -42,7 +43,7 @@ export class GénérerSitemapUseCase {
 		staticPathList.push(...OTHER_STATIC_PATH_LIST);
 
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
-			this.cmsRepository.listAllFicheMetierNomMetier(),
+			this.ficheMetierRepository.listAllFicheMetierNomMetier(),
 			this.cmsRepository.listAllArticleSlug(),
 			this.cmsRepository.listAllFAQSlug(),
 			this.cmsRepository.listAllOffreDeStageSlug(),

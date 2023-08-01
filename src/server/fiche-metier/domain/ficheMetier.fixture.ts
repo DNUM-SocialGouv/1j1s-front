@@ -46,3 +46,13 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 	};
 }
 
+
+export function aListAllFicheMetierNomMetier(listAllFicheMetierNomMetier?: string[]): string[] {
+	return listAllFicheMetierNomMetier ?? ['ingénieur/e production en mécanique',
+		'peintre en bâtiment',
+		'développeur/euse rural/e humanitaire',
+		'conseiller/ère en fusion-acquisition',
+		'ingénieur/e en électronique numérique',
+		'technicien/ne packaging',
+		'microtechnicien/ne'];
+}

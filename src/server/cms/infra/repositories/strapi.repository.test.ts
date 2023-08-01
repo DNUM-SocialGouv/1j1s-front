@@ -28,7 +28,7 @@ import {
 	aStrapiAnnonceDeLogementSlugList,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
-	aStrapiCollectionType,
+	aStrapiCollectionType, aStrapiFormationInitialeDetail,
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
 	aStrapiOffreDeStageSlugList,

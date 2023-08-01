@@ -32,7 +32,6 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
 const RESOURCE_ACTUALITE = 'actualite';
-const RESOURCE_FICHE_METIER = 'fiche-metiers';
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
@@ -99,7 +98,7 @@ export class StrapiRepository implements CmsRepository {
 		return data;
 	}
 
-	getFirstFromCollection<Response>(responseList: Either<Array<Response>>): Either<Response> {
+	private getFirstFromCollection<Response>(responseList: Either<Array<Response>>): Either<Response> {
 		if (isSuccess(responseList)) {
 			if (!responseList.result[0]) {
 				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
@@ -108,6 +107,11 @@ export class StrapiRepository implements CmsRepository {
 		} else {
 			return responseList;
 		}
+	}
+
+	async getFirstFromCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response>> {
+		const collectionType = await this.getCollectionType<Collection, Response>(resource, query, mapper);
+		return this.getFirstFromCollection(collectionType);
 	}
 
 	async getActualitéList(): Promise<Either<Array<Actualité>>> {
