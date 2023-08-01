@@ -393,6 +393,7 @@ export namespace Strapi {
 			identifiant: string,
 			intitule: string,
 			duree: string,
+			updatedAt: string,
 			certification?: string,
 			niveauEtudesVise: string,
 			description?: string,

@@ -3,7 +3,7 @@ import React from 'react';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
-import { OnisepPartner } from '~/client/components/features/ServiceCard/OnisepPartner';
+import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import { HeroWithButtonLink } from '~/client/components/ui/Hero/HeroWithButtonLink';
@@ -34,7 +34,7 @@ export default function FormationPage() {
 					<ServiceCardList>
 						<MonCompteFormationPartner/>
 						<ParcourSupPartner/>
-						<OnisepPartner/>
+						<OnisepMetierPartner/>
 						<MétierDuSoinPartner/>
 					</ServiceCardList>
 				</div>

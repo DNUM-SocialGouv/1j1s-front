@@ -628,5 +628,6 @@ export function aStrapiFormationInitialeDetail(): Strapi.CollectionType<Strapi.C
 		intitule: 'BM boulanger',
 		niveauEtudesVise: '5',
 		poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
+		updatedAt: '2023-05-15T09:37:44.283Z',
 	}]);
 }
