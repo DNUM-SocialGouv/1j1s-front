@@ -29,7 +29,7 @@ const useTabContext = () => {
 	return tabContext;
 };
 
-type TabsProps = React.ComponentPropsWithoutRef<'div'>&{currentIndex:number,onTabchange:(newIndex:number)=>void}
+type TabsProps = React.ComponentPropsWithoutRef<'div'>&{currentIndex?:number,onTabchange?:(newIndex:number)=>void}
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref) {
 	const {
@@ -48,7 +48,9 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(pr
 	}
 	const whenChange=(value:number)=>{
 		setIndexTabActive(value);
-		onTabchange(value);
+		 if(onTabchange!=null){
+			 onTabchange(value);
+		 }
 	};
 
 

@@ -253,4 +253,45 @@ describe('lorsque je navigue avec la touche fin du clavier', () => {
 		await user.keyboard(KeyBoard.ENTER);
 		expect(screen.getByText(onglet3Panel)).toBeVisible();
 	});
+	describe('quand l’utilisateur change d’onglet',()=>{
+		it('appelle onTabChange avec le nouvel index', async () => {
+			const user = userEvent.setup();
+			const onTabChange = jest.fn();
+			render(<Tabs onTabchange={onTabChange}>
+				<TabsLabel>
+					<Tab>onglet 1</Tab>
+					<Tab>onglet 2</Tab>
+				</TabsLabel>
+				<TabPanel>
+					<p>{onglet1Panel}</p>
+				</TabPanel>
+				<TabPanel>
+					<p>{onglet2Panel}</p>
+				</TabPanel>
+			</Tabs>);
+			const onglets = screen.getAllByRole('tab');
+			await user.click(onglets[0]);
+			expect(onTabChange).toHaveBeenCalledTimes(1);
+			expect(onTabChange).toHaveBeenCalledWith(0);
+		});
+	});
+	describe('quand l’onglet actit est indiqué',()=>{
+		it('affiche le bon onglet', () => {
+			const index= 1;
+			render(<Tabs currentIndex={index}>
+				<TabsLabel>
+					<Tab>onglet 1</Tab>
+					<Tab>onglet 2</Tab>
+				</TabsLabel>
+				<TabPanel>
+					<p>{onglet1Panel}</p>
+				</TabPanel>
+				<TabPanel>
+					<p>{onglet2Panel}</p>
+				</TabPanel>
+			</Tabs>);
+			const currentTab=screen.getByText(onglet2Panel);
+			expect(currentTab).toBeVisible();
+		});
+	});
 });
