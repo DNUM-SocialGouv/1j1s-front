@@ -1,7 +1,9 @@
 import { ValidationError } from 'joi';
 
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
+	aLaBonneAlternanceApiJobsResponse,
 	aMatchaResponse,
 	anAlternanceFiltre,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
@@ -71,6 +73,67 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
+			const validationError = aValidationError();
+			const httpClientService = aPublicHttpClientService();
+			const searchResponse = {
+				...aLaBonneAlternanceApiJobsResponse(),
+				matchas: {
+					results: [
+						aMatchaResponse(
+							{
+								job: {
+									id: 1,
+								},
+							} as unknown as Partial<AlternanceApiJobsResponse.Matcha>,
+							// NOTE (DORO 2023-08-29) : utilisation du as unknown as Partial<AlternanceApiJobsResponse.Matcha> pour forcer un type incorrect
+						),
+					],
+				},
+			};
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			const caller = '1jeune1solution-test';
+			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+
+			// When
+			const result = await repository.search(anAlternanceFiltre());
+
+			// Then
+			expect(errorManagementService.handleValidationError).toHaveBeenCalledWith(
+				new ValidationError('"matchas.results[0].job.id" must be a string', [], 'matchas.results[0].job.id'),
+				aLogInformation({
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'search la bonne alternance recherche alternance',
+					message: 'erreur de validation du schéma de l’api',
+				}),
+			);
+			expect(result.instance).toEqual('success');
+		});
+
+		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
+			const validationError = aValidationError();
+			const httpClientService = aPublicHttpClientService();
+			const searchResponse = {
+				...aLaBonneAlternanceApiJobsResponse(),
+				matchas: {
+					results: [
+						aMatchaResponse(),
+					],
+				},
+			};
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			const caller = '1jeune1solution-test';
+			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+
+			// When
+			const result = await repository.search(anAlternanceFiltre());
+
+			// Then
+			expect(errorManagementService.handleValidationError).not.toHaveBeenCalled();
+			expect(result.instance).toEqual('success');
 		});
 	});
 
@@ -156,7 +219,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				aLogInformation({
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'get détail annonce alternance',
-					message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+					message: 'erreur de validation du schéma de l’api',
 				}),
 			);
 			expect(result.instance).toEqual('success');

@@ -26,6 +26,14 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	async search(filtre: AlternanceFiltre): Promise<Either<ResultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
+			const validateSchemasResponse = apiLaBonneAlternanceSchemas.search.validate(response.data);
+			if (validateSchemasResponse.error) {
+				this.errorManagementService.handleValidationError(validateSchemasResponse.error, {
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'search la bonne alternance recherche alternance',
+					message: 'erreur de validation du schéma de l’api',
+				});
+			}
 			return createSuccess(mapAlternanceListe(response.data));
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
@@ -53,12 +61,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
-				const validate = apiLaBonneAlternanceSchemas.getPoleEmploi.validate(apiResponse.data);
-				if (validate.error) {
-					this.errorManagementService.handleValidationError(validate.error, {
+				const validateSchemasResponse = apiLaBonneAlternanceSchemas.getPoleEmploi.validate(apiResponse.data);
+				if (validateSchemasResponse.error) {
+					this.errorManagementService.handleValidationError(validateSchemasResponse.error, {
 						apiSource: 'API LaBonneAlternance',
 						contexte: 'get détail annonce alternance',
-						message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+						message: 'erreur de validation du schéma de l’api',
 					});
 				}
 				const offre = apiResponse.data.peJobs[0];
@@ -68,12 +76,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const apiResponse = await this.httpClientService.get<{
 				matchas: AlternanceApiJobsResponse.Matcha[]
 			}>(`/v1/jobs/matcha/${id}`);
-			const validate = apiLaBonneAlternanceSchemas.getMatcha.validate(apiResponse.data);
-			if (validate.error) {
-				this.errorManagementService.handleValidationError(validate.error, {
+			const validateSchemasResponse = apiLaBonneAlternanceSchemas.getMatcha.validate(apiResponse.data);
+			if (validateSchemasResponse.error) {
+				this.errorManagementService.handleValidationError(validateSchemasResponse.error, {
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'get détail annonce alternance',
-					message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+					message: 'erreur de validation du schéma de l’api',
 				});
 			}
 			const matcha = apiResponse.data.matchas[0];
