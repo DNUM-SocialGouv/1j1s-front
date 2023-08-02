@@ -6,6 +6,7 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { getHtmlFromMd } from '~/client/components/ui/Marked/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import useSanitize from '~/client/hooks/useSanitize';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 interface ConsulterOffreDeStageProps {
@@ -21,6 +22,9 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				: `Débute entre le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()} et ${new Date(offreDeStage.dateDeDebutMax).toLocaleDateString()}`,
 		];
 	}, [offreDeStage]);
+
+	const descriptionEmployeurHtmlSanitiezd =  useSanitize(offreDeStage.employeur.description ? getHtmlFromMd(offreDeStage.employeur.description) : undefined);
+	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
 	const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
 	return (
@@ -38,15 +42,15 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 			</header>
 			<section className={commonStyles.contenu}>
 				{offreDeStage.employeur?.description &&
-          <div>
-          	<h3>Description de l‘employeur :</h3>
-          	<p dangerouslySetInnerHTML={{ __html: getHtmlFromMd(offreDeStage.employeur.description) }}/>
-          </div>}
+            <div>
+            	<h3>Description de l‘employeur :</h3>
+            	<p dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
+            </div>}
 				{offreDeStage.description &&
-          <div>
-          	<h3>Description du poste :</h3>
-          	<p dangerouslySetInnerHTML={{ __html: getHtmlFromMd(offreDeStage.description) }}/>
-          </div>
+            <div>
+            	<h3>Description du poste :</h3>
+            	<p dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
+            </div>
 				}
 				{offreDeStage.remunerationBase &&
           <div>
