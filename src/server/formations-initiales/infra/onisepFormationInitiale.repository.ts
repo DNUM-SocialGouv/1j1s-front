@@ -63,7 +63,7 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 
 	async getFormationInitiale(id: string): Promise<Either<FormationInitiale>> {
 		try {
-			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q=${id}`);
+			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q="${id}"`);
 			const formationInitialeApiResponse = apiResponse.data.results[0];
 			const formationsInitiales = formationInitialeMapper(formationInitialeApiResponse);
 			return createSuccess(formationsInitiales);
