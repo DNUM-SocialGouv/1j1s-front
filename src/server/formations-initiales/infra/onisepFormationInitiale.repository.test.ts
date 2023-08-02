@@ -129,7 +129,7 @@ describe('onisep formation initiale repository', () => {
 			await formationInitialeRepository.getFormationInitiale(identifiant);
 
 			// THEN
-			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?q=${identifiant}`);
+			expect(httpClient.get).toHaveBeenCalledWith(`/dataset/5fa591127f501/search?q="${identifiant}"`);
 		});
 
 		it('doit retourner la formation initiale', async () => {
