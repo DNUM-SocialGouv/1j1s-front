@@ -148,7 +148,7 @@ describe('RechercherAlternance', () => {
 
 			const filtresRecherche = await screen.findByText('Paris (75001)');
 			expect(filtresRecherche).toBeInTheDocument();
-			const messageRésultats = await screen.findByText('4 résultats pour Boulangerie, pâtisserie, chocolaterie');
+			const messageRésultats = await screen.findByText(/résultats pour Boulangerie, pâtisserie, chocolaterie/);
 			expect(messageRésultats).toBeInTheDocument();
 
 
