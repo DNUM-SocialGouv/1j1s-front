@@ -131,43 +131,73 @@ describe('<Tab>', () => {
 			});
 		});
 	});
-});
-describe('lorsque je navigue avec la fleche droite du clavier', () => {
-	describe('lorsque je ne suis pas sur le dernier élément', () => {
-		it('je change d’onglet', async () => {
-			const user = userEvent.setup();
+	describe('lorsque je navigue avec la fleche droite du clavier', () => {
+		describe('lorsque je ne suis pas sur le dernier élément', () => {
+			it('je change d’onglet', async () => {
+				const user = userEvent.setup();
 
-			render(<Tabs>
-				<TabsLabel>
-					<Tab>onglet 1</Tab>
-					<Tab>onglet 2</Tab>
-				</TabsLabel>
-				<TabPanel>
-					<p>{onglet1Panel}</p>
-				</TabPanel>
-				<TabPanel>
-					<p>{onglet2Panel}</p>
-				</TabPanel>
-			</Tabs>);
+				render(<Tabs>
+					<TabsLabel>
+						<Tab>onglet 1</Tab>
+						<Tab>onglet 2</Tab>
+					</TabsLabel>
+					<TabPanel>
+						<p>{onglet1Panel}</p>
+					</TabPanel>
+					<TabPanel>
+						<p>{onglet2Panel}</p>
+					</TabPanel>
+				</Tabs>);
 
-			const [tabLabel1, tabLabel2] = screen.getAllByRole('tab');
-			await tabLabel1.focus();
+				const [tabLabel1, tabLabel2] = screen.getAllByRole('tab');
+				await tabLabel1.focus();
 
-			await user.keyboard(KeyBoard.ARROW_RIGHT);
-			expect(tabLabel2).toHaveFocus();
+				await user.keyboard(KeyBoard.ARROW_RIGHT);
+				expect(tabLabel2).toHaveFocus();
 
-			await user.keyboard(KeyBoard.ENTER);
-			expect(screen.getByText(onglet2Panel)).toBeVisible();
+				await user.keyboard(KeyBoard.ENTER);
+				expect(screen.getByText(onglet2Panel)).toBeVisible();
+			});
+		});
+		describe('lorsque je suis sur le dernier élément', () => {
+			it('je me déplace sur le premier élément', async () => {
+				const user = userEvent.setup();
+
+				render(<Tabs>
+					<TabsLabel>
+						<Tab>onglet 1</Tab>
+						<Tab>onglet 2</Tab>
+					</TabsLabel>
+					<TabPanel>
+						<p>{onglet1Panel}</p>
+					</TabPanel>
+					<TabPanel>
+						<p>{onglet2Panel}</p>
+					</TabPanel>
+				</Tabs>);
+
+				const [tabLabel1, tabLabel2] = screen.getAllByRole('tab');
+				await tabLabel2.focus();
+
+				await user.keyboard(KeyBoard.ARROW_RIGHT);
+				expect(tabLabel1).toHaveFocus();
+
+				await user.keyboard(KeyBoard.ENTER);
+				expect(screen.getByText(onglet1Panel)).toBeVisible();
+			});
 		});
 	});
-	describe('lorsque je suis sur le dernier élément', () => {
-		it('je me déplace sur le premier élément', async () => {
+
+	describe('lorsque je navigue avec la touche début du clavier', () => {
+		it('je me déplace sur le premier onglet', async () => {
 			const user = userEvent.setup();
+			const onglet3Panel = 'Je suis le paragraphe de l’onglet 3';
 
 			render(<Tabs>
 				<TabsLabel>
 					<Tab>onglet 1</Tab>
 					<Tab>onglet 2</Tab>
+					<Tab>onglet 3</Tab>
 				</TabsLabel>
 				<TabPanel>
 					<p>{onglet1Panel}</p>
@@ -175,92 +205,31 @@ describe('lorsque je navigue avec la fleche droite du clavier', () => {
 				<TabPanel>
 					<p>{onglet2Panel}</p>
 				</TabPanel>
+				<TabPanel>
+					<p>{onglet3Panel}</p>
+				</TabPanel>
 			</Tabs>);
 
-			const [tabLabel1, tabLabel2] = screen.getAllByRole('tab');
-			await tabLabel2.focus();
+			const [tabLabel1, tabLabel3] = screen.getAllByRole('tab');
+			await tabLabel3.focus();
 
-			await user.keyboard(KeyBoard.ARROW_RIGHT);
+			await user.keyboard(KeyBoard.HOME);
 			expect(tabLabel1).toHaveFocus();
 
 			await user.keyboard(KeyBoard.ENTER);
 			expect(screen.getByText(onglet1Panel)).toBeVisible();
 		});
 	});
-});
-
-describe('lorsque je navigue avec la touche début du clavier', () => {
-	it('je me déplace sur le premier onglet', async () => {
-		const user = userEvent.setup();
-		const onglet3Panel = 'Je suis le paragraphe de l’onglet 3';
-
-		render(<Tabs>
-			<TabsLabel>
-				<Tab>onglet 1</Tab>
-				<Tab>onglet 2</Tab>
-				<Tab>onglet 3</Tab>
-			</TabsLabel>
-			<TabPanel>
-				<p>{onglet1Panel}</p>
-			</TabPanel>
-			<TabPanel>
-				<p>{onglet2Panel}</p>
-			</TabPanel>
-			<TabPanel>
-				<p>{onglet3Panel}</p>
-			</TabPanel>
-		</Tabs>);
-
-		const [tabLabel1, tabLabel3] = screen.getAllByRole('tab');
-		await tabLabel3.focus();
-
-		await user.keyboard(KeyBoard.HOME);
-		expect(tabLabel1).toHaveFocus();
-
-		await user.keyboard(KeyBoard.ENTER);
-		expect(screen.getByText(onglet1Panel)).toBeVisible();
-	});
-});
-describe('lorsque je navigue avec la touche fin du clavier', () => {
-	it('je me déplace sur le dernier onglet', async () => {
-		const user = userEvent.setup();
-		const onglet3Panel = 'Je suis le paragraphe de l’onglet 3';
-
-		render(<Tabs>
-			<TabsLabel>
-				<Tab>onglet 1</Tab>
-				<Tab>onglet 2</Tab>
-				<Tab>onglet 3</Tab>
-			</TabsLabel>
-			<TabPanel>
-				<p>{onglet1Panel}</p>
-			</TabPanel>
-			<TabPanel>
-				<p>{onglet2Panel}</p>
-			</TabPanel>
-			<TabPanel>
-				<p>{onglet3Panel}</p>
-			</TabPanel>
-		</Tabs>);
-
-		const [tabLabel1, tabLabel2, tabLabel3] = screen.getAllByRole('tab');
-		await tabLabel1.focus();
-
-		await user.keyboard(KeyBoard.END);
-		expect(tabLabel2).not.toHaveFocus();
-		expect(tabLabel3).toHaveFocus();
-
-		await user.keyboard(KeyBoard.ENTER);
-		expect(screen.getByText(onglet3Panel)).toBeVisible();
-	});
-	describe('quand l’utilisateur change d’onglet',()=>{
-		it('appelle onTabChange avec le nouvel index', async () => {
+	describe('lorsque je navigue avec la touche fin du clavier', () => {
+		it('je me déplace sur le dernier onglet', async () => {
 			const user = userEvent.setup();
-			const onTabChange = jest.fn();
-			render(<Tabs onTabchange={onTabChange}>
+			const onglet3Panel = 'Je suis le paragraphe de l’onglet 3';
+
+			render(<Tabs>
 				<TabsLabel>
 					<Tab>onglet 1</Tab>
 					<Tab>onglet 2</Tab>
+					<Tab>onglet 3</Tab>
 				</TabsLabel>
 				<TabPanel>
 					<p>{onglet1Panel}</p>
@@ -268,30 +237,61 @@ describe('lorsque je navigue avec la touche fin du clavier', () => {
 				<TabPanel>
 					<p>{onglet2Panel}</p>
 				</TabPanel>
+				<TabPanel>
+					<p>{onglet3Panel}</p>
+				</TabPanel>
 			</Tabs>);
-			const onglets = screen.getAllByRole('tab');
-			await user.click(onglets[0]);
-			expect(onTabChange).toHaveBeenCalledTimes(1);
-			expect(onTabChange).toHaveBeenCalledWith(0);
+
+			const [tabLabel1, tabLabel2, tabLabel3] = screen.getAllByRole('tab');
+			await tabLabel1.focus();
+
+			await user.keyboard(KeyBoard.END);
+			expect(tabLabel2).not.toHaveFocus();
+			expect(tabLabel3).toHaveFocus();
+
+			await user.keyboard(KeyBoard.ENTER);
+			expect(screen.getByText(onglet3Panel)).toBeVisible();
 		});
-	});
-	describe('quand l’onglet actit est indiqué',()=>{
-		it('affiche le bon onglet', () => {
-			const index= 1;
-			render(<Tabs currentIndex={index}>
-				<TabsLabel>
-					<Tab>onglet 1</Tab>
-					<Tab>onglet 2</Tab>
-				</TabsLabel>
-				<TabPanel>
-					<p>{onglet1Panel}</p>
-				</TabPanel>
-				<TabPanel>
-					<p>{onglet2Panel}</p>
-				</TabPanel>
-			</Tabs>);
-			const currentTab=screen.getByText(onglet2Panel);
-			expect(currentTab).toBeVisible();
+		describe('quand l’utilisateur change d’onglet',()=>{
+			it('appelle onTabChange avec le nouvel index', async () => {
+				const user = userEvent.setup();
+				const onTabChange = jest.fn();
+				render(<Tabs onTabChange={onTabChange}>
+					<TabsLabel>
+						<Tab>onglet 1</Tab>
+						<Tab>onglet 2</Tab>
+					</TabsLabel>
+					<TabPanel>
+						<p>{onglet1Panel}</p>
+					</TabPanel>
+					<TabPanel>
+						<p>{onglet2Panel}</p>
+					</TabPanel>
+				</Tabs>);
+				const onglets = screen.getAllByRole('tab');
+				await user.click(onglets[0]);
+				expect(onTabChange).toHaveBeenCalledTimes(1);
+				expect(onTabChange).toHaveBeenCalledWith(0);
+			});
+		});
+		describe('quand l’onglet actit est indiqué',()=>{
+			it('affiche le bon onglet', () => {
+				const index= 1;
+				render(<Tabs currentIndex={index}>
+					<TabsLabel>
+						<Tab>onglet 1</Tab>
+						<Tab>onglet 2</Tab>
+					</TabsLabel>
+					<TabPanel>
+						<p>{onglet1Panel}</p>
+					</TabPanel>
+					<TabPanel>
+						<p>{onglet2Panel}</p>
+					</TabPanel>
+				</Tabs>);
+				const currentTab=screen.getByText(onglet2Panel);
+				expect(currentTab).toBeVisible();
+			});
 		});
 	});
 });

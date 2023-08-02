@@ -1,4 +1,4 @@
-import { when } from 'joi';
+
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -73,7 +73,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<div>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
-            						<Tabs onTabchange={onTabchange} currentIndex={currentTab}>
+            						<Tabs onTabChange={onTabchange} currentIndex={currentTab}>
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab
