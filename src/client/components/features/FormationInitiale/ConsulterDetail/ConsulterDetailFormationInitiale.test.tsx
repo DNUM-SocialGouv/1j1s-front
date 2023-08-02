@@ -133,4 +133,6 @@ describe('ConsulterDetailFormationInitiale', () => {
 			expect(queryByDescriptionTerm('Poursuite d‘études')).not.toBeInTheDocument();
 		});
 	});
+
+	it.todo('contient un lien vers le fiche formation');
 });

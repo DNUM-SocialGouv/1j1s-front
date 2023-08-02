@@ -3,7 +3,11 @@
  */
 
 import {
-	aFormationInitiale, aResultatFormationInitiale,
+	FormationInitiale,
+	ResultatRechercheFormationsInitiales,
+} from '~/server/formations-initiales/domain/formationInitiale';
+import {
+	aFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	formationInitialeMapper,
@@ -35,9 +39,30 @@ describe('formationInitialeRechercheMapper', () => {
 	});
 
 	it('map les formations initiales', () => {
-		const apiResponse = aResultatRechercheFormationInitialeApiResponse();
+		const apiResponse = aResultatRechercheFormationInitialeApiResponse({
+			results: [aFormationInitialeApiResponse({
+				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+				niveau_de_certification: '3',
+				niveau_de_sortie_indicatif: 'Bac + 2',
+				duree: '1 an',
+				url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
+			})],
+			total: 150,
+		});
 		const formationInitialeMapped = formationInitialeRechercheMapper(apiResponse);
-		expect(formationInitialeMapped).toEqual(aResultatFormationInitiale());
+
+		const formationInitialeAttendue: ResultatRechercheFormationsInitiales = {
+			formationsInitiales: [
+				{
+					identifiant: 'FOR.1234',
+					libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+					tags: ['Certifiante', 'Bac + 2', '1 an'],
+					url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
+				},
+			],
+			nombreDeResultat: 150,
+		};
+		expect(formationInitialeMapped).toEqual(formationInitialeAttendue);
 	});
 
 	describe('map la certification', () => {
@@ -66,16 +91,18 @@ describe('formationInitialeRechercheMapper', () => {
 
 describe('formationInitialeDetailMapper', () => {
 	it('map une formation initiale pour afficher le détail', () => {
-		const formationInitialeResultExpected = aFormationInitiale({
+		const formationInitialeResultExpected: FormationInitiale = {
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
 			tags: ['Certifiante', 'Bac + 2', '1 an'],
-		});
+			url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
+		};
 
 		const formationInitialeMapped = formationInitialeMapper(aFormationInitialeApiResponse({
 			duree: '1 an',
 			libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
 			niveau_de_certification: '3',
 			niveau_de_sortie_indicatif: 'Bac + 2',
+			url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 		}));
 
 		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);

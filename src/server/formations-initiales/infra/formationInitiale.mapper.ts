@@ -21,6 +21,7 @@ export function formationInitialeMapper(formationInitialeApiResponse: FormationI
 		identifiant: getIdentifiant(formationInitialeApiResponse.url_et_id_onisep),
 		libelle: formationInitialeApiResponse.libelle_formation_principal,
 		tags: getTags(formationInitialeApiResponse),
+		url_formation: formationInitialeApiResponse.url_et_id_onisep,
 	};
 }
 
