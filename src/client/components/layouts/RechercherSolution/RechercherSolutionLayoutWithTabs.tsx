@@ -1,3 +1,4 @@
+import { when } from 'joi';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -36,12 +37,17 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		maxPage,
 		isLoading,
 		listeSolutionElementTab,
+
 	} = props;
 
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
-	const [messageResultatRecherche, setMessageResultatRecherche] = useState<string>();
+	const [currentTab, setCurrentTab] = useState<number>(0);
+	const affichageDesResultats= listeSolutionElementTab[currentTab].messageRésultatRecherche;
 
+	const onTabchange=(newIndex:number)=>{
+		setCurrentTab(newIndex);
+	};
 	return (
 		<>
 			{bannière}
@@ -60,18 +66,17 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
             				<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-            					<h2>{messageResultatRecherche}</h2>
+            					<h2>{affichageDesResultats}</h2>
             				</Skeleton>
             			</Container>
 
             			<div>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
-            						<Tabs>
+            						<Tabs onTabchange={onTabchange} currentIndex={currentTab}>
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
-            									<Tab 
-            										onClick={() => setMessageResultatRecherche(solutionElement.messageRésultatRecherche)}
+            									<Tab
             										key={solutionElement.label}>
             										{solutionElement.label}
             									</Tab>))}

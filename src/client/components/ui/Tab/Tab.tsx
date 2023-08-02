@@ -14,7 +14,7 @@ import { KeyBoard } from '../../keyboard/keyboard.enum';
 
 interface TabContext {
 	indexTabActive: number,
-	onTabChange: Dispatch<SetStateAction<number>>,
+	onTabChange: (newValue:number)=>void,
 }
 
 const TabContext = createContext<TabContext | null>(null);
@@ -29,14 +29,28 @@ const useTabContext = () => {
 	return tabContext;
 };
 
-type TabsProps = React.ComponentPropsWithoutRef<'div'>
+type TabsProps = React.ComponentPropsWithoutRef<'div'>&{currentIndex:number,onTabchange:(newIndex:number)=>void}
+
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref) {
 	const {
 		className,
 		children,
+		currentIndex,
+		onTabchange,
 		...rest
 	} = props;
+	let  indexFinal;
 	const [indexTabActive, setIndexTabActive] = useState<number>(0);
+	if(currentIndex){
+		indexFinal=currentIndex;
+	}else {
+		indexFinal=indexTabActive;
+	}
+	const whenChange=(value:number)=>{
+		setIndexTabActive(value);
+		onTabchange(value);
+	};
+
 
 	const childrenArray = React.Children.toArray(children);
 	const [tabLabel, ...tabPanels] = childrenArray;
@@ -44,10 +58,10 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(pr
 
 	return (
 		<div className={classNames(styles.tabList, className)} aria-labelledby="liste d'onglets" ref={ref} {...rest}>
-			<TabContext.Provider value={{ indexTabActive, onTabChange: setIndexTabActive }}>
+			<TabContext.Provider value={{ indexTabActive:indexFinal, onTabChange: whenChange }}>
 				{tabLabel}
 				<div className={styles.tabPanelContainer}>
-					{tabPanels[indexTabActive]}
+					{tabPanels[indexFinal]}
 				</div>
 			</TabContext.Provider>
 		</div>
@@ -159,6 +173,7 @@ export const TabsLabel = React.forwardRef<HTMLDivElement, React.ComponentPropsWi
 							onKeyDown: handleKeyDown,
 							tabIndex: indexTabActive === indexTab ? 0 : -1,
 						});
+
 					}
 					return child;
 				})
