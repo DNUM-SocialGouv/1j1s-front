@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.122.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.0...v3.122.1) (2023-08-02)
+
+
+### 📚 Documentation
+
+* **adr:** pending adr for component specific design token ([#1723](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1723)) ([99126c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99126c363f57a6f0854688514654849c3f9bdf28))
+
 ## [3.122.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.121.0...v3.122.0) (2023-08-01)
 
 
