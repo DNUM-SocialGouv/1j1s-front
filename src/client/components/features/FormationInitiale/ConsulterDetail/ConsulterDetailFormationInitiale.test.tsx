@@ -42,7 +42,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 		expect(tagsList[2]).toHaveTextContent('2 ans');
 	});
 
-	it('contient un lien vers le fiche formation du partenaire pour y découvrir les établissements proposant cette formation', () => {
+	it('contient un lien vers la fiche formation du partenaire pour y découvrir les établissements proposant cette formation', () => {
 		// Given
 		const formationInitialeDétail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
 
