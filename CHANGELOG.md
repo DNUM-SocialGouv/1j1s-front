@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.122.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.2...v3.122.3) (2023-08-02)
+
+
+### 🐛 Corrections de bogues
+
+* **formation-init:** récupérer la bonne formation quand on récupère par id de formation ([#1733](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1733)) ([81c3663](https://github.com/DNUM-SocialGouv/1j1s-front/commit/81c36637651a79d53a1620536336791a5f4b5d4f))
+
 ## [3.122.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.1...v3.122.2) (2023-08-02)
 
 
