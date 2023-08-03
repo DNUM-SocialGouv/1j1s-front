@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.122.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.5...v3.122.6) (2023-08-03)
+
+
+### 🐛 Corrections de bogues
+
+* **stage:** mangle plusieurs fois le même texte ([#1730](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1730)) ([6f6e397](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6f6e3970addb9089315b6f2bbd78a79f01adb743))
+
+
+### 👷 Autres changements
+
+* cypress testing library ([#1350](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1350)) ([b57a8bb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b57a8bb1ec0c5b552b175d83a7c4c34ac0df63a7))
+
 ## [3.122.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.4...v3.122.5) (2023-08-03)
 
 
