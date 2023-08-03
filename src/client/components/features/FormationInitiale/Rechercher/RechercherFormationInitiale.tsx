@@ -12,10 +12,12 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
@@ -39,6 +41,9 @@ export function RechercherFormationInitiale() {
 	const formationInitialeQuery = useFormationInitialeQuery();
 
 	useEffect(() => {
+		if (empty(formationInitialeQuery)) {
+			return;
+		}
 		setIsLoading(true);
 		setErreurRecherche(undefined);
 
@@ -82,6 +87,9 @@ export function RechercherFormationInitiale() {
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
+
+				<EnTete heading="Des services faits pour vous" headingLevel={'h2'}/>
+
 			</main>
 		</>
 	);

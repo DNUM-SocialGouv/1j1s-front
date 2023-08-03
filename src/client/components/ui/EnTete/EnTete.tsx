@@ -5,8 +5,8 @@ import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/EnTete/EnTete.module.scss';
 
 interface EnTeteProps extends React.ComponentPropsWithoutRef<'div'>{
-  heading: string
-  headingLevel?: HtmlHeadingTag
+	heading: string
+	headingLevel?: HtmlHeadingTag
 	description?: string
 }
 

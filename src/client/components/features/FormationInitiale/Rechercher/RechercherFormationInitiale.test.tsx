@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 
 import {
 	RechercherFormationInitiale,
@@ -185,10 +185,36 @@ describe('RechercherFormationInitiale', () => {
 			jest.spyOn(aFormationService, 'rechercherFormationInitiale').mockResolvedValue(resultatFormationInitiale);
 			render(<DependenciesProvider formationInitialeService={aFormationService}>
 				<RechercherFormationInitiale/>
-			</DependenciesProvider>,
-			);
+			</DependenciesProvider>);
 
 			expect(await screen.findByText(/[0-9]+ formations$/)).toBeVisible();
+		});
+	});
+
+	describe('je vois une section dédiée aux services qui pourraient m’intéresser', () => {
+		beforeEach(() => {
+			mockUseRouter({});
+		});
+
+		it('la section porte le nom de "Des services faits pour vous"',   () => {
+			// GIVEN
+			const aFormationService = aFormationInitialeService();
+
+			// WHEN
+			render(<DependenciesProvider formationInitialeService={aFormationService}>
+				<RechercherFormationInitiale/>
+			</DependenciesProvider>);
+
+			// THEN
+			const titreSection = screen.getByRole('heading', { level: 2, name: /Des services faits pour vous/ });
+			expect(titreSection).toBeVisible();
+		});
+
+		describe('la section contient une redirection vers',   () => {
+			it.todo('le service Onisep', () => {});
+			it.todo('la page des formations en apprentissage', () => {});
+			it.todo('le service Parcoursup', () => {});
+			it.todo('le service Mon Compte Formation', () => {});
 		});
 	});
 });

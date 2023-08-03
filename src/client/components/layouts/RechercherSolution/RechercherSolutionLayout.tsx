@@ -48,7 +48,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 						{formulaireRecherche}
 					</Container>
 				</div>
-
+				{/*FIXME (SULI 03/08/23) : ça ne doit pas être le layout qui décide d'afficher ou non en fonction de la présence de la query*/}
 				{hasRouterQuery &&
             <>
             	{erreurRecherche || nombreSolutions === 0 && !isLoading
