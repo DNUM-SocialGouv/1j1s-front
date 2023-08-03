@@ -41,10 +41,10 @@ describe('formationInitialeRechercheMapper', () => {
 	it('map les formations initiales', () => {
 		const apiResponse = aResultatRechercheFormationInitialeApiResponse({
 			results: [aFormationInitialeApiResponse({
+				duree: '1 an',
 				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
 				niveau_de_certification: '3',
 				niveau_de_sortie_indicatif: 'Bac + 2',
-				duree: '1 an',
 				url_et_id_onisep: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 			})],
 			total: 150,
