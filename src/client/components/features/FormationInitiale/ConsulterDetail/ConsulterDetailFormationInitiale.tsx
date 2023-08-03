@@ -19,7 +19,9 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
 
-			<LinkStyledAsButton href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">Consulter les établissements</LinkStyledAsButton>
+			<LinkStyledAsButton href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
+				Consulter les établissements
+			</LinkStyledAsButton>
 
 			{isFormationWithDetails(formationInitialeDetail) && <section>
 				<dl className={styles.contenu}>
