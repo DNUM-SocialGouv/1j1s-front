@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.122.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.4...v3.122.5) (2023-08-03)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/react to v18.2.18 ([#1716](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1716)) ([04e872b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04e872b0a4679ef8e17ab0e95090874f38ad1fae))
+* **deps:** update getmeili/meilisearch docker tag to v1.3.0 ([#1710](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1710)) ([3f2f861](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3f2f861f962fb400689167ce613ab32266c96637))
+
 ## [3.122.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.3...v3.122.4) (2023-08-03)
 
 
