@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.122.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.3...v3.122.4) (2023-08-03)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @meilisearch/instant-meilisearch to v0.13.4 ([#1721](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1721)) ([bc290e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bc290e50bb96aff0d3829f2ece57083a540ce229))
+
 ## [3.122.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.2...v3.122.3) (2023-08-02)
 
 
