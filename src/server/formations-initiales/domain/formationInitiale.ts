@@ -1,6 +1,6 @@
 export interface FormationInitiale {
     libelle: string;
-		url_formation: string
+    url_formation: string
     tags: Array<string>
     identifiant?: string
 }

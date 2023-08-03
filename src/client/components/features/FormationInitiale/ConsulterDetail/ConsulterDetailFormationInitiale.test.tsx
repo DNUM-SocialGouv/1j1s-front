@@ -44,11 +44,11 @@ describe('ConsulterDetailFormationInitiale', () => {
 
 	it('contient un lien vers la fiche formation du partenaire pour y découvrir les établissements proposant cette formation', () => {
 		// Given
-		const formationInitialeDétail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
+		const formationInitialeDetail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
 
 		// When
 		render(<ConsulterDetailFormationInitiale
-			formationInitialeDetail={formationInitialeDétail}
+			formationInitialeDetail={formationInitialeDetail}
 		/>);
 
 		// Then
