@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
-} from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
-import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
-import { FormationsEnApprentissageCard } from '~/client/components/features/ServiceCard/FormationsEnApprentissageCard';
-import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
-import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
-import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
+} from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+import {
+	ListeDesServicesInteressants,
+} from '~/client/components/features/FormationInitiale/Rechercher/ServicesInteressants/ListeDesServicesInteressants';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -17,7 +15,6 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
@@ -93,15 +90,7 @@ export function RechercherFormationInitiale() {
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
 
-				<EnTete heading="Des services faits pour vous" headingLevel={'h2'}/>
-				<ServiceCardList>
-					<OnisepMetierPartner/>
-					<FormationsEnApprentissageCard/>
-					<ParcourSupPartner/>
-					<MonCompteFormationPartner/>
-
-				</ServiceCardList>
-
+				<ListeDesServicesInteressants/>
 			</main>
 		</>
 	);

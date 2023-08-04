@@ -21,6 +21,21 @@ describe('RechercherFormationInitiale', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
+	it('Au chargement de la page, il n’y a pas de résultats par défaut d’afficher', () => {
+		// GIVEN
+		mockUseRouter({});
+		const aFormationService = aFormationInitialeService();
+
+		// WHEN
+		render(<DependenciesProvider formationInitialeService={aFormationService}>
+			<RechercherFormationInitiale/>
+		</DependenciesProvider>);
+
+		// THEN
+		const resultatsRecherche = screen.queryByLabelText('Formations Initiales');
+		expect(resultatsRecherche).not.toBeInTheDocument();
+	});
+
 	describe('Lorsque je fais une recherche de formation initiale avec une query non vide', () => {
 		beforeEach(() => {
 			mockUseRouter({
@@ -210,8 +225,8 @@ describe('RechercherFormationInitiale', () => {
 			expect(titreSection).toBeVisible();
 		});
 
-		describe('la section contient une redirection vers',   () => {
-			it('la page des fiches métiers', () => {
+		describe('la section contient une liste de redirections, dont',   () => {
+			it('une première redirection vers la page des fiches métiers', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 
@@ -226,7 +241,7 @@ describe('RechercherFormationInitiale', () => {
 				const metierCard = within(servicesItems[0]).getByRole('link');
 				expect(metierCard).toHaveAttribute('href', '/decouvrir-les-metiers');
 			});
-			it('la page des formations en apprentissage', () => {
+			it('une deuxième redirection vers la page des formations en apprentissage', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 
@@ -241,7 +256,7 @@ describe('RechercherFormationInitiale', () => {
 				const formationsEnApprentissageCard = within(servicesItems[1]).getByRole('link');
 				expect(formationsEnApprentissageCard).toHaveAttribute('href', '/formations/apprentissage');
 			});
-			it('le service Parcoursup', () => {
+			it('une troisième redirection vers le service Parcoursup', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 
@@ -256,7 +271,7 @@ describe('RechercherFormationInitiale', () => {
 				const parcoursupCard = within(servicesItems[2]).getByRole('link');
 				expect(parcoursupCard).toHaveAttribute('href', 'https://www.parcoursup.fr/');
 			});
-			it('le service Mon Compte Formation', () => {
+			it('une quetrième redirection vers le service Mon Compte Formation', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 

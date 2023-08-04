@@ -8,7 +8,7 @@ import React from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
-} from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+} from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('FormulaireRechercheFormationInitiale', () => {
