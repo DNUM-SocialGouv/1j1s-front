@@ -4,6 +4,11 @@ import React, { useEffect, useState } from 'react';
 import {
 	FormulaireRechercheFormationInitiale,
 } from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { FormationsEnApprentissageCard } from '~/client/components/features/ServiceCard/FormationsEnApprentissageCard';
+import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
+import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
+import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -89,6 +94,13 @@ export function RechercherFormationInitiale() {
 				/>
 
 				<EnTete heading="Des services faits pour vous" headingLevel={'h2'}/>
+				<ServiceCardList>
+					<OnisepMetierPartner/>
+					<FormationsEnApprentissageCard/>
+					<ParcourSupPartner/>
+					<MonCompteFormationPartner/>
+
+				</ServiceCardList>
 
 			</main>
 		</>

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import {
 	RechercherFormationInitiale,
@@ -191,12 +191,12 @@ describe('RechercherFormationInitiale', () => {
 		});
 	});
 
-	describe('je vois une section dédiée aux services qui pourraient m’intéresser', () => {
+	describe('Je vois une section dédiée aux services qui pourraient m’intéresser', () => {
 		beforeEach(() => {
 			mockUseRouter({});
 		});
 
-		it('la section porte le nom de "Des services faits pour vous"',   () => {
+		it('la section porte le nom "Des services faits pour vous"',   () => {
 			// GIVEN
 			const aFormationService = aFormationInitialeService();
 
@@ -211,10 +211,66 @@ describe('RechercherFormationInitiale', () => {
 		});
 
 		describe('la section contient une redirection vers',   () => {
-			it.todo('le service Onisep', () => {});
-			it.todo('la page des formations en apprentissage', () => {});
-			it.todo('le service Parcoursup', () => {});
-			it.todo('le service Mon Compte Formation', () => {});
+			it('la page des fiches métiers', () => {
+				// GIVEN
+				const aFormationService = aFormationInitialeService();
+
+				// WHEN
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>);
+
+				// THEN
+				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesItems = within(servicesList).getAllByRole('listitem');
+				const metierCard = within(servicesItems[0]).getByRole('link');
+				expect(metierCard).toHaveAttribute('href', '/decouvrir-les-metiers');
+			});
+			it('la page des formations en apprentissage', () => {
+				// GIVEN
+				const aFormationService = aFormationInitialeService();
+
+				// WHEN
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>);
+
+				// THEN
+				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesItems = within(servicesList).getAllByRole('listitem');
+				const formationsEnApprentissageCard = within(servicesItems[1]).getByRole('link');
+				expect(formationsEnApprentissageCard).toHaveAttribute('href', '/formations/apprentissage');
+			});
+			it('le service Parcoursup', () => {
+				// GIVEN
+				const aFormationService = aFormationInitialeService();
+
+				// WHEN
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>);
+
+				// THEN
+				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesItems = within(servicesList).getAllByRole('listitem');
+				const parcoursupCard = within(servicesItems[2]).getByRole('link');
+				expect(parcoursupCard).toHaveAttribute('href', 'https://www.parcoursup.fr/');
+			});
+			it('le service Mon Compte Formation', () => {
+				// GIVEN
+				const aFormationService = aFormationInitialeService();
+
+				// WHEN
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>);
+
+				// THEN
+				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesItems = within(servicesList).getAllByRole('listitem');
+				const monCompteFormationCard = within(servicesItems[3]).getByRole('link');
+				expect(monCompteFormationCard).toHaveAttribute('href', 'https://www.moncompteformation.gouv.fr/espace-prive/html/#/');
+			});
 		});
 	});
 });
