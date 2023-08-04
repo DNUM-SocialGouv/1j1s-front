@@ -1,0 +1,19 @@
+name: Déploiement en Recette
+
+# Déploie le code Terraform lors de chaque commit/merge sur la branche "main"
+# une fois que c'est réussi, normalement l'intégration Github<=>Scalingo automatique va déployer
+# la branche main sur l'app 1j1s-front (qui correspond à la recette)
+# c'est pour ça qu'on ne déploie pas Scalingo ici
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  recette:
+    uses: ./.github/workflows/terraform-template.yml
+    secrets: inherit
+    with:
+      apply: true
+      environnement_name: scalingo-recette
+      environnement_url: https://recette.1jeune1solution.gouv.fr
+    concurrency: terraform-state-recette # Evite les conflits sur le state Terraform
