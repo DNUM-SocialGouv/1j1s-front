@@ -1,8 +1,8 @@
-import AidesExceptionnelles
-	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import DecouvrirMesuresEmployeurs
 	from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 import { Head } from '~/client/components/head/Head';
+import BanniereRejoindreLaMobilisation
+	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 
 import { DécouvrirDispositifs } from './DecouvrirDispositifs/DecouvrirDispositifs';
 import DecouvrirMesuresEmployeursEtApprentissage
@@ -25,7 +25,7 @@ export function JeRecrute () {
 					:
 					<DecouvrirMesuresEmployeurs />
 				}
-				<AidesExceptionnelles />
+				<BanniereRejoindreLaMobilisation />
 			</main>
 		</>
 	);

@@ -1,8 +1,7 @@
 @use "@styles/utilities-deprecated";
 
 .aides {
-  @extend %background-surface;
-  padding: 3rem 0;
+  padding: 2.5rem 0;
 
   &Container {
     @extend %max-container;

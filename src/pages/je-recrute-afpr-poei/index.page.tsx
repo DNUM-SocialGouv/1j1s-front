@@ -1,12 +1,9 @@
-import React from 'react';
-
-import AidesExceptionnelles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
-import RecrutementCandidatPôleEmploi from '~/client/components/features/JeDeviensMentor/RecrutementCandidatPôleEmploi/RecrutementCandidatPôleEmploi';
+import JeRecruteARenommer from '~/client/components/features/JeRecruteAfprPoei/JeRecruteAfprPoei';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/je-recrute-afpr-poei/index.analytics';
 
-export default function JeRecruteAfprPoei() {
+export default function JeRecruteAfprPoeiPage() {
 	useAnalytics(analytics);
 
 	return (
@@ -17,8 +14,7 @@ export default function JeRecruteAfprPoei() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<RecrutementCandidatPôleEmploi/>
-				<AidesExceptionnelles/>
+				<JeRecruteARenommer />
 			</main>
 		</>
 	);

@@ -5,8 +5,8 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 
-import AidesExceptionnelles
-	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
+import BanniereRejoindreLaMobilisation
+	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('AidesExceptionnelles', () => {
@@ -14,7 +14,7 @@ describe('AidesExceptionnelles', () => {
 	function renderComponent () {
 		render(
 			<DependenciesProvider>
-				<AidesExceptionnelles />
+				<BanniereRejoindreLaMobilisation />
 			</DependenciesProvider>,
 		);
 

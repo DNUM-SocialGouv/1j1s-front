@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AidesExceptionnelles
-	from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles';
 import { Head } from '~/client/components/head/Head';
+import BanniereRejoindreLaMobilisation
+	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 
 import { PourQui } from './PourQui/PourQui';
 import { Pourquoi } from './Pourquoi/Pourquoi';
@@ -20,7 +20,7 @@ export default function JeDeviensMentor() {
 				<PourQui/>
 				<QuEstCeQueLeMentorat/>
 				<Pourquoi/>
-				<AidesExceptionnelles/>
+				<BanniereRejoindreLaMobilisation/>
 			</main>
 		</>
 	);
