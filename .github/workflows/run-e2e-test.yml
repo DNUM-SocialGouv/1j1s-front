@@ -7,7 +7,7 @@
 # next a forcément besoin d'un fichier .env pour tourner du coup, on copie colle toutes les variables du serveur dedans
 # pas très propre, mais ça évite de les faire une par une à la mano
 
-name: Run e2e test for PR on main
+name: Run e2e test
 
 on:
   push:
