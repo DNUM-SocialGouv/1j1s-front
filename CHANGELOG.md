@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.123.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.1...v3.123.2) (2023-08-07)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked-gfm-heading-id to v3.0.6 ([#1744](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1744)) ([1d9e2fc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1d9e2fcefc3580954a0f632becfd6e6f332e06c7))
+* **deps:** update dependency phone to v3.1.38 ([#1751](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1751)) ([43967e9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/43967e93e0769e0ef3ad9600845cc23410fb2108))
+
 ## [3.123.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.0...v3.123.1) (2023-08-07)
 
 
