@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.122.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.7...v3.122.8) (2023-08-04)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.17.2 ([02a25db](https://github.com/DNUM-SocialGouv/1j1s-front/commit/02a25db5db61f7d0dbbd2215aa636cb9b4991670))
+
 ## [3.122.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.6...v3.122.7) (2023-08-04)
 
 
