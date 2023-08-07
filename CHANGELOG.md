@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.2...v3.124.3) (2023-08-07)
+
+
+### 👷 Autres changements
+
+* **stage:** fix test flacky depot de stage timeout v2 ([e64c9d6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e64c9d63e24cd97d58a4d779bdb301896cb71cea))
+
 ## [3.124.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.1...v3.124.2) (2023-08-07)
 
 
