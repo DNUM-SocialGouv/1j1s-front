@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import styles
-	from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale.module.scss';
+import styles from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
