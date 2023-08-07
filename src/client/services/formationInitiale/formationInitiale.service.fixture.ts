@@ -18,6 +18,7 @@ export function aFormationInitiale(override?: Partial<FormationInitiale>): Forma
 	return {
 		libelle: 'Formation Boulanger Chez Pierre Hermé',
 		tags: ['Certifiante', 'Bac + 2', '1 an'],
+		url_formation: 'https://www.onisep.fr/formations/macarons',
 		...override,
 	};
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
 	FormationInitialeDetailComplete,
@@ -17,6 +18,11 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 				<h1>{formationInitialeDetail.libelle}</h1>
 				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
+
+			<LinkStyledAsButton href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
+				Consulter les établissements
+			</LinkStyledAsButton>
+
 			{isFormationWithDetails(formationInitialeDetail) && <section>
 				<dl className={styles.contenu}>
 					{formationInitialeDetail.description && (
