@@ -10,18 +10,21 @@ $card-border-color: utilities.$color-background-border;
 
   & > ul {
     @extend %max-container;
-    padding: 1rem;
+    padding: utilities.pixel-to-rem(32) utilities.pixel-to-rem(16);
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: utilities.pixel-to-rem(24);
+
+    @include utilities.media(small) {
+      padding: utilities.pixel-to-rem(40) utilities.pixel-to-rem(16);
+      gap: utilities.pixel-to-rem(32);
+    }
 
     @include utilities.media(xlarge) {
       margin: auto;
       padding-left: 0;
       padding-right: 0;
-    }
-
-    & > li {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
     }
   }
 }
