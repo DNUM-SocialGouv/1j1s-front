@@ -7,16 +7,16 @@ const SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA = ['recette', 'production', 'review_a
 const SENTRY_ENVIRONMENTS_ENABLE_DEBUG = ['local', 'review_app'];
 const SEND_DATA = SENTRY_ENVIRONMENTS_ENABLE_SEND_DATA.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
 const DEBUG_DATA = SENTRY_ENVIRONMENTS_ENABLE_DEBUG.includes(process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || '');
-const RELEASE_NAME_SUFFIX = 'server';
+// const RELEASE_NAME_SUFFIX = 'server';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { name, version } = require('./package.json');
+// const { name, version } = require('./package.json');
 
-const releaseName = (environnement = process.env) => {
-	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
-		return `${name}@review+${version}-${RELEASE_NAME_SUFFIX}`;
-	}
-	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
-};
+// const releaseName = (environnement = process.env) => {
+// 	if(environnement.NEXT_PUBLIC_SENTRY_ENVIRONMENT === 'review_app') {
+// 		return `${name}@review+${version}-${RELEASE_NAME_SUFFIX}`;
+// 	}
+// 	return `${name}@${version}-${RELEASE_NAME_SUFFIX}`;
+// };
 
 process.env.NODE_ENV === 'production' && Sentry.init({
 	beforeSend(event) {
@@ -40,7 +40,6 @@ process.env.NODE_ENV === 'production' && Sentry.init({
 	initialScope: {
 		level: process.env.NEXT_PUBLIC_SENTRY_LOG_LEVEL as SeverityLevel,
 	},
-	release: releaseName(),
 	sendClientReports: SEND_DATA,
 	tracesSampleRate: Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE),
 });
