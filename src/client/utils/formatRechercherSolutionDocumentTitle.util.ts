@@ -2,8 +2,8 @@ import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
 
 
-const SERVICE_INDISPONIBLE_TITLE = '- Service indisponible';
-const DEMANDE_INCORRECTE_TITLE = '- Demande incorrecte';
+const SERVICE_INDISPONIBLE_TITLE = ' - Service indisponible';
+const DEMANDE_INCORRECTE_TITLE = ' - Demande incorrecte';
 
 export function formatRechercherSolutionDocumentTitle(prefixTitle: string, errorType?: Erreur): string {
 	let title = '';
@@ -17,5 +17,5 @@ export function formatRechercherSolutionDocumentTitle(prefixTitle: string, error
 			break;
 		}
 	}
-	return `${prefixTitle} ${title} | 1jeune1solution`;
+	return `${prefixTitle}${title} | 1jeune1solution`;
 }
