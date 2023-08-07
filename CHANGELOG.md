@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.123.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.8...v3.123.0) (2023-08-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* ajouter un bouton "Consulter les établissements" dans le détail d'une formation ([#1735](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1735)) ([7fd25fe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7fd25fedb7130001ec1e0a81917095798c157e26))
+
 ## [3.122.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.122.7...v3.122.8) (2023-08-04)
 
 
