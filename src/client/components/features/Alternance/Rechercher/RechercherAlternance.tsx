@@ -68,19 +68,19 @@ export default function RechercherAlternance() {
 	}, [alternanceQuery, alternanceService]);
 
 
-	function getMessageRésultatRecherche(nombreRésultats: number) {
-		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
-		if (nombreRésultats > 1) {
-			messageRésultatRechercheSplit.push('résultats');
-		} else if (nombreRésultats === 1) {
-			messageRésultatRechercheSplit.push('résultat');
+	function getMessageResultatRecherche(nombreResultats: number) {
+		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
+		if (nombreResultats > 1) {
+			messageResultatRechercheSplit.push('résultats');
+		} else if (nombreResultats === 1) {
+			messageResultatRechercheSplit.push('résultat');
 		} else {
 			return '';
 		}
 		if (router.query.libelleMetier) {
-			messageRésultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
+			messageResultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
 		}
-		return messageRésultatRechercheSplit.join(' ');
+		return messageResultatRechercheSplit.join(' ');
 	}
 
 	const étiquettesRecherche = useMemo(() => {
@@ -108,13 +108,13 @@ export default function RechercherAlternance() {
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
-					messageRésultatRecherche: getMessageRésultatRecherche(alternanceList.offreList.length),
+					messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
 				},
 				{
 					label: 'Entreprises',
 					listeSolutionElement: <ListeSolutionAlternanceEntreprise
 						entrepriseList={alternanceList.entrepriseList}/>,
-					messageRésultatRecherche: getMessageRésultatRecherche(alternanceList.entrepriseList.length),
+					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>
@@ -128,8 +128,8 @@ export default function RechercherAlternance() {
 					titleHeadingTag={'h3'}
 				>
 					<p>
-                        Découvrez un argument supplémentaire à avancer pour vous faire
-                        embaucher
+						Découvrez un argument supplémentaire à avancer pour vous faire
+						embaucher
 					</p>
 				</ArticleCard>
 			</ArticleCardList>
@@ -147,8 +147,7 @@ function BannièreApprentissage() {
 	return (
 		<LightHero>
 			<h1>
-				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous
-                    faut</LightHeroPrimaryText>
+				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
 			</h1>
 			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
 		</LightHero>
@@ -157,7 +156,7 @@ function BannièreApprentissage() {
 
 
 function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
-    entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
 }): React.ReactElement {
 
 	return (
@@ -173,8 +172,7 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 							étiquetteOffreList={entreprise.tags}
 						>
 							<ul>
-								{entreprise.secteurs && entreprise.secteurs.length > 0 &&
-                                    <li>{entreprise.secteurs.join(', ')}</li>}
+								{entreprise.secteurs && entreprise.secteurs.length > 0 && <li>{entreprise.secteurs.join(', ')}</li>}
 								{entreprise.adresse && <li>{entreprise.adresse}</li>}
 							</ul>
 						</RésultatRechercherSolution>
@@ -186,7 +184,7 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 }
 
 function ListeSolutionAlternance({ alternanceList }: {
-    alternanceList: Array<RésultatRechercheAlternance.Offre>
+	alternanceList: Array<RésultatRechercheAlternance.Offre>
 }): React.ReactElement {
 	const getLogo = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
@@ -195,11 +193,11 @@ function ListeSolutionAlternance({ alternanceList }: {
 		return '/images/logos/pole-emploi.svg';
 	};
 
-	const getAltertnativeTextuelle = (alternance: Alternance) => {
+	const getAlternativeTextuelle = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
-			return 'labonnealternance';
+			return 'la bonne alternance';
 		}
-		return 'pôleemploi';
+		return 'pôle emploi';
 	};
 
 	return (
@@ -213,8 +211,7 @@ function ListeSolutionAlternance({ alternanceList }: {
 							logo={getLogo(alternance)}
 							étiquetteOffreList={alternance.tags}
 							sousTitreOffre={alternance.entreprise.nom}
-							alt={getAltertnativeTextuelle(alternance)}
-
+							logoAlt={getAlternativeTextuelle(alternance)}
 						/>
 					</li>
 				))}

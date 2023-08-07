@@ -148,8 +148,8 @@ describe('RechercherAlternance', () => {
 
 			const filtresRecherche = await screen.findByText('Paris (75001)');
 			expect(filtresRecherche).toBeInTheDocument();
-			const messageRésultats = await screen.findByText(/résultats pour Boulangerie, pâtisserie, chocolaterie/);
-			expect(messageRésultats).toBeInTheDocument();
+			const messageResultats = await screen.findByText(/résultats pour Boulangerie, pâtisserie, chocolaterie/);
+			expect(messageResultats).toBeInTheDocument();
 
 
 			const resultListOffre = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
@@ -182,7 +182,7 @@ describe('RechercherAlternance', () => {
 			});
 		});
 
-		it('quand je click sur contrat d‘alternance, affiche le bon nombre de résultats', async () => {
+		it('quand je clique sur contrat d‘alternance, affiche le bon nombre de résultats', async () => {
 			const user = userEvent.setup();
 			const offreAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
 			const alternanceServiceMock = anAlternanceService(offreAlternance);

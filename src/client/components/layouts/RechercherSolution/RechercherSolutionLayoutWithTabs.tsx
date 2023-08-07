@@ -22,7 +22,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 	listeSolutionElementTab: Array<{
 		label: string
 		listeSolutionElement: React.ReactElement
-		messageRésultatRecherche: string
+		messageResultatRecherche: string
 	}>
 }
 
@@ -37,17 +37,13 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		maxPage,
 		isLoading,
 		listeSolutionElementTab,
-
 	} = props;
 
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 	const [currentTab, setCurrentTab] = useState<number>(0);
-	const affichageDesResultats= listeSolutionElementTab[currentTab].messageRésultatRecherche;
+	const affichageDesResultats= listeSolutionElementTab[currentTab].messageResultatRecherche;
 
-	const onTabchange=(newIndex:number)=>{
-		setCurrentTab(newIndex);
-	};
 	return (
 		<>
 			{bannière}
@@ -73,7 +69,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<div>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
-            						<Tabs onTabChange={onTabchange} currentIndex={currentTab}>
+            						<Tabs onTabChange={setCurrentTab} currentIndex={currentTab}>
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab

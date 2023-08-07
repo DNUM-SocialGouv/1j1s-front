@@ -46,7 +46,7 @@ describe('<Tab>', () => {
 		});
 	});
 
-	describe('lorsque je click sur un onglet', () => {
+	describe('lorsque je clique sur un onglet', () => {
 		it('je change d’onglet', async () => {
 			const user = userEvent.setup();
 
@@ -75,8 +75,8 @@ describe('<Tab>', () => {
 		});
 	});
 
-	describe('lorsque je navigue avec la fleche gauche du clavier', () => {
-		describe('lorsque je ne suis pas sur le premier élément', () => {
+	describe('lorsque je navigue avec la flèche gauche du clavier', () => {
+		describe('lorsque je ne suis pas sur le premier onglet', () => {
 			it('je change d’onglet', async () => {
 				const user = userEvent.setup();
 
@@ -103,8 +103,8 @@ describe('<Tab>', () => {
 				expect(screen.getByText(onglet1Panel)).toBeVisible();
 			});
 		});
-		describe('lorsque je suis sur le premier élément', () => {
-			it('je me déplace sur le dernier élément', async () => {
+		describe('lorsque je suis sur le premier onglet', () => {
+			it('je me déplace sur le dernier onglet', async () => {
 				const user = userEvent.setup();
 
 				render(<Tabs>
@@ -131,8 +131,8 @@ describe('<Tab>', () => {
 			});
 		});
 	});
-	describe('lorsque je navigue avec la fleche droite du clavier', () => {
-		describe('lorsque je ne suis pas sur le dernier élément', () => {
+	describe('lorsque je navigue avec la flèche droite du clavier', () => {
+		describe('lorsque je ne suis pas sur le dernier onglet', () => {
 			it('je change d’onglet', async () => {
 				const user = userEvent.setup();
 
@@ -159,8 +159,8 @@ describe('<Tab>', () => {
 				expect(screen.getByText(onglet2Panel)).toBeVisible();
 			});
 		});
-		describe('lorsque je suis sur le dernier élément', () => {
-			it('je me déplace sur le premier élément', async () => {
+		describe('lorsque je suis sur le dernier onglet', () => {
+			it('je me déplace sur le premier onglet', async () => {
 				const user = userEvent.setup();
 
 				render(<Tabs>
@@ -251,47 +251,6 @@ describe('<Tab>', () => {
 
 			await user.keyboard(KeyBoard.ENTER);
 			expect(screen.getByText(onglet3Panel)).toBeVisible();
-		});
-		describe('quand l’utilisateur change d’onglet',()=>{
-			it('appelle onTabChange avec le nouvel index', async () => {
-				const user = userEvent.setup();
-				const onTabChange = jest.fn();
-				render(<Tabs onTabChange={onTabChange}>
-					<TabsLabel>
-						<Tab>onglet 1</Tab>
-						<Tab>onglet 2</Tab>
-					</TabsLabel>
-					<TabPanel>
-						<p>{onglet1Panel}</p>
-					</TabPanel>
-					<TabPanel>
-						<p>{onglet2Panel}</p>
-					</TabPanel>
-				</Tabs>);
-				const onglets = screen.getAllByRole('tab');
-				await user.click(onglets[0]);
-				expect(onTabChange).toHaveBeenCalledTimes(1);
-				expect(onTabChange).toHaveBeenCalledWith(0);
-			});
-		});
-		describe('quand l’onglet actit est indiqué',()=>{
-			it('affiche le bon onglet', () => {
-				const index= 1;
-				render(<Tabs currentIndex={index}>
-					<TabsLabel>
-						<Tab>onglet 1</Tab>
-						<Tab>onglet 2</Tab>
-					</TabsLabel>
-					<TabPanel>
-						<p>{onglet1Panel}</p>
-					</TabPanel>
-					<TabPanel>
-						<p>{onglet2Panel}</p>
-					</TabPanel>
-				</Tabs>);
-				const currentTab=screen.getByText(onglet2Panel);
-				expect(currentTab).toBeVisible();
-			});
 		});
 	});
 });

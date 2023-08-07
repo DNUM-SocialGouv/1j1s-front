@@ -12,7 +12,7 @@ import { KeyBoard } from '../../keyboard/keyboard.enum';
 
 interface TabContext {
 	indexTabActive: number,
-	onTabChange: (newValue:number)=>void,
+	onTabChange: (newValue: number) => void,
 }
 
 const TabContext = createContext<TabContext | null>(null);
@@ -28,24 +28,24 @@ const useTabContext = () => {
 };
 
 type TabsProps = React.ComponentPropsWithoutRef<'div'> & {
-	currentIndex?:number,
-	onTabChange?:(newIndex:number)=>void
+	currentIndex?: number,
+	onTabChange?: (newIndex: number) => void
 }
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(props, ref) {
 	const {
 		className,
 		children,
-		currentIndex:currentIndexProps,
-		onTabChange:onTabChangeProps=()=>null,
+		currentIndex: currentIndexProps,
+		onTabChange: onTabChangeProps = () => null,
 		...rest
 	} = props;
 	const [currentIndexState, setCurrentIndexState] = useState<number>(0);
-	const  currentIndex=currentIndexProps??currentIndexState;
+	const currentIndex = currentIndexProps ?? currentIndexState;
 
-	const onTabChange=(value:number)=>{
+	const changeCurrentTab = (value: number) => {
 		setCurrentIndexState(value);
-		 onTabChangeProps(value);
+		onTabChangeProps(value);
 	};
 
 
@@ -55,7 +55,7 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(function Tabs(pr
 
 	return (
 		<div className={classNames(styles.tabList, className)} aria-labelledby="liste d'onglets" ref={ref} {...rest}>
-			<TabContext.Provider value={{ indexTabActive:currentIndex, onTabChange: onTabChange }}>
+			<TabContext.Provider value={{ indexTabActive: currentIndex, onTabChange: changeCurrentTab }}>
 				{tabLabel}
 				<div className={styles.tabPanelContainer}>
 					{tabPanels[currentIndex]}
