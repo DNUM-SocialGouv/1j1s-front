@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.0...v3.124.1) (2023-08-07)
+
+
+### 👷 Autres changements
+
+* **stage:** fix test depot de stage -&gt; augmentation timeout ([779eef3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/779eef3f6948fa17326e357be3210451a1384a55))
+
 ## [3.124.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.6...v3.124.0) (2023-08-07)
 
 
