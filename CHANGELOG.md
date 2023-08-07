@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.1...v3.124.2) (2023-08-07)
+
+
+### 👷 Autres changements
+
+* **renovate:** activer auto merge de branche de mise à jour de patch ([#1766](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1766)) ([da7036b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/da7036b49c422ba650e9eba30144b3749bb88983))
+
 ## [3.124.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.0...v3.124.1) (2023-08-07)
 
 
