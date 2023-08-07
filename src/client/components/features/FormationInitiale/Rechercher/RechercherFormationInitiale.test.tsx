@@ -21,7 +21,7 @@ describe('RechercherFormationInitiale', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
-	it('Au chargement de la page, il n’y a pas de résultats par défaut d’afficher', () => {
+	it('Au chargement de la page, il n’y a pas de résultats par défaut affiché', () => {
 		// GIVEN
 		mockUseRouter({});
 		const aFormationService = aFormationInitialeService();
@@ -271,7 +271,7 @@ describe('RechercherFormationInitiale', () => {
 				const parcoursupCard = within(servicesItems[2]).getByRole('link');
 				expect(parcoursupCard).toHaveAttribute('href', 'https://www.parcoursup.fr/');
 			});
-			it('une quetrième redirection vers le service Mon Compte Formation', () => {
+			it('une quatrième redirection vers le service Mon Compte Formation', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 

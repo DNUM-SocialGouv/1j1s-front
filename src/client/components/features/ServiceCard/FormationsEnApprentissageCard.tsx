@@ -8,7 +8,7 @@ export function FormationsEnApprentissageCard() {
 			linkLabel="Trouver ma formation"
 			link="/formations/apprentissage"
 			logo="/images/formations-apprentissage.webp"
-			title="Vous êtes à la recherche d’une formation en apprentissage ? "
+			title="Vous êtes à la recherche d’une formation en apprentissage ?"
 			titleAs={'h3'}
 			imageFit={'cover'}
 		>
