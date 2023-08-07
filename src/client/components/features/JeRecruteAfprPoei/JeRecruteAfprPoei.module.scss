@@ -1,0 +1,21 @@
+@use "@styles/utilities";
+
+$background-alternative: utilities.$color-background-primary-alternative;
+
+.jeRecruteAfprPoei {
+  & >:nth-child(2n + 1) {
+    background-color: $background-alternative;
+  }
+
+  > * {
+    padding: 2rem 1rem 2rem 1rem;
+  }
+}
+
+@include utilities.media(large) {
+  .jeRecruteAfprPoei {
+    > * {
+      padding: 2.5rem 1rem 2.5rem 1rem;
+    }
+  }
+}

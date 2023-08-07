@@ -9,9 +9,9 @@ import { render, screen } from '@testing-library/react';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import JeRecruteAfprPoei from '~/pages/je-recrute-afpr-poei/index.page';
+import JeRecruteAfprPoeiPage from '~/pages/je-recrute-afpr-poei/index.page';
 
-describe('<JeRecruteAfprPoei />', () => {
+describe('<JeRecruteAfprPoeiPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 
@@ -19,7 +19,7 @@ describe('<JeRecruteAfprPoei />', () => {
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
 			>
-				<JeRecruteAfprPoei />
+				<JeRecruteAfprPoeiPage />
 			</DependenciesProvider>,
 		);
 

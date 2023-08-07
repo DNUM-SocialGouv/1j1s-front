@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from '~/client/components/features/JeDeviensMentor/AidesExceptionnelles/AidesExceptionnelles.module.scss';
+import styles from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation.module.scss';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
-export default function AidesExceptionnelles() {
+export default function BanniereRejoindreLaMobilisation() {
 
 	return (
 		<section className={styles.aides}>

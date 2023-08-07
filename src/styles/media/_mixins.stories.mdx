@@ -13,7 +13,7 @@ Elle peut prendre les valeurs suivantes en argument : `small`, `medium`, `large`
 
 Elle s'utilise de la manière suivante :
 ```scss
-@use "styles/utilities";
+@use "@styles/utilities";
 
 @include utilities.media(medium) {
     // CSS appliqué aux écrans de taille medium et supérieure
@@ -31,7 +31,7 @@ Elle s'utilise de la manière suivante :
 
 Le SCSS suivant permet de générer un layout qui change en fonction de la taille de l'écran :
 ```scss
-@use "styles/utilities";
+@use "@styles/utilities";
 
 .buttonsContainer {
     display: flex;
