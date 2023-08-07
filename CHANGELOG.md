@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.123.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.5...v3.123.6) (2023-08-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-plugin-testing-library to v5.11.1 ([923100c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/923100cf37c16092e53264e2db73f2c176bca025))
+* utilise l'instance meilisearch de recette pour les review apps ([#1726](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1726)) ([442d22c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/442d22c4d852f44fd6ea14339bd999e29e7b0b11))
+
 ## [3.123.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.4...v3.123.5) (2023-08-07)
 
 
