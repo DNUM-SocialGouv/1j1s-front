@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.6...v3.124.0) (2023-08-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-init:** ajouter la section des services faits pour vous ([#1745](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1745)) ([095790e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/095790ea578f025a9dca90c81b03d875304c3f96))
+
 ## [3.123.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.123.5...v3.123.6) (2023-08-07)
 
 
