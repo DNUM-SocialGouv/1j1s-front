@@ -6,7 +6,7 @@ import styles
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
 	ComboboxMetiers,
-} from '~/client/components/ui/Form/Combobox/ComboboxMetiers/ComboboxMetiers';
+} from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
