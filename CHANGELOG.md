@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.3...v3.124.4) (2023-08-08)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked-mangle to v1.1.2 ([#1772](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1772)) ([46fdfb1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/46fdfb1ae0d2b77db7ce1943c5683155f9bdbfbe))
+
 ## [3.124.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.2...v3.124.3) (2023-08-07)
 
 
