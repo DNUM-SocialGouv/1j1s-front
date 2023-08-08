@@ -1,6 +1,6 @@
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
-import { useQueryParams } from '~/client/hooks/useQueryParams';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type FormationQueryParams = {
@@ -15,7 +15,7 @@ export type FormationQueryParams = {
 }
 
 export function useFormationQuery(): FormationQueryParams {
-	const query = useQueryParams();
+	const { query } = useRouter();
 
 	return useMemo(() => ({
 		codeCommune: getSingleQueryParam(query.codeCommune),

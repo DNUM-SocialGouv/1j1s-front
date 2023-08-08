@@ -1,6 +1,6 @@
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
-import { useQueryParams } from '~/client/hooks/useQueryParams';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type AlternanceQueryParams = {
@@ -14,7 +14,7 @@ export type AlternanceQueryParams = {
 }
 
 export function useAlternanceQuery(): AlternanceQueryParams {
-	const query = useQueryParams();
+	const { query } = useRouter();
 
 	return useMemo(() => ({
 		codeCommune: getSingleQueryParam(query.codeCommune),
