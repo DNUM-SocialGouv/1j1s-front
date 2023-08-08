@@ -15,7 +15,7 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { MétierService } from '~/client/services/métiers/métier.service';
-import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
 	anAlternanceEntreprise, anAlternanceEntrepriseSansCandidature,
 	anAlternanceMatcha, anAlternancePEJobs,
@@ -83,7 +83,7 @@ describe('RechercherAlternance', () => {
 			},
 		];
 
-		const entrepriseFixture: Array<RésultatRechercheAlternance.Entreprise> = [
+		const entrepriseFixture: Array<ResultatRechercheAlternance.Entreprise> = [
 			{
 				adresse: 'une adresse',
 				candidaturePossible: true,
@@ -182,10 +182,10 @@ describe('RechercherAlternance', () => {
 			});
 		});
 
-		it('quand je clique sur contrat d‘alternance, affiche le bon nombre de résultats', async () => {
+		it('quand je clique sur contrat d‘alternance, affiche le nombre de contrats d’alternance', async () => {
 			const user = userEvent.setup();
-			const offreAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
-			const alternanceServiceMock = anAlternanceService(offreAlternance);
+			const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
+			const alternanceServiceMock = anAlternanceService(offresAlternance, []);
 
 			render(
 				<DependenciesProvider
@@ -203,7 +203,7 @@ describe('RechercherAlternance', () => {
 			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
 		});
 
-		it('quand je click sur entreprise, affiche le bon nombre de résultats', async () => {
+		it('quand je clique sur entreprise, affiche le nombre de d’entreprises', async () => {
 			const user = userEvent.setup();
 			const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
 			const alternanceServiceMock = anAlternanceService([], entrepriseList);

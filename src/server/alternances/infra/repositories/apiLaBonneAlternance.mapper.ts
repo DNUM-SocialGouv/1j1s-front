@@ -1,6 +1,6 @@
 import {
 	Alternance,
-	RésultatRechercheAlternance,
+	ResultatRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import Matcha = AlternanceApiJobsResponse.Matcha;
@@ -77,7 +77,7 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 	};
 }
 
-function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): RésultatRechercheAlternance.Offre {
+function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRechercheAlternance.Offre {
 	return {
 		entreprise: {
 			nom: alternance.company?.name,
@@ -89,7 +89,7 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): RésultatRec
 	};
 }
 
-function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): RésultatRechercheAlternance.Entreprise {
+function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): ResultatRechercheAlternance.Entreprise {
 	const getTagList = () => {
 		const tags = [];
 		if (entreprise.place?.city) tags.push(entreprise.place?.city);
@@ -122,7 +122,7 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 	};
 }
 
-function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): RésultatRechercheAlternance.Offre {
+function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): ResultatRechercheAlternance.Offre {
 	const getTagList = () => {
 		let tagList;
 		if (alternance.job.contractType) {
@@ -154,7 +154,7 @@ function mapLbaCompanies(lbaCompanies: AlternanceApiJobsResponse['lbaCompanies']
 	return lbaCompanies.results.map(mapRésultatRechercherAlternanceLbaEntreprise);
 }
 
-export const mapAlternanceListe = (response: AlternanceApiJobsResponse): RésultatRechercheAlternance => {
+export const mapAlternanceListe = (response: AlternanceApiJobsResponse): ResultatRechercheAlternance => {
 	const matchas = response.matchas.results.map(mapRésultatRechercherAlternanceMatcha);
 	const peJobs = response.peJobs.results.map(mapRésultatRechercherAlternancePEJob);
 	const lbaCompanies = mapLbaCompanies(response.lbaCompanies);

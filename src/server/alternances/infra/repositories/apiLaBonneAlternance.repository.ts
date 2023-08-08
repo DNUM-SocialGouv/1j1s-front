@@ -1,7 +1,7 @@
 import {
 	Alternance,
 	AlternanceFiltre,
-	RésultatRechercheAlternance,
+	ResultatRechercheAlternance,
 } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
@@ -23,7 +23,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async search(filtre: AlternanceFiltre): Promise<Either<RésultatRechercheAlternance>> {
+	async search(filtre: AlternanceFiltre): Promise<Either<ResultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			return createSuccess(mapAlternanceListe(response.data));

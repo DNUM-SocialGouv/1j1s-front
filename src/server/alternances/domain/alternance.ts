@@ -24,12 +24,12 @@ export interface Alternance {
 	lienPostuler?: string
 }
 
-export type RésultatRechercheAlternance = {
-	offreList: Array<RésultatRechercheAlternance.Offre>,
-	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+export type ResultatRechercheAlternance = {
+	offreList: Array<ResultatRechercheAlternance.Offre>,
+	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
 }
 
-export namespace RésultatRechercheAlternance {
+export namespace ResultatRechercheAlternance {
 	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
 	export interface Entreprise {
 		adresse?: string

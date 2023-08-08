@@ -27,7 +27,7 @@ import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { Alternance, isMatcha, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
@@ -40,7 +40,7 @@ export default function RechercherAlternance() {
 
 	const alternanceService = useDependency<AlternanceService>('alternanceService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [alternanceList, setAlternanceList] = useState<RésultatRechercheAlternance>({
+	const [alternanceList, setAlternanceList] = useState<ResultatRechercheAlternance>({
 		entrepriseList: [],
 		offreList: [],
 	});
@@ -156,7 +156,7 @@ function BannièreApprentissage() {
 
 
 function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
-	entrepriseList: Array<RésultatRechercheAlternance.Entreprise>
+	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
 }): React.ReactElement {
 
 	return (
@@ -184,7 +184,7 @@ function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 }
 
 function ListeSolutionAlternance({ alternanceList }: {
-	alternanceList: Array<RésultatRechercheAlternance.Offre>
+	alternanceList: Array<ResultatRechercheAlternance.Offre>
 }): React.ReactElement {
 	const getLogo = (alternance: Alternance) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
@@ -194,7 +194,7 @@ function ListeSolutionAlternance({ alternanceList }: {
 	};
 
 	const getAlternativeTextuelle = (alternance: Alternance) => {
-		if (alternance.source === Alternance.Source.MATCHA) {
+		if (isMatcha(alternance.source)) {
 			return 'la bonne alternance';
 		}
 		return 'pôle emploi';

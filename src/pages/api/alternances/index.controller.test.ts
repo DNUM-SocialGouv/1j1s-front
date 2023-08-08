@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import { rechercherAlternanceHandler } from '~/pages/api/alternances/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
 	aLaBonneAlternanceApiJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
@@ -22,7 +22,7 @@ describe('rechercher alternance', () => {
 			`/v1/jobs?caller=${caller}&romes=${codeRomes}&sources=${sources}&insee=${codeCommune}&longitude=${longitudeCommune}&latitude=${latitudeCommune}&radius=${radius}`,
 		).reply(200, aLaBonneAlternanceApiJobsResponse());
 
-		await testApiHandler<RésultatRechercheAlternance | ErrorHttpResponse>({
+		await testApiHandler<ResultatRechercheAlternance | ErrorHttpResponse>({
 			handler: (req, res) => rechercherAlternanceHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });

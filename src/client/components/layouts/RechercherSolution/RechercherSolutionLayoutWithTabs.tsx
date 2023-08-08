@@ -42,7 +42,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 	const [currentTab, setCurrentTab] = useState<number>(0);
-	const affichageDesResultats= listeSolutionElementTab[currentTab].messageResultatRecherche;
+	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
 
 	return (
 		<>
@@ -62,7 +62,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
             				<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-            					<h2>{affichageDesResultats}</h2>
+            					<h2>{messageResultatRechercheCurrentTab}</h2>
             				</Skeleton>
             			</Container>
 
