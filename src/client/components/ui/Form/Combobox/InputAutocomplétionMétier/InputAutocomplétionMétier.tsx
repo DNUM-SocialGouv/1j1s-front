@@ -1,12 +1,14 @@
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId,useMemo, useRef, useState } from 'react';
 
-import { Combobox } from '~/client/components/ui/Form/Combobox';
-import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { isSuccess } from '~/server/errors/either';
 import { Métier } from '~/server/metiers/domain/métier';
+
+// FIXME (GAFI 08-08-2023): Extraire le style utilisé pour ce composant dans son propre fichier co-localisé
+import styles from '../../Input.module.scss';
+import { Combobox } from '../index';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {

@@ -6,7 +6,7 @@ import styles
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
 	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
+} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/InputAutocomplétionMétier';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';

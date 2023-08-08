@@ -9,7 +9,7 @@ import React from 'react';
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import {
 	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
+} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/InputAutocomplétionMétier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
