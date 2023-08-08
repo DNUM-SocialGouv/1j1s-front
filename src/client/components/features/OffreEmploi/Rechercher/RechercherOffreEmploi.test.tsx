@@ -186,4 +186,17 @@ describe('RechercherOffreEmploi', () => {
 			typeLocalisation: 'DEPARTEMENT',
 		});
 	});
+
+	it('n’appelle pas le service sans query params', () => {
+		mockUseRouter({ query: {} });
+		const service = anOffreService();
+
+		render(
+			<DependenciesProvider offreService={service} localisationService={aLocalisationService()}>
+				<RechercherOffreEmploi/>
+			</DependenciesProvider>,
+		);
+
+		expect(service.rechercherOffreEmploi).not.toHaveBeenCalled();
+	});
 });
