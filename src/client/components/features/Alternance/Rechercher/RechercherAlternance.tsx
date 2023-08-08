@@ -1,33 +1,33 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { BanniereApprentissage } from '~/client/components/features/Alternance/Rechercher/BanniereApprentissage';
 import {
 	FormulaireRechercheAlternance,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+} from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
+import {
+	ListeSolutionAlternance,
+} from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternance';
+import {
+	ListeSolutionAlternanceEntreprise,
+} from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternanceEntreprise';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { PassPartner } from '~/client/components/features/ServiceCard/PassPartner';
 import { Head } from '~/client/components/head/Head';
 import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
-import {
 	RechercherSolutionLayoutWithTabs,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
-import {
-	RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { Alternance, isMatcha, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
@@ -99,7 +99,7 @@ export default function RechercherAlternance() {
 		/>
 		<main id="contenu">
 			<RechercherSolutionLayoutWithTabs
-				bannière={<BannièreApprentissage/>}
+				bannière={<BanniereApprentissage/>}
 				erreurRecherche={erreurRecherche}
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
@@ -143,80 +143,4 @@ export default function RechercherAlternance() {
 	</>;
 }
 
-function BannièreApprentissage() {
-	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>Avec La bonne alternance, trouvez l’entreprise qu’il vous faut</LightHeroPrimaryText>
-			</h1>
-			<LightHeroSecondaryText>pour réaliser votre projet d’alternance</LightHeroSecondaryText>
-		</LightHero>
-	);
-}
-
-
-function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
-	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
-}): React.ReactElement {
-
-	return (
-		<>
-			<ListeRésultatsRechercherSolution aria-label="Entreprises">
-				{entrepriseList.map((entreprise, index) => (
-					<li key={`${entreprise.id}-${index}`}>
-						<RésultatRechercherSolution
-							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
-							logo={'/images/logos/fallback.svg'}
-							intituléOffre={entreprise.nom}
-							intituléLienOffre={'Candidater'}
-							étiquetteOffreList={entreprise.tags}
-						>
-							<ul>
-								{entreprise.secteurs && entreprise.secteurs.length > 0 && <li>{entreprise.secteurs.join(', ')}</li>}
-								{entreprise.adresse && <li>{entreprise.adresse}</li>}
-							</ul>
-						</RésultatRechercherSolution>
-					</li>
-				))}
-			</ListeRésultatsRechercherSolution>
-		</>
-	);
-}
-
-function ListeSolutionAlternance({ alternanceList }: {
-	alternanceList: Array<ResultatRechercheAlternance.Offre>
-}): React.ReactElement {
-	const getLogo = (alternance: Alternance) => {
-		if (alternance.source === Alternance.Source.MATCHA) {
-			return '/images/logos/la-bonne-alternance.svg';
-		}
-		return '/images/logos/pole-emploi.svg';
-	};
-
-	const getAlternativeTextuelle = (alternance: Alternance) => {
-		if (isMatcha(alternance.source)) {
-			return 'la bonne alternance';
-		}
-		return 'pôle emploi';
-	};
-
-	return (
-		<>
-			<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
-				{alternanceList.map((alternance) => (
-					<li key={alternance.id}>
-						<RésultatRechercherSolution
-							lienOffre={`/apprentissage/${alternance.id}`}
-							intituléOffre={alternance.titre}
-							logo={getLogo(alternance)}
-							étiquetteOffreList={alternance.tags}
-							sousTitreOffre={alternance.entreprise.nom}
-							logoAlt={getAlternativeTextuelle(alternance)}
-						/>
-					</li>
-				))}
-			</ListeRésultatsRechercherSolution>
-		</>
-	);
-}
 

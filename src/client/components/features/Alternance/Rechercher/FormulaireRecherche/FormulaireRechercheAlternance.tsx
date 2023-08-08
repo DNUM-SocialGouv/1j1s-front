@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles
-	from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { useAlternanceQuery } from '../../../../../hooks/useAlternanceQuery';
+import { getFormAsQuery } from '../../../../../utils/form.util';
+import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
 import {
 	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
-import { getFormAsQuery } from '~/client/utils/form.util';
+} from '../../../../ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
+import { InputCommune } from '../../../../ui/Form/InputCommune/InputCommune';
+import { Icon } from '../../../../ui/Icon/Icon';
+import styles
+	from './FormulaireRechercheAlternance.module.scss';
 
 export function FormulaireRechercheAlternance() {
 	const [inputLibelleMetier, setInputLibelleMetier] = useState<string>('');

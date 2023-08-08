@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 import {
 	FormulaireRechercheAlternance,
-} from '~/client/components/features/Alternance/FormulaireRecherche/FormulaireRechercheAlternance';
+} from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
