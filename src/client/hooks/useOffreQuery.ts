@@ -18,18 +18,30 @@ export type OffreQueryParams = {
 }
 
 export function useOffreQuery(): OffreQueryParams {
-
 	const { query } = useRouter();
 
-	return useMemo(() => ({
-		codeLocalisation: getSingleQueryParam(query.codeLocalisation),
-		experienceExigence: getSingleQueryParam(query.experienceExigence),
-		grandDomaine: getSingleQueryParam(query.grandDomaine),
-		libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
-		motCle: getSingleQueryParam(query.motCle),
-		page: getSingleQueryParam(query.page),
-		tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
-		typeDeContrats: getSingleQueryParam(query.typeDeContrats),
-		typeLocalisation: getSingleQueryParam(query.typeLocalisation),
-	}), [query]);
+	return useMemo(() => {
+		// console.log('in memo', query);
+		return ({
+			codeLocalisation: getSingleQueryParam(query.codeLocalisation),
+			experienceExigence: getSingleQueryParam(query.experienceExigence),
+			grandDomaine: getSingleQueryParam(query.grandDomaine),
+			libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
+			motCle: getSingleQueryParam(query.motCle),
+			page: getSingleQueryParam(query.page),
+			tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
+			typeDeContrats: getSingleQueryParam(query.typeDeContrats),
+			typeLocalisation: getSingleQueryParam(query.typeLocalisation),
+		});
+	}, [
+		query.codeLocalisation,
+		query.experienceExigence,
+		query.grandDomaine,
+		query.libelleLocalisation,
+		query.motCle,
+		query.page,
+		query.tempsDeTravail,
+		query.typeDeContrats,
+		query.typeLocalisation,
+	]);
 }

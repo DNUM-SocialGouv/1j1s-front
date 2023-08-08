@@ -45,7 +45,7 @@ export function RechercherOffreEmploi() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
-	useEffect(() => {
+	useEffect(function fetchOffres() {
 		if (empty(offreQuery)) { return; }
 		
 		setIsLoading(true);
