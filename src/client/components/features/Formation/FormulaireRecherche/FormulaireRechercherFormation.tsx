@@ -5,8 +5,8 @@ import styles
 	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
-	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/InputAutocomplétionMétier';
+	ComboboxMetiers,
+} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/ComboboxMetiers';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -56,7 +56,7 @@ export function FormulaireRechercherFormation() {
 			>
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
-						<InputAutocomplétionMétier
+						<ComboboxMetiers
 							name={'libelleMetier'}
 							label={'Domaine'}
 							libellé={libelleMetier}

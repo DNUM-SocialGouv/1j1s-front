@@ -8,8 +8,8 @@ import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import {
-	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/InputAutocomplétionMétier';
+	ComboboxMetiers,
+} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/ComboboxMetiers';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -26,7 +26,7 @@ jest.mock('lodash/debounce', () =>
 	}));
 
 
-describe('InputAutocomplétionMétier', () => {
+describe('<ComboboxMetiers />', () => {
 	beforeAll(() => {
 		mockScrollIntoView();
 		mockUseRouter({});
@@ -37,7 +37,7 @@ describe('InputAutocomplétionMétier', () => {
 			const user = userEvent.setup();
 
 			render(<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(inputAutocomplétionMétier, 'dddddd');
@@ -54,7 +54,7 @@ describe('InputAutocomplétionMétier', () => {
 			const user = userEvent.setup();
 
 			render(<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
 			const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(inputAutocomplétionMétier, 'boulang');
@@ -73,7 +73,7 @@ describe('InputAutocomplétionMétier', () => {
 				render(
 					<form aria-label="Métier">
 						<DependenciesProvider métierService={métierServiceMock}>
-							<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+							<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 						</DependenciesProvider>
 					</form>,
 				);
@@ -94,7 +94,7 @@ describe('InputAutocomplétionMétier', () => {
 
 				render(
 					<DependenciesProvider métierService={métierServiceMock}>
-						<InputAutocomplétionMétier name={'métier'} label={'Rechercher un métier'}/>
+						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 					</DependenciesProvider>,
 				);
 				const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
@@ -113,7 +113,7 @@ describe('InputAutocomplétionMétier', () => {
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
 				<form aria-label="form">
-					<InputAutocomplétionMétier
+					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
 						libellé='Ingénieur en ingénierie'
@@ -136,7 +136,7 @@ describe('InputAutocomplétionMétier', () => {
 		} as unknown as MétierService;
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
@@ -158,7 +158,7 @@ describe('InputAutocomplétionMétier', () => {
 		} as unknown as MétierService;
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
@@ -181,7 +181,7 @@ describe('InputAutocomplétionMétier', () => {
 		]);
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
@@ -201,7 +201,7 @@ describe('InputAutocomplétionMétier', () => {
 		]);
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
@@ -220,7 +220,7 @@ describe('InputAutocomplétionMétier', () => {
 		const métierServiceMock = aMétierService([]);
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
@@ -241,7 +241,7 @@ describe('InputAutocomplétionMétier', () => {
 		const métierServiceMock = aMétierService([]);
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
-				<InputAutocomplétionMétier
+				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>

@@ -35,7 +35,7 @@ function MetiersTrouves({ quantity }: { quantity: number }) {
 	);
 }
 
-export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
+export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 	const {
 		label,
 		name,

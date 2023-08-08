@@ -5,8 +5,8 @@ import styles
 	from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
-	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/InputAutocomplétionMétier';
+	ComboboxMetiers,
+} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/ComboboxMetiers';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -42,7 +42,7 @@ export function FormulaireRechercheAlternance() {
 			>
 				<div className={styles.filtresRechercherOffre}>
 					<div className={styles.inputButtonWrapper}>
-						<InputAutocomplétionMétier
+						<ComboboxMetiers
 							name={'libelleMetier'}
 							label={'Domaine'}
 							libellé={libelleMetier}
