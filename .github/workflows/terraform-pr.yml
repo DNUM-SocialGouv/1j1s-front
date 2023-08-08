@@ -1,0 +1,23 @@
+name: Simulation de déploiement Terraform
+
+# Exécute le plan uniquement quand des modifications sont apportées
+# - aux fichiers Terraform
+# - aux variables d'environnement
+# dans une pull request
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'terraform/**'
+      - '.env.scalingo'
+
+jobs:
+  # Quand le job est exécuté sur une pull request le "plan" s'éxécute sur la recette
+  # sauf si la pull request est générée par release-please, auquel cas le "plan" s'éxécute sur la production 
+  terraform_plan:
+    uses: ./.github/workflows/terraform-template.yml
+    secrets: inherit
+    with:
+      plan: true
+      environnement_name: ${{ startsWith(github.head_ref, 'release-please--') && 'scalingo-production' || 'scalingo-recette' }}
+      environnement_url: ${{ startsWith(github.head_ref, 'release-please--') && 'https://www.1jeune1solution.gouv.fr' || 'https://recette.1jeune1solution.gouv.fr' }}
