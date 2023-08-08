@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react';
 
 import {
 	FormulaireRechercheFormationInitiale,
-} from '~/client/components/features/FormationInitiale/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+} from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale';
+import {
+	ListeDesServicesInteressants,
+} from '~/client/components/features/FormationInitiale/Rechercher/ServicesInteressants/ListeDesServicesInteressants';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -16,6 +19,7 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
@@ -39,6 +43,9 @@ export function RechercherFormationInitiale() {
 	const formationInitialeQuery = useFormationInitialeQuery();
 
 	useEffect(() => {
+		if (empty(formationInitialeQuery)) {
+			return;
+		}
 		setIsLoading(true);
 		setErreurRecherche(undefined);
 
@@ -82,6 +89,8 @@ export function RechercherFormationInitiale() {
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
+
+				<ListeDesServicesInteressants/>
 			</main>
 		</>
 	);

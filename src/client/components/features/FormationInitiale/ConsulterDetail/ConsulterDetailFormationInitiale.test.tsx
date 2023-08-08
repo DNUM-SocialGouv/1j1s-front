@@ -42,6 +42,22 @@ describe('ConsulterDetailFormationInitiale', () => {
 		expect(tagsList[2]).toHaveTextContent('2 ans');
 	});
 
+	it('contient un lien vers la fiche formation du partenaire pour y découvrir les établissements proposant cette formation', () => {
+		// Given
+		const formationInitialeDetail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
+
+		// When
+		render(<ConsulterDetailFormationInitiale
+			formationInitialeDetail={formationInitialeDetail}
+		/>);
+
+		// Then
+		const lienVersSitePartenaire = screen.getByRole('link', { name: /Consulter les établissements/ });
+
+		expect(lienVersSitePartenaire).toBeVisible();
+		expect(lienVersSitePartenaire).toHaveAttribute('href', 'https://www.onisep.fr/fiche-formation');
+	});
+
 	describe('la description', () => {
 		const descriptionText = 'C‘est une description';
 		it('si la description est disponible, je la vois', () => {
@@ -133,4 +149,5 @@ describe('ConsulterDetailFormationInitiale', () => {
 			expect(queryByDescriptionTerm('Poursuite d‘études')).not.toBeInTheDocument();
 		});
 	});
+
 });

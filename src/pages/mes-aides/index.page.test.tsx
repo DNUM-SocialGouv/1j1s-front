@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -12,6 +14,18 @@ import MesAidesPage from '~/pages/mes-aides/index.page';
 describe('MesAidesPage', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<MesAidesPage />
+			</DependenciesProvider>,
+		);
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

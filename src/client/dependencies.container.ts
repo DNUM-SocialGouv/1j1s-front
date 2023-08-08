@@ -7,6 +7,8 @@ import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/e
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
+import { DateService } from '~/client/services/date/date.service';
+import { JsDateService } from '~/client/services/date/js/js.date.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -49,6 +51,7 @@ export type Dependencies = {
 	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 	marketingService: MarketingService
+	dateService: DateService
 }
 
 class DependencyInitException extends Error {
@@ -77,6 +80,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
 	const marketingService = new AdformMarketingService(cookiesService);
 	const youtubeService = new YoutubeVideoService(cookiesService);
+	const dateService = new JsDateService();
 
 	const meiliSearchBaseUrl = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL;
 	const meiliSearchApiKey = process.env.NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY;
@@ -101,6 +105,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		alternanceService,
 		analyticsService,
 		cookiesService,
+		dateService,
 		demandeDeContactService,
 		formationInitialeService,
 		formationService,

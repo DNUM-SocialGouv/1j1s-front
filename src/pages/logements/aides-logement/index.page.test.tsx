@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -14,6 +16,20 @@ describe('Les aides au logement', () => {
 	beforeEach(() => {
 		mockUseRouter({});
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<AidesLogement/>
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Tester mon éligibilité pour les aides au logement de la CAF');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

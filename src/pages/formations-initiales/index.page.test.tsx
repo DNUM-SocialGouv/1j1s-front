@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 
@@ -11,7 +13,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import FormationsInitialesPage, { getServerSideProps } from '~/pages/formations-initiales/index.page';
-import { checkA11y } from '~/test-utils';
 
 describe('quand le feature flip n‘est pas actif', () => {
 	beforeEach(() => {
@@ -40,6 +41,20 @@ describe('quand le feature flip est actif', () => {
 	beforeEach(() => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+				formationInitialeService={aFormationInitialeService()}>
+				<FormationsInitialesPage/>
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Des milliers de formations pour vous permettre');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page', async () => {
@@ -72,18 +87,5 @@ describe('quand le feature flip est actif', () => {
 			expect(heading).toHaveTextContent('Des milliers de formations pour vous permettre');
 		});
 		expect(heading).toHaveTextContent('de réaliser votre projet professionnel');
-	});
-
-	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const { container } = render(
-			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
-				formationInitialeService={aFormationInitialeService()}>
-				<FormationsInitialesPage/>
-			</DependenciesProvider>,
-		);
-		await waitFor(() => {
-			checkA11y(container);
-		});
 	});
 });

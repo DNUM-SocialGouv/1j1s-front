@@ -3,6 +3,8 @@
  */
 
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -21,6 +23,19 @@ describe('Page d‘accueil', () => {
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
 	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<Accueil/>
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('À chacun sa solution.');
+
+		expect(container).toBeAccessible();
+	});
+
 	describe('jobs d‘été', () => {
 		describe('quand le feature flip de jobs d‘été n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les jobs d‘été', () => {

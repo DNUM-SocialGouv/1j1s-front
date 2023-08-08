@@ -1,26 +1,39 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$layout-border-color: utilities.$color-background-border;
 
 .container {
     display: flex;
     flex-direction: column;
 }
 
+.layoutContainer {
+    width: 100%;
+    padding: 0 1rem;
+
+    @include utilities.media(xlarge) {
+        padding: 0;
+    }
+}
+
 .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     section {
         padding: 0 1rem;
     }
 
     &Button {
         padding: 1.5rem 1rem;
-        border-bottom: 1px solid utilities-deprecated.$color-separator;
     }
 }
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
     .layout {
-        border: 1px solid utilities-deprecated.$color-separator;
+        border: 1px solid $layout-border-color;
         border-radius: 1.25rem;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         margin: 2rem auto 3.5rem auto;
         padding: 0 6rem 2rem 6rem;
 

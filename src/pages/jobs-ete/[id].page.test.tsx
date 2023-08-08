@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
@@ -16,6 +18,17 @@ jest.mock('next/head', () => HeadMock);
 describe('<ConsulterJobEtePage />', () => {
 	beforeEach(() => {
 		mockUseRouter({});
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const jobEte = aBarmanOffre();
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<ConsulterJobEtePage jobEte={jobEte}/>
+			</DependenciesProvider>,
+		);
+
+		expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

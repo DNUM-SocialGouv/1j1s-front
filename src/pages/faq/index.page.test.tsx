@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import {
 	render,
 	screen,
@@ -32,6 +34,20 @@ describe('Page FAQ', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const analyticsService = anAnalyticsService();
+
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', async () => {

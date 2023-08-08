@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -17,6 +19,19 @@ describe('Page FormationPage', () => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<FormationPage />);
+			</DependenciesProvider>);
+
+		await screen.findByText('Trouver sa formation');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

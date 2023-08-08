@@ -12,7 +12,7 @@ export default function Application() {
 		<div className={styles.application}>
 			<div className={styles.applicationContainer}>
 
-				<Image priority src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
+				<Image src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
 
 				<div className={styles.applicationDescription}>
           L‘appli qui vous permet d‘échanger plus facilement avec votre conseiller et de réaliser vos recherches d‘emploi,

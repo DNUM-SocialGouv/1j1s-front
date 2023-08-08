@@ -1,19 +1,29 @@
 import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { FormationInitialeDetailComplete } from '~/server/formations-initiales-detail/domain/formationInitiale';
+import {
+	FormationInitialeDetailComplete,
+	isFormationWithDetails,
+} from '~/server/formations-initiales-detail/domain/formationInitiale';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
 				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
-			<section>
+
+			<LinkStyledAsButton href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
+				Consulter les établissements
+			</LinkStyledAsButton>
+
+			{isFormationWithDetails(formationInitialeDetail) && <section>
 				<dl className={styles.contenu}>
 					{formationInitialeDetail.description && (
 						<div>
@@ -39,7 +49,7 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 						</div>
 					)}
 				</dl>
-			</section>
+			</section>}
 		</ConsulterOffreLayout>
 	);
 }

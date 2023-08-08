@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -18,6 +20,19 @@ describe('Page consulter fiche métier', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const ficheMetier = aFicheMetier();
+		const analyticsService = anAnalyticsService();
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
+			</DependenciesProvider>,
+		);
+		expect(container).toBeAccessible();
 	});
 
 	it('affiche les informations disponibles de la fiche métier', async () => {

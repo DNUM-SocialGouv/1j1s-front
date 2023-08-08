@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+import '~/test-utils';
+
 import { render, screen, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -18,6 +20,28 @@ describe('Page Espace Jeune', () => {
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
+		const serviceJeuneList = aServiceJeuneList();
+
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<EspaceJeunePage
+					cartesActualites={carteActualites}
+					serviceJeuneList={serviceJeuneList}
+				/>);
+			</DependenciesProvider>);
+
+		await screen.findByText('Actualité 1');
+
+		expect(container).toBeAccessible();
 	});
 
 	describe('Si des actualités sont récupérées', () => {

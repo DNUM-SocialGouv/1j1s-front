@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -16,6 +18,20 @@ describe('MentoratPage', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<MentoratPage />
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Trouver mon mentor');
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

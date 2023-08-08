@@ -21,6 +21,7 @@
   font-size: 0.875rem;
   line-height: 1.5rem;
   margin-bottom: 1.5rem;
+  margin-top: utilities.pixel-to-rem(48);
 }
 
 .contenu > *:not(:last-child) {

@@ -1,76 +1,91 @@
 @use "@styles/media/mixins";
-@use "@styles/theme/variables-deprecated.scss";
+@use "@styles/theme/variables.scss";
 
-%text-regular {
-  font-size: .875rem;
-  line-height: 1.5rem;
-
-  @include mixins.media(large) {
-    font-size: 1rem;
-  }
-}
-
-%text-medium {
-  font-size: 1rem;
-  line-height: 1.5rem;
+%title-xLarge {
+  font-size: 2rem;
+  line-height: 2.4rem;
 
   @include mixins.media(large) {
-    font-size: 1.125rem;
-  }
-}
-
-%text-xLarge {
-  font-size: 1.5rem;
-  line-height: 2rem;
-
-  @include mixins.media(large) {
-    font-size: 1.75rem;
-  }
-}
-
-%text-large {
-  font-size: 1.125rem;
-  line-height: 1.8rem;
-
-  @include mixins.media(large) {
-    font-size: 1.25rem;
-    line-height: 2rem;
-  }
-}
-
-%text-small {
-  font-size: .75rem;
-  line-height: 1.25rem;
-
-  @include mixins.media(large) {
-    font-size: .875rem;
-    line-height: 1.5rem;
-  }
-}
-
-%headline {
-  font-size: 1.25rem;
-  line-height: 2rem;
-  color: variables-deprecated.$color-primary;
-
-  @include mixins.media(large) {
-    font-size: 2rem;
+    font-size: 2.5rem;
     line-height: 3rem;
   }
 }
 
-%subheading {
+%title-large {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+
+  @include mixins.media(large) {
+    font-size: 2rem;
+    line-height: 2.4rem;
+  }
+}
+
+%title-medium {
   font-size: 1.25rem;
-  line-height: 2rem;
+  line-height: 1.5rem;
 
   @include mixins.media(large) {
     font-size: 1.5rem;
+    line-height: 1.8rem;
+  }
+}
+
+%title-small {
+  font-size: 1rem;
+  line-height: 1.2rem;
+
+  @include mixins.media(large) {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+}
+
+
+%text-xLarge {
+  font-size: 1rem;
+  line-height: 1.2rem;
+
+  @include mixins.media(large) {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+}
+
+%text-large {
+  font-size: 0.875rem;
+  line-height: 1.05rem;
+
+  @include mixins.media(large) {
+    font-size: 1.125rem;
+    line-height: 1.35rem;
+  }
+}
+
+%text-medium {
+  font-size: 0.75rem;
+  line-height: 0.9rem;
+
+  @include mixins.media(large) {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+}
+
+%text-small {
+  font-size: 0.625rem;
+  line-height: 0.75rem;
+
+  @include mixins.media(large) {
+    font-size: 0.875rem;
+    line-height: 1.05rem;
   }
 }
 
 %bold {
   font-weight: 700;
 }
+
 @mixin bold {
   font-weight: 700
 }
@@ -78,3 +93,14 @@
 %italic {
   font-style: italic;
 }
+
+
+%headline {
+  color: variables.$color-primary;
+  @extend %title-xLarge;
+}
+
+%subheading {
+  @extend %title-large;
+}
+

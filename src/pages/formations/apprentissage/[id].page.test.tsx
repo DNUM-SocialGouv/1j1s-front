@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -138,6 +140,22 @@ describe('getServerSideProps', () => {
 });
 
 describe('Page Consulter Formations en Apprentissage', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const formation = aFormation();
+		const analyticsService = anAnalyticsService();
+		mockUseRouter({});
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={analyticsService}
+			>
+				<ConsulterFormationPage formation={formation} />
+			</DependenciesProvider>,
+		);
+
+		expect(container).toBeAccessible();
+	});
+
 	it('retourne une page avec les informations de la formation', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();

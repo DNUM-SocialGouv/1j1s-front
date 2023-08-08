@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -12,6 +14,18 @@ import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
 describe('Je recrute / Déposer une offre d‘emploi', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<DéposerUneOffreDEmploi />
+			</DependenciesProvider>,
+		);
+
+		expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

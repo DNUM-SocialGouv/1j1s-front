@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+import '~/test-utils';
+
 import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -12,6 +14,18 @@ import ImmersionReferenceMonEntreprisePage from '~/pages/immersions/referencer-m
 describe('Immersion / Référencer mon entreprise', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<ImmersionReferenceMonEntreprisePage />
+			</DependenciesProvider>,
+		);
+
+		expect(container).toBeAccessible();
 	});
   
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {

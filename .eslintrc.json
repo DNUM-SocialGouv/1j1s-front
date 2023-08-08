@@ -18,6 +18,7 @@
     "public/tarteaucitron.service.js",
     "public/lang/*",
     "docs/**/*.tsx",
+    "docs/build/*",
     "storybook-static/*"
   ],
   "rules": {

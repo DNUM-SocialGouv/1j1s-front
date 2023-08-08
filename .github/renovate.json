@@ -1,4 +1,14 @@
 {
   "enabled": true,
-  "extends": ["github>SocialGouv/renovate-config"]
+  "extends": ["github>SocialGouv/renovate-config"],
+  "separateMinorPatch": true,
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "branch",
+    }
+  ],
+  "platformAutomerge": true
 }
