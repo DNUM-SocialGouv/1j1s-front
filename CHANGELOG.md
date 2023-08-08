@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.124.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.7...v3.124.8) (2023-08-08)
+
+
+### 👷 Autres changements
+
+* améliorations diverses (Terraform & Scalingo) ([#1511](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1511)) ([2540297](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2540297563753ebba8ccad6277dc74c1c5d07467))
+* **deps:** bump cloudflare/cloudflare in /terraform ([#1695](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1695)) ([731a476](https://github.com/DNUM-SocialGouv/1j1s-front/commit/731a47605c3ddbd5694ae96c56efb6a23c15dc5b))
+
 ## [3.124.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.6...v3.124.7) (2023-08-08)
 
 
