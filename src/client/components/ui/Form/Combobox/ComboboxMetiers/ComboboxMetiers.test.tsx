@@ -9,7 +9,7 @@ import React from 'react';
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import {
 	ComboboxMetiers,
-} from '~/client/components/ui/Form/Combobox/InputAutocomplétionMétier/ComboboxMetiers';
+} from '~/client/components/ui/Form/Combobox/ComboboxMetiers/ComboboxMetiers';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
