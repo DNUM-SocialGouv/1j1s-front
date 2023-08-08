@@ -19,7 +19,7 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
 			ENVIRONMENT: ServerConfigurationService.getOrDefault('ENVIRONMENT', 'local'),
-			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', ''),
+			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', '').toLowerCase() === 'true',
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
@@ -102,7 +102,7 @@ export interface EnvironmentVariables {
 	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
 	readonly ENVIRONMENT: string
-	readonly IS_REVIEW_APP: string
+	readonly IS_REVIEW_APP: boolean
 	readonly MAILER_SERVICE_ACTIVE: string
 	readonly MAILER_SERVICE_REDIRECT_TO: string
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
