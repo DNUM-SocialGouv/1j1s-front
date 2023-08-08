@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.124.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.8...v3.124.9) (2023-08-08)
+
+
+### 🐛 Corrections de bogues
+
+* change la variable IS_REVIEW_APP en boolean ([#1780](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1780)) ([fa00cf2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fa00cf2533c6c869e0a097a2cc1c3b9ccd7bad96))
+
 ## [3.124.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.7...v3.124.8) (2023-08-08)
 
 
