@@ -1,6 +1,5 @@
 import { NextRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import { useEffect,useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const useRouter = jest.spyOn(require('next/router'), 'useRouter');
