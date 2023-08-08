@@ -47,7 +47,6 @@ export function FormulaireRechercheAlternance() {
 							label={'Domaine'}
 							libellé={libelleMetier}
 							codeRomes={codeRomes}
-							key={libelleMetier}
 							required
 							autoFocus
 							placeholder={'Exemples : enseignement, recherche...'}
