@@ -18,27 +18,17 @@ interface MockUseRouter {
 }
 
 export function mockUseRouter({ asPath = '', pathname = '', query = {}, route = '', prefetch = jest.fn(), push = jest.fn(), reload = jest.fn(), replace = jest.fn(), back = jest.fn() }: MockUseRouter) {
-	useRouter.mockImplementation(function useRouter() {
-		const [ queryParams, setQueryParams ] = useState({});
-
-		// NOTE (GAFI 24-07-2023): Plus proche du comportement réel :
-		// 	les query params ne sont hydraté qu'après le premier render
-		useEffect(() => {
-			setQueryParams(query);
-		}, []);
-
-		return {
-			asPath,
-			back,
-			pathname,
-			prefetch,
-			push,
-			query: queryParams,
-			reload,
-			replace,
-			route,
-		};
-	});
+	useRouter.mockImplementation(() => ({
+		asPath,
+		back,
+		pathname,
+		prefetch,
+		push,
+		query,
+		reload,
+		replace,
+		route,
+	} as unknown as NextRouter));
 }
 
 export const createMockRouter = (router?: Partial<NextRouter>): NextRouter => {
