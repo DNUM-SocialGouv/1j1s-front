@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 
 import { aBarmanOffre, aRésultatEchantillonOffre } from '~/server/offres/domain/offre.fixture';
 
@@ -7,25 +8,26 @@ import { interceptGet } from '../interceptGet';
 describe('Parcours emplois', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
-		interceptGet({
-			actionBeforeWaitTheCall: () => cy.visit('/emplois'),
-			alias: 'recherche-emplois' ,
-			path: ' /api/emplois*',
-			response: JSON.stringify(aRésultatEchantillonOffre()),
-		});
+		cy.intercept({ method: 'GET' , path: '/api/emplois*' }, JSON.stringify(aRésultatEchantillonOffre())).as('recherche-emplois');
 	});
 
 	it('affiche 15 résultats par défaut', () => {
+		cy.visit('/emplois');
+		cy.wait('@recherche-emplois');
 		cy.get('ul[aria-label="Offres d‘emplois"] > li').should('have.length', 15);
 		cy.get('ul[aria-label="Offres d‘emplois"] > li').first().should('contain.text', 'Barman / Barmaid (H/F)');
 	});
 
 	it('place le focus sur le premier input du formulaire de recherche', () => {
+		cy.visit('/emplois');
+		cy.wait('@recherche-emplois');
 		cy.focused().should('have.attr', 'name', 'motCle');
 	});
 
 	context('quand l‘utilisateur rentre un mot clé', () => {
 		it('filtre les résultats par mot clé', () => {
+			cy.visit('/emplois');
+			cy.wait('@recherche-emplois');
 			interceptGet({
 				actionBeforeWaitTheCall: () => {
 					cy.focused().type('barman', { force: true });
@@ -42,6 +44,9 @@ describe('Parcours emplois', () => {
 
 	context('quand l‘utilisateur veut sélectionner la première offre', () => {
 		it('navigue vers le détail de l‘offre', () => {
+			cy.visit('/emplois');
+			cy.wait('@recherche-emplois');
+
 			const id = aBarmanOffre().id;
 
 			interceptGet({
@@ -52,6 +57,35 @@ describe('Parcours emplois', () => {
 			});
 
 			cy.get('h1').should('contain.text', 'Barman / Barmaid (H/F)');
+		});
+	});
+
+	context('quand l’utilisateur arrive sur la page avec une recherche déjà renseignée', () => {
+		it('rempli le formulaire avec la recherche', () => {
+			const motCle = 'Informatique';
+			const libelleLocalisation = 'Paris (75)';
+			const typeLocalisation = 'DEPARTEMENT';
+			const codeLocalisation = '75';
+			const typeDeContrats = 'CDI';
+			const tempsDeTravail = 'tempsPartiel';
+			const experienceExigence = 'E';
+			const grandDomaine = 'B';
+			cy.visit('/emplois?motCle=' + motCle + '&libelleLocalisation=' + encodeURI(libelleLocalisation) + '&typeLocalisation=' + typeLocalisation + '&codeLocalisation=' + codeLocalisation + '&typeDeContrats=' + typeDeContrats + '&tempsDeTravail=' + tempsDeTravail + '&experienceExigence=' + experienceExigence + '&grandDomaine=' + grandDomaine + '&page=1');
+			cy.wait('@recherche-emplois');
+
+			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
+			// FIXME (GAFI 08-08-2023): devrait être role combobox, sera fix dans prochain ticket
+			cy.findByRole('textbox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
+
+			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();
+
+			cy.findByRole('checkbox', { name: /Contrat à durée indéterminé/i }).should('be.checked');
+			cy.findByText(summary(/Temps de travail/i)).click();
+			cy.findByRole('radio', { name: /Temps partiel/i }).should('be.checked');
+			cy.findByText(summary(/Niveau demandé/i)).click();
+			cy.findByRole('radio', { name: /Plus de 3 ans/i }).should('be.checked');
+			cy.findByText(summary(/Domaine/i)).click();
+			cy.findByRole('checkbox', { name: /Arts \/ Artisanat d‘art/i }).should('be.checked');
 		});
 	});
 });
@@ -69,3 +103,10 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 		cy.contains('Erreur - Demande incorrecte').should('exist');
 	});
 });
+
+// FIXME (GAFI 08-08-2023): summary n'a pas de role mais est intéractif :(
+function summary(expectedContent: string | RegExp) {
+	return function summary(content: string, element: Element | null): boolean {
+		return Boolean(element?.tagName === 'SUMMARY' && content.match(expectedContent));
+	};
+}
