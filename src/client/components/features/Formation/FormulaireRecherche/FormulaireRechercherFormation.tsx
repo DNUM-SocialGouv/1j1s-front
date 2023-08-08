@@ -31,6 +31,7 @@ export function FormulaireRechercherFormation() {
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
+		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
 		setInputCodeCommune(queryParams.codeCommune || '');
 		setInputLibelléCommune(queryParams.libelleCommune || '');
 		setInputDistanceCommune(queryParams.distanceCommune || '');
@@ -59,7 +60,6 @@ export function FormulaireRechercherFormation() {
 							name={'libelleMetier'}
 							label={'Domaine'}
 							libellé={libelleMetier}
-							key={libelleMetier}
 							codeRomes={codeRomes}
 							required
 							autoFocus

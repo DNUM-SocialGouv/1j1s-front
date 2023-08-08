@@ -153,8 +153,7 @@ describe('InputAutocomplétionMétier', () => {
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
 		const user = userEvent.setup();
 		const métierServiceMock = {
-			rechercherMétier: jest.fn(() => new Promise<Either<Métier[]>>(() => {
-			})),
+			rechercherMétier: jest.fn(() => new Promise<Either<Métier[]>>(() => {})),
 			// FIXME (GAFI 18-07-2023): Faire la version avec interface
 		} as unknown as MétierService;
 		render(

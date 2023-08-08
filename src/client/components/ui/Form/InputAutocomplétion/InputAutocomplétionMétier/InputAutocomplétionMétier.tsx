@@ -8,7 +8,8 @@ import { MétierService } from '~/client/services/métiers/métier.service';
 import { isSuccess } from '~/server/errors/either';
 import { Métier } from '~/server/metiers/domain/métier';
 
-type InputAutocomplétionMétierProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'aria-label' | 'aria-labelledby'> & {
+type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
+type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
 	label: string;
 	name: string;
 	libellé?: string;
@@ -68,7 +69,7 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	}, [métierRecherchéService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
-		// FIXME (GAFI 18-07-2023): magic number
+		// FIXME (GAFI 18-07-2023): magic number, idéalement à injecter pour pouvoir tester sinon au moins extraire dans const
 		return debounce(getMetiers, 300);
 	}, [getMetiers]);
 

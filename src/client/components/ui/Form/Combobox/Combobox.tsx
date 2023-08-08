@@ -85,7 +85,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			activeDescendant: undefined,
 			open: false,
 			suggestionList: listboxRef,
-			value: valueProps?.toString() ?? defaultValue?.toString() ?? '',
+			value: valueProps?.toString()
+						?? defaultValue?.toString()
+						?? '',
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
