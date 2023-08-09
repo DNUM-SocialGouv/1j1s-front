@@ -32,7 +32,6 @@ type ComboboxProps = Omit<
 	onInput?: (event: React.FormEvent<HTMLInputElement>, newValue: string) => void,
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
-	onTouch?: (touched: true) => void;
 	valueName?: string;
 } & ({
 	'aria-label': string,

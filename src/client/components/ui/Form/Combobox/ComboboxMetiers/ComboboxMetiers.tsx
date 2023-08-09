@@ -45,6 +45,7 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 		libellé,
 		codeRomes,
 
+		onChange: onChangeProps = () => null,
 		...comboboxProps
 	} = props;
 
@@ -97,9 +98,10 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 				name={name}
 				valueName={'codeRomes'}
 				aria-label={label}
-				onChange={(event) => {
+				onChange={(event, newValue) => {
 					setFieldError(null);
 					handleRechercherWithDebounce(event.currentTarget.value);
+					onChangeProps(event, newValue);
 				}}
 				onInvalid={(event) => {
 					setFieldError(event.currentTarget.validationMessage);
