@@ -68,6 +68,8 @@ jobs:
         run: |
           npm install -g envsub
           envsub --syntax dollar-curly --protect .env.scalingo .env
+          grep "SENTRY_RELEASE" .env
+          
 
       - name: Vérifier que toutes les variables d'environnement sont définies
         run: |
