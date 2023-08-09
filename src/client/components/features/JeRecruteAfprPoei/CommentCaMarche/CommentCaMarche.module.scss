@@ -1,0 +1,40 @@
+@use "@styles/utilities";
+
+$color-title: utilities.$color-title-primary;
+
+.commentCaMarche {
+  & h2 {
+    @extend %title-medium;
+    color: $color-title;
+    margin-bottom: 1rem;
+  }
+
+  & ol {
+    list-style: decimal inside none;
+  }
+
+  & li{
+    margin-top: 1rem;
+  }
+
+  & img {
+    display: none;
+  }
+}
+
+@include utilities.media(large) {
+  .commentCaMarche {
+    &Container{
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+    }
+
+    & img {
+      display: revert;
+    }
+  }
+}
+
