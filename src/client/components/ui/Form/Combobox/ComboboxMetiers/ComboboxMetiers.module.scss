@@ -1,7 +1,9 @@
 @use "../../Input.module";
-@use "@styles/utilities-deprecated" as utilities;
+@use "@styles/utilities" as utilities;
+
+$color-nombre-resultats: utilities.$color-text-placeholder;
 
 .nombreResultats {
   @extend %text-small;
-  color: utilities.$color-mention-grey;
+  color: $color-nombre-resultats;
 }
