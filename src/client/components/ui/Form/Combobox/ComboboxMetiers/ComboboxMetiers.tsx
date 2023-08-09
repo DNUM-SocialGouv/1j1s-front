@@ -6,9 +6,8 @@ import { MétierService } from '~/client/services/métiers/métier.service';
 import { isSuccess } from '~/server/errors/either';
 import { Métier } from '~/server/metiers/domain/métier';
 
-// FIXME (GAFI 08-08-2023): Extraire le style utilisé pour ce composant dans son propre fichier co-localisé
-import styles from '../../Input.module.scss';
 import { Combobox } from '../index';
+import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {

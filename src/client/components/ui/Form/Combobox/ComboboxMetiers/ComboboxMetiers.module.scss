@@ -1,0 +1,7 @@
+@use "../../Input.module";
+@use "@styles/utilities-deprecated" as utilities;
+
+.nombreResultats {
+  @extend %text-small;
+  color: utilities.$color-mention-grey;
+}
