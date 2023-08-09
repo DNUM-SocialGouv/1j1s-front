@@ -13,6 +13,7 @@
 body {
   font-family: Marianne, arial, sans-serif;
   color: theme-variables.$color-text-primary;
+  @extend %text-regular;
 }
 
 .text-large {

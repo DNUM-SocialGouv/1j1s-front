@@ -41,6 +41,12 @@
   }
 }
 
+%text-regular {
+  font-size: 0.875rem;
+  @include mixins.media(large) {
+    font-size: 1rem;
+  }
+}
 
 %text-xLarge {
   font-size: 1rem;

@@ -36,6 +36,10 @@
 }
 
 .text {
+  .text-regular > h2 {
+    @extend %text-regular
+  }
+
   .text-xLarge > h2 {
     @extend %text-xLarge
   }
