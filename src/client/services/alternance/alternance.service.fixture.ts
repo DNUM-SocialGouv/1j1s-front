@@ -10,7 +10,9 @@ export function anAlternanceService(
 	rechercherAlternanceEntrepriseListValue = aRésultatRechercherMultipleAlternance().entrepriseList,
 ): AlternanceService {
 	return {
-		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess({ entrepriseList: rechercherAlternanceEntrepriseListValue,
-			offreList : rechercherAlternanceOffreListValue })),
+		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess({
+			entrepriseList: rechercherAlternanceEntrepriseListValue,
+			offreList: rechercherAlternanceOffreListValue,
+		})),
 	} as unknown as AlternanceService;
 }

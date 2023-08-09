@@ -15,7 +15,11 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import { MétierService } from '~/client/services/métiers/métier.service';
-import { Alternance, RésultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import {
+	anAlternanceEntreprise, anAlternanceEntrepriseSansCandidature,
+	anAlternanceMatcha, anAlternancePEJobs,
+} from '~/server/alternances/domain/alternance.fixture';
 
 describe('RechercherAlternance', () => {
 	beforeEach(() => {
@@ -79,7 +83,7 @@ describe('RechercherAlternance', () => {
 			},
 		];
 
-		const entrepriseFixture: Array<RésultatRechercheAlternance.Entreprise> = [
+		const entrepriseFixture: Array<ResultatRechercheAlternance.Entreprise> = [
 			{
 				adresse: 'une adresse',
 				candidaturePossible: true,
@@ -144,8 +148,8 @@ describe('RechercherAlternance', () => {
 
 			const filtresRecherche = await screen.findByText('Paris (75001)');
 			expect(filtresRecherche).toBeInTheDocument();
-			const messageRésultats = await screen.findByText('4 résultats pour Boulangerie, pâtisserie, chocolaterie');
-			expect(messageRésultats).toBeInTheDocument();
+			const messageResultats = await screen.findByText(/résultats pour Boulangerie, pâtisserie, chocolaterie/);
+			expect(messageResultats).toBeInTheDocument();
 
 
 			const resultListOffre = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
@@ -176,6 +180,48 @@ describe('RechercherAlternance', () => {
 				expect(await screen.findByText(entrepriseFixture[0].nom)).toBeVisible();
 				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
 			});
+		});
+
+		it('quand je clique sur contrat d‘alternance, affiche le nombre de contrats d’alternance', async () => {
+			const user = userEvent.setup();
+			const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
+			const alternanceServiceMock = anAlternanceService(offresAlternance, []);
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const onglet = await screen.findByText('Contrats d‘alternance');
+			await user.click(onglet);
+
+			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+		});
+
+		it('quand je clique sur entreprise, affiche le nombre de d’entreprises', async () => {
+			const user = userEvent.setup();
+			const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
+			const alternanceServiceMock = anAlternanceService([], entrepriseList);
+
+			render(
+				<DependenciesProvider
+					alternanceService={alternanceServiceMock}
+					métierService={aMétierService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const onglet = await screen.findByText('Entreprises');
+			await user.click(onglet);
+
+			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
 		});
 	});
 
@@ -253,6 +299,7 @@ describe('RechercherAlternance', () => {
 			test: 'test',
 		}));
 	});
+
 	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
 		it('on voit la carte de redirection vers la campagne', () => {
 			const alternanceServiceMock = anAlternanceService();
@@ -275,6 +322,7 @@ describe('RechercherAlternance', () => {
 			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
 		});
 	});
+
 	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
 		it('on ne voit pas la carte de redirection vers la campagne', () => {
 			const alternanceServiceMock = anAlternanceService();

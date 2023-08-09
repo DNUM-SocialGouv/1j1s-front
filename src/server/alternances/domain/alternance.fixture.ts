@@ -1,4 +1,4 @@
-import { Alternance, RésultatRechercheAlternance } from './alternance';
+import { Alternance, ResultatRechercheAlternance } from './alternance';
 
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
@@ -69,7 +69,7 @@ export const anAlternancePEJobs = (): Alternance => {
 	};
 };
 
-export const anAlternanceEntreprise = (): RésultatRechercheAlternance.Entreprise => {
+export const anAlternanceEntreprise = (): ResultatRechercheAlternance.Entreprise => {
 	return {
 		adresse: 'une adresse',
 		candidaturePossible: true,
@@ -81,7 +81,7 @@ export const anAlternanceEntreprise = (): RésultatRechercheAlternance.Entrepris
 	};
 };
 
-export const anAlternanceEntrepriseSansCandidature = (): RésultatRechercheAlternance.Entreprise => {
+export const anAlternanceEntrepriseSansCandidature = (): ResultatRechercheAlternance.Entreprise => {
 	return {
 		candidaturePossible: false,
 		id: '1234567890',
@@ -91,7 +91,7 @@ export const anAlternanceEntrepriseSansCandidature = (): RésultatRechercheAlter
 	};
 };
 
-export const aRésultatRechercherMultipleAlternance = (): RésultatRechercheAlternance => {
+export const aRésultatRechercherMultipleAlternance = (): ResultatRechercheAlternance => {
 	return {
 		entrepriseList: [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()],
 		offreList: [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],
