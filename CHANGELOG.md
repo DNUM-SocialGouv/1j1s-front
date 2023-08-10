@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.124.14](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.13...v3.124.14) (2023-08-10)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.62.0 ([dbe68e6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dbe68e676a98c46910df4dc1a22095a275aa4d68))
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.2.2 ([d9fe57f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9fe57f8dc72664d1cbefd7fe4228c83f4dfb5a6))
+
 ## [3.124.13](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.12...v3.124.13) (2023-08-10)
 
 
