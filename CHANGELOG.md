@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.125.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.16...v3.125.0) (2023-08-11)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **entreprise:** afficher les avantages poe ([2d93eb6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d93eb6ada8c9505d141671a058cd3666b9a6d48))
+
+
+### 🐛 Corrections de bogues
+
+* retours review ([18b280d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/18b280d6a7988f88fb0a0b36c2324815e1186789))
+
 ## [3.124.16](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.15...v3.124.16) (2023-08-11)
 
 
