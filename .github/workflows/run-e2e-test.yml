@@ -12,8 +12,8 @@ name: Run e2e test
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
   create:
     branches: [ "renovate/**" ]
 

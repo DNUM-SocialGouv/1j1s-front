@@ -43,7 +43,7 @@ terraform {
 
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "~> 4.5"
+      version = "~> 4.12"
     }
 
     dotenv = {
@@ -70,5 +70,5 @@ provider "cloudflare" {
   # Afin de ne pas stocker de token dans le code source, pour utiliser le provider Cloudflare
   # il faut configurer en variables d'environnements :
   # CLOUDFLARE_API_TOKEN : le token d'authentification de l'utilisateur Cloudflare
-  # CLOUDFLARE_ZONE_ID : l'ID de la zone Cloudflare  
+  # CLOUDFLARE_ZONE_ID : l'ID de la zone Cloudflare
 }

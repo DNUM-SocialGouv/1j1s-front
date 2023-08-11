@@ -6,8 +6,8 @@ name: Run build
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
   create:
     branches: [ "renovate/**" ]
 
