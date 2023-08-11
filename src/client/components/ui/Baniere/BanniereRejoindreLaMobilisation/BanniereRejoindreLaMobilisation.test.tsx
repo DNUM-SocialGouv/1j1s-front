@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
 import BanniereRejoindreLaMobilisation
-	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
+	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
 describe('AidesExceptionnelles', () => {

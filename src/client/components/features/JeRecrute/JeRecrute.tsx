@@ -2,7 +2,7 @@ import DecouvrirMesuresEmployeurs
 	from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 import { Head } from '~/client/components/head/Head';
 import BanniereRejoindreLaMobilisation
-	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
+	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 
 import { DécouvrirDispositifs } from './DecouvrirDispositifs/DecouvrirDispositifs';
 import DecouvrirMesuresEmployeursEtApprentissage

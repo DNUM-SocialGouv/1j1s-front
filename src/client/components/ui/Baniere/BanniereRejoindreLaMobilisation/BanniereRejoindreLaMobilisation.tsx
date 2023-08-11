@@ -1,6 +1,4 @@
-import React from 'react';
-
-import styles from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation.module.scss';
+import styles from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation.module.scss';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function BanniereRejoindreLaMobilisation() {

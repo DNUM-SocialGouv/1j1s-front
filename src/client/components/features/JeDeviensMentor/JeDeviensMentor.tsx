@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import BanniereRejoindreLaMobilisation
-	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
+	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 
 import { PourQui } from './PourQui/PourQui';
 import { Pourquoi } from './Pourquoi/Pourquoi';

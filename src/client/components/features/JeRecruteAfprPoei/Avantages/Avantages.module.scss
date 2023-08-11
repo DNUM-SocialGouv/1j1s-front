@@ -4,12 +4,12 @@ $titre-color: utilities.$color-primary;
 $sous-titre-color: utilities.$color-secondary;
 
 .contenu {
-  &Container {
+  & .container {
     @extend %max-container;
     display: flex;
     flex-direction: row;
 
-    &Image {
+    & .image {
       width: 100%;
       max-width: 31.25rem;
       min-width: 10rem;
@@ -17,21 +17,21 @@ $sous-titre-color: utilities.$color-secondary;
       display: none;
     }
 
-    &Texte {
-      &Titre {
+    & .texte {
+      & .titre {
         color: $titre-color;
         @extend %bold;
         @extend %title-medium;
       }
 
-      &SousTitre {
+      & .sousTitre {
         margin-top: .5rem;
 
         color: $sous-titre-color;
         @extend %title-small;
       }
 
-      &ListeAvantages {
+      & .listeAvantages {
         margin-top: 1rem;
         display: grid;
         gap: .5rem;
@@ -56,18 +56,18 @@ $sous-titre-color: utilities.$color-secondary;
 
 @include utilities.media(medium) {
   .contenu {
-    &Container {
+    & .container {
       padding: 0 1.5rem;
 
-      &Image {
+      & .image {
         display: block;
       }
 
-      &Texte {
+      & .texte {
         padding-top: 3rem;
         padding-left: 5rem;
 
-        &ListeAvantages {
+        & .listeAvantages {
           margin-top: 2rem;
           gap: .75rem;
         }
