@@ -10,9 +10,7 @@ export namespace OffreDeStageDeposee {
 		siteEmployeur?: string
 	}
 
-	// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 	export interface Stage {
-		dateDeDebut: string
 		dateDeDebutMin: string
 		dateDeDebutMax: string
 		isDateDeDebutPrecise: 'true' | 'false'

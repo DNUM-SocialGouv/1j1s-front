@@ -1,8 +1,8 @@
-import { Domaines } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 
 import { OffreDeStageDeposee } from './StageDeposerOffre';
 
-export const aFormulaireÉtapeEntreprise = (): OffreDeStageDeposee.Entreprise => {
+export const aFormulaireEtapeEntreprise = (): OffreDeStageDeposee.Entreprise => {
 	return {
 		descriptionEmployeur: 'test description',
 		emailEmployeur: 'oui@non.com',
@@ -12,10 +12,8 @@ export const aFormulaireÉtapeEntreprise = (): OffreDeStageDeposee.Entreprise =>
 	};
 };
 
-export const aFormulaireÉtapeStage = (): OffreDeStageDeposee.Stage => {
+export const aFormulaireEtapeStage = (): OffreDeStageDeposee.Stage => {
 	return {
-		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
-		dateDeDebut: '2123-01-20',
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
 		descriptionOffre: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor eu augue ut lectus arcu bibendum. Curabitur gravida arcu ac tortor dignissim convallis aenean. Adipiscing commodo elit at imperdiet. Ipsum a arcu cursus vitae congue. Sed euismod nisi porta lorem. Facilisis gravida neque convallis a cras semper auctor neque vitae. Ante in nibh mauris cursus. In iaculis nunc sed augue lacus. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.',
@@ -29,7 +27,7 @@ export const aFormulaireÉtapeStage = (): OffreDeStageDeposee.Stage => {
 	};
 };
 
-export const aFormulaireÉtapeLocalisation = (): OffreDeStageDeposee.Localisation => {
+export const aFormulaireEtapeLocalisation = (): OffreDeStageDeposee.Localisation => {
 	return {
 		adresse: '34 avenue de l’Opéra',
 		codePostal: '75000',
@@ -40,19 +38,19 @@ export const aFormulaireÉtapeLocalisation = (): OffreDeStageDeposee.Localisatio
 	};
 };
 
-export const aFormulaireEnvoyéPostedValue = () => {
+export const aFormulaireEnvoyePostedValue = () : OffreDeStageDepot => {
 	return {
-		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
-		dateDeDebut: '2123-01-20',
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
 		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor eu augue ut lectus arcu bibendum. Curabitur gravida arcu ac tortor dignissim convallis aenean. Adipiscing commodo elit at imperdiet. Ipsum a arcu cursus vitae congue. Sed euismod nisi porta lorem. Facilisis gravida neque convallis a cras semper auctor neque vitae. Ante in nibh mauris cursus. In iaculis nunc sed augue lacus. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.',
-		domaine: 'achats',
+		domaine: Domaines.ACHAT,
 		duree: '30',
 		employeur: {
 			description: 'test description',
 			email: 'oui@non.com',
+			logoUrl: null,
 			nom: 'Octo',
+			siteUrl: null,
 		},
 		localisation: {
 			adresse: '34 avenue de l’Opéra',
@@ -67,4 +65,5 @@ export const aFormulaireEnvoyéPostedValue = () => {
 		titre: 'Nom Offre',
 		urlDeCandidature: 'mailto:oui@non.com',
 	};
-};
+}
+;

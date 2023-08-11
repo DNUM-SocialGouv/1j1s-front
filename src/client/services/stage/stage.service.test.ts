@@ -3,10 +3,10 @@
  */
 
 import {
-	aFormulaireEnvoyéPostedValue,
-	aFormulaireÉtapeEntreprise,
-	aFormulaireÉtapeLocalisation,
-	aFormulaireÉtapeStage,
+	aFormulaireEnvoyePostedValue,
+	aFormulaireEtapeEntreprise,
+	aFormulaireEtapeLocalisation,
+	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { StageService } from '~/client/services/stage/stage.service';
@@ -18,11 +18,11 @@ describe('stageService', () => {
 			// GIVEN
 			const httpClient = anHttpClientService();
 			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
-			const offreToSubmit = aFormulaireEnvoyéPostedValue();
+			const offreToSubmit = aFormulaireEnvoyePostedValue();
 			const stageService = new StageService(httpClient);
 
 			// WHEN
-			const result = await stageService.enregistrerOffreDeStage(aFormulaireÉtapeEntreprise(), aFormulaireÉtapeStage(), aFormulaireÉtapeLocalisation());
+			const result = await stageService.enregistrerOffreDeStage(aFormulaireEtapeEntreprise(), aFormulaireEtapeStage(), aFormulaireEtapeLocalisation());
 
 			// THEN
 			expect(httpClient.post).toHaveBeenCalledWith('stages', offreToSubmit);

@@ -207,10 +207,8 @@ function isDateDeDebutPrecise(formData: FormData): boolean {
 	return formData.get(StageEnum.IS_DATE_DE_DEBUT_PRECISE) === IsDateDeDebutPrecise.OUI;
 }
 
-// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 function parseDonneesOffreDeStage(formData: FormData): OffreDeStageDeposee.Stage {
 	return {
-		dateDeDebut: String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		dateDeDebutMax: !isDateDeDebutPrecise(formData) ? String(formData.get(StageEnum.DATE_DE_DEBUT_MAX)) : String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		dateDeDebutMin: String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		descriptionOffre: String(formData.get(StageEnum.DESCRIPTION)),

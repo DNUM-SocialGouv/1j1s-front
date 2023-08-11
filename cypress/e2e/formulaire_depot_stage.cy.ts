@@ -1,9 +1,9 @@
 /// <reference types="cypress" />
 import {
-	aFormulaireEnvoyéPostedValue,
-	aFormulaireÉtapeEntreprise,
-	aFormulaireÉtapeLocalisation,
-	aFormulaireÉtapeStage,
+	aFormulaireEnvoyePostedValue,
+	aFormulaireEtapeEntreprise,
+	aFormulaireEtapeLocalisation,
+	aFormulaireEtapeStage,
 } from '../../src/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { interceptPost } from '../interceptPost';
 
@@ -23,9 +23,9 @@ describe('Dépôt de Stage', () => {
 		});
 		describe('et qu‘il remplit le formulaire', () => {
 			it('le redirige vers l’étape 2', () => {
-				cy.get('input[name="nomEmployeur"]').type(aFormulaireÉtapeEntreprise().nomEmployeur);
-				cy.get('input[name="emailEmployeur"]').type(aFormulaireÉtapeEntreprise().emailEmployeur);
-				cy.get('textarea[name="descriptionEmployeur"]').type(aFormulaireÉtapeEntreprise().descriptionEmployeur);
+				cy.get('input[name="nomEmployeur"]').type(aFormulaireEtapeEntreprise().nomEmployeur);
+				cy.get('input[name="emailEmployeur"]').type(aFormulaireEtapeEntreprise().emailEmployeur);
+				cy.get('textarea[name="descriptionEmployeur"]').type(aFormulaireEtapeEntreprise().descriptionEmployeur);
 
 				cy.get('button[type="submit"]').click();
 				cy.url().should('include', '/stages/deposer-offre/votre-offre-de-stage');
@@ -47,16 +47,16 @@ describe('Dépôt de Stage', () => {
 			it('le redirige vers l’étape 3', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage', {
 					onBeforeLoad(win: Cypress.AUTWindow) {
-						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtapeEntreprise()));
+						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireEtapeEntreprise()));
 					},
 				});
 				// don't know why le premier input ne se remplit pas workaround l'appeler 2 fois
 				cy.get('input').first().focus();
-				cy.get('input').first().type(aFormulaireÉtapeStage().nomOffre);
-				cy.get('input[name="nomOffre"]').type(aFormulaireÉtapeStage().nomOffre);
-				cy.get('input[name="lienCandidature"]').type(aFormulaireÉtapeStage().lienCandidature);
-				cy.get('textarea[name="descriptionOffre"]').type(aFormulaireÉtapeStage().descriptionOffre);
-				cy.get('input[name="dateDeDebutMin"]').type(aFormulaireÉtapeStage().dateDeDebutMin);
+				cy.get('input').first().type(aFormulaireEtapeStage().nomOffre);
+				cy.get('input[name="nomOffre"]').type(aFormulaireEtapeStage().nomOffre);
+				cy.get('input[name="lienCandidature"]').type(aFormulaireEtapeStage().lienCandidature);
+				cy.get('textarea[name="descriptionOffre"]').type(aFormulaireEtapeStage().descriptionOffre);
+				cy.get('input[name="dateDeDebutMin"]').type(aFormulaireEtapeStage().dateDeDebutMin);
 				cy.get('button').contains('Sélectionnez une durée').click();
 				cy.get('ul[role="listbox"]').first().click();
 
@@ -71,7 +71,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/localisation', {
 					onBeforeLoad(win: Cypress.AUTWindow) {
-						win.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtapeStage()));
+						win.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireEtapeStage()));
 					},
 				});
 
@@ -84,7 +84,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/localisation', {
 					onBeforeLoad(win: Cypress.AUTWindow) {
-						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtapeEntreprise()));
+						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireEtapeEntreprise()));
 					},
 				});
 
@@ -97,8 +97,8 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers la page de confirmation d’envoi', () => {
 				cy.visit('/stages/deposer-offre/localisation', {
 					onBeforeLoad(win: Cypress.AUTWindow) {
-						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireÉtapeEntreprise()));
-						win.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireÉtapeStage()));
+						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireEtapeEntreprise()));
+						win.sessionStorage.setItem(FORMULAIRE_ETAPE_2_LABEL, JSON.stringify(aFormulaireEtapeStage()));
 					},
 				});
 
@@ -107,11 +107,11 @@ describe('Dépôt de Stage', () => {
 				cy.get('input').first().type('France');
 				cy.get('input[placeholder="Exemple : France"]').type('France');
 				cy.get('[role="option"]').click();
-				cy.get('input[name="ville"]').type(aFormulaireÉtapeLocalisation().ville);
-				cy.get('input[name="adresse"]').type(aFormulaireÉtapeLocalisation().adresse);
-				cy.get('input[name="codePostal"').type(aFormulaireÉtapeLocalisation().codePostal);
-				cy.get('input[name="region"]').type(aFormulaireÉtapeLocalisation().region);
-				cy.get('input[name="departement"').type(aFormulaireÉtapeLocalisation().departement);
+				cy.get('input[name="ville"]').type(aFormulaireEtapeLocalisation().ville);
+				cy.get('input[name="adresse"]').type(aFormulaireEtapeLocalisation().adresse);
+				cy.get('input[name="codePostal"').type(aFormulaireEtapeLocalisation().codePostal);
+				cy.get('input[name="region"]').type(aFormulaireEtapeLocalisation().region);
+				cy.get('input[name="departement"').type(aFormulaireEtapeLocalisation().departement);
 
 				interceptPost({
 					actionBeforeWaitTheCall:() => cy.get('button[type="submit"]').click(),
@@ -120,7 +120,7 @@ describe('Dépôt de Stage', () => {
 					response: JSON.stringify({
 						statusCode: 200,
 					}),
-					responseBodyToCheck: aFormulaireEnvoyéPostedValue(),
+					responseBodyToCheck: aFormulaireEnvoyePostedValue(),
 				});
 
 				cy.url().should('include', '/stages/deposer-offre/confirmation-envoi');
