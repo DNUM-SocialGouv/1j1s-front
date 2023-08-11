@@ -1,4 +1,4 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .contenu {
   .container {
@@ -6,7 +6,7 @@
     flex-direction: column;
   }
   h1 {
-    color: utilities-deprecated.$color-primary;
+    color: utilities.$color-primary;
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 2rem;
@@ -23,7 +23,7 @@
   }
 }
 
-@include utilities-deprecated.media(large) {
+@include utilities.media(large) {
   .contenu {
     .container {
       max-width: 45rem;

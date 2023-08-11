@@ -7,18 +7,18 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 export default function Avantages() {
 	return (
 		<section className={styles.contenu}>
-			<Container className={styles.contenuContainer}>
+			<Container className={styles.container}>
 				<Image
 					src="/illustrations/mentorat-employeur.svg"
 					alt=""
 					width={100}
 					height={100}
-					className={styles.contenuContainerImage}
+					className={styles.image}
 				/>
-				<div className={styles.contenuContainerTexte}>
-					<h2 className={styles.contenuContainerTexteTitre}>Les avantages</h2>
-					<h3 className={styles.contenuContainerTexteSousTitre}>Faites monter en compétences votre candidat</h3>
-					<ul className={styles.contenuContainerTexteListeAvantages}>
+				<div className={styles.texte}>
+					<h2 className={styles.titre}>Les avantages</h2>
+					<h3 className={styles.sousTitre}>Faites monter en compétences votre candidat</h3>
+					<ul className={styles.listeAvantages}>
 						<li><Icon name="arrow-right"/><p>Formez votre candidat selon vos besoins</p></li>
 						<li><Icon name="arrow-right"/><p>Jusqu’à 400 heures de formation prises en charge par Pôle Emploi</p></li>
 						<li><Icon name="arrow-right"/><p>Faites votre demande en ligne et gérez vos demandes en cours</p></li>

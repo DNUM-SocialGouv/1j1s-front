@@ -16,7 +16,7 @@ describe('<Avantages />', () => {
 		expect(screen.getByRole('heading', { level: 3, name: 'Faites monter en compétences votre candidat' })).toBeVisible();
 	});
 
-	it('affiche la liste d’avantages', () => {
+	it('affiche une liste de 5 avantages', () => {
 		// When
 		render(<Avantages />);
 

@@ -1,4 +1,4 @@
-import JeRecruteARenommer from '~/client/components/features/JeRecruteAfprPoei/JeRecruteAfprPoei';
+import JeRecruteAfprPoei from '~/client/components/features/JeRecruteAfprPoei/JeRecruteAfprPoei';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/je-recrute-afpr-poei/index.analytics';
@@ -14,7 +14,7 @@ export default function JeRecruteAfprPoeiPage() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<JeRecruteARenommer />
+				<JeRecruteAfprPoei />
 			</main>
 		</>
 	);

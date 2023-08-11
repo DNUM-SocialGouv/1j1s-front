@@ -5,7 +5,7 @@ import {
 } from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerEntreprises';
 import { Head } from '~/client/components/head/Head';
 import BanniereRejoindreLaMobilisation
-	from '~/client/components/ui/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
+	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/immersions/index.analytics';
 
