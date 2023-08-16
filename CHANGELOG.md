@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.126.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.125.2...v3.126.0) (2023-08-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **afpr-poe:** poe comment ca marche ([#1814](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1814)) ([f518ede](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f518ede86a2eae85e07f2f0df7cf36eaf10a78a4))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update nextjs monorepo to v13.4.16 ([#1808](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1808)) ([2493e8f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2493e8f9c8461f22d62698e727d75c84461afe24))
+
 ## [3.125.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.125.1...v3.125.2) (2023-08-16)
 
 
