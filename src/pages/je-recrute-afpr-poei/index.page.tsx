@@ -2,7 +2,6 @@ import JeRecruteAfprPoei from '~/client/components/features/JeRecruteAfprPoei/Je
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/je-recrute-afpr-poei/index.analytics';
-import { CommentCaMarche } from '~/client/components/features/JeRecruteAfprPoei/CommentCaMarche/CommentCaMarche';
 
 export default function JeRecruteAfprPoeiPage() {
 	useAnalytics(analytics);
@@ -16,7 +15,6 @@ export default function JeRecruteAfprPoeiPage() {
 			/>
 			<main id="contenu">
 				<JeRecruteAfprPoei />
-				<CommentCaMarche/>
 			</main>
 		</>
 	);
