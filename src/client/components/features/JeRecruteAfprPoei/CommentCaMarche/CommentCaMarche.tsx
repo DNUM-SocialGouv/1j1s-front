@@ -11,7 +11,7 @@ export function CommentCaMarche() {
 			<div>
 				<h2>Comment ça marche ?</h2>
 				<ol>
-					<li>Vous déposez votre offre d’emploi en ligne sur notre site ou en contractant votre conseiller</li>
+					<li>Vous déposez votre offre d’emploi en ligne sur notre site ou en contactant votre conseiller</li>
 					<li>Vous sélectionnez un candidat prêt à se former</li>
 					<li>Vous définissez un parcours de formation seul ou avec Pôle Emploi</li>
 					<li>Vous signez une convention avant le début de la formation</li>
