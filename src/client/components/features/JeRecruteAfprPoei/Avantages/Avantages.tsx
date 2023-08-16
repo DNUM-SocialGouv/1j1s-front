@@ -6,7 +6,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 export default function Avantages() {
 	return (
-		<section className={styles.contenu}>
+		<section className={styles.avantages}>
 			<Container className={styles.container}>
 				<Image
 					src="/illustrations/mentorat-employeur.svg"

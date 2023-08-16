@@ -3,17 +3,12 @@
 $titre-color: utilities.$color-primary;
 $sous-titre-color: utilities.$color-secondary;
 
-.contenu {
+.avantages {
   & .container {
-    @extend %max-container;
-    display: flex;
-    flex-direction: row;
-
     & .image {
       width: 100%;
       max-width: 31.25rem;
       min-width: 10rem;
-      margin: auto;
       display: none;
     }
 
@@ -26,13 +21,12 @@ $sous-titre-color: utilities.$color-secondary;
 
       & .sousTitre {
         margin-top: .5rem;
-
         color: $sous-titre-color;
         @extend %title-small;
       }
 
       & .listeAvantages {
-        margin-top: 1rem;
+        margin-top: 1.25rem;
         display: grid;
         gap: .5rem;
 
@@ -50,13 +44,17 @@ $sous-titre-color: utilities.$color-secondary;
         }
       }
     }
-
   }
 }
 
 @include utilities.media(medium) {
-  .contenu {
+  .avantages {
     & .container {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      align-items: center;
+      gap: utilities.pixel-to-rem(80);
       padding: 0 1.5rem;
 
       & .image {
@@ -64,9 +62,6 @@ $sous-titre-color: utilities.$color-secondary;
       }
 
       & .texte {
-        padding-top: 3rem;
-        padding-left: 5rem;
-
         & .listeAvantages {
           margin-top: 2rem;
           gap: .75rem;
