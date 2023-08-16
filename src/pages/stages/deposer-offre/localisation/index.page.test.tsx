@@ -7,8 +7,8 @@ import '~/test-utils';
 import { render, screen } from '@testing-library/react';
 
 import {
-	aFormulaireÉtapeEntreprise,
-	aFormulaireÉtapeStage,
+	aFormulaireEtapeEntreprise,
+	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
@@ -24,9 +24,9 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 	beforeEach(() => {
 		setLocalItem = jest.fn();
 		removeSessionItem = jest.fn();
-		getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeStage()));
+		getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
 		mockLocalStorage({
-			getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeEntreprise())),
+			getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise())),
 			setItem: setLocalItem,
 		});
 		mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });

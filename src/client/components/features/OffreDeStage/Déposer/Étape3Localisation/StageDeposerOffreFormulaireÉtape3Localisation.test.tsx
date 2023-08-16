@@ -11,8 +11,8 @@ import userEvent from '@testing-library/user-event';
 
 import Localisation from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
 import {
-	aFormulaireÉtapeEntreprise,
-	aFormulaireÉtapeStage,
+	aFormulaireEtapeEntreprise,
+	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import {
@@ -37,7 +37,7 @@ describe('<Localisation />', () => {
 	describe('quand l’étape 1 n’est pas remplie', () => {
 		beforeEach(() => {
 			mockLocalStorage({ getItem: jest.fn().mockReturnValue(null) });
-			mockSessionStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeStage())) });
+			mockSessionStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage())) });
 		});
 
 		it('redirige vers l’étape 1 du formulaire', async () => {
@@ -55,7 +55,7 @@ describe('<Localisation />', () => {
 
 	describe('quand l’étape 2 n’est pas remplie', () => {
 		beforeEach(function () {
-			mockLocalStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeEntreprise())) });
+			mockLocalStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise())) });
 			mockSessionStorage({ getItem: jest.fn().mockReturnValue(null) });
 		});
 		it('redirige vers l’étape 1 du formulaire', async () => {
@@ -79,9 +79,9 @@ describe('<Localisation />', () => {
 		beforeEach(() => {
 			setLocalItem = jest.fn();
 			removeSessionItem = jest.fn();
-			getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeStage()));
+			getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
 			mockLocalStorage({
-				getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireÉtapeEntreprise())),
+				getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise())),
 				setItem: setLocalItem,
 			});
 			mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });

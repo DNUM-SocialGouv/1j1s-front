@@ -19,9 +19,7 @@ export class StageService {
 			? informationsStage.lienCandidature
 			: 'mailto:' + informationsStage.lienCandidature;
 
-		// TODO (DORO 21-06-2023): à supprimer après la mise en place du nouveau modèle de données
 		const formData: OffreDeStageDepot = {
-			dateDeDebut: informationsStage.dateDeDebutMin,
 			dateDeDebutMax: informationsStage.dateDeDebutMax,
 			dateDeDebutMin: informationsStage.dateDeDebutMin,
 			description: informationsStage.descriptionOffre,
