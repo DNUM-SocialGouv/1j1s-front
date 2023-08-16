@@ -1,4 +1,4 @@
-import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines } from '~/server/cms/domain/offreDeStage.type';
 
 import { OffreDeStageDeposee } from './StageDeposerOffre';
 
@@ -38,7 +38,7 @@ export const aFormulaireEtapeLocalisation = (): OffreDeStageDeposee.Localisation
 	};
 };
 
-export const aFormulaireEnvoyePostedValue = () : OffreDeStageDepot => {
+export const aFormulaireEnvoyePostedValue = () => {
 	return {
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
@@ -48,9 +48,7 @@ export const aFormulaireEnvoyePostedValue = () : OffreDeStageDepot => {
 		employeur: {
 			description: 'test description',
 			email: 'oui@non.com',
-			logoUrl: null,
 			nom: 'Octo',
-			siteUrl: null,
 		},
 		localisation: {
 			adresse: '34 avenue de l’Opéra',
