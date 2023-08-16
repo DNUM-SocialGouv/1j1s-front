@@ -33,6 +33,10 @@
   &:focus-within {
     outline-style: solid;
   }
+
+  &:focus:not(:focus-visible) {
+    outline-style: none;
+  }
 }
 %no-outline {
   &:focus-visible,
