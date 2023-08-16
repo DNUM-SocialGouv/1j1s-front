@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.125.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.125.0...v3.125.1) (2023-08-16)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v7.0.3 ([#1790](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1790)) ([f651fee](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f651fee2c013adad5e1106ac5810779148dc2b74))
+* **deps:** update dependency phone to v3.1.39 ([#1810](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1810)) ([36aa026](https://github.com/DNUM-SocialGouv/1j1s-front/commit/36aa026b55c230a94853a96744cc18b1390e15a8))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.17.5 ([23c759b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/23c759b14e9c3cf1a704b500fbb9e9934aed0e6e))
+* **deps:** update dependency @types/react to v18.2.20 ([2460c49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2460c496db551cf848b3cf5a34e4021b6dcfe9a9))
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.4.0 ([#1809](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1809)) ([c202430](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c2024308dfc72cf74126c312a676d4397a854761))
+* **deps:** update dependency eslint to v8.47.0 ([#1800](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1800)) ([d8f37a3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8f37a3d9a65a616cf53ce714a76ef538686709c))
+* **deps:** update dependency eslint-plugin-cypress to v2.13.4 ([703c26e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/703c26e37cd72b2b0df3da6ecaa9502b55869a42))
+* **deps:** update storybook monorepo to v7.2.3 ([194f431](https://github.com/DNUM-SocialGouv/1j1s-front/commit/194f43158d30b0b25d8a336de8649a1563e7727a))
+
 ## [3.125.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.124.16...v3.125.0) (2023-08-11)
 
 
