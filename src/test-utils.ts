@@ -2,6 +2,14 @@ import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
 import { within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
+declare global {
+	namespace jest {
+		interface Matchers<R> {
+			toBeAccessible(): R
+		}
+	}
+}
+
 expect.extend(toHaveNoViolations);
 
 function getTerms(container: HTMLElement, name: string) {
@@ -24,7 +32,7 @@ function getDescriptionForTerm(term: HTMLElement) {
 		currentElement = currentElement.nextElementSibling;
 	}
 	const descriptions = [];
-	while(currentElement && isDefinition(currentElement)) {
+	while (currentElement && isDefinition(currentElement)) {
 		descriptions.push(currentElement);
 		currentElement = currentElement.nextElementSibling;
 	}
