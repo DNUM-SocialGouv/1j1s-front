@@ -29,8 +29,20 @@
   outline-offset: 0;
   outline-width: 2px;
 
-  &:focus-visible,
-  &:focus-within {
+  &:focus {
+    outline-style: solid;
+  }
+
+  @supports selector(&:focus-visible) {
+    &:focus {
+      outline-style: revert;
+    }
+    &:focus-visible {
+      outline-style: solid;
+    }
+  }
+
+  &:focus-within:not(:focus) {
     outline-style: solid;
   }
 }
