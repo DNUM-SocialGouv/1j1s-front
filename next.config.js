@@ -6,14 +6,14 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const { URL } = require('url');
 
 const IS_ONLINE_CONFIG_ENVIRONMENT = ['recette', 'production'];
-// const NODE_ENV_ENABLE_SOURCEMAP = 'production';
+const NODE_ENV_ENABLE_SOURCEMAP = 'production';
 const isOnlineEnvironment = IS_ONLINE_CONFIG_ENVIRONMENT.includes(process.env.ENVIRONMENT);
 
-// const shouldUploadSourceMap = (env = process.env) =>
-// 	IS_ONLINE_CONFIG_ENVIRONMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
-// 	&& env.NODE_ENV === NODE_ENV_ENABLE_SOURCEMAP;
-//
-// const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
+const shouldUploadSourceMap = (env = process.env) =>
+	IS_ONLINE_CONFIG_ENVIRONMENT.includes(env.NEXT_PUBLIC_SENTRY_ENVIRONMENT)
+	&& env.NODE_ENV === NODE_ENV_ENABLE_SOURCEMAP;
+
+const DISABLE_UPLOAD_SOURCEMAP = !shouldUploadSourceMap();
 
 function getHostName(uri) {
 	return new URL(uri).hostname;
@@ -35,8 +35,8 @@ const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 
 
 const sentryModuleExports = {
-	disableClientWebpackPlugin: false,
-	disableServerWebpackPlugin: false, // TODO SULI : une fois que le fix est validé en recette, avant de mettre en prod, remettre les valeurs d'avant
+	disableClientWebpackPlugin: false, // TODO SULI : une fois que le fix est validé en recette, avant de mettre en prod, remettre DISABLE_UPLOAD_SOURCEMAP
+	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
 	hideSourceMaps: true,
 	silent: true,
 };
