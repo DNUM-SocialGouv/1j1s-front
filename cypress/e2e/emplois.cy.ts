@@ -113,7 +113,7 @@ describe('Page de recherche d’emplois', () => {
 	});
 });
 
-// FIXME (GAFI 08-08-2023): summary n'a pas de role mais est intéractif :(
+// NOTE (GAFI 08-08-2023): summary n'a pas de role mais est intéractif :(
 //	cf. https://w3c.github.io/html-aria/#el-summary
 function summary(expectedContent: string | RegExp) {
 	return function summary(content: string, element: Element | null): boolean {

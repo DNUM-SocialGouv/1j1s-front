@@ -92,20 +92,18 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 					isActive={router.pathname === item.link}
 					onClick={onItemSelected}/>
 			);
-		} else {
-			return (
-				<EmbeddedNavItem
-					label={item.label}
-					key={index}
-					isActive={isItemActive(item, router.pathname)}
-					onClick={(e) => {
-						e.stopPropagation();
-						selectEmbeddedNavItem(item);
-					}}
-				/>
-			);
 		}
-
+		return (
+			<EmbeddedNavItem
+				label={item.label}
+				key={index}
+				isActive={isItemActive(item, router.pathname)}
+				onClick={(e) => {
+					e.stopPropagation();
+					selectEmbeddedNavItem(item);
+				}}
+			/>
+		);
 	});
 
 	const isRoot = root.label === currentItem.label;

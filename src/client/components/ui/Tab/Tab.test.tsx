@@ -210,7 +210,7 @@ describe('<Tab>', () => {
 				</TabPanel>
 			</Tabs>);
 
-			const [tabLabel1,_tabLabel2, tabLabel3] = screen.getAllByRole('tab');
+			const [tabLabel1,, tabLabel3] = screen.getAllByRole('tab');
 			await tabLabel3.focus();
 
 			await user.keyboard(KeyBoard.HOME);

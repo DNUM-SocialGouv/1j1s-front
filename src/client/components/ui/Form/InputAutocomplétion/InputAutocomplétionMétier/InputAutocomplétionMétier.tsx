@@ -16,6 +16,8 @@ type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria
 	codeRomes?: string;
 }
 
+const DEBOUNCE_TIMEOUT = 300;
+
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
 	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
@@ -69,8 +71,8 @@ export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierPr
 	}, [métierRecherchéService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
-		// FIXME (GAFI 18-07-2023): magic number, idéalement à injecter pour pouvoir tester sinon au moins extraire dans const
-		return debounce(getMetiers, 300);
+		// FIXME (GAFI 18-07-2023): idéalement à injecter pour pouvoir tester
+		return debounce(getMetiers, DEBOUNCE_TIMEOUT);
 	}, [getMetiers]);
 
 	useEffect(() => {

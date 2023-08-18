@@ -37,6 +37,20 @@ Le `Combobox` peut prendre les props suivantes :
 Il est nécessaire d'ajouter un nom accessible par une des props `aria-label` ou `aria-labelledby` qui se placera
 automatiquement sur la liste d'options et le bouton permettant de la faire apparaitre.
 
+Il est également possible de nommer les champs pour la soumission du formulaire :
+
+```tsx
+<Combobox name="country">
+  <Option value="FR">France</Option>
+</Combobox>
+// { 'country.label': 'France', 'country.value': 'FR' }
+
+<Combobox name="country" valueName="code">
+  <Option value="FR">France</Option>
+</Combobox>
+// { 'country': 'France', 'code': 'FR' }
+```
+
 **Attention**, les handlers `onChange` et `onInput` prennent en second argument la nouvelle valeur qui ne sera pas reflétée dans l'`event.target` dans certains cas :
 
 ```tsx
@@ -81,6 +95,7 @@ E.g. :
 ## Avec validation de la valeur
 
 La props `requireValidOption` permet d'ajouter une validation de la valeur du champ contre les options de la liste.
+(Là où `required` ne valide que la présence de quelque chose dans le champ).
 
 <Canvas of={stories.validation} />
 

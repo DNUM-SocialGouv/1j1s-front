@@ -87,6 +87,23 @@ describe('<Combobox />', () => {
 			const input = screen.getByRole('combobox');
 			expect(input).toHaveValue('test');
 		});
+		it('prend la value de l’option quand la defaultValue match exactement une option', () => {
+			render(
+				<form aria-label="form">
+					<Combobox aria-label='Test' defaultValue="Option 1" name="combobox">
+						<Combobox.Option value="opt-1">Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const form = screen.getByRole('form');
+			expect(form).toHaveFormValues({
+				'combobox.label': 'Option 1',
+				'combobox.value': 'opt-1',
+			});
+		});
 		it('accepte du JSX en children des options', async () => {
 			const user = userEvent.setup();
 			render(
@@ -1398,10 +1415,10 @@ describe('<Combobox />', () => {
 						<Combobox.Option>Option 3</Combobox.Option>
 					</Combobox>,
 				);
-
 				const input = screen.getByRole('combobox');
 				await user.type(input, 'A');
 				await user.tab();
+
 				await user.type(input, '{Backspace}');
 
 				expect(onInvalid).toHaveBeenCalled();
