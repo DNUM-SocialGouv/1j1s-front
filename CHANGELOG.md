@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.126.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.4...v3.126.5) (2023-08-18)
+
+
+### 🐛 Corrections de bogues
+
+* **ci:** set the tf scalingo module version to avoid breaking changes ([#1824](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1824)) ([18f5af9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/18f5af9f806ff0aac1f1fb78f2800f68c69159dd))
+
 ## [3.126.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.3...v3.126.4) (2023-08-18)
 
 
