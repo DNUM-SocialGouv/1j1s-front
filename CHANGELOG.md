@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.126.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.2...v3.126.3) (2023-08-18)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @meilisearch/instant-meilisearch to v0.13.5 ([#1818](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1818)) ([d739ada](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d739adaf185581b0159ce6650589facecb64ac3d))
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.3.1 ([#1812](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1812)) ([2367584](https://github.com/DNUM-SocialGouv/1j1s-front/commit/23675844bcf938b2dca31573c1ae76b0ce7901db))
+
 ## [3.126.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.1...v3.126.2) (2023-08-18)
 
 
