@@ -68,7 +68,7 @@ jobs:
         run: |
           npm install -g envsub
           envsub --syntax dollar-curly --protect .env.scalingo .env
-      
+
       - name: Vérifier que toutes les variables d'environnement sont définies
         run: |
           NUMBER=0
@@ -99,7 +99,7 @@ jobs:
         id: init
         working-directory: terraform
         run: terraform init -input=false
-      
+
       - name: Terraform Validate
         if: ${{ inputs.validate == true }}
         id: validate

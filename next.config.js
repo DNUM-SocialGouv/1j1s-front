@@ -97,7 +97,7 @@ module.exports = isOnlineEnvironment
 			...moduleExports,
 			headers: async () => SECURITY_MODE_HEADERS,
 			sentry: sentryModuleExports,
-		}, sentryModuleExports)
+		}, undefined, sentryModuleExports)
 	: {
 		...moduleExports,
 		headers: async () => LOCAL_MODE_HEADERS,
