@@ -3,6 +3,7 @@ import React from 'react';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import useSanitize from '~/client/hooks/useSanitize';
 import {
 	FormationInitialeDetailComplete,
 	isFormationWithDetails,
@@ -11,6 +12,10 @@ import {
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
+	const descriptionSanitized = useSanitize(isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.description : undefined);
+	const attendusParcoursupSanitized = useSanitize(isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.attendusParcoursup : undefined);
+	const conditionsAccesSanitized = useSanitize(isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.conditionsAcces : undefined);
+	const poursuiteEtudesSanitized = useSanitize(isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.poursuiteEtudes : undefined);
 
 	return (
 		<ConsulterOffreLayout>
@@ -28,24 +33,24 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 					{formationInitialeDetail.description && (
 						<div>
 							<dt>Description</dt>
-							<dd>{formationInitialeDetail.description}</dd>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
 						</div>)}
 					{formationInitialeDetail.attendusParcoursup && (
 						<div>
 							<dt>Attendus Parcoursup</dt>
-							<dd>{formationInitialeDetail.attendusParcoursup}</dd>
+							<dd dangerouslySetInnerHTML={{ __html: attendusParcoursupSanitized }}/>
 						</div>
 					)}
 					{formationInitialeDetail.conditionsAcces && (
 						<div>
 							<dt>Conditions d‘accès</dt>
-							<dd>{formationInitialeDetail.conditionsAcces}</dd>
+							<dd dangerouslySetInnerHTML={{ __html: conditionsAccesSanitized }}/>
 						</div>
 					)}
 					{formationInitialeDetail.poursuiteEtudes && (
 						<div>
 							<dt>Poursuite d‘études</dt>
-							<dd>{formationInitialeDetail.poursuiteEtudes}</dd>
+							<dd dangerouslySetInnerHTML={{ __html: poursuiteEtudesSanitized }}/>
 						</div>
 					)}
 				</dl>
