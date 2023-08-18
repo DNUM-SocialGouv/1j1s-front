@@ -1,5 +1,6 @@
 module "front_app" {
-  source = "github.com/scalingo-community/terraform-scalingo-app"
+  source  = "scalingo-community/app/scalingo"
+  version = "0.1.0"
 
   stack = "scalingo-20"
 
