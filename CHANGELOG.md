@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.126.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.5...v3.126.6) (2023-08-18)
+
+
+### 🐛 Corrections de bogues
+
+* **sentry:** un minifying sentry pas dinformation sur les erreurs front ([#1758](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1758)) ([20c75d5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/20c75d54288afcc6714ddc4d2205bd41fd3b0ae5))
+
 ## [3.126.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.4...v3.126.5) (2023-08-18)
 
 
