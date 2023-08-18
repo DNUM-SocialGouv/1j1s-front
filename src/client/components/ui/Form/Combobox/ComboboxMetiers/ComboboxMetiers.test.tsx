@@ -194,6 +194,7 @@ describe('<ComboboxMetiers />', () => {
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('3 métiers trouvés');
 	});
+
 	it('conjugue le message du nombre de résultats quand un seul résultat est trouvé', async () => {
 		const user = userEvent.setup();
 		const métierServiceMock = aMétierService([
@@ -236,9 +237,9 @@ describe('<ComboboxMetiers />', () => {
 		expect(combobox).toHaveAccessibleDescription('Veuillez sélectionner une option dans la liste');
 	});
 
-	it('affiche un message quand rien n’est entré dans le champ', async () => {
+	it('affiche un message quand le champ est vide', async () => {
 		const user = userEvent.setup();
-		const métierServiceMock = aMétierService([]);
+		const métierServiceMock = aMétierService();
 		render(
 			<DependenciesProvider métierService={métierServiceMock}>
 				<ComboboxMetiers
@@ -248,10 +249,36 @@ describe('<ComboboxMetiers />', () => {
 			</DependenciesProvider>,
 		);
 
-		await user.click(screen.getByRole('button', { name: 'Rechercher un métier' }));
+		const deplierSuggestions = screen.getByRole('button', { name: 'Rechercher un métier' });
+		await user.click(deplierSuggestions);
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
 		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+	});
+
+	it('affiche uniquement le message quand le champ est vidé avec des résultats déjà présents', async () => {
+		const user = userEvent.setup();
+		const métierServiceMock = aMétierService([
+			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+		]);
+		render(
+			<DependenciesProvider métierService={métierServiceMock}>
+				<ComboboxMetiers
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</DependenciesProvider>,
+		);
+
+		const combobox = screen.getByRole('combobox');
+		await user.type(combobox, 'Test');
+		await user.clear(combobox);
+
+		const message = screen.getByRole('status');
+		expect(message).toBeVisible();
+		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+		const options = screen.queryByRole('option', { name: /Génie électrique/i });
+		expect(options).not.toBeInTheDocument();
 	});
 });

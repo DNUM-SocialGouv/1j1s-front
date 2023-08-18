@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useId,useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierService } from '~/client/services/métiers/métier.service';
@@ -11,19 +11,20 @@ import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
-	label: string;
-	name: string;
-	libellé?: string;
-	codeRomes?: string;
+  label: string;
+  name: string;
+  libellé?: string;
+  codeRomes?: string;
 }
 
 const DEBOUNCE_TIMEOUT = 300;
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
-	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
+  = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un métier';
+
 function MetiersTrouves({ quantity }: { quantity: number }) {
 	return (
 		<small className={styles.nombreResultats}>{
@@ -52,23 +53,24 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 
 	const métierRecherchéService = useDependency<MétierService>('métierService');
 
-	const [ fieldError, setFieldError] = useState<string | null>(null);
-	const [ métiers, setMétiers ] = useState<Métier[]>([]);
-	const [ status, setStatus ] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
+	const [fieldError, setFieldError] = useState<string | null>(null);
+	const [métiers, setMétiers] = useState<Métier[]>([]);
+	const [status, setStatus] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
+	const [ value, setValue ] = useState(libellé ?? '');
 
 	const inputId = useId();
 	const errorId = useId();
 
 	const getMetiers = useCallback(async function getMetiers(motCle: string) {
-		if (motCle) {
-			setStatus('pending');
-			const response = await métierRecherchéService.rechercherMétier(motCle);
-			if (isSuccess(response)) {
-				setStatus('success');
-				setMétiers(response.result);
-			} else {
-				setStatus('failure');
-			}
+		if (!motCle) { return; }
+
+		setStatus('pending');
+		const response = await métierRecherchéService.rechercherMétier(motCle);
+		if (isSuccess(response)) {
+			setStatus('success');
+			setMétiers(response.result);
+		} else {
+			setStatus('failure');
 		}
 	}, [métierRecherchéService]);
 
@@ -83,6 +85,9 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 		};
 	}, [handleRechercherWithDebounce]);
 
+	const isEmpty = value === '';
+	const hasDefaultValue = libellé && codeRomes;
+	const noResult = métiers.length === 0;
 	return (
 		<div>
 			{label && (
@@ -99,27 +104,30 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
-					handleRechercherWithDebounce(event.currentTarget.value);
+					handleRechercherWithDebounce(newValue);
+					setValue(newValue);
 					onChangeProps(event, newValue);
 				}}
 				onInvalid={(event) => {
 					setFieldError(event.currentTarget.validationMessage);
 				}}
-				defaultValue={libellé}
+				value={libellé}
 				requireValidOption
 				filter={Combobox.noFilter}
 				aria-describedby={errorId}
 				{...comboboxProps}
 			>
 				{
-					(métiers.length === 0 && libellé && codeRomes && <Combobox.Option value={codeRomes}>{libellé}</Combobox.Option>)
+					!isEmpty &&
+					// FIXME (GAFI 18-08-2023): Simplifiable avec default value en object by adding it to the list
+					((noResult && hasDefaultValue && <Combobox.Option value={codeRomes}>{libellé}</Combobox.Option>)
 					|| (métiers.map((suggestion) => (
 						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
-					)))
+					))))
 				}
 				<Combobox.AsyncMessage>
 					{
-						status === 'init' && MESSAGE_CHAMP_VIDE
+						isEmpty && MESSAGE_CHAMP_VIDE
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
