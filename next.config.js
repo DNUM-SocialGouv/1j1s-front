@@ -35,7 +35,7 @@ const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 
 
 const sentryModuleExports = {
-	disableClientWebpackPlugin: false, // TODO SULI : une fois que le fix est validé en recette, avant de mettre en prod, remettre DISABLE_UPLOAD_SOURCEMAP
+	disableClientWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
 	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
 	hideSourceMaps: true,
 	silent: true,
