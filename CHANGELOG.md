@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.126.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.6...v3.126.7) (2023-08-18)
+
+
+### 🐛 Corrections de bogues
+
+* **sentry:** se baser sur la release ([#1828](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1828)) ([06acda4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/06acda4efd15d13ea4d8e29abe826a2fb24c580a))
+
 ## [3.126.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.5...v3.126.6) (2023-08-18)
 
 
