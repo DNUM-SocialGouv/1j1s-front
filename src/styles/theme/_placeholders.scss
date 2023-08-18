@@ -29,13 +29,21 @@
   outline-offset: 0;
   outline-width: 2px;
 
-  &:focus-visible,
-  &:focus-within {
+  &:focus {
     outline-style: solid;
   }
 
-  &:focus:not(:focus-visible) {
-    outline-style: none;
+  @supports selector(&:focus-visible) {
+    &:focus {
+      outline-style: revert;
+    }
+    &:focus-visible {
+      outline-style: solid;
+    }
+  }
+
+  &:focus-within:not(:focus) {
+    outline-style: solid;
   }
 }
 %no-outline {
