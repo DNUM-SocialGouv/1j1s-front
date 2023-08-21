@@ -17,10 +17,10 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { 
 	const conditionsAccesDirty= isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.conditionsAcces : undefined;
 	const poursuiteEtudesDirty= isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.poursuiteEtudes : undefined;
 
-	const descriptionSanitized = useSanitize(descriptionDirty, false);
-	const attendusParcoursupSanitized = useSanitize(attendusParcoursupDirty , false);
-	const conditionsAccesSanitized = useSanitize(conditionsAccesDirty, false);
-	const poursuiteEtudesSanitized = useSanitize(poursuiteEtudesDirty, false);
+	const descriptionSanitized = useSanitize(descriptionDirty);
+	const attendusParcoursupSanitized = useSanitize(attendusParcoursupDirty );
+	const conditionsAccesSanitized = useSanitize(conditionsAccesDirty);
+	const poursuiteEtudesSanitized = useSanitize(poursuiteEtudesDirty);
 
 	return (
 		<ConsulterOffreLayout>

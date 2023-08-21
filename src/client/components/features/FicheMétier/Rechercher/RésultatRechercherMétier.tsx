@@ -9,9 +9,11 @@ import useSanitize from '~/client/hooks/useSanitize';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { mapFicheMetier } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
+import { formatCarriageReturnToHtml } from '../../../../utils/formatCarriageReturnToHtml';
+
 export function RésultatRechercherMétier(props: HitProps<Partial<Strapi.CollectionType.FicheMétier>>) {
 	const ficheMetier = mapFicheMetier(props.hit);
-	const accrocheMétier = useSanitize(ficheMetier.accrocheMetier);
+	const accrocheMétier = useSanitize(formatCarriageReturnToHtml(ficheMetier.accrocheMetier));
 	const nomMetier = useMemo(() => {
 		return `${ficheMetier.nomMetier?.charAt(0).toUpperCase()}${ficheMetier.nomMetier?.slice(1)}`;
 	}, [ficheMetier.nomMetier]);
