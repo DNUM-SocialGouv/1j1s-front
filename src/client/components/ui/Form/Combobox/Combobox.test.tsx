@@ -1245,9 +1245,9 @@ describe('<Combobox />', () => {
 			const option = screen.getByRole('option');
 			await user.click(option);
 
-			expect(screen.getByRole('form')).not.toHaveFormValues({
-				'undefined.label': expect.anything(),
-				'undefined.value': expect.anything(),
+			expect(screen.getByRole('form')).toHaveFormValues({
+				'undefined.label': undefined,
+				'undefined.value': undefined,
 			});
 		});
 		it('submit le label comme value quand l’option n’a pas de value', async () => {
