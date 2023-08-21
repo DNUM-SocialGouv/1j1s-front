@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.127.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.10...v3.127.0) (2023-08-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* Integration du combobox dans autocompletion metier ([#1653](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1653)) ([5d3a6fd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5d3a6fd893d6ab93062584caaddf0537341589ef))
+
+
+### 🐛 Corrections de bogues
+
+* **sentry:** étendre l’upload de sourcemaps aux chunks des librairies utilisées ([#1839](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1839)) ([dc4bbbc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dc4bbbcfc29ce325c14de14fff29ef9f682d1b66))
+
 ## [3.126.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.9...v3.126.10) (2023-08-21)
 
 
