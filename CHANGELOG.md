@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.126.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.7...v3.126.8) (2023-08-20)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.17.6 ([e217045](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e217045ec9eedf01a8a73ca42d8cc4edac1b137a))
+* **deps:** update dependency cypress to v12.17.4 ([4523f3a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4523f3a2f089a3ba40da028e569686ae365f683f))
+* **deps:** update dependency sass to v1.66.1 ([77733de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/77733de040a66ebcc60ce310bd6022dcad10e073))
+* **deps:** update storybook monorepo to v7.3.2 ([19c91ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/19c91aebe08b8ce3e49643b56d29661888b194fe))
+
 ## [3.126.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.6...v3.126.7) (2023-08-18)
 
 
