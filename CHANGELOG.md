@@ -1,5 +1,38 @@
 # Changelog
 
+## [3.126.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.9...v3.126.10) (2023-08-21)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v6 ([5f9d9a6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5f9d9a625afbd905ccf9c314afbd8c08e29c49a2))
+* **test:** changement de la configuration de react testing library ([f4c4bb8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f4c4bb8892dcbdb5ee9ca7f3fe15c89f30e6670c))
+* **test:** linter ([7fb96ed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7fb96ed2a8bf55653c987c6d9c53499ae68afef9))
+* **test:** wip ([60e65c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60e65c651be7d5f5b593829b36625de6f6b9da33))
+* **test:** wip 2 ([5bd456b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5bd456ba414a1ecc5a190c03d8a5177083c963a0))
+
+## [3.126.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.8...v3.126.9) (2023-08-21)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v7.0.4 ([#1834](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1834)) ([be55fd7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/be55fd76b55971ef304ee02ccc4eb3637759c7a9))
+
+
+### 👷 Autres changements
+
+* **deps:** update getmeili/meilisearch docker tag to v1.3.1 ([#1793](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1793)) ([7c9d6c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c9d6c31b006c4b6fa6fbefd573aec6b3a085b74))
+
+## [3.126.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.7...v3.126.8) (2023-08-20)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.17.6 ([e217045](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e217045ec9eedf01a8a73ca42d8cc4edac1b137a))
+* **deps:** update dependency cypress to v12.17.4 ([4523f3a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4523f3a2f089a3ba40da028e569686ae365f683f))
+* **deps:** update dependency sass to v1.66.1 ([77733de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/77733de040a66ebcc60ce310bd6022dcad10e073))
+* **deps:** update storybook monorepo to v7.3.2 ([19c91ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/19c91aebe08b8ce3e49643b56d29661888b194fe))
+
 ## [3.126.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.6...v3.126.7) (2023-08-18)
 
 
