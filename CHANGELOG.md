@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.126.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.9...v3.126.10) (2023-08-21)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v6 ([5f9d9a6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5f9d9a625afbd905ccf9c314afbd8c08e29c49a2))
+* **test:** changement de la configuration de react testing library ([f4c4bb8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f4c4bb8892dcbdb5ee9ca7f3fe15c89f30e6670c))
+* **test:** linter ([7fb96ed](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7fb96ed2a8bf55653c987c6d9c53499ae68afef9))
+* **test:** wip ([60e65c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/60e65c651be7d5f5b593829b36625de6f6b9da33))
+* **test:** wip 2 ([5bd456b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5bd456ba414a1ecc5a190c03d8a5177083c963a0))
+
 ## [3.126.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.8...v3.126.9) (2023-08-21)
 
 
