@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.126.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.8...v3.126.9) (2023-08-21)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v7.0.4 ([#1834](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1834)) ([be55fd7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/be55fd76b55971ef304ee02ccc4eb3637759c7a9))
+
+
+### 👷 Autres changements
+
+* **deps:** update getmeili/meilisearch docker tag to v1.3.1 ([#1793](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1793)) ([7c9d6c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c9d6c31b006c4b6fa6fbefd573aec6b3a085b74))
+
 ## [3.126.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.7...v3.126.8) (2023-08-20)
 
 
