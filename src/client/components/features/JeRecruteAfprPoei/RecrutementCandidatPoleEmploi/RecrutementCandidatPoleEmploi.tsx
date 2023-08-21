@@ -2,25 +2,29 @@ import React from 'react';
 
 import styles
 	from '~/client/components/features/JeRecruteAfprPoei/RecrutementCandidatPoleEmploi/RecrutementCandidatPoleEmploi.module.scss';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function RecrutementCandidatPoleEmploi() {
 	return (
 		<section>
-			<div className={styles.recrutementCandidatPoleEmploi}>
+			<Container className={styles.recrutementCandidatPoleEmploi}>
 				<h1>
 					Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi
-					(<abbr title="Préparation Opérationnelle à l’Emploi">POE</abbr>,
-					<abbr title="Action de Formation Préalable au Recrutement">AFPR</abbr>)
-					<abbr title="note de pied de page">*</abbr>
+					(<abbr title="Préparation Opérationnelle à l’Emploi">POE</abbr>, <abbr
+						title="Action de Formation Préalable au Recrutement">AFPR</abbr>)
+					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'}><abbr
+						title="note de pied de page">*</abbr></Footnote.Reference>
 				</h1>
 				<p>
 					Formez un candidat à vos besoins. Bénéficiez d’une aide au financement de la formation, anticipez vos
 					besoins en recrutement sur vos métiers en tension et améliorez l’intégration des jeunes en entreprise
 				</p>
 				<div className={styles.footnote}>
-					<abbr title="note de pied de page">*</abbr> POE : Préparation Opérationnelle à l’Emploi ; AFPR : Action de
-					Formation Préalable au Recrutement
+					<Footnote htmlFor={'abreviation'} id={'abreviation-reference'}>POE : Préparation Opérationnelle à l’Emploi ;
+						AFPR : Action de Formation Préalable au Recrutement
+					</Footnote>
 				</div>
 				<div className={styles.links}>
 					<LinkStyledAsButton
@@ -34,7 +38,7 @@ export default function RecrutementCandidatPoleEmploi() {
 						Compléter une demande
 					</LinkStyledAsButton>
 				</div>
-			</div>
+			</Container>
 		</section>
 	);
 }
