@@ -1,0 +1,40 @@
+@use "@styles/utilities";
+
+.recrutementCandidatPoleEmploi {
+  display: flex;
+  flex-direction: column;
+
+  & p,
+  & .footnote,
+  & h1 {
+    margin-bottom: 2rem;
+  }
+
+  & h1 {
+    @extend %title-large;
+    @extend %bold;
+    color: utilities.$color-title-primary;
+  }
+
+  & .footnote {
+    @extend %text-small;
+  }
+
+  & .links{
+    display: grid;
+    grid-template-columns: max-content;
+    margin: auto;
+
+    > :first-child{
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+@include utilities.media(large) {
+  .recrutementCandidatPoleEmploi {
+    max-width: 47rem;
+    padding-top: 2.5rem;
+    margin: 0 auto;
+  }
+}
