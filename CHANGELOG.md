@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.128.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.128.0...v3.128.1) (2023-08-21)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency jest to v29.6.3 ([21f334c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/21f334c5e913255e49d8069249fe1b6e4c5ea705))
+
 ## [3.128.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.127.0...v3.128.0) (2023-08-21)
 
 
