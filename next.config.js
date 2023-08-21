@@ -39,6 +39,7 @@ const sentryModuleExports = {
 	disableServerWebpackPlugin: DISABLE_UPLOAD_SOURCEMAP,
 	hideSourceMaps: true,
 	silent: true,
+	widenClientFileUpload: true,
 };
 
 const moduleExports = {
