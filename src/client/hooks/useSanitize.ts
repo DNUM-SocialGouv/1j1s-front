@@ -7,7 +7,7 @@ export default function useSanitize(dirty: string | undefined) {
 	useEffect(() => {
 		if (dirty) {
 			const transformed = replaceCarriageReturn(dirty);
-			setSanitized(DOMPurify.sanitize(dirty));
+			setSanitized(DOMPurify.sanitize(transformed));
 		}
 	}, [dirty]);
 
