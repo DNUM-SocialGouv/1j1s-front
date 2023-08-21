@@ -11,14 +11,18 @@ import {
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
-export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: { formationInitialeDetail: FormationInitialeDetailComplete }) {
-	const descriptionDirty= isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.description : undefined;
-	const attendusParcoursupDirty = isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.attendusParcoursup : undefined;
-	const conditionsAccesDirty= isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.conditionsAcces : undefined;
-	const poursuiteEtudesDirty= isFormationWithDetails(formationInitialeDetail) ? formationInitialeDetail.poursuiteEtudes : undefined;
+export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
+	formationInitialeDetail: FormationInitialeDetailComplete
+}) {
+	const isFormationInitialeWithCMSDetails = isFormationWithDetails(formationInitialeDetail);
+
+	const descriptionDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.description : undefined;
+	const attendusParcoursupDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.attendusParcoursup : undefined;
+	const conditionsAccesDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.conditionsAcces : undefined;
+	const poursuiteEtudesDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.poursuiteEtudes : undefined;
 
 	const descriptionSanitized = useSanitize(descriptionDirty);
-	const attendusParcoursupSanitized = useSanitize(attendusParcoursupDirty );
+	const attendusParcoursupSanitized = useSanitize(attendusParcoursupDirty);
 	const conditionsAccesSanitized = useSanitize(conditionsAccesDirty);
 	const poursuiteEtudesSanitized = useSanitize(poursuiteEtudesDirty);
 
