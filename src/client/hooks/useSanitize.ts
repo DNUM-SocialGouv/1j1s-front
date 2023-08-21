@@ -1,15 +1,15 @@
 import DOMPurify from 'dompurify';
 import { useEffect, useState } from 'react';
 
-export default function useSanitize(dirty: string | undefined) {
+export default function useSanitize(dirty: string | undefined, shouldReplaceCarriageReturn: boolean = true) {
 	const [sanitized, setSanitized] = useState('');
 
 	useEffect(() => {
 		if (dirty) {
-			const transformed = replaceCarriageReturn(dirty);
-			setSanitized(DOMPurify.sanitize(transformed));
+			const contentToSanitize = shouldReplaceCarriageReturn ?  replaceCarriageReturn(dirty) : dirty;
+			setSanitized(DOMPurify.sanitize(contentToSanitize));
 		}
-	}, [dirty]);
+	}, [dirty, shouldReplaceCarriageReturn]);
 
 	return sanitized;
 }
