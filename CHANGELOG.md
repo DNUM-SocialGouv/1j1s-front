@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.128.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.127.0...v3.128.0) (2023-08-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** changement de l'analytics ([#1840](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1840)) ([7ccdad9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7ccdad944514eba9b315bbffad3baf0edd29b241))
+
 ## [3.127.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.126.10...v3.127.0) (2023-08-21)
 
 
