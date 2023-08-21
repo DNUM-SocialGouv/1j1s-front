@@ -7,12 +7,13 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 
 import { Combobox } from '.';
 
 describe('<Combobox />', () => {
 	beforeAll(() => {
-		window.HTMLElement.prototype.scrollIntoView = jest.fn();
+		mockScrollIntoView();
 	});
 
 	it('affiche un combobox', () => {
@@ -85,6 +86,23 @@ describe('<Combobox />', () => {
 
 			const input = screen.getByRole('combobox');
 			expect(input).toHaveValue('test');
+		});
+		it('prend la value de l’option quand la defaultValue match exactement une option', () => {
+			render(
+				<form aria-label="form">
+					<Combobox aria-label='Test' defaultValue="Option 1" name="combobox">
+						<Combobox.Option value="opt-1">Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const form = screen.getByRole('form');
+			expect(form).toHaveFormValues({
+				'combobox.label': 'Option 1',
+				'combobox.value': 'opt-1',
+			});
 		});
 		it('accepte du JSX en children des options', async () => {
 			const user = userEvent.setup();
@@ -251,16 +269,16 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Opt');
 
 				expect(onChange).toHaveBeenCalledTimes(3);
-				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }), 'Opt');
 				expect(onInput).toHaveBeenCalledTimes(3);
-				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ target: expect.objectContaining({ value: 'Opt' }) }));
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }), 'Opt');
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur au clavier', async () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
 				const onInput = jest.fn();
 				render(
-					<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
+					<Combobox aria-label='Test' value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -272,15 +290,15 @@ describe('<Combobox />', () => {
 				await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
 				await user.keyboard(`{${KeyBoard.ENTER}}`);
 
-				expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
-				expect(onInput).toHaveBeenCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 1' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 1');
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 1');
 			});
 			it('appelle onChange et onInput quand on sélectionne une valeur à la souris', async () => {
 				const user = userEvent.setup();
 				const onChange = jest.fn();
 				const onInput = jest.fn();
 				render(
-					<Combobox aria-label='Test' onChange={onChange} onInput={onInput}>
+					<Combobox aria-label='Test' value="Option" onChange={onChange} onInput={onInput}>
 						<Combobox.Option>Option 1</Combobox.Option>
 						<Combobox.Option>Option 2</Combobox.Option>
 						<Combobox.Option>Option 3</Combobox.Option>
@@ -291,8 +309,8 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Option');
 				await user.click(screen.getByRole('option', { name: /Option 2/i }));
 
-				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
-				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: expect.objectContaining({ value: 'Option 2' }) }));
+				expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 2');
+				expect(onInput).toHaveBeenLastCalledWith(expect.objectContaining({ currentTarget: input }), 'Option 2');
 			});
 			it('stop l’event de blur si nouveau focus toujours dans le combobox', async () => {
 				const user = userEvent.setup();
@@ -1194,13 +1212,11 @@ describe('<Combobox />', () => {
 	describe('<Combobox.Option value />', () => {
 		it('submit le label et la value de l’option quand présent', async () => {
 			const user = userEvent.setup();
-			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
-				<form onSubmit={onSubmit}>
+				<form aria-label="form">
 					<Combobox name="combobox" aria-label='Test'>
 						<Combobox.Option value="test">Option 1</Combobox.Option>
 					</Combobox>
-					<button>Submit</button>
 				</form>,
 			);
 
@@ -1208,27 +1224,19 @@ describe('<Combobox />', () => {
 			await user.click(button);
 			const option = screen.getByRole('option');
 			await user.click(option);
-			const submit = screen.getByRole('button', { name: /Submit/i });
-			await user.click(submit);
 
-			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
-				target: expect.objectContaining({
-					elements: expect.objectContaining({
-						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
-						'combobox.value': expect.objectContaining({ value: 'test' }),
-					}),
-				}),
-			}));
+			expect(screen.getByRole('form')).toHaveFormValues({
+				'combobox.label': 'Option 1',
+				'combobox.value': 'test',
+			});
 		});
 		it('ne submit pas le label et la value de l’option quand aucun nom n’est passé au combobox', async () => {
 			const user = userEvent.setup();
-			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
-				<form onSubmit={onSubmit}>
+				<form aria-label="form">
 					<Combobox aria-label='Test'>
 						<Combobox.Option value="test">Option 1</Combobox.Option>
 					</Combobox>
-					<button>Submit</button>
 				</form>,
 			);
 
@@ -1236,27 +1244,19 @@ describe('<Combobox />', () => {
 			await user.click(button);
 			const option = screen.getByRole('option');
 			await user.click(option);
-			const submit = screen.getByRole('button', { name: /Submit/i });
-			await user.click(submit);
 
-			expect(onSubmit).not.toHaveBeenCalledWith(expect.objectContaining({
-				target: expect.objectContaining({
-					elements: expect.objectContaining({
-						'undefined.label': expect.anything(),
-						'undefined.value': expect.anything(),
-					}),
-				}),
-			}));
+			expect(screen.getByRole('form')).toHaveFormValues({
+				'undefined.label': undefined,
+				'undefined.value': undefined,
+			});
 		});
 		it('submit le label comme value quand l’option n’a pas de value', async () => {
 			const user = userEvent.setup();
-			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
-				<form onSubmit={onSubmit}>
+				<form aria-label="form">
 					<Combobox name="combobox" aria-label='Test'>
 						<Combobox.Option>Option 1</Combobox.Option>
 					</Combobox>
-					<button>Submit</button>
 				</form>,
 			);
 
@@ -1264,43 +1264,63 @@ describe('<Combobox />', () => {
 			await user.click(button);
 			const option = screen.getByRole('option');
 			await user.click(option);
-			const submit = screen.getByRole('button', { name: /Submit/i });
-			await user.click(submit);
 
-			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
-				target: expect.objectContaining({
-					elements: expect.objectContaining({
-						'combobox.label': expect.objectContaining({ value: 'Option 1' }),
-						'combobox.value': expect.objectContaining({ value: 'Option 1' }),
-					}),
-				}),
-			}));
+			expect(screen.getByRole('form')).toHaveFormValues({
+				'combobox.label': 'Option 1',
+				'combobox.value': 'Option 1',
+			});
 		});
-		it('submit une value vide quand on submit sans selectionner de valeur', async () => {
+		it('submit une value vide quand on submit sans sélectionner de valeur', async () => {
 			const user = userEvent.setup();
-			const onSubmit = jest.fn((event) => event.preventDefault());
 			render(
-				<form onSubmit={onSubmit}>
+				<form aria-label="form">
 					<Combobox name="combobox" aria-label='Test'>
 						<Combobox.Option>Option 1</Combobox.Option>
 					</Combobox>
-					<button>Submit</button>
 				</form>,
 			);
 
 			const input = screen.getByRole('combobox');
 			await user.type(input, 'test');
-			const submit = screen.getByRole('button', { name: /Submit/i });
-			await user.click(submit);
 
-			expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({
-				target: expect.objectContaining({
-					elements: expect.objectContaining({
-						'combobox.label': expect.objectContaining({ value: 'test' }),
-						'combobox.value': expect.objectContaining({ value: '' }),
-					}),
-				}),
-			}));
+			expect(screen.getByRole('form')).toHaveFormValues({
+				'combobox.label': 'test',
+				'combobox.value': '',
+			});
+		});
+		it('nomme la valeur avec la props valueName', async () => {
+			const user = userEvent.setup();
+			render(
+				<form aria-label="form">
+					<Combobox name="combobox" valueName="value" aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'Option 1');
+
+			expect(screen.getByRole('form')).toHaveFormValues({
+				value: 'test',
+			});
+		});
+		it('nomme le label avec la props name seulement quand un valueName est passé en props', async () => {
+			const user = userEvent.setup();
+			render(
+				<form aria-label="form">
+					<Combobox name="combobox" valueName="value" aria-label='Test'>
+						<Combobox.Option value="test">Option 1</Combobox.Option>
+					</Combobox>
+				</form>,
+			);
+
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'Option 1');
+
+			expect(screen.getByRole('form')).toHaveFormValues({
+				combobox: 'Option 1',
+			});
 		});
 	});
 
@@ -1367,6 +1387,53 @@ describe('<Combobox />', () => {
 				await user.tab();
 
 				expect(input).not.toHaveAttribute('data-touched', 'true');
+			});
+			it('rapporte la validité du champ quand on marque le champ comme touché', async () => {
+				const user = userEvent.setup();
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required defaultValue="Option 1" onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				const input = screen.getByRole('combobox');
+				await user.clear(input);
+				await user.tab();
+
+				expect(onInvalid).toHaveBeenCalled();
+			});
+			it('rapporte la validité du champ quand on change la valeur après l’avoir touché', async () => {
+				const user = userEvent.setup();
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'A');
+				await user.tab();
+
+				await user.type(input, '{Backspace}');
+
+				expect(onInvalid).toHaveBeenCalled();
+			});
+			it('ne rapporte pas la validité du champ tant que le champ n’est pas touché', () => {
+				const onInvalid = jest.fn();
+				render(
+					<Combobox aria-label="Test" required value="" onInvalid={onInvalid}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+
+				expect(onInvalid).not.toHaveBeenCalled();
 			});
 			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
 		});

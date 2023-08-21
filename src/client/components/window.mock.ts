@@ -39,6 +39,10 @@ export function mockScrollBy() {
 	});
 }
 
+export function mockScrollIntoView() {
+	window.HTMLElement.prototype.scrollIntoView = jest.fn();
+}
+
 export function mockLocalStorage({
 																	 getItem = jest.fn(),
 																	 setItem = jest.fn(),

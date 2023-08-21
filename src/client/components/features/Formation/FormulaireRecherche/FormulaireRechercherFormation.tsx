@@ -15,8 +15,12 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
 
 export function FormulaireRechercherFormation() {
-	const [inputLibelleMetier, setInputLibelleMetier] = useState<string>('');
-	const [inputCodeRomes, setInputCodeRomes] = useState<string>('');
+	const queryParams = useFormationQuery();
+	const {
+		libelleMetier,
+		codeRomes,
+	} = queryParams;
+
 	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
 	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
 	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
@@ -26,11 +30,8 @@ export function FormulaireRechercherFormation() {
 
 	const router = useRouter();
 
-	const queryParams = useFormationQuery();
-
 	useEffect(function initFormValues() {
-		setInputLibelleMetier(queryParams.libelleMetier || '');
-		setInputCodeRomes(queryParams.codeRomes || '');
+		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
 		setInputCodeCommune(queryParams.codeCommune || '');
 		setInputLibelléCommune(queryParams.libelleCommune || '');
 		setInputDistanceCommune(queryParams.distanceCommune || '');
@@ -58,8 +59,8 @@ export function FormulaireRechercherFormation() {
 						<InputAutocomplétionMétier
 							name={'libelleMetier'}
 							label={'Domaine'}
-							libellé={inputLibelleMetier}
-							codeRomes={inputCodeRomes}
+							libellé={libelleMetier}
+							codeRomes={codeRomes}
 							required
 							autoFocus
 							placeholder="Exemples : ingénierie, agronomie..."

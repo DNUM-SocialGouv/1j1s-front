@@ -7,10 +7,10 @@ import React, {
 	useEffect,
 	useId,
 	useLayoutEffect,
-	useMemo,
 	useReducer,
 	useRef,
-	useState } from 'react';
+	useState,
+} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -22,11 +22,18 @@ import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
-type ComboboxProps = Omit<React.ComponentPropsWithoutRef<'input'>, 'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus'> & {
+type ComboboxProps = Omit<
+	React.ComponentPropsWithoutRef<'input'>,
+	'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
+> & {
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
+	onInput?: (event: React.FormEvent<HTMLInputElement>, newValue: string) => void,
 	requireValidOption?: boolean,
-	filter?: (element: Element, currentValue: string) => boolean
+	filter?: (element: Element, currentValue: string) => boolean,
+	onTouch?: (touched: true) => void;
+	valueName?: string;
 } & ({
 	'aria-label': string,
 	'aria-labelledby'?: string,
@@ -58,6 +65,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	defaultValue,
 	className,
 	name,
+	valueName,
 	'aria-controls': ariaControls,
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
@@ -77,25 +85,37 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			activeDescendant: undefined,
 			open: false,
 			suggestionList: listboxRef,
-			value: defaultValue?.toString() ?? '',
+			value: valueProps?.toString()
+						?? defaultValue?.toString()
+						?? '',
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
+	const [ matchingOptionValue, setMatchingOptionValue ] = useState<string>('');
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const matchingOption = useMemo(function findOption(): Element | undefined {
-		return Array.from(listboxRef.current?.querySelectorAll('[role="option"]') ?? [])
+	const findMatchingOption = useCallback(function findMatchingOption(list: Element | null) {
+		return Array.from(list?.querySelectorAll('[role="option"]') ?? [])
 			.find((element) => element.textContent === value);
-		// NOTE (GAFI 27-06-2023): On accède aux children indirectement par le querySelectorAll
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [value, listboxRef, children]);
+	}, [value]);
+
+	useEffect(function setValue() {
+		const matchingOption = findMatchingOption(listboxRef.current);
+		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
+	}, [value, listboxRef, children, findMatchingOption]);
 
 	useEffect(() => {
 		if (requireValidOption) {
-			inputRef.current?.setCustomValidity(matchingOption ? '' : 'Veuillez sélectionner une option dans la liste');
+			inputRef.current?.setCustomValidity(findMatchingOption(listboxRef.current) ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
-	}, [inputRef, matchingOption, requireValidOption]);
+	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption]);
+
+	useEffect(function checkValidity() {
+		if (touched) {
+			inputRef.current?.checkValidity();
+		}
+	}, [inputRef, touched, value, children]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -103,17 +123,17 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 	}, [activeDescendant]);
 
-	const triggerChangeEvent = useCallback(function triggerChangeEvents() {
+	const triggerChangeEvent = useCallback(function triggerChangeEvents(newValue: string) {
 		if (inputRef.current) {
 			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
-			onChangeProps(changeEvent);
-			onInputProps(changeEvent);
+			onChangeProps(changeEvent, newValue);
+			onInputProps(changeEvent, newValue);
 		}
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
 		dispatch(new Actions.SelectOption(option));
-		triggerChangeEvent();
+		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();
 	}, [inputRef, triggerChangeEvent]);
 
@@ -138,10 +158,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				dispatch(new Actions.CloseList());
 				break;
 			case KeyBoard.ENTER: {
-				const selectedOption = event.currentTarget.getAttribute('aria-activedescendant');
-				if (selectedOption) {
-					dispatch(new Actions.SelectOption(selectedOption));
-					triggerChangeEvent();
+				const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+				if (selectedOptionID) {
+					dispatch(new Actions.SelectOption(selectedOptionID));
+					const selectedElement = document.getElementById(selectedOptionID);
+					triggerChangeEvent(selectedElement?.textContent ?? '');
 					event.preventDefault();
 				}
 				break;
@@ -153,7 +174,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [onKeyDownProps, triggerChangeEvent]);
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
-		onChangeProps(event);
+		onChangeProps(event, event.currentTarget.value);
 	}, [onChangeProps]);
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
@@ -165,7 +186,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		dispatch(new Actions.CloseList());
 		setTouchedOnBlur(value);
 		onBlurProps(event);
-	}, [setTouchedOnBlur, onBlurProps, value]);
+	}, [setTouchedOnBlur, value, onBlurProps]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
@@ -176,7 +197,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			dispatch,
 			filter,
 			onOptionSelection,
-			state,
+			state: { ...state, value },
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<input
@@ -187,16 +208,16 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
 					value={value}
-					name={name && `${name}.label`}
+					name={(valueName && name) || (name && `${name}.label`)}
 					data-touched={touched}
 					onChange={onChange}
 					onKeyDown={onKeyDown}
-					onInput={onInputProps}
+					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					{...inputProps} />
 				<input
 					type="hidden"
-					name={name && `${name}.value`}
-					value={matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? ''}
+					name={valueName ?? (name && `${name}.value`)}
+					value={matchingOptionValue}
 					required={requireValidOption}/>
 				<button
 					onClick={() => {

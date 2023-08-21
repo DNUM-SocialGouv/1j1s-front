@@ -4,7 +4,11 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { isNavigationItem, NavigationItemWithChildren } from '~/client/components/layouts/Header/NavigationStructure';
+import {
+	isNavigationItem,
+	NavigationItem,
+	NavigationItemWithChildren,
+} from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -18,13 +22,13 @@ interface NavItemWithSubItemsProps {
 
 export function NavItemWithSubItems({ className, onClick, item: root }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
 	const optionsRef = useRef<HTMLLIElement>(null);
-	const [currentItem, setCurrentItem] = useState<NavigationItemWithChildren>(root);
-	const [previousEmbeddedItems, setPreviousEmbeddedItems] = useState<NavigationItemWithChildren[]>([]);
-	const label = currentItem.label;
-	const subItems = currentItem.children;
-	const isRoot = root.label === currentItem.label;
-	const { isLargeScreen } = useBreakpoint();
+
 	const router = useRouter();
+	const [pathToCurrentSubmenu, setPathToCurrentSubmenu] = useState<NavigationItemWithChildren[]>(
+		createPathToCurrentPageSubmenu(root, (element) => element.link === router.pathname) ?? [root],
+	);
+
+	const { isLargeScreen } = useBreakpoint();
 	const isActive = useMemo(() => {
 		return isItemActive(root, router.pathname);
 	}, [router.pathname, root]);
@@ -32,9 +36,8 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 
 	const reset = useCallback(() => {
 		setIsExpanded(false);
-		setCurrentItem(root);
-		setPreviousEmbeddedItems([]);
-	}, [setIsExpanded, setCurrentItem, root]);
+		setPathToCurrentSubmenu([root]);
+	}, [setIsExpanded, root]);
 
 	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
 		if (!optionsRef.current?.contains(event.target as Node)) {
@@ -48,15 +51,18 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 		}
 	}, [reset]);
 
+	const currentItem = pathToCurrentSubmenu[pathToCurrentSubmenu.length - 1];
+
 	function selectEmbeddedNavItem(item: NavigationItemWithChildren) {
-		setPreviousEmbeddedItems([currentItem, ...previousEmbeddedItems]);
-		setCurrentItem(item);
+		setPathToCurrentSubmenu([...pathToCurrentSubmenu, item]);
 	}
 
 	function popEmbeddedItem() {
-		const [next, ...parents] = previousEmbeddedItems;
-		setCurrentItem(next || root);
-		setPreviousEmbeddedItems(parents);
+		setPathToCurrentSubmenu((callstack) => {
+			const newStack = [...callstack];
+			newStack.pop();
+			return newStack;
+		});
 	}
 
 	function onItemSelected() {
@@ -76,64 +82,69 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 		};
 	}, [closeMenuOnEscape, closeOptionsOnClickOutside]);
 
-	useEffect(() => {
-		for (const item of root.children) {
-			if (!isNavigationItem(item) && isItemActive(item, router.pathname)) {
-				selectEmbeddedNavItem(item);
-				break;
+	const subNav = currentItem.children.map((item, index) => {
+		if (isNavigationItem(item)) {
+			return (
+				<NavItem className={styles.subNavItem}
+					key={index}
+					label={item.label}
+					link={item.link}
+					isActive={router.pathname === item.link}
+					onClick={onItemSelected}/>
+			);
+		}
+		return (
+			<EmbeddedNavItem
+				label={item.label}
+				key={index}
+				isActive={isItemActive(item, router.pathname)}
+				onClick={(e) => {
+					e.stopPropagation();
+					selectEmbeddedNavItem(item);
+				}}
+			/>
+		);
+	});
+
+	const isRoot = root.label === currentItem.label;
+
+	return (
+		<li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
+			<button
+				className={classNames(styles.subNavItemButton, { [styles.embedded]: !isRoot })}
+				onClick={() => isRoot ? setIsExpanded(!isExpanded) : popEmbeddedItem()}
+				aria-expanded={isExpanded}>
+				<span className={styles.subNavItemLabel} aria-current={isActive}>{currentItem.label}</span>
+				<Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down"/>
+			</button>
+			{isExpanded &&
+        <ul className={styles.subNavItemList} role="menu">
+        	{subNav}
+        </ul>
+			}
+		</li>
+	);
+}
+
+function createPathToCurrentPageSubmenu(category: NavigationItemWithChildren, matcher: (element: NavigationItem) => boolean): NavigationItemWithChildren[] | null {
+	for (const item of category.children) {
+		if (isNavigationItem(item) && matcher(item)) {
+			return [category];
+		}
+
+		if (!isNavigationItem(item)) {
+			const childStack = createPathToCurrentPageSubmenu(item, matcher);
+			if (childStack != null) {
+				return [category, ...childStack];
 			}
 		}
-		/* eslint-disable */
-  }, [router.pathname, root]);
-
-  const subNav = subItems.map((item, index) => {
-    if (isNavigationItem(item)) {
-      return (
-        <NavItem className={styles.subNavItem}
-          key={index}
-          label={item.label}
-          link={item.link}
-          isActive={router.pathname === item.link}
-          onClick={onItemSelected}/>
-      );
-    } else {
-      return (
-        <EmbeddedNavItem
-          label={item.label}
-          key={index}
-          isActive={isItemActive(item, router.pathname)}
-          onClick={(e) => {
-            e.stopPropagation();
-            selectEmbeddedNavItem(item);
-          }}
-        />
-      );
-    }
-
-  });
-
-
-  return (
-    <li ref={optionsRef} className={classNames(isActive ? styles.hasNavItemActive : '', className)}>
-      <button
-        className={classNames(styles.subNavItemButton, { [styles.embedded]: !isRoot })}
-        onClick={() => isRoot ? setIsExpanded(!isExpanded) : popEmbeddedItem()}
-        aria-expanded={isExpanded}>
-        <span className={styles.subNavItemLabel} aria-current={isActive}>{label}</span>
-        <Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down"/>
-      </button>
-      {isExpanded &&
-        <ul className={styles.subNavItemList} role="menu">
-          {subNav}
-        </ul>
-      }
-    </li>
-  );
+	}
+	return null;
 }
 
 function isItemActive(item: NavigationItemWithChildren, path: string): boolean {
-  return item.children.some((subItem) => {
-    return isNavigationItem(subItem) ? subItem.link === path : isItemActive(subItem, path);
-  });
+	return item.children.some((subItem) => {
+		return isNavigationItem(subItem) ? subItem.link === path : isItemActive(subItem, path);
+	});
 }
 

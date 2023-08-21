@@ -16,6 +16,7 @@ export type FormationQueryParams = {
 
 export function useFormationQuery(): FormationQueryParams {
 	const { query } = useRouter();
+
 	return useMemo(() => ({
 		codeCommune: getSingleQueryParam(query.codeCommune),
 		codeRomes: getSingleQueryParam(query.codeRomes),
@@ -25,5 +26,14 @@ export function useFormationQuery(): FormationQueryParams {
 		libelleMetier: getSingleQueryParam(query.libelleMetier),
 		longitudeCommune: getSingleQueryParam(query.longitudeCommune),
 		niveauEtudes: getSingleQueryParam(query.niveauEtudes),
-	}), [query]);
+	}), [
+		query.codeCommune,
+		query.codeRomes,
+		query.distanceCommune,
+		query.latitudeCommune,
+		query.libelleCommune,
+		query.libelleMetier,
+		query.longitudeCommune,
+		query.niveauEtudes,
+	]);
 }

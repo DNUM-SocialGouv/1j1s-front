@@ -26,3 +26,10 @@ export default function RechercherAlternancePage() {
 
 	return <RechercherAlternance/>;
 }
+
+// NOTE (GAFI 08-08-2023): Rend le composant server-side
+export function getServerSideProps() {
+	return {
+		props: {},
+	};
+}

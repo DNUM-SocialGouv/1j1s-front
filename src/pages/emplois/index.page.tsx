@@ -17,9 +17,14 @@ export default function RechercherOffreEmploiPage() {
 			const queryString = stringify(router.query);
 			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
 		}
-
 	}, [router]);
 
-	if (Object.keys(router.query).length) return <RechercherOffreEmploi />;
-	return null;
+	return <RechercherOffreEmploi />;
+}
+
+// NOTE (GAFI 08-08-2023): Rend le composant server-side
+export function getServerSideProps() {
+	return {
+		props: {},
+	};
 }

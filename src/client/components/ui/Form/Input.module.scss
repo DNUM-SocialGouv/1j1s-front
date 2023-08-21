@@ -92,6 +92,10 @@
     @extend %text-small;
     align-items: center;
     color: utilities-deprecated.$color-error;
+
+    &:empty {
+      display: none;
+    }
   }
 
   & > svg {
@@ -101,4 +105,9 @@
   @include utilities-deprecated.media(large) {
     white-space: nowrap;
   }
+}
+
+.nombreResultats {
+  @extend %text-small;
+  color: utilities-deprecated.$color-mention-grey;
 }

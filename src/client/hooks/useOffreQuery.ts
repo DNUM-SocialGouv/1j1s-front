@@ -18,7 +18,6 @@ export type OffreQueryParams = {
 }
 
 export function useOffreQuery(): OffreQueryParams {
-
 	const { query } = useRouter();
 
 	return useMemo(() => ({
@@ -31,5 +30,15 @@ export function useOffreQuery(): OffreQueryParams {
 		tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
 		typeDeContrats: getSingleQueryParam(query.typeDeContrats),
 		typeLocalisation: getSingleQueryParam(query.typeLocalisation),
-	}), [query]);
+	}), [
+		query.codeLocalisation,
+		query.experienceExigence,
+		query.grandDomaine,
+		query.libelleLocalisation,
+		query.motCle,
+		query.page,
+		query.tempsDeTravail,
+		query.typeDeContrats,
+		query.typeLocalisation,
+	]);
 }

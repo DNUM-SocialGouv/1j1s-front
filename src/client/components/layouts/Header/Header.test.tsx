@@ -319,17 +319,18 @@ describe('Header', () => {
 				expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
 			});
 
-			it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', () => {
+			it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
 				render(<Header/>);
-				const button = screen.getByRole('button');
-				fireEvent.click(button);
+				const burger = screen.getByRole('button', { name: 'Menu' });
+				await user.click(burger);
 				const menu = screen.getByRole('navigation');
-				expect(menu).toBeInTheDocument();
-				expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
-				const retourEnArrière = screen.getByText('Recruter et agir pour les jeunes');
-				fireEvent.click(retourEnArrière);
-				expect(screen.getByText('Je suis employeur')).toBeInTheDocument();
+				expect(menu).toBeVisible();
+				expect(screen.getByText('Je deviens mentor')).toBeVisible();
+				const retourEnArrière = screen.getByRole('button', { name: 'Recruter et agir pour les jeunes' });
+				await user.click(retourEnArrière);
+				expect(screen.getByText('Je suis employeur')).toBeVisible();
 			});
 		});
 		describe('Au clic sur un item du menu', () => {

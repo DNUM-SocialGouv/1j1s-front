@@ -38,7 +38,7 @@ describe('Parcours alternance LBA', () => {
 
 			cy.contains(aListeDeMetierLaBonneAlternanceFixture[0].label).should('be.visible');
 			cy.contains(aListeDeMetierLaBonneAlternanceFixture[10].label).should('not.be.visible');
-			cy.get('ul[role="listbox"] > li').should('have.length', 11);
+			cy.get('[role="option"]:not([hidden])').should('have.length', 11);
 		});
 	});
 

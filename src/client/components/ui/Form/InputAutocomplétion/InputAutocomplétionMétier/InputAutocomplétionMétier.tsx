@@ -1,215 +1,130 @@
-import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useCallback, useEffect, useId,useMemo, useRef, useState } from 'react';
 
-import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { Combobox } from '~/client/components/ui/Form/Combobox';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MétierService } from '~/client/services/métiers/métier.service';
 import { isSuccess } from '~/server/errors/either';
 import { Métier } from '~/server/metiers/domain/métier';
 
-interface InputAutocomplétionMétierProps extends React.ComponentPropsWithoutRef<'input'> {
-	label?: string;
-	required?: boolean;
-	className?: string;
+type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
+type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
+	label: string;
 	name: string;
 	libellé?: string;
 	codeRomes?: string;
 }
 
-const ERROR_RETRIEVE_METIER = 'Une erreur est survenue lors de la récupération des métiers.';
-const HINT_INPUT_INVALID = 'Veuillez séléctionner un métier valide';
+const DEBOUNCE_TIMEOUT = 300;
+
+const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
+const MESSAGE_PAS_DE_RESULTAT
+	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
+const MESSAGE_CHARGEMENT = 'Chargement ...';
+const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un métier';
+function MetiersTrouves({ quantity }: { quantity: number }) {
+	return (
+		<small className={styles.nombreResultats}>{
+			quantity > 1
+				? `${quantity} métiers trouvés`
+				: `${quantity} métier trouvé`
+		}</small>
+	);
+}
 
 export const InputAutocomplétionMétier = (props: InputAutocomplétionMétierProps) => {
-	const { label, libellé, name, className, required, onChange, onBlur, codeRomes, ...rest } = props;
+	const {
+		label,
+		name,
+
+		// FIXME (GAFI 19-07-2023): Passer sous la forme d'une default value pour expliciter l'usage :
+		//	defaultValue: { libellé, codeRomes }
+		libellé,
+		codeRomes,
+
+		...comboboxProps
+	} = props;
+
+	const comboboxRef = useRef<HTMLInputElement>(null);
 
 	const métierRecherchéService = useDependency<MétierService>('métierService');
 
-	const [suggestionsApi, setSuggestionsApi] = useState<Métier[]>([]);
-	const [suggestionIndex, setSuggestionIndex] = useState(0);
-	const [suggestionsActive, setSuggestionsActive] = useState(false);
-	const [métierRecherchéInput, setMétierRecherchéInput] = useState(libellé || '');
-	const [codeRomesInput, setCodeRomesInput] = useState<string[]>([]);
-	const [isValueValidSelected, setIsValueValidSelected] = useState<boolean>(false);
-	const [isTouched, setIsTouched] = useState<boolean>(false);
+	const [ fieldError, setFieldError] = useState<string | null>(null);
+	const [ métiers, setMétiers ] = useState<Métier[]>([]);
+	const [ status, setStatus ] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
 
-	const inputId = useRef(uuidv4());
-	const errorId = useRef(uuidv4());
+	const inputId = useId();
+	const errorId = useId();
 
-	const autocompleteRef = useRef<HTMLDivElement>(null);
-	const inputRef = useRef<HTMLInputElement>(null);
-
-	const CONTROL_ID = 'autocomplete-métier';
-
-	useEffect(() => {
-		if (libellé) {
-			setMétierRecherchéInput(libellé);
-			setIsValueValidSelected(true);
-		}
-		if (codeRomes) {
-			setCodeRomesInput(codeRomes.split(','));
-		}
-	}, [libellé, codeRomes]);
-
-	const retrieveMétiers = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
-		const { value } = e.target;
-		if (value.length > 1) {
-			const response = await métierRecherchéService.rechercherMétier(value);
+	const getMetiers = useCallback(async function getMetiers(motCle: string) {
+		if (motCle) {
+			setStatus('pending');
+			const response = await métierRecherchéService.rechercherMétier(motCle);
 			if (isSuccess(response)) {
-				setSuggestionsApi(response.result);
-				setSuggestionIndex(0);
-				setSuggestionsActive(true);
+				setStatus('success');
+				setMétiers(response.result);
 			} else {
-				e.target.setCustomValidity(ERROR_RETRIEVE_METIER);
-				setSuggestionsActive(false);
+				setStatus('failure');
 			}
-		} else {
-			setSuggestionsActive(false);
 		}
 	}, [métierRecherchéService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
-		return debounce(retrieveMétiers, 300);
-	}, [retrieveMétiers]);
+		// FIXME (GAFI 18-07-2023): idéalement à injecter pour pouvoir tester
+		return debounce(getMetiers, DEBOUNCE_TIMEOUT);
+	}, [getMetiers]);
 
 	useEffect(() => {
 		return () => {
 			handleRechercherWithDebounce.cancel();
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const closeSuggestions = useCallback(() => {
-		setSuggestionsActive(false);
-		setSuggestionsApi([]);
-	}, []);
-
-	const handleClickOnSuggestion = (e: React.MouseEvent<HTMLLIElement>, selectedMétierRecherché: Métier) => {
-		if (e.button === 0) {
-			e.preventDefault();
-			setIsValueValidSelected(true);
-			inputRef.current?.setCustomValidity('');
-			setMétierRecherchéInput(selectedMétierRecherché.label);
-			setCodeRomesInput(selectedMétierRecherché.romes);
-			closeSuggestions();
-		}
-	};
-
-	const handleOnBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-		if (onBlur) {
-			onBlur(event);
-		}
-		setIsTouched(true);
-		closeSuggestions();
-	}, [closeSuggestions, onBlur]);
-
-	const handleChange = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
-		if (onChange) {
-			onChange(event);
-		}
-		setIsValueValidSelected(false);
-		event.currentTarget.setCustomValidity(HINT_INPUT_INVALID);
-		setMétierRecherchéInput(event.target.value);
-		handleRechercherWithDebounce(event);
-	}, [onChange, handleRechercherWithDebounce]);
-
-
-	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === KeyBoard.ESCAPE || event.key === KeyBoard.IE_ESCAPE) {
-			closeSuggestions();
-		}
-		if (event.key === KeyBoard.ARROW_UP || event.key === KeyBoard.IE_ARROW_UP) {
-			if (suggestionIndex === 0) {
-				return;
-			}
-			setSuggestionIndex(suggestionIndex - 1);
-		} else if (event.key === KeyBoard.ARROW_DOWN || event.key === KeyBoard.IE_ARROW_DOWN) {
-			if (suggestionIndex + 1 === suggestionsApi.length) {
-				return;
-			}
-			setSuggestionIndex(suggestionIndex + 1);
-		} else if (event.key === KeyBoard.ENTER && suggestionsActive) {
-			setIsValueValidSelected(true);
-			event.currentTarget.setCustomValidity('');
-			setMétierRecherchéInput(suggestionsApi[suggestionIndex].label);
-			setCodeRomesInput(suggestionsApi[suggestionIndex].romes);
-			setSuggestionsActive(false);
-			event.preventDefault();
-		}
-	};
-
-	const suggestions = useMemo(() => {
-		return <ul
-			className={styles.suggestionList}
-			role="listbox"
-			aria-labelledby={label}
-			id={CONTROL_ID}
-		>
-			{suggestionsApi.length === 0 &&
-          <li>Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier.
-              Exemple : boulanger, ...
-          </li>
-			}
-			{suggestionsApi.map((suggestion, index) => (
-				<li
-					className={index === suggestionIndex ? styles.hover : ''}
-					key={index}
-					onMouseDown={(event) => {
-						handleClickOnSuggestion(event, suggestion);
-					}}
-					role="option"
-					aria-selected={suggestion.label === métierRecherchéInput}
-				>
-					{suggestion.label}
-				</li>
-			))}
-		</ul>;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [suggestionsApi, label, suggestionIndex, métierRecherchéInput]);
+	}, [handleRechercherWithDebounce]);
 
 	return (
-		<div className={classNames(styles.wrapper, className)}>
+		<div>
 			{label && (
-				<label className={styles.label} htmlFor={inputId.current}>
+				<label className={styles.label} htmlFor={inputId}>
 					{label}
 				</label>
 			)}
-			<div ref={autocompleteRef}>
-				<div
-					role="combobox"
-					aria-expanded={suggestionsActive}
-					aria-controls={suggestionsActive ? CONTROL_ID : undefined}
-					aria-owns={suggestionsActive ? CONTROL_ID : undefined}
-					aria-haspopup="listbox"
-					onBlur={handleOnBlur}
-				>
-					<input
-						ref={inputRef}
-						className={classNames(styles.formControlInput, required && isTouched && !isValueValidSelected && styles.formControlInputError)}
-						type="text"
-						id={inputId.current}
-						name={name}
-						autoComplete="off"
-						aria-autocomplete="list"
-						aria-controls={suggestionsActive ? CONTROL_ID : undefined}
-						aria-activedescendant={inputId.current}
-						value={métierRecherchéInput}
-						onChange={
-							handleChange
-						}
-						onKeyDown={handleKeyDown}
-						required={required}
-						{...rest}
-					/>
-					<input type="hidden" value={codeRomesInput} name={'codeRomes'}/>
-				</div>
-				{suggestionsActive && suggestions}
-			</div>
-			{isTouched && inputRef.current?.validationMessage &&
-          <p id={errorId.current} className={styles.instructionMessageError}>{inputRef.current?.validationMessage}</p>}
+			<Combobox
+				ref={comboboxRef}
+				autoComplete="off"
+				id={inputId}
+				name={name}
+				valueName={'codeRomes'}
+				aria-label={label}
+				onChange={(event) => {
+					setFieldError(null);
+					handleRechercherWithDebounce(event.currentTarget.value);
+				}}
+				onInvalid={(event) => {
+					setFieldError(event.currentTarget.validationMessage);
+				}}
+				defaultValue={libellé}
+				requireValidOption
+				filter={Combobox.noFilter}
+				aria-describedby={errorId}
+				{...comboboxProps}
+			>
+				{
+					(métiers.length === 0 && libellé && codeRomes && <Combobox.Option value={codeRomes}>{libellé}</Combobox.Option>)
+					|| (métiers.map((suggestion) => (
+						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
+					)))
+				}
+				<Combobox.AsyncMessage>
+					{
+						status === 'init' && MESSAGE_CHAMP_VIDE
+						|| status === 'failure' && MESSAGE_ERREUR_FETCH
+						|| status === 'pending' && MESSAGE_CHARGEMENT
+						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
+						|| <MetiersTrouves quantity={métiers.length} />
+					}
+				</Combobox.AsyncMessage>
+			</Combobox>
+			<p id={errorId} className={styles.instructionMessageError}>{fieldError}</p>
 		</div>
 	);
 };
