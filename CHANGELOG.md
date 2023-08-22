@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.130.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.130.0...v3.130.1) (2023-08-22)
+
+
+### 🐛 Corrections de bogues
+
+* **faq:** lorsque l'article de la faq n'est pas trouvé ne log pas d'erreur ([#1849](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1849)) ([b791c60](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b791c6070c3c57525ed820046aeb40bae921ede4))
+* **terraform:** remove implicit dependency on the presence of a package.json file ([#1851](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1851)) ([978d6e8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/978d6e8d16290f27c3525a6b240de10a1b1cd739))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.4.1 ([#1845](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1845)) ([8a536ef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8a536ef695e209dc6be378f057c7cb0421c8791d))
+
 ## [3.130.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.129.0...v3.130.0) (2023-08-22)
 
 
