@@ -26,7 +26,6 @@ const OTHER_STATIC_PATH_LIST = [
 	'/emplois/deposer-offre',
 	'/apprentissage/deposer-offre',
 	'/immersions/referencer-mon-entreprise',
-	'/je-recrute-afpr-poei/inscription',
 	'/apprentissage/deposer-offre-lba',
 	'/espace-jeune',
 	'/apprentissage-entreprises',
@@ -60,7 +59,7 @@ export class GénérerSitemapUseCase {
 		const pathList = [...staticPathList, ...dynamicPathList];
 		return this.generateSiteMap(pathList, baseUrl);
 	}
-	
+
 	private flattenNavigationItemList(navigationItemList: Array<NavigationItem | NavigationItemWithChildren>): Array<string> {
 		return navigationItemList.reduce((pathList: Array<string>, navigationItem: NavigationItem | NavigationItemWithChildren): Array<string> => {
 			if (isNavigationItem(navigationItem)) {
@@ -71,7 +70,7 @@ export class GénérerSitemapUseCase {
 			return pathList;
 		}, []);
 	}
-	
+
 	private mapDynamicPathListResult(dynamicPathListResult: Either<Array<string>>, rootPath: string): Array<string> {
 		if(isSuccess(dynamicPathListResult)) {
 			return dynamicPathListResult.result
