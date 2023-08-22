@@ -4517,31 +4517,6 @@ tarteaucitron.services.matterport = {
   uri: 'https://matterport.com/es/legal/privacy-policy/',
 };
 
-// Adform
-tarteaucitron.services.adform = {
-  cookies: [],
-  js: function () {
-    'use strict';
-
-    if (tarteaucitron.user.adformpm === undefined || tarteaucitron.user.adformpagename === undefined) {
-      return;
-    }
-
-    window._adftrack = {
-      divider: encodeURIComponent('|'),
-      pagename: encodeURIComponent(tarteaucitron.user.adformpagename),
-      pm: tarteaucitron.user.adformpm,
-    };
-
-    tarteaucitron.addScript('https://track.adform.net/serving/scripts/trackpoint/async/');
-  },
-  key: 'adform',
-  name: 'Adform (services : Amnet, Seedtag, Yahoo, Snapchat, Meta, TikTok)',
-  needConsent: true,
-  type: 'ads',
-  uri: 'https://site.adform.com/privacy-center/overview/',
-};
-
 // Active Campaign
 tarteaucitron.services.activecampaign = {
   cookies: [],
