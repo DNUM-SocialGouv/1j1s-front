@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.131.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.131.0...v3.131.1) (2023-08-22)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest to v29.5.4 ([701652a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/701652a2cfb7f825d9772321b7cae37aa7a3d088))
+
 ## [3.131.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.130.1...v3.131.0) (2023-08-22)
 
 
