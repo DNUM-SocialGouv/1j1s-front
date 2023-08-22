@@ -29,6 +29,8 @@ const faqRéponseMapToArticleFormat = (faqRéponse: Question.QuestionRéponse): 
 };
 
 export default function ConsulterArticlePage({ faqRéponse  }: ConsulterFAQRéponsePageProps) {
+	if (!faqRéponse) return null;
+
 	return (
 		<>
 			<Head
