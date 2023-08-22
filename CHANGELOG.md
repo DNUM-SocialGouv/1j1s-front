@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.130.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.129.0...v3.130.0) (2023-08-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **je-recrute-afpr:** modification de la section recrutement candidat pole emploi ([#1843](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1843)) ([a52e83b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a52e83b268d06b57b392ab265428dfdae718e674))
+
 ## [3.129.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.128.1...v3.129.0) (2023-08-22)
 
 
