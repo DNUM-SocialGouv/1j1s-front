@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.131.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.130.1...v3.131.0) (2023-08-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **apprentissage:** suppression des cookies adform ([#1847](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1847)) ([4e0e981](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e0e9819d3aaf14b4fb548a97971a0a221bd018b))
+
 ## [3.130.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.130.0...v3.130.1) (2023-08-22)
 
 
