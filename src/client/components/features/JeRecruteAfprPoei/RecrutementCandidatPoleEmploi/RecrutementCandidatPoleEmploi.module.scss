@@ -1,0 +1,33 @@
+@use "@styles/utilities";
+
+$color-title: utilities.$color-title-primary;
+
+.recrutementCandidatPoleEmploi {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  & h1 {
+    @extend %title-large;
+    @extend %bold;
+    color: $color-title;
+  }
+
+  & .footnote {
+    @extend %text-small;
+    text-align: left;
+  }
+
+  & .links{
+    display: grid;
+    grid-template-columns: max-content;
+    margin: auto;
+    row-gap: 0.5rem;
+  }
+}
+
+@include utilities.media(large) {
+  .recrutementCandidatPoleEmploi {
+    padding: 2.5rem 17.5rem 0 17.5rem;
+  }
+}

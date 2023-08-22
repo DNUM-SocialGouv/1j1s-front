@@ -23,7 +23,7 @@ describe('<JeRecruteAfprPoeiPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi (AFPR/POEI)');
+		await screen.findByText(/Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi/);
 
 		expect(container).toBeAccessible();
 	});
