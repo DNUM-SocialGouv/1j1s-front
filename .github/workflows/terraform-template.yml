@@ -27,6 +27,10 @@ on:
       environnement_url:
         required: true
         type: string
+      env_vars_file_path:
+        required: false
+        type: string
+        default: ".env.scalingo"
 
 jobs:
   terraform:
@@ -61,14 +65,15 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: npm
+          node-version: lts/*
       - name: Ecrire les variables d'environnement dans un fichier .env
         if: ${{ (inputs.plan == true) || (inputs.apply == true) }}
         run: |
           npm install -g envsub
-          envsub --syntax dollar-curly --protect .env.scalingo .env
+          envsub --syntax dollar-curly --protect ${ENV_VARS_FILE_PATH} .env
           echo "SENTRY_RELEASE=$(grep '"version":' package.json | grep -o '[0-9.]*')" >> .env
+        env:
+          ENV_VARS_FILE_PATH: ${{ inputs.env_vars_file_path }}
 
       - name: Vérifier que toutes les variables d'environnement sont définies
         run: |
