@@ -13,7 +13,6 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -81,7 +80,6 @@ describe('Page Apprentissage Jeunes', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					marketingService={aMarketingService()}
 					youtubeService={aVideoService()}
 				>
 					<ApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
@@ -96,7 +94,7 @@ describe('Page Apprentissage Jeunes', () => {
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {
 		// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+				<DependenciesProvider analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -109,7 +107,7 @@ describe('Page Apprentissage Jeunes', () => {
 
 		it('affiche la bonne page', () => {
 			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+				<DependenciesProvider analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -121,7 +119,7 @@ describe('Page Apprentissage Jeunes', () => {
 
 		it('affiche le titre du document', () => {
 			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+				<DependenciesProvider analyticsService={analyticsService}>
 					<ApprentissageJeunes videos={[]}/>
 				</DependenciesProvider>,
 			);
@@ -131,17 +129,6 @@ describe('Page Apprentissage Jeunes', () => {
 			expect(titre).toEqual('Découvrir et trouver sa voie avec l’apprentissage | 1jeune1solution');
 		});
 
-		it('track la page pour le marketing', () => {
-			const marketingService = aMarketingService({ trackPage: jest.fn() });
-
-			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
-					<ApprentissageJeunes videos={[]}/>
-				</DependenciesProvider>,
-			);
-
-			expect(marketingService.trackPage).toHaveBeenLastCalledWith('2023-04-1jeune1solution.gouv.fr-PageArrivee-ChoisirApprentissage');
-		});
 	});
 
 });
