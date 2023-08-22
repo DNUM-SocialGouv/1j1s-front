@@ -13,18 +13,15 @@ export default function RecrutementCandidatPoleEmploi() {
 				<h1>
 					Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi
 					(POE, AFPR)
-					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'}><abbr
-						title="note de pied de page">*</abbr></Footnote.Reference>
+					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'}/>
 				</h1>
 				<p>
 					Formez un candidat à vos besoins. Bénéficiez d’une aide au financement de la formation, anticipez vos
 					besoins en recrutement sur vos métiers en tension et améliorez l’intégration des jeunes en entreprise
 				</p>
-				<div className={styles.footnote}>
-					<Footnote htmlFor={'abreviation'} id={'abreviation-reference'}>POE : Préparation Opérationnelle à l’Emploi ;
-						AFPR : Action de Formation Préalable au Recrutement
-					</Footnote>
-				</div>
+				<Footnote htmlFor={'abreviation'} id={'abreviation-reference'} className={styles.footnote}>POE : Préparation
+					Opérationnelle à l’Emploi ; AFPR : Action de Formation Préalable au Recrutement
+				</Footnote>
 				<div className={styles.links}>
 					<LinkStyledAsButton
 						href="https://entreprise.pole-emploi.fr/accueil/description/afpr"
