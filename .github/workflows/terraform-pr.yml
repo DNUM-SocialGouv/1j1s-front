@@ -9,6 +9,7 @@ on:
     branches: [ main ]
     paths:
       - 'terraform/**'
+      - '.github/workflows/terraform-*.yml'
       - '.env.scalingo'
 
 jobs:
