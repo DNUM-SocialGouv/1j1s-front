@@ -6,12 +6,14 @@ import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearc
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import useSanitize from '~/client/hooks/useSanitize';
+import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { mapFicheMetier } from '~/server/fiche-metier/domain/ficheMetierHttp';
 
+
 export function RésultatRechercherMétier(props: HitProps<Partial<Strapi.CollectionType.FicheMétier>>) {
 	const ficheMetier = mapFicheMetier(props.hit);
-	const accrocheMétier = useSanitize(ficheMetier.accrocheMetier);
+	const accrocheMétier = useSanitize(formatCarriageReturnToHtml(ficheMetier.accrocheMetier));
 	const nomMetier = useMemo(() => {
 		return `${ficheMetier.nomMetier?.charAt(0).toUpperCase()}${ficheMetier.nomMetier?.slice(1)}`;
 	}, [ficheMetier.nomMetier]);

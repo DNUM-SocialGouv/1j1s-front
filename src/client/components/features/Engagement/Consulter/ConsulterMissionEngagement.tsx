@@ -5,6 +5,7 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
+import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';
 import { Mission } from '~/server/engagement/domain/engagement';
 
 interface ConsulterMissionEngagementProps {
@@ -12,8 +13,8 @@ interface ConsulterMissionEngagementProps {
 }
 
 export function ConsulterMissionEngagement({ missionEngagement }: ConsulterMissionEngagementProps) {
-	const descriptionMissionEngagement = useSanitize(missionEngagement.description);
-	const localisationMissionEngagement = useSanitize(missionEngagement.localisation);
+	const descriptionMissionEngagement = useSanitize(formatCarriageReturnToHtml(missionEngagement.description));
+	const localisationMissionEngagement = useSanitize(formatCarriageReturnToHtml(missionEngagement.localisation));
 
 	return (
 		<ConsulterOffreLayout>
