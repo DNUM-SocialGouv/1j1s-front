@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.129.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.128.1...v3.129.0) (2023-08-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-init:** prendre en compte le html dans l'affichage de la description ([#1841](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1841)) ([fd25b68](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd25b6850d7c912dfa2102141c5ae1c8a9caf365))
+
 ## [3.128.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.128.0...v3.128.1) (2023-08-21)
 
 
