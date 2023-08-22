@@ -1,18 +1,18 @@
-# Peut aussi être défini avec TF_VAR_front_nom_de_l_application
-variable "front_nom_de_l_application" {
+# Peut aussi être défini avec TF_VAR_nom_de_l_application
+variable "nom_de_l_application" {
   description = "Nom de l'application Scalingo"
   type        = string
 }
 
-# Peut aussi être défini avec TF_VAR_front_nom_de_domaine
-variable "front_nom_de_domaine" {
+# Peut aussi être défini avec TF_VAR_nom_de_domaine
+variable "nom_de_domaine" {
   description = "Nom de domaine du front"
   type        = string
   default     = null
 }
 
-# Peut aussi être défini avec TF_VAR_front_fichier_env_secret
-variable "front_fichier_env_secret" {
+# Peut aussi être défini avec TF_VAR_fichier_env_secret
+variable "fichier_env_secret" {
   description = "Nom du fichier contenant des variables d'environment, par exemple \".env\". Sera fusionné avec les variables"
   type        = string
   default     = null
@@ -32,13 +32,13 @@ variable "logstash_uri" {
   sensitive   = true
 }
 
-variable "front_nom_de_domaine_analytics" {
+variable "nom_de_domaine_analytics" {
   description = "Nom de domaine dédié à l'analytics Eulerian pour le front"
   type        = string
   default     = null
 }
 
-variable "front_eulerian_domaine" {
+variable "eulerian_domaine" {
   description = "Domaine du serveur Eulerian pour le front"
   type        = string
   default     = "minsante.ent.et-gv.fr"

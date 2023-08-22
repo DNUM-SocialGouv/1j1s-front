@@ -18,5 +18,5 @@ locals {
 }
 
 data "dotenv" "envs_du_fichier_env" {
-  filename = var.front_fichier_env_secret
+  filename = var.fichier_env_secret
 }

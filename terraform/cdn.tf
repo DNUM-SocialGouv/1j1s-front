@@ -4,10 +4,10 @@ data "cloudflare_zone" "zone" {
 }
 
 resource "cloudflare_record" "domaine" {
-  for_each = toset(var.front_nom_de_domaine != null ? [var.front_nom_de_domaine] : [])
+  for_each = toset(var.nom_de_domaine != null ? [var.nom_de_domaine] : [])
 
   zone_id = data.cloudflare_zone.zone.id
-  name    = trimsuffix(var.front_nom_de_domaine, ".1jeune1solution.gouv.fr")
+  name    = trimsuffix(var.nom_de_domaine, ".1jeune1solution.gouv.fr")
   value   = module.front_app.origin_domain
   type    = "CNAME"
   ttl     = 1
@@ -28,11 +28,11 @@ resource "cloudflare_record" "domaine_racine" {
 }
 
 resource "cloudflare_record" "domaine_analytics_eulerian" {
-  for_each = toset(var.front_nom_de_domaine_analytics != null ? [var.front_nom_de_domaine_analytics] : [])
+  for_each = toset(var.nom_de_domaine_analytics != null ? [var.nom_de_domaine_analytics] : [])
 
   zone_id = data.cloudflare_zone.zone.id
-  name    = trimsuffix(var.front_nom_de_domaine_analytics, ".1jeune1solution.gouv.fr")
-  value   = var.front_eulerian_domaine
+  name    = trimsuffix(var.nom_de_domaine_analytics, ".1jeune1solution.gouv.fr")
+  value   = var.eulerian_domaine
   type    = "CNAME"
   ttl     = 1
   proxied = false

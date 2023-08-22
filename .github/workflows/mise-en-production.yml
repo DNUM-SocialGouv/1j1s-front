@@ -21,7 +21,7 @@ jobs:
         with:
           api_token: ${{ secrets.SCALINGO_API_TOKEN }}
           region: ${{ vars.SCALINGO_REGION }}
-          app_name: ${{ secrets.TF_VAR_FRONT_NOM_DE_L_APPLICATION }}
+          app_name: ${{ secrets.TF_VAR_NOM_DE_L_APPLICATION }}
       - name: Créer une sauvegarde de la base Redis Scalingo
         run: |
           REDIS_ADDON_ID=$(scalingo addons | grep -i redis | awk 'BEGIN{FS=" [|] "}{print $2}')
@@ -49,7 +49,7 @@ jobs:
         with:
           api_token: ${{ secrets.SCALINGO_API_TOKEN }}
           region: ${{ vars.SCALINGO_REGION }}
-          app_name: ${{ secrets.TF_VAR_FRONT_NOM_DE_L_APPLICATION }}
+          app_name: ${{ secrets.TF_VAR_NOM_DE_L_APPLICATION }}
       - name: Déployer le code sur Scalingo
         run: |
           scalingo integration-link-manual-deploy main
