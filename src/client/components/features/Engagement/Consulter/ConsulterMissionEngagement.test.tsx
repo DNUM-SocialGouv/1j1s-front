@@ -34,15 +34,15 @@ describe('ConsulterMission', () => {
 			expect(within(tagList).queryAllByRole('listitem')).toHaveLength(2);
 		});
 
-		it('affiche un lien pour postuler à la mission', async () => {
+		it('affiche un lien pour s’engager à la mission', async () => {
 			const offreMission = anAmbassadeurDuDonDeVêtementMission();
 
 			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 
-			const lienPostuler = screen.getByRole('link', { name: 'Postuler' });
+			const lienPostuler = screen.getByRole('link', { name: 'S’engager' });
 			expect(lienPostuler).toBeVisible();
 			expect(lienPostuler).toHaveAttribute('href', offreMission.url);
-			expect(lienPostuler).toHaveAttribute('title', 'Postuler - nouvelle fenêtre');
+			expect(lienPostuler).toHaveAttribute('title', 'S’engager - nouvelle fenêtre');
 		});
 	});
 });
