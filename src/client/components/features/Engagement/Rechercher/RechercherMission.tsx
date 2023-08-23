@@ -20,7 +20,7 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import {
 	bénévolatDomaineList,
 	Mission,
@@ -38,7 +38,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 	const missionEngagementService = useDependency<MissionEngagementService>('missionEngagementService');
 	const missionEngagementQuery = useMissionEngagementQuery();
 	const [missionList, setMissionList] = useState<Mission[]>([]);
-	const [nombreRésultats, setNombreRésultats] = useState(0);
+	const [nombreResultats, setNombreResultats] = useState(0);
 
 	const isServiceCivique = useMemo(() => {
 		return category === EngagementCategory.SERVICE_CIVIQUE;
@@ -61,7 +61,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 				if (response.instance === 'success') {
 					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
 					setMissionList(response.result.résultats);
-					setNombreRésultats(response.result.nombreRésultats);
+					setNombreResultats(response.result.nombreRésultats);
 				} else {
 					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de ${isServiceCivique ? 'service civique' : 'bénévolat'}`, response.errorType));
 					setErreurRecherche(response.errorType);
@@ -70,27 +70,42 @@ export function RechercherMission(props: RechercherMissionProps) {
 			});
 	}, [missionEngagementQuery, missionEngagementService, category, isServiceCivique]);
 
-	const messageRésultatRecherche = useMemo(() => {
-		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
-		if (nombreRésultats > 1) {
-			messageRésultatRechercheSplit.push('missions');
-		} else {
-			messageRésultatRechercheSplit.push('mission');
+	const messageResultatRecherche = () => {
+		function ajouterAuMessageLeMotMission() {
+			if (nombreResultats > 1) {
+				messageNbResultats = `${messageNbResultats} missions`;
+			} else {
+				messageNbResultats = `${messageNbResultats} mission`;
+			}
 		}
-		if (isServiceCivique) {
-			messageRésultatRechercheSplit.push('de service civique');
-		} else {
-			messageRésultatRechercheSplit.push('de bénévolat');
+		function ajouterAuMessageLaCategorieDeMission() {
+			if (isServiceCivique) {
+				messageNbResultats = `${messageNbResultats} de service civique`;
+			} else {
+				messageNbResultats = `${messageNbResultats} de bénévolat`;
+			}
 		}
+		function ajouterAuMessageLeDomaineDeRecherche() {
+			const domaineDepuisQuery = missionEngagementQuery?.domain ?? '';
+			const libelleDomaine = recupererLibelleDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domaineDepuisQuery);
+			messageNbResultats = `${messageNbResultats} pour ${libelleDomaine}`;
+		}
+
+		let messageNbResultats = nombreResultats.toString();
+		ajouterAuMessageLeMotMission();
+		ajouterAuMessageLaCategorieDeMission();
 		if (missionEngagementQuery.domain) {
-			messageRésultatRechercheSplit.push(`pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, missionEngagementQuery.domain)}`);
+			ajouterAuMessageLeDomaineDeRecherche();
 		}
-		const message =  messageRésultatRechercheSplit.join(' ');
 		return <>
-			{message}
+			{messageNbResultats}
 			<Footnote.Reference to="partenaires" id="partenaires-reference" />
 		</>;
-	}, [missionEngagementQuery.domain, isServiceCivique, nombreRésultats]);
+	};
+
+	const footnote = <Footnote htmlFor="partenaires-reference" id="partenaires" >
+		les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
+	</Footnote>;
 
 	return (
 		<>
@@ -106,13 +121,11 @@ export function RechercherMission(props: RechercherMissionProps) {
 					étiquettesRecherche={<EtiquettesFiltreMission/>}
 					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isLoading={isLoading}
-					messageRésultatRecherche={messageRésultatRecherche}
-					nombreSolutions={nombreRésultats}
+					messageRésultatRecherche={messageResultatRecherche()}
+					nombreSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
 					listeSolutionElement={<ListeMission résultatList={missionList} isServiceCivique={isServiceCivique}/>}
-					footnote={<Footnote htmlFor="partenaires-reference" id="partenaires" >
-						les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
-					</Footnote>}
+					footnote={footnote}
 				/>
 			</main>
 		</>

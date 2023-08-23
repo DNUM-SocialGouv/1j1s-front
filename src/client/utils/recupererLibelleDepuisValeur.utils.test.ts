@@ -1,5 +1,5 @@
 import { Option } from '~/client/components/ui/Select/Select';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 
 describe('récupérerLibelléDepuisValeur', () => {
 	describe('quand la valeur est trouvée' , () => {
@@ -15,7 +15,7 @@ describe('récupérerLibelléDepuisValeur', () => {
 			];
 			const expected = 'dix';
 			//when
-			const result = récupérerLibelléDepuisValeur(optionList, valeur);
+			const result = recupererLibelleDepuisValeur(optionList, valeur);
 			//then
 			expect(result).toEqual(expected);
 		});
@@ -33,7 +33,7 @@ describe('récupérerLibelléDepuisValeur', () => {
 			];
 			const placeholder = 'Sélectionne';
 			//when
-			const result = récupérerLibelléDepuisValeur(optionList, valeur, placeholder);
+			const result = recupererLibelleDepuisValeur(optionList, valeur, placeholder);
 			//then
 			expect(result).toEqual(placeholder);
 		});
