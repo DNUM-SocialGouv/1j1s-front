@@ -233,9 +233,6 @@ export function aSitemap() {
 		<loc>http://localhost:3000/immersions/referencer-mon-entreprise</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/je-recrute-afpr-poei/inscription</loc>
-	</url>
-	<url>
 		<loc>http://localhost:3000/apprentissage/deposer-offre-lba</loc>
 	</url>
 	<url>

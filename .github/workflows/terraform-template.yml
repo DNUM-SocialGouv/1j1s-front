@@ -71,7 +71,6 @@ jobs:
         run: |
           npm install -g envsub
           envsub --syntax dollar-curly --protect ${ENV_VARS_FILE_PATH} .env
-          echo "SENTRY_RELEASE=$(grep '"version":' package.json | grep -o '[0-9.]*')" >> .env
         env:
           ENV_VARS_FILE_PATH: ${{ inputs.env_vars_file_path }}
 

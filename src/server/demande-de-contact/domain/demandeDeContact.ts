@@ -1,4 +1,3 @@
-import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
@@ -27,19 +26,6 @@ export interface DemandeDeContactAccompagnement {
   age: Age
   commentaire?: string
   établissement: ContactÉtablissementAccompagnement
-}
-
-export interface DemandeDeContactPOE extends DemandeDeContact {
-  nomSociété: string
-  siret: string
-  taille: keyof typeof TailleDEntreprise
-  secteur: keyof typeof SecteurDActivité
-  codePostal: string
-  ville: string
-  nombreARecruter: string
-  travail: string
-  commentaire: string
-  email: string
 }
 
 export type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;
