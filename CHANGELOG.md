@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.132.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.0...v3.132.1) (2023-08-23)
+
+
+### 👷 Autres changements
+
+* move SENTRY_RELEASE generation to release-please into .env.scalingo ([#1860](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1860)) ([7d349be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d349be14fd02af3d4ebb1bbab83c71f781bc718))
+
 ## [3.132.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.131.2...v3.132.0) (2023-08-23)
 
 
