@@ -5,6 +5,7 @@ import {
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/EtiquettesFiltreMission';
 import { Head } from '~/client/components/head/Head';
+import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -12,6 +13,7 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -84,7 +86,11 @@ export function RechercherMission(props: RechercherMissionProps) {
 		if (missionEngagementQuery.domain) {
 			messageRésultatRechercheSplit.push(`pour ${récupérerLibelléDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, missionEngagementQuery.domain)}`);
 		}
-		return messageRésultatRechercheSplit.join(' ');
+		const message =  messageRésultatRechercheSplit.join(' ');
+		return <>
+			{message}
+			<Footnote.Reference to="partenaires" id="partenaires-reference" />
+		</>;
 	}, [missionEngagementQuery.domain, isServiceCivique, nombreRésultats]);
 
 	return (
@@ -99,13 +105,15 @@ export function RechercherMission(props: RechercherMissionProps) {
 					bannière={<BannièreMission isServiceCivique={isServiceCivique}/>}
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={<EtiquettesFiltreMission/>}
-					formulaireRecherche={<FormulaireRechercheMissionEngagement
-						domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
+					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isLoading={isLoading}
 					messageRésultatRecherche={messageRésultatRecherche}
 					nombreSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
 					listeSolutionElement={<ListeMission résultatList={missionList} isServiceCivique={isServiceCivique}/>}
+					footnote={<Footnote htmlFor="partenaires-reference" id="partenaires" >
+						les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
+					</Footnote>}
 				/>
 			</main>
 		</>

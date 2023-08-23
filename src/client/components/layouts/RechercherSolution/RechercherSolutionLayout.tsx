@@ -20,6 +20,7 @@ interface RechercherSolutionLayoutProps {
 	paginationOffset?: number
 	maxPage?: number
 	listeSolutionElement: React.ReactElement
+	footnote?: ReactElement
 }
 
 export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
@@ -34,6 +35,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		maxPage,
 		isLoading,
 		listeSolutionElement,
+		footnote,
 	} = props;
 
 	const router = useRouter();
@@ -68,6 +70,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
             					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             						{listeSolutionElement}
             					</Skeleton>
+            					{footnote}
             					{paginationOffset && nombreSolutions > paginationOffset &&
                           <div className={styles.pagination}>
                           	<Pagination
