@@ -26,14 +26,6 @@
   }
 }
 
-.stats {
-  @extend %text-medium;
-
-  .nombreRésultats {
-    @extend %bold;
-  }
-}
-
 .listeSolutionsWrapper {
   padding: 2rem 1rem;
 }

@@ -1,0 +1,9 @@
+@use "@styles/utilities-deprecated";
+
+.stats {
+  @extend %text-medium;
+
+  .nombreResultats {
+    @extend %bold;
+  }
+}
