@@ -23,9 +23,6 @@ import {
 	DemandeDeContactCEJRepository,
 } from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
 import {
-	DemandeDeContactPOERepository,
-} from '~/server/demande-de-contact/infra/repositories/poe/demandeDeContactPOE.repository';
-import {
 	OffresEmploiDependencies,
 	offresEmploiDependenciesContainer,
 } from '~/server/emplois/configuration/dependencies.container';
@@ -89,7 +86,8 @@ import {
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 import {
-	FormationInitialeDetailDependencies, formationInitialeDetailDependenciesContainer,
+	FormationInitialeDetailDependencies,
+	formationInitialeDetailDependenciesContainer,
 } from '~/server/formations-initiales-detail/configuration/dependencies.container';
 import {
 	jobsEteDependenciesContainer,
@@ -247,7 +245,7 @@ export function dependenciesContainer(): Dependencies {
 	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
 
 	const formationInitialeDetailDependencies = formationInitialeDetailDependenciesContainer(onisepFormationInitialeRepository, cmsRepository);
-	
+
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
@@ -266,12 +264,10 @@ export function dependenciesContainer(): Dependencies {
 	);
 	const demandeDeContactAccompagnementRepository = new DemandeDeContactAccompagnementRepository(mailRepository);
 	const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsRepository);
-	const demandeDeContactPOERepository = new DemandeDeContactPOERepository(cmsRepository);
 
 	const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
 		demandeDeContactAccompagnementRepository,
 		demandeDeContactCEJRepository,
-		demandeDeContactPOERepository,
 	);
 
 	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
