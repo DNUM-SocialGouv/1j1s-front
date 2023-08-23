@@ -6,7 +6,7 @@ locals {
   # Le fichier .env est un fichier multiligne au format "KEY=VALUE" ou "KEY='VALUE'" ou "KEY="VALUE""
   # Exemple de fichier .env :
   #   KEY1=VALUE1
-  #   KEY2='VALUE2'
+  #   KEY2='VALUE2' # Les commentaires sont ignorés
   #   KEY3="VALUE3"
   envs_du_fichier_env = data.dotenv.envs_du_fichier_env.env == null ? null : {
     for key, value in data.dotenv.envs_du_fichier_env.env :
