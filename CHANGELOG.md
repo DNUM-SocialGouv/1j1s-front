@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.132.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.131.2...v3.132.0) (2023-08-23)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **depot-poe:** suppression de la possibilité de s'inscrire via 1J1S ([#1854](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1854)) ([3b58c13](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3b58c136d1ff4503a2e5ae76475bf3e2cf1b89a1))
+
 ## [3.131.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.131.1...v3.131.2) (2023-08-23)
 
 
