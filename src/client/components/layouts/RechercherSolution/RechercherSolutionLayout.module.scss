@@ -1,10 +1,10 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .rechercheSolution {
   &FormWrapper {
     padding: 1rem 1rem 3rem 1rem;
   }
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     .rechercheSolution {
       &FormWrapper {
         padding: 1rem;
@@ -19,7 +19,7 @@
     padding-bottom: 1rem;
   }
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     ul {
       padding-bottom: 2rem;
     }
@@ -48,9 +48,22 @@
   }
 }
 
+.footnote {
+  &:target,& :target {
+    scroll-margin-top: 50vh;
+  }
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+
+  @include utilities.media(medium) {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+  }
+}
+
 .pagination {
   padding-top: 2.5rem;
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     padding-top: 5rem;
   }
   & > nav {

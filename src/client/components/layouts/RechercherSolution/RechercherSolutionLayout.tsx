@@ -70,7 +70,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
             					<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             						{listeSolutionElement}
             					</Skeleton>
-            					{footnote}
+            					{footnote && <div className={styles.footnote}>{footnote}</div>}
             					{paginationOffset && nombreSolutions > paginationOffset &&
                           <div className={styles.pagination}>
                           	<Pagination

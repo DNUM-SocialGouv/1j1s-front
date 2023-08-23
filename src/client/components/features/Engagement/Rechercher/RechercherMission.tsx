@@ -5,7 +5,6 @@ import {
 } from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/EtiquettesFiltreMission';
 import { Head } from '~/client/components/head/Head';
-import styles from '~/client/components/layouts/InstantSearch/ListeDesResultats.module.scss';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
