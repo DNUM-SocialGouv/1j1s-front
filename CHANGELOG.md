@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.132.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.1...v3.132.2) (2023-08-24)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency phone to v3.1.40 ([#1856](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1856)) ([72c6652](https://github.com/DNUM-SocialGouv/1j1s-front/commit/72c6652a478b26a5ffd0f7fedb9a688b236454ec))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v6.1.1 ([#1857](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1857)) ([a4f6787](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a4f6787e9050627eccf5fb1bb26838ebb8047999))
+
 ## [3.132.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.0...v3.132.1) (2023-08-23)
 
 
