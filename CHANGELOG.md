@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.132.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.3...v3.132.4) (2023-08-24)
+
+
+### 🐛 Corrections de bogues
+
+* **engagement:** fix espacement détail d'une mission en mobile ([#1870](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1870)) ([e46d435](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e46d4359dd95532dad152fbc7258eb14c1525f31))
+
 ## [3.132.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.2...v3.132.3) (2023-08-24)
 
 
