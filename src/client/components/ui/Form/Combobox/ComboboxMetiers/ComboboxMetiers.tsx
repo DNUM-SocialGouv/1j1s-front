@@ -34,6 +34,7 @@ function MetiersTrouves({ quantity }: { quantity: number }) {
 	);
 }
 
+type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 	const {
 		label,
@@ -43,9 +44,6 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 		...comboboxProps
 	} = props;
 
-	// FIXME (GAFI 24-08-2023): voir si renommage toujours nécessaire après refacto
-	const { label: libelle } = defaultValue ?? {};
-
 	const comboboxRef = useRef<HTMLInputElement>(null);
 
 	const metierRechercheService = useDependency<MetierService>('metierService');
@@ -53,8 +51,8 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
 		useState<Metier[]>(defaultValue ? [ defaultValue ] : []);
-	const [status, setStatus] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
-	const [ value, setValue ] = useState(libelle ?? '');
+	const [status, setStatus] = useState<FetchStatus>('init');
+	const [ value, setValue ] = useState(defaultValue?.label ?? '');
 
 	const inputId = useId();
 	const errorId = useId();
@@ -110,7 +108,7 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 				onInvalid={(event) => {
 					setFieldError(event.currentTarget.validationMessage);
 				}}
-				value={libelle}
+				value={value}
 				requireValidOption
 				filter={Combobox.noFilter}
 				aria-describedby={errorId}
