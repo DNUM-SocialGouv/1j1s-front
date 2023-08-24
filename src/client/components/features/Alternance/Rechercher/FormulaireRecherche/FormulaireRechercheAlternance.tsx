@@ -25,7 +25,7 @@ export function FormulaireRechercheAlternance() {
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { codeRomes, libellé: libelleMetier }
+		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
 
 	const router = useRouter();

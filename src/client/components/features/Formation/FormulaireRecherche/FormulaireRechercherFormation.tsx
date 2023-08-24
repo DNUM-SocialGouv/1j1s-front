@@ -22,7 +22,7 @@ export function FormulaireRechercherFormation() {
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { codeRomes, libellé: libelleMetier }
+		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
 
 	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');

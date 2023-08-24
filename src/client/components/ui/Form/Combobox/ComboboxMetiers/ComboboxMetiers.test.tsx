@@ -117,8 +117,8 @@ describe('<ComboboxMetiers />', () => {
 						name='métier'
 						label='Rechercher un métier'
 						defaultValue={{
-							codeRomes: 'I1234, J5678',
-							libellé: 'Ingénieur en ingénierie',
+							label: 'Ingénieur en ingénierie',
+							romes: 'I1234, J5678',
 						}} />
 				</form>
 			</DependenciesProvider>,

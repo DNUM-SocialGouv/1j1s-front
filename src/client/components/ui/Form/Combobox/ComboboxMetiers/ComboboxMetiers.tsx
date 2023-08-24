@@ -13,10 +13,7 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defa
 type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
-	defaultValue?: {
-		libellé: string;
-		codeRomes: string;
-	}
+	defaultValue?: Métier
 }
 
 const DEBOUNCE_TIMEOUT = 300;
@@ -42,18 +39,22 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 		label,
 		name,
 
-		defaultValue: { libellé, codeRomes } = {},
+		defaultValue,
 
 		onChange: onChangeProps = () => null,
 		...comboboxProps
 	} = props;
+
+	// FIXME (GAFI 24-08-2023): voir si renommage toujours nécessaire après refacto
+	const { label: libellé } = defaultValue ?? {};
 
 	const comboboxRef = useRef<HTMLInputElement>(null);
 
 	const métierRecherchéService = useDependency<MétierService>('métierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
-	const [métiers, setMétiers] = useState<Métier[]>([]);
+	const [métiers, setMétiers] =
+		useState<Métier[]>(defaultValue ? [ defaultValue ] : []);
 	const [status, setStatus] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
 	const [ value, setValue ] = useState(libellé ?? '');
 
@@ -61,7 +62,10 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 	const errorId = useId();
 
 	const getMetiers = useCallback(async function getMetiers(motCle: string) {
-		if (!motCle) { return; }
+		if (!motCle) {
+			setMétiers([]);
+			return;
+		}
 
 		setStatus('pending');
 		const response = await métierRecherchéService.rechercherMétier(motCle);
@@ -85,8 +89,6 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 	}, [handleRechercherWithDebounce]);
 
 	const isEmpty = value === '';
-	const hasDefaultValue = libellé && codeRomes;
-	const noResult = métiers.length === 0;
 	return (
 		<div>
 			{label && (
@@ -117,12 +119,9 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 				{...comboboxProps}
 			>
 				{
-					!isEmpty &&
-					// FIXME (GAFI 18-08-2023): Simplifiable avec default value en object by adding it to the list
-					((noResult && hasDefaultValue && <Combobox.Option value={codeRomes}>{libellé}</Combobox.Option>)
-					|| (métiers.map((suggestion) => (
+					(métiers.map((suggestion) => (
 						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
-					))))
+					)))
 				}
 				<Combobox.AsyncMessage>
 					{
