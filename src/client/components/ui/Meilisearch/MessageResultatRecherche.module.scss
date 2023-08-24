@@ -1,7 +1,7 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .stats {
-  @extend %text-medium;
+  @extend %text-large;
 
   .nombreResultats {
     @extend %bold;

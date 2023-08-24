@@ -47,7 +47,7 @@
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 
-  @include utilities.media(medium) {
+  @include utilities.media(large) {
     margin-top: 5rem;
     margin-bottom: 3rem;
   }
