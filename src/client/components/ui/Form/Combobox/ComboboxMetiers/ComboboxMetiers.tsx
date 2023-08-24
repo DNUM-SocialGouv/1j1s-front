@@ -9,12 +9,14 @@ import { Métier } from '~/server/metiers/domain/métier';
 import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
 
-type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
+type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defaultValue'>;
 type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
-  libellé?: string;
-  codeRomes?: string;
+	defaultValue?: {
+		libellé: string;
+		codeRomes: string;
+	}
 }
 
 const DEBOUNCE_TIMEOUT = 300;
@@ -40,10 +42,7 @@ export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
 		label,
 		name,
 
-		// FIXME (GAFI 19-07-2023): Passer sous la forme d'une default value pour expliciter l'usage :
-		//	defaultValue: { libellé, codeRomes }
-		libellé,
-		codeRomes,
+		defaultValue: { libellé, codeRomes } = {},
 
 		onChange: onChangeProps = () => null,
 		...comboboxProps

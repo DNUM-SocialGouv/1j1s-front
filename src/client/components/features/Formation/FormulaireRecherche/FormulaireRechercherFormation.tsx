@@ -21,6 +21,10 @@ export function FormulaireRechercherFormation() {
 		codeRomes,
 	} = queryParams;
 
+	const domaineDefaultValue = (codeRomes && libelleMetier)
+		? { codeRomes, libellé: libelleMetier }
+		: undefined;
+
 	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
 	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
 	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
@@ -59,8 +63,7 @@ export function FormulaireRechercherFormation() {
 						<ComboboxMetiers
 							name={'libelleMetier'}
 							label={'Domaine'}
-							libellé={codeRomes && libelleMetier}
-							codeRomes={codeRomes}
+							defaultValue={domaineDefaultValue}
 							required
 							autoFocus
 							placeholder="Exemples : ingénierie, agronomie..."

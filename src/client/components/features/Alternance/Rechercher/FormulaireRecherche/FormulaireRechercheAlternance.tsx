@@ -24,6 +24,10 @@ export function FormulaireRechercheAlternance() {
 		latitudeCommune,
 	} = queryParams;
 
+	const domaineDefaultValue = (codeRomes && libelleMetier)
+		? { codeRomes, libellé: libelleMetier }
+		: undefined;
+
 	const router = useRouter();
 
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
@@ -45,8 +49,7 @@ export function FormulaireRechercheAlternance() {
 						<ComboboxMetiers
 							name={'libelleMetier'}
 							label={'Domaine'}
-							libellé={codeRomes && libelleMetier}
-							codeRomes={codeRomes}
+							defaultValue={domaineDefaultValue}
 							required
 							autoFocus
 							placeholder={'Exemples : enseignement, recherche...'}
