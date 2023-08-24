@@ -72,7 +72,7 @@
 }
 
 .contenuAdaptatif  h3, .contenuAdaptatif  p {
-  display: inline;
+  display: block;
 }
 
 .contact {
@@ -111,11 +111,6 @@
   .titre > ul {
     margin: 2rem auto 0;
   }
-
-  .contenuAdaptatif  h3, .contenuAdaptatif  p {
-    display: block;
-  }
-
 }
 
 .iframeModal {
