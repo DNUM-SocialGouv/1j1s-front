@@ -207,4 +207,33 @@ describe('FormulaireRechercheAlternance', () => {
 		const rayon = screen.getByTestId('Select-InputHidden');
 		expect(rayon).toHaveValue('10');
 	});
+
+	it('laisse le champ domaine vide quand il manque les codes romes dans les query params', () => {
+		mockUseRouter({ query: {
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+		} });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercheAlternance />
+			</DependenciesProvider>,
+		);
+
+		const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMétiers).toHaveValue('');
+	});
+	it('laisse le champ domaine vide quand il manque le libellé dans les query params', () => {
+		mockUseRouter({ query: {
+			codeRomes: 'D1102,D1104',
+		} });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercheAlternance />
+			</DependenciesProvider>,
+		);
+
+		const form = screen.getByRole('form');
+		expect(form).not.toHaveFormValues({ codeRomes: expect.anything() });
+	});
 });

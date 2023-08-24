@@ -254,4 +254,36 @@ describe('FormulaireRechercherFormation', () => {
 		const formulaireRechercheFormation = screen.getByRole('form');
 		expect(formulaireRechercheFormation).toHaveFormValues(query);
 	});
+
+	it('laisse le champ domaine vide quand il manque les codes romes dans les query params', () => {
+		const query = {
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+		};
+		mockUseRouter({ query });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercherFormation />
+			</DependenciesProvider>,
+		);
+
+		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		expect(domaine).toHaveValue('');
+	});
+
+	it('laisse le champ domaine vide quand il manque le libellé dans les query params', () => {
+		const query = {
+			codeRomes: 'D1102,D1104',
+		};
+		mockUseRouter({ query });
+
+		render(
+			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercherFormation />
+			</DependenciesProvider>,
+		);
+
+		const form = screen.getByRole('form');
+		expect(form).not.toHaveFormValues({ codeRomes: expect.anything() });
+	});
 });

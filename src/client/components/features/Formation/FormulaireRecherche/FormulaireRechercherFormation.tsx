@@ -59,7 +59,7 @@ export function FormulaireRechercherFormation() {
 						<ComboboxMetiers
 							name={'libelleMetier'}
 							label={'Domaine'}
-							libellé={libelleMetier}
+							libellé={codeRomes && libelleMetier}
 							codeRomes={codeRomes}
 							required
 							autoFocus
