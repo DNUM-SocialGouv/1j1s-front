@@ -1,11 +1,11 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { MétierService } from '~/client/services/métiers/métier.service';
 import { createSuccess, Either } from '~/server/errors/either';
-import { Métier } from '~/server/metiers/domain/métier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
+import { Metier } from '../../../../../../server/metiers/domain/metier';
+import { MetierService } from '../../../../../services/metiers/metier.service';
 import { ComboboxMetiers } from '.';
 
 const meta: Meta<typeof ComboboxMetiers> = {
@@ -21,11 +21,11 @@ const meta: Meta<typeof ComboboxMetiers> = {
 	title: 'Components/Form/Combobox/ComboboxMetiers',
 };
 
-class MetierServiceStub extends MétierService {
-	async rechercherMétier(query: string): Promise<Either<Métier[]>> {
+class MetierServiceStub extends MetierService {
+	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
 		return new Promise((resolve) => setTimeout(() => resolve(createSuccess(
 			aListeDeMetierLaBonneAlternance()
-				.filter((metier: Métier) => (
+				.filter((metier: Metier) => (
 					metier.label.toLowerCase().includes(query.toLowerCase()))),
 		)), 1000));
 	}
@@ -37,7 +37,7 @@ export const exemple: Story = {
 	args: {},
 	render: ({ ...args }) => {
 		return (
-			<DependenciesProvider métierService={new MetierServiceStub()}>
+			<DependenciesProvider metierService={new MetierServiceStub()}>
 				<ComboboxMetiers {...args} />
 			</DependenciesProvider>
 		);

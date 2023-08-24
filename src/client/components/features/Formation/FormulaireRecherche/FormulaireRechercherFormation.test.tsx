@@ -17,8 +17,8 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { aMétierService } from '~/client/services/métiers/métier.fixture';
-import { Métier } from '~/server/metiers/domain/métier';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
+import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 jest.mock('lodash/debounce', () =>
@@ -36,7 +36,7 @@ describe('FormulaireRechercherFormation', () => {
 		it('affiche un formulaire pour la recherche de formation, sans échantillon de résultat', async () => {
 			// GIVEN
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMétierService();
+			const métierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
 
@@ -44,7 +44,7 @@ describe('FormulaireRechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					métierService={métierService}
+					metierService={métierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercherFormation/>
@@ -63,7 +63,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
+			const aMétierList: Array<Metier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
 			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
 			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
 			const libelleCommune = 'Paris+%2875006%29';
@@ -75,11 +75,11 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMétierService(aMétierList);
+			const métierService = aMetierService(aMétierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} métierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -107,18 +107,18 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{
+			const aMétierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMétierService(aMétierList);
+			const métierService = aMetierService(aMétierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} métierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -141,18 +141,18 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{
+			const aMétierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMétierService(aMétierList);
+			const métierService = aMetierService(aMétierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} métierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -176,7 +176,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
+			const aMétierList: Array<Metier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
 			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
 			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
 			const libelleCommune = 'Paris+%2875006%29';
@@ -189,11 +189,11 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMétierService(aMétierList);
+			const métierService = aMetierService(aMétierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} métierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -238,7 +238,7 @@ describe('FormulaireRechercherFormation', () => {
 		mockUseRouter({ query });
 
 		render(
-			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
 				<FormulaireRechercherFormation />
 			</DependenciesProvider>,
 		);
@@ -262,7 +262,7 @@ describe('FormulaireRechercherFormation', () => {
 		mockUseRouter({ query });
 
 		render(
-			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
 				<FormulaireRechercherFormation />
 			</DependenciesProvider>,
 		);
@@ -278,7 +278,7 @@ describe('FormulaireRechercherFormation', () => {
 		mockUseRouter({ query });
 
 		render(
-			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
 				<FormulaireRechercherFormation />
 			</DependenciesProvider>,
 		);

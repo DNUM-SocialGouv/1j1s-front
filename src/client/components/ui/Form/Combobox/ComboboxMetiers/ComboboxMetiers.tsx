@@ -2,9 +2,9 @@ import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { MétierService } from '~/client/services/métiers/métier.service';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
-import { Métier } from '~/server/metiers/domain/métier';
+import { Metier } from '~/server/metiers/domain/metier';
 
 import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
@@ -13,7 +13,7 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defa
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
-	defaultValue?: Métier
+	defaultValue?: Metier
 }
 
 const DEBOUNCE_TIMEOUT = 300;
@@ -38,44 +38,42 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 	const {
 		label,
 		name,
-
 		defaultValue,
-
 		onChange: onChangeProps = () => null,
 		...comboboxProps
 	} = props;
 
 	// FIXME (GAFI 24-08-2023): voir si renommage toujours nécessaire après refacto
-	const { label: libellé } = defaultValue ?? {};
+	const { label: libelle } = defaultValue ?? {};
 
 	const comboboxRef = useRef<HTMLInputElement>(null);
 
-	const métierRecherchéService = useDependency<MétierService>('métierService');
+	const metierRechercheService = useDependency<MetierService>('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
-	const [métiers, setMétiers] =
-		useState<Métier[]>(defaultValue ? [ defaultValue ] : []);
+	const [metiers, setMetiers] =
+		useState<Metier[]>(defaultValue ? [ defaultValue ] : []);
 	const [status, setStatus] = useState<'init' | 'pending' | 'success' | 'failure'>('init');
-	const [ value, setValue ] = useState(libellé ?? '');
+	const [ value, setValue ] = useState(libelle ?? '');
 
 	const inputId = useId();
 	const errorId = useId();
 
 	const getMetiers = useCallback(async function getMetiers(motCle: string) {
 		if (!motCle) {
-			setMétiers([]);
+			setMetiers([]);
 			return;
 		}
 
 		setStatus('pending');
-		const response = await métierRecherchéService.rechercherMétier(motCle);
+		const response = await metierRechercheService.rechercherMetier(motCle);
 		if (isSuccess(response)) {
 			setStatus('success');
-			setMétiers(response.result);
+			setMetiers(response.result);
 		} else {
 			setStatus('failure');
 		}
-	}, [métierRecherchéService]);
+	}, [metierRechercheService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
 		// FIXME (GAFI 18-07-2023): idéalement à injecter pour pouvoir tester
@@ -112,14 +110,14 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 				onInvalid={(event) => {
 					setFieldError(event.currentTarget.validationMessage);
 				}}
-				value={libellé}
+				value={libelle}
 				requireValidOption
 				filter={Combobox.noFilter}
 				aria-describedby={errorId}
 				{...comboboxProps}
 			>
 				{
-					(métiers.map((suggestion) => (
+					(metiers.map((suggestion) => (
 						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
 					)))
 				}
@@ -128,8 +126,8 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 						isEmpty && MESSAGE_CHAMP_VIDE
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
-						|| métiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
-						|| <MetiersTrouves quantity={métiers.length} />
+						|| metiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
+						|| <MetiersTrouves quantity={metiers.length} />
 					}
 				</Combobox.AsyncMessage>
 			</Combobox>

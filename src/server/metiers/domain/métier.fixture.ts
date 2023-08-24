@@ -1,6 +1,6 @@
-import { Métier } from '~/server/metiers/domain/métier';
+import { Metier } from '~/server/metiers/domain/metier';
 
-export const aListeDeMetierLaBonneAlternance = (): Array<Métier> => {
+export const aListeDeMetierLaBonneAlternance = (): Array<Metier> => {
 	return [
 		{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] },
 		{ label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)', romes: ['F1106', 'F1104', 'I1101'] },

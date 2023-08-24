@@ -13,8 +13,8 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { aMétierService } from '~/client/services/métiers/métier.fixture';
-import { MétierService } from '~/client/services/métiers/métier.service';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
 	anAlternanceEntreprise, anAlternanceEntrepriseSansCandidature,
@@ -34,7 +34,7 @@ describe('RechercherAlternance', () => {
 		it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', async () => {
 			// GIVEN
 			const alternanceServiceMock = anAlternanceService();
-			const métierServiceMock = aMétierService();
+			const métierServiceMock = aMetierService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({});
 
@@ -42,7 +42,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={métierServiceMock}
+					metierService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherAlternance/>
@@ -60,7 +60,7 @@ describe('RechercherAlternance', () => {
 
 	describe('quand une recherche est effectuée', () => {
 		let alternanceServiceMock: AlternanceService;
-		let métierServiceMock: MétierService;
+		let métierServiceMock: MetierService;
 		let localisationServiceMock: LocalisationService;
 		const alternanceFixture: Array<Alternance> = [
 			{
@@ -104,7 +104,7 @@ describe('RechercherAlternance', () => {
 
 		beforeEach(() => {
 			alternanceServiceMock = anAlternanceService(alternanceFixture, entrepriseFixture);
-			métierServiceMock = aMétierService();
+			métierServiceMock = aMetierService();
 			localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
@@ -134,7 +134,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={métierServiceMock}
+					metierService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherAlternance/>
@@ -163,7 +163,7 @@ describe('RechercherAlternance', () => {
 				render(
 					<DependenciesProvider
 						alternanceService={alternanceServiceMock}
-						métierService={métierServiceMock}
+						metierService={métierServiceMock}
 						localisationService={localisationServiceMock}
 					>
 						<RechercherAlternance/>
@@ -190,7 +190,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherAlternance/>
@@ -211,7 +211,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherAlternance/>
@@ -231,7 +231,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}
-				métierService={aMétierService()}
+				metierService={aMetierService()}
 				localisationService={aLocalisationService()}>
 				<RechercherAlternance/>
 			</DependenciesProvider>,
@@ -250,7 +250,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}
-				métierService={aMétierService()}
+				metierService={aMetierService()}
 				localisationService={aLocalisationService()}>
 				<RechercherAlternance/>
 			</DependenciesProvider>,
@@ -285,7 +285,7 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={alternanceServiceMock}
-				métierService={aMétierService()}
+				metierService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
 				<RechercherAlternance/>
@@ -309,7 +309,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherAlternance/>
@@ -332,7 +332,7 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherAlternance/>
