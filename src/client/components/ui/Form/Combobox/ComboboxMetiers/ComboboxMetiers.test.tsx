@@ -39,8 +39,8 @@ describe('<ComboboxMetiers />', () => {
 			render(<DependenciesProvider métierService={métierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
-			const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
-			await user.type(inputAutocomplétionMétier, 'dddddd');
+			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+			await user.type(comboboxMetiers, 'dddddd');
 			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...');
 
 			expect(emptyResultText).toBeVisible();
@@ -56,8 +56,8 @@ describe('<ComboboxMetiers />', () => {
 			render(<DependenciesProvider métierService={métierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 			</DependenciesProvider>);
-			const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
-			await user.type(inputAutocomplétionMétier, 'boulang');
+			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+			await user.type(comboboxMetiers, 'boulang');
 
 			expect(await screen.findAllByRole('option')).toHaveLength(11);
 			expect(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' })).toBeVisible();
@@ -77,11 +77,11 @@ describe('<ComboboxMetiers />', () => {
 						</DependenciesProvider>
 					</form>,
 				);
-				const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
-				await user.type(inputAutocomplétionMétier, 'boulang');
+				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+				await user.type(comboboxMetiers, 'boulang');
 				await user.click(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' }));
 
-				expect(inputAutocomplétionMétier).toHaveValue('Conduite de travaux, direction de chantier');
+				expect(comboboxMetiers).toHaveValue('Conduite de travaux, direction de chantier');
 				expect(screen.getByRole('form')).toHaveFormValues({ codeRomes: 'F1201,F1202,I1101' });
 			});
 		});
@@ -97,12 +97,12 @@ describe('<ComboboxMetiers />', () => {
 						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'}/>
 					</DependenciesProvider>,
 				);
-				const inputAutocomplétionMétier = screen.getByRole('combobox', { name: 'Rechercher un métier' });
-				await user.type(inputAutocomplétionMétier, 'Ingé');
+				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+				await user.type(comboboxMetiers, 'Ingé');
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
-				expect(inputAutocomplétionMétier).toHaveValue('Ingénierie en BTP');
+				expect(comboboxMetiers).toHaveValue('Ingénierie en BTP');
 			});
 		});
 	});

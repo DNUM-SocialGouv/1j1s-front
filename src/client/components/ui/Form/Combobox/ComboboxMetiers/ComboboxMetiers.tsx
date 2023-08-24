@@ -10,7 +10,7 @@ import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defaultValue'>;
-type InputAutocomplétionMétierProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
+type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
 	defaultValue?: Métier
@@ -34,7 +34,7 @@ function MetiersTrouves({ quantity }: { quantity: number }) {
 	);
 }
 
-export const ComboboxMetiers = (props: InputAutocomplétionMétierProps) => {
+export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 	const {
 		label,
 		name,
