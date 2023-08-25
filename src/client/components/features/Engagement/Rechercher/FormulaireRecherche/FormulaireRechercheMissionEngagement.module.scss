@@ -1,4 +1,4 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .rechercheMissionEngagementForm {
   display: flex;
@@ -19,7 +19,7 @@
   margin: auto;
 }
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
   .rechercheMissionEngagementForm {
     flex-direction: row;
     align-items: flex-start;

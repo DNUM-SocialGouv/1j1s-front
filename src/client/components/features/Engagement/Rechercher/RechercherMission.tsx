@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { BanniereMission } from '~/client/components/features/Engagement/Rechercher/BanniereMission';
 import {
 	FormulaireRechercheMissionEngagement,
-} from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
-import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/EtiquettesFiltreMission';
+} from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement';
+import {
+	EtiquettesFiltreMission,
+} from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
+import { ListeMissions } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/ListeMissions';
+import {
+	MessageNombreResultats,
+} from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/MessageNombreResultats';
 import { Head } from '~/client/components/head/Head';
-import {
-	ListeRésultatsRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
@@ -70,42 +70,8 @@ export function RechercherMission(props: RechercherMissionProps) {
 			});
 	}, [missionEngagementQuery, missionEngagementService, category, isServiceCivique]);
 
-	const messageResultatRecherche = () => {
-		function ajouterAuMessageLeMotMission() {
-			if (nombreResultats > 1) {
-				messageNbResultats = `${messageNbResultats} missions`;
-			} else {
-				messageNbResultats = `${messageNbResultats} mission`;
-			}
-		}
-		function ajouterAuMessageLaCategorieDeMission() {
-			if (isServiceCivique) {
-				messageNbResultats = `${messageNbResultats} de service civique`;
-			} else {
-				messageNbResultats = `${messageNbResultats} de bénévolat`;
-			}
-		}
-		function ajouterAuMessageLeDomaineDeRecherche() {
-			const domaineDepuisQuery = missionEngagementQuery?.domain ?? '';
-			const libelleDomaine = recupererLibelleDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domaineDepuisQuery);
-			messageNbResultats = `${messageNbResultats} pour ${libelleDomaine}`;
-		}
-
-		let messageNbResultats = nombreResultats.toString();
-		ajouterAuMessageLeMotMission();
-		ajouterAuMessageLaCategorieDeMission();
-		if (missionEngagementQuery.domain) {
-			ajouterAuMessageLeDomaineDeRecherche();
-		}
-		return <>
-			{messageNbResultats}
-			<Footnote.Reference to="partenaires" id="partenaires-reference" />
-		</>;
-	};
-
-	const footnote = <Footnote htmlFor="partenaires-reference" id="partenaires" >
-		les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
-	</Footnote>;
+	const domainQuery = missionEngagementQuery?.domain;
+	const domaine = domainQuery && recupererLibelleDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domainQuery);
 
 	return (
 		<>
@@ -116,62 +82,28 @@ export function RechercherMission(props: RechercherMissionProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={<BannièreMission isServiceCivique={isServiceCivique}/>}
+					bannière={<BanniereMission isServiceCivique={isServiceCivique}/>}
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={<EtiquettesFiltreMission/>}
 					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
 					isLoading={isLoading}
-					messageRésultatRecherche={messageResultatRecherche()}
+					messageRésultatRecherche={
+						<>
+							<MessageNombreResultats nombreResultats={nombreResultats} isServiceCivique={isServiceCivique} domaine={domaine} />
+							<Footnote.Reference to="partenaires" id="partenaires-reference" />
+						</>
+					}
 					nombreSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
-					listeSolutionElement={<ListeMission résultatList={missionList} isServiceCivique={isServiceCivique}/>}
-					footnote={footnote}
+					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique}/>}
+					footnote={
+						<Footnote htmlFor="partenaires-reference" id="partenaires" >
+							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
+						</Footnote>
+					}
 				/>
 			</main>
 		</>
 	);
 }
 
-interface ListeRésultatProps {
-	résultatList: Mission[]
-	isServiceCivique: boolean
-}
-
-function ListeMission({ résultatList, isServiceCivique }: ListeRésultatProps) {
-	if (!résultatList.length) {
-		return null;
-	}
-
-	return (
-		<ListeRésultatsRechercherSolution
-			aria-label={isServiceCivique ? 'Offre pour le service civique' : 'Offre pour le bénévolat'}>
-			{résultatList.map((mission: Mission) => (
-				<li key={mission.id}>
-					<RésultatRechercherSolution
-						intituléOffre={mission.titre}
-						sousTitreOffre={mission.nomEntreprise}
-						lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
-						logo={isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
-						étiquetteOffreList={mission.étiquetteList}
-					/>
-				</li>
-			))}
-		</ListeRésultatsRechercherSolution>
-	);
-}
-
-interface BannièreMissionProps {
-	isServiceCivique: boolean
-}
-
-function BannièreMission({ isServiceCivique }: BannièreMissionProps) {
-	const primaryText = `Je découvre les missions de ${isServiceCivique ? 'Service Civique' : 'Bénévolat'}`;
-	return (
-		<LightHero>
-			<h1>
-				<LightHeroPrimaryText>{primaryText}</LightHeroPrimaryText>
-				<LightHeroSecondaryText>pour me rendre utile tout en préparant mon avenir</LightHeroSecondaryText>
-			</h1>
-		</LightHero>
-	);
-}
