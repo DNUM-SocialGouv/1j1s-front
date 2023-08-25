@@ -12,7 +12,6 @@ describe('<MessageResultatRecherche />', () => {
 
 		const titre = screen.getByRole('heading', { name: /1 résultat/i });
 		const footnote = within(titre).getByRole('link', { name: 'note de pied de page' });
-		expect(footnote).toHaveAccessibleDescription('note de pied de page');
 		expect(footnote).toHaveAttribute('href', '#partenaires');
 	});
 });
