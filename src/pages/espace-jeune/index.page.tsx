@@ -61,7 +61,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 			<main id='contenu'>
 
 				<h1 className={styles.title}>Actualités et services jeune</h1>
-				<section className={classNames(styles.section, styles.actualitesSection)} aria-label={'les actualités'}>
+				<section className={classNames(styles.section, styles.actualitesSection)} aria-label="les actualités">
 					<LightHero>
 						<h2>
 							<LightHeroPrimaryText>Actualités : retrouvez une sélection</LightHeroPrimaryText>
@@ -76,7 +76,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 							itemList={articleCardList} />
 					</Container>
 				</section>
-				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label={'les services jeunes'}>
+				<section className={classNames(styles.section, styles.mesuresJeunesSection)} aria-label="les services jeunes">
 					<LightHero>
 						<h2>
 							<LightHeroPrimaryText>Services jeunes, retrouvez les services conçus pour vous :</LightHeroPrimaryText>
