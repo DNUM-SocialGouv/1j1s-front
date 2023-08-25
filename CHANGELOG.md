@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.133.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.4...v3.133.0) (2023-08-25)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **espace-jeune:** voir seulement 6 cartes de services jeunes initia… ([#1859](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1859)) ([d08fa76](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d08fa764ed83fd71b26b6155a4362e614fa9c5c1))
+
 ## [3.132.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.3...v3.132.4) (2023-08-24)
 
 
