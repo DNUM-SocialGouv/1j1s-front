@@ -41,16 +41,19 @@ interface ServiceJeuneCardProps {
 }
 
 function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
-	const titre = useSanitize(serviceJeune.titre);
-	const categorie = serviceJeune.categorie;
-	const banniere = serviceJeune.bannière?.src || '';
-	const link = serviceJeune.link;
-	const concerne = serviceJeune.concerné || '';
+	const {
+		categorie,
+		banniere,
+		link,
+		concerne,
+		titre: dirtyTitre,
+	} = serviceJeune;
+	const titre = useSanitize(dirtyTitre);
 
 	return <FlippingCard
 		className={styles.card}
 		category={categorie}
-		imageUrl={banniere}
+		imageUrl={banniere?.src}
 		link={link}
 		title={titre}
 		flippingCardContent={concerne}

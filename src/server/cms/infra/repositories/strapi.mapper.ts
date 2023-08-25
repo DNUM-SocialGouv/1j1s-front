@@ -80,7 +80,7 @@ function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: St
 	const article = flatMapSingleRelation(strapiLesMesuresEmployeursDispositif.article, mapArticle);
 	return {
 		article,
-		bannière: flatMapSingleImage(strapiLesMesuresEmployeursDispositif.banniere),
+		banniere: flatMapSingleImage(strapiLesMesuresEmployeursDispositif.banniere),
 		contenu: strapiLesMesuresEmployeursDispositif.contenu,
 		extraitContenu: getExtraitContenu(strapiLesMesuresEmployeursDispositif.contenu, 110),
 		link: article ? `/articles/${article.slug}` : strapiLesMesuresEmployeursDispositif.url,
@@ -128,9 +128,9 @@ function mapServiceJeune(response: Strapi.SingleType.LesMesuresJeunes.MesureJeun
 	const article = flatMapSingleRelation(response.article, mapArticle);
 	return {
 		article,
-		bannière: flatMapSingleImage(response.banniere),
+		banniere: flatMapSingleImage(response.banniere),
 		categorie: mapServiceJeuneCategorie(catégorie),
-		concerné: response.pourQui,
+		concerne: response.pourQui,
 		contenu: response.contenu,
 		extraitContenu: getExtraitContenu(response.contenu, 110),
 		link: article ? `/articles/${article.slug}` : response.url,

@@ -17,7 +17,7 @@ import Marked from '~/client/components/ui/Marked/Marked';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface FlippingCardProps {
-	imageUrl: string
+	imageUrl?: string
 	link: string
 	title: string
 	category?: string
@@ -84,7 +84,7 @@ export function FlippingCard(props: FlippingCardProps) {
 	return (
 		<div className={classNames(styles.cardWrapper, { [styles.animate]: isAnimationOn }, className)} {...rest}>
 			<div className={classNames(styles.card, styles.cardFlip)}>
-				<Image src={imageUrl} alt="" width={360} height={180}/>
+				<Image src={imageUrl ?? '/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
 				{category && <div className={classNames(styles.cardCategory, categoryClass)}>{category}</div>}
 
 				<div className={styles.cardBody}>

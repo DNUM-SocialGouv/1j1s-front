@@ -45,13 +45,16 @@ interface CarteMesureEmployeurProps {
 }
 
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
-	const titre = useSanitize(carte.titre);
-	const bannière = carte.bannière?.src || '';
-	const link = carte.link;
-	const pourQui = carte.pourQui || '';
+	const {
+		titre: dirtyTitre,
+		banniere,
+		link,
+		pourQui,
+	} = carte;
+	const titre = useSanitize(dirtyTitre);
 
 	return <FlippingCard
-		imageUrl={bannière}
+		imageUrl={banniere?.src}
 		link={link}
 		title={titre}
 		flippingCardContent={pourQui}

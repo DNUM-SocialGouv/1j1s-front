@@ -5,7 +5,7 @@ import { Article } from './article';
 export interface MesureEmployeur {
   titre: string
   contenu: string
-  bannière?: Image
+  banniere?: Image
   url?: string
   article?: Article
   pourQui : string

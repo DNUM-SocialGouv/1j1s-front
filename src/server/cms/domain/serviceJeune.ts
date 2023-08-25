@@ -5,10 +5,10 @@ export interface ServiceJeune {
   titre: string
   categorie?: string
   contenu: string
-  bannière?: Image
+  banniere?: Image
   url: string
   article?: Article
-  concerné : string
+  concerne : string
   link: string
   extraitContenu: string
 }
