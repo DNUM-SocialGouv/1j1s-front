@@ -19,7 +19,7 @@ describe('<RecrutementCandidatPoleEmploi/>', () => {
 		render(<RecrutementCandidatPoleEmploi/>);
 
 		const titre = screen.getByRole('heading', { level: 1 });
-		const reference = within(titre).getByRole('link', { name: '*' });
+		const reference = within(titre).getByRole('link', { name: 'note de pied de page' });
 		const footnote = screen.getByText(/POE : Préparation Opérationnelle à l’Emploi ; AFPR : Action de Formation Préalable au Recrutement/);
 		const lienDeRetour = within(footnote).getByRole('link');
 
