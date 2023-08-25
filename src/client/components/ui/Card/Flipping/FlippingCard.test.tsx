@@ -2,11 +2,7 @@
  * @jest-environment jsdom
  */
 
-import {
-	render,
-	screen,
-	waitFor,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
@@ -22,11 +18,18 @@ describe('<FlippingCard>', () => {
 		render(<FlippingCard link="/coucou" title="test" imageUrl="/test.img" flippingCardContent={ pourQui } />);
 
 		const button = screen.getByRole('button', { name: 'Qui est concerné ?' });
-		user.click(button);
+		await user.click(button);
 
 		// Then
-		await waitFor(async () => {
-			expect(screen.getByText('pour qui').tagName).toEqual('STRONG');
-		});
+		expect(screen.getByText('pour qui').tagName).toEqual('STRONG');
+	});
+
+	it('utilise une image par défaut lorsqu’il n’y a pas d’image fournie', async () => {
+		// When
+		render(<FlippingCard link="/coucou" title="test" flippingCardContent="pour qui" />);
+
+		// Then
+		const image = screen.getByRole('img');
+		expect(image).toHaveAttribute('src', expect.stringContaining('image-par-defaut-carte.webp'));
 	});
 });
