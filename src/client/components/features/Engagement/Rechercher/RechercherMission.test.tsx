@@ -275,8 +275,7 @@ describe('RechercherMission', () => {
 
 			// THEN
 			const messageNombreResultats = await screen.findByRole('heading', { level: 2, name: /2 missions/i });
-			const referenceVersFootnote = within(messageNombreResultats).getByRole('link', { name: '*' });
-			expect(referenceVersFootnote).toHaveAccessibleDescription('note de pied de page');
+			const referenceVersFootnote = within(messageNombreResultats).getByRole('link', { name: 'note de pied de page' });
 			expect(referenceVersFootnote).toHaveAttribute('href', '#partenaires');
 		});
 		it('la note de pied de page redirige vers la liste des partenaires dans les CGU', async () => {
@@ -297,7 +296,7 @@ describe('RechercherMission', () => {
 
 			// THEN
 			const footnote = await screen.findByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
-			const redirectionVersCGU = within(footnote).getByRole('link', { name: /liste disponible dans les/i });
+			const redirectionVersCGU = within(footnote).getByRole('link', { name: /liste disponible dans les CGU/i });
 			expect(redirectionVersCGU).toHaveAttribute('href', '/cgu#3-services');
 		});
 		it('la note de pied de page permet de revenir sur la bonne référence', async () => {

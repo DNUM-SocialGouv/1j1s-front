@@ -27,10 +27,10 @@ describe('<Footnote />', () => {
 				</>,
 			);
 
-			const reference = screen.getByRole('link', { name: /\*/i });
+			const reference = screen.getByRole('link', { name: 'note de pied de page' });
 			expect(reference).toHaveAttribute('href', '#footnote');
 		});
-		it('ajoute une description accessible à la référence', () => {
+		it('ajoute une nom accessible à la référence', () => {
 			render(
 				<>
 					<p>Ceci est un paragraphe<Footnote.Reference id="reference" to="footnote" /></p>
@@ -38,8 +38,8 @@ describe('<Footnote />', () => {
 				</>,
 			);
 
-			const reference = screen.getByRole('link', { name: /\*/i });
-			expect(reference).toHaveAccessibleDescription('note de pied de page');
+			const reference = screen.getByRole('link', { name: 'note de pied de page' });
+			expect(reference).toHaveAccessibleName('note de pied de page');
 		});
 	});
 
@@ -64,7 +64,7 @@ describe('<Footnote />', () => {
 
 		const footnote = screen.getByText(/Ceci est une explication complémentaire./);
 		const asterisque = within(footnote).getByText('*');
-		expect(asterisque).toHaveAccessibleDescription('note de pied de page');
+		expect(asterisque).toHaveAccessibleName('note de pied de page');
 	});
 	it('affiche un lien de retour', () => {
 		render(

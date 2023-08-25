@@ -35,7 +35,7 @@ const Reference = forwardRef<HTMLAnchorElement, ReferenceProps>(function Referen
 	...aProps
 }, ref) {
 	return (
-		<a href={`#${to}`} className={classNames(className, styles.reference)} title="note de pied de page" {...aProps} ref={ref}>
+		<a href={`#${to}`} className={classNames(className, styles.reference)} aria-label="note de pied de page" {...aProps} ref={ref}>
 			<abbr title="note de pied de page">*</abbr>
 		</a>
 	);
