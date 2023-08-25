@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.134.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.133.0...v3.134.0) (2023-08-25)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **engagement:** modifier le wording des cta d engagement  ([#1864](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1864)) ([400c522](https://github.com/DNUM-SocialGouv/1j1s-front/commit/400c5229e81bbc35f1649b97dab41156b0737f1c))
+
 ## [3.133.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.132.4...v3.133.0) (2023-08-25)
 
 
