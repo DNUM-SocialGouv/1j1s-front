@@ -13,6 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
+import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 
 describe('Page rechercher une alternance', () => {
 	beforeEach(() => {
@@ -58,10 +59,40 @@ describe('Page rechercher une alternance', () => {
 		});
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
-			const alternanceServiceMock = anAlternanceService();
+			const alternanceFixture: Array<Alternance> = [
+				{
+					entreprise: { nom: 'MONSIEUR MICHEL' },
+					id: 'an-id-matchas',
+					niveauRequis: 'Cap, autres formations niveau (Infrabac)',
+					source: Alternance.Source.MATCHA,
+					tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
+					titre: 'Ouvrier boulanger / Ouvrière boulangère',
+					typeDeContrat: ['Apprentissage'],
+				},
+				{
+					entreprise: { nom: 'une entreprise' },
+					id: 'an-id-pe',
+					localisation: 'paris',
+					source: Alternance.Source.POLE_EMPLOI,
+					tags: ['paris', 'Contrat d‘alternance', 'CDD'],
+					titre: 'un titre',
+					typeDeContrat: ['CDD'],
+				},
+			];
+			const alternanceServiceMock = anAlternanceService(alternanceFixture);
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMétierService();
-			mockUseRouter({ query: { page: '1' } });
+			mockUseRouter({ query: {
+				codeCommune: '75056',
+				codeRomes: 'D1102%2CD1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+				page: '1',
+			} });
+
 			const { container } = render(<DependenciesProvider
 				analyticsService={anAnalyticsService()}
 				localisationService={localisationServiceMock}
@@ -72,8 +103,7 @@ describe('Page rechercher une alternance', () => {
 			</DependenciesProvider>,
 			);
 
-			await screen.findByRole('heading', { level: 1 });
-
+			await screen.findByText(`${alternanceFixture.length} résultats pour Boulangerie, pâtisserie, chocolaterie` );
 			expect(container).toBeAccessible();
 		});
 
