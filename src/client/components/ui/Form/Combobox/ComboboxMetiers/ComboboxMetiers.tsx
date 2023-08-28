@@ -4,16 +4,19 @@ import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
-import { Metier } from '~/server/metiers/domain/metier';
 
 import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defaultValue'>;
+type MetierOption = {
+	label: string,
+	romes: string[],
+};
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
-  defaultValue?: Metier;
+	defaultValue?: MetierOption
   debounceTimeout?: number;
 }
 
@@ -50,7 +53,7 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
-		useState<Metier[]>(defaultValue ? [ defaultValue ] : []);
+		useState<MetierOption[]>(defaultValue ? [ defaultValue ] : []);
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [ value, setValue ] = useState(defaultValue?.label ?? '');
 
