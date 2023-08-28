@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.134.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.5...v3.134.6) (2023-08-28)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency typescript to v5.2.2 ([#1874](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1874)) ([121d9a4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/121d9a4d7db5b8d101aaf8532c354a9d44f22e88))
+
 ## [3.134.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.4...v3.134.5) (2023-08-28)
 
 
