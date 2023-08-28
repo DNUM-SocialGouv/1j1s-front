@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.134.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.3...v3.134.4) (2023-08-28)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency axios to v1.5.0 ([#1886](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1886)) ([1924aab](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1924aabd620ab612a5675ccf7c0fcb741903f634))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.48.0 ([#1885](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1885)) ([d930ce9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d930ce929fc72c25ef9b3daa4b425968e8864f41))
+
 ## [3.134.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.2...v3.134.3) (2023-08-28)
 
 
