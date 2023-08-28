@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.134.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.1...v3.134.2) (2023-08-28)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @storybook/addon-styling to v1.3.7 ([#1879](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1879)) ([09a979d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/09a979d7e2af037d861fd73d675b6d3155287ecc))
+* **deps:** update dependency @types/node to v18.17.11 ([#1880](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1880)) ([918d681](https://github.com/DNUM-SocialGouv/1j1s-front/commit/918d681083e9f8d2572b4e3df939904a2e3be6fa))
+* **deps:** update dependency @types/node to v18.17.12 ([1ca7d37](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1ca7d37ab007e878ad4acd1a9890a115e4541334))
+* **deps:** update dependency @types/react to v18.2.21 ([#1881](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1881)) ([df03e61](https://github.com/DNUM-SocialGouv/1j1s-front/commit/df03e61371dc2f52b5cd195c70193d903ff1f9d3))
+* **deps:** update dependency jest to v29.6.4 ([#1882](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1882)) ([b50746f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b50746f5c2522b5611d08c48e7d5ffba0142b2c9))
+* **deps:** update dependency jest-environment-jsdom to v29.6.4 ([7caba45](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7caba45fa600db1da309e0ee17eadaf6ce21b801))
+
 ## [3.134.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.0...v3.134.1) (2023-08-25)
 
 
