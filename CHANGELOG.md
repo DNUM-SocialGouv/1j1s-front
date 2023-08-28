@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.135.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.135.0...v3.135.1) (2023-08-28)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency redis to v4.6.8 ([#1866](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1866)) ([1eefbfe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1eefbfe2b075a0d10255fbdbc05287a136c91d48))
+
 ## [3.135.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.6...v3.135.0) (2023-08-28)
 
 
