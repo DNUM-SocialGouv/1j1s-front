@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
@@ -37,7 +37,8 @@ function MetiersTrouves({ quantity }: { quantity: number }) {
 }
 
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
-export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
+type ComboboxRef = React.ComponentRef<typeof Combobox>;
+export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProps>(function ComboboxMetiers(props, ref) {
 	const {
 		label,
 		name,
@@ -46,8 +47,6 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 		debounceTimeout = 300,
 		...comboboxProps
 	} = props;
-
-	const comboboxRef = useRef<HTMLInputElement>(null);
 
 	const metierRechercheService = useDependency<MetierService>('metierService');
 
@@ -95,7 +94,7 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 				</label>
 			)}
 			<Combobox
-				ref={comboboxRef}
+				ref={ref}
 				autoComplete="off"
 				id={inputId}
 				name={name}
@@ -134,4 +133,4 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 			<p id={errorId} className={styles.instructionMessageError}>{fieldError}</p>
 		</div>
 	);
-};
+});

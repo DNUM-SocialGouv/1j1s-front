@@ -23,6 +23,20 @@ describe('<ComboboxMetiers />', () => {
 		mockUseRouter({});
 	});
 
+	describe('props', () => {
+		it('accepte une ref', () => {
+			const ref = jest.fn();
+
+			render(
+				<DependenciesProvider metierService={aMetierService()}>
+					<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} ref={ref} />
+				</DependenciesProvider>,
+			);
+
+			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
+		});
+	});
+
 	describe('quand la recherche ne correspond a aucun métier', () => {
 		it('affiche un message vide et ne propose pas de métier', async () => {
 			const metierServiceMock = aMetierService([]);
