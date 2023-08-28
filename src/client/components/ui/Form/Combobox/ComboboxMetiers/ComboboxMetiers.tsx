@@ -13,10 +13,9 @@ type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defa
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
   name: string;
-	defaultValue?: Metier
+  defaultValue?: Metier;
+  debounceTimeout?: number;
 }
-
-const DEBOUNCE_TIMEOUT = 300;
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
@@ -41,6 +40,7 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 		name,
 		defaultValue,
 		onChange: onChangeProps = () => null,
+		debounceTimeout = 300,
 		...comboboxProps
 	} = props;
 
@@ -75,7 +75,7 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 
 	const handleRechercherWithDebounce = useMemo(() => {
 		// FIXME (GAFI 18-07-2023): idéalement à injecter pour pouvoir tester
-		return debounce(getMetiers, DEBOUNCE_TIMEOUT);
+		return debounce(getMetiers, debounceTimeout);
 	}, [getMetiers]);
 
 	useEffect(() => {
