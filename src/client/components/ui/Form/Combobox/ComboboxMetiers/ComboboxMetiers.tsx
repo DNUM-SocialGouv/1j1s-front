@@ -77,7 +77,6 @@ export const ComboboxMetiers = (props: ComboboxMetiersProps) => {
 	}, [metierRechercheService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
-		// FIXME (GAFI 18-07-2023): idéalement à injecter pour pouvoir tester
 		return debounce(getMetiers, debounceTimeout);
 	}, [debounceTimeout, getMetiers]);
 
