@@ -7,7 +7,7 @@ import React from 'react';
 
 import {
 	FormulaireRechercheMissionEngagement,
-} from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement';
+} from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';

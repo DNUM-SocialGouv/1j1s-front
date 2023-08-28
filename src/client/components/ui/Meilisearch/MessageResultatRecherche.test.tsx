@@ -11,8 +11,7 @@ describe('<MessageResultatRecherche />', () => {
 		render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false} numberOfResult={1} />);
 
 		const titre = screen.getByRole('heading', { name: /1 résultat/i });
-		const footnote = within(titre).getByRole('link', { name: '*' });
-		expect(footnote).toHaveAccessibleDescription('note de pied de page');
+		const footnote = within(titre).getByRole('link', { name: 'note de pied de page' });
 		expect(footnote).toHaveAttribute('href', '#partenaires');
 	});
 });

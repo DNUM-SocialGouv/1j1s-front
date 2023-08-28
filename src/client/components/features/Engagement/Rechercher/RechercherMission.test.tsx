@@ -255,4 +255,70 @@ describe('RechercherMission', () => {
 
 		expect(missionService.rechercherMission).not.toHaveBeenCalled();
 	});
+
+	describe('quand une recherche contient des résultats', () => {
+		it('affiche une note de pied de page sur le message du nombre de résultats', async () => {
+			// GIVEN
+			const missionEngagementServiceMock = aMissionEngagementService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					missionEngagementService={missionEngagementServiceMock}
+				>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const messageNombreResultats = await screen.findByRole('heading', { level: 2, name: /2 missions/i });
+			const referenceVersFootnote = within(messageNombreResultats).getByRole('link', { name: 'note de pied de page' });
+			expect(referenceVersFootnote).toHaveAttribute('href', '#partenaires');
+		});
+		it('la note de pied de page redirige vers la liste des partenaires dans les CGU', async () => {
+			// GIVEN
+			const missionEngagementServiceMock = aMissionEngagementService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					missionEngagementService={missionEngagementServiceMock}
+				>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const footnote = await screen.findByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
+			const redirectionVersCGU = within(footnote).getByRole('link', { name: /liste disponible dans les CGU/i });
+			expect(redirectionVersCGU).toHaveAttribute('href', '/cgu#3-services');
+		});
+		it('la note de pied de page permet de revenir sur la bonne référence', async () => {
+			// GIVEN
+			const missionEngagementServiceMock = aMissionEngagementService();
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({ query: { domain: 'environnement', page: '1' } });
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+					missionEngagementService={missionEngagementServiceMock}
+				>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const footnote = await screen.findByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/i);
+			const retourALaReference = within(footnote).getByRole('link', { name: /retour à la référence/i });
+			expect(retourALaReference).toHaveAttribute('href', '#partenaires-reference');
+		});
+	});
 });

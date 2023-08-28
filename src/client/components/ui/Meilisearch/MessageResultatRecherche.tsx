@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
+import styles from '~/client/components/ui/Meilisearch/MessageResultatRecherche.module.scss';
 
 interface MessageResultatRechercheProps {
   labelSingulier: string
@@ -19,13 +19,13 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 		return <>
 			{numberOfResult === 1 &&
             <h2 className={styles.stats}>
-            	<span className={styles.nombreRésultats}>{numberOfResult}</span>
+            	<span className={styles.nombreResultats}>{numberOfResult}</span>
             	{' ' + labelSingulier}
             	<Footnote.Reference to="partenaires" id="partenaires-reference" />
             </h2>}
 			{numberOfResult > 1 &&
             <h2 className={styles.stats}>
-            	<span className={styles.nombreRésultats}>{numberOfResult}</span>
+            	<span className={styles.nombreResultats}>{numberOfResult}</span>
             	{' ' + labelPluriel}
             	<Footnote.Reference to="partenaires" id="partenaires-reference" />
             </h2>}
@@ -36,7 +36,7 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 	}
 
 	return (
-		<Skeleton type='line' isLoading={isLoading} className={styles.nombreRésultats}>
+		<Skeleton type='line' isLoading={isLoading} className={styles.nombreResultats}>
 			<AfficherMessageRésultats/>
 		</Skeleton>
 	);
