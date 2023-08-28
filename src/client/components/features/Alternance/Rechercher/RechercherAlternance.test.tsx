@@ -109,7 +109,7 @@ describe('RechercherAlternance', () => {
 			mockUseRouter({
 				query: {
 					codeCommune: '75056',
-					codeRomes: 'D1102%2CD1104',
+					codeRomes: ['D1102', 'D1104'],
 					distanceCommune: '10',
 					latitudeCommune: '48.859',
 					libelleCommune: 'Paris (75001)',
@@ -122,7 +122,7 @@ describe('RechercherAlternance', () => {
 			// GIVEN
 			const expectedQuery = {
 				codeCommune: '75056',
-				codeRomes: 'D1102%2CD1104',
+				codeRomes: ['D1102', 'D1104'],
 				distanceCommune: '10',
 				latitudeCommune: '48.859',
 				libelleCommune: 'Paris (75001)',
@@ -271,7 +271,7 @@ describe('RechercherAlternance', () => {
 		mockUseRouter({
 			query: {
 				codeCommune: '75056',
-				codeRomes: 'D1102%2CD1104',
+				codeRomes: ['D1102', 'D1104'],
 				distanceCommune: '10',
 				latitudeCommune: '48.859',
 				libelleCommune: 'Paris (75001)',

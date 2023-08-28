@@ -87,7 +87,7 @@ describe('RechercherFormation', () => {
 			expect(formulaireRechercheFormation).toBeInTheDocument();
 			expect(nbRésultats).toBeInTheDocument();
 			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith({
-				codeRomes: 'D1103,D1101,H2101',
+				codeRomes: ['D1103', 'D1101', 'H2101'],
 				libelleMetier: 'Boucherie,charcuterie,traiteur',
 			});
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
