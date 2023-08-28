@@ -155,7 +155,8 @@ export const categories: Story = {
 
 export const async: Story = {
 	args: {},
-	render: function AsyncCombobox({ children, ...args }) {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	render: function AsyncCombobox({ children, onChange = (_event, _newValue) => {}, ...args }) {
 		const [ value, setValue] = useState('');
 		const [ loading, setLoading ] = useState(true);
 
@@ -167,12 +168,17 @@ export const async: Story = {
 			return () => clearTimeout(timeout);
 		}, [value]);
 
+		const apiResults = children.filter((child) => child.includes(value));
+
 		return (
 			<>
 				<label htmlFor="pays">Pays</label>
-				<Combobox id="pays" value={value} onChange={(event) => setValue(event.currentTarget.value)} {...args}>
-					{!loading && children.map((child, index) => <Combobox.Option value={index} key={index}>{child}</Combobox.Option>)}
-					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${children.length} résultats trouvés`}</Combobox.AsyncMessage>
+				<Combobox id="pays" filter={Combobox.noFilter} value={value} onChange={(_, newValue) => {
+					onChange(_, newValue);
+					setValue(newValue);
+				}} {...args}>
+					{!loading && apiResults.map((result, index) => <Combobox.Option value={index} key={index}>{result}</Combobox.Option>)}
+					<Combobox.AsyncMessage>{loading ? 'Chargement ...' : `${apiResults.length} résultats trouvés`}</Combobox.AsyncMessage>
 				</Combobox>
 			</>
 		);
