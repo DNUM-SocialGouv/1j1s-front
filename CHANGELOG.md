@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.134.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.4...v3.134.5) (2023-08-28)
+
+
+### 🐛 Corrections de bogues
+
+* **formation-alt:** fix plan de taggage ([#1878](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1878)) ([b6bd865](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6bd865bc10f1bff9e30d7c78f464ec06bb0ed0e))
+
 ## [3.134.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.3...v3.134.4) (2023-08-28)
 
 
