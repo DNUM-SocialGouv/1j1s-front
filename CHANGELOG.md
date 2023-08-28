@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.135.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.6...v3.135.0) (2023-08-28)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **engagement:** afficher l'origine des offres ([#1865](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1865)) ([571b250](https://github.com/DNUM-SocialGouv/1j1s-front/commit/571b250d531de8fd7fc819090d12f5c03b5c954f))
+
 ## [3.134.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.134.5...v3.134.6) (2023-08-28)
 
 
