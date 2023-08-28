@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
-import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
+import { getArrayQueryParam, getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type AlternanceQueryParams = {
-	codeRomes?: string
+	codeRomes?: string[]
 	libelleMetier?: string
 	codeCommune?: string
 	distanceCommune?: string
@@ -18,7 +18,7 @@ export function useAlternanceQuery(): AlternanceQueryParams {
 
 	return useMemo(() => ({
 		codeCommune: getSingleQueryParam(query.codeCommune),
-		codeRomes: getSingleQueryParam(query.codeRomes),
+		codeRomes: getArrayQueryParam(query.codeRomes),
 		distanceCommune: getSingleQueryParam(query.distanceCommune),
 		latitudeCommune: getSingleQueryParam(query.latitudeCommune),
 		libelleCommune: getSingleQueryParam(query.libelleCommune),
