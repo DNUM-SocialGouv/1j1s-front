@@ -47,6 +47,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		debounceTimeout = 300,
 		id: idProps,
 		onInvalid: onInvalidProps = () => {},
+		'aria-describedby': ariaDescribedby = '',
 		...comboboxProps
 	} = props;
 
@@ -116,7 +117,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				value={value}
 				requireValidOption
 				filter={Combobox.noFilter}
-				aria-describedby={errorId}
+				aria-describedby={`${ariaDescribedby} ${errorId}`}
 				{...comboboxProps}
 			>
 				{
