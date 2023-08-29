@@ -15,7 +15,6 @@ type MetierOption = {
 };
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
   label: string;
-  name: string;
 	defaultValue?: MetierOption
   debounceTimeout?: number;
 }
@@ -41,7 +40,6 @@ type ComboboxRef = React.ComponentRef<typeof Combobox>;
 export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProps>(function ComboboxMetiers(props, ref) {
 	const {
 		label,
-		name,
 		defaultValue,
 		onChange: onChangeProps = () => null,
 		debounceTimeout = 300,
@@ -99,7 +97,6 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				ref={ref}
 				autoComplete="off"
 				id={inputId}
-				name={name}
 				valueName={'codeRomes'}
 				aria-label={label}
 				onChange={(event, newValue) => {
