@@ -8,15 +8,17 @@ import { isSuccess } from '~/server/errors/either';
 import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
 
-type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defaultValue'>;
+type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 export type MetierOption = {
 	label: string,
 	romes: string[],
 };
-type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'> & {
+type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
   label: string;
 	defaultValue?: MetierOption
   debounceTimeout?: number;
+	'aria-label'?: React.HTMLProps<'input'>['aria-label'];
+	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'];
 }
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
