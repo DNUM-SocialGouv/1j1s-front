@@ -9,6 +9,7 @@ import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aFormationInitialeDetailComplete,
 } from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
@@ -150,4 +151,24 @@ describe('ConsulterDetailFormationInitiale', () => {
 		});
 	});
 
+	describe('mention explicative formation non documentée Onisep', () => {
+		describe('lorsque les informations ne sont pas récupérées du CMS', () => {
+			it('affiche la mention explicative', () => {
+				const formationInitialeDetail = aFormationInitiale();
+
+				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+
+				expect(screen.getByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).toBeVisible();
+			});
+		});
+
+		describe('lorsque les informations sont récupérées du CMS', () => {
+			it('n‘affiche pas la mention explicative', () => {
+				const formationInitialeDetail = aFormationInitialeDetailComplete();
+				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+
+				expect(screen.queryByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).not.toBeInTheDocument();
+			});
+		});
+	});
 });
