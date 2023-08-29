@@ -45,6 +45,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		defaultValue,
 		onChange: onChangeProps = () => null,
 		debounceTimeout = 300,
+		id: idProps,
 		...comboboxProps
 	} = props;
 
@@ -56,7 +57,8 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [ value, setValue ] = useState(defaultValue?.label ?? '');
 
-	const inputId = useId();
+	const idState = useId();
+	const inputId = idProps ?? idState;
 	const errorId = useId();
 
 	const getMetiers = useCallback(async function getMetiers(motCle: string) {

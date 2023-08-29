@@ -35,6 +35,17 @@ describe('<ComboboxMetiers />', () => {
 
 			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 		});
+		it('accepte un id', () => {
+			const id = 'id';
+			render(
+				<DependenciesProvider metierService={aMetierService()}>
+					<ComboboxMetiers name='métier' label='Rechercher un métier' id={id} />
+				</DependenciesProvider>,
+			);
+
+			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
+			expect(combobox).toHaveAttribute('id', id);
+		});
 	});
 
 	describe('quand la recherche ne correspond a aucun métier', () => {
