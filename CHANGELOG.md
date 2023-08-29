@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.136.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.135.3...v3.136.0) (2023-08-29)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formations init:** ajout d'une mention lorsque la formation n'est pas dans le cms ([#1897](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1897)) ([9d07bae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9d07bae676c2c2b4cbee28eb7c7b4405885bc78f))
+
 ## [3.135.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.135.2...v3.135.3) (2023-08-29)
 
 
