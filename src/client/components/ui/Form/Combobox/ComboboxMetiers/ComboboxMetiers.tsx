@@ -9,7 +9,7 @@ import { Combobox } from '../index';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = Omit<React.ComponentPropsWithoutRef<typeof Combobox>, 'defaultValue'>;
-type MetierOption = {
+export type MetierOption = {
 	label: string,
 	romes: string[],
 };

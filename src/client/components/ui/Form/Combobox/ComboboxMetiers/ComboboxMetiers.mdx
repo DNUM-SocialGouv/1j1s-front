@@ -1,0 +1,47 @@
+import * as ComboboxMetiersStories from './ComboboxMetiers.stories';
+import {Controls, Meta, Canvas} from "@storybook/blocks";
+
+<Meta of={ComboboxMetiersStories} />
+
+
+# Definition
+
+`ComboboxMetier` est le composant utilisé dans les formulaires de recherche.
+
+Il permet de renseigner un métier / domaine précis par rapport à la recherche effectuée.
+
+## Props
+
+### ComboboxMetiers
+
+Le `ComboboxMetiers` peut prendre les props suivantes :
+
+<Controls />
+
+**Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)**
+
+## Stories
+Un exemple d'utilisation basique du `ComboboxMetiers`
+
+<Canvas of={ComboboxMetiersStories.exemple}/>
+
+Et comme précisé ci-dessus, il peut également prendre des props d'un input HTML classique, par exemple un placeholder.
+
+Voici un exemple de `ComboboxMetiers` avec placeholder et un debounceTimeout à 2 sec pour constater l'utilité du debounce.
+
+<Canvas of={ComboboxMetiersStories.AvecPlaceholderEtDebounce}/>
+
+## Informations supplémentaires
+
+### Gestion des états
+Le `ComboboxMetiers` embarque une gestion interne des états :
+- affichage du chargement pendant le chargement des métiers
+- affichage des résultats correspondants à l'input utilisateur (ainsi qu'un compteur de résultats)
+- affichage en erreur lorsque le chargement des métiers est en erreur
+
+### Source du référentiel de `ComboboxMetiers`
+Aujourd'hui, le référentiel des métiers est fourni par MetierService.
+
+[//]: # (faire une storie avec debounceTime a 2sec, un default value ?, et également le require ?)
+[//]: # (ajouter un petit paragraphe qui parle de la gestion de AsyncMessage inclue dans comboboxMetiers contrairement à Combobox )
+[//]: # (+ le fait que la source du référentiel est unique et dépend du MetierService ?)
