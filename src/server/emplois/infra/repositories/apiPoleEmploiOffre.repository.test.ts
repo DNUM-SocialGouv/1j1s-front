@@ -1,3 +1,5 @@
+import { ValidationError } from 'joi';
+
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -10,7 +12,7 @@ import {
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
 import {
-	aBarmanOffreEmploiApiResponse,
+	aBarmanOffreEmploiApiResponse, aFiltresPossiblesResponse,
 	aRésultatsRechercheOffreEmploiApiResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response.fixture';
 import {
@@ -70,6 +72,29 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				);
 			});
 		});
+		describe('lorsqu‘il y a une erreur de validation de l’api', () => {
+			it('appelle le management d’erreur de validation et continue l’execution', async () => {
+				const invalidResponse = anAxiosResponse(
+					{
+						...aBarmanOffreEmploiApiResponse(),
+						description: 1,
+					},
+				);
+				jest
+					.spyOn(httpClientServiceWithAuthentification, 'get')
+					.mockResolvedValue(invalidResponse);
+				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleValidationError');
+
+				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
+
+				expect(apiPoleEmploiErrorManagementGet.handleValidationError).toHaveBeenCalledWith(new ValidationError('"id" is required', [], '"id" is required'), {
+					apiSource: 'API Pole Emploi',
+					contexte: 'détail offre emploi', message: 'erreur de validation du schéma de l’api',
+				});
+				expect(result.instance).toEqual('success');
+			});
+		});
+
 		describe('lorsqu‘il y a une erreur', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
@@ -209,6 +234,35 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const { result } = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
 
 				expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
+			});
+		});
+
+		describe('lorsqu‘il y a une erreur de validation de l’api', () => {
+			it('appelle le management d’erreur de validation et continue l’execution', async () => {
+				const invalidResponse = anAxiosResponse(
+					{
+						filtresPossibles: aFiltresPossiblesResponse(),
+						resultats: [
+							{
+								...aBarmanOffreEmploiApiResponse(),
+								description: 1,
+							},
+						],
+					},
+				);
+
+				jest
+					.spyOn(httpClientServiceWithAuthentification, 'get')
+					.mockResolvedValue(invalidResponse);
+				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleValidationError');
+
+				const result = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
+
+				expect(apiPoleEmploiErrorManagementSearch.handleValidationError).toHaveBeenCalledWith(new ValidationError('"[0].description" must be a string', [], '"description" must be a string'), {
+					apiSource: 'API Pole Emploi',
+					contexte: 'recherche offre emploi', message: 'erreur de validation du schéma de l’api',
+				});
+				expect(result.instance).toEqual('success');
 			});
 		});
 

@@ -7,6 +7,8 @@ import {
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
+	apiPoleEmploiOffreRechercheSchema,
+	apiPoleEmploiOffreSchema,
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
@@ -44,6 +46,13 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
+				});
+			}
+			const validateSchemasResponse = apiPoleEmploiOffreSchema.validate(response);
+			if (validateSchemasResponse.error) {
+				this.apiPoleEmploiOffreErrorManagementGet.handleValidationError(validateSchemasResponse.error, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'détail offre emploi', message: 'erreur de validation du schéma de l’api',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
@@ -84,6 +93,13 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			);
 			if (response.status === 204) {
 				return createSuccess({ nombreRésultats: 0, résultats: [] });
+			}
+			const validateSchemasResponse = apiPoleEmploiOffreRechercheSchema.validate(response.data.resultats);
+			if (validateSchemasResponse.error) {
+				this.apiPoleEmploiOffreErrorManagementSearch.handleValidationError(validateSchemasResponse.error, {
+					apiSource: 'API Pole Emploi',
+					contexte: 'recherche offre emploi', message: 'erreur de validation du schéma de l’api',
+				});
 			}
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
 		} catch (error) {
