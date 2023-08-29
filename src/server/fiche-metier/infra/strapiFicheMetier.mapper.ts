@@ -2,6 +2,7 @@ import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { capitalizeFirstLetter } from '~/server/services/utils/capitalizeFirstLetter.util';
 
+
 export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): FicheMétier {
 	return {
 		accesMetier: response.acces_metier,
@@ -35,4 +36,11 @@ export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): Fi
 		})),
 		vieProfessionnelle: response.vie_professionnelle,
 	};
+}
+
+
+const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
+
+export function flatMapNomMetier (strapiFicheMetier: Strapi.CollectionType.FicheMétier): string {
+	return(strapiFicheMetier[FICHE_METIER_NOM_METIER_FIELD_NAME])
 }

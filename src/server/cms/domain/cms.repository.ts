@@ -28,4 +28,6 @@ export interface CmsRepository {
 	saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>>
   save<Body, Response>(resource: string, body: Body): Promise<Either<Response>>
 	getFormationInitialeById(identifiant: string): Promise<Either<FormationInitialeDetailCMS>>
+	getFirstFromCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response>>
+	getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>>
 }

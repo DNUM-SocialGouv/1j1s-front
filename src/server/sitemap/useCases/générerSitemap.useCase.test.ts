@@ -18,7 +18,7 @@ describe('GénérerSitemapUseCase', () => {
 	let cmsRepository: CmsRepository;
 	beforeEach(() => {
 		ficheMetierRepository= aFicheMetierRepository();
-		ficheMetierRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+		ficheMetierRepository.getAllNomsMetiers = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
 		cmsRepository = aStrapiCmsRepository();
 		cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 		cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));

@@ -47,8 +47,8 @@ export function aFicheMetier(override?: Partial<FicheMétier>) {
 }
 
 
-export function aListAllFicheMetierNomMetier(listAllFicheMetierNomMetier?: string[]): string[] {
-	return listAllFicheMetierNomMetier ?? ['ingénieur/e production en mécanique',
+export function aListNomMetier(listNomsMetiers?: string[]): string[] {
+	return listNomsMetiers ?? ['ingénieur/e production en mécanique',
 		'peintre en bâtiment',
 		'développeur/euse rural/e humanitaire',
 		'conseiller/ère en fusion-acquisition',

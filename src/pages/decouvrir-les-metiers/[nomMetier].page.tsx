@@ -80,7 +80,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult> {
-	const NomMétierFicheMétierList = await dependencies.ficheMetierDependencies.listerNomMetierFicheMetier.handle();
+	const NomMétierFicheMétierList = await dependencies.ficheMetierDependencies.listerNomsMetiers.handle();
 
 	if (isFailure(NomMétierFicheMétierList)) {
 		return {

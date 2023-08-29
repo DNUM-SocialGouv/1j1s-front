@@ -4,6 +4,8 @@ import { StrapiRepository } from './strapi.repository';
 
 export function aStrapiCmsRepository(override?: Partial<StrapiRepository>) {
 	return {
+		getCollectionType: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		getFirstFromCollectionType: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		getResource: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		save: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		...override,

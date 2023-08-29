@@ -43,7 +43,7 @@ export class GénérerSitemapUseCase {
 		staticPathList.push(...OTHER_STATIC_PATH_LIST);
 
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
-			this.ficheMetierRepository.listAllFicheMetierNomMetier(),
+			this.ficheMetierRepository.getAllNomsMetiers(),
 			this.cmsRepository.listAllArticleSlug(),
 			this.cmsRepository.listAllFAQSlug(),
 			this.cmsRepository.listAllOffreDeStageSlug(),
