@@ -37,6 +37,7 @@ describe('<ComboboxMetiers />', () => {
 		});
 		it('accepte un id', () => {
 			const id = 'id';
+
 			render(
 				<DependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name='métier' label='Rechercher un métier' id={id} />
@@ -45,6 +46,22 @@ describe('<ComboboxMetiers />', () => {
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
 			expect(combobox).toHaveAttribute('id', id);
+		});
+		it('accepte un onInvalid', async () => {
+			const user = userEvent.setup();
+			const onInvalid = jest.fn();
+			render(
+				<DependenciesProvider metierService={aMetierService()}>
+					<ComboboxMetiers name='métier' label='Rechercher un métier' onInvalid={onInvalid}/>
+				</DependenciesProvider>,
+			);
+
+			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
+			await user.type(combobox, 'A');
+			await user.tab();
+
+			expect(onInvalid).toHaveBeenCalled();
+			expect(combobox).toBeInvalid();
 		});
 	});
 

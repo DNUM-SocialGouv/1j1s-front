@@ -46,6 +46,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		onChange: onChangeProps = () => null,
 		debounceTimeout = 300,
 		id: idProps,
+		onInvalid: onInvalidProps = () => {},
 		...comboboxProps
 	} = props;
 
@@ -110,6 +111,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				}}
 				onInvalid={(event) => {
 					setFieldError(event.currentTarget.validationMessage);
+					onInvalidProps(event);
 				}}
 				value={value}
 				requireValidOption
