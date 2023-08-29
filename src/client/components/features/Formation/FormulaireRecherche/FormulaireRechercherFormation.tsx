@@ -61,7 +61,6 @@ export function FormulaireRechercherFormation() {
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
 						<ComboboxMetiers
-							name={'libelleMetier'}
 							label={'Domaine'}
 							defaultValue={domaineDefaultValue}
 							required

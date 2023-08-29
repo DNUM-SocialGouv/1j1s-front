@@ -98,6 +98,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				autoComplete="off"
 				id={inputId}
 				valueName={'codeRomes'}
+				name={'libelleMetier'}
 				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
