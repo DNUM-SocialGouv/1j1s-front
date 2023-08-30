@@ -6,7 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { anOffreDeStageLocalisation, uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/cms/domain/offreDeStage.fixture';
 import { Domaines, OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 
 describe('ConsulterOffreDeStage', () => {
@@ -61,7 +61,7 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('dans les étiquettes', () => {
 			it('concernant les domaines du stage', () => {
-				const offreDeStage = uneOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
+				const offreDeStage = anOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
 
 				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -73,7 +73,7 @@ describe('ConsulterOffreDeStage', () => {
 			describe('concernant la localisation du stage', () => {
 				it('affiche la ville du stage quand elle est présente', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -84,7 +84,7 @@ describe('ConsulterOffreDeStage', () => {
 
 				it('quand la ville du stage n’est pas présente, affiche le département si présent', () => {
 					const localisation = anOffreDeStageLocalisation({ departement: 'Val de marne' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -95,7 +95,7 @@ describe('ConsulterOffreDeStage', () => {
 
 				it('quand la ville et le département du stage ne sont pas présents, affiche la région si présente', () => {
 					const localisation = anOffreDeStageLocalisation({ region: 'Ile de France' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -106,7 +106,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			describe('concernant la durée du stage', () => {
 				it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
-					const offreDeStage = uneOffreDeStage({ dureeEnJour: 60 });
+					const offreDeStage = anOffreDeStage({ dureeEnJour: 60 });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -117,7 +117,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			describe('concernant la date de début du stage', () => {
 				it('affiche la date de début précise quand il y a une date précise', () => {
-					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
+					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -126,7 +126,7 @@ describe('ConsulterOffreDeStage', () => {
 					expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
 				});
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
-					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
+					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 

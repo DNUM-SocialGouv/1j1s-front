@@ -4,44 +4,22 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterOffreStagePage from '~/pages/stages/[id].page';
-import { OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 
 describe('<ConsulterOffreStagePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	const offreDeStage = anOffreDeStage();
+
+	beforeEach(() => {
 		mockUseRouter({});
-		
-		const offreDeStage: OffreDeStage = {
-			dateDeDebutMax: 'dateDeDebutMax',
-			dateDeDebutMin: 'dateDeDebutMin',
-			description: 'description',
-			domaines: [],
-			dureeEnJour: 1,
-			dureeEnJourMax: 1,
-			employeur: {
-				description: 'description',
-				logoUrl: 'logo',
-				nom: 'nom',
-				siteUrl: 'siteWebUrl',
-			},
-			id: 'id',
-			localisation: {
-				departement: 'departement',
-				region: 'region',
-			},
-			remunerationBase: 1,
-			slug: 'slug',
-			source: SourceDesDonnées.INTERNE,
-			teletravailPossible: true,
-			titre: 'titre', 
-			urlDeCandidature: 'urlDeCandidature',
-		};
-		
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -51,5 +29,22 @@ describe('<ConsulterOffreStagePage />', () => {
 		);
 
 		expect(container).toBeAccessible();
+	});
+
+	it('affiche le bouton "Je donne mon avis"', () => {
+		render(
+			<DependenciesProvider
+				analyticsService={anAnalyticsService()}
+			>
+				<ConsulterOffreStagePage offreDeStage={offreDeStage} />
+			</DependenciesProvider>,
+		);
+
+		const textDonnerMonAvis = screen.getByText('Aidez-nous à améliorer la recherche de stage ! Donnez-nous votre avis sur cette démarche, cela ne prend que 2 minutes');
+		const linkDonnerMonAvis = screen.getByRole('link', { name: 'Je donne mon avis' });
+
+		expect(textDonnerMonAvis).toBeVisible();
+		expect(linkDonnerMonAvis).toHaveAttribute('href', 'https://jedonnemonavis.numerique.gouv.fr/Demarches/3639?&view-mode=formulaire-avis&nd_source=button&key=8ff5d31556dab600903ec418c6079a86');
+		expect(linkDonnerMonAvis).toBeVisible();
 	});
 });
