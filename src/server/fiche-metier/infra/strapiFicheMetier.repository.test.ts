@@ -1,6 +1,5 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
-import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { createSuccess, Success } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 import { flatMapNomMetier, mapFicheMetier } from '~/server/fiche-metier/infra/strapiFicheMetier.mapper';
