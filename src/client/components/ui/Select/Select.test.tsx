@@ -30,8 +30,8 @@ describe('Select', () => {
 
 			//WHEN
 			const button = screen.getByRole('button', { name: 'Temps de travail' });
-			user.click(button);
-			await screen.findByRole('listbox');
+			await user.click(button);
+			screen.getByRole('listbox');
 
 			//THEN
 			expect(screen.getByRole('radio', { name: 'Temps plein' })).toBeInTheDocument();
@@ -176,8 +176,8 @@ describe('Select', () => {
 
 			//WHEN
 			const button = screen.getByRole('button', { name: 'Type de contrat' });
-			user.click(button);
-			await screen.findByRole('listbox');
+			await user.click(button);
+			screen.getByRole('listbox');
 
 			//THEN
 			expect(screen.getByRole('checkbox', { name: 'CDD' })).toBeInTheDocument();

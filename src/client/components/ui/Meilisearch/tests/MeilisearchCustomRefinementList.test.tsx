@@ -62,8 +62,8 @@ describe('MeilisearchCustomRefinementList', () => {
 			const user = userEvent.setup();
 			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
 			const button = screen.getByRole('button');
-			user.click(button);
-			await screen.findByRole('listbox');
+			await user.click(button);
+			screen.getByRole('listbox');
 			expect(screen.getAllByRole('checkbox')).toHaveLength(3);
 		});
 
@@ -71,8 +71,8 @@ describe('MeilisearchCustomRefinementList', () => {
 			const user = userEvent.setup();
 			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
 			const button = screen.getByRole('button');
-			user.click(button);
-			await screen.findByRole('listbox');
+			await user.click(button);
+			screen.getByRole('listbox');
 
 			expect(screen.getByRole('checkbox', { name: 'Audit' })).toBeInTheDocument();
 		});
@@ -83,8 +83,8 @@ describe('MeilisearchCustomRefinementList', () => {
 
 				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
 				const button = screen.getByRole('button');
-				user.click(button);
-				await screen.findByRole('listbox');
+				await user.click(button);
+				screen.getByRole('listbox');
 
 				const labelAudit = screen.getByLabelText('Audit');
 				await user.click(labelAudit);
@@ -96,8 +96,8 @@ describe('MeilisearchCustomRefinementList', () => {
 				const user = userEvent.setup();
 				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
 				const button = screen.getByRole('button');
-				user.click(button);
-				await screen.findByRole('listbox');
+				await user.click(button);
+				screen.getByRole('listbox');
 
 				const labelAudit = screen.getByLabelText('Audit');
 				await user.click(labelAudit);
@@ -111,9 +111,9 @@ describe('MeilisearchCustomRefinementList', () => {
 				const user = userEvent.setup();
 				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
 				const button = screen.getByRole('button');
-				user.click(button);
+				await user.click(button);
 
-				const optionList = await screen.findByRole('listbox');
+				const optionList = screen.getByRole('listbox');
 				expect(optionList).toBeInTheDocument();
 
 				await user.click(button);

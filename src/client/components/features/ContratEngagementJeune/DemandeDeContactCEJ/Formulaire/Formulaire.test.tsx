@@ -134,18 +134,17 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 });
 
-/* eslint-disable jest/no-export */
 type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
 
-export async function remplirFormulaireDeContact(data: ContactInputs, user = userEvent.setup(), submit = true) {
+async function remplirFormulaireDeContact(data: ContactInputs, submit = true) {
+	const user = userEvent.setup();
 	await user.type(screen.getByLabelText('Prénom'), data.prénom);
 	await user.type(screen.getByLabelText('Nom'), data.nom);
 	await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
 	await user.type(screen.getByLabelText('Adresse email'), data.email);
 
-	await userEvent.type(screen.getByLabelText('Ville'), data.ville);
-	// eslint-disable-next-line testing-library/no-wait-for-side-effects
-	await waitFor(() => userEvent.click(screen.getByText('Paris 15e Arrondissement (75015)')));
+	await user.type(screen.getByLabelText('Ville'), data.ville);
+	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 
 	await user.click(screen.getByText('Age'));
 	await user.click(screen.getByText(data.age));
