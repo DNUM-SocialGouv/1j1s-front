@@ -84,8 +84,8 @@ describe('<ComboboxMetiers />', () => {
 		});
 	});
 
-	describe('quand la recherche ne correspond a aucun métier', () => {
-		it('affiche un message vide et ne propose pas de métier', async () => {
+	describe('quand la recherche ne correspond à aucun métier', () => {
+		it('affiche un message et ne propose pas de métier', async () => {
 			const metierServiceMock = aMetierService([]);
 			const user = userEvent.setup();
 
@@ -116,6 +116,53 @@ describe('<ComboboxMetiers />', () => {
 			expect(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' })).toBeVisible();
 			expect(screen.getByRole('option', { name: 'Génie électrique' })).toBeVisible();
 			expect(screen.getByRole('option', { name: 'Aéronautique' })).toBeVisible();
+		});
+
+		describe('affiche un message du nombre de résultat', () => {
+			it('le message est au pluriel quand plusieurs résultats sont trouvés', async () => {
+				const user = userEvent.setup();
+				const metierServiceMock = aMetierService([
+					{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+					{ label: 'Aéronautique', romes: ['I1304', 'I1602'] },
+					{ label: 'Chimie', romes: ['H1201', 'H1505', 'H2301'] },
+				]);
+				render(
+					<DependenciesProvider metierService={metierServiceMock}>
+						<ComboboxMetiers
+							name='métier'
+							label='Rechercher un métier'
+							debounceTimeout={0}
+						/>
+					</DependenciesProvider>,
+				);
+
+				await user.type(screen.getByRole('combobox'), 'test');
+
+				const message = screen.getByRole('status');
+				expect(message).toBeVisible();
+				expect(message).toHaveTextContent('3 métiers trouvés');
+			});
+			it('le message est au singulier quand un seul résultat est trouvé', async () => {
+				const user = userEvent.setup();
+				const metierServiceMock = aMetierService([
+					{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+				]);
+				render(
+					<DependenciesProvider metierService={metierServiceMock}>
+						<ComboboxMetiers
+							name='métier'
+							label='Rechercher un métier'
+							debounceTimeout={0}
+						/>
+					</DependenciesProvider>,
+				);
+
+				await user.type(screen.getByRole('combobox'), 'test');
+
+				const message = screen.getByRole('status');
+				expect(message).toBeVisible();
+				expect(message).toHaveTextContent('1 métier trouvé');
+			});
 		});
 
 		describe('quand je clique sur un métier', () => {
@@ -251,52 +298,6 @@ describe('<ComboboxMetiers />', () => {
 		expect(message).toHaveTextContent('Chargement ...');
 	});
 
-	it('affiche un message avec le nombre de résultats quand la liste de suggestions est chargée', async () => {
-		const user = userEvent.setup();
-		const metierServiceMock = aMetierService([
-			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-			{ label: 'Aéronautique', romes: ['I1304', 'I1602'] },
-			{ label: 'Chimie', romes: ['H1201', 'H1505', 'H2301'] },
-		]);
-		render(
-			<DependenciesProvider metierService={metierServiceMock}>
-				<ComboboxMetiers
-					name='métier'
-					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
-			</DependenciesProvider>,
-		);
-
-		await user.type(screen.getByRole('combobox'), 'test');
-
-		const message = screen.getByRole('status');
-		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('3 métiers trouvés');
-	});
-
-	it('conjugue le message du nombre de résultats quand un seul résultat est trouvé', async () => {
-		const user = userEvent.setup();
-		const metierServiceMock = aMetierService([
-			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-		]);
-		render(
-			<DependenciesProvider metierService={metierServiceMock}>
-				<ComboboxMetiers
-					name='métier'
-					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
-			</DependenciesProvider>,
-		);
-
-		await user.type(screen.getByRole('combobox'), 'test');
-
-		const message = screen.getByRole('status');
-		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('1 métier trouvé');
-	});
-
 	it('affiche un message d’erreur quand le champ est en erreur', async () => {
 		const user = userEvent.setup();
 		const metierServiceMock = aMetierService([]);
@@ -319,7 +320,7 @@ describe('<ComboboxMetiers />', () => {
 		expect(combobox).toHaveAccessibleDescription('Veuillez sélectionner une option dans la liste');
 	});
 
-	it('affiche un message quand le champ est vide', async () => {
+	it('affiche un message dans les suggestions quand le champ est vide et que l’utilisateur déplie les suggestions', async () => {
 		const user = userEvent.setup();
 		const metierServiceMock = aMetierService();
 		render(
@@ -340,29 +341,52 @@ describe('<ComboboxMetiers />', () => {
 		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
 	});
 
-	it('affiche uniquement le message quand le champ est vidé avec des résultats déjà présents', async () => {
-		const user = userEvent.setup();
-		const metierServiceMock = aMetierService([
-			{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-		]);
-		render(
-			<DependenciesProvider metierService={metierServiceMock}>
-				<ComboboxMetiers
-					name='métier'
-					label='Rechercher un métier'
-					debounceTimeout={0}
-				/>
-			</DependenciesProvider>,
-		);
+	describe('quand le champ est vidé', () => {
+		it('affiche un message dans les suggestions', async () => {
+			const user = userEvent.setup();
+			const metierServiceMock = aMetierService([
+				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+			]);
+			render(
+				<DependenciesProvider metierService={metierServiceMock}>
+					<ComboboxMetiers
+						name='métier'
+						label='Rechercher un métier'
+						debounceTimeout={0}
+					/>
+				</DependenciesProvider>,
+			);
 
-		const combobox = screen.getByRole('combobox');
-		await user.type(combobox, 'Test');
-		await user.clear(combobox);
+			const combobox = screen.getByRole('combobox');
+			await user.type(combobox, 'Test');
+			await user.clear(combobox);
 
-		const message = screen.getByRole('status');
-		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
-		const options = screen.queryByRole('option', { name: /Génie électrique/i });
-		expect(options).not.toBeInTheDocument();
+			const message = screen.getByRole('status');
+			expect(message).toBeVisible();
+			expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+		});
+
+		it('n’affiche aucune suggestion', async () => {
+			const user = userEvent.setup();
+			const metierServiceMock = aMetierService([
+				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+			]);
+			render(
+				<DependenciesProvider metierService={metierServiceMock}>
+					<ComboboxMetiers
+						name='métier'
+						label='Rechercher un métier'
+						debounceTimeout={0}
+					/>
+				</DependenciesProvider>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			await user.type(combobox, 'Test');
+			await user.clear(combobox);
+
+			const options = screen.queryByRole('option', { name: /Génie électrique/i });
+			expect(options).not.toBeInTheDocument();
+		});
 	});
 });

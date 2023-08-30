@@ -63,25 +63,20 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	const inputId = idProps ?? idState;
 	const errorId = useId();
 
-	const getMetiers = useCallback(async function getMetiers(motCle: string) {
-		if (!motCle) {
-			setMetiers([]);
-			return;
-		}
-
-		setStatus('pending');
+	const getMetiersCall = async function ( motCle: string) {
 		const response = await metierRechercheService.rechercherMetier(motCle);
-		if (isSuccess(response)) {
+
+		if (response && isSuccess(response)) {
 			setStatus('success');
 			setMetiers(response.result);
 		} else {
 			setStatus('failure');
 		}
-	}, [metierRechercheService]);
+	};
 
 	const handleRechercherWithDebounce = useMemo(() => {
-		return debounce(getMetiers, debounceTimeout);
-	}, [debounceTimeout, getMetiers]);
+		return debounce(getMetiersCall, debounceTimeout);
+	}, [debounceTimeout, getMetiersCall]);
 
 	useEffect(() => {
 		return () => {
@@ -89,7 +84,18 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		};
 	}, [handleRechercherWithDebounce]);
 
+	const getMetiersDebounced = useCallback(async function getMetiers(motCle: string) {
+		if (!motCle) {
+			setMetiers([]);
+			return;
+		}
+		setStatus('pending');
+		handleRechercherWithDebounce(motCle);
+
+	}, [metierRechercheService]);
+
 	const isEmpty = value === '';
+
 	return (
 		<div>
 			{label && (
@@ -106,7 +112,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
-					handleRechercherWithDebounce(newValue);
+					getMetiersDebounced(newValue);
 					setValue(newValue);
 					onChangeProps(event, newValue);
 				}}
