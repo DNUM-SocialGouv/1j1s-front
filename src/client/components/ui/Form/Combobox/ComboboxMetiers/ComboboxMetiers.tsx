@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { MetierService } from '~/client/services/metiers/metier.service';
+import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { isSuccess } from '~/server/errors/either';
 
 import { Combobox } from '../index';
@@ -51,7 +51,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		...comboboxProps
 	} = props;
 
-	const metierRechercheService = useDependency<MetierService>('metierService');
+	const metierRechercheService = useDependency<BffMetierService>('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
@@ -63,16 +63,18 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	const inputId = idProps ?? idState;
 	const errorId = useId();
 
-	const getMetiersCall = async function ( motCle: string) {
-		const response = await metierRechercheService.rechercherMetier(motCle);
+	const getMetiersCall = useMemo( () => {
+		return async function (motCle: string) {
+			const response = await metierRechercheService.rechercherMetier(motCle);
 
-		if (response && isSuccess(response)) {
-			setStatus('success');
-			setMetiers(response.result);
-		} else {
-			setStatus('failure');
-		}
-	};
+			if (response && isSuccess(response)) {
+				setStatus('success');
+				setMetiers(response.result);
+			} else {
+				setStatus('failure');
+			}
+		};
+	}, [metierRechercheService]);
 
 	const handleRechercherWithDebounce = useMemo(() => {
 		return debounce(getMetiersCall, debounceTimeout);
@@ -92,7 +94,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		setStatus('pending');
 		handleRechercherWithDebounce(motCle);
 
-	}, [metierRechercheService]);
+	}, [handleRechercherWithDebounce]);
 
 	const isEmpty = value === '';
 

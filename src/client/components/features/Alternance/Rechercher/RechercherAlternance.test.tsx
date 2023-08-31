@@ -17,8 +17,10 @@ import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
-	anAlternanceEntreprise, anAlternanceEntrepriseSansCandidature,
-	anAlternanceMatcha, anAlternancePEJobs,
+	anAlternanceEntreprise,
+	anAlternanceEntrepriseSansCandidature,
+	anAlternanceMatcha,
+	anAlternancePEJobs,
 } from '~/server/alternances/domain/alternance.fixture';
 
 describe('RechercherAlternance', () => {

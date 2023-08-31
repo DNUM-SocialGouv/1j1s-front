@@ -255,9 +255,9 @@ describe('<ComboboxMetiers />', () => {
 
 	it('affiche un message quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
-		const metierServiceMock = {
+		const metierServiceMock: MetierService = {
 			rechercherMetier: jest.fn(async () => createFailure(ErreurMétier.CONTENU_INDISPONIBLE)),
-		} as unknown as MetierService;
+		};
 		render(
 			<DependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
@@ -277,10 +277,9 @@ describe('<ComboboxMetiers />', () => {
 
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
 		const user = userEvent.setup();
-		const metierServiceMock = {
+		const metierServiceMock: MetierService = {
 			rechercherMetier: jest.fn(() => new Promise<Either<Metier[]>>(() => {})),
-			// FIXME (GAFI 18-07-2023): Faire la version avec interface
-		} as unknown as MetierService;
+		};
 		render(
 			<DependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers

@@ -7,5 +7,5 @@ export function aMetierService(
 ): MetierService {
 	return {
 		rechercherMetier: jest.fn().mockResolvedValue(createSuccess(rechercherMetierValue)),
-	} as unknown as MetierService;
+	};
 }

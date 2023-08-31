@@ -24,6 +24,7 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
+import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
@@ -61,7 +62,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const alternanceService = new AlternanceService(httpClientService);
-	const metierService = new MetierService(httpClientService);
+	const metierService = new BffMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);

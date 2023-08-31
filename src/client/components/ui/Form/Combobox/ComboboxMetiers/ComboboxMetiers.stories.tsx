@@ -6,8 +6,6 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
-import { HttpClientService } from '../../../../../services/httpClient.service';
-import { LoggerService } from '../../../../../services/logger.service';
 import { ComboboxMetiers } from '.';
 
 const meta: Meta<typeof ComboboxMetiers> = {
@@ -36,15 +34,7 @@ const meta: Meta<typeof ComboboxMetiers> = {
 	title: 'Components/Form/Combobox/ComboboxMetiers',
 };
 
-class LoggerServiceDummy extends LoggerService {}
-
-class HttpClientServiceDummy extends HttpClientService {}
-
-class MetierServiceStub extends MetierService {
-	constructor() {
-		const sessionId = 'some-session-id';
-		super(new HttpClientServiceDummy('session-id', new LoggerServiceDummy(sessionId)));
-	}
+class MetierServiceStub implements MetierService {
 	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
 		return new Promise((resolve) => setTimeout(() => resolve(createSuccess(
 			aListeDeMetierLaBonneAlternance()
