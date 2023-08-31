@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.136.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.136.0...v3.136.1) (2023-08-31)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/uuid to v9.0.3 ([ccc1365](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ccc1365dee52f19577d131e0a58bc87e987d971f))
+* **deps:** update dependency eslint-plugin-testing-library to v6 ([#1802](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1802)) ([8aef22b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8aef22b7cd775dfc827c1c51d899804968f42632))
+
 ## [3.136.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.135.3...v3.136.0) (2023-08-29)
 
 
