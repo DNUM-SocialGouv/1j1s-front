@@ -36,8 +36,8 @@
 }
 
 .text {
-  .text-xLarge > h2 {
-    @extend %text-xLarge
+  p {
+    @extend %text-medium
   }
 
   .text-large > h2 {
@@ -50,6 +50,10 @@
 
   .text-small > h2 {
     @extend %text-small
+  }
+
+  .text-xsmall > h2 {
+    @extend %text-xsmall
   }
 }
 
