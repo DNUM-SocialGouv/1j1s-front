@@ -22,8 +22,8 @@ export default function MeilisearchCustomCurrentRefinements(props: UseCurrentRef
 				return item.refinements.map((refinement, index) => (
 					<li key={index} >
 						<Tag>
-							{getCapitalizedItems(refinement.label)}
 							<button aria-label="supprimer le filtre" type="button" onClick={() => refine(refinement)}>
+								{getCapitalizedItems(refinement.label)}
 								<Icon name="close" />
 							</button>
 						</Tag>
