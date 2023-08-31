@@ -1,19 +1,39 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 $color-tag: #EEEEEE;
 
 .tag {
+  display: block;
   @extend %text-small;
-  padding: 2px 8px;
-  background-color: utilities-deprecated.$color-tag;
-  border-radius: calc((2px * 2 + 1.25rem) / 2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  border: 0.5px solid utilities.$color-background-border;
+  background-color: utilities.$color-background-tag;
 
-  @include utilities-deprecated.media(large) {
-    padding: 4px 12px;
-    border-radius: calc((4px * 2 + 1.5rem) / 2);
+  &::first-letter {
+    text-transform: capitalize;
+  }
+
+  & button {
+    line-height: 0;
+    padding: 0;
+    & svg {
+      height: 0.75rem;
+      width: 0.75rem;
+      vertical-align: middle;
+    }
   }
 }
 
-.tag:first-letter {
-  text-transform: capitalize;
+
+@include utilities.media(large) {
+  .tag {
+    padding: 0.5rem 0.75rem;
+    border-radius: 2rem;
+
+    & button svg {
+      height: 1rem;
+      width: 1rem;
+    }
+  }
 }
