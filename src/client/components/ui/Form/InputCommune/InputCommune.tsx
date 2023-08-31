@@ -13,11 +13,11 @@ import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 interface InputCommuneProps {
-	code: string
+	code?: string
 	distance?: string
 	id?: string
 	latitude?: string
-	libellé: string
+	libellé?: string
 	longitude?: string
 	showRadius?: boolean
 	required?: boolean
@@ -116,11 +116,11 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 		if (libellé === '' || code === '') {
 			clearCommune();
 		} else {
-			setCodeCommune(code);
+			setCodeCommune(code || '');
 			setLatitudeCommune(latitude || '');
 			setDistanceCommune(distance || '');
 			setLongitudeCommune(longitude || '');
-			setLibelléCommune(libellé);
+			setLibelléCommune(libellé || '');
 		}
 	}, [libellé, code, longitude, latitude, distance, clearCommune]);
 

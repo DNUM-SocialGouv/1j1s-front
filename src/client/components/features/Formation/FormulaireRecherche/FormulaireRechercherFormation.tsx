@@ -19,14 +19,14 @@ export function FormulaireRechercherFormation() {
 	const {
 		libelleMetier,
 		codeRomes,
+		codeCommune,
+		libelleCommune,
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
 		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
 
-	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
 	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
 	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
@@ -36,8 +36,6 @@ export function FormulaireRechercherFormation() {
 
 	useEffect(function initFormValues() {
 		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
-		setInputCodeCommune(queryParams.codeCommune || '');
-		setInputLibelléCommune(queryParams.libelleCommune || '');
 		setInputDistanceCommune(queryParams.distanceCommune || '');
 		setInputLongitudeCommune(queryParams.longitudeCommune || '');
 		setInputLatitudeCommune(queryParams.latitudeCommune || '');
@@ -68,8 +66,8 @@ export function FormulaireRechercherFormation() {
 							placeholder="Exemples : ingénierie, agronomie..."
 						/>
 						<InputCommune
-							code={inputCodeCommune}
-							libellé={inputLibelléCommune}
+							code={codeCommune}
+							libellé={libelleCommune}
 							longitude={inputLongitudeCommune}
 							latitude={inputLatitudeCommune}
 							distance={inputDistanceCommune}
