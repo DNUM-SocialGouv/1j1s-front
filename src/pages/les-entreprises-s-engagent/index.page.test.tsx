@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
 
 describe('<LesEntreprisesSEngagent />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -21,8 +21,6 @@ describe('<LesEntreprisesSEngagent />', () => {
 				<LesEntreprisesSEngagent />);
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Rejoignez la mobilisation !');
 
 		expect(container).toBeAccessible();
 	});

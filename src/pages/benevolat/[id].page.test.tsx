@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
 
 describe('<ConsulterMissionEngagementPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const mission = {
 			description: 'description',
 			duréeContrat: 1,

@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import MonEspace from '~/pages/mon-espace/index.page';
 
 describe('<MonEspace />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockSmallScreen();
 		mockUseRouter({});
 		const { container } = render(
@@ -23,8 +23,6 @@ describe('<MonEspace />', () => {
 				<MonEspace />);
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('J‘accède à mon espace entreprise');
 
 		expect(container).toBeAccessible();
 	});

@@ -16,7 +16,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 		mockSmallScreen();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -27,10 +27,10 @@ describe('Immersion / Référencer mon entreprise', () => {
 
 		expect(container).toBeAccessible();
 	});
-  
+
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
 		const analyticsService = anAnalyticsService();
-		
+
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -40,7 +40,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 		);
 
 		const iframe = screen.getByTitle('Formulaire recueil des entreprises volontaires pour l‘accueil des immersions professionnelles');
-    
+
 		expect(iframe).toBeInTheDocument();
 	});
 

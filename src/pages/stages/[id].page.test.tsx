@@ -19,7 +19,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}

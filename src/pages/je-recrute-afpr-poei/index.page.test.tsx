@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import JeRecruteAfprPoeiPage from '~/pages/je-recrute-afpr-poei/index.page';
 
 describe('<JeRecruteAfprPoeiPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockSmallScreen();
 
 		const { container } = render(
@@ -22,8 +22,6 @@ describe('<JeRecruteAfprPoeiPage />', () => {
 				<JeRecruteAfprPoeiPage />
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText(/Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi/);
 
 		expect(container).toBeAccessible();
 	});

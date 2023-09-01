@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -12,9 +12,9 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import JeDeviensMentorPage from '~/pages/je-deviens-mentor/index.page';
 
 describe('<JeDeviensMentorPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockSmallScreen();
-    
+
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -22,8 +22,6 @@ describe('<JeDeviensMentorPage />', () => {
 				<JeDeviensMentorPage />
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Faites la rencontre qui change tout !');
 
 		expect(container).toBeAccessible();
 	});

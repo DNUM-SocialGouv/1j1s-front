@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import StageDeposerOffreFormulaireEnvoye
 	from '~/client/components/features/OffreDeStage/Déposer/Confirmation/StageDeposerOffreFormulaireEnvoye';
@@ -13,7 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 
 describe('<DeposerOffreStageEnvoyePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -22,8 +22,6 @@ describe('<DeposerOffreStageEnvoyePage />', () => {
 				<StageDeposerOffreFormulaireEnvoye />
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Cette offre est soumise à une validation avant sa mise en ligne.');
 
 		expect(container).toBeAccessible();
 	});

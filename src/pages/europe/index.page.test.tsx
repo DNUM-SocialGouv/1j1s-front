@@ -21,7 +21,7 @@ describe('Page Europe', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockUseRouter({});
 		mockSmallScreen();
 

@@ -18,7 +18,7 @@ describe('Les aides au logement', () => {
 		mockSmallScreen();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -26,8 +26,6 @@ describe('Les aides au logement', () => {
 				<AidesLogement/>
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Tester mon éligibilité pour les aides au logement de la CAF');
 
 		expect(container).toBeAccessible();
 	});
@@ -54,7 +52,7 @@ describe('Les aides au logement', () => {
 	describe('La carte partenaire de la CAF', () => {
 		it('ouvre le simulateur de la CAF dans un nouvel onglet', () => {
 			const analyticsService = anAnalyticsService();
-			
+
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}

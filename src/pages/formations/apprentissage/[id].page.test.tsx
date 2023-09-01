@@ -140,7 +140,7 @@ describe('getServerSideProps', () => {
 });
 
 describe('Page Consulter Formations en Apprentissage', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const formation = aFormation();
 		const analyticsService = anAnalyticsService();
 		mockUseRouter({});

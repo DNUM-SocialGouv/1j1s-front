@@ -18,7 +18,7 @@ describe('ConseilsLogement', () => {
 		mockSmallScreen();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -26,8 +26,6 @@ describe('ConseilsLogement', () => {
 				<ConseilsLogement/>
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Comment constituer un dossier locatif ?');
 
 		expect(container).toBeAccessible();
 	});

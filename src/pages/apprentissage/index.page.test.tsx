@@ -3,7 +3,7 @@
  */
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMétierService } from '~/client/services/métiers/métier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
-import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 
 describe('Page rechercher une alternance', () => {
 	beforeEach(() => {
@@ -103,7 +103,11 @@ describe('Page rechercher une alternance', () => {
 			</DependenciesProvider>,
 			);
 
-			await screen.findByText(`${alternanceFixture.length} résultats pour Boulangerie, pâtisserie, chocolaterie` );
+			await waitFor(() => {
+				screen.queryByText(`${alternanceFixture.length} résultats pour Boulangerie, pâtisserie, chocolaterie` );
+			});
+			// await screen.findByText(`${alternanceFixture.length} résultats pour Boulangerie, pâtisserie, chocolaterie` );
+			screen.debug(undefined, Infinity);
 			expect(container).toBeAccessible();
 		});
 

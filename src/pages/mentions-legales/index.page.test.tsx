@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import MentionsLegales from '~/pages/mentions-legales/index.page';
 
 describe('<MentionsLegales />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockSmallScreen();
 		mockUseRouter({});
 		const { container } = render(

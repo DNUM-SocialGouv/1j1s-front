@@ -25,7 +25,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const analyticsService = anAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>

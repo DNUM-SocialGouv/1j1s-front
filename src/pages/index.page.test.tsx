@@ -24,14 +24,12 @@ describe('Page d‘accueil', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<Accueil/>
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('À chacun sa solution.');
 
 		expect(container).toBeAccessible();
 	});

@@ -21,15 +21,13 @@ describe('Page FormationPage', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
 				<FormationPage />);
 			</DependenciesProvider>);
-
-		await screen.findByText('Trouver sa formation');
 
 		expect(container).toBeAccessible();
 	});

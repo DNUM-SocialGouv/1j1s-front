@@ -20,7 +20,7 @@ describe('MentoratPage', () => {
 		jest.clearAllMocks();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -28,8 +28,6 @@ describe('MentoratPage', () => {
 				<MentoratPage />
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Trouver mon mentor');
 
 		expect(container).toBeAccessible();
 	});

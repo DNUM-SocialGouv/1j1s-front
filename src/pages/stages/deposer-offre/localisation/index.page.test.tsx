@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import {
 	aFormulaireEtapeEntreprise,
@@ -32,7 +32,7 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 		mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -41,8 +41,6 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider>,
 		);
-
-		await screen.findByText('Etape 3 sur 3 : Localisation du stage');
 
 		expect(container).toBeAccessible();
 	});

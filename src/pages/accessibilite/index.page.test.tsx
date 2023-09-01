@@ -11,7 +11,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import Accessibilite from '~/pages/accessibilite/index.page';
 
 describe('<Accessibilite />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('n‘a pas de défaut d‘accessibilité', () => {
 		const titre = 'Accessibilité';
 		const contenu = `# Déclaration d'accessibilité
 06/10/2022
