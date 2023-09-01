@@ -33,7 +33,7 @@
     "classnames": "2.3.2",
     "dompurify": "3.0.5",
     "ioredis": "5.3.2",
-    "joi": "17.10.0",
+    "joi": "17.10.1",
     "lodash.debounce": "4.0.8",
     "marked": "7.0.5",
     "marked-gfm-heading-id": "3.0.6",
