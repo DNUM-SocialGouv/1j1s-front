@@ -10,6 +10,7 @@ import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
 	process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
+	process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 	it.each`
 	  nom                                                       | path
     ${'Accueil'}                                              | ${'/'}
@@ -19,6 +20,7 @@ describe('Plan du site', () => {
     ${'Contrats d’alternance'}                                | ${'/apprentissage'}
     ${'Jobs d‘été'}                    			                  | ${'/jobs-ete'}
     ${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
+    ${'Emplois en Europe'}                                		| ${'/emploi-europe'}
     ${'Expérience en Europe'}                                 | ${'/europe'}
     
     ${'Formations'}                                           | ${'/formations'}
