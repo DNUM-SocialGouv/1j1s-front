@@ -22,15 +22,8 @@ describe('Page emploi en europe', () => {
 	});
 
 	describe('lorsque la feature n‘est pas activée', () => {
-		it('getServerSideProps retourne les propriétés d‘une page non trouvée', async () => {
+		it('retourne une page 404', async () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
-			render(
-				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
-				>
-					<EmploiEuropePage/>
-				</DependenciesProvider>,
-			);
 
 			const result = await getServerSideProps();
 			expect(result).toMatchObject({ notFound: true });
