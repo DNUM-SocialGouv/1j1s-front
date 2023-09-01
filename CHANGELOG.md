@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.137.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.137.0...v3.137.1) (2023-09-01)
+
+
+### 👷 Autres changements
+
+* **deps:** update npm to v10 ([#1908](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1908)) ([5c2bb4b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5c2bb4b649bf3b647533a4b93a201d43b4ae5801))
+
 ## [3.137.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.136.3...v3.137.0) (2023-09-01)
 
 
