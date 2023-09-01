@@ -29,7 +29,6 @@ $color-tag: #EEEEEE;
 @include utilities.media(large) {
   .tag {
     padding: 0.5rem 0.75rem;
-    border-radius: 2rem;
 
     & button svg {
       height: 1rem;
