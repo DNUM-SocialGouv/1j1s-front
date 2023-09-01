@@ -4,7 +4,8 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -16,8 +17,9 @@ import RechercherOffreEmploiPage from '~/pages/emplois/index.page';
 
 describe('<RechercherOffreEmploiPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		mockUseRouter({});
+		mockUseRouter({ query: { page: '1' } });
 		mockSmallScreen();
+		const user = userEvent.setup();
 
 		const { container } = render(
 			<DependenciesProvider
@@ -27,6 +29,10 @@ describe('<RechercherOffreEmploiPage />', () => {
 			>
 				<RechercherOffreEmploiPage />);
 			</DependenciesProvider>);
+		const rechercherButton = screen.getByRole('button', { name: 'Rechercher' });
+		await user.click(rechercherButton);
+
+		await screen.findByRole('list', { name: 'Offres d‘emplois' });
 
 		expect(container).toBeAccessible();
 	});

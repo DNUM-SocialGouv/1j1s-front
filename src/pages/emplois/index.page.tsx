@@ -17,6 +17,7 @@ export default function RechercherOffreEmploiPage() {
 			const queryString = stringify(router.query);
 			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
 		}
+		router.query;
 	}, [router]);
 
 	return <RechercherOffreEmploi />;

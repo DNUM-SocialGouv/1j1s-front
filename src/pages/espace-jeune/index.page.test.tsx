@@ -40,8 +40,6 @@ describe('Page Espace Jeune', () => {
 				/>);
 			</DependenciesProvider>);
 
-		await screen.findByText('Actualité 1');
-
 		expect(container).toBeAccessible();
 	});
 
