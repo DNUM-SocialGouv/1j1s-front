@@ -22,7 +22,7 @@ describe('Page emploi en europe', () => {
 	});
 
 	describe('lorsque la feature n‘est pas activée', () => {
-		it('la page n‘est pas trouvée', async () => {
+		it('getServerSideProps retourne les propriétés d‘une page non trouvée', async () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 			render(
 				<DependenciesProvider

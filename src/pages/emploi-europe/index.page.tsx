@@ -28,9 +28,9 @@ export default function EmploiEuropePage() {
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
-	const featureActivée = process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE === '1';
+	const isFeatureActive = process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE === '1';
 
-	if (!featureActivée) {
+	if (!isFeatureActive) {
 		return { notFound: true };
 	}
 
