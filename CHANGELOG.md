@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.137.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.136.3...v3.137.0) (2023-09-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **alternance:** validation search lba ([#1731](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1731)) ([a51dea9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a51dea9123ccca514d4dbd9d6525c22d1b0fb15f))
+
 ## [3.136.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.136.2...v3.136.3) (2023-09-01)
 
 
