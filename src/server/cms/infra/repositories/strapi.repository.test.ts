@@ -17,7 +17,7 @@ import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitial
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
-import { uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
 import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
@@ -355,7 +355,7 @@ describe('strapi cms repository', () => {
 				const slug = anOffreDeStageResponse().slug;
 
 				const { result } = await strapiCmsRepository.getOffreDeStageBySlug(slug) as Success<OffreDeStage>;
-				expect(result).toEqual(uneOffreDeStage());
+				expect(result).toEqual(anOffreDeStage());
 				expect(httpClientService.get).toHaveBeenCalledWith(`offres-de-stage?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
 			});
 		});

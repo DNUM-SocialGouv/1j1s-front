@@ -67,6 +67,10 @@ const moduleExports = {
 				hostname: 'img.youtube.com',
 				protocol: 'https',
 			},
+			{
+				hostname: 'jedonnemonavis.numerique.gouv.fr',
+				protocol: 'https',
+			},
 		],
 	},
 	pageExtensions: ['page.tsx','controller.ts'],
