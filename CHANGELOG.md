@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.138.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.138.0...v3.138.1) (2023-09-04)
+
+
+### 🐛 Corrections de bogues
+
+* **alternance:** champs matcha et peJobs possiblement non présent ([#1914](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1914)) ([c321114](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c32111400dfa141cb00ded73b475aa072349920e))
+
 ## [3.138.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.137.4...v3.138.0) (2023-09-04)
 
 
