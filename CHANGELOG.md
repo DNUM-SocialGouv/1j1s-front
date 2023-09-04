@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.138.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.137.4...v3.138.0) (2023-09-04)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage:** integrer widget je donne mon avis ([#1904](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1904)) ([39fed02](https://github.com/DNUM-SocialGouv/1j1s-front/commit/39fed02b43293f774fe75b9c4647d99ec0ae98b6))
+
 ## [3.137.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.137.3...v3.137.4) (2023-09-04)
 
 
