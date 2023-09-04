@@ -88,7 +88,7 @@ describe('Page Apprentissage Jeunes', () => {
 
 			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
 
-			expect(container).toBeAccessible();
+			await expect(container).toBeAccessible();
 		});
 
 		it('affiche une section principale avec ancre pour le lien d‘évitement', () => {

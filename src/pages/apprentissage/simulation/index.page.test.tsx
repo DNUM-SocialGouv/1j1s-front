@@ -17,10 +17,10 @@ describe('Apprentissage / Simulateur de rémunération en apprentissage', () => 
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(<SimulateurOffreAlternant />);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche un sous-titre de page', () => {

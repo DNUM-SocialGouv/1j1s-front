@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import FormationPage from '~/pages/creer-mon-cv/index.page';
 
 describe('<FormationPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
@@ -24,6 +24,6 @@ describe('<FormationPage />', () => {
 				<FormationPage />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

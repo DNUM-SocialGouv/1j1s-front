@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import Cgu from '~/pages/cgu/index.page';
 
 describe('<Cgu />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
@@ -24,6 +24,6 @@ describe('<Cgu />', () => {
 				<Cgu titre={'titre'} contenu={'contenu'} />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -14,7 +14,7 @@ import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterOffreEmploiPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 		const offre = aBarmanOffre();
@@ -26,6 +26,6 @@ describe('<ConsulterOffreEmploiPage />', () => {
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

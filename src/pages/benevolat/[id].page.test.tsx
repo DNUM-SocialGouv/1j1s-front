@@ -11,21 +11,11 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
+import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('<ConsulterMissionEngagementPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
-		const mission = {
-			description: 'description',
-			duréeContrat: 1,
-			débutContrat: 'débutContrat',
-			id: 'MissionId',
-			localisation: 'localisation',
-			nomEntreprise: 'nomEntreprise',
-			openToMinors: 'openToMinors',
-			titre: 'titre',
-			url: 'url',
-			étiquetteList: ['étiquetteList'],
-		};
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const mission = anAmbassadeurDuDonDeVêtementMission();
 
 		mockUseRouter({});
 		mockSmallScreen();
@@ -37,6 +27,6 @@ describe('<ConsulterMissionEngagementPage />', () => {
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -5,7 +5,7 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 declare global {
 	namespace jest {
 		interface Matchers<R> {
-			toBeAccessible(): R
+			toBeAccessible(): Promise<R>
 		}
 	}
 }

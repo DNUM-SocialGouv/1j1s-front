@@ -11,7 +11,7 @@ import ConsulterArticlePage from '~/pages/faq/[id].page';
 import { Question } from '~/server/cms/domain/FAQ.type';
 
 describe('<ConsulterArticlePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const faqRéponse: Question.QuestionRéponse = {
 			contenu: 'Contenu de la réponse',
 			problématique: 'Problématique de la question',
@@ -24,6 +24,6 @@ describe('<ConsulterArticlePage />', () => {
 			<ConsulterArticlePage faqRéponse={faqRéponse} />,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

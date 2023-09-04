@@ -21,7 +21,7 @@ describe('Page Europe', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
@@ -32,7 +32,7 @@ describe('Page Europe', () => {
 				<EuropePage />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

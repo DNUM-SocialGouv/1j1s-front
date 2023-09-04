@@ -40,13 +40,13 @@ describe('<AnnonceAlternancePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = anAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
 			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 		</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

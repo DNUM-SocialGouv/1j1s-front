@@ -11,7 +11,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import Accessibilite from '~/pages/accessibilite/index.page';
 
 describe('<Accessibilite />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const titre = 'Accessibilité';
 		const contenu = `# Déclaration d'accessibilité
 06/10/2022
@@ -128,6 +128,6 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 				<Accessibilite titre={titre} contenu={contenu}/>);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -16,7 +16,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 		mockSmallScreen();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -25,7 +25,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {

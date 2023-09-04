@@ -49,7 +49,8 @@ describe('quand le feature flip est actif', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		screen.debug(undefined, Infinity);
+		await expect(container).toBeAccessible();
 	});
 
 	describe('affiche des informations sur l‘origine de la donnée', () => {

@@ -13,7 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import Entreprendre from '~/pages/entreprendre/index.page';
 
 describe('<Entreprendre />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
@@ -24,6 +24,6 @@ describe('<Entreprendre />', () => {
 				<Entreprendre />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });
