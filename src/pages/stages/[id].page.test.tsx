@@ -45,6 +45,7 @@ describe('<ConsulterOffreStagePage />', () => {
 
 		expect(textDonnerMonAvis).toBeVisible();
 		expect(linkDonnerMonAvis).toHaveAttribute('href', 'https://jedonnemonavis.numerique.gouv.fr/Demarches/3639?&view-mode=formulaire-avis&nd_source=button&key=8ff5d31556dab600903ec418c6079a86');
+		expect(linkDonnerMonAvis).toHaveAttribute('title', 'Je donne mon avis - nouvelle fenêtre');
 		expect(linkDonnerMonAvis).toBeVisible();
 	});
 });
