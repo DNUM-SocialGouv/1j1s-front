@@ -31,7 +31,7 @@ de la page en question, dans un fichier de la forme `*.analytics.ts`.
 Les valeurs des évenements envoyées via le hook useAnalytics (du type `PageTags`) sont issues d'un plan de taggage du
 site réalisés par Converteo pour la solution Eulerian. 
 
-Si la solution de tracking était amené à changer, il conviendrait de considérer la reprise de ce plan de taggage pour
+Si la solution de tracking était amenée à changer, il conviendrait de considérer la reprise de ce plan de taggage pour
 faciliter la bascule / analyse mais également les alternatives possibles, qui pourraient mieux convenir à la technologie
 utilisée
 
