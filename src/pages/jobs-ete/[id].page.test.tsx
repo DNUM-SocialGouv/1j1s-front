@@ -20,7 +20,7 @@ describe('<ConsulterJobEtePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const jobEte = aBarmanOffre();
 		const { container } = render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
@@ -28,7 +28,7 @@ describe('<ConsulterJobEtePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

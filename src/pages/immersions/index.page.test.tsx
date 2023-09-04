@@ -11,7 +11,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import Immersions from '~/pages/immersions/index.page';
 
 describe('<Immersions />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -20,6 +20,6 @@ describe('<Immersions />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

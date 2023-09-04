@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import JeRecruteAfprPoeiPage from '~/pages/je-recrute-afpr-poei/index.page';
 
 describe('<JeRecruteAfprPoeiPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 
 		const { container } = render(
@@ -23,6 +23,6 @@ describe('<JeRecruteAfprPoeiPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

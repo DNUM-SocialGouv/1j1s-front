@@ -19,7 +19,7 @@ describe('<ConsulterOffreStagePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -28,7 +28,7 @@ describe('<ConsulterOffreStagePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le bouton "Je donne mon avis"', () => {

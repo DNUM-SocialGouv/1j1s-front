@@ -32,7 +32,7 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 		mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -42,6 +42,6 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

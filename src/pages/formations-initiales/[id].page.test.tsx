@@ -49,7 +49,6 @@ describe('quand le feature flip est actif', () => {
 			</DependenciesProvider>,
 		);
 
-		screen.debug(undefined, Infinity);
 		await expect(container).toBeAccessible();
 	});
 

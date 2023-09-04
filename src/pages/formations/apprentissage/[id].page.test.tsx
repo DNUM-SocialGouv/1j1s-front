@@ -140,7 +140,7 @@ describe('getServerSideProps', () => {
 });
 
 describe('Page Consulter Formations en Apprentissage', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const formation = aFormation();
 		const analyticsService = anAnalyticsService();
 		mockUseRouter({});
@@ -153,7 +153,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('retourne une page avec les informations de la formation', () => {

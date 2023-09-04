@@ -62,7 +62,7 @@ describe('quand le feature flip est actif', () => {
 
 		await screen.findByRole('list', { name: /Formations Initiales/i });
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page', async () => {

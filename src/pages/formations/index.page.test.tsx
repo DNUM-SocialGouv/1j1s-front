@@ -21,7 +21,7 @@ describe('Page FormationPage', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -29,7 +29,7 @@ describe('Page FormationPage', () => {
 				<FormationPage />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

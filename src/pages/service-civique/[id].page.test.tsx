@@ -13,7 +13,7 @@ import ConsulterMissionEngagementPage from '~/pages/service-civique/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('<ConsulterMissionEngagementPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -23,6 +23,6 @@ describe('<ConsulterMissionEngagementPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

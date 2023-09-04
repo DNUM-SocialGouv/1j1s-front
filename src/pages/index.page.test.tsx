@@ -5,7 +5,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { act,render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -16,6 +16,8 @@ import { AnalyticsService } from '~/client/services/analytics/analytics.service'
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accueil from '~/pages/index.page';
 
+// jest.mock('next/link', () => (props ) => (<a {...props}/>));
+
 describe('Page d‘accueil', () => {
 	let analyticsService: AnalyticsService;
 	beforeEach(() => {
@@ -24,14 +26,14 @@ describe('Page d‘accueil', () => {
 		analyticsService = anAnalyticsService();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<Accueil/>
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	describe('jobs d‘été', () => {

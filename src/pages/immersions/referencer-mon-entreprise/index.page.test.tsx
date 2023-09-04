@@ -16,7 +16,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 		mockSmallScreen();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -25,7 +25,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {

@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import DeposerOffreStagePage from '~/pages/stages/deposer-offre/index.page';
 
 describe('<DeposerOffreStagePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -22,6 +22,6 @@ describe('<DeposerOffreStagePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

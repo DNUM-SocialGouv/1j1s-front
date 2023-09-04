@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
 
 describe('<LesEntreprisesSEngagent />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -22,6 +22,6 @@ describe('<LesEntreprisesSEngagent />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

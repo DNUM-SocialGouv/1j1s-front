@@ -12,7 +12,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import JeDeviensMentorPage from '~/pages/je-deviens-mentor/index.page';
 
 describe('<JeDeviensMentorPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', () => {
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 
 		const { container } = render(
@@ -23,6 +23,6 @@ describe('<JeDeviensMentorPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });
