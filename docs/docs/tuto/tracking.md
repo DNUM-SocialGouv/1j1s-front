@@ -28,8 +28,12 @@ de la page en question, dans un fichier de la forme `*.analytics.ts`.
 
 ## Plan de taggage
 
-Les valeurs des évenements envoyées via le hook useAnalytics (du type `PageTags`) sont issues d'un plan de taggage du
-site réalisés par Converteo pour la solution Eulerian. 
+Le plan de taggage organise les données à récuperer pour chaque catégorie et page du site.
+
+Dans notre cas, il établit la correspondance entre une page et les évenements à envoyer pour en permettre le tracking.  
+
+Les valeurs des évenements envoyées via le hook useAnalytics (du type `PageTags`) sont issues de plan de taggage
+réalisé par Converteo pour la solution Eulerian.
 
 Si la solution de tracking était amenée à changer, il conviendrait de considérer la reprise de ce plan de taggage pour
 faciliter la bascule / analyse mais également les alternatives possibles, qui pourraient mieux convenir à la technologie
@@ -106,7 +110,7 @@ Ca sera sous la forme :
     - xxxx.recette.1jeune1solution.gouv.fr. CAA 0 issue "letsencrypt.org"
 
 - Ajouter un enregistrement CNAME pour les review apps : *.review.1jeune1solution.gouv.fr CNAME scalingo.review.1jeune1solution.gouv.fr.cdn.cloudflare.net
-- Modifier la variable d'environnement NEXT_PUBLIC_ANALYTICS_ENVIRONMENT en recette avec le nouveau sous domaine de tracking sous la forme xxxx.recette.1jeune1solution.gouv.fr
+- Modifier la variable d'environnement NEXT_PUBLIC_ANALYTICS_DOMAIN en recette avec le nouveau sous domaine de tracking sous la forme xxxx.recette.1jeune1solution.gouv.fr
 - Une fois les enregistrements CNAME effectués et la recette sous sa nouvelle URL https://recette.1jeune1solution.gouv.fr, le tracking peut être recetté en l'activant via la variable d'environnement NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE alors valorisée à 1.
 - Mettre à jour les CSP
 
@@ -128,7 +132,7 @@ Hors notre `Content-Security Policy` implementées dans le fichier `headers.js`,
 inline et ne permet d'executer que du javascript présent dans des fichiers JS. 
 
 Pour éviter d'utiliser « unsafe-inline » et permettre de charger un code différent en fonction de l'environnement (un
-pour le le t) la décision suivante a été prise :
+pour l'env de recette, un pour l'env de prod) la décision suivante a été prise :
 Charger un fichier JS contenant le script à executer, depuis un composant `<Script>`, en calculant son nom grâce à une
 variable d'environnement :  
 ```tsx
