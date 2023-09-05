@@ -5,7 +5,7 @@
 
 import '~/test-utils';
 
-import { act,render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -15,8 +15,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accueil from '~/pages/index.page';
-
-// jest.mock('next/link', () => (props ) => (<a {...props}/>));
 
 describe('Page d‘accueil', () => {
 	let analyticsService: AnalyticsService;
