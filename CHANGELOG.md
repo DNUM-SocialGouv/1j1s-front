@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.139.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.138.1...v3.139.0) (2023-09-05)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** mise à jour des tags au kit UI ([#1905](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1905)) ([b6e4592](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6e4592acba54ea4480301c479db8bda17cb2e40))
+
 ## [3.138.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.138.0...v3.138.1) (2023-09-04)
 
 
