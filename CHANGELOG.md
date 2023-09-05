@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.139.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.139.1...v3.139.2) (2023-09-05)
+
+
+### 👷 Autres changements
+
+* **deps:** update actions/checkout action to v4 ([#1923](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1923)) ([f0788e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f0788e5697d7ffd863dde32553196d4968fc3651))
+
 ## [3.139.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.139.0...v3.139.1) (2023-09-05)
 
 
