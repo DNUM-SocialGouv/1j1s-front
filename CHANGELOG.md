@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.140.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.0...v3.140.1) (2023-09-05)
+
+
+### 📚 Documentation
+
+* mise à jour de la documentation du tracking ([#1920](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1920)) ([637cddf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/637cddfdc5001541d80489fbe9ecd255b45564b2))
+
 ## [3.140.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.139.3...v3.140.0) (2023-09-05)
 
 
