@@ -42,44 +42,24 @@
 }
 
 
-%text-xLarge {
-  font-size: 1rem;
-  line-height: 1.2rem;
-
-  @include mixins.media(large) {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-}
-
 %text-large {
-  font-size: 0.875rem;
-  line-height: 1.05rem;
-
-  @include mixins.media(large) {
-    font-size: 1.125rem;
-    line-height: 1.35rem;
-  }
+  font-size: 1.125rem;
+  line-height: 1.35rem;
 }
 
 %text-medium {
-  font-size: 0.75rem;
-  line-height: 0.9rem;
-
-  @include mixins.media(large) {
-    font-size: 1rem;
-    line-height: 1.2rem;
-  }
+  font-size: 1rem;
+  line-height: 1.2rem;
 }
 
 %text-small {
-  font-size: 0.625rem;
-  line-height: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.05rem;
+}
 
-  @include mixins.media(large) {
-    font-size: 0.875rem;
-    line-height: 1.05rem;
-  }
+%text-xsmall {
+  font-size: 0.75rem;
+  line-height: 0.9rem;
 }
 
 %bold {
