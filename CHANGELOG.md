@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.140.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.139.3...v3.140.0) (2023-09-05)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois europe:** creation de la page et feature flipping ([#1912](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1912)) ([9760411](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9760411c65e7e74162500df016e4eae68b63d065))
+
 ## [3.139.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.139.2...v3.139.3) (2023-09-05)
 
 
