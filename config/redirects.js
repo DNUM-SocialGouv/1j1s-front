@@ -30,11 +30,6 @@ const ALL_MODE_REDIRECT = [
 		source: '/promo-16-18-afpa',
 	},
 	{
-		destination: '/europe',
-		permanent: true,
-		source: '/emploi-europe',
-	},
-	{
 		destination: '/articles/mission-locale',
 		permanent: true,
 		source: '/mission-locale',

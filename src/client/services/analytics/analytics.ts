@@ -20,6 +20,7 @@ type PageGroup =
 	| 'deposer_offre_emploi'
 	| 'deposer_offre_stage'
 	| 'emplois'
+	| 'emplois_europe'
 	| 'engagement_entreprise'
 	| 'entreprendre'
 	| 'formation'
