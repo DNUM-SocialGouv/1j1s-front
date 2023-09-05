@@ -12,7 +12,7 @@ describe('GénérerRobotsUseCase', () => {
 				'Disallow: /apprentissage/\n' +
 				'Disallow: /benevolat/\n' +
 				'Disallow: /emplois/\n' +
-				'Disallow: /emploi-europe/\n' +
+				'Disallow: /emplois-europe/\n' +
 				'Disallow: /jobs-etudiants/\n' +
 				'Disallow: /logements/annonces/\n' +
 				'Disallow: /service-civique/\n' +

@@ -102,7 +102,7 @@ describe('GénérerSitemapUseCase', () => {
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
 
-				expect(result).not.toContain('<loc>http://localhost:3000/emploi-europe</loc>');
+				expect(result).not.toContain('<loc>http://localhost:3000/emplois-europe</loc>');
 			});
 		});
 
@@ -120,7 +120,7 @@ describe('GénérerSitemapUseCase', () => {
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
 
-				expect(result).toContain('<loc>http://localhost:3000/emploi-europe</loc>');
+				expect(result).toContain('<loc>http://localhost:3000/emplois-europe</loc>');
 			});
 		});
 	});

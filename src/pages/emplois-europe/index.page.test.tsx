@@ -13,9 +13,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import EmploiEuropePage, { getServerSideProps } from '~/pages/emploi-europe/index.page';
+import EmploiEuropePage, { getServerSideProps } from '~/pages/emplois-europe/index.page';
 
-describe('Page emploi en europe', () => {
+describe('Page emplois en europe', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});

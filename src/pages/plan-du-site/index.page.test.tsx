@@ -20,7 +20,7 @@ describe('Plan du site', () => {
     ${'Contrats d’alternance'}                                | ${'/apprentissage'}
     ${'Jobs d‘été'}                    			                  | ${'/jobs-ete'}
     ${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
-    ${'Emplois en Europe'}                                		| ${'/emploi-europe'}
+    ${'Emplois en Europe'}                                		| ${'/emplois-europe'}
     ${'Expérience en Europe'}                                 | ${'/europe'}
     
     ${'Formations'}                                           | ${'/formations'}

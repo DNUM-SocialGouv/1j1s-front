@@ -5,7 +5,7 @@ User-agent: *
 Disallow: /apprentissage/
 Disallow: /benevolat/
 Disallow: /emplois/
-Disallow: /emploi-europe/
+Disallow: /emplois-europe/
 Disallow: /jobs-etudiants/
 Disallow: /logements/annonces/
 Disallow: /service-civique/
