@@ -111,10 +111,10 @@ export function aLongList(): RechercheLocalisation {
 		communeList: [...Array(21)].map(() => {
 			return { code: '76', codePostal: '76', coordonnées: { latitude: 2, longitude: 1 }, libelle: 'fake (76)', ville: 'fake' };
 		}),
-		départementList: [...Array(22)].map(() => {
+		departementList: [...Array(22)].map(() => {
 			return { code: '76', nom: 'fake' };
 		}),
-		régionList: [...Array(22)].map(() => {
+		regionList: [...Array(22)].map(() => {
 			return { code: '76', nom: 'fake' };
 		}),
 	};
@@ -123,23 +123,23 @@ export function aLongList(): RechercheLocalisation {
 export function aLocalisationList(): RechercheLocalisationApiResponse {
 	return {
 		communeList: [],
-		départementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
-		régionList: [],
+		departementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
+		regionList: [],
 	};
 }
 
 export function aLocalisationListWithCommuneAndDépartement(): RechercheLocalisationApiResponse {
 	return {
 		communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
-		départementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
-		régionList: [],
+		departementList: [{ code: '75', libelle: 'Paris (75)', nom: 'Paris' }],
+		regionList: [],
 	};
 }
 
 export function aLocalisationListWithEmptyValue(): RechercheLocalisationApiResponse {
 	return {
 		communeList: [],
-		départementList: [],
-		régionList: [],
+		departementList: [],
+		regionList: [],
 	};
 }

@@ -46,6 +46,30 @@ describe('RechercheLocalisationUtils', () => {
 			  expect(result).toBe(true);
 		  });
 	  });
+		describe('Lorsque la recherche est 2a', () => {
+			it('renvoie vrai', () => {
+				const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('2a');
+				expect(result).toBe(true);
+			});
+		});
+		describe('Lorsque la recherche est 2A', () => {
+			it('renvoie vrai', () => {
+				const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('2A');
+				expect(result).toBe(true);
+			});
+		});
+		describe('Lorsque la recherche est 2b', () => {
+			it('renvoie vrai', () => {
+				const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('2b');
+				expect(result).toBe(true);
+			});
+		});
+		describe('Lorsque la recherche est 2B', () => {
+			it('renvoie vrai', () => {
+				const result = RechercheLocalisationUtils.isRechercheByNumeroDepartement('2B');
+				expect(result).toBe(true);
+			});
+		});
 	});
 	describe('checkRechercheOnlyNumber', () => {
 		describe('Lorsque la longueur de chaîne à vérifier est supérieure à 0', () => {

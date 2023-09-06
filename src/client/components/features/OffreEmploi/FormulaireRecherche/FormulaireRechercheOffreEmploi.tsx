@@ -5,7 +5,12 @@ import styles from '~/client/components/features/OffreEmploi/FormulaireRecherche
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
-import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
+import {
+	ComboboxLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import {
+	createLocalisationDefaultValueFromQuery,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/CreateLocalisationDefaultValueFromQuery';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -37,29 +42,18 @@ export function FormulaireRechercheOffreEmploi() {
 	const rechercheOffreEmploiForm = useRef<HTMLFormElement>(null);
 
 	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
-	const [inputTypeDeContrat, setInputTypeDeContrat] = useState('');
-	const [inputExpérience, setInputExpérience] = useState('');
-	const [inputTempsDeTravail, setInputTempsDeTravail] = useState('');
-	const [inputDomaine, setInputDomaine] = useState('');
-	const [inputMotCle, setInputMotCle] = useState('');
-	const [inputTypeLocalisation, setInputTypeLocalisation] = useState('');
-	const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState('');
-	const [inputCodeLocalisation, setInputCodeLocalisation] = useState('');
 
 	const queryParams = useOffreQuery();
 	const { isSmallScreen } = useBreakpoint();
 	const router = useRouter();
 
-	useEffect(function initFormValues() {
-		setInputMotCle(queryParams.motCle || '');
-		setInputDomaine(queryParams.grandDomaine || '');
-		setInputTempsDeTravail(queryParams.tempsDeTravail || '');
-		setInputTypeDeContrat(queryParams.typeDeContrats || '');
-		setInputExpérience(queryParams.experienceExigence || '');
-		setInputTypeLocalisation(queryParams.typeLocalisation || '');
-		setInputCodeLocalisation(queryParams.codeLocalisation || '');
-		setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
-	}, [queryParams]);
+	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ?? '');
+	const [inputExpérience, setInputExpérience] = useState(queryParams.experienceExigence ?? '');
+	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(queryParams.tempsDeTravail ?? '');
+	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
+	const [inputMotCle, setInputMotCle] = useState(queryParams.motCle ?? '');
+
+	const inputLocalisation = createLocalisationDefaultValueFromQuery(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
 	useEffect(function fermerFiltresAvancésSurÉcranLarge() {
 		if (!isSmallScreen) {
@@ -105,10 +99,9 @@ export function FormulaireRechercheOffreEmploi() {
 						placeholder="Exemples : boulanger, informatique..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
-					<InputLocalisation
-						libellé={inputLibelleLocalisation}
-						code={inputCodeLocalisation}
-						type={inputTypeLocalisation}
+					<ComboboxLocalisation
+						defaultValue={inputLocalisation}
+						placeholder="Exemples : Paris, Béziers..."
 					/>
 
 					{isSmallScreen &&

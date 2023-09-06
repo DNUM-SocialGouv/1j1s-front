@@ -4,7 +4,7 @@ import {
 	DemandeDeContactCEJRepository,
 } from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 
 describe('DemandeDeContactCEJRepository', () => {
 	describe('envoyer', () => {
@@ -43,11 +43,11 @@ describe('DemandeDeContactCEJRepository', () => {
 				// Given
 				const strapiCmsRepository = aStrapiCmsRepository();
 				const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
-				jest.spyOn(strapiCmsRepository, 'save').mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				jest.spyOn(strapiCmsRepository, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				// When
 				const result = await repository.envoyer(demandeDeContactCEJ);
 				// Then
-				expect(result).toEqual(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				expect(result).toEqual(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 			});
 		});
 	});

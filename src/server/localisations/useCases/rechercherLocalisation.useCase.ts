@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
@@ -10,7 +10,7 @@ import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheL
 const MIN_CHAR_LENGTH_FOR_SEARCH = 3;
 
 export class RechercherLocalisationUseCase {
-	constructor(private localisationRepository: LocalisationRepository, 
+	constructor(private localisationRepository: LocalisationRepository,
               private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {}
 
 	async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
@@ -30,8 +30,8 @@ export class RechercherLocalisationUseCase {
 			case 'success': {
 				return createSuccess({
 					communeList: [],
-					départementList: response.result,
-					régionList: [],
+					departementList: response.result,
+					regionList: [],
 				});
 			};
 			case 'failure': return response;
@@ -45,8 +45,8 @@ export class RechercherLocalisationUseCase {
 			case 'success': {
 				return createSuccess({
 					communeList: responseCommuneList.result.résultats,
-					départementList: [],
-					régionList: [],
+					departementList: [],
+					regionList: [],
 				});
 			}
 			case 'failure':
@@ -56,7 +56,7 @@ export class RechercherLocalisationUseCase {
 
 	private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
 		if (recherche.length < MIN_CHAR_LENGTH_FOR_SEARCH) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 
 		const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
@@ -70,11 +70,11 @@ export class RechercherLocalisationUseCase {
 
 			return createSuccess({
 				communeList: responseCommuneList.result.résultats,
-				départementList: responseDépartementList.result,
-				régionList: responseRégionList.result,
+				departementList: responseDépartementList.result,
+				regionList: responseRégionList.result,
 			});
 		} else {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 		}
 	}
 }

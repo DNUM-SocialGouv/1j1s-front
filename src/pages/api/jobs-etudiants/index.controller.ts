@@ -19,7 +19,6 @@ import { dependencies } from '~/server/start';
 export const jobsEtudiantsQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
-	libelleLocalisation: Joi.string(),
 	motCle: Joi.string(),
 	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),

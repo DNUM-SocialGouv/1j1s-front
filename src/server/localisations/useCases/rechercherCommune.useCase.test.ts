@@ -1,5 +1,5 @@
 import { createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	aLocalisationAvecCoordonnéesRepository,
 	aRésultatsRechercheCommune,
@@ -58,7 +58,7 @@ describe('RechercherCommuneUseCase', () => {
 			type ExpectedType = Awaited<ReturnType<typeof rechercherCommuneUseCase.handle>>
 			jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList');
 
-			const expected: ExpectedType = { errorType: ErreurMétier.DEMANDE_INCORRECTE, instance: 'failure' };
+			const expected: ExpectedType = { errorType: ErreurMetier.DEMANDE_INCORRECTE, instance: 'failure' };
 
 			const result = await rechercherCommuneUseCase.handle('pa');
 

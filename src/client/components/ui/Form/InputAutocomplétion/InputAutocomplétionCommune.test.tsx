@@ -12,7 +12,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	aLocalisationService,
-} from '~/client/services/localisation/localisationService.fixture';
+} from '~/client/services/localisation/localisation.service.fixture';
 
 describe('InputAutocomplétionCommune', function () {
 	afterEach(() => {

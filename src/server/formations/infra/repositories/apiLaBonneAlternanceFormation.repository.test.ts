@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aFormation, aResultatRechercheFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	aFormationQuery,
@@ -79,7 +79,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, errorManagementService);
-				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
@@ -220,7 +220,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 						// Given
 						const httpClientService = aPublicHttpClientService();
 						const errorManagementService = anErrorManagementService();
-						const errorReturnedByErrorManagementService = ErreurMétier.DEMANDE_INCORRECTE;
+						const errorReturnedByErrorManagementService = ErreurMetier.DEMANDE_INCORRECTE;
 						const httpError = anHttpError(500, 'internal_error');
 						jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
@@ -422,7 +422,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 								const errorManagementService = anErrorManagementService();
 								jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 								jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
-								const demandeIncorrecte = ErreurMétier.DEMANDE_INCORRECTE;
+								const demandeIncorrecte = ErreurMetier.DEMANDE_INCORRECTE;
 								jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(demandeIncorrecte));
 
 								const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', errorManagementService);
@@ -448,7 +448,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 							const httpClientService = aPublicHttpClientService();
 							const errorManagementService = anErrorManagementService();
 							const httpError = anHttpError(500);
-							const errorReturnedBySearch = ErreurMétier.SERVICE_INDISPONIBLE;
+							const errorReturnedBySearch = ErreurMetier.SERVICE_INDISPONIBLE;
 
 							jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
 							jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
@@ -474,7 +474,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 					const httpClientService = aPublicHttpClientService();
 					const errorManagementService = anErrorManagementService();
 					const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, caller, errorManagementService);
-					const errorReturnedByErrorManagementService = ErreurMétier.DEMANDE_INCORRECTE;
+					const errorReturnedByErrorManagementService = ErreurMetier.DEMANDE_INCORRECTE;
 					jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 					jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 

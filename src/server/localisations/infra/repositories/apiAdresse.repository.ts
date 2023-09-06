@@ -3,6 +3,7 @@ import { RésultatsRechercheCommune } from '~/server/localisations/domain/locali
 import {
 	LocalisationAvecCoordonnéesRepository,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import { removeParenthesis } from '~/server/localisations/infra/repositories/apiAdresse.mapper';
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
 import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -14,8 +15,9 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
 
 	async getCommuneList(adresseRecherchée: string): Promise<Either<RésultatsRechercheCommune>> {
 		try {
+			const query = removeParenthesis(adresseRecherchée);
 			const response = await this.httpClientService.get<ApiAdresseResponse>(
-				`search/?q=${adresseRecherchée}&type=municipality&limit=21`,
+				`search/?q=${query}&type=municipality&limit=21`,
 			);
 			return createSuccess(mapRésultatsRechercheCommune(response.data));
 		} catch (error) {

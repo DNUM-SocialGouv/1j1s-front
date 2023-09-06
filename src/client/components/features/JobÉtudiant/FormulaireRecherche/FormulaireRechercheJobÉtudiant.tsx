@@ -1,10 +1,15 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { InputLocalisation } from '~/client/components/ui/Form/InputLocalisation/InputLocalisation';
+import {
+	ComboboxLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import {
+	createLocalisationDefaultValueFromQuery,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/CreateLocalisationDefaultValueFromQuery';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -19,22 +24,13 @@ import {
 export function FormulaireRechercheJobÉtudiant() {
 	const rechercheJobÉtudiantForm = useRef<HTMLFormElement>(null);
 
-	const [inputDomaine, setInputDomaine] = useState('');
-	const [inputMotCle, setInputMotCle] = useState<string>('');
-	const [inputTypeLocalisation, setInputTypeLocalisation] = useState<string>('');
-	const [inputLibelleLocalisation, setInputLibelleLocalisation] = useState<string>('');
-	const [inputCodeLocalisation, setInputCodeLocalisation] = useState<string>('');
-
 	const queryParams = useOffreQuery();
 	const router = useRouter();
 
-	useEffect(function initFormValues() {
-		setInputMotCle(queryParams.motCle || '');
-		setInputDomaine(queryParams.grandDomaine || '');
-		setInputTypeLocalisation(queryParams.typeLocalisation || '');
-		setInputCodeLocalisation(queryParams.codeLocalisation || '');
-		setInputLibelleLocalisation(queryParams.libelleLocalisation || '');
-	}, [queryParams]);
+	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
+	const [inputMotCle, setInputMotCle] = useState<string>(queryParams.motCle ?? '');
+
+	const inputLocalisation = createLocalisationDefaultValueFromQuery(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
 	async function updateRechercherJobÉtudiantQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -59,10 +55,9 @@ export function FormulaireRechercheJobÉtudiant() {
 						placeholder="Exemples : serveur, tourisme..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>
-					<InputLocalisation
-						libellé={inputLibelleLocalisation}
-						code={inputCodeLocalisation}
-						type={inputTypeLocalisation}
+					<ComboboxLocalisation
+						defaultValue={inputLocalisation}
+						placeholder="Exemples : Paris, Béziers..."
 					/>
 
 					<Select

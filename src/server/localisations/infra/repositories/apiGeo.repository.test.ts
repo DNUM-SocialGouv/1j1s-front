@@ -1,7 +1,7 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -138,14 +138,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getCommuneListByNom('par');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('communes'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
@@ -180,14 +180,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getDépartementListByNom('yve');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('départements'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
@@ -222,14 +222,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getRégionListByNom('haut');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('régions'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
@@ -316,14 +316,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getCommuneListByCodePostal('78350');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('communes'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
@@ -380,19 +380,27 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getCommuneListByNuméroDépartement('92');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('communes'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
 
 	describe('getDépartementListByNuméroDépartement', () => {
+		it('Met en majuscule la recherche', async () => {
+			const httpClientService = aCachedHttpClientService();
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
+
+			await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('2a');
+
+			expect(httpClientService.get).toHaveBeenCalledWith('departements?code=2A');
+		});
 		it('retourne la liste du département par numéro du département trouvées par l‘api decoupage administratif', async () => {
 			const httpClientService = aCachedHttpClientService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
@@ -421,14 +429,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getDépartementListByNuméroDépartement('78');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('départements'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});
@@ -470,7 +478,7 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 
 		it('log une erreur et retourne une failure quand il n’y a aucun résultat', async () => {
-			const failureReturnedByErrorManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const failureReturnedByErrorManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			const httpClientService = aCachedHttpClientService();
 			const errorManagementService = anErrorManagementService();
 			const noAssociatedCodeRegionError = new Error('Il n‘y a pas de code région associé au code postal fourni');
@@ -488,7 +496,7 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 
 		it('log une erreur et retourne une failure quand le code région n’est pas définie', async () => {
-			const failureReturnedByErrorManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const failureReturnedByErrorManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			const httpClientService = aCachedHttpClientService();
 			const errorManagementService = anErrorManagementService();
 			const noAssociatedCodeRegionError = new Error('Il n‘y a pas de code région associé au code postal fourni');
@@ -524,14 +532,14 @@ describe('ApiGeoLocalisationRepository', () => {
 				const httpClientService = aCachedHttpClientService();
 				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(errorHttp);
-				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
 				const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('communes'));
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});

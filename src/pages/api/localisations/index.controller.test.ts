@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aLongList } from '~/server/localisations/domain/localisation.fixture';
 import {
 	RechercheLocalisationApiResponse,
@@ -69,14 +69,14 @@ describe('rechercher une localisation', () => {
 								nom: 'Aulnay-sous-Bois',
 							},
 						],
-						départementList: [{
+						departementList: [{
 							code: '68',
-							libelle: 'Haut-Rhin (68)',
+							libelle: 'Haut-Rhin 68',
 							nom: 'Haut-Rhin',
 						}],
-						régionList: [{
+						regionList: [{
 							code: '32',
-							libelle: 'Hauts-de-France (32)',
+							libelle: 'Hauts-de-France 32',
 							nom: 'Hauts-de-France',
 						}],
 					};
@@ -87,11 +87,11 @@ describe('rechercher une localisation', () => {
 		});
 
 		it('la réponse de la recherche contient 20 éléments maximum', () => {
-			const { communeList, départementList, régionList } = mapApiResponse(aLongList());
+			const { communeList, departementList, regionList } = mapApiResponse(aLongList());
 
 			expect(communeList.length).toEqual(21);
-			expect(départementList.length).toEqual(20);
-			expect(régionList.length).toEqual(20);
+			expect(departementList.length).toEqual(20);
+			expect(regionList.length).toEqual(20);
 		});
 	});
 
@@ -103,7 +103,7 @@ describe('rechercher une localisation', () => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
 					const expectedJSON: ErrorHttpResponse = {
-						error: ErreurMétier.DEMANDE_INCORRECTE,
+						error: ErreurMetier.DEMANDE_INCORRECTE,
 					};
 					expect(json).toEqual(expectedJSON);
 				},

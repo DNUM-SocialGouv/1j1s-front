@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import { rechercherÉtablissementAccompagnementHandler } from '~/pages/api/etablissements-accompagnement/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anOrderedÉtablissementAccompagnementList,
@@ -42,7 +42,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(json).toEqual({ error: ErreurMétier.CONTENU_INDISPONIBLE });
+					expect(json).toEqual({ error: ErreurMetier.CONTENU_INDISPONIBLE });
 				},
 				url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
 			});

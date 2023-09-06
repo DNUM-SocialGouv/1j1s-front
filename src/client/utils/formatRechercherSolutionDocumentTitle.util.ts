@@ -1,5 +1,5 @@
 import { Erreur } from '~/server/errors/erreur.types';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 
 
 const SERVICE_INDISPONIBLE_TITLE = ' - Service indisponible';
@@ -8,11 +8,11 @@ const DEMANDE_INCORRECTE_TITLE = ' - Demande incorrecte';
 export function formatRechercherSolutionDocumentTitle(prefixTitle: string, errorType?: Erreur): string {
 	let title = '';
 	switch (errorType) {
-		case ErreurMétier.SERVICE_INDISPONIBLE: {
+		case ErreurMetier.SERVICE_INDISPONIBLE: {
 			title = SERVICE_INDISPONIBLE_TITLE;
 			break;
 		}
-		case ErreurMétier.DEMANDE_INCORRECTE: {
+		case ErreurMetier.DEMANDE_INCORRECTE: {
 			title = DEMANDE_INCORRECTE_TITLE;
 			break;
 		}

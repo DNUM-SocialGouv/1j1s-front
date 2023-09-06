@@ -27,7 +27,7 @@ describe('Etiquettes filtre emploi', () => {
 			mockUseRouter({
 				query: {
 					codeLocalisation: '26',
-					libelleLocalisation: 'BOURG LES VALENCE (26)',
+					nomLocalisation: 'BOURG LES VALENCE (26)',
 					typeLocalisation: 'DEPARTEMENT',
 				},
 			});
@@ -102,14 +102,14 @@ describe('Etiquettes filtre emploi', () => {
 			mockUseRouter({
 				query: {
 					codeLocalisation: '26',
-					libelleLocalisation: 'Bourg-lès-Valence (26500)',
+					nomLocalisation: 'Bourg-lès-Valence',
 					typeLocalisation: 'DEPARTEMENT',
 				},
 			});
 			render(<EtiquettesFiltreOffreEmploi/>);
 
 			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-			const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26500)');
+			const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence');
 			expect(filtresRecherche).toBeInTheDocument();
 			expect(localisation).toBeInTheDocument();
 		});

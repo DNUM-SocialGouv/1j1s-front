@@ -1,5 +1,5 @@
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
 	LocalisationAvecCoordonnéesRepository,
@@ -13,7 +13,7 @@ export class RechercherCommuneUseCase {
 	async handle(recherche: string): Promise<Either<RésultatsRechercheCommune>> {
 		const minimumQueryLength = this.configurationService.getConfiguration().NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH;
 		if (recherche.length < minimumQueryLength) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 		return this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
 	}

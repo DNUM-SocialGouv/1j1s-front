@@ -1,5 +1,5 @@
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
@@ -34,7 +34,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 						throw httpError;
 					}),
 				});
-				const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
+				const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
 				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
 				const repository = new ApiLaBonneAlternanceMétierRepository(httpClientService, errorManagementService);
 

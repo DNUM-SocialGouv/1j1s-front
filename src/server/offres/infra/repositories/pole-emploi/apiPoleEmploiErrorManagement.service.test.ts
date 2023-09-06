@@ -1,5 +1,5 @@
 import { createFailure, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
 	ApiPoleEmploiOffreErrorManagementServiceGet,
@@ -28,7 +28,7 @@ describe('handleFailureError', () => {
 
 					const result = apiPEerrorManagementServiceSearch.handleFailureError(httpError, aLogInformationSearch) as Failure;
 
-					expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+					expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 				});
 				it('log les informations en warning', () => {
 					const loggerService = aLoggerService();
@@ -55,7 +55,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceSearch.handleFailureError(httpError, aLogInformationSearch) as Failure;
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 			it('log les informations en erreur', () => {
 				const loggerService = aLoggerService();
@@ -81,7 +81,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceSearch.handleFailureError(httpError, aLogInformationSearch) as Failure;
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 			it('log les informations en erreur', () => {
 				const loggerService = aLoggerService();
@@ -105,7 +105,7 @@ describe('handleFailureError', () => {
 				const loggerService = aLoggerService();
 				const apiPEerrorManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
 				const internalError = new Error('ceci est une erreur interne');
-				const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 				// WHEN
 				const result = apiPEerrorManagementServiceSearch.handleFailureError(internalError, aLogInformationSearch);
@@ -141,7 +141,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceGet.handleFailureError(axiosResponse, aLogInformationGet);
 
-				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+				expect(result.errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 			});
 		});
 
@@ -152,7 +152,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceGet.handleFailureError(httpError, aLogInformationGet) as Failure;
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 			it('log les informations en warning', () => {
 				const loggerService = aLoggerService();
@@ -178,7 +178,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceGet.handleFailureError(httpError, aLogInformationGet) as Failure;
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 			it('log les informations en erreur', () => {
 				const loggerService = aLoggerService();
@@ -204,7 +204,7 @@ describe('handleFailureError', () => {
 
 				const result = apiPEerrorManagementServiceGet.handleFailureError(httpError, aLogInformationGet) as Failure;
 
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 			it('log les informations en erreur', () => {
 				const loggerService = aLoggerService();
@@ -228,7 +228,7 @@ describe('handleFailureError', () => {
 				const loggerService = aLoggerService();
 				const apiPEerrorManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
 				const internalError = new Error('ceci est une erreur interne');
-				const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 				// WHEN
 				const result = apiPEerrorManagementServiceGet.handleFailureError(internalError, aLogInformationGet);

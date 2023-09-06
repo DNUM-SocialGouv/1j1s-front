@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aMail } from '~/server/mail/domain/mail.fixture';
 import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail/infra/repositories/tipimail.fixture';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
@@ -48,7 +48,7 @@ describe('TipimailRepository', () => {
 							throw errorHttp;
 						}),
 					});
-					const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
+					const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
 					const errorManagementService = anErrorManagementService({
 						handleFailureError: jest.fn(() => createFailure(expectedFailure)),
 					});

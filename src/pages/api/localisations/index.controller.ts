@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
@@ -20,11 +20,11 @@ export async function rechercherLocalisationHandler(req: NextApiRequest, res: Ne
 			return res.status(200).json(mapApiResponse(résultatsRechercheLocalisation.result));
 		case 'failure':
 			switch(résultatsRechercheLocalisation.errorType) {
-				case ErreurMétier.SERVICE_INDISPONIBLE:
+				case ErreurMetier.SERVICE_INDISPONIBLE:
 					return res.status(503).json({ error: résultatsRechercheLocalisation.errorType });
-				case ErreurMétier.DEMANDE_INCORRECTE:
+				case ErreurMetier.DEMANDE_INCORRECTE:
 					return res.status(400).json({ error: résultatsRechercheLocalisation.errorType });
-				case ErreurMétier.CONTENU_INDISPONIBLE:
+				case ErreurMetier.CONTENU_INDISPONIBLE:
 					return res.status(404).json({ error: résultatsRechercheLocalisation.errorType });
 			}
 	}
@@ -33,7 +33,7 @@ export async function rechercherLocalisationHandler(req: NextApiRequest, res: Ne
 function mapLocalisation(localisationApiResponse: Localisation): LocalisationApiResponse {
 	return {
 		code: localisationApiResponse.code,
-		libelle: `${localisationApiResponse.nom} (${localisationApiResponse.code})`,
+		libelle: `${localisationApiResponse.nom} ${localisationApiResponse.code}`,
 		nom: localisationApiResponse.nom,
 	};
 }
@@ -48,12 +48,12 @@ function mapCommune(communeApiResponse: Commune): CommuneLocalisationApiResponse
 }
 
 export function mapApiResponse(localisationList: RechercheLocalisation): RechercheLocalisationApiResponse {
-	const { communeList, départementList, régionList } = localisationList;
+	const { communeList, departementList, regionList } = localisationList;
 
 	const communeListApiResponse: CommuneLocalisationApiResponse[] = communeList.map(mapCommune);
-	const départementListApiResponse: LocalisationApiResponse[] = départementList.slice(0,20).map(mapLocalisation);
-	const régionListApiResponse: LocalisationApiResponse[] = régionList.slice(0,20).map(mapLocalisation);
-	return { communeList: communeListApiResponse, départementList: départementListApiResponse, régionList: régionListApiResponse };
+	const départementListApiResponse: LocalisationApiResponse[] = departementList.slice(0,20).map(mapLocalisation);
+	const régionListApiResponse: LocalisationApiResponse[] = regionList.slice(0,20).map(mapLocalisation);
+	return { communeList: communeListApiResponse, departementList: départementListApiResponse, regionList: régionListApiResponse };
 }
 export default withMonitoring(rechercherLocalisationHandler);
 

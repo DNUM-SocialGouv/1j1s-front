@@ -10,6 +10,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
+import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagementService.fixture';
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
@@ -23,6 +25,8 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
+				localisationService={aLocalisationService()}
+				missionEngagementService={aMissionEngagementService()}
 			>
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);

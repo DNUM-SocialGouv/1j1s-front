@@ -1,7 +1,7 @@
 import { aFormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.fixture';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	aFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
@@ -50,7 +50,7 @@ describe('consulterDetailFormationInitiale', () => {
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
 		const formationInitialeDetail = aFormationInitiale();
 		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createSuccess(formationInitialeDetail));
-		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 
 		const consulterDetailFormationInitialeUseCase = await new ConsulterDetailFormationInitialeUseCase(formationInitialeRepository, cmsRepository);
 
@@ -62,7 +62,7 @@ describe('consulterDetailFormationInitiale', () => {
 		const id = 'FOR.1234';
 		const formationInitialeRepository = anOnisepFormationInitialeRepository({ getFormationInitiale: jest.fn() });
 		const cmsRepository = aStrapiCmsRepository({ getFormationInitialeById: jest.fn() });
-		const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
+		const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
 		jest.spyOn(formationInitialeRepository, 'getFormationInitiale').mockResolvedValue(createFailure(expectedFailure));
 		jest.spyOn(cmsRepository, 'getFormationInitialeById').mockResolvedValue(createSuccess(aFormationInitialeDetailCMS()));
 

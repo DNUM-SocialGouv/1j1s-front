@@ -59,8 +59,8 @@ export function EtiquettesFiltreOffreEmploi() {
 			});
 		}
 
-		if (offreEmploiQuery.libelleLocalisation) {
-			filtreList.push(offreEmploiQuery.libelleLocalisation);
+		if (offreEmploiQuery.nomLocalisation) {
+			filtreList.push(offreEmploiQuery.nomLocalisation);
 		}
 
 		setFiltres(filtreList);

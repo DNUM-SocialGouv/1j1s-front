@@ -2,7 +2,7 @@ import { aCommandeRejoindreLaMobilisation, anEntreprise } from '~/client/service
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 
 describe('LesEntreprisesSEngagentUseCase', () => {
 	let lEERepository: jest.Mocked<RejoindreLaMobilisationRepository>;
@@ -34,13 +34,13 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 
 			describe('Mais que le dépôt renvoie une erreur métier', () => {
 				beforeEach(() => {
-					lEERepository.save.mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					lEERepository.save.mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				});
 				it('résout cette erreur métier', async () => {
 					// When
 					const actual = await usecase.rejoindreLaMobilisation(commande);
 					// Then
-					expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					expect(actual).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				});
 			});
 		});
@@ -55,7 +55,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 				// When
 				const actual = await usecase.rejoindreLaMobilisation(commandeInvalide);
 				// Then
-				expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				expect(actual).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			});
 		});
 		const invalidFields = [
@@ -90,7 +90,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 					// When
 					const actual = await usecase.rejoindreLaMobilisation(commandeInvalide);
 					// Then
-					expect(actual).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					expect(actual).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				});
 			});
 		}

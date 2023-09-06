@@ -1,7 +1,7 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { ApiAdresseRepository } from '~/server/localisations/infra/repositories/apiAdresse.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -137,13 +137,13 @@ describe('ApiAdresseRepository', () => {
 					.mockRejectedValue(errorHttp);
 				jest
 					.spyOn(errorManagementService, 'handleFailureError')
-					.mockReturnValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+					.mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 
 				const result = await apiAdresseRepository.getCommuneList(recherche);
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiAdresse);
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});

@@ -11,7 +11,7 @@ import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	aLogInformation,
 	anErrorManagementService,
@@ -64,7 +64,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const errorManagementServiceSearch = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
 			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
-			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 
 			// When
 			const result = await repository.search(anAlternanceFiltre());
@@ -174,7 +174,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 					throw httpError;
 				}),
 			});
-			const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
+			const expectedFailure = ErreurMetier.DEMANDE_INCORRECTE;
 			const errorManagementServiceSearch = anErrorManagementService();
 			const errorManagementServiceGet = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', errorManagementServiceSearch, errorManagementServiceGet);

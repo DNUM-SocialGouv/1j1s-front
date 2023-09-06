@@ -9,7 +9,7 @@ import { userEvent } from '@testing-library/user-event';
 import Rappel from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 
@@ -25,11 +25,12 @@ describe('<Rappel />', () => {
 			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		} as unknown as DemandeDeContactService);
 		const demandeDeContactServiceMock = anDemandeDeContactService();
-		const localisationService = aLocalisationService({
+		const localisationService = aLocalisationService();
+		jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
 			communeList: [{ code: '75101', codePostal: '75001', libelle: 'Paris (75001)', nom: 'Paris' }],
-			départementList: [],
-			régionList: [],
-		});
+			departementList: [],
+			regionList: [],
+		}));
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>

@@ -1,7 +1,7 @@
 import { ValidationError } from 'joi';
 
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { DefaultErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
@@ -20,7 +20,7 @@ describe('DefaultErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const httpError = anHttpError(500);
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = errorManagementService.handleFailureError(httpError, logInformation);
@@ -34,7 +34,7 @@ describe('DefaultErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const httpError = anHttpError(404);
-			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			// WHEN
 			const result = errorManagementService.handleFailureError(httpError, logInformation);
@@ -48,7 +48,7 @@ describe('DefaultErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const httpError = anHttpError(400);
-			const expectedFailure = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			const expectedFailure = createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 
 			// WHEN
 			const result = errorManagementService.handleFailureError(httpError, logInformation);
@@ -62,7 +62,7 @@ describe('DefaultErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const httpError = anHttpError(409);
-			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			// WHEN
 			const result = errorManagementService.handleFailureError(httpError, logInformation);
@@ -191,7 +191,7 @@ describe('DefaultErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
 			const internalError = new Error('ceci est une erreur interne');
-			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			// WHEN
 			const result = errorManagementService.handleFailureError(internalError, logInformation);

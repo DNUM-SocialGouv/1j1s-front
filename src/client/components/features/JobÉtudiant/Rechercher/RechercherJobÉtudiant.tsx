@@ -73,12 +73,12 @@ export function RechercherJobÉtudiant() {
 	}, [nombreRésultats, offreEmploiQuery.motCle]);
 
 	const étiquettesRecherche = useMemo(() => {
-		if (offreEmploiQuery.libelleLocalisation) {
-			return <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/>;
+		if (offreEmploiQuery.nomLocalisation) {
+			return <TagList list={[offreEmploiQuery.nomLocalisation]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [offreEmploiQuery.libelleLocalisation]);
+	}, [offreEmploiQuery.nomLocalisation]);
 
 	return (
 		<>

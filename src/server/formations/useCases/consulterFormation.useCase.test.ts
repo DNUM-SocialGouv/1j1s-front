@@ -1,5 +1,5 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { aFormationRepository } from '~/server/formations/domain/formation.repository.fixture';
 import { aStatistiqueRepository } from '~/server/formations/domain/statistique.repository.fixture';
@@ -15,7 +15,7 @@ describe('ConsulterFormationUseCase', () => {
 			it('retourne une erreur', async () => {
 				// Given
 				const formationRepository = aFormationRepository();
-				(formationRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				(formationRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const statistiqueRepository = aStatistiqueRepository();
 
@@ -25,7 +25,7 @@ describe('ConsulterFormationUseCase', () => {
 				const returnValue = await new ConsulterFormationUseCase(formationRepository, statistiqueRepository).handle('123', filtres);
 
 				// Then
-				expect(returnValue).toEqual({ formation: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+				expect(returnValue).toEqual({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 				expect(formationRepository.get).toHaveBeenCalledWith('123', filtres);
 				expect(statistiqueRepository.get).toHaveBeenCalledTimes(0);
 			});
@@ -84,7 +84,7 @@ describe('ConsulterFormationUseCase', () => {
 						(formationRepository.get as jest.Mock).mockResolvedValueOnce(createSuccess(aFormation()));
 
 						const statistiqueRepository = aStatistiqueRepository();
-						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+						(statistiqueRepository.get as jest.Mock).mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						const filtres = aFormationAvecCodeCertificationQuery();
 

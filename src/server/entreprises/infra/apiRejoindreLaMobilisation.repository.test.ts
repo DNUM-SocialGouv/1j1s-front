@@ -1,7 +1,7 @@
 import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -40,7 +40,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 
 		it('résout une erreur quand le service est indisponible', async () => {
 			// Given
-			const expectedFailure = ErreurMétier.SERVICE_INDISPONIBLE;
+			const expectedFailure = ErreurMetier.SERVICE_INDISPONIBLE;
 			const entreprise = anEntreprise();
 			const errorHttp = anHttpError(503);
 			jest.spyOn(httpClientService, 'post').mockRejectedValue(errorHttp);

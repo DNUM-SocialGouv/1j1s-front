@@ -1,5 +1,5 @@
 import { createSuccess, Either, isSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
 import {
@@ -100,7 +100,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (résultatRechercheFormation) {
 				return createSuccess(mapRésultatRechercheFormationToFormation(résultatRechercheFormation));
 			}
-			return this.errorManagementService.handleFailureError(ErreurMétier.DEMANDE_INCORRECTE, {
+			return this.errorManagementService.handleFailureError(ErreurMetier.DEMANDE_INCORRECTE, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get formation la bonne alternance',
 				message: 'impossible de récupérer le détail d’une formation en effectuant de nouveau la recherche',

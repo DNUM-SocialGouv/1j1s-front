@@ -1,7 +1,7 @@
 import { ValidationError } from 'joi';
 
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	ErrorManagementService,
 	ErrorManagementWithErrorCheckingService,
@@ -10,7 +10,7 @@ import {
 
 export function anErrorManagementService(override?: Partial<ErrorManagementService>): ErrorManagementService {
 	return {
-		handleFailureError: jest.fn(() => createFailure(ErreurMétier.DEMANDE_INCORRECTE)),
+		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
 		handleValidationError: jest.fn(),
 		...override,
 	};
@@ -27,7 +27,7 @@ export function aLogInformation(override?: Partial<LogInformation>): LogInformat
 
 export function anErrorManagementWithErrorCheckingService(override?: Partial<ErrorManagementWithErrorCheckingService>): ErrorManagementWithErrorCheckingService {
 	return {
-		handleFailureError: jest.fn(() => createFailure(ErreurMétier.DEMANDE_INCORRECTE)),
+		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
 		handleValidationError: jest.fn(),
 		isError: jest.fn(() => false),
 		...override,

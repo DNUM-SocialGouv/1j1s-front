@@ -6,7 +6,7 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { DemandeDeContactType } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { dependencies } from '~/server/start';
 
 export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, res: NextApiResponse<void | ErrorHttpResponse>) {
@@ -21,7 +21,7 @@ export async function enregistrerDemandeDeContactHandler(req: NextApiRequest, re
 			break;
 		}
 		default: {
-			response = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			response = createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 			break;
 		}
 	}

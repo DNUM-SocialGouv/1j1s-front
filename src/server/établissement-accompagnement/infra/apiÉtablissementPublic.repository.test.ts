@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	anOrderedÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
@@ -47,7 +47,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const httpError = anHttpError(404, '', anAxiosResponse({}, 404));
 				const httpClient = aPublicHttpClientService();
 				jest.spyOn(httpClient, 'get').mockRejectedValue(httpError);
-				const expectedError = ErreurMétier.DEMANDE_INCORRECTE;
+				const expectedError = ErreurMetier.DEMANDE_INCORRECTE;
 				const errorManagementService = anErrorManagementService({
 					handleFailureError: jest.fn(() => createFailure(expectedError)),
 				});
@@ -61,7 +61,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				// then
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, logInformation);
 				expect(result.instance).toEqual('failure');
-				expect((result as Failure).errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
 		});
 	});

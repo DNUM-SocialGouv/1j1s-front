@@ -14,7 +14,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { Metier } from '~/server/metiers/domain/metier';
 
 describe('<ComboboxMetiers />', () => {
@@ -272,7 +272,7 @@ describe('<ComboboxMetiers />', () => {
 	it('affiche un message quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
 		const metierService: MetierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 		render(
 			<DependenciesProvider metierService={metierService}>

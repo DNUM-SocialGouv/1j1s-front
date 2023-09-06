@@ -1,6 +1,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import { removeParenthesis } from '~/server/localisations/infra/repositories/apiAdresse.mapper';
 import { getCodeRegion, mapLocalisationList } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { ApiDecoupageAdministratifResponse } from '~/server/localisations/infra/repositories/apiGeo.response';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -29,19 +30,21 @@ export class ApiGeoRepository implements LocalisationRepository {
 	}
 
 	async getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>> {
-		const endpoint = `departements?nom=${départementRecherché}`;
+		const query = removeParenthesis(départementRecherché);
+		const endpoint = `departements?nom=${query}`;
 		const contexte = 'départements';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
 	async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-		const endpoint = `departements?code=${numéroDépartementRecherché}`;
+		const endpoint = `departements?code=${numéroDépartementRecherché.toUpperCase()}`;
 		const contexte = 'départements';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
 	async getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>> {
-		const endpoint = `regions?nom=${régionRecherchée}`;
+		const query = removeParenthesis(régionRecherchée);
+		const endpoint = `regions?nom=${query}`;
 		const contexte = 'régions';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}

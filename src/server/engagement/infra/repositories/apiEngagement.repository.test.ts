@@ -9,7 +9,7 @@ import {
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -65,7 +65,7 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const httpError = anHttpError(500);
-				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				const rechercheServiceCivique: MissionEngagement.Recherche.ServiceCivique = {
@@ -124,7 +124,7 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const httpError = anHttpError(500);
-				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				const rechercheBénévolat: MissionEngagement.Recherche.Benevolat = {
@@ -168,7 +168,7 @@ describe('ApiEngagementRepository', () => {
 		describe('quand l’api engagement répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				const httpError = anHttpError(500);
-				const errorReturnedByErrorManagementService = ErreurMétier.SERVICE_INDISPONIBLE;
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'get').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 

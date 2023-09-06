@@ -10,7 +10,7 @@ import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import {
 	anOffreService,
 	aNoResultOffreService,
@@ -62,7 +62,7 @@ describe('RechercherJobEte', () => {
 				mockUseRouter({
 					query: {
 						codeLocalisation: '26',
-						libelleLocalisation: 'BOURG LES VALENCE (26)',
+						nomLocalisation: 'BOURG LES VALENCE',
 						typeLocalisation: 'DEPARTEMENT',
 					},
 				});
@@ -80,13 +80,13 @@ describe('RechercherJobEte', () => {
 				// THEN
 				expect(offreServiceMock.rechercherJobEte).toHaveBeenCalledWith({
 					codeLocalisation: '26',
-					libelleLocalisation: 'BOURG LES VALENCE (26)',
+					nomLocalisation: 'BOURG LES VALENCE',
 					typeLocalisation: 'DEPARTEMENT',
 				});
 				expect(await screen.findByText('3 offres de jobs d’été')).toBeInTheDocument();
 				const filtresRecherche = screen.getByRole('list', { name: 'Filtres de la recherche' });
 				expect(filtresRecherche).toBeInTheDocument();
-				expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26)')).toBeInTheDocument();
+				expect(within(filtresRecherche).getByText('BOURG LES VALENCE')).toBeInTheDocument();
 			});
 		});
 

@@ -1,5 +1,5 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMétier.types';
 import {
 	ApiTrajectoiresProStatistiqueResponse,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
@@ -41,7 +41,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			it('retourne l’erreur renvoyée par l’api geoLocalisation', async () => {
 				const httpService = aPublicHttpClientService();
 				const localisationRepository = aLocalisationRepository();
-				const failure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				const failure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(failure);
 				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
@@ -74,7 +74,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					const localisationRepository = aLocalisationRepository();
 					const errorManagementService = anErrorManagementService();
 					const httpError = anHttpError(404);
-					const expectedFailureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+					const expectedFailureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 					jest.spyOn(httpService, 'get').mockRejectedValue(httpError);
@@ -123,7 +123,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							region: undefined,
 						});
 						const errorManagementService = anErrorManagementService();
-						const failureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+						const failureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
@@ -151,7 +151,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						const error = Error(JSON.stringify(aStatistiquesMappedFromApi()));
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
-						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
 						await repository.get(codeCertification, codePostal);
@@ -168,7 +168,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						const localisationRepository = aLocalisationRepository();
 						const errorManagementService = anErrorManagementService();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
-						const failureReturnedByErrorManagement = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+						const failureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
