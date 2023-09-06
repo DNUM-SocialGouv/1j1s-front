@@ -26,7 +26,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService(), anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -38,7 +38,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('fait l’appel avec les bons paramètres', () => {
 			const httpClientService = aPublicHttpClientService();
 			const caller = '1jeune1solution-test';
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService(), anErrorManagementService());
 
 			// When
 			repository.search(anAlternanceFiltre());
@@ -52,6 +52,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*radius=30/));
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringMatching(/\?(.*&)*sources=matcha/));
 		});
+
 		it('retourne une erreur quand il y a une erreur', async () => {
 			const httpError = anHttpError(500);
 			const httpClientService = aPublicHttpClientService({
@@ -60,13 +61,14 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				}),
 			});
 			const caller = '1jeune1solution-test';
-			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+			const errorManagementServiceSearch = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const errorManagementServiceGet = anErrorManagementService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
 
 			// When
 			const result = await repository.search(anAlternanceFiltre());
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+			expect(errorManagementServiceSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'search la bonne alternance recherche alternance',
 				message: 'impossible d’effectuer une recherche d’alternance',
@@ -94,14 +96,15 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			};
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const caller = '1jeune1solution-test';
-			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const errorManagementServiceGet = anErrorManagementService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
 			// When
 			const result = await repository.search(anAlternanceFiltre());
 
 			// Then
-			expect(errorManagementService.handleValidationError).toHaveBeenCalledWith(
+			expect(errorManagementServiceSearch.handleValidationError).toHaveBeenCalledWith(
 				new ValidationError('"matchas.results[0].job.id" must be a string', [], 'matchas.results[0].job.id'),
 				aLogInformation({
 					apiSource: 'API LaBonneAlternance',
@@ -111,7 +114,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			);
 			expect(result.instance).toEqual('success');
 		});
-
 		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
 			const validationError = aValidationError();
 			const httpClientService = aPublicHttpClientService();
@@ -125,14 +127,15 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			};
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const caller = '1jeune1solution-test';
-			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const errorManagementServiceGet = anErrorManagementService();
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
 			// When
 			const result = await repository.search(anAlternanceFiltre());
 
 			// Then
-			expect(errorManagementService.handleValidationError).not.toHaveBeenCalled();
+			expect(errorManagementServiceSearch.handleValidationError).not.toHaveBeenCalled();
 			expect(result.instance).toEqual('success');
 		});
 	});
@@ -156,7 +159,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 					}),
 				],
 			}));
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService(), anErrorManagementService());
 
 			// When
 			const result = await repository.get('abc') as Success<Alternance>;
@@ -172,15 +175,16 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				}),
 			});
 			const expectedFailure = ErreurMétier.DEMANDE_INCORRECTE;
-			const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', errorManagementService);
+			const errorManagementServiceSearch = anErrorManagementService();
+			const errorManagementServiceGet = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, '1jeune1solution-test', errorManagementServiceSearch, errorManagementServiceGet);
 			(httpClientService.get as jest.Mock).mockRejectedValue(anHttpError(500));
 
 			// When
 			const result = await repository.get('abc');
 
 			// Then
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+			expect(errorManagementServiceGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
 				message: 'impossible de récupérer le détail d‘une offre d‘alternance',
@@ -207,14 +211,15 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			};
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [matchaResponseWithAnAttributeWithANumberInsteadOfAString] }));
 			const caller = '1jeune1solution-test';
-			const errorManagementService = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
-			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementService);
+			const errorManagementServiceSearch = anErrorManagementService();
+			const errorManagementServiceGet = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
 			// When
 			const result = await repository.get('abc');
 
 			// Then
-			expect(errorManagementService.handleValidationError).toHaveBeenCalledWith(
+			expect(errorManagementServiceGet.handleValidationError).toHaveBeenCalledWith(
 				new ValidationError('"matchas[0].title" must be a string', [], 'matchas[0].title'),
 				aLogInformation({
 					apiSource: 'API LaBonneAlternance',
@@ -231,7 +236,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				const caller = '1jeune1solution-test';
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService(), anErrorManagementService());
 
 				// When
 				await repository.get('1234567');
@@ -247,7 +252,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				const caller = '1jeune1solution-test';
 				const httpClientService = aPublicHttpClientService();
 				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [aMatchaResponse()] }));
-				const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService());
+				const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, anErrorManagementService(), anErrorManagementService());
 
 				// When
 				await repository.get('abc');
