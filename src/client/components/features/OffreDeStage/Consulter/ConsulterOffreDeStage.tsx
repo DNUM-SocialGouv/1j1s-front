@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
@@ -26,13 +26,12 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur.description ? getHtmlFromMd(offreDeStage.employeur.description) : undefined);
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
-	function getRemunerationOffreDeStage() {
+	const remuneration = useCallback(function getRemunerationOffreDeStage() {
 		if (offreDeStage.remunerationBase === undefined) {
 			return 'Non renseignée';
 		}
-
 		return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : 'Aucune';
-	}
+	}, [offreDeStage.remunerationBase]);
 
 	return (
 		<ConsulterOffreLayout>
@@ -43,8 +42,12 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{offreDeStage.urlDeCandidature &&
-                <LinkStyledAsButton href={offreDeStage.urlDeCandidature}
-                	appearance="asPrimaryButton">Postuler</LinkStyledAsButton>}
+                <LinkStyledAsButton
+                	href={offreDeStage.urlDeCandidature}
+                	appearance="asPrimaryButton">
+                    Postuler
+                </LinkStyledAsButton>
+						}
 					</div>
 				</div>
 			</header>
@@ -63,7 +66,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 					}
 					<div>
 						<dt>Rémunération :</dt>
-						<dd> {getRemunerationOffreDeStage()}</dd>
+						<dd>{remuneration()}</dd>
 					</div>
 				</dl>
 			</section>

@@ -44,7 +44,7 @@ describe('ConsulterOffreDeStage', () => {
 	});
 
 	describe('affiche l’offre de stage avec les bonnes informations', () => {
-		it('affiche le nom du sage', () => {
+		it('affiche le nom du stage', () => {
 			render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre:'stage en graphisme' })}/>);
 
 			const intituléOffreDeStage = screen.getByText('stage en graphisme');
@@ -61,7 +61,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 
 		describe('description du poste', () => {
-			it('quand elle est fournise, affiche la description du poste', () => {
+			it('quand elle est fournie, affiche la description du poste', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					description: 'Je suis une description du poste',
 				})}/>, { queries });
@@ -72,7 +72,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(descriptionPoste).toHaveTextContent('Je suis une description du poste');
 			});
 
-			it('quand elle n‘est pas fournise, n‘affiche pas la description du poste', () => {
+			it('quand elle n‘est pas fournie, n‘affiche pas la description du poste', () => {
 				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					description: '',
 				})}/>);
@@ -84,7 +84,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 		
 		describe('description de l‘employeur', () => {
-			it('lorsqu‘elle est fournise, affiche la description de l‘employeur', () => {
+			it('lorsqu‘elle est fournie, affiche la description de l‘employeur', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					employeur: {
 						description: 'Je suis une description de l‘employeur',
@@ -98,7 +98,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(descriptionEmployeur).toHaveTextContent('Je suis une description de l‘employeur');
 			});
 
-			it('quand elle n‘est pas fournise, n‘affiche pas la description de l‘employeur', () => {
+			it('quand elle n‘est pas fournie, n‘affiche pas la description de l‘employeur', () => {
 				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					employeur: {
 						description: '',
@@ -114,7 +114,7 @@ describe('ConsulterOffreDeStage', () => {
 
 
 		describe('la rémunération du stage', () => {
-			it('lorsque la rémunération n‘est pas renseignée affiche le message attendu', () => {
+			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/>, { queries });
 
@@ -122,19 +122,19 @@ describe('ConsulterOffreDeStage', () => {
 
 
 				expect(remuneration).toBeVisible();
-				expect(remuneration).toHaveTextContent('Non renseigné');
+				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
-			it('lorsqu‘aucune rémunération est proposée affiche le message attendu', () => {
+			it('lorsque la rémunération est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/>, { queries });
 
-				const rémunération = getByDescriptionTerm('Rémunération :');
+				const remunération = getByDescriptionTerm('Rémunération :');
 
 
-				expect(rémunération).toBeVisible();
-				expect(rémunération).toHaveTextContent('Aucune');
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('Aucune');
 			});
-			it('lorsque la rémunération est proposée affiche le message attendu', () => {
+			it('lorsque la rémunération est proposée affiche la somme de la rémunération', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/>, { queries });
 
