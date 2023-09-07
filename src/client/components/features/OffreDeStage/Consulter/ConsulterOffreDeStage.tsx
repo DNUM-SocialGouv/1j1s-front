@@ -23,10 +23,17 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 		];
 	}, [offreDeStage]);
 
-	const descriptionEmployeurHtmlSanitiezd =  useSanitize(offreDeStage.employeur.description ? getHtmlFromMd(offreDeStage.employeur.description) : undefined);
+	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur.description ? getHtmlFromMd(offreDeStage.employeur.description) : undefined);
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
-	const salaireOffreDeStage = offreDeStage.remunerationBase?.toString();
+	function getRemunerationOffreDeStage() {
+		if (offreDeStage.remunerationBase === undefined) {
+			return 'Non renseignée';
+		}
+
+		return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : 'Aucune';
+	}
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={commonStyles.titre}>
@@ -36,28 +43,29 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{offreDeStage.urlDeCandidature &&
-              <LinkStyledAsButton href={offreDeStage.urlDeCandidature} appearance="asPrimaryButton">Postuler</LinkStyledAsButton>}
+                <LinkStyledAsButton href={offreDeStage.urlDeCandidature}
+                	appearance="asPrimaryButton">Postuler</LinkStyledAsButton>}
 					</div>
 				</div>
 			</header>
 			<section className={commonStyles.contenu}>
-				{offreDeStage.employeur?.description &&
-            <div>
-            	<h3>Description de l‘employeur :</h3>
-            	<p dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
-            </div>}
-				{offreDeStage.description &&
-            <div>
-            	<h3>Description du poste :</h3>
-            	<p dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
-            </div>
-				}
-				{offreDeStage.remunerationBase &&
-          <div>
-          	<h3>Salaire :</h3> {' '}
-          	<p> {salaireOffreDeStage} €</p>
-          </div>
-				}
+				<dl>
+					{offreDeStage.employeur?.description &&
+              <div>
+              	<dt>Description de l‘employeur :</dt>
+              	<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
+              </div>}
+					{offreDeStage.description &&
+              <div>
+              	<dt>Description du poste :</dt>
+              	<dd dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
+              </div>
+					}
+					<div>
+						<dt>Rémunération :</dt>
+						<dd> {getRemunerationOffreDeStage()}</dd>
+					</div>
+				</dl>
 			</section>
 		</ConsulterOffreLayout>
 	);

@@ -63,6 +63,11 @@
   margin-bottom: 0.5rem;
 }
 
+.contenu dt {
+  @extend %bold;
+  margin-bottom: 0.5rem;
+}
+
 .competences {
   padding-left: 1.5rem;
 }
