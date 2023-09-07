@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.140.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.4...v3.140.5) (2023-09-07)
+
+
+### 👷 Autres changements
+
+* **deps:** lock file maintenance ([#1909](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1909)) ([38126e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/38126e58bbbed8732afe017c331986231cf37da8))
+
 ## [3.140.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.3...v3.140.4) (2023-09-07)
 
 
