@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.140.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.3...v3.140.4) (2023-09-07)
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#1938](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1938)) ([5d2b292](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5d2b292f5cb777db540374789ee7e46ecedd679c))
+
 ## [3.140.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.2...v3.140.3) (2023-09-07)
 
 
