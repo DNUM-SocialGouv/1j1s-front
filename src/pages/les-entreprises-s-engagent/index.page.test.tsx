@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -22,8 +22,6 @@ describe('<LesEntreprisesSEngagent />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Rejoignez la mobilisation !');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

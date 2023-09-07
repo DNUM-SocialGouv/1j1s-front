@@ -45,9 +45,7 @@ describe('Page FAQ', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('FAQ - QUESTIONS FRÉQUEMMENT POSÉES');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page à son affichage', async () => {

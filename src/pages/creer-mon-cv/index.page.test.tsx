@@ -24,6 +24,6 @@ describe('<FormationPage />', () => {
 				<FormationPage />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

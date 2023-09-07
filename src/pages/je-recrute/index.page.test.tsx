@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -23,8 +23,6 @@ describe('<JeRecrutePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Vous cherchez à recruter ?');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

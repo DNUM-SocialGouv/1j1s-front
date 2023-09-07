@@ -19,11 +19,11 @@ describe('<ConsulterArticlePage />', () => {
 		};
 
 		mockUseRouter({});
-		
+
 		const { container } = render(
 			<ConsulterArticlePage faqRéponse={faqRéponse} />,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

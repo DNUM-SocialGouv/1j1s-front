@@ -28,7 +28,7 @@ describe('<ConsulterOffreStagePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le bouton "Je donne mon avis"', () => {

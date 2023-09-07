@@ -43,7 +43,7 @@ describe('Page emplois en europe', () => {
 				>
 					<EmploiEuropePage/>
 				</DependenciesProvider>);
-			expect(container).toBeAccessible();
+			await expect(container).toBeAccessible();
 		});
 
 		it('je vois le titre', async () => {

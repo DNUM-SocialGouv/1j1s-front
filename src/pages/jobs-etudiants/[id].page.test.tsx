@@ -15,7 +15,7 @@ import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 describe('<ConsulterJobÉtudiantPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const offre = aBarmanOffre();
-		
+
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
@@ -25,6 +25,6 @@ describe('<ConsulterJobÉtudiantPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -24,6 +24,6 @@ describe('<Confidentialite />', () => {
 				<Confidentialite titre={'titre'} contenu={'contenu'}  />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

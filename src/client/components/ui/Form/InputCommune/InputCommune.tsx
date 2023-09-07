@@ -267,14 +267,14 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 				</div>
 			</div>
 			{codeCommune && showRadius &&
-          <Select
-          	label="Rayon"
-          	name="distanceCommune"
-          	placeholder={recupererLibelleDepuisValeur(radiusList, distanceCommune)}
-          	optionList={radiusList}
-          	onChange={setDistanceCommune}
-          	value={distanceCommune}
-          />
+			<Select
+				label="Rayon"
+				name="distanceCommune"
+				placeholder={recupererLibelleDepuisValeur(radiusList, distanceCommune)}
+				optionList={radiusList}
+				onChange={setDistanceCommune}
+				value={distanceCommune}
+			/>
 			}
 		</>
 	);

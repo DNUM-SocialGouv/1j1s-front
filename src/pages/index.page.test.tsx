@@ -31,9 +31,7 @@ describe('Page d‘accueil', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('À chacun sa solution.');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	describe('jobs d‘été', () => {

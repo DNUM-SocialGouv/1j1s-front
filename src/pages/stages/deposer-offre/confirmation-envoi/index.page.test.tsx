@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import StageDeposerOffreFormulaireEnvoye
 	from '~/client/components/features/OffreDeStage/Déposer/Confirmation/StageDeposerOffreFormulaireEnvoye';
@@ -23,8 +23,6 @@ describe('<DeposerOffreStageEnvoyePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Cette offre est soumise à une validation avant sa mise en ligne.');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

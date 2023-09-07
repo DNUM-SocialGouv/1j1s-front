@@ -45,7 +45,7 @@ describe('<ApprentissageEntreprises />', () => {
 
 		await screen.findByText('5 bonnes raisons de choisir l’apprentissage :');
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	describe('getServerSideProps', () => {

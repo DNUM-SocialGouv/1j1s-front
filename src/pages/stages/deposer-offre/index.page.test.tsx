@@ -22,6 +22,6 @@ describe('<DeposerOffreStagePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

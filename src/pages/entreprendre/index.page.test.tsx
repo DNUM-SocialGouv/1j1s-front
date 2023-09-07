@@ -24,6 +24,6 @@ describe('<Entreprendre />', () => {
 				<Entreprendre />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

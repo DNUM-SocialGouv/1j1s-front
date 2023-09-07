@@ -29,9 +29,7 @@ describe('Page FormationPage', () => {
 				<FormationPage />);
 			</DependenciesProvider>);
 
-		await screen.findByText('Trouver sa formation');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

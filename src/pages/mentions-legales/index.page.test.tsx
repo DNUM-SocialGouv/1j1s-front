@@ -24,6 +24,6 @@ describe('<MentionsLegales />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

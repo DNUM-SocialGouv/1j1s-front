@@ -26,6 +26,6 @@ describe('<ConsulterOffreEmploiPage />', () => {
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

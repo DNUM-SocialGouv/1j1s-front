@@ -36,7 +36,7 @@ const anAlternanceMatchaBoucher = (): Alternance => {
 	};
 };
 
-const anAlternanceMatchaBoulanger = (): Alternance => {
+export const anAlternanceMatchaBoulanger = (): Alternance => {
 	return {
 		compétences: [],
 		description: 'Super alternance dans une boulangerie',

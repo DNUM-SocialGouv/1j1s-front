@@ -46,7 +46,7 @@ describe('<AnnonceAlternancePage />', () => {
 			<AnnonceAlternancePage alternanceSerialized={alternanceSerialized} />
 		</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {

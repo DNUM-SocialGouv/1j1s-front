@@ -32,7 +32,7 @@ describe('Page consulter fiche métier', () => {
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,
 		);
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche les informations disponibles de la fiche métier', async () => {

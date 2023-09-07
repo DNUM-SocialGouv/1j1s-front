@@ -32,9 +32,7 @@ describe('Page Europe', () => {
 				<EuropePage />);
 			</DependenciesProvider>);
 
-		await screen.findByText('Trouver un emploi en Europe');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('affiche le titre de la page', () => {

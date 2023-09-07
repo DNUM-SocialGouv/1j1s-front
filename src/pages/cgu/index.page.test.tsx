@@ -24,6 +24,6 @@ describe('<Cgu />', () => {
 				<Cgu titre={'titre'} contenu={'contenu'} />);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });
