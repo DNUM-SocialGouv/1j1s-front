@@ -4,11 +4,6 @@ import {
 } from '~/server/services/error/errorManagement.service';
 import { HttpError } from '~/server/services/http/httpError';
 
-export const enum ApiLaBonneAlternanceApiMessageError {
-	ERROR_404_EXPIRED = 'expired_job',
-	ERROR_404_NOT_FOUND = 'not_found',
-}
-
 export class ApiLaBonneAlternanceErrorManagementServiceSearch extends DefaultErrorManagementService {
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
 		if (error.response?.status === 429) {
@@ -27,8 +22,7 @@ export class ApiLaBonneAlternanceErrorManagementServiceSearch extends DefaultErr
 
 export class ApiLaBonneAlternanceErrorManagementServiceGet extends DefaultErrorManagementService {
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
-		if (error.response?.status === 404 && (error.response.data.error === ApiLaBonneAlternanceApiMessageError.ERROR_404_EXPIRED
-			|| error.response.data.error === ApiLaBonneAlternanceApiMessageError.ERROR_404_NOT_FOUND)) {
+		if (error.response?.status === 404) {
 			const logInformationAnnonceNotFound = {
 				...logInformation,
 				message: `${logInformation.message} - annonce non trouvé/expiré`,

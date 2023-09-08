@@ -1,5 +1,5 @@
 import {
-	ApiLaBonneAlternanceApiMessageError, ApiLaBonneAlternanceErrorManagementServiceGet,
+	ApiLaBonneAlternanceErrorManagementServiceGet,
 	ApiLaBonneAlternanceErrorManagementServiceSearch,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
 import { SentryException } from '~/server/exceptions/sentryException';
@@ -15,7 +15,7 @@ const logInformation = aLogInformation({
 
 describe('apiLaBonneAlternanceErrorManagementServiceSearch', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
-		it('lorsque l‘erreur est une erreur 429 et le message est celui attendu log les informations avec une explication supplémentaire', () => {
+		it('lorsque l‘erreur est une erreur 429, log les informations avec une explication supplémentaire', () => {
 			// GIVEN
 			const errorCode = 429;
 			const loggerService = aLoggerService();
@@ -38,32 +38,12 @@ describe('apiLaBonneAlternanceErrorManagementServiceSearch', () => {
 });
 describe('apiLaBonneAlternanceErrorManagementServiceGet', () => {
 	describe('lorsque l‘erreur est une erreur http', () => {
-		it('lorsque l‘erreur est une erreur 404 et le message est celui attendu pour une aternance expirée, log les informations avec une explication supplémentaire', () => {
+		it('lorsque l‘erreur est une erreur 404 log les informations avec une explication supplémentaire', () => {
 			// GIVEN
 			const errorCode = 404;
 			const loggerService = aLoggerService();
 			const apiLaBonneAlternanceErrorManagementServiceGet = new ApiLaBonneAlternanceErrorManagementServiceGet(loggerService);
-			const httpError = anHttpError(errorCode, ApiLaBonneAlternanceApiMessageError.ERROR_404_EXPIRED);
-
-
-			// WHEN
-			apiLaBonneAlternanceErrorManagementServiceGet.handleFailureError(httpError, logInformation);
-
-			// THEN
-			expect(loggerService.warnWithExtra).toHaveBeenCalledTimes(1);
-			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(new SentryException(
-				'[API LaBonneAlternance] impossible d’effectuer la demande - annonce non trouvé/expiré (erreur http)',
-				{ context: logInformation.contexte, source: logInformation.apiSource },
-				{ errorDetail: httpError.response?.data },
-			));
-		});
-
-		it('lorsque l‘erreur est une erreur 404 et le message est celui attendu pour une aternance non trouvé, log les informations avec une explication supplémentaire', () => {
-			// GIVEN
-			const errorCode = 404;
-			const loggerService = aLoggerService();
-			const apiLaBonneAlternanceErrorManagementServiceGet = new ApiLaBonneAlternanceErrorManagementServiceGet(loggerService);
-			const httpError = anHttpError(errorCode, ApiLaBonneAlternanceApiMessageError.ERROR_404_NOT_FOUND);
+			const httpError = anHttpError(errorCode);
 
 
 			// WHEN
