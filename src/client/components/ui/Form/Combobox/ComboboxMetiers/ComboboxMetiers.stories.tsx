@@ -49,7 +49,6 @@ type Story = StoryObj<typeof ComboboxMetiers>;
 export const exemple: Story = {
 	args: {
 		debounceTimeout: 300,
-		label: 'Domaine',
 	},
 	render: ({ ...args }) => {
 		return (
@@ -63,7 +62,6 @@ export const exemple: Story = {
 export const AvecPlaceholderEtDebounce: Story = {
 	args: {
 		debounceTimeout: 2000,
-		label: 'Domaine',
 		placeholder: 'Exemples: enseignement, recherche ... ',
 	},
 	render: ({ ...args }) => {

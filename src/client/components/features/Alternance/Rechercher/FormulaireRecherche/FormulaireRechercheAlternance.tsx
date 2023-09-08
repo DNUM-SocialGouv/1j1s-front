@@ -47,7 +47,6 @@ export function FormulaireRechercheAlternance() {
 				<div className={styles.filtresRechercherOffre}>
 					<div className={styles.inputButtonWrapper}>
 						<ComboboxMetiers
-							label={'Domaine'}
 							defaultValue={domaineDefaultValue}
 							required
 							autoFocus

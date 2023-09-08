@@ -5,7 +5,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { isSuccess } from '~/server/errors/either';
 
-import { Combobox } from '../index';
+import { Combobox } from '..';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
@@ -14,18 +14,21 @@ export type MetierOption = {
 	romes: string[],
 };
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
-  label: string;
-	defaultValue?: MetierOption
-  debounceTimeout?: number;
-	'aria-label'?: React.HTMLProps<'input'>['aria-label'];
-	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'];
+  label?: string,
+	defaultValue?: MetierOption,
+  debounceTimeout?: number,
+	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
+	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
 }
+
+const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
-  = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...';
-const MESSAGE_CHARGEMENT = 'Chargement ...';
+  = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …';
+const MESSAGE_CHARGEMENT = 'Chargement…';
 const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un métier';
+const DEFAULT_LABEL = 'Domaine';
 
 function MetiersTrouves({ quantity }: { quantity: number }) {
 	return (
@@ -41,10 +44,10 @@ type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
 export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProps>(function ComboboxMetiers(props, ref) {
 	const {
-		label,
+		label = DEFAULT_LABEL,
 		defaultValue,
 		onChange: onChangeProps = () => null,
-		debounceTimeout = 300,
+		debounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
 		id: idProps,
 		onInvalid: onInvalidProps = () => {},
 		'aria-describedby': ariaDescribedby = '',

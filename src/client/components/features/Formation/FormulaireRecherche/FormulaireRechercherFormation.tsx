@@ -59,7 +59,6 @@ export function FormulaireRechercherFormation() {
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
 						<ComboboxMetiers
-							label={'Domaine'}
 							defaultValue={domaineDefaultValue}
 							required
 							autoFocus

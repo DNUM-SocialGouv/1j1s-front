@@ -82,6 +82,18 @@ describe('<ComboboxMetiers />', () => {
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 		});
+		it('utilise le label "Domaine" par défaut', () => {
+			const id = 'id';
+
+			render(
+				<DependenciesProvider metierService={aMetierService()}>
+					<ComboboxMetiers name='métier' id={id} />
+				</DependenciesProvider>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			expect(combobox).toHaveAccessibleName('Domaine');
+		});
 	});
 
 	describe('quand la recherche ne correspond à aucun métier', () => {
@@ -103,7 +115,11 @@ describe('<ComboboxMetiers />', () => {
 
 	describe('quand la recherche correspond à des métiers', () => {
 		it('affiche les métiers possibles', async () => {
-			const metierServiceMock = aMetierService();
+			const metierServiceMock = aMetierService([
+				{ label: 'Electronique, informatique industrielle', romes: ['H1206', 'H1402'] },
+				{ label: 'Electricité, climatisation, domotique, électronique', romes: ['F1106'] },
+				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+			]);
 			const user = userEvent.setup();
 
 			render(<DependenciesProvider metierService={metierServiceMock}>
@@ -112,10 +128,10 @@ describe('<ComboboxMetiers />', () => {
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(comboboxMetiers, 'boulang');
 
-			expect(await screen.findAllByRole('option')).toHaveLength(11);
-			expect(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' })).toBeVisible();
+			expect(await screen.findAllByRole('option')).toHaveLength(3);
+			expect(screen.getByRole('option', { name: 'Electronique, informatique industrielle' })).toBeVisible();
+			expect(screen.getByRole('option', { name: 'Electricité, climatisation, domotique, électronique' })).toBeVisible();
 			expect(screen.getByRole('option', { name: 'Génie électrique' })).toBeVisible();
-			expect(screen.getByRole('option', { name: 'Aéronautique' })).toBeVisible();
 		});
 
 		describe('affiche un message du nombre de résultat', () => {
@@ -384,8 +400,8 @@ describe('<ComboboxMetiers />', () => {
 			await user.type(combobox, 'Test');
 			await user.clear(combobox);
 
-			const options = screen.queryByRole('option', { name: /Génie électrique/i });
-			expect(options).not.toBeInTheDocument();
+			const options = screen.queryAllByRole('option');
+			expect(options).toHaveLength(0);
 		});
 	});
 });

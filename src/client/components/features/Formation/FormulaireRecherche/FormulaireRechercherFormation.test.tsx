@@ -269,6 +269,11 @@ describe('FormulaireRechercherFormation', () => {
 
 		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('');
+		const form = screen.getByRole('form');
+		expect(form).not.toHaveFormValues({
+			codeRomes: expect.anything(),
+			libelleMetier: expect.anything(),
+		});
 	});
 
 	it('laisse le champ domaine vide quand il manque le libellé dans les query params', () => {
@@ -283,7 +288,12 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
+		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		expect(domaine).toHaveValue('');
 		const form = screen.getByRole('form');
-		expect(form).not.toHaveFormValues({ codeRomes: expect.anything() });
+		expect(form).not.toHaveFormValues({
+			codeRomes: expect.anything(),
+			libelleMetier: expect.anything(),
+		});
 	});
 });

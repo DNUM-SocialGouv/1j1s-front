@@ -375,8 +375,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		// problème 2 : ne pas utiliser de data-testid (d'autant plus qu'ils sont tous identiques aujourd'hui), préférer avoir des input accessibles (recupérables en test)
 		/* eslint-disable testing-library/no-node-access */
 		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
-			// const element = screen.getByRole('input', { name: fieldLabel });
-			// screen.debug(element, Infinity);
 			const labelElement = screen.getByText(fieldLabel);
 			const fieldId = labelElement.getAttribute('for');
 			const field = fieldId && document.getElementById(fieldId);
