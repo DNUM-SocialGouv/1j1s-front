@@ -5,12 +5,10 @@ import {
 	ConsulterDetailFormationInitialeUseCase,
 } from '~/server/cms/useCases/consulterDetailFormationInitiale.useCase';
 import { ConsulterFAQUseCase } from '~/server/cms/useCases/consulterFAQ.useCase';
-import { ConsulterFicheMetierUseCase } from '~/server/cms/useCases/consulterFicheMetier.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
 import { enregistrerOffreDeStageUseCase } from '~/server/cms/useCases/enregistrerOffreDeStage.useCase';
 import { ListerFAQUseCase } from '~/server/cms/useCases/listerFAQ.useCase';
-import { ListerNomMétierFicheMétierUseCase } from '~/server/cms/useCases/listerNomMétierFicheMétier.useCase';
 import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
 import { RécupérerActualitésUseCase } from '~/server/cms/useCases/récupérerActualités.useCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeurs.useCase';
@@ -23,13 +21,11 @@ export interface CmsDependencies {
 	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
 	consulterArticle: ConsulterArticleUseCase
 	consulterFAQ: ConsulterFAQUseCase
-	consulterFicheMetier: ConsulterFicheMetierUseCase
 	consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
 	consulterOffreStage: ConsulterOffreStageUseCase
 	enregistrerOffreDeStage: enregistrerOffreDeStageUseCase
 	duréeDeValiditéEnSecondes: () => number
 	listerQuestionsFAQ: ListerFAQUseCase
-	listerNomMétierFicheMétier: ListerNomMétierFicheMétierUseCase
 	récupérerActualités: RécupérerActualitésUseCase
 	listerServicesJeunes: ListerServicesJeunesUseCase
 	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
@@ -48,12 +44,10 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
 		consulterDetailFormationInitiale: new ConsulterDetailFormationInitialeUseCase(cmsRepository),
 		consulterFAQ: new ConsulterFAQUseCase(cmsRepository),
-		consulterFicheMetier: new ConsulterFicheMetierUseCase(cmsRepository),
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		consulterOffreStage: new ConsulterOffreStageUseCase(cmsRepository),
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
 		enregistrerOffreDeStage: new enregistrerOffreDeStageUseCase(cmsRepository),
-		listerNomMétierFicheMétier: new ListerNomMétierFicheMétierUseCase(cmsRepository),
 		listerQuestionsFAQ: new ListerFAQUseCase(cmsRepository),
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
 		recupererVideosCampagneApprentissage: new RecupererVideosCampagneApprentissageUseCase(cmsRepository),

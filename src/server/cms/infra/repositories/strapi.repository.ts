@@ -13,7 +13,7 @@ import {
 	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
-	mapFicheMetier, mapFormationInitiale,
+	mapFormationInitiale,
 	mapMesuresEmployeurs,
 	mapOffreStage,
 	mapQuestion,
@@ -25,7 +25,6 @@ import {
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMétier } from '~/server/errors/erreurMétier.types';
-import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -33,7 +32,6 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
 const RESOURCE_ACTUALITE = 'actualite';
-const RESOURCE_FICHE_METIER = 'fiche-metiers';
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
@@ -64,7 +62,7 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	private async getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
+	async getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
 		try {
 			const firstPage = 1;
 			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
@@ -111,6 +109,11 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
+	async getFirstFromCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response>> {
+		const collectionType = await this.getCollectionType<Collection, Response>(resource, query, mapper);
+		return this.getFirstFromCollection(collectionType);
+	}
+
 	async getActualitéList(): Promise<Either<Array<Actualité>>> {
 		const query = 'populate=deep';
 		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
@@ -122,26 +125,12 @@ export class StrapiRepository implements CmsRepository {
 		return this.getFirstFromCollection(articleList);
 	}
 
-	async getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>> {
-		const query = `filters[nom_metier][$eq]=${encodeURIComponent(nom)}&populate=deep`;
-		const ficheMétierList = await this.getCollectionType<Strapi.CollectionType.FicheMétier, FicheMétier>(RESOURCE_FICHE_METIER, query, mapFicheMetier);
-		return this.getFirstFromCollection(ficheMétierList);
-	}
-
-	async listAllFicheMetierNomMetier(): Promise<Either<Array<string>>> {
-		const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
-		const query = `fields[]=${FICHE_METIER_NOM_METIER_FIELD_NAME}`;
-		const flatMapNomMetier = (strapiFicheMetier: Strapi.CollectionType.FicheMétier): string => strapiFicheMetier.nom_metier;
-		return this.getCollectionType<Strapi.CollectionType.FicheMétier, string>(RESOURCE_FICHE_METIER, query, flatMapNomMetier);
-	}
-
 	async listAllArticleSlug(): Promise<Either<Array<string>>> {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
 		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
 		return await this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
-
 
 	async listAllFAQSlug(): Promise<Either<Array<string>>> {
 		const query = '[fields][0]=slug';
