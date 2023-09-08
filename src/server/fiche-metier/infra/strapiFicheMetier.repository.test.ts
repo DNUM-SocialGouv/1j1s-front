@@ -3,17 +3,19 @@ import { createSuccess, Success } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 import { flatMapNomMetier, mapFicheMetier } from '~/server/fiche-metier/infra/strapiFicheMetier.mapper';
-import { StrapiFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
+import {
+	RESOURCE_FICHE_METIER,
+	StrapiFicheMetierRepository,
+} from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
 import { aFicheMetierNomMetierList } from '~/server/sitemap/domain/sitemap.fixture';
 
-const RESOURCE_FICHE_METIER = 'fiche-metiers';
 
 describe('strapiFicheMetierRepository', () => {
 	describe('getFicheMetierByNom', () => {
 		const nomMetier = 'Mon super metier';
 		const expectedFicheMetier = aFicheMetier();
 
-		it('appelle l‘endpoint avec les bons paramètres', async () => {
+		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiCmsRepository = aStrapiCmsRepository();
 			const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiCmsRepository);
 
@@ -48,7 +50,8 @@ describe('strapiFicheMetierRepository', () => {
 			const { result } = await strapiFicheMetierRepository.getAllNomsMetiers() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(strapiCmsRepository.getCollectionType).toHaveBeenNthCalledWith(1, RESOURCE_FICHE_METIER, 'fields[]=nom_metier', flatMapNomMetier);
+			expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledTimes(1);
+			expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledWith(RESOURCE_FICHE_METIER, 'fields[]=nom_metier', flatMapNomMetier);
 		});
 	});
 });

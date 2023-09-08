@@ -6,7 +6,7 @@ import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.
 import { flatMapNomMetier, mapFicheMetier } from '~/server/fiche-metier/infra/strapiFicheMetier.mapper';
 
 
-const RESOURCE_FICHE_METIER = 'fiche-metiers';
+export const RESOURCE_FICHE_METIER = 'fiche-metiers';
 const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
 export class StrapiFicheMetierRepository implements FicheMetierRepository {
 
