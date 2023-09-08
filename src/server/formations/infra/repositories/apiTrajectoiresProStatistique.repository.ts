@@ -8,7 +8,7 @@ import {
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique';
 import { mapStatistiques } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
+import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
@@ -34,6 +34,7 @@ export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepos
 				apiSource: 'API Trajectoires Pro',
 				contexte: 'get statistique de formation',
 				message: 'statistique de formation trouvée mais incomplète',
+				severity: Severity.WARNING,
 			});
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
