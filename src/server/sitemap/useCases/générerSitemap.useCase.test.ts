@@ -82,13 +82,8 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Emplois en Europe n‘est pas activée', () => {
 			it('génère le sitmap sans les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
-				const cmsRepository = aStrapiCmsRepository();
-				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
-				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
-				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -100,13 +95,8 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Emplois en Europe est activée', () => {
 			it('génère le sitmap avec les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
-				const cmsRepository = aStrapiCmsRepository();
-				cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-				cmsRepository.listAllFicheMetierNomMetier = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
-				cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
-				cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
-				cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository);
+
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
