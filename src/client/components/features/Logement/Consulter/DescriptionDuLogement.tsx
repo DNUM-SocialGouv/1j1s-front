@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -42,18 +42,26 @@ function cropDescription(description: string) {
 export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) => {
 	const [descriptionÉtendue, setDescriptionÉtendue] = useState(false);
 	const longueDescription = children.length > MAX_DESCRIPTION_LENGTH;
+	const titleRef = useRef<HTMLHeadingElement>(null);
+
 	let description = children;
 	if (longueDescription && !descriptionÉtendue) {
 		description = cropDescription(description) + ' …';
 	}
+
+	const toogle = useCallback(function toogle() {
+		titleRef.current?.focus();
+		setDescriptionÉtendue(!descriptionÉtendue);
+	}, [descriptionÉtendue]);
+
 	return (
 		<section className={classNames(styles.card, styles.descriptionDuLogement)}
 						 aria-labelledby="description-annonce-title">
-			<h2 id="description-annonce-title">Description du Logement</h2>
+			<h2 id="description-annonce-title" ref={titleRef} tabIndex={-1}>Description du Logement</h2>
 			<p id="description-annonce">{description}</p>
 			{longueDescription && (
 				<BoutonEtendre
-					onClick={() => setDescriptionÉtendue(!descriptionÉtendue)}
+					onClick={toogle}
 					estÉtendu={descriptionÉtendue}
 					aria-controls="description-annonce"/>
 			)}
