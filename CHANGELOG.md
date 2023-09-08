@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.141.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.7...v3.141.0) (2023-09-08)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stages:** gestion affichage des différents cas de rémunération ([#1943](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1943)) ([d381690](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d3816904c0105efc6cdb55755ca9a787b879888e))
+
 ## [3.140.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.6...v3.140.7) (2023-09-07)
 
 
