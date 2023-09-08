@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.142.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.141.0...v3.142.0) (2023-09-08)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **alternances:** gestion des logs spécifiques non trouvé expiré et trop de requêtes ([#1936](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1936)) ([c1ac4e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1ac4e2d6d8f910892fdb35489d3d106929309c4))
+
 ## [3.141.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.140.7...v3.141.0) (2023-09-08)
 
 
