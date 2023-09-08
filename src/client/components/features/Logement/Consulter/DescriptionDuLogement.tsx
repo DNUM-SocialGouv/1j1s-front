@@ -52,7 +52,7 @@ export const DescriptionDuLogement = ({ children }: DescriptionDuLogementProps) 
 	const toogle = useCallback(function toogle() {
 		titleRef.current?.focus();
 		setDescriptionÉtendue(!descriptionÉtendue);
-	}, [descriptionÉtendue]);
+	}, [descriptionÉtendue, titleRef]);
 
 	return (
 		<section className={classNames(styles.card, styles.descriptionDuLogement)}

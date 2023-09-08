@@ -82,7 +82,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(bouton).not.toBeInTheDocument();
 	});
 	it('affiche le reste de la description lorsqu\'on clique sur le bouton "Lire la suite"', async () => {
-		await userEvent.setup();
+		const user = await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -95,14 +95,14 @@ describe('<DescriptionDuLogement />', () => {
 		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
-		await userEvent.click(bouton);
+		await user.click(bouton);
 
 		const contenu = screen.getByText(/A 11 minutes à pied/i);
 		expect(contenu).toHaveTextContent(/mais affichée quand on étend la description./i);
 		expect(contenu).not.toHaveTextContent(' [...]');
 	});
 	it('change le texte du bouton quand la description est dépliée', async () => {
-		await userEvent.setup();
+		const user = await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -115,7 +115,7 @@ describe('<DescriptionDuLogement />', () => {
 		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
-		await userEvent.click(bouton);
+		await user.click(bouton);
 
 		expect(bouton).not.toHaveTextContent(/Lire la suite/i);
 		expect(bouton).toHaveTextContent(/Afficher moins/i);
@@ -139,7 +139,7 @@ describe('<DescriptionDuLogement />', () => {
 		expect(bouton).toHaveAttribute('aria-controls', contenu.id);
 	});
 	it('passe l\'attribut aria-expanded à true quand la description est étendue', async () => {
-		await userEvent.setup();
+		const user = await userEvent.setup();
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
 				dans une studette calme, entièrement rénovée et meublée.Le logement, pour une personne, est luxueux, confortable,
@@ -152,12 +152,12 @@ describe('<DescriptionDuLogement />', () => {
 		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
-		await userEvent.click(bouton);
+		await user.click(bouton);
 
 		expect(bouton).toHaveAttribute('aria-expanded', 'true');
 	});
 	it('lorsque le bouton est cliqué, le focus revient sur le titre', async () => {
-		await userEvent.setup();
+		const user = await userEvent.setup();
 
 		const description = `
 				A 11 minutes à pied et 8 minutes en PC de l’université paris-dauphine, vous serez à un saut de lit de vos cours
@@ -171,7 +171,7 @@ describe('<DescriptionDuLogement />', () => {
 		render(<DescriptionDuLogement>{description}</DescriptionDuLogement>);
 
 		const bouton = screen.getByRole('button', { name: /Lire la suite/i });
-		await userEvent.click(bouton);
+		await user.click(bouton);
 
 		const heading = screen.getByRole('heading', { level: 2, name: 'Description du Logement' });
 
