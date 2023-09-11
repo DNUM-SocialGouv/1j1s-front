@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.142.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.0...v3.142.1) (2023-09-11)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked-gfm-heading-id to v3.0.8 ([#1954](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1954)) ([e62bb1e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e62bb1e9e3a17903d8c657c1c4fa4c104b8d7da5))
+* **deps:** update dependency marked-mangle to v1.1.4 ([#1955](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1955)) ([16b37c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/16b37c71706d869fe34242c026fb4c8e1dbae4b0))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.17.15 ([919e5ac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/919e5acf2bffe963b37f86e455b02f4b7fc1c2f4))
+
 ## [3.142.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.141.0...v3.142.0) (2023-09-08)
 
 
