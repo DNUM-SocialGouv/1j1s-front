@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.142.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.1...v3.142.2) (2023-09-11)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v9 ([#1953](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1953)) ([4a738bd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4a738bd18177054cce34c5e735bdea1031500cde))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.49.0 ([#1951](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1951)) ([6791c3a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6791c3a333311793e73cb42086ae0b749e04e59e))
+
 ## [3.142.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.0...v3.142.1) (2023-09-11)
 
 
