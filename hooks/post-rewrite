@@ -1,3 +1,0 @@
-#!/bin/bash
-
-npx git-notify rewrite "${GIT_PARAMS}"
