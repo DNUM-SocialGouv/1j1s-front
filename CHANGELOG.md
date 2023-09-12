@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.143.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.3...v3.143.0) (2023-09-12)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **logement:** ajout de la reprise du focus lorsque le bouton voir plus est cliqué ([#1948](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1948)) ([89914f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/89914f6527e1c7b2d95823ece74348fa3ea74e64))
+
 ## [3.142.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.2...v3.142.3) (2023-09-11)
 
 
