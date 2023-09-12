@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.143.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.0...v3.143.1) (2023-09-12)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency pino to v8.15.1 ([#1949](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1949)) ([d999ba7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d999ba7117bbc8fe5c754c9b966865883a612bd9))
+
 ## [3.143.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.142.3...v3.143.0) (2023-09-12)
 
 
