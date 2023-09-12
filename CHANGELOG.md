@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.143.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.2...v3.143.3) (2023-09-12)
+
+
+### 👷 Autres changements
+
+* **git-notify:** removed ([#1964](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1964)) ([f3aaade](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f3aaade07748274b64f19c8fdc98c72ae5fdc780))
+
 ## [3.143.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.1...v3.143.2) (2023-09-12)
 
 
