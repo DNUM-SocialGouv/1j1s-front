@@ -15,7 +15,7 @@ import { anAlternanceService } from '~/client/services/alternance/alternance.ser
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import {
-	aRésultatRechercherMultipleAlternance,
+	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
@@ -35,7 +35,7 @@ describe('FormulaireRechercheAlternance', () => {
 		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
 			// GIVEN
 			const alternanceService = anAlternanceService();
-			const métierService = aMetierService();
+			const metierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
 
@@ -43,7 +43,7 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -62,7 +62,7 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
@@ -76,13 +76,13 @@ describe('FormulaireRechercheAlternance', () => {
 
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMetierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -90,8 +90,8 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-			await user.type(inputMétiers, 'boulang');
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			await user.type(inputMetiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 
@@ -113,19 +113,19 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMetierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -133,8 +133,8 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-			await user.type(inputMétiers, 'boulang');
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			await user.type(inputMetiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -150,19 +150,19 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMetierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -200,8 +200,8 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-		expect(inputMétiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByTestId('Select-InputHidden');
@@ -219,8 +219,8 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-		expect(inputMétiers).toHaveValue('');
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMetiers).toHaveValue('');
 		const form = screen.getByRole('form');
 		expect(form).not.toHaveFormValues({
 			codeRomes: expect.anything(),

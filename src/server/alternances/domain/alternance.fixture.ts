@@ -91,7 +91,7 @@ export const anAlternanceEntrepriseSansCandidature = (): ResultatRechercheAltern
 	};
 };
 
-export const aRésultatRechercherMultipleAlternance = (): ResultatRechercheAlternance => {
+export const aResultatRechercherMultipleAlternance = (): ResultatRechercheAlternance => {
 	return {
 		entrepriseList: [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()],
 		offreList: [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],

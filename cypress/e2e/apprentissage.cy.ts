@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import {
-	aRésultatRechercherMultipleAlternance,
+	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
@@ -48,7 +48,7 @@ describe('Parcours alternance LBA', () => {
 				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Gignac-la-Nerthe+%2813180%29&codeCommune=13043&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10'),
 				alias: 'recherche-metiers',
 				path: '/api/alternances?*',
-				response: JSON.stringify(aRésultatRechercherMultipleAlternance()),
+				response: JSON.stringify(aResultatRechercherMultipleAlternance()),
 			});
 
 			cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 4);
