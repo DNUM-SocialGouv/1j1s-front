@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.143.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.4...v3.143.5) (2023-09-13)
+
+
+### 👷 Autres changements
+
+* **deps:** bump scalingo-community/app/scalingo in /terraform ([#1867](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1867)) ([3d99ee7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3d99ee7b0477fccd6f9662a8a3f276c1f6e9df4d))
+* **deps:** update getmeili/meilisearch docker tag to v1.3.4 ([#1967](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1967)) ([50621f8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/50621f8933f2ee7e565affcbeb2594381fd5cc67))
+* **terraform:** remove "front_" in variables names to standardize names accross 1j1s projects ([#1861](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1861)) ([0c9dce3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0c9dce3fdb10f70f710fd79ca29a24b3a2f8b8f1))
+
 ## [3.143.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.3...v3.143.4) (2023-09-13)
 
 
