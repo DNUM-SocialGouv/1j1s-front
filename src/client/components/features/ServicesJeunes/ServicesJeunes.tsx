@@ -11,7 +11,7 @@ interface ServicesJeunesProps {
 	cardList: Array<ServiceJeune>
 }
 
-const NUMBER_OF_VISIBLE_ITEMS = 9;
+const NUMBER_OF_VISIBLE_ITEMS = 6;
 
 export function ServicesJeunes(props: ServicesJeunesProps) {
 	const { cardList } = props;
@@ -41,18 +41,21 @@ interface ServiceJeuneCardProps {
 }
 
 function ServiceJeuneCard({ serviceJeune }: ServiceJeuneCardProps) {
-	const titre = useSanitize(serviceJeune.titre);
-	const categorie = serviceJeune.categorie;
-	const bannière = serviceJeune.bannière?.src || '';
-	const link = serviceJeune.link;
-	const concerné = serviceJeune.concerné || '';
+	const {
+		categorie,
+		banniere,
+		link,
+		concerne,
+		titre: dirtyTitre,
+	} = serviceJeune;
+	const titre = useSanitize(dirtyTitre);
 
 	return <FlippingCard
 		className={styles.card}
 		category={categorie}
-		imageUrl={bannière}
+		imageUrl={banniere?.src}
 		link={link}
 		title={titre}
-		flippingCardContent={concerné}
+		flippingCardContent={concerne}
 	/>;
 }

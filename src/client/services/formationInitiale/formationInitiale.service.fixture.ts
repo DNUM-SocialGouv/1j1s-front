@@ -25,9 +25,9 @@ export function aFormationInitiale(override?: Partial<FormationInitiale>): Forma
 
 
 export function aFormationInitialeService(
-	rechercherFormationInitialeValue = aResultatFormationInitiale(),
+	resultatRechercherFormationsInitiales = aResultatFormationInitiale(),
 ): FormationInitialeInterface {
 	return {
-		rechercherFormationInitiale: jest.fn().mockResolvedValue(createSuccess([rechercherFormationInitialeValue])),
+		rechercherFormationInitiale: jest.fn().mockResolvedValue(createSuccess(resultatRechercherFormationsInitiales)),
 	};
 }

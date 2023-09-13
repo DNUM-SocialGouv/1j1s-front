@@ -23,6 +23,6 @@ describe('<ConsulterMissionEngagementPage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -1,0 +1,9 @@
+@use "@styles/utilities";
+
+.stats {
+  @extend %text-large;
+
+  .nombreResultats {
+    @extend %bold;
+  }
+}

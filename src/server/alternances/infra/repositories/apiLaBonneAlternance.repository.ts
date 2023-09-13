@@ -20,15 +20,23 @@ const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 const POLE_EMPLOI_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementServiceSearch: ErrorManagementService, private readonly errorManagementServiceGet: ErrorManagementService) {
 	}
 
 	async search(filtre: AlternanceFiltre): Promise<Either<ResultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
+			const validateSchemasResponse = apiLaBonneAlternanceSchemas.search.validate(response.data);
+			if (validateSchemasResponse.error) {
+				this.errorManagementServiceSearch.handleValidationError(validateSchemasResponse.error, {
+					apiSource: 'API LaBonneAlternance',
+					contexte: 'search la bonne alternance recherche alternance',
+					message: 'erreur de validation du schéma de l’api',
+				});
+			}
 			return createSuccess(mapAlternanceListe(response.data));
 		} catch (error) {
-			return this.errorManagementService.handleFailureError(error, {
+			return this.errorManagementServiceSearch.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'search la bonne alternance recherche alternance',
 				message: 'impossible d’effectuer une recherche d’alternance',
@@ -53,12 +61,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
-				const validate = apiLaBonneAlternanceSchemas.getPoleEmploi.validate(apiResponse.data);
-				if (validate.error) {
-					this.errorManagementService.handleValidationError(validate.error, {
+				const validateSchemasResponse = apiLaBonneAlternanceSchemas.getPoleEmploi.validate(apiResponse.data);
+				if (validateSchemasResponse.error) {
+					this.errorManagementServiceGet.handleValidationError(validateSchemasResponse.error, {
 						apiSource: 'API LaBonneAlternance',
 						contexte: 'get détail annonce alternance',
-						message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+						message: 'erreur de validation du schéma de l’api',
 					});
 				}
 				const offre = apiResponse.data.peJobs[0];
@@ -68,18 +76,18 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			const apiResponse = await this.httpClientService.get<{
 				matchas: AlternanceApiJobsResponse.Matcha[]
 			}>(`/v1/jobs/matcha/${id}`);
-			const validate = apiLaBonneAlternanceSchemas.getMatcha.validate(apiResponse.data);
-			if (validate.error) {
-				this.errorManagementService.handleValidationError(validate.error, {
+			const validateSchemasResponse = apiLaBonneAlternanceSchemas.getMatcha.validate(apiResponse.data);
+			if (validateSchemasResponse.error) {
+				this.errorManagementServiceGet.handleValidationError(validateSchemasResponse.error, {
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'get détail annonce alternance',
-					message: 'impossible de récupérer le détail d‘une offre d‘alternance',
+					message: 'erreur de validation du schéma de l’api',
 				});
 			}
 			const matcha = apiResponse.data.matchas[0];
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
-			return this.errorManagementService.handleFailureError(error, {
+			return this.errorManagementServiceGet.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
 				contexte: 'get détail annonce alternance',
 				message: 'impossible de récupérer le détail d‘une offre d‘alternance',

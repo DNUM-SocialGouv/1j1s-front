@@ -33,7 +33,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('le titre du document est correct', async () => {

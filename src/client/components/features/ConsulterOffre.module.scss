@@ -63,6 +63,11 @@
   margin-bottom: 0.5rem;
 }
 
+.contenu dt {
+  @extend %bold;
+  margin-bottom: 0.5rem;
+}
+
 .competences {
   padding-left: 1.5rem;
 }
@@ -72,7 +77,7 @@
 }
 
 .contenuAdaptatif  h3, .contenuAdaptatif  p {
-  display: inline;
+  display: block;
 }
 
 .contact {
@@ -111,11 +116,6 @@
   .titre > ul {
     margin: 2rem auto 0;
   }
-
-  .contenuAdaptatif  h3, .contenuAdaptatif  p {
-    display: block;
-  }
-
 }
 
 .iframeModal {

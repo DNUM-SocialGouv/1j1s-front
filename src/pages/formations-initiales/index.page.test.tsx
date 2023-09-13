@@ -5,10 +5,11 @@
 import '~/test-utils';
 
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
@@ -41,9 +42,13 @@ describe('quand le feature flip est actif', () => {
 	beforeEach(() => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 		mockUseRouter({});
+		mockLargeScreen();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
+		mockUseRouter({ query: { page: '1' } });
+		const user = userEvent.setup();
+
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
@@ -52,9 +57,12 @@ describe('quand le feature flip est actif', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Des milliers de formations pour vous permettre');
+		const rechercherButton = screen.getByRole('button', { name: 'Rechercher' });
+		await user.click(rechercherButton);
 
-		expect(container).toBeAccessible();
+		await screen.findByRole('list', { name: /Formations Initiales/i });
+
+		await expect(container).toBeAccessible();
 	});
 
 	it('envoie les analytics de la page', async () => {

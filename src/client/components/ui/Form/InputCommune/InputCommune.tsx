@@ -7,7 +7,7 @@ import styles from '~/client/components/ui/Form/Input.module.scss';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { récupérerLibelléDepuisValeur } from '~/client/utils/récupérerLibelléDepuisValeur.utils';
+import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import { isSuccess } from '~/server/errors/either';
 import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
@@ -267,14 +267,14 @@ export const InputCommune = ({ className, code, distance, id, libellé, latitude
 				</div>
 			</div>
 			{codeCommune && showRadius &&
-          <Select
-          	label="Rayon"
-          	name="distanceCommune"
-          	placeholder={récupérerLibelléDepuisValeur(radiusList, distanceCommune)}
-          	optionList={radiusList}
-          	onChange={setDistanceCommune}
-          	value={distanceCommune}
-          />
+			<Select
+				label="Rayon"
+				name="distanceCommune"
+				placeholder={recupererLibelleDepuisValeur(radiusList, distanceCommune)}
+				optionList={radiusList}
+				onChange={setDistanceCommune}
+				value={distanceCommune}
+			/>
 			}
 		</>
 	);

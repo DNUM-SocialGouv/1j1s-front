@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import {
 	aFormulaireEtapeEntreprise,
@@ -42,8 +42,6 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Etape 3 sur 3 : Localisation du stage');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

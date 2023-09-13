@@ -8,6 +8,9 @@ import {
 import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
+import {
+	ApiLaBonneAlternanceErrorManagementServiceGet, ApiLaBonneAlternanceErrorManagementServiceSearch,
+} from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -56,6 +59,11 @@ import {
 import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import {
+	FicheMetierDependencies,
+	ficheMetierDependenciesContainer,
+} from '~/server/fiche-metier/configuration/dependencies.container';
+import { StrapiFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository';
 import {
 	getApiTrajectoiresProConfig,
 } from '~/server/formations/configuration/api-trajectoires-pro/apiTrajectoiresProHttpClient.config';
@@ -152,6 +160,7 @@ import {
 } from '~/server/sitemap/configuration/dependencies.container';
 
 export type Dependencies = {
+	ficheMetierDependencies: FicheMetierDependencies
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	formationInitialeDependencies: FormationInitialeDependencies;
@@ -219,7 +228,9 @@ export function dependenciesContainer(): Dependencies {
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
-	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
+	const apiLaBonneAlternanceAlternanceErrorManagementServiceSearch = new ApiLaBonneAlternanceErrorManagementServiceSearch(loggerService);
+	const apiLaBonneAlternanceAlternanceErrorManagementServiceGet = new ApiLaBonneAlternanceErrorManagementServiceGet(loggerService);
+	const apiLaBonneAlternanceRepository = new ApiLaBonneAlternanceRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, apiLaBonneAlternanceAlternanceErrorManagementServiceSearch, apiLaBonneAlternanceAlternanceErrorManagementServiceGet);
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
@@ -279,9 +290,12 @@ export function dependenciesContainer(): Dependencies {
 	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
+	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
+	const ficheMetierDependencies=  ficheMetierDependenciesContainer(ficheMetierRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
 
 
 	return {
@@ -290,6 +304,7 @@ export function dependenciesContainer(): Dependencies {
 		demandeDeContactDependencies,
 		engagementDependencies,
 		entrepriseDependencies,
+		ficheMetierDependencies,
 		formationDependencies,
 		formationInitialeDependencies,
 		formationInitialeDetailDependencies,

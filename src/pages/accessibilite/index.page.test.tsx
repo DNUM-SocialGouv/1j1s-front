@@ -128,6 +128,6 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 				<Accessibilite titre={titre} contenu={contenu}/>);
 			</DependenciesProvider>);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

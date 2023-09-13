@@ -1,11 +1,11 @@
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
-import { within } from '@testing-library/react';
+import { act,within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 declare global {
 	namespace jest {
 		interface Matchers<R> {
-			toBeAccessible(): R
+			toBeAccessible(): Promise<R>
 		}
 	}
 }
@@ -49,7 +49,9 @@ const queryAllByDescriptionTerm = (container: HTMLElement, name: string) => {
 
 expect.extend({
 	toBeAccessible: async (htmlElement: HTMLElement) => {
-		const results = await axe(htmlElement);
+		// NOTE (SULI 04-09-2023): l'appel à jest-axe fait évoluer un state du next/link
+		// il faut attendre que tout le code de axe soit exécuté pour éviter les console.error sur les tests des pages utilisant un lien
+		const results = await act(async () => await axe(htmlElement));
 
 		return toHaveNoViolations.toHaveNoViolations(results);
 	},

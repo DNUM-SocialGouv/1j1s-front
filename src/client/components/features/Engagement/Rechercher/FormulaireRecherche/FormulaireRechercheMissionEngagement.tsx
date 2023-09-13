@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles from '~/client/components/features/Engagement/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
+import styles from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';

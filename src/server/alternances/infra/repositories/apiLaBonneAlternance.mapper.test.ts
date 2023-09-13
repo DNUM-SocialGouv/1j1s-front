@@ -321,5 +321,123 @@ describe('mapAlternance', () => {
 			});
 		});
 	});
-})
-;
+
+	describe('lorsque le champ matchas n’est pas présent', () => {
+		it('retourne seulement les offres PEJobs', () => {
+			// Given
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: [],
+				peJobs: {
+					results: [
+						{
+							company: { name: 'ECOLE DE TRAVAIL ORT' },
+							contact: {
+								phone: 'phone',
+							},
+							job: {
+								contractDescription: 'CDD de 6 mois',
+								contractType: 'CDD',
+								description: 'description',
+								duration: '6 mois',
+								id: 'id',
+							},
+							place: {
+								city: 'PARIS 4',
+								fullAddress: 'full address',
+							},
+							title: 'Monteur / Monteuse en chauffage (H/F)',
+							url: 'url',
+						},
+					],
+				},
+			};
+
+			// When
+			const result = mapAlternanceListe(input);
+
+			// Then
+			expect(result).toEqual({
+				entrepriseList: [],
+				offreList: [
+					{
+						entreprise: {
+							nom: 'ECOLE DE TRAVAIL ORT',
+						},
+						id: 'id',
+						source: 1,
+						tags: [
+							'PARIS 4',
+							'Contrat d‘alternance',
+							'CDD',
+						],
+						titre: 'Monteur / Monteuse en chauffage (H/F)',
+					},
+				],
+			});
+		});
+	});
+
+	describe('lorsque le champ peJobs n’est pas présent', () => {
+		it('retourne seulement les offres Matcha', () => {
+			// Given
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: [],
+				matchas: {
+					results: [
+						{
+							company: {
+								name: 'ECOLE DE TRAVAIL ORT',
+								place: {
+									city: 'PARIS 4',
+								},
+							},
+							contact: {
+								phone: 'phone',
+							},
+							diplomaLevel: 'CAP, BEP',
+							job: {
+								contractType: 'CDD',
+								dureeContrat: 1,
+								id: 'id',
+								jobStartDate: '2020-01-01',
+								romeDetails: {
+									competencesDeBase: [{ libelle: 'un libelle' }],
+									definition: 'Avec des \\n',
+								},
+								rythmeAlternance: 'alternance',
+							},
+							place: {
+								city: 'PARIS 4',
+								fullAddress: 'full address',
+							},
+							title: 'Monteur / Monteuse en chauffage (H/F)',
+						},
+					],
+				},
+			};
+
+			// When
+			const result = mapAlternanceListe(input);
+
+			// Then
+			expect(result).toEqual({
+				entrepriseList: [],
+				offreList: [
+					{
+						entreprise: {
+							nom: 'ECOLE DE TRAVAIL ORT',
+						},
+						id: 'id',
+						source: 0,
+						tags: [
+							'PARIS 4',
+							'CDD',
+							'CAP, BEP',
+						],
+						titre: 'Monteur / Monteuse en chauffage (H/F)',
+					},
+				],
+			});
+		});
+	});
+});

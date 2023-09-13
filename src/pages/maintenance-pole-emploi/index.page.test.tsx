@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -24,8 +24,6 @@ describe('<Page />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Je découvre les dispositifs');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

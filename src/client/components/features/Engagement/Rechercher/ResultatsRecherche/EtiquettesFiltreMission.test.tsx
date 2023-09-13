@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 import React from 'react';
 
-import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/EtiquettesFiltreMission';
+import { EtiquettesFiltreMission } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 

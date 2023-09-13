@@ -37,7 +37,7 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 				Consulter les établissements
 			</LinkStyledAsButton>
 
-			{isFormationWithDetails(formationInitialeDetail) && <section>
+			{isFormationInitialeWithCMSDetails && <section>
 				<dl className={styles.contenu}>
 					{formationInitialeDetail.description && (
 						<div>
@@ -64,6 +64,9 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 					)}
 				</dl>
 			</section>}
+			{!isFormationInitialeWithCMSDetails && (
+				<p className={styles.mentionFormationNonDocumentee}>L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.</p>
+			)}
 		</ConsulterOffreLayout>
 	);
 }

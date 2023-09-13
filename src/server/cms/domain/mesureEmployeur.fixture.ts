@@ -9,7 +9,7 @@ export function aMesureEmployeurList(): MesureEmployeur[] {
 export function aMesureEmployeur(override?: Partial<MesureEmployeur>): MesureEmployeur {
 	return {
 		article: anArticle(),
-		bannière: anImage(),
+		banniere: anImage(),
 		contenu: 'Un beau contenu de carte',
 		extraitContenu: 'Un beau contenu de carte',
 		link: '/articles/aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
@@ -25,7 +25,7 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 		aMesureEmployeur(),
 		{
 			article: anArticle(),
-			bannière: anImage(),
+			banniere: anImage(),
 			contenu: 'Un deuxième beau contenu de carte',
 			extraitContenu: 'Un deuxième beau contenu de carte',
 			link: '/articles/slug-article',
@@ -34,7 +34,7 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 			url: 'https://some.example.com/2',
 		}, {
 			article: anArticle(),
-			bannière: anImage(),
+			banniere: anImage(),
 			contenu: 'Un troisième beau contenu de carte',
 			extraitContenu: 'Un troisième beau contenu de carte',
 			link: '/articles/titre',
@@ -43,7 +43,7 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 			url: 'https://some.example.com/3',
 		}, {
 			article: anArticle(),
-			bannière: anImage(),
+			banniere: anImage(),
 			contenu: 'Un quatrième beau contenu de carte',
 			extraitContenu: 'Un quatrième beau contenu de carte',
 			link: '/articles/titre',

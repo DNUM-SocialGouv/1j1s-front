@@ -12,7 +12,7 @@ import DeposerOffrePage from '~/pages/apprentissage/deposer-offre/index.page';
 
 
 describe('deposer-offre', () => {
-	
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = anAnalyticsService();
 
@@ -21,8 +21,8 @@ describe('deposer-offre', () => {
 				<DeposerOffrePage/>
 			</DependenciesProvider>,
 		);
-	
-		expect(container).toBeAccessible();
+
+		await expect(container).toBeAccessible();
 	});
 	it('contient un titre', () => {
 		const analyticsService = anAnalyticsService();

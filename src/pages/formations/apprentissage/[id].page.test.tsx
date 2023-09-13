@@ -153,14 +153,14 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 
 	it('retourne une page avec les informations de la formation', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();
 		const analyticsService = anAnalyticsService();
-		
+
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -172,12 +172,12 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		const titre = screen.getByRole('heading', { name: formation.titre });
 		expect(titre).toBeInTheDocument();
 	});
-	
+
 	it('envoie les analytics de la page à son affichage', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();
 		const analyticsService = anAnalyticsService();
-		
+
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -189,8 +189,8 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'contenu_detail_niv_2',
 			pagegroup: 'formation_apprentissage_detail',
-			pagelabel: 'contenu_liste_niv_1',
-			'segment-site': 'contenu_liste',
+			pagelabel: 'contenu_detail_niv_2',
+			'segment-site': 'contenu_detail',
 		});
 	});
 });

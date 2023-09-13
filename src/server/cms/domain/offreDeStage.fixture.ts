@@ -1,7 +1,7 @@
 import { OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import Localisation = OffreDeStage.Localisation;
 
-export function uneOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage {
+export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage {
 	return {
 		dateDeDebutMax: '2024-09-01',
 		dateDeDebutMin: '2024-09-01',

@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
@@ -20,8 +20,6 @@ describe('<Immersions />', () => {
 			</DependenciesProvider>,
 		);
 
-		await screen.findByText('Je référence mon entreprise afin de proposer des immersions');
-
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
 });

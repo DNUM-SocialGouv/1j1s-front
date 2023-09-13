@@ -46,7 +46,7 @@ describe('Annonce Component', () => {
 				/>,
 			);
 			const image: HTMLImageElement = screen.getByRole('img');
-			expect(image.src).toContain('%2Fimages%2Fdefaut-logement.webp'); // %2F => /
+			expect(image.src).toContain('%2Fimages%2Fimage-par-defaut-carte.webp'); // %2F => /
 		});
 	});
 

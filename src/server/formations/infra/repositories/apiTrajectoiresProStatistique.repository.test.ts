@@ -12,6 +12,7 @@ import {
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { aLocalisationRepository } from '~/server/localisations/domain/localisation.fixture';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -53,7 +54,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 		});
 
 		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
-			it('appelle l’api trajectoiresProCertification avec les bons paramètres', async() => {
+			it('appelle l’api trajectoiresProCertification avec les bons paramètres', async () => {
 				const httpService = aPublicHttpClientService();
 				const localisationRepository = aLocalisationRepository();
 				const codeRegion = createSuccess('11');
@@ -112,6 +113,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							apiSource: 'API Trajectoires Pro',
 							contexte: 'get statistique de formation',
 							message: 'statistique de formation trouvée mais incomplète',
+							severity: Severity.WARNING,
 						}));
 					});
 					it('une erreur est retournée par l‘error management service', async () => {
@@ -133,7 +135,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					});
 				});
 
-				describe('et que la région est retournée mais pas les statistiques',  () => {
+				describe('et que la région est retournée mais pas les statistiques', () => {
 					it('une erreur est logguée', async () => {
 						const httpService = aPublicHttpClientService();
 						const localisationRepository = aLocalisationRepository();
@@ -158,6 +160,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							apiSource: 'API Trajectoires Pro',
 							contexte: 'get statistique de formation',
 							message: 'statistique de formation trouvée mais incomplète',
+							severity: Severity.WARNING,
 						}));
 					});
 					it('une erreur est retournée par la gestion d’erreur', async () => {

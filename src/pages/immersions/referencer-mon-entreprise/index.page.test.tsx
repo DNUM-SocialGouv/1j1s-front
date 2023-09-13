@@ -25,12 +25,12 @@ describe('Immersion / Référencer mon entreprise', () => {
 			</DependenciesProvider>,
 		);
 
-		expect(container).toBeAccessible();
+		await expect(container).toBeAccessible();
 	});
-  
+
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
 		const analyticsService = anAnalyticsService();
-		
+
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -40,7 +40,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 		);
 
 		const iframe = screen.getByTitle('Formulaire recueil des entreprises volontaires pour l‘accueil des immersions professionnelles');
-    
+
 		expect(iframe).toBeInTheDocument();
 	});
 

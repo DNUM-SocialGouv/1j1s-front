@@ -6,11 +6,12 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { anOffreDeStageLocalisation, uneOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/cms/domain/offreDeStage.fixture';
 import { Domaines, OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { queries } from '~/test-utils';
 
 describe('ConsulterOffreDeStage', () => {
-	const offreDeStage: OffreDeStage = {
+	const offreDeStage: OffreDeStage = anOffreDeStage({
 		dateDeDebutMax: '2024-09-01',
 		dateDeDebutMin: '2024-09-01',
 		description: 'stage en graphisme description',
@@ -18,9 +19,9 @@ describe('ConsulterOffreDeStage', () => {
 		dureeEnJour: 180,
 		dureeEnJourMax: 180,
 		employeur: {
-			description: '',
+			description: 'Je suis une description de l‘employeur',
 			logoUrl: '',
-			nom: 'Gras Fisme',
+			nom: 'Nom de l‘employeur',
 			siteUrl: '',
 		},
 		id: '1111',
@@ -36,32 +37,118 @@ describe('ConsulterOffreDeStage', () => {
 		teletravailPossible: true,
 		titre: 'stage en graphisme',
 		urlDeCandidature: 'http://candidature',
-	};
+	});
 
 	beforeEach(() => {
 		mockUseRouter({});
 	});
 
 	describe('affiche l’offre de stage avec les bonnes informations', () => {
-		it('concernant l‘intitulé du stage', () => {
-			render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+		it('affiche le nom du stage', () => {
+			render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre:'stage en graphisme' })}/>);
 
 			const intituléOffreDeStage = screen.getByText('stage en graphisme');
 
 			expect(intituléOffreDeStage).toBeVisible();
 		});
 
-		it('concernant l‘entreprise du stage', () => {
-			render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+		it('affiche le nom de l‘employeur', () => {
+			render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })}/>);
 
-			const nomEntreprise = screen.getByText('Gras Fisme');
+			const nomEntreprise = screen.getByText('Je suis le nom de l‘employeur');
 
 			expect(nomEntreprise).toBeVisible();
 		});
 
+		describe('description du poste', () => {
+			it('quand elle est fournie, affiche la description du poste', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+					description: 'Je suis une description du poste',
+				})}/>, { queries });
+
+				const descriptionPoste = getByDescriptionTerm('Description du poste :');
+
+				expect(descriptionPoste).toBeVisible();
+				expect(descriptionPoste).toHaveTextContent('Je suis une description du poste');
+			});
+
+			it('quand elle n‘est pas fournie, n‘affiche pas la description du poste', () => {
+				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+					description: '',
+				})}/>);
+
+				const descriptionPoste = screen.queryByText('Description du poste :');
+
+				expect(descriptionPoste).not.toBeInTheDocument();
+			});
+		});
+		
+		describe('description de l‘employeur', () => {
+			it('lorsqu‘elle est fournie, affiche la description de l‘employeur', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+					employeur: {
+						description: 'Je suis une description de l‘employeur',
+						nom: 'nom',
+					},
+				})}/>, { queries });
+
+				const descriptionEmployeur = getByDescriptionTerm('Description de l‘employeur :');
+
+				expect(descriptionEmployeur).toBeVisible();
+				expect(descriptionEmployeur).toHaveTextContent('Je suis une description de l‘employeur');
+			});
+
+			it('quand elle n‘est pas fournie, n‘affiche pas la description de l‘employeur', () => {
+				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+					employeur: {
+						description: '',
+						nom: 'nom',
+					},
+				})}/>);
+
+				const descriptionPoste = screen.queryByText('Description de l‘employeur :');
+
+				expect(descriptionPoste).not.toBeInTheDocument();
+			});
+		});
+
+
+		describe('la rémunération du stage', () => {
+			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/>, { queries });
+
+				const remuneration = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remuneration).toBeVisible();
+				expect(remuneration).toHaveTextContent('Non renseignée');
+			});
+			it('lorsque la rémunération est à 0, affiche "Aucune"', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/>, { queries });
+
+				const remunération = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('Aucune');
+			});
+			it('lorsque la rémunération est proposée affiche la somme de la rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/>, { queries });
+
+				const remuneration = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remuneration).toBeVisible();
+				expect(remuneration).toHaveTextContent('150 €');
+			});
+		});
+
 		describe('dans les étiquettes', () => {
 			it('concernant les domaines du stage', () => {
-				const offreDeStage = uneOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
+				const offreDeStage = anOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
 
 				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -70,10 +157,11 @@ describe('ConsulterOffreDeStage', () => {
 				expect(displayedTagsTextContents).toContain(Domaines.ACHAT);
 				expect(displayedTagsTextContents).toContain(Domaines.CONSEIL);
 			});
+			
 			describe('concernant la localisation du stage', () => {
 				it('affiche la ville du stage quand elle est présente', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -84,7 +172,7 @@ describe('ConsulterOffreDeStage', () => {
 
 				it('quand la ville du stage n’est pas présente, affiche le département si présent', () => {
 					const localisation = anOffreDeStageLocalisation({ departement: 'Val de marne' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -95,7 +183,7 @@ describe('ConsulterOffreDeStage', () => {
 
 				it('quand la ville et le département du stage ne sont pas présents, affiche la région si présente', () => {
 					const localisation = anOffreDeStageLocalisation({ region: 'Ile de France' });
-					const offreDeStage = uneOffreDeStage({ localisation: localisation });
+					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -106,7 +194,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			describe('concernant la durée du stage', () => {
 				it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
-					const offreDeStage = uneOffreDeStage({ dureeEnJour: 60 });
+					const offreDeStage = anOffreDeStage({ dureeEnJour: 60 });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -117,7 +205,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			describe('concernant la date de début du stage', () => {
 				it('affiche la date de début précise quand il y a une date précise', () => {
-					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
+					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
@@ -126,7 +214,7 @@ describe('ConsulterOffreDeStage', () => {
 					expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
 				});
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
-					const offreDeStage = uneOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
+					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
