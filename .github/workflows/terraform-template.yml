@@ -117,7 +117,7 @@ jobs:
         working-directory: terraform
         run: terraform plan -detailed-exitcode -input=false -no-color
         env:
-          TF_VAR_front_fichier_env_secret: "../.env"
+          TF_VAR_fichier_env_secret: "../.env"
         continue-on-error: true
 
       - name: Ajouter un commentaire avec le résultat de terraform plan
@@ -189,4 +189,4 @@ jobs:
         working-directory: terraform
         run: terraform apply -input=false -no-color -auto-approve
         env:
-          TF_VAR_front_fichier_env_secret: "../.env"
+          TF_VAR_fichier_env_secret: "../.env"

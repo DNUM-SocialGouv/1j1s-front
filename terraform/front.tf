@@ -4,7 +4,7 @@ module "front_app" {
 
   stack = "scalingo-20"
 
-  name = var.front_nom_de_l_application
+  name = var.nom_de_l_application
 
   containers = {
     web = {
@@ -35,7 +35,7 @@ module "front_app" {
     }
   ]
 
-  domain         = var.front_nom_de_domaine
+  domain         = var.nom_de_domaine
   domain_aliases = terraform.workspace == "production" ? ["1jeune1solution.gouv.fr"] : null
 
   log_drains = (var.logstash_uri != null) ? [

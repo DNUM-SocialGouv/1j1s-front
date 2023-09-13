@@ -7,7 +7,7 @@ locals {
   }
 
   domaine_a_tester = coalesce(
-    var.front_nom_de_domaine,
+    var.nom_de_domaine,
     module.front_app.domain
   )
 }
@@ -20,7 +20,7 @@ data "statuscake_contact_group" "default_contact_group" {
 }
 
 resource "statuscake_uptime_check" "http_check" {
-  name           = "${var.front_nom_de_l_application} (${local.nom_environnement})"
+  name           = "${var.nom_de_l_application} (${local.nom_environnement})"
   check_interval = 300 # = 5 minutes
   confirmation   = 3
   trigger_rate   = 0
