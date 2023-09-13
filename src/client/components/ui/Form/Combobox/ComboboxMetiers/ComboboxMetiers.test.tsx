@@ -106,7 +106,7 @@ describe('<ComboboxMetiers />', () => {
 			</DependenciesProvider>);
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(comboboxMetiers, 'dddddd');
-			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, ...');
+			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …');
 
 			expect(emptyResultText).toBeVisible();
 			expect(screen.queryByRole('option')).not.toBeInTheDocument();
@@ -310,7 +310,7 @@ describe('<ComboboxMetiers />', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Chargement ...');
+		expect(message).toHaveTextContent('Chargement…');
 	});
 
 	it('affiche un message d’erreur quand le champ est en erreur', async () => {
@@ -400,8 +400,8 @@ describe('<ComboboxMetiers />', () => {
 			await user.type(combobox, 'Test');
 			await user.clear(combobox);
 
-			const options = screen.queryAllByRole('option');
-			expect(options).toHaveLength(0);
+			const option = screen.queryByRole('option');
+			expect(option).not.toBeInTheDocument();
 		});
 	});
 });
