@@ -103,11 +103,9 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 	return (
 		<div>
-			{label && (
-				<label className={styles.label} htmlFor={inputId}>
-					{label}
-				</label>
-			)}
+			<label className={styles.label} htmlFor={inputId}>
+				{label}
+			</label>
 			<Combobox
 				ref={ref}
 				autoComplete="off"

@@ -271,11 +271,11 @@ describe('<ComboboxMetiers />', () => {
 
 	it('affiche un message quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
-		const metierServiceMock: MetierService = {
-			rechercherMetier: jest.fn(async () => createFailure(ErreurMétier.CONTENU_INDISPONIBLE)),
-		};
+		const metierService: MetierService = aMetierService();
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<DependenciesProvider metierService={metierService}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
