@@ -2,13 +2,13 @@ import { MetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/r
 import {
 	aMetierLaBonneAlternanceApiResponse,
 } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
-import { mapMétier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
+import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
 
-describe('mapMétier', () => {
+describe('mapMetier', () => {
 	it('converti une response en liste de métiers', () => {
 		const responseAPI: MetierLaBonneAlternanceApiResponse = aMetierLaBonneAlternanceApiResponse();
 
-		const result = mapMétier(responseAPI);
+		const result = mapMetier(responseAPI);
 
 		expect(result).toEqual(responseAPI.labelsAndRomes);
 	});
