@@ -13,11 +13,11 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { aMétierService } from '~/client/services/métiers/métier.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import {
-	aRésultatRechercherMultipleAlternance,
+	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
-import { Métier } from '~/server/metiers/domain/métier';
+import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 jest.mock('lodash/debounce', () =>
@@ -35,7 +35,7 @@ describe('FormulaireRechercheAlternance', () => {
 		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
 			// GIVEN
 			const alternanceService = anAlternanceService();
-			const métierService = aMétierService();
+			const metierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
 
@@ -43,7 +43,7 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					métierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -62,7 +62,7 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
@@ -76,13 +76,13 @@ describe('FormulaireRechercheAlternance', () => {
 
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMétierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					métierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -90,8 +90,8 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-			await user.type(inputMétiers, 'boulang');
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			await user.type(inputMetiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 
@@ -113,19 +113,19 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMétierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					métierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -133,8 +133,8 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-			await user.type(inputMétiers, 'boulang');
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			await user.type(inputMetiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -150,19 +150,19 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Métier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
-			const alternanceService = anAlternanceService(aRésultatRechercherMultipleAlternance().offreList, aRésultatRechercherMultipleAlternance().entrepriseList);
-			const métierService = aMétierService(aMétierList);
+			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
+			const metierService = aMetierService(aMetierList);
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					métierService={métierService}
+					metierService={metierService}
 					localisationService={localisationService}
 				>
 					<FormulaireRechercheAlternance/>
@@ -195,16 +195,55 @@ describe('FormulaireRechercheAlternance', () => {
 		} });
 
 		render(
-			<DependenciesProvider métierService={aMétierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
 				<FormulaireRechercheAlternance />
 			</DependenciesProvider>,
 		);
 
-		const inputMétiers = screen.getByRole('combobox', { name: 'Domaine' });
-		expect(inputMétiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByTestId('Select-InputHidden');
 		expect(rayon).toHaveValue('10');
+	});
+
+	it('laisse le champ domaine vide quand il manque les codes romes dans les query params', () => {
+		mockUseRouter({ query: {
+			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+		} });
+
+		render(
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercheAlternance />
+			</DependenciesProvider>,
+		);
+
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		expect(inputMetiers).toHaveValue('');
+		const form = screen.getByRole('form');
+		expect(form).not.toHaveFormValues({
+			codeRomes: expect.anything(),
+			libelleMetier: expect.anything(),
+		});
+	});
+	it('laisse le champ domaine vide quand il manque le libellé dans les query params', () => {
+		mockUseRouter({ query: {
+			codeRomes: 'D1102,D1104',
+		} });
+
+		render(
+			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+				<FormulaireRechercheAlternance />
+			</DependenciesProvider>,
+		);
+
+		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		expect(domaine).toHaveValue('');
+		const form = screen.getByRole('form');
+		expect(form).not.toHaveFormValues({
+			codeRomes: expect.anything(),
+			libelleMetier: expect.anything(),
+		});
 	});
 });

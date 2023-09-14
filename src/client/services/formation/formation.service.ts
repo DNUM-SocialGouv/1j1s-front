@@ -32,7 +32,10 @@ export class FormationService {
 	private filtreQuery(query: FormationQueryParams): FormationQueryFiltre {
 		return {
 			codeCommune: query.codeCommune,
-			codeRomes: query.codeRomes,
+			// FIXME (GAFI 28-08-2023): Idéalement on aimerait ne pas maltraiter les query params :
+			//	devrait être `?codeRomes=A1234&codeRomes=B5678`
+			//	actuellement géré en back avec le format `?codeRomes=A1234,B5678` (en décodé)
+			codeRomes: query.codeRomes?.toString(),
 			distanceCommune: query.distanceCommune,
 			latitudeCommune: query.latitudeCommune,
 			longitudeCommune: query.longitudeCommune,

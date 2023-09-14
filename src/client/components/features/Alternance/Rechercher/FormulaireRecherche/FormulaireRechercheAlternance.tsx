@@ -5,8 +5,8 @@ import styles
 	from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
-	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
+	ComboboxMetiers,
+} from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -23,6 +23,10 @@ export function FormulaireRechercheAlternance() {
 		longitudeCommune,
 		latitudeCommune,
 	} = queryParams;
+
+	const domaineDefaultValue = (codeRomes && libelleMetier)
+		? { label: libelleMetier, romes: codeRomes }
+		: undefined;
 
 	const router = useRouter();
 
@@ -42,11 +46,8 @@ export function FormulaireRechercheAlternance() {
 			>
 				<div className={styles.filtresRechercherOffre}>
 					<div className={styles.inputButtonWrapper}>
-						<InputAutocomplétionMétier
-							name={'libelleMetier'}
-							label={'Domaine'}
-							libellé={libelleMetier}
-							codeRomes={codeRomes}
+						<ComboboxMetiers
+							defaultValue={domaineDefaultValue}
 							required
 							autoFocus
 							placeholder={'Exemples : enseignement, recherche...'}

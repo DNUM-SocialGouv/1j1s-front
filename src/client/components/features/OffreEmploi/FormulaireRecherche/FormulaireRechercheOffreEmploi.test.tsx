@@ -26,7 +26,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		beforeEach(() => {
 			mockSmallScreen();
 		});
-    
+
 		describe('quand on recherche par mot clé', () => {
 			it('ajoute le mot clé recherché aux query params', async () => {
 				// GIVEN
@@ -249,7 +249,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 						<FormulaireRechercheOffreEmploi />
 					</DependenciesProvider>,
 				);
-        
+
 				const button = screen.getByRole('button', { name: 'Types de contrats' });
 				fireEvent.click(button);
 
@@ -260,7 +260,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				fireEvent.click(buttonRechercher);
-        
+
 				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { shallow: true });
 			});
 		});
@@ -370,8 +370,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75)');
 
-		// FIXME (GAFI 17-03-2023): Le composant utilisé pour ces champs ne génère pas un HTML valide et cause des problèmes
-		//	de test-ids
+		// FIXME (GAFI 17-03-2023):
+		// problème 1 : les inputs checkés ne sont pas valides (ex : input dans span, le tout dans un button pour type de contrat)
+		// problème 2 : ne pas utiliser de data-testid (d'autant plus qu'ils sont tous identiques aujourd'hui), préférer avoir des input accessibles (recupérables en test)
 		/* eslint-disable testing-library/no-node-access */
 		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
 			const labelElement = screen.getByText(fieldLabel);

@@ -106,8 +106,3 @@
     white-space: nowrap;
   }
 }
-
-.nombreResultats {
-  @extend %text-small;
-  color: utilities-deprecated.$color-mention-grey;
-}

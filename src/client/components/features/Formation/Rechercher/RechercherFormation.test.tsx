@@ -10,7 +10,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { aMétierService } from '~/client/services/métiers/métier.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 describe('RechercherFormation', () => {
@@ -26,7 +26,7 @@ describe('RechercherFormation', () => {
 		it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', async () => {
 			// GIVEN
 			const formationServiceMock = aFormationService();
-			const métierServiceMock = aMétierService();
+			const métierServiceMock = aMetierService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({});
 
@@ -34,7 +34,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					métierService={métierServiceMock}
+					metierService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -61,7 +61,7 @@ describe('RechercherFormation', () => {
 				},
 			];
 			const formationServiceMock = aFormationService(formationFixture);
-			const métierServiceMock = aMétierService();
+			const métierServiceMock = aMetierService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
@@ -74,7 +74,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					métierService={métierServiceMock}
+					metierService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -87,7 +87,7 @@ describe('RechercherFormation', () => {
 			expect(formulaireRechercheFormation).toBeInTheDocument();
 			expect(nbRésultats).toBeInTheDocument();
 			expect(formationServiceMock.rechercherFormation).toHaveBeenCalledWith({
-				codeRomes: 'D1103,D1101,H2101',
+				codeRomes: ['D1103', 'D1101', 'H2101'],
 				libelleMetier: 'Boucherie,charcuterie,traiteur',
 			});
 			const resultList = await screen.findByRole('list', { name: 'Formations en alternance' });
@@ -107,7 +107,7 @@ describe('RechercherFormation', () => {
 				},
 			];
 			const formationServiceMock = aFormationService(formationFixture);
-			const métierServiceMock = aMétierService();
+			const métierServiceMock = aMetierService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({
 				query: {
@@ -125,7 +125,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					métierService={métierServiceMock}
+					metierService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -143,7 +143,7 @@ describe('RechercherFormation', () => {
 	it('affiche une liste de partenaires', async () => {
 		// GIVEN
 		const formationServiceMock = aFormationService();
-		const métierServiceMock = aMétierService();
+		const métierServiceMock = aMetierService();
 		const localisationServiceMock = aLocalisationService();
 		mockUseRouter({});
 
@@ -151,7 +151,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationServiceMock}
-				métierService={métierServiceMock}
+				metierService={métierServiceMock}
 				localisationService={localisationServiceMock}
 			>
 				<RechercherFormation/>
@@ -185,7 +185,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationService}
-				métierService={aMétierService()}
+				metierService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
 				<RechercherFormation/>
@@ -207,7 +207,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherFormation/>
@@ -229,7 +229,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					métierService={aMétierService()}
+					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherFormation/>

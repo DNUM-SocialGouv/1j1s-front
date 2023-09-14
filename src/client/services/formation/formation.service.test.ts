@@ -8,7 +8,7 @@ describe('FormationService', () => {
 		const formationService = new FormationService(httpClientService);
 		const formationQuery = {
 			codeCommune: '13180',
-			codeRomes: 'D123,D122',
+			codeRomes: ['D123', 'D122'],
 			distanceCommune: '30',
 			latitudeCommune: '2.37',
 			longitudeCommune: '15.845',
@@ -32,7 +32,7 @@ describe('FormationService', () => {
 					const formationService = new FormationService(httpClientService);
 					const formationQuery = {
 						codeCommune: '13180',
-						codeRomes: 'D123, D122',
+						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
 						latitudeCommune: '2.37',
 						longitudeCommune: '15.845',
@@ -50,7 +50,7 @@ describe('FormationService', () => {
 					const formationService = new FormationService(httpClientService);
 					const formationQuery = {
 						codeCommune: '13180',
-						codeRomes: 'D123, D122',
+						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
 						latitudeCommune: '2.37',
 						longitudeCommune: '15.845',
@@ -70,7 +70,7 @@ describe('FormationService', () => {
 				const formationService = new FormationService(httpClientService);
 				const formationQuery = {
 					codeCommune: '13180',
-					codeRomes: 'D123, D122',
+					codeRomes: ['D123', 'D122'],
 					distanceCommune: '30',
 					latitudeCommune: '2.37',
 					longitudeCommune: '15.845',

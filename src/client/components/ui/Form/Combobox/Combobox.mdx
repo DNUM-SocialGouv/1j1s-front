@@ -32,7 +32,7 @@ Le `Combobox` peut prendre les props suivantes :
 
 <Controls />
 
-**Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)**
+**Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)**
 
 Il est nécessaire d'ajouter un nom accessible par une des props `aria-label` ou `aria-labelledby` qui se placera
 automatiquement sur la liste d'options et le bouton permettant de la faire apparaitre.
@@ -108,6 +108,33 @@ L'implémentation est inspirée du [pattern ARIA "Listbox Example with Grouped O
 
 <Canvas of={stories.categories} />
 
+## Avec une stratégie de filtre sur les options
+
+Par la props `filter`, il est possible de définir une stratégie de filtre des options matchant l'input de l'utilisateur.
+
+Deux stratégies sont déjà prédéfinies :
+- `Combobox.filterValueOrLabelStartsWith()` est la **valeur par défaut** et filtre sur la valeur de l'option ainsi que son libellé
+- `Combobox.noFilter()` ne filtre pas du tout les options, à chaque input, la liste totale des options est affichée
+
+Il est également possible de passer une stratégie de filtre customisée sous forme `(element: Element, currentValue: string) => boolean`
+
+E.g. :
+```tsx
+<Combobox filter={Combobox.noFilter}>
+  {/* ... */}
+</Combobox>
+
+{/* --- */}
+
+<Combobox filter={(element, currentValue) => (
+  element.getAttribute('data-value') === currentValue
+)}>
+  {/* ... */}
+</Combobox>
+```
+
+<Canvas of={stories.filterStrategyNoFilter} />
+
 ## Version asynchrone
 
 Si les options du combobox sont obtenues par appel d'API par exemple, ajouter un message avec le composant `<Combobox.AsyncMessage />`.
@@ -127,27 +154,7 @@ E.g. :
 
 <Canvas of={stories.async} />
 
-Il est également possible de définir une stratégie de filtre des options par la props `filter`.
-Cette props est utile notamment lorsque l'appel API renvoie une liste d'option déjà filtrée.
-Deux stratégies sont déjà prédéfinies :
-- `Combobox.filterValueOrLabelStartsWith()` est la **valeur par défaut** et filtre sur la valeur de l'option ainsi que son libellé
-- `Combobox.noFilter()` ne filtre pas du tout les options
+Dans le cas d'un appel à une API externe pour obtenir la liste des résultats correspondants à l'input de l'utilisateur,
+il est plus logique de déléguer la matching à l'API en question.
 
-Mais il est quand même possible de passer sa propre stratégie de filtre sous forme `(element: Element, currentValue: string) => boolean`
-
-E.g. :
-```tsx
-<Combobox filter={Combobox.noFilter}>
-  {/* ... */}
-</Combobox>
-
-{/* --- */}
-
-<Combobox filter={(element, currentValue) => (
-  element.getAttribute('data-value') === currentValue
-)}>
-  {/* ... */}
-</Combobox>
-```
-
-<Canvas of={stories.filterStrategyNoFilter} />
+Ainsi, pour que cette délégation puisse se faire, lorsque `Combobox` est utilisé de façon asynchrone, il est nécessaire de donner `Combobox.noFilter` à la props `filter` pour qu'aucun filtre ne soit appliqué côté composant.

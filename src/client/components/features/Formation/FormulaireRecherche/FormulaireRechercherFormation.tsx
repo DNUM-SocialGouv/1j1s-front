@@ -5,8 +5,8 @@ import styles
 	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import {
-	InputAutocomplétionMétier,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionMétier/InputAutocomplétionMétier';
+	ComboboxMetiers,
+} from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -19,10 +19,14 @@ export function FormulaireRechercherFormation() {
 	const {
 		libelleMetier,
 		codeRomes,
+		codeCommune,
+		libelleCommune,
 	} = queryParams;
 
-	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
+	const domaineDefaultValue = (codeRomes && libelleMetier)
+		? { label: libelleMetier, romes: codeRomes }
+		: undefined;
+
 	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
 	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
@@ -32,8 +36,6 @@ export function FormulaireRechercherFormation() {
 
 	useEffect(function initFormValues() {
 		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
-		setInputCodeCommune(queryParams.codeCommune || '');
-		setInputLibelléCommune(queryParams.libelleCommune || '');
 		setInputDistanceCommune(queryParams.distanceCommune || '');
 		setInputLongitudeCommune(queryParams.longitudeCommune || '');
 		setInputLatitudeCommune(queryParams.latitudeCommune || '');
@@ -56,18 +58,15 @@ export function FormulaireRechercherFormation() {
 			>
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
-						<InputAutocomplétionMétier
-							name={'libelleMetier'}
-							label={'Domaine'}
-							libellé={libelleMetier}
-							codeRomes={codeRomes}
+						<ComboboxMetiers
+							defaultValue={domaineDefaultValue}
 							required
 							autoFocus
 							placeholder="Exemples : ingénierie, agronomie..."
 						/>
 						<InputCommune
-							code={inputCodeCommune}
-							libellé={inputLibelléCommune}
+							code={codeCommune}
+							libellé={libelleCommune}
 							longitude={inputLongitudeCommune}
 							latitude={inputLatitudeCommune}
 							distance={inputDistanceCommune}

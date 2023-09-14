@@ -83,7 +83,7 @@ describe('Page de recherche d’emplois', () => {
 			cy.wait('@recherche-emplois');
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
-			// FIXME (GAFI 08-08-2023): devrait être role combobox, sera fix dans prochain ticket
+			// FIXME (GAFI 08-08-2023): devrait être role combobox, sera fix dans ticket comboboxLocalisation ou comboboxCommune
 			cy.findByRole('textbox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
 
 			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();

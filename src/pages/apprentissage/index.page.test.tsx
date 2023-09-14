@@ -11,7 +11,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
-import { aMétierService } from '~/client/services/métiers/métier.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { anAlternanceMatchaBoulanger, anAlternancePEJobs } from '~/server/alternances/domain/alternance.fixture';
@@ -32,7 +32,7 @@ describe('Page rechercher une alternance', () => {
 		it('ne retourne rien', async () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
-			const métiersServiceMock = aMétierService();
+			const métiersServiceMock = aMetierService();
 			mockUseRouter({ query: { page: '1' } });
 
 			render(
@@ -40,7 +40,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={anAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					métierService={métiersServiceMock}
+					metierService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -68,7 +68,7 @@ describe('Page rechercher une alternance', () => {
 			];
 			const alternanceServiceMock = anAlternanceService(alternanceFixture);
 			const localisationServiceMock = aLocalisationService();
-			const métiersServiceMock = aMétierService();
+			const métiersServiceMock = aMetierService();
 			mockUseRouter({ query: {
 				codeCommune: '75056',
 				codeRomes: 'D1102%2CD1104',
@@ -79,12 +79,11 @@ describe('Page rechercher une alternance', () => {
 				longitudeCommune: '2.347',
 				page: '1',
 			} });
-
 			const { container } = render(<DependenciesProvider
 				analyticsService={anAnalyticsService()}
 				localisationService={localisationServiceMock}
 				alternanceService={alternanceServiceMock}
-				métierService={métiersServiceMock}
+				metierService={métiersServiceMock}
 			>
 				<RechercherAlternancePage/>
 			</DependenciesProvider>,
@@ -97,14 +96,14 @@ describe('Page rechercher une alternance', () => {
 		it('affiche le titre propre à la bonne alternance', async () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
-			const métiersServiceMock = aMétierService();
+			const métiersServiceMock = aMetierService();
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
 					analyticsService={anAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					métierService={métiersServiceMock}
+					metierService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -117,7 +116,7 @@ describe('Page rechercher une alternance', () => {
 		it('envoie les analytics de la page à son affichage', async () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
-			const métiersServiceMock = aMétierService();
+			const métiersServiceMock = aMetierService();
 			const analyticsService = anAnalyticsService();
 
 			mockUseRouter({ query: { page: '1' } });
@@ -126,7 +125,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={analyticsService}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					métierService={métiersServiceMock}
+					metierService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,

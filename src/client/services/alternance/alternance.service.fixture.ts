@@ -1,13 +1,13 @@
 import {
-	aRésultatRechercherMultipleAlternance,
+	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 import { AlternanceService } from './alternance.service';
 
 export function anAlternanceService(
-	rechercherAlternanceOffreListValue = aRésultatRechercherMultipleAlternance().offreList,
-	rechercherAlternanceEntrepriseListValue = aRésultatRechercherMultipleAlternance().entrepriseList,
+	rechercherAlternanceOffreListValue = aResultatRechercherMultipleAlternance().offreList,
+	rechercherAlternanceEntrepriseListValue = aResultatRechercherMultipleAlternance().entrepriseList,
 ): AlternanceService {
 	return {
 		rechercherAlternance: jest.fn().mockResolvedValue(createSuccess({

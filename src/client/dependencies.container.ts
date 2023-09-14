@@ -24,7 +24,8 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
-import { MétierService } from '~/client/services/métiers/métier.service';
+import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
@@ -45,7 +46,7 @@ export type Dependencies = {
 	offreService: OffreService
 	rechercheClientService: SearchClient
 	stageService: StageService
-	métierService: MétierService
+	metierService: MetierService
 	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 	dateService: DateService
@@ -61,7 +62,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const alternanceService = new AlternanceService(httpClientService);
-	const métierService = new MétierService(httpClientService);
+	const metierService = new BffMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);
@@ -107,8 +108,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		formationService,
 		lesEntreprisesSEngagentService,
 		localisationService,
+		metierService,
 		missionEngagementService,
-		métierService,
 		offreService,
 		rechercheClientService,
 		stageService,
