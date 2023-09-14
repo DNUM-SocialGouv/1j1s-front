@@ -12,7 +12,9 @@ describe('Method middleware', () => {
 	describe('quand la méthode de la requête est permise', () => {
 		it.each(['GET', 'POST', 'PUT', 'DELETE'])('joue le handler', async (method: string) => {
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => withMethods([method], handler)(req, res),
+				handler: (req, res) => {
+					withMethods([method], handler)(req, res);
+				},
 				test: async ({ fetch }) => {
 					const res = await fetch({ method });
 					expect(res.status).toEqual(200);
@@ -25,7 +27,9 @@ describe('Method middleware', () => {
 	describe('quand la méthode de la requête est interdite', () => {
 		it('retourne une erreur 405', async () => {
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => withMethods(['GET'], handler)(req, res),
+				handler: (req, res) => {
+					withMethods(['GET'], handler)(req, res);
+				},
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'POST' });
 					expect(res.status).toEqual(405);
