@@ -1575,7 +1575,4 @@ describe('<Combobox />', () => {
 			expect(option).toBeVisible();
 		});
 	});
-
-	it.todo('Ajouter un message quand pas de résultat pour ce qui est entré dans le champ');
-	it.todo('nommer les fonctions des useCallbacks et autres (plutôt que juste "onClick", ...)');
 });

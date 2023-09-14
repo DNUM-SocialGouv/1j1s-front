@@ -105,7 +105,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
-	useEffect(() => {
+	useEffect(function validateAgainstSuggestionList() {
 		if (requireValidOption) {
 			inputRef.current?.setCustomValidity(findMatchingOption(listboxRef.current) ? '' : 'Veuillez sélectionner une option dans la liste');
 		}
