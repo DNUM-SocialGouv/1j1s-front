@@ -121,8 +121,8 @@ export interface OffreDeStage {
 	domaines: Array<Domaines>
 	dureeEnJour?: number
 	dureeEnJourMax?: number
-	localisation: OffreDeStage.Localisation
-	employeur: EmployeurStageCMS
+	localisation?: OffreDeStage.Localisation
+	employeur?: EmployeurStageCMS
 	remunerationBase?: number
 	source?: SourceDesDonnées
 	teletravailPossible?: boolean
