@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.145.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.144.2...v3.145.0) (2023-09-15)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **adform:** Ajouter le plan de taggage adform ([#1980](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1980)) ([dea23d1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dea23d116b6e4d8d4ea27c5b313635fcb17819bb))
+
 ## [3.144.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.144.1...v3.144.2) (2023-09-15)
 
 
