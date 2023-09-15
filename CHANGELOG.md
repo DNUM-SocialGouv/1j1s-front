@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.144.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.144.0...v3.144.1) (2023-09-15)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/cypress to v10 ([#1968](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1968)) ([3968329](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3968329448850f31db3e5550ff5bf94448b5afbf))
+
 ## [3.144.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.5...v3.144.0) (2023-09-14)
 
 
