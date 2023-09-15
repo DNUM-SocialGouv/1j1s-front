@@ -3,6 +3,7 @@ tarteaucitron.lang = {
   acceptAll: 'Tout accepter',
   adblock: 'Bonjour! Ce site joue la transparence et vous donne le choix des services tiers à activer.',
   adblock_call: 'Merci de désactiver votre adblocker pour commencer la personnalisation.',
+  adform: '<span style="font-weight: bold">Finalité</span> : Les campagnes d’informations gouvernementales permettent le partage d’informations utiles diffusées dans le cadre de grandes campagnes d’information, ou en cas de crise. Dans le détail : le traceur AdForm contient des cookies provenant des régies Amnet, Seedtag, Yahoo, Snapchhat, Meta, Tiktok.<br /><span style="font-weight: bold">Conséquences en cas de refus</span> : En cas de refus, vos visites sur les pages concernés ne sont pas comptabilisés dans les statistiques de suivi de campagne.<br /><span style="font-weight: bold">Consentement</span> : Oui nécessaire<br /><span style="font-weight: bold">Durée de conservation</span> : 13 mois',
   alertBig: 'vous acceptez l‘utilisation de services tiers pouvant installer des cookies',
   alertBigClick: 'En poursuivant votre navigation,',
   alertBigPrivacy: 'Ce site utilise des cookies et vous donne le contrôle sur ceux que vous souhaitez activer',

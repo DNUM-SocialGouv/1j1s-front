@@ -14,6 +14,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import Accueil from '~/pages/index.page';
 
 describe('Page d‘accueil', () => {
@@ -26,7 +27,7 @@ describe('Page d‘accueil', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
 				<Accueil/>
 			</DependenciesProvider>,
 		);
@@ -38,8 +39,11 @@ describe('Page d‘accueil', () => {
 		describe('quand le feature flip de jobs d‘été n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les jobs d‘été', () => {
 				process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
-				render(<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/></DependenciesProvider>);
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
 				expect(screen.queryByText('Jobs d‘été')).not.toBeInTheDocument();
 			});
 		});
@@ -48,9 +52,11 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
 				const user = userEvent.setup();
 
-				render(<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
-				</DependenciesProvider>);
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
 
 				const voirPlusButton = screen.getByRole('button', { name: 'Voir plus de résultats sur les offres d‘emplois' });
 				expect(voirPlusButton).toBeVisible();
@@ -65,8 +71,11 @@ describe('Page d‘accueil', () => {
 		describe('quand le feature flip des formations initales n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les formations initiales', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
-				render(<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/></DependenciesProvider>);
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
 				expect(screen.queryByText('Formations initiales')).not.toBeInTheDocument();
 			});
 		});
@@ -74,9 +83,11 @@ describe('Page d‘accueil', () => {
 			it('je vois la carte de redirection vers les formations initiales',  () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
-				render(<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
-				</DependenciesProvider>);
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
 
 				const link = screen.getByRole('link', { name: /Plus de 6 000 formations accessibles pour réaliser votre projet et trouver un emploi/ });
 				expect(link).toBeVisible();
