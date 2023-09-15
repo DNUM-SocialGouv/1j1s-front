@@ -10,6 +10,7 @@ import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/Li
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+import useMarketing from '~/client/hooks/useMarketing';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
 
@@ -22,8 +23,10 @@ interface CardContent {
 	title: string
 }
 
-export default function Accueil() {
+const PAGE_NAME_ADFORM = '2023-09-1jeune1solution.gouv-PageAccueil-Arrivees';
 
+export default function Accueil() {
+	useMarketing(PAGE_NAME_ADFORM);
 	useAnalytics(analytics);
 
 	const { isLargeScreen } = useBreakpoint();
