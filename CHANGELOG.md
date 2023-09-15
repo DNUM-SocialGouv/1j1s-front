@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.144.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.5...v3.144.0) (2023-09-14)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **adr:** ajout adr userEvent et fragmenter le style dans les selecteurs ([#1966](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1966)) ([cb5d072](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cb5d072d349321412a4a20965e55a0bbd39651f6))
+
 ## [3.143.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.143.4...v3.143.5) (2023-09-13)
 
 
