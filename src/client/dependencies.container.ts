@@ -26,6 +26,7 @@ import { LocalisationService } from '~/client/services/localisation/localisation
 import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
+import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
@@ -79,7 +80,9 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
-	const marketingService = new AdformMarketingService(cookiesService);
+	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE
+		? new AdformMarketingService(cookiesService)
+		: new NullMarketingService();
 	const youtubeService = new YoutubeVideoService(cookiesService);
 	const dateService = new JsDateService();
 
@@ -112,8 +115,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		formationService,
 		lesEntreprisesSEngagentService,
 		localisationService,
-		metierService,
 		marketingService,
+		metierService,
 		missionEngagementService,
 		offreService,
 		rechercheClientService,
