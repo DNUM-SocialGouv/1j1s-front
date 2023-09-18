@@ -8,9 +8,6 @@ import {
 	EtiquettesFiltreMission,
 } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
 import { ListeMissions } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/ListeMissions';
-import {
-	MessageNombreResultats,
-} from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/MessageNombreResultats';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
@@ -20,7 +17,6 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import {
 	bénévolatDomaineList,
 	Mission,
@@ -70,8 +66,6 @@ export function RechercherMission(props: RechercherMissionProps) {
 			});
 	}, [missionEngagementQuery, missionEngagementService, category, isServiceCivique]);
 
-	const domainQuery = missionEngagementQuery?.domain;
-	const domaine = domainQuery && recupererLibelleDepuisValeur(isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList, domainQuery);
 
 	return (
 		<>
@@ -89,7 +83,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 					isLoading={isLoading}
 					messageRésultatRecherche={
 						<>
-							<MessageNombreResultats nombreResultats={nombreResultats} isServiceCivique={isServiceCivique} domaine={domaine} />
+							{/* fix pour erreur tsc --noEmit */}
 							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</>
 					}

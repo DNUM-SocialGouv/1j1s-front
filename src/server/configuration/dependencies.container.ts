@@ -142,6 +142,8 @@ import {
 import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
+import { PostmanDependencies, postmanDependenciesContainer } from '~/server/postman/dependencies.container';
+import { PostmanRepository } from '~/server/postman/postman.repository';
 import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots/configuration/dependencies.container';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
@@ -178,6 +180,7 @@ export type Dependencies = {
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
 	loggerService: LoggerService
+	postmanDependencies: PostmanDependencies
 }
 
 export function dependenciesContainer(): Dependencies {
@@ -297,6 +300,7 @@ export function dependenciesContainer(): Dependencies {
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
 
+	const postmanDependencies = postmanDependenciesContainer(new PostmanRepository());
 
 	return {
 		alternanceDependencies,
@@ -314,6 +318,7 @@ export function dependenciesContainer(): Dependencies {
 		offreEmploiDependencies,
 		offreJobEteDependencies,
 		offreJobÉtudiantDependencies,
+		postmanDependencies,
 		robotsDependencies,
 		sitemapDependencies,
 		établissementAccompagnementDependencies,
