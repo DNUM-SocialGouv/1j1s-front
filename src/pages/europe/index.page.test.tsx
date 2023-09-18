@@ -35,6 +35,7 @@ describe('Page Europe', () => {
 		await expect(container).toBeAccessible();
 	});
 
+	// FIXME (GAFI 18-09-2023): déplacer les tests dans leur section appropriée
 	it('affiche le titre de la page', () => {
 		render(
 			<DependenciesProvider
