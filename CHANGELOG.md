@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.145.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.2...v3.145.3) (2023-09-18)
+
+
+### 🐛 Corrections de bogues
+
+* ajout de la variable d'environnement manquante pour activation adform ([#1986](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1986)) ([18dd894](https://github.com/DNUM-SocialGouv/1j1s-front/commit/18dd8942a5e254d03043f32fdd41cfecc96612ee))
+
 ## [3.145.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.1...v3.145.2) (2023-09-18)
 
 
