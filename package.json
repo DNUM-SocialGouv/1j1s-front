@@ -50,7 +50,7 @@
     "redis": "4.6.8",
     "reflect-metadata": "0.1.13",
     "sharp": "0.32.5",
-    "uuid": "9.0.0"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@socialgouv/eslint-config-recommended": "1.131.0",
@@ -74,7 +74,7 @@
     "@types/react": "18.2.21",
     "@types/react-autosuggest": "10.1.6",
     "@types/react-dom": "18.2.7",
-    "@types/uuid": "9.0.3",
+    "@types/uuid": "9.0.4",
     "@typescript-eslint/eslint-plugin": "6.6.0",
     "cypress": "12.17.4",
     "eslint": "8.49.0",
