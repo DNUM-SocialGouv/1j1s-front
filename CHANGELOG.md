@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.145.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.1...v3.145.2) (2023-09-18)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency uuid to v9.0.1 ([#1962](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1962)) ([c4eb389](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c4eb389c3ceb33684a158c3164caba56df3e0f72))
+
 ## [3.145.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.0...v3.145.1) (2023-09-18)
 
 
