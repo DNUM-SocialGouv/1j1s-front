@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.145.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.11...v3.145.12) (2023-09-19)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-plugin-cypress to v2.15.1 ([#1782](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1782)) ([ca256fa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ca256fa6d5ceace58383ae241c5bcce277c1bf3f))
+
 ## [3.145.11](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.10...v3.145.11) (2023-09-19)
 
 
