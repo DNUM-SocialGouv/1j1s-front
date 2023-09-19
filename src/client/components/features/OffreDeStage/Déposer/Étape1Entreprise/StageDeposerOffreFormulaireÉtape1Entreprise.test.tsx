@@ -8,7 +8,7 @@ import {
 	screen,
 	within,
 } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import Entreprise from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { mockUseRouter } from '~/client/components/useRouter.mock';

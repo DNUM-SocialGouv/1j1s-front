@@ -4,7 +4,7 @@
 import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';

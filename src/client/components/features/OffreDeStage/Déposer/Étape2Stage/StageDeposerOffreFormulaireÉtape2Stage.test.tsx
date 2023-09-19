@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 
 import { beforeEach } from '@jest/globals';
 import { fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import Stage from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/StageDeposerOffreFormulaireÉtape2Stage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';

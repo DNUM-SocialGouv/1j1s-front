@@ -3,7 +3,7 @@
  */
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 import { Header } from '~/client/components/layouts/Header/Header';

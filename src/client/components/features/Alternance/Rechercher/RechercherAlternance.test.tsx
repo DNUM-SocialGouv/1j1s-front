@@ -3,7 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import { mockUseRouter } from '~/client/components/useRouter.mock';

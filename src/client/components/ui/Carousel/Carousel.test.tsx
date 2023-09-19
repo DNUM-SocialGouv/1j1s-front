@@ -7,7 +7,7 @@ import {
 	screen,
 	within,
 } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 

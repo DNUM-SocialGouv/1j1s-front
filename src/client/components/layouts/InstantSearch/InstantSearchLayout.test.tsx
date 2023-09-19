@@ -3,7 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
