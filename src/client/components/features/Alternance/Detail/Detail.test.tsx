@@ -3,7 +3,7 @@
  */
 
 import { queries as defaultQueries, render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';

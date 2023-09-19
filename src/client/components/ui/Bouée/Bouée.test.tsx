@@ -4,7 +4,7 @@
 import '@testing-library/jest-dom';
 
 import { act, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { RefObject } from 'react';
 
 import Bouée from '~/client/components/ui/Bouée/Bouée';
