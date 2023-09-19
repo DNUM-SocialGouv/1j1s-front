@@ -128,24 +128,24 @@ export function mapOffreStage(response: Strapi.CollectionType.OffreStage): Offre
 		dateDeDebutMin: response.dateDeDebutMin,
 		description: response.description,
 		domaines: response.domaines
-			.filter((domaine) => domaine.nom !== Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE)
-			.map((domaine) => domaine.nom as unknown as Domaines),
+			?.filter((domaine) => domaine.nom !== Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE)
+			.map((domaine) => domaine.nom as unknown as Domaines) || [],
 		dureeEnJour: response.dureeEnJour ?? undefined,
 		dureeEnJourMax: response.dureeEnJourMax ?? undefined,
-		employeur: {
+		employeur: response.employeur ? {
 			description: response.employeur.description || undefined,
 			logoUrl: response.employeur.logoUrl || undefined,
 			nom: response.employeur.nom,
 			siteUrl: response.employeur.siteUrl || undefined,
-		},
+		}: undefined,
 		id: response.id,
-		localisation: {
+		localisation: response.localisation ? {
 			codePostal: response.localisation.codePostal || undefined,
 			departement: response.localisation.departement || undefined,
 			pays: response.localisation.pays || undefined,
 			region: response.localisation.region || undefined,
 			ville: response.localisation.ville || undefined,
-		},
+		} : undefined,
 		remunerationBase: response.remunerationBase ?? undefined,
 		slug: response.slug,
 		source: response.source || undefined,

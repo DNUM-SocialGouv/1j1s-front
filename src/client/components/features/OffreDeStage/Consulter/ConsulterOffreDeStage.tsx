@@ -23,7 +23,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 		];
 	}, [offreDeStage]);
 
-	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur.description ? getHtmlFromMd(offreDeStage.employeur.description) : undefined);
+	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur?.description && getHtmlFromMd(offreDeStage.employeur.description));
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
 	const remuneration = useCallback(function getRemunerationOffreDeStage() {

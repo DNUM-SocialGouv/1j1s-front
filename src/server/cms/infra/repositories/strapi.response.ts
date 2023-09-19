@@ -193,11 +193,11 @@ export namespace Strapi {
 			sourceUpdatedAt: string
 			sourcePublishedAt: string
 			identifiantSource: string | null
-			domaines: Array<OffreStage.Domaines>
+			domaines?: Array<OffreStage.Domaines>
 			dureeEnJour: number | null
 			dureeEnJourMax: number | null
-			localisation: OffreStage.Localisation
-			employeur: OffreStage.Employeur
+			localisation?: OffreStage.Localisation
+			employeur?: OffreStage.Employeur
 			remunerationBase: number | null
 			source: SourceDesDonnées | null
 			teletravailPossible: boolean | null
