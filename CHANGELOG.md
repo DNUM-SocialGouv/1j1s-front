@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.146.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.12...v3.146.0) (2023-09-19)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stages:** mise à jour des champs optionnels ([#1979](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1979)) ([2bdf492](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2bdf4926d720e5fd73410533785b12f5ad227bcc))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/user-event to v14.5.1 ([#1977](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1977)) ([24f8b49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/24f8b49d729b3c116a9f3cd5dc7503e517619435))
+
 ## [3.145.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.11...v3.145.12) (2023-09-19)
 
 
