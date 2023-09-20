@@ -22,7 +22,7 @@ describe('ConsulterOffreLayout', () => {
 				});
 				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-				fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page emplois' }));
+				fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
 
 				await waitFor(() => expect(routerBack).toHaveBeenCalled());
 			});
@@ -41,7 +41,7 @@ describe('ConsulterOffreLayout', () => {
 				});
 				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-				fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page emplois' }));
+				fireEvent.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
 
 				await waitFor(() => expect(routerBack).toHaveBeenCalled());
 			});

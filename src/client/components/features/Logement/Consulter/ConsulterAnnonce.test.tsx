@@ -9,7 +9,7 @@ import {
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockSessionStorage, mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
 import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -17,7 +17,9 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
 		mockSmallScreen();
-		sessionStorage.setItem('referrer', 'annonces');
+		mockSessionStorage({
+			setItem: jest.fn().mockReturnValue('/annonces'),
+		});
 		const routerReload = jest.fn();
 		mockUseRouter({ reload: routerReload });
 	});
@@ -27,9 +29,8 @@ describe('<ConsulterAnnonce />', () => {
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
 		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page annonces' });
+		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
 		expect(boutonRetour).toBeVisible();
-
 	});
 
 	it("affiche le titre de l'annonce", () => {

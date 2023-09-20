@@ -6,7 +6,12 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { REFERRER } from '~/client/hooks/useReferrer';
 
-export function ButtonRetour({ className }: React.HTMLProps<HTMLButtonElement>) {
+type BoutonRetourProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>, 'label'> & {
+	label?: string
+}
+
+export function ButtonRetour({ className, label= 'Retour', ...rest }: BoutonRetourProps) {
+	
 	const router = useRouter();
 
 	const referrer = useMemo( () => {
@@ -26,11 +31,12 @@ export function ButtonRetour({ className }: React.HTMLProps<HTMLButtonElement>) 
 			<Container>
 				<ButtonComponent
 					appearance="secondary"
-					aria-label={`Retour vers la page ${referrer}`}
+					aria-label={'Retour vers la page précédente'}
 					icon={<Icon name="angle-left" />}
 					iconPosition="left"
-					label="Retour"
+					label={label}
 					onClick={() => router.back()}
+					{...rest}
 				/>
 			</Container>
 		</div>

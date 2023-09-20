@@ -4,15 +4,13 @@ import React, { useEffect } from 'react';
 
 import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/jobs-etudiants/index.analytics';
 
 export default function RechercherJobÉtudiantPage() {
 	const router = useRouter();
 
 	useAnalytics(analytics);
-	useReferrer();
-  
+
 	useEffect(() => {
 		if (router.isReady) {
 			const queryString = stringify(router.query);

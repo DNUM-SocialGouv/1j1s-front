@@ -5,7 +5,6 @@ import {
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageEntreprises/CampagneApprentissageEntreprises';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analytics';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { isFailure } from '~/server/errors/either';
@@ -16,7 +15,6 @@ type ApprentissageEntreprisesPageProps = {
 }
 
 export default function ApprentissageEntreprises ({ videos }: ApprentissageEntreprisesPageProps) {
-	useReferrer();
 	useAnalytics(analyticsPageConfig);
 
 	return (

@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { FormulaireRechercheOffreStage } from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage';
+import {
+	FormulaireRechercheOffreStage,
+} from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage';
 import { OffreDeStage } from '~/client/components/features/OffreDeStage/OffreDeStage';
 import { Head } from '~/client/components/head/Head';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/stages/index.analytics';
 
 const HITS_PER_PAGE = 15;
@@ -16,7 +17,6 @@ const MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return (
 		<>

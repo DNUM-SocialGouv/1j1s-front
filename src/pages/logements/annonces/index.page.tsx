@@ -1,18 +1,19 @@
-import { CurrentRefinementsConnectorParamsItem } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
-import React, { useCallback } from 'react';
 import {
-	CurrentRefinementsProps,
-} from 'react-instantsearch-hooks-web';
+	CurrentRefinementsConnectorParamsItem,
+} from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
+import React, { useCallback } from 'react';
+import { CurrentRefinementsProps } from 'react-instantsearch-hooks-web';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
-import { FormulaireRechercheAnnonceLogement } from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
+import {
+	FormulaireRechercheAnnonceLogement,
+} from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement';
 import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import analytics from '~/pages/logements/annonces/index.analytics';
 
@@ -24,7 +25,7 @@ export default function AnnoncesPage() {
 	const indexAnnoncesLogement = process.env.NEXT_PUBLIC_INDEX_ANNONCE_DE_LOGEMENT;
 
 	useAnalytics(analytics);
-	useReferrer();
+
 	const transformItems: CurrentRefinementsProps['transformItems'] = useCallback((items: CurrentRefinementsConnectorParamsItem[]) => {
 		return transformerMeilisearchLogementsItems(items);
 	}, []);

@@ -5,12 +5,11 @@ import {
 	RechercherFormationInitiale,
 } from '~/client/components/features/FormationInitiale/Rechercher/RechercherFormationInitiale';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/formations-initiales/index.analytics';
 
 export default function FormationsInitialesPage() {
 	useAnalytics(analytics);
-	useReferrer();
+
 	return (
 		<RechercherFormationInitiale/>
 	);

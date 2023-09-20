@@ -11,7 +11,6 @@ import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import MeilisearchCustomCurrentRefinements
 	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/decouvrir-les-metiers/index.analytics';
 import styles from '~/pages/decouvrir-les-metiers/index.module.scss';
 
@@ -21,7 +20,6 @@ const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherFicheMetierPage() {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return (
 		<>
