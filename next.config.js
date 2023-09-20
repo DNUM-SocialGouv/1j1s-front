@@ -78,6 +78,7 @@ const moduleExports = {
 	reactStrictMode: true,
 	redirects: async () => ALL_MODE_REDIRECT,
 	rewrites: async () => ALL_MODE_REWRITE,
+	skipTrailingSlashRedirect: true,
 	webpack(config, { isServer }) {
 		if (!isServer) {
 			config.optimization.mergeDuplicateChunks = true;
