@@ -4,7 +4,7 @@ import phone from 'phone';
 import { DemandeDeContactCEJ,parseAge } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 export class EnvoyerDemandeDeContactCEJUseCase {
 	constructor(private demandeDeContactRepository: DemandeDeContactRepository) {

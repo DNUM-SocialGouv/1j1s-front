@@ -4,7 +4,7 @@ import { IncorrectRequestErrorMessage } from '~/client/components/ui/ErrorMessag
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { UnavailableServiceErrorMessage } from '~/client/components/ui/ErrorMessage/UnavailableServiceErrorMessage';
 import { Erreur } from '~/server/errors/erreur.types';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 
 interface ErrorProps {

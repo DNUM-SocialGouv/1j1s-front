@@ -2,7 +2,7 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
 	anOrderedÉtablissementAccompagnementList,

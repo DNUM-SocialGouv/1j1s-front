@@ -15,7 +15,7 @@ import {
 	aLocalisationServiceWithEmptyResultat,
 } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 describe('ComboboxLocalisation', () => {

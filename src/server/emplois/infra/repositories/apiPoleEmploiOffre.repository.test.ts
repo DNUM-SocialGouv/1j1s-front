@@ -1,6 +1,6 @@
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	aBarmanOffre,

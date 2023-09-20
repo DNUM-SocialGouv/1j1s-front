@@ -1,7 +1,7 @@
 import { CacheAxiosResponse } from 'axios-cache-interceptor';
 
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';

@@ -16,7 +16,7 @@ import LesEntreprisesSEngagentInscription, {
 	FormulaireEngagement,
 } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();

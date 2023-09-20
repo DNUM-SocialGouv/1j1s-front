@@ -4,7 +4,7 @@ import {
 	DemandeDeContactCEJRepository,
 } from '~/server/demande-de-contact/infra/repositories/cej/demandeDeContactCEJ.repository';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('DemandeDeContactCEJRepository', () => {
 	describe('envoyer', () => {

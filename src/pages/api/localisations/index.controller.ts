@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {

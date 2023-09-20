@@ -2,7 +2,7 @@ import { NextApiResponse } from 'next';
 
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 
 export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R | ErrorHttpResponse>) {

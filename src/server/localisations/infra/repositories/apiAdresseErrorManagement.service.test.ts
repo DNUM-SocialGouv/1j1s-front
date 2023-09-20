@@ -1,5 +1,5 @@
 import { createFailure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
 	ApiAdresseErrorManagementService,

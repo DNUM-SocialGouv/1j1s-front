@@ -1,7 +1,7 @@
 import { aFormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.fixture';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aFormationInitiale,
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';

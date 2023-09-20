@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { aDépartementList, aLocalisationRepository, aRégionList } from '~/server/localisations/domain/localisation.fixture';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';

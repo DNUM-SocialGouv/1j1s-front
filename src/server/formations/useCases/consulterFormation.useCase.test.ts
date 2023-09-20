@@ -1,5 +1,5 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { aFormationRepository } from '~/server/formations/domain/formation.repository.fixture';
 import { aStatistiqueRepository } from '~/server/formations/domain/statistique.repository.fixture';

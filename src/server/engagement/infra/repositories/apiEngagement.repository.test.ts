@@ -9,7 +9,7 @@ import {
 	aSearchMissionEngagementResponse,
 } from '~/server/engagement/infra/repositories/apiEngagement.response.fixture';
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';

@@ -3,7 +3,7 @@ import {
 	ApiRejoindreLaMobilisationMessageError,
 } from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';

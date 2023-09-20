@@ -1,7 +1,7 @@
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('DemandeDeContactService', () => {
 	describe('.envoyerPourLeCEJ()', () => {

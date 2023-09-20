@@ -1,5 +1,5 @@
 import { createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aLocalisationAvecCoordonnéesRepository,
 	aRésultatsRechercheCommune,

@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aMail } from '~/server/mail/domain/mail.fixture';
 import { aTipimailRequest, aTipimailRequestWithRedirection } from '~/server/mail/infra/repositories/tipimail.fixture';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';

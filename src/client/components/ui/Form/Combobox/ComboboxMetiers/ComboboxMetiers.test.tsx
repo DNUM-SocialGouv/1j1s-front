@@ -14,7 +14,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Metier } from '~/server/metiers/domain/metier';
 
 describe('<ComboboxMetiers />', () => {

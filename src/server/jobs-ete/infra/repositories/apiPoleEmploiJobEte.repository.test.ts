@@ -1,5 +1,5 @@
 import { createFailure, Failure, Success } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aJobEteFiltre } from '~/server/jobs-ete/domain/jobEte.fixture';
 import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';

@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import { mapApiResponse, rechercherLocalisationHandler } from '~/pages/api/localisations/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLongList } from '~/server/localisations/domain/localisation.fixture';
 import {
 	RechercheLocalisationApiResponse,

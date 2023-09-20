@@ -3,7 +3,7 @@ import nock from 'nock';
 
 import { rechercherÉtablissementAccompagnementHandler } from '~/pages/api/etablissements-accompagnement/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anOrderedÉtablissementAccompagnementList,

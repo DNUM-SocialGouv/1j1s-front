@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, InternalAxiosRequ
 
 import { LoggerService } from '~/client/services/logger.service';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 export class HttpClientService {
 	readonly client: AxiosInstance;

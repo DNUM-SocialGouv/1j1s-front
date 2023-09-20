@@ -1,7 +1,7 @@
 import { ValidationError } from 'joi';
 
 import { createFailure } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { DefaultErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';

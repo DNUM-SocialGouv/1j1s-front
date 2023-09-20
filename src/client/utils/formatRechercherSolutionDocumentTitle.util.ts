@@ -1,5 +1,5 @@
 import { Erreur } from '~/server/errors/erreur.types';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 
 const SERVICE_INDISPONIBLE_TITLE = ' - Service indisponible';

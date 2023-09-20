@@ -2,7 +2,7 @@ import { aCommandeRejoindreLaMobilisation, anEntreprise } from '~/client/service
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('LesEntreprisesSEngagentUseCase', () => {
 	let lEERepository: jest.Mocked<RejoindreLaMobilisationRepository>;
