@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.146.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.146.0...v3.146.1) (2023-09-20)
+
+
+### 🐛 Corrections de bogues
+
+* fix feature flipping adform ([#2006](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2006)) ([305ceb1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/305ceb15f93dbbe0673f4d0786b0e2e59c4826df))
+
 ## [3.146.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.12...v3.146.0) (2023-09-19)
 
 
