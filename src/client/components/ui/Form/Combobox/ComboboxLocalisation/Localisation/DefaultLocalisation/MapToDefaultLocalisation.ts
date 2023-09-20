@@ -1,7 +1,9 @@
-import { DefaultValue } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import {
+	DefaultLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/DefaultLocalisation/DefaultLocalisation';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
-export function createLocalisationDefaultValueFromQuery(defaultCode?: string, defaultType?: string, defaultNom?: string, defaultCodePostal?: string): DefaultValue | undefined {
+export function mapToDefaultLocalisation(defaultCode?: string, defaultType?: string, defaultNom?: string, defaultCodePostal?: string): DefaultLocalisation | undefined {
 	if (!defaultType) {
 		return undefined;
 	}

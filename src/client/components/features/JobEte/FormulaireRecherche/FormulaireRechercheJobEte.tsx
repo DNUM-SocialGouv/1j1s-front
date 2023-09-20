@@ -8,8 +8,8 @@ import {
 	ComboboxLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
-	createLocalisationDefaultValueFromQuery,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/CreateLocalisationDefaultValueFromQuery';
+	mapToDefaultLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/DefaultLocalisation/MapToDefaultLocalisation';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -29,7 +29,7 @@ export function FormulaireRechercheJobEte() {
 	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
 	const [inputMotCle, setInputMotCle] = useState<string>(queryParams.motCle ?? '');
 
-	const inputLocalisation = createLocalisationDefaultValueFromQuery(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
+	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
 	async function updateRechercherJobEteQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();

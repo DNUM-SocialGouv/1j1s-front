@@ -38,30 +38,6 @@ describe('ComboboxLocalisation', () => {
 		expect(localisationServiceMock.isInvalidLocalisationQuery).toHaveBeenCalledWith('exemple d’input utilisateur');
 	});
 
-	describe('quand aucun résultat n‘est trouvé', () => {
-		it('affiche un message d‘information', async () => {
-			// GIVEN
-			const localisationServiceMock = aLocalisationServiceWithEmptyResultat();
-			const user = userEvent.setup();
-
-			mockUseRouter({});
-			render(
-				<DependenciesProvider localisationService={localisationServiceMock}>
-					<ComboboxLocalisation />
-				</DependenciesProvider>,
-			);
-			const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
-
-			// WHEN
-			await user.type(inputLocalisation, 'no result');
-
-			// THEN
-
-			const noResultMessage = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...' );
-			expect(noResultMessage).toBeVisible();
-		});
-	});
-
 	describe('quand l‘input contient déjà une valeur', () => {
 		it('affiche la localisation pré-sélectionnée', () => {
 			// GIVEN
@@ -89,6 +65,28 @@ describe('ComboboxLocalisation', () => {
 				typeLocalisation: 'COMMUNE',
 			});
 		});
+	});
+
+	it('affiche un message d‘information quand aucun résultat n‘est trouvé', async () => {
+		// GIVEN
+		const localisationServiceMock = aLocalisationServiceWithEmptyResultat();
+		const user = userEvent.setup();
+
+		mockUseRouter({});
+		render(
+			<DependenciesProvider localisationService={localisationServiceMock}>
+				<ComboboxLocalisation />
+			</DependenciesProvider>,
+		);
+		const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
+
+		// WHEN
+		await user.type(inputLocalisation, 'no result');
+
+		// THEN
+
+		const noResultMessage = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...' );
+		expect(noResultMessage).toBeVisible();
 	});
 
 	it('affiche un message indiquant une erreur quand l’appel au service est en échec', async () => {

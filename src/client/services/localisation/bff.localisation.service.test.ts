@@ -9,7 +9,7 @@ import { aRésultatsRechercheCommune } from '~/server/localisations/domain/local
 
 describe('BffLocalisationService', () => {
 	describe('isInvalidLocalisationQuery', () => {
-		it('enlève les espaces en début et fin de recherche', () => {
+		it('les espaces en début et fin de recherche ne sont pas pris en compte dans la vérification', () => {
 			const value = ' t ';
 			const httpClientService = anHttpClientService();
 			const bffLocalisationService = new BffLocalisationService(httpClientService);
@@ -19,123 +19,111 @@ describe('BffLocalisationService', () => {
 			expect(result).toEqual(true);
 		});
 
-		it('quand la recherche contient un seul chiffre, on renvoie true', () => {
-			const value = '1';
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+		describe('renvoie true quand', () => {
+			it('la recherche contient un seul chiffre', () => {
+				const value = '1';
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			const result = bffLocalisationService.isInvalidLocalisationQuery(value);
+				const result = bffLocalisationService.isInvalidLocalisationQuery(value);
 
-			expect(result).toEqual(true);
+				expect(result).toEqual(true);
+			});
+			it('la recherche contient un caractère spécial sauf accents et espaces', () => {
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
+
+				const result = bffLocalisationService.isInvalidLocalisationQuery('$$');
+
+				expect(result).toEqual(true);
+			});
+			it('la recherche contient qu‘une seule lettre', () => {
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
+
+				const result = bffLocalisationService.isInvalidLocalisationQuery('a');
+
+				expect(result).toEqual(true);
+			});
+			it('la recherche contient moins de 3 caractères dont au moins 1 lettre', async () => {
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
+
+				const result = bffLocalisationService.isInvalidLocalisationQuery('1A');
+
+				expect(result).toEqual(true);
+			});
 		});
 
-		it('quand la recherche contient un caractère spécial sauf accents et espaces, on renvoie true', () => {
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
-
-			const result = bffLocalisationService.isInvalidLocalisationQuery('$$');
-
-			expect(result).toEqual(true);
-		});
-
-		it('quand la recherche contient qu‘une seule lettre, on renvoie true', () => {
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
-
-			const result = bffLocalisationService.isInvalidLocalisationQuery('a');
-
-			expect(result).toEqual(true);
-		});
-
-		it('quand on recherche un nombre au format département métropolitain (sauf la corse), renvoie false', async () => {
+		describe('renvoie false quand', () => {
+			it('la recherche est un nombre au format département métropolitain (sauf la corse)', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			// When
-			const result = bffLocalisationService.isInvalidLocalisationQuery('34');
+				// When
+				const result = bffLocalisationService.isInvalidLocalisationQuery('34');
 
-			// Then
-			expect(result).toEqual(false);
-		});
-
-		it('quand on recherche un nombre au format département d’outre-mer, renvoie false', () => {
+				// Then
+				expect(result).toEqual(false);
+			});
+			it('la recherche est un nombre au format département d’outre-mer', () => {
 			// Given
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			// When
-			const result = bffLocalisationService.isInvalidLocalisationQuery('974');
+				// When
+				const result = bffLocalisationService.isInvalidLocalisationQuery('974');
 
-			// Then
-			expect(result).toEqual(false);
-		});
-
-		it('quand la recherche est le département de la Corse-du-Sud, renvoie false', async () => {
+				// Then
+				expect(result).toEqual(false);
+			});
+			it('la recherche est le département de la Corse-du-Sud', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			// When
-			const result = bffLocalisationService.isInvalidLocalisationQuery('2A');
+				// When
+				const result = bffLocalisationService.isInvalidLocalisationQuery('2A');
 
-			// Then
-			expect(result).toEqual(false);
-		});
-
-		it('quand la recherche est le département de la Haute-Corse, renvoie false', async () => {
+				// Then
+				expect(result).toEqual(false);
+			});
+			it('la recherche est le département de la Haute-Corse', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			// When
-			const result = bffLocalisationService.isInvalidLocalisationQuery('2B');
+				// When
+				const result = bffLocalisationService.isInvalidLocalisationQuery('2B');
 
-			// Then
-			expect(result).toEqual(false);
-		});
-
-		it('quand la recherche est un code postal, renvoie false', async () => {
+				// Then
+				expect(result).toEqual(false);
+			});
+			it('la recherche est un code postal', async () => {
 			// Given
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-			// When
-			const result = bffLocalisationService.isInvalidLocalisationQuery('02141');
+				// When
+				const result = bffLocalisationService.isInvalidLocalisationQuery('02141');
 
-			// Then
-			expect(result).toEqual(false);
-		});
+				// Then
+				expect(result).toEqual(false);
+			});
+			it('la recherche contient plus de 3 lettres', async () => {
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
-		it('quand la recherche contient des lettres, renvoie false', async () => {
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
+				const result = bffLocalisationService.isInvalidLocalisationQuery('Haut');
 
-			const result = bffLocalisationService.isInvalidLocalisationQuery('Haut');
-
-			expect(result).toEqual(false);
-		});
-
-		it('renvoie true quand la recherche contient moins de 3 caractères dont au moins 1 lettre', async () => {
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
-
-			const result = bffLocalisationService.isInvalidLocalisationQuery('1A');
-
-			expect(result).toEqual(true);
-		});
-
-		it('renvoie true quand la recherche contient moins de 3 caractères dont au moins 1 lettre et un espace', async () => {
-			const httpClientService = anHttpClientService();
-			const bffLocalisationService = new BffLocalisationService(httpClientService);
-
-			const result = bffLocalisationService.isInvalidLocalisationQuery('1A ');
-
-			expect(result).toEqual(true);
+				expect(result).toEqual(false);
+			});
 		});
 	});
+
 	describe('rechercherLocalisation', () => {
-		it('enlève les espaces en début et fin de recherche', async () => {
+		it('appelle le bff en enlevant les espaces en début et fin de recherche', async () => {
 			const value = ' test  ';
 			const valueTrimmed = 'test';
 			const httpClientService = anHttpClientService();
