@@ -1,0 +1,70 @@
+{
+  "results": [
+    {
+      "indexUid": "offre-de-stage",
+      "hits": [
+        {
+          "titre": "Développeur",
+          "domaines": [
+            "développement informatique"
+          ],
+          "nomEmployeur": "OCTO Technology",
+          "dateDeDebutMin": "2023-03-01",
+          "dateDeDebutMax": "2023-03-03",
+          "source": "interne",
+          "dureeCategorisee": "1 mois",
+          "localisationFiltree": [
+            "Paris",
+            "Ile de France",
+            "Paris"
+          ],
+          "slug": "developpeur-48729ede-ae06-4268-9589-bafc8dd171b8",
+          "_formatted": {
+            "titre": "Développeur",
+            "domaines": [
+              "développement informatique"
+            ],
+            "nomEmployeur": "OCTO Technology",
+            "dateDeDebutMin": "2023-03-01",
+            "dateDeDebutMax": "2023-03-03",
+            "source": "interne",
+            "dureeCategorisee": "1 mois",
+            "localisationFiltree": [
+              "Paris",
+              "Ile de France",
+              "Paris"
+            ],
+            "slug": "developpeur-48729ede-ae06-4268-9589-bafc8dd171b8"
+          }
+        }
+      ],
+      "query": "",
+      "processingTimeMs": 0,
+      "limit": 16,
+      "offset": 0,
+      "estimatedTotalHits": 12417,
+      "facetDistribution": {
+        "domaines": {
+          "achats": 90,
+          "travaux": 48,
+          "non renseigné": 7008,
+          "production": 187
+        },
+        "dureeCategorisee": {
+          "1 mois": 7,
+          "2 mois": 9,
+          "3 mois": 42,
+          "4 mois": 13,
+          "5 mois": 8,
+          "6 mois": 6059,
+          "> 6 mois": 4040,
+          "Non renseigné": 2239
+        },
+        "localisationFiltree": {
+          "1er Arrondissement": 2
+        }
+      },
+      "facetStats": {}
+    }
+  ]
+}
