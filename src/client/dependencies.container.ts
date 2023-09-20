@@ -80,7 +80,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
-	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE
+	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
 	const youtubeService = new YoutubeVideoService(cookiesService);
