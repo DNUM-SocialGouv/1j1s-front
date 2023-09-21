@@ -1,9 +1,9 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
 import { getCodeRegion, mapLocalisationList } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { ApiDecoupageAdministratifResponse } from '~/server/localisations/infra/repositories/apiGeo.response';
+import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
 
@@ -11,46 +11,46 @@ export class ApiGeoRepository implements LocalisationRepository {
 	constructor(private readonly httpClientService: CachedHttpClientService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async getCommuneListByNom(communeRecherchée: string): Promise<Either<Localisation[]>> {
-		const endpoint = `communes?nom=${communeRecherchée}`;
+	async getCommuneListByNom(communeRecherchee: string): Promise<Either<Localisation[]>> {
+		const endpoint = `communes?nom=${communeRecherchee}`;
 		const contexte = 'communes';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getCommuneListByCodePostal(codePostalRecherché: string): Promise<Either<Localisation[]>> {
-		const endpoint = `communes?codePostal=${codePostalRecherché}`;
+	async getCommuneListByCodePostal(codePostalRecherche: string): Promise<Either<Localisation[]>> {
+		const endpoint = `communes?codePostal=${codePostalRecherche}`;
 		const contexte = 'communes';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getCommuneListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-		const endpoint = `departements/${numéroDépartementRecherché}/communes`;
+	async getCommuneListByNuméroDépartement(numéroDépartementRecherche: string): Promise<Either<Localisation[]>> {
+		const endpoint = `departements/${numéroDépartementRecherche}/communes`;
 		const contexte = 'communes';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getDépartementListByNom(départementRecherché: string): Promise<Either<Localisation[]>> {
-		const query = removeParenthesis(départementRecherché);
-		const endpoint = `departements?nom=${query}`;
+	async getDépartementListByNom(departementRecherche: string): Promise<Either<Localisation[]>> {
+		const departementRechercheWithoutParenthesis = removeParenthesis(departementRecherche);
+		const endpoint = `departements?nom=${departementRechercheWithoutParenthesis}`;
 		const contexte = 'départements';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getDépartementListByNuméroDépartement(numéroDépartementRecherché: string): Promise<Either<Localisation[]>> {
-		const endpoint = `departements?code=${numéroDépartementRecherché.toUpperCase()}`;
+	async getDépartementListByNuméroDépartement(numéroDépartementRecherche: string): Promise<Either<Localisation[]>> {
+		const endpoint = `departements?code=${numéroDépartementRecherche.toUpperCase()}`;
 		const contexte = 'départements';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getRégionListByNom(régionRecherchée: string): Promise<Either<Localisation[]>> {
-		const query = removeParenthesis(régionRecherchée);
-		const endpoint = `regions?nom=${query}`;
+	async getRégionListByNom(regionRecherchee: string): Promise<Either<Localisation[]>> {
+		const regionRechercheeWithoutParenthesis = removeParenthesis(regionRecherchee);
+		const endpoint = `regions?nom=${regionRechercheeWithoutParenthesis}`;
 		const contexte = 'régions';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getCodeRegionByCodePostal(codePostalRecherché: string): Promise<Either<string | undefined>> {
-		const endpoint = `communes?codePostal=${codePostalRecherché}`;
+	async getCodeRegionByCodePostal(codePostalRecherche: string): Promise<Either<string | undefined>> {
+		const endpoint = `communes?codePostal=${codePostalRecherche}`;
 		const contexte = 'communes';
 		return this.request<ApiDecoupageAdministratifResponse[], string>(endpoint, getCodeRegion, contexte);
 	}
