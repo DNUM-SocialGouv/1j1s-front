@@ -183,6 +183,7 @@ describe('RechercherAlternance', () => {
 				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
 			});
 		});
+
 		describe('le nombre de résultats', () => {
 			describe('lorsque je clique sur contrat d‘alternance', () => {
 				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
@@ -205,7 +206,8 @@ describe('RechercherAlternance', () => {
 
 					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
 				});
-				it('et qu‘il n‘y a pas de résultat, affiche "0 résultat"', async () => {
+
+				it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
 					const user = userEvent.setup();
 					const alternanceServiceMock = anAlternanceService([], []);
 
@@ -223,6 +225,8 @@ describe('RechercherAlternance', () => {
 					await user.click(onglet);
 
 					expect(screen.getByText(/0 résultat/)).toBeVisible();
+					expect(screen.getByText('Aucun contrat d‘alternance ne correspond à votre recherche.')).toBeVisible();
+					expect(screen.getByText('Vous pouvez consulter les entreprises ou modifier votre recherche.')).toBeVisible();
 				});
 			});
 			describe('lorsque je clique sur entreprise', () => {
@@ -246,7 +250,8 @@ describe('RechercherAlternance', () => {
 
 					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
 				});
-				it('lorsqu‘il n‘y a pas de résultat, affiche "0 résultat"', async () => {
+
+				it('lorsqu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux entreprises', async () => {
 					const user = userEvent.setup();
 					const alternanceServiceMock = anAlternanceService([], []);
 
@@ -264,8 +269,9 @@ describe('RechercherAlternance', () => {
 					await user.click(onglet);
 
 					expect(screen.getByText(/0 résultat/)).toBeVisible();
+					expect(screen.getByText('Aucune entreprise ne correspond à votre recherche.')).toBeVisible();
+					expect(screen.getByText('Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche.')).toBeVisible();
 				});
-
 			});
 		});
 	});

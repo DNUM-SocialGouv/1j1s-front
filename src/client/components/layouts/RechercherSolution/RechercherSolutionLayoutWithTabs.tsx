@@ -5,11 +5,11 @@ import React, { useState } from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
 import { Erreur } from '~/server/errors/erreur.types';
-import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 
 interface RechercherSolutionLayoutWithTabsProps {
 	bannière: React.ReactElement
@@ -24,6 +24,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 		label: string
 		listeSolutionElement: React.ReactElement
 		messageResultatRecherche: string
+		messageNoResult?: React.ReactElement
 	}>
 }
 
@@ -44,6 +45,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 	const [currentTab, setCurrentTab] = useState<number>(0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
+	const messageNoResult= listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage />;
 
 	return (
 		<>
@@ -81,7 +83,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             								<TabPanel key={solutionElement.label}>
             									{nombreSolutions[currentTab] !== 0 ?
             										solutionElement.listeSolutionElement
-            										: <NoResultErrorMessage />
+            										: messageNoResult
             									}
             								</TabPanel>
             							))}
