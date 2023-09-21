@@ -11,7 +11,7 @@ export function ExperiencesEnEurope() {
 			<section className={styles.experience}>
 				<LightHero className={styles.hero}>
 					<h1>
-						<LightHeroPrimaryText>Je cherche une expérience</LightHeroPrimaryText>
+						<LightHeroPrimaryText>Je cherche une expérience </LightHeroPrimaryText>
 						<LightHeroSecondaryText>en Europe</LightHeroSecondaryText>
 					</h1>
 				</LightHero>

@@ -31,6 +31,15 @@
     > .hero {
       padding: 0;
       margin-bottom: 1.5rem;
+
+      // FIXME (GAFI 21-09-2023): Travail à faire au niveau du composant Hero pour uniformiser l'alignement
+      text-align: start;
+      & * {
+        display: inline;
+      }
+      & .complement {
+        white-space: nowrap;
+      }
     }
     > a {
       display: flex;
