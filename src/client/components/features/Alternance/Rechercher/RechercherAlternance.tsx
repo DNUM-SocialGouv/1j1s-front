@@ -104,7 +104,7 @@ export default function RechercherAlternance() {
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
-				nombreSolutions={alternanceList.offreList.length + alternanceList.entrepriseList.length}
+				nombreSolutions={[alternanceList.offreList.length, alternanceList.entrepriseList.length]}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,

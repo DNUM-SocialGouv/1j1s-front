@@ -183,47 +183,90 @@ describe('RechercherAlternance', () => {
 				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
 			});
 		});
+		describe('le nombre de résultats', () => {
+			describe('lorsque je clique sur contrat d‘alternance', () => {
+				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
+					const user = userEvent.setup();
+					const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
+					const alternanceServiceMock = anAlternanceService(offresAlternance, []);
 
-		it('quand je clique sur contrat d‘alternance, affiche le nombre de contrats d’alternance', async () => {
-			const user = userEvent.setup();
-			const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
-			const alternanceServiceMock = anAlternanceService(offresAlternance, []);
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
 
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
+					const onglet = await screen.findByText('Contrats d‘alternance');
+					await user.click(onglet);
 
-			const onglet = await screen.findByText('Contrats d‘alternance');
-			await user.click(onglet);
+					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+				});
+				it('et qu‘il n‘y a pas de résultat, affiche "0 résultat"', async () => {
+					const user = userEvent.setup();
+					const alternanceServiceMock = anAlternanceService([], []);
 
-			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
-		});
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
 
-		it('quand je clique sur entreprise, affiche le nombre de d’entreprises', async () => {
-			const user = userEvent.setup();
-			const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
-			const alternanceServiceMock = anAlternanceService([], entrepriseList);
+					const onglet = await screen.findByText('Contrats d‘alternance');
+					await user.click(onglet);
 
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
+					expect(screen.getByText(/0 résultat/)).toBeVisible();
+				});
+			});
+			describe('lorsque je clique sur entreprise', () => {
+				it('lorsqu‘il y a des résultats, affiche le nombre de d’entreprises', async () => {
+					const user = userEvent.setup();
+					const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
+					const alternanceServiceMock = anAlternanceService([], entrepriseList);
 
-			const onglet = await screen.findByText('Entreprises');
-			await user.click(onglet);
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
 
-			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+					const onglet = await screen.findByText('Entreprises');
+					await user.click(onglet);
+
+					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+				});
+				it('lorsqu‘il n‘y a pas de résultat, affiche "0 résultat"', async () => {
+					const user = userEvent.setup();
+					const alternanceServiceMock = anAlternanceService([], []);
+
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
+
+					const onglet = await screen.findByText('Entreprises');
+					await user.click(onglet);
+
+					expect(screen.getByText(/0 résultat/)).toBeVisible();
+				});
+
+			});
 		});
 	});
 

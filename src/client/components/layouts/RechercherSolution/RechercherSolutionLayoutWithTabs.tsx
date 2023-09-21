@@ -9,6 +9,7 @@ import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
 import { Erreur } from '~/server/errors/erreur.types';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 
 interface RechercherSolutionLayoutWithTabsProps {
 	bannière: React.ReactElement
@@ -16,7 +17,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 	étiquettesRecherche?: React.ReactElement
 	formulaireRecherche: React.ReactElement
 	isLoading: boolean
-	nombreSolutions: number
+	nombreSolutions: Array<number>
 	paginationOffset?: number
 	maxPage?: number
 	listeSolutionElementTab: Array<{
@@ -56,8 +57,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 
 				{hasRouterQuery &&
             <>
-            	{erreurRecherche || nombreSolutions === 0 && !isLoading
-            		? <ErrorComponent errorType={erreurRecherche}/>
+            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
             		: <>
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
@@ -79,16 +79,19 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
-            									{solutionElement.listeSolutionElement}
+            									{nombreSolutions[currentTab] !== 0 ?
+            										solutionElement.listeSolutionElement
+            										: <NoResultErrorMessage />
+            									}
             								</TabPanel>
             							))}
             						</Tabs>
             					</>
             				</Skeleton>
-            				{paginationOffset && nombreSolutions > paginationOffset &&
+            				{paginationOffset && nombreSolutions[currentTab] > paginationOffset &&
                         <div className={styles.pagination}>
                         	<Pagination
-                        		numberOfResult={nombreSolutions}
+                        		numberOfResult={nombreSolutions[currentTab]}
                         		numberOfResultPerPage={paginationOffset}
                         		maxPage={maxPage}
                         	/>
