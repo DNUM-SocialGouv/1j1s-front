@@ -1,27 +1,58 @@
+// FIXME (GAFI 21-09-2023): Passer sur la pas deprecated
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
-.section {
-  &ExperienceEurope {
-    padding-bottom: 3.5rem;
-    > p, span {
-      padding: 0 1rem;
+// TODO (GAFI 21-09-2023):
+//  Titre aligné à gauche et plus au centre
+//  Plus de retour à la ligne automatique dans le titre
+//  icône d'information en bleu
+//  icône d'information en plus grand que la police
+//  icône d'information positionnement
+
+.emploiEnEurope {
+  $color-information-icon: utilities.$color-primary;
+
+  section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  section.experience {
+    > * {
+      max-width: 47.25rem;
+      margin: auto;
     }
-    > p {
-      margin-bottom: 1.25rem;
+    > *:not(:last-child) {
+      margin-bottom: 2rem;
     }
-    &__Information {
+    > .hero {
+      padding: 0;
+      margin-bottom: 1.5rem;
+    }
+    > a {
       display: flex;
-      p {
-        font-size: 0.75rem;
-      }
-      svg {
-        flex-shrink: 0;
-        color: utilities-deprecated.$color-primary;
-        margin-right: 0.5ch;
+      width: fit-content;
+    }
+
+    & .description {
+      @extend %text-large;
+    }
+
+    & .information {
+      @extend %text-small;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .5rem;
+
+      & svg {
+        color: $color-information-icon;
+        width: 1.5rem;
       }
     }
   }
+}
 
+.section {
   &Liens {
     padding: 2rem;
     & li {

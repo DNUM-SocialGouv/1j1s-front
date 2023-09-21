@@ -4,6 +4,7 @@
   text-align: center;
   padding: 3rem 1rem 2rem 1rem;
   line-height: 2rem;
+  // FIXME (GAFI 21-09-2023): Est-ce que c'est vraiment au Hero de dicter la taille du texte contenu ? (non)
   @extend %text-xLarge;
   @extend %max-container;
 
