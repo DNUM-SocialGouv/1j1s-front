@@ -6,10 +6,13 @@ import {
 	ButtonComponent,
 } from '~/client/components/ui/Button/ButtonComponent';
 import { REFERRER } from '~/client/hooks/useReferrer';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
-type BoutonRetourProps = React.ComponentPropsWithoutRef<typeof ButtonComponent>
+type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
+	label?: string
+}
 
-export function ButtonRetour({ className, ...rest }: BoutonRetourProps) {
+export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	
 	const router = useRouter();
 
@@ -31,6 +34,9 @@ export function ButtonRetour({ className, ...rest }: BoutonRetourProps) {
 				<ButtonComponent
 					appearance="secondary"
 					aria-label={'Retour vers la page précédente'}
+					icon={<Icon name="angle-left" />}
+					iconPosition="left"
+					label={label}
 					onClick={() => router.back()}
 					{...rest}
 				/>
