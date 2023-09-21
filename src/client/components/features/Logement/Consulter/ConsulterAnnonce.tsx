@@ -12,6 +12,7 @@ import { Services } from '~/client/components/features/Logement/Consulter/Servic
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
@@ -53,7 +54,12 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 
 	return (
 		<main id="contenu" className={styles.gridLayout}>
-			<ButtonRetour className={styles.boutonRetour}/>
+			<ButtonRetour 
+				className={styles.boutonRetour}
+				icon={<Icon name="angle-left" />}
+				iconPosition="left"
+				label="Retour"
+			/>
 			{isSmallScreen && <AnnonceSource source={source}/>}
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>

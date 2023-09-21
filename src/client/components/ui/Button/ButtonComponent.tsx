@@ -20,7 +20,7 @@ export type ButtonComponentProps = React.ComponentPropsWithoutRef<'button'> & {
 	label: string
 }
 
-export type ButtonComponentPropsWithIconProps = ButtonComponentProps & IconProps
+type ButtonComponentPropsWithIconProps = ButtonComponentProps & IconProps
 
 export const ButtonComponent = React.forwardRef<HTMLButtonElement, ButtonComponentPropsWithIconProps>(function ButtonComponent(
 	{ appearance = 'primary', className, icon, iconPosition, label, ...rest },

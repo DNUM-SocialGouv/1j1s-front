@@ -36,7 +36,12 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 			/>
 			<main id="contenu">
 				<Container className={styles.container}>
-					<ButtonRetour className={styles.backButton}/>
+					<ButtonRetour
+						className={styles.backButton}
+						icon={<Icon name="angle-left"/>}
+						iconPosition="left"
+						label="Retour"
+					/>
 					<ConsulterFicheMétier ficheMetier={ficheMetier}/>
 				</Container>
 				<div className={'background-white-lilac'}>
@@ -72,7 +77,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 	return {
 		props: {
-		   ficheMetier: JSON.parse(JSON.stringify(response.result)),
+			ficheMetier: JSON.parse(JSON.stringify(response.result)),
 		},
 		revalidate: 86400,
 	};
