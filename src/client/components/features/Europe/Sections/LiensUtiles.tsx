@@ -30,17 +30,9 @@ const linkList: Array<LienEmploiEurope> = [
 ];
 
 export function LiensUtiles() {
-	const { isLargeScreen } = useBreakpoint();
-  
 	return (
 		<div>
 			<Container className={styles.sectionLiens}>
-				{/* FIXME (GAFI 18-09-2023): Passer par du CSS, c'est plus simple ... */}
-				{isLargeScreen && (
-					<div className={styles.imageWrapper}>
-						<Image src="/images/europe.webp" alt="" width={560} height={160}/>
-					</div>
-				)}
 				<ul aria-label="liens utiles">
 					{/* FIXME (GAFI 18-09-2023): WTF, no!  */}
 					{linkList.map((link: LienEmploiEurope) => (
