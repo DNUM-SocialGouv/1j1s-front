@@ -7,6 +7,15 @@
 
 .emploiEnEurope {
   $color-information-icon: utilities.$color-primary;
+  $color-section-impair: utilities.$color-background-primary;
+  $color-section-pair: utilities.$color-background-primary-alternative;
+
+  section:nth-child(2n) {
+    background-color: $color-section-pair;
+  }
+  section:nth-child(2n + 1) {
+    background-color: $color-section-impair;
+  }
 
   section {
     // FIXME (GAFI 21-09-2023): Travail à réaliser sur le container pour pouvoir simplement étendre le container
