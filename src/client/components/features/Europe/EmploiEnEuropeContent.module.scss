@@ -2,9 +2,6 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
-// FIXME (GAFI 21-09-2023): Fixer l'alternance des couleurs des backgrounds qui est inversée dans la nouvelle maquette
-//  et qui est en dûr actuellement
-
 .emploiEnEurope {
   $color-information-icon: utilities.$color-primary;
   $color-section-impair: utilities.$color-background-primary;
@@ -92,10 +89,8 @@
       font-weight: bold;
       margin-bottom: 1.5rem;
     }
-    & ul {
-      & > li:not(:last-child) {
+    & ul > li:not(:last-child) {
         margin-bottom: 1rem;
-      }
     }
   }
 }

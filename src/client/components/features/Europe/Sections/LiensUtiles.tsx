@@ -12,15 +12,15 @@ interface LienEmploiEurope {
 
 const linkList: Array<LienEmploiEurope> = [
 	{
-		title: 'Faire une partie de mon apprentissage en Europe',
+		title: 'Vous souhaitez faire une partie de votre apprentissage en Europe',
 		url: 'https://www.euroappmobility.eu/fr/',
 	},
 	{
-		title: 'Chercher un Volontariat International (V.I.E / V.I.A)',
+		title: 'Vous cherchez un Volontariat International (V.I.E / V.I.A)',
 		url: 'https://mon-vie-via.businessfrance.fr/',
 	},
 	{
-		title: 'S‘engager dans une mission de solidarité en Europe',
+		title: 'Vous souhaitez vous engager dans une mission de solidarité en Europe',
 		url: 'https://europa.eu/youth/solidarity/young-people/volunteering_fr',
 	},
 ];
