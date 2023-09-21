@@ -7,8 +7,8 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 function CardEures() {
 	return (
-		<li>
-			<h3>Le programme de mobilité ciblé EURES</h3>
+		<li aria-labelledby="eures">
+			<h3 id="eures">Le programme de mobilité ciblé EURES</h3>
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
 				<dd>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de l’Union
@@ -38,26 +38,54 @@ function CardEures() {
 
 function CardErasmus() {
 	return (
-		<li>
-			<h3>Le programme “ERASMUS+”</h3>
+		<li aria-labelledby="erasmus">
+			<h3 id="erasmus">Le programme “ERASMUS+”</h3>
+			<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
+			<dl>
+				<dt>Comment cela fonctionne ?</dt>
+				<dd>Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître votre employabilité.</dd>
+				<dt>Pour qui ?</dt>
+				<dd>Tout public</dd>
+				<dt>Pour quelle durée ?</dt>
+				<dd>Étudiants : de 3 à 12 mois par cycle universitaire.</dd>
+				<dd>Stage : de 2 à 12 mois.</dd>
+				<dd>Formation professionnelle : de 1 à 360 jours.</dd>
+				<dt>Quelles aides ?</dt>
+				<dd>
+					Aides financières cumulables avec les bourses d’études, l’aide à la mobilité internationale (AMI) et les aides régionales/départementales et qui varient selon le type de mobilité et la destination :
+					<ul>
+						<li>Étudiants : entre 200 et 600 €/mois.</li>
+						<li>Stage : entre 300 et 450 €/mois.</li>
+						<li>Formation professionnelle : 32 à 43 €/jour selon le pays de mobilité pendant 2 semaines puis 22 à 30 €/jour selon le pays de mobilité pour le reste de la mobilité.</li>
+					</ul>
+				</dd>
+			</dl>
+			<LinkStyledAsButton
+				appearance="asPrimaryButton"
+				href="https://info.erasmusplus.fr/"
+				aria-label="En savoir plus sur ERASMUS+"
+			>
+				En savoir plus
+			</LinkStyledAsButton>
 		</li>
 	);
 }
 
 function CardAidesFinancieres() {
 	return (
-		<li>
-			<h3>Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
+		<li aria-labelledby="aides-financieres">
+			<h3 id="aides-financieres">Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
-			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">Faire une simulation
-			d’aides</LinkStyledAsButton>
+			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">
+				Faire une simulation d’aides
+			</LinkStyledAsButton>
 		</li>
 	);
 }
 
 export function Dispositifs() {
 	return (
-		<section>
+		<section className={styles.dispositifs}>
 			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
 			<ul className={styles.cards}>
 				<CardEures/>
