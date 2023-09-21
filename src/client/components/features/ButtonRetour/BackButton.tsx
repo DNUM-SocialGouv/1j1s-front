@@ -5,8 +5,8 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import {
 	ButtonComponent,
 } from '~/client/components/ui/Button/ButtonComponent';
-import { REFERRER } from '~/client/hooks/useReferrer';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { REFERRER } from '~/client/hooks/useReferrer';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
 	label?: string

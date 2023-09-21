@@ -22,6 +22,6 @@ describe('ErrorLayout', () => {
 	});
 	it('affiche le bouton de retour vers la page d‘accueil', () => {
 		render(<ErrorLayout><p>children</p></ErrorLayout>);
-		expect(screen.getByRole('link', { name: 'Retourner à l‘accueil' })).toBeVisible();
+		expect(screen.getByRole('link', { name: 'Aller à l‘accueil' })).toBeVisible();
 	});
 });
