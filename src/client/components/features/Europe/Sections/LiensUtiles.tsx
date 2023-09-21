@@ -28,19 +28,17 @@ const linkList: Array<LienEmploiEurope> = [
 export function LiensUtiles() {
 	return (
 		<section className={styles.liensUtiles}>
-			<Container className={styles.sectionLiens}>
-				<h2>Découvrez d’autres services destinés à vous aider à trouver l’expérience en Europe faite pour vous :</h2>
-				<ul aria-label="liens utiles">
-					{/* FIXME (GAFI 18-09-2023): WTF, no!  */}
-					{linkList.map((link: LienEmploiEurope) => (
-						<li key={link.title}>
-							<LinkStyledAsButton appearance={'asQuaternayButton'} href={link.url}>
-								{link.title}
-							</LinkStyledAsButton>
-						</li>
-					))}
-				</ul>
-			</Container>
+			<h2>Découvrez d’autres services destinés à vous aider à trouver l’expérience en Europe faite pour vous :</h2>
+			<ul aria-label="liens utiles">
+				{/* FIXME (GAFI 18-09-2023): WTF, no!  */}
+				{linkList.map((link: LienEmploiEurope) => (
+					<li key={link.title}>
+						<LinkStyledAsButton appearance={'asQuaternayButton'} href={link.url}>
+							{link.title}
+						</LinkStyledAsButton>
+					</li>
+				))}
+			</ul>
 		</section>
 	);
 }
