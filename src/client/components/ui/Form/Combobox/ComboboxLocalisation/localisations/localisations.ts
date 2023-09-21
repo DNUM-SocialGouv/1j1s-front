@@ -1,4 +1,4 @@
-export type LocalisationOptions = {
+export type Localisations = {
 	communeList: Commune[]
 	departementList: Departement[]
 	regionList: Region[]

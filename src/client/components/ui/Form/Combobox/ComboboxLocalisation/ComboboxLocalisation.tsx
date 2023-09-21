@@ -4,22 +4,22 @@ import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import {
 	buildUserInput,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/DefaultLocalisation/BuildUserInput';
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/buildUserInput';
 import {
 	DefaultLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/DefaultLocalisation/DefaultLocalisation';
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/defaultLocalisation';
 import {
-	findMatchingOption,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/FindMatchingOption';
+	LocalisationOptionsByCategory,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/LocalisationOptionsByCategory';
 import {
-	LocalisationOptions,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/LocalisationOptions';
+	findMatchingLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/findMatchingLocalisation';
 import {
-	mapToLocalisationOptions,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/MapToLocalisationOptions';
+	Localisations,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 import {
-	SuggestionsLocalisationList,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/SuggestionsLocalisationList';
+	mapToLocalisations,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/mapToLocalisations';
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
@@ -65,7 +65,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 	const localisationService = useDependency<BffLocalisationService>('localisationService');
 
 	const [userInput, setUserInput] = useState<string>(buildUserInput(defaultValue));
-	const [localisationOptions, setLocalisationOptions] = useState<LocalisationOptions>({
+	const [localisationOptions, setLocalisationOptions] = useState<Localisations>({
 		communeList: defaultValue?.type === TypeLocalisation.COMMUNE ? [defaultValue] : [],
 		departementList: defaultValue?.type === TypeLocalisation.DEPARTEMENT ? [defaultValue] : [],
 		regionList: defaultValue?.type === TypeLocalisation.REGION ? [defaultValue] : [],
@@ -73,7 +73,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [fieldError, setFieldError] = useState<string | null>(null);
 
-	const matchingOption = findMatchingOption(localisationOptions, userInput);
+	const matchingOption = findMatchingLocalisation(localisationOptions, userInput);
 
 	const labelId = useId();
 	const idState = useId();
@@ -96,7 +96,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 
 		if (response && isSuccess(response)) {
 			setStatus('success');
-			setLocalisationOptions(mapToLocalisationOptions(response.result));
+			setLocalisationOptions(mapToLocalisations(response.result));
 		} else {
 			setStatus('failure');
 			setLocalisationOptions({ communeList: [], departementList: [], regionList: [] });
@@ -151,9 +151,9 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 				filter={Combobox.noFilter}
 				{...rest}
 			>
-				<SuggestionsLocalisationList localisationOptions={localisationOptions} optionMessage={optionMessage}/>
+				<LocalisationOptionsByCategory localisations={localisationOptions} optionMessage={optionMessage}/>
 			</Combobox>
-			<p id={errorId} className={styles.instructionMessageError}>{fieldError}</p>
+			<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
 			<input type="hidden" value={matchingOption?.nom ?? ''} name="nomLocalisation"/>
 			<input type="hidden" value={matchingOption?.codePostal ?? ''} name="codePostalLocalisation"/>
 			<input type="hidden" value={matchingOption?.code ?? ''} name="codeLocalisation"/>

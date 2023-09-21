@@ -3,18 +3,19 @@ import {
 	formatLocalisationLibelle,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
-	LocalisationOptions,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/LocalisationOptions';
+	Localisations,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 
-type SuggestionsLocalisationListProps = {
-	localisationOptions: LocalisationOptions
+type LocalisationOptionsByCategoryProps = {
+	localisations: Localisations
 	optionMessage: string
 }
-export const SuggestionsLocalisationList = ({ localisationOptions, optionMessage }: SuggestionsLocalisationListProps) => (
+
+export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: LocalisationOptionsByCategoryProps) => (
 	<>
-		{localisationOptions.regionList.length > 0 &&
+		{localisations.regionList.length > 0 &&
 			<Combobox.Category name="Régions">
-				{localisationOptions.regionList.map((suggestion) =>
+				{localisations.regionList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.code}>
 							{formatLocalisationLibelle(suggestion.nom, suggestion.code)}
@@ -23,9 +24,9 @@ export const SuggestionsLocalisationList = ({ localisationOptions, optionMessage
 			</Combobox.Category>
 		}
 
-		{localisationOptions.departementList.length > 0 &&
+		{localisations.departementList.length > 0 &&
 			<Combobox.Category name="Départements">
-				{localisationOptions.departementList.map((suggestion) =>
+				{localisations.departementList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.code}>
 							{formatLocalisationLibelle(suggestion.nom, suggestion.code)}
@@ -34,9 +35,9 @@ export const SuggestionsLocalisationList = ({ localisationOptions, optionMessage
 			</Combobox.Category>
 		}
 
-		{localisationOptions.communeList.length > 0 &&
+		{localisations.communeList.length > 0 &&
 			<Combobox.Category name="Communes">
-				{localisationOptions.communeList.map((suggestion) =>
+				{localisations.communeList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.codeInsee}>
 							{formatLocalisationLibelle(suggestion.nom, suggestion.codePostal)}

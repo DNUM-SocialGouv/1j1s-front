@@ -1,11 +1,11 @@
 import {
-	LocalisationOptions,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/LocalisationOptions';
+	Localisations,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 import {
 	RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
-export function mapToLocalisationOptions(localisationList: RechercheLocalisationApiResponse): LocalisationOptions {
+export function mapToLocalisations(localisationList: RechercheLocalisationApiResponse): Localisations {
 	return {
 		communeList: localisationList.communeList.map((commune) => ({
 			codeInsee: commune.code,

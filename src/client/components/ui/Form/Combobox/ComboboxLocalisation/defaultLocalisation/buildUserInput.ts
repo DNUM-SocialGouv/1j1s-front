@@ -1,10 +1,11 @@
+import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+
 import {
 	formatLocalisationLibelle,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+} from '../ComboboxLocalisation';
 import {
 	DefaultLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/DefaultLocalisation/DefaultLocalisation';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
+} from './defaultLocalisation';
 
 export function buildUserInput(defaultLocalisation?: DefaultLocalisation) {
 	if (!defaultLocalisation) return '';

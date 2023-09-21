@@ -2,11 +2,11 @@ import {
 	formatLocalisationLibelle,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
-	LocalisationOptions,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/Localisation/LocalisationOptions/LocalisationOptions';
+	Localisations,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
-export function findMatchingOption(localisationList: LocalisationOptions, userInput: string) {
+export function findMatchingLocalisation(localisationList: Localisations, userInput: string) {
 	const communeFound = localisationList.communeList.find((commune) => userInput === formatLocalisationLibelle(commune.nom, commune.codePostal));
 	if (communeFound) {
 		return {
