@@ -5,7 +5,69 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+function CardEures() {
+	return (
+		<li>
+			<h3>Le programme de mobilité ciblé EURES</h3>
+			<dl>
+				<dt>Comment cela fonctionne ?</dt>
+				<dd>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de l’Union
+				européenne.
+				</dd>
+				<dt>Pour qui ?</dt>
+				<dd>Tout demandeur d’emploi de plus de 18 ans ; indépendamment de ses qualifications.</dd>
+				<dt>Pour quelle durée ?</dt>
+				<dd>Contrat de 3 mois minimum pour les stages</dd>
+				<dd>Contrat de 6 mois minimum pour les emplois ou les apprentissages.</dd>
+				<dt>Quelles aides ?</dt>
+				<dd>Aide dans la recherche d’emploi.</dd>
+				<dd>Soutien financier pour passer un entretien à l’étranger, pour la prise en charge de frais tels que des cours
+				de langue, la reconnaissance de leurs qualifications ou leur déménagement.
+				</dd>
+			</dl>
+			<LinkStyledAsButton
+				appearance="asPrimaryButton"
+				href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
+				aria-label="En savoir plus sur EURES"
+			>
+			En savoir plus
+			</LinkStyledAsButton>
+		</li>
+	);
+}
+
+function CardErasmus() {
+	return (
+		<li>
+			<h3>Le programme “ERASMUS+”</h3>
+		</li>
+	);
+}
+
+function CardAidesFinancieres() {
+	return (
+		<li>
+			<h3>Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
+			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
+			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">Faire une simulation
+			d’aides</LinkStyledAsButton>
+		</li>
+	);
+}
+
 export function Dispositifs() {
+	return (
+		<section>
+			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
+			<ul className={styles.cards}>
+				<CardEures/>
+				<CardErasmus/>
+				<CardAidesFinancieres/>
+			</ul>
+		</section>
+	);
+}
+export function DispositifsDep() {
 	// FIXME (GAFI 18-09-2023): Passer par du CSS ...
 	const { isLargeScreen } = useBreakpoint();
 
@@ -19,7 +81,7 @@ export function Dispositifs() {
 			</LightHero>
 			<Container className={styles.sectionDispositif}>
 				<div className={styles.sectionDispositif__CardWrapper}>
-					<article className={styles.sectionDispositif__Card}>
+					<div className={styles.sectionDispositif__Card}>
 						<h3>Le programme de mobilité ciblé EURES</h3>
 						<ul aria-label="Foire aux questions" className={styles.sectionDispositif__CardList}>
 							<li className={styles.sectionDispositif__CardContent}>
@@ -67,9 +129,9 @@ export function Dispositifs() {
 							</LinkStyledAsButton>
 						</div>
 
-					</article>
+					</div>
 
-					<article className={styles.sectionDispositif__Card}>
+					<div className={styles.sectionDispositif__Card}>
 						<h3>Le programme “ERASMUS+”</h3>
 						<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
 						<ul aria-label="Foire au questions" className={styles.sectionDispositif__CardList}>
@@ -115,7 +177,7 @@ export function Dispositifs() {
 						<div className={styles.buttonWrapper}>
 							<LinkStyledAsButton href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</LinkStyledAsButton>
 						</div>
-					</article>
+					</div>
 				</div>
 			</Container>
 		</div>
