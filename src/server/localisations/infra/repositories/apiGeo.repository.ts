@@ -1,7 +1,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
-import { removeParenthesis } from '~/server/localisations/infra/repositories/apiAdresse.mapper';
+import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
 import { getCodeRegion, mapLocalisationList } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { ApiDecoupageAdministratifResponse } from '~/server/localisations/infra/repositories/apiGeo.response';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';

@@ -1,4 +1,4 @@
-import { removeParenthesis } from '~/server/localisations/infra/repositories/apiAdresse.mapper';
+import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
 
 describe('RemoveParenthesis', () => {
 	it('enlève les parenthèses', () => {
