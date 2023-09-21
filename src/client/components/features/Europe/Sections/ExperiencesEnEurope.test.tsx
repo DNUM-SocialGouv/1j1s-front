@@ -28,4 +28,11 @@ describe('<ExperiencesEnEurope />', () => {
 		const paragraphe = screen.getByText(/Si vous êtes accompagné·e/i);
 		expect(paragraphe).toBeVisible();
 	});
+	it('affiche un lien vers les emplois en europe', () => {
+		render(<ExperiencesEnEurope />);
+
+		const CTA = screen.getByRole('link', { name: /Trouver une offre d’emploi en Europe/i });
+		expect(CTA).toBeVisible();
+		expect(CTA).toHaveAttribute('href', 'https://ec.europa.eu/eures/portal/jv-se/home');
+	});
 });
