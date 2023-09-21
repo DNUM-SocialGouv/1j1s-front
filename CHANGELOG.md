@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.147.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.1...v3.147.2) (2023-09-21)
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#2012](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2012)) ([e822aa2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e822aa2997af3494021dc9fb0db2fa973885a7f4))
+* **deps:** update getmeili/meilisearch docker tag to v1.3.5 ([#2008](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2008)) ([e3f298a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3f298a0e0d0ed4a7d48a09595c0742d60abd5e3))
+
 ## [3.147.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.0...v3.147.1) (2023-09-21)
 
 
