@@ -6,6 +6,8 @@
   $color-information-icon: utilities.$color-primary;
   $color-section-impair: utilities.$color-background-primary;
   $color-section-pair: utilities.$color-background-primary-alternative;
+  $color-card-background: utilities.$color-background-primary;
+  $color-card-border: utilities.$color-background-border;
 
   $single-column-width: 47.25rem;
   $double-column-width: 81rem;
@@ -90,30 +92,28 @@
 
   section.dispositifs {
     --width: #{$double-column-width};
+
+    & ul.cards > li {
+      background-color: $color-card-background;
+      border: 1px solid $color-card-border;
+      border-radius: 2.5rem;
+      padding: 2rem;
+
+      > *:not(:last-child) {
+        margin-bottom: 2rem;
+      }
+
+      // TODO (GAFI 21-09-2023):
+      //  & h* { bold; font-size }
+      //  & dt { bold; font-size; list-marker }
+      //  & a { fit-content }
+      // also grid avec packed et span 2 sur erasmus
+      // also titre de section
+    }
   }
 }
 
 .section {
-  &Liens {
-    padding: 2rem;
-    & li {
-      padding: 0.625rem 0;
-    }
-    & a > span {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      color: utilities-deprecated.$color-primary;
-      & svg {
-        flex-shrink: 0;
-        flex-grow: 0;
-      }
-    }
-    .imageWrapper {
-      display: none;
-    }
-  }
-
   &Dispositif {
     &__Title {
       > span {
