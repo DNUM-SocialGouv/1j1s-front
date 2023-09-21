@@ -43,7 +43,9 @@
     }
     > a {
       display: flex;
-      width: fit-content;
+      @include utilities-deprecated.media(large) {
+        width: fit-content;
+      }
     }
 
     & .description {
