@@ -27,7 +27,7 @@ const linkList: Array<LienEmploiEurope> = [
 
 export function LiensUtiles() {
 	return (
-		<div>
+		<section className={styles.liensUtiles}>
 			<Container className={styles.sectionLiens}>
 				<h2>Découvrez d’autres services destinés à vous aider à trouver l’expérience en Europe faite pour vous :</h2>
 				<ul aria-label="liens utiles">
@@ -41,6 +41,6 @@ export function LiensUtiles() {
 					))}
 				</ul>
 			</Container>
-		</div>
+		</section>
 	);
 }

@@ -10,9 +10,12 @@
   $color-section-impair: utilities.$color-background-primary;
   $color-section-pair: utilities.$color-background-primary-alternative;
 
+  $single-column-width: 47.25rem;
+
   section:nth-child(2n) {
     background-color: $color-section-pair;
   }
+
   section:nth-child(2n + 1) {
     background-color: $color-section-impair;
   }
@@ -27,9 +30,10 @@
 
   section.experience {
     > * {
-      max-width: 47.25rem;
+      max-width: $single-column-width;
       margin: auto;
     }
+
     > *:not(:last-child) {
       margin-bottom: 1.25rem;
       @include utilities-deprecated.media(large) {
@@ -43,13 +47,16 @@
 
       // FIXME (GAFI 21-09-2023): Travail à faire au niveau du composant Hero pour uniformiser l'alignement
       text-align: start;
+
       & * {
         display: inline;
       }
+
       & .complement {
         white-space: nowrap;
       }
     }
+
     > a {
       display: flex;
       @include utilities-deprecated.media(large) {
@@ -71,6 +78,13 @@
         color: $color-information-icon;
         width: 1.5rem;
       }
+    }
+  }
+
+  section.liensUtiles {
+    > * {
+      max-width: $single-column-width;
+      margin: auto;
     }
   }
 }
