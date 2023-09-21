@@ -41,7 +41,7 @@ export function LiensUtiles() {
 						<Image src="/images/europe.webp" alt="" width={560} height={160}/>
 					</div>
 				)}
-				<ul>
+				<ul aria-label="liens utiles">
 					{/* FIXME (GAFI 18-09-2023): WTF, no!  */}
 					{linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>

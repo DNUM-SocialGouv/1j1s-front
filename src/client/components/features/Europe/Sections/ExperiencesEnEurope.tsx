@@ -21,7 +21,7 @@ export function ExperiencesEnEurope() {
 				<span className={styles.sectionExperienceEurope__Information}>
 					<Icon name="information"/>
 					<p>
-            Si vous êtes accompagné-e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
+            Si vous êtes accompagné·e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
 					</p>
 				</span>
 			</Container>
