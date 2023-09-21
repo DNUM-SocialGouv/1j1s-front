@@ -12,8 +12,11 @@ import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import {
-	formatLocalisationLibelle, getCodeLibelleLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
+import {
+	getCodeLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -73,7 +76,7 @@ export function RechercherJobEte() {
 	const etiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
 			return <TagList list={[
-				formatLocalisationLibelle(
+				formatLibelleLocalisation(
 					offreEmploiQuery.nomLocalisation,
 					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
 				),

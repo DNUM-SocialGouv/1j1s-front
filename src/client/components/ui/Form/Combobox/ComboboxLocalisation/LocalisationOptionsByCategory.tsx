@@ -1,7 +1,7 @@
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import {
-	formatLocalisationLibelle,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
 import {
 	Localisations,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
@@ -18,7 +18,7 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 				{localisations.regionList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.code}>
-							{formatLocalisationLibelle(suggestion.nom, suggestion.code)}
+							{formatLibelleLocalisation(suggestion.nom, suggestion.code)}
 						</Combobox.Option>
 					))}
 			</Combobox.Category>
@@ -29,7 +29,7 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 				{localisations.departementList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.code}>
-							{formatLocalisationLibelle(suggestion.nom, suggestion.code)}
+							{formatLibelleLocalisation(suggestion.nom, suggestion.code)}
 						</Combobox.Option>
 					))}
 			</Combobox.Category>
@@ -40,7 +40,7 @@ export const LocalisationOptionsByCategory = ({ localisations, optionMessage }: 
 				{localisations.communeList.map((suggestion) =>
 					(
 						<Combobox.Option key={suggestion.codeInsee}>
-							{formatLocalisationLibelle(suggestion.nom, suggestion.codePostal)}
+							{formatLibelleLocalisation(suggestion.nom, suggestion.codePostal)}
 						</Combobox.Option>
 					))}
 			</Combobox.Category>

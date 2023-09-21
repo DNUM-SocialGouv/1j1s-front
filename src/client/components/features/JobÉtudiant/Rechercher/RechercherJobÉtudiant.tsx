@@ -17,9 +17,11 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
-	formatLocalisationLibelle,
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
+import {
 	getCodeLibelleLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
 import {
 	LightHero,
 	LightHeroPrimaryText,
@@ -79,7 +81,7 @@ export function RechercherJobÉtudiant() {
 	const étiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
 			return <TagList list={[
-				formatLocalisationLibelle(
+				formatLibelleLocalisation(
 					offreEmploiQuery.nomLocalisation,
 					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
 				),

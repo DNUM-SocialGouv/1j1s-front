@@ -14,9 +14,7 @@ import {
 import {
 	findMatchingLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/findMatchingLocalisation';
-import {
-	Localisations,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
+import { Localisations } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 import {
 	mapToLocalisations,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/mapToLocalisations';
@@ -44,22 +42,6 @@ type ComboboxLocalisationProps = ComboboxPropsWithOmit & {
 	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
 }
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
-
-export function formatLocalisationLibelle(nom: string, code: string) {
-	return `${nom} (${code})`;
-}
-
-export function getCodeLibelleLocalisation(code?: string, codePostal?: string, type?: string) {
-	switch (type) {
-		case TypeLocalisation.COMMUNE:
-			return codePostal;
-		case TypeLocalisation.DEPARTEMENT:
-		case TypeLocalisation.REGION:
-			return code;
-		default:
-			return undefined;
-	}
-}
 
 export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocalisationProps>(function ComboboxLocalisation(props, ref) {
 	const {

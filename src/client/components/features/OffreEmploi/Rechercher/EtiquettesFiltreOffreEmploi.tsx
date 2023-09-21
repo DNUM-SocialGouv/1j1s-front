@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-	formatLocalisationLibelle,
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
+import {
 	getCodeLibelleLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { Offre } from '~/server/offres/domain/offre';
@@ -64,7 +66,7 @@ export function EtiquettesFiltreOffreEmploi() {
 		}
 
 		if (offreEmploiQuery.nomLocalisation) {
-			filtreList.push(formatLocalisationLibelle(
+			filtreList.push(formatLibelleLocalisation(
 				offreEmploiQuery.nomLocalisation,
 				getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
 			));

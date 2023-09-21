@@ -1,13 +1,13 @@
 import {
-	formatLocalisationLibelle,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
 import {
 	Localisations,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/localisations';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
 export function findMatchingLocalisation(localisationList: Localisations, userInput: string) {
-	const communeFound = localisationList.communeList.find((commune) => userInput === formatLocalisationLibelle(commune.nom, commune.codePostal));
+	const communeFound = localisationList.communeList.find((commune) => userInput === formatLibelleLocalisation(commune.nom, commune.codePostal));
 	if (communeFound) {
 		return {
 			code: communeFound.codeInsee,
@@ -17,7 +17,7 @@ export function findMatchingLocalisation(localisationList: Localisations, userIn
 		};
 	}
 
-	const departementFound = localisationList.departementList.find((departement) => userInput === formatLocalisationLibelle(departement.nom, departement.code));
+	const departementFound = localisationList.departementList.find((departement) => userInput === formatLibelleLocalisation(departement.nom, departement.code));
 	if (departementFound) {
 		return {
 			code: departementFound.code,
@@ -26,7 +26,7 @@ export function findMatchingLocalisation(localisationList: Localisations, userIn
 		};
 	}
 
-	const regionFound = localisationList.regionList.find((region) => userInput === formatLocalisationLibelle(region.nom, region.code));
+	const regionFound = localisationList.regionList.find((region) => userInput === formatLibelleLocalisation(region.nom, region.code));
 	if (regionFound) {
 		return {
 			code: regionFound.code,
