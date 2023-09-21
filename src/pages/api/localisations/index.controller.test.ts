@@ -59,24 +59,20 @@ describe('rechercher une localisation', () => {
 							{
 								code: '28201',
 								codePostal: '28300',
-								libelle: '20 Avenue de la Gare Jouy (28300)',
 								nom: 'Jouy',
 							},
 							{
 								code: '93005',
 								codePostal: '93600',
-								libelle: '20 Avenue Jules Jouy Aulnay-sous-Bois (93600)',
 								nom: 'Aulnay-sous-Bois',
 							},
 						],
 						departementList: [{
 							code: '68',
-							libelle: 'Haut-Rhin 68',
 							nom: 'Haut-Rhin',
 						}],
 						regionList: [{
 							code: '32',
-							libelle: 'Hauts-de-France 32',
 							nom: 'Hauts-de-France',
 						}],
 					};

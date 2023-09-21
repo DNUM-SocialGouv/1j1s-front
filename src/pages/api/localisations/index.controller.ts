@@ -6,8 +6,8 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Localisation, RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import {
-	CommuneLocalisationApiResponse,
 	LocalisationApiResponse,
+	LocalisationCommuneApiResponse,
 	RechercheLocalisationApiResponse,
 } from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 import { dependencies } from '~/server/start';
@@ -33,16 +33,14 @@ export async function rechercherLocalisationHandler(req: NextApiRequest, res: Ne
 function mapLocalisation(localisationApiResponse: Localisation): LocalisationApiResponse {
 	return {
 		code: localisationApiResponse.code,
-		libelle: `${localisationApiResponse.nom} ${localisationApiResponse.code}`,
 		nom: localisationApiResponse.nom,
 	};
 }
 
-function mapCommune(communeApiResponse: Commune): CommuneLocalisationApiResponse {
+function mapCommune(communeApiResponse: Commune): LocalisationCommuneApiResponse {
 	return {
 		code: communeApiResponse.code,
 		codePostal: communeApiResponse.codePostal,
-		libelle: communeApiResponse.libelle,
 		nom: communeApiResponse.ville,
 	};
 }
@@ -50,7 +48,7 @@ function mapCommune(communeApiResponse: Commune): CommuneLocalisationApiResponse
 export function mapApiResponse(localisationList: RechercheLocalisation): RechercheLocalisationApiResponse {
 	const { communeList, departementList, regionList } = localisationList;
 
-	const communeListApiResponse: CommuneLocalisationApiResponse[] = communeList.map(mapCommune);
+	const communeListApiResponse: LocalisationCommuneApiResponse[] = communeList.map(mapCommune);
 	const départementListApiResponse: LocalisationApiResponse[] = departementList.slice(0,20).map(mapLocalisation);
 	const régionListApiResponse: LocalisationApiResponse[] = regionList.slice(0,20).map(mapLocalisation);
 	return { communeList: communeListApiResponse, departementList: départementListApiResponse, regionList: régionListApiResponse };
