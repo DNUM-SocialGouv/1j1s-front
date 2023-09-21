@@ -13,13 +13,12 @@ const LIMIT_MAX_DOMAINS = 100;
 const MEILISEARCH_SORT_BY_LABEL_ASC = 'name:asc';
 
 export function sortWithNonRenseigneInTheEnd(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
-	if (a.name === Domaines.NON_RENSEIGNE && b.name !== Domaines.NON_RENSEIGNE) {
+	if (a.name === Domaines.NON_RENSEIGNE) {
 		return 1;
-	} else if (a.name !== Domaines.NON_RENSEIGNE && b.name === Domaines.NON_RENSEIGNE) {
+	} else if (b.name === Domaines.NON_RENSEIGNE) {
 		return -1;
-	} else {
-		return a.name.localeCompare(b.name);
 	}
+	return a.name.localeCompare(b.name);
 }
 
 export function FormulaireRechercheOffreStage() {

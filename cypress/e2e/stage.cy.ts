@@ -10,7 +10,7 @@ describe('Parcours logement', () => {
 
 	context('quand on arrive sur la page de recherche de stages', () => {
 		describe('quand on fait une recherche par domaines', () => {
-			it('affiche les domaines par ordre croissant avec non renseigné en dernier element', () => {
+			it('affiche les domaines par ordre alphabétique avec non renseigné en dernier element', () => {
 				cy.intercept({ pathname: '/multi-search' }, stageNonFiltreeResponse);
 
 				cy.findByRole('button', { name: 'Domaines' }).click();
