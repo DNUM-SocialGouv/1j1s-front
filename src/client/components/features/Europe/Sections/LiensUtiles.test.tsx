@@ -8,10 +8,13 @@ import { LiensUtiles } from '~/client/components/features/Europe/Sections/LiensU
 import { mockLargeScreen } from '~/client/components/window.mock';
 
 describe('<LiensUtiles />', () => {
-	beforeEach(() => {
-		// FIXME (GAFI 21-09-2023): Plus nécessaire avec la version CSS only
-		mockLargeScreen();
+	it('affiche le titre de la section', () => {
+		render(<LiensUtiles />);
+
+		const heading = screen.getByRole('heading', { level: 2, name: /Découvrez d’autres services/i });
+		expect(heading).toBeVisible();
 	});
+	
 	it('affiche la liste des liens utiles', () => {
 		render(<LiensUtiles />);
 
