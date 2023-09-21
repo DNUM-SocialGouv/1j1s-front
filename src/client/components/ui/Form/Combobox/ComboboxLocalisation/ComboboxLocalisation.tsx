@@ -49,6 +49,18 @@ export function formatLocalisationLibelle(nom: string, code: string) {
 	return `${nom} (${code})`;
 }
 
+export function getCodeLibelleLocalisation(code?: string, codePostal?: string, type?: string) {
+	switch (type) {
+		case TypeLocalisation.COMMUNE:
+			return codePostal;
+		case TypeLocalisation.DEPARTEMENT:
+		case TypeLocalisation.REGION:
+			return code;
+		default:
+			return undefined;
+	}
+}
+
 export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocalisationProps>(function ComboboxLocalisation(props, ref) {
 	const {
 		label = DEFAULT_LABEL,

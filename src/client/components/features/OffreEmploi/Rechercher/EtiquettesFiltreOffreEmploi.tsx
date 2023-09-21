@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+import {
+	formatLocalisationLibelle,
+	getCodeLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { Offre } from '~/server/offres/domain/offre';
@@ -60,7 +64,10 @@ export function EtiquettesFiltreOffreEmploi() {
 		}
 
 		if (offreEmploiQuery.nomLocalisation) {
-			filtreList.push(offreEmploiQuery.nomLocalisation);
+			filtreList.push(formatLocalisationLibelle(
+				offreEmploiQuery.nomLocalisation,
+				getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+			));
 		}
 
 		setFiltres(filtreList);

@@ -17,6 +17,10 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
+	formatLocalisationLibelle,
+	getCodeLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import {
 	LightHero,
 	LightHeroPrimaryText,
 	LightHeroSecondaryText,
@@ -74,11 +78,16 @@ export function RechercherJobÉtudiant() {
 
 	const étiquettesRecherche = useMemo(() => {
 		if (offreEmploiQuery.nomLocalisation) {
-			return <TagList list={[offreEmploiQuery.nomLocalisation]} aria-label="Filtres de la recherche"/>;
+			return <TagList list={[
+				formatLocalisationLibelle(
+					offreEmploiQuery.nomLocalisation,
+					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+				),
+			]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [offreEmploiQuery.nomLocalisation]);
+	}, [offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.nomLocalisation, offreEmploiQuery.typeLocalisation]);
 
 	return (
 		<>
