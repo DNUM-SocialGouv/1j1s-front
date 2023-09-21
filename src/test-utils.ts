@@ -12,12 +12,16 @@ declare global {
 
 expect.extend(toHaveNoViolations);
 
-function getTerms(container: HTMLElement, name: string) {
+function getTerms(container: HTMLElement, name: string | RegExp) {
 	const terms = getAllByRole(container, 'term');
 	// NOTE (GAFI 22-02-2023): filter instead of find because nothing forbids
 	// 	the same term from appearing multiple times in the list
 	return terms.filter(
-		(term) => getNodeText(term) === name,
+		(term) => (
+			typeof name === 'string'
+				? getNodeText(term) === name
+				: name.test(getNodeText(term))
+		),
 	);
 }
 
@@ -39,7 +43,7 @@ function getDescriptionForTerm(term: HTMLElement) {
 	return descriptions;
 }
 
-const queryAllByDescriptionTerm = (container: HTMLElement, name: string) => {
+const queryAllByDescriptionTerm = (container: HTMLElement, name: string | RegExp) => {
 	const terms = getTerms(container, name);
 
 	const definitions = terms.flatMap(getDescriptionForTerm);
