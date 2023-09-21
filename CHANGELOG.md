@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.147.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.146.1...v3.147.0) (2023-09-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stages:** afficher non renseigné à la fin de l'input domaine ([#2005](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2005)) ([2c40cbc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2c40cbc1d3cda651434de0a8fa61648e254718b3))
+
 ## [3.146.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.146.0...v3.146.1) (2023-09-20)
 
 
