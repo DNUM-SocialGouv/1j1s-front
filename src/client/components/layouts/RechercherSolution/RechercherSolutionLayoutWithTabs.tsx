@@ -1,4 +1,3 @@
-
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -45,7 +44,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 	const [currentTab, setCurrentTab] = useState<number>(0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
-	const messageNoResult= listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage />;
+	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
 
 	return (
 		<>
@@ -63,9 +62,11 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             		: <>
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
-            				<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-            					<h2>{messageResultatRechercheCurrentTab}</h2>
-            				</Skeleton>
+            				{(nombreSolutions[currentTab] !== 0 || isLoading )&&
+                        <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+                        	<h2>{messageResultatRechercheCurrentTab}</h2>
+                        </Skeleton>
+            				}
             			</Container>
 
             			<div>
