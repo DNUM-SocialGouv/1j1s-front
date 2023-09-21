@@ -13,8 +13,11 @@
   $color-information-icon: utilities.$color-primary;
 
   section {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    // FIXME (GAFI 21-09-2023): Travail à réaliser sur le container pour pouvoir simplement étendre le container
+    padding: 2rem 1rem;
+    @include utilities-deprecated.media(large) {
+      padding: 4rem 1rem;
+    }
   }
 
   section.experience {
