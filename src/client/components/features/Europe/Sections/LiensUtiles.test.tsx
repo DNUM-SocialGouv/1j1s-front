@@ -17,9 +17,6 @@ describe('<LiensUtiles />', () => {
 
 		const liste = screen.getByRole('list', { name: /Liens utiles/i });
 		expect(liste).toBeVisible();
-		const emploi = within(liste).getByRole('link', { name: /Trouver un emploi en Europe/i });
-		expect(emploi).toBeVisible();
-		expect(emploi).toHaveAttribute('href', 'https://ec.europa.eu/eures/portal/jv-se/home');
 		const apprentissage = within(liste).getByRole('link', { name: /Faire une partie de mon apprentissage en Europe/i });
 		expect(apprentissage).toBeVisible();
 		expect(apprentissage).toHaveAttribute('href', 'https://www.euroappmobility.eu/fr/');

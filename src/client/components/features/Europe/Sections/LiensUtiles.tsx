@@ -12,10 +12,6 @@ interface LienEmploiEurope {
 
 const linkList: Array<LienEmploiEurope> = [
 	{
-		title: 'Trouver un emploi en Europe',
-		url: 'https://ec.europa.eu/eures/portal/jv-se/home',
-	},
-	{
 		title: 'Faire une partie de mon apprentissage en Europe',
 		url: 'https://www.euroappmobility.eu/fr/',
 	},
