@@ -31,8 +31,12 @@
       margin: auto;
     }
     > *:not(:last-child) {
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
+      @include utilities-deprecated.media(large) {
+        margin-bottom: 2rem;
+      }
     }
+
     > .hero {
       padding: 0;
       margin-bottom: 1.5rem;
