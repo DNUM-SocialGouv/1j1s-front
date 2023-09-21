@@ -2,12 +2,8 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
-// TODO (GAFI 21-09-2023):
-//  Titre aligné à gauche et plus au centre
-//  Plus de retour à la ligne automatique dans le titre
-//  icône d'information en bleu
-//  icône d'information en plus grand que la police
-//  icône d'information positionnement
+// FIXME (GAFI 21-09-2023): Fixer l'alternance des couleurs des backgrounds qui est inversée dans la nouvelle maquette
+//  et qui est en dûr actuellement
 
 .emploiEnEurope {
   $color-information-icon: utilities.$color-primary;
