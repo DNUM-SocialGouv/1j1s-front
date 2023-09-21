@@ -5,9 +5,9 @@ export function EmploiEnEuropeContent() {
 	return (
 		<main id="contenu" className={styles.emploiEnEurope}>
 			<ExperiencesEnEurope />
-			<LiensUtiles />
 			<Dispositifs />
 			<AidesFinancieres />
+			<LiensUtiles />
 		</main>
 	);
 }
