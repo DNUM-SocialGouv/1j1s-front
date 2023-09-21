@@ -8,6 +8,7 @@
   $color-section-pair: utilities.$color-background-primary-alternative;
 
   $single-column-width: 47.25rem;
+  $double-column-width: 81rem;
 
   section {
     // FIXME (GAFI 21-09-2023): Travail à réaliser sur le container pour pouvoir simplement étendre le container
@@ -15,16 +16,17 @@
     @include utilities-deprecated.media(large) {
       padding: 4rem 1rem;
     }
+    > * {
+      max-width: var(--width);
+      margin: auto;
+    }
 
     &:nth-child(2n) { background-color: $color-section-pair; }
     &:nth-child(2n + 1) { background-color: $color-section-impair; }
   }
 
   section.experience {
-    > * {
-      max-width: $single-column-width;
-      margin: auto;
-    }
+    --width: #{$single-column-width};
 
     > *:not(:last-child) {
       margin-bottom: 1.25rem;
@@ -74,10 +76,7 @@
   }
 
   section.liensUtiles {
-    > * {
-      max-width: $single-column-width;
-      margin: auto;
-    }
+    --width: #{$single-column-width};
 
     & h2 {
       @extend %title-small;
@@ -87,6 +86,10 @@
     & ul > li:not(:last-child) {
         margin-bottom: 1rem;
     }
+  }
+
+  section.dispositifs {
+    --width: #{$double-column-width};
   }
 }
 
