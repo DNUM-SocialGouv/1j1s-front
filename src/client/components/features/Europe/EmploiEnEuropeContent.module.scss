@@ -8,6 +8,7 @@
   $color-section-pair: utilities.$color-background-primary-alternative;
   $color-card-background: utilities.$color-background-primary;
   $color-card-border: utilities.$color-background-border;
+  $color-titre-dispositifs: utilities.$color-title-primary;
 
   $single-column-width: 47.25rem;
   $double-column-width: 81rem;
@@ -93,22 +94,49 @@
   section.dispositifs {
     --width: #{$double-column-width};
 
-    & ul.cards > li {
-      background-color: $color-card-background;
-      border: 1px solid $color-card-border;
-      border-radius: 2.5rem;
-      padding: 2rem;
+    & h2 {
+      @extend %title-medium;
+      color: $color-titre-dispositifs;
+      padding-bottom: 4rem;
+      text-align: center;
+    }
 
-      > *:not(:last-child) {
-        margin-bottom: 2rem;
+    & ul.cards {
+      display: grid;
+      gap: 1rem;
+      @include utilities-deprecated.media(large) {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        & li[aria-labelledby="erasmus"] {
+          grid-row: span 2;
+        }
+      }
+
+      & > li {
+        background-color: $color-card-background;
+        border: 1px solid $color-card-border;
+        border-radius: 2.5rem;
+        padding: 2rem;
+        height: fit-content;
+
+        > *:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+
+        > h3 {
+          @extend %title-small;
+          font-weight: bold;
+          text-align: center;
+        }
       }
 
       // TODO (GAFI 21-09-2023):
-      //  & h* { bold; font-size }
       //  & dt { bold; font-size; list-marker }
-      //  & a { fit-content }
-      // also grid avec packed et span 2 sur erasmus
-      // also titre de section
+      //  & a { fit-content, centered }
+      //  also check version mobile
+      //    pas de flèches, ...
+      //  also supprimer section sur les aides financières
+      //  cleaner le CSS devenu obsolete
     }
   }
 }
