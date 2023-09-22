@@ -21,7 +21,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
 import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
-import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -30,7 +30,6 @@ import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
-import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
