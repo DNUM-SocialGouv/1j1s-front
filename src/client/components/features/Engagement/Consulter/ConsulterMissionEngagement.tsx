@@ -2,7 +2,7 @@ import React from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';
@@ -36,12 +36,12 @@ export function ConsulterMissionEngagement({
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{missionEngagement.url && (
-							<LinkStyledAsButton
+							<LinkStyledAsButtonWithIcon
 								href={missionEngagement.url}
 								appearance="asPrimaryButton"
 							>
 								S’engager
-							</LinkStyledAsButton>
+							</LinkStyledAsButtonWithIcon>
 						)}
 					</div>
 				</div>

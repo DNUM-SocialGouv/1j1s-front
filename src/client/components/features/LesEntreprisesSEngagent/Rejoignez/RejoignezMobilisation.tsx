@@ -4,7 +4,7 @@ import React from 'react';
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function RejoignezMobilisation() {
 	return <div className={styles.content}>
@@ -25,11 +25,11 @@ export default function RejoignezMobilisation() {
 				de services inédits</b> : un accompagnement personnalisé si vous le souhaitez, des aides pour communiquer, etc.
 			</p>
 			<div className={styles.linkAsButtonWrapper}>
-				<LinkStyledAsButton href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la
-					mobilisation</LinkStyledAsButton>
-				<LinkStyledAsButton href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">
+				<LinkStyledAsButtonWithIcon href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la
+					mobilisation</LinkStyledAsButtonWithIcon>
+				<LinkStyledAsButtonWithIcon href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">
 					Découvrir les entreprises engagées
-				</LinkStyledAsButton>
+				</LinkStyledAsButtonWithIcon>
 			</div>
 		</Container>
 	</div>;

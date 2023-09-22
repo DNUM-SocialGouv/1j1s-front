@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { getHtmlFromMd } from '~/client/components/ui/Marked/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -42,11 +42,11 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{offreDeStage.urlDeCandidature &&
-                <LinkStyledAsButton
+                <LinkStyledAsButtonWithIcon
                 	href={offreDeStage.urlDeCandidature}
                 	appearance="asPrimaryButton">
                     Postuler
-                </LinkStyledAsButton>
+                </LinkStyledAsButtonWithIcon>
 						}
 					</div>
 				</div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/JeRecrute/DecouvrirDispositifs/DecouvrirDispositifs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export function DécouvrirDispositifs () {
 
@@ -22,13 +22,13 @@ export function DécouvrirDispositifs () {
 				<p>Dans le cadre du plan 1 jeune, 1 solution, nous vous accompagnons dans la recherche de vos futurs collaborateurs.</p>
 				<ul className={styles.offres}>
 					<li>
-						<LinkStyledAsButton href="/emplois/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d‘emploi</LinkStyledAsButton>
+						<LinkStyledAsButtonWithIcon href="/emplois/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d‘emploi</LinkStyledAsButtonWithIcon>
 					</li>
 					<li>
-						<LinkStyledAsButton href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance</LinkStyledAsButton>
+						<LinkStyledAsButtonWithIcon href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance</LinkStyledAsButtonWithIcon>
 					</li>
 					<li>
-						<LinkStyledAsButton href={MAIL_TO} appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage</LinkStyledAsButton>
+						<LinkStyledAsButtonWithIcon href={MAIL_TO} appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage</LinkStyledAsButtonWithIcon>
 					</li>
 				</ul>
 			</Container>

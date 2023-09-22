@@ -25,20 +25,18 @@ interface LinkStyledAsButtonProps extends React.ComponentPropsWithoutRef<'a'> {
 	prefetch?: boolean
 }
 
+
 type LinkStyledAsButtonWithIconProps = LinkStyledAsButtonProps & IconProps
 
-export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWithIconProps> ) {
+export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWithIconProps>){
 	const {
 		appearance,
 		children,
 		className,
-		iconPosition,
-		icon,
 		href,
 		prefetch = false,
 		...rest
 	} = props;
-	const isInternalLink = useIsInternalLink(href);
 
 	const appearanceClass = useMemo(() => {
 		switch (appearance) {
@@ -52,6 +50,26 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWi
 				return styles.quaternaryButton;
 		}
 	}, [appearance]);
+
+
+	return (
+		<Link href={href} prefetch={prefetch} className={classNames(className, appearanceClass)} {...rest}>
+			{children}
+		</Link>
+	);
+}
+
+
+export function LinkStyledAsButtonWithIcon(props: PropsWithChildren<LinkStyledAsButtonWithIconProps> ) {
+	const {
+		children,
+		className,
+		iconPosition,
+		icon,
+		href,
+		...rest
+	} = props;
+	const isInternalLink = useIsInternalLink(href);
 
 	const iconClass = useMemo(() => {
 		switch (iconPosition) {
@@ -80,8 +98,8 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWi
 	}, [icon, iconPosition, children, isInternalLink]);
 
 	return (
-		<Link href={href} prefetch={prefetch} className={classNames(className, appearanceClass, iconClass)} {...rest}>
+		<LinkStyledAsButton href={href} className={classNames(className, iconClass)} {...rest}>
 			{linkStyledAsButtonWithIconBody}
-		</Link>
+		</LinkStyledAsButton>
 	);
 }

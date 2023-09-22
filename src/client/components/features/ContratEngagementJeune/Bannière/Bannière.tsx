@@ -4,7 +4,7 @@ import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '../../../ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export default function Bannière() {
@@ -18,11 +18,11 @@ export default function Bannière() {
 				<span className={styles.bannièreTitle}>
 					<h1 className={styles.titre}>{titre}</h1>
 					{!isLargeScreen && (<p className={styles.bannièreAccroche}>{accroche}</p>)}
-					<LinkStyledAsButton className={styles.cta} href="#accompagnement"
-						aria-label={'Se lancer : Contrat d‘Engagement Jeune'}
-						appearance={'asSecondaryButton'} 
-						icon={<Icon name="angle-right"/>}
-						iconPosition={'right'}>Se lancer</LinkStyledAsButton>
+					<LinkStyledAsButtonWithIcon className={styles.cta} href="#accompagnement"
+																			aria-label={'Se lancer : Contrat d‘Engagement Jeune'}
+																			appearance={'asSecondaryButton'}
+																			icon={<Icon name="angle-right"/>}
+																			iconPosition={'right'}>Se lancer</LinkStyledAsButtonWithIcon>
 				</span>
 			</div>
 			{isLargeScreen && (
