@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.147.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.4...v3.147.5) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* fix l'affichage des ServiceCard en mobile ([#2017](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2017)) ([47aaadf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/47aaadf5f23be3757264518c13ebe2335e3a4bed))
+
 ## [3.147.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.3...v3.147.4) (2023-09-22)
 
 
