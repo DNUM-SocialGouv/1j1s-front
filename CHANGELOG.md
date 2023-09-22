@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.147.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.5...v3.147.6) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update docusaurus monorepo to v2.4.3 ([#2019](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2019)) ([e095ef0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e095ef0278d00882ec60f2fb1dff16a25941c614))
+
 ## [3.147.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.4...v3.147.5) (2023-09-22)
 
 
