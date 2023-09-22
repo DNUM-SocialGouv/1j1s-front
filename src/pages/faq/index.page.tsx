@@ -7,7 +7,6 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
 import { Question } from '~/server/cms/domain/FAQ.type';
@@ -21,7 +20,6 @@ const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
 export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return (
 		<>

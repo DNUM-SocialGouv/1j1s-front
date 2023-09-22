@@ -1,15 +1,11 @@
 /**
  * @jest-environment jsdom
  */
-import {
-	render,
-	screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
-import {
-	mockUseInstantSearch,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { mockUseInstantSearch } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyOnInstantSearch = jest.spyOn(require('react-instantsearch-hooks-web'), 'useInstantSearch');
@@ -20,6 +16,7 @@ const ChildrenComponent = () => {
 };
 describe('InstantSearchErrorBoundary', () => {
 	beforeEach(() => {
+		mockUseRouter({});
 		mockLargeScreen();
 	});
 

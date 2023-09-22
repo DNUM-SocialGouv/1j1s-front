@@ -4,7 +4,7 @@ import React, {
 	useMemo,
 } from 'react';
 
-import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
+import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
 import { DescriptionDuLogement } from '~/client/components/features/Logement/Consulter/DescriptionDuLogement';
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
@@ -53,7 +53,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 
 	return (
 		<main id="contenu" className={styles.gridLayout}>
-			<ButtonRetour className={styles.boutonRetour}/>
+			<BackButton className={styles.boutonRetour}/>
 			{isSmallScreen && <AnnonceSource source={source}/>}
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>

@@ -3,12 +3,10 @@ import { GetServerSidePropsResult } from 'next';
 import { Head } from '~/client/components/head/Head';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/emplois-europe/index.analytics';
 
 export default function EmploiEuropePage() {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return <>
 		<Head

@@ -2,7 +2,7 @@ import { GetStaticPathsResult, GetStaticPropsContext, GetStaticPropsResult } fro
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
+import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { ConsulterFicheMétier } from '~/client/components/features/FicheMétier/Consulter/ConsulterFicheMétier';
 import { OnisepGeneralPartner } from '~/client/components/features/ServiceCard/OnisepGeneralPartner';
 import { Head } from '~/client/components/head/Head';
@@ -36,7 +36,7 @@ export default function ConsulterFicheMetierPage({ ficheMetier }: ConsulterFiche
 			/>
 			<main id="contenu">
 				<Container className={styles.container}>
-					<ButtonRetour className={styles.backButton}/>
+					<BackButton className={styles.backButton}/>
 					<ConsulterFicheMétier ficheMetier={ficheMetier}/>
 				</Container>
 				<div className={'background-white-lilac'}>
@@ -72,7 +72,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FicheMetierC
 
 	return {
 		props: {
-		   ficheMetier: JSON.parse(JSON.stringify(response.result)),
+			ficheMetier: JSON.parse(JSON.stringify(response.result)),
 		},
 		revalidate: 86400,
 	};

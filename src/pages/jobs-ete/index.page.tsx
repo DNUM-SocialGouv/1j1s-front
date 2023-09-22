@@ -5,13 +5,11 @@ import React, { useEffect } from 'react';
 
 import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher/RechercherJobEte';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/jobs-ete/index.analytics';
 
 export default function RechercherJobsEtePage() {
 	const router = useRouter();
 	useAnalytics(analytics);
-	useReferrer();
 
 	useEffect(() => {
 		if (router.isReady) {

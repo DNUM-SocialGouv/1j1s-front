@@ -1,18 +1,13 @@
 import React from 'react';
 
-import Localisation from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
+import Localisation
+	from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
 import { Head } from '~/client/components/head/Head';
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
-import useReferrer from '~/client/hooks/useReferrer';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 
 import styles from './DeposerOffreStageEtape3Localisation.module.scss';
 
 export default function DeposerOffreStageEtape3Page() {
-	useReferrer();
 
 	return (
 		<>
