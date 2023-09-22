@@ -16,7 +16,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 	étiquettesRecherche?: React.ReactElement
 	formulaireRecherche: React.ReactElement
 	isLoading: boolean
-	nombreSolutions: Array<number>
+	listNombreSolutionsByTab: Array<number>
 	paginationOffset?: number
 	maxPage?: number
 	listeSolutionElementTab: Array<{
@@ -33,7 +33,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		erreurRecherche,
 		étiquettesRecherche,
 		formulaireRecherche,
-		nombreSolutions,
+		listNombreSolutionsByTab,
 		paginationOffset,
 		maxPage,
 		isLoading,
@@ -62,7 +62,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             		: <>
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
-            				{(nombreSolutions[currentTab] !== 0 || isLoading )&&
+            				{(listNombreSolutionsByTab[currentTab] !== 0 || isLoading )&&
                         <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
                         	<h2>{messageResultatRechercheCurrentTab}</h2>
                         </Skeleton>
@@ -82,7 +82,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
-            									{nombreSolutions[currentTab] !== 0 ?
+            									{listNombreSolutionsByTab[currentTab] !== 0 ?
             										solutionElement.listeSolutionElement
             										: messageNoResult
             									}
@@ -91,10 +91,10 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             						</Tabs>
             					</>
             				</Skeleton>
-            				{paginationOffset && nombreSolutions[currentTab] > paginationOffset &&
+            				{paginationOffset && listNombreSolutionsByTab[currentTab] > paginationOffset &&
                         <div className={styles.pagination}>
                         	<Pagination
-                        		numberOfResult={nombreSolutions[currentTab]}
+                        		numberOfResult={listNombreSolutionsByTab[currentTab]}
                         		numberOfResultPerPage={paginationOffset}
                         		maxPage={maxPage}
                         	/>

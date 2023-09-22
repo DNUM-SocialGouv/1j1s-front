@@ -34,7 +34,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				nombreSolutions={[1, 1]}
+				listNombreSolutionsByTab={[1, 1]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
@@ -50,7 +50,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				nombreSolutions={[0]}
+				listNombreSolutionsByTab={[0]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
@@ -67,7 +67,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				nombreSolutions={[0]}
+				listNombreSolutionsByTab={[0]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
@@ -94,7 +94,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				render(<RechercherSolutionLayoutWithTabs
 					bannière={<></>}
 					formulaireRecherche={<></>}
-					nombreSolutions={[1, 1]}
+					listNombreSolutionsByTab={[1, 1]}
 					listeSolutionElementTab={listSolutionElementTab}
 					isLoading={false}/>);
 
@@ -123,7 +123,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				render(<RechercherSolutionLayoutWithTabs
 					bannière={<></>}
 					formulaireRecherche={<></>}
-					nombreSolutions={[1, 0]}
+					listNombreSolutionsByTab={[1, 0]}
 					listeSolutionElementTab={listSolutionElementTab}
 					isLoading={false}/>);
 
