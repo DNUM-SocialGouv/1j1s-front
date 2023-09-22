@@ -128,6 +128,25 @@
           font-weight: bold;
           text-align: center;
         }
+
+        > a {
+          display: flex;
+          width: fit-content;
+          margin: auto;
+        }
+
+        & dt {
+          font-weight: bold;
+        }
+
+        & dt:not(:last-child) {
+          margin-top: 1rem;
+          margin-bottom: .25rem
+        }
+        & dd li,
+        & dd + dd {
+          margin-top: .25rem
+        }
       }
 
       // TODO (GAFI 21-09-2023):
