@@ -126,6 +126,33 @@ describe('RechercherJobEte', () => {
 					expect(filtresRecherche).toBeInTheDocument();
 					expect(within(filtresRecherche).getByText('BOURG LES VALENCE (26500)')).toBeInTheDocument();
 				});
+				it('quand il n’y a pas de code postal dans la query, affiche seulement le nom de la localisation dans l’étiquette', async () => {
+					// GIVEN
+					const offreServiceMock = anOffreService();
+					const localisationServiceMock = aLocalisationService();
+					mockUseRouter({
+						query: {
+							codeLocalisation: '26',
+							nomLocalisation: 'BOURG LES VALENCE',
+							typeLocalisation: 'COMMUNE',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							localisationService={localisationServiceMock}
+							offreService={offreServiceMock}
+						>
+							<RechercherJobEte/>
+						</DependenciesProvider>,
+					);
+
+					// THEN
+					const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+					expect(filtresRecherche).toBeInTheDocument();
+					expect(within(filtresRecherche).getByText('BOURG LES VALENCE')).toBeInTheDocument();
+				});
 			});
 		});
 

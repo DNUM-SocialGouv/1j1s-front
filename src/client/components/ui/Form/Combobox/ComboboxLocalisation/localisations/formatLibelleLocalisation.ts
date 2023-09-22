@@ -1,3 +1,3 @@
-export function formatLibelleLocalisation(nom: string, code: string) {
-	return `${nom} (${code})`;
+export function formatLibelleLocalisation(nom: string, code?: string) {
+	return code ? `${nom} (${code})` : nom;
 }

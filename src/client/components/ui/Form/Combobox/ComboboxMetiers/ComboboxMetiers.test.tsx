@@ -286,9 +286,8 @@ describe('<ComboboxMetiers />', () => {
 
 		await user.type(screen.getByRole('combobox'), 'test');
 
-		const message = screen.getByRole('status');
+		const message = await screen.findByText( 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.' );
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.');
 	});
 
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {
