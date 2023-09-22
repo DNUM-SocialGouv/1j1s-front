@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.148.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.7...v3.148.0) (2023-09-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **404:** ajout du bouton retour sur les pages d'erreur ([#2013](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2013)) ([bb5ac69](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb5ac69ebda77335c5bdba1b2c9681387a57895c))
+
 ## [3.147.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.6...v3.147.7) (2023-09-22)
 
 
