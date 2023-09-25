@@ -28,7 +28,7 @@ interface LinkStyledAsButtonProps extends React.ComponentPropsWithoutRef<'a'> {
 
 type LinkStyledAsButtonWithIconProps = LinkStyledAsButtonProps & IconProps
 
-export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonWithIconProps>){
+export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonProps>){
 	const {
 		appearance,
 		children,

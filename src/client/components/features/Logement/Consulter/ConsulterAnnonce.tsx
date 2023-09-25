@@ -122,7 +122,7 @@ function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
 				return null;
 		}
 	}, [source]);
-};
+}
 
 function CandidaterDesktop({
 														 source,

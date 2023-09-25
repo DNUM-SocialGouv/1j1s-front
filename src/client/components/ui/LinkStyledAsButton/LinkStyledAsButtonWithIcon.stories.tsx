@@ -21,7 +21,7 @@ const meta: Meta<typeof LinkStyledAsButtonWithIcon> = {
 		prefetch:true,
 	},
 	component: LinkStyledAsButtonWithIcon,
-	title: 'Components/LinkStyledAsButton',
+	title: 'Components/LinkStyledAsButton/LinkStyledAsButtonWithIcon',
 };
 export default meta;
 type Story = StoryObj<typeof LinkStyledAsButtonWithIcon>;
@@ -47,4 +47,3 @@ export const asQuaternayButton: Story = {
 		appearance: 'asQuaternayButton',
 	},
 };
-
