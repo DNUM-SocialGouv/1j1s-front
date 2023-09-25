@@ -8,15 +8,13 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export interface RésultatRechercherSolutionProps {
+export type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
 	intituléLienOffre?: string;
-	logo?: string;
 	sousTitreOffre?: string;
 	étiquetteOffreList: string[];
-	logoAlt?: string;
-} // TODO empêcher logo vide et logoAlt présent?
+} & ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt='' } = props;

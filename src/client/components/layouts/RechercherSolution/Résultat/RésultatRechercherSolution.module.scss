@@ -67,7 +67,7 @@ $cardLeadBorder: 4px solid $cardLeadBorderColor;
   }
 }
 
-//NOTE : logoCardLead can be deleted once :has pseudo-selector is deemed supported enough
+//NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
 .logoCardLead {
   border-bottom: $cardLeadBorder;
 }
