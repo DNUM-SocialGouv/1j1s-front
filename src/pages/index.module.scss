@@ -1,8 +1,12 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 
 .hero {
     &Button {
         margin-top: 1.5rem;
+        outline-color: $colorHeroButtonOutline;
     }
     &Title {
         @extend %bold;
