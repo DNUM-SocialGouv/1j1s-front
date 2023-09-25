@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.148.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.0...v3.148.1) (2023-09-24)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/dompurify to v3.0.3 ([e87a9ea](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e87a9ea543e2a719f8f40add9c634e85ab7c9072))
+* **deps:** update dependency @types/jest to v29.5.5 ([#2032](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2032)) ([e40788c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e40788ccc75bcbc072096c472cb2fd3dda9092ae))
+* **deps:** update dependency @types/jest-axe to v3.5.6 ([#2033](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2033)) ([0a9de5a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a9de5a9196cc4d4931eb94650990f7cc3010080))
+* **deps:** update dependency eslint-plugin-storybook to v0.6.14 ([#2034](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2034)) ([d7ad176](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d7ad1766f454894a75aae03da09ea7f297850b72))
+* **deps:** update storybook monorepo to v7.4.4 ([#2035](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2035)) ([345a167](https://github.com/DNUM-SocialGouv/1j1s-front/commit/345a16753f61bbf01717bed2da269cb73268cba8))
+* **deps:** update storybook monorepo to v7.4.5 ([e009093](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e0090931f2f3a09e7606a55bcc9a1824db4cd2ae))
+
 ## [3.148.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.7...v3.148.0) (2023-09-22)
 
 
