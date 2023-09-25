@@ -5,16 +5,11 @@
 import { queries as defaultQueries, render, screen, within as defaultWithin } from '@testing-library/react';
 
 import { Dispositifs } from '~/client/components/features/Europe/Sections/Dispositifs';
-import { mockLargeScreen } from '~/client/components/window.mock';
 import { queries } from '~/test-utils';
 
 const within = (element: HTMLElement) => defaultWithin(element, { ...queries, ...defaultQueries });
 
 describe('<Dispositifs />', () => {
-	beforeEach(() => {
-		// FIXME (GAFI 18-09-2023): Devrait être inutile à terme
-		mockLargeScreen();
-	});
 	it('affiche le titre de section', () => {
 		render(<Dispositifs />);
 

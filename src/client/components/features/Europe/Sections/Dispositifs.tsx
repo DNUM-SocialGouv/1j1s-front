@@ -12,8 +12,7 @@ function CardEures() {
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
 				<dd>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de l’Union
-				européenne.
-				</dd>
+				européenne.</dd>
 				<dt>Pour qui ?</dt>
 				<dd>Tout demandeur d’emploi de plus de 18 ans ; indépendamment de ses qualifications.</dd>
 				<dt>Pour quelle durée ?</dt>

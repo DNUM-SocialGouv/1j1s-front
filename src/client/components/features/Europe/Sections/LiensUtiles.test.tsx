@@ -5,7 +5,6 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { LiensUtiles } from '~/client/components/features/Europe/Sections/LiensUtiles';
-import { mockLargeScreen } from '~/client/components/window.mock';
 
 describe('<LiensUtiles />', () => {
 	it('affiche le titre de la section', () => {
