@@ -8,13 +8,14 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export type RésultatRechercherSolutionProps = {
+type LogoProps = ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
+type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
 	intituléLienOffre?: string;
 	sousTitreOffre?: string;
 	étiquetteOffreList: string[];
-} & ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
+} & LogoProps
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt='' } = props;
