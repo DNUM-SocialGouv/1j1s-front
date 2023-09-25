@@ -83,7 +83,7 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 					label: 'tab2',
 					listeSolutionElement: <></>,
 					messageResultatRecherche: '2 résultats pour tab2',
-					nombreDeSolutions: 1
+					nombreDeSolutions: 1,
 				}];
 				
 				render(<RechercherSolutionLayoutWithTabs
