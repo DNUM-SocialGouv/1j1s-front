@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.149.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.1...v3.149.0) (2023-09-25)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **alternances:** ajout d'un message d'erreur si pas de résultat ([#2028](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2028)) ([442ff2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/442ff2d50a6e6b47728382ec28a29a5e67363e3e))
+
 ## [3.148.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.0...v3.148.1) (2023-09-24)
 
 
