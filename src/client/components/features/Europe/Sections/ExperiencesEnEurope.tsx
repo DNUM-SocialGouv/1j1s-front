@@ -6,7 +6,6 @@ import styles from '../EmploiEnEuropeContent.module.scss';
 
 export function ExperiencesEnEurope() {
 	return (
-		// FIXME (GAFI 21-09-2023): Virer la div et mettre le container sur la section
 		<section className={styles.experience}>
 			<LightHero className={styles.hero}>
 				<h1>
