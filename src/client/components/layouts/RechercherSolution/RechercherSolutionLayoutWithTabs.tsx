@@ -1,10 +1,10 @@
-
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
@@ -16,13 +16,14 @@ interface RechercherSolutionLayoutWithTabsProps {
 	étiquettesRecherche?: React.ReactElement
 	formulaireRecherche: React.ReactElement
 	isLoading: boolean
-	nombreSolutions: number
 	paginationOffset?: number
 	maxPage?: number
 	listeSolutionElementTab: Array<{
 		label: string
 		listeSolutionElement: React.ReactElement
 		messageResultatRecherche: string
+		messageNoResult?: React.ReactElement
+		nombreDeSolutions: number
 	}>
 }
 
@@ -32,7 +33,6 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		erreurRecherche,
 		étiquettesRecherche,
 		formulaireRecherche,
-		nombreSolutions,
 		paginationOffset,
 		maxPage,
 		isLoading,
@@ -43,6 +43,10 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 	const [currentTab, setCurrentTab] = useState<number>(0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
+	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
+	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
+	const hasSolutionsInCurrentTab = listeSolutionElementTab[currentTab].nombreDeSolutions > 0;
+
 
 	return (
 		<>
@@ -56,14 +60,15 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 
 				{hasRouterQuery &&
             <>
-            	{erreurRecherche || nombreSolutions === 0 && !isLoading
-            		? <ErrorComponent errorType={erreurRecherche}/>
+            	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
             		: <>
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
-            				<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-            					<h2>{messageResultatRechercheCurrentTab}</h2>
-            				</Skeleton>
+            				{(hasSolutionsInCurrentTab || isLoading) &&
+                        <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
+                        	<h2>{messageResultatRechercheCurrentTab}</h2>
+                        </Skeleton>
+            				}
             			</Container>
 
             			<div>
@@ -79,16 +84,19 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
-            									{solutionElement.listeSolutionElement}
+            									{hasSolutionsInCurrentTab ?
+            										solutionElement.listeSolutionElement
+            										: messageNoResult
+            									}
             								</TabPanel>
             							))}
             						</Tabs>
             					</>
             				</Skeleton>
-            				{paginationOffset && nombreSolutions > paginationOffset &&
+            				{shouldDisplayPagination &&
                         <div className={styles.pagination}>
                         	<Pagination
-                        		numberOfResult={nombreSolutions}
+                        		numberOfResult={listeSolutionElementTab[currentTab].nombreDeSolutions}
                         		numberOfResultPerPage={paginationOffset}
                         		maxPage={maxPage}
                         	/>
