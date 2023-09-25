@@ -1,12 +1,12 @@
 import { ErrorMessageComponent } from '~/client/components/ui/ErrorMessage/ErrorMessageComponent/ErrorMessageComponent';
 
-interface noResultErrorMessage {
+interface NoResultErrorMessageProps {
 	title?: string
 	explanationText?: string
 	solutionText?:string
 }
 
-export function NoResultErrorMessage(props: noResultErrorMessage) {
+export function NoResultErrorMessage(props: NoResultErrorMessageProps) {
 	return (
 		<ErrorMessageComponent
 			title={props.title ?? '0 résultat'}

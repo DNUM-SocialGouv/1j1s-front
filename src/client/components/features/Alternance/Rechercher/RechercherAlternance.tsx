@@ -105,14 +105,14 @@ export default function RechercherAlternance() {
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
-				listNombreSolutionsByTab={[alternanceList.offreList.length, alternanceList.entrepriseList.length]}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
 					messageNoResult: <NoResultErrorMessage
 						explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche." />,
+						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."/>,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
+					nombreDeSolutions: alternanceList.offreList.length,
 				},
 				{
 					label: 'Entreprises',
@@ -120,8 +120,9 @@ export default function RechercherAlternance() {
 						entrepriseList={alternanceList.entrepriseList}/>,
 					messageNoResult: <NoResultErrorMessage
 						explanationText="Aucune entreprise ne correspond à votre recherche."
-						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche." />,
+						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche."/>,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
+					nombreDeSolutions: alternanceList.entrepriseList.length,
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>

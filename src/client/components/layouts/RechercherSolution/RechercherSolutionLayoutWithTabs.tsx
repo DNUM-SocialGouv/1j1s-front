@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
@@ -16,7 +16,6 @@ interface RechercherSolutionLayoutWithTabsProps {
 	étiquettesRecherche?: React.ReactElement
 	formulaireRecherche: React.ReactElement
 	isLoading: boolean
-	listNombreSolutionsByTab: Array<number>
 	paginationOffset?: number
 	maxPage?: number
 	listeSolutionElementTab: Array<{
@@ -24,6 +23,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 		listeSolutionElement: React.ReactElement
 		messageResultatRecherche: string
 		messageNoResult?: React.ReactElement
+		nombreDeSolutions: number
 	}>
 }
 
@@ -33,7 +33,6 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		erreurRecherche,
 		étiquettesRecherche,
 		formulaireRecherche,
-		listNombreSolutionsByTab,
 		paginationOffset,
 		maxPage,
 		isLoading,
@@ -45,6 +44,9 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const [currentTab, setCurrentTab] = useState<number>(0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
 	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
+	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
+	const hasSolutionsInCurrentTab = listeSolutionElementTab[currentTab].nombreDeSolutions > 0;
+
 
 	return (
 		<>
@@ -62,7 +64,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             		: <>
             			<Container className={styles.informationRésultat}>
             				{étiquettesRecherche}
-            				{(listNombreSolutionsByTab[currentTab] !== 0 || isLoading )&&
+            				{(hasSolutionsInCurrentTab || isLoading) &&
                         <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
                         	<h2>{messageResultatRechercheCurrentTab}</h2>
                         </Skeleton>
@@ -82,7 +84,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             							</TabsLabel>
             							{listeSolutionElementTab.map((solutionElement) => (
             								<TabPanel key={solutionElement.label}>
-            									{listNombreSolutionsByTab[currentTab] !== 0 ?
+            									{hasSolutionsInCurrentTab ?
             										solutionElement.listeSolutionElement
             										: messageNoResult
             									}
@@ -91,10 +93,10 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             						</Tabs>
             					</>
             				</Skeleton>
-            				{paginationOffset && listNombreSolutionsByTab[currentTab] > paginationOffset &&
+            				{shouldDisplayPagination &&
                         <div className={styles.pagination}>
                         	<Pagination
-                        		numberOfResult={listNombreSolutionsByTab[currentTab]}
+                        		numberOfResult={listeSolutionElementTab[currentTab].nombreDeSolutions}
                         		numberOfResultPerPage={paginationOffset}
                         		maxPage={maxPage}
                         	/>

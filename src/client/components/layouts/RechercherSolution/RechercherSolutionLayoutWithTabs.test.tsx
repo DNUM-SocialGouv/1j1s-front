@@ -19,38 +19,35 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 		it('lorsqu‘il y a des résultats, je vois le message du résultat de recherche associé au premier onglet', () => {
 			const listSolutionElementTab = [{
 				label: 'tab1',
-				listeSolutionElement: <ul>
-					<li>tab1-el1</li>
-				</ul>,
+				listeSolutionElement: <></>,
 				messageResultatRecherche: '3 résultats pour tab1',
+				nombreDeSolutions: 1,
 			},
 			{
 				label: 'tab2',
-				listeSolutionElement: <ul>
-					<li>tab2-el1</li>
-				</ul>,
+				listeSolutionElement: <></>,
 				messageResultatRecherche: '2 résultats pour tab2',
+				nombreDeSolutions: 1,
 			}];
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				listNombreSolutionsByTab={[1, 1]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
 			expect(screen.getByText('3 résultats pour tab1')).toBeVisible();
 		});
 
-		it('lorsqu‘il n‘y a pas de résulat, je vois le message par default qui m‘explique qu‘aucun résultat a été trouvé', () => {
+		it('lorsqu‘il n‘y a pas de résulat, je vois le message par défaut qui m‘explique qu‘aucun résultat a été trouvé', () => {
 			const listSolutionElementTab = [{
 				label: 'tab1',
 				listeSolutionElement: <></>,
 				messageResultatRecherche: '3 résultats pour tab1',
+				nombreDeSolutions: 0,
 			}];
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				listNombreSolutionsByTab={[0]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
@@ -63,11 +60,11 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 				listeSolutionElement: <></>,
 				messageNoResult: <p>ooops 0 résultat</p>,
 				messageResultatRecherche: '3 résultats pour tab1',
+				nombreDeSolutions: 0,
 			}];
 			render(<RechercherSolutionLayoutWithTabs
 				bannière={<></>}
 				formulaireRecherche={<></>}
-				listNombreSolutionsByTab={[0]}
 				listeSolutionElementTab={listSolutionElementTab}
 				isLoading={false}/>);
 
@@ -78,23 +75,20 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			it('et qu‘il a des résultats, je vois le message du résultat de recherche associé à l‘onglet cliqué', async () => {
 				const listSolutionElementTab = [{
 					label: 'tab1',
-					listeSolutionElement: <ul>
-						<li>tab1-el1</li>
-					</ul>,
+					listeSolutionElement: <></>,
 					messageResultatRecherche: '3 résultats pour tab1',
+					nombreDeSolutions: 1,
 				},
 				{
 					label: 'tab2',
-					listeSolutionElement: <ul>
-						<li>tab2-el1</li>
-					</ul>,
+					listeSolutionElement: <></>,
 					messageResultatRecherche: '2 résultats pour tab2',
+					nombreDeSolutions: 1
 				}];
 				
 				render(<RechercherSolutionLayoutWithTabs
 					bannière={<></>}
 					formulaireRecherche={<></>}
-					listNombreSolutionsByTab={[1, 1]}
 					listeSolutionElementTab={listSolutionElementTab}
 					isLoading={false}/>);
 
@@ -107,23 +101,20 @@ describe('RechercherSolutionLayoutWithTabs', () => {
 			it('lorsque je clique sur un onglet et qu‘il n‘ a pas de résultat pour cet onglet, je vois le message qui m‘explique qu‘aucun résultat a été trouvé', async () => {
 				const listSolutionElementTab = [{
 					label: 'tab1',
-					listeSolutionElement: <ul>
-						<li>tab1-el1</li>
-					</ul>,
+					listeSolutionElement: <></>,
 					messageResultatRecherche: '3 résultats pour tab1',
+					nombreDeSolutions: 1,
 				},
 				{
 					label: 'tab2',
-					listeSolutionElement: <ul>
-						<li>tab2-el1</li>
-					</ul>,
+					listeSolutionElement: <></>,
 					messageResultatRecherche: '2 résultats pour tab2',
+					nombreDeSolutions: 0,
 				}];
 				
 				render(<RechercherSolutionLayoutWithTabs
 					bannière={<></>}
 					formulaireRecherche={<></>}
-					listNombreSolutionsByTab={[1, 0]}
 					listeSolutionElementTab={listSolutionElementTab}
 					isLoading={false}/>);
 

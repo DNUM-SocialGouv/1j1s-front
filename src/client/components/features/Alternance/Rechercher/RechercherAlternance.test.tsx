@@ -171,7 +171,7 @@ describe('RechercherAlternance', () => {
 						<RechercherAlternance/>
 					</DependenciesProvider>,
 				);
-				const onglet = await screen.findByText('Entreprises');
+				const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
 				const user = userEvent.setup();
 
 				await user.click(onglet);
@@ -201,7 +201,7 @@ describe('RechercherAlternance', () => {
 						</DependenciesProvider>,
 					);
 
-					const onglet = await screen.findByText('Contrats d‘alternance');
+					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
 					await user.click(onglet);
 
 					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
@@ -221,7 +221,7 @@ describe('RechercherAlternance', () => {
 						</DependenciesProvider>,
 					);
 
-					const onglet = await screen.findByText('Contrats d‘alternance');
+					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
 					await user.click(onglet);
 
 					expect(screen.getByText(/0 résultat/)).toBeVisible();
@@ -230,7 +230,7 @@ describe('RechercherAlternance', () => {
 				});
 			});
 			describe('lorsque je clique sur entreprise', () => {
-				it('lorsqu‘il y a des résultats, affiche le nombre de d’entreprises', async () => {
+				it('lorsqu‘il y a des résultats, affiche le nombre d’entreprises', async () => {
 					const user = userEvent.setup();
 					const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
 					const alternanceServiceMock = anAlternanceService([], entrepriseList);
@@ -245,7 +245,7 @@ describe('RechercherAlternance', () => {
 						</DependenciesProvider>,
 					);
 
-					const onglet = await screen.findByText('Entreprises');
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
 					await user.click(onglet);
 
 					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
@@ -253,7 +253,7 @@ describe('RechercherAlternance', () => {
 
 				it('lorsqu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux entreprises', async () => {
 					const user = userEvent.setup();
-					const alternanceServiceMock = anAlternanceService([], []);
+					const alternanceServiceMock = anAlternanceService([anAlternanceMatcha()], []);
 
 					render(
 						<DependenciesProvider
@@ -265,7 +265,7 @@ describe('RechercherAlternance', () => {
 						</DependenciesProvider>,
 					);
 
-					const onglet = await screen.findByText('Entreprises');
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
 					await user.click(onglet);
 
 					expect(screen.getByText(/0 résultat/)).toBeVisible();
