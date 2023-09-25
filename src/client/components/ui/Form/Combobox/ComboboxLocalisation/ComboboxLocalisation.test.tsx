@@ -122,7 +122,7 @@ describe('ComboboxLocalisation', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Commencez à taper pour rechercher un lieu');
+		expect(message).toHaveTextContent('Commencez à saisir au moins 3 caractères, 2 chiffres d’un département ou les 5 chiffres d’une commune, puis sélectionnez votre localisation');
 	});
 
 	it('affiche un message invitant à la saisie quand l’input utilisateur est invalide', async () => {
@@ -140,7 +140,7 @@ describe('ComboboxLocalisation', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Commencez à taper pour rechercher un lieu');
+		expect(message).toHaveTextContent('Commencez à saisir au moins 3 caractères, 2 chiffres d’un département ou les 5 chiffres d’une commune, puis sélectionnez votre localisation');
 	});
 
 	it('affiche un message de chargement quand la liste de suggestions est en train de charger des résultats', async () => {

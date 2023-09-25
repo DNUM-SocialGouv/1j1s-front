@@ -27,7 +27,7 @@ import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des lieux. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
-const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un lieu';
+const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, 2 chiffres d’un département ou les 5 chiffres d’une commune, puis sélectionnez votre localisation';
 const DEFAULT_LABEL = 'Localisation';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
