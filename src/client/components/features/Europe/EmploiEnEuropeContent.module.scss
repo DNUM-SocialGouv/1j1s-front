@@ -113,6 +113,7 @@
       }
 
       & > li {
+        @extend %text-medium;
         background-color: $color-card-background;
         border: 1px solid $color-card-border;
         border-radius: 2.5rem;
@@ -137,9 +138,21 @@
 
         & dt {
           font-weight: bold;
+          position: relative;
+
+          @include utilities-deprecated.media(large) {
+            $arrow: "\02192" + " ";
+            display: list-item;
+            list-style: $arrow;
+          }
+        }
+        @include utilities-deprecated.media(large) {
+          dl {
+            padding-left: 2.25rem;
+          }
         }
 
-        & dt:not(:last-child) {
+          & dt:not(:last-child) {
           margin-top: 1rem;
           margin-bottom: .25rem
         }
@@ -150,10 +163,6 @@
       }
 
       // TODO (GAFI 21-09-2023):
-      //  & dt { bold; font-size; list-marker }
-      //  & a { fit-content, centered }
-      //  also check version mobile
-      //    pas de flèches, ...
       //  also supprimer section sur les aides financières
       //  cleaner le CSS devenu obsolete
     }
