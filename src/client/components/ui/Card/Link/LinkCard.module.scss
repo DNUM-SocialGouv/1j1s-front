@@ -2,6 +2,9 @@
 
 .card {
 
+    display: inline-block;
+    width: 100%;
+
     &Article {
         border-radius: 20px;
         box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05) !important;

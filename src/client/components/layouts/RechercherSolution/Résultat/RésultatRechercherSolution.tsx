@@ -12,11 +12,11 @@ export interface RésultatRechercherSolutionProps {
 	lienOffre?: string;
 	intituléOffre: string;
 	intituléLienOffre?: string;
-	logo: string;
+	logo?: string;
 	sousTitreOffre?: string;
 	étiquetteOffreList: string[];
 	logoAlt?: string;
-}
+} // TODO empêcher logo vide et logoAlt présent?
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt='' } = props;
@@ -49,8 +49,8 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 		<div
 			className={styles.card}
 			data-testid="RésultatRechercherSolution">
-			<div className={styles.cardLead}>
-				<Image alt={logoAlt} src={logo} width={120} height={120}/>
+			<div className={classNames(styles.cardLead, logo && styles.logoCardLead)}>
+				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
 						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>

@@ -1,8 +1,14 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$cardBackgroundColor: utilities.$color-background-primary;
+$cardLeadBorderColor: utilities.$color-primary;
+$borderLeftColor: utilities.$color-primary;
+$callToActionColor: utilities.$color-cta-texte-secondary;
 
 .card {
   position: relative;
-  background: utilities-deprecated.$color-surface;
+  background: $cardBackgroundColor;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
@@ -34,7 +40,7 @@
 
     &CallToAction {
       @extend %text-medium;
-      color: utilities-deprecated.$color-primary;
+      color: $callToActionColor;
     }
   }
 
@@ -43,10 +49,15 @@
   }
 }
 
+$cardLeadBorder: 4px solid $cardLeadBorderColor;
+
 .cardLead {
   display: flex;
   padding: 1.5rem;
-  border-bottom: 4px solid utilities-deprecated.$color-primary;
+
+  :has(img) {
+    border-bottom: $cardLeadBorder
+  }
 
   > img {
     margin-top: auto;
@@ -54,6 +65,11 @@
     width: 56px;
     height: 56px;
   }
+}
+
+//NOTE : logoCardLead can be deleted once :has pseudo-selector is deemed supported enough
+.logoCardLead {
+  border-bottom: $cardLeadBorder;
 }
 
 .offreLead {
@@ -81,7 +97,7 @@
 @include utilities-deprecated.media(medium) {
   .card {
     padding: 2rem 1.5rem;
-    border-left: 4px solid utilities-deprecated.$color-primary;
+    border-left: 4px solid $borderLeftColor;
 
     &Lead {
       display: flex;

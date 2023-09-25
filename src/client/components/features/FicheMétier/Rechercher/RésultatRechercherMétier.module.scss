@@ -1,28 +1,10 @@
-@use "@styles/utilities-deprecated";
-
-.resultatCard {
-  border-left: 3px solid utilities-deprecated.$color-primary;
-  padding: 1.5rem 2rem;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  margin-bottom: 1rem;
-}
+@use "@styles/utilities";
 
 .description {
-  margin-bottom: 1rem;
-  @include utilities-deprecated.line-clamp(2);
+  margin-top: 1rem;
+  @include utilities.line-clamp(2);
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-bottom: 0.5rem;
   }
-}
-
-.fakeLink {
-  align-self: end;
 }
