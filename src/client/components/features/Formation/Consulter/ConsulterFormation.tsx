@@ -19,7 +19,7 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					<TagList list={formation.tags} />
 					{formation.lienDemandeRendezVous &&
 						<LinkStyledAsButtonWithIcon type={'external'} href={formation.lienDemandeRendezVous} className={commonStyles.postuler} appearance={'asPrimaryButton'}>
-							Demander un rendez-vous
+                            Contacter l’établissement
 						</LinkStyledAsButtonWithIcon>
 					}
 				</header>

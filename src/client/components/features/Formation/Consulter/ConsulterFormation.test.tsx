@@ -12,7 +12,7 @@ describe('ConsulterFormation', () => {
 	beforeEach(() => {
 		mockUseRouter({});
 	});
-	
+
 	it('affiche la formation', async () => {
 		const formation = {
 			adresse: {
@@ -33,7 +33,7 @@ describe('ConsulterFormation', () => {
 			tags: ['Paris'],
 			titre: 'Développeur web',
 		};
-		
+
 		render(<ConsulterFormation formation={formation}/>);
 
 		const titre = screen.getByRole('heading', { level: 1, name: formation.titre });
@@ -63,7 +63,7 @@ describe('ConsulterFormation', () => {
 		const url = screen.queryByText(formation.contact.url, { exact: false });
 		expect(url).toBeVisible();
 	});
-	it('affiche un lien pour demander un rendez-vous', () => {
+	it('affiche un lien pour envoyer une demande de contact à l’établissement de formation', () => {
 		const formation: Formation = {
 			adresse: {
 				adresseComplète: '1 rue de la République - 75001 - Paris',
@@ -87,10 +87,10 @@ describe('ConsulterFormation', () => {
 
 		render(<ConsulterFormation formation={formation}/>);
 
-		const link = screen.getByRole('link', { name: 'Demander un rendez-vous' });
+		const link = screen.getByRole('link', { name: 'Contacter l’établissement' });
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', formation.lienDemandeRendezVous);
-		expect(link).toHaveAttribute('title', 'Demander un rendez-vous - nouvelle fenêtre');
+		expect(link).toHaveAttribute('title', 'Contacter l’établissement - nouvelle fenêtre');
 	});
 	it('n’affiche pas de bouton pour demander un rendez-vous si le lien n’est pas renseigné', () => {
 		const formation: Formation = {
