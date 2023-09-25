@@ -1,13 +1,14 @@
 @use "@styles/utilities";
 
-$cardBackgroundColor: utilities.$color-background-primary;
-$cardLeadBorderColor: utilities.$color-primary;
-$borderLeftColor: utilities.$color-primary;
-$callToActionColor: utilities.$color-cta-texte-secondary;
+$color-card-background: utilities.$color-background-primary;
+$color-card-lead-border: utilities.$color-primary;
+$color-border-left: utilities.$color-primary;
+$color-call-to-action: utilities.$color-cta-texte-secondary;
+$border-card-lead: 4px solid $color-card-lead-border;
 
 .card {
   position: relative;
-  background: $cardBackgroundColor;
+  background: $color-card-background;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
@@ -39,7 +40,7 @@ $callToActionColor: utilities.$color-cta-texte-secondary;
 
     &CallToAction {
       @extend %text-medium;
-      color: $callToActionColor;
+      color: $color-call-to-action;
     }
   }
 
@@ -48,14 +49,12 @@ $callToActionColor: utilities.$color-cta-texte-secondary;
   }
 }
 
-$cardLeadBorder: 4px solid $cardLeadBorderColor;
-
 .cardLead {
   display: flex;
   padding: 1.5rem;
 
   :has(img) {
-    border-bottom: $cardLeadBorder
+    border-bottom: $border-card-lead
   }
 
   > img {
@@ -68,7 +67,7 @@ $cardLeadBorder: 4px solid $cardLeadBorderColor;
 
 //NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
 .logoCardLead {
-  border-bottom: $cardLeadBorder;
+  border-bottom: $border-card-lead;
 }
 
 .offreLead {
@@ -96,7 +95,7 @@ $cardLeadBorder: 4px solid $cardLeadBorderColor;
 @include utilities.media(medium) {
   .card {
     padding: 2rem 1.5rem;
-    border-left: 4px solid $borderLeftColor;
+    border-left: 4px solid $color-border-left;
 
     &Lead {
       display: flex;
