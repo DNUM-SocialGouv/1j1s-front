@@ -6,8 +6,10 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import {
+	LinkStyledAsButton,
+	LinkStyledAsButtonWithIcon,
+} from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 describe('LinkStyledAsButton', () => {
 	afterEach(() => {
@@ -45,6 +47,7 @@ describe('LinkStyledAsButton', () => {
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
 	});
+
 	describe('quand le lien est un lien interne avec href absolut', () => {
 		it('retourne le composant Link sans les propriétés de la redirection externe', () => {
 			Object.defineProperty(window, 'location', {
@@ -63,13 +66,17 @@ describe('LinkStyledAsButton', () => {
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});
 	});
+
 	describe('quand le lien est un lien interne vers une ancre', () => {
 		it('retourne le composant Link sans les propriétés de la redirection externe', () => {
 			const lienInterne = '#emplois';
 
 			render(
-				<LinkStyledAsButton href={lienInterne} appearance={'asPrimaryButton'} iconPosition={'left'}
-					icon={<Icon name="angle-left"/>}>ceci est un label</LinkStyledAsButton>,
+				<LinkStyledAsButtonWithIcon
+					href={lienInterne}
+					appearance={'asPrimaryButton'}>
+					ceci est un label
+				</LinkStyledAsButtonWithIcon>,
 			);
 
 			expect(screen.getByText('ceci est un label')).toBeVisible();
