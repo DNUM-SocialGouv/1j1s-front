@@ -6,7 +6,9 @@ import { BackButton } from '~/client/components/features/ButtonRetour/BackButton
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Error/ErrorLayout.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import {
+	LinkStyledAsButton,
+} from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 

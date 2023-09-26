@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '~/client/components/features/JeDeviensMentor/PourQui/PourQui.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export function PourQui() {
 	return (
@@ -36,8 +36,8 @@ export function PourQui() {
 					</dl>
 				</div>
 				<div className={styles.linkWrapper}>
-					<LinkStyledAsButton href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Devenir mentor</LinkStyledAsButton>
-					<LinkStyledAsButton href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise</LinkStyledAsButton>
+					<LinkStyledAsButtonWithIcon href="https://www.1jeune1mentor.fr/formulaire-mentor?1jeune1solution" appearance="asPrimaryButton">Devenir mentor</LinkStyledAsButtonWithIcon>
+					<LinkStyledAsButtonWithIcon href="/les-entreprises-s-engagent" appearance="asSecondaryButton">Engager mon entreprise</LinkStyledAsButtonWithIcon>
 				</div>
 			</Container>
 		</div>);

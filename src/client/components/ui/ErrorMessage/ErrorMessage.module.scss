@@ -1,19 +1,19 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .errorMessage {
   padding: 1rem;
+  @extend %text-large;
   & > * {
     display: block;
     margin-bottom: 1rem;
   }
   &Title {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    @extend %title-medium;
     @extend %bold;
   }
 }
 
-@media screen and (min-width: 48em) {
+@include utilities.media(medium){
   .errorMessage {
     text-align: center;
     max-width: 36em;

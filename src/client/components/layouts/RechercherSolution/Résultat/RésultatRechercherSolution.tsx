@@ -8,15 +8,14 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export interface RésultatRechercherSolutionProps {
+type LogoProps = ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
+type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
 	intituléLienOffre?: string;
-	logo: string;
 	sousTitreOffre?: string;
 	étiquetteOffreList: string[];
-	logoAlt?: string;
-}
+} & LogoProps
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt='' } = props;
@@ -49,8 +48,8 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 		<div
 			className={styles.card}
 			data-testid="RésultatRechercherSolution">
-			<div className={styles.cardLead}>
-				<Image alt={logoAlt} src={logo} width={120} height={120}/>
+			<div className={classNames(styles.cardLead, logo && styles.logoCardLead)}>
+				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
 						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>

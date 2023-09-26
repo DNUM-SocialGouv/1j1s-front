@@ -1,8 +1,15 @@
+@use "@styles/utilities";
 @use "@styles/utilities-deprecated";
+
+$color-card-background: utilities.$color-background-primary;
+$color-card-lead-border: utilities.$color-primary;
+$color-border-left: utilities.$color-primary;
+$color-call-to-action: utilities.$color-cta-texte-secondary;
+$border-card-lead: 4px solid $color-card-lead-border;
 
 .card {
   position: relative;
-  background: utilities-deprecated.$color-surface;
+  background: $color-card-background;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
@@ -34,7 +41,7 @@
 
     &CallToAction {
       @extend %text-medium;
-      color: utilities-deprecated.$color-primary;
+      color: $color-call-to-action;
     }
   }
 
@@ -46,7 +53,10 @@
 .cardLead {
   display: flex;
   padding: 1.5rem;
-  border-bottom: 4px solid utilities-deprecated.$color-primary;
+
+  :has(img) {
+    border-bottom: $border-card-lead
+  }
 
   > img {
     margin-top: auto;
@@ -54,6 +64,11 @@
     width: 56px;
     height: 56px;
   }
+}
+
+//NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
+.logoCardLead {
+  border-bottom: $border-card-lead;
 }
 
 .offreLead {
@@ -78,10 +93,10 @@
 }
 
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
   .card {
     padding: 2rem 1.5rem;
-    border-left: 4px solid utilities-deprecated.$color-primary;
+    border-left: 4px solid $color-border-left;
 
     &Lead {
       display: flex;

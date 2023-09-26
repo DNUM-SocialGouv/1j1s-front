@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/OutilADisposition/EntreprendreOutilADisposition.module.scss';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 interface EntreprendreOutilADispositionProps {
   link: string
@@ -13,9 +13,9 @@ export function EntreprendreOutilADisposition({ link, linkLabel, description }: 
 	return (
 		<div className={styles.entreprendreOutilADisposition}>
 			<p>{description}</p>
-			<LinkStyledAsButton appearance="asPrimaryButton" href={link}>
+			<LinkStyledAsButtonWithIcon appearance="asPrimaryButton" href={link}>
 				{linkLabel}
-			</LinkStyledAsButton>
+			</LinkStyledAsButtonWithIcon>
 		</div>
 	);
 }

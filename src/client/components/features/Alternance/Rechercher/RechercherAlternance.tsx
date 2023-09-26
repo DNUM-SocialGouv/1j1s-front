@@ -21,6 +21,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
 import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
@@ -104,17 +105,24 @@ export default function RechercherAlternance() {
 				étiquettesRecherche={étiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheAlternance/>}
 				isLoading={isLoading}
-				nombreSolutions={alternanceList.offreList.length + alternanceList.entrepriseList.length}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,
+					messageNoResult: <NoResultErrorMessage
+						explanationText="Aucun contrat d‘alternance ne correspond à votre recherche."
+						solutionText="Vous pouvez consulter les entreprises ou modifier votre recherche."/>,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.offreList.length),
+					nombreDeSolutions: alternanceList.offreList.length,
 				},
 				{
 					label: 'Entreprises',
 					listeSolutionElement: <ListeSolutionAlternanceEntreprise
 						entrepriseList={alternanceList.entrepriseList}/>,
+					messageNoResult: <NoResultErrorMessage
+						explanationText="Aucune entreprise ne correspond à votre recherche."
+						solutionText="Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche."/>,
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
+					nombreDeSolutions: alternanceList.entrepriseList.length,
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>

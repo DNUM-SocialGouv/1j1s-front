@@ -3,7 +3,7 @@ import {
 	StatistiquesFormation,
 } from '~/client/components/features/Formation/Consulter/Statistiques/StatistiquesFormation';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { Formation } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
@@ -18,9 +18,9 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					{formation.nomEntreprise && <h2>{formation.nomEntreprise}</h2>}
 					<TagList list={formation.tags} />
 					{formation.lienDemandeRendezVous &&
-						<LinkStyledAsButton type={'external'} href={formation.lienDemandeRendezVous} className={commonStyles.postuler} appearance={'asPrimaryButton'}>
+						<LinkStyledAsButtonWithIcon type={'external'} href={formation.lienDemandeRendezVous} className={commonStyles.postuler} appearance={'asPrimaryButton'}>
 							Demander un rendez-vous
-						</LinkStyledAsButton>
+						</LinkStyledAsButtonWithIcon>
 					}
 				</header>
 				<section className={commonStyles.contenu}>

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Icon } from '../Icon/Icon';
-import { LinkStyledAsButton } from './LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from './LinkStyledAsButton';
 
-const meta: Meta<typeof LinkStyledAsButton> = {
+const meta: Meta<typeof LinkStyledAsButtonWithIcon> = {
 	argTypes: {
 		icon: {
 			// Gestion "manuelle" d'une prop qui accepte un composant React
@@ -20,11 +20,11 @@ const meta: Meta<typeof LinkStyledAsButton> = {
 		href:'https://www.1jeune1solution.gouv.fr/',
 		prefetch:true,
 	},
-	component: LinkStyledAsButton,
-	title: 'Components/LinkStyledAsButton',
+	component: LinkStyledAsButtonWithIcon,
+	title: 'Components/LinkStyledAsButton/LinkStyledAsButtonWithIcon',
 };
 export default meta;
-type Story = StoryObj<typeof LinkStyledAsButton>;
+type Story = StoryObj<typeof LinkStyledAsButtonWithIcon>;
 
 export const asPrimaryButton: Story = {
 	args: {
@@ -47,4 +47,3 @@ export const asQuaternayButton: Story = {
 		appearance: 'asQuaternayButton',
 	},
 };
-

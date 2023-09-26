@@ -11,7 +11,7 @@ import InputAutocomplétionSecteurActivité, {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -140,14 +140,14 @@ export default function LesEntreprisesSEngagentInscription() {
 				  <div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
 		  		{isPremièreÉtape && (
 		  			<>
-		  				<LinkStyledAsButton
+		  				<LinkStyledAsButtonWithIcon
 		  					href="/les-entreprises-s-engagent"
 		  					appearance="asSecondaryButton"
 		  					iconPosition={'left'}
 		  					icon={<Icon name="angle-left"/>}
 		  					className={styles.boutonRetour}>
 											Retour
-		  				</LinkStyledAsButton>
+		  				</LinkStyledAsButtonWithIcon>
 		  				<form className={styles.formulaire} onSubmit={goToÉtape2}>
 		  					<div className={styles.bodyFormulaire}>
 		  						<InputText
@@ -316,13 +316,13 @@ export default function LesEntreprisesSEngagentInscription() {
 		  		)}
 				  <p className={styles.footer}>
 					  Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification,{' '}
-					  <LinkStyledAsButton
+					  <LinkStyledAsButtonWithIcon
 						  appearance={'asQuaternayButton'}
 						  href="mailto:contact@lesentreprises-sengagent.org"
 						  prefetch={false}
 						  className={styles.contactLink}>
 						  nous contacter
-					  </LinkStyledAsButton>
+					  </LinkStyledAsButtonWithIcon>
 				  </p>
 			  </div>
 		  </>

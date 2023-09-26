@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.149.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.0...v3.149.1) (2023-09-26)
+
+
+### 🐛 Corrections de bogues
+
+* rend le focus visible sur les cards ([#2038](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2038)) ([75877a4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/75877a456aa3d229f62396f04f7eac7cc68fdb95))
+
+## [3.149.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.1...v3.149.0) (2023-09-25)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **alternances:** ajout d'un message d'erreur si pas de résultat ([#2028](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2028)) ([442ff2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/442ff2d50a6e6b47728382ec28a29a5e67363e3e))
+
 ## [3.148.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.0...v3.148.1) (2023-09-24)
 
 

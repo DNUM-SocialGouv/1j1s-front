@@ -6,7 +6,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { LinkCard } from '~/client/components/ui/Card/Link/LinkCard';
 import { HeroPrimaryText, HeroSecondaryText, HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -229,9 +229,9 @@ export default function Accueil() {
 					<HeroSecondaryText>
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
-					<LinkStyledAsButton href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
+					<LinkStyledAsButtonWithIcon href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
 						{ isLargeScreen ? 'Découvrir les actualités et services jeunes' : 'Actualités et services jeunes'}
-					</LinkStyledAsButton>
+					</LinkStyledAsButtonWithIcon>
 				</HeroWithIllustration>
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>

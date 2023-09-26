@@ -19,7 +19,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 
@@ -71,7 +71,7 @@ export default function Accompagnement() {
 						<ModalComponent.Content className={styles.accompagnementModalContent}>
 							<div>
 								<h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</h1>
-								<LinkStyledAsButton href={lienPôleEmploi} appearance="asPrimaryButton">Contacter mon conseiller</LinkStyledAsButton>
+								<LinkStyledAsButtonWithIcon href={lienPôleEmploi} appearance="asPrimaryButton">Contacter mon conseiller</LinkStyledAsButtonWithIcon>
 							</div>
 						</ModalComponent.Content>
 					</ModalComponent>
@@ -80,9 +80,9 @@ export default function Accompagnement() {
 							<div>
 								<h1>Vous pouvez bénéficier des services de Pôle Emploi</h1>
 								<p>Inscrivez-vous à Pôle Emploi pour bénéficier d‘un  accompagnement répondant à vos besoins </p>
-								<LinkStyledAsButton href={deuxièmeLienPôleEmploi} appearance='asPrimaryButton'>
+								<LinkStyledAsButtonWithIcon href={deuxièmeLienPôleEmploi} appearance='asPrimaryButton'>
                   S‘inscrire à Pôle Emploi
-								</LinkStyledAsButton>
+								</LinkStyledAsButtonWithIcon>
 							</div>
 						</ModalComponent.Content>
 					</ModalComponent>

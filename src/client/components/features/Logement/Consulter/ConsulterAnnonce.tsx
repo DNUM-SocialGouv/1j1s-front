@@ -12,7 +12,7 @@ import { Services } from '~/client/components/features/Logement/Consulter/Servic
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
@@ -75,12 +75,12 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 			</Container>
 			{isSmallScreen && (
 				<div className={styles.lienDeCandidatureMobile}>
-					<LinkStyledAsButton
+					<LinkStyledAsButtonWithIcon
 						appearance="asPrimaryButton"
 						href={urlDeCandidature}
 					>
             Voir l‘annonce
-					</LinkStyledAsButton>
+					</LinkStyledAsButtonWithIcon>
 				</div>
 			)}
 		</main>
@@ -122,7 +122,7 @@ function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
 				return null;
 		}
 	}, [source]);
-};
+}
 
 function CandidaterDesktop({
 														 source,
@@ -131,12 +131,12 @@ function CandidaterDesktop({
 	return (
 		<div className={classNames(styles.cardCandidater)}>
 			<AnnonceSource source={source}/>
-			<LinkStyledAsButton
+			<LinkStyledAsButtonWithIcon
 				appearance="asPrimaryButton"
 				href={urlDeCandidature}
 			>
 				Voir l‘annonce
-			</LinkStyledAsButton>
+			</LinkStyledAsButtonWithIcon>
 		</div>
 	);
 }
