@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.151.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.150.0...v3.151.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* améliorer l'accessibilité des combobox input localisation ([#1950](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1950)) ([2b9dae1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b9dae1304995a786c31a93ef80cae4c8bf0ed95))
+
 ## [3.150.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.1...v3.150.0) (2023-09-26)
 
 
