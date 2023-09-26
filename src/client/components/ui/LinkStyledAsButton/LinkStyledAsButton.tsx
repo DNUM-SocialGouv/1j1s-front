@@ -9,14 +9,11 @@ import styles from './LinkStyledAsButton.module.scss';
 
 type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternayButton';
 
-type IconPosition = 'top' | 'left' | 'right' | 'none';
+type IconPosition = 'top' | 'left' | 'right';
 
 type IconProps = {
 	icon: React.ReactNode;
 	iconPosition: IconPosition;
-} | {
-	icon?: never;
-	iconPosition?: IconPosition;
 } | {
 	icon?: never;
 	iconPosition?: never;
@@ -92,8 +89,6 @@ export function LinkStyledAsButtonWithIcon(props: PropsWithChildren<LinkStyledAs
 				return <>{icon}<span className={styles.linkLabel}>{children}</span></>;
 			case 'right':
 				return <><span className={styles.linkLabel}>{children}</span>{icon}</>;
-			case 'none':
-				return <span className={styles.linkLabel}>{children}</span>;
 			default:
 				return <>
 					<span className={styles.linkLabel}>{children}</span>

@@ -213,7 +213,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			it('avec un lien de retour à l‘accueil', async () => {
 				// Given
 				renderComponent();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				// When
 				await remplirFormulaireEtape1();

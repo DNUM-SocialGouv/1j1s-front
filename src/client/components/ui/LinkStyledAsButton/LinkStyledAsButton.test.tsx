@@ -82,14 +82,4 @@ describe('LinkStyledAsButton', () => {
 			expect(screen.getByText('ceci est un label')).toBeVisible();
 		});
 	});
-
-	describe('quand l’attribut iconPosition est "none"', () => {
-		it('retourne le composant sans icône', () => {
-			render(
-				<LinkStyledAsButton href={'/emplois'} appearance={'asPrimaryButton'} iconPosition={'none'}>nom du lien</LinkStyledAsButton>,
-			);
-
-			expect(screen.queryByRole('img')).not.toBeInTheDocument();
-		});
-	});
 });
