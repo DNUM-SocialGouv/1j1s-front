@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.152.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.1...v3.152.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **lee:** modifier la pop in d'erreur d'inscription ([#2039](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2039)) ([2d58138](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d58138c90953052d5daa5c5ff58596170ed2ecc))
+
 ## [3.151.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.0...v3.151.1) (2023-09-26)
 
 
