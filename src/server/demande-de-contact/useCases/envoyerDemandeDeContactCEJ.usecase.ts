@@ -4,7 +4,7 @@ import phone from 'phone';
 import { DemandeDeContactCEJ,parseAge } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 export class EnvoyerDemandeDeContactCEJUseCase {
 	constructor(private demandeDeContactRepository: DemandeDeContactRepository) {
@@ -15,7 +15,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 			const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
 			return this.demandeDeContactRepository.envoyer(demandeDeContactCEJ);
 		} catch (e) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 	}
 }

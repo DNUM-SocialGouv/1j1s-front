@@ -1,7 +1,7 @@
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('DemandeDeContactService', () => {
 	describe('.envoyerPourLeCEJ()', () => {
@@ -31,7 +31,7 @@ describe('DemandeDeContactService', () => {
 		it('appelle API avec les paramètres du formulaire de contact et retourne une Failure', async () => {
 			// Given
 			const httpClientService = anHttpClientService();
-			jest.spyOn(httpClientService,'post').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+			jest.spyOn(httpClientService,'post').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			const demandeContactService = new DemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
@@ -47,7 +47,7 @@ describe('DemandeDeContactService', () => {
 			const result = await demandeContactService.envoyerPourLeCEJ(body);
 
 			// Then
-			expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+			expect(result).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			expect(httpClientService.post).toHaveBeenCalledWith('demandes-de-contact', { ...body, type: 'CEJ' });
 		});
 	});

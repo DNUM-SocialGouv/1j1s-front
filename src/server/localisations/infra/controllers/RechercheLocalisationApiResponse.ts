@@ -1,15 +1,14 @@
 export interface LocalisationApiResponse {
-  nom: string
-  code: string
-  libelle: string
+	nom: string
+	code: string
 }
 
-export interface CommuneLocalisationApiResponse extends LocalisationApiResponse {
-  codePostal: string
+export interface LocalisationCommuneApiResponse extends LocalisationApiResponse {
+	codePostal: string
 }
 
-export interface RechercheLocalisationApiResponse {
-  communeList: CommuneLocalisationApiResponse[]
-  départementList: LocalisationApiResponse[]
-  régionList: LocalisationApiResponse[]
+export type RechercheLocalisationApiResponse = {
+	communeList: LocalisationCommuneApiResponse[]
+	departementList: LocalisationApiResponse[]
+	regionList: LocalisationApiResponse[]
 }

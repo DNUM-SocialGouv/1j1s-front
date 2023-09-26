@@ -1,39 +1,42 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .container {
-  padding: 1rem;
-  display: flex;
-
-  p {
-    @extend %text-large;
+  @include utilities.media(medium){
+    display: grid;
+    grid-template-columns: auto 40%;
   }
+  padding: 5rem 1rem;
 }
 
 .title {
-  @extend %subheading, %bold;
-  padding-bottom: 2rem;
+  @extend %title-large , %bold;
+  padding-bottom: 2.5rem;
 }
 
 .subtitle {
+  @extend %title-small;
   margin-bottom: 1rem;
 }
 
 .buttonWrapper {
-  padding: 3rem 0;
-  text-align: center;
-  @include utilities-deprecated.media(medium){
-    text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+
+  .backButton {
+    margin-right: 1rem;
+  }
+
+  .backButton, .homeLink {
+    margin-top: 1rem;
   }
 }
 
 .errorLogo {
   flex-shrink: 0;
-  width:40%;
   margin: auto;
-  text-align: center;
 
   img {
-    width: 185px;
-    height: 205px;
+    width: 15rem;
   }
 }

@@ -12,7 +12,7 @@ import { HtmlHeadingTag } from '~/client/components/props';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import styles from '~/client/components/ui/Card/Flipping/FlippingCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -57,14 +57,14 @@ export function FlippingCard(props: FlippingCardProps) {
 
 
 	const linkAsButton = useMemo(function () {
-		return <LinkStyledAsButton
+		return <LinkStyledAsButtonWithIcon
 			href={link}
 			prefetch={false}
 			className={styles.cardAction}
 			appearance="asPrimaryButton"
 		>
 			<span>{isInternalLink ? 'Lire l‘article' : 'En savoir plus'}</span>
-		</LinkStyledAsButton>;
+		</LinkStyledAsButtonWithIcon>;
 	}, [isInternalLink, link]);
 
 	const flipCard = useCallback((reverse = false) => {

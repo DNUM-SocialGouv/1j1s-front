@@ -39,7 +39,6 @@
   display: flex;
   border-radius: 50px;
   outline-offset: 4px;
-  white-space: nowrap;
   text-overflow: ellipsis;
 
   @extend %button;
@@ -47,6 +46,7 @@
   > svg {
     margin-left: 0.3rem;
     vertical-align: bottom;
+    flex-shrink: 0; // évite à l'icône de reduire sa taille en cas de wrap du texte
   }
 }
 

@@ -14,7 +14,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
+import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheJobEte', () => {
@@ -51,7 +52,8 @@ describe('FormulaireRechercheJobEte', () => {
 		describe('quand on recherche par localisation', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
-				const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+				const localisationServiceMock = aLocalisationService();
+				jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
 				const user = userEvent.setup();
 				const routerPush = jest.fn();
 				mockUseRouter({ push: routerPush });
@@ -61,23 +63,21 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
+				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-
-				// WHEN
 				await user.type(inputLocalisation, 'Par');
-				const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+				const resultatsLocalisation = await screen.findAllByRole('option');
+				await user.click(resultatsLocalisation[1]);
 
 				// WHEN
-				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
-				const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
-
-				fireEvent.click(résultatLocalisationList[1]);
-
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75101&page=1' }, undefined, { shallow: true });
+				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { shallow: true });
 			});
 		});
 	});
@@ -132,11 +132,12 @@ describe('FormulaireRechercheJobEte', () => {
 
 	it('rempli automatiquement les champs avec les query params', () => {
 		mockUseRouter({ query: {
-			codeLocalisation: '75',
+			codeLocalisation: '75110',
+			codePostalLocalisation: '75010',
 			grandDomaine: référentielDomaineList[0].code,
-			libelleLocalisation: 'Paris (75)',
 			motCle: 'Boulanger',
-			typeLocalisation: 'Commune',
+			nomLocalisation: 'Paris',
+			typeLocalisation: 'COMMUNE',
 		} });
 
 		render(
@@ -147,8 +148,8 @@ describe('FormulaireRechercheJobEte', () => {
 
 		const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
 		expect(motCle).toHaveValue('Boulanger');
-		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
-		expect(localisation).toHaveValue('Paris (75)');
+		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
+		expect(localisation).toHaveValue('Paris (75010)');
 		const domaine = screen.getByTestId('Select-InputHidden');
 		expect(domaine).toHaveValue(référentielDomaineList[0].code);
 	});

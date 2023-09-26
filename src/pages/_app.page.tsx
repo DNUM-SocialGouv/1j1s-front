@@ -9,6 +9,7 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
+import useReferrer from '~/client/hooks/useReferrer';
 import useSessionId from '~/client/hooks/useSessionId';
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
@@ -22,6 +23,7 @@ type AppPropsWithLayout = AppProps & {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
 	const router = useRouter();
+	useReferrer();
 
 	useEffect(() => {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];

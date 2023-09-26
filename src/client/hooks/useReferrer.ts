@@ -6,6 +6,7 @@ export const REFERRER = 'referrer';
 function useReferrer(): void {
 	const router = useRouter();
 
+
 	useEffect(() => {
 		sessionStorage.setItem('referrer', router.pathname);
 	}, [router.pathname]);

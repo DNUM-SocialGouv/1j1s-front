@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import React, {
-	useMemo,
-} from 'react';
+import React, { useMemo } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
@@ -9,7 +7,6 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
-import useReferrer from '~/client/hooks/useReferrer';
 
 import styles from './ServiceCard.module.scss';
 
@@ -45,7 +42,6 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	} = props;
 	const isInternalLink = useIsInternalLink(link);
 	const { isLargeScreen } = useBreakpoint();
-	useReferrer();
 
 	const icon = useMemo(function () {
 		return <Icon name={isInternalLink ? 'arrow-right' : 'external-redirection'}/>;

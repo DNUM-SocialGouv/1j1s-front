@@ -14,7 +14,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
 import ApprentissageEntreprises, { getServerSideProps } from './index.page';
@@ -53,7 +53,7 @@ describe('<ApprentissageEntreprises />', () => {
 		describe('quand les vidéos ne sont pas récupérées', () => {
 			it('renvoie une liste vide pour les vidéos', async () => {
 				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const result = await getServerSideProps();
 

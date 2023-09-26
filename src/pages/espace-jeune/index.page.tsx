@@ -10,7 +10,6 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import styles from '~/pages/espace-jeune/index.module.scss';
 import { Actualité } from '~/server/cms/domain/actualité';
@@ -26,7 +25,6 @@ const MAX_VISIBLE_ACTUALITES_LENGTH = 3;
 
 export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: EspaceJeunePageProps) {
 	useAnalytics(analytics);
-	useReferrer();
 
 	const getCarteActualiteLinkLabel = useCallback(({ article }: Actualité): string | undefined => {
 		if (!article) return 'En savoir plus';

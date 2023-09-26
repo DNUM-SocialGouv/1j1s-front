@@ -72,6 +72,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
 	requireValidOption = false,
+	required = false,
 	filter = filterValueOrLabelStartsWith,
 	...inputProps
 }, inputOuterRef) {
@@ -106,9 +107,13 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 	useEffect(function validateAgainstSuggestionList() {
 		if (requireValidOption) {
-			inputRef.current?.setCustomValidity(findMatchingOption(listboxRef.current) ? '' : 'Veuillez sélectionner une option dans la liste');
+			if (findMatchingOption(listboxRef.current) || value === '' && !required) {
+				inputRef.current?.setCustomValidity('');
+			} else {
+				inputRef.current?.setCustomValidity('Veuillez sélectionner une option dans la liste');
+			}
 		}
-	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption]);
+	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption, required, value]);
 
 	useEffect(function checkValidity() {
 		if (touched) {
@@ -212,6 +217,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onChange={onChange}
 					onKeyDown={onKeyDown}
 					onInput={(event) => onInputProps(event, event.currentTarget.value)}
+					required={required}
 					{...inputProps} />
 				<input
 					type="hidden"

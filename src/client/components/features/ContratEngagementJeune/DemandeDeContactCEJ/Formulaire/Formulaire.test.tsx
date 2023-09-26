@@ -9,7 +9,7 @@ import { userEvent } from '@testing-library/user-event';
 import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 jest.setTimeout(10000);

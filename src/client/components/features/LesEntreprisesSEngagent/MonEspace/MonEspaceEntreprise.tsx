@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from './MonEspaceEntreprise.module.scss';
 
@@ -22,20 +22,20 @@ export default function MonEspaceEntreprise() {
 					</div>
 				</div>
 				<div className={styles.containerBoutons}>
-					<LinkStyledAsButton
+					<LinkStyledAsButtonWithIcon
 						className={styles.monEspaceConnexion}
 						href="https://www.lesentreprises-sengagent.gouv.fr/login"
 						appearance="asPrimaryButton">
 						Se connecter
-					</LinkStyledAsButton>
-					<LinkStyledAsButton 
+					</LinkStyledAsButtonWithIcon>
+					<LinkStyledAsButtonWithIcon
 						appearance={'asQuaternayButton'} 
 						icon={<Icon name="information"/>} 
 						iconPosition={'left'}
 						className={styles.monEspaceInscription}
 						href="/les-entreprises-s-engagent">
 						Pas encore inscrit ? Rejoignez la mobilisation
-					</LinkStyledAsButton>
+					</LinkStyledAsButtonWithIcon>
 				</div>
 			</Container>
 		</section>

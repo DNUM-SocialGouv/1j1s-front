@@ -9,7 +9,7 @@ import { RechercherMission } from '~/client/components/features/Engagement/Reche
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import {
 	aMissionEngagementService,
 	aSingleResultMissionEngagementService,

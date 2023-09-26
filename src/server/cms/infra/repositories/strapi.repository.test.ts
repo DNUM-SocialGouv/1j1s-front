@@ -37,7 +37,7 @@ import {
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
@@ -63,7 +63,7 @@ describe('strapi cms repository', () => {
 
 	describe('getSingleType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
-			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
 			const httpClientService = aPublicHttpClientService({
 				get: jest.fn(async () => {
@@ -87,7 +87,7 @@ describe('strapi cms repository', () => {
 
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
-			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
 			const httpClientService = aPublicHttpClientService({
 				get: jest.fn(async () => {
@@ -111,7 +111,7 @@ describe('strapi cms repository', () => {
 
 	describe('save', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
-			const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
 			const authenticatedHttpClientService = anAuthenticatedHttpClientService({
 				post: jest.fn(async () => {
@@ -263,7 +263,7 @@ describe('strapi cms repository', () => {
 			it('retourne une erreur', async () => {
 				const httpError = anHttpError(500);
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
 				const httpClientService = aPublicHttpClientService({
 					get: jest.fn(async () => {
@@ -340,7 +340,7 @@ describe('strapi cms repository', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
 				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
@@ -372,13 +372,13 @@ describe('strapi cms repository', () => {
 			it('retourne une erreur', async () => {
 				httpClientService = aPublicHttpClientService();
 				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMétier.CONTENU_INDISPONIBLE;
+				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
 				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
 				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
 
 				const result = await strapiCmsRepository.getFAQBySlug('not-found-slug') as Failure;
-				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+				expect(result.errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 			});
 		});
 	});

@@ -89,7 +89,11 @@ export function RechercherMission(props: RechercherMissionProps) {
 					isLoading={isLoading}
 					messageRésultatRecherche={
 						<>
-							<MessageNombreResultats nombreResultats={nombreResultats} isServiceCivique={isServiceCivique} domaine={domaine} />
+							{MessageNombreResultats({
+								domaine: domaine,
+								isServiceCivique: isServiceCivique,
+								nombreResultats: nombreResultats,
+							})}
 							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</>
 					}

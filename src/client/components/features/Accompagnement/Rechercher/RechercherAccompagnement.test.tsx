@@ -14,9 +14,9 @@ import {
 	anÉtablissementAccompagnementService,
 	anÉtablissementMissionLocaleService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('RechercherAccompagnement', () => {
 	beforeEach(() => {
@@ -86,7 +86,7 @@ describe('RechercherAccompagnement', () => {
 		describe('quand le service nous retourne une erreur', () => {
 			it('affiche un message d‘erreur',  async () => {
 				const établissementAccompagnementService = anÉtablissementAccompagnementService();
-				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
 				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)' } });

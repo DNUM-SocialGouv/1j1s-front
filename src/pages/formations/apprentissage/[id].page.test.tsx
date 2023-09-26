@@ -13,7 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
@@ -62,6 +62,34 @@ describe('getServerSideProps', () => {
 			});
 		});
 
+		describe('lorsque niveauEtudes n’est pas présent dans les query params', () => {
+			it('effectue l’appel au use case avec niveauEtudes à undefined', async () => {
+				const queryParam = {
+					codeCommune: '13180',
+					codeRomes: 'F1603',
+					distanceCommune: '30',
+					id: '1',
+					latitudeCommune: '48.2',
+					longitudeCommune: '29.10',
+				} as ParsedUrlQuery;
+				(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(aFormation()) });
+
+				await getServerSideProps({
+					params: { id: '1' },
+					query: queryParam,
+				} as GetServerSidePropsContext<{ id: string }>);
+				expect(dependencies.formationDependencies.consulterFormation.handle).toHaveBeenCalledWith('1', {
+					codeCertification: '',
+					codeCommune: '13180',
+					codeRomes: ['F1603'],
+					distanceCommune: '30',
+					latitudeCommune: '48.2',
+					longitudeCommune: '29.10',
+					niveauEtudes: undefined,
+				});
+			});
+		});
+
 		describe('lorsque les query params sont remplis', () => {
 			describe('lorsque le détail de la formation n‘existe pas', () => {
 				it('retourne une page 404', async () => {
@@ -72,8 +100,9 @@ describe('getServerSideProps', () => {
 						id: '1',
 						latitudeCommune: '48.2',
 						longitudeCommune: '29.10',
+						niveauEtudes: '6',
 					} as ParsedUrlQuery;
-					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 					const value = await getServerSideProps({
 						params: { id: '1' },
@@ -95,8 +124,9 @@ describe('getServerSideProps', () => {
 							id: '1',
 							latitudeCommune: '48.2',
 							longitudeCommune: '29.10',
+							niveauEtudes: '6',
 						} as ParsedUrlQuery;
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 						const value = await getServerSideProps({
 							params: { id: '1' },
@@ -123,6 +153,7 @@ describe('getServerSideProps', () => {
 							id: '1',
 							latitudeCommune: '48.2',
 							longitudeCommune: '29.10',
+							niveauEtudes: '6',
 						} as ParsedUrlQuery;
 						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createSuccess(statistiques) });
 

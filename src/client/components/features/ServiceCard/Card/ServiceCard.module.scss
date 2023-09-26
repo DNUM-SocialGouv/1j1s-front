@@ -51,7 +51,7 @@ $card-border-color: utilities.$color-background-border;
       align-items: center;
       justify-content: center;
       min-height: 92px;
-      min-width: 310px;
+      min-width: min(310px, 100%);
 
       @include utilities.media(large) {
         width: 100%;

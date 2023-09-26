@@ -17,7 +17,9 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import {
+	aLocalisationService,
+} from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import {
 	aContactÉtablissementAccompagnement,

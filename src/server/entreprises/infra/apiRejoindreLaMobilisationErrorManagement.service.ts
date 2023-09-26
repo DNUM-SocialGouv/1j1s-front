@@ -1,5 +1,5 @@
 import { createFailure, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	DefaultErrorManagementService,
 	LogInformation,
@@ -25,19 +25,19 @@ export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErr
 
 	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status === 400 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_400) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 		if (error.response?.status === 409 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_409) {
-			return createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT);
+			return createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT);
 		}
 		if (error.response?.status === 404 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_404) {
-			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 		}
-		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 
 	protected createFailureForInternalError(): Failure {
-		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 }
 

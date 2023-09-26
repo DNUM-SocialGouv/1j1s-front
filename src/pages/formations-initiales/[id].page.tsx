@@ -10,7 +10,6 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import { DateService } from '~/client/services/date/date.service';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import styles from '~/pages/formations-initiales/[id].module.scss';
@@ -58,7 +57,6 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 	const dateService = useDependency<DateService>('dateService');
 
 	useAnalytics(analytics);
-	useReferrer();
 
 	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today().toString());
 

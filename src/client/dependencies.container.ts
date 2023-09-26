@@ -22,6 +22,7 @@ import { HttpClientService } from '~/client/services/httpClient.service';
 import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
+import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
@@ -70,7 +71,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);
-	const localisationService = new LocalisationService(httpClientService);
+	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
 	const demandeDeContactService = new DemandeDeContactService(httpClientService);
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
@@ -80,7 +81,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
 	const analyticsService = new EulerianAnalyticsService(cookiesService);
-	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE
+	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
 	const youtubeService = new YoutubeVideoService(cookiesService);

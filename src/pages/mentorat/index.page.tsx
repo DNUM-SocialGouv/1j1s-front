@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -44,9 +44,9 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<LinkStyledAsButton href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
+									<LinkStyledAsButtonWithIcon href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
 										Trouver mon mentor
-									</LinkStyledAsButton>
+									</LinkStyledAsButtonWithIcon>
 								</div>
 							</div>
 							<div className={styles.headingContainer__TextContent}>
@@ -58,7 +58,7 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<LinkStyledAsButton href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor</LinkStyledAsButton>
+									<LinkStyledAsButtonWithIcon href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor</LinkStyledAsButtonWithIcon>
 								</div>
 							</div>
 						</div>

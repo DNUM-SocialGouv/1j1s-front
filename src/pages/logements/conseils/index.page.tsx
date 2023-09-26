@@ -3,19 +3,13 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/logements/conseils/index.analytics';
 import styles from '~/pages/logements/conseils/index.module.scss';
 
 export default function ConseilsLogement() {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return (
 		<>

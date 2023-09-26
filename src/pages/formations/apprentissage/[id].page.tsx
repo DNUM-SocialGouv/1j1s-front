@@ -61,6 +61,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 		distanceCommune: String(context.query.distanceCommune),
 		latitudeCommune: String(context.query.latitudeCommune),
 		longitudeCommune: String(context.query.longitudeCommune),
+		niveauEtudes: context.query.niveauEtudes ? String(context.query.niveauEtudes) : undefined,
 	};
 
 	const { formation, statistiques } = await dependencies.formationDependencies.consulterFormation.handle(id, filtre);

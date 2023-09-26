@@ -12,7 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
@@ -171,7 +171,7 @@ describe('RechercherAlternance', () => {
 						<RechercherAlternance/>
 					</DependenciesProvider>,
 				);
-				const onglet = await screen.findByText('Entreprises');
+				const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
 				const user = userEvent.setup();
 
 				await user.click(onglet);
@@ -184,46 +184,95 @@ describe('RechercherAlternance', () => {
 			});
 		});
 
-		it('quand je clique sur contrat d‘alternance, affiche le nombre de contrats d’alternance', async () => {
-			const user = userEvent.setup();
-			const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
-			const alternanceServiceMock = anAlternanceService(offresAlternance, []);
+		describe('le nombre de résultats', () => {
+			describe('lorsque je clique sur contrat d‘alternance', () => {
+				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
+					const user = userEvent.setup();
+					const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
+					const alternanceServiceMock = anAlternanceService(offresAlternance, []);
 
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
 
-			const onglet = await screen.findByText('Contrats d‘alternance');
-			await user.click(onglet);
+					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
+					await user.click(onglet);
 
-			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
-		});
+					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+				});
 
-		it('quand je clique sur entreprise, affiche le nombre de d’entreprises', async () => {
-			const user = userEvent.setup();
-			const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
-			const alternanceServiceMock = anAlternanceService([], entrepriseList);
+				it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
+					const user = userEvent.setup();
+					const alternanceServiceMock = anAlternanceService([], []);
 
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
 
-			const onglet = await screen.findByText('Entreprises');
-			await user.click(onglet);
+					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
+					await user.click(onglet);
 
-			expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+					expect(screen.getByText(/0 résultat/)).toBeVisible();
+					expect(screen.getByText('Aucun contrat d‘alternance ne correspond à votre recherche.')).toBeVisible();
+					expect(screen.getByText('Vous pouvez consulter les entreprises ou modifier votre recherche.')).toBeVisible();
+				});
+			});
+			describe('lorsque je clique sur entreprise', () => {
+				it('lorsqu‘il y a des résultats, affiche le nombre d’entreprises', async () => {
+					const user = userEvent.setup();
+					const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
+					const alternanceServiceMock = anAlternanceService([], entrepriseList);
+
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
+
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
+					await user.click(onglet);
+
+					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+				});
+
+				it('lorsqu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux entreprises', async () => {
+					const user = userEvent.setup();
+					const alternanceServiceMock = anAlternanceService([anAlternanceMatcha()], []);
+
+					render(
+						<DependenciesProvider
+							alternanceService={alternanceServiceMock}
+							metierService={aMetierService()}
+							localisationService={aLocalisationService()}
+						>
+							<RechercherAlternance/>
+						</DependenciesProvider>,
+					);
+
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
+					await user.click(onglet);
+
+					expect(screen.getByText(/0 résultat/)).toBeVisible();
+					expect(screen.getByText('Aucune entreprise ne correspond à votre recherche.')).toBeVisible();
+					expect(screen.getByText('Vous pouvez consulter les contrats d‘alternance ou modifier votre recherche.')).toBeVisible();
+				});
+			});
 		});
 	});
 

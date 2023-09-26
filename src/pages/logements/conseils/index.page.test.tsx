@@ -82,21 +82,4 @@ describe('ConseilsLogement', () => {
 		expect(titreArticle2).toBeVisible();
 		expect(titreArticle3).toBeVisible();
 	});
-
-	it('renseigne un referrer à l affichage de la page', () => {
-		const analyticsService = anAnalyticsService();
-		sessionStorage.setItem('referrer', 'default_referrer');
-
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<ConseilsLogement/>
-			</DependenciesProvider>,
-		);
-
-		const referrer = sessionStorage.getItem('referrer');
-		expect(referrer).toEqual('logements/conseils');
-	});
-
 });

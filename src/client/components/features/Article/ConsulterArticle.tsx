@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import styles from '~/client/components/features/Article/ConsulterArticle.module.scss';
-import { ButtonRetour } from '~/client/components/features/ButtonRetour/ButtonRetour';
+import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import Marked from '~/client/components/ui/Marked/Marked';
 import MarkedStyles from '~/client/components/ui/Marked/Marked.module.scss';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -20,7 +20,7 @@ export function ConsulterArticle({ article }: ConsulterArticleProps) {
 	return (
 		<>
 			<main className={classNames('fr-container', styles.consulterArticle)}>
-				<ButtonRetour className={styles.consulterArticleButtonRetour}/>
+				<BackButton className={styles.consulterArticleButtonRetour}/>
 				<h1 className={styles.titre}>{titre}</h1>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				{bannièreSrc && <img src={bannièreSrc} alt={bannièreAlt} decoding="async" loading="lazy" />}

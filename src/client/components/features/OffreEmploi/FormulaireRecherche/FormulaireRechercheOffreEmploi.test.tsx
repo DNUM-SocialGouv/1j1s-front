@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -14,7 +14,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
+import { createSuccess } from '~/server/errors/either';
 import { NiveauRequis } from '~/server/formations/domain/formation';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
@@ -32,6 +33,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -41,11 +43,11 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				);
 
 				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé' });
-				fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
+				await user.type(inputRechercheMotClé, 'boulanger');
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
 				// WHEN
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
@@ -57,6 +59,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -68,17 +71,17 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 
 				// WHEN
-				fireEvent.click(buttonFiltresRecherche);
+				await user.click(buttonFiltresRecherche);
 				const modalComponent = screen.getByRole('dialog');
 				const inputTypeDeContrat = within(modalComponent).getByRole('checkbox', { name: 'Mission intérimaire' });
-				fireEvent.click(inputTypeDeContrat);
+				await user.click(inputTypeDeContrat);
 
 				expect(modalComponent).toBeInTheDocument();
 
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
 				// WHEN
-				fireEvent.click(buttonAppliquerFiltres);
+				await user.click(buttonAppliquerFiltres);
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { shallow: true });
@@ -90,6 +93,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -101,17 +105,17 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 
 				// WHEN
-				fireEvent.click(buttonFiltresRecherche);
+				await user.click(buttonFiltresRecherche);
 				const modalComponent = screen.getByRole('dialog');
 				const inputTempsDeTravail = within(modalComponent).getByRole('radio', { name: 'Temps plein' });
-				fireEvent.click(inputTempsDeTravail);
+				await user.click(inputTempsDeTravail);
 
 				expect(modalComponent).toBeInTheDocument();
 
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
 				// WHEN
-				fireEvent.click(buttonAppliquerFiltres);
+				await user.click(buttonAppliquerFiltres);
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
@@ -123,6 +127,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -134,17 +139,17 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 
 				// WHEN
-				fireEvent.click(buttonFiltresRecherche);
+				await user.click(buttonFiltresRecherche);
 				const modalComponent = screen.getByRole('dialog');
 				const inputExperienceExigence = within(modalComponent).getByRole('radio', { name: 'Moins de 1 an' });
-				fireEvent.click(inputExperienceExigence);
+				await user.click(inputExperienceExigence);
 
 				expect(modalComponent).toBeInTheDocument();
 
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
 				// WHEN
-				fireEvent.click(buttonAppliquerFiltres);
+				await user.click(buttonAppliquerFiltres);
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
@@ -154,7 +159,9 @@ describe('FormulaireRechercheOffreEmploi', () => {
 		describe('quand on recherche par localisation', () => {
 			it('ajoute la localisation aux query params', async () => {
 				// GIVEN
-				const localisationServiceMock = aLocalisationService(aLocalisationListWithCommuneAndDépartement());
+				const localisationServiceMock = aLocalisationService();
+				jest.spyOn(localisationServiceMock, 'rechercherLocalisation').mockResolvedValue(createSuccess(aLocalisationListWithCommuneAndDépartement()));
+
 				const user = userEvent.setup();
 				const routerPush = jest.fn();
 				mockUseRouter({ push: routerPush });
@@ -164,23 +171,25 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputLocalisation = screen.getByRole('textbox', { name: 'Localisation' });
+				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
 				// WHEN
 				await user.type(inputLocalisation, 'Par');
-				const résultatsLocalisation = await screen.findByTestId('RésultatsLocalisation');
+				const résultatLocalisationList = await screen.findAllByRole('option');
 
 				// WHEN
 				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
-				const résultatLocalisationList = within(résultatsLocalisation).getAllByRole('option');
 
-				fireEvent.click(résultatLocalisationList[1]);
+				await user.click(résultatLocalisationList[1]);
 
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'libelleLocalisation=Paris+%2875001%29&typeLocalisation=COMMUNE&codeLocalisation=75101&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { shallow: true });
 			});
 		});
 
@@ -189,6 +198,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				// GIVEN
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -200,18 +210,18 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonFiltresRecherche = screen.getByRole('button', { name: 'Filtrer ma recherche' });
 
 				// WHEN
-				fireEvent.click(buttonFiltresRecherche);
+				await user.click(buttonFiltresRecherche);
 				const modalComponent = screen.getByRole('dialog');
 				const inputDomaine = within(modalComponent).getByRole('checkbox', { name: 'Banque / Assurance' });
 
-				fireEvent.click(inputDomaine);
+				await user.click(inputDomaine);
 
 				expect(modalComponent).toBeInTheDocument();
 
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 
 				// WHEN
-				fireEvent.click(buttonAppliquerFiltres);
+				await user.click(buttonAppliquerFiltres);
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
@@ -242,6 +252,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute les types de contrat aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -251,15 +262,15 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				);
 
 				const button = screen.getByRole('button', { name: 'Types de contrats' });
-				fireEvent.click(button);
+				await user.click(button);
 
 				const typeDeContratList = await screen.findByRole('listbox');
 
 				const inputTypeDeContrat = within(typeDeContratList).getAllByRole('checkbox');
-				fireEvent.click(inputTypeDeContrat[0]);
+				await user.click(inputTypeDeContrat[0]);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { shallow: true });
 			});
@@ -269,6 +280,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute le domaine sélectionné aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -278,15 +290,15 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				);
 
 				const button = screen.getByRole('button', { name: 'Domaines' });
-				fireEvent.click(button);
+				await user.click(button);
 
 				const domaineList = await screen.findByRole('listbox');
 
 				const inputDomaine = within(domaineList).getAllByRole('checkbox');
-				fireEvent.click(inputDomaine[2]);
+				await user.click(inputDomaine[2]);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
 			});
@@ -296,6 +308,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute le niveau demandé sélectionné aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -305,15 +318,15 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				);
 
 				const button = screen.getByRole('button', { name: 'Niveau demandé' });
-				fireEvent.click(button);
+				await user.click(button);
 
 				const niveauDemandéList = await screen.findByRole('listbox');
 
 				const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('radio');
-				fireEvent.click(inputNiveauDemandé[0]);
+				await user.click(inputNiveauDemandé[0]);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
 			});
@@ -323,6 +336,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			it('ajoute les temps de travail aux query params', async () => {
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
+				const user = userEvent.setup();
 				mockUseRouter({ push: routerPush });
 
 				render(
@@ -332,58 +346,93 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				);
 
 				const button = screen.getByRole('button', { name: 'Temps de travail' });
-				fireEvent.click(button);
+				await user.click(button);
 
 				const tempsDeTravailList = await screen.findByRole('listbox');
 
 				const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('radio');
-				fireEvent.click(inputTempsDeTravail[0]);
+				await user.click(inputTempsDeTravail[0]);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
 				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
 			});
 		});
 	});
 
-	it('rempli automatiquement les champs de recherche quand query params présents', () => {
-		mockUseRouter({ query: {
-			codeLocalisation: '75',
-			experienceExigence: NiveauRequis.NIVEAU_3,
-			grandDomaine: référentielDomaineList[0].code,
-			libelleLocalisation: 'Paris (75)',
-			motCle: 'Boulanger',
-			tempsDeTravail: 'tempsPlein',
-			typeDeContrats: 'CDD',
-			typeLocalisation: 'Commune',
-		} });
+	describe('quand les query params sont présents', () => {
+		describe('que le type de localisation est une commune', () => {
+			it('rempli automatiquement les champs de recherche', () => {
+				mockUseRouter({ query: {
+					codeLocalisation: '75110',
+					codePostalLocalisation: '75010',
+					experienceExigence: NiveauRequis.NIVEAU_3,
+					grandDomaine: référentielDomaineList[0].code,
+					motCle: 'Boulanger',
+					nomLocalisation: 'Paris',
+					tempsDeTravail: 'tempsPlein',
+					typeDeContrats: 'CDD',
+					typeLocalisation: 'COMMUNE',
+				} });
 
-		render(
-			<DependenciesProvider localisationService={aLocalisationService()}>
-				<FormulaireRechercheOffreEmploi />
-			</DependenciesProvider>,
-		);
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi />
+					</DependenciesProvider>,
+				);
 
-		const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
-		expect(motCle).toHaveValue('Boulanger');
-		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
-		expect(localisation).toHaveValue('Paris (75)');
+				const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
+				expect(motCle).toHaveValue('Boulanger');
+				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
+				expect(localisation).toHaveValue('Paris (75010)');
 
-		// FIXME (GAFI 17-03-2023):
-		// problème 1 : les inputs checkés ne sont pas valides (ex : input dans span, le tout dans un button pour type de contrat)
-		// problème 2 : ne pas utiliser de data-testid (d'autant plus qu'ils sont tous identiques aujourd'hui), préférer avoir des input accessibles (recupérables en test)
-		/* eslint-disable testing-library/no-node-access */
-		function checkSelectValue(fieldLabel: string, expectedValue: string): void {
-			const labelElement = screen.getByText(fieldLabel);
-			const fieldId = labelElement.getAttribute('for');
-			const field = fieldId && document.getElementById(fieldId);
-			expect(field).toHaveValue(expectedValue);
-		}
-		checkSelectValue('Types de contrats', 'CDD');
-		checkSelectValue('Temps de travail', 'tempsPlein');
-		checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
-		checkSelectValue('Domaines', référentielDomaineList[0].code);
-		/* eslint-enable testing-library/no-node-access */
+				checkSelectValue('Types de contrats', 'CDD');
+				checkSelectValue('Temps de travail', 'tempsPlein');
+				checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
+				checkSelectValue('Domaines', référentielDomaineList[0].code);
+			});
+		});
+		describe('que le type de localisation est un département', () => {
+			it('rempli automatiquement les champs de recherche', () => {
+				mockUseRouter({ query: {
+					codeLocalisation: '75',
+					experienceExigence: NiveauRequis.NIVEAU_3,
+					grandDomaine: référentielDomaineList[0].code,
+					motCle: 'Boulanger',
+					nomLocalisation: 'Paris',
+					tempsDeTravail: 'tempsPlein',
+					typeDeContrats: 'CDD',
+					typeLocalisation: 'DEPARTEMENT',
+				} });
+
+				render(
+					<DependenciesProvider localisationService={aLocalisationService()}>
+						<FormulaireRechercheOffreEmploi />
+					</DependenciesProvider>,
+				);
+
+				const motCle = screen.getByRole('textbox', { name: /Métier, mot-clé/i });
+				expect(motCle).toHaveValue('Boulanger');
+				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
+				expect(localisation).toHaveValue('Paris (75)');
+
+				checkSelectValue('Types de contrats', 'CDD');
+				checkSelectValue('Temps de travail', 'tempsPlein');
+				checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
+				checkSelectValue('Domaines', référentielDomaineList[0].code);
+			});
+		});
 	});
 });
+
+// FIXME (GAFI 17-03-2023):
+// problème 1 : les inputs checkés ne sont pas valides (ex : input dans span, le tout dans un button pour type de contrat)
+// problème 2 : ne pas utiliser de data-testid (d'autant plus qu'ils sont tous identiques aujourd'hui), préférer avoir des input accessibles (récupérables en test)
+/* eslint-disable testing-library/no-node-access */
+function checkSelectValue(fieldLabel: string, expectedValue: string): void {
+	const labelElement = screen.getByText(fieldLabel);
+	const fieldId = labelElement.getAttribute('for');
+	const field = fieldId && document.getElementById(fieldId);
+	expect(field).toHaveValue(expectedValue);
+}

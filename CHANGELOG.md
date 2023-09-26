@@ -1,5 +1,130 @@
 # Changelog
 
+## [3.152.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.1...v3.152.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **lee:** modifier la pop in d'erreur d'inscription ([#2039](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2039)) ([2d58138](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d58138c90953052d5daa5c5ff58596170ed2ecc))
+
+## [3.151.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.0...v3.151.1) (2023-09-26)
+
+
+### 🐛 Corrections de bogues
+
+* **formation:** bug lba formation non trouvée filtre niveauEtudes ([#2043](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2043)) ([033289d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/033289d8d160bbf35e90e1eb3bd498e2e37cb8e5))
+
+## [3.151.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.150.0...v3.151.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* améliorer l'accessibilité des combobox input localisation ([#1950](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1950)) ([2b9dae1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b9dae1304995a786c31a93ef80cae4c8bf0ed95))
+
+## [3.150.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.1...v3.150.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** ajout d'un composant linkStyledAsButtonWithIcon  ([#2037](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2037)) ([664ef88](https://github.com/DNUM-SocialGouv/1j1s-front/commit/664ef887accea83c9e3c9a512e3a2f7efed9f0b7))
+
+## [3.149.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.0...v3.149.1) (2023-09-26)
+
+
+### 🐛 Corrections de bogues
+
+* rend le focus visible sur les cards ([#2038](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2038)) ([75877a4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/75877a456aa3d229f62396f04f7eac7cc68fdb95))
+
+## [3.149.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.1...v3.149.0) (2023-09-25)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **alternances:** ajout d'un message d'erreur si pas de résultat ([#2028](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2028)) ([442ff2d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/442ff2d50a6e6b47728382ec28a29a5e67363e3e))
+
+## [3.148.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.148.0...v3.148.1) (2023-09-24)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/dompurify to v3.0.3 ([e87a9ea](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e87a9ea543e2a719f8f40add9c634e85ab7c9072))
+* **deps:** update dependency @types/jest to v29.5.5 ([#2032](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2032)) ([e40788c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e40788ccc75bcbc072096c472cb2fd3dda9092ae))
+* **deps:** update dependency @types/jest-axe to v3.5.6 ([#2033](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2033)) ([0a9de5a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a9de5a9196cc4d4931eb94650990f7cc3010080))
+* **deps:** update dependency eslint-plugin-storybook to v0.6.14 ([#2034](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2034)) ([d7ad176](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d7ad1766f454894a75aae03da09ea7f297850b72))
+* **deps:** update storybook monorepo to v7.4.4 ([#2035](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2035)) ([345a167](https://github.com/DNUM-SocialGouv/1j1s-front/commit/345a16753f61bbf01717bed2da269cb73268cba8))
+* **deps:** update storybook monorepo to v7.4.5 ([e009093](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e0090931f2f3a09e7606a55bcc9a1824db4cd2ae))
+
+## [3.148.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.7...v3.148.0) (2023-09-22)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **404:** ajout du bouton retour sur les pages d'erreur ([#2013](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2013)) ([bb5ac69](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb5ac69ebda77335c5bdba1b2c9681387a57895c))
+
+## [3.147.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.6...v3.147.7) (2023-09-22)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency sass to v1.68.0 ([#2023](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2023)) ([2bd9fc0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2bd9fc09e1b5d853ea0ecd9ad003946449f64370))
+
+## [3.147.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.5...v3.147.6) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update docusaurus monorepo to v2.4.3 ([#2019](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2019)) ([e095ef0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e095ef0278d00882ec60f2fb1dff16a25941c614))
+
+## [3.147.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.4...v3.147.5) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* fix l'affichage des ServiceCard en mobile ([#2017](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2017)) ([47aaadf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/47aaadf5f23be3757264518c13ebe2335e3a4bed))
+
+## [3.147.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.3...v3.147.4) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency redis to v4.6.9 ([#2004](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2004)) ([9c132e6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c132e6b8f74a6da6e7205507324b7fed05351f1))
+
+## [3.147.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.2...v3.147.3) (2023-09-22)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.70.0 ([#2009](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2009)) ([1d28417](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1d28417788edbe96b0b62635d83cdb63b062e690))
+
+## [3.147.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.1...v3.147.2) (2023-09-21)
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#2012](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2012)) ([e822aa2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e822aa2997af3494021dc9fb0db2fa973885a7f4))
+* **deps:** update getmeili/meilisearch docker tag to v1.3.5 ([#2008](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2008)) ([e3f298a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3f298a0e0d0ed4a7d48a09595c0742d60abd5e3))
+
+## [3.147.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.147.0...v3.147.1) (2023-09-21)
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.4.3 ([#2011](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2011)) ([c15e867](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c15e8675ff84b566ebf9e1a95c5b8b7259e04517))
+
+## [3.147.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.146.1...v3.147.0) (2023-09-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stages:** afficher non renseigné à la fin de l'input domaine ([#2005](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2005)) ([2c40cbc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2c40cbc1d3cda651434de0a8fa61648e254718b3))
+
+## [3.146.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.146.0...v3.146.1) (2023-09-20)
+
+
+### 🐛 Corrections de bogues
+
+* fix feature flipping adform ([#2006](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2006)) ([305ceb1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/305ceb15f93dbbe0673f4d0786b0e2e59c4826df))
+
 ## [3.146.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.145.12...v3.146.0) (2023-09-19)
 
 

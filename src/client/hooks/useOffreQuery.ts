@@ -10,7 +10,8 @@ export type OffreQueryParams = {
   typeDeContrats?: string
   typeLocalisation?: string
   codeLocalisation?: string
-  libelleLocalisation?: string
+  nomLocalisation?: string
+  codePostalLocalisation?: string
   tempsDeTravail?: string
   experienceExigence?: string
   grandDomaine?: string
@@ -22,20 +23,22 @@ export function useOffreQuery(): OffreQueryParams {
 
 	return useMemo(() => ({
 		codeLocalisation: getSingleQueryParam(query.codeLocalisation),
+		codePostalLocalisation: getSingleQueryParam(query.codePostalLocalisation),
 		experienceExigence: getSingleQueryParam(query.experienceExigence),
 		grandDomaine: getSingleQueryParam(query.grandDomaine),
-		libelleLocalisation: getSingleQueryParam(query.libelleLocalisation),
 		motCle: getSingleQueryParam(query.motCle),
+		nomLocalisation: getSingleQueryParam(query.nomLocalisation),
 		page: getSingleQueryParam(query.page),
 		tempsDeTravail: getSingleQueryParam(query.tempsDeTravail),
 		typeDeContrats: getSingleQueryParam(query.typeDeContrats),
 		typeLocalisation: getSingleQueryParam(query.typeLocalisation),
 	}), [
 		query.codeLocalisation,
+		query.codePostalLocalisation,
 		query.experienceExigence,
 		query.grandDomaine,
-		query.libelleLocalisation,
 		query.motCle,
+		query.nomLocalisation,
 		query.page,
 		query.tempsDeTravail,
 		query.typeDeContrats,

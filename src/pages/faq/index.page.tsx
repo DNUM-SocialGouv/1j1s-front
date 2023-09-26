@@ -5,9 +5,8 @@ import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useReferrer from '~/client/hooks/useReferrer';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
 import { Question } from '~/server/cms/domain/FAQ.type';
@@ -21,7 +20,6 @@ const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
 
 export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 	useAnalytics(analytics);
-	useReferrer();
 
 	return (
 		<>
@@ -44,9 +42,9 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 					}
 					<div className={styles.contact}>
 						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
-						<LinkStyledAsButton appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
+						<LinkStyledAsButtonWithIcon appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
 							Nous contacter
-						</LinkStyledAsButton>
+						</LinkStyledAsButtonWithIcon>
 					</div>
 				</Container>
 			</main>

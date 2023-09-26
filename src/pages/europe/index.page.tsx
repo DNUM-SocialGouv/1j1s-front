@@ -5,7 +5,7 @@ import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import analytics from '~/pages/europe/index.analytics';
@@ -72,9 +72,9 @@ export default function EuropePage() {
 				<ul>
 					{linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>
-							<LinkStyledAsButton appearance={'asQuaternayButton'} href={link.url}>
+							<LinkStyledAsButtonWithIcon appearance={'asQuaternayButton'} href={link.url}>
 								{link.title}
-							</LinkStyledAsButton>
+							</LinkStyledAsButtonWithIcon>
 						</li>
 					))}
 				</ul>
@@ -133,11 +133,11 @@ export default function EuropePage() {
 						</ul>
 
 						<div className={styles.buttonWrapper}>
-							<LinkStyledAsButton
+							<LinkStyledAsButtonWithIcon
 								href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
 								appearance="asPrimaryButton">
 								En savoir plus
-							</LinkStyledAsButton>
+							</LinkStyledAsButtonWithIcon>
 						</div>
 
 					</article>
@@ -186,7 +186,7 @@ export default function EuropePage() {
 							</li>
 						</ul>
 						<div className={styles.buttonWrapper}>
-							<LinkStyledAsButton href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</LinkStyledAsButton>
+							<LinkStyledAsButtonWithIcon href="https://info.erasmusplus.fr/" appearance="asPrimaryButton">En savoir plus</LinkStyledAsButtonWithIcon>
 						</div>
 					</article>
 				</div>
@@ -199,7 +199,7 @@ export default function EuropePage() {
 			<Container className={styles.sectionAidesFinancieres}>
 				<h2>Je cherche des aides financières pour vivre une expérience en Europe</h2>
 				<div className={styles.buttonWrapper}>
-					<LinkStyledAsButton href="/mes-aides" appearance="asPrimaryButton">Faire une simulation d’aides</LinkStyledAsButton>
+					<LinkStyledAsButtonWithIcon href="/mes-aides" appearance="asPrimaryButton">Faire une simulation d’aides</LinkStyledAsButtonWithIcon>
 				</div>
 			</Container>
 		</div>

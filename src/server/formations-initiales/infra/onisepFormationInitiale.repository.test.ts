@@ -1,5 +1,5 @@
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	aFormationInitiale,
@@ -104,7 +104,7 @@ describe('onisep formation initiale repository', () => {
 				const errorManagementService = anErrorManagementService();
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService);
 				const httpError = anHttpError(500);
-				const expectedErrorFromErromManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				const expectedErrorFromErromManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				const filtre = aFormationInitialeFiltre();
 				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
@@ -177,7 +177,7 @@ describe('onisep formation initiale repository', () => {
 				const errorManagementService = anErrorManagementService();
 				const formationInitialeRepository = new OnisepFormationInitialeRepository(httpClient, errorManagementService);
 				const httpError = anHttpError(500);
-				const expectedErrorFromErromManagement = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+				const expectedErrorFromErromManagement = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				jest.spyOn(httpClient, 'get').mockRejectedValueOnce(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedErrorFromErromManagement);
 				const identifiant = 'FOR.1234';

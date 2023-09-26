@@ -102,8 +102,10 @@
 
     & li {
       padding: .25rem 1ch;
-      cursor: pointer;
 
+      &[role="option"] {
+        cursor: pointer;
+      }
       &[role="option"]:hover,
       &[role="option"][aria-selected="true"] {
         background-color: $color-option-hover;
@@ -111,8 +113,12 @@
       }
     }
 
-    & ul[role="group"] {
-      border-bottom: 1px solid $color-category-separator;
+    & li[role="none"] {
+      font-weight: bold;
+
+      & * {
+        font-weight: initial;
+      }
     }
   }
 }
