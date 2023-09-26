@@ -5,23 +5,22 @@ import React from 'react';
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
 import { Article } from '~/server/cms/domain/article';
-import {
-	Question,
-	QuestionSlug,
-} from '~/server/faq/domain/FAQ';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import {
+	FAQ,
+} from '~/server/faq/domain/FAQ';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
-	faqRéponse: Question.QuestionRéponse
+	faqRéponse: FAQ.QuestionEtReponse
 }
 
 interface FAQRéponse extends ParsedUrlQuery {
-	id: QuestionSlug
+	id: FAQ.Slug
 }
 
-const faqRéponseMapToArticleFormat = (faqRéponse: Question.QuestionRéponse): Article => {
+const faqRéponseMapToArticleFormat = (faqRéponse: FAQ.QuestionEtReponse): Article => {
 	return {
 		contenu: faqRéponse.contenu,
 		titre: faqRéponse.problématique,
@@ -60,7 +59,6 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 		props: {
 			faqRéponse: removeUndefinedKeys(result),
 		},
-		// TODO (BRUJ 26-09-2023): Que faire de ça ??
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 

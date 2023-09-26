@@ -1,6 +1,6 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aListeDeQuestion, aListeFAQSlug, aQuestionRéponse } from '~/server/faq/domain/FAQ.fixture';
+import { aListeDeQuestion, aListeFAQSlug, aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
 import { flatMapSlug, mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
 import { RESOURCE_FAQ, StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 
@@ -42,7 +42,7 @@ describe('getFAQBySlug', () => {
 
 	describe('quand la question est trouvée', () => {
 		it('renvoie la question', async () => {
-			const expected = aQuestionRéponse();
+			const expected = aQuestionEtReponse();
 
 			const strapiCmsRepository = aStrapiCmsRepository({ getFirstFromCollectionType: jest.fn().mockResolvedValue(createSuccess(expected)) });
 			const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);

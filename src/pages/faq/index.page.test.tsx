@@ -14,16 +14,18 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
-import { Question } from '~/server/faq/domain/FAQ';
+import { FAQ } from '~/server/faq/domain/FAQ';
+import { aQuestion } from '~/server/faq/domain/FAQ.fixture';
 
-const listeDeQuestionRéponse: Array<Question> = [
-	{
+const listeDeQuestionResultat: Array<FAQ.Question> = [
+	aQuestion({
 		problématique: 'Comment constituer un dossier locatif ?',
 		slug: 'Comment-constituer-un-dossier-locatif-?',
-	}, {
+	}),
+	aQuestion({
 		problématique: 'Je n’arrive pas à candidater à une offre d’emploi',
 		slug: 'Je-n’arrive-pas-à-candidater-à-une-offre-d’emploi',
-	},
+	}),
 ];
 
 describe('Page FAQ', () => {
@@ -41,7 +43,7 @@ describe('Page FAQ', () => {
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>,
 		);
 
@@ -52,7 +54,7 @@ describe('Page FAQ', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>,
 		);
 
@@ -67,7 +69,7 @@ describe('Page FAQ', () => {
 	it('affiche le titre de la page', async () => {
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
 		const title = await screen.findByRole('heading', { level: 1 });
@@ -77,7 +79,7 @@ describe('Page FAQ', () => {
 	it('affiche le sous titre de la page', async () => {
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
 		const sousTitre = await screen.findByRole('heading', { level: 2 });
@@ -88,7 +90,7 @@ describe('Page FAQ', () => {
 	it('affiche une liste de question', async () => {
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
 		const listeDeQuestion = screen.getByRole('list');
@@ -101,7 +103,7 @@ describe('Page FAQ', () => {
 	it('affiche les questions sous forme de lien', async () => {
 		render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
 		const listeDeQuestion = screen.getByRole('list');
@@ -109,8 +111,8 @@ describe('Page FAQ', () => {
 
 		questions.forEach((question, index) => {
 			const lien = within(question).getByRole('link');
-			expect(lien).toHaveTextContent(listeDeQuestionRéponse[index].problématique);
-			expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionRéponse[index].slug}`);
+			expect(lien).toHaveTextContent(listeDeQuestionResultat[index].problématique);
+			expect(lien).toHaveAttribute('href', `/faq/${listeDeQuestionResultat[index].slug}`);
 		});
 	});
 
@@ -131,7 +133,7 @@ describe('Page FAQ', () => {
 		const analyticsService = anAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<FaqPage listeDeQuestionRéponse={listeDeQuestionRéponse}/>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>,
 		);
 

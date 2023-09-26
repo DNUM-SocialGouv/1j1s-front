@@ -1,34 +1,30 @@
-import { FAQResponse, Question } from '~/server/faq/domain/FAQ';
+import { FAQ,FAQResponseStrapi } from '~/server/faq/domain/FAQ';
 
-export const aStrapiListeDeQuestion = (): Array<FAQResponse.FAQ> => {
-	return [
-		aStrapiQuestion(),
-		aStrapiQuestion({
-			problematique: 'Je n’arrive pas à candidater à une offre d’emploi',
-			slug: 'Je n’arrive pas à candidater à une offre d’emploi'.replace(' ', '-'),
-		}),
-	];
-};
-
-
-
-export const aStrapiQuestion = (override?: Partial<FAQResponse.Réponse>): FAQResponse.Réponse => {
+export const aStrapiQuestionEtReponse = (override?: Partial<FAQResponseStrapi.QuestionEtReponse>): FAQResponseStrapi.QuestionEtReponse => {
 	return {
 		contenu: 'mon contenu explicatif',
 		problematique: 'Comment constituer un dossier locatif ?',
-		slug: 'Comment constituer un dossier locatif ?'.replace(' ', '-'),
+		slug: 'Comment-constituer-un-dossier-locatif ?',
 		...override,
 	};
 };
 
-export const aListeDeQuestion = (): Array<Question> => {
+export const aStrapiQuestion = (override?: Partial<FAQResponseStrapi.Question>): FAQResponseStrapi.Question => {
+	return {
+		problematique: 'Comment constituer un dossier locatif ?',
+		slug: 'Comment-constituer-un-dossier-locatif ?',
+		...override,
+	};
+};
+
+export const aListeDeQuestion = (): Array<FAQ.Question> => {
 	return [
 		aQuestion({ problématique: 'Comment constituer un dossier locatif ?' }),
 		aQuestion({ problématique:'Je n’arrive pas à candidater à une offre d’emploi' }),
 	];
 };
 
-export const aQuestion = (override?: Partial<Question>): Question => {
+export const aQuestion = (override?: Partial<FAQ.Question>): FAQ.Question => {
 	return {
 		problématique: 'Comment constituer un dossier locatif ?',
 		slug: 'question-slug',
@@ -36,7 +32,7 @@ export const aQuestion = (override?: Partial<Question>): Question => {
 	};
 };
 
-export const aQuestionRéponse = (override?: Partial<Question.QuestionRéponse>): Question.QuestionRéponse => {
+export const aQuestionEtReponse = (override?: Partial<FAQ.QuestionEtReponse>): FAQ.QuestionEtReponse => {
 	return {
 		contenu: 'mon contenu explicatif',
 		problématique: 'Comment constituer un dossier locatif ?',
