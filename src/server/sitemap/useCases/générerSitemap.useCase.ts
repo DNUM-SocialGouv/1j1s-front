@@ -6,6 +6,7 @@ import {
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either, isSuccess } from '~/server/errors/either';
+import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
@@ -34,7 +35,7 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/simulation?simulateur=employeur',
 ];
 export class GénérerSitemapUseCase {
-	constructor(private cmsRepository: CmsRepository, private ficheMetierRepository: FicheMetierRepository) {
+	constructor(private cmsRepository: CmsRepository, private ficheMetierRepository: FicheMetierRepository, private faqRepository: FAQRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
@@ -45,7 +46,7 @@ export class GénérerSitemapUseCase {
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.ficheMetierRepository.getAllNomsMetiers(),
 			this.cmsRepository.listAllArticleSlug(),
-			this.cmsRepository.listAllFAQSlug(),
+			this.faqRepository.listAllFAQSlug(),
 			this.cmsRepository.listAllOffreDeStageSlug(),
 			this.cmsRepository.listAllAnnonceDeLogementSlug(),
 		]);

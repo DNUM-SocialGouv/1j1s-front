@@ -8,7 +8,7 @@ import { Article } from '~/server/cms/domain/article';
 import {
 	Question,
 	QuestionSlug,
-} from '~/server/cms/domain/FAQ.type';
+} from '~/server/faq/domain/FAQ';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
@@ -49,7 +49,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 	}
 
 	const { id } = context.params;
-	const faqRéponse = await dependencies.cmsDependencies.consulterFAQ.handle(id);
+	const faqRéponse = await dependencies.faqDependencies.consulterFAQ.handle(id);
 
 	if (faqRéponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };
@@ -60,6 +60,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 		props: {
 			faqRéponse: removeUndefinedKeys(result),
 		},
+		// TODO (BRUJ 26-09-2023): Que faire de ça ??
 		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 

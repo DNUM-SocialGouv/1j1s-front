@@ -1,6 +1,6 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { Question, QuestionSlug } from '~/server/cms/domain/FAQ.type';
 import { Either } from '~/server/errors/either';
+import { Question, QuestionSlug } from '~/server/faq/domain/FAQ';
 
 export class ConsulterFAQUseCase {
 	constructor(private cmsRepository: CmsRepository) {}

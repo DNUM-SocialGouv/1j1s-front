@@ -1,10 +1,12 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
+import { aListeFAQSlug } from '~/server/faq/domain/FAQ.fixture';
+import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
+import { aFAQRepository } from '~/server/faq/infra/strapiFAQ.repository.fixture';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import { aFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository.fixture';
 import {
-	aFAQPathList,
 	aFicheMetierNomMetierList,
 	anAnnonceDeLogementPathList,
 	anArticlePathList,
@@ -15,13 +17,15 @@ import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSite
 
 describe('GénérerSitemapUseCase', () => {
 	let ficheMetierRepository: FicheMetierRepository;
+	let faqRepository: FAQRepository;
 	let cmsRepository: CmsRepository;
 	beforeEach(() => {
 		ficheMetierRepository= aFicheMetierRepository();
 		ficheMetierRepository.getAllNomsMetiers = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+		faqRepository = aFAQRepository();
 		cmsRepository = aStrapiCmsRepository();
 		cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-		cmsRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aFAQPathList()));
+		faqRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aListeFAQSlug()));
 		cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
 		cmsRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
 	});
@@ -29,7 +33,7 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
 			it('génère le xml contenant le sitemap',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const expected = aSitemap();
@@ -43,7 +47,7 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formation en apprentissage est activée', () => {
 			it('génère le sitamp avec la Formation en apprentissage',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -56,7 +60,7 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formations initiales n‘est pas activée', () => {
 			it('génère le sitmap sans la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -69,7 +73,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -83,7 +87,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap sans les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -96,7 +100,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);

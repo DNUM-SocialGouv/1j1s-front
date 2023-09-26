@@ -14,7 +14,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
-import { Question } from '~/server/cms/domain/FAQ.type';
+import { Question } from '~/server/faq/domain/FAQ';
 
 const listeDeQuestionRéponse: Array<Question> = [
 	{
