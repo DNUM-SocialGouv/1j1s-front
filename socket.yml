@@ -1,0 +1,8 @@
+# top level version field is required
+version: 2
+
+githubApp:
+  enabled: true # enable/disable the Socket.dev GitHub app entirely
+  pullRequestAlertsEnabled: true # enable/disable GitHub app pull request alert checks
+  dependencyOverviewEnabled: true # enable/disable GitHub app dependency overview comments in pull request alerts.
+  projectReportsEnabled: true # enable/disable Github app project report checks
