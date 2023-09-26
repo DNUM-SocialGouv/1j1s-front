@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.151.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.0...v3.151.1) (2023-09-26)
+
+
+### 🐛 Corrections de bogues
+
+* **formation:** bug lba formation non trouvée filtre niveauEtudes ([#2043](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2043)) ([033289d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/033289d8d160bbf35e90e1eb3bd498e2e37cb8e5))
+
 ## [3.151.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.150.0...v3.151.0) (2023-09-26)
 
 
