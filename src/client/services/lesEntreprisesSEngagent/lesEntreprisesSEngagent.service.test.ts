@@ -3,7 +3,7 @@ import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('LesEntreprisesSEngagentService', () => {
 	describe('l’envoie du formulaire c’est bien passé', () => {
@@ -46,7 +46,7 @@ describe('LesEntreprisesSEngagentService', () => {
 	describe('l’envoie du formulaire tombe en erreur', () => {
 		it('renvoie une Failure', async () => {
 			const httpClientService = anHttpClientService();
-			jest.spyOn(httpClientService, 'post').mockResolvedValue(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+			jest.spyOn(httpClientService, 'post').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			const lesEntreprisesSEngagentServiceService = new LesEntreprisesSEngagentService(httpClientService);
 
 			const result = await lesEntreprisesSEngagentServiceService.envoyerFormulaireEngagement({
@@ -62,7 +62,7 @@ describe('LesEntreprisesSEngagentService', () => {
 				téléphone: '0611223344',
 				ville: 'Maison-Lafitte',
 			});
-			expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+			expect(result).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 		});
 	});
 });

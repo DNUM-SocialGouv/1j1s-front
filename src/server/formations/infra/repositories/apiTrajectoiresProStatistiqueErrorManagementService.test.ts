@@ -1,4 +1,4 @@
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import {
 	ApiTrajectoiresProStatistiqueErrorManagementService,
@@ -25,7 +25,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
-			expect(failure.errorType).toStrictEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+			expect(failure.errorType).toStrictEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 		});
 
 		it('qui est autre que 404, log en erreur les informations de l’erreur et retourne une erreur métier associée', () => {
@@ -44,7 +44,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ errorDetail: httpNotFoundError.response?.data },
 			));
-			expect(failure.errorType).toStrictEqual(ErreurMétier.DEMANDE_INCORRECTE);
+			expect(failure.errorType).toStrictEqual(ErreurMetier.DEMANDE_INCORRECTE);
 		});
 	});
 
@@ -65,7 +65,7 @@ describe('ApiTrajectoiresProStatistiqueErrorManagementService', () => {
 				{ context: logInformation.contexte, source: logInformation.apiSource },
 				{ stacktrace: someError.stack },
 			));
-			expect(failure.errorType).toStrictEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+			expect(failure.errorType).toStrictEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 		});
 	});
 });

@@ -1,6 +1,6 @@
 import { ValidationError } from 'joi';
 
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
@@ -109,20 +109,20 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	}
 
 	protected createFailureForInternalError() {
-		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+		return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 	}
 
 	protected createFailureForHttpError(error: HttpError) {
 		if (error.response?.status.toString().startsWith('50')) {
-			return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 		}
 		if (error.response?.status === 400) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 		if (error.response?.status === 404) {
-			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 		}
-		return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+		return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 	}
 }
 

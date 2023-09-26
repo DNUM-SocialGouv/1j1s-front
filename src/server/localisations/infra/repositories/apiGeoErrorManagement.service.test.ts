@@ -1,5 +1,5 @@
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
 import { ApiGeoErrorManagementService } from '~/server/localisations/infra/repositories/apiGeoErrorManagement.service';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
@@ -107,7 +107,7 @@ describe('apiGeoErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 			const internalError = new Error('ceci est une erreur interne');
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = apiGeoErrorManagementService.handleFailureError(internalError, aLogInformationApiGeo);

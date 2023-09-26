@@ -332,6 +332,8 @@ describe('<Combobox />', () => {
 
 				expect(onBlur).not.toHaveBeenCalled();
 			});
+
+			it.todo('appelle onChange et onInput quand ne match pas encore une option');
 		});
 
 		describe('<Combobox.Option />', () => {
@@ -1482,6 +1484,36 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Option 1');
 
 				expect(input).toBeValid();
+			});
+			describe('lorsque l’option required est true', () => {
+				it('est invalide quand l’entrée est vide', async () => {
+					const user = userEvent.setup();
+					render(
+						<Combobox aria-label='Test' requireValidOption required>
+							<Combobox.Option>Option 1</Combobox.Option>
+						</Combobox>,
+					);
+
+					const input = screen.getByRole('combobox');
+					await user.clear(input);
+
+					expect(input).toBeInvalid();
+				});
+			});
+			describe('lorsque l’option required est false', () => {
+				it('est valide quand l’entrée est vide', async () => {
+					const user = userEvent.setup();
+					render(
+						<Combobox aria-label='Test' requireValidOption required={false}>
+							<Combobox.Option>Option 1</Combobox.Option>
+						</Combobox>,
+					);
+
+					const input = screen.getByRole('combobox');
+					await user.clear(input);
+
+					expect(input).toBeValid();
+				});
 			});
 		});
 	});

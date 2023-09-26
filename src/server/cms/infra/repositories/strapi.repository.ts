@@ -24,7 +24,7 @@ import {
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -101,7 +101,7 @@ export class StrapiRepository implements CmsRepository {
 	private getFirstFromCollection<Response>(responseList: Either<Array<Response>>): Either<Response> {
 		if (isSuccess(responseList)) {
 			if (!responseList.result[0]) {
-				return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			}
 			return createSuccess(responseList.result[0]);
 		} else {

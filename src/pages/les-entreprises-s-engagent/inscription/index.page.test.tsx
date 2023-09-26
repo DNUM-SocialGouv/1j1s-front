@@ -11,12 +11,12 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import {
 	aLesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import LesEntreprisesSEngagentInscription, {
 	FormulaireEngagement,
 } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
@@ -192,7 +192,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 	describe('en cas d´erreur', () => {
 		it('montre une modale avec un lien vers les entreprises s`engagent', async () => {
 			renderComponent();
-			jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+			jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			await remplirFormulaireEtape1();
 			await clickOnGoToEtape2();

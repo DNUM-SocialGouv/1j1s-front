@@ -13,7 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { dependencies } from '~/server/start';
@@ -73,7 +73,7 @@ describe('getServerSideProps', () => {
 						latitudeCommune: '48.2',
 						longitudeCommune: '29.10',
 					} as ParsedUrlQuery;
-					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 					const value = await getServerSideProps({
 						params: { id: '1' },
@@ -96,7 +96,7 @@ describe('getServerSideProps', () => {
 							latitudeCommune: '48.2',
 							longitudeCommune: '29.10',
 						} as ParsedUrlQuery;
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMétier.SERVICE_INDISPONIBLE) });
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 						const value = await getServerSideProps({
 							params: { id: '1' },

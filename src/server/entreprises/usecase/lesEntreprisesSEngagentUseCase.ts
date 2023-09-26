@@ -2,7 +2,7 @@ import Joi from 'joi';
 import phone from 'phone';
 
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
@@ -18,7 +18,7 @@ export class LesEntreprisesSEngagentUseCase {
 		try {
 			entreprise = Joi.attempt(command, EntrepriseValidator);
 		} catch (e) {
-			return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 
 		const result = await this.lEERepository.save(entreprise);

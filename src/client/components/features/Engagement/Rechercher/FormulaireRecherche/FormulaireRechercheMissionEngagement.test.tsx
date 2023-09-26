@@ -10,7 +10,7 @@ import {
 } from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMissionEngagementDomainList } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('FormulaireRechercheMissionEngagement', () => {

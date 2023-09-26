@@ -12,6 +12,12 @@ import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import {
+	formatLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/formatLibelleLocalisation';
+import {
+	getCodeLibelleLocalisation,
+} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/getCodeLibelleLocalisation';
+import {
 	LightHero,
 	LightHeroPrimaryText,
 	LightHeroSecondaryText,
@@ -68,12 +74,17 @@ export function RechercherJobEte() {
 	}, [nombreResultats, offreEmploiQuery.motCle]);
 
 	const etiquettesRecherche = useMemo(() => {
-		if (offreEmploiQuery.libelleLocalisation) {
-			return <TagList list={[offreEmploiQuery.libelleLocalisation]} aria-label="Filtres de la recherche"/>;
+		if (offreEmploiQuery.nomLocalisation) {
+			return <TagList list={[
+				formatLibelleLocalisation(
+					offreEmploiQuery.nomLocalisation,
+					getCodeLibelleLocalisation(offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.typeLocalisation) || '',
+				),
+			]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [offreEmploiQuery.libelleLocalisation]);
+	}, [offreEmploiQuery.codeLocalisation, offreEmploiQuery.codePostalLocalisation, offreEmploiQuery.nomLocalisation, offreEmploiQuery.typeLocalisation]);
 
 	return (
 		<>

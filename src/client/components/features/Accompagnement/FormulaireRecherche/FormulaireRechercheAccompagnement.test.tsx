@@ -12,7 +12,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 
 describe('FormulaireRechercheAccompagnement', () => {
 	beforeEach(() => {

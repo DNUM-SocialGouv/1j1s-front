@@ -12,8 +12,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	aLocalisationService,
-	aLocalisationServiceWithEmptyRésultat,
-} from '~/client/services/localisation/localisationService.fixture';
+	aLocalisationServiceWithEmptyResultat,
+} from '~/client/services/localisation/localisation.service.fixture';
 
 describe('InputCommune', () => {
 	afterEach(() => {
@@ -23,7 +23,7 @@ describe('InputCommune', () => {
 	describe('quand aucun résultat n‘est trouvé', () => {
 		it('affiche un message d‘information', async () => {
 			// GIVEN
-			const localisationServiceMock = aLocalisationServiceWithEmptyRésultat();
+			const localisationServiceMock = aLocalisationServiceWithEmptyResultat();
 			const user = userEvent.setup();
 
 			mockUseRouter({});
@@ -47,7 +47,7 @@ describe('InputCommune', () => {
 	describe('quand l‘input a moins de 3 caractères' , () => {
 		it('ne lance pas la recherche', async () => {
 			// GIVEN
-			const localisationServiceMock = aLocalisationServiceWithEmptyRésultat();
+			const localisationServiceMock = aLocalisationServiceWithEmptyResultat();
 			const user = userEvent.setup();
 
 			mockUseRouter({});

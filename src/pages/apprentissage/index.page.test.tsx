@@ -10,7 +10,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
 import { Alternance } from '~/server/alternances/domain/alternance';
