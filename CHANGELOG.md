@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.150.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.1...v3.150.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** ajout d'un composant linkStyledAsButtonWithIcon  ([#2037](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2037)) ([664ef88](https://github.com/DNUM-SocialGouv/1j1s-front/commit/664ef887accea83c9e3c9a512e3a2f7efed9f0b7))
+
 ## [3.149.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.0...v3.149.1) (2023-09-26)
 
 
