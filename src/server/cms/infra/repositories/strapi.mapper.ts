@@ -270,12 +270,3 @@ export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.Video
 	};
 }
 
-export function mapFormationInitiale(formationInitiale: Strapi.CollectionType.FormationInitialeDetail): FormationInitialeDetailCMS {
-	return {
-		attendusParcoursup: formationInitiale.attendusParcoursup,
-		conditionsAcces: formationInitiale.conditionsAcces,
-		dateDeMiseAJour: formationInitiale.updatedAt,
-		description: formationInitiale.description,
-		poursuiteEtudes: formationInitiale.poursuiteEtudes,
-	};
-}
