@@ -31,6 +31,15 @@ import {
 } from '~/server/emplois/configuration/dependencies.container';
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import {
+	getApiEuresPublicHttpClientConfig,
+} from '~/server/emplois-europe/configuration/apiEures/apiEuresPublicHttpClient.config';
+import {
+	EmploiEuropeDependencies,
+	emploiEuropeDependenciesContainer,
+} from '~/server/emplois-europe/configuration/dependencies.container';
+import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
+import { fixtureEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
+import {
 	getApiEngagementConfig,
 } from '~/server/engagement/configuration/api-engagement/apiEngagementHttpClient.config';
 import {
@@ -178,6 +187,7 @@ export type Dependencies = {
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
 	loggerService: LoggerService
+	emploiEuropeDependencies: EmploiEuropeDependencies;
 }
 
 export function dependenciesContainer(): Dependencies {
@@ -297,11 +307,18 @@ export function dependenciesContainer(): Dependencies {
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
 
+	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
+	const apiEuresEmploiEuropeRepository = new ApiEuresEmploiEuropeRepository(apiEuresHttpClientService, defaultErrorManagementService);
+
+	const emploiEuropeDependencies = serverConfigurationService.getConfiguration().API_EURES_IS_MOCK_ACTIVE
+		? emploiEuropeDependenciesContainer(new fixtureEmploiEuropeRepository())
+		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
 	return {
 		alternanceDependencies,
 		cmsDependencies,
 		demandeDeContactDependencies,
+		emploiEuropeDependencies,
 		engagementDependencies,
 		entrepriseDependencies,
 		ficheMetierDependencies,

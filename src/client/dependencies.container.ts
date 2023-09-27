@@ -13,6 +13,8 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact/dema
 import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
+import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import { FormationService } from '~/client/services/formation/formation.service';
 import {
 	FormationInitialeInterface,
@@ -55,6 +57,7 @@ export type Dependencies = {
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 	marketingService: MarketingService
 	dateService: DateService
+	emploiEuropeService: EmploiEuropeService
 }
 
 class DependencyInitException extends Error {
@@ -76,6 +79,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const demandeDeContactService = new DemandeDeContactService(httpClientService);
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new StageService(httpClientService);
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
@@ -112,6 +116,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		cookiesService,
 		dateService,
 		demandeDeContactService,
+		emploiEuropeService: emploiEuropeService,
 		formationInitialeService,
 		formationService,
 		lesEntreprisesSEngagentService,

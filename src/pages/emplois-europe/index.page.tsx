@@ -1,7 +1,6 @@
 import { GetServerSidePropsResult } from 'next';
 
-import { Head } from '~/client/components/head/Head';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/Rechercher/RechercherEmploisEurope';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/emplois-europe/index.analytics';
 
@@ -9,19 +8,7 @@ export default function EmploiEuropePage() {
 	useAnalytics(analytics);
 
 	return <>
-		<Head
-			title={'Rechercher un emploi en Europe | 1jeune1solution'}
-			description="Des milliers d’offres d’emplois en Europe sélectionnées pour vous par EURES"
-			robots="index,follow"
-		/>
-		<main id="contenu">
-			<LightHero>
-				<h1>
-					<LightHeroPrimaryText>Des milliers d‘offres d‘emplois en Europe</LightHeroPrimaryText>
-					<LightHeroSecondaryText>sélectionnées pour vous par EURES</LightHeroSecondaryText>
-				</h1>
-			</LightHero>
-		</main>
+		<RechercherEmploisEurope />
 	</>;
 }
 
