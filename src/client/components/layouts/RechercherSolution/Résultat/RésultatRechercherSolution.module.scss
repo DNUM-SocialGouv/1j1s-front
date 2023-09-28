@@ -4,7 +4,7 @@
 $color-card-background: utilities.$color-background-primary;
 $color-card-lead-border: utilities.$color-primary;
 $color-border-left: utilities.$color-primary;
-$color-call-to-action: utilities.$color-cta-texte-secondary;
+$color-call-to-action-text: utilities.$color-cta-texte-secondary;
 $border-card-lead: 4px solid $color-card-lead-border;
 
 .card {
@@ -13,49 +13,28 @@ $border-card-lead: 4px solid $color-card-lead-border;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
-  .cardLead {
-    display: flex;
-  }
-
-  &Link {
-   &:hover > .cardLinkCallToAction {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    &Container {
-      padding: 1rem;
-      text-align: right;
-      margin-top: auto;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0);
-    }
-
-    &CallToAction {
-      @extend %text-medium;
-      color: $color-call-to-action;
-    }
-  }
-
-  &TagsAndCTA {
-    padding: 0.75rem;
+  @include utilities.media(medium) {
+    padding: 2rem 1.5rem;
+    border-left: 4px solid $color-border-left;
   }
 }
 
 .cardLead {
   display: flex;
   padding: 1.5rem;
+  border-bottom: $border-card-lead;
 
-  :has(img) {
-    border-bottom: $border-card-lead
+  @include utilities.media(medium) {
+    border-bottom: none;
+    padding: 0;
+  }
+
+  &:has(img) {
+    gap: 2rem;
+
+    @include utilities.media(medium) {
+      gap: 2.5rem;
+    }
   }
 
   > img {
@@ -63,71 +42,80 @@ $border-card-lead: 4px solid $color-card-lead-border;
     margin-bottom: auto;
     width: 56px;
     height: 56px;
+
+    @include utilities.media(medium) {
+      width: 120px;
+      height: 120px;
+    }
   }
 }
 
 //NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
 .logoCardLead {
-  border-bottom: $border-card-lead;
+  gap: 2rem;
+  @include utilities.media(medium) {
+    gap: 2.5rem;
+  }
 }
 
 .offreLead {
-  margin-left: 2rem;
   line-height: 1.5;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
-  &Title {
+  .title {
     @extend %bold;
     @extend %text-medium
   }
 
-  &SubTitle {
+  .subtitle {
     min-height: 24px;
     @extend %text-regular;
   }
 
-  &Description {
+  .description {
     @extend %text-regular;
   }
 }
 
+.cardTagsAndCTA {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
 
-@include utilities.media(medium) {
-  .card {
-    padding: 2rem 1.5rem;
-    border-left: 4px solid $color-border-left;
+  @include utilities.media(medium) {
+    padding: 0;
+    margin-top: 1rem;
+  }
 
-    &Lead {
-      display: flex;
-      width: 100%;
-      border-bottom: none;
-      margin-bottom: 0;
+  & .cardLinkContainer {
+    padding: 1rem;
+    text-align: right;
+
+    @include utilities.media(medium) {
       padding: 0;
+    }
 
-      > img {
-        width: 120px;
-        height: 120px;
+    .cardLink {
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0);
       }
-    }
 
-    .offreLead {
-      margin-left: 2.5rem;
-      width: 100%;
-    }
+      &:hover > .cardLinkText {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
 
-    &TagsAndCTA {
-      height: 100%;
-      margin-top: 1rem;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    &Link {
-      &Container {
-        margin-top: auto;
-        padding: 0;
+      & .cardLinkText {
+        @extend %text-medium;
+        color: $color-call-to-action-text;
       }
     }
   }

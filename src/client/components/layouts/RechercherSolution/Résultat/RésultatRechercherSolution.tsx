@@ -8,7 +8,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-type LogoProps = ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
+type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
 type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
@@ -34,7 +34,7 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 							href={lienOffre}
 							className={classNames(styles.cardLink, 'underline-none')}
 							prefetch={false}>
-							<TextIcon icon="angle-right" className={styles.cardLinkCallToAction}>
+							<TextIcon icon="angle-right" className={styles.cardLinkText}>
 								{intituléLienOffre ? intituléLienOffre : 'En savoir plus'}
 							</TextIcon>
 						</Link>
@@ -52,8 +52,8 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
-						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
-						{sousTitreOffre && <div className={styles.offreLeadSubTitle}>{sousTitreOffre}</div>}
+						<h3 className={styles.title}>{intituléOffre}</h3>
+						{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
 					</header>
 					{children && <section className={styles.offreLeadDescription}>{children}</section>}
 					{!isSmallScreen && cardTagsAndCTA()}
