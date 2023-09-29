@@ -71,7 +71,7 @@ export default function VideosCampagneApprentissage({
 						<LinkStyledAsButtonWithIcon
 							iconPosition={'right'}
 							icon={<Icon name="external-redirection"/>}
-							appearance={'asQuaternayButton'}
+							appearance={'asQuaternaryButton'}
 							href={'https://www.youtube.com/playlist?list=PL380KraUhZWX2ZY_qMbydLn5lqIXpUvw1'}
 							className={styles.lienPlaylist}>
 							Découvrir tous les témoignages

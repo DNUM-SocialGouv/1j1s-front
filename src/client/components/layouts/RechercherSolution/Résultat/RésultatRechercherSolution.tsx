@@ -4,10 +4,8 @@ import React, { PropsWithChildren } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
@@ -37,9 +35,9 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 							href={lienOffre}
 							icon={<Icon name={'angle-right'}/>}
 							iconPosition={'right'}
-							appearance={'asQuaternayButton'}
+							appearance={'asQuaternaryButton'}
 						>
-							{intituléLienOffre ? intituléLienOffre : 'En savoir plus'}
+							{intituléLienOffre || 'En savoir plus'}
 						</LinkStyledAsButtonWithIcon>
 					</div>
 				}

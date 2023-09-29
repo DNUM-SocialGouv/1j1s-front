@@ -31,9 +31,9 @@ export const asTertiaryButton: Story = {
 		appearance: 'asTertiaryButton',
 	},
 };
-export const asQuaternayButton: Story = {
+export const asQuaternaryButton: Story = {
 	args: {
-		appearance: 'asQuaternayButton',
+		appearance: 'asQuaternaryButton',
 	},
 };
 

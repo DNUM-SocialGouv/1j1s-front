@@ -72,7 +72,7 @@ export default function EuropePage() {
 				<ul>
 					{linkList.map((link: LienEmploiEurope) => (
 						<li key={link.title}>
-							<LinkStyledAsButtonWithIcon appearance={'asQuaternayButton'} href={link.url}>
+							<LinkStyledAsButtonWithIcon appearance={'asQuaternaryButton'} href={link.url}>
 								{link.title}
 							</LinkStyledAsButtonWithIcon>
 						</li>
