@@ -3,7 +3,9 @@ import Image from 'next/image';
 import React, { PropsWithChildren } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -30,14 +32,15 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{lienOffre &&
 					// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
 					<div className={styles.cardLinkContainer}>
-						<Link
+						<LinkStyledAsButtonWithIcon
+							className={classNames(styles.cardLink)}
 							href={lienOffre}
-							className={classNames(styles.cardLink, 'underline-none')}
-							prefetch={false}>
-							<TextIcon icon="angle-right" className={styles.cardLinkText}>
-								{intituléLienOffre ? intituléLienOffre : 'En savoir plus'}
-							</TextIcon>
-						</Link>
+							icon={<Icon name={'angle-right'}/>}
+							iconPosition={'right'}
+							appearance={'asQuaternayButton'}
+						>
+							{intituléLienOffre ? intituléLienOffre : 'En savoir plus'}
+						</LinkStyledAsButtonWithIcon>
 					</div>
 				}
 			</section>

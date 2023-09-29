@@ -1,5 +1,4 @@
 @use "@styles/utilities";
-@use "@styles/utilities-deprecated";
 
 $color-card-background: utilities.$color-background-primary;
 $color-card-lead-border: utilities.$color-primary;
@@ -17,106 +16,97 @@ $border-card-lead: 4px solid $color-card-lead-border;
     padding: 2rem 1.5rem;
     border-left: 4px solid $color-border-left;
   }
-}
 
-.cardLead {
-  display: flex;
-  padding: 1.5rem;
-  border-bottom: $border-card-lead;
+  & .cardLead {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: $border-card-lead;
 
-  @include utilities.media(medium) {
-    border-bottom: none;
-    padding: 0;
+    @include utilities.media(medium) {
+      border-bottom: none;
+      padding: 0;
+    }
+
+    &:has(img) {
+      gap: 2rem;
+
+      @include utilities.media(medium) {
+        gap: 2.5rem;
+      }
+    }
+
+    > img {
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 56px;
+      height: 56px;
+
+      @include utilities.media(medium) {
+        width: 120px;
+        height: 120px;
+      }
+    }
   }
 
-  &:has(img) {
+  //NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
+  & .logoCardLead {
     gap: 2rem;
-
     @include utilities.media(medium) {
       gap: 2.5rem;
     }
   }
 
-  > img {
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 56px;
-    height: 56px;
+  & .offreLead {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 
-    @include utilities.media(medium) {
-      width: 120px;
-      height: 120px;
+    .title {
+      @extend %bold;
+      @extend %title-small
+    }
+
+    .subtitle {
+      min-height: 24px;
+      @extend %text-medium;
+    }
+
+    .description {
+      @extend %text-medium;
     }
   }
-}
 
-//NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
-.logoCardLead {
-  gap: 2rem;
-  @include utilities.media(medium) {
-    gap: 2.5rem;
-  }
-}
-
-.offreLead {
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  .title {
-    @extend %bold;
-    @extend %text-medium
-  }
-
-  .subtitle {
-    min-height: 24px;
-    @extend %text-regular;
-  }
-
-  .description {
-    @extend %text-regular;
-  }
-}
-
-.cardTagsAndCTA {
-  display: flex;
-  flex-direction: column;
-  padding: 0.75rem 0.75rem 0.75rem 1.25rem;
-
-  @include utilities.media(medium) {
-    padding: 0;
-    margin-top: 1rem;
-  }
-
-  & .cardLinkContainer {
-    padding: 1rem;
-    text-align: right;
+  & .cardTagsAndCTA {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.75rem 0.75rem 1.25rem;
 
     @include utilities.media(medium) {
       padding: 0;
+      margin-top: 1rem;
     }
 
-    .cardLink {
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0);
+    & .cardLinkContainer {
+      padding: 1rem;
+      text-align: right;
+
+      @include utilities.media(medium) {
+        padding: 0;
       }
 
-      &:hover > .cardLinkText {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-
-      & .cardLinkText {
-        @extend %text-medium;
-        color: $color-call-to-action-text;
+      .cardLink {
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0);
+        }
       }
     }
   }
 }
+
+
