@@ -73,8 +73,8 @@ describe('Page de recherche d’emplois', () => {
 				codeLocalisation: '75',
 				experienceExigence: 'E',
 				grandDomaine: 'B',
-				libelleLocalisation: 'Paris (75)',
 				motCle: 'Informatique',
+				nomLocalisation: 'Paris',
 				tempsDeTravail: 'tempsPartiel',
 				typeDeContrats: 'CDI',
 				typeLocalisation: 'DEPARTEMENT',
@@ -84,7 +84,7 @@ describe('Page de recherche d’emplois', () => {
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
 			// FIXME (GAFI 08-08-2023): devrait être role combobox, sera fix dans ticket comboboxLocalisation ou comboboxCommune
-			cy.findByRole('textbox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
+			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
 
 			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();
 

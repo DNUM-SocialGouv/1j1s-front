@@ -3,7 +3,7 @@ import {
 	ApiRejoindreLaMobilisationMessageError,
 } from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -38,7 +38,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, ApiRejoindreLaMobilisationMessageError.ERROR_400);
-			const expectedFailure = createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+			const expectedFailure = createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 
 			// WHEN
 			const result = apiRejoindreLaMobilisationErrorManagementService.handleFailureError(httpError, logInformation);
@@ -52,7 +52,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, ApiRejoindreLaMobilisationMessageError.ERROR_404);
-			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			// WHEN
 			const result = apiRejoindreLaMobilisationErrorManagementService.handleFailureError(httpError, logInformation);
@@ -66,7 +66,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, ApiRejoindreLaMobilisationMessageError.ERROR_409);
-			const expectedFailure = createFailure(ErreurMétier.CONFLIT_D_IDENTIFIANT);
+			const expectedFailure = createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT);
 
 			// WHEN
 			const result = apiRejoindreLaMobilisationErrorManagementService.handleFailureError(httpError, logInformation);
@@ -80,7 +80,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, 'pas le bon message');
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = apiRejoindreLaMobilisationErrorManagementService.handleFailureError(httpError, logInformation);
@@ -95,7 +95,7 @@ describe('apiRejoindreLaMobilisationErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
 			const internalError = new Error('ceci est une erreur interne');
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = apiRejoindreLaMobilisationErrorManagementService.handleFailureError(internalError, logInformation);

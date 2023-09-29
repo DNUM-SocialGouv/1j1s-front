@@ -27,7 +27,7 @@ describe('Etiquettes filtre emploi', () => {
 			mockUseRouter({
 				query: {
 					codeLocalisation: '26',
-					libelleLocalisation: 'BOURG LES VALENCE (26)',
+					nomLocalisation: 'BOURG LES VALENCE (26)',
 					typeLocalisation: 'DEPARTEMENT',
 				},
 			});
@@ -97,21 +97,42 @@ describe('Etiquettes filtre emploi', () => {
 		});
 	});
 	describe('quand une recherche est lancée avec le filtre localisation', () => {
-		it('retourne une liste d‘étiquettes contenant la localisation',  async () => {
+		describe('quand la recherche est de type département', () => {
+			it('retourne une liste d‘étiquettes contenant la localisation',  async () => {
 
-			mockUseRouter({
-				query: {
-					codeLocalisation: '26',
-					libelleLocalisation: 'Bourg-lès-Valence (26500)',
-					typeLocalisation: 'DEPARTEMENT',
-				},
+				mockUseRouter({
+					query: {
+						codeLocalisation: '26',
+						nomLocalisation: 'Bourg-lès-Valence',
+						typeLocalisation: 'DEPARTEMENT',
+					},
+				});
+				render(<EtiquettesFiltreOffreEmploi/>);
+
+				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+				const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26)');
+				expect(filtresRecherche).toBeInTheDocument();
+				expect(localisation).toBeInTheDocument();
 			});
-			render(<EtiquettesFiltreOffreEmploi/>);
+		});
+		describe('quand la recherche est de type commune', () => {
+			it('retourne une liste d‘étiquettes contenant la localisation',  async () => {
 
-			const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-			const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26500)');
-			expect(filtresRecherche).toBeInTheDocument();
-			expect(localisation).toBeInTheDocument();
+				mockUseRouter({
+					query: {
+						codeLocalisation: '26',
+						codePostalLocalisation: '26500',
+						nomLocalisation: 'Bourg-lès-Valence',
+						typeLocalisation: 'COMMUNE',
+					},
+				});
+				render(<EtiquettesFiltreOffreEmploi/>);
+
+				const filtresRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+				const localisation = within(filtresRecherche).getByText('Bourg-lès-Valence (26500)');
+				expect(filtresRecherche).toBeInTheDocument();
+				expect(localisation).toBeInTheDocument();
+			});
 		});
 	});
 });

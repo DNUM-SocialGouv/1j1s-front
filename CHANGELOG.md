@@ -1,5 +1,44 @@
 # Changelog
 
+## [3.152.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.152.0...v3.152.1) (2023-09-28)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/marked to v5.0.2 ([2395573](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2395573052007141c433aad9c1174f7fbf6ff34f))
+* **deps:** update dependency @types/node to v18.17.19 ([#2054](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2054)) ([b41680d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b41680ddb68437d72ec413121a2c25f76099df5f))
+* **deps:** update dependency @types/react-autosuggest to v10.1.7 ([b1140d8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b1140d8691974232543b53a0bc0358d4a9d53fd5))
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.7.3 ([041fc13](https://github.com/DNUM-SocialGouv/1j1s-front/commit/041fc137650bc0c7e98a144c306e754ccc07e6bd))
+* **deps:** update dependency eslint-plugin-testing-library to v6.0.2 ([#2055](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2055)) ([00d5503](https://github.com/DNUM-SocialGouv/1j1s-front/commit/00d5503b5a66a50cbd88aee6b86030fc93db635e))
+
+## [3.152.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.1...v3.152.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **lee:** modifier la pop in d'erreur d'inscription ([#2039](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2039)) ([2d58138](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d58138c90953052d5daa5c5ff58596170ed2ecc))
+
+## [3.151.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.151.0...v3.151.1) (2023-09-26)
+
+
+### 🐛 Corrections de bogues
+
+* **formation:** bug lba formation non trouvée filtre niveauEtudes ([#2043](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2043)) ([033289d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/033289d8d160bbf35e90e1eb3bd498e2e37cb8e5))
+
+## [3.151.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.150.0...v3.151.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* améliorer l'accessibilité des combobox input localisation ([#1950](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1950)) ([2b9dae1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b9dae1304995a786c31a93ef80cae4c8bf0ed95))
+
+## [3.150.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.1...v3.150.0) (2023-09-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** ajout d'un composant linkStyledAsButtonWithIcon  ([#2037](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2037)) ([664ef88](https://github.com/DNUM-SocialGouv/1j1s-front/commit/664ef887accea83c9e3c9a512e3a2f7efed9f0b7))
+
 ## [3.149.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.149.0...v3.149.1) (2023-09-26)
 
 

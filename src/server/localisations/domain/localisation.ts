@@ -13,8 +13,8 @@ export enum TypeLocalisation {
 
 export interface RechercheLocalisation {
   communeList: Commune[]
-  départementList: Localisation[]
-  régionList: Localisation[]
+  departementList: Localisation[]
+  regionList: Localisation[]
 }
 
 type Radius = { libellé: string, valeur: string }

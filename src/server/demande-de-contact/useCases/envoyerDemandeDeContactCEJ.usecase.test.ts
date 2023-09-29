@@ -4,7 +4,7 @@ import {
 	EnvoyerDemandeDeContactCEJUseCase,
 } from '~/server/demande-de-contact/useCases/envoyerDemandeDeContactCEJ.usecase';
 import { createFailure, createSuccess } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 
 describe('EnvoyerDemandeDeContact pour le CEJ', () => {
@@ -32,7 +32,7 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 				const result = await usecase.handle({});
 
 				// Then
-				expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				expect(result).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			});
 		});
 
@@ -84,7 +84,7 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 				const usecase = new EnvoyerDemandeDeContactCEJUseCase(demandeDeContactRepository);
 				const result = await usecase.handle({ ...command, ...queryParametersToTestInError } as unknown as DemandeDeContactCEJ);
 
-				expect(result).toEqual(createFailure(ErreurMétier.DEMANDE_INCORRECTE));
+				expect(result).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 			});
 		});
 	});

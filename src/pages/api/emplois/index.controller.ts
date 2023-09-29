@@ -16,13 +16,12 @@ export const emploisQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	experienceExigence: Joi.string().valid('D', 'S', 'E'),
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
-	libelleLocalisation: Joi.string(),
 	motCle: Joi.string(),
 	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
 	tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
 	typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
-});
+}).options({ allowUnknown: true });
 
 export async function rechercherOffreEmploiHandler(
 	req: NextApiRequest,

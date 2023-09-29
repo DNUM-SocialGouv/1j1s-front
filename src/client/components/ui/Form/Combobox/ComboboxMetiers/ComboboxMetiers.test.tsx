@@ -14,7 +14,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createFailure, Either } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Metier } from '~/server/metiers/domain/metier';
 
 describe('<ComboboxMetiers />', () => {
@@ -272,7 +272,7 @@ describe('<ComboboxMetiers />', () => {
 	it('affiche un message quand l’appel au service est en échec', async () => {
 		const user = userEvent.setup();
 		const metierService: MetierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 		render(
 			<DependenciesProvider metierService={metierService}>
@@ -286,9 +286,8 @@ describe('<ComboboxMetiers />', () => {
 
 		await user.type(screen.getByRole('combobox'), 'test');
 
-		const message = screen.getByRole('status');
+		const message = await screen.findByText( 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.' );
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.');
 	});
 
 	it('affiche un message quand la liste de suggestions est en train de charger des résultats', async () => {

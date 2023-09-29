@@ -1,5 +1,5 @@
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { aDépartementList, aLocalisationRepository, aRégionList } from '~/server/localisations/domain/localisation.fixture';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
@@ -30,8 +30,8 @@ describe('RechercherLocalisationUseCase', () => {
 
 				const expected: RechercheLocalisation = {
 					communeList: [],
-					départementList: aDépartementList(),
-					régionList: [],
+					departementList: aDépartementList(),
+					regionList: [],
 				};
 				const { result } = await listeLocalisationUseCase.handle('78') as Success<RechercheLocalisation>;
 
@@ -46,8 +46,8 @@ describe('RechercherLocalisationUseCase', () => {
 				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue({ instance: 'success', result: aRésultatsRechercheCommune() });
 				const expected: RechercheLocalisation = {
 					communeList: aCommuneList(),
-					départementList: [],
-					régionList: [],
+					departementList: [],
+					regionList: [],
 				};
 				const { result } = await listeLocalisationUseCase.handle('95100') as Success<RechercheLocalisation>;
 
@@ -57,12 +57,12 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('Lorsque la récupération de la liste des communes échoue', () => {
 			it('renvoie une erreur', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMétier.CONTENU_INDISPONIBLE));
+				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 				const result = await listeLocalisationUseCase.handle('95100') as Failure;
 
 				expect(result.instance).toEqual('failure');
-				expect(result.errorType).toEqual(ErreurMétier.CONTENU_INDISPONIBLE);
+				expect(result.errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 			});
 		});
 	});
@@ -77,7 +77,7 @@ describe('RechercherLocalisationUseCase', () => {
 				const result = await listeLocalisationUseCase.handle('Pa') as Failure;
 
 				expect(result.instance).toEqual('failure');
-				expect(result.errorType).toEqual(ErreurMétier.DEMANDE_INCORRECTE);
+				expect(result.errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 				expect(localisationAvecCoordonneesRepository.getCommuneList).not.toHaveBeenCalled();
 				expect(localisationRepository.getDépartementListByNom).not.toHaveBeenCalled();
 				expect(localisationRepository.getRégionListByNom).not.toHaveBeenCalled();
@@ -92,8 +92,8 @@ describe('RechercherLocalisationUseCase', () => {
 
 			const expected: RechercheLocalisation = {
 				communeList: aCommuneList(),
-				départementList: aDépartementList(),
-				régionList: aRégionList(),
+				departementList: aDépartementList(),
+				regionList: aRégionList(),
 			};
 			const { result } = await listeLocalisationUseCase.handle('Haut') as Success<RechercheLocalisation>;
 
@@ -103,12 +103,12 @@ describe('RechercherLocalisationUseCase', () => {
 	describe('Lorsque la récupération de la liste des communes échoue', () => {
 		it('renvoie une erreur', async () => {
 			const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-			jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMétier.SERVICE_INDISPONIBLE));
+			jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			const result = await listeLocalisationUseCase.handle('Haut') as Failure;
 
 			expect(result.instance).toEqual('failure');
-			expect(result.errorType).toEqual(ErreurMétier.SERVICE_INDISPONIBLE);
+			expect(result.errorType).toEqual(ErreurMetier.SERVICE_INDISPONIBLE);
 		});
 	});
 });

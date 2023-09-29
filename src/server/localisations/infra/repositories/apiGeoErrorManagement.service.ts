@@ -1,5 +1,5 @@
 import { createFailure, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	DefaultErrorManagementService,
 	LogInformation,
@@ -30,7 +30,7 @@ export class ApiGeoErrorManagementService extends DefaultErrorManagementService 
 	}
 
 	protected createFailureForInternalError(): Failure {
-		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 }
 

@@ -1,5 +1,5 @@
 import { createFailure, Failure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	DefaultErrorManagementService,
 	ErrorManagementWithErrorCheckingService,
@@ -40,18 +40,18 @@ export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultError
 		} else {
 			this.logHttpError(logInformation, error);
 		}
-		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+		return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	protected createFailureForInternalError(): Failure {
-		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 }
 
 export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorManagementService implements ErrorManagementWithErrorCheckingService {
 	handleFailureError(error: unknown, logInformation: LogInformation) {
 		if (this.isError(error)) {
-			return createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 		}
 		if (isHttpError(error)) {
 			return this.handleHttpErrorFailure(error, logInformation);
@@ -74,11 +74,11 @@ export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorMan
 		} else {
 			this.logHttpError(logInformation, error);
 		}
-		return createFailure(ErreurMétier.DEMANDE_INCORRECTE);
+		return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	protected createFailureForInternalError(): Failure {
-		return createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+		return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 }
 

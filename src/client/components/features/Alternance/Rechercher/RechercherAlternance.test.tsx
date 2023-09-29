@@ -12,7 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { aLocalisationService } from '~/client/services/localisation/localisationService.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';

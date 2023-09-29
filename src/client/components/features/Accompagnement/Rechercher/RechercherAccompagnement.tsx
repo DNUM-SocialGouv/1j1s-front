@@ -29,7 +29,7 @@ import {
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
@@ -65,7 +65,7 @@ export function RechercherAccompagnement() {
 					setIsLoading(false);
 				});
 		} else {
-			setErreurRecherche(ErreurMétier.DEMANDE_INCORRECTE);
+			setErreurRecherche(ErreurMetier.DEMANDE_INCORRECTE);
 		}
 		// eslint-disable-next-line
   }, [accompagnementQuery, isEachQueryParamPresent]);

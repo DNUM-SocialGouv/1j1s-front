@@ -1,18 +1,28 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
-.content {
+$subHeading-color: utilities.$color-primary;
+
+.modal {
   text-align: center;
   height: 80%;
 
   display: grid;
   align-content: center;
-}
 
-.modalHeading {
-  @extend %text-xLarge;
-}
+  & .buttons {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+  }
 
-.modalSubHeading {
-  margin-top: 1rem;
-  color: utilities-deprecated.$color-primary;
+  & .heading {
+    @extend %title-small;
+    @extend %bold;
+  }
+
+  & .subHeading {
+    margin-top: 1rem;
+    color: $subHeading-color;
+  }
 }

@@ -1,6 +1,6 @@
 import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import { createFailure } from '~/server/errors/either';
-import { ErreurMétier } from '~/server/errors/erreurMétier.types';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
@@ -18,7 +18,7 @@ describe('StrapiErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, '[API Strapi] 401 Unauthorized');
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformationCms);
@@ -31,7 +31,7 @@ describe('StrapiErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
 			const httpError = anHttpError(errorCode, 'pas le bon message');
-			const expectedFailure = createFailure(ErreurMétier.CONTENU_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			// WHEN
 			const result = strapiErrorManagementService.handleFailureError(httpError, aLogInformationCms);
@@ -46,7 +46,7 @@ describe('StrapiErrorManagementService', () => {
 			const loggerService = aLoggerService();
 			const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
 			const internalError = new Error('ceci est une erreur interne');
-			const expectedFailure = createFailure(ErreurMétier.SERVICE_INDISPONIBLE);
+			const expectedFailure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 
 			// WHEN
 			const result = strapiErrorManagementService.handleFailureError(internalError, aLogInformationCms);
