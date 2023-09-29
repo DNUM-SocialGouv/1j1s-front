@@ -23,14 +23,14 @@ __Tenter de reproduire ces étapes sur les `states` déjà initialisés pourraie
 
 | Resource Terraform             | Route(s) d'API *                            | Identifiant unique pour l'import |
 |--------------------------------|---------------------------------------------|----------------------------------|
-| scalingo_app                   | `/v1/apps`                                  | `id` or `name`                   |
-| scalingo_container_type        | `/v1/apps/[:app]/containers`                | `app_name:container_name`        |
-| scalingo_addon                 | `/v1/apps/[:app]/addons`                    | `app_name:addon_id`              |
-| scalingo_scm_repo_link         | `/v1/apps/[:app]/scm_repo_link`             | `app_name`                       |
-| scalingo_domain                | `/v1/apps/[:app]/domains`                   | `app_name:domain_id`             |
-| scalingo_collaborator          | `/v1/apps/[:app]/collaborators`             | `app_id:email`                   |
-| scalingo_log_drain             | `/v1/apps/[:app]/log_drains`                | `app_name#drain_url`             |
+| scalingo_app                   | `/v1/apps`                                  | `app_id`                         |
+| scalingo_container_type        | `/v1/apps/[:app]/containers`                | `app_id:container_name`          |
 | scalingo_autoscaler            | `/v1/apps/[:app]/autoscalers`               | `app_name:autoscaler_id`         |
+| scalingo_addon                 | `/v1/apps/[:app]/addons`                    | `app_id:addon_id`                |
+| scalingo_scm_repo_link         | `/v1/apps/[:app]/scm_repo_link`             | `app_id`                         |
+| scalingo_domain                | `/v1/apps/[:app]/domains`                   | `app_id:domain_id`               |
+| scalingo_collaborator          | `/v1/apps/[:app]/collaborators`             | `app_id:email`                   |
+| scalingo_log_drain             | `/v1/apps/[:app]/log_drains`                | `app_id#drain_url`               |
 | scalingo_notification_platform | _TODO: à compléter quand on les importera_  |
 | scalingo_notifier              | _TODO: à compléter quand on les importera_  |
 | scalingo_alert                 | _TODO: à compléter quand on les importera_  |
@@ -75,6 +75,13 @@ Pour éviter de répéter le nom de l'application dans les prochaines commandes,
 export SCALINGO_APP_NAME="<nom de l'application>"
 ```
 
+Une fois le nom de l'application configurée, il faut récupérer son ID avec la commande suivante :
+```shell
+export SCALINGO_APP_ID=`curl -s -H "Accept: application/json" -H "Authorization: Bearer ${SCALINGO_BEARER}" \
+   https://${SCALINGO_API_URL}/v1/apps/${SCALINGO_APP_NAME} \
+   | jq -r '.app.id' || echo 'error getting app id'`
+```
+
 ### Module Terraform
 
 ```shell
@@ -84,7 +91,7 @@ export TF_MODULE=front_app
 ### Importer l'application
 
 ```shell
-terraform import module.$TF_MODULE.scalingo_app.app $SCALINGO_APP_NAME
+terraform import module.$TF_MODULE.scalingo_app.app $SCALINGO_APP_ID
 ```
 
 ### Types de conteneurs
@@ -99,7 +106,12 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
 En général il y a au moins le process `web`, alors on peut d'abord importer celui-ci, puis importer les autres sur le même modèle.
 
 ```shell
-terraform import "module.$TF_MODULE.scalingo_container_type.containers[\"<containerType>\"]" ${SCALINGO_APP_NAME}:web
+terraform import "module.$TF_MODULE.scalingo_container_type.containers[\"web\"]" ${SCALINGO_APP_ID}:web
+```
+
+S'il y a d'autres types de conteneurs, voici la commande :
+```shell
+terraform import "module.$TF_MODULE.scalingo_container_type.containers[\"<container_name>\"]" ${SCALINGO_APP_ID}:<container_name>
 ```
 
 ### Autoscalers
@@ -111,7 +123,7 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
 ```
 
 ```shell
-terraform import "module.$TF_MODULE.scalingo_autoscaler.autoscalers[\"<containerType>\"]" ${SCALINGO_APP_NAME}:<autoscalerId>
+terraform import "module.$TF_MODULE.scalingo_autoscaler.autoscalers[\"web\"]" ${SCALINGO_APP_ID}:<autoscalerId>
 ```
 
 ### Addons (et notamment les bases de données)
@@ -129,7 +141,7 @@ Pour chaque ligne : le *premier élément* (ici "`redis`") est à mettre dans l'
 Le plan est donné à titre informatif mais n'est pas utilisé pour l'import.
 
 ```shell
-terraform import "module.$TF_MODULE.scalingo_addon.addons[\"<addonProvider>\"]" ${SCALINGO_APP_NAME}:<addonId>
+terraform import "module.$TF_MODULE.scalingo_addon.addons[\"<addonProvider>\"]" ${SCALINGO_APP_ID}:<addonId>
 ```
 
 ### Collaborateurs
@@ -139,17 +151,9 @@ Il a été décidé de ne pas gérer les collaborateurs avec Terraform pour l'in
 :::
 
 ```shell
-# List addons
 curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER" \
    https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME/collaborators \
    | jq '.collaborators[].email'
-```
-Pour l'import des collaborateurs nous avons besoin de l'APP_ID, il s'obtient ainsi :
-
-```shell
-export APP_ID=`curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER" \
-   https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME \
-   | jq -r '.app.id'`
 ```
 
 ```shell
@@ -157,7 +161,7 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
    https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME/collaborators \
    | jq -r '.collaborators[].email' \
    | while IFS= read -r email ; do \
-      terraform import "module.$TF_MODULE.scalingo_collaborator.collaborators[\"$email\"]" $APP_ID:$email; \
+      terraform import "module.$TF_MODULE.scalingo_collaborator.collaborators[\"$email\"]" $SCALINGO_APP_ID:$email; \
      done
 ```
 
@@ -169,7 +173,7 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
 ```
 
 ```shell
-terraform import "module.$TF_MODULE.scalingo_log_drain.log_drain[\"elk\"]" ${SCALINGO_APP_NAME}#<drain_url>
+terraform import "module.$TF_MODULE.scalingo_log_drain.log_drain[\"elk\"]" ${SCALINGO_APP_ID}#<drain_url>
 ```
 
 ### Github Repo Link
@@ -183,28 +187,21 @@ curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER
 ```
 
 ```shell
-terraform import "module.$TF_MODULE.scalingo_scm_repo_link.scm_repo_link[\"<scm_type>\"]" ${SCALINGO_APP_NAME}
+terraform import "module.$TF_MODULE.scalingo_scm_repo_link.scm_repo_link[\"github\"]" ${SCALINGO_APP_ID}
 ```
 
-### Nom de domaine principal
+### Noms de domaine
 
 ```shell
 curl -s -H "Accept: application/json" -H "Authorization: Bearer $SCALINGO_BEARER" \
    https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME/domains \
    | jq '.domains[] | .name + " => " + .id + (if .canonical then " [!!CANONICAL!!]" else " [alias]" end)'
 
-terraform import "module.$TF_MODULE.scalingo_domain.canonical_domain[\"<domainName>\"]" ${SCALINGO_APP_NAME}:domainId
+# Pour le domaine principal ('canonical')
+terraform import "module.$TF_MODULE.scalingo_domain.canonical_domain[\"<domainName>\"]" ${SCALINGO_APP_ID}:<domainId>
 
-# S'il y a des alias
-terraform import "module.$TF_MODULE.scalingo_domain.domain_aliases[\"<domainName>\"]" ${SCALINGO_APP_NAME}:domainId
-```
-
-### Autres noms de domaine (alias)
-
-```shell
-curl -s -H "Accept: application/json"    -H "Authorization: Bearer $SCALINGO_BEARER"    https://$SCALINGO_API_URL/v1/apps/$SCALINGO_APP_NAME/domains | jq
-
-terraform import "module.$TF_MODULE.scalingo_domain.canonical_domain[\"<domainName>\"]" app_id:domain_id
+# S'il y a d'autres domaine ('alias')
+terraform import "module.$TF_MODULE.scalingo_domain.domain_aliases[\"<domainName>\"]" ${SCALINGO_APP_ID}:<domainId>
 ```
 
 ## 2. Cloudflare
@@ -224,11 +221,13 @@ curl -s -H "Content-Type: application/json" \
 
 ```shell
 terraform import "cloudflare_record.domaine[\"<domainName>\"]" $CLOUDFLARE_ZONE_ID/<recordId>
+```
+### Domaine pour l'analytics
 
+```shell
 terraform import "cloudflare_record.domaine_analytics_eulerian[\"<domainName>\"]" $CLOUDFLARE_ZONE_ID/<recordId>
 ```
 
-### Domaine pour l'analytics
 
 ## 3. StatusCake
 
