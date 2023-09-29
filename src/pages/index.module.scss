@@ -24,6 +24,10 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
 
+    &:first-of-type {
+        margin-top: 1.5rem;
+    }
+
     &Header {
         text-align: center;
         margin-top: 0;
