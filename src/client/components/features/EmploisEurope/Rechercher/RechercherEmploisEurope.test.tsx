@@ -9,6 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
+import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { createSuccess } from '~/server/errors/either';
 
 describe('RechercherEmploisEurope', () => {
@@ -37,7 +38,8 @@ describe('RechercherEmploisEurope', () => {
 		it('affiche les résultats de la recherche', async () => {
 			// GIVEN
 			const emploiEuropeServiceMock = anEmploiEuropeService();
-			const resultatsService = {
+			const resultatsService: ResultatRechercheEmploiEurope = {
+				nombreResultats: 2,
 				offreList: [
 					{
 						id: '1',
@@ -70,6 +72,44 @@ describe('RechercherEmploisEurope', () => {
 
 			// THEN
 			expect(resultats).toHaveLength(resultatsService.offreList.length);
+		});
+
+		it('affiche le nombre de résultats de la recherche', async () => {
+			// GIVEN
+			const emploiEuropeServiceMock = anEmploiEuropeService();
+			const resultatsService: ResultatRechercheEmploiEurope = {
+				nombreResultats: 2,
+				offreList: [
+					{
+						id: '1',
+					},
+					{
+						id: '2',
+					},
+				],
+			};
+			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+			mockSmallScreen();
+			mockUseRouter({
+				query: {
+					motCle: 'Développeur',
+					page: '1',
+				},
+			});
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					emploiEuropeService={emploiEuropeServiceMock}
+				>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>,
+			);
+			const nombreResultats = await screen.findByRole('heading', { level: 2, name: '2 offres d’emplois en Europe pour Développeur' });
+
+			// THEN
+			expect(nombreResultats).toBeVisible();
 		});
 	});
 });

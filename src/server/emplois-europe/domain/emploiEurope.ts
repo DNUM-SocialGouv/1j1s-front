@@ -1,5 +1,6 @@
 export interface ResultatRechercheEmploiEurope {
 	offreList: EmploiEurope[];
+	nombreResultats: number;
 }
 
 export interface EmploiEurope {

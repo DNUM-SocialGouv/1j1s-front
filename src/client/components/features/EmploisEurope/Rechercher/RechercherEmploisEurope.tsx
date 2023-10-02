@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { BanniereEmploisEurope } from '~/client/components/features/EmploisEurope/BanniereEmploisEurope';
 import {
@@ -20,6 +20,7 @@ export default function RechercherEmploisEurope() {
 	const emploiEuropeQuery = useEmploiEuropeQuery();
 	const emploiEuropeService = useDependency<EmploiEuropeService>('emploiEuropeService');
 	const [emploiEuropeList, setEmploiEuropeList] = useState<EmploiEurope[]>([]);
+	const [nombreResultats, setNombreResultats] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 
@@ -32,6 +33,7 @@ export default function RechercherEmploisEurope() {
 				.then((response) => {
 					if (response.instance === 'success') {
 						setEmploiEuropeList(response.result.offreList);
+						setNombreResultats(response.result.nombreResultats);
 					} else {
 						setErreurRecherche(response.errorType);
 					}
@@ -39,6 +41,19 @@ export default function RechercherEmploisEurope() {
 				});
 		}
 	}, [emploiEuropeQuery, emploiEuropeService]);
+
+	const messageResultatRecherche: string = useMemo(() => {
+		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
+		if (nombreResultats > 1) {
+			messageResultatRechercheSplit.push('offres d’emplois en Europe');
+		} else {
+			messageResultatRechercheSplit.push('offre d’emploi en Europe');
+		}
+		if (emploiEuropeQuery.motCle) {
+			messageResultatRechercheSplit.push(`pour ${emploiEuropeQuery.motCle}`);
+		}
+		return messageResultatRechercheSplit.join(' ');
+	}, [nombreResultats, emploiEuropeQuery.motCle]);
 
 	return <>
 		<Head
@@ -54,7 +69,7 @@ export default function RechercherEmploisEurope() {
 				isLoading={isLoading}
 				nombreSolutions={emploiEuropeList.length}
 				listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
-				messageRésultatRecherche={''}
+				messageRésultatRecherche={messageResultatRecherche}
 			/>
 		</main>
 	</>;
