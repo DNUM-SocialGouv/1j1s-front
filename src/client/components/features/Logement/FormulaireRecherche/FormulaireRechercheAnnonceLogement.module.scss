@@ -7,10 +7,10 @@
   flex-direction: column;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: space-between;
 
   @include utilities-deprecated.media(large) {
     flex-direction: row;
+    gap: 1.5rem
   }
 }
 
