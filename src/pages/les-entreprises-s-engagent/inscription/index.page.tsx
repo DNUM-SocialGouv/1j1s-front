@@ -62,6 +62,7 @@ export default function LesEntreprisesSEngagentInscription() {
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 	const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
 	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
@@ -105,6 +106,7 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setIsLoading(true);
 
 		if (isPremièreÉtapeValid && isDeuxièmeÉtapeValid) {
 			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireÉtape1, ...formulaireÉtape2 });
@@ -112,8 +114,10 @@ export default function LesEntreprisesSEngagentInscription() {
 			if (isSuccess(response)) {
 				setTitle(TITLE_VALIDÉE);
 				setIsFormSuccessfullySent(true);
+				setIsLoading(false);
 			} else {
 				setIsErreurModalOpen(true);
+				setIsLoading(false);
 			}
 		}
 	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, lesEntreprisesSEngagentService]);
@@ -308,6 +312,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		  							iconPosition="right"
 		  							label="Envoyer le formulaire"
 		  							type="submit"
+									  disabled={isLoading}
 		  						/>
 		  						<DéchargeRGPD/>
 		  					</div>
