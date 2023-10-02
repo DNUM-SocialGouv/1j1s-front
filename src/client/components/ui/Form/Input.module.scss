@@ -71,11 +71,7 @@
     }
 
     &Hint {
-      position: absolute;
-      bottom: 0;
-      height: 2rem;
       @extend %text-small;
-      line-height: 1.2;
       color: utilities-deprecated.$color-error;
     }
   }
