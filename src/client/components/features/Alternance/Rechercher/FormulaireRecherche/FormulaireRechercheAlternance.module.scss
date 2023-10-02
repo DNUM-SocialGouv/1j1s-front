@@ -9,6 +9,12 @@
   flex-grow: 1;
 }
 
+.inputButtonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .buttonRechercher > button {
   width: 100%;
 }
@@ -30,9 +36,9 @@
   }
 
   .inputButtonWrapper {
-    display: flex;
+    flex-direction: row;
     width: 100%;
-    gap: 1rem;
+    gap: 2rem;
     flex-wrap: wrap;
     padding-block: 0;
   }

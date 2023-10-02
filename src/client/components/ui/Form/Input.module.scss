@@ -1,9 +1,9 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .wrapper {
   font-family: inherit;
   position: relative;
-  padding-bottom: 2rem;
 }
 .label {
   display: block;

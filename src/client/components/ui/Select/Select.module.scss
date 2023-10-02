@@ -1,9 +1,9 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .selectWrapper {
     position: relative;
     flex-shrink: 0;
-    padding-bottom: 2rem;
 }
 
 .selectWrapperFlex {
@@ -93,9 +93,6 @@
 
 .inputError {
     @extend %text-small;
-    position: absolute;
-    bottom: 0;
-    height: 2rem;
-    line-height: 1.2;
+    padding-top: 0.25rem;
     color: utilities-deprecated.$color-error;
 }

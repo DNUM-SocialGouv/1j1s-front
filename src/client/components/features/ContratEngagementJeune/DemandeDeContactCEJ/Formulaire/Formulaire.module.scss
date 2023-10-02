@@ -1,25 +1,25 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .formulaire {
   padding: 0 2rem;
   margin-top: 2rem;
   display: grid;
   grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
   grid-template-columns: repeat(1, 1fr);
   @include utilities-deprecated.media(medium) {
     grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 1.5rem;
   }
 
-  label {
-    margin-top: 1rem;
-  }
 
   .radioButton {
     border-radius: 0;
   }
 
   button {
-    margin-top: 8px;
+    margin-top: 0.5rem;
     font-size: small;
   }
 
@@ -33,7 +33,6 @@
 
   &Button {
     justify-self: center;
-    margin-bottom: 1rem;
     @include utilities-deprecated.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
@@ -44,6 +43,9 @@
     background-color: utilities-deprecated.$color-cadre-formulaire;
     border-radius: 30px;
     margin-bottom: 1rem;
+    max-width: 40rem;
+    justify-self: center;
+
     @include utilities-deprecated.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
@@ -51,12 +53,12 @@
 
     p {
       font-size: 0.7rem;
-      padding: 1rem;
+      padding: 0.5rem 1rem;
     }
   }
 }
 
-@include utilities-deprecated.media(large){
+@include utilities.media(large){
   .formulaire {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
