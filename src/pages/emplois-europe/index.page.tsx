@@ -7,9 +7,7 @@ import analytics from '~/pages/emplois-europe/index.analytics';
 export default function EmploiEuropePage() {
 	useAnalytics(analytics);
 
-	return <>
-		<RechercherEmploisEurope />
-	</>;
+	return <RechercherEmploisEurope />;
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {

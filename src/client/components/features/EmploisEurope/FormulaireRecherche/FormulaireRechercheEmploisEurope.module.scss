@@ -1,0 +1,39 @@
+@use "@styles/utilities";
+// FIXME (DORO - 2023-10-02): Duplication de FormulaireRechercheAlternance.module.scss et FormulaireRechercheOffreEmploi.module.scss
+
+.rechercheOffreForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtresRechercherOffre {
+  flex-grow: 1;
+}
+
+.buttonRechercher > button {
+  width: 100%;
+}
+
+@include utilities.media(medium) {
+  .rechercheOffreForm {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .buttonRechercher {
+    margin-top: 28px;
+    margin-left: 40px;
+  }
+
+  .inputButtonWrapper {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-block: 0;
+  }
+
+  .inputButtonWrapper > div {
+    flex-grow: 1;
+  }
+}

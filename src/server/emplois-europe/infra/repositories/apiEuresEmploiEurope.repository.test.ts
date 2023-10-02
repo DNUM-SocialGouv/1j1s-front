@@ -13,7 +13,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService());
-				const body = anApiEuresRechercheBody();
+				const body = anApiEuresRechercheBody('boulanger');
 
 				// When
 				repository.search({ motCle: 'boulanger' });

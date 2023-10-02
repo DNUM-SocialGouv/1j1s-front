@@ -1,4 +1,8 @@
-export function anApiEuresRechercheBody() {
+import {
+	ApiEuresEmploiEuropeRechercheRequestBody,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+
+export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
 		dataSetRequest: {
 			excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
@@ -15,7 +19,7 @@ export function anApiEuresRechercheBody() {
 			keywordCriteria :
 				{
 					keywordLanguageCode : 'fr', keywords : [
-						{ keywordScope : 'EVERYWHERE', keywordText : 'boulanger' },
+						{ keywordScope : 'EVERYWHERE', keywordText : motCle },
 					],
 				},
 		},

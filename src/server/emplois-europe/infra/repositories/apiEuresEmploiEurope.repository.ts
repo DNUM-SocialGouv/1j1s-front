@@ -1,6 +1,9 @@
 import { EmploiEuropeFiltre, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
-import { ApiEuresEmploiEuropeRechercheResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import {
+	ApiEuresEmploiEuropeRechercheRequestBody,
+	ApiEuresEmploiEuropeRechercheResponse,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { mapRechercheEmploiEurope } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -12,7 +15,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		private readonly errorManagementService: ErrorManagementService,
 	) {}
 
-	private static buildSearchBody(filtre: EmploiEuropeFiltre) {
+	private static buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		return {
 			dataSetRequest: {
 				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],

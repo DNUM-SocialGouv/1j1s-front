@@ -8,13 +8,14 @@ import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
+import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
+import { createSuccess } from '~/server/errors/either';
 
 describe('RechercherEmploisEurope', () => {
-	describe('quand le composant est affiché sans recherche', () => {
+	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
 		it('affiche un formulaire pour la recherche d‘emplois en europe, sans échantillon de résultat', async () => {
 			// GIVEN
-			const emploiEuropeServiceMock = aEmploiEuropeService();
+			const emploiEuropeServiceMock = anEmploiEuropeService();
 			mockUseRouter({});
 
 			// WHEN
@@ -28,14 +29,25 @@ describe('RechercherEmploisEurope', () => {
 			const formulaireRechercheEmploisEurope = screen.getByRole('form');
 
 			// THEN
-			expect(formulaireRechercheEmploisEurope).toBeInTheDocument();
+			expect(formulaireRechercheEmploisEurope).toBeVisible();
 			expect(emploiEuropeServiceMock.rechercherEmploiEurope).toHaveBeenCalledTimes(0);
 		});
 	});
 	describe('quand le composant est affiché pour une recherche avec résultats', () => {
 		it('affiche les résultats de la recherche', async () => {
 			// GIVEN
-			const emploiEuropeServiceMock = aEmploiEuropeService();
+			const emploiEuropeServiceMock = anEmploiEuropeService();
+			const resultatsService = {
+				offreList: [
+					{
+						id: '1',
+					},
+					{
+						id: '2',
+					},
+				],
+			};
+			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 			mockSmallScreen();
 			mockUseRouter({
@@ -57,7 +69,7 @@ describe('RechercherEmploisEurope', () => {
 			const resultats = within(resultatsUl[0]).getAllByRole('listitem');
 
 			// THEN
-			expect(resultats).toHaveLength(2);
+			expect(resultats).toHaveLength(resultatsService.offreList.length);
 		});
 	});
 });
