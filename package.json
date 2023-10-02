@@ -36,7 +36,7 @@
     "joi": "17.10.2",
     "lodash.debounce": "4.0.8",
     "marked": "9.0.3",
-    "marked-gfm-heading-id": "3.0.8",
+    "marked-gfm-heading-id": "3.1.0",
     "marked-mangle": "1.1.4",
     "next": "13.4.19",
     "next-joi": "2.2.1",
