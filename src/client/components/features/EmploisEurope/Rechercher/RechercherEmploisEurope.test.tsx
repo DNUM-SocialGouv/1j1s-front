@@ -59,5 +59,31 @@ describe('RechercherEmploisEurope', () => {
 			// THEN
 			expect(resultats).toHaveLength(2);
 		});
+
+		it('affiche un message indiquant le nombre de résultats', async () => {
+			// GIVEN
+			const emploiEuropeServiceMock = aEmploiEuropeService();
+
+			mockSmallScreen();
+			mockUseRouter({
+				query: {
+					motCle: 'Développeur',
+					page: '1',
+				},
+			});
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					emploiEuropeService={emploiEuropeServiceMock}
+				>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>,
+			);
+			const nombreRésultats = await screen.findByRole('heading', { level: 2, name: '2 offres d‘emplois en Europe pour Développeur' });
+
+			// THEN
+			expect(nombreRésultats).toBeVisible();
+		});
 	});
 });
