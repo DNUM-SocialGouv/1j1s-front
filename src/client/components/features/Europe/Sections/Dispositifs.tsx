@@ -2,6 +2,19 @@ import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/Li
 
 import styles from '../EmploiEnEuropeContent.module.scss';
 
+export function Dispositifs() {
+	return (
+		<section className={styles.dispositifs}>
+			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
+			<ul className={styles.cards} aria-label="Dispositifs d'accompagnement">
+				<CardEures/>
+				<CardErasmus/>
+				<CardAidesFinancieres/>
+			</ul>
+		</section>
+	);
+}
+
 function CardEures() {
 	return (
 		<li>
@@ -76,18 +89,5 @@ function CardAidesFinancieres() {
 				Faire une simulation d’aides
 			</LinkStyledAsButton>
 		</li>
-	);
-}
-
-export function Dispositifs() {
-	return (
-		<section className={styles.dispositifs}>
-			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
-			<ul className={styles.cards} aria-label="Dispositifs d'accompagnement">
-				<CardEures/>
-				<CardErasmus/>
-				<CardAidesFinancieres/>
-			</ul>
-		</section>
 	);
 }
