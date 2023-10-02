@@ -3,12 +3,12 @@ import Image from 'next/image';
 import React, { PropsWithChildren } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
-import { Link } from '~/client/components/ui/Link/Link';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-type LogoProps = ({ logo: never, logoAlt: never} | { logo: string, logoAlt?: string })
+type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
 type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
@@ -30,14 +30,15 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{lienOffre &&
 					// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
 					<div className={styles.cardLinkContainer}>
-						<Link
+						<LinkStyledAsButtonWithIcon
+							className={classNames(styles.cardLink)}
 							href={lienOffre}
-							className={classNames(styles.cardLink, 'underline-none')}
-							prefetch={false}>
-							<TextIcon icon="angle-right" className={styles.cardLinkCallToAction}>
-								{intituléLienOffre ? intituléLienOffre : 'En savoir plus'}
-							</TextIcon>
-						</Link>
+							icon={<Icon name={'angle-right'}/>}
+							iconPosition={'right'}
+							appearance={'asQuaternaryButton'}
+						>
+							{intituléLienOffre || 'En savoir plus'}
+						</LinkStyledAsButtonWithIcon>
 					</div>
 				}
 			</section>
@@ -52,8 +53,8 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
-						<h3 className={styles.offreLeadTitle}>{intituléOffre}</h3>
-						{sousTitreOffre && <div className={styles.offreLeadSubTitle}>{sousTitreOffre}</div>}
+						<h3 className={styles.title}>{intituléOffre}</h3>
+						{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
 					</header>
 					{children && <section className={styles.offreLeadDescription}>{children}</section>}
 					{!isSmallScreen && cardTagsAndCTA()}

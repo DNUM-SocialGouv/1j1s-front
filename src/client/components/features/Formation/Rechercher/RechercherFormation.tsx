@@ -146,7 +146,6 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 					<RésultatRechercherSolution
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
-						logo={'/images/logos/fallback.svg'}
 						étiquetteOffreList={formation.tags as string[]}
 					>
 						<section>

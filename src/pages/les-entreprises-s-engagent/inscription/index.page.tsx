@@ -317,7 +317,7 @@ export default function LesEntreprisesSEngagentInscription() {
 				  <p className={styles.footer}>
 					  Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une modification,{' '}
 					  <LinkStyledAsButtonWithIcon
-						  appearance={'asQuaternayButton'}
+						  appearance={'asQuaternaryButton'}
 						  href="mailto:contact@lesentreprises-sengagent.org"
 						  prefetch={false}
 						  className={styles.contactLink}>

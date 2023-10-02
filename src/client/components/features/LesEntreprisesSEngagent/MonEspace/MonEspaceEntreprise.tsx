@@ -29,8 +29,8 @@ export default function MonEspaceEntreprise() {
 						Se connecter
 					</LinkStyledAsButtonWithIcon>
 					<LinkStyledAsButtonWithIcon
-						appearance={'asQuaternayButton'} 
-						icon={<Icon name="information"/>} 
+						appearance={'asQuaternaryButton'}
+						icon={<Icon name="information"/>}
 						iconPosition={'left'}
 						className={styles.monEspaceInscription}
 						href="/les-entreprises-s-engagent">

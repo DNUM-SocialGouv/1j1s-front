@@ -1,10 +1,9 @@
 @use "@styles/utilities";
-@use "@styles/utilities-deprecated";
 
 $color-card-background: utilities.$color-background-primary;
 $color-card-lead-border: utilities.$color-primary;
 $color-border-left: utilities.$color-primary;
-$color-call-to-action: utilities.$color-cta-texte-secondary;
+$color-call-to-action-text: utilities.$color-cta-texte-secondary;
 $border-card-lead: 4px solid $color-card-lead-border;
 
 .card {
@@ -13,122 +12,101 @@ $border-card-lead: 4px solid $color-card-lead-border;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 
-  .cardLead {
-    display: flex;
-  }
-
-  &Link {
-   &:hover > .cardLinkCallToAction {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    &Container {
-      padding: 1rem;
-      text-align: right;
-      margin-top: auto;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0);
-    }
-
-    &CallToAction {
-      @extend %text-medium;
-      color: $color-call-to-action;
-    }
-  }
-
-  &TagsAndCTA {
-    padding: 0.75rem;
-  }
-}
-
-.cardLead {
-  display: flex;
-  padding: 1.5rem;
-
-  :has(img) {
-    border-bottom: $border-card-lead
-  }
-
-  > img {
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 56px;
-    height: 56px;
-  }
-}
-
-//NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
-.logoCardLead {
-  border-bottom: $border-card-lead;
-}
-
-.offreLead {
-  margin-left: 2rem;
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-
-  &Title {
-    @extend %bold;
-    @extend %text-medium
-  }
-
-  &SubTitle {
-    min-height: 24px;
-    @extend %text-regular;
-  }
-
-  &Description {
-    @extend %text-regular;
-  }
-}
-
-
-@include utilities.media(medium) {
-  .card {
+  @include utilities.media(medium) {
     padding: 2rem 1.5rem;
     border-left: 4px solid $color-border-left;
+  }
 
-    &Lead {
-      display: flex;
-      width: 100%;
+  & .cardLead {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: $border-card-lead;
+
+    @include utilities.media(medium) {
       border-bottom: none;
-      margin-bottom: 0;
       padding: 0;
+    }
 
-      > img {
+    &:has(img) {
+      gap: 2rem;
+
+      @include utilities.media(medium) {
+        gap: 2.5rem;
+      }
+    }
+
+    > img {
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 56px;
+      height: 56px;
+
+      @include utilities.media(medium) {
         width: 120px;
         height: 120px;
       }
     }
+  }
 
-    .offreLead {
-      margin-left: 2.5rem;
-      width: 100%;
+  //NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
+  & .logoCardLead {
+    gap: 2rem;
+    @include utilities.media(medium) {
+      gap: 2.5rem;
+    }
+  }
+
+  & .offreLead {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title {
+      @extend %bold;
+      @extend %title-small;
     }
 
-    &TagsAndCTA {
-      height: 100%;
-      margin-top: 1rem;
+    .subtitle {
+      min-height: 24px;
+      @extend %text-medium;
+    }
+
+    .description {
+      @extend %text-medium;
+    }
+  }
+
+  & .cardTagsAndCTA {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.75rem 0.75rem 1.25rem;
+
+    @include utilities.media(medium) {
       padding: 0;
-      display: flex;
-      flex-direction: column;
+      margin-top: 1rem;
     }
 
-    &Link {
-      &Container {
-        margin-top: auto;
+    & .cardLinkContainer {
+      padding: 1rem;
+      text-align: right;
+
+      @include utilities.media(medium) {
         padding: 0;
+      }
+
+      .cardLink {
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0);
+        }
       }
     }
   }
 }
+
+

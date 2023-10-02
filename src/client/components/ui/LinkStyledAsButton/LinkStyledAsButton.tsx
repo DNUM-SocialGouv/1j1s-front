@@ -7,7 +7,7 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import styles from './LinkStyledAsButton.module.scss';
 
-type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternayButton';
+type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
 
 type IconPosition = 'top' | 'left' | 'right';
 
@@ -46,7 +46,7 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonPr
 				return styles.secondaryButton;
 			case 'asTertiaryButton':
 				return styles.tertiaryButton;
-			case 'asQuaternayButton':
+			case 'asQuaternaryButton':
 				return styles.quaternaryButton;
 		}
 	}, [appearance]);
