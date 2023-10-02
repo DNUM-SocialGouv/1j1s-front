@@ -1,14 +1,10 @@
-import { Container } from '~/client/components/layouts/Container/Container';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
 
 function CardEures() {
 	return (
-		<li aria-labelledby="eures">
+		<li>
 			<h3 id="eures">Le programme de mobilité ciblé EURES</h3>
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
@@ -38,7 +34,7 @@ function CardEures() {
 
 function CardErasmus() {
 	return (
-		<li aria-labelledby="erasmus">
+		<li>
 			<h3 id="erasmus">Le programme “ERASMUS+”</h3>
 			<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
 			<dl>
@@ -73,7 +69,7 @@ function CardErasmus() {
 
 function CardAidesFinancieres() {
 	return (
-		<li aria-labelledby="aides-financieres">
+		<li>
 			<h3 id="aides-financieres">Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
 			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">
@@ -87,7 +83,7 @@ export function Dispositifs() {
 	return (
 		<section className={styles.dispositifs}>
 			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
-			<ul className={styles.cards}>
+			<ul className={styles.cards} aria-label="Dispositifs d'accompagnement">
 				<CardEures/>
 				<CardErasmus/>
 				<CardAidesFinancieres/>

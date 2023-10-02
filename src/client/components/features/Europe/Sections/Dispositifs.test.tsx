@@ -23,7 +23,8 @@ describe('<Dispositifs />', () => {
 	it('affiche la carte EURES', () => {
 		render(<Dispositifs />);
 
-		const carte = screen.getByRole('listitem', { name: /Le programme de mobilité ciblé EURES/i });
+		const carteListe = screen.getByRole('list', { name: /Dispositifs d'accompagnement/i });
+		const carte = within(carteListe).getAllByRole('listitem')[0];
 		const titre = within(carte).getByRole('heading', {
 			level: 3,
 			name: /Le programme de mobilité ciblé EURES/i,
@@ -53,7 +54,8 @@ describe('<Dispositifs />', () => {
 	it('affiche la carte Erasmus', () => {
 		render(<Dispositifs />);
 
-		const carte = screen.getByRole('listitem', { name: /Le programme “ERASMUS\+”/i });
+		const carteListe = screen.getByRole('list', { name: /Dispositifs d'accompagnement/i });
+		const carte = within(carteListe).getAllByRole('listitem')[1];
 		const titre = within(carte).getByRole('heading', {
 			level: 3,
 			name: /Le programme “ERASMUS\+”/i,
