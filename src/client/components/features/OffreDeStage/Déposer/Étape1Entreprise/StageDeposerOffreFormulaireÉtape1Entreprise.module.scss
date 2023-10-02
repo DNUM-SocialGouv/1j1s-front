@@ -2,7 +2,6 @@
 
 
 .textareaWrapper {
-  margin-top: 1rem;
 
   @include utilities-deprecated.media(xlarge) {
     width: 100%;

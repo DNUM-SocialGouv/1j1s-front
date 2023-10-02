@@ -24,6 +24,11 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  gap: 1rem;
+
+  @include utilities-deprecated.media(large) {
+    gap: 1.5rem;
+  }
 
   @include utilities-deprecated.media(xlarge) {
     flex-direction: row;
@@ -36,22 +41,23 @@
 }
 
 .validation {
-  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
   > button {
     width: 100%;
   }
-}
 
-@include utilities-deprecated.media(large) {
-  .validation {
+  @include utilities-deprecated.media(large) {
+    margin-top: 3.5rem;
     display: flex;
     flex-direction: column;
     place-items: center;
-    margin-block: 1.5rem;
 
     > button {
       width: 50%;
     }
   }
+
+
 }
