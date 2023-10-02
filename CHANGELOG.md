@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.153.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.0...v3.153.1) (2023-10-02)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.73.0 ([#2042](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2042)) ([9358700](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9358700e872f882af23d683ad3ee3806014ab619))
+
 ## [3.153.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.152.8...v3.153.0) (2023-10-02)
 
 
