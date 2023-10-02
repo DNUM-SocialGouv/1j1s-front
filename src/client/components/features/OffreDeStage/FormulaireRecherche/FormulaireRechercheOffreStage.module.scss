@@ -1,12 +1,14 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .RechercherStageForm {
   padding: 2rem 1rem;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 2rem;
+  grid-gap: 1rem;
 
-  @include utilities-deprecated.media(medium) {
+  @include utilities.media(medium) {
     grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 1.5rem;
+    grid-row-gap: 1rem;
   }
 }
