@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.152.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.152.1...v3.152.2) (2023-09-29)
+
+
+### 👷 Autres changements
+
+* **deps:** bump scalingo-community/app/scalingo in /terraform ([#2057](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2057)) ([eeb9c24](https://github.com/DNUM-SocialGouv/1j1s-front/commit/eeb9c2426aeb2acc35ce25e473302e595da875a4))
+
+
+### 📚 Documentation
+
+* les imports Terraform doivent maintenant se faire avec l'app_id ([#2045](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2045)) ([b960044](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b96004467300edb6b508ab003cde6ac6bce23e87))
+
 ## [3.152.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.152.0...v3.152.1) (2023-09-28)
 
 
