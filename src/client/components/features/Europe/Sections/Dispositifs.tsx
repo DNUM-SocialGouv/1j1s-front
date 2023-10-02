@@ -7,17 +7,17 @@ export function Dispositifs() {
 		<section className={styles.dispositifs}>
 			<h2>Je découvre les dispositifs pour m’accompagner dans mon projet</h2>
 			<ul className={styles.cards} aria-label="Dispositifs d'accompagnement">
-				<CardEures/>
-				<CardErasmus/>
-				<CardAidesFinancieres/>
+				<li><EuresCardContent/></li>
+				<li className={styles.erasmus}><ErasmusCardContent/></li>
+				<li><AidesFinancieresCardContent/></li>
 			</ul>
 		</section>
 	);
 }
 
-function CardEures() {
+function EuresCardContent() {
 	return (
-		<li>
+		<>
 			<h3 id="eures">Le programme de mobilité ciblé EURES</h3>
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
@@ -41,13 +41,13 @@ function CardEures() {
 			>
 			En savoir plus
 			</LinkStyledAsButton>
-		</li>
+		</>
 	);
 }
 
-function CardErasmus() {
+function ErasmusCardContent() {
 	return (
-		<li>
+		<>
 			<h3 id="erasmus">Le programme “ERASMUS+”</h3>
 			<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
 			<dl>
@@ -76,18 +76,18 @@ function CardErasmus() {
 			>
 				En savoir plus
 			</LinkStyledAsButton>
-		</li>
+		</>
 	);
 }
 
-function CardAidesFinancieres() {
+function AidesFinancieresCardContent() {
 	return (
-		<li>
+		<>
 			<h3 id="aides-financieres">Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
 			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">
 				Faire une simulation d’aides
 			</LinkStyledAsButton>
-		</li>
+		</>
 	);
 }

@@ -101,7 +101,7 @@
       @include utilities.media(large) {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-        & li[aria-labelledby="erasmus"] {
+        & li.erasmus {
           grid-row: span 2;
         }
       }
