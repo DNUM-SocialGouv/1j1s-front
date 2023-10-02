@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.153.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.3...v3.153.4) (2023-10-02)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to v13.3.0 ([#2076](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2076)) ([ca04e87](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ca04e870ef7a2d35ac73a1283858da9a3ebf5d14))
+
+
+### 📚 Documentation
+
+* ajout de la licence MIT ([#2078](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2078)) ([297127c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/297127cf7aed03c2fa39c312f2947adb424e09c9))
+
 ## [3.153.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.2...v3.153.3) (2023-10-02)
 
 
