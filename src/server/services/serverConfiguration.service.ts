@@ -7,6 +7,8 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_ENGAGEMENT_API_KEY_TOKEN: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_API_KEY_TOKEN'),
 			API_ENGAGEMENT_BASE_URL: ServerConfigurationService.getOrThrowError('API_ENGAGEMENT_BASE_URL'),
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
+			API_EURES_BASE_URL: ServerConfigurationService.getOrThrowError('API_EURES_BASE_URL'),
+			API_EURES_IS_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_EURES_IS_MOCK_ACTIVE', '0'))),
 			API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
 			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
@@ -90,6 +92,8 @@ export interface EnvironmentVariables {
 	readonly API_ENGAGEMENT_API_KEY_TOKEN: string
 	readonly API_ENGAGEMENT_BASE_URL: string
 	readonly API_ETABLISSEMENTS_PUBLICS: string
+	readonly API_EURES_BASE_URL: string
+	readonly API_EURES_IS_MOCK_ACTIVE: boolean
 	readonly API_GEO_BASE_URL: string
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_URL: string

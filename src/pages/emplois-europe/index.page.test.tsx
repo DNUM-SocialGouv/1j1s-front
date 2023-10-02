@@ -13,6 +13,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import EmploiEuropePage, { getServerSideProps } from '~/pages/emplois-europe/index.page';
 
 describe('Page emplois en europe', () => {
@@ -37,9 +38,15 @@ describe('Page emplois en europe', () => {
 			mockSmallScreen();
 		});
 		it('n‘a pas de défaut d‘accessibilité', async () => {
+			mockUseRouter({
+				query: {
+					page: '1',
+				},
+			});
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={anAnalyticsService()}
+					emploiEuropeService={anEmploiEuropeService()}
 				>
 					<EmploiEuropePage/>
 				</DependenciesProvider>);
@@ -50,6 +57,7 @@ describe('Page emplois en europe', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={anAnalyticsService()}
+					emploiEuropeService={anEmploiEuropeService()}
 				>
 					<EmploiEuropePage/>
 				</DependenciesProvider>);
@@ -65,6 +73,7 @@ describe('Page emplois en europe', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
+					emploiEuropeService={anEmploiEuropeService()}
 				>
 					<EmploiEuropePage/>
 				</DependenciesProvider>,
