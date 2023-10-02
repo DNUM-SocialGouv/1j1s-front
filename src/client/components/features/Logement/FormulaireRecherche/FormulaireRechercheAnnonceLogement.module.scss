@@ -3,28 +3,19 @@
 
 .RechercherLogementForm {
   padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 1rem;
 
-  @include utilities-deprecated.media(large) {
-    flex-direction: row;
+  @include utilities-deprecated.media(medium) {
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem
   }
 }
 
 .inputVille {
-  flex-basis: 68%;
+  grid-column: 1 / 3;
 }
-
-.inputType,
-.inputTypeBien,
-.inputSurface,
-.inputPrix {
-  flex-basis: 30%;
-}
-
 
 .filtresAvancésModalContenu {
   & details {
