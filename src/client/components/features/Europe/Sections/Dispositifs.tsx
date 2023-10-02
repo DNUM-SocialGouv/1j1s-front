@@ -1,9 +1,10 @@
-import styles from '~/client/components/features/Europe/EmploiEnEuropeContent.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
+
+import styles from '../EmploiEnEuropeContent.module.scss';
 
 function CardEures() {
 	return (

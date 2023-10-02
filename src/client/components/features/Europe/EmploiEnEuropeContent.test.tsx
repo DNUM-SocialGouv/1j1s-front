@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { EmploiEnEuropeContent } from '~/client/components/features/Europe/EmploiEnEuropeContent';
+import { EmploiEnEuropeContent } from './EmploiEnEuropeContent';
 
 describe('<EmploiEnEuropeContent />', () => {
 	it('affiche le titre de la page', () => {

@@ -4,8 +4,9 @@
 
 import { queries as defaultQueries, render, screen, within as defaultWithin } from '@testing-library/react';
 
-import { Dispositifs } from '~/client/components/features/Europe/Sections/Dispositifs';
 import { queries } from '~/test-utils';
+
+import { Dispositifs } from './Dispositifs';
 
 const within = (element: HTMLElement) => defaultWithin(element, { ...queries, ...defaultQueries });
 
