@@ -132,7 +132,6 @@
 
         & dt {
           font-weight: bold;
-          position: relative;
 
           @include utilities.media(large) {
             $arrow: "\02192" + " ";
