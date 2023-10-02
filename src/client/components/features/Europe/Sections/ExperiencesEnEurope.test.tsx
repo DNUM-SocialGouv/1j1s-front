@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { ExperiencesEnEurope } from '~/client/components/features/Europe/Sections/ExperiencesEnEurope';
+import { ExperiencesEnEurope } from './ExperiencesEnEurope';
 
 describe('<ExperiencesEnEurope />', () => {
 	it('affiche le titre de la page', () => {
