@@ -63,7 +63,7 @@ $border-card-lead: 4px solid $color-card-lead-border;
 
     .title {
       @extend %bold;
-      @extend %title-small
+      @extend %title-small;
     }
 
     .subtitle {

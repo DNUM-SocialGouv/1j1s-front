@@ -16,8 +16,8 @@
   line-height: 1.8rem;
 
   @include mixins.media(large) {
-    font-size: 2rem;
-    line-height: 2.4rem;
+    font-size: 1.75rem;
+    line-height: 2.45rem;
   }
 }
 
@@ -32,7 +32,7 @@
 }
 
 %title-small {
-  font-size: 1rem;
+  font-size: 1.125rem;
   line-height: 1.2rem;
 
   @include mixins.media(large) {
