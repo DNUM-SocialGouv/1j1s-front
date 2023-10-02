@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 
-import styles from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
+import styles
+	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
@@ -105,19 +106,19 @@ export function FormulaireRechercheOffreEmploi() {
 					/>
 
 					{isSmallScreen &&
-            <div>
-            	<ButtonComponent
-            		appearance='quaternary'
-            		icon={<Icon name="filter" />}
-            		iconPosition='right'
-            		label='Filtrer ma recherche'
-            		onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-            	/>
-            	<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat} />
-            	<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail} />
-            	<input type="hidden" name="experienceExigence" value={inputExpérience} />
-            	<input type="hidden" name="grandDomaine" value={inputDomaine} />
-            </div>
+						<div>
+							<ButtonComponent
+								appearance="quaternary"
+								icon={<Icon name="filter"/>}
+								iconPosition="right"
+								label="Filtrer ma recherche"
+								onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
+							/>
+							<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+							<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+							<input type="hidden" name="experienceExigence" value={inputExpérience}/>
+							<input type="hidden" name="grandDomaine" value={inputDomaine}/>
+						</div>
 					}
 					<ModalComponent
 						close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
@@ -125,7 +126,7 @@ export function FormulaireRechercheOffreEmploi() {
 						isOpen={isFiltresAvancésMobileOpen}
 						aria-labelledby="dialog_label">
 						<ModalComponent.Title>
-							<Icon name="menu" />
+							<Icon name="menu"/>
 							<span id="dialog_label">Filtrer ma recherche</span>
 						</ModalComponent.Title>
 						<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
@@ -179,9 +180,9 @@ export function FormulaireRechercheOffreEmploi() {
 						<ModalComponent.Footer>
 							<div className={styles.applyFiltersButton}>
 								<ButtonComponent
-									icon={<Icon name="angle-right" />}
-									iconPosition='right'
-									label='Appliquer les filtres'
+									icon={<Icon name="angle-right"/>}
+									iconPosition="right"
+									label="Appliquer les filtres"
 									onClick={applyFiltresAvancés}
 								/>
 							</div>
@@ -226,10 +227,10 @@ export function FormulaireRechercheOffreEmploi() {
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
-					icon={<Icon name="magnifying-glass" />}
-					iconPosition='right'
-					label='Rechercher'
-					type='submit'
+					icon={<Icon name="magnifying-glass"/>}
+					iconPosition="right"
+					label="Rechercher"
+					type="submit"
 				/>
 			</div>
 		</form>
