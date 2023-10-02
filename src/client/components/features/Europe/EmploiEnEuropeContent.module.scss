@@ -1,5 +1,3 @@
-// FIXME (GAFI 21-09-2023): Passer sur la pas deprecated
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
 .emploiEnEurope {
@@ -16,7 +14,7 @@
   section {
     // FIXME (GAFI 21-09-2023): Travail à réaliser sur le container pour pouvoir simplement étendre le container
     padding: 2rem 1rem;
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
       padding: 4rem 1rem;
     }
     > * {
@@ -33,7 +31,7 @@
 
     > *:not(:last-child) {
       margin-bottom: 1.25rem;
-      @include utilities-deprecated.media(large) {
+      @include utilities.media(large) {
         margin-bottom: 2rem;
       }
     }
@@ -52,7 +50,7 @@
 
     > a {
       display: flex;
-      @include utilities-deprecated.media(large) {
+      @include utilities.media(large) {
         width: fit-content;
       }
     }
@@ -100,7 +98,7 @@
     & ul.cards {
       display: grid;
       gap: 1rem;
-      @include utilities-deprecated.media(large) {
+      @include utilities.media(large) {
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
         & li[aria-labelledby="erasmus"] {
@@ -136,13 +134,13 @@
           font-weight: bold;
           position: relative;
 
-          @include utilities-deprecated.media(large) {
+          @include utilities.media(large) {
             $arrow: "\02192" + " ";
             display: list-item;
             list-style: $arrow;
           }
         }
-        @include utilities-deprecated.media(large) {
+        @include utilities.media(large) {
           dl {
             padding-left: 2ch;
           }
