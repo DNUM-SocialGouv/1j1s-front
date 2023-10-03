@@ -2,6 +2,7 @@ import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/em
 
 export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRechercheEmploiEurope>): ResultatRechercheEmploiEurope {
 	return {
+		nombreResultats: 2,
 		offreList: [
 			{
 				id: '1',

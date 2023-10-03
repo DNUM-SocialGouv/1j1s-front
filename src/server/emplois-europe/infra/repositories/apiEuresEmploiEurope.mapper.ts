@@ -3,6 +3,7 @@ import { ApiEuresEmploiEuropeRechercheResponse } from '~/server/emplois-europe/i
 
 export function mapRechercheEmploiEurope(response: ApiEuresEmploiEuropeRechercheResponse): ResultatRechercheEmploiEurope {
 	return {
+		nombreResultats: response.data.dataSetInfo.totalMatchingCount,
 		offreList: response.data.items.map((item) => ({
 			id: item.header.handle,
 		})),

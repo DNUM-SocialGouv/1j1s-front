@@ -13,6 +13,9 @@ describe('rechercher emplois en Europe', () => {
 	it('retourne une liste d’emplois', async () => {
 		const result = aResultatRechercheApiEuresEmploiEurope({
 			data: {
+				dataSetInfo: {
+					totalMatchingCount: 2,
+				},
 				items: [
 					{
 						header: {
