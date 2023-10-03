@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.154.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.5...v3.154.0) (2023-10-02)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-alt:** modification wording contacter établissement et suppression logo ([#2060](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2060)) ([b559e1d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b559e1dde5b32ac148b761d3220bc7bee6e34ebb))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.7.4 ([794cf33](https://github.com/DNUM-SocialGouv/1j1s-front/commit/794cf338d2faf9c2264a709c14c6bc8a950a8439))
+
 ## [3.153.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.4...v3.153.5) (2023-10-02)
 
 
