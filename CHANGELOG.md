@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.154.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.154.0...v3.154.1) (2023-10-03)
+
+
+### 🐛 Corrections de bogues
+
+* **next:** downgrade à la version 13.4.16 ([#2063](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2063)) ([f2d5ce5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f2d5ce52b2d02b02700e4f1006f4acc64a189d7b))
+
 ## [3.154.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.153.5...v3.154.0) (2023-10-02)
 
 
