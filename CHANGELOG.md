@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.155.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.154.1...v3.155.0) (2023-10-03)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** afficher le nombre d'emploi en europe ([#2081](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2081)) ([982c76f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/982c76feb0c09b126164eaf6f87867f4f529aae0))
+
 ## [3.154.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.154.0...v3.154.1) (2023-10-03)
 
 
