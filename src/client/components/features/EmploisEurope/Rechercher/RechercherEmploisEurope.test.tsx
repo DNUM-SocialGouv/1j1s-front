@@ -35,81 +35,161 @@ describe('RechercherEmploisEurope', () => {
 		});
 	});
 	describe('quand le composant est affiché pour une recherche avec résultats', () => {
-		it('affiche les résultats de la recherche', async () => {
-			// GIVEN
-			const emploiEuropeServiceMock = anEmploiEuropeService();
-			const resultatsService: ResultatRechercheEmploiEurope = {
-				nombreResultats: 2,
-				offreList: [
-					{
-						id: '1',
-					},
-					{
-						id: '2',
-					},
-				],
-			};
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+		describe('quand l’URL contient un mot clé de recherche', () => {
+			it('affiche les résultats de la recherche', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService: ResultatRechercheEmploiEurope = {
+					nombreResultats: 2,
+					offreList: [
+						{
+							id: '1',
+						},
+						{
+							id: '2',
+						},
+					],
+				};
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
-			mockSmallScreen();
-			mockUseRouter({
-				query: {
-					motCle: 'Développeur',
-					page: '1',
-				},
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+				const resultats = within(resultatsUl[0]).getAllByRole('listitem');
+
+				// THEN
+				expect(resultats).toHaveLength(resultatsService.offreList.length);
 			});
 
-			// WHEN
-			render(
-				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
-					<RechercherEmploisEurope/>
-				</DependenciesProvider>,
-			);
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-			const resultats = within(resultatsUl[0]).getAllByRole('listitem');
+			describe('quand la recherche contient plusieurs résultats', () => {
+				it('affiche le nombre de résultats de la recherche', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService: ResultatRechercheEmploiEurope = {
+						nombreResultats: 2,
+						offreList: [
+							{
+								id: '1',
+							},
+							{
+								id: '2',
+							},
+						],
+					};
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
-			// THEN
-			expect(resultats).toHaveLength(resultatsService.offreList.length);
+					mockSmallScreen();
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+					const nombreResultats = await screen.findByRole('heading', { level: 2, name: '2 offres d’emplois en Europe pour Développeur' });
+
+					// THEN
+					expect(nombreResultats).toBeVisible();
+				});
+			});
+
+			describe('quand la recherche contient un seul résultat', () => {
+				it('affiche le nombre de résultats de la recherche', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService: ResultatRechercheEmploiEurope = {
+						nombreResultats: 1,
+						offreList: [
+							{
+								id: '1',
+							},
+						],
+					};
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+					const nombreResultats = await screen.findByRole('heading', { level: 2, name: '1 offre d’emploi en Europe pour Développeur' });
+
+					// THEN
+					expect(nombreResultats).toBeVisible();
+				});
+			});
 		});
 
-		it('affiche le nombre de résultats de la recherche', async () => {
-			// GIVEN
-			const emploiEuropeServiceMock = anEmploiEuropeService();
-			const resultatsService: ResultatRechercheEmploiEurope = {
-				nombreResultats: 2,
-				offreList: [
-					{
-						id: '1',
-					},
-					{
-						id: '2',
-					},
-				],
-			};
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+		describe('quand l’URL ne contient pas de mot clé de recherche', () => {
+			it('affiche le nombre de résultats de la recherche', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService: ResultatRechercheEmploiEurope = {
+					nombreResultats: 2,
+					offreList: [
+						{
+							id: '1',
+						},
+						{
+							id: '2',
+						},
+					],
+				};
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
-			mockSmallScreen();
-			mockUseRouter({
-				query: {
-					motCle: 'Développeur',
-					page: '1',
-				},
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const nombreResultats = await screen.findByRole('heading', { level: 2, name: '2 offres d’emplois en Europe' });
+
+				// THEN
+				expect(nombreResultats).toBeVisible();
 			});
-
-			// WHEN
-			render(
-				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
-					<RechercherEmploisEurope/>
-				</DependenciesProvider>,
-			);
-			const nombreResultats = await screen.findByRole('heading', { level: 2, name: '2 offres d’emplois en Europe pour Développeur' });
-
-			// THEN
-			expect(nombreResultats).toBeVisible();
 		});
 	});
 });
