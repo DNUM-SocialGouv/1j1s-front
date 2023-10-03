@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.155.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.155.1...v3.155.2) (2023-10-03)
+
+
+### 🐛 Corrections de bogues
+
+* **terraform:** upgrade scalingo module to fix domain_aliases validation ([#2091](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2091)) ([1a0946d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1a0946db187a1634d5dd5d74bdba76cca2ba1ccf))
+
+
+### 👷 Autres changements
+
+* **deps:** update terraform scalingo-community/app/scalingo to v0.3.2 ([#2093](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2093)) ([325fd86](https://github.com/DNUM-SocialGouv/1j1s-front/commit/325fd869c34e45cf11a10f8998a7860e6c68be00))
+
 ## [3.155.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.155.0...v3.155.1) (2023-10-03)
 
 
