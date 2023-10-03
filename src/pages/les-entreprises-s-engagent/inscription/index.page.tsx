@@ -106,19 +106,18 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setIsLoading(true);
 
 		if (isPremièreÉtapeValid && isDeuxièmeÉtapeValid) {
+			setIsLoading(true);
 			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireÉtape1, ...formulaireÉtape2 });
 
 			if (isSuccess(response)) {
 				setTitle(TITLE_VALIDÉE);
 				setIsFormSuccessfullySent(true);
-				setIsLoading(false);
 			} else {
 				setIsErreurModalOpen(true);
-				setIsLoading(false);
 			}
+			setIsLoading(false);
 		}
 	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, lesEntreprisesSEngagentService]);
 
