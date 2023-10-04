@@ -44,5 +44,5 @@ module "front_app" {
       type = "elk"
       url  = sensitive(var.logstash_uri)
     }
-  ] : null  
+  ] : null
 }
