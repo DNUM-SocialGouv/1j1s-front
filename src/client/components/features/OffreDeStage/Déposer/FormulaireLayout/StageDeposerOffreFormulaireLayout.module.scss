@@ -1,21 +1,22 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .informationChamp {
-  color: utilities-deprecated.$color-primary;
+  color: utilities.$color-primary;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-top: 3.5rem;
   }
 }
 
 .formulaire {
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     border-radius: 40px;
     padding: 0 8rem;
   }
 
-  @include utilities-deprecated.media(xlarge) {
+  @include utilities.media(xlarge) {
     padding: 0 8rem 2rem;
   }
 }
@@ -24,13 +25,13 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: variables.$form-vertical-gap-mobile;
 
-  @include utilities-deprecated.media(large) {
-    gap: 1.5rem;
+  @include utilities.media(large) {
+    gap: variables.$form-vertical-gap-desktop;
   }
 
-  @include utilities-deprecated.media(xlarge) {
+  @include utilities.media(xlarge) {
     flex-direction: row;
     justify-content: space-between;
 
@@ -48,7 +49,7 @@
     width: 100%;
   }
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-top: 3.5rem;
     display: flex;
     flex-direction: column;

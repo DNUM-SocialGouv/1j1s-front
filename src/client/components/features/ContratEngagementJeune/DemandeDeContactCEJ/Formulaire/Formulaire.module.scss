@@ -1,18 +1,20 @@
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
+
+$color-background-decharge: utilities.$color-background-primary-alternative;
 
 .formulaire {
   padding: 0 2rem;
   margin-top: 2rem;
   display: grid;
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
+  grid-row-gap: variables.$form-vertical-gap-mobile;
   grid-template-columns: repeat(1, 1fr);
-  @include utilities-deprecated.media(medium) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-row-gap: 1.5rem;
-  }
 
+  @include utilities.media(medium) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: variables.$form-vertical-gap-desktop;
+    grid-column-gap: variables.$form-horizontal-gap;
+  }
 
   .radioButton {
     border-radius: 0;
@@ -33,20 +35,23 @@
 
   &Button {
     justify-self: center;
-    @include utilities-deprecated.media(medium) {
+    width: 100%;
+
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
+      width: unset;
     }
   }
 
   &Décharge {
-    background-color: utilities-deprecated.$color-cadre-formulaire;
+    background-color: $color-background-decharge;
     border-radius: 30px;
     margin-bottom: 1rem;
     max-width: 40rem;
     justify-self: center;
 
-    @include utilities-deprecated.media(medium) {
+    @include utilities.media(medium) {
       grid-column-start: 1;
       grid-column-end: 3;
     }
@@ -54,19 +59,6 @@
     p {
       font-size: 0.7rem;
       padding: 0.5rem 1rem;
-    }
-  }
-}
-
-@include utilities.media(large){
-  .formulaire {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
-    padding-bottom: 0;
-
-    label {
-      margin-top: 0;
     }
   }
 }

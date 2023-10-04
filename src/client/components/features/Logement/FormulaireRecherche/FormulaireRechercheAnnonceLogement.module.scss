@@ -1,15 +1,17 @@
 @use "sass:color";
 @use "@styles/utilities-deprecated";
+@use "@styles/components/form/variables";
+
 
 .RechercherLogementForm {
   padding: 2rem 1rem;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: variables.$form-vertical-gap-mobile;
 
   @include utilities-deprecated.media(medium) {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem
+    gap: variables.$form-vertical-gap-desktop;
   }
 }
 

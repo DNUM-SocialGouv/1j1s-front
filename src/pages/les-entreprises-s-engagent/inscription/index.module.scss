@@ -1,8 +1,14 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+@use "@styles/components/form/variables";
+
+$color-background-header: utilities.$color-background-primary;
+$color-text-header: utilities.$color-cta-background-primary-hover;
+$color-primary: utilities.$color-primary;
+$color-contact-link: utilities.$color-title-primary-alternative;
 
 .header {
-  background-color: utilities-deprecated.$color-on-primary;
-  color: utilities-deprecated.$color-blue-navy;
+  background-color: $color-background-header;
+  color: $color-text-header;
   padding: 2rem 0;
   display: flex;
 
@@ -30,14 +36,12 @@
   margin: 1rem 0;
 }
 
-
-
 .formulaire {
   .bodyFormulaire {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: variables.$form-vertical-gap-mobile;;
   }
   .label {
     @extend %bold;
@@ -59,7 +63,6 @@
     margin-top: 20px;
     width: 100%;
   }
-
 }
 
 .mandatoryFields {
@@ -68,7 +71,7 @@
 }
 
 .etape {
-  background-color: utilities-deprecated.$color-primary;
+  background-color: $color-primary;
   color: white;
   max-width: 8rem;
   text-align: center;
@@ -82,20 +85,19 @@
   margin-bottom: 1rem;
 
   > span {
-    color: utilities-deprecated.$color-primary;
+    color: $color-primary;
     cursor: pointer;
   }
 }
 
 .success {
-  color: utilities-deprecated.$color-primary;
+  color: $color-primary;
   @extend %bold;
-  @extend %text-xLarge;
+  @extend %title-large;
   padding: 40px;
 }
 
-@include utilities-deprecated.media(large) {
-
+@include utilities.media(large) {
   .header {
     padding: 4rem 16rem;
     flex-direction: row;
@@ -136,7 +138,6 @@
   .formulaire {
     border-radius: 40px;
     padding: 2rem 8rem 1rem;
-    gap: 1.5rem;
 
     .validationEtape1 {
       display: flex;
@@ -185,12 +186,13 @@
   }
 }
 
-@include utilities-deprecated.media(xlarge) {
+@include utilities.media(xlarge) {
   .formulaire {
     padding: 2rem 8rem 1rem;
 
     .bodyFormulaire {
       flex-direction: row;
+      row-gap: variables.$form-vertical-gap-desktop;
       justify-content: space-between;
 
       > div {
@@ -201,5 +203,5 @@
 }
 
 .contactLink {
-  color: utilities-deprecated.$black;
+  color: $color-contact-link;
 }
