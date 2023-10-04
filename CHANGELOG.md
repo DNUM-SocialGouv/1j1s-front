@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.156.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.155.3...v3.156.0) (2023-10-04)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **terraform:** activate Scalingo router logs ([#2098](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2098)) ([debdf30](https://github.com/DNUM-SocialGouv/1j1s-front/commit/debdf3097f8268f5e1718e5acb1ac2551efda863))
+
 ## [3.155.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.155.2...v3.155.3) (2023-10-04)
 
 
