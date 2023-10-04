@@ -38,6 +38,7 @@ module "front_app" {
   domain         = var.nom_de_domaine
   domain_aliases = terraform.workspace == "production" ? ["1jeune1solution.gouv.fr"] : null
 
+  router_logs = true
   log_drains = (var.logstash_uri != null) ? [
     {
       type = "elk"
