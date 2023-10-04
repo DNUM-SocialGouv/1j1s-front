@@ -1,8 +1,8 @@
 @use "@styles/utilities";
 @use "../InputText/Input.module" as inputStyles;
+
 .combobox {
   // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
-
 
   $color-text: inputStyles.$color-text;
   $color-border: inputStyles.$color-border;

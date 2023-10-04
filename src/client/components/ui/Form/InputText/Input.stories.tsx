@@ -18,3 +18,15 @@ export const exemple: Story = {
 		</>
 	),
 };
+
+export const disabled: Story = {
+	args: {
+		disabled: true,
+	},
+	render: (args) => (
+		<>
+			<label htmlFor="pays">Pays</label>
+			<Input id="pays" {...args} />
+		</>
+	),
+};

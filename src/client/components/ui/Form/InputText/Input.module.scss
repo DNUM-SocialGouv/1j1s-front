@@ -5,3 +5,25 @@ $color-border: utilities.$color-background-border;
 $color-text-disabled: inherit;
 $color-background-disabled: utilities.$color-background-disabled;
 $color-error: utilities.$color-error;
+
+%input {
+  color: $color-text;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+
+  $border-radius: 1.25rem;
+  $border-width: 1px;
+  border-radius: $border-radius;
+  border: $border-width solid $color-border;
+
+  &:disabled,
+  &:read-only {
+    color: $color-text-disabled;
+    background-color: $color-background-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.input {
+  @extend %input;
+}
