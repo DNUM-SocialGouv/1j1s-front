@@ -1,0 +1,7 @@
+@use "@styles/utilities";
+
+$color-text: utilities.$color-text-primary;
+$color-border: utilities.$color-background-border;
+$color-text-disabled: inherit;
+$color-background-disabled: utilities.$color-background-disabled;
+$color-error: utilities.$color-error;

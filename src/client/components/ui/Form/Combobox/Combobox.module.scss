@@ -1,14 +1,14 @@
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
-
+@use "../InputText/Input.module" as inputStyles;
 .combobox {
   // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
 
-  $color-text: utilities.$color-text-primary;
-  $color-border: utilities.$color-background-border;
-  $color-text-disabled: inherit;
-  $color-background-disabled: utilities.$color-background-disabled;
-  $color-error: utilities.$color-error;
+
+  $color-text: inputStyles.$color-text;
+  $color-border: inputStyles.$color-border;
+  $color-text-disabled: inputStyles.$color-text-disabled;
+  $color-background-disabled: inputStyles.$color-background-disabled;
+  $color-error: inputStyles.$color-error;
   $color-list-border: $color-border;
   $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
@@ -73,17 +73,17 @@
     // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
     $border-width-compensation: calc($error-border-width - $border-width);
     margin:
-      $border-width-compensation
-      0
-      $border-width-compensation
-      $border-width-compensation;
+            $border-width-compensation
+            0
+            $border-width-compensation
+            $border-width-compensation;
 
     & ~ button {
       margin:
-        $border-width-compensation
-        $border-width-compensation
-        $border-width-compensation
-        0;
+              $border-width-compensation
+              $border-width-compensation
+              $border-width-compensation
+              0;
     }
   }
 
