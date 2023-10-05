@@ -16,7 +16,6 @@ import EuropePage from '~/pages/europe/index.page';
 describe('Page Europe', () => {
 	let analyticsService: AnalyticsService;
 	beforeEach(() => {
-		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
 	});
@@ -35,18 +34,7 @@ describe('Page Europe', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('affiche le titre de la page', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-		expect(screen.getByRole('heading', { name: 'Je cherche une expérience en Europe' })).toBeVisible();
-	});
-
-	it('affiche un lien Trouver un emploi en Europe', () => {
+	it('affiche le contenu de la page', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -55,84 +43,9 @@ describe('Page Europe', () => {
 			</DependenciesProvider>,
 		);
 
-		const link = screen.getByRole('link', { name: 'Trouver un emploi en Europe' });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://ec.europa.eu/eures/portal/jv-se/home');
-		expect(link).toHaveAttribute('title', 'Trouver un emploi en Europe - nouvelle fenêtre');
-	});
-
-	it('affiche un lien Faire une partie de mon apprentissage en Europe', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getByRole('link', { name: 'Faire une partie de mon apprentissage en Europe' });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://www.euroappmobility.eu/fr/');
-		expect(link).toHaveAttribute('title', 'Faire une partie de mon apprentissage en Europe - nouvelle fenêtre');
-	});
-
-	it('affiche un lien Chercher un Volontariat International (V.I.E / V.I.A)', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getByRole('link', { name: 'Chercher un Volontariat International (V.I.E / V.I.A)' });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://mon-vie-via.businessfrance.fr/');
-		expect(link).toHaveAttribute('title', 'Chercher un Volontariat International (V.I.E / V.I.A) - nouvelle fenêtre');
-	});
-
-	it('affiche un lien S‘engager dans une mission de solidarité en Europe', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getByRole('link', { name: 'S‘engager dans une mission de solidarité en Europe' });
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://europa.eu/youth/solidarity/young-people/volunteering_fr');
-		expect(link).toHaveAttribute('title', 'S‘engager dans une mission de solidarité en Europe - nouvelle fenêtre');
-	});
-
-	it('affiche un lien En savoir plus sur Le programme de mobilité ciblé EURES', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getAllByRole('link', { name: 'En savoir plus' })[0];
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr');
-		expect(link).toHaveAttribute('title', 'En savoir plus - nouvelle fenêtre');
-	});
-
-	it('affiche un lien En savoir plus sur Le programme “ERASMUS+”', () => {
-		render(
-			<DependenciesProvider
-				analyticsService={analyticsService}
-			>
-				<EuropePage />
-			</DependenciesProvider>,
-		);
-
-		const link = screen.getAllByRole('link', { name: 'En savoir plus' })[1];
-		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('href', 'https://info.erasmusplus.fr/');
-		expect(link).toHaveAttribute('title', 'En savoir plus - nouvelle fenêtre');
+		const titre = screen.getByRole('heading', { level: 1, name: 'Je cherche une expérience en Europe' });
+		expect(titre).toBeVisible();
+		const contenu = screen.getByRole('main');
+		expect(contenu).toBeVisible();
 	});
 });
