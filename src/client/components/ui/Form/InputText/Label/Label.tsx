@@ -15,12 +15,10 @@ export function Label({ className, children, ...rest }: LabelProps) {
 	);
 }
 
-type ComplementProps = {
-	children: React.ReactNode
-}
+type ComplementProps = ComponentPropsWithoutRef<'small'>
 
-function Complement({ children }: ComplementProps) {
-	return <small>{children}</small>;
+function Complement({ className, ...props }: ComplementProps) {
+	return <small className={classNames(styles.complement, className)} {...props} />;
 }
 
 function Required() {
