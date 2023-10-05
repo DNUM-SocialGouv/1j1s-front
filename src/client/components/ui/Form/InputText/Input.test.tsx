@@ -71,25 +71,20 @@ describe('<Input/>', () => {
 	});
 
 	describe('validation', () => {
-		it('lorsque je ne tape pas, n‘appelle pas la validation', async () => {
-			const validation = jest.fn();
-			const user = userEvent.setup();
+		it('lorsque la valeur initiale de l‘input est valide, l‘input est valide', async () => {
+			const validation = jest.fn().mockReturnValue('');
 			render(<Input validation={validation}/>);
 
 			const input = screen.getByRole('textbox');
-			await user.click(input);
-			expect(validation).not.toHaveBeenCalled();
+			expect(input).toBeValid();
 		});
 
-		it('lorsque je tape, appelle la validation', async () => {
-			const validation = jest.fn();
-			const user = userEvent.setup();
+		it('lorsque la valeur initiale de l‘input n‘est pas valide, l‘input est invalide', async () => {
+			const validation = jest.fn().mockReturnValue('error message');
 			render(<Input validation={validation}/>);
 
 			const input = screen.getByRole('textbox');
-			await user.type(input, 'a');
-			expect(validation).toHaveBeenCalledTimes(1);
-			expect(validation).toHaveBeenCalledWith('a');
+			expect(input).toBeInvalid();
 		});
 
 		it('lorsque je tape une valeur valide, l‘input est valide', async () => {
