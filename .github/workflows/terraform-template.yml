@@ -47,7 +47,8 @@ jobs:
       - name: Installation de Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: "< 2.0.0"
+          # because of bug hashicorp/terraform#33983, I had to remove "< 2.0.0" and 
+          terraform_version: 1.5.7
 
       - name: Exposer tous les secrets comme des variables d'environnement
         if: ${{ (inputs.validate == true) || (inputs.plan == true) || (inputs.apply == true) }}
