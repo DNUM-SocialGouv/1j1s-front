@@ -15,6 +15,7 @@ import React, {
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
+import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import { ChangeEvent } from './ChangeEvent';
 import styles from './Combobox.module.scss';
@@ -41,22 +42,7 @@ type ComboboxProps = Omit<
 	'aria-labelledby': string,
 });
 
-function useTouchedInput() {
-	const [touched, setTouched] = useState(false);
-	const valueOnFocus = useRef<string | null>(null);
 
-	const saveValueOnFocus = useCallback(function saveCurrentValue(value: string) {
-		valueOnFocus.current = value;
-	}, []);
-
-	const setTouchedOnBlur = useCallback(function touch(currentValue: string) {
-		if (valueOnFocus.current !== currentValue) {
-			setTouched(true);
-		}
-	}, []);
-
-	return { saveValueOnFocus, setTouchedOnBlur, touched };
-}
 
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,

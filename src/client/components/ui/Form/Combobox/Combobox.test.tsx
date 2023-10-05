@@ -1437,7 +1437,6 @@ describe('<Combobox />', () => {
 
 				expect(onInvalid).not.toHaveBeenCalled();
 			});
-			it.todo('ne marque pas le champ si on quite sans écrire dedans ?');
 		});
 
 		describe('requireValidOption', () => {

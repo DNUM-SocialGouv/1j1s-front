@@ -7,12 +7,16 @@
   $color-text: inputStyles.$color-text;
   $color-border: inputStyles.$color-border;
   $color-text-disabled: inputStyles.$color-text-disabled;
+  $error-border-width: inputStyles.$error-border-width;
   $color-background-disabled: inputStyles.$color-background-disabled;
   $color-error: inputStyles.$color-error;
+  $border-width-compensation: inputStyles.$border-width-compensation;
   $color-list-border: $color-border;
   $color-list-background: utilities.$color-background-primary;
   $color-option-hover: utilities.$color-background-primary-alternative;
   $color-category-separator: $color-border;
+  $border-radius: inputStyles.$border-radius;
+  $border-width: inputStyles.$border-width;
 
   position: relative;
   display: grid;
@@ -34,8 +38,7 @@
     }
   }
 
-  $border-radius: 1.25rem;
-  $border-width: 1px;
+
   border-radius: $border-radius;
   @extend %outlined;
   & input,
@@ -62,7 +65,6 @@
     cursor: not-allowed;
   }
 
-  $error-border-width: 2px;
   & input[role="combobox"][data-touched="true"]:invalid,
   & input[role="combobox"][data-touched="true"]:invalid ~ button {
     border-color: $color-error;
@@ -71,7 +73,6 @@
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {
     // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
-    $border-width-compensation: calc($error-border-width - $border-width);
     margin:
             $border-width-compensation
             0
