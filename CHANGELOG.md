@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.157.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.156.3...v3.157.0) (2023-10-05)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** refonte page expérience en europe ([#2016](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2016)) ([9a63763](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9a63763d375d192321ae854757ac34b1baf46553))
+
 ## [3.156.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.156.2...v3.156.3) (2023-10-05)
 
 
