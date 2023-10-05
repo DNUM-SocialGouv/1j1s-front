@@ -1,4 +1,5 @@
-import { LinkStyledAsButton } from '../../../ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+
 import styles from '../EmploiEnEuropeContent.module.scss';
 
 export function LiensUtiles() {

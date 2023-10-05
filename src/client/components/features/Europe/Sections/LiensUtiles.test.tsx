@@ -4,7 +4,7 @@
 
 import { render, screen, within } from '@testing-library/react';
 
-import { LiensUtiles } from '~/client/components/features/Europe/Sections/LiensUtiles';
+import { LiensUtiles } from './LiensUtiles';
 
 describe('<LiensUtiles />', () => {
 	it('affiche le titre de la section', () => {
