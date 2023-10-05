@@ -22,7 +22,7 @@ describe('<LiensUtiles />', () => {
 		const apprentissage = within(liste).getByRole('link', { name: /Vous souhaitez faire une partie de votre apprentissage en Europe/i });
 		expect(apprentissage).toBeVisible();
 		expect(apprentissage).toHaveAttribute('href', 'https://www.euroappmobility.eu/fr/');
-		const volontariat = within(liste).getByRole('link', { name: /Vous cherchez un Volontariat International \(V\.I\.E \/ V\.I\.A\)/i });
+		const volontariat = within(liste).getByRole('link', { name: /Vous cherchez un Volontariat International \( V\.I\.E \/ V\.I\.A \)/i });
 		expect(volontariat).toBeVisible();
 		expect(volontariat).toHaveAttribute('href', 'https://mon-vie-via.businessfrance.fr/');
 		const missionSolidarite = within(liste).getByRole('link', { name: /Vous souhaitez vous engager dans une mission de solidarité en Europe/i });
