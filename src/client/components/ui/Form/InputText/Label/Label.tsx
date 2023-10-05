@@ -1,13 +1,18 @@
+import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef } from 'react';
+
+import styles from './Label.module.scss';
 
 type LabelProps = ComponentPropsWithoutRef<'label'> & {
 	label?: string
 }
 
-export function Label({ children, ...rest }: LabelProps) {
-	return (<label {...rest}>
-		{children}
-	</label>);
+export function Label({ className, children, ...rest }: LabelProps) {
+	return (
+		<label className={classNames(styles.label, className)} {...rest}>
+			{children}
+		</label>
+	);
 }
 
 type ComplementProps = {
@@ -19,11 +24,11 @@ function Complement({ children }: ComplementProps) {
 }
 
 function Required() {
-	return <span>(champ obligatoire)</span>
+	return <span>(champ obligatoire)</span>;
 }
 
 function Optional() {
-	return <span>(champ optionnel)</span>
+	return <span>(champ optionnel)</span>;
 }
 
 Label.Complement = Complement;

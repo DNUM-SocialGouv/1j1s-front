@@ -33,4 +33,11 @@ describe('<Label>', () => {
 		</Label>);
 		expect(screen.getByText(/(champ optionnel)/)).toBeVisible();
 	});
+
+	it('accepte une classe', () => {
+		render(<Label className="className">Je suis le label</Label>);
+
+		const label = screen.getByText('Je suis le label');
+		expect(label).toHaveAttribute('class', expect.stringContaining('className'));
+	});
 });
