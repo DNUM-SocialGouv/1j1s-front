@@ -1,18 +1,24 @@
 @use "@styles/utilities";
-
+@use "@styles/components/form/variables";
 
 .RechercheFormationInitialeForm {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 2rem;
-  padding: 1.25rem 0;
+  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
 
   @include utilities.media(medium) {
     grid-template-columns: 1fr auto;
+    grid-gap: variables.$form-vertical-gap-desktop;
   }
 
   & .buttonWrapper {
-   padding-top: 1.75rem;
+    > button {
+      width: 100%;
+
+      @include utilities.media(medium) {
+        margin-top: utilities.pixel-to-rem(28);
+      }
+    }
   }
 }
 

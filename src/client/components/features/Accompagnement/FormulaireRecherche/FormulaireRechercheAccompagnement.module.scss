@@ -1,9 +1,10 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 @use "@styles/components/form/variables";
 
 .rechercheAccompagnementForm {
   display: flex;
   flex-direction: column;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
 }
 
 .filtresRecherche {
@@ -11,7 +12,6 @@
   flex-direction: column;
   gap: variables.$form-vertical-gap-mobile;
   flex-grow: 1;
-  margin-bottom: 2rem;
 }
 
 .inputCommune {
@@ -23,11 +23,11 @@
 }
 
 .rechercherAccompagnementHint {
-  padding-top: 1rem;
-  @extend %text-small;
+  color: utilities.$color-primary;
+  margin-block: 1.25rem;
 }
 
-@include utilities-deprecated.media(medium){
+@include utilities.media(medium){
   .filtresRecherche {
     flex-direction: row;
     gap: variables.$form-vertical-gap-desktop;
@@ -36,7 +36,6 @@
   .rechercheAccompagnementForm {
     flex-direction: row;
     align-items: flex-start;
-    padding-top: 1.5rem;
     padding-bottom: 2.5rem;
     gap: variables.$form-vertical-gap-desktop;
   }

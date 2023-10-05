@@ -1,12 +1,24 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .rechercheFormationForm {
   display: flex;
   flex-direction: column;
-}
+  gap: variables.$form-submit-button-vertical-gap-mobile;
 
-.filtresRechercherFormation {
-  flex-grow: 1;
+  & .filtresRechercherFormation {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$form-vertical-gap-mobile;
+
+    & .inputButtonWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$form-vertical-gap-mobile;
+    }
+  }
 }
 
 .buttonRechercher > button {
@@ -24,19 +36,26 @@
     flex-direction: row;
     align-items: flex-start;
     padding-bottom: 2.5rem;
+    gap: variables.$form-horizontal-gap;
+
+    & .filtresRechercherFormation {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$form-vertical-gap-desktop;
+
+      & .inputButtonWrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: variables.$form-horizontal-gap;
+        flex-wrap: wrap;
+        padding-block: 0;
+      }
+    }
   }
 
   .buttonRechercher {
-    margin-top: 28px;
-    margin-left: 40px;
-  }
-
-  .inputButtonWrapper {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-block: 0;
+    margin-top: utilities.pixel-to-rem(28);
   }
 
   .inputButtonWrapper > div {
