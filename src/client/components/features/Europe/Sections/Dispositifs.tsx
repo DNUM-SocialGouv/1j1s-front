@@ -1,4 +1,4 @@
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
 
@@ -34,13 +34,13 @@ function EuresCardContent() {
 				de langue, la reconnaissance de leurs qualifications ou leur déménagement.
 				</dd>
 			</dl>
-			<LinkStyledAsButton
+			<LinkStyledAsButtonWithIcon
 				appearance="asPrimaryButton"
 				href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
 				aria-label="En savoir plus sur EURES"
 			>
 			En savoir plus
-			</LinkStyledAsButton>
+			</LinkStyledAsButtonWithIcon>
 		</>
 	);
 }
@@ -69,13 +69,13 @@ function ErasmusCardContent() {
 					</ul>
 				</dd>
 			</dl>
-			<LinkStyledAsButton
+			<LinkStyledAsButtonWithIcon
 				appearance="asPrimaryButton"
 				href="https://info.erasmusplus.fr/"
 				aria-label="En savoir plus sur ERASMUS+"
 			>
 				En savoir plus
-			</LinkStyledAsButton>
+			</LinkStyledAsButtonWithIcon>
 		</>
 	);
 }
@@ -85,9 +85,9 @@ function AidesFinancieresCardContent() {
 		<>
 			<h3 id="aides-financieres">Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
-			<LinkStyledAsButton appearance="asPrimaryButton" href="/mes-aides">
+			<LinkStyledAsButtonWithIcon appearance="asPrimaryButton" href="/mes-aides">
 				Faire une simulation d’aides
-			</LinkStyledAsButton>
+			</LinkStyledAsButtonWithIcon>
 		</>
 	);
 }
