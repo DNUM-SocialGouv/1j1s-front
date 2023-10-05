@@ -68,16 +68,14 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 					/>
 				</div>
 
-				<div className={styles.accessibleAuxMineursWrapper}>
-					<Checkbox
-						label="Dès 16 ans"
-						id="ouvertAuxMineurs"
-						checked={ouvertAuxMineurs}
-						onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
-						name="ouvertsAuxMineurs"
-						value="true"
-					/>
-				</div>
+				<Checkbox
+					label="Dès 16 ans"
+					id="ouvertAuxMineurs"
+					checked={ouvertAuxMineurs}
+					onChange={() => setOuvertAuxMineurs(!ouvertAuxMineurs)}
+					name="ouvertsAuxMineurs"
+					value="true"
+				/>
 			</div>
 
 			<div className={styles.rechercherMissionEngagementButton}>
