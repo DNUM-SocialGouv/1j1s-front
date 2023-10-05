@@ -7,7 +7,7 @@ import styles from '../EmploiEnEuropeContent.module.scss';
 export function ExperiencesEnEurope() {
 	return (
 		<section className={styles.experience}>
-			<LightHero className={styles.hero}>
+			<LightHero className={styles.title}>
 				<h1>
 					<LightHeroPrimaryText>Je cherche une expérience </LightHeroPrimaryText>
 					<LightHeroSecondaryText>en Europe</LightHeroSecondaryText>
