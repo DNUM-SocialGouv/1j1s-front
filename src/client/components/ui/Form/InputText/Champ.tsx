@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-import { Input } from '~/client/components/ui/Form/InputText/Input';
+import { Input } from './Input';
+
 
 export function Champ(props : ComponentPropsWithoutRef<'div'>) {
 	return <div {...props}/>;
