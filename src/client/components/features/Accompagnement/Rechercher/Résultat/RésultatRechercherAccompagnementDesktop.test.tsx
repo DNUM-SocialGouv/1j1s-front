@@ -3,6 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import {
 	RésultatRechercherAccompagnementDesktop,
@@ -61,6 +62,67 @@ describe('RésultatRechercherAccompagnement', () => {
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', `mailto:${email}`);
 			expect(link).toHaveAttribute('title', 'Contacter l‘agence - adresse mail');
+		});
+	});
+
+	describe('Quand aucune horaire n’est disponible', () => {
+		it('n‘affiche pas "Voir les horaires d’ouverture"', () => {
+			// GIVEN
+			const établissement = {
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			};
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+			</DependenciesProvider>);
+
+			// THEN
+			expect(screen.queryByText('Voir les horaires d‘ouverture')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('Quand des horaires sont disponibles', () => {
+		it('affiche "Voir les horaires d’ouverture" et les horaires', async () => {
+			// GIVEN
+			const établissement = {
+				adresse: 'address',
+				email: 'email',
+				horaires: [
+					{
+						heures: [
+							{
+								début: '09:00',
+								fin: '12:00',
+							},
+						],
+						jour: 'Lundi',
+					},
+				],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			};
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+			</DependenciesProvider>);
+
+			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));
+
+			// THEN
+			expect(screen.getByText('Voir les horaires d‘ouverture')).toBeVisible();
+			expect(screen.getByText('Lundi')).toBeVisible();
+			expect(screen.getByText('09h')).toBeVisible();
+			expect(screen.getByText('12h')).toBeVisible();
 		});
 	});
 });

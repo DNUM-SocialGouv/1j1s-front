@@ -23,7 +23,7 @@ export function ServicesJeunes(props: ServicesJeunesProps) {
 
 	return (
 		<>
-			<Container>
+			<Container className={styles.cardList}>
 				<SeeMoreItemList
 					seeLessLabel="Voir moins de services"
 					seeMoreLabel="Voir plus de services"

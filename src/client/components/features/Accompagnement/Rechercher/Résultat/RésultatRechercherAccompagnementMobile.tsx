@@ -46,19 +46,26 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 					<LinkStyledAsButtonWithIcon className={styles.contactFormulaireÉtablissement} href={`mailto:${établissement.email}`} appearance={'asPrimaryButton'} title="Contacter l‘agence - adresse mail">Contacter l‘agence</LinkStyledAsButtonWithIcon>
 			}
 			{
-				établissement.email && isMissionLocale &&
-        <ButtonComponent label={'Je souhaite être contacté(e)'} className={styles.contactFormulaireÉtablissement} onClick={onContactClick} />
+				établissement.horaires && établissement.horaires.length > 0 &&
+					<details className={styles.details}>
+						<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
+						<ol className={styles.listeHoraire}>
+							{établissement.horaires?.map((horaire) => (
+								<li key={horaire.jour} className={styles.horaireElement}>
+									<HorairesRésultatRechercherAccompagnement horaire={horaire} />
+								</li>
+							))}
+						</ol>
+					</details>
 			}
-			<details className={styles.details}>
-				<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
-				<ol className={styles.listeHoraire}>
-					{établissement.horaires?.map((horaire) => (
-						<li key={horaire.jour} className={styles.horaireElement}>
-							<HorairesRésultatRechercherAccompagnement horaire={horaire} />
-						</li>
-					))}
-				</ol>
-			</details>
+			{
+				établissement.email && isMissionLocale &&
+					<ButtonComponent
+						label={'Je souhaite être contacté(e)'}
+						className={styles.contactFormulaireÉtablissement}
+						onClick={onContactClick}
+					/>
+			}
 		</Card>
 	);
 }

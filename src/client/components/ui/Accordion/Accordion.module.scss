@@ -17,6 +17,10 @@
     list-style: none;
     cursor: pointer;
 
+    &::-webkit-details-marker { // Enlève le marqueur par défaut présent sur Safari
+      display: none;
+    }
+
     &, & > * {
       @extend %bold;
     }

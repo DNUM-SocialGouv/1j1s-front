@@ -1,5 +1,11 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .card {
   width: 22.5rem;
+}
+
+.cardList {
+  @include utilities.media(medium) {
+    padding-top: 2rem;
+  }
 }
