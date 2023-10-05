@@ -1,7 +1,9 @@
 @use "sass:color";
-@use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
+
+$color-border-filters: lighten(utilities.$color-primary, 15%);
+$color-message-champs-obligatoires: utilities.$color-primary;
 
 .rechercheOffreForm {
   display: flex;
@@ -33,10 +35,10 @@
 .filtresAvancésModalContenu {
 
   & details {
-    border-top: 1px solid lighten(utilities-deprecated.$color-primary, 15%);
+    border-top: 1px solid $color-border-filters;
 
     &:last-of-type {
-      border-bottom: 1px solid lighten(utilities-deprecated.$color-primary, 15%);
+      border-bottom: 1px solid $color-border-filters;
     }
   }
 }
@@ -50,7 +52,7 @@
 }
 
 .champsObligatoires {
-  color: utilities-deprecated.$color-primary;
+  color: $color-message-champs-obligatoires;
   margin-block: 1.25rem;
 }
 

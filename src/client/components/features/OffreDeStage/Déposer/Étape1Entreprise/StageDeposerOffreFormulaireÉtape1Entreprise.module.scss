@@ -1,11 +1,7 @@
-@use "@styles/utilities-deprecated";
-
+@use "@styles/utilities";
 
 .textareaWrapper {
-
-  @include utilities-deprecated.media(xlarge) {
+  @include utilities.media(xlarge) {
     width: 100%;
   }
 }
-
-
