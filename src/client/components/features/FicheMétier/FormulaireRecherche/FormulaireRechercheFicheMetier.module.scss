@@ -1,21 +1,17 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .RechercherMetierForm {
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  justify-content: space-between;
+  gap: variables.$form-vertical-gap-mobile;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(medium) {
     flex-direction: row;
-  }
-
-  @include utilities-deprecated.media(xlarge) {
-    gap: 1.5rem;
+    gap: variables.$form-vertical-gap-desktop;
   }
 }
-
 
 .inputNomMetier {
   flex-basis: 70%;
