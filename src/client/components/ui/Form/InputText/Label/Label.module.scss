@@ -1,3 +1,7 @@
-.label {
+@use "@styles/utilities";
 
+.label {
+  @extend %text-large;
+
+  display: block;
 }
