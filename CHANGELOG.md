@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.158.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.157.1...v3.158.0) (2023-10-06)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **transverse:** gestion du focus après un clique Meilisearch ([#2096](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2096)) ([517d621](https://github.com/DNUM-SocialGouv/1j1s-front/commit/517d621b08924fb91ca2f6269655debb5e0299b7))
+
 ## [3.157.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.157.0...v3.157.1) (2023-10-05)
 
 
