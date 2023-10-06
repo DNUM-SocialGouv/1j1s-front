@@ -1,0 +1,38 @@
+@use "@styles/utilities";
+
+$error-color-text: utilities.$color-error;
+$hint-color-text: utilities.$color-primary;
+$margin-vertical: 0.5rem;
+
+.champ{
+  & .error, & .hint{
+    margin-top: $margin-vertical
+  }
+
+  & .label{
+    margin-bottom: $margin-vertical
+  }
+}
+
+
+.error{
+  @extend %text-small;
+  color: $error-color-text;
+}
+
+.hint{
+  @extend %text-small;
+  color: $hint-color-text;
+}
+
+.label {
+  display: block;
+  @extend %text-large;
+
+  .complement {
+    display: block;
+    @extend %text-small;
+    // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
+  }
+}
+

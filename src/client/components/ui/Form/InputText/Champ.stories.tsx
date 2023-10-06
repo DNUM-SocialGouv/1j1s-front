@@ -23,9 +23,32 @@ export const Erreur: Story = {
 	args: {},
 	render: (args) => (
 		<Champ {...args}>
-			<Champ.Label htmlFor="pays">Pays <Champ.Label.Complement>(Un pays Européen)</Champ.Label.Complement></Champ.Label>
+			<Champ.Label htmlFor="pays">Pays</Champ.Label>
 			<Champ.Input id="pays"/>
 			<Champ.Error>Vous n‘avez pas fourni un pays valide</Champ.Error>
+		</Champ>
+	),
+};
+
+export const Indication: Story = {
+	args: {},
+	render: (args) => (
+		<Champ {...args}>
+			<Champ.Label htmlFor="pays">Pays</Champ.Label>
+			<Champ.Input id="pays"/>
+			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
+		</Champ>
+	),
+};
+
+export const IndicationEtErreur: Story = {
+	args: {},
+	render: (args) => (
+		<Champ {...args}>
+			<Champ.Label htmlFor="pays">Pays</Champ.Label>
+			<Champ.Input id="pays"/>
+			<Champ.Error>Vous n‘avez pas fourni un pays valide</Champ.Error>
+			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
 		</Champ>
 	),
 };
