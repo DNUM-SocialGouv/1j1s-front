@@ -8,7 +8,7 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
 }
 
 .filtresRechercherOffre {
