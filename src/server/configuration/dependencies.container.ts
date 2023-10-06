@@ -153,7 +153,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots/configuration/dependencies.container';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { NullCacheService } from '~/server/services/cache/cacheService.fixture';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
@@ -205,11 +205,11 @@ export function dependenciesContainer(): Dependencies {
 		);
 	}
 
-	if (process.env.NODE_ENV === 'test') {
-		cacheService = new MockedCacheService();
-	} else {
+	if (serverConfigurationService.getConfiguration().REDIS_URL !== '') {
 		const redisUrl = serverConfigurationService.getConfiguration().REDIS_URL;
 		cacheService = new RedisCacheService(redisUrl, loggerService);
+	} else {
+		cacheService = new NullCacheService();
 	}
 
 	const defaultErrorManagementService = new DefaultErrorManagementService(loggerService);

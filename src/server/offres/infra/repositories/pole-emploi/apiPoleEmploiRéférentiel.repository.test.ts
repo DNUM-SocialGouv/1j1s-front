@@ -5,7 +5,7 @@ import {
 	aRésultatsRéférentielCommunesResponseList,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { NullCacheService } from '~/server/services/cache/cacheService.fixture';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import {
 	anAuthenticatedHttpClientService,
@@ -25,7 +25,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 
 	beforeEach(() => {
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
-		cacheService = new MockedCacheService();
+		cacheService = new NullCacheService();
 		apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(httpClientServiceWithAuthentification, cacheService);
 	});
 

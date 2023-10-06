@@ -20,7 +20,7 @@ import {
 	aPoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { MockedCacheService } from '~/server/services/cache/cacheService.fixture';
+import { NullCacheService } from '~/server/services/cache/cacheService.fixture';
 import {
 	anErrorManagementService,
 	anErrorManagementWithErrorCheckingService,
@@ -45,7 +45,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 	let apiPoleEmploiErrorManagementGet: ErrorManagementWithErrorCheckingService;
 
 	beforeEach(() => {
-		cacheService = new MockedCacheService();
+		cacheService = new NullCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		poleEmploiParamètreBuilderService = aPoleEmploiParamètreBuilderService();
 		apiPoleEmploiErrorManagementSearch = anErrorManagementService();
