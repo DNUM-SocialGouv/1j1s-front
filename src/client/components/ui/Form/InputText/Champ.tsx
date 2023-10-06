@@ -1,10 +1,10 @@
 import { ComponentPropsWithoutRef } from 'react';
 
+import styles from './Champ.module.scss';
 import { Error } from './Error';
 import { Hint } from './Hint';
 import { Input } from './Input';
 import { Label } from './Label';
-import styles from './Champ.module.scss';
 
 
 export function Champ(props : ComponentPropsWithoutRef<'div'>) {
