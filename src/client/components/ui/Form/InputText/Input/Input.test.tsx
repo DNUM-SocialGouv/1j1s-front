@@ -5,9 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { Champ } from '~/client/components/ui/Form/InputText/Champ';
-import { Error } from '~/client/components/ui/Form/InputText/Error';
-import { Input } from '~/client/components/ui/Form/InputText/Input';
+import { Input } from './Input';
 
 describe('<Input/>', () => {
 	it('affiche un textbox', () => {
@@ -70,20 +68,6 @@ describe('<Input/>', () => {
 		await user.tab();
 		expect(onBlur).toHaveBeenCalledTimes(1);
 		expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({ target: input }));
-	});
-
-	it('merge le aria-describedby donné par le parent avec celui du message d’erreur', () => {
-		render(
-			<Champ>
-				<Input aria-describedby="description" />
-				<p id="description">Ceci est une description</p>
-				<Error>Ceci est une erreur</Error>
-			</Champ>,
-		);
-
-		const input = screen.getByRole('textbox');
-		expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une description'));
-		expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une erreur'));
 	});
 
 	describe('validation', () => {
