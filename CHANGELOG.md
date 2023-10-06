@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.159.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.158.0...v3.159.0) (2023-10-06)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **lee:** faire patienter apres soumission formulaire rejoindre la mobilisation ([#2084](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2084)) ([876cdb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/876cdb3f06ede0db724805dd4c85b6f306119485))
+
 ## [3.158.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.157.1...v3.158.0) (2023-10-06)
 
 
