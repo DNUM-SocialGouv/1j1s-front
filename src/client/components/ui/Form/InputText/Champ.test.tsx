@@ -13,4 +13,17 @@ describe('<Champ/>', () => {
 		
 		expect(screen.getByRole('textbox')).toBeVisible();
 	});
+
+	it('lie le champ avec son message d’erreur', () => {
+		render(
+			<Champ>
+				<Champ.Input/>
+				<Champ.Error>Message d’erreur</Champ.Error>
+			</Champ>,
+		);
+
+		expect(screen.getByRole('textbox')).toHaveAccessibleDescription('Message d’erreur');
+	});
+
+	it.todo('quand Error a un id, utiliser cet id');
 });

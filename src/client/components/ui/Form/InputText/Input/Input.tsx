@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef, FocusEvent, useCallback, useEffect } from 'react';
 
 import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
+import { useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
@@ -24,6 +25,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onBlur: onBlurProps = doNothing,
 		...props
 	}, outerRef) {
+	const { errorId } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
 
@@ -55,6 +57,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange={onChange}
 		onFocus={onFocus}
 		onBlur={onBlur}
+		aria-describedby={errorId}
 		className={classNames(styles.input, className)}
 		{...props}
 	/>;

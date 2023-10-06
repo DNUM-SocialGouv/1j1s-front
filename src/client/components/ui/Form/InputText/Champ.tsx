@@ -1,4 +1,6 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, useId } from 'react';
+
+import { ChampContextProvider } from '~/client/components/ui/Form/InputText/ChampContext';
 
 import styles from './Champ.module.scss';
 import { Error } from './Error';
@@ -8,7 +10,13 @@ import { Label } from './Label';
 
 
 export function Champ(props : ComponentPropsWithoutRef<'div'>) {
-	return <div className={styles.champ} {...props}/>;
+	const errorId = useId();
+
+	return (
+		<ChampContextProvider value={{ errorId }}>
+			<div className={styles.champ} {...props}/>
+		</ChampContextProvider>
+	);
 }
 
 Champ.Input = Input;
