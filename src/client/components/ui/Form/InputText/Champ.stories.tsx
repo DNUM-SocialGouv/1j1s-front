@@ -13,7 +13,7 @@ export const exemple: Story = {
 	args: {},
 	render: (args) => (
 		<Champ {...args}>
-			<Champ.Label htmlFor="pays">Pays <Champ.Label.Complement>(Entrer un pays valide)</Champ.Label.Complement></Champ.Label>
+			<Champ.Label htmlFor="pays">Pays <Champ.Label.Complement>(Un pays Européen)</Champ.Label.Complement></Champ.Label>
 			<Champ.Input id="pays"/>
 		</Champ>
 	),

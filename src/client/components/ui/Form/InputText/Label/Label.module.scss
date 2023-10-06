@@ -1,11 +1,16 @@
 @use "@styles/utilities";
 
+$padding-vertical: 0.5rem;
+
 .label {
   @extend %text-large;
 
   display: block;
+  padding-bottom: $padding-vertical;
 }
 
 .complement {
-  //@extend
+  display: block;
+  @extend %text-small;
+  // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
 }
