@@ -62,6 +62,7 @@ export default function LesEntreprisesSEngagentInscription() {
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 	const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
 	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
@@ -107,6 +108,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		event.preventDefault();
 
 		if (isPremièreÉtapeValid && isDeuxièmeÉtapeValid) {
+			setIsLoading(true);
 			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireÉtape1, ...formulaireÉtape2 });
 
 			if (isSuccess(response)) {
@@ -115,6 +117,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			} else {
 				setIsErreurModalOpen(true);
 			}
+			setIsLoading(false);
 		}
 	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, lesEntreprisesSEngagentService]);
 
@@ -308,6 +311,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		  							iconPosition="right"
 		  							label="Envoyer le formulaire"
 		  							type="submit"
+									  disabled={isLoading}
 		  						/>
 		  						<DéchargeRGPD/>
 		  					</div>

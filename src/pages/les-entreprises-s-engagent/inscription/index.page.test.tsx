@@ -162,6 +162,29 @@ describe('LesEntreprisesSEngagentInscription', () => {
 	});
 
 	describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
+		it('le bouton est désactivé', async () => {
+			const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
+			jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {}));
+
+			render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+					lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
+					localisationService={localisationService}
+				>
+					<LesEntreprisesSEngagentInscription/>
+				</DependenciesProvider>,
+			);
+
+			await remplirFormulaireEtape1();
+			await clickOnGoToEtape2();
+
+			await remplirFormulaireEtape2();
+			await clickOnEnvoyerLeFormulaire();
+
+			const button = screen.getByRole('button', { name: 'Envoyer le formulaire' });
+			expect(button).toBeDisabled();
+		});
 		it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
 			renderComponent();
 			const expected: FormulaireEngagement = {
