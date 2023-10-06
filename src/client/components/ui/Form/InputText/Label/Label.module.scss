@@ -1,12 +1,10 @@
 @use "@styles/utilities";
 
-$padding-vertical: 0.5rem;
 
 .label {
   @extend %text-large;
 
   display: block;
-  padding-bottom: $padding-vertical;
 }
 
 .complement {
