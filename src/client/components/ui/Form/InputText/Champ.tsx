@@ -11,8 +11,9 @@ import { Label } from './Label';
 
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
+	const [hintId, setHintId] = useState<string>(useId());
 	return (
-		<ChampContextProvider value={{ errorId, setErrorId }}>
+		<ChampContextProvider value={{ errorId, hintId, setErrorId, setHintId }}>
 			<div className={styles.champ} {...props}/>
 		</ChampContextProvider>
 	);
@@ -23,10 +24,10 @@ export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWitho
 		'aria-describedby': ariaDescribedby = '',
 		...rest
 	}, ref) {
-	const { errorId } = useChampContext();
+	const { errorId, hintId } = useChampContext();
 	return (<Input
 		ref={ref}
-		aria-describedby={`${ariaDescribedby} ${errorId}`}
+		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
 		{...rest}
 	/>);
 });
@@ -41,7 +42,17 @@ function ErrorChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Error>) {
 	return (<Error id={id ?? errorId} {...rest}/>);
 }
 
+function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
+	const { hintId, setHintId } = useChampContext();
+
+	useEffect(() => {
+		id && setHintId(id);
+	}, [id, setHintId]);
+
+	return (<Hint id={id ?? hintId} {...rest}/>);
+}
+
 Champ.Input = InputChamp;
 Champ.Label = Label;
 Champ.Error = ErrorChamp;
-Champ.Hint = Hint;
+Champ.Hint = HintChamp;

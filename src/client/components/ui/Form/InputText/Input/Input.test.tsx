@@ -150,6 +150,4 @@ describe('<Input/>', () => {
 			expect(input).toHaveAttribute('data-touched', 'false');
 		});
 	});
-
-	it.todo('ajouter le hint en describedby');
 });

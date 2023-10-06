@@ -3,6 +3,8 @@ import React, { Dispatch, SetStateAction, useContext } from 'react';
 type ContextType = {
   errorId: string
 	setErrorId: Dispatch<SetStateAction<string>>
+	hintId: string
+	setHintId: Dispatch<SetStateAction<string>>
 };
 
 const Context = React.createContext<ContextType | null>(null);

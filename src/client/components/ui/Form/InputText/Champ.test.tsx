@@ -48,18 +48,39 @@ describe('<Champ/>', () => {
 			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 		});
 
-		it('merge le aria-describedby donné par le parent avec celui du message d’erreur', () => {
+		it('merge le aria-describedby donné par le parent avec celui du message d’erreur et de l‘indication', () => {
 			render(
 				<Champ>
 					<Champ.Input aria-describedby="description"/>
 					<p id="description">Ceci est une description</p>
 					<Champ.Error>Ceci est une erreur</Champ.Error>
+					<Champ.Hint>Ceci est une indication</Champ.Hint>
 				</Champ>,
 			);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une description'));
 			expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une erreur'));
+			expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une indication'));
+		});
+
+		it('lorsque je ne fournis pas d‘indication et d‘erreur, le aria-describedby est vide', () => {
+			render(<Champ>
+				<Champ.Input/>
+			</Champ>);
+
+			const erreur = screen.getByRole('textbox');
+			expect(erreur).toHaveAccessibleDescription('');
+		});
+
+		it('lorsque je fournis un id à l‘indication, le aria-describedby contient l‘indication', () => {
+			render(<Champ>
+				<Champ.Input/>
+				<Champ.Hint id="idExpected">Je suis l‘indication</Champ.Hint>
+			</Champ>);
+
+			const erreur = screen.getByRole('textbox');
+			expect(erreur).toHaveAccessibleDescription('Je suis l‘indication');
 		});
 
 		it('lorsque je fournis un id à l‘erreur, le aria-describedby contient l‘erreur', () => {
