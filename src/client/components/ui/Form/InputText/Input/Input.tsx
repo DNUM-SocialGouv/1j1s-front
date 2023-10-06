@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef, FocusEvent, useCallback, useEffect } from 'react';
 
 import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
+import { validation } from '~/client/components/ui/Form/Combobox/Combobox.stories';
 import { useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
@@ -23,6 +24,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange: onChangeProps = doNothing,
 		onFocus: onFocusProps = doNothing,
 		onBlur: onBlurProps = doNothing,
+		'aria-describedby': ariaDescribedby = '',
 		...props
 	}, outerRef) {
 	const { errorId } = useChampContext();
@@ -57,7 +59,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange={onChange}
 		onFocus={onFocus}
 		onBlur={onBlur}
-		aria-describedby={errorId}
+		aria-describedby={`${ariaDescribedby} ${errorId}`}
 		className={classNames(styles.input, className)}
 		{...props}
 	/>;
