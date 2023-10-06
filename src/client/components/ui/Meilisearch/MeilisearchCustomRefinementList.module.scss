@@ -17,7 +17,7 @@
   border-radius: 20px;
   height: 2.5rem;
 
-  &:focus {
+  &:focus, &[aria-expanded=true] {
     border: 2px solid utilities-deprecated.$color-primary;
   }
 }

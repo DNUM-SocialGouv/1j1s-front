@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, {
-	useCallback,
+	FocusEvent,
 	useEffect,
 	useRef,
 	useState,
@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import {
 	handleKeyBoardInteraction,
-	setFocusToSelectButton,
 } from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -29,52 +28,41 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 	const buttonLabel = 'Sélectionnez vos choix';
 	const labelledBy = useRef(uuidv4());
-	const optionsRef = useRef<HTMLDivElement>(null);
+	const buttonRef = useRef<HTMLButtonElement>(null);
 	const listBoxRef = useRef<HTMLUListElement>(null);
-
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-		if (!(optionsRef.current)?.contains(event.target as Node)) {
-			setIsOptionsOpen(false);
-		}
-	}, []);
-
-	const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
-		const currentItem = event.target as HTMLElement;
-		if (event.key === KeyBoard.ESCAPE && isOptionsOpen) {
-			setIsOptionsOpen(false);
-			setFocusToSelectButton(currentItem);
-		}
-	}, [isOptionsOpen]);
-
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mousedown', closeOptionsOnClickOutside);
-		document.addEventListener('keyup', closeOptionsOnEscape);
-
-		return () => {
-			document.removeEventListener('mousedown', closeOptionsOnClickOutside);
-			document.removeEventListener('keyup', closeOptionsOnEscape);
-		};
-	}, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
 
 	useEffect(function setFocusOnOpen() {
 		if (isOptionsOpen && items.length > 0) {
-			const currentItem = optionsRef.current as HTMLDivElement;
-			const firstElement = currentItem.getElementsByTagName('li')[0];
-			firstElement.focus();
+			const currentItem = listBoxRef.current;
+			const firstElement = currentItem?.getElementsByTagName('li')[0];
+			firstElement?.focus();
 		}
 	}, [isOptionsOpen, items.length]);
 
-	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
-		const currentItem = event.target as HTMLElement;
+	function changeFocusToButtonElement(){
+		buttonRef.current?.focus();
+	}
+
+	function handleKeyDown (event: React.KeyboardEvent<HTMLLIElement>){
+		const currentItem = event.currentTarget;
 		const updateValues = () => {
 			const currentInput = currentItem.querySelector('input');
 			if (currentInput === null) return;
 			refine(currentInput.value);
 		};
-
 		handleKeyBoardInteraction(event, currentItem, updateValues);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+
+		if (event.key === KeyBoard.ESCAPE) {
+			changeFocusToButtonElement();
+			setIsOptionsOpen(false);
+		}
+	}
+
+	function onBlur(event: FocusEvent<HTMLDivElement>) {
+		if (!event.currentTarget.contains(event.relatedTarget)) {
+			setIsOptionsOpen(false);
+		}
+	}
 
 	const renderOptionList = () => (
 		<ul ref={listBoxRef} role="listbox" aria-multiselectable className={styles.options}>
@@ -103,9 +91,10 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 	return (
 		<div className={classNames(className)}>
 			<span id={labelledBy.current}>{label}</span>
-			<div ref={optionsRef} className={styles.selectContainer}>
+			<div  className={styles.selectContainer} onBlur={onBlur}>
 				<button
 					type="button"
+					ref={buttonRef}
 					aria-haspopup="listbox"
 					aria-expanded={isOptionsOpen}
 					aria-labelledby={labelledBy.current}

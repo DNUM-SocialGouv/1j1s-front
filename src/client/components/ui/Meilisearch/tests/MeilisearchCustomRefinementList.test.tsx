@@ -13,6 +13,7 @@ import {
 	generateRefinementListItem,
 	mockUseRefinementList,
 } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import resetAllMocks = jest.resetAllMocks;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'useRefinementList');
@@ -30,7 +31,7 @@ describe('MeilisearchCustomRefinementList', () => {
 				}));
 		});
 		it('affiche un message informatif dans à la place de la liste de suggestions', async () => {
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 			const button = screen.queryByRole('button', { name: 'test' });
 
 			expect(button).not.toBeInTheDocument();
@@ -53,14 +54,14 @@ describe('MeilisearchCustomRefinementList', () => {
 			}));
 		});
 		it('monte le composant', async () => {
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 			const button = screen.queryByRole('button', { name: 'test' });
 			expect(button).toBeInTheDocument();
 		});
 
 		it('affiche une liste de 3 éléments', async () => {
 			const user = userEvent.setup();
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 			const button = screen.getByRole('button');
 			await user.click(button);
 			screen.getByRole('listbox');
@@ -69,7 +70,7 @@ describe('MeilisearchCustomRefinementList', () => {
 
 		it('affiche "Audit" comme label du premier élément', async () => {
 			const user = userEvent.setup();
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+			render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 			const button = screen.getByRole('button');
 			await user.click(button);
 			screen.getByRole('listbox');
@@ -81,7 +82,7 @@ describe('MeilisearchCustomRefinementList', () => {
 			it('appelle la méthode refine une fois', async () => {
 				const user = userEvent.setup();
 
-				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 				const button = screen.getByRole('button');
 				await user.click(button);
 				screen.getByRole('listbox');
@@ -94,7 +95,7 @@ describe('MeilisearchCustomRefinementList', () => {
 
 			it('appelle la méthode refine avec la valeur "auditeur"', async () => {
 				const user = userEvent.setup();
-				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 				const button = screen.getByRole('button');
 				await user.click(button);
 				screen.getByRole('listbox');
@@ -109,7 +110,7 @@ describe('MeilisearchCustomRefinementList', () => {
 		describe('Quand la liste déroulante est déja ouverte et que l’utilisateur clique le bouton', () => {
 			it('ferme la liste des choix', async () => {
 				const user = userEvent.setup();
-				render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
 				const button = screen.getByRole('button');
 				await user.click(button);
 
@@ -124,136 +125,246 @@ describe('MeilisearchCustomRefinementList', () => {
 });
 
 describe('MeilisearchCustomRefinementList Keyboard', () => {
-	describe('lorsque l‘utilisateur sélectionne la première option', () => {
-		beforeEach(() => {
-			refineMock = jest.fn();
-			spyed
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}))
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}));
+	afterEach(() => {
+		resetAllMocks();
+	});
+	describe('au clavier', () => {
+
+		describe('lorsque je selectionne la première option avec la touche espace', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}))
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
+
+			it('uniquement la première option est séléctionnée, elle est focus et la liste ne se ferme pas', async () => {
+				const user = userEvent.setup();
+
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button', { name: 'test' });
+				button.focus();
+				await user.keyboard(KeyBoard.SPACE);
+				const optionList = await screen.findByRole('listbox');
+				const firstOption = within(optionList).getAllByRole('option')[0];
+				const secondOption = within(optionList).getAllByRole('option')[1];
+
+				expect(firstOption).toHaveFocus();
+
+				await user.keyboard(KeyBoard.SPACE);
+
+				expect(firstOption).toHaveAttribute('aria-selected', 'true');
+				expect(secondOption).toHaveAttribute('aria-selected', 'false');
+
+				expect(firstOption).toHaveFocus();
+
+				expect(optionList).toBeVisible();
+			});
 		});
-		it('sélectionne la première option avec la touche space ET ne ferme pas la liste des options', async () => {
-			const user = userEvent.setup();
 
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
-			const button = screen.getByRole('button', { name: 'test' });
-			button.focus();
-			await user.keyboard(KeyBoard.SPACE);
-			const optionList = await screen.findByRole('listbox');
-			const firstOption = within(optionList).getAllByRole('option')[0];
-			const secondOption = within(optionList).getAllByRole('option')[1];
+		describe('lorsque je sélectionne la deuxième option et que la première option est déjà sélectionnée', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}))
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: true, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
 
-			expect(firstOption).toHaveFocus();
+			it('les deux options sont séléctionnées, le focus est sur la deuxième option et la liste ne se ferme pas', async () => {
+				const user = userEvent.setup();
 
-			await user.keyboard(KeyBoard.SPACE);
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button');
+				button.focus();
+				await user.keyboard(KeyBoard.SPACE);
+				const optionList = await screen.findByRole('listbox');
+				const firstOption = within(optionList).getAllByRole('option')[0];
+				const secondOption = within(optionList).getAllByRole('option')[1];
 
-			expect(firstOption).toHaveAttribute('aria-selected', 'true');
-			expect(secondOption).toHaveAttribute('aria-selected', 'false');
+				await user.keyboard(KeyBoard.ARROW_DOWN);
+				expect(secondOption).toHaveFocus();
 
-			expect(optionList).toBeInTheDocument();
+				await user.keyboard(KeyBoard.SPACE);
 
+				expect(firstOption).toHaveAttribute('aria-selected', 'true');
+				expect(secondOption).toHaveAttribute('aria-selected', 'true');
+
+				expect(secondOption).toHaveFocus();
+
+				expect(optionList).toBeVisible();
+			});
+		});
+
+		describe('lorsque l‘utilisateur ferme la liste', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementation(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
+
+			it('la liste est fermée et le focus est sur le bouton', async () => {
+				const user = userEvent.setup();
+
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button');
+				button.focus();
+				await user.keyboard(KeyBoard.SPACE);
+				const optionList = await screen.findByRole('listbox');
+				const firstOption = within(optionList).getAllByRole('option')[0];
+
+				expect(firstOption).toHaveFocus();
+
+				await user.keyboard(KeyBoard.ESCAPE);
+				expect(optionList).not.toBeInTheDocument();
+				expect(button).toHaveFocus();
+			});
 		});
 	});
+	describe('à la souris', () => {
+		describe('lorsque je clique sur la première option', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					})).mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
+			it('uniquement la première option est séléctionnée et la liste ne se ferme pas', async () => {
+				const user = userEvent.setup();
 
-	describe('lorsque l‘utilisateur sélectionne la deuxième option et que la première option est déjà sélectionnée', () => {
-		beforeEach(() => {
-			refineMock = jest.fn();
-			spyed
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}))
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: true, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}));
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button', { name: 'test' });
+				await user.click(button);
+
+				const optionList = await screen.findByRole('listbox');
+				const firstOption = within(optionList).getAllByRole('option')[0];
+				const secondOption = within(optionList).getAllByRole('option')[1];
+
+				await user.click(firstOption);
+
+				expect(firstOption).toHaveAttribute('aria-selected', 'true');
+				expect(secondOption).toHaveAttribute('aria-selected', 'false');
+
+				expect(optionList).toBeVisible();
+			});
 		});
-		it('sélectionne la première option avec la touche space ET ne ferme pas la liste des options', async () => {
-			const user = userEvent.setup();
 
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
-			const button = screen.getByRole('button');
-			button.focus();
-			await user.keyboard(KeyBoard.SPACE);
-			const optionList = await screen.findByRole('listbox');
-			const firstOption = within(optionList).getAllByRole('option')[0];
-			const secondOption = within(optionList).getAllByRole('option')[1];
+		describe('lorsque je clique la deuxième option et que la première option est déjà sélectionnée', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}))
+					.mockImplementationOnce(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: true, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
+			it('les deux options sont séléctionnées et la liste ne se ferme pas', async () => {
+				const user = userEvent.setup();
 
-			expect(firstOption).toHaveFocus();
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button');
+				await user.click(button);
 
-			expect(optionList).toBeInTheDocument();
+				const optionList = await screen.findByRole('listbox');
+				const firstOption = within(optionList).getAllByRole('option')[0];
+				const secondOption = within(optionList).getAllByRole('option')[1];
 
-			await user.keyboard(KeyBoard.ARROW_DOWN);
-			expect(secondOption).toHaveFocus();
+				await user.click(secondOption);
 
-			await user.keyboard(KeyBoard.SPACE);
+				expect(firstOption).toHaveAttribute('aria-selected', 'true');
+				expect(secondOption).toHaveAttribute('aria-selected', 'true');
 
-			expect(firstOption).toHaveAttribute('aria-selected', 'true');
-			expect(secondOption).toHaveAttribute('aria-selected', 'true');
-			expect(optionList).toBeInTheDocument();
-
-			await user.keyboard(KeyBoard.ESCAPE);
-			expect(optionList).not.toBeInTheDocument();
+				expect(optionList).toBeVisible();
+			});
 		});
-	});
 
-	describe('lorsque l‘utilisateur sélectionne une option et ferme la liste', () => {
-		beforeEach(() => {
-			refineMock = jest.fn();
-			spyed
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}))
-				.mockImplementationOnce(() => mockUseRefinementList({
-					items: [
-						generateRefinementListItem({ isRefined: true, label: 'Appartement', value: 'appartement' }),
-						generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
-					],
-					refine: refineMock,
-				}));
-		});
-		it('sélectionne la première option avec la touche space ET ferme la liste des options avec la touche escape', async () => {
-			const user = userEvent.setup();
+		describe('lorsque l‘utilisateur ferme la liste', () => {
+			beforeEach(() => {
+				refineMock = jest.fn();
+				spyed
+					.mockImplementation(() => mockUseRefinementList({
+						items: [
+							generateRefinementListItem({ isRefined: false, label: 'Appartement', value: 'appartement' }),
+							generateRefinementListItem({ isRefined: false, label: 'Résidence', value: 'résidence' }),
+						],
+						refine: refineMock,
+					}));
+			});
+			it('lorsqu‘il clique sur le bouton, la liste est fermée et le focus est sur le bouton', async () => {
+				const user = userEvent.setup();
 
-			render(<MeilisearchCustomRefinementList attribute='test' label='test' />);
-			const button = screen.getByRole('button');
-			button.focus();
-			await user.keyboard(KeyBoard.SPACE);
-			const optionList = await screen.findByRole('listbox');
-			const firstOption = within(optionList).getAllByRole('option')[0];
-			const secondOption = within(optionList).getAllByRole('option')[1];
+				render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+				const button = screen.getByRole('button');
+				await user.click(button);
 
-			expect(firstOption).toHaveFocus();
-			expect(optionList).toBeInTheDocument();
-			await user.keyboard(KeyBoard.SPACE);
+				await user.keyboard(KeyBoard.ESCAPE);
 
-			expect(firstOption).toHaveAttribute('aria-selected', 'true');
-			expect(secondOption).toHaveAttribute('aria-selected', 'false');
-			expect(optionList).toBeInTheDocument();
+				expect(button).toHaveFocus();
+			});
+			it('lorsqu‘il clique en dehors, la liste est fermée et le focus n‘est pas sur le bouton', async () => {
+				const user = userEvent.setup();
 
-			await user.keyboard(KeyBoard.ESCAPE);
-			expect(optionList).not.toBeInTheDocument();
+				render(<>
+					<div data-testid={'outside'}></div>
+					<MeilisearchCustomRefinementList attribute="test" label="test"/>
+				</>);
+				const button = screen.getByRole('button');
+				await user.click(button);
+				await user.click(screen.getByTestId('outside'));
+
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+				expect(button).not.toHaveFocus();
+			});
 		});
 	});
 });
