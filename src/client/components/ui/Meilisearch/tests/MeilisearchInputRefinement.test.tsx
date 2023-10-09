@@ -15,7 +15,7 @@ import {
 import { MeilisearchInputRefinement } from '../MeilisearchInputRefinement';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'useRefinementList');
+const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
 let refineMock: jest.Mock<string>;
 

@@ -17,7 +17,7 @@ import {
 } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const spyOnUseRange = jest.spyOn(require('react-instantsearch-hooks-web'), 'useRange');
+const spyOnUseRange = jest.spyOn(require('react-instantsearch'), 'useRange');
 
 let refineMock: jest.Mock<string>;
 

@@ -15,7 +15,7 @@ import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mock
 import { mockLargeScreen } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const spyedPagination = jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination');
+const spyedPagination = jest.spyOn(require('react-instantsearch'), 'usePagination');
 
 const TestComponent = () => {
 	return (
