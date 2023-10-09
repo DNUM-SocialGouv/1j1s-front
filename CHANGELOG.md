@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.159.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.4...v3.159.5) (2023-10-09)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-plugin-storybook to v0.6.15 ([#2122](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2122)) ([89ab558](https://github.com/DNUM-SocialGouv/1j1s-front/commit/89ab558b5bdf75e117373b97b80c621a8bbc5f3a))
+
 ## [3.159.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.3...v3.159.4) (2023-10-09)
 
 
