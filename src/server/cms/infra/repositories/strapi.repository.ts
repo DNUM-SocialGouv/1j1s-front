@@ -3,7 +3,6 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
@@ -13,7 +12,6 @@ import {
 	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
-	mapFormationInitiale,
 	mapMesuresEmployeurs,
 	mapOffreStage,
 	mapQuestion,
@@ -38,7 +36,7 @@ const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_FAQ = 'faqs';
 const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
-const RESSOURCE_FORMATION_INITIALE= 'formation-initiale-details';
+
 export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
@@ -224,11 +222,5 @@ export class StrapiRepository implements CmsRepository {
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
 		const query = 'sort[0]=Index';
 		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
-	}
-
-	async getFormationInitialeById(identifiant: string): Promise<Either<FormationInitialeDetailCMS>> {
-		const query = `filters[identifiant][$eq]=${identifiant}`;
-		const listeFormationInitiale = await this.getCollectionType<Strapi.CollectionType.FormationInitialeDetail, FormationInitialeDetailCMS>(RESSOURCE_FORMATION_INITIALE, query, mapFormationInitiale);
-		return this.getFirstFromCollection(listeFormationInitiale);
 	}
 }

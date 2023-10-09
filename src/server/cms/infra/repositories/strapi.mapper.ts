@@ -4,7 +4,6 @@ import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';

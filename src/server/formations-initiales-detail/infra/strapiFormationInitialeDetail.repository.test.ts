@@ -1,20 +1,15 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { mapFormationInitiale } from '~/server/formations-initiales-detail/infra/formationInitialeDetail.mapper';
+import { aFormationInitialeDetailCMS } from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
+import { mapFormationInitiale } from '~/server/formations-initiales-detail/infra/mapper/formationInitialeDetail.mapper';
 
-import { aFormationInitialeDetailCMS } from './formationInitiale.fixture';
-import {
-	StrapiFormationInitialeDetailRepository,
-} from './strapiFormationInitialeDetail.repository';
-import {
-	aStrapiFormationInitialeDetail,
-} from './strapiFormationIntialeDetail.fixture';
+import { StrapiFormationInitialeDetailRepository } from './strapiFormationInitialeDetail.repository';
 
 describe('StrapiFormationInitialeDetailRepository', () => {
 	it('appelle le service Strapi avec les bon paramètres', async () => {
 		// GIVEN
-		const strapiCmsRepository = aStrapiCmsRepository();
-		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiCmsRepository);
+		const strapiService = aStrapiCmsRepository();
+		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);
 		const identifiant = 'FOR.1234';
 		const formationInitialeDetailResourceName = 'formation-initiale-details';
 		const strapiQuery = 'filters[identifiant][$eq]=FOR.1234';
@@ -23,14 +18,14 @@ describe('StrapiFormationInitialeDetailRepository', () => {
 		await strapiFormationInitialeDetailRepository.getFormationInitialeById(identifiant);
 
 		// THEN
-		expect(strapiCmsRepository.getFirstFromCollectionType).toHaveBeenCalledWith(formationInitialeDetailResourceName, strapiQuery, mapFormationInitiale);
+		expect(strapiService.getFirstFromCollectionType).toHaveBeenCalledWith(formationInitialeDetailResourceName, strapiQuery, mapFormationInitiale);
 	});
 
 	it('retourne le détail de la formation initiale', async () => {
 		// GIVEN
-		const strapiCmsRepository = aStrapiCmsRepository();
-		jest.spyOn(strapiCmsRepository, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
-		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiCmsRepository);
+		const strapiService = aStrapiCmsRepository();
+		jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aFormationInitialeDetailCMS()));
+		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);
 		const identifiant = 'FOR.1234';
 		const expectedFormationInitialeDetail = aFormationInitialeDetailCMS();
 
@@ -38,6 +33,6 @@ describe('StrapiFormationInitialeDetailRepository', () => {
 		const formationInitialeDetail = await strapiFormationInitialeDetailRepository.getFormationInitialeById(identifiant);
 
 		// THEN
-		expect(formationInitialeDetail).toStrictEqual(expectedFormationInitialeDetail);
+		expect(formationInitialeDetail).toStrictEqual(createSuccess(expectedFormationInitialeDetail));
 	});
 });
