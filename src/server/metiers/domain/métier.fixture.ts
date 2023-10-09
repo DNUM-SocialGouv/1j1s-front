@@ -1,6 +1,6 @@
 import { Metier } from '~/server/metiers/domain/metier';
 
-export const aListeDeMetierLaBonneAlternance = (): Array<Metier> => {
+export function aListeDeMetierLaBonneAlternance(): Array<Metier> {
 	return [
 		{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] },
 		{ label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)', romes: ['F1106', 'F1104', 'I1101'] },
@@ -14,4 +14,12 @@ export const aListeDeMetierLaBonneAlternance = (): Array<Metier> => {
 		{ label: 'Mécanique, maintenance industrielle', romes: ['I1310', 'I1502'] },
 		{ label: 'Robotique, systèmes automatisés', romes: ['H1208', 'I1301'] },
 	];
-};
+}
+
+export function aMetier(override: Partial<Metier>): Metier {
+	return {
+		label: 'Conduite de travaux, direction de chantier',
+		romes: ['F1201', 'F1202', 'I1101'],
+		...override,
+	};
+}
