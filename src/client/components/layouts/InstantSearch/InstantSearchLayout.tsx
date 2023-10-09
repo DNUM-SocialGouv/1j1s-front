@@ -3,7 +3,7 @@ import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventF
 import { BaseHit } from 'instantsearch.js/es/types/results';
 import singletonRouter from 'next/router';
 import React, { useRef } from 'react';
-import { Configure, Hits, InstantSearch, InstantSearchSSRProvider, useInstantSearch } from 'react-instantsearch';
+import { Configure, Hits, InstantSearch, useInstantSearch } from 'react-instantsearch';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 import { Container } from '~/client/components/layouts/Container/Container';
