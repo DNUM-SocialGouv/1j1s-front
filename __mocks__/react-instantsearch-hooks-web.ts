@@ -16,9 +16,9 @@ import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connec
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)
-* Les éléments comme `jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination', 'get);`
+* Les éléments comme `jest.spyOn(require('react-instantsearch'), 'usePagination', 'get);`
 * ou
-* Object.defineProperty(require('react-instantsearch-hooks-web'), 'usePagination', {
+* Object.defineProperty(require('react-instantsearch'), 'usePagination', {
   get: () => usePagination,
 });
 * Sont donc inopérantes.
