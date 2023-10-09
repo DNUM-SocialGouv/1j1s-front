@@ -2,7 +2,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
 import { BaseHit } from 'instantsearch.js/es/types/results';
 import React, { useRef } from 'react';
-import { Configure, Hits, InstantSearch, useInstantSearch } from 'react-instantsearch-hooks-web';
+import { Configure, Hits, InstantSearch, useInstantSearch } from 'react-instantsearch';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useRange, UseRangeProps } from 'react-instantsearch-hooks-web';
+import { useRange, UseRangeProps } from 'react-instantsearch';
 import { v4 as uuidv4 } from 'uuid';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';

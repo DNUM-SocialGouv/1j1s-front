@@ -5,7 +5,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { useRange, UseRangeProps } from 'react-instantsearch-hooks-web';
+import { useRange, UseRangeProps } from 'react-instantsearch';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal.module.scss';

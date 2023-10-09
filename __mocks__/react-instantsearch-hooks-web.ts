@@ -12,7 +12,7 @@ import {
 	UseRangeProps,
 	UseRefinementListProps,
 	UseSearchBoxProps,
-} from 'react-instantsearch-hooks-web';
+} from 'react-instantsearch';
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)

@@ -2,7 +2,7 @@ import {
 	CurrentRefinementsConnectorParamsItem,
 } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 import React, { useCallback } from 'react';
-import { CurrentRefinementsProps } from 'react-instantsearch-hooks-web';
+import { CurrentRefinementsProps } from 'react-instantsearch';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import {

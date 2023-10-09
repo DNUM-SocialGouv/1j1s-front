@@ -8,7 +8,7 @@ import React, {
 import {
 	useSearchBox,
 	UseSearchBoxProps,
-} from 'react-instantsearch-hooks-web';
+} from 'react-instantsearch';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
