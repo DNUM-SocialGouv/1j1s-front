@@ -4,7 +4,6 @@ import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRa
 // eslint-disable-next-line import/named
 import { RefinementListRenderState } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
-import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
 // eslint-disable-next-line import/named
 import {
 	UseCurrentRefinementsProps,
@@ -13,6 +12,7 @@ import {
 	UseRefinementListProps,
 	UseSearchBoxProps,
 } from 'react-instantsearch';
+import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connectors/usePagination';
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)
