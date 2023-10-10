@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.159.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.7...v3.159.8) (2023-10-10)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.7.5 ([7f12183](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7f12183651ef66babf5209703839b646f75f475a))
+* **deps:** update dependency sass to v1.69.1 ([7e55c8b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7e55c8b64d20145852b76321199c9cd605710edd))
+* **deps:** update getmeili/meilisearch docker tag to v1.4.0 ([#2040](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2040)) ([9154972](https://github.com/DNUM-SocialGouv/1j1s-front/commit/91549720421e25b52cce72e5d9c82eb729f6200a))
+
 ## [3.159.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.6...v3.159.7) (2023-10-09)
 
 
