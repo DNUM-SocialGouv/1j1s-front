@@ -1,12 +1,21 @@
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
+  padding-bottom: 1rem;
 }
 
 .filtresRechercherOffre {
   flex-grow: 1;
+}
+
+.inputButtonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$form-vertical-gap-mobile;
 }
 
 .buttonRechercher > button {
@@ -22,17 +31,18 @@
   .rechercheOffreForm {
     flex-direction: row;
     align-items: flex-start;
+    gap: variables.$form-horizontal-gap;
+    padding-bottom: 2rem;
   }
 
   .buttonRechercher {
-    margin-top: 28px;
-    margin-left: 40px;
+    margin-top: utilities.pixel-to-rem(28);
   }
 
   .inputButtonWrapper {
-    display: flex;
+    flex-direction: row;
     width: 100%;
-    gap: 1rem;
+    gap: variables.$form-vertical-gap-desktop;;
     flex-wrap: wrap;
     padding-block: 0;
   }

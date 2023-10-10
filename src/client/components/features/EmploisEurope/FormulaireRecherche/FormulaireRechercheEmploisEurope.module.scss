@@ -1,9 +1,11 @@
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
 // FIXME (DORO - 2023-10-02): Duplication de FormulaireRechercheAlternance.module.scss et FormulaireRechercheOffreEmploi.module.scss
 
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
 }
 
 .filtresRechercherOffre {
@@ -18,11 +20,11 @@
   .rechercheOffreForm {
     flex-direction: row;
     align-items: flex-start;
+    gap: variables.$form-horizontal-gap;
   }
 
   .buttonRechercher {
-    margin-top: 28px;
-    margin-left: 40px;
+    margin-top: utilities.pixel-to-rem(28);
   }
 
   .inputButtonWrapper {

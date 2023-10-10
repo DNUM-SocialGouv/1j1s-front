@@ -28,6 +28,10 @@
 
 .listeSolutionsWrapper {
   padding: 2rem 1rem;
+
+  @include utilities.media(large) {
+    padding: 2rem 1rem 4rem 1rem;
+  }
 }
 
 .listeSolutions {
@@ -56,7 +60,7 @@
 .pagination {
   padding-top: 2.5rem;
   @include utilities.media(large) {
-    padding-top: 5rem;
+    padding-top: 4rem;
   }
   & > nav {
     margin: auto;

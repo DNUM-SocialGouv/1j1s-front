@@ -1,11 +1,18 @@
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .rechercheMissionEngagementForm {
   display: flex;
   flex-direction: column;
-  padding-bottom: 40px;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
   &__Container {
     flex: 1 0;
+  }
+
+  & .inputButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$form-vertical-gap-mobile;
   }
 }
 
@@ -22,33 +29,23 @@
 @include utilities.media(medium) {
   .rechercheMissionEngagementForm {
     flex-direction: row;
+    gap: variables.$form-vertical-gap-desktop;
     align-items: flex-start;
-    padding-top: 40px;
+    padding: 40px 0;
+
+    & .inputButtonWrapper {
+      width: 100%;
+      flex-direction: row;
+      gap: variables.$form-vertical-gap-desktop;
+
+      > div {
+        flex-grow: 1;
+      }
+    }
   }
 
   .rechercherMissionEngagementButton {
     width: initial;
-    margin-top: 32px;
-    margin-left: 40px;
-  }
-
-  .inputButtonWrapper {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-block: 0;
-    > div {
-      flex-grow: 1;
-    }
-  }
-
-  .accessibleAuxMineursWrapper {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    > div {
-      flex-grow: 1;
-    }
+    margin-top: utilities.pixel-to-rem(28);
   }
 }

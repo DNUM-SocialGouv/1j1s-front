@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 // NOTE (GAFI 07-07-2023): Beaucoup du style post-UIKit est disponible sans beaucoup de modification dans le composant
 //  Combobox, idéalement à mettre en commun
@@ -8,7 +9,6 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding-bottom: 2rem;
 
   &Label {
     margin-bottom: 0.5rem;
