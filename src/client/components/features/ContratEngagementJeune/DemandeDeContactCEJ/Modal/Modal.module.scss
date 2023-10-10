@@ -1,4 +1,8 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$color-subtitle: utilities.$color-primary;
+$color-success-message: utilities.$color-primary;
+$color-success-icon: utilities.$color-success;
 
 .modalTitle {
   @extend %bold;
@@ -12,7 +16,7 @@
   display:block;
   font-size: 1rem;
   margin-top: 1rem;
-  color: utilities-deprecated.$color-primary;
+  color: $color-subtitle;
   text-align: center;
 }
 
@@ -21,13 +25,13 @@
 
   &Message {
     margin: 1rem 0;
-    color: utilities-deprecated.$color-primary;
+    color: $color-success-message;
   }
 
   &Icon {
     margin: auto;
     width: 8rem;
     height: 8rem;
-    color: utilities-deprecated.$color-secondary;
+    color: $color-success-icon;
   }
 }
