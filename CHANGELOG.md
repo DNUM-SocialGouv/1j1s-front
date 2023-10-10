@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.159.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.8...v3.159.9) (2023-10-10)
+
+
+### 👷 Autres changements
+
+* add editorconfig ([#2127](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2127)) ([abcabc1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/abcabc1e4a3bdcb3e83dbf960c1e0eb934f7053f))
+
 ## [3.159.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.7...v3.159.8) (2023-10-10)
 
 
