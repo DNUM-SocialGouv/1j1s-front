@@ -188,9 +188,6 @@ export function aSitemap() {
 		<loc>http://localhost:3000/europe</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/formations</loc>
-	</url>
-	<url>
 		<loc>http://localhost:3000/formations-initiales</loc>
 	</url>
 	<url>
