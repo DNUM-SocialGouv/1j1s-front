@@ -6,6 +6,7 @@ export class HttpError extends Error {
 	constructor (public status: number, message: string, response?: AxiosResponse) {
 		super(message);
 		this.response = response;
+		response.
 	}
 }
 

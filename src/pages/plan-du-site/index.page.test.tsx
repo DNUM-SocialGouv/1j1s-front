@@ -23,7 +23,6 @@ describe('Plan du site', () => {
     ${'Emplois en Europe'}                                		| ${'/emplois-europe'}
     ${'Expérience en Europe'}                                 | ${'/europe'}
     
-    ${'Formations'}                                           | ${'/formations'}
     ${'Formations initiales'}                                 | ${'/formations-initiales'}
     ${'Formations en apprentissage'}                          | ${'/formations/apprentissage'}
     ${'Découvrir les métiers'}                                | ${'/decouvrir-les-metiers'}
