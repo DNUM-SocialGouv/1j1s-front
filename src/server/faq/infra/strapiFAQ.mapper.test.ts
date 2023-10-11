@@ -1,10 +1,10 @@
 import {
 	aQuestion,
 	aQuestionEtReponse,
-	aStrapiQuestion,
-	aStrapiQuestionEtReponse,
+
 } from '~/server/faq/domain/FAQ.fixture';
 import { flatMapSlug, mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
+import { aStrapiQuestion, aStrapiQuestionEtReponse } from '~/server/faq/infra/strapiFAQ.fixture';
 
 describe('mapQuestion', () => {
 	it('retourne le résultat formaté', () => {

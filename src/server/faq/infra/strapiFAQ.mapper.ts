@@ -1,4 +1,5 @@
-import { FAQ,FAQResponseStrapi } from '~/server/faq/domain/FAQ';
+import { FAQ } from '~/server/faq/domain/FAQ';
+import { FAQResponseStrapi } from '~/server/faq/infra/strapiFAQ';
 
 export const mapQuestionRéponse = (faq: FAQResponseStrapi.QuestionEtReponse): FAQ.QuestionEtReponse => {
 	return {

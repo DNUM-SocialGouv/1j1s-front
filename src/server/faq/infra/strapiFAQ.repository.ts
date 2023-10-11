@@ -1,8 +1,9 @@
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { Either } from '~/server/errors/either';
-import { FAQ,FAQResponseStrapi } from '~/server/faq/domain/FAQ';
+import { FAQ } from '~/server/faq/domain/FAQ';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { flatMapSlug, mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
+import { FAQResponseStrapi } from '~/server/faq/infra/strapiFAQ';
 
 const RESOURCE_FAQ = 'faqs';
 
