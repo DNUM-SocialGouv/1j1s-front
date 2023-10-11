@@ -22,6 +22,7 @@ terraform {
 
     # parce que la STS API n'existe pas avec Minio
     skip_credentials_validation = true
+    skip_requesting_account_id = true
     # parce que l'AWS Metadata API n'existe pas avec Minio
     skip_metadata_api_check = true
     # parce que Minio n'utilise pas les même régions que AWS
