@@ -1,6 +1,6 @@
 terraform {
   # Version minimale de Terraform CLI requise pour ce projet
-  required_version = "~> 1.4"
+  required_version = "~> 1.6.1"
 
   backend "s3" {
     # Pour la connexion au backend S3 Minio, il faut configurer en variables d'environnements :
