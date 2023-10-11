@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.159.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.9...v3.159.10) (2023-10-11)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @meilisearch/instant-meilisearch to v0.13.6 ([#2058](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2058)) ([0cd9c50](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0cd9c502c912382a8a8905887f15c7146305c015))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency nock to v13.3.4 ([b655f81](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b655f816f16ff388671567c9edd3aa326f371b86))
+* **deps:** update dependency sass to v1.69.2 ([fb17a27](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fb17a2757189bec2ab95652391f5061c79495538))
+* remplace package deprécié et ajoute le package NextJS pour instant-search ([#2131](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2131)) ([5e8633c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5e8633c7080072961e6d377d2868cdb878970e3f))
+
 ## [3.159.9](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.8...v3.159.9) (2023-10-10)
 
 
