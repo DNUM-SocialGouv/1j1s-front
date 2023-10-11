@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	useCurrentRefinements,
 	UseCurrentRefinementsProps,
-} from 'react-instantsearch-hooks-web';
+} from 'react-instantsearch';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';

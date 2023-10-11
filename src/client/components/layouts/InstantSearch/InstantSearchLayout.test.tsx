@@ -35,8 +35,8 @@ const mockRechercheService: SearchClient = {
 		});
 	},
 };
-jest.mock('react-instantsearch-hooks-web', () => ({
-	...jest.requireActual('react-instantsearch-hooks-web'),
+jest.mock('react-instantsearch', () => ({
+	...jest.requireActual('react-instantsearch'),
 	Configure: () => <></>,
 }));
 

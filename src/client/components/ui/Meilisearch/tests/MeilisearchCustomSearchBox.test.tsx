@@ -11,7 +11,7 @@ import { userEvent } from '@testing-library/user-event';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-jest.spyOn(require('react-instantsearch-hooks-web'), 'useSearchBox');
+jest.spyOn(require('react-instantsearch'), 'useSearchBox');
 
 describe('MeilisearchCustomSearchBox Component', () => {
 	it('ne retourne pas de form', () => {

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
-import type { UsePaginationProps } from 'react-instantsearch-hooks/dist/es/connectors/usePagination';
-import { usePagination } from 'react-instantsearch-hooks-web';
+import { usePagination } from 'react-instantsearch';
+import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connectors/usePagination';
 
 import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagination';
 

@@ -1,6 +1,6 @@
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
+import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import styles from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement.module.scss';

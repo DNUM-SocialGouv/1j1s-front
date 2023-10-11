@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRefinementList, UseRefinementListProps } from 'react-instantsearch-hooks-web';
+import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';

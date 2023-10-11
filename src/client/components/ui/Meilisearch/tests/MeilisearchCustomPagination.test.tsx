@@ -14,7 +14,7 @@ import { mockLargeScreen } from '~/client/components/window.mock';
 declare type CreateURL<TValue> = (value: TValue) => string;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const spyed = jest.spyOn(require('react-instantsearch-hooks-web'), 'usePagination');
+const spyed = jest.spyOn(require('react-instantsearch'), 'usePagination');
 
 let createUrlMock: CreateURL<number>;
 let refineMock:  jest.Mock<number>;
