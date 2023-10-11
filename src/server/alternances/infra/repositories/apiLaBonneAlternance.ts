@@ -90,8 +90,8 @@ export namespace AlternanceApiJobsResponse {
 }
 
 export interface AlternanceApiJobsResponse {
-	matchas?: { results: Array<AlternanceApiJobsResponse.Matcha> }
-	peJobs?: { results: Array<AlternanceApiJobsResponse.PEJobs> }
+	matchas?: { results?: Array<AlternanceApiJobsResponse.Matcha> }
+	peJobs?: { results?: Array<AlternanceApiJobsResponse.PEJobs> }
 	lbaCompanies: { results: Array<AlternanceApiJobsResponse.LbaCompanies> } | []
 }
 

@@ -155,8 +155,8 @@ function mapLbaCompanies(lbaCompanies: AlternanceApiJobsResponse['lbaCompanies']
 }
 
 export const mapAlternanceListe = (response: AlternanceApiJobsResponse): ResultatRechercheAlternance => {
-	const matchas = response.matchas?.results.map(mapRésultatRechercherAlternanceMatcha) ?? [];
-	const peJobs = response.peJobs?.results.map(mapRésultatRechercherAlternancePEJob) ?? [];
+	const matchas = response.matchas?.results?.map(mapRésultatRechercherAlternanceMatcha) ?? [];
+	const peJobs = response.peJobs?.results?.map(mapRésultatRechercherAlternancePEJob) ?? [];
 	const lbaCompanies = mapLbaCompanies(response.lbaCompanies);
 	return {
 		entrepriseList: lbaCompanies,
