@@ -239,7 +239,7 @@ describe('RechercherFormationInitiale', () => {
 				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const metierCard = within(servicesItems[0]).getByRole('link');
-				expect(metierCard).toHaveAttribute('href', '/carif-oref');
+				expect(metierCard).toHaveAttribute('href', '/articles/carif-oref');
 			});
 			it('une deuxième redirection vers la page des formations en apprentissage', () => {
 				// GIVEN
