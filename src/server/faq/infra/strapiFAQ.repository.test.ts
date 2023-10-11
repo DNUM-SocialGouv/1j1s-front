@@ -2,8 +2,9 @@ import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.rep
 import { createSuccess } from '~/server/errors/either';
 import { aListeDeQuestion, aListeFAQSlug, aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
 import { flatMapSlug, mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
-import { RESOURCE_FAQ, StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
+import { StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 
+const RESOURCE_FAQ = 'faqs';
 describe('getAllFAQ', () => {
 	it('appelle le service strapi avec les bons paramètres', async () => {
 		const strapiCmsRepository = aStrapiCmsRepository();

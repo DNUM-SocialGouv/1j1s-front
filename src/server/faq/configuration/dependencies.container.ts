@@ -5,7 +5,6 @@ import { ListerFAQUseCase } from '../useCases/listerFAQ.useCase';
 export interface FAQDependencies {
 	consulterFAQ: ConsulterFAQUseCase
 	listerQuestionsFAQ: ListerFAQUseCase
-
 }
 
 export function FAQDependenciesContainer(FAQRepository: StrapiFAQRepository): FAQDependencies {
