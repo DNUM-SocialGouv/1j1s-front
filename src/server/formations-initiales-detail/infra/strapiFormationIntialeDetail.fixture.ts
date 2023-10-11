@@ -2,7 +2,7 @@ import {
 	StrapiFormationInitialeDetail,
 } from './strapiFormationInitialeDetail';
 
-export function aStrapiFormationInitialeDetail(): StrapiFormationInitialeDetail {
+export function aStrapiFormationInitialeDetail(override?: Partial<StrapiFormationInitialeDetail>): StrapiFormationInitialeDetail {
 	return {
 		attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
 		certification: 'Bac + 5',
@@ -14,5 +14,6 @@ export function aStrapiFormationInitialeDetail(): StrapiFormationInitialeDetail 
 		niveauEtudesVise: '5',
 		poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
 		updatedAt: '2023-05-15T09:37:44.283Z',
+		...override,
 	};
 }
