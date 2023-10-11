@@ -9,21 +9,22 @@ describe('getAllFAQ', () => {
 	it('appelle le service strapi avec les bons paramètres', async () => {
 		const strapiCmsRepository = aStrapiCmsRepository();
 		const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
+		const query= 'fields[0]=problematique&fields[1]=slug';
 
 		await strapiFAQRepository.getAllFAQ();
 
-		const query= 'fields[0]=problematique&fields[1]=slug';
 		expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledWith(RESOURCE_FAQ, query, mapQuestion);
 	});
 
 	describe('quand la liste des questions est trouvée', () => {
 		it('renvoie la liste de questions', async () => {
 			const expected = aListeDeQuestion();
-
-			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionType: jest.fn().mockResolvedValue(createSuccess(expected)) });
+			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionType: jest.fn() });
 			const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
+			jest.spyOn(strapiCmsRepository, 'getCollectionType').mockResolvedValue(createSuccess(expected));
 
 			const result = await strapiFAQRepository.getAllFAQ();
+
 			expect(result).toEqual(createSuccess(expected));
 		});
 	});
@@ -33,22 +34,23 @@ describe('getFAQBySlug', () => {
 	it('appelle le service strapi avec les bons paramètres', async () => {
 		const strapiCmsRepository = aStrapiCmsRepository();
 		const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
-
 		const slug = 'slugName';
+		const query= 'filters[slug][$eq]=slugName';
+
 		await strapiFAQRepository.getFAQBySlug(slug);
 
-		const query= 'filters[slug][$eq]=slugName';
 		expect(strapiCmsRepository.getFirstFromCollectionType).toHaveBeenCalledWith(RESOURCE_FAQ, query, mapQuestionRéponse);
 	});
 
 	describe('quand la question est trouvée', () => {
 		it('renvoie la question', async () => {
 			const expected = aQuestionEtReponse();
-
-			const strapiCmsRepository = aStrapiCmsRepository({ getFirstFromCollectionType: jest.fn().mockResolvedValue(createSuccess(expected)) });
+			const strapiCmsRepository = aStrapiCmsRepository({ getFirstFromCollectionType: jest.fn() });
 			const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
+			jest.spyOn(strapiCmsRepository, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(expected));
 
-			const result = await strapiFAQRepository.getFAQBySlug('sludName');
+			const result = await strapiFAQRepository.getFAQBySlug('slugName');
+
 			expect(result).toEqual(createSuccess(expected));
 		});
 	});
@@ -58,21 +60,22 @@ describe('listAllFAQSlug', () => {
 	it('appelle le service strapi avec les bons paramètres', async () => {
 		const strapiCmsRepository = aStrapiCmsRepository();
 		const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
+		const query= '[fields][0]=slug';
 
 		await strapiFAQRepository.listAllFAQSlug();
 
-		const query= '[fields][0]=slug';
 		expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledWith(RESOURCE_FAQ, query, flatMapSlug);
 	});
 
 	describe('quand les slugs sont trouvés', () => {
 		it('renvoie les slugs', async () => {
 			const expected = aListeFAQSlug();
-
-			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionType: jest.fn().mockResolvedValue(createSuccess(expected)) });
+			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionType: jest.fn() });
 			const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
+			jest.spyOn(strapiCmsRepository, 'getCollectionType').mockResolvedValue(createSuccess(expected));
 
 			const result = await strapiFAQRepository.listAllFAQSlug();
+
 			expect(result).toEqual(createSuccess(expected));
 		});
 	});
