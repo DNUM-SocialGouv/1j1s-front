@@ -6,9 +6,13 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 		offreList: [
 			{
 				id: '1',
+				nomEntreprise: 'La Boulangerie',
+				titre: 'Boulanger (H/F)',
 			},
 			{
 				id: '2',
+				nomEntreprise: 'La Pâtisserie',
+				titre: 'Pâtissier (H/F)',
 			},
 		],
 		...override,

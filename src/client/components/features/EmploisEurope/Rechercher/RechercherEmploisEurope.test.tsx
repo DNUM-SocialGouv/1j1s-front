@@ -44,9 +44,13 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						{
 							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							titre: 'Titre 1',
 						},
 						{
 							id: '2',
+							nomEntreprise: 'Entreprise 2',
+							titre: 'Titre 2',
 						},
 					],
 				};
@@ -73,6 +77,10 @@ describe('RechercherEmploisEurope', () => {
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
+				expect(await screen.findByText('Entreprise 1')).toBeInTheDocument();
+				expect(await screen.findByText('Titre 1')).toBeInTheDocument();
+				expect(await screen.findByText('Entreprise 2')).toBeInTheDocument();
+				expect(await screen.findByText('Titre 2')).toBeInTheDocument();
 			});
 
 			describe('quand la recherche contient plusieurs résultats', () => {
@@ -84,9 +92,13 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							{
 								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								titre: 'Titre 1',
 							},
 							{
 								id: '2',
+								nomEntreprise: 'Entreprise 2',
+								titre: 'Titre 2',
 							},
 						],
 					};
@@ -124,6 +136,8 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							{
 								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								titre: 'Titre 1',
 							},
 						],
 					};
@@ -162,9 +176,13 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						{
 							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							titre: 'Titre 1',
 						},
 						{
 							id: '2',
+							nomEntreprise: 'Entreprise 2',
+							titre: 'Titre 2',
 						},
 					],
 				};

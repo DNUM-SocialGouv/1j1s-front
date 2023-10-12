@@ -11,6 +11,19 @@ export interface ApiEuresEmploiEuropeRechercheResponse {
 	}
 }
 
+export interface ApiEuresEmploiEuropeDetailResponse {
+	data: {
+		items: Array<{
+			jobVacancy: {
+				header: {
+					handle: string;
+				},
+				hrxml: string;
+			}
+		}>
+	}
+}
+
 export interface ApiEuresEmploiEuropeRechercheRequestBody {
 	dataSetRequest: {
 		excludedDataSources: Array<{ dataSourceId: number }>;
@@ -19,7 +32,7 @@ export interface ApiEuresEmploiEuropeRechercheRequestBody {
 		sortBy: string;
 	};
 	searchCriteria: {
-		facetCriteria: Array<{
+		facetCriteria?: Array<{
 			facetName: string;
 			facetValues: Array<string>;
 		}>;
@@ -31,4 +44,25 @@ export interface ApiEuresEmploiEuropeRechercheRequestBody {
 			}>;
 		};
 	};
+}
+
+namespace ApiEuresEmploiEuropeDetailXML {
+	export interface OrganizationIdentifiers {
+		OrganizationName?: string;
+	}
+	export interface PositionOrganization {
+		OrganizationIdentifiers?: OrganizationIdentifiers | Array<OrganizationIdentifiers>
+	}
+	export interface PositionProfile {
+		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
+		PositionTitle?: string;
+	}
+	export interface PositionOpening {
+		PositionProfile?: PositionProfile | Array<PositionProfile>
+	}
+}
+
+export interface ApiEuresEmploiEuropeDetailXML {
+	PositionOpening?: ApiEuresEmploiEuropeDetailXML.PositionOpening
+		| Array<ApiEuresEmploiEuropeDetailXML.PositionOpening>
 }

@@ -1,4 +1,7 @@
 import { mapRechercheEmploiEurope } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import {
+	anApiEuresEmploiEuropeRechercheDetailResponse,
+} from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
 
 describe('mapRechercheEmploiEurope', () => {
 	it('retourne un ResultatRechercheEmploiEurope', () => {
@@ -23,8 +26,10 @@ describe('mapRechercheEmploiEurope', () => {
 			},
 		};
 
+		const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeRechercheDetailResponse();
+
 		// When
-		const resultatRechercheEmploiEurope = mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse);
+		const resultatRechercheEmploiEurope = mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse, apiEuresEmploiEuropeDetailResponse);
 
 		// Then
 		expect(resultatRechercheEmploiEurope).toEqual({
@@ -32,9 +37,13 @@ describe('mapRechercheEmploiEurope', () => {
 			offreList: [
 				{
 					id: '1',
+					nomEntreprise: 'La Boulangerie',
+					titre: 'Boulanger (H/F)',
 				},
 				{
 					id: '2',
+					nomEntreprise: undefined,
+					titre: undefined,
 				},
 			],
 		});
