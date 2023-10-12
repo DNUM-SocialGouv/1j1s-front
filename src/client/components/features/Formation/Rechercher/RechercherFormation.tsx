@@ -30,6 +30,7 @@ import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRech
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
+import {CarifOrefPartner} from "~/client/components/features/ServiceCard/CarifOrefPartner";
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
@@ -109,7 +110,7 @@ export default function RechercherFormation() {
 				<DecouvrirApprentissage/>
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
-				<OnisepMetierPartner/>
+				<CarifOrefPartner/>
 				<MétierDuSoinPartner/>
 			</ServiceCardList>
 		</main>
