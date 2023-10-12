@@ -34,6 +34,28 @@ describe('RésultatRechercherAccompagnement', () => {
 			// THEN
 			expect(screen.queryByText(email)).not.toBeInTheDocument();
 		});
+
+		it('affiche le bouton "Je souhaite être contacté(e)"', () => {
+			// GIVEN
+			const établissement = {
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.MISSION_LOCALE,
+			};
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnementMobile établissement={établissement} onContactClick={() => ({})}/>
+			</DependenciesProvider>);
+
+			// THEN
+			const button = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+			expect(button).toBeVisible();
+		});
 	});
 
 	describe('Quand le type d‘accompagnement n‘est pas une mission locale', () => {
@@ -60,6 +82,27 @@ describe('RésultatRechercherAccompagnement', () => {
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', `mailto:${email}`);
 			expect(link).toHaveAttribute('title', 'Contacter l‘agence - adresse mail');
+		});
+
+		it('n‘affiche pas le bouton "Je souhaite être contacté(e)"', () => {
+			// GIVEN
+			const établissement = {
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			};
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnementMobile établissement={établissement} onContactClick={() => ({})}/>
+			</DependenciesProvider>);
+
+			// THEN
+			expect(screen.queryByRole('button', { name: 'Je souhaite être contacté(e)' })).not.toBeInTheDocument();
 		});
 	});
 

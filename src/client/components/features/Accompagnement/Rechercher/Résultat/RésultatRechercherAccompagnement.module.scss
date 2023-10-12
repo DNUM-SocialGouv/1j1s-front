@@ -1,5 +1,9 @@
 @use "@styles/utilities";
 
+$color-contact-mail: utilities.$color-primary;
+$color-summary: utilities.$color-primary;
+$color-summary-hover: utilities.$color-cta-background-primary-hover;
+
 .card {
   padding: 1rem;
 
@@ -60,7 +64,7 @@
 }
 
 .contactMailÉtablissement {
-  color: utilities.$color-primary;
+  color: $color-contact-mail;
   margin-top: 1.25rem;
   font-weight: bold;
   text-decoration: none;
@@ -107,10 +111,14 @@
     text-align: start;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: utilities.$color-primary;
+    color: $color-summary;
     cursor: pointer;
     list-style: none;
     width: 16rem;
+
+    &::-webkit-details-marker { // Enlève le marqueur par défaut présent sur Safari
+      display: none;
+    }
 
     &:after {
       content: '';
@@ -130,7 +138,7 @@
     }
 
     &:hover {
-      color: utilities.$color-cta-background-primary-hover;
+      color: $color-summary-hover;
       list-style: none;
 
       &:after {
