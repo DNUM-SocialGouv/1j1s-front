@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.159.11](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.10...v3.159.11) (2023-10-12)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v6.1.4 ([e1a3931](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1a3931d62fcefc614f9dabdcc6e007211c94430))
+* **deps:** update dependency cypress to v13.3.1 ([35963e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/35963e29513d433c3592e4f470ffa104b4201a03))
+
 ## [3.159.10](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.9...v3.159.10) (2023-10-11)
 
 
