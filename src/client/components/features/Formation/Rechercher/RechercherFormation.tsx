@@ -7,10 +7,10 @@ import {
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
 import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { CarifOrefPartner } from '~/client/components/features/ServiceCard/CarifOrefPartner';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
-import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import {
@@ -30,7 +30,6 @@ import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRech
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
-import {CarifOrefPartner} from "~/client/components/features/ServiceCard/CarifOrefPartner";
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
