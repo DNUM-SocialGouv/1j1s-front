@@ -44,7 +44,7 @@ export namespace RésultatRechercheÉtablissementPublicResponse {
   }
 }
 
-export const apiÉtablissementSearchSchemas = Joi.array().items(
+export const apiEtablissementSearchSchemas = Joi.array().items(
 	Joi.object({
 		properties: Joi.object({
 			adresses: Joi.array().items(
@@ -55,7 +55,7 @@ export const apiÉtablissementSearchSchemas = Joi.array().items(
 					type: Joi.string().required(),
 				}),
 			).required(),
-			email: Joi.string().allow('').optional(),
+			email: Joi.string(),
 			horaires: Joi.array().items(
 				Joi.object({
 					au: Joi.string().required(),
@@ -73,5 +73,5 @@ export const apiÉtablissementSearchSchemas = Joi.array().items(
 			pivotLocal: Joi.string().required(),
 			telephone: Joi.string().required(),
 		}).required(),
-	}),
+	}).options({ allowUnknown: true }),
 );

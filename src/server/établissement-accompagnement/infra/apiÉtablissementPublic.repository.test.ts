@@ -14,7 +14,6 @@ import {
 import {
 	aLogInformation,
 	anErrorManagementService,
-	aValidationError,
 } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -75,14 +74,15 @@ describe('ApiÉtablissementPublicRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
-			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => aValidationError()) });
-			searchResponse.features[0].properties.id = 0 as unknown as string; // invalid Id
+			const errorManagementServiceSearch = anErrorManagementService();
+			const idWithInvalidFormat = 0 as unknown as string;
+			searchResponse.features[0].properties.id = idWithInvalidFormat;
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
-			
+
 			// When
 			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
-			
+
 			// Then
 			expect(result.instance).toEqual('success');
 			expect(errorManagementServiceSearch.handleValidationError).toHaveBeenCalledWith(
@@ -100,7 +100,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const httpClientService = aPublicHttpClientService();
 			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
-			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => aValidationError()) });
+			const errorManagementServiceSearch = anErrorManagementService();
 			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 			// When

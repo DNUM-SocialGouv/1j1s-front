@@ -15,7 +15,6 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aLogInformation,
 	anErrorManagementService,
-	aValidationError,
 } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
@@ -77,7 +76,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
-			const validationError = aValidationError();
 			const httpClientService = aPublicHttpClientService();
 			const searchResponse = {
 				...aLaBonneAlternanceApiJobsResponse(),
@@ -96,7 +94,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			};
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const caller = '1jeune1solution-test';
-			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const errorManagementServiceSearch = anErrorManagementService();
 			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
@@ -115,7 +113,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(result.instance).toEqual('success');
 		});
 		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
-			const validationError = aValidationError();
 			const httpClientService = aPublicHttpClientService();
 			const searchResponse = {
 				...aLaBonneAlternanceApiJobsResponse(),
@@ -127,7 +124,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			};
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const caller = '1jeune1solution-test';
-			const errorManagementServiceSearch = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const errorManagementServiceSearch = anErrorManagementService();
 			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
@@ -193,7 +190,6 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect((result as Failure).errorType).toEqual(expectedFailure);
 		});
 		it('appelle le management d’erreur de validation quand il y a une erreur de validation et continue l’execution', async () => {
-			const validationError = aValidationError();
 			const httpClientService = aPublicHttpClientService();
 			const matchaResponseWithAnAttributeWithANumberInsteadOfAString = {
 				company: { name: 'une entreprise' },
@@ -212,7 +208,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [matchaResponseWithAnAttributeWithANumberInsteadOfAString] }));
 			const caller = '1jeune1solution-test';
 			const errorManagementServiceSearch = anErrorManagementService();
-			const errorManagementServiceGet = anErrorManagementService({ handleValidationError: jest.fn(() => validationError) });
+			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
 			// When
