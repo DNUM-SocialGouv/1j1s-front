@@ -24,11 +24,18 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	}
 
 	listeEtiquettes.push(
-		stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee : '',
-		stage.dateDeDebutMin === stage.dateDeDebutMax
-			? `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`
-			: `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`,
+		(stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné')
+			? stage.dureeCategorisee
+			: '',
 	);
+
+	if (stage.dateDeDebutMin) {
+		listeEtiquettes.push(
+			stage.dateDeDebutMax && stage.dateDeDebutMin !== stage.dateDeDebutMax
+				? `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`
+				: `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`,
+		);
+	}
 
 	return <RésultatRechercherSolution
 		lienOffre={`/stages/${stage.slug}`}
