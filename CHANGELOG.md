@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.159.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.11...v3.159.12) (2023-10-13)
+
+
+### 🐛 Corrections de bogues
+
+* Hotfix bug date de début offre de stage ([#2149](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2149)) ([d663b8f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d663b8f56597ae7ae4784bd0bebacb05b708c16d))
+
 ## [3.159.11](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.10...v3.159.11) (2023-10-12)
 
 
