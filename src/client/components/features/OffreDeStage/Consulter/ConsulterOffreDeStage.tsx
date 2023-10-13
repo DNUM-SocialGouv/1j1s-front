@@ -15,19 +15,12 @@ interface ConsulterOffreDeStageProps {
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
 	const listeEtiquettes = useMemo(() => {
-		const tags = [
-			...offreDeStage.domaines,
-			offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
+		return [...offreDeStage.domaines, offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
 			dureeCategorisee(offreDeStage.dureeEnJour || 0),
+			offreDeStage.dateDeDebutMin === offreDeStage.dateDeDebutMax
+				? `Débute le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()}`
+				: `Débute entre le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()} et ${new Date(offreDeStage.dateDeDebutMax).toLocaleDateString()}`,
 		];
-		if (offreDeStage.dateDeDebutMin) {
-			tags.push(
-				offreDeStage.dateDeDebutMax && offreDeStage.dateDeDebutMin !== offreDeStage.dateDeDebutMax
-					? `Débute entre le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()} et ${new Date(offreDeStage.dateDeDebutMax).toLocaleDateString()}`
-					: `Débute le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()}`,
-			);
-		}
-		return tags;
 	}, [offreDeStage]);
 
 	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur?.description && getHtmlFromMd(offreDeStage.employeur.description));

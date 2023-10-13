@@ -70,12 +70,8 @@ export enum SourceDesDonnées {
 export type OffreDeStageIndexée = {
 	titre: string
 	description: string
-
-	// FIXME (GAFI 13-10-2023): Est-ce que si on a une date de début min on a forcément une date de début max ?
-	//	est-ce qu'on veut que ça soit modélisé ici ?
-	dateDeDebutMin?: string
-	dateDeDebutMax?: string
-
+	dateDeDebutMin: string
+	dateDeDebutMax: string
 	id: string
 	slug: string
 	domaines?: Array<Domaines>
@@ -118,12 +114,8 @@ export interface OffreDeStage {
 	titre: string
 	id: string
 	slug: string
-
-	// FIXME (GAFI 13-10-2023): Est-ce que si on a une date de début min on a forcément une date de début max ?
-	//	est-ce qu'on veut que ça soit modélisé ici ?
-	dateDeDebutMin?: string
-	dateDeDebutMax?: string
-
+	dateDeDebutMin: string
+	dateDeDebutMax: string
 	description: string
 	urlDeCandidature?: string
 	domaines: Array<Domaines>
