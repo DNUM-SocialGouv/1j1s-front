@@ -24,11 +24,19 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	}
 
 	listeEtiquettes.push(
-		stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné' ? stage.dureeCategorisee : '',
-		stage.dateDeDebutMin === stage.dateDeDebutMax
-			? `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`
-			: `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`,
+		(stage.dureeCategorisee && stage.dureeCategorisee !== 'Non renseigné')
+			? stage.dureeCategorisee
+			: '',
 	);
+
+	if (stage.dateDeDebutMin) {
+		// FIXME (GAFI 13-10-2023): Passer par des composants pour pouvoir notamment les partager entre les pages
+		listeEtiquettes.push(
+			stage.dateDeDebutMax && stage.dateDeDebutMin !== stage.dateDeDebutMax
+				? `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`
+				: `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`,
+		);
+	}
 
 	return <RésultatRechercherSolution
 		lienOffre={`/stages/${stage.slug}`}
