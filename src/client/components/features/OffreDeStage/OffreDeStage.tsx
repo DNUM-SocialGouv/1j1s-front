@@ -30,6 +30,7 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	);
 
 	if (stage.dateDeDebutMin) {
+		// FIXME (GAFI 13-10-2023): Passer par des composants pour pouvoir notamment les partager entre les pages
 		listeEtiquettes.push(
 			stage.dateDeDebutMax && stage.dateDeDebutMin !== stage.dateDeDebutMax
 				? `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`
