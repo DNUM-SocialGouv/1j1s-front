@@ -58,9 +58,12 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	}
 
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
-		const { idRco: formationId, cleMinistereEducatif } = parseIdFormation(id);
+		const { cleMinistereEducatif } = parseIdFormation(id);
+		const encodedCleMinistereEducatif = encodeURIComponent(cleMinistereEducatif || ''); // todo SULI: jeter un oeil au typage why undefined
 		try {
-			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formationDescription/${formationId}`);
+			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formation/${encodedCleMinistereEducatif}`);
+			console.log('tootot', encodeURIComponent(cleMinistereEducatif || ''));
+			console.log(apiResponse.data);
 			const formation = mapFormation(apiResponse.data);
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);

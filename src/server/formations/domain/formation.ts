@@ -19,7 +19,6 @@ export type Formation = {
 	nombreHeuresEnEntreprise?: number
 	nombreHeuresAuCentre?: number
 	adresse: { adresseComplète?: string, codePostal?: string }
-	contact: { email?: string; tel?: string; url?: string }
 	lienDemandeRendezVous?: string
 }
 

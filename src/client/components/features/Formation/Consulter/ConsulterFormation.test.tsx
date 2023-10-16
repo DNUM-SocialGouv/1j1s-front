@@ -56,23 +56,12 @@ describe('ConsulterFormation', () => {
 		expect(codePostal).toBeVisible();
 		const adresseComplète = screen.queryByText(formation.adresse.adresseComplète, { exact: false });
 		expect(adresseComplète).toBeVisible();
-		const email = screen.queryByText(formation.contact.email, { exact: false });
-		expect(email).toBeVisible();
-		const tel = screen.queryByText(formation.contact.tel, { exact: false });
-		expect(tel).toBeVisible();
-		const url = screen.queryByText(formation.contact.url, { exact: false });
-		expect(url).toBeVisible();
 	});
 	it('affiche un lien pour envoyer une demande de contact à l’établissement de formation', () => {
 		const formation: Formation = {
 			adresse: {
 				adresseComplète: '1 rue de la République - 75001 - Paris',
 				codePostal: '75001',
-			},
-			contact: {
-				email: 'email@domaine.fr',
-				tel: '01 23 45 67 89',
-				url: 'https://domaine.fr',
 			},
 			description: 'Description de la formation',
 			duréeIndicative: '1 an',
@@ -97,11 +86,6 @@ describe('ConsulterFormation', () => {
 			adresse: {
 				adresseComplète: '1 rue de la République - 75001 - Paris',
 				codePostal: '75001',
-			},
-			contact: {
-				email: 'email@domaine.fr',
-				tel: '01 23 45 67 89',
-				url: 'https://domaine.fr',
 			},
 			description: 'Description de la formation',
 			duréeIndicative: '1 an',

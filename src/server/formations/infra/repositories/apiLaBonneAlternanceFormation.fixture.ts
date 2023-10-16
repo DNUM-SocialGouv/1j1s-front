@@ -1,7 +1,8 @@
 import { FormationFiltre } from '~/server/formations/domain/formation';
 import {
-	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse,
+	ApiLaBonneAlternanceFormation,
+	ApiLaBonneAlternanceFormationRechercheResponse, ApiLaBonneAlternanceFormationResponse,
+	ApiLaBonneAlternanceFormationResponseOld,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 
 export function aFormationQuery(): FormationFiltre {
@@ -65,30 +66,33 @@ export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiL
 	],
 });
 
-export const aLaBonneAlternanceApiFormationResponse = (): ApiLaBonneAlternanceFormationResponse => ({
-	description: 'Description de la formation',
-	'duree-indicative': '1 an',
-	intitule: 'Développeur web',
-	objectif: 'Objectifs de la formation',
-	organisme: {
-		contact: {
-			email: 'email@domaine.fr',
-			tel: '01 23 45 67 89',
-			url: 'https://domaine.fr',
-		},
-		nom: 'La Bonne Alternance',
-	},
-	sessions: [
-		{
-			localisation: {
-				formation: {
-					adresse: '1 rue de la République',
-					'code-postal': '75001',
-					ville: 'Paris',
-				},
+export const anApiLaBonneAlternanceFormation = (overrides? : Partial<ApiLaBonneAlternanceFormation>): ApiLaBonneAlternanceFormation => {
+	return {
+		cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
+		company: {
+			headquarter: {
+				name: 'La Bonne Alternance',
 			},
-			'nombre-heures-centre': 100,
-			'nombre-heures-entreprise': 200,
 		},
-	],
-});
+		id: '085120P01213002197060001130021970600011-46314#L01',
+		place: {
+			city: 'Paris',
+			fullAddress: '1 rue de la République 75001 Paris',
+			zipCode: '75001',
+		},
+		title: 'Développeur web',
+		training: {
+			description: 'Description de la formation',
+			objectif: 'Objectifs de la formation',
+		},
+		...overrides,
+	};
+};
+
+export const anApiLaBonneAlternanceFormationResponse = (overrides: ApiLaBonneAlternanceFormation = anApiLaBonneAlternanceFormation()): ApiLaBonneAlternanceFormationResponse => {
+	return {
+		results: [
+			overrides,
+		],
+	};
+};

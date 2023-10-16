@@ -1,4 +1,4 @@
-import { Formation,RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { Formation, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { mapNiveauFormation } from '~/server/formations/domain/formation.mapper';
 import {
 	ID_FORMATION_SEPARATOR,
@@ -6,7 +6,8 @@ import {
 
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse, IdRcoAndCléMinistèreÉducatif,
+	ApiLaBonneAlternanceFormationResponse,
+	IdRcoAndCléMinistèreÉducatif,
 } from './apiLaBonneAlternanceFormation';
 
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
@@ -35,47 +36,29 @@ export function parseIdFormation(id: string): IdRcoAndCléMinistèreÉducatif {
 	};
 }
 
-function mapFormationAdresse(
-	adresse: string | undefined,
-	codePostal: string | undefined,
-	ville: string | undefined,
-): Formation['adresse'] {
-	const adresseComplèteArray = [adresse || '', codePostal || '', ville || ''].filter((element) => element !== '');
-	return {
-		adresseComplète: adresseComplèteArray.join(' - '),
-		codePostal,
-	};
-}
-
 export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation => {
-	const session = response.sessions[0];
+	const apiFormationResult = response.results[0]; // todo SULI : gérer tableau vide
 	return {
-		adresse: mapFormationAdresse(session.localisation?.formation?.adresse,
-			session.localisation?.formation?.['code-postal'],
-			session.localisation?.formation?.ville,
-		),
-		contact: {
-			email: response.organisme?.contact?.email,
-			tel: response.organisme?.contact?.tel,
-			url: response.organisme?.contact?.url,
+		adresse: {
+			adresseComplète: apiFormationResult.place?.fullAddress,
+			codePostal: apiFormationResult.place?.zipCode,
 		},
-		description: response.description,
-		duréeIndicative: response['duree-indicative'],
-		nomEntreprise: response.organisme?.nom,
-		nombreHeuresAuCentre: session['nombre-heures-centre'],
-		nombreHeuresEnEntreprise: session['nombre-heures-entreprise'],
-		objectif: response.objectif,
-		tags: [session.localisation?.formation?.ville || ''],
-		titre: response.intitule,
+		description: apiFormationResult.training?.description,
+		duréeIndicative: undefined, // faut il calculer depuis la session ?
+		nomEntreprise: apiFormationResult.company?.headquarter?.name,
+		nombreHeuresAuCentre: undefined,
+		nombreHeuresEnEntreprise: undefined,
+		objectif: apiFormationResult.training?.objectif,
+		tags: [apiFormationResult.place?.city || ''],
+		titre: apiFormationResult.title,
 	};
 };
 
-export const mapRésultatRechercheFormationToFormation = (résultatRechercheFormation: RésultatRechercheFormation):Formation => ({
+export const mapRésultatRechercheFormationToFormation = (résultatRechercheFormation: RésultatRechercheFormation): Formation => ({
 	adresse: {
 		adresseComplète: résultatRechercheFormation.adresse,
 		codePostal: résultatRechercheFormation.codePostal,
 	},
-	contact: {},
 	nomEntreprise: résultatRechercheFormation.nomEntreprise,
 	tags: [résultatRechercheFormation.tags[0] || ''],
 	titre: résultatRechercheFormation.titre,
