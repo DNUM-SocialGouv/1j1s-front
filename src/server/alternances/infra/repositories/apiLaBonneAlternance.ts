@@ -173,9 +173,9 @@ export const apiLaBonneAlternanceSchemas = {
 					city: Joi.string().allow(null),
 					fullAddress: Joi.string(),
 				}),
-				title: Joi.string().required(),
+				titlerieng: Joi.string().required(),
 			})),
-		}),
+		}).required(),
 		peJobs: Joi.object({
 			results: Joi.array().items(Joi.object({
 				company: Joi.object({
@@ -199,6 +199,6 @@ export const apiLaBonneAlternanceSchemas = {
 				title: Joi.string().required(),
 				url: Joi.string(),
 			})),
-		}),
+		}).required(),
 	}).options({ allowUnknown: true }),
 };

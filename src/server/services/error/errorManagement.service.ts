@@ -99,7 +99,10 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 	}
 
 	protected buildValidationWarningToLog(logInformation: LogInformation, error: ValidationError) {
-		const extra = { error: JSON.stringify(error) };
+		const extra = { error: JSON.stringify({
+			detailsOfValidationError: error.details,
+			originalResponse: error._original,
+		}) };
 
 		return new SentryException(
 			`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,

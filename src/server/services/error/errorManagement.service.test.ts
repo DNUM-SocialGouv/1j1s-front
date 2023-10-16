@@ -337,7 +337,10 @@ describe('DefaultErrorManagementService', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
-			const validationError = new ValidationError('ceci est une erreur de validation', [], []);
+			const validationError = new ValidationError(
+				'ceci est une erreur de validation',
+				[],
+				[]);
 			const expectedLogDetails = new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
