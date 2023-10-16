@@ -12,9 +12,13 @@ import QuEstCeQueJyGagne from '~/client/components/features/ContratEngagementJeu
 import { Témoignages } from '~/client/components/features/ContratEngagementJeune/Témoignages/Témoignages';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
+import useMarketing from '~/client/hooks/useMarketing';
 import analytics from '~/pages/contrat-engagement-jeune/index.analytics';
 
+const PAGE_NAME_ADFORM = '2023-10-1jeune1solution.gouv.fr-PageArrivee-ContratEngagementJeune';
+
 export default function ContratEngagementJeune() {
+	useMarketing(PAGE_NAME_ADFORM);
 	useAnalytics(analytics);
 
 	return (
