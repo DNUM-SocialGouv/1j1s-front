@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.159.13](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.12...v3.159.13) (2023-10-15)
+
+
+### 👷 Autres changements
+
+* **ci:** upgrade terraform version to 1.6.1 ([#2141](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2141)) ([7d93047](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d93047e2843616f33ca28c9f3aa0df485b0e0c5))
+* **deps:** update dependency @types/node to v18.18.5 ([8ead15b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8ead15b1f2fe791becb2b024b1f1457414d44179))
+* **deps:** update dependency sass to v1.69.3 ([#2152](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2152)) ([05a9be6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/05a9be68420c5bf0d8165ad608fdc10bc56e10f7))
+
 ## [3.159.12](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.11...v3.159.12) (2023-10-13)
 
 
