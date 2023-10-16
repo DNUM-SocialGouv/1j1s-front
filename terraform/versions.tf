@@ -1,6 +1,6 @@
 terraform {
   # Version minimale de Terraform CLI requise pour ce projet
-  required_version = "~> 1.6.1"
+  required_version = "~> 1.4"
 
   backend "s3" {
     # Pour la connexion au backend S3 Minio, il faut configurer en variables d'environnements :
@@ -22,7 +22,6 @@ terraform {
 
     # parce que la STS API n'existe pas avec Minio
     skip_credentials_validation = true
-    skip_requesting_account_id = true
     # parce que l'AWS Metadata API n'existe pas avec Minio
     skip_metadata_api_check = true
     # parce que Minio n'utilise pas les même régions que AWS
