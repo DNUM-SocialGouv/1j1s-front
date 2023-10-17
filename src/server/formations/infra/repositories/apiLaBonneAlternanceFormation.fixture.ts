@@ -1,8 +1,8 @@
 import { FormationFiltre } from '~/server/formations/domain/formation';
 import {
 	ApiLaBonneAlternanceFormation,
-	ApiLaBonneAlternanceFormationRechercheResponse, ApiLaBonneAlternanceFormationResponse,
-	ApiLaBonneAlternanceFormationResponseOld,
+	ApiLaBonneAlternanceFormationRechercheResponse,
+	ApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 
 export function aFormationQuery(): FormationFiltre {
