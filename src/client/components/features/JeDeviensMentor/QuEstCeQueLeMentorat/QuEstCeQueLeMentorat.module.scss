@@ -2,7 +2,7 @@
 
 .quEstCeQueLeMentorat {
   @extend %background-primary;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
 
   .container {
     max-width: 61.25rem;
@@ -17,7 +17,7 @@
 
 @include utilities-deprecated.media(large) {
   .quEstCeQueLeMentorat {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
   }
 }
 

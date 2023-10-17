@@ -65,7 +65,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
                 	onClick={onContactClick}/>
 						}
 					</div>
-					{établissement.horaires &&
+					{établissement.horaires && établissement.horaires.length > 0 &&
               <details className={styles.details}>
               	<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
               	<div className={styles.horaireBackground}>

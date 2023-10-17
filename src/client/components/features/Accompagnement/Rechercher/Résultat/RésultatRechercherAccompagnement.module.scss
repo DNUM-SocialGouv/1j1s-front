@@ -1,9 +1,13 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$color-contact-mail: utilities.$color-primary;
+$color-summary: utilities.$color-primary;
+$color-summary-hover: utilities.$color-cta-background-primary-hover;
 
 .card {
   padding: 1rem;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     align-items: center;
     padding: 1rem 1.5rem;
     box-shadow: 0 0 0 0;
@@ -36,7 +40,7 @@
 }
 
 .mainContent {
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     display: flex;
     flex-direction: column;
   }
@@ -48,24 +52,24 @@
 }
 
 .address {
-  @extend %text-regular;
+  @extend %text-medium;
 }
 
 .tags {
   list-style-type: none;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-block: 1rem;
   }
 }
 
 .contactMailÉtablissement {
-  color: utilities-deprecated.$color-primary;
+  color: $color-contact-mail;
   margin-top: 1.25rem;
   font-weight: bold;
   text-decoration: none;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     align-self: flex-start;
   }
 }
@@ -73,11 +77,13 @@
 .contactFormulaireÉtablissement {
   margin-top: 1.25rem;
   font-weight: bold;
-  align-self: center;
+  align-self: start;
   font-size: 1rem;
+  width: 100%;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     align-self: flex-start;
+    width: auto;
   }
 }
 
@@ -88,9 +94,9 @@
 
 .details {
   width: 15rem;
-  align-self: center;
+  align-self: flex-start;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-left: auto;
     width: auto;
     padding-right: 1.5rem;
@@ -98,17 +104,21 @@
   }
 
   .summary {
-    @extend %text-regular;
+    @extend %text-medium;
     margin-bottom: 0.5rem;
     font-weight: normal;
     padding: 0.5rem 0 0 0;
-    text-align: center;
+    text-align: start;
     text-decoration: underline;
     text-underline-offset: 4px;
-    color: utilities-deprecated.$color-primary;
+    color: $color-summary;
     cursor: pointer;
     list-style: none;
     width: 16rem;
+
+    &::-webkit-details-marker { // Enlève le marqueur par défaut présent sur Safari
+      display: none;
+    }
 
     &:after {
       content: '';
@@ -121,13 +131,14 @@
       margin-left: 0.5rem;
     }
 
-    @include utilities-deprecated.media(large) {
+    @include utilities.media(large) {
+      text-align: center;
       font-size: 1rem;
       padding: 0;
     }
 
     &:hover {
-      color: utilities-deprecated.$color-primary-on-hover;
+      color: $color-summary-hover;
       list-style: none;
 
       &:after {
@@ -146,7 +157,7 @@
   display: flex;
   align-self: center;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     width: calc(100% + 3rem);
   }
 }
@@ -159,7 +170,7 @@
   width: 16rem;
   @extend %text-small;
 
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     margin-left: 0;
     width: auto;
   }

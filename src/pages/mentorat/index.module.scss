@@ -1,7 +1,7 @@
 @use "@styles/utilities-deprecated";
 
 .heading {
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
 
   &Container {
     max-width: 35rem;
@@ -126,7 +126,7 @@
 
 .QuestCeQueMentorat {
   &Wrapper {
-    padding: 5rem 1.5rem;
+    padding: 2rem 1.5rem;
     color: utilities-deprecated.$color-on-primary;
     @extend %max-container;
   }
@@ -161,7 +161,7 @@
 
 .RaisonParticipationMentorat {
   &Wrapper {
-    padding: 5rem 1.5rem;
+    padding: 2rem 1.5rem;
     @extend %max-container;
 
     h1 {
@@ -214,6 +214,9 @@
   }
 
   .QuestCeQueMentorat {
+    &Wrapper {
+      padding: 4rem 1rem;
+    }
     &Content {
       display: flex;
       flex-direction: column;
@@ -234,6 +237,7 @@
   .RaisonParticipationMentorat {
     &Wrapper {
       display: flex;
+      padding: 4rem 1rem;
       .RaisonParticipationMentoratContainer {
         padding-bottom: 0;
 
