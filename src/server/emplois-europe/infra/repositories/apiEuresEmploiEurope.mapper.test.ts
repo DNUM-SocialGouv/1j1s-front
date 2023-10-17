@@ -41,11 +41,13 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				{
 					id: '1',
 					nomEntreprise: 'La Boulangerie',
+					tags: ['Paris'],
 					titre: 'Boulanger (H/F)',
 				},
 				{
 					id: '2',
 					nomEntreprise: undefined,
+					tags: [],
 					titre: undefined,
 				},
 			],

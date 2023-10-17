@@ -26,7 +26,7 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 						<RésultatRechercherSolution
 							intituléOffre={emploiEurope.titre}
 							sousTitreOffre={emploiEurope.nomEntreprise}
-							étiquetteOffreList={[]}
+							étiquetteOffreList={emploiEurope.tags}
 						/>
 					</li>
 				);

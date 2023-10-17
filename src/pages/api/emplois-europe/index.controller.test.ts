@@ -61,11 +61,13 @@ describe('rechercher emplois en Europe', () => {
 				{
 					id: '1',
 					nomEntreprise: 'La Boulangerie',
+					tags: ['Paris'],
 					titre: 'Boulanger (H/F)',
 				},
 				{
 					id: '2',
 					nomEntreprise: 'La Pâtisserie',
+					tags: ['Paris'],
 					titre: 'Pâtissier (H/F)',
 				},
 			],

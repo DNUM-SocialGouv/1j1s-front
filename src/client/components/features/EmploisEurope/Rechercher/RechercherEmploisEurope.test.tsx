@@ -45,11 +45,13 @@ describe('RechercherEmploisEurope', () => {
 						{
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
+							tags: ['Paris'],
 							titre: 'Titre 1',
 						},
 						{
 							id: '2',
 							nomEntreprise: 'Entreprise 2',
+							tags: [],
 							titre: 'Titre 2',
 						},
 					],
@@ -73,7 +75,7 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-				const resultats = within(resultatsUl[0]).getAllByRole('listitem');
+				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -93,11 +95,13 @@ describe('RechercherEmploisEurope', () => {
 							{
 								id: '1',
 								nomEntreprise: 'Entreprise 1',
+								tags: ['Paris'],
 								titre: 'Titre 1',
 							},
 							{
 								id: '2',
 								nomEntreprise: 'Entreprise 2',
+								tags: [],
 								titre: 'Titre 2',
 							},
 						],
@@ -137,6 +141,7 @@ describe('RechercherEmploisEurope', () => {
 							{
 								id: '1',
 								nomEntreprise: 'Entreprise 1',
+								tags: ['Paris'],
 								titre: 'Titre 1',
 							},
 						],
@@ -177,11 +182,13 @@ describe('RechercherEmploisEurope', () => {
 						{
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
+							tags: ['Paris'],
 							titre: 'Titre 1',
 						},
 						{
 							id: '2',
 							nomEntreprise: 'Entreprise 2',
+							tags: [],
 							titre: 'Titre 2',
 						},
 					],
