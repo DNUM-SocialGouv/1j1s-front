@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.160.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.160.0...v3.160.1) (2023-10-17)
+
+
+### 🐛 Corrections de bogues
+
+* **multiple:** retour ui kit ([#2109](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2109)) ([9a8f994](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9a8f99428c9173bd72dd71be293be4dad065a71e))
+
 ## [3.160.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.14...v3.160.0) (2023-10-17)
 
 
