@@ -24,7 +24,7 @@ export const aResultatRechercheFormation = (override?: Partial<RésultatRecherch
 
 export const aFormation = (overrides?: Partial<Formation>): Formation => ({
 	adresse: {
-		adresseComplète: '1 rue de la République 75001 Paris',
+		adresseComplete: '1 rue de la République 75001 Paris',
 		codePostal: '75001',
 	},
 	description: 'Description de la formation',

@@ -40,7 +40,7 @@ export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): F
 	const apiFormationResult = response.results[0]; // todo SULI : gérer tableau vide
 	return {
 		adresse: {
-			adresseComplète: apiFormationResult.place?.fullAddress,
+			adresseComplete: apiFormationResult.place?.fullAddress,
 			codePostal: apiFormationResult.place?.zipCode,
 		},
 		description: apiFormationResult.training?.description,
@@ -55,7 +55,7 @@ export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): F
 
 export const mapRésultatRechercheFormationToFormation = (résultatRechercheFormation: RésultatRechercheFormation): Formation => ({
 	adresse: {
-		adresseComplète: résultatRechercheFormation.adresse,
+		adresseComplete: résultatRechercheFormation.adresse,
 		codePostal: résultatRechercheFormation.codePostal,
 	},
 	nomEntreprise: résultatRechercheFormation.nomEntreprise,

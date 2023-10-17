@@ -287,13 +287,13 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 									const idFormationWithoutCleMinistereEducatif = aLaBonneAlternanceApiRésultatRechercheFormationResponse().results[1].idRco;
 									const httpClientService = aPublicHttpClientService();
 									const formationReturnedBySearch = aResultatRechercheFormation({ id: idFormationWithoutCleMinistereEducatif });
-									const expectedFormation = {
+									const expectedFormation: Formation = {
 										adresse: {
-											adresseComplète: formationReturnedBySearch.adresse,
+											adresseComplete: formationReturnedBySearch.adresse,
 											codePostal: formationReturnedBySearch.codePostal,
 										},
 										nomEntreprise: formationReturnedBySearch.nomEntreprise,
-										tags: [formationReturnedBySearch.tags[0]],
+										tags: [formationReturnedBySearch.tags[0] || ''],
 										titre: formationReturnedBySearch.titre,
 									};
 									const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
@@ -348,7 +348,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 										// Then
 										const expectedFormation: Formation = {
 											adresse: {
-												adresseComplète: '1 rue de la République',
+												adresseComplete: '1 rue de la République',
 												codePostal: '75001',
 											},
 											lienDemandeRendezVous: 'url Demande de Rendez vous',
@@ -389,7 +389,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 											jest.spyOn(httpClientService, 'get').mockResolvedValueOnce(anAxiosResponse(aLaBonneAlternanceApiRésultatRechercheFormationResponse()));
 											const expectedFormation: Formation = {
 												adresse: {
-													adresseComplète: '1 rue de la République',
+													adresseComplete: '1 rue de la République',
 													codePostal: '75001',
 												},
 												nomEntreprise: 'La Bonne Alternance',

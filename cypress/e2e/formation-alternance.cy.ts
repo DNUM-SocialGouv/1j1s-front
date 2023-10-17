@@ -5,6 +5,7 @@ import {
 	aListeDeMetierLaBonneAlternance,
 } from '~/server/metiers/domain/métier.fixture';
 
+import { Formation } from '../../src/server/formations/domain/formation';
 import { interceptGet } from '../interceptGet';
 
 
@@ -58,14 +59,12 @@ describe('Parcours formation LBA', () => {
 				it('affiche la page de formation', () => {
 					const formationList = aRésultatRechercheFormationList();
 					const firstRésultatRechercheFormationId = formationList[0].id;
-					
-					const formation = {
+
+					const formation: Formation = {
 						adresse: {
-							adresseComplète: 'adresse',
+							adresseComplete: 'adresse',
 							codePostal: 'codePostal',
 						},
-						codeCertification: '999',
-						contact: {},
 						nomEntreprise: 'nomEntreprise',
 						tags: [ 'codePostal' ],
 						titre: 'titre',
@@ -86,7 +85,7 @@ describe('Parcours formation LBA', () => {
 						path: '/api/formations*',
 						response: JSON.stringify(aRésultatRechercheFormationList()),
 					});
-					
+
 					interceptGet({
 						actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Formations en alternance"] > li').first().click(),
 						alias: 'résultat-formation',

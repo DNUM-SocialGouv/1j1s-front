@@ -2,10 +2,9 @@ import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/d
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
-	anApiLaBonneAlternanceFormation,
+	anApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
 import {
 	mapFormation,
@@ -62,37 +61,33 @@ describe('mapRésultatRechercheFormation', () => {
 
 describe('mapFormation', () => {
 	it('convertit une response en formation description', () => {
-		const apiResponse: ApiLaBonneAlternanceFormationResponse = anApiLaBonneAlternanceFormation({
-			results: [
-				{
-					cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
-					company: {
-						headquarter: {
-							name: 'La Bonne Alternance',
-						},
-					},
-					id: '085120P01213002197060001130021970600011-46314#L01',
-					place: {
-						city: 'Paris',
-						fullAddress: '1 rue de la République 75001 Paris',
-						zipCode: '75001',
-					},
-					title: 'Développeur web',
-					training: {
-						description: 'Description de la formation',
-						objectif: 'Objectifs de la formation',
-					},
+		const apiResponse = anApiLaBonneAlternanceFormationResponse({
+			cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
+			company: {
+				headquarter: {
+					name: 'La Bonne Alternance',
 				},
-			],
-		});
+			},
+			id: '085120P01213002197060001130021970600011-46314#L01',
+			place: {
+				city: 'Paris',
+				fullAddress: '1 rue de la République 75001 Paris',
+				zipCode: '75001',
+			},
+			title: 'Développeur web',
+			training: {
+				description: 'Description de la formation',
+				objectif: 'Objectifs de la formation',
+			},
+		},
+		);
 
 		const expectedFormation = aFormation({
 			adresse: {
-				adresseComplète: '1 rue de la République 75001 Paris',
+				adresseComplete: '1 rue de la République 75001 Paris',
 				codePostal: '75001',
 			},
 			description: 'Description de la formation',
-			duréeIndicative: undefined,
 			nomEntreprise: 'La Bonne Alternance',
 			nombreHeuresAuCentre: undefined,
 			nombreHeuresEnEntreprise: undefined,

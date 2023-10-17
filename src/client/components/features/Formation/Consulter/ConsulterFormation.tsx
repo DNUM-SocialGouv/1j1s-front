@@ -9,7 +9,7 @@ import { Formation } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 
 export function ConsulterFormation({ formation, statistiques }: { formation: Formation, statistiques?: Statistique }) {
-	const displayInformationCentreFormation = !!formation.adresse.adresseComplète;
+	const displayInformationCentreFormation = !!formation.adresse.adresseComplete;
 	return (
 		<>
 			<ConsulterOffreLayout>
@@ -50,8 +50,8 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 					{displayInformationCentreFormation &&
 						<>
 							<h3>Informations sur le centre de formation :</h3>
-							{formation.adresse.adresseComplète &&
-								<p>Adresse : {formation.adresse.adresseComplète}</p>
+							{formation.adresse.adresseComplete &&
+								<p>Adresse : {formation.adresse.adresseComplete}</p>
 							}
 						</>
 					}
