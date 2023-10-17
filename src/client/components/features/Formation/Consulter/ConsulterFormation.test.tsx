@@ -7,6 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { Formation } from '~/server/formations/domain/formation';
+import { aFormation } from '~/server/formations/domain/formation.fixture';
 
 describe('ConsulterFormation', () => {
 	beforeEach(() => {
@@ -46,8 +47,6 @@ describe('ConsulterFormation', () => {
 		expect(description).toBeVisible();
 		const objectif = screen.queryByText(formation.objectif);
 		expect(objectif).toBeVisible();
-		const duréeIndicative = screen.queryByText(formation.duréeIndicative);
-		expect(duréeIndicative).toBeVisible();
 		const nombreHeuresEnEntreprise = screen.queryByText(formation.nombreHeuresEnEntreprise, { exact: false });
 		expect(nombreHeuresEnEntreprise).toBeVisible();
 		const nombreHeuresAuCentre = screen.queryByText(formation.nombreHeuresAuCentre, { exact: false });
@@ -58,13 +57,12 @@ describe('ConsulterFormation', () => {
 		expect(adresseComplète).toBeVisible();
 	});
 	it('affiche un lien pour envoyer une demande de contact à l’établissement de formation', () => {
-		const formation: Formation = {
+		const formation: Formation = aFormation({
 			adresse: {
-				adresseComplète: '1 rue de la République - 75001 - Paris',
+				adresseComplète: '1 rue de la République 75001 Paris',
 				codePostal: '75001',
 			},
 			description: 'Description de la formation',
-			duréeIndicative: '1 an',
 			lienDemandeRendezVous: 'https://domaine.fr',
 			nomEntreprise: 'La Bonne Alternance',
 			nombreHeuresAuCentre: 100,
@@ -72,7 +70,7 @@ describe('ConsulterFormation', () => {
 			objectif: 'Objectifs de la formation',
 			tags: ['Paris'],
 			titre: 'Développeur web',
-		};
+		});
 
 		render(<ConsulterFormation formation={formation}/>);
 
@@ -82,13 +80,12 @@ describe('ConsulterFormation', () => {
 		expect(link).toHaveAttribute('title', 'Contacter l’établissement - nouvelle fenêtre');
 	});
 	it('n’affiche pas de bouton pour demander un rendez-vous si le lien n’est pas renseigné', () => {
-		const formation: Formation = {
+		const formation: Formation = aFormation({
 			adresse: {
-				adresseComplète: '1 rue de la République - 75001 - Paris',
+				adresseComplète: '1 rue de la République 75001 Paris',
 				codePostal: '75001',
 			},
 			description: 'Description de la formation',
-			duréeIndicative: '1 an',
 			lienDemandeRendezVous: undefined,
 			nomEntreprise: 'La Bonne Alternance',
 			nombreHeuresAuCentre: 100,
@@ -96,7 +93,7 @@ describe('ConsulterFormation', () => {
 			objectif: 'Objectifs de la formation',
 			tags: ['Paris'],
 			titre: 'Développeur web',
-		};
+		});
 
 		render(<ConsulterFormation formation={formation}/>);
 

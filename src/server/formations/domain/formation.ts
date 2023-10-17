@@ -15,7 +15,6 @@ export type Formation = {
 	tags: string[]
 	description?: string
 	objectif?: string
-	duréeIndicative?: string
 	nombreHeuresEnEntreprise?: number
 	nombreHeuresAuCentre?: number
 	adresse: { adresseComplète?: string, codePostal?: string }

@@ -44,10 +44,9 @@ export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): F
 			codePostal: apiFormationResult.place?.zipCode,
 		},
 		description: apiFormationResult.training?.description,
-		duréeIndicative: undefined, // faut il calculer depuis la session ?
 		nomEntreprise: apiFormationResult.company?.headquarter?.name,
 		nombreHeuresAuCentre: undefined,
-		nombreHeuresEnEntreprise: undefined,
+		nombreHeuresEnEntreprise: undefined, // NOTE (SULI 17-10-2023): LBA se renseigne de leur côté s'ils peuvent nous fournir ces données d'heure sur le retour de leur nouvel endpoint
 		objectif: apiFormationResult.training?.objectif,
 		tags: [apiFormationResult.place?.city || ''],
 		titre: apiFormationResult.title,
