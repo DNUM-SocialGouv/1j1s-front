@@ -20,7 +20,7 @@ export namespace ApiLaBonneAlternanceFormationRechercheResponse {
 	}
 }
 
-export type IdRcoAndCléMinistèreÉducatif = Pick<ApiLaBonneAlternanceFormationRechercheResponse.Formation, 'idRco' | 'cleMinistereEducatif'>;
+export type IdRcoAndCleMinistereEducatif = Pick<ApiLaBonneAlternanceFormationRechercheResponse.Formation, 'idRco' | 'cleMinistereEducatif'>;
 
 export interface ApiLaBonneAlternanceFormationRechercheResponse {
 	results: Array<ApiLaBonneAlternanceFormationRechercheResponse.Formation>;

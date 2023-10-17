@@ -7,7 +7,7 @@ import {
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
 	ApiLaBonneAlternanceFormationResponse,
-	IdRcoAndCléMinistèreÉducatif,
+	IdRcoAndCleMinistereEducatif,
 } from './apiLaBonneAlternanceFormation';
 
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
@@ -28,7 +28,7 @@ function mapIdFormation(
 	return `${response.idRco}${ID_FORMATION_SEPARATOR}${response.cleMinistereEducatif ? response.cleMinistereEducatif : ''}`;
 }
 
-export function parseIdFormation(id: string): IdRcoAndCléMinistèreÉducatif {
+export function parseIdFormation(id: string): IdRcoAndCleMinistereEducatif {
 	const idArray = id.split(ID_FORMATION_SEPARATOR);
 	return {
 		cleMinistereEducatif: idArray[1],
@@ -48,7 +48,7 @@ export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): F
 		description: apiFormationResult.training?.description,
 		nomEntreprise: apiFormationResult.company?.name,
 		nombreHeuresAuCentre: undefined,
-		nombreHeuresEnEntreprise: undefined, // NOTE (SULI 17-10-2023): LBA se renseigne de leur côté s'ils peuvent nous fournir ces données d'heure sur le retour de leur nouvel endpoint
+		nombreHeuresEnEntreprise: undefined, // NOTE (SULI 17-10-2023): LBA se renseigne de leur côté s'ils peuvent nous fournir ces données du nombre d'heures sur le retour de leur nouvel endpoint
 		objectif: apiFormationResult.training?.objectif,
 		tags: [apiFormationResult.place?.city || ''],
 		titre: apiFormationResult.title,
