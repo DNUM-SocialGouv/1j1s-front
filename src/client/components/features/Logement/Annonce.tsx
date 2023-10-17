@@ -23,8 +23,8 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 
 			<Card.Content className={styles.CardContenu}>
 				<span className={styles.CardContenuEnTete}>
-					<div className={styles.CardContenuEnTeteType}>{typeDeLogement}</div>
-					<div className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</div>
+					<span className={styles.CardContenuEnTeteType}>{typeDeLogement}</span>
+					<span className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</span>
 				</span>
 
 				<Card.Title titleAs="h3">{annonce.titre}</Card.Title>
