@@ -99,9 +99,9 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 	});
 
 	describe('get', () => {
-		it('appelle l’api LaBonneAlternance avec les bons paramètres', () => {
+		it('appelle l’api LaBonneAlternance avec les bons paramètres encodés', () => {
 			// Given
-			const id = 'formation-id-rco__cle-ministere-educatif';
+			const id = 'formation-id-rco__cle-ministere-educatif#01';
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiLaBonneAlternanceFormationRepository(httpClientService, '1jeune1solution-test', anErrorManagementService());
 			jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(anHttpError(500, 'internal_error'));
@@ -111,7 +111,7 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledTimes(1);
-			expect(httpClientService.get).toHaveBeenCalledWith('/v1/formations/formation/cle-ministere-educatif');
+			expect(httpClientService.get).toHaveBeenCalledWith('/v1/formations/formation/cle-ministere-educatif%2301');
 		});
 
 		describe('quand l‘appel initial pour récupérer le détail d‘une formation renvoie la formation demandée', () => {
