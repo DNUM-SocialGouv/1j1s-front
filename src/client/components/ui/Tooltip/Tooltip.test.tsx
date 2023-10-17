@@ -13,7 +13,7 @@ describe('Tooltip', () => {
 		const ariaLabel = 'buttonLabel';
 		const user = userEvent.setup();
 		render(
-			<Tooltip icon="information" ariaLabel={ariaLabel} ariaDescribedBy='test'>ceci est un texte informatif</Tooltip>,
+			<Tooltip icon="information" ariaLabel={ariaLabel} tooltipId='test'>ceci est un texte informatif</Tooltip>,
 		);
 		const bulleInformative = screen.getByRole('button', { name: ariaLabel });
 		await user.hover(bulleInformative);
@@ -26,7 +26,7 @@ describe('Tooltip', () => {
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<Tooltip icon="information" ariaLabel={ariaLabel} ariaDescribedBy='test'>ceci est un texte informatif</Tooltip>,
+			<Tooltip icon="information" ariaLabel={ariaLabel} tooltipId='test'>ceci est un texte informatif</Tooltip>,
 		);
 		await user.tab();
 		const information = screen.getByText('ceci est un texte informatif');
@@ -37,7 +37,7 @@ describe('Tooltip', () => {
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<Tooltip icon="information" ariaLabel={ariaLabel} ariaDescribedBy='test'>ceci est un texte informatif</Tooltip>,
+			<Tooltip icon="information" ariaLabel={ariaLabel} tooltipId='test'>ceci est un texte informatif</Tooltip>,
 		);
 		await user.tab();
 		const information = screen.getByText('ceci est un texte informatif');
