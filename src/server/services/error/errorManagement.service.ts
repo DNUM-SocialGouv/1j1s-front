@@ -1,7 +1,6 @@
-import { ValidationError } from 'joi';
-
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
+import { ValidationErrorClass } from '~/server/services/error/validationErrorClass';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
 import { createFailure, Failure } from '../../errors/either';
@@ -22,7 +21,7 @@ export interface LogInformation {
 
 export interface ErrorManagementService {
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure
-	handleValidationError(error: ValidationError, logInformation: LogInformation): void
+	handleValidationError(error: unknown, logInformation: LogInformation): void
 }
 
 export interface ErrorManagementWithErrorCheckingService extends ErrorManagementService {
@@ -42,8 +41,8 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		return this.createFailureForInternalError();
 	}
 
-	handleValidationError(error: ValidationError, logInformation: LogInformation): void {
-		this.logValidationWarning(logInformation, error);
+	handleValidationError(error: unknown, logInformation: LogInformation): void {
+		this.logValidationWarning(error, logInformation);
 	}
 
 	protected logHttpError(logInformation: LogInformation, error: HttpError) {
@@ -90,15 +89,15 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		);
 	}
 
-	protected logValidationWarning(logInformation: LogInformation, error: unknown) {
-		if (!(error instanceof ValidationError)) {
+	protected logValidationWarning(error: unknown, logInformation: LogInformation) {
+		if (!(error instanceof ValidationErrorClass)) {
 			return;
 		}
 		const errorToLog = this.buildValidationWarningToLog(logInformation, error);
 		this.loggerService.warnWithExtra(errorToLog);
 	}
 
-	protected buildValidationWarningToLog(logInformation: LogInformation, error: ValidationError) {
+	protected buildValidationWarningToLog(logInformation: LogInformation, error: ValidationErrorClass) {
 		const extra = { error: JSON.stringify({
 			detailsOfValidationError: error.details,
 			originalResponse: error._original,

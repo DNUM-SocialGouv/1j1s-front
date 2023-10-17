@@ -14,6 +14,7 @@ import {
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { apiResponseValidate } from '~/server/services/error/apiResponseValidator';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
@@ -26,14 +27,12 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	async search(filtre: AlternanceFiltre): Promise<Either<ResultatRechercheAlternance>> {
 		try {
 			const response = await this.getAlternanceListe(filtre);
-			const validateSchemasResponse = apiLaBonneAlternanceSchemas.search.validate(response.data);
-			if (validateSchemasResponse.error) {
-				this.errorManagementServiceSearch.handleValidationError(validateSchemasResponse.error, {
-					apiSource: 'API LaBonneAlternance',
-					contexte: 'search la bonne alternance recherche alternance',
-					message: 'erreur de validation du schéma de l’api',
-				});
-			}
+			const validateSchemasResponse = apiResponseValidate(response.data, apiLaBonneAlternanceSchemas.search);
+			this.errorManagementServiceSearch.handleValidationError(validateSchemasResponse, {
+				apiSource: 'API LaBonneAlternance',
+				contexte: 'search la bonne alternance recherche alternance',
+				message: 'erreur de validation du schéma de l’api',
+			});
 			return createSuccess(mapAlternanceListe(response.data));
 		} catch (error) {
 			return this.errorManagementServiceSearch.handleFailureError(error, {
