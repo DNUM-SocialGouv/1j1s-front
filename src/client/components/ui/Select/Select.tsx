@@ -193,7 +193,7 @@ export function Select(props: SelectProps) {
 					onClick={() => setIsOptionListOpen(!isOptionListOpen)}
 					onBlur={() => required ? setIsTouched(true) : undefined}>
 					<span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
-					<input
+					<input // TODO GMO 17-10-2023 Ne pas avoir un input en tant que child element d'un button (non valide selon spec HTML)
 						className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
 						id={selectId.current}
 						tabIndex={-1}
@@ -201,7 +201,7 @@ export function Select(props: SelectProps) {
 						value={selectedValue}
 						aria-hidden={true}
 						aria-invalid={hasError}
-						aria-errormessage={errorMessageBy.current}
+						aria-errormessage={errorMessageBy.current} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
 						data-testid="Select-InputHidden"
 						autoComplete="off"
 						required={required}
@@ -212,7 +212,7 @@ export function Select(props: SelectProps) {
 				{isOptionListOpen && renderOptionList()}
 			</div>
 			{hasError &&
-        <p className={classNames(styles.inputError)} id={errorMessageBy.current}>
+        <p className={classNames(styles.inputError)} id={errorMessageBy.current}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */ }
         	{errorMessage}
         </p>
 			}

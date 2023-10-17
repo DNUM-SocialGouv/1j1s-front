@@ -5,7 +5,7 @@ import styles from '~/client/components/ui/Icon/icon.module.scss';
 import { SvgProps } from '~/client/components/ui/Icon/svgProps.type';
 
 export function MapPinIcon({ color = 'currentColor', className, ...rest }: SvgProps) {
-	const clipPathId = useId();  // Note: GMO 13-10-2023 Permet d'éviter un id par défaut sur le composant qui pose problème si le composant est utilisé plusieurs fois dans la même page
+	const clipPathId = useId();  // Note: GMO 17-10-2023 Permet d'éviter un id par défaut sur le composant qui pose problème si le composant est utilisé plusieurs fois dans la même page
 	return (
 		<svg width="16" height="16" className={classNames(className, styles.size)} viewBox="0 0 16 16" fill={color} xmlns="http://www.w3.org/2000/svg" {...rest}>
 			<g clipPath={`url(#${clipPathId})`}>

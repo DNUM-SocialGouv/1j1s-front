@@ -51,7 +51,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 				{consommationTexte}
 			</Tooltip>
 			<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
-				 { ...(emissionDeGaz ? { 'aria-describedby': 'consommation-energetique' } : {})}
+				 aria-describedby={consommationEnergetique && 'consommation-energetique'}
 				className={styles.tag}
 				style={{
 					'--color': `var(--color-${consommationEnergetique?.toLowerCase()})`,
@@ -67,7 +67,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 			<Tooltip icon='information' ariaLabel='informations supplémentaires' tooltipId='informations-supplementaires-gaz-effet-serre'>
 				{emissionTexte}
 			</Tooltip>
-			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} { ...(emissionDeGaz ? { 'aria-describedby': 'emission-de-gaz' } : {})}
+			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby={emissionDeGaz && 'emission-de-gaz'}
 				className={styles.tag}
 				style={{
 					'--color': `var(--color-${emissionDeGaz?.toLowerCase()})`,

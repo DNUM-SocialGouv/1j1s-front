@@ -37,7 +37,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 	} = props;
 	const ref = useSynchronizedRef(outerRef);
 	const [valueState, setValueState] = useState<typeof defaultValue>(defaultValue ?? '');
-	const [error, setError] = useState('');
+	const [error, setError] = useState<string | undefined>(undefined);
 	const [touched, setTouched] = useState(false);
 
 	useLayoutEffect(function validateInput() {

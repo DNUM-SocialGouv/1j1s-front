@@ -96,6 +96,20 @@ describe('TextInput', () => {
 				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
 				expect(input).toBeValid();
 			});
+			it('ne contient pas d\'attribut aria-errormessage', () => {
+				render(
+					<InputText
+						label="Mon champ texte"
+						name="inputName"
+						hint="Entrez un nom pair"
+						validation={validateEvenInputValue}
+						value='6'
+					/>,
+				);
+
+				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
+				expect(input).not.toHaveAttribute('aria-errormessage');
+			});
 		});
 
 		describe('quand celle-ci n‘est pas vérifiée', () => {
