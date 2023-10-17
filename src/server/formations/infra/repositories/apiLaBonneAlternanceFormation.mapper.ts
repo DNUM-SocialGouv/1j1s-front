@@ -36,15 +36,17 @@ export function parseIdFormation(id: string): IdRcoAndCléMinistèreÉducatif {
 	};
 }
 
-export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation => {
-	const apiFormationResult = response.results[0]; // todo SULI : gérer tableau vide
+export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation | undefined => {
+	if(response.results.length === 0) return;
+
+	const apiFormationResult = response.results[0];
 	return {
 		adresse: {
 			adresseComplete: apiFormationResult.place?.fullAddress,
 			codePostal: apiFormationResult.place?.zipCode,
 		},
 		description: apiFormationResult.training?.description,
-		nomEntreprise: apiFormationResult.company?.headquarter?.name,
+		nomEntreprise: apiFormationResult.company?.name,
 		nombreHeuresAuCentre: undefined,
 		nombreHeuresEnEntreprise: undefined, // NOTE (SULI 17-10-2023): LBA se renseigne de leur côté s'ils peuvent nous fournir ces données d'heure sur le retour de leur nouvel endpoint
 		objectif: apiFormationResult.training?.objectif,

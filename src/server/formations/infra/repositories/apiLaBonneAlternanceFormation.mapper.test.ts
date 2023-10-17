@@ -60,44 +60,57 @@ describe('mapRésultatRechercheFormation', () => {
 });
 
 describe('mapFormation', () => {
-	it('convertit une response en formation description', () => {
-		const apiResponse = anApiLaBonneAlternanceFormationResponse({
-			cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
-			company: {
-				headquarter: {
+	describe('quand il y a un résultat', () => {
+		it('convertit une response en formation description', () => {
+			const apiResponse = anApiLaBonneAlternanceFormationResponse([{
+				cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
+				company: {
 					name: 'La Bonne Alternance',
 				},
-			},
-			id: '085120P01213002197060001130021970600011-46314#L01',
-			place: {
-				city: 'Paris',
-				fullAddress: '1 rue de la République 75001 Paris',
-				zipCode: '75001',
-			},
-			title: 'Développeur web',
-			training: {
+				id: '085120P01213002197060001130021970600011-46314#L01',
+				place: {
+					city: 'Paris',
+					fullAddress: '1 rue de la République 75001 Paris',
+					zipCode: '75001',
+				},
+				title: 'Développeur web',
+				training: {
+					description: 'Description de la formation',
+					objectif: 'Objectifs de la formation',
+				},
+			}],
+			);
+
+			const expectedFormation = aFormation({
+				adresse: {
+					adresseComplete: '1 rue de la République 75001 Paris',
+					codePostal: '75001',
+				},
 				description: 'Description de la formation',
+				nomEntreprise: 'La Bonne Alternance',
+				nombreHeuresAuCentre: undefined,
+				nombreHeuresEnEntreprise: undefined,
 				objectif: 'Objectifs de la formation',
-			},
-		},
-		);
+				tags: ['Paris'],
+				titre: 'Développeur web',
+			});
 
-		const expectedFormation = aFormation({
-			adresse: {
-				adresseComplete: '1 rue de la République 75001 Paris',
-				codePostal: '75001',
-			},
-			description: 'Description de la formation',
-			nomEntreprise: 'La Bonne Alternance',
-			nombreHeuresAuCentre: undefined,
-			nombreHeuresEnEntreprise: undefined,
-			objectif: 'Objectifs de la formation',
-			tags: ['Paris'],
-			titre: 'Développeur web',
+			const result = mapFormation(apiResponse);
+
+			expect(result).toEqual(expectedFormation);
 		});
+	});
 
-		const result = mapFormation(apiResponse);
+	describe('quand il n’y a pas de résultat dans la réponse de l’API', () => {
+		it('retourne undefined', () => {
+			// GIVEN
+			const apiResponseWithEmptyResult = anApiLaBonneAlternanceFormationResponse([]);
 
-		expect(result).toEqual(expectedFormation);
+			// WHEN
+			const result = mapFormation(apiResponseWithEmptyResult);
+
+			// THEN
+			expect(result).toBe(undefined);
+		});
 	});
 });

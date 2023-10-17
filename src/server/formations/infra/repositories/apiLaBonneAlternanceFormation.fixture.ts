@@ -70,9 +70,7 @@ export const anApiLaBonneAlternanceFormation = (overrides? : Partial<ApiLaBonneA
 	return {
 		cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
 		company: {
-			headquarter: {
-				name: 'La Bonne Alternance',
-			},
+			name: 'La Bonne Alternance',
 		},
 		id: '085120P01213002197060001130021970600011-46314#L01',
 		place: {
@@ -89,10 +87,8 @@ export const anApiLaBonneAlternanceFormation = (overrides? : Partial<ApiLaBonneA
 	};
 };
 
-export const anApiLaBonneAlternanceFormationResponse = (overrides: ApiLaBonneAlternanceFormation = anApiLaBonneAlternanceFormation()): ApiLaBonneAlternanceFormationResponse => {
+export const anApiLaBonneAlternanceFormationResponse = (formationResults: ApiLaBonneAlternanceFormation[] = [anApiLaBonneAlternanceFormation()]): ApiLaBonneAlternanceFormationResponse => {
 	return {
-		results: [
-			overrides,
-		],
+		results: formationResults,
 	};
 };

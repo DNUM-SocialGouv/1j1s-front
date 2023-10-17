@@ -1,4 +1,4 @@
-import { createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
@@ -63,6 +63,13 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 		try {
 			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formation/${encodedCleMinistereEducatif}`);
 			const formation = mapFormation(apiResponse.data);
+			if(formation === undefined) {
+				if(filtreRecherchePourRetrouverLaFormation) {
+					return await this.getFormationFromSearch(filtreRecherchePourRetrouverLaFormation, id, cleMinistereEducatif);
+				} else {
+					return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+				}
+			}
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (error) {
