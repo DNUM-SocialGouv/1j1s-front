@@ -1,3 +1,5 @@
+import { ValidationError } from 'joi';
+
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
@@ -9,7 +11,10 @@ import {
 import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
-import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import {
+	aLogInformation,
+	anErrorManagementService,
+} from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -63,6 +68,47 @@ describe('ApiÉtablissementPublicRepository', () => {
 				expect(result.instance).toEqual('failure');
 				expect((result as Failure).errorType).toEqual(ErreurMetier.DEMANDE_INCORRECTE);
 			});
+		});
+
+		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
+			const errorManagementServiceSearch = anErrorManagementService();
+			const idWithInvalidFormat = 0 as unknown as string;
+			searchResponse.features[0].properties.id = idWithInvalidFormat;
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+
+			// When
+			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
+
+			// Then
+			expect(result.instance).toEqual('success');
+			expect(errorManagementServiceSearch.handleValidationError).toHaveBeenCalledWith(
+				new ValidationError('"[0].properties.id" must be a string', [], 'features[0].properties.id'),
+				aLogInformation({
+					apiSource: 'API Établissement Public',
+					contexte: 'search établissement public',
+					message: 'erreur de validation du schéma de l‘api',
+				}),
+			);
+		});
+
+		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+			const errorManagementServiceSearch = anErrorManagementService();
+			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+
+			// When
+			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
+
+			// Then
+			expect(errorManagementServiceSearch.handleValidationError).not.toHaveBeenCalled();
+			expect(result.instance).toEqual('success');
 		});
 	});
 });
