@@ -348,7 +348,7 @@ describe('DefaultErrorManagementService', () => {
 			);
 
 			// WHEN
-			errorManagementService.handleValidationError(validationError, logInformation);
+			errorManagementService.logValidationError(validationError, logInformation);
 
 			// THEN
 			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);

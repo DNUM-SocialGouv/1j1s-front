@@ -1,5 +1,3 @@
-import { ValidationError } from 'joi';
-
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
@@ -12,6 +10,7 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import {
 	aLogInformation,
 	anErrorManagementService,
@@ -98,12 +97,28 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
+			const expectedApiValidationError = new ApiValidationError(
+				[
+					{
+						context: {
+							key: 'id',
+							label: 'matchas.results[0].job.id',
+							value: 1,
+						},
+						message: '"matchas.results[0].job.id" must be a string',
+						path: ['matchas', 'results', 0, 'job', 'id'],
+						type: 'string.base',
+					},
+				],
+				searchResponse,
+			);
+
 			// When
 			const result = await repository.search(anAlternanceFiltre());
 
 			// Then
-			expect(errorManagementServiceSearch.handleValidationError).toHaveBeenCalledWith(
-				new ValidationError('"matchas.results[0].job.id" must be a string', [], 'matchas.results[0].job.id'),
+			expect(errorManagementServiceSearch.logValidationError).toHaveBeenCalledWith(
+				expectedApiValidationError,
 				aLogInformation({
 					apiSource: 'API LaBonneAlternance',
 					contexte: 'search la bonne alternance recherche alternance',
@@ -132,7 +147,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			const result = await repository.search(anAlternanceFiltre());
 
 			// Then
-			expect(errorManagementServiceSearch.handleValidationError).not.toHaveBeenCalled();
+			expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();
 			expect(result.instance).toEqual('success');
 		});
 	});
@@ -192,36 +207,57 @@ describe('ApiLaBonneAlternanceRepository', () => {
 		it('appelle le management d’erreur de validation quand il y a une erreur de validation et continue l’execution', async () => {
 			const httpClientService = aPublicHttpClientService();
 			const matchaResponseWithAnAttributeWithANumberInsteadOfAString = {
-				company: { name: 'une entreprise' },
-				diplomaLevel: 'débutant',
-				job: {
-					contractType: 'Apprentissage, CDI',
-					id: 'id',
-					romeDetails: {
-						competencesDeBase: [{ libelle: 'savoir faire' }],
-						definition: 'Prépare et confectionne des produits de pâtisserie.',
+				matchas: [{
+					company: { name: 'une entreprise' },
+					diplomaLevel: 'débutant',
+					job: {
+						contractType: 'Apprentissage, CDI',
+						id: 'id',
+						romeDetails: {
+							competencesDeBase: [{ libelle: 'savoir faire' }],
+							definition: 'Prépare et confectionne des produits de pâtisserie.',
+						},
 					},
-				},
-				place: { city: 'paris' },
-				title: 1,
+					place: { city: 'paris' },
+					title: 1,
+				}],
 			};
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse({ matchas: [matchaResponseWithAnAttributeWithANumberInsteadOfAString] }));
+			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(matchaResponseWithAnAttributeWithANumberInsteadOfAString));
 			const caller = '1jeune1solution-test';
 			const errorManagementServiceSearch = anErrorManagementService();
 			const errorManagementServiceGet = anErrorManagementService();
 			const repository = new ApiLaBonneAlternanceRepository(httpClientService, caller, errorManagementServiceSearch, errorManagementServiceGet);
 
+			const expectedApiValidationError = new ApiValidationError(
+				[
+					{
+						context: {
+							key: 'title',
+							label: 'matchas[0].title',
+							value: 1,
+						},
+						message: '"matchas[0].title" must be a string',
+						path: ['matchas', 0, 'title'],
+						type: 'string.base',
+					},
+				], 
+				matchaResponseWithAnAttributeWithANumberInsteadOfAString);
+
 			// When
 			const result = await repository.get('abc');
 
 			// Then
-			expect(errorManagementServiceGet.handleValidationError).toHaveBeenCalledWith(
-				new ValidationError('"matchas[0].title" must be a string', [], 'matchas[0].title'),
-				aLogInformation({
+			expect(errorManagementServiceGet.logValidationError).toHaveBeenCalledWith(
+				expect.any(ApiValidationError),
+				expect.anything(),
+			);
+			expect(errorManagementServiceGet.logValidationError).toHaveBeenCalledWith(
+				expectedApiValidationError,
+				{
 					apiSource: 'API LaBonneAlternance',
-					contexte: 'get détail annonce alternance',
-					message: 'erreur de validation du schéma de l’api',
-				}),
+				  contexte: 'get détail annonce alternance',
+				  message: 'erreur de validation du schéma de l’api',
+				},
 			);
 			expect(result.instance).toEqual('success');
 		});

@@ -173,7 +173,7 @@ export const apiLaBonneAlternanceSchemas = {
 					city: Joi.string().allow(null),
 					fullAddress: Joi.string(),
 				}),
-				titlerieng: Joi.string().required(),
+				title: Joi.string().required(),
 			})),
 		}).required(),
 		peJobs: Joi.object({

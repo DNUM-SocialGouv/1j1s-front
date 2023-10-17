@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
-import { ValidationErrorClass } from './validationErrorClass';
+import { ApiValidationError } from './apiValidationError';
 
-export function apiResponseValidate(response: unknown, schema: Joi.Schema): ValidationErrorClass | undefined {
+export function validateApiResponse<T>(response: T, schema: Joi.Schema): ApiValidationError | undefined {
 	const { error } = schema.validate(response);
 	if (error) {
-		return new ValidationErrorClass(error.details, error._original);
+		return new ApiValidationError(error.details, error._original);
 	}
 	return undefined;
 }

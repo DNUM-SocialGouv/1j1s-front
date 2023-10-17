@@ -38,7 +38,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceSearch extends DefaultError
 			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
 			this.logError(warnToLog, Severity.WARNING);
 		} else {
-			this.logHttpError(logInformation, error);
+			this.logHttpError(error, logInformation);
 		}
 		return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 	}
@@ -72,7 +72,7 @@ export class ApiPoleEmploiOffreErrorManagementServiceGet extends DefaultErrorMan
 			const warnToLog = super.buildHttpErrorToLog(logInformation, error);
 			this.logError(warnToLog, Severity.WARNING);
 		} else {
-			this.logHttpError(logInformation, error);
+			this.logHttpError(error, logInformation);
 		}
 		return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 	}
