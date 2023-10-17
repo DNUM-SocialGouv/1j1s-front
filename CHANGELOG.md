@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.160.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.14...v3.160.0) (2023-10-17)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **accompagnement:** validation api accompagnement ([#2132](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2132)) ([4618ec2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4618ec28fce472ced5b9e20485d897a0afb8bcc1))
+
 ## [3.159.14](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.159.13...v3.159.14) (2023-10-16)
 
 
