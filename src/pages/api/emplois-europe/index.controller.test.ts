@@ -4,7 +4,6 @@ import nock from 'nock';
 import { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
-import { aResultatRechercheEmploiEuropeList } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import {
 	aResultatRechercheApiEuresEmploiEurope,
 	aResultatRechercheDetailApiEuresEmploiEurope,
@@ -56,6 +55,22 @@ describe('rechercher emplois en Europe', () => {
 			},
 		});
 
+		const expected: ResultatRechercheEmploiEurope = {
+			nombreResultats: 2,
+			offreList: [
+				{
+					id: '1',
+					nomEntreprise: 'La Boulangerie',
+					titre: 'Boulanger (H/F)',
+				},
+				{
+					id: '2',
+					nomEntreprise: 'La Pâtisserie',
+					titre: 'Pâtissier (H/F)',
+				},
+			],
+		};
+
 		nock('https://webgate.acceptance.ec.europa.eu/eures-api/output/api/v1/jv/').post(
 			'/search',
 			{
@@ -83,7 +98,7 @@ describe('rechercher emplois en Europe', () => {
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
-				expect(json).toEqual(aResultatRechercheEmploiEuropeList());
+				expect(json).toEqual(expected);
 			},
 			url: '/europe',
 		});
