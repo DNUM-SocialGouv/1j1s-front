@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.160.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.160.2...v3.160.3) (2023-10-18)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v9.1.2 ([#2142](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2142)) ([4be3812](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4be3812ca8707d25943ccf0808fa40af349b8724))
+* **deps:** update dependency pino to v8.16.0 ([#2134](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2134)) ([6428121](https://github.com/DNUM-SocialGouv/1j1s-front/commit/642812150fe4d8aa80759e8c5b3374791edd9d69))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-plugin-testing-library to v6.1.0 ([#2147](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2147)) ([897a00e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/897a00ec4a085de6f7491d04e1d7c7eacdaf1e75))
+* **deps:** update getmeili/meilisearch docker tag to v1.4.1 ([#2146](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2146)) ([bcc23f0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bcc23f071a72d662b5c17f2fcc47117a5af49071))
+
 ## [3.160.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.160.1...v3.160.2) (2023-10-18)
 
 
