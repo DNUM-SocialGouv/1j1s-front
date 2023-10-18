@@ -153,7 +153,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots/configuration/dependencies.container';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { NullCacheService } from '~/server/services/cache/cacheService.fixture';
+import { NullCacheService } from '~/server/services/cache/nullCache.service';
 import { RedisCacheService } from '~/server/services/cache/redisCache.service';
 import { DefaultErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';

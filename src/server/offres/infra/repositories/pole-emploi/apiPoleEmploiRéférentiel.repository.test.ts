@@ -5,7 +5,7 @@ import {
 	aRésultatsRéférentielCommunesResponseList,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { NullCacheService } from '~/server/services/cache/cacheService.fixture';
+import { NullCacheService } from '~/server/services/cache/nullCache.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import {
 	anAuthenticatedHttpClientService,
