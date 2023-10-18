@@ -9,6 +9,7 @@ import { dependencies } from '~/server/start';
 
 export const emploiEuropeRechercheQuerySchema = Joi.object({
 	motCle: Joi.string(),
+	page: Joi.number().min(1).required(),
 }).options({ allowUnknown: true });
 
 export async function rechercherEmploiEuropeHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -23,5 +24,6 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 	const { query } = request;
 	return {
 		motCle: query.motCle as string,
+		page: Number(query.page),
 	};
 }

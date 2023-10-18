@@ -22,7 +22,10 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const body = anApiEuresRechercheBody('boulanger');
 
 				// When
-				repository.search({ motCle: 'boulanger' });
+				repository.search({
+					motCle: 'boulanger',
+					page: 1,
+				});
 
 				// Then
 				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
@@ -38,7 +41,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					dataSetRequest: {
 						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
 						pageNumber: '1',
-						resultsPerPage: '40',
+						resultsPerPage: '15',
 						sortBy: 'BEST_MATCH',
 					},
 					searchCriteria: {
@@ -46,7 +49,41 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				};
 
 				// When
-				repository.search({});
+				repository.search({
+					page: 1,
+				});
+
+				// Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
+		});
+
+		describe('quand une page différente de 1 est fournie', () => {
+			it('appelle l’api Eures avec la page correspondante', () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+				const page = 22;
+				const body = {
+					dataSetRequest: {
+						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						pageNumber: `${page}`,
+						resultsPerPage: '15',
+						sortBy: 'BEST_MATCH',
+					},
+					searchCriteria: {
+						facetCriteria: [
+							{ facetName: 'LOCATION', facetValues: ['NL'] },
+							{ facetName: 'EXPERIENCE', facetValues: ['A', 'B'] },
+							{ facetName: 'POSITION_OFFERING', facetValues: ['apprenticeship','contracttohire','directhire','seasonal','selfemployed','temporary'] },
+						],
+					},
+				};
+
+				// When
+				repository.search({
+					page: page,
+				});
 
 				// Then
 				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
@@ -65,7 +102,10 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 
 				// WHEN
-				const { errorType } = await repository.search({ motCle: 'boulanger' }) as Failure;
+				const { errorType } = await repository.search({
+					motCle: 'boulanger',
+					page: 1,
+				}) as Failure;
 
 				// THEN
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
