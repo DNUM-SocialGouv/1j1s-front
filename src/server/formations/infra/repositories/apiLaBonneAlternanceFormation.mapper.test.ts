@@ -87,6 +87,7 @@ describe('mapFormation', () => {
 					codePostal: '75001',
 				},
 				description: 'Description de la formation',
+				dureeIndicative: undefined,
 				nomEntreprise: 'La Bonne Alternance',
 				nombreHeuresAuCentre: undefined,
 				nombreHeuresEnEntreprise: undefined,

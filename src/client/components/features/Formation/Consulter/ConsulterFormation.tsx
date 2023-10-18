@@ -36,6 +36,12 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 							<p>{formation.objectif}</p>
 						</>
 					}
+					{formation.dureeIndicative &&
+						<>
+							<h3>Durée de la formation :</h3>
+							<p>{formation.dureeIndicative}</p>
+						</>
+					}
 					{(!!formation.nombreHeuresEnEntreprise || !!formation.nombreHeuresAuCentre) &&
 						<>
 							<h3>Modalités de l’alternance :</h3>

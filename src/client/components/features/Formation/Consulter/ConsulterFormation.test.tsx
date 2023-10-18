@@ -21,6 +21,7 @@ describe('ConsulterFormation', () => {
 				codePostal: '75001',
 			},
 			description: 'Description de la formation',
+			dureeIndicative: '1 an',
 			nomEntreprise: 'La Bonne Alternance',
 			nombreHeuresAuCentre: 100,
 			nombreHeuresEnEntreprise: 200,
@@ -41,6 +42,8 @@ describe('ConsulterFormation', () => {
 		expect(description).toBeVisible();
 		const objectif = screen.queryByText(formation.objectif!);
 		expect(objectif).toBeVisible();
+		const dureeIndicative = screen.queryByText(formation.dureeIndicative!);
+		expect(dureeIndicative).toBeVisible();
 		const nombreHeuresEnEntreprise = screen.queryByText(formation.nombreHeuresEnEntreprise!, { exact: false });
 		expect(nombreHeuresEnEntreprise).toBeVisible();
 		const nombreHeuresAuCentre = screen.queryByText(formation.nombreHeuresAuCentre!, { exact: false });
