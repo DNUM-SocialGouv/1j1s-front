@@ -50,7 +50,7 @@ jest.mock('~/server/services/serverConfiguration.service', () => {
 					POLE_EMPLOI_CONNECT_CLIENT_SECRET: 'POLE_EMPLOI_CONNECT_CLIENT_SECRET',
 					POLE_EMPLOI_CONNECT_SCOPE: 'POLE_EMPLOI_CONNECT_SCOPE',
 					POLE_EMPLOI_CONNECT_URL: 'https://entreprise.pole-emploi.fr',
-					REDIS_URL: 'REDIS_URL',
+					REDIS_URL: '',
 					STRAPI_AUTH: '1j1s@gouv.fr:monmotdepassesécurisé',
 					STRAPI_URL_API: 'http://localhost:1337/api',
 					TIPIMAIL_API_BASE_URL: 'https://api.tipimail.com/v1/',
