@@ -38,6 +38,21 @@ describe('Header', () => {
 
 				expect(navigation).toBeInTheDocument();
 			});
+
+			it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" dans le menu des formations et orientations', async () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				render(<Header/>);
+				const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
+				const user = userEvent.setup();
+
+				// WHEN
+				await user.click(formationsEtOrientationNavItem);
+
+				// THEN
+				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
+				expect(campagneApprentissageLink).toBeVisible();
+			});
 		});
 
 		describe('quand la page courante est "Accueil"', () => {
@@ -92,7 +107,7 @@ describe('Header', () => {
 			});
 		});
 
-		describe('quand la fonctionnalité encart est activée', () => {
+		describe('quand la fonctionnalité de campagne de com est activée', () => {
 			it('affiche le composant Header avec l’encart', async () => {
 				// Given
 				process.env = {
@@ -112,7 +127,7 @@ describe('Header', () => {
 			});
 		});
 
-		describe('quand la fonctionnalité encart est désactivée', () => {
+		describe('quand la fonctionnalité de campagne de com est désactivée', () => {
 			it('affiche le composant Header sans l’encart', async () => {
 				// Given
 				process.env = {
@@ -130,37 +145,6 @@ describe('Header', () => {
 			});
 		});
 
-		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
-			render(<Header/>);
-			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
-			const user = userEvent.setup();
-
-			// WHEN
-			await user.click(formationsEtOrientationNavItem);
-
-			// THEN
-			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
-			expect(campagneApprentissageLink).toBeVisible();
-		});
-
-		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '0';
-			render(<Header/>);
-			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
-			const user = userEvent.setup();
-
-			// WHEN
-			await user.click(formationsEtOrientationNavItem);
-
-			// THEN
-			const campagneApprentissageLink = screen.queryByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
-			expect(campagneApprentissageLink).not.toBeInTheDocument();
-		});
 		it('affiche le lien jobs d‘été quand le feature flip est actif', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
