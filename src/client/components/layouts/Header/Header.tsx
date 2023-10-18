@@ -10,7 +10,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Header() {
 	const { isLargeScreen } = useBreakpoint();
-	const displayCampagneApprentissageBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	const enqueteSatisfactionUrl = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL ?? '';
 	const displayEnqueteSatisfactionBanner = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE === '1' && !!enqueteSatisfactionUrl;
@@ -19,9 +19,9 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			{!isLargeScreen && displayCampagneApprentissageBanner &&
-          <Link href="/choisir-apprentissage" className={styles.headerBannerMobile}>
-          	<div className={styles.headerBannerMobileTitle}>L’apprentissage, c’est le bon choix !</div>
+			{!isLargeScreen && displayCampagneEnCoursBanner &&
+          <Link href="/contrat-engagement-jeune" className={styles.headerBannerMobile}>
+          	<div className={styles.headerBannerMobileTitle}>Découvrez le Contrat Engagement Jeune, la solution pour vous&nbsp;!</div>
           	<Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
           </Link>
 			}

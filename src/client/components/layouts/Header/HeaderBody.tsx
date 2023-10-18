@@ -34,10 +34,10 @@ export function HeaderBody() {
 				</div>
 				<div className={styles.headerBodyTitle}>1jeune1solution</div>
 				{ isLargeScreen && displayBanner &&
-				  <Link href="/choisir-apprentissage" className={styles.headerBodyBanner}>
+				  <Link href="/contrat-engagement-jeune" className={styles.headerBodyBanner}>
 				  	<div>
-					    <div className={styles.headerBodyBannerTitle}>L’apprentissage, c’est le bon choix !</div>
-					    <div className={styles.headerBodyBannerContent}>Apprenez en plus sur cette voie de formation.</div>
+					    <div className={styles.headerBodyBannerTitle}>Découvrez le Contrat Engagement Jeune, la solution pour vous&nbsp;!</div>
+					    <div className={styles.headerBodyBannerContent}>Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi</div>
 				  	</div>
 				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
 				  </Link>

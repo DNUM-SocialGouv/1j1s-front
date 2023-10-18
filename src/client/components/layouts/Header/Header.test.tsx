@@ -105,10 +105,10 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
+				const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveTextContent(/Apprenez en plus sur cette voie de formation\./);
-				expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
+				expect(encartLien).toHaveTextContent(/Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i);
+				expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
 			});
 		});
 
@@ -125,7 +125,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.queryByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
+				const encartLien = screen.queryByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 				expect(encartLien).not.toBeInTheDocument();
 			});
 		});
@@ -266,9 +266,9 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
+					expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
@@ -284,7 +284,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.queryByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					const encartLien = screen.queryByRole('link', { name: /Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i });
 					expect(encartLien).not.toBeInTheDocument();
 				});
 			});
