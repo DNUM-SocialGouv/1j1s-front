@@ -97,7 +97,7 @@ describe('Header', () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
+					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -117,7 +117,7 @@ describe('Header', () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
+					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -133,7 +133,7 @@ describe('Header', () => {
 		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
 			render(<Header/>);
 			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
 			const user = userEvent.setup();
@@ -149,7 +149,7 @@ describe('Header', () => {
 		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '0';
 			render(<Header/>);
 			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
 			const user = userEvent.setup();
@@ -197,7 +197,7 @@ describe('Header', () => {
 			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+				process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
 
 				// WHEN
 				render(<Header/>);
@@ -258,7 +258,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
+						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -276,7 +276,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
+						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
 					};
 					mockUseRouter({ pathname: '/' });
 

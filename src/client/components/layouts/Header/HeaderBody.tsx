@@ -15,7 +15,7 @@ export function HeaderBody() {
 	const { isLargeScreen } = useBreakpoint();
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
+	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
 
 	return (
 		<Container className={styles.headerBodyContainer}>
