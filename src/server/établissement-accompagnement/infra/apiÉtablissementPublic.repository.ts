@@ -13,6 +13,7 @@ import {
 	apiEtablissementSearchSchemas,
 	RésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.response';
+import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -24,9 +25,9 @@ export class ApiÉtablissementPublicRepository implements ÉtablissementAccompag
 		const { commune, typeAccompagnement } = params;
 		try {
 			const { data } = await this.httpClient.get<RésultatRechercheÉtablissementPublicResponse>(`communes/${commune}/${typeAccompagnement}`);
-			const validateSchemasResponse = apiEtablissementSearchSchemas.validate(data.features);
-			if (validateSchemasResponse.error) {
-				this.errorManagement.handleValidationError(validateSchemasResponse.error, {
+			const validateSchemasResponse = validateApiResponse(data.features, apiEtablissementSearchSchemas);
+			if (validateSchemasResponse) {
+				this.errorManagement.logValidationError(validateSchemasResponse, {
 					apiSource: 'API Établissement Public',
 					contexte: 'search établissement public',
 					message: 'erreur de validation du schéma de l‘api',

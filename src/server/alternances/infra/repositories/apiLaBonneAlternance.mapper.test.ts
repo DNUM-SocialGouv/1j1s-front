@@ -440,4 +440,55 @@ describe('mapAlternance', () => {
 			});
 		});
 	});
+
+	describe('lorsque le champ matchas est en erreur', () => {
+		it('retourne les autres offres', () => {
+			// Given
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: {
+					results: [
+					],
+				},
+				matchas: {},
+				peJobs: {
+					results: [
+					],
+				},
+			};
+
+			// When
+			const result = mapAlternanceListe(input);
+
+			// Then
+			expect(result).toEqual({
+				entrepriseList: [],
+				offreList: [],
+			});
+		});
+	});
+
+	describe('lorsque le champ peJobs est en erreur', () => {
+		it('retourne les autres offres', () => {
+			// Given
+			const input: AlternanceApiJobsResponse = {
+				lbaCompanies: {
+					results: [
+					],
+				},
+				matchas: {
+					results: [],
+				},
+				peJobs: {},
+			};
+
+			// When
+			const result = mapAlternanceListe(input);
+
+			// Then
+			expect(result).toEqual({
+				entrepriseList: [],
+				offreList: [],
+			});
+		});
+	});
 });

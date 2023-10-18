@@ -13,7 +13,7 @@ export const enum ApiRejoindreLaMobilisationMessageError {
 }
 
 export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErrorManagementService {
-	protected logHttpError(logInformation: LogInformation, error: HttpError) {
+	protected logHttpError(error: HttpError, logInformation: LogInformation) {
 		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
 		this.logError(errorToLog, logInformation.severity);
 	}

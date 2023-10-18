@@ -1,8 +1,7 @@
-import { ValidationError } from 'joi';
-
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
+import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import { aLogInformation } from '~/server/services/error/errorManagement.fixture';
 import { DefaultErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -337,7 +336,21 @@ describe('DefaultErrorManagementService', () => {
 			// GIVEN
 			const loggerService = aLoggerService();
 			const errorManagementService = new DefaultErrorManagementService(loggerService);
-			const validationError = new ValidationError('ceci est une erreur de validation', [], []);
+			const validationError = new ApiValidationError(
+				[
+					{
+						context: {
+							key: 'id',
+							label: 'matchas.results[0].job.id',
+							value: 1,
+						},
+						message: '"matchas.results[0].job.id" must be a string',
+						path: ['matchas', 'results', 0, 'job', 'id'],
+						type: 'string.base',
+					},
+				],
+				{});
+			// NOTE DORO 2023-10-17: Jest ne permet pas de verifier le contenu d'un objet qui extend Error, on ne peut donc pas tester errorDetail
 			const expectedLogDetails = new SentryException(
 				`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,
 				{ context: logInformation.contexte, source: logInformation.apiSource },
@@ -345,7 +358,7 @@ describe('DefaultErrorManagementService', () => {
 			);
 
 			// WHEN
-			errorManagementService.handleValidationError(validationError, logInformation);
+			errorManagementService.logValidationError(validationError, logInformation);
 
 			// THEN
 			expect(loggerService.warnWithExtra).toHaveBeenCalledWith(expectedLogDetails);

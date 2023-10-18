@@ -90,8 +90,8 @@ export namespace AlternanceApiJobsResponse {
 }
 
 export interface AlternanceApiJobsResponse {
-	matchas?: { results: Array<AlternanceApiJobsResponse.Matcha> }
-	peJobs?: { results: Array<AlternanceApiJobsResponse.PEJobs> }
+	matchas?: { results?: Array<AlternanceApiJobsResponse.Matcha> }
+	peJobs?: { results?: Array<AlternanceApiJobsResponse.PEJobs> }
 	lbaCompanies: { results: Array<AlternanceApiJobsResponse.LbaCompanies> } | []
 }
 
@@ -175,7 +175,7 @@ export const apiLaBonneAlternanceSchemas = {
 				}),
 				title: Joi.string().required(),
 			})),
-		}),
+		}).required(),
 		peJobs: Joi.object({
 			results: Joi.array().items(Joi.object({
 				company: Joi.object({
@@ -199,6 +199,6 @@ export const apiLaBonneAlternanceSchemas = {
 				title: Joi.string().required(),
 				url: Joi.string(),
 			})),
-		}),
+		}).required(),
 	}).options({ allowUnknown: true }),
 };

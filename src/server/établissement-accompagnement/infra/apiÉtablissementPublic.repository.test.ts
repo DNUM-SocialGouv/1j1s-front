@@ -1,5 +1,3 @@
-import { ValidationError } from 'joi';
-
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
@@ -11,6 +9,7 @@ import {
 import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import {
 	aLogInformation,
 	anErrorManagementService,
@@ -85,8 +84,26 @@ describe('ApiÉtablissementPublicRepository', () => {
 
 			// Then
 			expect(result.instance).toEqual('success');
-			expect(errorManagementServiceSearch.handleValidationError).toHaveBeenCalledWith(
-				new ValidationError('"[0].properties.id" must be a string', [], 'features[0].properties.id'),
+			expect(errorManagementServiceSearch.logValidationError).toHaveBeenCalledWith(
+				new ApiValidationError(
+					[
+						{
+							context: {
+								key: 'id',
+								label: '[0].properties.id',
+								value: 0,
+							},
+							message: '"[0].properties.id" must be a string',
+							path: [
+								0,
+								'properties',
+								'id',
+							],
+							type: 'string.base',
+						},
+					],
+					searchResponse.features,
+				),
 				aLogInformation({
 					apiSource: 'API Établissement Public',
 					contexte: 'search établissement public',
@@ -107,7 +124,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
 
 			// Then
-			expect(errorManagementServiceSearch.handleValidationError).not.toHaveBeenCalled();
+			expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();
 			expect(result.instance).toEqual('success');
 		});
 	});

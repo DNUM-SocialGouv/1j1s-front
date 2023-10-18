@@ -1,7 +1,6 @@
-import { ValidationError } from 'joi';
-
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { SentryException } from '~/server/exceptions/sentryException';
+import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import { HttpError, isHttpError } from '~/server/services/http/httpError';
 
 import { createFailure, Failure } from '../../errors/either';
@@ -22,7 +21,8 @@ export interface LogInformation {
 
 export interface ErrorManagementService {
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure
-	handleValidationError(error: ValidationError, logInformation: LogInformation): void
+
+	logValidationError(error: ApiValidationError, logInformation: LogInformation): void
 }
 
 export interface ErrorManagementWithErrorCheckingService extends ErrorManagementService {
@@ -35,18 +35,19 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 
 	handleFailureError(error: unknown, logInformation: LogInformation): Failure {
 		if (isHttpError(error)) {
-			this.logHttpError(logInformation, error);
+			this.logHttpError(error, logInformation);
 			return this.createFailureForHttpError(error);
 		}
 		this.logInternalError(logInformation, error);
 		return this.createFailureForInternalError();
 	}
 
-	handleValidationError(error: ValidationError, logInformation: LogInformation): void {
-		this.logValidationWarning(logInformation, error);
+	logValidationError(error: ApiValidationError, logInformation: LogInformation): void {
+		const errorToLog = this.buildApiValidationErrorToLog(logInformation, error);
+		this.loggerService.warnWithExtra(errorToLog);
 	}
 
-	protected logHttpError(logInformation: LogInformation, error: HttpError) {
+	protected logHttpError(error: HttpError, logInformation: LogInformation) {
 		const errorToLog = this.buildHttpErrorToLog(logInformation, error);
 		this.logError(errorToLog, logInformation.severity);
 	}
@@ -90,16 +91,11 @@ export class DefaultErrorManagementService implements ErrorManagementService {
 		);
 	}
 
-	protected logValidationWarning(logInformation: LogInformation, error: unknown) {
-		if (!(error instanceof ValidationError)) {
-			return;
-		}
-		const errorToLog = this.buildValidationWarningToLog(logInformation, error);
-		this.loggerService.warnWithExtra(errorToLog);
-	}
-
-	protected buildValidationWarningToLog(logInformation: LogInformation, error: ValidationError) {
-		const extra = { error: JSON.stringify(error) };
+	protected buildApiValidationErrorToLog(logInformation: LogInformation, error: ApiValidationError) {
+		const extra = { error: JSON.stringify({
+			detailsOfValidationError: error.detailsOfValidationError,
+			originalResponse: error.originalResponse,
+		}) };
 
 		return new SentryException(
 			`[${logInformation.apiSource}] ${logInformation.message} (erreur de validation)`,

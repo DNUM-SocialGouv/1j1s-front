@@ -5,7 +5,7 @@ import {
 import { HttpError } from '~/server/services/http/httpError';
 
 export class ApiLaBonneAlternanceErrorManagementServiceSearch extends DefaultErrorManagementService {
-	protected logHttpError(logInformation: LogInformation, error: HttpError) {
+	protected logHttpError(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 429) {
 			const logInformationTooManyRequest = {
 				...logInformation,
@@ -21,7 +21,7 @@ export class ApiLaBonneAlternanceErrorManagementServiceSearch extends DefaultErr
 }
 
 export class ApiLaBonneAlternanceErrorManagementServiceGet extends DefaultErrorManagementService {
-	protected logHttpError(logInformation: LogInformation, error: HttpError) {
+	protected logHttpError(error: HttpError, logInformation: LogInformation) {
 		if (error.response?.status === 404) {
 			const logInformationAnnonceNotFound = {
 				...logInformation,

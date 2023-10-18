@@ -11,7 +11,7 @@ import {
 export function anErrorManagementService(override?: Partial<ErrorManagementService>): ErrorManagementService {
 	return {
 		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
-		handleValidationError: jest.fn(),
+		logValidationError: jest.fn(),
 		...override,
 	};
 }
@@ -28,8 +28,8 @@ export function aLogInformation(override?: Partial<LogInformation>): LogInformat
 export function anErrorManagementWithErrorCheckingService(override?: Partial<ErrorManagementWithErrorCheckingService>): ErrorManagementWithErrorCheckingService {
 	return {
 		handleFailureError: jest.fn(() => createFailure(ErreurMetier.DEMANDE_INCORRECTE)),
-		handleValidationError: jest.fn(),
 		isError: jest.fn(() => false),
+		logValidationError: jest.fn(),
 		...override,
 	};
 }
