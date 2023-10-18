@@ -308,10 +308,12 @@ describe('RechercherAlternance', () => {
 		);
 
 		const section = screen.getByRole('heading', { name: /Découvrez des services faits pour vous/i });
+		const cardCampagneApprentissage = screen.getByRole('heading', { name: /L’apprentissage est-il fait pour vous ?/i });
 		const cardPass = screen.getByRole('heading', { name: /Recherche une offre d'alternance dans la fonction publique/i });
 		const cardONISEP = screen.getByRole('heading', { name: /Besoin d‘informations sur les métiers ?/i });
 
 		expect(section).toBeVisible();
+		expect(cardCampagneApprentissage).toBeVisible();
 		expect(cardPass).toBeVisible();
 		expect(cardONISEP).toBeVisible();
 	});
@@ -349,48 +351,5 @@ describe('RechercherAlternance', () => {
 		expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expect.not.objectContaining({
 			test: 'test',
 		}));
-	});
-
-	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
-		it('on voit la carte de redirection vers la campagne', () => {
-			const alternanceServiceMock = anAlternanceService();
-			mockUseRouter({});
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
-
-			const linkCardApprentissage = screen.getByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ });
-
-			expect(linkCardApprentissage).toBeVisible();
-			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
-		});
-	});
-
-	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
-		it('on ne voit pas la carte de redirection vers la campagne', () => {
-			const alternanceServiceMock = anAlternanceService();
-			mockUseRouter({});
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
-
-			render(
-				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
-
-			expect(screen.queryByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ })).not.toBeInTheDocument();
-		});
 	});
 });
