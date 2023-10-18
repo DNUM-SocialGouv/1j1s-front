@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.161.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.160.4...v3.161.0) (2023-10-18)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cache:** env var to use mock cache service to mute redis error when developping ([#2115](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2115)) ([353015e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/353015ef806c74ddc0edaf9c44298c1fccf67195))
+
 ## [3.160.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.160.3...v3.160.4) (2023-10-18)
 
 
