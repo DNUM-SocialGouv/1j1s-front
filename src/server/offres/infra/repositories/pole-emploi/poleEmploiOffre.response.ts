@@ -103,6 +103,6 @@ export const apiPoleEmploiOffreSchema = Joi.object({
 		libelle: Joi.string(),
 	}),
 	typeContrat: Joi.string().valid('CDI', 'CDD', 'MIS', 'SAI').required(),
-});
+}).options({ allowUnknown: true });
 
 export const apiPoleEmploiOffreRechercheSchema = Joi.array().items(apiPoleEmploiOffreSchema);

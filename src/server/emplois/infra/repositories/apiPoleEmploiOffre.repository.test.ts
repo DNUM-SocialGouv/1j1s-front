@@ -1,5 +1,3 @@
-import { ValidationError } from 'joi';
-
 import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -23,6 +21,7 @@ import {
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service.fixture';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { NullCacheService } from '~/server/services/cache/nullCache.service';
+import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import {
 	anErrorManagementService,
 	anErrorManagementWithErrorCheckingService,
@@ -80,17 +79,33 @@ describe('ApiPoleEmploiOffreRepository', () => {
 						description: 1,
 					},
 				);
+				const expectedApiValidationError = new ApiValidationError(
+					[
+						{
+							context: {
+								key: 'id',
+								label: 'id',
+							},
+							message: '"id" is required',
+							path: ['id'],
+							type: 'any.required',
+						},
+					],
+					invalidResponse,
+				);
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(invalidResponse);
-				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleValidationError');
+				jest.spyOn(apiPoleEmploiErrorManagementGet, 'logValidationError');
 
 				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
 
-				expect(apiPoleEmploiErrorManagementGet.handleValidationError).toHaveBeenCalledWith(new ValidationError('"id" is required', [], '"id" is required'), {
-					apiSource: 'API Pole Emploi',
-					contexte: 'détail offre emploi', message: 'erreur de validation du schéma de l’api',
-				});
+				expect(apiPoleEmploiErrorManagementGet.logValidationError).toHaveBeenCalledWith(
+					expectedApiValidationError,
+					{
+						apiSource: 'API Pole Emploi',
+						contexte: 'détail offre emploi', message: 'erreur de validation du schéma de l’api',
+					});
 				expect(result.instance).toEqual('success');
 			});
 		});
@@ -251,17 +266,109 @@ describe('ApiPoleEmploiOffreRepository', () => {
 					},
 				);
 
+				const expectedApiValidationError = new ApiValidationError(
+					[
+						{
+							context: {
+								label: 'value',
+								value: {
+									filtresPossibles: [
+										{
+											agregation: [
+												{
+													nbResultats: 3,
+												},
+											],
+										},
+										{
+											agregation: [
+												{
+													nbResultats: 3,
+												},
+											],
+										},
+										{
+											agregation: [
+												{
+													nbResultats: 1,
+												},
+												{
+													nbResultats: 2,
+												},
+											],
+										},
+										{
+											agregation: [
+												{
+													nbResultats: 1,
+												},
+												{
+													nbResultats: 2,
+												},
+											],
+										},
+									],
+									resultats: [
+										{
+											description: 1,
+											dureeTravailLibelleConverti: 'Temps partiel',
+											entreprise: {
+												logo: undefined,
+												nom: 'LE PLEIN AIR',
+											},
+											experienceExige: 'D',
+											formations: [
+												{
+													commentaire: 'Bac Pro Automobile',
+													niveauLibelle: 'Bac ou équivalent',
+												},
+												{
+													commentaire: 'Bac Pro Moto',
+													niveauLibelle: 'Bac ou supérieur',
+												},
+											],
+											id: '132LKFB',
+											intitule: 'Barman / Barmaid (H/F)',
+											lieuTravail: {
+												libelle: '26 - BOURG LES VALENCE',
+											},
+											origineOffre: {
+												urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
+											},
+											typeContrat: 'SAI',
+										},
+									],
+								},
+							},
+							message: '"value" must be an array',
+							path: [],
+							type: 'array.base',
+						},
+					],
+					{
+						filtresPossibles: aFiltresPossiblesResponse(),
+						resultats: [
+							{
+								...aBarmanOffreEmploiApiResponse(),
+								description: 1,
+							},
+						],
+					},
+				);
+
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(invalidResponse);
-				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleValidationError');
+				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'logValidationError');
 
 				const result = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
 
-				expect(apiPoleEmploiErrorManagementSearch.handleValidationError).toHaveBeenCalledWith(new ValidationError('"[0].description" must be a string', [], '"description" must be a string'), {
-					apiSource: 'API Pole Emploi',
-					contexte: 'recherche offre emploi', message: 'erreur de validation du schéma de l’api',
-				});
+				expect(apiPoleEmploiErrorManagementSearch.logValidationError).toHaveBeenCalledWith(
+					expectedApiValidationError,
+					{
+						apiSource: 'API Pole Emploi',
+						contexte: 'recherche offre emploi', message: 'erreur de validation du schéma de l’api',
+					});
 				expect(result.instance).toEqual('success');
 			});
 		});
