@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
 
+import { Formation } from '~/server/formations/domain/formation';
 import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
 import {
 	aListeDeMetierLaBonneAlternance,
 } from '~/server/metiers/domain/métier.fixture';
 
-import { Formation } from '../../src/server/formations/domain/formation';
 import { interceptGet } from '../interceptGet';
 
 

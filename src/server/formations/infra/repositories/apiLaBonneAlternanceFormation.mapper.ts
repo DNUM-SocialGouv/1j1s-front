@@ -7,7 +7,6 @@ import {
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
 	ApiLaBonneAlternanceFormationResponse,
-	IdRcoAndCleMinistereEducatif,
 } from './apiLaBonneAlternanceFormation';
 
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
@@ -28,16 +27,13 @@ function mapIdFormation(
 	return `${response.idRco}${ID_FORMATION_SEPARATOR}${response.cleMinistereEducatif ? response.cleMinistereEducatif : ''}`;
 }
 
-export function parseIdFormation(id: string): IdRcoAndCleMinistereEducatif {
+export function getCleMinistereEducatif(id: string): string {
 	const idArray = id.split(ID_FORMATION_SEPARATOR);
-	return {
-		cleMinistereEducatif: idArray[1],
-		idRco: idArray[0],
-	};
+	return idArray[1];
 }
 
 export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation | undefined => {
-	if(response.results.length === 0) return;
+	if (response.results.length === 0) return;
 
 	const apiFormationResult = response.results[0];
 	return {

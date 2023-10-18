@@ -7,10 +7,10 @@ import {
 	ApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
+	getCleMinistereEducatif,
 	mapFormation,
 	mapRésultatRechercheFormation,
 	mapRésultatRechercheFormationToFormation,
-	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { isHttpError } from '~/server/services/http/httpError';
@@ -59,8 +59,8 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	}
 
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
-		const { cleMinistereEducatif } = parseIdFormation(id);
-		const encodedCleMinistereEducatif = encodeURIComponent(cleMinistereEducatif || ''); // todo SULI: jeter un oeil au typage why undefined
+		const cleMinistereEducatif = getCleMinistereEducatif(id);
+		const encodedCleMinistereEducatif = encodeURIComponent(cleMinistereEducatif);
 		try {
 			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formation/${encodedCleMinistereEducatif}`);
 			const formation = mapFormation(apiResponse.data);

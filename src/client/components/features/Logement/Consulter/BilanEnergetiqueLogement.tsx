@@ -46,7 +46,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 		<figure>
 			<figcaption>
 				Classe énergie
-			</figcaption>
+			</figcaption>L
 			<Tooltip icon='information' ariaLabel='informations supplémentaires' ariaDescribedBy='informations-supplementaires'>
 				{consommationTexte}
 			</Tooltip>

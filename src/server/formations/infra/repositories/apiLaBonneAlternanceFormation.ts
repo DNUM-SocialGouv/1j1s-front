@@ -20,8 +20,6 @@ export namespace ApiLaBonneAlternanceFormationRechercheResponse {
 	}
 }
 
-export type IdRcoAndCleMinistereEducatif = Pick<ApiLaBonneAlternanceFormationRechercheResponse.Formation, 'idRco' | 'cleMinistereEducatif'>;
-
 export interface ApiLaBonneAlternanceFormationRechercheResponse {
 	results: Array<ApiLaBonneAlternanceFormationRechercheResponse.Formation>;
 }
