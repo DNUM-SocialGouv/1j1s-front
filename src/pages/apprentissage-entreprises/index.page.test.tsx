@@ -4,8 +4,7 @@
 
 import '~/test-utils';
 
-import { render,screen } from '@testing-library/react';
-import * as process from 'process';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';

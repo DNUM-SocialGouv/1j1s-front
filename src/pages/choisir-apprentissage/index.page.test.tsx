@@ -5,7 +5,6 @@
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
-import * as process from 'process';
 
 import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
