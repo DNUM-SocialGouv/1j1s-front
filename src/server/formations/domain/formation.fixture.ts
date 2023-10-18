@@ -30,8 +30,6 @@ export const aFormation = (overrides?: Partial<Formation>): Formation => ({
 	description: 'Description de la formation',
 	dureeIndicative: undefined,
 	nomEntreprise: 'La Bonne Alternance',
-	nombreHeuresAuCentre: undefined,
-	nombreHeuresEnEntreprise: undefined,
 	objectif: 'Objectifs de la formation',
 	tags: ['Paris'],
 	titre: 'Développeur web',

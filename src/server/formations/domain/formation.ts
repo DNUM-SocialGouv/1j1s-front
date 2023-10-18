@@ -16,8 +16,6 @@ export type Formation = {
 	description?: string
 	objectif?: string
 	dureeIndicative?: string
-	nombreHeuresEnEntreprise?: number
-	nombreHeuresAuCentre?: number
 	adresse: { adresseComplete?: string, codePostal?: string }
 	lienDemandeRendezVous?: string
 }

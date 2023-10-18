@@ -42,17 +42,6 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 							<p>{formation.dureeIndicative}</p>
 						</>
 					}
-					{(!!formation.nombreHeuresEnEntreprise || !!formation.nombreHeuresAuCentre) &&
-						<>
-							<h3>Modalités de l’alternance :</h3>
-							{!!formation.nombreHeuresEnEntreprise &&
-								<p>Heures en entreprise : {formation.nombreHeuresEnEntreprise}h</p>
-							}
-							{!!formation.nombreHeuresAuCentre &&
-								<p>Heures en centre de formation : {formation.nombreHeuresAuCentre}h</p>
-							}
-						</>
-					}
 					{displayInformationCentreFormation &&
 						<>
 							<h3>Informations sur le centre de formation :</h3>

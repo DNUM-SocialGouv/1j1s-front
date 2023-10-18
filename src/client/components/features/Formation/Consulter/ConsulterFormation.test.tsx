@@ -23,8 +23,6 @@ describe('ConsulterFormation', () => {
 			description: 'Description de la formation',
 			dureeIndicative: '1 an',
 			nomEntreprise: 'La Bonne Alternance',
-			nombreHeuresAuCentre: 100,
-			nombreHeuresEnEntreprise: 200,
 			objectif: 'Objectifs de la formation',
 			tags: ['Paris'],
 			titre: 'Développeur web',
@@ -44,10 +42,6 @@ describe('ConsulterFormation', () => {
 		expect(objectif).toBeVisible();
 		const dureeIndicative = screen.queryByText(formation.dureeIndicative!);
 		expect(dureeIndicative).toBeVisible();
-		const nombreHeuresEnEntreprise = screen.queryByText(formation.nombreHeuresEnEntreprise!, { exact: false });
-		expect(nombreHeuresEnEntreprise).toBeVisible();
-		const nombreHeuresAuCentre = screen.queryByText(formation.nombreHeuresAuCentre!, { exact: false });
-		expect(nombreHeuresAuCentre).toBeVisible();
 		const codePostal = screen.queryByText(formation.adresse.codePostal!, { exact: false });
 		expect(codePostal).toBeVisible();
 		const adresseComplete = screen.queryByText(formation.adresse.adresseComplete!, { exact: false });
@@ -62,8 +56,6 @@ describe('ConsulterFormation', () => {
 			description: 'Description de la formation',
 			lienDemandeRendezVous: 'https://domaine.fr',
 			nomEntreprise: 'La Bonne Alternance',
-			nombreHeuresAuCentre: 100,
-			nombreHeuresEnEntreprise: 200,
 			objectif: 'Objectifs de la formation',
 			tags: ['Paris'],
 			titre: 'Développeur web',
@@ -85,8 +77,6 @@ describe('ConsulterFormation', () => {
 			description: 'Description de la formation',
 			lienDemandeRendezVous: undefined,
 			nomEntreprise: 'La Bonne Alternance',
-			nombreHeuresAuCentre: 100,
-			nombreHeuresEnEntreprise: 200,
 			objectif: 'Objectifs de la formation',
 			tags: ['Paris'],
 			titre: 'Développeur web',
