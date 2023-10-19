@@ -1,72 +1,95 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
+
+import { stringify } from 'querystring';
 
 import {
-	aResultatRechercherMultipleAlternance,
+	anAlternanceMatcha,
+	anAlternanceMatchaBoulanger,
+	anAlternancePEJobs,
 } from '~/server/alternances/domain/alternance.fixture';
-import {
-	aListeDeMetierLaBonneAlternance,
-} from '~/server/metiers/domain/métier.fixture';
+import { aMetier } from '~/server/metiers/domain/métier.fixture';
 
 import { interceptGet } from '../interceptGet';
 
+const aQuery = {
+	codeCommune: '13043',
+	codeRomes: 'D1102, D1104',
+	distanceCommune: 10,
+	latitudeCommune: 48.859,
+	libelleCommune: 'Gignac-la-Nerthe (13180)',
+	libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+	longitudeCommune: 2.347,
+};
 
 describe('Parcours alternance LBA', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 	});
 
-	it('affiche 0 résultats par défaut', () => {
+	it('ne fait pas de recherche par défaut', () => {
 		cy.visit('/apprentissage');
-		cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 0);
+		cy.findByRole('list', { name: /Offres d’alternances/i }).should('not.exist');
 	});
 
 	it('place le focus sur le premier input du formulaire de recherche', () => {
 		cy.visit('/apprentissage');
-		cy.focused().should('have.attr', 'name', 'libelleMetier');
+		cy.findByRole('combobox', { name: 'Domaine' }).should('have.focus');
 	});
 
 	describe('Quand l’utilisateur cherche un métier', () => {
-		const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
 		it('tous les métiers sont accessibles mais au maximum 10 sont visibles sans scroll', () => {
+			const listeMetiers = new Array(11).fill(aMetier());
+
 			cy.visit('/apprentissage');
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('travaux', { force: true }),
+				actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Domaine/i }).type('travaux'),
 				alias: 'recherche-mot-cle-alternances',
 				path: '/api/metiers*',
-				response: JSON.stringify(aListeDeMetierLaBonneAlternanceFixture),
+				response: JSON.stringify(listeMetiers),
 			});
 
-			cy.contains(aListeDeMetierLaBonneAlternanceFixture[0].label).should('be.visible');
-			cy.contains(aListeDeMetierLaBonneAlternanceFixture[10].label).should('not.be.visible');
-			cy.get('[role="option"]:not([hidden])').should('have.length', 11);
+			cy.findAllByRole('option').should('have.length', 11);
+			cy.findAllByRole('option').first().should('be.visible');
+			cy.findAllByRole('option').last().should('not.be.visible');
 		});
 	});
 
 	describe('Quand l’utilisateur effectue une recherche', () => {
-		it('filtre les résultats par mot clé', () => {
+		it('affiche les résultats', () => {
+			const alternances = {
+				entrepriseList: [],
+				offreList: [anAlternanceMatcha(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],
+			};
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.visit('/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Gignac-la-Nerthe+%2813180%29&codeCommune=13043&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10'),
+				actionBeforeWaitTheCall: () => cy.visit(`/apprentissage?${stringify(aQuery)}`),
 				alias: 'recherche-metiers',
 				path: '/api/alternances?*',
-				response: JSON.stringify(aResultatRechercherMultipleAlternance()),
+				response: JSON.stringify(alternances),
 			});
 
-			cy.get('ul[aria-label="Offres d’alternances"] > li').should('have.length', 4);
+			cy.findByRole('list', { name: /Offres d’alternances/i })
+				.children()
+				.should('have.length', 3);
 		});
 	});
 });
 
-context("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
+describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
 	it('retourne une erreur de demande incorrecte', () => {
 		cy.viewport('iphone-x');
+		const query = {
+			...aQuery,
+			'unwanted-query': 'not-allowed',
+		};
 
 		interceptGet({
-			actionBeforeWaitTheCall: () => cy.visit('/apprentissage?codeCommune=13180&codeRomes=D123,D122&distanceCommune=30&latitudeCommune=2.37&longitudeCommune=15.845&unwanted-query=not-allowed'),
+			actionBeforeWaitTheCall: () => cy.visit(`/apprentissage?${stringify(query)}`),
 			alias: 'recherche-alternances-failed',
 			path:'/api/alternances?*',
 			response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
 			statusCode: 400,
 		});
-		cy.contains('Erreur - Demande incorrecte').should('exist');
+		cy.findByText(/Erreur - Demande incorrecte/i).should('be.visible');
 	});
 });
