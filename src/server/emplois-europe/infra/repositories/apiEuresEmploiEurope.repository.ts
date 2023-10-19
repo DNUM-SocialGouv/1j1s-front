@@ -5,7 +5,7 @@ import {
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
-import { mapRechercheEmploiEurope } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -14,6 +14,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(
 		private readonly httpClientService: PublicHttpClientService,
 		private readonly errorManagementService: ErrorManagementService,
+		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
 	) {}
 
 	private static buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
@@ -52,7 +53,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				ApiEuresEmploiEuropeRepository.buildSearchBody(filtre),
 			);
 			const reponseDetailRecherche = await this.getDetailRecherche(reponseRecherche.data);
-			const mappedResponse = mapRechercheEmploiEurope(reponseRecherche.data, reponseDetailRecherche.data);
+			const mappedResponse = this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(reponseRecherche.data, reponseDetailRecherche.data);
 			return createSuccess(mappedResponse);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {

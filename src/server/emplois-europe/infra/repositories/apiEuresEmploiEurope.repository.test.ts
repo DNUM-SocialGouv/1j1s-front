@@ -1,18 +1,24 @@
 import { anApiEuresRechercheBody } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
+let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {
+	beforeEach(() => {
+		apiEuresEmploiEuropeMapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+	});
 	describe('search', () => {
 		describe('quand un motCle est fourni', () => {
 			it('appelle l’api Eures avec le motCle', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
-				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService());
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				const body = anApiEuresRechercheBody('boulanger');
 
 				// When
@@ -27,7 +33,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			it('appelle l’api Eures sans motCle', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
-				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService());
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				const body = {
 					dataSetRequest: {
 						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
@@ -53,7 +59,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const httpError = anHttpError(500);
 				const httpClientService = aPublicHttpClientService();
 				const errorManagementService = anErrorManagementService();
-				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService);
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));

@@ -4,14 +4,18 @@ import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
-import { mapRechercheEmploiEurope } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { createSuccess, Either } from '~/server/errors/either';
 
 export class fixtureEmploiEuropeRepository implements EmploiEuropeRepository {
+	constructor(
+		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
+	) {
+	}
 	async search(): Promise<Either<ResultatRechercheEmploiEurope>> {
 		const response = aResultatRechercheApiEuresEmploiEurope();
 		const responseDetail = aResultatRechercheDetailApiEuresEmploiEurope();
-		return createSuccess(mapRechercheEmploiEurope(response, responseDetail));
+		return createSuccess(this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(response, responseDetail));
 	}
 }
 
