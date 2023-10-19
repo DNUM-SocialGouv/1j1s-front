@@ -14,20 +14,24 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import Accueil from '~/pages/index.page';
 
 describe('Page d‘accueil', () => {
 	let analyticsService: AnalyticsService;
+	let marketingService: MarketingService;
+
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
 		analyticsService = anAnalyticsService();
+		marketingService = aMarketingService();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+			<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
 				<Accueil/>
 			</DependenciesProvider>,
 		);
@@ -35,12 +39,35 @@ describe('Page d‘accueil', () => {
 		await expect(container).toBeAccessible();
 	});
 
+	describe('marketingService', () => {
+		it('ne track pas la page si le feature flipping de la page est désactivé', () => {
+			process.env.NEXT_PUBLIC_CAMPAGNE_ACCUEIL_FEATURE= '0';
+			render(
+				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+			
+			expect(marketingService.trackPage).not.toHaveBeenCalled();
+		});
+		it('track la page si le feature flipping de la page est activé',   () => {
+			process.env.NEXT_PUBLIC_CAMPAGNE_ACCUEIL_FEATURE= '1';
+			render(
+				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+
+			expect(marketingService.trackPage).toHaveBeenCalledWith('2023-09-1jeune1solution.gouv-PageAccueil-Arrivees');
+		});
+	});
+
 	describe('jobs d‘été', () => {
 		describe('quand le feature flip de jobs d‘été n‘est pas actif', () => {
 			it('je ne vois pas la carte de redirection vers les jobs d‘été', () => {
 				process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -53,7 +80,7 @@ describe('Page d‘accueil', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -72,7 +99,7 @@ describe('Page d‘accueil', () => {
 			it('je ne vois pas la carte de redirection vers les formations initiales', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -84,7 +111,7 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={aMarketingService()}>
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
