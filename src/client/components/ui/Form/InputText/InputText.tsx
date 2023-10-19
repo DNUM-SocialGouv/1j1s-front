@@ -50,7 +50,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 	useLayoutEffect(function checkInputValidity() {
 		if (ref.current && touched) {
 			const isValid = ref.current.checkValidity();
-			setError(!isValid ? ref.current.validationMessage : '');
+			setError(!isValid ? ref.current.validationMessage : undefined);
 		}
 	}, [ref, touched, valueState]);
 

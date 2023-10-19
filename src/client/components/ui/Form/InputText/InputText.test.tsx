@@ -96,7 +96,7 @@ describe('TextInput', () => {
 				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
 				expect(input).toBeValid();
 			});
-			it('ne contient pas d\'attribut aria-errormessage', () => {
+			it('ne contient pas d\'attribut aria-errormessage quand le message d\'erreur n\'est pas présent', () => {
 				render(
 					<InputText
 						label="Mon champ texte"
