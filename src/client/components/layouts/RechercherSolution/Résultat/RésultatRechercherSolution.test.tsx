@@ -42,6 +42,26 @@ describe('RésultatRechercherSolution', () => {
 		expect(intituléOffreEmploi.textContent).toEqual(offreEmploi.intitulé);
 	});
 
+	describe('lorsque le titre de l‘offre n‘est pas fournis', () => {
+		it('je ne vois pas le titre', () => {
+			const offreEmploi = aBarmanOffre();
+
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={undefined}
+					lienOffre={`/emplois/${offreEmploi.id}`}
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+				/>,
+			);
+
+			expect(screen.queryByRole('heading', { level: 3 })).not.toBeInTheDocument();
+		});
+	});
+
 	describe('lorsque le lien d‘offre n‘existe pas', () => {
 		it('je ne peux pas clicker sur la carte', () => {
 			const offreEmploi = aBarmanOffre();
