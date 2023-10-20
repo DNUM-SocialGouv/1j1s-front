@@ -993,3 +993,131 @@ export const paysList: Pays[] = [
 		libellé: 'Zimbabwe',
 	},
 ];
+
+// NOTE (DORO 24-10-2023) : Liste issue du front de Eures
+export const paysEuropeList: Pays[] = [
+	{
+		code: 'DE',
+		libellé: 'Allemagne',
+	},
+	{
+		code: 'AT',
+		libellé: 'Autriche',
+	},
+	{
+		code: 'BE',
+		libellé: 'Belgique',
+	},
+	{
+		code: 'BG',
+		libellé: 'Bulgarie',
+	},
+	{
+		code: 'CY',
+		libellé: 'Chypre',
+	},
+	{
+		code: 'HR',
+		libellé: 'Croatie',
+	},
+	{
+		code: 'DK',
+		libellé: 'Danemark',
+	},
+	{
+		code: 'ES',
+		libellé: 'Espagne',
+	},
+	{
+		code: 'EE',
+		libellé: 'Estonie',
+	},
+	{
+		code: 'FI',
+		libellé: 'Finlande',
+	},
+	{
+		code: 'FR',
+		libellé: 'France',
+	},
+	{
+		code: 'EL',
+		libellé: 'Grèce',
+	},
+	{
+		code: 'HU',
+		libellé: 'Hongrie',
+	},
+	{
+		code: 'IE',
+		libellé: 'Irlande',
+	},
+	{
+		code: 'IS',
+		libellé: 'Islande',
+	},
+	{
+		code: 'IT',
+		libellé: 'Italie',
+	},
+	{
+		code: 'LV',
+		libellé: 'Lettonie',
+	},
+	{
+		code: 'LI',
+		libellé: 'Liechtenstein',
+	},
+	{
+		code: 'LT',
+		libellé: 'Lituanie',
+	},
+	{
+		code: 'LU',
+		libellé: 'Luxembourg',
+	},
+	{
+		code: 'MT',
+		libellé: 'Malte',
+	},
+	{
+		code: 'NO',
+		libellé: 'Norvège',
+	},
+	{
+		code: 'NL',
+		libellé: 'Pays-Bas',
+	},
+	{
+		code: 'PL',
+		libellé: 'Pologne',
+	},
+	{
+		code: 'PT',
+		libellé: 'Portugal',
+	},
+	{
+		code: 'RO',
+		libellé: 'Roumanie',
+	},
+	{
+		code: 'SK',
+		libellé: 'Slovaquie',
+	},
+	{
+		code: 'SI',
+		libellé: 'Slovénie',
+	},
+	{
+		code: 'SE',
+		libellé: 'Suède',
+	},
+	{
+		code: 'CH',
+		libellé: 'Suisse',
+	},
+	{
+		code: 'CZ',
+		libellé: 'Tchéquie',
+	},
+];

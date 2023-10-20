@@ -26,6 +26,11 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				sortBy: 'BEST_MATCH',
 			},
 			searchCriteria: {
+				facetCriteria:
+					filtre.codePays !== undefined ? [{
+						facetName: 'LOCATION',
+						facetValues: [ filtre.codePays ],
+					}] : undefined,
 				keywordCriteria:
 					filtre.motCle !== undefined ? {
 						keywordLanguageCode: 'fr',

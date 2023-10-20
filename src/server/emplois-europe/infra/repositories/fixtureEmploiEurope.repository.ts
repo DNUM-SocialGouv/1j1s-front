@@ -1028,7 +1028,7 @@ export function anApiEuresEmploiEuropeRechercheDetailResponse(): ApiEuresEmploiE
 	};
 }
 
-export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre: string, nomEntreprise?: string): string {
+export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre?: string, nomEntreprise?: string): string {
 	return `
 		<PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -1089,7 +1089,7 @@ export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre: string, n
                 </PersonContact>
             </ApplicationMethod>
         </PostingInstruction>
-        <PositionTitle>${titre}</PositionTitle>
+        ${titre ? `<PositionTitle>${titre}</PositionTitle>` : ''}
         <PositionLocation>
             <Address currentAddressIndicator="true">
                 <ns2:CityName>Paris</ns2:CityName>
@@ -1221,7 +1221,7 @@ export function aResultatRechercheDetailApiEuresEmploiEurope(override?: Partial<
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3ODMxMyA0NA',
 						},
-						hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope('Nom Offre', 'Nom Entreprise'),
+						hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope(undefined, 'Nom Entreprise'),
 					},
 					related: {
 						urls: [

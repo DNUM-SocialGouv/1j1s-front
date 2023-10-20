@@ -8,6 +8,7 @@ import { EmploiEuropeFiltre } from '~/server/emplois-europe/domain/emploiEurope'
 import { dependencies } from '~/server/start';
 
 export const emploiEuropeRechercheQuerySchema = Joi.object({
+	codePays: Joi.string(),
 	motCle: Joi.string(),
 	page: Joi.number().min(1).required(),
 }).options({ allowUnknown: true });
@@ -23,6 +24,7 @@ export default withMonitoring(withValidation({ query: emploiEuropeRechercheQuery
 export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeFiltre {
 	const { query } = request;
 	return {
+		codePays: query.codePays as string | undefined,
 		motCle: query.motCle as string | undefined,
 		page: Number(query.page),
 	};
