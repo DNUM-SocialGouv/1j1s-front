@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.162.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.161.1...v3.162.0) (2023-10-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **formation-alt:** modifier l'endpoint lba détail de formation en alternance ([#2159](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2159)) ([8197cc8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8197cc87a7bec238c70b5b9c95c0622281bd9f9b))
+
 ## [3.161.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.161.0...v3.161.1) (2023-10-19)
 
 
