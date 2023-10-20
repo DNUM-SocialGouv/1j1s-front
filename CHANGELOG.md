@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.163.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.162.0...v3.163.0) (2023-10-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** titre et employeur resultat recherche emplois en europe ([#2144](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2144)) ([f0f2723](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f0f272370b2e4445faf6c3b1cb4796fe56b820c3))
+
 ## [3.162.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.161.1...v3.162.0) (2023-10-20)
 
 
