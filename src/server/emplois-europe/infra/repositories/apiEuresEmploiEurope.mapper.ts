@@ -36,9 +36,14 @@ export class ApiEuresEmploiEuropeMapper {
 				const positionOrganization = this.getElementOrFirstElementInArray(positionProfile?.PositionOrganization);
 				const organizationIdentifiers = this.getElementOrFirstElementInArray(positionOrganization?.OrganizationIdentifiers);
 
+				const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
+				const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
+				const addressCityName = address?.['ns2:CityName'];
+
 				return {
 					id: item.header.handle,
 					nomEntreprise: organizationIdentifiers?.OrganizationName,
+					tags: addressCityName ? [addressCityName] : [],
 					titre: positionProfile?.PositionTitle,
 				};
 			}),

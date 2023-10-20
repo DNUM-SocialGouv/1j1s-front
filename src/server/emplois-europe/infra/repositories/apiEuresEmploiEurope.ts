@@ -55,9 +55,16 @@ namespace ApiEuresEmploiEuropeDetailXML {
 	export interface PositionOrganization {
 		OrganizationIdentifiers?: OrganizationIdentifiers | Array<OrganizationIdentifiers>
 	}
+	export interface Address {
+		'ns2:CityName'?: string;
+	}
+	export interface PositionLocation {
+		Address?: Address | Array<Address>
+	}
 	export interface PositionProfile {
 		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
 		PositionTitle?: string;
+		PositionLocation?: PositionLocation | Array<PositionLocation>
 	}
 	export interface PositionOpening {
 		PositionProfile?: PositionProfile | Array<PositionProfile>
