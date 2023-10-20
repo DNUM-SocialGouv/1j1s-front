@@ -1,10 +1,10 @@
-import { NiveauRequis,RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
-	aLaBonneAlternanceApiFormationResponse,
+	anApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.fixture';
 import {
 	mapFormation,
@@ -52,7 +52,7 @@ describe('mapRésultatRechercheFormation', () => {
 				titre: 'Monteur / Monteuse en plomberie (H/F)',
 			},
 		];
-		
+
 		const result = mapRésultatRechercheFormation(input);
 
 		expect(result).toEqual(expected);
@@ -60,13 +60,56 @@ describe('mapRésultatRechercheFormation', () => {
 });
 
 describe('mapFormation', () => {
-	it('convertit une response en formation description', () => {
-		const input = aLaBonneAlternanceApiFormationResponse();
+	describe('quand il y a un résultat', () => {
+		it('convertit une response en formation description', () => {
+			const apiResponse = anApiLaBonneAlternanceFormationResponse([{
+				cleMinistereEducatif: '085120P01213002197060001130021970600011-46314#L01',
+				company: {
+					name: 'La Bonne Alternance',
+				},
+				id: '085120P01213002197060001130021970600011-46314#L01',
+				place: {
+					city: 'Paris',
+					fullAddress: '1 rue de la République 75001 Paris',
+					zipCode: '75001',
+				},
+				title: 'Développeur web',
+				training: {
+					description: 'Description de la formation',
+					objectif: 'Objectifs de la formation',
+				},
+			}],
+			);
 
-		const expected = aFormation();
-		
-		const result = mapFormation(input);
-		
-		expect(result).toEqual(expected);
+			const expectedFormation = aFormation({
+				adresse: {
+					adresseComplete: '1 rue de la République 75001 Paris',
+					codePostal: '75001',
+				},
+				description: 'Description de la formation',
+				dureeIndicative: undefined,
+				nomEntreprise: 'La Bonne Alternance',
+				objectif: 'Objectifs de la formation',
+				tags: ['Paris'],
+				titre: 'Développeur web',
+			});
+
+			const result = mapFormation(apiResponse);
+
+			expect(result).toEqual(expectedFormation);
+		});
+	});
+
+	describe('quand il n’y a pas de résultat dans la réponse de l’API', () => {
+		it('retourne undefined', () => {
+			// GIVEN
+			const apiResponseWithEmptyResult = anApiLaBonneAlternanceFormationResponse([]);
+
+			// WHEN
+			const result = mapFormation(apiResponseWithEmptyResult);
+
+			// THEN
+			expect(result).toBe(undefined);
+		});
 	});
 });

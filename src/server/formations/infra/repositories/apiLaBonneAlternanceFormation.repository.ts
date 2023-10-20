@@ -1,4 +1,4 @@
-import { createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Formation, FormationFiltre, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { FormationRepository } from '~/server/formations/domain/formation.repository';
@@ -7,10 +7,10 @@ import {
 	ApiLaBonneAlternanceFormationResponse,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation';
 import {
+	getCleMinistereEducatif,
 	mapFormation,
 	mapRésultatRechercheFormation,
 	mapRésultatRechercheFormationToFormation,
-	parseIdFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { isHttpError } from '~/server/services/http/httpError';
@@ -20,7 +20,8 @@ const DEMANDE_RENDEZ_VOUS_REFERRER = 'jeune_1_solution';
 export const ID_FORMATION_SEPARATOR = '__';
 
 export class ApiLaBonneAlternanceFormationRepository implements FormationRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementService: ErrorManagementService) {
+	}
 
 	async search(filtre: FormationFiltre): Promise<Either<Array<RésultatRechercheFormation>>> {
 		const searchResult = await this.searchFormationWithFiltre(filtre);
@@ -58,10 +59,18 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 	}
 
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
-		const { idRco: formationId, cleMinistereEducatif } = parseIdFormation(id);
+		const cleMinistereEducatif = getCleMinistereEducatif(id);
+		const encodedCleMinistereEducatif = encodeURIComponent(cleMinistereEducatif);
 		try {
-			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formationDescription/${formationId}`);
+			const apiResponse = await this.httpClientService.get<ApiLaBonneAlternanceFormationResponse>(`/v1/formations/formation/${encodedCleMinistereEducatif}`);
 			const formation = mapFormation(apiResponse.data);
+			if (formation === undefined) {
+				if (filtreRecherchePourRetrouverLaFormation) {
+					return await this.getFormationFromSearch(filtreRecherchePourRetrouverLaFormation, id, cleMinistereEducatif);
+				} else {
+					return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+				}
+			}
 			formation.lienDemandeRendezVous = await this.getFormationLienRendezVous(cleMinistereEducatif);
 			return createSuccess(formation);
 		} catch (error) {
@@ -114,7 +123,9 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			if (!cleMinistereEducatif) {
 				return undefined;
 			}
-			const response = await this.httpClientService.post<{ idCleMinistereEducatif: string, referrer: string }, { form_url: string }>(
+			const response = await this.httpClientService.post<{ idCleMinistereEducatif: string, referrer: string }, {
+				form_url: string
+			}>(
 				'/appointment-request/context/create',
 				{
 					idCleMinistereEducatif: cleMinistereEducatif,

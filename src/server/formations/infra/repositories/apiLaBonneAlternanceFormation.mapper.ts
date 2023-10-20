@@ -1,4 +1,4 @@
-import { Formation,RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { Formation, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { mapNiveauFormation } from '~/server/formations/domain/formation.mapper';
 import {
 	ID_FORMATION_SEPARATOR,
@@ -6,7 +6,7 @@ import {
 
 import {
 	ApiLaBonneAlternanceFormationRechercheResponse,
-	ApiLaBonneAlternanceFormationResponse, IdRcoAndCléMinistèreÉducatif,
+	ApiLaBonneAlternanceFormationResponse,
 } from './apiLaBonneAlternanceFormation';
 
 export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFormationRechercheResponse): Array<RésultatRechercheFormation> => {
@@ -27,55 +27,34 @@ function mapIdFormation(
 	return `${response.idRco}${ID_FORMATION_SEPARATOR}${response.cleMinistereEducatif ? response.cleMinistereEducatif : ''}`;
 }
 
-export function parseIdFormation(id: string): IdRcoAndCléMinistèreÉducatif {
+export function getCleMinistereEducatif(id: string): string {
 	const idArray = id.split(ID_FORMATION_SEPARATOR);
-	return {
-		cleMinistereEducatif: idArray[1],
-		idRco: idArray[0],
-	};
+	return idArray[1];
 }
 
-function mapFormationAdresse(
-	adresse: string | undefined,
-	codePostal: string | undefined,
-	ville: string | undefined,
-): Formation['adresse'] {
-	const adresseComplèteArray = [adresse || '', codePostal || '', ville || ''].filter((element) => element !== '');
-	return {
-		adresseComplète: adresseComplèteArray.join(' - '),
-		codePostal,
-	};
-}
+export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation | undefined => {
+	if (response.results.length === 0) return;
 
-export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): Formation => {
-	const session = response.sessions[0];
+	const apiFormationResult = response.results[0];
 	return {
-		adresse: mapFormationAdresse(session.localisation?.formation?.adresse,
-			session.localisation?.formation?.['code-postal'],
-			session.localisation?.formation?.ville,
-		),
-		contact: {
-			email: response.organisme?.contact?.email,
-			tel: response.organisme?.contact?.tel,
-			url: response.organisme?.contact?.url,
+		adresse: {
+			adresseComplete: apiFormationResult.place?.fullAddress,
+			codePostal: apiFormationResult.place?.zipCode,
 		},
-		description: response.description,
-		duréeIndicative: response['duree-indicative'],
-		nomEntreprise: response.organisme?.nom,
-		nombreHeuresAuCentre: session['nombre-heures-centre'],
-		nombreHeuresEnEntreprise: session['nombre-heures-entreprise'],
-		objectif: response.objectif,
-		tags: [session.localisation?.formation?.ville || ''],
-		titre: response.intitule,
+		description: apiFormationResult.training?.description,
+		dureeIndicative: undefined, // NOTE (SULI 17-10-2023): LBA doit calculer cette donnée et nous la fournir dans un champ qu'ils nous préciseront
+		nomEntreprise: apiFormationResult.company?.name,
+		objectif: apiFormationResult.training?.objectif,
+		tags: [apiFormationResult.place?.city || ''],
+		titre: apiFormationResult.title,
 	};
 };
 
-export const mapRésultatRechercheFormationToFormation = (résultatRechercheFormation: RésultatRechercheFormation):Formation => ({
+export const mapRésultatRechercheFormationToFormation = (résultatRechercheFormation: RésultatRechercheFormation): Formation => ({
 	adresse: {
-		adresseComplète: résultatRechercheFormation.adresse,
+		adresseComplete: résultatRechercheFormation.adresse,
 		codePostal: résultatRechercheFormation.codePostal,
 	},
-	contact: {},
 	nomEntreprise: résultatRechercheFormation.nomEntreprise,
 	tags: [résultatRechercheFormation.tags[0] || ''],
 	titre: résultatRechercheFormation.titre,
