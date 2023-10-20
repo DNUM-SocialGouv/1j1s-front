@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.165.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.165.0...v3.165.1) (2023-10-20)
+
+
+### 🐛 Corrections de bogues
+
+* différents correctifs sur la validité du HTML ([#2160](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2160)) ([082de06](https://github.com/DNUM-SocialGouv/1j1s-front/commit/082de06bd102339d7f4fce531c3a5b5303dccd5c))
+
 ## [3.165.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.164.0...v3.165.0) (2023-10-20)
 
 
