@@ -23,7 +23,7 @@ export default withMonitoring(withValidation({ query: emploiEuropeRechercheQuery
 export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeFiltre {
 	const { query } = request;
 	return {
-		motCle: query.motCle as string,
+		motCle: query.motCle as string | undefined,
 		page: Number(query.page),
 	};
 }

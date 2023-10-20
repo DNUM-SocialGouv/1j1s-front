@@ -1,3 +1,5 @@
+export const NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE = 15;
+
 export interface ApiEuresEmploiEuropeRechercheResponse {
 	data: {
 		dataSetInfo: {
@@ -66,5 +68,3 @@ export interface ApiEuresEmploiEuropeDetailXML {
 	PositionOpening?: ApiEuresEmploiEuropeDetailXML.PositionOpening
 		| Array<ApiEuresEmploiEuropeDetailXML.PositionOpening>
 }
-
-export const NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE = 15;

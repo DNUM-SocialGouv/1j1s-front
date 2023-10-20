@@ -17,7 +17,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
 	) {}
 
-	private static buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
+	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		return {
 			dataSetRequest: {
 				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
@@ -50,7 +50,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		try {
 			const reponseRecherche: { data: ApiEuresEmploiEuropeRechercheResponse } = await this.httpClientService.post(
 				endpoint,
-				ApiEuresEmploiEuropeRepository.buildSearchBody(filtre),
+				this.buildSearchBody(filtre),
 			);
 			const reponseDetailRecherche = await this.getDetailRecherche(reponseRecherche.data);
 			const mappedResponse = this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(reponseRecherche.data, reponseDetailRecherche.data);
