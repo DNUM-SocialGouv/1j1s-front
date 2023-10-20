@@ -37,6 +37,7 @@ import {
 	EmploiEuropeDependencies,
 	emploiEuropeDependenciesContainer,
 } from '~/server/emplois-europe/configuration/dependencies.container';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
 import { fixtureEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
 import {
@@ -163,6 +164,7 @@ import { LoggerService } from '~/server/services/logger.service';
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 import ServerConfigurationService from '~/server/services/serverConfiguration.service';
+import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
@@ -308,10 +310,12 @@ export function dependenciesContainer(): Dependencies {
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
-	const apiEuresEmploiEuropeRepository = new ApiEuresEmploiEuropeRepository(apiEuresHttpClientService, defaultErrorManagementService);
+	const apiEuresXmlService = new FastXmlParserService();
+	const apiEuresEmploiEuropeMapper = new ApiEuresEmploiEuropeMapper(apiEuresXmlService);
+	const apiEuresEmploiEuropeRepository = new ApiEuresEmploiEuropeRepository(apiEuresHttpClientService, defaultErrorManagementService, apiEuresEmploiEuropeMapper);
 
 	const emploiEuropeDependencies = serverConfigurationService.getConfiguration().API_EURES_IS_MOCK_ACTIVE
-		? emploiEuropeDependenciesContainer(new fixtureEmploiEuropeRepository())
+		? emploiEuropeDependenciesContainer(new fixtureEmploiEuropeRepository(apiEuresEmploiEuropeMapper))
 		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
 	return {

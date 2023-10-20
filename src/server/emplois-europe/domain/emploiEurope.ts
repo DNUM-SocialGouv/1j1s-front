@@ -5,6 +5,8 @@ export interface ResultatRechercheEmploiEurope {
 
 export interface EmploiEurope {
 	id: string;
+	titre?: string;
+	nomEntreprise?: string;
 }
 
 export interface EmploiEuropeFiltre {

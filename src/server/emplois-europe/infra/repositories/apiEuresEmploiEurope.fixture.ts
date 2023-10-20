@@ -11,11 +11,6 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 			sortBy: 'BEST_MATCH',
 		},
 		searchCriteria: {
-			facetCriteria: [
-				{ facetName: 'LOCATION', facetValues: ['NL'] },
-				{ facetName: 'EXPERIENCE', facetValues: ['A', 'B'] },
-				{ facetName: 'POSITION_OFFERING', facetValues: ['apprenticeship','contracttohire','directhire','seasonal','selfemployed','temporary'] },
-			],
 			keywordCriteria :
 				{
 					keywordLanguageCode : 'fr', keywords : [

@@ -17,15 +17,20 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 		<ListeRésultatsRechercherSolution
 			aria-label={'Offres d’emplois en Europe'}
 		>
-			{resultatList.map((emploiEurope) => (
-				<li key={emploiEurope.id}>
-					<RésultatRechercherSolution
-						intituléOffre={emploiEurope.id}
-						logo={'/images/logos/fallback.svg'}
-						étiquetteOffreList={[]}
-					/>
-				</li>
-			))}
+			{resultatList.map((emploiEurope) => {
+				if (!emploiEurope.id || !emploiEurope.titre) {
+					return null;
+				}
+				return (
+					<li key={emploiEurope.id}>
+						<RésultatRechercherSolution
+							intituléOffre={emploiEurope.titre}
+							sousTitreOffre={emploiEurope.nomEntreprise}
+							étiquetteOffreList={[]}
+						/>
+					</li>
+				);
+			})}
 		</ListeRésultatsRechercherSolution>
 	);
 }
