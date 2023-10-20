@@ -9,9 +9,9 @@ export default function Allocations() {
 	return (
 		<section className={ styles.allocations }>
 			<div className={ styles.allocationsContainer }>
-				<aside className= { styles.allocationsIllustration }>
+				<div className= { styles.allocationsIllustration }>
 					<Image src={ illustration } alt='' />
-				</aside>
+				</div>
 				<article className={ styles.allocationsArticle }>
 					<h2 className={ styles.allocationsArticle__Title }>Est-ce que je peux bénéficier de l‘allocation ?</h2>
 					<SeeMoreMobileOnly
