@@ -4,7 +4,7 @@ import Accompagnement from '~/client/components/features/ContratEngagementJeune/
 import Actions from '~/client/components/features/ContratEngagementJeune/Actions/Actions';
 import Allocations from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations';
 import Application from '~/client/components/features/ContratEngagementJeune/Application/Application';
-import Bannière from '~/client/components/features/ContratEngagementJeune/Bannière/Bannière';
+import Banniere from '~/client/components/features/ContratEngagementJeune/Banniere/Banniere';
 import Rappel from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel';
 import PourquoiCEstFaitPourMoi from '~/client/components/features/ContratEngagementJeune/Pourquoi/PourquoiCEstFaitPourMoi';
 import QuEstCeQueCEst from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst';
@@ -37,7 +37,7 @@ export default function ContratEngagementJeune() {
 				robots="index,follow"
 			/>
 			<main id="contenu">
-				<Bannière/>
+				<Banniere/>
 				<QuEstCeQueCEst/>
 				<Actions/>
 				<PourquoiCEstFaitPourMoi/>

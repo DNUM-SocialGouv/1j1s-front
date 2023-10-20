@@ -14,10 +14,11 @@ export default function Démarrage({ setTypeFormulaireAffiché, setIsPôleEmploi
 		<div>
 			{isMobile && <span>Sélectionnez l‘option qui vous correspond :</span>}
 			<button className={styles.optionBouton} onClick={() => setIsMissionLocaleModalOpen(true)}>
-        Oui, je suis accompagné(e) par la Mission Locale
+
+				Oui, je suis accompagné(e) par la Mission Locale
 			</button>
 			<button className={styles.optionBouton} onClick={() => setIsPôleEmploiModalOpen(true)}>
-        Oui, je suis accompagné(e) par Pôle Emploi
+        Oui, je suis accompagné(e) par Pôle emploi
 			</button>
 			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>
         Non, je ne bénéficie d‘aucun accompagnement
