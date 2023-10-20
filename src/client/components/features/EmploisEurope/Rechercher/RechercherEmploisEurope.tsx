@@ -14,6 +14,9 @@ import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import {
+	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { Erreur } from '~/server/errors/erreur.types';
 
 export default function RechercherEmploisEurope() {
@@ -67,7 +70,8 @@ export default function RechercherEmploisEurope() {
 				erreurRecherche={erreurRecherche}
 				formulaireRecherche={<FormulaireRechercheEmploisEurope/>}
 				isLoading={isLoading}
-				nombreSolutions={emploiEuropeList.length}
+				nombreSolutions={nombreResultats}
+				paginationOffset={NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}
 				listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
 				messageRésultatRecherche={messageResultatRecherche}
 			/>

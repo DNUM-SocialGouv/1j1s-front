@@ -7,7 +7,7 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 		dataSetRequest: {
 			excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
 			pageNumber: '1',
-			resultsPerPage: '40',
+			resultsPerPage: '15',
 			sortBy: 'BEST_MATCH',
 		},
 		searchCriteria: {

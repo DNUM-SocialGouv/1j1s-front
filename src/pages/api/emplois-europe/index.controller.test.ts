@@ -77,7 +77,7 @@ describe('rechercher emplois en Europe', () => {
 				dataSetRequest: {
 					excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
 					pageNumber: '1',
-					resultsPerPage: '40',
+					resultsPerPage: '15',
 					sortBy: 'BEST_MATCH',
 				},
 				searchCriteria: {
@@ -95,6 +95,9 @@ describe('rechercher emplois en Europe', () => {
 
 		await testApiHandler<Array<ResultatRechercheEmploiEurope> | ErrorHttpResponse>({
 			handler: (req, res) => rechercherEmploiEuropeHandler(req, res),
+			params: {
+				page: '1',
+			},
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();

@@ -3,7 +3,7 @@ import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEur
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheRequestBody,
-	ApiEuresEmploiEuropeRechercheResponse,
+	ApiEuresEmploiEuropeRechercheResponse, NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { createSuccess, Either } from '~/server/errors/either';
@@ -17,12 +17,12 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
 	) {}
 
-	private static buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
+	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
 		return {
 			dataSetRequest: {
 				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
-				pageNumber: '1',
-				resultsPerPage: '40',
+				pageNumber: `${filtre.page}`,
+				resultsPerPage: `${NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}`,
 				sortBy: 'BEST_MATCH',
 			},
 			searchCriteria: {
@@ -50,7 +50,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		try {
 			const reponseRecherche: { data: ApiEuresEmploiEuropeRechercheResponse } = await this.httpClientService.post(
 				endpoint,
-				ApiEuresEmploiEuropeRepository.buildSearchBody(filtre),
+				this.buildSearchBody(filtre),
 			);
 			const reponseDetailRecherche = await this.getDetailRecherche(reponseRecherche.data);
 			const mappedResponse = this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(reponseRecherche.data, reponseDetailRecherche.data);
