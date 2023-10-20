@@ -49,7 +49,8 @@ describe('Contrat engagement jeune', () => {
 
 			expect(marketingService.trackPage).not.toHaveBeenCalled();
 		});
-		it('track la page si le feature flipping de la page est activé', () => {
+		it('track la page avec le bon nom de page si le feature flipping de la campagne CEJ est activé', () => {
+
 			process.env.NEXT_PUBLIC_CAMPAGNE_CEJ_FEATURE = '1';
 			render(
 				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
