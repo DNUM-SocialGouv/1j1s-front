@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
-import React, { ReactElement, SyntheticEvent, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, SyntheticEvent, useEffect, useId, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
 import styles from '~/client/components/ui/Form/Input.module.scss';
@@ -87,7 +87,13 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 		sectionIndex,
 		method,
 	}:
-		{ suggestion: T, suggestionValue: string, suggestionIndex: number, sectionIndex: number | null, method: string }) {
+		{
+			suggestion: T,
+			suggestionValue: string,
+			suggestionIndex: number,
+			sectionIndex: number | null,
+			method: string
+		}) {
 		setValeurSélectionnée(suggestion);
 		onSuggestionSelectedCallback?.(event, suggestion, suggestionValue, suggestionIndex, sectionIndex, method);
 	}
@@ -109,10 +115,13 @@ export default function InputAutocomplétion<T>(props: AutocomplétionProps<T>) 
 		...rest,
 	};
 
+	const autosuggestId = useId(); // Note: GMO 17-10-2023 Permet d'éviter un id par défaut sur le composant Autosuggest qui pose problème si le composant est utilisé plusieurs fois dans la même page
+
 	return (
 		<div className={styles.wrapper}>
 			{label && <label htmlFor={id} className={styles.label}>{label}</label>}
 			<Autosuggest
+				id={autosuggestId}
 				focusInputOnSuggestionClick
 				highlightFirstSuggestion
 				theme={theme}

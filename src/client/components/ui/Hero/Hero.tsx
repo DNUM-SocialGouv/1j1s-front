@@ -34,10 +34,10 @@ export function HeroWithIllustration({ children, className, image, ...rest }: He
 	return Hero({ children, className, ...rest });
 }
 
-export function HeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
-	return <div className={classNames(styles.heroPrimaryText, className)} {...rest}>
+export function HeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'span'>) {
+	return <span className={classNames(styles.heroPrimaryText, className)} {...rest}>
 		{children}
-	</div>;
+	</span>;
 }
 
 export function HeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'p'>) {

@@ -8,11 +8,11 @@ import styles from '~/client/components/ui/Tooltip/Tooltip.module.scss';
 interface TooltipProps {
 	icon: IconName  //GMO 01-06-2023 Voir si ça doit être une prop ou être `information` tout le temps
 	ariaLabel: string //GMO 01-06-2023 TODO renommer car ariaLabel du bouton et pas du tooltip?
-	ariaDescribedBy: string //GMO 01-06-2023 - TODO renommer en "id" (car id du role=tooltip) et laisser obligatoire
+	tooltipId: string
 }
 
 export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
-	const { children, icon, ariaLabel, ariaDescribedBy } = props;
+	const { children, icon, ariaLabel, tooltipId } = props;
 	const tooltipRef = useRef<HTMLButtonElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -56,7 +56,7 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				ref={tooltipRef}
 				className={styles.tooltipContainer}
 				aria-label={ariaLabel}
-				aria-describedby={ariaDescribedBy}
+				aria-describedby={tooltipId}
 				/*
 				GMO 01-06-2023 - TODO déplacer / supprimer ce aria-describedby qui doit être sur l'élément explicité
 				par le tooltip et pas sur le bouton qui permet de l'afficher (voir https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role)
@@ -66,7 +66,7 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				onClick={() => setIsOpen(!isOpen)}>
 				<Icon name={icon} className={styles.icon}/>
 			</button>
-			<div className={classNames(styles.tooltip)} role="tooltip" id={ariaDescribedBy} hidden={!isOpen}>
+			<div className={classNames(styles.tooltip)} role="tooltip" id={tooltipId} hidden={!isOpen}>
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(!isOpen)}>
 					<Icon name="close" />
 				</button>

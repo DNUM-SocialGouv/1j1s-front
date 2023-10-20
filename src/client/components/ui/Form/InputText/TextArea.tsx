@@ -110,7 +110,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 			<textarea
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				id={id}
-				aria-errormessage={errorId}
+				aria-errormessage={errorId} // TODO GMO 17-10-2023 conditionner la présence de cette attribut à l'existence d'une erreur
 				aria-invalid={!!error}
 				aria-describedby={ariaDescribedby}
 				onChange={onChange}
@@ -118,7 +118,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 				data-touched={touched}
 				{...textareaProps}
 				ref={ref}/>
-			{touched && <Error id={errorId}>{error}</Error>}
+			{touched && <Error id={errorId}>{error}</Error>  /* TODO GMO 17-10-2023 conditionner la présence de ce composant à l'existence d'une erreur */ }
 			{!error && <Hint id={hintId}>{hint}</Hint>}
 		</div>
 	);
