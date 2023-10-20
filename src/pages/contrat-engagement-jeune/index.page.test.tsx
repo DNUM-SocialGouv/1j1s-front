@@ -38,7 +38,8 @@ describe('Contrat engagement jeune', () => {
 	});
 
 	describe('marketingService', () => {
-		it('ne track pas la page si le feature flipping de la page est désactivé', () => {
+		it('ne track pas la page si le feature flipping de la campagne CEJ est désactivé', () => {
+
 			process.env.NEXT_PUBLIC_CAMPAGNE_CEJ_FEATURE = '0';
 			render(
 				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
