@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.165.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.164.0...v3.165.0) (2023-10-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** afficher tags de villes sur les cartes ([#2167](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2167)) ([a8480c8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a8480c8e70b6d92428136843e5249c2040b981af))
+
 ## [3.164.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.163.0...v3.164.0) (2023-10-20)
 
 
