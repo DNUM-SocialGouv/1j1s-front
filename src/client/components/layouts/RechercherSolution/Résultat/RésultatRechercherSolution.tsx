@@ -11,7 +11,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
 type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
-	intituléOffre: string;
+	intituléOffre?: string;
 	intituléLienOffre?: string;
 	sousTitreOffre?: string;
 	étiquetteOffreList: string[];
@@ -53,7 +53,7 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
-						<h3 className={styles.title}>{intituléOffre}</h3>
+						{intituléOffre && <h3 className={styles.title}>{intituléOffre}</h3>}
 						{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
 					</header>
 					{children && <section className={styles.offreLeadDescription}>{children}</section>}
