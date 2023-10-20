@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.164.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.163.0...v3.164.0) (2023-10-20)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** pagination recherche emplois en europe ([#2166](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2166)) ([6259c78](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6259c78be31602a2e20e97378f2c0d11a996be16))
+
 ## [3.163.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.162.0...v3.163.0) (2023-10-20)
 
 
