@@ -1,3 +1,5 @@
+import 'html-validate/jest';
+
 import { buildQueries, getAllByRole, getNodeText } from '@testing-library/dom';
 import { act,within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';

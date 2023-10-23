@@ -10,10 +10,11 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accessibilite from '~/pages/accessibilite/index.page';
 
+
 describe('<Accessibilite />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const titre = 'Accessibilité';
-		const contenu = `# Déclaration d'accessibilité
+	const titre = 'Accessibilité';
+
+	const contenu = `# Déclaration d'accessibilité
 06/10/2022
 
 1 jeune 1 solution s’engage à rendre ses sites internet accessibles conformément à l’article 47 de la loi n°2005-102 du 11 février 2005. 
@@ -123,11 +124,22 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 - Contacter le délégué du Défenseur des droits dans votre région - [https://www.defenseurdesdroits.fr/saisir/delegues]
 - Envoyer un courrier par la poste (gratuit, ne pas mettre de timbre) : Défenseur des droits Libre réponse 71120 75342 Paris`;
 
+	it('n‘a pas de défaut d‘accessibilité', async () => {
+
 		const { container } = render(
 			<DependenciesProvider analyticsService={anAnalyticsService()}>
 				<Accessibilite titre={titre} contenu={contenu}/>);
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
+	});
+
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<Accessibilite titre={titre} contenu={contenu}/>);
+			</DependenciesProvider>);
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 });
