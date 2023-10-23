@@ -83,6 +83,31 @@ describe('strapi cms repository', () => {
 		});
 	});
 
+	describe('getCollectionTypeDeprecated', () => {
+		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const httpError = anAxiosResponse(anHttpError(404));
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
+
+			const result = await strapiCmsRepository.getArticleBySlug('bad slug');
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Strapi',
+				contexte: 'get collection type strapi',
+				message: 'Erreur inconnue - Impossible de récupérer la ressource articles',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+	});
+
+	// TODO (SULI 23-10-2023): écrire le test complet de getCollectionType
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;

@@ -21,6 +21,6 @@ export class StrapiFicheMetierRepository implements FicheMetierRepository {
 	async getAllNomsMetiers(): Promise<Either<Array<string>>> {
 		const query = `fields[]=${FICHE_METIER_NOM_METIER_FIELD_NAME}`;
 
-		return this.strapiRepository.getCollectionType<Strapi.CollectionType.FicheMétier, string>(RESOURCE_FICHE_METIER, query, flatMapNomMetier);
+		return this.strapiRepository.getCollectionTypeDeprecated<Strapi.CollectionType.FicheMétier, string>(RESOURCE_FICHE_METIER, query, flatMapNomMetier);
 	}
 }

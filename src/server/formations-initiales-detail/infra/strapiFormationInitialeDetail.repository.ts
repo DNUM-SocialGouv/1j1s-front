@@ -1,5 +1,5 @@
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { Either } from '~/server/errors/either';
+import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import {
 	StrapiFormationInitialeDetail,
 } from '~/server/formations-initiales-detail/infra/strapiFormationInitialeDetail';
@@ -15,6 +15,11 @@ export class StrapiFormationInitialeDetailRepository implements FormationInitial
 
 	async getFormationInitialeById(identifiant: string): Promise<Either<FormationInitialeDetailCMS>> {
 		const query = `filters[identifiant][$eq]=${identifiant}`;
-		return this.strapiService.getFirstFromCollectionType<StrapiFormationInitialeDetail, FormationInitialeDetailCMS>(RESSOURCE_FORMATION_INITIALE, query, mapFormationInitiale);
+		const strapiFormationInitialeDetail = await this.strapiService.getFirstFromCollectionType<StrapiFormationInitialeDetail>(RESSOURCE_FORMATION_INITIALE, query);
+
+		if (isSuccess(strapiFormationInitialeDetail))
+			return createSuccess(mapFormationInitiale(strapiFormationInitialeDetail.result));
+
+		return strapiFormationInitialeDetail;
 	}
 }

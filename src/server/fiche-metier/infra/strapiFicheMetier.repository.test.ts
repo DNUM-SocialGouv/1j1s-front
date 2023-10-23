@@ -43,15 +43,15 @@ describe('strapiFicheMetierRepository', () => {
 	describe('getListNomsMetiers', () => {
 		it('liste tous les noms métier des fiches metier', async () => {
 			const expected = aFicheMetierNomMetierList();
-			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionType: jest.fn().mockResolvedValue(createSuccess(expected)) });
+			const strapiCmsRepository = aStrapiCmsRepository({ getCollectionTypeDeprecated: jest.fn().mockResolvedValue(createSuccess(expected)) });
 			const strapiFicheMetierRepository = new StrapiFicheMetierRepository(strapiCmsRepository);
 
 
 			const { result } = await strapiFicheMetierRepository.getAllNomsMetiers() as Success<Array<string>>;
 
 			expect(result).toEqual(expected);
-			expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledTimes(1);
-			expect(strapiCmsRepository.getCollectionType).toHaveBeenCalledWith(RESOURCE_FICHE_METIER, 'fields[]=nom_metier', flatMapNomMetier);
+			expect(strapiCmsRepository.getCollectionTypeDeprecated).toHaveBeenCalledTimes(1);
+			expect(strapiCmsRepository.getCollectionTypeDeprecated).toHaveBeenCalledWith(RESOURCE_FICHE_METIER, 'fields[]=nom_metier', flatMapNomMetier);
 		});
 	});
 });
