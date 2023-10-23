@@ -3,17 +3,25 @@
 $color-title: utilities.$color-title-secondary;
 $color-cej-background: #ea711b;
 
-
 .banniere {
   background: $color-cej-background;
-  color: white;
+  color: $color-title;
   position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
+  @include utilities.media(large) {
+    min-height: 18.75rem;
+  }
 }
 
 .banniereContent {
   padding: 36px;
+
+  @include utilities.media(large) {
+    padding: 42px 42px 42px 1.5rem;
+  }
 }
 
 .banniereTextContent {
@@ -26,44 +34,27 @@ $color-cej-background: #ea711b;
 
   @include utilities.media(large) {
     min-width: 40ch;
+    max-width: 30rem;
   }
 }
-
 
 .banniereAccroche {
   @extend %text-large;
   @extend %bold;
+  margin-top: 1.5rem;
 
   @include utilities.media(large) {
     font-weight: normal;
   }
-
-  margin-top: 1.5rem;
 }
 
 .titre {
   @extend %title-large;
   @extend %bold;
-  color: $color-title;
 }
 
 .cta {
   @extend %label-button;
   margin-top: 1.5rem;
-}
-
-@include utilities.media(large) {
-  .banniere {
-    min-height: 18.75rem;
-  }
-  .banniereContent {
-    padding: 42px 42px 42px 1.5rem;
-  }
-}
-
-@include utilities.media(xlarge) {
-  .banniereContent {
-    padding: 80px 80px 80px calc((100vw - #{utilities.$breakpoint-xl}) / 2 + #{1.5rem});
-  }
 }
 

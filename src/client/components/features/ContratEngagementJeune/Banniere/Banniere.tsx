@@ -12,7 +12,6 @@ export default function Banniere() {
 	const { isLargeScreen } = useBreakpoint();
 	const titre = <>Le Contrat d’Engagement Jeune, la solution pour vous&nbsp;!</>;
 	const accroche = 'Découvrez le CEJ, un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi';
-	const textCTA = 'Découvrir le CEJ';
 
 	return (
 		<div className={styles.banniere}>
@@ -25,7 +24,10 @@ export default function Banniere() {
 						href="#accompagnement"
 						appearance={'asSecondaryButton'}
 						icon={<Icon name="angle-right"/>}
-						iconPosition={'right'}>{textCTA}</LinkStyledAsButtonWithIcon>
+						iconPosition={'right'}
+					>
+						{'Découvrir le CEJ'}
+					</LinkStyledAsButtonWithIcon>
 				</div>
 			</div>
 			{isLargeScreen && (
