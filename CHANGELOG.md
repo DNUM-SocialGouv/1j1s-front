@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.166.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.165.1...v3.166.0) (2023-10-23)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* ajout campagne adform CEJ ([#2155](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2155)) ([dbac00a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dbac00a9e33a5e11af3e4428b2da6382c385ce80))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/dompurify to v3.0.4 ([#2176](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2176)) ([2c3b57a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2c3b57a2c02ccd49a36ac38a13245ed598c8edc3))
+* **deps:** update dependency @types/jest to v29.5.6 ([#2177](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2177)) ([8a382cb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8a382cbc804611a66d719c26be9dfac1480cac8a))
+* **deps:** update dependency @types/jest-axe to v3.5.7 ([#2178](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2178)) ([993d7d7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/993d7d7c4b5c9fb81e8c5411080f200a20bf97a7))
+* **deps:** update dependency @types/lodash.debounce to v4.0.8 ([#2179](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2179)) ([e0bce59](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e0bce5982c26c62553da73b3ea1f8c6c7c43e32c))
+* **deps:** update dependency @types/node to v18.18.6 ([#2181](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2181)) ([56be899](https://github.com/DNUM-SocialGouv/1j1s-front/commit/56be899a12ec63c9b96141a83f0dce869ede3f6f))
+* **deps:** update dependency @types/react-autosuggest to v10.1.8 ([#2182](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2182)) ([8b89b3f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b89b3fe9e694efb6f07cc8c3755cbcf60dee547))
+* **deps:** update dependency @types/uuid to v9.0.6 ([#2183](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2183)) ([913433c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/913433ca8a079d543ecacc99e7b587e43db3f0db))
+* **deps:** update dependency cypress to v13.3.2 ([#2184](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2184)) ([a587c57](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a587c578c3c4d35f5a54dbb4d010ea097649fbaf))
+* **deps:** update dependency nock to v13.3.6 ([97e6c8d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/97e6c8d10cc3ac99ae1dc1bed6dda7b1547d25c0))
+* **deps:** update dependency sass to v1.69.4 ([d94a4b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d94a4b17e34b69210c05185368f3d0aaa2d74796))
+
 ## [3.165.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.165.0...v3.165.1) (2023-10-20)
 
 
