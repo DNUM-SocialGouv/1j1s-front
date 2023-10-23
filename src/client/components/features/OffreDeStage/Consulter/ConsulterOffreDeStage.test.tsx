@@ -209,18 +209,30 @@ describe('ConsulterOffreDeStage', () => {
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
-					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
-					expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
+					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const tagDateDebut = within(tags).getAllByRole('listitem')
+						.find((listItem) => listItem.textContent === 'Débute le : 9/1/2024');
+					expect(tagDateDebut).toBeVisible();
 				});
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
 
 					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
-					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
-					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
-					expect(displayedTagsTextContents).toContain('Débute entre le : 9/1/2024 et 9/30/2024');
+					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const tagDateDebut = within(tags).getAllByRole('listitem')
+						.find((listItem) => listItem.textContent === 'Débute entre le : 9/1/2024 et 9/30/2024');
+					expect(tagDateDebut).toBeVisible();
+				});
+				it('n’affiche pas le tag de date de début quand il n‘y a pas de date de début', () => {
+					const offreDeStage = anOffreDeStage({ dateDeDebutMin: undefined });
+
+					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+					const tagDateDebut = within(tags).getAllByRole('listitem')
+						.find((listItem) => listItem.textContent?.includes('Débute le')) ?? null;
+					expect(tagDateDebut).not.toBeInTheDocument();
 				});
 			});
 		});
