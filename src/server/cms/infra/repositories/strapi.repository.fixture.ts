@@ -1,13 +1,28 @@
-import { createSuccess } from '~/server/errors/either';
+import { CmsRepository } from '~/server/cms/domain/cms.repository';
 
 import { StrapiRepository } from './strapi.repository';
 
-export function aStrapiCmsRepository(override?: Partial<StrapiRepository>) {
+export function aStrapiCmsRepository(override?: Partial<StrapiRepository>): CmsRepository {
 	return {
-		getCollectionType: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		getFirstFromCollectionType: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		getResource: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		save: jest.fn().mockResolvedValue(createSuccess(undefined)),
+		getActualitéList: jest.fn(),
+		getAllFAQ: jest.fn(),
+		getAllVideosCampagneApprentissage: jest.fn(),
+		getAnnonceDeLogementBySlug: jest.fn(),
+		getArticleBySlug: jest.fn(),
+		getCollectionType: jest.fn(),
+		getCollectionTypeDeprecated: jest.fn(),
+		getFAQBySlug: jest.fn(),
+		getFirstFromCollectionType: jest.fn(),
+		getMentionObligatoire: jest.fn(),
+		getMesuresEmployeurs: jest.fn(),
+		getOffreDeStageBySlug: jest.fn(),
+		getServiceJeuneList: jest.fn(),
+		listAllAnnonceDeLogementSlug: jest.fn(),
+		listAllArticleSlug: jest.fn(),
+		listAllFAQSlug: jest.fn(),
+		listAllOffreDeStageSlug: jest.fn(),
+		save: jest.fn(),
+		saveOffreDeStage: jest.fn(),
 		...override,
-	} as unknown as StrapiRepository;
+	};
 }
