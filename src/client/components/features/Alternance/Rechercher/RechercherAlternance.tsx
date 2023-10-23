@@ -35,7 +35,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
 export default function RechercherAlternance() {
 	const router = useRouter();
-	const isCampagneApprentissageActive = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	const alternanceQuery = useAlternanceQuery();
 
@@ -143,7 +142,7 @@ export default function RechercherAlternance() {
 			</ArticleCardList>
 			<EnTete heading="Découvrez des services faits pour vous"/>
 			<ServiceCardList>
-				{isCampagneApprentissageActive && <DecouvrirApprentissage/>}
+				<DecouvrirApprentissage/>
 				<PassPartner/>
 				<OnisepMetierPartner/>
 			</ServiceCardList>

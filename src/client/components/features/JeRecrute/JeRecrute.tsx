@@ -1,5 +1,3 @@
-import DecouvrirMesuresEmployeurs
-	from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeurs/DecouvrirMesuresEmployeurs';
 import { Head } from '~/client/components/head/Head';
 import BanniereRejoindreLaMobilisation
 	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation';
@@ -9,7 +7,6 @@ import DecouvrirMesuresEmployeursEtApprentissage
 	from './DecouvrirMesuresEmployeursEtApprentissage/DecouvrirMesuresEmployeursEtApprentissage';
 
 export function JeRecrute () {
-	const featureActivated = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	return (
 		<>
@@ -20,11 +17,7 @@ export function JeRecrute () {
 			/>
 			<main id="contenu">
 				<DécouvrirDispositifs />
-				{featureActivated ?
-					<DecouvrirMesuresEmployeursEtApprentissage />
-					:
-					<DecouvrirMesuresEmployeurs />
-				}
+				<DecouvrirMesuresEmployeursEtApprentissage />
 				<BanniereRejoindreLaMobilisation />
 			</main>
 		</>

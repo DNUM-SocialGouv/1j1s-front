@@ -38,6 +38,21 @@ describe('Header', () => {
 
 				expect(navigation).toBeInTheDocument();
 			});
+
+			it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" dans le menu des formations et orientations', async () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				render(<Header/>);
+				const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
+				const user = userEvent.setup();
+
+				// WHEN
+				await user.click(formationsEtOrientationNavItem);
+
+				// THEN
+				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
+				expect(campagneApprentissageLink).toBeVisible();
+			});
 		});
 
 		describe('quand la page courante est "Accueil"', () => {
@@ -92,12 +107,12 @@ describe('Header', () => {
 			});
 		});
 
-		describe('quand la fonctionnalité encart est activée', () => {
+		describe('quand la fonctionnalité de campagne de com est activée', () => {
 			it('affiche le composant Header avec l’encart', async () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
+					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -105,19 +120,19 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
+				const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveTextContent(/Apprenez en plus sur cette voie de formation\./);
-				expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
+				expect(encartLien).toHaveTextContent(/Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i);
+				expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
 			});
 		});
 
-		describe('quand la fonctionnalité encart est désactivée', () => {
+		describe('quand la fonctionnalité de campagne de com est désactivée', () => {
 			it('affiche le composant Header sans l’encart', async () => {
 				// Given
 				process.env = {
 					...process.env,
-					NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
+					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -125,42 +140,11 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.queryByRole('link', { name: /L’apprentissage, c’est le bon choix !/ });
+				const encartLien = screen.queryByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 				expect(encartLien).not.toBeInTheDocument();
 			});
 		});
 
-		it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé', async () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-			render(<Header/>);
-			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
-			const user = userEvent.setup();
-
-			// WHEN
-			await user.click(formationsEtOrientationNavItem);
-
-			// THEN
-			const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
-			expect(campagneApprentissageLink).toBeVisible();
-		});
-
-		it('masque le lien "Découvrir et trouver sa voie avec l’apprentissage" quand feature flippé off', async () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
-			render(<Header/>);
-			const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
-			const user = userEvent.setup();
-
-			// WHEN
-			await user.click(formationsEtOrientationNavItem);
-
-			// THEN
-			const campagneApprentissageLink = screen.queryByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
-			expect(campagneApprentissageLink).not.toBeInTheDocument();
-		});
 		it('affiche le lien jobs d‘été quand le feature flip est actif', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
@@ -197,7 +181,7 @@ describe('Header', () => {
 			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
+				process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
 
 				// WHEN
 				render(<Header/>);
@@ -258,7 +242,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '1',
+						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -266,9 +250,9 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', '/choisir-apprentissage');
+					expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
@@ -276,7 +260,7 @@ describe('Header', () => {
 					// Given
 					process.env = {
 						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE: '0',
+						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -284,7 +268,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.queryByRole('link', { name: 'L’apprentissage, c’est le bon choix !' });
+					const encartLien = screen.queryByRole('link', { name: /Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i });
 					expect(encartLien).not.toBeInTheDocument();
 				});
 			});

@@ -4,8 +4,7 @@
 
 import '~/test-utils';
 
-import { render,screen } from '@testing-library/react';
-import * as process from 'process';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -52,7 +51,6 @@ describe('<ApprentissageEntreprises />', () => {
 
 		describe('quand les vidéos ne sont pas récupérées', () => {
 			it('renvoie une liste vide pour les vidéos', async () => {
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const result = await getServerSideProps();
@@ -65,7 +63,6 @@ describe('<ApprentissageEntreprises />', () => {
 
 		describe('quand les vidéos sont récupérées', () => {
 			it('renvoie les props', async () => {
-				process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
 				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
 
 				const result = await getServerSideProps();

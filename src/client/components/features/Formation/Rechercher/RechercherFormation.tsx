@@ -35,7 +35,6 @@ const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
 export default function RechercherFormation() {
 	const router = useRouter();
-	const isCampagneApprentissageActive = process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE === '1';
 
 	const formationQuery = useFormationQuery();
 	const formationService = useDependency<FormationService>('formationService');
@@ -107,7 +106,7 @@ export default function RechercherFormation() {
 			/>
 			<EnTete heading="Découvrez des services faits pour vous"/>
 			<ServiceCardList>
-				{isCampagneApprentissageActive && <DecouvrirApprentissage/>}
+				<DecouvrirApprentissage/>
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
 				<OnisepMetierPartner/>

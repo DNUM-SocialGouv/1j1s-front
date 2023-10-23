@@ -140,7 +140,7 @@ describe('RechercherFormation', () => {
 		});
 	});
 
-	it('affiche une liste de partenaires', async () => {
+	it('affiche une liste de services en relation', async () => {
 		// GIVEN
 		const formationServiceMock = aFormationService();
 		const métierServiceMock = aMetierService();
@@ -162,8 +162,17 @@ describe('RechercherFormation', () => {
 		expect(entête).toHaveTextContent('Découvrez des services faits pour vous');
 		expect(entête).toBeVisible();
 
-		const listeDePartenaires = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
-		expect(listeDePartenaires).toBeVisible();
+		const listeDeServices = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
+		const campagneApprentissageCard = within(listeDeServices).getByRole('heading', { name: /L’apprentissage est-il fait pour vous ?/i });
+		const cpfCard = within(listeDeServices).getByRole('heading', { name: /Découvrez le dispositif Mon compte formation/i });
+		const parcoursupCard = within(listeDeServices).getByRole('heading', { name: /La plateforme de pré-inscription en première année de l’enseignement supérieur/i });
+		const onisepMetierCard = within(listeDeServices).getByRole('heading', { name: /Besoin d‘informations sur les métiers ?/i });
+		const metiersDuSoinCard = within(listeDeServices).getByRole('heading', { name: /Renseignez-vous sur les métiers du soin/i });
+		expect(campagneApprentissageCard).toBeVisible();
+		expect(cpfCard).toBeVisible();
+		expect(parcoursupCard).toBeVisible();
+		expect(onisepMetierCard).toBeVisible();
+		expect(metiersDuSoinCard).toBeVisible();
 	});
 
 	it('filtre les query params envoyés au service', async () => {
@@ -196,47 +205,5 @@ describe('RechercherFormation', () => {
 		expect(formationService.rechercherFormation).toHaveBeenCalledWith(expect.not.objectContaining({
 			test: 'test',
 		}));
-	});
-
-	describe('lorsque le feature flip de la campagne d‘apprentissage est actif', () => {
-		it('on voit la carte de redirection vers la campagne', () => {
-			const formationService = aFormationService();
-			mockUseRouter({});
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '1';
-
-			render(
-				<DependenciesProvider
-					formationService={formationService}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherFormation/>
-				</DependenciesProvider>,
-			);
-
-			const linkCardApprentissage = screen.getByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ });
-
-			expect(linkCardApprentissage).toBeVisible();
-			expect(linkCardApprentissage).toHaveAttribute('href', '/choisir-apprentissage');
-		});
-	});
-	describe('lorsque le feature flip de la campagne d‘apprentissage est inactif', () => {
-		it('on ne voit pas la carte de redirection vers la campagne', () => {
-			const formationService = aFormationService();
-			mockUseRouter({});
-			process.env.NEXT_PUBLIC_CAMPAGNE_APPRENTISSAGE_FEATURE = '0';
-
-			render(
-				<DependenciesProvider
-					formationService={formationService}
-					metierService={aMetierService()}
-					localisationService={aLocalisationService()}
-				>
-					<RechercherFormation/>
-				</DependenciesProvider>,
-			);
-
-			expect(screen.queryByRole('link', { name: /Découvrez tout sur l‘apprentissage et simulez la rémunération que vous pourriez avoir en devenant apprenti/ })).not.toBeInTheDocument();
-		});
 	});
 });
