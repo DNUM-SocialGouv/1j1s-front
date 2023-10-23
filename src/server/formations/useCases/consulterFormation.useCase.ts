@@ -9,16 +9,17 @@ export class ConsulterFormationUseCase {
 
 	async handle(id: string, filtre?: FormationFiltre.AvecCodeCertification): Promise<{ formation: Either<Formation>, statistiques?: Either<Statistique> }> {
 		const formation = await this.formationRepository.get(id, filtre);
-		
+
 		if (isFailure(formation)) return { formation };
 
 		const codePostal = formation.result.adresse.codePostal;
-		if (!filtre?.codeCertification || !codePostal) return { formation };
+		const isMissingInfosToGetStatistics = !filtre?.codeCertification || !codePostal;
+		if (isMissingInfosToGetStatistics) return { formation };
 
-		const statistiques = await this.statistiqueRepository.get(filtre.codeCertification, codePostal);
-		
+		const statistiques = await this.statistiqueRepository.get(filtre.codeCertification!, codePostal);
+
 		if (isFailure(statistiques)) return { formation };
-		
+
 		return { formation, statistiques };
 	}
 }

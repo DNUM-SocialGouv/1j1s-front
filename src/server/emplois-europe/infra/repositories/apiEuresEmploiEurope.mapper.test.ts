@@ -1,6 +1,10 @@
-import { mapRechercheEmploiEurope } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import {
+	anApiEuresEmploiEuropeRechercheDetailResponse,
+} from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
+import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
-describe('mapRechercheEmploiEurope', () => {
+describe('apiEuresEmploiEuropeMapper', () => {
 	it('retourne un ResultatRechercheEmploiEurope', () => {
 		// Given
 		const apiEuresEmploiEuropeRechercheResponse = {
@@ -23,8 +27,12 @@ describe('mapRechercheEmploiEurope', () => {
 			},
 		};
 
+		const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeRechercheDetailResponse();
+		
+		const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
 		// When
-		const resultatRechercheEmploiEurope = mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse);
+		const resultatRechercheEmploiEurope = mapper.mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse, apiEuresEmploiEuropeDetailResponse);
 
 		// Then
 		expect(resultatRechercheEmploiEurope).toEqual({
@@ -32,9 +40,15 @@ describe('mapRechercheEmploiEurope', () => {
 			offreList: [
 				{
 					id: '1',
+					nomEntreprise: 'La Boulangerie',
+					tags: ['Paris'],
+					titre: 'Boulanger (H/F)',
 				},
 				{
 					id: '2',
+					nomEntreprise: undefined,
+					tags: [],
+					titre: undefined,
 				},
 			],
 		});

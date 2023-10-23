@@ -6,7 +6,7 @@ interface Cache {
   expiresInHours: number;
 }
 
-export class MockedCacheService implements CacheService {
+export class NullCacheService implements CacheService {
 	store: Cache[] = [];
 
 	get<T>(key: string): Promise<T | null> {

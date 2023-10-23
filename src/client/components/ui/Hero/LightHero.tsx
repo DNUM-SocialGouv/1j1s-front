@@ -11,10 +11,10 @@ export function LightHero({ children, className, ...rest }: React.ComponentProps
 	);
 }
 
-export function LightHeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
-	return <div className={classNames(styles.heroPrimaryText, className)} {...rest}>{children}</div>;
+export function LightHeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'span'>) {
+	return <span className={classNames(styles.heroPrimaryText, className)} {...rest}>{children}</span>;
 }
 
-export function LightHeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'div'>) {
-	return <div className={classNames(styles.heroSecondaryText, className)} {...rest}>{children}</div>;
+export function LightHeroSecondaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'span'>) {
+	return <span className={classNames(styles.heroSecondaryText, className)} {...rest}>{children}</span>;
 }

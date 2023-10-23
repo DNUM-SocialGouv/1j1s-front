@@ -44,9 +44,15 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						{
 							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							tags: ['Paris'],
+							titre: 'Titre 1',
 						},
 						{
 							id: '2',
+							nomEntreprise: 'Entreprise 2',
+							tags: [],
+							titre: 'Titre 2',
 						},
 					],
 				};
@@ -69,10 +75,14 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-				const resultats = within(resultatsUl[0]).getAllByRole('listitem');
+				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
+				expect(await screen.findByText('Entreprise 1')).toBeInTheDocument();
+				expect(await screen.findByText('Titre 1')).toBeInTheDocument();
+				expect(await screen.findByText('Entreprise 2')).toBeInTheDocument();
+				expect(await screen.findByText('Titre 2')).toBeInTheDocument();
 			});
 
 			describe('quand la recherche contient plusieurs résultats', () => {
@@ -84,9 +94,15 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							{
 								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								tags: ['Paris'],
+								titre: 'Titre 1',
 							},
 							{
 								id: '2',
+								nomEntreprise: 'Entreprise 2',
+								tags: [],
+								titre: 'Titre 2',
 							},
 						],
 					};
@@ -124,6 +140,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							{
 								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								tags: ['Paris'],
+								titre: 'Titre 1',
 							},
 						],
 					};
@@ -162,9 +181,15 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						{
 							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							tags: ['Paris'],
+							titre: 'Titre 1',
 						},
 						{
 							id: '2',
+							nomEntreprise: 'Entreprise 2',
+							tags: [],
+							titre: 'Titre 2',
 						},
 					],
 				};

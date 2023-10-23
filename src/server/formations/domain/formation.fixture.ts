@@ -22,22 +22,16 @@ export const aResultatRechercheFormation = (override?: Partial<RésultatRecherch
 	...override,
 });
 
-export const aFormation = (): Formation => ({
+export const aFormation = (overrides?: Partial<Formation>): Formation => ({
 	adresse: {
-		adresseComplète: '1 rue de la République - 75001 - Paris',
+		adresseComplete: '1 rue de la République 75001 Paris',
 		codePostal: '75001',
 	},
-	contact: {
-		email: 'email@domaine.fr',
-		tel: '01 23 45 67 89',
-		url: 'https://domaine.fr',
-	},
 	description: 'Description de la formation',
-	duréeIndicative: '1 an',
+	dureeIndicative: undefined,
 	nomEntreprise: 'La Bonne Alternance',
-	nombreHeuresAuCentre: 100,
-	nombreHeuresEnEntreprise: 200,
 	objectif: 'Objectifs de la formation',
 	tags: ['Paris'],
 	titre: 'Développeur web',
+	...overrides,
 });

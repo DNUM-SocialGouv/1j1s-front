@@ -6,7 +6,6 @@ export default function Document() {
 	return (
 		<Html lang="fr">
 			<Head>
-				<meta charSet="utf-8"/>
 				<meta name="author" content="1jeune1solution"/>
 				<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png" />
 				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png" />

@@ -9,7 +9,7 @@ import { Formation } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 
 export function ConsulterFormation({ formation, statistiques }: { formation: Formation, statistiques?: Statistique }) {
-	const displayInformationCentreFormation = formation.adresse.adresseComplète || formation.contact.email || formation.contact.tel || formation.contact.url;
+	const displayInformationCentreFormation = !!formation.adresse.adresseComplete;
 	return (
 		<>
 			<ConsulterOffreLayout>
@@ -36,37 +36,17 @@ export function ConsulterFormation({ formation, statistiques }: { formation: For
 							<p>{formation.objectif}</p>
 						</>
 					}
-					{formation.duréeIndicative &&
+					{formation.dureeIndicative &&
 						<>
 							<h3>Durée de la formation :</h3>
-							<p>{formation.duréeIndicative}</p>
-						</>
-					}
-					{(!!formation.nombreHeuresEnEntreprise || !!formation.nombreHeuresAuCentre) &&
-						<>
-							<h3>Modalités de l’alternance :</h3>
-							{!!formation.nombreHeuresEnEntreprise &&
-								<p>Heures en entreprise : {formation.nombreHeuresEnEntreprise}h</p>
-							}
-							{!!formation.nombreHeuresAuCentre &&
-								<p>Heures en centre de formation : {formation.nombreHeuresAuCentre}h</p>
-							}
+							<p>{formation.dureeIndicative}</p>
 						</>
 					}
 					{displayInformationCentreFormation &&
 						<>
 							<h3>Informations sur le centre de formation :</h3>
-							{formation.adresse.adresseComplète &&
-								<p>Adresse : {formation.adresse.adresseComplète}</p>
-							}
-							{formation.contact.email &&
-								<p>Email : {formation.contact.email}</p>
-							}
-							{formation.contact.tel &&
-							  <p>Téléphone : {formation.contact.tel}</p>
-							}
-							{formation.contact.url &&
-						    <p>En savoir plus : {formation.contact.url}</p>
+							{formation.adresse.adresseComplete &&
+								<p>Adresse : {formation.adresse.adresseComplete}</p>
 							}
 						</>
 					}
