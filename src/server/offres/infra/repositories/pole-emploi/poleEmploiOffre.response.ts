@@ -1,3 +1,5 @@
+import Joi from 'joi';
+
 export interface OffreResponse {
   id: string
   intitule: string
@@ -69,3 +71,38 @@ export namespace RésultatsRechercheOffreResponse {
     }
   }
 }
+
+export const apiPoleEmploiOffreSchema = Joi.object({
+	competences: Joi.array().items(Joi.object({
+		libelle: Joi.string(),
+	})),
+	description: Joi.string(),
+	dureeTravailLibelleConverti: Joi.string().valid('Temps plein', 'Temps partiel'),
+	entreprise: Joi.object({
+		logo: Joi.string(),
+		nom: Joi.string(),
+	}),
+	experienceExige: Joi.string().valid('D', 'S', 'E'),
+	formations: Joi.array().items(Joi.object({
+		commentaire: Joi.string(),
+		niveauLibelle: Joi.string(),
+	})),
+	id: Joi.string().required(),
+	intitule: Joi.string().required(),
+	lieuTravail: Joi.object({
+		libelle: Joi.string(),
+	}),
+	origineOffre: Joi.object({
+		urlOrigine: Joi.string().required(),
+	}),
+	qualitesProfessionnelles: Joi.array().items(Joi.object({
+		libelle: Joi.string(),
+	})),
+	salaire: Joi.object({
+		commentaire: Joi.string(),
+		libelle: Joi.string(),
+	}),
+	typeContrat: Joi.string().valid('CDI', 'CDD', 'MIS', 'SAI').required(),
+}).options({ allowUnknown: true });
+
+export const apiPoleEmploiOffreRechercheSchema = Joi.array().items(apiPoleEmploiOffreSchema);

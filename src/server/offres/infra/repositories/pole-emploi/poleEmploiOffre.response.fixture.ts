@@ -122,7 +122,7 @@ function aValetOffreEmploiResponse(): OffreResponse {
 	};
 }
 
-function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPossibles[] {
+export function aFiltresPossiblesResponse(): RésultatsRechercheOffreResponse.FiltresPossibles[] {
 	return [
 		{
 			agregation: [
