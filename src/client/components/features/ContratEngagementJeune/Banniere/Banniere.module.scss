@@ -1,10 +1,11 @@
 @use "@styles/utilities";
 
 $color-title: utilities.$color-title-secondary;
+$color-cej-background: #ea711b;
 
 
 .banniere {
-  background: #ea711b;
+  background: $color-cej-background;
   color: white;
   position: relative;
   display: flex;
@@ -13,7 +14,6 @@ $color-title: utilities.$color-title-secondary;
 
 .banniereContent {
   padding: 36px;
-  margin: 0 auto;
 }
 
 .banniereTextContent {
@@ -23,6 +23,10 @@ $color-title: utilities.$color-title-secondary;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+
+  @include utilities.media(large) {
+    min-width: 40ch;
+  }
 }
 
 
@@ -48,9 +52,9 @@ $color-title: utilities.$color-title-secondary;
   margin-top: 1.5rem;
 }
 
-@include utilities.media(medium) {
+@include utilities.media(large) {
   .banniere {
-    height: 27.5rem;
+    min-height: 18.75rem;
   }
   .banniereContent {
     padding: 42px 42px 42px 1.5rem;
@@ -58,9 +62,6 @@ $color-title: utilities.$color-title-secondary;
 }
 
 @include utilities.media(xlarge) {
-  .banniere {
-    height: 27.5rem;
-  }
   .banniereContent {
     padding: 80px 80px 80px calc((100vw - #{utilities.$breakpoint-xl}) / 2 + #{1.5rem});
   }

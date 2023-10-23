@@ -10,14 +10,14 @@ import styles from './Banniere.module.scss';
 
 export default function Banniere() {
 	const { isLargeScreen } = useBreakpoint();
-	const titre = 'Le Contrat d’Engagement Jeune, la solution pour vous !';
+	const titre = <>Le Contrat d’Engagement Jeune, la solution pour vous&nbsp;!</>;
 	const accroche = 'Découvrez le CEJ, un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi';
 	const textCTA = 'Découvrir le CEJ';
 
 	return (
 		<div className={styles.banniere}>
 			<div className={styles.banniereContent}>
-				<span className={styles.banniereTextContent}>
+				<div className={styles.banniereTextContent}>
 					<h1 className={styles.titre}>{titre}</h1>
 					<p className={styles.banniereAccroche}>{accroche}</p>
 					<LinkStyledAsButtonWithIcon
@@ -26,7 +26,7 @@ export default function Banniere() {
 						appearance={'asSecondaryButton'}
 						icon={<Icon name="angle-right"/>}
 						iconPosition={'right'}>{textCTA}</LinkStyledAsButtonWithIcon>
-				</span>
+				</div>
 			</div>
 			{isLargeScreen && (
 				<Image
