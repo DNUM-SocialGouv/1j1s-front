@@ -52,7 +52,7 @@ export default function Accompagnement() {
 	}
 
 	const question = <div className={styles.accompagnementExplication}>Pour entrer en Contrat d‘Engagement Jeune, vous devez vous rapprocher
-    d‘un professionnel de l‘accompagnement chez Pôle Emploi ou en Mission Locale. Pour vous aider à identifier l‘interlocuteur à
+    d‘un professionnel de l‘accompagnement chez Pôle emploi ou en Mission Locale. Pour vous aider à identifier l‘interlocuteur à
     contacter, répondez à ces quelques questions.
 	</div>;
 
@@ -70,7 +70,7 @@ export default function Accompagnement() {
 					<ModalComponent isOpen={isPôleEmploiModalOpen} close={() => setIsPôleEmploiModalOpen(false)} className={styles.accompagnementModal}>
 						<ModalComponent.Content className={styles.accompagnementModalContent}>
 							<div>
-								<h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle Emploi</h1>
+								<h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller Pôle emploi</h1>
 								<LinkStyledAsButtonWithIcon href={lienPôleEmploi} appearance="asPrimaryButton">Contacter mon conseiller</LinkStyledAsButtonWithIcon>
 							</div>
 						</ModalComponent.Content>
@@ -78,10 +78,10 @@ export default function Accompagnement() {
 					<ModalComponent isOpen={isInscriptionPôleEmploiModalOpen} close={() => setIsInscriptionPôleEmploiModalOpen(false)} className={styles.accompagnementModal}>
 						<ModalComponent.Content className={styles.accompagnementModalContent}>
 							<div>
-								<h1>Vous pouvez bénéficier des services de Pôle Emploi</h1>
-								<p>Inscrivez-vous à Pôle Emploi pour bénéficier d‘un  accompagnement répondant à vos besoins </p>
+								<h1>Vous pouvez bénéficier des services de Pôle emploi</h1>
+								<p>Inscrivez-vous à Pôle emploi pour bénéficier d‘un  accompagnement répondant à vos besoins </p>
 								<LinkStyledAsButtonWithIcon href={deuxièmeLienPôleEmploi} appearance='asPrimaryButton'>
-                  S‘inscrire à Pôle Emploi
+                  S‘inscrire à Pôle emploi
 								</LinkStyledAsButtonWithIcon>
 							</div>
 						</ModalComponent.Content>
