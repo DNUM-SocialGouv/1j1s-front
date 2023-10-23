@@ -2,10 +2,10 @@ import Image from 'next/image';
 import illustration from 'public/images/CEJ/what-it-is.png';
 import React from 'react';
 
-import styles from '~/client/components/features/ContratEngagementJeune/QuEstCeQueCest/QuEstCeQueCEst.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 
-import { Footnote } from '../../../ui/Footnote/Footnote';
+import styles from './QuEstCeQueCEst.module.scss';
 
 export default function QuEstCeQueCEst() {
 	return (

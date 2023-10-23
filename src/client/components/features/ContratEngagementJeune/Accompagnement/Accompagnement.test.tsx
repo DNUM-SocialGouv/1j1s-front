@@ -44,12 +44,12 @@ describe('<Accompagnement />', () => {
 			// Given
 			renderComponent();
 			const premierBouton = screen.getByText('Oui, je suis accompagné(e) par la Mission Locale');
-			const deuxièmeBouton = screen.getByText('Oui, je suis accompagné(e) par Pôle emploi');
-			const troisièmeBouton = screen.getByText('Non, je ne bénéficie d‘aucun accompagnement');
+			const deuxiemeBouton = screen.getByText('Oui, je suis accompagné(e) par Pôle emploi');
+			const troisiemeBouton = screen.getByText('Non, je ne bénéficie d‘aucun accompagnement');
 			// Then
 			expect(premierBouton).toBeVisible();
-			expect(deuxièmeBouton).toBeVisible();
-			expect(troisièmeBouton).toBeVisible();
+			expect(deuxiemeBouton).toBeVisible();
+			expect(troisiemeBouton).toBeVisible();
 		});
 	});
 
@@ -163,12 +163,12 @@ describe('<Accompagnement />', () => {
 	describe('quand on clique sur Oui je suis accompagné par Pôle emploi', () => {
 		it('ça te renvoie chez Pôle emploi', async () => {
 			// Given
-			const pôleEmploi = 'Oui, je suis accompagné(e) par Pôle emploi';
+			const poleEmploi = 'Oui, je suis accompagné(e) par Pôle emploi';
 			const jeContacteMonConseiller = 'Contacter mon conseiller';
 			renderComponent();
 
 			// When
-			await userEvent.click(screen.getByText(pôleEmploi));
+			await userEvent.click(screen.getByText(poleEmploi));
 
 			// Then
 			const link = screen.getByRole('link', { name: jeContacteMonConseiller });

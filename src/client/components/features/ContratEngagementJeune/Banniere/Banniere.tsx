@@ -3,9 +3,9 @@ import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-import { LinkStyledAsButtonWithIcon } from '../../../ui/LinkStyledAsButton/LinkStyledAsButton';
 import styles from './Banniere.module.scss';
 
 export default function Banniere() {
@@ -30,7 +30,6 @@ export default function Banniere() {
 			</div>
 			{isLargeScreen && (
 				<Image
-					class={styles.banniereImage}
 					priority
 					src={banniereImage}
 					alt={'Contrat d‘engagement jeune, finie la galère, trouvez un métier qui va vous plaire.'}
