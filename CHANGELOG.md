@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.168.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.167.0...v3.168.0) (2023-10-23)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **CEJ:** modification wording pour la campagne CEJ ([#2191](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2191)) ([48b0df4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/48b0df433464ad16391e0d7bdd39f08b98efdb6a))
+
 ## [3.167.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.166.0...v3.167.0) (2023-10-23)
 
 
