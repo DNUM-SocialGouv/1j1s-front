@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.167.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.166.0...v3.167.0) (2023-10-23)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **encart-campagne:** ajout de l'encart de campagne pour CEJ ([#2164](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2164)) ([2447401](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2447401a04a15624cd8c7174114f3fbf76473247))
+
 ## [3.166.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.165.1...v3.166.0) (2023-10-23)
 
 
