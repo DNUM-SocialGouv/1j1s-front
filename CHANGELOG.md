@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.170.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.169.1...v3.170.0) (2023-10-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* suppression de la page /formations et ajout de la carte Carif-O… ([#2137](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2137)) ([a340f62](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a340f62248795fac2484a163876ec6b22051547e))
+
+
+### 👷 Autres changements
+
+* **deps:** update storybook monorepo to v7.5.1 ([#2188](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2188)) ([33f0556](https://github.com/DNUM-SocialGouv/1j1s-front/commit/33f05561b8fc2151ca334df2556a4391221b4f94))
+
 ## [3.169.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.169.0...v3.169.1) (2023-10-24)
 
 
