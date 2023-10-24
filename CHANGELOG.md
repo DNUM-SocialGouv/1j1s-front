@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.170.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.1...v3.170.2) (2023-10-24)
+
+
+### 🐛 Corrections de bogues
+
+* **pagination:** contraste insuffisant ([#2209](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2209)) ([c2a40ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c2a40aef12c714bcdb4940410f22c25240278f17))
+
 ## [3.170.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.0...v3.170.1) (2023-10-24)
 
 
