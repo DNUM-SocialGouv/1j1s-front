@@ -7,10 +7,10 @@ import {
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
 import { EtiquettesFiltreFormation } from '~/client/components/features/Formation/Rechercher/EtiquettesFiltreFormation';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { CarifOrefPartner } from '~/client/components/features/ServiceCard/CarifOrefPartner';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
-import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
 import { Head } from '~/client/components/head/Head';
 import {
@@ -109,7 +109,7 @@ export default function RechercherFormation() {
 				<DecouvrirApprentissage/>
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
-				<OnisepMetierPartner/>
+				<CarifOrefPartner/>
 				<MétierDuSoinPartner/>
 			</ServiceCardList>
 		</main>

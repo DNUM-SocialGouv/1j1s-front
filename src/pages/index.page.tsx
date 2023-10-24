@@ -89,13 +89,6 @@ export default function Accueil() {
 	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
 
 	const formationEtOrientationCardListContent = [
-		{
-			children: <p>Plus de 330 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
-			imageUrl: '/images/formations.webp',
-			link: '/formations',
-			linkLabel: 'En savoir plus',
-			title: 'Formations',
-		},
 		isFormationsInitalesVisible ? {
 			children: <p>Plus de 6 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
 			imageUrl: '/images/formations-initiales.webp',

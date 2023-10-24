@@ -226,7 +226,7 @@ describe('RechercherFormationInitiale', () => {
 		});
 
 		describe('la section contient une liste de redirections, dont',   () => {
-			it('une première redirection vers la page des fiches métiers', () => {
+			it('une première redirection vers un article sur Carif Oref', () => {
 				// GIVEN
 				const aFormationService = aFormationInitialeService();
 
@@ -239,7 +239,7 @@ describe('RechercherFormationInitiale', () => {
 				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
 				const servicesItems = within(servicesList).getAllByRole('listitem');
 				const metierCard = within(servicesItems[0]).getByRole('link');
-				expect(metierCard).toHaveAttribute('href', '/decouvrir-les-metiers');
+				expect(metierCard).toHaveAttribute('href', '/articles/le-reseau-des-carif-oref-vous-accompagne');
 			});
 			it('une deuxième redirection vers la page des formations en apprentissage', () => {
 				// GIVEN
