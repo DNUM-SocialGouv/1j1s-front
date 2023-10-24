@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.169.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.168.0...v3.169.0) (2023-10-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **offre:** validation api pole emploi ([#1901](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1901)) ([300231b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/300231be849fa95761808357b390033aef5893fe))
+
+
+### 👷 Autres changements
+
+* **deps:** update getmeili/meilisearch docker tag to v1.4.2 ([#2180](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2180)) ([953016e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/953016e8c0591b708e5a4b00e9f9c8736b340668))
+
 ## [3.168.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.167.0...v3.168.0) (2023-10-23)
 
 
