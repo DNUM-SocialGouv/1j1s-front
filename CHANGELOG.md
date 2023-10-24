@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.169.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.169.0...v3.169.1) (2023-10-24)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency fast-xml-parser to v4.3.2 ([#2185](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2185)) ([f1cc271](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f1cc27152a3fb5b24c555e13bd9bdab7fdd2dc35))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.9.0 ([#2186](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2186)) ([c5cad94](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5cad94ff27253751b26667b73c17ba7236b0fbe))
+* **deps:** update dependency eslint to v8.52.0 ([#2187](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2187)) ([0788c13](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0788c133dacd372c401621422a277c9ab980f771))
+
 ## [3.169.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.168.0...v3.169.0) (2023-10-24)
 
 
