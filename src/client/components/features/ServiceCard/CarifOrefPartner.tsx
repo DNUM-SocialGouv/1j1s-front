@@ -6,7 +6,7 @@ export function CarifOrefPartner() {
 	return (
 		<ServiceCard
 			linkLabel="Lire l’article"
-			link="/articles/carif-oref"
+			link="/articles/le-reseau-des-carif-oref-vous-accompagne"
 			logo="/images/logos/carif-oref.svg"
 			title="Besoin d’une formation qualifiante pour préparer votre entrée, votre maintien ou votre retour sur le marché du travail ? "
 			titleAs={'h3'}
