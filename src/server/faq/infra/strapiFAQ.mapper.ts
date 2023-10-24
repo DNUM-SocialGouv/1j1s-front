@@ -15,6 +15,3 @@ export const mapQuestion = (faq: FAQResponseStrapi.Question): FAQ.Question => {
 		slug: faq.slug,
 	};
 };
-
-export const flatMapSlug = (faq: FAQResponseStrapi.QuestionSlug): FAQ.Slug => faq.slug;
-

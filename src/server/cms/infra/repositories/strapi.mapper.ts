@@ -1,14 +1,14 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
-import { Actualité } from '~/server/cms/domain/actualité'
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type'
-import { Article } from '~/server/cms/domain/article'
-import { Image } from '~/server/cms/domain/image'
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur'
-import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type'
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune'
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type'
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response'
+import { Actualité } from '~/server/cms/domain/actualité';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { Article } from '~/server/cms/domain/article';
+import { Image } from '~/server/cms/domain/image';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
+import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
 	return {

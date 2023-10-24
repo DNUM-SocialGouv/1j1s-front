@@ -1,18 +1,18 @@
-import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture'
-import { Actualité } from '~/server/cms/domain/actualité'
-import { anActualite } from '~/server/cms/domain/actualite.fixture'
-import { anAnnonceDeLogement, anAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture'
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type'
-import { Article } from '~/server/cms/domain/article'
-import { anArticle } from '~/server/cms/domain/article.fixture'
-import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture'
-import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires'
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur'
-import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture'
-import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture'
-import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type'
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune'
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type'
+import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
+import { Actualité } from '~/server/cms/domain/actualité';
+import { anActualite } from '~/server/cms/domain/actualite.fixture';
+import { anAnnonceDeLogement, anAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { Article } from '~/server/cms/domain/article';
+import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
+import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
+import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
+import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	anActualiteFixture,
 	anOffreDeStageDepotStrapi,
@@ -26,25 +26,25 @@ import {
 	aStrapiOffreDeStageSlugList,
 	aStrapiSingleType,
 	aStrapiVideosCampagneApprentissage,
-} from '~/server/cms/infra/repositories/strapi.fixture'
-import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository'
-import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either'
-import { ErreurMetier } from '~/server/errors/erreurMetier.types'
-import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture'
-import { Severity } from '~/server/services/error/errorManagement.service'
-import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service'
-import { anHttpError } from '~/server/services/http/httpError.fixture'
-import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service'
+} from '~/server/cms/infra/repositories/strapi.fixture';
+import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { Severity } from '~/server/services/error/errorManagement.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
+import { anHttpError } from '~/server/services/http/httpError.fixture';
+import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 import {
 	anAuthenticatedHttpClientService,
 	anAxiosResponse,
 	aPublicHttpClientService,
-} from '~/server/services/http/publicHttpClient.service.fixture'
+} from '~/server/services/http/publicHttpClient.service.fixture';
 import {
 	anAnnonceDeLogementPathList,
 	anArticlePathList,
 	anOffreDeStagePathList,
-} from '~/server/sitemap/domain/sitemap.fixture'
+} from '~/server/sitemap/domain/sitemap.fixture';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 

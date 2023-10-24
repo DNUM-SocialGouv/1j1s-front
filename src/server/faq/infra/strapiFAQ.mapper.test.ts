@@ -1,9 +1,6 @@
-import {
-	aQuestion,
-	aQuestionEtReponse,
-} from '~/server/faq/domain/FAQ.fixture';
+import { aQuestion, aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
 import { aStrapiQuestion, aStrapiQuestionEtReponse } from '~/server/faq/infra/strapiFAQ.fixture';
-import { flatMapSlug, mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
+import { mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
 
 describe('mapQuestion', () => {
 	it('retourne le résultat formaté', () => {
@@ -32,15 +29,5 @@ describe('mapQuestionRéponse', () => {
 			problématique: 'Comment constituer un dossier locatif ?',
 			slug: 'Comment-constituer-un-dossier-locatif-?',
 		}));
-	});
-});
-
-describe('flatMapSlug', () => {
-	it('renvoie le slug', () => {
-		const result= flatMapSlug({
-			slug: 'Comment-constituer-un-dossier-locatif-?',
-		});
-
-		expect(result).toEqual('Comment-constituer-un-dossier-locatif-?');
 	});
 });

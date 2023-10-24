@@ -15,3 +15,10 @@ export const aStrapiQuestion = (override?: Partial<FAQResponseStrapi.Question>):
 		...override,
 	};
 };
+
+export const aStrapiQuestionSlug = (override?: Partial<FAQResponseStrapi.QuestionSlug>): FAQResponseStrapi.QuestionSlug => {
+	return {
+		slug: 'Comment-constituer-un-dossier-locatif ?',
+		...override,
+	};
+};

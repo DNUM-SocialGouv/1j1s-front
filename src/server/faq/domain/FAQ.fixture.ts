@@ -10,7 +10,7 @@ export const aListeDeQuestion = (): Array<FAQ.Question> => {
 export const aQuestion = (override?: Partial<FAQ.Question>): FAQ.Question => {
 	return {
 		problématique: 'Comment constituer un dossier locatif ?',
-		slug: 'question-slug',
+		slug: 'Comment-constituer-un-dossier-locatif ?',
 		...override,
 	};
 };
@@ -19,7 +19,7 @@ export const aQuestionEtReponse = (override?: Partial<FAQ.QuestionEtReponse>): F
 	return {
 		contenu: 'mon contenu explicatif',
 		problématique: 'Comment constituer un dossier locatif ?',
-		slug: 'question-slug',
+		slug: 'Comment-constituer-un-dossier-locatif ?',
 		...override,
 	};
 };
