@@ -71,7 +71,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             				}
             			</Container>
 
-            			<div>
+            			<Container>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
             						<Tabs onTabChange={setCurrentTab} currentIndex={currentTab}>
@@ -102,7 +102,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
                         	/>
                         </div>
             				}
-            			</div>
+            			</Container>
             		</>
             	}
             </>
