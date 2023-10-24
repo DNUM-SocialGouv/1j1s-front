@@ -1,4 +1,9 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$pagination-current-page-color: utilities.$color-text-secondary;
+$pagination-current-page-background-color: utilities.$color-background-secondary;
+$pagination-disabled-page-color: utilities.$color-text-placeholder;
+$pagination-available-page-color: utilities.$color-text-primary;
 
 .pagination {
   text-align: center;
@@ -7,7 +12,7 @@
   align-items: center;
 
   li {
-    color: utilities-deprecated.$color-on-surface;
+    color: $pagination-available-page-color;
 
     a {
       display: inline-flex;
@@ -34,14 +39,13 @@
     padding: 0.5rem 1rem;
 
     &[aria-disabled="true"] {
-      color: utilities-deprecated.$color-on-disabled;
+      color: $pagination-disabled-page-color;
       pointer-events: none;
     }
 
     &[aria-current="true"] {
-      background-color: utilities-deprecated.$color-primary;
-      color: utilities-deprecated.$color-on-primary;
+      background-color: $pagination-current-page-background-color;
+      color: $pagination-current-page-color;
     }
   }
-
 }
