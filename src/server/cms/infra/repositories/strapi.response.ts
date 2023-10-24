@@ -133,51 +133,6 @@ export namespace Strapi {
 			contenu: string;
 		}
 
-		export interface FicheMétier {
-			acces_metier: string;
-			accroche_metier: string;
-			centres_interet: FicheMétier.CentreIntérêt[];
-			competences: string;
-			condition_travail: string;
-			formations_min_requise: FicheMétier.FormationMinRequise[];
-			id: string;
-			identifiant: string;
-			nature_travail: string;
-			niveau_acces_min: FicheMétier.NiveauAccèsMin[];
-			nom_metier: string;
-			secteurs_activite: FicheMétier.SecteurActivité[];
-			statuts: FicheMétier.Statut[];
-			vie_professionnelle: string;
-		}
-
-		export namespace FicheMétier {
-			export interface CentreIntérêt {
-				identifiant: string
-				libelle: string
-			}
-
-			export interface FormationMinRequise {
-				identifiant: string
-				libelle: string
-			}
-
-			export interface NiveauAccèsMin {
-				identifiant: string
-				libelle: string
-			}
-
-			export interface SecteurActivité {
-				identifiant: string
-				libelle: string
-			}
-
-			export interface Statut {
-				id_ideo1: string
-				identifiant: string
-				libelle: string
-			}
-		}
-
 		export interface OffreStage {
 			titre: string
 			id: string
@@ -387,19 +342,6 @@ export namespace Strapi {
 			Titre: string
 			Transcription: string
 			Url: string
-		}
-
-		export interface FormationInitialeDetail {
-			identifiant: string,
-			intitule: string,
-			duree: string,
-			updatedAt: string,
-			certification?: string,
-			niveauEtudesVise: string,
-			description?: string,
-			attendusParcoursup?: string,
-			conditionsAcces?: string,
-			poursuiteEtudes?: string,
 		}
 	}
 }

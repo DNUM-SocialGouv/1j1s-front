@@ -108,6 +108,9 @@ import {
 	formationInitialeDetailDependenciesContainer,
 } from '~/server/formations-initiales-detail/configuration/dependencies.container';
 import {
+	StrapiFormationInitialeDetailRepository,
+} from '~/server/formations-initiales-detail/infra/strapiFormationInitialeDetail.repository';
+import {
 	jobsEteDependenciesContainer,
 	OffresJobEteDependencies,
 } from '~/server/jobs-ete/configuration/dependencies.container';
@@ -267,7 +270,8 @@ export function dependenciesContainer(): Dependencies {
 	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
 	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
 
-	const formationInitialeDetailDependencies = formationInitialeDetailDependenciesContainer(onisepFormationInitialeRepository, cmsRepository);
+	const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(cmsRepository);
+	const formationInitialeDetailDependencies = formationInitialeDetailDependenciesContainer(onisepFormationInitialeRepository, strapiFormationInitialeDetailRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);

@@ -1,9 +1,6 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
-import {
-	ConsulterDetailFormationInitialeUseCase,
-} from '~/server/cms/useCases/consulterDetailFormationInitiale.useCase';
 import { ConsulterFAQUseCase } from '~/server/cms/useCases/consulterFAQ.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
@@ -30,7 +27,6 @@ export interface CmsDependencies {
 	listerServicesJeunes: ListerServicesJeunesUseCase
 	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
 	recupererVideosCampagneApprentissage: RecupererVideosCampagneApprentissageUseCase
-	consulterDetailFormationInitiale: ConsulterDetailFormationInitialeUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
@@ -42,7 +38,6 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 	return {
 		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsRepository),
 		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
-		consulterDetailFormationInitiale: new ConsulterDetailFormationInitialeUseCase(cmsRepository),
 		consulterFAQ: new ConsulterFAQUseCase(cmsRepository),
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		consulterOffreStage: new ConsulterOffreStageUseCase(cmsRepository),

@@ -1,5 +1,5 @@
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { FormationInitiale } from '~/server/formations-initiales/domain/formationInitiale';
+import { FormationInitialeDetailCMS } from '~/server/formations-initiales-detail/domain/formationInitiale.type';
 
 export type FormationInitialeDetailComplete =  FormationInitiale | (FormationInitiale & FormationInitialeDetailCMS);
 

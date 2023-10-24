@@ -12,8 +12,6 @@ import {
 	uneQuestionRéponse,
 } from '~/server/cms/domain/FAQ.fixture';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { aFormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.fixture';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
@@ -28,7 +26,7 @@ import {
 	aStrapiAnnonceDeLogementSlugList,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
-	aStrapiCollectionType, aStrapiFormationInitialeDetail,
+	aStrapiCollectionType,
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
 	aStrapiOffreDeStageSlugList,
@@ -85,6 +83,31 @@ describe('strapi cms repository', () => {
 		});
 	});
 
+	describe('getCollectionTypeDeprecated', () => {
+		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
+			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
+			const httpClientService = aPublicHttpClientService({
+				get: jest.fn(async () => {
+					throw httpError;
+				}),
+			});
+			const httpError = anAxiosResponse(anHttpError(404));
+			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
+
+			const result = await strapiCmsRepository.getArticleBySlug('bad slug');
+
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+				apiSource: 'API Strapi',
+				contexte: 'get collection type strapi',
+				message: 'Erreur inconnue - Impossible de récupérer la ressource articles',
+			});
+			expect(result.instance).toEqual('failure');
+			expect((result as Failure).errorType).toEqual(expectedFailure);
+		});
+	});
+
+	// TODO (SULI 23-10-2023): écrire le test complet de getCollectionType
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
@@ -432,29 +455,6 @@ describe('strapi cms repository', () => {
 				},
 			]);
 			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?sort[0]=Index&pagination[pageSize]=100&pagination[page]=1');
-		});
-	});
-
-	describe('getFormationInitialeById', () => {
-		it('retour le détail de la formation initiale', async () => {
-			const identifiant = 'FOR.1234';
-			const expectedFormationInitiale = aFormationInitialeDetailCMS({
-				attendusParcoursup: 'L‘option managament d‘unité de production culinaire vise à maîtriser des techniques culinaires propres aux différents types de restauration',
-				conditionsAcces: 'Le diplomé peut débuter comme chef de partie, second de cuisine, avant d‘accéder à des postes d‘encadrement ou de direction.',
-				description: 'Je suis une description de formation initiale',
-				poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
-			});
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-			);
-			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiFormationInitialeDetail()));
-
-			const { result } = await strapiCmsRepository.getFormationInitialeById(identifiant) as Success<FormationInitialeDetailCMS>;
-
-
-			expect(httpClientService.get).toHaveBeenCalledWith('formation-initiale-details?filters[identifiant][$eq]=FOR.1234&pagination[pageSize]=100&pagination[page]=1');
-			expect(result).toEqual(expectedFormationInitiale);
 		});
 	});
 });

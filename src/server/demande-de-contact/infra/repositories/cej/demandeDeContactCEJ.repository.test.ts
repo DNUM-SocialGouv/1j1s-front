@@ -21,6 +21,7 @@ describe('DemandeDeContactCEJRepository', () => {
 		it('envoie la demande au CMS', async () => {
 			// Given
 			const strapiCmsRepository = aStrapiCmsRepository();
+			jest.spyOn(strapiCmsRepository, 'save').mockResolvedValueOnce(createSuccess(undefined));
 			const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
 			const expectedBody = {
 				age: 18,

@@ -1,11 +1,3 @@
-export interface FicheMétierResult {
-	results: Partial<FicheMétier>[]
-	estimatedTotalResults: number
-	limit: number
-	offset: number
-	processingTimeMs: number
-}
-
 export interface FicheMétier {
 	accesMetier: string
 	accrocheMetier: string
@@ -30,10 +22,4 @@ export interface FicheMetierNestedField {
 
 export interface FicheMetierNestedFieldStatut extends FicheMetierNestedField {
 	idIdeo: string
-}
-
-export interface FicheMetierFiltresRecherche {
-	motCle: string
-	page?: number
-	numberOfResult?: number
 }

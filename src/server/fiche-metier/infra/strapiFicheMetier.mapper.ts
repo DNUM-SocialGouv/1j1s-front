@@ -1,9 +1,9 @@
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
+import { StrapiFicheMetier } from '~/server/fiche-metier/infra/strapiFicheMetier';
 import { capitalizeFirstLetter } from '~/server/services/utils/capitalizeFirstLetter.util';
 
 
-export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): FicheMétier {
+export function mapFicheMetier(response: StrapiFicheMetier): FicheMétier {
 	return {
 		accesMetier: response.acces_metier,
 		accrocheMetier: response.accroche_metier,
@@ -41,6 +41,6 @@ export function mapFicheMetier(response: Strapi.CollectionType.FicheMétier): Fi
 
 const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
 
-export function flatMapNomMetier (strapiFicheMetier: Strapi.CollectionType.FicheMétier): string {
+export function getNomMetier (strapiFicheMetier: StrapiFicheMetier): string {
 	return(strapiFicheMetier[FICHE_METIER_NOM_METIER_FIELD_NAME]);
 }

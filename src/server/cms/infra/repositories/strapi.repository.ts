@@ -3,7 +3,6 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Question } from '~/server/cms/domain/FAQ.type';
-import { FormationInitialeDetailCMS } from '~/server/cms/domain/formationInitiale.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
@@ -13,7 +12,6 @@ import {
 	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
-	mapFormationInitiale,
 	mapMesuresEmployeurs,
 	mapOffreStage,
 	mapQuestion,
@@ -38,7 +36,7 @@ const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_FAQ = 'faqs';
 const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
-const RESSOURCE_FORMATION_INITIALE= 'formation-initiale-details';
+
 export class StrapiRepository implements CmsRepository {
 	constructor(
 		private httpClientService: PublicHttpClientService,
@@ -61,8 +59,9 @@ export class StrapiRepository implements CmsRepository {
 			});
 		}
 	}
-
-	async getCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
+	// NOTE (SULI 23-10-2023): methode dépréciée au profit de GetCollectionType qui ne prend pas de mapper en paramètre
+	// doit disparaitre après avoir scindé complètement le CMS repository
+	async getCollectionTypeDeprecated<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
 		try {
 			const firstPage = 1;
 			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
@@ -81,6 +80,35 @@ export class StrapiRepository implements CmsRepository {
 
 			const response = dataResponseList.map((data) => mapper(data.attributes));
 			return createSuccess(response);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'get collection type strapi',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
+			});
+		}
+	}
+
+	async getCollectionType<Collection>(resource: string, query: string): Promise<Either<Collection[]>> {
+		try {
+			const firstPage = 1;
+			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
+			const { page, pageCount } = result.meta.pagination;
+			const dataResponseList = result.data;
+
+			const hasSeveralPages = pageCount > page;
+			if (hasSeveralPages) {
+				const promiseList = [];
+				for (let currentPage = page + 1; currentPage <= pageCount; currentPage++) {
+					promiseList.push(this.getPaginatedCollectionType<Collection>(resource, query, currentPage));
+				}
+				const resultList = await Promise.all(promiseList);
+				dataResponseList.push(...resultList.flatMap((result) => result.data));
+			}
+
+			const collections = dataResponseList.map((data) => data.attributes);
+
+			return createSuccess(collections);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Strapi',
@@ -109,8 +137,8 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getFirstFromCollectionType<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response>> {
-		const collectionType = await this.getCollectionType<Collection, Response>(resource, query, mapper);
+	async getFirstFromCollectionType<Collection>(resource: string, query: string): Promise<Either<Collection>> {
+		const collectionType = await this.getCollectionType<Collection>(resource, query);
 		return this.getFirstFromCollection(collectionType);
 	}
 
@@ -121,7 +149,7 @@ export class StrapiRepository implements CmsRepository {
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
 		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const articleList = await this.getCollectionType<Strapi.CollectionType.Article, Article>(RESOURCE_ARTICLE, query, mapArticle);
+		const articleList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, Article>(RESOURCE_ARTICLE, query, mapArticle);
 		return this.getFirstFromCollection(articleList);
 	}
 
@@ -129,25 +157,25 @@ export class StrapiRepository implements CmsRepository {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
 		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
-		return await this.getCollectionType<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
 
 	async listAllFAQSlug(): Promise<Either<Array<string>>> {
 		const query = '[fields][0]=slug';
 		const flatMapSlug = (faq: Strapi.CollectionType.FAQ): string => mapQuestion(faq).slug;
-		return await this.getCollectionType<Strapi.CollectionType.FAQ, string>(RESOURCE_FAQ, query, flatMapSlug);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.FAQ, string>(RESOURCE_FAQ, query, flatMapSlug);
 	}
 
 	async listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>> {
 		const query = 'fields[0]=slug';
 		const flatMapSlug = (annoneDeLogement: Strapi.CollectionType.AnnonceLogement): string => annoneDeLogement.slug;
-		return await this.getCollectionType<Strapi.CollectionType.AnnonceLogement, string>(RESOURCE_ANNONCE_DE_LOGEMENT, query, flatMapSlug);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.AnnonceLogement, string>(RESOURCE_ANNONCE_DE_LOGEMENT, query, flatMapSlug);
 	}
 
 	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
 		const query = 'fields[0]=slug';
 		const flatMapSlug = (offreDeStage: Strapi.CollectionType.OffreStage): string => offreDeStage.slug;
-		return await this.getCollectionType<Strapi.CollectionType.OffreStage, string>(RESOURCE_OFFRE_DE_STAGE, query, flatMapSlug);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.OffreStage, string>(RESOURCE_OFFRE_DE_STAGE, query, flatMapSlug);
 	}
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
@@ -180,13 +208,13 @@ export class StrapiRepository implements CmsRepository {
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
 		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const offreStageList = await this.getCollectionType<Strapi.CollectionType.OffreStage, OffreDeStage>(RESOURCE_OFFRE_DE_STAGE, query, mapOffreStage);
+		const offreStageList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.OffreStage, OffreDeStage>(RESOURCE_OFFRE_DE_STAGE, query, mapOffreStage);
 		return this.getFirstFromCollection(offreStageList);
 	}
 
 	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
 		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const annonceLogementList = await this.getCollectionType<Strapi.CollectionType.AnnonceLogement, AnnonceDeLogement>(RESOURCE_ANNONCE_DE_LOGEMENT, query, mapAnnonceLogement);
+		const annonceLogementList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.AnnonceLogement, AnnonceDeLogement>(RESOURCE_ANNONCE_DE_LOGEMENT, query, mapAnnonceLogement);
 		return this.getFirstFromCollection(annonceLogementList);
 	}
 
@@ -212,23 +240,17 @@ export class StrapiRepository implements CmsRepository {
 	}
 	async getAllFAQ(): Promise<Either<Array<Question>>> {
 		const query = 'fields[0]=problematique&fields[1]=slug';
-		return await this.getCollectionType<Strapi.CollectionType.FAQ, Question>(RESOURCE_FAQ, query, mapQuestion);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.FAQ, Question>(RESOURCE_FAQ, query, mapQuestion);
 	}
 
 	async getFAQBySlug(slug: string): Promise<Either<Question.QuestionRéponse>> {
 		const query = `filters[slug][$eq]=${slug}`;
-		const listeDeQuestion = await this.getCollectionType<Strapi.CollectionType.FAQ.Réponse, Question.QuestionRéponse>(RESOURCE_FAQ, query, mapQuestionRéponse);
+		const listeDeQuestion = await this.getCollectionTypeDeprecated<Strapi.CollectionType.FAQ.Réponse, Question.QuestionRéponse>(RESOURCE_FAQ, query, mapQuestionRéponse);
 		return this.getFirstFromCollection(listeDeQuestion);
 	}
 
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
 		const query = 'sort[0]=Index';
-		return await this.getCollectionType<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
-	}
-
-	async getFormationInitialeById(identifiant: string): Promise<Either<FormationInitialeDetailCMS>> {
-		const query = `filters[identifiant][$eq]=${identifiant}`;
-		const listeFormationInitiale = await this.getCollectionType<Strapi.CollectionType.FormationInitialeDetail, FormationInitialeDetailCMS>(RESSOURCE_FORMATION_INITIALE, query, mapFormationInitiale);
-		return this.getFirstFromCollection(listeFormationInitiale);
+		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
 	}
 }
