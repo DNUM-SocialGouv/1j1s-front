@@ -12,6 +12,7 @@ describe('StrapiFormationInitialeDetailRepository', () => {
 	it('appelle le service Strapi avec les bons paramètres', async () => {
 		// GIVEN
 		const strapiService = aStrapiCmsRepository();
+		jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
 		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);
 		const identifiant = 'FOR.1234';
 		const formationInitialeDetailResourceName = 'formation-initiale-details';

@@ -1,7 +1,7 @@
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { StrapiFicheMetier } from '~/server/fiche-metier/infra/strapiFicheMetier';
 
 
-export function aStrapiFicheMetier(override?: Partial<Strapi.CollectionType.FicheMétier>): Strapi.CollectionType.FicheMétier {
+export function aStrapiFicheMetier(override?: Partial<StrapiFicheMetier>): StrapiFicheMetier {
 	return {
 		acces_metier: 'S‘il existe deux niveaux d‘accès, à bac + 3 et à bac + 5, la tendance est au recrutement de jeunes de plus en plus qualifiés. ',
 		accroche_metier: 'Son rôle: acheter les produits et services dont son entreprise a besoin, en négociant les meilleures conditions de prix, de délais et de service après-vente.',
