@@ -102,6 +102,19 @@ describe('<ConsulterAnnonce />', () => {
 			annonceDeLogement = anAnnonceDeLogement();
 		});
 
+		it('affiche correctement le carousel', () => {
+			annonceDeLogement.imageList = [{ alt: '', src: '/une-première-image.webp' }, {
+				alt: '',
+				src: '/une-deuxième-image.webp',
+			}];
+			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
+
+			const carousel = screen.getByRole('group');
+			expect(carousel).toBeVisible();
+			expect(carousel).toHaveAttribute('aria-roledescription', 'carousel');
+			expect(carousel).not.toHaveAttribute('aria-hidden', undefined);
+		});
+
 		describe('quand il n‘y a pas d‘image a afficher', () => {
 			it('n‘affiche pas le carousel', () => {
 				annonceDeLogement.imageList = [];

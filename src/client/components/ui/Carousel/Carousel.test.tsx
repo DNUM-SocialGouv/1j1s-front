@@ -13,15 +13,15 @@ import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 
 const imageList = [
 	{
-		alt: '',
+		alt: undefined,
 		src: '/image1.jpg',
 	},
 	{
-		alt: '',
+		alt: undefined,
 		src: '/image2.jpg',
 	},
 	{
-		alt: '',
+		alt: undefined,
 		src: '/image3.jpg',
 	},
 ];
@@ -49,6 +49,14 @@ describe('Carousel', () => {
 			const image = screen.getByRole('img', { name: 'une seule image' });
 			expect(image).toHaveAttribute('src', expect.stringMatching(/une-seule-image.webp/));
 		});
+		it('fournit l’alternative "1 sur 1" quand il n’y a pas d’alternative', () => {
+			render(<Carousel imageList={[{
+				alt: undefined,
+				src: '/une-seule-image.webp',
+			}]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+
+			expect(screen.getByRole('img', { name: '1 sur 1' })).toBeVisible();
+		});
 	});
 
 	it('retourne une liste d‘images avec seulement la première image visible et courante',  () => {
@@ -72,6 +80,14 @@ describe('Carousel', () => {
 		expect(image.height).toEqual(200);
 	});
 
+	it('retourne une liste d’images avec une alternative au format "N sur index" quand il n’y a pas d’alternative', () => {
+		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+
+		expect(screen.getByRole('img', { hidden: true, name: '1 sur 3' })).toBeVisible();
+		expect(screen.getByRole('img', { hidden: true, name: '2 sur 3' })).toBeVisible();
+		expect(screen.getByRole('img', { hidden: true, name: '3 sur 3' })).toBeVisible();
+	});
+
 	it('retourne deux boutons de contrôle', () => {
 		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
 
@@ -87,14 +103,14 @@ describe('Carousel', () => {
 		it('contient une liste de boutons indicateurs', () => {
 			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
 
-			const listeDIndicateurs = screen.getByRole('list', { name: 'indicateurs' });
+			const listeDIndicateurs = screen.getByRole('group', { name: 'indicateurs' });
 			expect(listeDIndicateurs).toBeInTheDocument();
 		});
 
 		it('retourne une liste de boutons indicateurs', () => {
 			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
 
-			const listeDIndicateurs = screen.getByRole('list', { name: 'indicateurs' });
+			const listeDIndicateurs = screen.getByRole('group', { name: 'indicateurs' });
 			expect(listeDIndicateurs).toBeInTheDocument();
 		});
 
@@ -152,5 +168,4 @@ describe('Carousel', () => {
 			});
 		});
 	});
-
 });

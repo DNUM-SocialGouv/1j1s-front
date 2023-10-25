@@ -60,7 +60,7 @@ export function Carousel(props: CarouselProps) {
 		return (
 			<Image
 				src={imageList[0].src}
-				alt={imageList[0].alt}
+				alt={imageList[0].alt ?? '1 sur 1'}
 				width={imagesSize.width}
 				height={imagesSize.height}
 			/>

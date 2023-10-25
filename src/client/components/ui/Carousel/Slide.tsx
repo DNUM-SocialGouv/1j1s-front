@@ -48,6 +48,7 @@ export const Slide = (props: SlideProps) => {
 			aria-current={isCurrentSlide}
 			aria-hidden={!isCurrentSlide}
 			aria-roledescription="slide"
+			aria-label={`Image ${index + 1} sur ${numberOfImages}`}
 			onTransitionEnd={() => {
 				setIsInTransition(false);
 				setDirection(null);
@@ -62,7 +63,7 @@ export const Slide = (props: SlideProps) => {
 				{ [styles.transition]: isAnimated },
 			)}
 		>
-			<Image src={image.src} alt={image.alt} width={imagesSize.width} height={imagesSize.height} />
+			<Image src={image.src} alt={image.alt ?? `${index + 1} sur ${numberOfImages}`} width={imagesSize.width} height={imagesSize.height} />
 		</li>
 	);
 };

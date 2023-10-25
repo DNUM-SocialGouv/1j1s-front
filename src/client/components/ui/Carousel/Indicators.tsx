@@ -14,15 +14,14 @@ export const Indicators = (props: IndicatorsProps) => {
 	const { goToSelectedSlide, imageList, numberOfImages, currentSlideIndex } = props;
 
 	return (
-		<ul aria-label="indicateurs" className={styles.indicators}>
+		<ul aria-label="indicateurs" role="group" className={styles.indicators}>
 			{imageList.map((image, index) => (
 				<li key={index} aria-current={index === currentSlideIndex}>
 					<button
 						type="button"
-						title={`Afficher l‘image ${index + 1} sur ${numberOfImages}`}
 						onClick={() => goToSelectedSlide(index)}
 						className={classNames(styles.indicator, { [styles.indicatorActive]: index === currentSlideIndex })}>
-						{index === currentSlideIndex && <span className="sr-only">(current slide)</span>}
+						{index === currentSlideIndex && <span className="sr-only">Afficher l‘image ${index + 1} sur ${numberOfImages}</span>}
 						<span className="sr-only">{image.alt}</span>
 					</button>
 				</li>
