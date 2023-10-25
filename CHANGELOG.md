@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.170.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.3...v3.170.4) (2023-10-25)
+
+
+### 🐛 Corrections de bogues
+
+* **emplois:** Revert "feat(offre): validation api pole emploi ([#1901](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1901))" ([#2215](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2215)) ([b7d409f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b7d409fb75880258859326c181e96635ac98b826))
+
 ## [3.170.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.2...v3.170.3) (2023-10-25)
 
 
