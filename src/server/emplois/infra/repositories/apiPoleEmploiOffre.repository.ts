@@ -7,8 +7,6 @@ import {
 	mapRésultatsRechercheOffre,
 } from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploi.mapper';
 import {
-	apiPoleEmploiOffreRechercheSchema,
-	apiPoleEmploiOffreSchema,
 	OffreResponse,
 	RésultatsRechercheOffreResponse,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiOffre.response';
@@ -18,7 +16,6 @@ import {
 	PoleEmploiParamètreBuilderService,
 } from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { CacheService } from '~/server/services/cache/cache.service';
-import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import {
 	ErrorManagementService,
 	ErrorManagementWithErrorCheckingService,
@@ -47,13 +44,6 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 				return this.apiPoleEmploiOffreErrorManagementGet.handleFailureError(response, {
 					apiSource: 'API Pole Emploi',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
-				});
-			}
-			const validateSchemasResponse = validateApiResponse(response, apiPoleEmploiOffreSchema);
-			if (validateSchemasResponse) {
-				this.apiPoleEmploiOffreErrorManagementGet.logValidationError(validateSchemasResponse, {
-					apiSource: 'API Pole Emploi',
-					contexte: 'détail offre emploi', message: 'erreur de validation du schéma de l’api',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
@@ -94,13 +84,6 @@ export class ApiPoleEmploiOffreRepository implements OffreRepository {
 			);
 			if (response.status === 204) {
 				return createSuccess({ nombreRésultats: 0, résultats: [] });
-			}
-			const validateSchemasResponse = validateApiResponse(response.data, apiPoleEmploiOffreRechercheSchema);
-			if (validateSchemasResponse) {
-				this.apiPoleEmploiOffreErrorManagementSearch.logValidationError(validateSchemasResponse, {
-					apiSource: 'API Pole Emploi',
-					contexte: 'recherche offre emploi', message: 'erreur de validation du schéma de l’api',
-				});
 			}
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
 		} catch (error) {
