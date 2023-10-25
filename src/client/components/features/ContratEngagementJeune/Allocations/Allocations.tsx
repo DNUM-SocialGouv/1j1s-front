@@ -31,7 +31,7 @@ function ConditionsAllocation() {
 	return (
 		<>
 			<div id="conditionsAllocation" className={styles.conditionAllocation}>
-				Je perçois une allocation pouvant aller jusqu’à 500 euros par mois en fonction de :
+				Je perçois une allocation pouvant aller jusqu’à 528 euros par mois en fonction de :
 			</div>
 			<ul aria-labelledby="conditionsAllocation">
 				<li>
