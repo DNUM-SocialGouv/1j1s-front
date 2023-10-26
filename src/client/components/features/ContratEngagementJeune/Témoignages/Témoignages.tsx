@@ -34,7 +34,7 @@ function TémoignageKévin() {
 						<li>
 							3 mois dans sa Mission Locale avec son conseiller qui lui proposera des ateliers collectifs pour
 							travailler sur son projet professionnel et effectuer des stages en entreprise en bénéficiant d‘une
-							allocation de 500 euros par mois.
+							allocation de 528 euros par mois.
 						</li>
 						<li>
 							Intéressé par le sport, il pourra ensuite faire un service civique de 8 mois dans une association
@@ -77,7 +77,7 @@ function TémoignageLatifa() {
 							métiers.
 						</li>
 						<li>
-							Elle bénéficiera d‘une allocation de 500 euros par mois, car elle n‘a pas de ressources financières.
+							Elle bénéficiera d‘une allocation de 528 euros par mois, car elle n‘a pas de ressources financières.
 						</li>
 						<li>
 							Après cette période et la découverte d‘un métier qui l‘intéresse, elle pourra se former encore pendant 3
