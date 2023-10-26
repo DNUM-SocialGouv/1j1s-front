@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.171.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.5...v3.171.0) (2023-10-26)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cej:** wording temoignages ([#2213](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2213)) ([ec39d3e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ec39d3e98b1d7494c16b751896624b6d27505243))
+
 ## [3.170.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.4...v3.170.5) (2023-10-26)
 
 
