@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.172.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.171.0...v3.172.0) (2023-10-27)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cms:** scinder la partie FAQ ([#2051](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2051)) ([3fe053e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3fe053eb505d1acb75c53dafe5c6b503618fdc53))
+
 ## [3.171.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.170.5...v3.171.0) (2023-10-26)
 
 
