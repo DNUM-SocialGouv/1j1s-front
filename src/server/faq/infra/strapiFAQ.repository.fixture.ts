@@ -1,7 +1,6 @@
 import { createSuccess } from '~/server/errors/either';
-
-import { aListeDeQuestion, aListeFAQSlug, aQuestionEtReponse } from '../domain/FAQ.fixture';
-import { FAQRepository } from '../domain/FAQ.repository';
+import { aListeDeQuestion, aListeFAQSlug, aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
+import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 
 export function aFAQRepository(override?:Partial<FAQRepository>): FAQRepository {
 	return {

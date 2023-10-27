@@ -3,7 +3,7 @@ import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { FAQ } from '~/server/faq/domain/FAQ';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FAQResponseStrapi } from '~/server/faq/infra/strapiFAQ';
-import { mapQuestion, mapQuestionRéponse } from '~/server/faq/infra/strapiFAQ.mapper';
+import { mapQuestion, mapQuestionReponse } from '~/server/faq/infra/strapiFAQ.mapper';
 
 const RESOURCE_FAQ = 'faqs';
 
@@ -16,7 +16,7 @@ export class StrapiFAQRepository implements FAQRepository {
 		const strapiQuestionEtReponse = await this.strapiService.getFirstFromCollectionType<FAQResponseStrapi.QuestionEtReponse>(RESOURCE_FAQ, query);
 
 		if(isSuccess(strapiQuestionEtReponse))
-			return createSuccess(mapQuestionRéponse(strapiQuestionEtReponse.result));
+			return createSuccess(mapQuestionReponse(strapiQuestionEtReponse.result));
 
 		return strapiQuestionEtReponse;
 	}

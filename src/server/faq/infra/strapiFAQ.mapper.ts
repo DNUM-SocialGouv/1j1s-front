@@ -1,7 +1,7 @@
 import { FAQ } from '~/server/faq/domain/FAQ';
 import { FAQResponseStrapi } from '~/server/faq/infra/strapiFAQ';
 
-export const mapQuestionRéponse = (faq: FAQResponseStrapi.QuestionEtReponse): FAQ.QuestionEtReponse => {
+export const mapQuestionReponse = (faq: FAQResponseStrapi.QuestionEtReponse): FAQ.QuestionEtReponse => {
 	return {
 		contenu: faq.contenu,
 		problématique: faq.problematique,
