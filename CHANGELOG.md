@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.173.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.172.0...v3.173.0) (2023-10-27)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **form-altern:** prendre en compte le nouveau format de filtre sur le niveau d'étude visé attendu par LBA ([#2224](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2224)) ([2921dae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2921dae2639b9e67dbfe79f73f61135464d1dc5d))
+
 ## [3.172.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.171.0...v3.172.0) (2023-10-27)
 
 
