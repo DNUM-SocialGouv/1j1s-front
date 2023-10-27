@@ -12,6 +12,9 @@ import {
 	mapRésultatRechercheFormation,
 	mapRésultatRechercheFormationToFormation,
 } from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormation.mapper';
+import {
+	mapFiltreNiveauEtudeVise,
+} from '~/server/formations/infra/repositories/apiLaBonneAlternanceFormationFiltre.mapper';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { isHttpError } from '~/server/services/http/httpError';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -55,7 +58,7 @@ export class ApiLaBonneAlternanceFormationRepository implements FormationReposit
 			.concat(`&longitude=${filtre.longitudeCommune}`)
 			.concat(`&latitude=${filtre.latitudeCommune}`)
 			.concat(`&radius=${filtre.distanceCommune}`)
-			.concat(filtre.niveauEtudes ? `&diploma=${filtre.niveauEtudes}` : '');
+			.concat(filtre.niveauEtudes ? `&diploma=${mapFiltreNiveauEtudeVise(filtre.niveauEtudes)}` : '');
 	}
 
 	async get(id: string, filtreRecherchePourRetrouverLaFormation?: FormationFiltre): Promise<Either<Formation>> {
