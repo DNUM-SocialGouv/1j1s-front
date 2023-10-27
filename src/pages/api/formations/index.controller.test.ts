@@ -35,7 +35,6 @@ describe('rechercher formation', () => {
 		});
 	});
 
-
 	describe('quand le paramètre niveau d’études est renseignée', () => {
 		it('retournes une liste de formations filtrée en prenant en compte le niveau d’études', async () => {
 			const codeRomes = 'F1603,I1308';
@@ -45,9 +44,10 @@ describe('rechercher formation', () => {
 			const longitudeCommune = '15.845';
 			const latitudeCommune = '2.37';
 			const niveauEtudes = '6';
+			const niveauEtudesLBA = '6 (Licence, BUT...)';
 
 			nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
-				`/formations?caller=${caller}&romes=${codeRomes}&insee=${codeCommune}&longitude=${longitudeCommune}&latitude=${latitudeCommune}&radius=${radius}&diploma=${niveauEtudes}`,
+				`/formations?caller=${caller}&romes=${codeRomes}&insee=${codeCommune}&longitude=${longitudeCommune}&latitude=${latitudeCommune}&radius=${radius}&diploma=${niveauEtudesLBA}`,
 			).reply(200, aLaBonneAlternanceApiRésultatRechercheFormationResponse());
 
 			await testApiHandler<Array<RésultatRechercheFormation> | ErrorHttpResponse>({
