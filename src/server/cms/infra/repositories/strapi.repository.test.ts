@@ -6,12 +6,6 @@ import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
-import {
-	uneListeDeQuestion,
-	uneListeDeQuestionStrapiResponse,
-	uneQuestionRéponse,
-} from '~/server/cms/domain/FAQ.fixture';
-import { Question } from '~/server/cms/domain/FAQ.type';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
@@ -338,70 +332,6 @@ describe('strapi cms repository', () => {
 				// Then
 				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
 				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offres-de-stage', { data: offreDeStageDepotStrapi });
-			});
-		});
-	});
-
-	describe('getAllFAQ', () => {
-		describe('quand la liste des questions est trouvée', () => {
-			it('retourne la liste des questions avec la problématique et le slug', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
-
-
-				const { result } = await strapiCmsRepository.getAllFAQ() as Success<Array<Question>>;
-				expect(result).toEqual(uneListeDeQuestion());
-				expect(httpClientService.get).toHaveBeenCalledWith('faqs?fields[0]=problematique&fields[1]=slug&pagination[pageSize]=100&pagination[page]=1');
-			});
-
-		});
-
-		describe('quand la liste des questions n’est pas trouvée', () => {
-			it('retourne une erreur', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
-				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
-				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
-
-				const result = await strapiCmsRepository.getAllFAQ() as Failure;
-				expect(result.errorType).toEqual(expectedFailure);
-			});
-		});
-	});
-
-	describe('getFAQBySlug', () => {
-		describe('quand la question réponse est trouvée', () => {
-			it('retourne la question réponse', async () => {
-				const slug = uneListeDeQuestionStrapiResponse()[0].slug;
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType(uneListeDeQuestionStrapiResponse())));
-
-
-				const { result } = await strapiCmsRepository.getFAQBySlug(slug) as Success<Question.QuestionRéponse>;
-				expect(result).toEqual(uneQuestionRéponse('Comment constituer un dossier locatif ?'));
-				expect(httpClientService.get).toHaveBeenCalledWith(`faqs?filters[slug][$eq]=${slug}&pagination[pageSize]=100&pagination[page]=1`);
-			});
-		});
-
-		describe('quand la question réponse n’est pas trouvée', () => {
-			it('retourne une erreur', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
-				const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
-				httpClientService.get = jest.fn().mockRejectedValue(anHttpError(404));
-
-				const result = await strapiCmsRepository.getFAQBySlug('not-found-slug') as Failure;
-				expect(result.errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
 			});
 		});
 	});

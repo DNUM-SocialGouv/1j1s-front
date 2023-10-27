@@ -5,23 +5,22 @@ import React from 'react';
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
 import { Article } from '~/server/cms/domain/article';
-import {
-	Question,
-	QuestionSlug,
-} from '~/server/cms/domain/FAQ.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import {
+	FAQ,
+} from '~/server/faq/domain/FAQ';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
 
 type ConsulterFAQRéponsePageProps = {
-	faqRéponse: Question.QuestionRéponse
+	faqRéponse: FAQ.QuestionEtReponse
 }
 
 interface FAQRéponse extends ParsedUrlQuery {
-	id: QuestionSlug
+	id: FAQ.Slug
 }
 
-const faqRéponseMapToArticleFormat = (faqRéponse: Question.QuestionRéponse): Article => {
+const faqRéponseMapToArticleFormat = (faqRéponse: FAQ.QuestionEtReponse): Article => {
 	return {
 		contenu: faqRéponse.contenu,
 		titre: faqRéponse.problématique,
@@ -49,7 +48,7 @@ export async function getStaticProps(context: GetStaticPropsContext<FAQRéponse>
 	}
 
 	const { id } = context.params;
-	const faqRéponse = await dependencies.cmsDependencies.consulterFAQ.handle(id);
+	const faqRéponse = await dependencies.faqDependencies.consulterFAQ.handle(id);
 
 	if (faqRéponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

@@ -82,14 +82,6 @@ export function aFicheMetierNomMetierList(): Array<string> {
 	];
 }
 
-export function aFAQPathList(): Array<string> {
-	return [
-		'comment-constituer-un-dossier-locatif-jeune',
-		'comment-faire-son-service-civique',
-		'que-faire-site-la-recherche-d-emploi-ne-fonctionne-pas',
-	];
-}
-
 export function anOffreDeStagePathList(): Array<string> {
 	return [
 		'stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba',

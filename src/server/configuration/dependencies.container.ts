@@ -69,6 +69,8 @@ import {
 import {
 	ApiÉtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+import { FAQDependencies, FAQDependenciesContainer } from '~/server/faq/configuration/dependencies.container';
+import { StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 import {
 	FicheMetierDependencies,
 	ficheMetierDependenciesContainer,
@@ -174,7 +176,8 @@ import {
 } from '~/server/sitemap/configuration/dependencies.container';
 
 export type Dependencies = {
-	ficheMetierDependencies: FicheMetierDependencies
+	ficheMetierDependencies: FicheMetierDependencies;
+	faqDependencies: FAQDependencies;
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	formationInitialeDependencies: FormationInitialeDependencies;
@@ -308,10 +311,13 @@ export function dependenciesContainer(): Dependencies {
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
 	const ficheMetierDependencies=  ficheMetierDependenciesContainer(ficheMetierRepository);
+	
+	const faqRepository = new StrapiFAQRepository(cmsRepository);
+	const faqDependencies=  FAQDependenciesContainer(faqRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();
@@ -329,6 +335,7 @@ export function dependenciesContainer(): Dependencies {
 		emploiEuropeDependencies,
 		engagementDependencies,
 		entrepriseDependencies,
+		faqDependencies,
 		ficheMetierDependencies,
 		formationDependencies,
 		formationInitialeDependencies,

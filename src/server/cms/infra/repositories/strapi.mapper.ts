@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
-import { Question } from '~/server/cms/domain/FAQ.type';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
@@ -244,21 +243,6 @@ export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.Coll
 	};
 }
 
-export const mapQuestion = (faq: Strapi.CollectionType.FAQ): Question => {
-	return {
-		problématique: faq.problematique,
-		slug: faq.slug,
-	};
-};
-
-export const mapQuestionRéponse = (faq: Strapi.CollectionType.FAQ.Réponse): Question.QuestionRéponse => {
-	return {
-		contenu: faq.contenu,
-		problématique: faq.problematique,
-		slug: faq.slug,
-	};
-};
-
 export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.VideoCampagneApprentissage): VideoCampagneApprentissage {
 	const videoIdWithPotentialParams = video.Url.split('v=')[1];
 	const videoId = videoIdWithPotentialParams.split('&')[0];
@@ -268,4 +252,3 @@ export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.Video
 		videoId: videoId,
 	};
 }
-

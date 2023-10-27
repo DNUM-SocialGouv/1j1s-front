@@ -9,11 +9,11 @@ import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsB
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
-import { Question } from '~/server/cms/domain/FAQ.type';
+import { FAQ } from '~/server/faq/domain/FAQ';
 import { dependencies } from '~/server/start';
 
 type FaqPageProps = {
-	listeDeQuestionRéponse: Array<Question>
+	listeDeQuestionRéponse: Array<FAQ.Question>
 } 
 
 const MAIL_TO = 'contact-1j1s@sg.social.gouv.fr';
@@ -53,7 +53,7 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<FaqPageProps>> {
-	const listeDeQuestionRéponse = await dependencies.cmsDependencies.listerQuestionsFAQ.handle();
+	const listeDeQuestionRéponse = await dependencies.faqDependencies.listerQuestionsFAQ.handle();
 	if (listeDeQuestionRéponse.instance === 'failure') {
 		return { notFound: true };
 	}
