@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.173.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.173.0...v3.173.1) (2023-10-30)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @mdx-js/react to v3 ([#2211](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2211)) ([68d0ca2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/68d0ca24b7a65a69e0bf1f0b1c637d189aad1ac7))
+* **deps:** update dependency @sentry/nextjs to v7.76.0 ([#2208](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2208)) ([de3026b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/de3026ba320ffdea3123b43b9ef5c71a4891a53c))
+* **deps:** update dependency marked to v9.1.3 ([#2226](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2226)) ([bbf40e6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bbf40e690d8bdd931089d90ecd2a102e64ced3a0))
+* **deps:** update nextjs monorepo to v13.5.6 ([#2003](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2003)) ([fc3bcbb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fc3bcbba39e24b67815e4af23b24f0f512fc80b1))
+* **deps:** update nextjs monorepo to v14 ([#2220](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2220)) ([59a9f0b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/59a9f0b0ea53b666ab3aa2493eefa9fa8de029af))
+
+
+### 📚 Documentation
+
+* ajout adr feature flipping vs node env ([#2218](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2218)) ([7d281f4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d281f41383e2460665eee7d4dfc8a5c871c2874))
+
 ## [3.173.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.172.0...v3.173.0) (2023-10-27)
 
 
