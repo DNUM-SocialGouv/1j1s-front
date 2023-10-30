@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.174.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.173.1...v3.174.0) (2023-10-30)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **ui:** input text repasse technique et tests manquant ([#2110](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2110)) ([cbbd6fb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cbbd6fbba5eaa79896b51e68c1fe648eddec9f96))
+
 ## [3.173.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.173.0...v3.173.1) (2023-10-30)
 
 
