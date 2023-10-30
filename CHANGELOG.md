@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.174.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.0...v3.174.1) (2023-10-30)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency axios to v1.6.0 ([#2221](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2221)) ([d1ceeaa](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d1ceeaa782900306c0d81a7c52f8181455062f55))
+
 ## [3.174.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.173.1...v3.174.0) (2023-10-30)
 
 
