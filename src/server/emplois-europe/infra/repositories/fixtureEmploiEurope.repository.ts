@@ -1028,7 +1028,7 @@ export function anApiEuresEmploiEuropeRechercheDetailResponse(): ApiEuresEmploiE
 	};
 }
 
-export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre?: string, nomEntreprise?: string): string {
+export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
 	return `
 		<PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -1074,15 +1074,13 @@ export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre?: string, 
                             <ns2:StreetName>
                                 Rue Victor Hugo
                             </ns2:StreetName>
-                            <ns2:CityName>
-                                Paris
-                            </ns2:CityName>
+                            <ns2:CityName>Paris</ns2:CityName>
                             <ns2:CountrySubDivisionCode>
                                 75011
                             </ns2:CountrySubDivisionCode>
                             <CountryCode>
-                                NL
-                            </CountryCode>
+                            		NL
+														</CountryCode>
                             <ns2:PostalCode>75001</ns2:PostalCode>
                         </Address>
                     </Communication>
@@ -1092,13 +1090,11 @@ export function aResultatRechercheDetailXMLApiEuresEmploiEurope(titre?: string, 
         ${titre ? `<PositionTitle>${titre}</PositionTitle>` : ''}
         <PositionLocation>
             <Address currentAddressIndicator="true">
-                <ns2:CityName>Paris</ns2:CityName>
+                ${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
                 <ns2:CountrySubDivisionCode>
                     75011
                 </ns2:CountrySubDivisionCode>
-                <CountryCode>
-                    NL
-                </CountryCode>
+                ${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
                 <ns2:PostalCode>75001</ns2:PostalCode>
             </Address>
         </PositionLocation>

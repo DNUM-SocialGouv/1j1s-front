@@ -40,7 +40,12 @@ describe('rechercher emplois en Europe', () => {
 							header: {
 								handle: '1',
 							},
-							hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope('Boulanger (H/F)', 'La Boulangerie'),
+							hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope(
+								'Boulanger (H/F)',
+								'La Boulangerie',
+								'FR',
+								'Paris',
+							),
 						},
 					},
 					{
@@ -61,13 +66,13 @@ describe('rechercher emplois en Europe', () => {
 				{
 					id: '1',
 					nomEntreprise: 'La Boulangerie',
-					tags: ['Paris'],
+					tags: ['France/Paris'],
 					titre: 'Boulanger (H/F)',
 				},
 				{
 					id: '2',
 					nomEntreprise: 'La Pâtisserie',
-					tags: ['Paris'],
+					tags: [],
 					titre: 'Pâtissier (H/F)',
 				},
 			],
