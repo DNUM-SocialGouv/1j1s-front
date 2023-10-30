@@ -20,7 +20,7 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 			{resultatList.map((emploiEurope) => (
 				<li key={emploiEurope.id}>
 					<RésultatRechercherSolution
-						intituléOffre={emploiEurope.titre}
+						intituléOffre={emploiEurope.titre ?? 'Offre d’emploi sans titre'}
 						sousTitreOffre={emploiEurope.nomEntreprise}
 						étiquetteOffreList={emploiEurope.tags}
 					/>

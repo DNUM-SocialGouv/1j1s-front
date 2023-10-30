@@ -79,10 +79,10 @@ describe('RechercherEmploisEurope', () => {
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
-				expect(await screen.findByText('Entreprise 1')).toBeInTheDocument();
-				expect(await screen.findByText('Titre 1')).toBeInTheDocument();
-				expect(await screen.findByText('Entreprise 2')).toBeInTheDocument();
-				expect(await screen.findByText('Titre 2')).toBeInTheDocument();
+				expect(await screen.findByText('Entreprise 1')).toBeVisible();
+				expect(await screen.findByText('Titre 1')).toBeVisible();
+				expect(await screen.findByText('Entreprise 2')).toBeVisible();
+				expect(await screen.findByText('Titre 2')).toBeVisible();
 			});
 
 			describe('quand la recherche contient plusieurs résultats', () => {
@@ -218,10 +218,10 @@ describe('RechercherEmploisEurope', () => {
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
-				expect(await screen.findByText('Entreprise 1')).toBeInTheDocument();
-				expect(await screen.findByText('Titre 1')).toBeInTheDocument();
-				expect(await screen.findByText('Entreprise 2')).toBeInTheDocument();
-				expect(await screen.findByText('Titre 2')).toBeInTheDocument();
+				expect(await screen.findByText('Entreprise 1')).toBeVisible();
+				expect(await screen.findByText('Titre 1')).toBeVisible();
+				expect(await screen.findByText('Entreprise 2')).toBeVisible();
+				expect(await screen.findByText('Titre 2')).toBeVisible();
 			});
 		});
 
@@ -309,7 +309,7 @@ describe('RechercherEmploisEurope', () => {
 
 			// THEN
 			expect(resultats).toHaveLength(resultatsService.offreList.length);
-			expect(await screen.findByText('Entreprise 1')).toBeInTheDocument();
+			expect(await screen.findByText('Entreprise 1')).toBeVisible();
 		});
 	});
 });

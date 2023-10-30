@@ -22,21 +22,20 @@ type ComboboxPaysProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des pays. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
   = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un pays. Exemple : Belgique, …';
-const MESSAGE_CHARGEMENT = 'Chargement…';
 const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un pays';
 const DEFAULT_LABEL = 'Localisation (pays)';
 
 function PaysTrouves({ quantity }: { quantity: number }) {
 	return (
-		<small className={styles.nombreResultats}>{
+		<span className={styles.nombreResultats}>{
 			quantity > 1
 				? `${quantity} pays trouvés`
 				: `${quantity} pays trouvé`
-		}</small>
+		}</span>
 	);
 }
 
-type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
+type FetchStatus = 'init' | 'success' | 'failure';
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
 export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(function ComboboxPays(props, ref) {
 	const {
@@ -114,15 +113,14 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 						<Combobox.Option key={suggestion.label} value={suggestion.code}>{suggestion.label}</Combobox.Option>
 					)))
 				}
-				<Combobox.AsyncMessage>
+				<li role='status'>
 					{
 						isEmpty && MESSAGE_CHAMP_VIDE
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
-						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| pays.length === 0 && MESSAGE_PAS_DE_RESULTAT
 						|| <PaysTrouves quantity={pays.length} />
 					}
-				</Combobox.AsyncMessage>
+				</li>
 			</Combobox>
 			<p id={errorId} className={styles.instructionMessageError}>{fieldError}</p>
 		</div>
