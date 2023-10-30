@@ -53,7 +53,7 @@ describe('<Input/>', () => {
 		render(<Input onFocus={onFocus}/>);
 
 		const input = screen.getByRole('textbox');
-		await user.type(input, 'a');
+		await user.click(input);
 		expect(onFocus).toHaveBeenCalledTimes(1);
 		expect(onFocus).toHaveBeenCalledWith(expect.objectContaining({ target: input }));
 	});
@@ -110,7 +110,7 @@ describe('<Input/>', () => {
 		});
 	});
 
-	describe('data-touched', () => {
+	describe('l’input est marqué comme touché ou non', () => {
 		it('n’est pas marqué comme touché par défaut', () => {
 			render(<Input/>);
 
@@ -118,7 +118,7 @@ describe('<Input/>', () => {
 			expect(input).toHaveAttribute('data-touched', 'false');
 		});
 
-		it('marque le champ comme touché quand on quite le champ après avoir écrit dedans', async () => {
+		it('marque le champ comme touché quand on quitte le champ après avoir écrit dedans', async () => {
 			const user = userEvent.setup();
 			render(<Input/>);
 
@@ -129,7 +129,7 @@ describe('<Input/>', () => {
 			expect(input).toHaveAttribute('data-touched', 'true');
 		});
 
-		it('ne marque pas le champ tant qu’on ne quite pas le champ', async () => {
+		it('ne marque pas le champ tant qu’on ne quitte pas le champ', async () => {
 			const user = userEvent.setup();
 			render(<Input/>);
 
@@ -139,7 +139,7 @@ describe('<Input/>', () => {
 			expect(input).toHaveAttribute('data-touched', 'false');
 		});
 
-		it('ne marque pas le champ comme touché quand on quite le champ sans avoir écrit dedans', async () => {
+		it('ne marque pas le champ comme touché quand on quitte le champ sans avoir écrit dedans', async () => {
 			const user = userEvent.setup();
 			render(<Input/>);
 

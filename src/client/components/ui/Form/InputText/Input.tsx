@@ -7,11 +7,14 @@ import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import styles from './Input.module.scss';
 
+type ErrorMessage = string;
+
 type InputProps = ComponentPropsWithoutRef<'input'> & {
-	// NOTE (BRUJ 05-10-2023): validation doit renvoyer le message d'erreur customisé
-	validation?: (value: ComponentPropsWithoutRef<'input'>['value']) => string;
+	validation?: (value: ComponentPropsWithoutRef<'input'>['value']) => ErrorMessage;
 }
 
+// TODO (SULI 30-10-2023): le composant Input doit remplacer entièrement InputText à la fin, pas oublier de changer le nom du dossier etc
+// TODO bis (SULI 30-10-2023): renommer l'ancien composant sur la PR suivante avec `Deprecated`
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input(
 	{
 		className,
