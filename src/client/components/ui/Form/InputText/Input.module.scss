@@ -1,0 +1,41 @@
+@use "@styles/utilities";
+
+$color-text: utilities.$color-text-primary;
+$color-border: utilities.$color-background-border;
+$color-text-disabled: inherit;
+$color-background-disabled: utilities.$color-background-disabled;
+$color-error: utilities.$color-error;
+$error-border-width: 2px;
+$border-radius: 1.25rem;
+$border-width: 1px;
+$border-width-compensation: calc($error-border-width - $border-width);
+
+%input {
+  color: $color-text;
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius;
+  border: $border-width solid $color-border;
+
+  &:disabled,
+  &:read-only {
+    color: $color-text-disabled;
+    background-color: $color-background-disabled;
+    cursor: not-allowed;
+  }
+
+  &[data-touched="true"]:invalid {
+    border-color: $color-error;
+    border-width: $error-border-width;
+  }
+
+  &:valid,
+  &:not([data-touched="true"]) {
+    // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
+    margin: $border-width-compensation 0 $border-width-compensation $border-width-compensation;
+  }
+}
+
+.input {
+  @extend %input;
+}
