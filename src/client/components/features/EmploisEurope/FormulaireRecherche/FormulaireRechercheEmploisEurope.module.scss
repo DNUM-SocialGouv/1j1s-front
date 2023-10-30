@@ -2,6 +2,8 @@
 @use "@styles/components/form/variables";
 // FIXME (DORO - 2023-10-02): Duplication de FormulaireRechercheAlternance.module.scss et FormulaireRechercheOffreEmploi.module.scss
 
+$color-border-filters: lighten(utilities.$color-primary, 15%);
+
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
@@ -10,6 +12,38 @@
 
 .filtresRechercherOffre {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$form-vertical-gap-mobile;
+
+  & .inputButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$form-vertical-gap-mobile;
+  }
+}
+
+.rechercherAccompagnementFiltres {
+  flex: 1 0;
+}
+
+.filtresAvancésModalTitle > span {
+  font-size: 0.875rem;
+}
+
+.filtresAvancésModalContenu {
+
+  & details {
+    border-top: 1px solid $color-border-filters;
+
+    &:last-of-type {
+      border-bottom: 1px solid $color-border-filters;
+    }
+  }
+}
+
+.filtresAvancésModalFooter {
+  justify-content: center;
 }
 
 .buttonRechercher > button {
@@ -20,22 +54,50 @@
   .rechercheOffreForm {
     flex-direction: row;
     align-items: flex-start;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
     gap: variables.$form-horizontal-gap;
+  }
+
+  .filtresRechercherOffre {
+    gap: variables.$form-vertical-gap-desktop;
+
+    & .inputButtonWrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-block: 0;
+    }
   }
 
   .buttonRechercher {
     margin-top: utilities.pixel-to-rem(28);
   }
 
-  .inputButtonWrapper {
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding-block: 0;
-  }
-
   .inputButtonWrapper > div {
     flex-grow: 1;
   }
+
+  .filtreRechercheDesktop {
+    display: flex;
+    column-gap: variables.$form-horizontal-gap;
+    row-gap: variables.$form-vertical-gap-desktop;
+    flex-wrap: wrap;
+  }
+
+  .filtreRechercheDesktop > div {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 25%;
+  }
+
+  .filtreRechercheDesktop > div > button {
+    width: 100%;
+  }
+}
+
+.applyFiltersButton button {
+  width: 100%;
 }

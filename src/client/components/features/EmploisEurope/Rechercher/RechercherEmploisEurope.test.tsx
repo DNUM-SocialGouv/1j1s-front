@@ -16,6 +16,7 @@ describe('RechercherEmploisEurope', () => {
 	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
 		it('affiche un formulaire pour la recherche d‘emplois en europe, sans échantillon de résultat', async () => {
 			// GIVEN
+			mockSmallScreen();
 			const emploiEuropeServiceMock = anEmploiEuropeService();
 			mockUseRouter({});
 

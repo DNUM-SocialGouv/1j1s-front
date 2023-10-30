@@ -22,6 +22,14 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 	) {}
 
 	private buildSearchBody(filtre: EmploiEuropeFiltre): ApiEuresEmploiEuropeRechercheRequestBody {
+		const facetCriteria = [];
+		if (filtre.codePays !== undefined) {
+			facetCriteria.push({ facetName: 'LOCATION', facetValues: [ filtre.codePays ] });
+		}
+		if (filtre.typeContrat !== undefined && filtre.typeContrat.length > 0) {
+			facetCriteria.push({ facetName: 'POSITION_OFFERING', facetValues: filtre.typeContrat });
+		}
+
 		return {
 			dataSetRequest: {
 				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
@@ -30,11 +38,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				sortBy: 'BEST_MATCH',
 			},
 			searchCriteria: {
-				facetCriteria:
-					filtre.codePays !== undefined ? [{
-						facetName: 'LOCATION',
-						facetValues: [ filtre.codePays ],
-					}] : undefined,
+				facetCriteria: facetCriteria,
 				keywordCriteria:
 					filtre.motCle !== undefined ? {
 						keywordLanguageCode: 'fr',

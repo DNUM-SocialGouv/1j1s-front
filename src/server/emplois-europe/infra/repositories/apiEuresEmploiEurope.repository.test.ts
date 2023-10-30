@@ -48,12 +48,79 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 						sortBy: 'BEST_MATCH',
 					},
 					searchCriteria: {
+						facetCriteria: [],
 					},
 				};
 
 				// When
 				repository.search({
 					page: 1,
+				});
+
+				// Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
+		});
+
+		describe('quand un codePays est fourni', () => {
+			it('appelle l’api Eures avec le codePays', () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+				const body = {
+					dataSetRequest: {
+						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						pageNumber: '1',
+						resultsPerPage: '15',
+						sortBy: 'BEST_MATCH',
+					},
+					searchCriteria: {
+						facetCriteria: [
+							{
+								facetName: 'LOCATION',
+								facetValues: [ 'FR' ],
+							},
+						],
+					},
+				};
+
+				// When
+				repository.search({
+					codePays: 'FR',
+					page: 1,
+				});
+
+				// Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
+		});
+
+		describe('quand un typeContrat est fourni', () => {
+			it('appelle l’api Eures avec le typeContrat', () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+				const body = {
+					dataSetRequest: {
+						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						pageNumber: '1',
+						resultsPerPage: '15',
+						sortBy: 'BEST_MATCH',
+					},
+					searchCriteria: {
+						facetCriteria: [
+							{
+								facetName: 'POSITION_OFFERING',
+								facetValues: [ 'CDI' ],
+							},
+						],
+					},
+				};
+
+				// When
+				repository.search({
+					page: 1,
+					typeContrat: ['CDI'],
 				});
 
 				// Then
@@ -74,6 +141,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					sortBy: 'BEST_MATCH',
 				},
 				searchCriteria: {
+					facetCriteria: [],
 				},
 			};
 

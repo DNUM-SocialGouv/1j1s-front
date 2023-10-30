@@ -13,6 +13,7 @@ export interface EmploiEurope {
 
 export interface EmploiEuropeFiltre {
 	codePays?: string;
+	typeContrat?: string[];
 	motCle?: string;
 	page: number;
 }

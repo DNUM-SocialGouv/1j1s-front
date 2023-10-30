@@ -12,6 +12,7 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 			sortBy: 'BEST_MATCH',
 		},
 		searchCriteria: {
+			facetCriteria: [],
 			keywordCriteria :
 				{
 					keywordLanguageCode : 'fr', keywords : [
