@@ -109,10 +109,10 @@ describe('<ConsulterAnnonce />', () => {
 			}];
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
-			const carousel = screen.getByRole('group');
+			const carousel = screen.getByText((content, element) => element?.getAttribute('aria-roledescription') === 'carousel');
 			expect(carousel).toBeVisible();
 			expect(carousel).toHaveAttribute('aria-roledescription', 'carousel');
-			expect(carousel).not.toHaveAttribute('aria-hidden', undefined);
+			expect(carousel).not.toHaveAttribute('aria-hidden');
 		});
 
 		describe('quand il n‘y a pas d‘image a afficher', () => {
