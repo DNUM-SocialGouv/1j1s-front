@@ -42,13 +42,13 @@ export class ApiEuresEmploiEuropeMapper {
 				const addressCityName = address?.['ns2:CityName'];
 				const countryCode = address?.CountryCode;
 				const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
-				const location = countryCode && addressCityName ? `${country}/${addressCityName}` : country ?? addressCityName;
 
 				return {
 					id: item.header.handle,
 					nomEntreprise: organizationIdentifiers?.OrganizationName,
-					tags: location ? [location] : [],
+					pays: country,
 					titre: positionProfile?.PositionTitle,
+					ville: addressCityName,
 				};
 			}),
 		};

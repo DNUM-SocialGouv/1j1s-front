@@ -7,7 +7,8 @@ export interface EmploiEurope {
 	id: string;
 	titre?: string;
 	nomEntreprise?: string;
-	tags: string[];
+	pays?: string;
+	ville?: string;
 }
 
 export interface EmploiEuropeFiltre {

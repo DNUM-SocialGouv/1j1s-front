@@ -1,7 +1,8 @@
-import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import {
-	anApiEuresEmploiEuropeRechercheDetailResponse, aResultatRechercheDetailXMLApiEuresEmploiEurope,
-} from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
+	anApiEuresEmploiEuropeRechercheDetailResponse,
+	anApiEuresEmploiEuropeRechercheDetailXMLResponse,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
 describe('apiEuresEmploiEuropeMapper', () => {
@@ -41,21 +42,23 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				{
 					id: '1',
 					nomEntreprise: 'La Boulangerie',
-					tags: [],
+					pays: 'France',
 					titre: 'Boulanger (H/F)',
+					ville: 'Paris',
 				},
 				{
 					id: '2',
 					nomEntreprise: undefined,
-					tags: [],
+					pays: undefined,
 					titre: undefined,
+					ville: undefined,
 				},
 			],
 		});
 	});
 
 	describe('lorsqu’un pays et une ville sont renseignés', () => {
-		it('retourne un ResultatRechercheEmploiEurope avec un tag contenant la ville et le pays', () => {
+		it('retourne un ResultatRechercheEmploiEurope contenant la ville et le pays', () => {
 			// Given
 			const apiEuresEmploiEuropeRechercheResponse = {
 				data: {
@@ -80,7 +83,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								header: {
 									handle: '1',
 								},
-								hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope(
+								hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
 									'Boulanger (H/F)',
 									'La Boulangerie',
 									'FR',
@@ -104,16 +107,17 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					{
 						id: '1',
 						nomEntreprise: 'La Boulangerie',
-						tags: ['France/Paris'],
+						pays: 'France',
 						titre: 'Boulanger (H/F)',
+						ville: 'Paris',
 					},
 				],
 			});
 		});
 	});
 
-	describe('lorsque seulement un  pays est renseigné', () => {
-		it('retourne un ResultatRechercheEmploiEurope avec un tag contenant le pays', () => {
+	describe('lorsque seulement un pays est renseigné', () => {
+		it('retourne un ResultatRechercheEmploiEurope contenant le pays', () => {
 			// Given
 			const apiEuresEmploiEuropeRechercheResponse = {
 				data: {
@@ -138,7 +142,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								header: {
 									handle: '1',
 								},
-								hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope(
+								hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
 									'Boulanger (H/F)',
 									'La Boulangerie',
 									'FR',
@@ -161,7 +165,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					{
 						id: '1',
 						nomEntreprise: 'La Boulangerie',
-						tags: ['France'],
+						pays: 'France',
 						titre: 'Boulanger (H/F)',
 					},
 				],
@@ -170,7 +174,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 	});
 
 	describe('lorsque seulement une ville est renseignée', () => {
-		it('retourne un ResultatRechercheEmploiEurope avec un tag contenant la ville', () => {
+		it('retourne un ResultatRechercheEmploiEurope contenant la ville', () => {
 			// Given
 			const apiEuresEmploiEuropeRechercheResponse = {
 				data: {
@@ -195,7 +199,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								header: {
 									handle: '1',
 								},
-								hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope(
+								hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
 									'Boulanger (H/F)',
 									'La Boulangerie',
 									undefined,
@@ -219,8 +223,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					{
 						id: '1',
 						nomEntreprise: 'La Boulangerie',
-						tags: ['Paris'],
 						titre: 'Boulanger (H/F)',
+						ville: 'Paris',
 					},
 				],
 			});

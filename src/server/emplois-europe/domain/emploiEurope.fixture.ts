@@ -7,13 +7,12 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 			{
 				id: '1',
 				nomEntreprise: 'La Boulangerie',
-				tags: ['Paris'],
 				titre: 'Boulanger (H/F)',
+				ville: 'Paris',
 			},
 			{
 				id: '2',
 				nomEntreprise: 'La Pâtisserie',
-				tags: [],
 				titre: 'Pâtissier (H/F)',
 			},
 		],
