@@ -1,4 +1,4 @@
-import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 
 export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRechercheEmploiEurope>): ResultatRechercheEmploiEurope {
 	return {
@@ -16,6 +16,17 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 				titre: 'Pâtissier (H/F)',
 			},
 		],
+		...override,
+	};
+}
+
+export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
+	return {
+		id: '1',
+		nomEntreprise: 'La Boulangerie',
+		pays: 'France',
+		titre: 'Boulanger (H/F)',
+		ville: 'Paris',
 		...override,
 	};
 }

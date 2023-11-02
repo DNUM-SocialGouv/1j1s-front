@@ -1,4 +1,4 @@
-import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
@@ -19,6 +19,11 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 		const response = mockResultatRechercheApiEuresEmploiEurope();
 		const responseDetail = mockResultatRechercheDetailApiEuresEmploiEurope();
 		return createSuccess(this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(response, responseDetail));
+	}
+
+	async get(): Promise<Either<EmploiEurope>> {
+		const response = mockResultatRechercheDetailApiEuresEmploiEurope();
+		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre('1', response));
 	}
 }
 
