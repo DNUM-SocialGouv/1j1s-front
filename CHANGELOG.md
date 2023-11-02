@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.175.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.2...v3.175.0) (2023-11-02)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** rechercher offres par pays ([#2190](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2190)) ([40e6ff9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/40e6ff99a645cf15887ad9cad68f946c2ddd3f80))
+
 ## [3.174.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.1...v3.174.2) (2023-11-01)
 
 
