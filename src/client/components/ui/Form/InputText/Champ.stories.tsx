@@ -30,6 +30,18 @@ export const Erreur: Story = {
 	),
 };
 
+export const Required: Story = {
+	args: {},
+	render: (args) => {
+		return(
+			<Champ {...args}>
+				<Champ.Label htmlFor="pays">Pays</Champ.Label>
+				<Champ.Input id="pays" required={true}/>
+				<Champ.Error/>
+			</Champ>);
+	},
+};
+
 export const Indication: Story = {
 	args: {},
 	render: (args) => (
