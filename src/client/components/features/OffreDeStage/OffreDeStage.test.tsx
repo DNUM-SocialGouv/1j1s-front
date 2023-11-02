@@ -125,9 +125,10 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 					/>,
 				);
 
-				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
-				expect(displayedTagsTextContents).toContain('Débute le : 9/1/2024');
+				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagDateDebut = within(tags).getAllByRole('listitem')
+					.find((listItem) => listItem.textContent === 'Débute le : 9/1/2024');
+				expect(tagDateDebut).toBeVisible();
 			});
 		});
 
@@ -144,9 +145,28 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 					/>,
 				);
 
-				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
-				expect(displayedTagsTextContents).toContain('Débute entre le : 9/1/2024 et 9/30/2024');
+				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagDateDebut = within(tags).getAllByRole('listitem')
+					.find((listItem) => listItem.textContent === 'Débute entre le : 9/1/2024 et 9/30/2024');
+				expect(tagDateDebut).toBeVisible();
+			});
+		});
+
+		describe('quand la date de début n’est pas définie', () => {
+			it('le tag n’est pas affiché', () => {
+				const offreStage = anOffreDeStageIndexee({ dateDeDebutMin: undefined });
+
+				render(
+					<OffreDeStage
+						hit={offreStage}
+						sendEvent={someDummy}
+					/>,
+				);
+
+				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagDateDebut = within(tags).getAllByRole('listitem')
+					.find((listItem) => listItem.textContent?.includes('Débute le')) ?? null;
+				expect(tagDateDebut).not.toBeInTheDocument();
 			});
 		});
 	});
