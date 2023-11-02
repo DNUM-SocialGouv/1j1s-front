@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.175.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.0...v3.175.1) (2023-11-02)
+
+
+### 👷 Autres changements
+
+* **deps:** lock file maintenance ([#2240](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2240)) ([ba1f05d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba1f05d3d205dd9a1c7aecf353cc877c85148fc2))
+* **deps:** update dependency cypress to v13.4.0 ([#2238](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2238)) ([85dc829](https://github.com/DNUM-SocialGouv/1j1s-front/commit/85dc8294559dfeeb5b6d3aa3f57f11664c7907d9))
+
 ## [3.175.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.2...v3.175.0) (2023-11-02)
 
 
