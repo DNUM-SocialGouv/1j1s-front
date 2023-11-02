@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.174.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.1...v3.174.2) (2023-11-01)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest to v29.5.7 ([9fdb948](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9fdb94860d4a9c5ab8c9670c72f185115201941a))
+* **deps:** update dependency @types/node to v18.18.8 ([ba613e4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba613e4cecd41ac66f4ffb3775d14737733044b9))
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.9.1 ([#2233](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2233)) ([c534ec1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c534ec101963f89b03776e9c480efb438edd14f6))
+* **deps:** update dependency nock to v13.3.7 ([#2234](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2234)) ([9dfa428](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9dfa428f47848b5e3bc3746e896b4fbeda364f41))
+* **deps:** update storybook monorepo to v7.5.2 ([#2241](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2241)) ([905079f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/905079f5900ab5fa02b8038837d49015f4edff13))
+
 ## [3.174.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.174.0...v3.174.1) (2023-10-30)
 
 
