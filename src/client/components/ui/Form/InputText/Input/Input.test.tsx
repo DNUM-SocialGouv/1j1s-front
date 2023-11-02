@@ -149,5 +149,24 @@ describe('<Input/>', () => {
 
 			expect(input).toHaveAttribute('data-touched', 'false');
 		});
+
+		it('appelle onTouch quand le champ est touché', async () => {
+			const user = userEvent.setup();
+			const onTouch = jest.fn();
+			render(<Input onTouch={onTouch} />);
+
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+
+			expect(onTouch).toHaveBeenCalledTimes(1);
+		});
+
+		it('override le touched si passé en props', () => {
+			render(<Input touched />);
+
+			const input = screen.getByRole('textbox');
+			expect(input).toHaveAttribute('data-touched', 'true');
+		});
 	});
 });
