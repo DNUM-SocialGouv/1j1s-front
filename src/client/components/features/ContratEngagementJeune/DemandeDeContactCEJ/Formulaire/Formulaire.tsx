@@ -10,10 +10,9 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
+import { emailRegexHTML } from '~/shared/emailRegex';
 
 import styles from './Formulaire.module.scss';
-
-const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 
 interface FormulaireDeContactCEJProps {
   onSuccess?: () => void;
@@ -71,10 +70,11 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 			/>
 			<InputText
 				label="Adresse email"
-				pattern={EMAIL_REGEX}
+				pattern={emailRegexHTML}
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"
 				required
+				type="text"
 			/>
 			<InputText
 				type="tel"

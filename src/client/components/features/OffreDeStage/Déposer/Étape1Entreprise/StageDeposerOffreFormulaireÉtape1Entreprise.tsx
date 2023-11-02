@@ -17,10 +17,10 @@ import {
 	ETAPE_ENTREPRISE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
+import { emailRegexHTML } from '~/shared/emailRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
 
-const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 const URL_REGEX = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 
 enum Employeur {
@@ -50,7 +50,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			/>
 			<InputText
 				label="Adresse mail de contact"
-				pattern={EMAIL_REGEX}
+				pattern={emailRegexHTML}
 				name={Employeur.EMAIL}
 				value={informationsEntreprise?.emailEmployeur}
 				placeholder="Exemple : contactRH@exemple.com"

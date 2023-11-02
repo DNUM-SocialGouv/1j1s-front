@@ -6,6 +6,7 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { dependencies } from '~/server/start';
+import { emailRegex } from '~/shared/emailRegex';
 
 export const enregistrerOffreDeStageBodySchema = Joi.object({
 	dateDeDebutMax: Joi.string().required(),
@@ -15,7 +16,7 @@ export const enregistrerOffreDeStageBodySchema = Joi.object({
 	duree: Joi.string(),
 	employeur: Joi.object({
 		description: Joi.string().max(500).required(),
-		email: Joi.string().email().required(),
+		email: Joi.string().pattern(emailRegex).required(),
 		logoUrl: Joi.string().uri(),
 		nom: Joi.string().required(),
 		siteUrl: Joi.string().uri(),
