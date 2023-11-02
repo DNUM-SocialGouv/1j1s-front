@@ -16,35 +16,42 @@ describe('Page de recherche d’emplois', () => {
 		).as('recherche-emplois');
 	});
 
-	describe('Parcours standard', () => {
+	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
 			cy.visit('/emplois');
 			cy.wait('@recherche-emplois');
-			cy.get('ul[aria-label="Offres d‘emplois"] > li').should('have.length', 15);
-			cy.get('ul[aria-label="Offres d‘emplois"] > li').first().should('contain.text', 'Barman / Barmaid (H/F)');
+
+			cy.findByRole('list', { name: /Offres d‘emplois/i })
+				.children()
+				.should('have.length', 15);
+			cy.findByRole('list', { name: /Offres d‘emplois/i })
+				.children()
+				.first()
+				.should('contain.text', 'Barman / Barmaid (H/F)');
 		});
 
 		it('place le focus sur le premier input du formulaire de recherche', () => {
 			cy.visit('/emplois');
 			cy.wait('@recherche-emplois');
-			cy.focused().should('have.attr', 'name', 'motCle');
+
+			cy.findAllByRole('textbox').first().should('have.focus');
 		});
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
 			it('filtre les résultats par mot clé', () => {
 				cy.visit('/emplois');
 				cy.wait('@recherche-emplois');
+
+				cy.findByRole('textbox', { name: /Métier, mot-clé/i }).type('barman'),
 				interceptGet({
-					actionBeforeWaitTheCall: () => {
-						cy.focused().type('barman', { force: true });
-						cy.focused().type('{enter}');
-					},
+					actionBeforeWaitTheCall: () =>
+						cy.findByRole('button', { name: /Rechercher/i }).click(),
 					alias: 'recherche-emplois',
 					path: '/api/emplois*',
 					response: JSON.stringify({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
 				});
 
-				cy.get('ul[aria-label="Offres d‘emplois"] > li').should('have.length', 1);
+				cy.findByRole('list', { name: /Offres d‘emplois/i }).children().should('have.length', 1);
 			});
 		});
 
@@ -56,13 +63,18 @@ describe('Page de recherche d’emplois', () => {
 				const id = aBarmanOffre().id;
 
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Offres d‘emplois"] > li a').first().click(),
+					actionBeforeWaitTheCall: () => (
+						cy.findByRole('list', { name: /Offres d‘emplois/i })
+							.children()
+							.first()
+							.click()
+					),
 					alias: 'get-emplois',
 					path: `/_next/data/*/emplois/${id}.json?id=${id}`,
 					response: JSON.stringify({ pageProps: { offreEmploi: aBarmanOffre() } }),
 				});
 
-				cy.get('h1').should('contain.text', 'Barman / Barmaid (H/F)');
+				cy.findByRole('heading', { level: 1 }).should('contain.text', 'Barman / Barmaid (H/F)');
 			});
 		});
 	});
@@ -83,7 +95,6 @@ describe('Page de recherche d’emplois', () => {
 			cy.wait('@recherche-emplois');
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
-			// FIXME (GAFI 08-08-2023): devrait être role combobox, sera fix dans ticket comboboxLocalisation ou comboboxCommune
 			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
 
 			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();
@@ -98,7 +109,7 @@ describe('Page de recherche d’emplois', () => {
 		});
 	});
 
-	context("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
+	context('quand les paramètres de l’url ne respectent pas le schema de validation du controller', () => {
 		it('retourne une erreur de demande incorrecte', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.visit('/emplois?page=67'),
@@ -108,7 +119,7 @@ describe('Page de recherche d’emplois', () => {
 				statusCode: 400,
 			});
 
-			cy.contains('Erreur - Demande incorrecte').should('exist');
+			cy.findByText('Erreur - Demande incorrecte').should('exist');
 		});
 	});
 });
