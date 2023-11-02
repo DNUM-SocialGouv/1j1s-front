@@ -153,7 +153,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 		});
 
 		describe('quand la date de début n’est pas définie', () => {
-			it('le tag n’est affiché', () => {
+			it('le tag n’est pas affiché', () => {
 				const offreStage = anOffreDeStageIndexee({ dateDeDebutMin: undefined });
 
 				render(
