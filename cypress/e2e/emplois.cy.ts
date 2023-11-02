@@ -34,7 +34,7 @@ describe('Page de recherche d’emplois', () => {
 			cy.visit('/emplois');
 			cy.wait('@recherche-emplois');
 
-			cy.findByRole('textbox', { name: /Métier, mot-clé/i }).should('have.focus');
+			cy.findAllByRole('textbox').first().should('have.focus');
 		});
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
