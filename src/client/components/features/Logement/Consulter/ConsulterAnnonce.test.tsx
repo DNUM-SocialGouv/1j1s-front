@@ -145,7 +145,7 @@ describe('<ConsulterAnnonce />', () => {
 				}];
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 
-				const listDesSlides = screen.getByRole('list', { hidden: true, name: 'liste des photos du logement' });
+				const listDesSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
 				expect(listDesSlides).toBeVisible();
 			});
 		});

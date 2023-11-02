@@ -86,7 +86,6 @@ const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 	return (
 		<Carousel
 			imageList={firstFourthImages}
-			imageListLabel="liste des photos du logement"
 			className={styles.CardImageWrapper}
 			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
 			aria-label="Photos du logement"

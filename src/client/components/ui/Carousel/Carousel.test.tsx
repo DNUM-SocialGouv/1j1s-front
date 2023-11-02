@@ -29,9 +29,9 @@ const imageList = [
 describe('Carousel', () => {
 	describe('quand il n‘y a pas d‘image', () => {
 		it('retourne rien',  () => {
-			render(<Carousel imageList={[]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			render(<Carousel imageList={[]} imagesSize={{ height: 200, width: 400 }} />);
 
-			const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
+			const listDeSlides = screen.queryByRole('list');
 			expect(listDeSlides).not.toBeInTheDocument();
 		});
 	});
@@ -41,9 +41,9 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: 'une seule image',
 				src: '/une-seule-image.webp',
-			}]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			}]} imagesSize={{ height: 200, width: 400 }} />);
 
-			const listDeSlides = screen.queryByRole('list', { name: 'liste des photos' });
+			const listDeSlides = screen.queryByRole('list');
 			expect(listDeSlides).not.toBeInTheDocument();
 
 			const image = screen.getByRole('img', { name: 'une seule image' });
@@ -53,7 +53,7 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: undefined,
 				src: '/une-seule-image.webp',
-			}]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			}]} imagesSize={{ height: 200, width: 400 }} />);
 
 			expect(screen.getByRole('img', { name: '1 sur 1' })).toBeVisible();
 		});
@@ -61,16 +61,16 @@ describe('Carousel', () => {
 			render(<Carousel imageList={[{
 				alt: '',
 				src: '/une-seule-image.webp',
-			}]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			}]} imagesSize={{ height: 200, width: 400 }} />);
 
 			expect(screen.getByRole('img', { name: '1 sur 1' })).toBeVisible();
 		});
 	});
 
 	it('retourne une liste d‘images avec seulement la première image visible et courante',  () => {
-		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+		render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
 
-		const listDeSlides = screen.getByRole('list', { name: 'liste des photos' });
+		const listDeSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
 		expect(listDeSlides).toBeVisible();
 
 		const listDeSlidesItem = within(listDeSlides).getAllByRole('group', { hidden: true });
@@ -89,7 +89,7 @@ describe('Carousel', () => {
 	});
 
 	it('retourne une liste d’images avec une alternative au format "N sur index" quand il n’y a pas d’alternative', () => {
-		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+		render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
 
 		expect(screen.getByRole('img', { hidden: true, name: '1 sur 3' })).toBeVisible();
 		expect(screen.getByRole('img', { hidden: true, name: '2 sur 3' })).toBeVisible();
@@ -110,7 +110,7 @@ describe('Carousel', () => {
 				alt: '',
 				src: '/image3.jpg',
 			},
-		]} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+		]} imagesSize={{ height: 200, width: 400 }} />);
 
 		expect(screen.getByRole('img', { hidden: true, name: '1 sur 3' })).toBeVisible();
 		expect(screen.getByRole('img', { hidden: true, name: '2 sur 3' })).toBeVisible();
@@ -118,7 +118,7 @@ describe('Carousel', () => {
 	});
 
 	it('retourne deux boutons de contrôle', () => {
-		render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+		render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
 
 		const listeDeContrôles = screen.getByRole('list', { name: 'contrôles' });
 		const boutonPrécédent = within(listeDeContrôles).getByRole('button', { name: 'image précédente' });
@@ -130,7 +130,7 @@ describe('Carousel', () => {
 
 	describe('Liste des indicateurs', () => {
 		it('contient une liste de boutons indicateurs', () => {
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
 
 			const listeDIndicateurs = screen.getByRole('group', { name: 'Sélectionner l’image à afficher' });
 			expect(listeDIndicateurs).toBeVisible();
@@ -138,7 +138,7 @@ describe('Carousel', () => {
 
 		describe('quand la propriété hideIndicators est à true', () => {
 			it('n‘affiche pas les indicateurs', () => {
-				render(<Carousel imageList={imageList} hideIndicators imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+				render(<Carousel imageList={imageList} hideIndicators imagesSize={{ height: 200, width: 400 }} />);
 
 				const listeDIndicateurs = screen.queryByRole('list', { name: 'Sélectionner l’image à afficher' });
 				expect(listeDIndicateurs).not.toBeInTheDocument();
@@ -150,12 +150,12 @@ describe('Carousel', () => {
 			const secondSlideAccessibleName = 'Image 2 sur 3';
 			const thirdSlideAccessibleName = 'Image 3 sur 3';
 
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
+			render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
 
 			const listeDIndicateurs = screen.getByRole('group', { name: 'Sélectionner l’image à afficher' });
 			const boutonIndicateurs = within(listeDIndicateurs).getAllByRole('button');
 
-			const listeDeSlides = screen.getByRole('list', { name: 'liste des photos' });
+			const listeDeSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
 			const slides = within(listeDeSlides).getAllByRole('group', { hidden: true });
 
 			expect(boutonIndicateurs[0]).toHaveAccessibleName(firstSlideAccessibleName);
@@ -176,8 +176,8 @@ describe('Carousel', () => {
 
 	describe('Live Region', () => {
 		it('le carousel a la propriété aria-live="polite" et aria-atomic="false"', () => {
-			render(<Carousel imageList={imageList} imageListLabel="liste des photos" imagesSize={{ height: 200, width: 400 }} />);
-			const slideContainer = screen.getByRole('list', { name: 'liste des photos' });
+			render(<Carousel imageList={imageList} imagesSize={{ height: 200, width: 400 }} />);
+			const slideContainer = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
 			expect(slideContainer).toHaveAttribute('aria-live', 'polite');
 			expect(slideContainer).toHaveAttribute('aria-atomic', 'false');
 		});
