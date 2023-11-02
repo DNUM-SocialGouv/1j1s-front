@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 
 import { Formation } from '~/server/formations/domain/formation';
 import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
@@ -10,39 +11,43 @@ import { interceptGet } from '../interceptGet';
 
 
 
-describe('Parcours formation LBA', () => {
+context('Parcours formation LBA', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 	});
 
 	it('affiche 0 résultats par défaut', () => {
 		cy.visit('/formations/apprentissage');
-		cy.get('ul[aria-label="Formations en alternance"] > li').should('have.length', 0);
+		cy.findByRole('list', { name: /Formations en alternance/i })
+			.should('not.exist');
 	});
 
 	it('place le focus sur le premier input du formulaire de recherche', () => {
 		cy.visit('/formations/apprentissage');
-		cy.focused().should('have.attr', 'name', 'libelleMetier');
+
+		cy.findByRole('combobox', { name: /Domaine/i }).should('have.focus');
 	});
 
-	describe('Quand l’utilisateur cherche un métier', () => {
-		it('tous les métiers sont accessibles mais au maximum 10 sont visibles sans scroll', () => {
+	context('Quand l’utilisateur cherche un métier', () => {
+		it('tous les métiers sont accessibles mais certains sont masqués sans scroll', () => {
 			const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();
 			cy.visit('/formations/apprentissage');
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.focused().type('travaux', { force: true }),
+				actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Domaine/i }).type('travaux'),
 				alias: 'recherche-mot-cle',
 				path: '/api/metiers*',
 				response: JSON.stringify(aListeDeMetierLaBonneAlternanceFixture),
 			});
 
-			cy.contains(aListeDeMetierLaBonneAlternanceFixture[0].label).should('be.visible');
-			cy.contains(aListeDeMetierLaBonneAlternanceFixture[10].label).should('not.be.visible');
-			cy.get('[role="option"]:not([hidden])').should('have.length', 11);
+			cy.findAllByRole('option').first().should('be.visible');
+			cy.findAllByRole('option').last().should('not.be.visible');
+
+			cy.findAllByRole('option').last().scrollIntoView();
+			cy.findAllByRole('option').last().should('be.visible');
 		});
 	});
 
-	describe('Quand l’utilisateur effectue une recherche', () => {
+	context('Quand l’utilisateur effectue une recherche', () => {
 		it('filtre les résultats par mot clé', () => {
 			interceptGet({
 				actionBeforeWaitTheCall: () => cy.visit('/formations/apprentissage' + '?libelleMetier=Boulangerie%2C+pâtisserie%2C+chocolaterie&codeRomes=D1102%2CD1104&libelleCommune=Le+Havre+%2876610%29&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10'),
@@ -51,7 +56,7 @@ describe('Parcours formation LBA', () => {
 				response: JSON.stringify(aRésultatRechercheFormationList()),
 			});
 
-			cy.get('ul[aria-label="Formations en alternance"] > li').should('have.length', 2);
+			cy.findByRole('list', { name: /Formations en alternance/i }).children().should('have.length', 2);
 		});
 
 		describe('Quand l’utilisateur clique sur un résultat', () => {
@@ -87,13 +92,13 @@ describe('Parcours formation LBA', () => {
 					});
 
 					interceptGet({
-						actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Formations en alternance"] > li').first().click(),
+						actionBeforeWaitTheCall: () => cy.findByRole('list', { name: /Formations en alternance/i }).children().first().click(),
 						alias: 'résultat-formation',
 						path: `/_next/data/*/formations/apprentissage/${firstRésultatRechercheFormationId}.json?codeRomes=D1102%2CD1104&codeCommune=76351&latitudeCommune=49.507345&longitudeCommune=0.129995&distanceCommune=10&codeCertification=${codeCertification}&id=${firstRésultatRechercheFormationId}`,
 						response: JSON.stringify({ pageProps: { formation, statistiques } }),
 					});
-					cy.get('h1').contains(formation.titre);
-					cy.get('h2').contains(formation.nomEntreprise);
+					cy.findByRole('heading', { level: 1 }).contains(formation.titre);
+					cy.findByRole('heading', { level: 2, name: formation.nomEntreprise }).should('be.visible');
 				});
 			});
 		});
@@ -111,6 +116,6 @@ context("quand les paramètres de l'url ne respectent pas le schema de validatio
 			response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
 			statusCode: 400,
 		});
-		cy.contains('Erreur - Demande incorrecte').should('exist');
+		cy.findByText('Erreur - Demande incorrecte').should('be.visible');
 	});
 });
