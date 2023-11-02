@@ -11,6 +11,7 @@ export interface EmploiEurope {
 }
 
 export interface EmploiEuropeFiltre {
+	codePays?: string;
 	motCle?: string;
 	page: number;
 }

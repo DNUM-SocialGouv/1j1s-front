@@ -105,7 +105,7 @@ describe('rechercher emplois en Europe', () => {
 				const json = await res.json();
 				expect(json).toEqual(expected);
 			},
-			url: '/europe',
+			url: '/emplois-europe',
 		});
 	});
 });
