@@ -1,5 +1,6 @@
 import React, { ComponentPropsWithoutRef, useEffect, useId, useState } from 'react';
 
+import { Required } from '~/client/components/ui/Form/InputText/Champ.stories';
 import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -66,6 +67,6 @@ function LabelChamp(props: ComponentPropsWithoutRef<typeof Label>) {
 }
 
 Champ.Input = InputChamp;
-Champ.Label = LabelChamp;
+Champ.Label = Object.assign(LabelChamp, Label);
 Champ.Error = ErrorChamp;
 Champ.Hint = HintChamp;
