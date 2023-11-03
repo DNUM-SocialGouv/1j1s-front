@@ -32,6 +32,18 @@ describe('<Champ/>', () => {
 		expect(input).toHaveAccessibleDescription('Message d’erreur');
 	});
 
+	it('lie le champ avec son label', () => {
+		render(
+			<Champ>
+				<Champ.Label>Prénom</Champ.Label>
+				<Champ.Input />
+			</Champ>,
+		);
+
+		const input = screen.getByRole('textbox');
+		expect(input).toHaveAccessibleName('Prénom');
+	});
+
 	describe('<InputChamp/>', () => {
 		it('accepte les propriété d‘un input', async () => {
 			render(
@@ -166,6 +178,8 @@ describe('<Champ/>', () => {
 
 	it.todo('passer le champ en render prop');
 	it.todo('set automatiquement le contenu de l’erreur avec le champ');
+	it.todo('input accepte un id qui remonte au label');
+	it.todo('merger les props qui doivent l’être');
 });
 
 async function touchChamp() {

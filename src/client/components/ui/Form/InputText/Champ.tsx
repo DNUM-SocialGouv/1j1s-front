@@ -14,9 +14,10 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
 	const [hintId, setHintId] = useState<string>(useId());
 	const [touched, setTouched] = useState<boolean>(false);
+	const inputId = useId();
 
 	return (
-		<ChampContextProvider value={{ errorId, hintId, setErrorId, setHintId, setTouched, touched }}>
+		<ChampContextProvider value={{ errorId, hintId, inputId, setErrorId, setHintId, setTouched, touched }}>
 			<div className={styles.champ} {...props}/>
 		</ChampContextProvider>
 	);
@@ -27,13 +28,14 @@ export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWitho
 		'aria-describedby': ariaDescribedby = '',
 		...rest
 	}, outerRef) {
-	const { errorId, hintId, setTouched } = useChampContext();
+	const { errorId, hintId, setTouched, inputId } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
 	return (<Input
 		onTouch={(touched: boolean) => setTouched(touched)}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
+		id={inputId}
 		{...rest}
 	/>);
 });
@@ -58,7 +60,12 @@ function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
 	return (<Hint id={id ?? hintId} {...rest}/>);
 }
 
+function LabelChamp(props: ComponentPropsWithoutRef<typeof Label>) {
+	const { inputId } = useChampContext();
+	return <Label htmlFor={inputId} {...props} />;
+}
+
 Champ.Input = InputChamp;
-Champ.Label = Label;
+Champ.Label = LabelChamp;
 Champ.Error = ErrorChamp;
 Champ.Hint = HintChamp;

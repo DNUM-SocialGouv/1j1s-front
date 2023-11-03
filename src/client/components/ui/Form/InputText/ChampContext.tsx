@@ -7,6 +7,7 @@ type ContextType = {
 	setHintId: Dispatch<SetStateAction<string>>
 	setTouched: Dispatch<SetStateAction<boolean>>
 	touched: boolean
+	inputId: string
 };
 
 const Context = React.createContext<ContextType | null>(null);
