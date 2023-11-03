@@ -161,12 +161,5 @@ describe('<Input/>', () => {
 
 			expect(onTouch).toHaveBeenCalledTimes(1);
 		});
-
-		it('override le touched si passé en props', () => {
-			render(<Input touched />);
-
-			const input = screen.getByRole('textbox');
-			expect(input).toHaveAttribute('data-touched', 'true');
-		});
 	});
 });

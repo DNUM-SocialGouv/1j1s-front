@@ -12,7 +12,6 @@ type ErrorMessage = string;
 type InputProps = ComponentPropsWithoutRef<'input'> & {
 	validation?: (value: ComponentPropsWithoutRef<'input'>['value']) => ErrorMessage;
 	onTouch?: (touched: boolean) => void,
-	touched?: boolean
 }
 
 // TODO (SULI 30-10-2023): le composant Input doit remplacer entièrement InputText à la fin, pas oublier de changer le nom du dossier etc
@@ -25,12 +24,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onFocus: onFocusProps = doNothing,
 		onBlur: onBlurProps = doNothing,
 		onTouch = doNothing,
-		touched: touchedProps,
 		...props
 	}, outerRef) {
 	const inputRef = useSynchronizedRef(outerRef);
-	const { touched: touchedState, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
-	const touched = touchedProps ?? touchedState;
+	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
 
 	useEffect(() => {
 		const error = validation(inputRef.current?.value);
@@ -38,8 +35,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 	}, [inputRef, validation]);
 
 	useEffect(() => {
-		if (touchedState) { onTouch(touchedState); }
-	}, [onTouch, touchedState]);
+		if (touched) { onTouch(touched); }
+	}, [onTouch, touched]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		onChangeProps(event);

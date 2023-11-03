@@ -1,10 +1,12 @@
 import React, { Dispatch, SetStateAction, useContext } from 'react';
 
 type ContextType = {
-  errorId: string
+	errorId: string
 	setErrorId: Dispatch<SetStateAction<string>>
 	hintId: string
 	setHintId: Dispatch<SetStateAction<string>>
+	setTouched: Dispatch<SetStateAction<boolean>>
+	touched: boolean
 };
 
 const Context = React.createContext<ContextType | null>(null);

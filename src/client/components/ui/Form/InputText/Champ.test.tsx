@@ -4,51 +4,61 @@
 
 
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import { Champ } from '~/client/components/ui/Form/InputText/Champ';
 
 describe('<Champ/>', () => {
 	it('affiche son contenu', () => {
-		render(<Champ>
-			<Champ.Input/>
-		</Champ>);
+		render(
+			<Champ>
+				<Champ.Input/>
+			</Champ>,
+		);
 
 		expect(screen.getByRole('textbox')).toBeVisible();
 	});
 
-	it('lie le champ avec son message d’erreur', () => {
+	it('lie le champ avec son message d’erreur', async () => {
 		render(
 			<Champ>
-				<Champ.Input/>
+				<Champ.Input validation={() => 'Message d’erreur'}/>
 				<Champ.Error>Message d’erreur</Champ.Error>
 			</Champ>,
 		);
+		await touchChamp();
 
-		expect(screen.getByRole('textbox')).toHaveAccessibleDescription('Message d’erreur');
+		const input = screen.getByRole('textbox');
+		expect(input).toHaveAccessibleDescription('Message d’erreur');
 	});
 
 	describe('<InputChamp/>', () => {
-		it('accepte les propriété d‘un input', () => {
-			render(<Champ>
-				<Champ.Input disabled aria-label={'foo'}/>
-			</Champ>);
+		it('accepte les propriété d‘un input', async () => {
+			render(
+				<Champ>
+					<Champ.Input disabled aria-label={'foo'}/>
+				</Champ>,
+			);
 
 			const input = screen.getByRole('textbox');
+
 			expect(input).toBeDisabled();
 			expect(input).toHaveAccessibleName('foo');
 		});
 
 		it('accepte une ref', () => {
 			const ref = jest.fn();
-			render(<Champ>
-				<Champ.Input ref={ref}/>
-			</Champ>);
+			render(
+				<Champ>
+					<Champ.Input ref={ref}/>
+				</Champ>,
+			);
 
 			expect(ref).toHaveBeenCalledTimes(1);
 			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 		});
 
-		it('merge le aria-describedby donné par le parent avec celui du message d’erreur et de l‘indication', () => {
+		it('merge le aria-describedby donné par le parent avec celui du message d’erreur et de l‘indication', async () => {
 			render(
 				<Champ>
 					<Champ.Input aria-describedby="description"/>
@@ -57,6 +67,7 @@ describe('<Champ/>', () => {
 					<Champ.Hint>Ceci est une indication</Champ.Hint>
 				</Champ>,
 			);
+			await touchChamp();
 
 			const input = screen.getByRole('textbox');
 			expect(input).toHaveAccessibleDescription(expect.stringContaining('Ceci est une description'));
@@ -83,11 +94,12 @@ describe('<Champ/>', () => {
 			expect(erreur).toHaveAccessibleDescription('Je suis l‘indication');
 		});
 
-		it('lorsque je fournis un id à l‘erreur, le aria-describedby contient l‘erreur', () => {
+		it('lorsque je fournis un id à l‘erreur, le aria-describedby contient l‘erreur', async () => {
 			render(<Champ>
 				<Champ.Input/>
 				<Champ.Error id="idExpected">Je suis l‘erreur</Champ.Error>
 			</Champ>);
+			await touchChamp();
 
 			const erreur = screen.getByRole('textbox');
 			expect(erreur).toHaveAccessibleDescription('Je suis l‘erreur');
@@ -95,24 +107,70 @@ describe('<Champ/>', () => {
 	});
 
 	describe('<InputError/>', () => {
-		it('accepte les propriété de l‘Erreur', () => {
-			render(<Champ>
-				<Champ.Input/>
-				<Champ.Error aria-label={'foo'}>Je suis l‘erreur</Champ.Error>
-			</Champ>);
+		it('accepte les propriété de l‘Erreur', async () => {
+			render(
+				<Champ>
+					<Champ.Input/>
+					<Champ.Error className="foo" data-test="test">Je suis l‘erreur</Champ.Error>
+				</Champ>,
+			);
+			await touchChamp();
 
 			const erreur = screen.getByText('Je suis l‘erreur');
-			expect(erreur).toHaveAccessibleName('foo');
+			expect(erreur).toHaveAttribute('class', expect.stringContaining('foo'));
+			expect(erreur).toHaveAttribute('data-test', 'test');
 		});
 
-		it('quand je fournis un id, utiliser cet id', () => {
-			render(<Champ>
-				<Champ.Input/>
-				<Champ.Error id="idExpected">Je suis l‘erreur</Champ.Error>
-			</Champ>);
+		it('quand je fournis un id, utiliser cet id', async () => {
+			render(
+				<Champ>
+					<Champ.Input/>
+					<Champ.Error id="idExpected">Je suis l‘erreur</Champ.Error>
+				</Champ>,
+			);
+			await touchChamp();
 
 			const erreur = screen.getByText('Je suis l‘erreur');
 			expect(erreur).toHaveAttribute('id', 'idExpected');
 		});
+
+		it('lorsque le champ n‘est pas touched, n‘affiche pas l‘erreur', () => {
+			render(
+				<Champ>
+					<Champ.Input/>
+					<Champ.Error id="idExpected">Je suis l‘erreur</Champ.Error>
+				</Champ>,
+			);
+
+			const erreur = screen.queryByText('Je suis l‘erreur');
+			expect(erreur).not.toBeInTheDocument();
+		});
+
+		it('lorsque le champ est touched, affiche l‘erreur', async () => {
+			const user = userEvent.setup();
+			render(
+				<Champ>
+					<Champ.Input/>
+					<Champ.Error id="idExpected">Je suis l‘erreur</Champ.Error>
+				</Champ>,
+			);
+
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+			const erreur = screen.getByText('Je suis l‘erreur');
+
+			expect(erreur).toBeVisible();
+		});
 	});
+
+	it.todo('passer le champ en render prop');
+	it.todo('set automatiquement le contenu de l’erreur avec le champ');
 });
+
+async function touchChamp() {
+	const user = userEvent.setup();
+	const input = screen.getByRole('textbox');
+	await user.type(input, 'a');
+	await user.tab();
+}
