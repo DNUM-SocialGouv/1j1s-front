@@ -15,10 +15,10 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
 	const [hintId, setHintId] = useState<string>(useId());
 	const [touched, setTouched] = useState<boolean>(false);
-	const inputId = useId();
+	const [inputId, setInputId] = useState<string>(useId());
 
 	return (
-		<ChampContextProvider value={{ errorId, hintId, inputId, setErrorId, setHintId, setTouched, touched }}>
+		<ChampContextProvider value={{ errorId, hintId, inputId, setErrorId, setHintId, setInputId, setTouched, touched }}>
 			<div className={styles.champ} {...props}/>
 		</ChampContextProvider>
 	);
@@ -27,10 +27,15 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWithoutRef<typeof Input>>(function InputChamp(
 	{
 		'aria-describedby': ariaDescribedby = '',
+		id,
 		...rest
 	}, outerRef) {
-	const { errorId, hintId, setTouched, inputId } = useChampContext();
+	const { errorId, hintId, setTouched, inputId, setInputId } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
+
+	useEffect(() => {
+		id && setInputId(id);
+	}, [id, setInputId]);
 
 	return (<Input
 		onTouch={(touched: boolean) => setTouched(touched)}

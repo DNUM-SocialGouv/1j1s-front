@@ -113,8 +113,18 @@ describe('<Champ/>', () => {
 			</Champ>);
 			await touchChamp();
 
-			const erreur = screen.getByRole('textbox');
-			expect(erreur).toHaveAccessibleDescription('Je suis l‘erreur');
+			const input = screen.getByRole('textbox');
+			expect(input).toHaveAccessibleDescription('Je suis l‘erreur');
+		});
+
+		it("lorsque je fournis un id à l'input, le label et l'input sont liés", () => {
+			render(<Champ>
+				<Champ.Label>Prénom</Champ.Label>
+				<Champ.Input id="idExpected"/>
+			</Champ>);
+
+			const input = screen.getByRole('textbox');
+			expect(input).toHaveAccessibleName('Prénom');
 		});
 	});
 
@@ -178,7 +188,6 @@ describe('<Champ/>', () => {
 
 	it.todo('passer le champ en render prop');
 	it.todo('set automatiquement le contenu de l’erreur avec le champ');
-	it.todo('input accepte un id qui remonte au label');
 	it.todo('merger les props qui doivent l’être');
 });
 
