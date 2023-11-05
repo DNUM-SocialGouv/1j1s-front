@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.175.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.3...v3.175.4) (2023-11-05)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency next-test-api-route-handler to v3.1.10 ([6491179](https://github.com/DNUM-SocialGouv/1j1s-front/commit/64911798f05378c443c0ce7f9653d701f172bb77))
+* **deps:** update dependency nock to v13.3.8 ([c1d78ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1d78ffa124e87a1e186bd1262aedaadf6091375))
+
 ## [3.175.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.2...v3.175.3) (2023-11-02)
 
 
