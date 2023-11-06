@@ -12,7 +12,6 @@ import analytics from '~/pages/evenements/index.analytics';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = 'evenement';
-const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function PageEvenements() {
 	useAnalytics(analytics);
@@ -52,12 +51,10 @@ export default function PageEvenements() {
 					nombreDeResultatParPage={HITS_PER_PAGE}
 					titre="Des centaines d‘évènements de recrutement"
 					sousTitre="pour tous les jeunes, partout en France"
-					isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
 					formulaireDeRecherche={<FormulaireRechercheEvenement/>}
 					messageResultatRechercheLabelSingulier="évènement"
 					messageResultatRechercheLabelPluriel="évènements"
 					nombreDeSkeleton={2}
-					ariaLabelListeDesResultats="Evènements"
 					resultatDeRecherche={RésultatRechercherEvenement}
 					tagList={<MeilisearchCustomCurrentRefinements />}
 					isAffichageListeDeResultatsDesktopDirectionRow

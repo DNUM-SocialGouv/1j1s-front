@@ -1,4 +1,5 @@
-import React from 'react';
+import { SearchResults } from 'algoliasearch-helper';
+import { SortBy } from 'instantsearch.js/es/types';
 
 import styles  from '~/client/components/features/FicheMétier/FormulaireRecherche/FormulaireRechercheFicheMetier.module.scss';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
@@ -20,7 +21,7 @@ export function FormulaireRechercheFicheMetier() {
 				attribute="centres_interet"
 				limit={100}
 				label="Centres d‘intérêt"
-				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
+				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC as SortBy<SearchResults.FacetValue>}
 	  />
 		</form>
 	);

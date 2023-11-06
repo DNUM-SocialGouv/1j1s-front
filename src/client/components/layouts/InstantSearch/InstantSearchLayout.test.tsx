@@ -4,37 +4,13 @@
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
+import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aRoutingService } from '~/client/services/routing/routing.service.fixture';
 
-const mockRechercheService: SearchClient = {
-	search() {
-		return Promise.resolve({
-			results: [{
-				exhaustiveFacetsCount: true,
-				exhaustiveNbHits: true,
-				hits: [],
-				hitsPerPage: 1,
-				nbHits: 2,
-				nbPages: 2,
-				page: 1,
-				params: '',
-				processingTimeMS: 0,
-				query: '',
-				renderingContent: {
-					facetOrdering: {
-						facets: {},
-						values: {},
-					},
-				},
-				userData: [],
-			}],
-		});
-	},
-};
 jest.mock('react-instantsearch', () => ({
 	...jest.requireActual('react-instantsearch'),
 	Configure: () => <></>,
@@ -47,19 +23,20 @@ describe('<InstantSearchLayout />', () => {
 	it('scroll en haut des résultats quand on change de page', async () => {
 		const user = userEvent.setup();
 		render(
-			<DependenciesProvider rechercheClientService={mockRechercheService}>
+			<DependenciesProvider
+				rechercheClientService={aRechercheClientService()}
+				routingService={aRoutingService()}
+			>
 				<InstantSearchLayout
 					meilisearchIndex="fake"
 					titre="Titre"
 					sousTitre="Sous-titre"
-					isMeilisearchQueryParamsRoutingEnabled={false}
 					formulaireDeRecherche={<div></div>}
 					tagList={<div></div>}
 					nombreDeResultatParPage={1}
 					messageResultatRechercheLabelSingulier="résultat trouvé"
 					messageResultatRechercheLabelPluriel="résultats trouvés"
 					nombreDeSkeleton={1}
-					ariaLabelListeDesResultats="résultats trouvés"
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					resultatDeRecherche={() => <div></div>}/>
 			</DependenciesProvider>,

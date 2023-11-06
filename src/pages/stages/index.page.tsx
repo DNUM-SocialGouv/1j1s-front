@@ -13,7 +13,6 @@ import analytics from '~/pages/stages/index.analytics';
 
 const HITS_PER_PAGE = 15;
 const MEILISEARCH_INDEX = `${process.env.NEXT_PUBLIC_INDEX_OFFRE_DE_STAGE}`;
-const MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherOffreStagePage() {
 	useAnalytics(analytics);
@@ -30,12 +29,10 @@ export default function RechercherOffreStagePage() {
 				nombreDeResultatParPage={HITS_PER_PAGE}
 				titre="Des milliers d‘offres de stages"
 				sousTitre="sélectionnées pour vous"
-				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERY_PARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheOffreStage />}
 				messageResultatRechercheLabelSingulier="offre de stage"
 				messageResultatRechercheLabelPluriel="offres de stage"
 				nombreDeSkeleton={2}
-				ariaLabelListeDesResultats="Offres de stage"
 				resultatDeRecherche={OffreDeStage}
 				tagList={<MeilisearchCustomCurrentRefinements />}
 				isAffichageListeDeResultatsDesktopDirectionRow

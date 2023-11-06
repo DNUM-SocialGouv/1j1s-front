@@ -1,5 +1,7 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
+import singletonRouter from 'next/router';
+import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
@@ -35,6 +37,7 @@ import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
+import { RoutingService } from '~/client/services/routing/routing.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
@@ -54,6 +57,7 @@ export type Dependencies = {
 	missionEngagementService: MissionEngagementService
 	offreService: OffreService
 	rechercheClientService: SearchClient
+	routingService: RoutingService
 	stageService: StageService
 	metierService: MetierService
 	youtubeService: VideoService
@@ -118,8 +122,10 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 			primaryKey: 'slug',
 		},
 	);
-	
+
 	const stage3emeService = new BffStage3emeService(httpClientService);
+
+	const routingService = new RoutingService(createInstantSearchRouterNext({ singletonRouter }));
 
 	return {
 		alternanceService,
@@ -137,6 +143,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		missionEngagementService,
 		offreService,
 		rechercheClientService,
+		routingService,
 		stage3emeService,
 		stageService,
 		youtubeService,

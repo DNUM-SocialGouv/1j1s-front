@@ -163,7 +163,10 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						onClick={() => setSuggestionsActive(!!localisation)}
 					/>
 				</div>
-				{suggestionsActive && <SuggestionsLocalisationList/>}
+				{suggestionsActive
+					? <SuggestionsLocalisationList />
+					: <ul id={LOCALISATION_SUGGESTIONS_ID} hidden/>
+				}
 			</div>
 		</div>
 	);

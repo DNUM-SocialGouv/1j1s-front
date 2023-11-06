@@ -1,10 +1,8 @@
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventForHits';
 import { BaseHit } from 'instantsearch.js/es/types/results';
-import singletonRouter from 'next/router';
 import React, { useRef } from 'react';
 import { Configure, Hits, InstantSearch, useInstantSearch, useStats } from 'react-instantsearch';
-import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantSearch/InstantSearchErrorBoundary';
@@ -15,6 +13,7 @@ import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
+import { RoutingService } from '~/client/services/routing/routing.service';
 
 export interface HitProps<THit extends BaseHit> {
     hit: THit;
@@ -28,7 +27,6 @@ interface AfficherResultatDeRechercheProps<THit extends BaseHit> {
     messageResultatRechercheLabelSingulier: string
     messageResultatRechercheLabelPluriel: string
     nombreDeSkeleton: number
-    ariaLabelListeDesResultats: string
     isAffichageListeDeResultatsDesktopDirectionRow: boolean
     resultatDeRecherche: HitComponent<THit>
 }
@@ -37,7 +35,6 @@ interface InstantSearchLayoutProps<THit extends BaseHit> extends AfficherResulta
     meilisearchIndex: string
     titre: string
     sousTitre: string
-    isMeilisearchQueryParamsRoutingEnabled: boolean
     formulaireDeRecherche: React.ReactElement
     tagList: React.ReactElement
 }
@@ -48,18 +45,17 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 		nombreDeResultatParPage,
 		titre,
 		sousTitre,
-		isMeilisearchQueryParamsRoutingEnabled,
 		formulaireDeRecherche,
 		tagList,
 		messageResultatRechercheLabelSingulier,
 		messageResultatRechercheLabelPluriel,
 		nombreDeSkeleton,
-		ariaLabelListeDesResultats,
 		resultatDeRecherche ,
 		isAffichageListeDeResultatsDesktopDirectionRow,
 	} = props;
 
 	const searchClient = useDependency<SearchClient>('rechercheClientService');
+	const routing = useDependency<RoutingService>('routingService');
 
 	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
@@ -78,8 +74,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 			<InstantSearch
 				searchClient={searchClient}
 				indexName={meilisearchIndex}
-				routing={isMeilisearchQueryParamsRoutingEnabled
-                        && { router: createInstantSearchRouterNext({ singletonRouter }) }}
+				routing={routing}
 			>
 				<InstantSearchErrorBoundary>
 					<>
@@ -96,7 +91,6 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 							messageResultatRechercheLabelSingulier={messageResultatRechercheLabelSingulier}
 							messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
 							nombreDeSkeleton={nombreDeSkeleton}
-							ariaLabelListeDesResultats={ariaLabelListeDesResultats}
 							resultatDeRecherche={resultatDeRecherche as HitComponent<BaseHit>}
 							isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 							nombreDeResultatParPage={nombreDeResultatParPage}
@@ -119,7 +113,6 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 		messageResultatRechercheLabelSingulier,
 		messageResultatRechercheLabelPluriel,
 		nombreDeSkeleton,
-		ariaLabelListeDesResultats,
 		resultatDeRecherche,
 		isAffichageListeDeResultatsDesktopDirectionRow,
 		nombreDeResultatParPage,
@@ -151,7 +144,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 			</section>
 			<ListeDesResultats
 				ref={ref}
-				resultats={<Hits aria-label={ariaLabelListeDesResultats} hitComponent={resultatDeRecherche}/>}
+				resultats={<Hits hitComponent={resultatDeRecherche}/>}
 				skeletonRepeat={nombreDeSkeleton}
 				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage}
 					className={styles.pagination}
