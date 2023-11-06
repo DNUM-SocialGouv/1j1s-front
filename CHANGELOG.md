@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.176.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.6...v3.176.0) (2023-11-06)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** afficher le tag pays des cartes ([#2230](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2230)) ([db40594](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db4059414655ed9e25f3831239d01cc7089364ca))
+
 ## [3.175.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.5...v3.175.6) (2023-11-06)
 
 
