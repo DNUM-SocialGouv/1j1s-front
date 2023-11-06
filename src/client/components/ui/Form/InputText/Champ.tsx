@@ -1,4 +1,12 @@
-import React, { ComponentPropsWithoutRef, useEffect, useId, useState } from 'react';
+import React, {
+	ComponentPropsWithoutRef,
+	ComponentPropsWithRef,
+	ComponentType,
+	useCallback,
+	useEffect,
+	useId,
+	useState,
+} from 'react';
 
 import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
@@ -35,12 +43,26 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	);
 }
 
-export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWithoutRef<typeof Input>>(function InputChamp(
+type InputChampProps<T extends ComponentChildrenPropsNecessary> = T & {
+	render: React.ComponentType<T>
+};
+
+type ComponentChildrenPropsNecessary = {
+	onChange?: (event: { currentTarget: { validationMessage: string } }, ...args: unknown[]) => void
+	onTouch?: (touched: boolean, ...args: unknown[]) => void
+	ref?: React.Ref<HTMLInputElement>
+	'aria-describedby'?: string
+	id?: string
+}
+
+export const InputChamp = React.forwardRef(function InputChamp<T extends ComponentChildrenPropsNecessary>(
 	{
 		'aria-describedby': ariaDescribedby = '',
 		id,
+		onChange: onChangeProps = doNothing,
+		render: ComponentToRender,
 		...rest
-	}, outerRef) {
+	}: InputChampProps<T>, outerRef: React.ForwardedRef<HTMLInputElement>) {
 	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
@@ -48,12 +70,17 @@ export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWitho
 		id && setInputId(id);
 	}, [id, setInputId]);
 
-	return (<Input
-		onTouch={(touched: boolean) => setTouched(touched)}
+	const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>, ...args: unknown[]) => {
+		onChangeProps(event);
+		setErrorMessage(event.currentTarget.validationMessage);
+	}, [onChangeProps, setErrorMessage]);
+
+	return (<ComponentToRender
+		onTouch={(touched: boolean, ...args: unknown[]) => setTouched(touched)}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
 		id={inputId}
-		onChange={(event) => setErrorMessage(event.currentTarget.validationMessage)}
+		onChange={onChange}
 		{...rest}
 	/>);
 });
@@ -87,3 +114,7 @@ Champ.Input = InputChamp;
 Champ.Label = Object.assign(LabelChamp, Label);
 Champ.Error = ErrorChamp;
 Champ.Hint = HintChamp;
+
+function doNothing() {
+	return;
+}
