@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 import {
 	aFormulaireEnvoyePostedValue,
 	aFormulaireEtapeEntreprise,
@@ -19,15 +20,17 @@ describe('Dépôt de Stage', () => {
 	describe('quand l’utilisateur arrive sur la page de l’étape 1', () => {
 		beforeEach(() => {
 			cy.visit('/je-recrute');
-			cy.get('[href="/stages/deposer-offre"]').click();
+			cy.findByRole('link', { name: /Déposer une offre de stage/i }).click();
 		});
-		describe('et qu‘il remplit le formulaire', () => {
+		describe('et qu‘il remplit le formulaire de l’étape 1', () => {
 			it('le redirige vers l’étape 2', () => {
-				cy.get('input[name="nomEmployeur"]').type(aFormulaireEtapeEntreprise().nomEmployeur);
-				cy.get('input[name="emailEmployeur"]').type(aFormulaireEtapeEntreprise().emailEmployeur);
-				cy.get('textarea[name="descriptionEmployeur"]').type(aFormulaireEtapeEntreprise().descriptionEmployeur);
+				cy.findByRole('textbox', { name: /Nom de l’entreprise ou de l’employeur/i }).type(aFormulaireEtapeEntreprise().nomEmployeur);
+				cy.findByRole('textbox', { name: /Adresse mail de contact/i }).type(aFormulaireEtapeEntreprise().emailEmployeur);
+				cy.findByRole('textbox', { name: /Courte description de l’entreprise/i }).type(aFormulaireEtapeEntreprise().descriptionEmployeur);
+				cy.findByRole('button', { name: /Suivant/i }).click();
 
-				cy.get('button[type="submit"]').click();
+				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+				cy.title().should('contain', 'Etape 2 sur 3');
 				cy.url().should('include', '/stages/deposer-offre/votre-offre-de-stage');
 			});
 		});
@@ -38,6 +41,8 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage');
 
+				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+				cy.title().should('contain', 'Etape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
@@ -50,17 +55,18 @@ describe('Dépôt de Stage', () => {
 						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireEtapeEntreprise()));
 					},
 				});
-				// don't know why le premier input ne se remplit pas workaround l'appeler 2 fois
-				cy.get('input').first().focus();
-				cy.get('input').first().type(aFormulaireEtapeStage().nomOffre);
-				cy.get('input[name="nomOffre"]').type(aFormulaireEtapeStage().nomOffre);
-				cy.get('input[name="lienCandidature"]').type(aFormulaireEtapeStage().lienCandidature);
-				cy.get('textarea[name="descriptionOffre"]').type(aFormulaireEtapeStage().descriptionOffre);
-				cy.get('input[name="dateDeDebutMin"]').type(aFormulaireEtapeStage().dateDeDebutMin);
-				cy.get('button').contains('Sélectionnez une durée').click();
-				cy.get('ul[role="listbox"]').first().click();
 
-				cy.get('button[type="submit"]').click();
+				cy.findByRole('textbox', { name: /Nom de l’offre de stage/i }).type(aFormulaireEtapeStage().nomOffre);
+				cy.findByRole('textbox', { name: /Lien sur lequel les candidats pourront postuler/i }).type(aFormulaireEtapeStage().lienCandidature);
+				cy.findByRole('textbox', { name: /Description de l’offre de stage/i }).type(aFormulaireEtapeStage().descriptionOffre);
+				cy.findByLabelText(/^Date précise du début de stage/i).type(aFormulaireEtapeStage().dateDeDebutMin);
+				// FIXME (GAFI 06-11-2023): Devrait être un combobox (pas le composant, juste le rôle pour un select)
+				cy.findByRole('button', { name: /Durée du stage/i }).click();
+				cy.findAllByRole('option').first().click();
+				cy.findByRole('button', { name: /Suivant/i }).click();
+
+				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+				cy.title().should('contain', 'Etape 3 sur 3');
 				cy.url().should('include', '/stages/deposer-offre/localisation');
 			});
 		});
@@ -75,6 +81,8 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
+				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+				cy.title().should('contain', 'Etape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
@@ -88,6 +96,8 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
+				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+				cy.title().should('contain', 'Etape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
@@ -102,19 +112,19 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
-				// don't know why le premier input ne se remplit pas workaround l'appeler 2 fois
-				cy.get('input').first().focus();
-				cy.get('input').first().type('France');
-				cy.get('input[placeholder="Exemple : France"]').type('France');
-				cy.get('[role="option"]').click();
-				cy.get('input[name="ville"]').type(aFormulaireEtapeLocalisation().ville);
-				cy.get('input[name="adresse"]').type(aFormulaireEtapeLocalisation().adresse);
-				cy.get('input[name="codePostal"').type(aFormulaireEtapeLocalisation().codePostal);
-				cy.get('input[name="region"]').type(aFormulaireEtapeLocalisation().region);
-				cy.get('input[name="departement"').type(aFormulaireEtapeLocalisation().departement);
+				// FIXME (GAFI 06-11-2023): Devrait être combobox
+				//	Also besoin de type 2x parce que la lib est cassée
+				cy.findByRole('textbox', { name: /Pays/i }).type('France');
+				cy.findByRole('textbox', { name: /Pays/i }).type('France');
+				cy.findAllByRole('option').first().click();
+				cy.findByRole('textbox', { name: /Ville/i }).type(aFormulaireEtapeLocalisation().ville);
+				cy.findByRole('textbox', { name: /Adresse/i }).type(aFormulaireEtapeLocalisation().adresse);
+				cy.findByRole('textbox', { name: /Code postal/i }).type(aFormulaireEtapeLocalisation().codePostal);
+				cy.findByRole('textbox', { name: /Région/i }).type(aFormulaireEtapeLocalisation().region);
+				cy.findByRole('textbox', { name: /Département/i }).type(aFormulaireEtapeLocalisation().departement);
 
 				interceptPost({
-					actionBeforeWaitTheCall:() => cy.get('button[type="submit"]').click(),
+					actionBeforeWaitTheCall:() => cy.findByRole('button', { name: /Envoyer/i }).click(),
 					alias: 'submit-form',
 					path: '/api/stages',
 					response: JSON.stringify({
@@ -124,8 +134,8 @@ describe('Dépôt de Stage', () => {
 				});
 
 				cy.url().should('include', '/stages/deposer-offre/confirmation-envoi');
+				cy.findByRole('heading', { level: 1 }).should('have.text', 'Merci, votre offre de stage a bien été envoyée');
 			});
 		});
 	});
-
 });
