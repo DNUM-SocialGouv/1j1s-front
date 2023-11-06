@@ -9,6 +9,8 @@ type ContextType = {
 	touched: boolean
 	inputId: string
 	setInputId: Dispatch<SetStateAction<string>>
+	errorMessage: string
+	setErrorMessage: Dispatch<SetStateAction<string>>
 };
 
 const Context = React.createContext<ContextType | null>(null);

@@ -1,6 +1,5 @@
 import React, { ComponentPropsWithoutRef, useEffect, useId, useState } from 'react';
 
-import { Required } from '~/client/components/ui/Form/InputText/Champ.stories';
 import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -16,9 +15,21 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [hintId, setHintId] = useState<string>(useId());
 	const [touched, setTouched] = useState<boolean>(false);
 	const [inputId, setInputId] = useState<string>(useId());
+	const [errorMessage, setErrorMessage] = useState<string>('');
 
 	return (
-		<ChampContextProvider value={{ errorId, hintId, inputId, setErrorId, setHintId, setInputId, setTouched, touched }}>
+		<ChampContextProvider value={{
+			errorId,
+			errorMessage,
+			hintId,
+			inputId,
+			setErrorId,
+			setErrorMessage,
+			setHintId,
+			setInputId,
+			setTouched,
+			touched,
+		}}>
 			<div className={styles.champ} {...props}/>
 		</ChampContextProvider>
 	);
@@ -30,7 +41,7 @@ export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWitho
 		id,
 		...rest
 	}, outerRef) {
-	const { errorId, hintId, setTouched, inputId, setInputId } = useChampContext();
+	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
 	useEffect(() => {
@@ -42,18 +53,19 @@ export const InputChamp = React.forwardRef<HTMLInputElement, ComponentPropsWitho
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
 		id={inputId}
+		onChange={(event) => setErrorMessage(event.currentTarget.validationMessage)}
 		{...rest}
 	/>);
 });
 
-function ErrorChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Error>) {
-	const { errorId, setErrorId, touched } = useChampContext();
+function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {
+	const { errorId, setErrorId, touched, errorMessage } = useChampContext();
 
 	useEffect(() => {
 		id && setErrorId(id);
 	}, [id, setErrorId]);
 
-	return (touched && <Error id={id ?? errorId} {...rest} />);
+	return (touched && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
