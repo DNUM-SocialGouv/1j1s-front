@@ -25,7 +25,7 @@ export default function UnJeuneUnpermis() {
 			</Hero>
 			<Container>
 				<iframe className={styles.iframe}
-					title="Formulaire de simulation de la rémunération en apprentissage de la Délégation générale à l’emploi et à la formation professionnelle"
+					title="Informations sur le dispositif 1 jeune 1 permis"
 					src={'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis'}/>
 			</Container>
 		</main>
