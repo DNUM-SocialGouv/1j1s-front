@@ -11,7 +11,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Immersions from '~/pages/immersions/index.page';
 
 describe('<Immersions />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}

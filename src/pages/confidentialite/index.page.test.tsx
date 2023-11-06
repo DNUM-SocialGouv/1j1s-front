@@ -13,7 +13,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Confidentialite from '~/pages/confidentialite/index.page';
 
 describe('<Confidentialite />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 

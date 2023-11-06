@@ -13,7 +13,8 @@ import ConsulterJobÉtudiantPage from '~/pages/jobs-etudiants/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterJobÉtudiantPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const offre = aBarmanOffre();
 
 		mockUseRouter({});

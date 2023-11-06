@@ -20,7 +20,8 @@ describe('<ConsulterJobEtePage />', () => {
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const jobEte = aBarmanOffre();
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>

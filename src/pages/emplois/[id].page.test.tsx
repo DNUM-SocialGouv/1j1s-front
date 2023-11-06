@@ -14,7 +14,8 @@ import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterOffreEmploiPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 		const offre = aBarmanOffre();

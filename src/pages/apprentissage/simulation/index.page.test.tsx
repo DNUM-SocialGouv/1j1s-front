@@ -17,7 +17,8 @@ describe('Apprentissage / Simulateur de rémunération en apprentissage', () => 
 		mockUseRouter({});
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(<SimulateurOffreAlternant />);
 
 		await expect(container).toBeAccessible();

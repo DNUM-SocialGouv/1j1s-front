@@ -29,7 +29,8 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('<ApprentissageEntreprises />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 		mockUseRouter({ query: { page: '1' } });
 		const videos = aVideoCampagneApprentissageList();

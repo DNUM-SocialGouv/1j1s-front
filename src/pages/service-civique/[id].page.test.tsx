@@ -13,7 +13,8 @@ import ConsulterMissionEngagementPage from '~/pages/service-civique/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('<ConsulterMissionEngagementPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider

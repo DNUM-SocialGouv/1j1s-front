@@ -13,6 +13,7 @@ import DeposerOffrePage from '~/pages/apprentissage/deposer-offre/index.page';
 
 describe('deposer-offre', () => {
 
+	it.todo('doit rendre du HTML respectant la specification');
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 

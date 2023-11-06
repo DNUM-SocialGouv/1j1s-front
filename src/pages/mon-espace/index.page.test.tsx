@@ -13,7 +13,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import MonEspace from '~/pages/mon-espace/index.page';
 
 describe('<MonEspace />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 		mockUseRouter({});
 		const { container } = render(

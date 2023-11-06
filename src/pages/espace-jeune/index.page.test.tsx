@@ -23,7 +23,8 @@ describe('Page Espace Jeune', () => {
 		jest.clearAllMocks();
 	});
 
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
 		const serviceJeuneList = aServiceJeuneList();
 

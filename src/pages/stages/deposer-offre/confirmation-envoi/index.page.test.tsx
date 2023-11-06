@@ -13,7 +13,8 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 
 describe('<DeposerOffreStageEnvoyePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider

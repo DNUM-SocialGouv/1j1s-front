@@ -12,6 +12,22 @@ import { FAQ } from '~/server/faq/domain/FAQ';
 import { aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
 
 describe('<ConsulterArticlePage />', () => {
+
+	beforeEach(() => {
+		mockUseRouter({});
+	});
+	it('doit rendre du HTML respectant la specification', () => {
+		const faqRéponse: FAQ.QuestionEtReponse = aQuestionEtReponse({
+			contenu: 'Contenu de la réponse',
+			problématique: 'Problématique de la question',
+			slug: 'slug-de-la-question',
+		});
+
+		const { container } = render(
+			<ConsulterArticlePage faqRéponse={faqRéponse   }/>);
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const faqRéponse: FAQ.QuestionEtReponse = aQuestionEtReponse({
 			contenu: 'Contenu de la réponse',
@@ -19,10 +35,8 @@ describe('<ConsulterArticlePage />', () => {
 			slug: 'slug-de-la-question',
 		});
 
-		mockUseRouter({});
-
 		const { container } = render(
-			<ConsulterArticlePage faqRéponse={faqRéponse} />,
+			<ConsulterArticlePage faqRéponse={faqRéponse}/>,
 		);
 
 		await expect(container).toBeAccessible();

@@ -13,7 +13,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Entreprendre from '~/pages/entreprendre/index.page';
 
 describe('<Entreprendre />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
 

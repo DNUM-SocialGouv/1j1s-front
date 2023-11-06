@@ -30,10 +30,19 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 			setItem: setLocalItem,
 		});
 		mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });
+		mockUseRouter({});
+	});
+
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider stageService={aStageService()}>
+				<DeposerOffreStageEtape3Page/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
 				stageService={aStageService()}

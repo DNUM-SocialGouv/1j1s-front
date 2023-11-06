@@ -14,7 +14,8 @@ import ConsulterArticlePage from '~/pages/articles/[id].page';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 
 describe('<ConsulterArticlePage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		const article = anArticle();
 		mockUseRouter({});
 		mockSmallScreen();

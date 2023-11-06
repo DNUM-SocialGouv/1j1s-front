@@ -12,7 +12,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import JeRecruteAfprPoeiPage from '~/pages/je-recrute-afpr-poei/index.page';
 
 describe('<JeRecruteAfprPoeiPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 
 		const { container } = render(

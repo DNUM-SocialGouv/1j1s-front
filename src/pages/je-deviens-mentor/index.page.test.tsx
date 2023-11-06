@@ -12,7 +12,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import JeDeviensMentorPage from '~/pages/je-deviens-mentor/index.page';
 
 describe('<JeDeviensMentorPage />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 
 		const { container } = render(

@@ -37,6 +37,14 @@ describe('Page FAQ', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
+			</DependenciesProvider>);
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();

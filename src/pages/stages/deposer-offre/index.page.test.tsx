@@ -12,6 +12,16 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import DeposerOffreStagePage from '~/pages/stages/deposer-offre/index.page';
 
 describe('<DeposerOffreStagePage />', () => {
+	it.todo('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DeposerOffreStagePage/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(

@@ -84,6 +84,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 			)}
 			<input
 				ref={ref}
+				type="text"
 				{...rest}
 				id={inputId.current}
 				aria-describedby={hint && hintId.current}

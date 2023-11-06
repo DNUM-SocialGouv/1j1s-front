@@ -40,6 +40,7 @@ describe('<AnnonceAlternancePage />', () => {
 		mockUseRouter({});
 	});
 
+	it.todo('doit rendre du HTML respectant la specification');
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>

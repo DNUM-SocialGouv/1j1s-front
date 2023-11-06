@@ -20,6 +20,15 @@ describe('Page Europe', () => {
 		analyticsService = aManualAnalyticsService();
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<EuropePage/>
+			</DependenciesProvider> );
+		
+		expect(container.outerHTML).toHTMLValidate();
+	});
+		
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();

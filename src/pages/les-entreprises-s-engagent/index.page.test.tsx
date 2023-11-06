@@ -12,7 +12,8 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
 
 describe('<LesEntreprisesSEngagent />', () => {
-	it('n‘a pas de défaut d‘accessibilité', async () => {
+	it.todo('doit rendre du HTML respectant la specification');
+it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
