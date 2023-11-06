@@ -36,6 +36,9 @@ describe('1jeune1permis', () => {
 	});
 
 	it('n\'a aucun heading', () => {
+		/* NOTE (GMO - 2023-11-06): pour éviter de répéter des informations déjà présentes dans l'iframe
+		*  le choix a été fait de ne pas avoir de h1 au dessus. Pour éviter une structuration incohérente de la page,
+		* nous devons nous assurer qu'aucun heading n'est présent */
 		// When
 		render(<UnJeuneUnPermis />);
 
