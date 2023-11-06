@@ -27,7 +27,7 @@ export const aFormulaireEtapeStage = (): OffreDeStageDeposee.Stage => {
 	};
 };
 
-export const aFormulaireEtapeLocalisation = (): OffreDeStageDeposee.Localisation => {
+export const aFormulaireEtapeLocalisation = () => {
 	return {
 		adresse: '34 avenue de l’Opéra',
 		codePostal: '75000',
