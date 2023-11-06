@@ -1,15 +1,24 @@
+import { GetServerSidePropsResult } from 'next';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import {
-	Hero,
-	HeroPrimaryText,
-	HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
 
 import styles from './index.module.scss';
 
-export default function UnJeuneUnpermis() {
+export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
+	const isFeatureActive = process.env.NEXT_PUBLIC_1JEUNE1PERMIS === '1';
+
+	if (!isFeatureActive) {
+		return { notFound: true };
+	}
+
+	return {
+		props: {},
+	};
+}
+
+export default function UnJeuneUnPermis() {
 
 	return (
 		<main id="contenu">
@@ -17,12 +26,6 @@ export default function UnJeuneUnpermis() {
 				title={'1jeune1permis | 1jeune1solution'}
 				robots="index,follow"
 			/>
-			<Hero>
-				<h1><HeroPrimaryText>1jeune1permis</HeroPrimaryText></h1>
-				<HeroSecondaryText>
-					En partenariat avec Pôle emploi
-				</HeroSecondaryText>
-			</Hero>
 			<Container>
 				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
