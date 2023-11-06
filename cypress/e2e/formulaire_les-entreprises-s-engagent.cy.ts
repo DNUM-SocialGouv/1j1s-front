@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 
 
 import { interceptGet } from '../interceptGet';
@@ -10,16 +11,11 @@ const TITLE_VALIDEE = 'Les entreprises s‘engagent - Rejoignez la mobilisation 
 
 
 function remplirFormulaireEtape1() {
-	cy.get('input[name="companyName"]').type('Octo', { force: true });
-	cy.get('input[name="companySiret"]').type('41816609600069');
-	cy.get('input[name="companySector"]').type('santé', { force: true });
-	cy.get('ul[role="listbox"]').first().click();
-	cy.contains('Exemple : 250 à 499 salariés').parent().click();
-	cy.contains('20 à 49 salariés').click();
-
+	cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).type('OCTO Technology');
 	interceptGet(
 		{
-			actionBeforeWaitTheCall: () => cy.get('input[name="companyPostalCode"]').type('paris', { force: true }),
+			// FIXME (GAFI 06-11-2023): Devrait être role combobox
+			actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Ville du siège social de l’entreprise/i }).type('paris'),
 			alias: 'recherche-communes',
 			path: '/api/communes*',
 			response: JSON.stringify({ résultats: [
@@ -36,7 +32,14 @@ function remplirFormulaireEtape1() {
 			] } ),
 		},
 	);
-	cy.get('ul[role="listbox"]').first().click();
+	cy.findByRole('option', { name: /Paris \(75006\)/i }).click();
+	cy.findByRole('textbox', { name: /SIRET/i }).type('41816609600069');
+	// FIXME (GAFI 06-11-2023): Devrait être role combobox
+	cy.findByRole('textbox', { name: /Secteur d’activité de l’entreprise/i }).type('santé');
+	cy.findByRole('option', { name: /Santé humaine et action sociale/i }).click();
+	// FIXME (GAFI 06-11-2023): Devrait être role combobox
+	cy.findByRole('button', { name: /Taille de l’entreprise/i }).click();
+	cy.findByRole('option', { name: /20 à 49 salariés/i }).click();
 }
 
 describe('Inscription', () => {
@@ -45,44 +48,51 @@ describe('Inscription', () => {
 	});
 	describe('quand l’utilisateur arrive sur la page', () => {
 		it('voit afficher la première étape de formulaire', () => {
-			cy.contains('Etape 1 sur 2').should('exist');
+			// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+			cy.findByText('Etape 1 sur 2').should('be.visible');
 			cy.title().should('eq', TITLE_ETAPE_1);
 		});
 	});
 	describe('quand l‘utilisateur clique sur Suivant et qu’il a rempli tous les champs', () => {
 		it('passe à l’étape 2', () => {
 			remplirFormulaireEtape1();
-			cy.get('button[type="submit"]').click();
-			cy.contains('Etape 2 sur 2').should('exist');
+			cy.findByRole('button', { name: /Suivant/i }).click();
+			cy.findByText('Etape 2 sur 2').should('be.visible');
 			cy.title().should('eq', TITLE_ETAPE_2);
 		});
 	});
 	describe('puis passe à l’étape 2 et qu’il clique sur Retour', () => {
 		it('repasse à l’étape 1 avec les champs toujours remplis', () => {
 			remplirFormulaireEtape1();
-			cy.get('button[type="submit"]').click();
-			cy.contains('Retour').click();
-			cy.contains('Etape 1 sur 2').should('exist');
-			cy.get('input[name="companyName"]').should('have.value', 'Octo');
-			cy.get('input[name="companySiret"]').should('have.value', '41816609600069');
-			cy.get('input[name="companySector"]').should('have.value', 'Santé humaine et action sociale');
-			cy.contains('20 à 49 salariés').should('exist');
+			cy.findByRole('button', { name: /Suivant/i }).click();
+			// FIXME (GAFI 06-11-2023): Devrait être un lien ?
+			cy.findByRole('button', { name: /Retour/i }).click();
+			// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
+			cy.findByText('Etape 1 sur 2').should('be.visible');
+			cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).should('have.value', 'OCTO Technology');
+			cy.findByRole('textbox', { name: /SIRET/i }).should('have.value', '41816609600069');
+			// FIXME (GAFI 06-11-2023): Devrait être role combobox
+			cy.findByRole('textbox', { name: /Secteur d’activité de l’entreprise/i }).should('have.value', 'Santé humaine et action sociale');
+			// FIXME (GAFI 06-11-2023): devrait être role combobox
+			cy.findByRole('button', { name: /Taille de l’entreprise/i }).should('have.text', '20 à 49 salariés');
+			// FIXME (GAFI 06-11-2023): Certains champs ne sont pas testés ...
+
 			cy.title().should('eq', TITLE_ETAPE_1);
 		});
 	});
 	describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
 		it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', () => {
 			remplirFormulaireEtape1();
-			cy.get('button[type="submit"]').click();
-			cy.get('input[name="firstName"]').type('Toto', { force: true });
-			cy.get('input[name="lastName"]').type('Tata', { force: true });
-			cy.get('input[name="email"]').type('toto@email.com');
-			cy.get('input[name="job"]').type('RH');
-			cy.get('input[name="phone"]').type('0122334455');
+			cy.findByRole('button', { name: /Suivant/i }).click();
+			cy.findByRole('textbox', { name: /Prénom/i }).type('Jean');
+			cy.findByRole('textbox', { name: /^Nom/i }).type('Bon');
+			cy.findByRole('textbox', { name: /Fonction au sein de l’entreprise/i }).type('RH');
+			cy.findByRole('textbox', { name: /Adresse e-mail de contact/i }).type('jean.bon@example.com');
+			cy.findByRole('textbox', { name: /Numéro de téléphone de contact/i }).type('0122334455');
 
 			interceptPost(
 				{
-					actionBeforeWaitTheCall: () => cy.get('button[type="submit"]').click(),
+					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Envoyer le formulaire/i }).click(),
 					alias: 'submit-form',
 					path: '/api/entreprises',
 					response: JSON.stringify({
@@ -90,10 +100,10 @@ describe('Inscription', () => {
 					}),
 					responseBodyToCheck: {
 						codePostal: '75006',
-						email: 'toto@email.com',
-						nom: 'Tata',
-						nomSociété: 'Octo',
-						prénom: 'Toto',
+						email: 'jean.bon@example.com',
+						nom: 'Bon',
+						nomSociété: 'OCTO Technology',
+						prénom: 'Jean',
 						secteur: 'health-social',
 						siret: '41816609600069',
 						taille: 'xsmall',
@@ -104,6 +114,7 @@ describe('Inscription', () => {
 				},
 			);
 
+			cy.findByRole('heading', { level: 1 }).should('have.text', 'Félicitations, votre formulaire a bien été envoyé !');
 			cy.title().should('eq', TITLE_VALIDEE);
 		});
 	});
