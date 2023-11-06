@@ -22,6 +22,10 @@ interface SlideProps {
 	imagesSize: { width: number, height: number }
 }
 
+export function defaultAlternative(index: number, numberOfImages: number) {
+	return `${index + 1} sur ${numberOfImages}`;
+}
+
 export const Slide = (props: SlideProps) => {
 	const {
 		index,
@@ -48,6 +52,8 @@ export const Slide = (props: SlideProps) => {
 			aria-current={isCurrentSlide}
 			aria-hidden={!isCurrentSlide}
 			aria-roledescription="slide"
+			role="group"
+			aria-label={`Image ${defaultAlternative(index, numberOfImages)}`}
 			onTransitionEnd={() => {
 				setIsInTransition(false);
 				setDirection(null);
@@ -62,7 +68,7 @@ export const Slide = (props: SlideProps) => {
 				{ [styles.transition]: isAnimated },
 			)}
 		>
-			<Image src={image.src} alt={image.alt} width={imagesSize.width} height={imagesSize.height} />
+			<Image src={image.src} alt={image.alt || defaultAlternative(index, numberOfImages)} width={imagesSize.width} height={imagesSize.height} />
 		</li>
 	);
 };

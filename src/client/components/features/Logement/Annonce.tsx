@@ -78,7 +78,7 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 
 const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 	const { imageSrcList } = props;
-	const formattedList = imageSrcList.map((src) => ({ alt: '', src }));
+	const formattedList = imageSrcList.map((src) => ({ alt: undefined, src }));
 	const MAX_IMAGE_WIDTH = 360;
 	const MAX_IMAGE_HEIGHT = 180;
 	const firstFourthImages = useMemo(() => formattedList.slice(0, 4), [formattedList]);
@@ -86,10 +86,9 @@ const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 	return (
 		<Carousel
 			imageList={firstFourthImages}
-			imageListLabel="liste des photos du logement"
 			className={styles.CardImageWrapper}
-			aria-hidden
 			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
+			aria-label="Photos du logement"
 		/>
 	);
 };
