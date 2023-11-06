@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.175.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.4...v3.175.5) (2023-11-06)
+
+
+### 🐛 Corrections de bogues
+
+* **logement:** accessibilite carousel ([#2214](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2214)) ([9c716f3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c716f3fb0b8ddce9c143122de39714fe24bfae0))
+
 ## [3.175.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.3...v3.175.4) (2023-11-05)
 
 
