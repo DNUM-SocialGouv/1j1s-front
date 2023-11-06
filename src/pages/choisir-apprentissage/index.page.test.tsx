@@ -71,8 +71,20 @@ describe('Page Apprentissage Jeunes', () => {
 	});
 
 	describe('<ApprentissageJeunes />', () => {
-		it.todo('doit rendre du HTML respectant la specification');
-it('n‘a pas de défaut d‘accessibilité', async () => {
+		it('doit rendre du HTML respectant la specification', async () => {
+			mockSmallScreen();
+
+			const { container } = render(
+				<DependenciesProvider analyticsService={aManualAnalyticsService()} youtubeService={aVideoService()}>
+					<ApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				</DependenciesProvider> );
+
+			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
+
+			expect(container.outerHTML).toHTMLValidate();
+		});
+			
+		it('n‘a pas de défaut d‘accessibilité', async () => {
 			mockSmallScreen();
 
 			const { container } = render(

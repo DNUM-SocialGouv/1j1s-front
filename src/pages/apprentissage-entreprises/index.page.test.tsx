@@ -29,8 +29,23 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('<ApprentissageEntreprises />', () => {
-	it.todo('doit rendre du HTML respectant la specification');
-it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockSmallScreen();
+		mockUseRouter({ query: { page: '1' } });
+		const videos = aVideoCampagneApprentissageList();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				youtubeService={aVideoService()}
+			>
+				<ApprentissageEntreprises videos={videos}/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 		mockUseRouter({ query: { page: '1' } });
 		const videos = aVideoCampagneApprentissageList();

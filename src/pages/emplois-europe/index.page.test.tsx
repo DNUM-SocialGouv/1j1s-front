@@ -37,8 +37,25 @@ describe('Page emplois en europe', () => {
 			mockUseRouter({});
 			mockSmallScreen();
 		});
-		it.todo('doit rendre du HTML respectant la specification');
-it('n‘a pas de défaut d‘accessibilité', async () => {
+		// TODO fix "<input> is missing required "type" attribute [element-required-attributes]"
+		it.todo('doit rendre du HTML respectant la specification', () => {
+			mockUseRouter({
+				query: {
+					page: '1',
+				},
+			});
+
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					emploiEuropeService={anEmploiEuropeService()}>
+					<EmploiEuropePage/>
+				</DependenciesProvider> );
+			
+			expect(container.outerHTML).toHTMLValidate();
+		});
+			
+		it('n‘a pas de défaut d‘accessibilité', async () => {
 			mockUseRouter({
 				query: {
 					page: '1',

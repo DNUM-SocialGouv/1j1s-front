@@ -22,7 +22,7 @@ describe('Page Europe', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<EuropePage/>
 			</DependenciesProvider> );
 		

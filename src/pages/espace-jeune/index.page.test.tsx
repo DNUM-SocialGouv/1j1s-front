@@ -23,8 +23,21 @@ describe('Page Espace Jeune', () => {
 		jest.clearAllMocks();
 	});
 
-	it.todo('doit rendre du HTML respectant la specification');
-it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
+		const serviceJeuneList = aServiceJeuneList();
+
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<EspaceJeunePage cartesActualites={carteActualites} serviceJeuneList={serviceJeuneList}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
 		const serviceJeuneList = aServiceJeuneList();
 

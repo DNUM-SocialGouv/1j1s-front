@@ -12,10 +12,11 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import DeposerOffreStagePage from '~/pages/stages/deposer-offre/index.page';
 
 describe('<DeposerOffreStagePage />', () => {
+	// TODO fixer le HTML
 	it.todo('doit rendre du HTML respectant la specification', () => {
 		mockUseRouter({});
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<DeposerOffreStagePage/>
 			</DependenciesProvider> );
 

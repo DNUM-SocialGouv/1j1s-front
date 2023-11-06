@@ -42,8 +42,16 @@ describe('quand le feature flip est actif', () => {
 		});
 	});
 
-	it.todo('doit rendre du HTML respectant la specification');
-it('n‘a pas de défaut d‘accessibilité', async () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
+	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>

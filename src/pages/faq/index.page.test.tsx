@@ -39,7 +39,7 @@ describe('Page FAQ', () => {
 	});
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
