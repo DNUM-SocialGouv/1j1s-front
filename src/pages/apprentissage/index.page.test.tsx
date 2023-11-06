@@ -59,9 +59,7 @@ describe('Page rechercher une alternance', () => {
 			};
 		});
 
-		// FIXME (SULI 04-09-2023 a11y auto): accessibilité à fixer sur cette page
-		// eslint-disable-next-line jest/no-disabled-tests
-		it.skip('n‘a pas de défaut d‘accessibilité', async () => {
+		it('n‘a pas de défaut d‘accessibilité', async () => {
 			const alternanceFixture: Array<Alternance> = [
 				anAlternanceMatchaBoulanger(),
 				anAlternancePEJobs(),

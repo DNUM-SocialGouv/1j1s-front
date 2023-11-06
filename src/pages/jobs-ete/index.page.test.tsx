@@ -1,6 +1,9 @@
 /**
  * @jest-environment jsdom
  */
+
+import '~/test-utils';
+
 import { render, screen, waitFor } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -82,6 +85,23 @@ describe('Page rechercher un job d‘été', () => {
 				pagelabel: 'emplois_liste',
 				'segment-site': 'offres_d_emploi',
 			});
+		});
+
+		it('n‘a pas de défaut d‘accessibilité', async () => {
+			const analyticsService = anAnalyticsService();
+			mockUseRouter({ query: { page: '1' } });
+
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+					offreService={anOffreService()}
+					localisationService={aLocalisationService()}
+				>
+					<RechercherJobsEtePage/>
+				</DependenciesProvider>,
+			);
+
+			await expect(container).toBeAccessible();
 		});
 	});
 });

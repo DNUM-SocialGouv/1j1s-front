@@ -4,31 +4,33 @@
 
 import '~/test-utils';
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	anÉtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { anOffreService } from '~/client/services/offre/offreService.fixture';
-import RechercherOffreEmploiPage from '~/pages/emplois/index.page';
+import Accompagnement from '~/pages/accompagnement/index.page';
 
-describe('<RechercherOffreEmploiPage />', () => {
+describe('<Accompagnement />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		mockUseRouter({ query: { page: '1' } });
+		mockUseRouter({});
 		mockLargeScreen();
 
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
-				offreService={anOffreService()}
+				établissementAccompagnementService={anÉtablissementAccompagnementService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherOffreEmploiPage />);
-			</DependenciesProvider>);
-
-		await screen.findByRole('list', { name: /Offres d‘emplois/i });
+				<Accompagnement />
+			</DependenciesProvider>,
+		);
+		
 		await expect(container).toBeAccessible();
 	});
 });

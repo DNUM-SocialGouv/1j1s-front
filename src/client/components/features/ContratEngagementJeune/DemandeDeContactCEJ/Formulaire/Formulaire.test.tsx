@@ -146,7 +146,7 @@ async function remplirFormulaireDeContact(data: ContactInputs, submit = true) {
 	await user.type(screen.getByLabelText('Ville'), data.ville);
 	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 
-	await user.click(screen.getByText('Age'));
+	await user.click(screen.getByRole('button', { name: 'Age' }));
 	await user.click(screen.getByText(data.age));
 	if (submit) {
 		await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
