@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.175.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.5...v3.175.6) (2023-11-06)
+
+
+### 👷 Autres changements
+
+* ajout de HTML validate ([#2199](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2199)) ([88fd507](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88fd50746438e0c4591574956ff6124b61435b24))
+
 ## [3.175.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.4...v3.175.5) (2023-11-06)
 
 
