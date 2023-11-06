@@ -1,3 +1,4 @@
+import { paysEuropeList } from '~/client/domain/pays';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
@@ -39,12 +40,15 @@ export class ApiEuresEmploiEuropeMapper {
 				const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
 				const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
 				const addressCityName = address?.['ns2:CityName'];
+				const countryCode = address?.CountryCode;
+				const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
 
 				return {
 					id: item.header.handle,
 					nomEntreprise: organizationIdentifiers?.OrganizationName,
-					tags: addressCityName ? [addressCityName] : [],
+					pays: country,
 					titre: positionProfile?.PositionTitle,
+					ville: addressCityName,
 				};
 			}),
 		};

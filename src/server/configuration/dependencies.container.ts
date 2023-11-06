@@ -39,7 +39,7 @@ import {
 } from '~/server/emplois-europe/configuration/dependencies.container';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
-import { fixtureEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
+import { MockEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/mockEmploiEurope.repository';
 import {
 	getApiEngagementConfig,
 } from '~/server/engagement/configuration/api-engagement/apiEngagementHttpClient.config';
@@ -325,7 +325,7 @@ export function dependenciesContainer(): Dependencies {
 	const apiEuresEmploiEuropeRepository = new ApiEuresEmploiEuropeRepository(apiEuresHttpClientService, defaultErrorManagementService, apiEuresEmploiEuropeMapper);
 
 	const emploiEuropeDependencies = serverConfigurationService.getConfiguration().API_EURES_IS_MOCK_ACTIVE
-		? emploiEuropeDependenciesContainer(new fixtureEmploiEuropeRepository(apiEuresEmploiEuropeMapper))
+		? emploiEuropeDependenciesContainer(new MockEmploiEuropeRepository(apiEuresEmploiEuropeMapper))
 		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
 	return {

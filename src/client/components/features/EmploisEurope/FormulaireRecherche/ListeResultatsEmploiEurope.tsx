@@ -17,15 +17,21 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 		<ListeRésultatsRechercherSolution
 			aria-label={'Offres d’emplois en Europe'}
 		>
-			{resultatList.map((emploiEurope) => (
-				<li key={emploiEurope.id}>
-					<RésultatRechercherSolution
-						intituléOffre={emploiEurope.titre ?? 'Offre d’emploi sans titre'}
-						sousTitreOffre={emploiEurope.nomEntreprise}
-						étiquetteOffreList={emploiEurope.tags}
-					/>
-				</li>
-			))}
+			{resultatList.map((emploiEurope) => ResultatEmploiEurope(emploiEurope))}
 		</ListeRésultatsRechercherSolution>
+	);
+}
+
+function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
+	const location = emploiEurope.pays && emploiEurope.ville ? `${emploiEurope.pays}/${emploiEurope.ville}` : emploiEurope.pays ?? emploiEurope.ville;
+	const tags = location ? [location] : [];
+	return (
+		<li key={emploiEurope.id}>
+			<RésultatRechercherSolution
+				intituléOffre={emploiEurope.titre ?? 'Offre d’emploi sans titre'}
+				sousTitreOffre={emploiEurope.nomEntreprise}
+				étiquetteOffreList={tags}
+			/>
+		</li>
 	);
 }
