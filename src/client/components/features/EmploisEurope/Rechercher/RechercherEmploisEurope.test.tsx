@@ -462,4 +462,55 @@ describe('RechercherEmploisEurope', () => {
 			expect(await screen.findByText('Offre d’emploi sans titre')).toBeVisible();
 		});
 	});
+
+	it('affiche les étiquette de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
+		// GIVEN
+		const emploiEuropeServiceMock = anEmploiEuropeService();
+		const resultatsService = {
+			nombreResultats: 2,
+			offreList: [
+				{
+					id: '1',
+					nomEntreprise: 'Entreprise 1',
+					tags: ['Paris'],
+					titre: 'Titre 1',
+				},
+				{
+					id: '2',
+					nomEntreprise: 'Entreprise 2',
+					tags: [],
+					titre: 'Titre 2',
+				},
+			],
+		};
+		jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+		mockSmallScreen();
+		mockUseRouter({
+			query: {
+				codePays: 'ES',
+				libellePays: 'Espagne',
+				page: '1',
+				typeContrat: 'contract,apprenticeship',
+			},
+		});
+
+		// WHEN
+		render(
+			<DependenciesProvider
+				emploiEuropeService={emploiEuropeServiceMock}
+			>
+				<RechercherEmploisEurope/>
+			</DependenciesProvider>,
+		);
+
+		// THEN
+		const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+		expect(etiquettesRecherche).toBeVisible();
+		const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
+		expect(etiquettes).toHaveLength(3);
+		expect(etiquettes[0]).toHaveTextContent('Espagne');
+		expect(etiquettes[1]).toHaveTextContent('Contrat');
+		expect(etiquettes[2]).toHaveTextContent('Apprentissage');
+	});
 });
