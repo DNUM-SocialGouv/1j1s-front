@@ -7,7 +7,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import styles from './index.module.scss';
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
-	const isFeatureActive = process.env.NEXT_PUBLIC_1JEUNE1PERMIS === '1';
+	const isFeatureActive = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
 	if (!isFeatureActive) {
 		return { notFound: true };

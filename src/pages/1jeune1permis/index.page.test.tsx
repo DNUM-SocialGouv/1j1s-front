@@ -22,11 +22,18 @@ describe('1jeune1permis', () => {
 
 	describe('quand la feature est désactivé', () => {
 		it('retourne une page 404', async () => {
-			process.env.NEXT_PUBLIC_1JEUNE1PERMIS = '0';
+			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 
 			const result = await getServerSideProps();
 			expect(result).toMatchObject({ notFound: true });
 		});
+	});
+
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<UnJeuneUnPermis/>);
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
