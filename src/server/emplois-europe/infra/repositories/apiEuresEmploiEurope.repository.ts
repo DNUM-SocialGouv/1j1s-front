@@ -1,4 +1,8 @@
-import { EmploiEuropeFiltre, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import {
+	EmploiEurope,
+	EmploiEuropeFiltre,
+	ResultatRechercheEmploiEurope,
+} from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
@@ -48,6 +52,28 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		const endpoint = '/get';
 		const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
 		return response;
+	}
+
+	async get(handle: string): Promise<Either<EmploiEurope>> {
+		const endpoint = '/get';
+		try {
+			const body = {
+				handle: [handle],
+				view: 'FULL_NO_ATTACHMENT',
+			};
+			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
+
+			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, response.data);
+
+			return createSuccess(detailOffre);
+		}
+		catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Eures',
+				contexte: 'get emploi europe',
+				message: 'impossible de récupérer le détail d\'une offre d\'emploi',
+			});
+		}
 	}
 
 	async search(filtre: EmploiEuropeFiltre): Promise<Either<ResultatRechercheEmploiEurope>> {

@@ -80,8 +80,17 @@ describe('RechercherEmploisEurope', () => {
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
 				expect(await screen.findByText('Entreprise 1')).toBeVisible();
 				expect(await screen.findByText('Titre 1')).toBeVisible();
+
+				const lienOffre1 = screen.getByRole('link', { name: 'Titre 1 En savoir plus' });
+				expect(lienOffre1).toBeVisible();
+				expect(lienOffre1).toHaveAttribute('href', '/emplois-europe/1');
+
 				expect(await screen.findByText('Entreprise 2')).toBeVisible();
 				expect(await screen.findByText('Titre 2')).toBeVisible();
+
+				const lienOffre2 = screen.getByRole('link', { name: 'Titre 2 En savoir plus' });
+				expect(lienOffre2).toBeVisible();
+				expect(lienOffre2).toHaveAttribute('href', '/emplois-europe/2');
 			});
 
 			describe('quand un résultat contient un pays et une ville', () => {
@@ -412,7 +421,7 @@ describe('RechercherEmploisEurope', () => {
 	});
 
 	describe('quand un des résultats ne contient pas de titre', () => {
-		it('affiche le résultat sans titre', async () => {
+		it('affiche le résultat avec un titre générique', async () => {
 			// GIVEN
 			const emploiEuropeServiceMock = anEmploiEuropeService();
 			const resultatsService: ResultatRechercheEmploiEurope = {
@@ -449,7 +458,7 @@ describe('RechercherEmploisEurope', () => {
 
 			// THEN
 			expect(resultats).toHaveLength(resultatsService.offreList.length);
-			expect(await screen.findByText('Entreprise 1')).toBeVisible();
+			expect(await screen.findByText('Offre d’emploi sans titre')).toBeVisible();
 		});
 	});
 });

@@ -26,31 +26,36 @@ export class ApiEuresEmploiEuropeMapper {
 		return {
 			nombreResultats: reponseRecherche.data.dataSetInfo.totalMatchingCount,
 			offreList: reponseRecherche.data.items.map((item): EmploiEurope => {
-				const itemDetailXML = reponseDetailRecherche.data.items
-					.find((detail) =>
-						detail.jobVacancy.header.handle === item.header.handle)?.jobVacancy.hrxml;
-
-				const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
-
-				const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
-				const positionProfile = this.getElementOrFirstElementInArray(positionOpening?.PositionProfile);
-				const positionOrganization = this.getElementOrFirstElementInArray(positionProfile?.PositionOrganization);
-				const organizationIdentifiers = this.getElementOrFirstElementInArray(positionOrganization?.OrganizationIdentifiers);
-
-				const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
-				const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
-				const addressCityName = address?.['ns2:CityName'];
-				const countryCode = address?.CountryCode;
-				const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
-
-				return {
-					id: item.header.handle,
-					nomEntreprise: organizationIdentifiers?.OrganizationName,
-					pays: country,
-					titre: positionProfile?.PositionTitle,
-					ville: addressCityName,
-				};
+				const handle = item.header.handle;
+				return this.mapDetailOffre(handle, reponseDetailRecherche);
 			}),
 		};
 	}
+
+	public mapDetailOffre = (handle: string, responseDetail: ApiEuresEmploiEuropeDetailResponse): EmploiEurope => {
+		const itemDetailXML = responseDetail.data.items
+			.find((detail) =>
+				detail.jobVacancy.header.handle === handle)?.jobVacancy.hrxml;
+
+		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
+
+		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
+		const positionProfile = this.getElementOrFirstElementInArray(positionOpening?.PositionProfile);
+		const positionOrganization = this.getElementOrFirstElementInArray(positionProfile?.PositionOrganization);
+		const organizationIdentifiers = this.getElementOrFirstElementInArray(positionOrganization?.OrganizationIdentifiers);
+
+		const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
+		const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
+		const addressCityName = address?.['ns2:CityName'];
+		const countryCode = address?.CountryCode;
+		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
+
+		return {
+			id: handle,
+			nomEntreprise: organizationIdentifiers?.OrganizationName,
+			pays: country,
+			titre: positionProfile?.PositionTitle,
+			ville: addressCityName,
+		};
+	};
 }

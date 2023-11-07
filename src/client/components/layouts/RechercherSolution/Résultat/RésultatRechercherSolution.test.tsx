@@ -105,5 +105,48 @@ describe('RésultatRechercherSolution', () => {
 
 			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
 		});
+		it('n‘a pas d‘attribut aria-labelledby', () => {
+			const offreEmploi = aBarmanOffre();
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={offreEmploi.intitulé}
+					intituléLienOffre="Candidater"
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+					lienOffre={`/emplois/${offreEmploi.id}`}
+				>
+					<div>Description 1</div>
+					<div>Description 2</div>
+				</RésultatRechercherSolution>,
+			);
+
+			const lien = screen.getByRole('link', { name: 'Candidater' });
+			expect(lien).toBeVisible();
+			expect(lien).not.toHaveAttribute('aria-labelledby');
+		});
+	});
+	describe('lorsqu‘un intitulé de lien n‘est pas fournis', () => {
+		it('le nom du lien par défaut est complété par l‘intitulé de l‘offre', () => {
+			const offreEmploi = aBarmanOffre();
+			const defaultLogo = '/images/logos/pole-emploi.svg';
+
+			render(
+				<RésultatRechercherSolution
+					intituléOffre={'Barman'}
+					logo={offreEmploi.entreprise.logo || defaultLogo}
+					sousTitreOffre={offreEmploi.entreprise.nom}
+					étiquetteOffreList={offreEmploi.étiquetteList}
+					lienOffre={`/emplois/${offreEmploi.id}`}
+				>
+					<div>Description 1</div>
+					<div>Description 2</div>
+				</RésultatRechercherSolution>,
+			);
+
+			expect(screen.getByRole('link', { name: 'Barman En savoir plus' })).toBeVisible();
+		});
 	});
 });

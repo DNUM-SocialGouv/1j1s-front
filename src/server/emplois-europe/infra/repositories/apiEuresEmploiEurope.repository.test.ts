@@ -1,11 +1,14 @@
 import { anApiEuresRechercheBody } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
-import { createFailure, Failure } from '~/server/errors/either';
+import {
+	mockResultatRechercheDetailApiEuresEmploiEurope,
+} from '~/server/emplois-europe/infra/repositories/mockEmploiEurope.repository';
+import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
-import { aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
@@ -105,6 +108,69 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					apiSource: 'API Eures',
 					contexte: 'search emploi europe',
 					message: 'impossible d’effectuer une recherche d’emploi',
+				});
+				expect(errorType).toEqual(errorReturnedByErrorManagementService);
+			});
+		});
+	});
+	describe('get', () => {
+		it('appelle l’api Eures avec le handle fourni', () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+
+			// When
+			repository.get('1');
+
+			// Then
+			expect(httpClientService.post).toHaveBeenCalledWith('/get', {
+				handle: ['1'],
+				view: 'FULL_NO_ATTACHMENT',
+			});
+		});
+
+		it('retourne le détail de l\'emploi en Europe demandé', async () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+
+			const apiEuresEmploiEuropeDetailResponse = mockResultatRechercheDetailApiEuresEmploiEurope();
+			const handle = 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ';
+
+			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+
+			// When
+			const detail = await  repository.get(handle);
+
+			// Then
+			expect(detail).toEqual(createSuccess({
+				id: handle,
+				nomEntreprise: 'Nom Entreprise',
+				pays: 'France',
+				titre: 'Nom Offre',
+				ville: 'Paris',
+			}));
+		});
+
+		describe('quand l’api répond avec une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				// GIVEN
+				const httpError = anHttpError(500);
+				const httpClientService = aPublicHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, errorManagementService, apiEuresEmploiEuropeMapper);
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
+				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+
+				// WHEN
+				const { errorType } = await repository.get('1') as Failure;
+
+				// THEN
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Eures',
+					contexte: 'get emploi europe',
+					message: 'impossible de récupérer le détail d\'une offre d\'emploi',
 				});
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
