@@ -57,6 +57,7 @@ namespace ApiEuresEmploiEuropeDetailXML {
 	}
 	export interface Address {
 		'ns2:CityName'?: string;
+		CountryCode?: string;
 	}
 	export interface PositionLocation {
 		Address?: Address | Array<Address>

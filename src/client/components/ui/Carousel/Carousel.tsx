@@ -8,14 +8,12 @@ import React, {
 import { Image as ImageProps } from '~/client/components/props';
 import { Controls } from '~/client/components/ui/Carousel/Controls';
 import { Indicators } from '~/client/components/ui/Carousel/Indicators';
-import { LiveRegion } from '~/client/components/ui/Carousel/LiveRegion';
 import { Slide } from '~/client/components/ui/Carousel/Slide';
 
 import styles from './Carousel.module.scss';
 
 interface CarouselProps extends React.ComponentPropsWithoutRef<'div'> {
 	imageList: Array<ImageProps>
-	imageListLabel: string
 	hideIndicators?: boolean
 	imagesSize: { width: number, height: number }
 }
@@ -23,7 +21,7 @@ interface CarouselProps extends React.ComponentPropsWithoutRef<'div'> {
 export type Direction = 'next' | 'previous' | null;
 
 export function Carousel(props: CarouselProps) {
-	const { imageList, imageListLabel, imagesSize, hideIndicators = false, className, ...rest } = props;
+	const { imageList, imagesSize, hideIndicators = false, className, ...rest } = props;
 	const _classNames = classNames(className, styles.carousel);
 	const numberOfImages = imageList.length;
 
@@ -60,7 +58,7 @@ export function Carousel(props: CarouselProps) {
 		return (
 			<Image
 				src={imageList[0].src}
-				alt={imageList[0].alt}
+				alt={imageList[0].alt || '1 sur 1'}
 				width={imagesSize.width}
 				height={imagesSize.height}
 			/>
@@ -69,7 +67,7 @@ export function Carousel(props: CarouselProps) {
 
 	return (
 		<div aria-roledescription="carousel" role="group" className={_classNames} {...rest}>
-			<ul aria-label={imageListLabel}>
+			<ul aria-live="polite" aria-atomic={false}>
 				{imageList.map((image, index) => (
 					<Slide
 						key={index}
@@ -102,13 +100,6 @@ export function Carousel(props: CarouselProps) {
 					numberOfImages={numberOfImages}
 				/>
 			)}
-
-
-			<LiveRegion
-				currentSlideIndex={currentSlideIndex}
-				numberOfImages={numberOfImages}
-			/>
-
 		</div>
 	);
 }

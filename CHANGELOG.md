@@ -1,5 +1,48 @@
 # Changelog
 
+## [3.176.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.1...v3.176.2) (2023-11-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update actions/setup-node action to v4 ([#2203](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2203)) ([9fd84d0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9fd84d09fda07d47f432e49743cb95021793ede6))
+
+## [3.176.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.0...v3.176.1) (2023-11-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.53.0 ([#2255](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2255)) ([cc9bf19](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cc9bf19fcc6c10a6959ce401b386aaba3be0b454))
+
+## [3.176.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.6...v3.176.0) (2023-11-06)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** afficher le tag pays des cartes ([#2230](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2230)) ([db40594](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db4059414655ed9e25f3831239d01cc7089364ca))
+
+## [3.175.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.5...v3.175.6) (2023-11-06)
+
+
+### 👷 Autres changements
+
+* ajout de HTML validate ([#2199](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2199)) ([88fd507](https://github.com/DNUM-SocialGouv/1j1s-front/commit/88fd50746438e0c4591574956ff6124b61435b24))
+
+## [3.175.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.4...v3.175.5) (2023-11-06)
+
+
+### 🐛 Corrections de bogues
+
+* **logement:** accessibilite carousel ([#2214](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2214)) ([9c716f3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c716f3fb0b8ddce9c143122de39714fe24bfae0))
+
+## [3.175.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.3...v3.175.4) (2023-11-05)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency next-test-api-route-handler to v3.1.10 ([6491179](https://github.com/DNUM-SocialGouv/1j1s-front/commit/64911798f05378c443c0ce7f9653d701f172bb77))
+* **deps:** update dependency nock to v13.3.8 ([c1d78ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c1d78ffa124e87a1e186bd1262aedaadf6091375))
+
 ## [3.175.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.175.2...v3.175.3) (2023-11-02)
 
 

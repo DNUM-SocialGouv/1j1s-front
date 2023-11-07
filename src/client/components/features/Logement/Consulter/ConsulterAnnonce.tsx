@@ -94,11 +94,10 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 	return <div className={styles.carouselWrapper}>
 		<Carousel
 			imageList={imageUrlList}
-			imageListLabel="liste des photos du logement"
 			className={styles.carousel}
-			aria-hidden
 			hideIndicators
 			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
+			aria-label="Photos du logement"
 		/>
 	</div>;
 };

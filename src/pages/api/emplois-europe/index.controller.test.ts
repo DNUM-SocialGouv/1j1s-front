@@ -5,14 +5,16 @@ import { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
-	aResultatRechercheApiEuresEmploiEurope,
-	aResultatRechercheDetailApiEuresEmploiEurope,
-	aResultatRechercheDetailXMLApiEuresEmploiEurope,
-} from '~/server/emplois-europe/infra/repositories/fixtureEmploiEurope.repository';
+	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeRechercheResponse,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import {
+	anApiEuresEmploiEuropeRechercheDetailXMLResponse,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 
 describe('rechercher emplois en Europe', () => {
 	it('retourne une liste d’emplois', async () => {
-		const searchResult = aResultatRechercheApiEuresEmploiEurope({
+		const searchResult: ApiEuresEmploiEuropeRechercheResponse = {
 			data: {
 				dataSetInfo: {
 					totalMatchingCount: 2,
@@ -30,9 +32,9 @@ describe('rechercher emplois en Europe', () => {
 					},
 				],
 			},
-		});
+		};
 
-		const detailResult = aResultatRechercheDetailApiEuresEmploiEurope({
+		const detailResult: ApiEuresEmploiEuropeDetailResponse = {
 			data: {
 				items: [
 					{
@@ -40,7 +42,12 @@ describe('rechercher emplois en Europe', () => {
 							header: {
 								handle: '1',
 							},
-							hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope('Boulanger (H/F)', 'La Boulangerie'),
+							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
+								'Boulanger (H/F)',
+								'La Boulangerie',
+								'FR',
+								'Paris',
+							),
 						},
 					},
 					{
@@ -48,12 +55,12 @@ describe('rechercher emplois en Europe', () => {
 							header: {
 								handle: '2',
 							},
-							hrxml: aResultatRechercheDetailXMLApiEuresEmploiEurope('Pâtissier (H/F)', 'La Pâtisserie'),
+							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie'),
 						},
 					},
 				],
 			},
-		});
+		};
 
 		const expected: ResultatRechercheEmploiEurope = {
 			nombreResultats: 2,
@@ -61,13 +68,13 @@ describe('rechercher emplois en Europe', () => {
 				{
 					id: '1',
 					nomEntreprise: 'La Boulangerie',
-					tags: ['Paris'],
+					pays: 'France',
 					titre: 'Boulanger (H/F)',
+					ville: 'Paris',
 				},
 				{
 					id: '2',
 					nomEntreprise: 'La Pâtisserie',
-					tags: ['Paris'],
 					titre: 'Pâtissier (H/F)',
 				},
 			],

@@ -45,13 +45,12 @@ describe('RechercherEmploisEurope', () => {
 						{
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
-							tags: ['Paris'],
 							titre: 'Titre 1',
+							ville: 'Paris',
 						},
 						{
 							id: '2',
 							nomEntreprise: 'Entreprise 2',
-							tags: [],
 							titre: 'Titre 2',
 						},
 					],
@@ -85,6 +84,150 @@ describe('RechercherEmploisEurope', () => {
 				expect(await screen.findByText('Titre 2')).toBeVisible();
 			});
 
+			describe('quand un résultat contient un pays et une ville', () => {
+				it('affiche le résultat avec le pays et la ville', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService: ResultatRechercheEmploiEurope = {
+						nombreResultats: 1,
+						offreList: [
+							{
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								pays: 'France',
+								titre: 'Titre 1',
+								ville: 'Paris',
+							},
+						],
+					};
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+
+					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+
+					// THEN
+					expect(resultats).toHaveLength(resultatsService.offreList.length);
+					expect(await screen.findByText('Entreprise 1')).toBeVisible();
+					expect(await screen.findByText('Titre 1')).toBeVisible();
+					expect(await screen.findByText('France/Paris')).toBeVisible();
+				});
+			});
+
+			describe('quand un résultat contient un pays mais pas de ville', () => {
+				it('affiche le résultat avec le pays', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService: ResultatRechercheEmploiEurope = {
+						nombreResultats: 1,
+						offreList: [
+							{
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								pays: 'France',
+								titre: 'Titre 1',
+								ville: undefined,
+							},
+						],
+					};
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+
+					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+
+					// THEN
+					expect(resultats).toHaveLength(resultatsService.offreList.length);
+					expect(await screen.findByText('Entreprise 1')).toBeVisible();
+					expect(await screen.findByText('Titre 1')).toBeVisible();
+					expect(await screen.findByText('France')).toBeVisible();
+				});
+			});
+
+			describe('quand un résultat contient une ville mais pas de pays', () => {
+				it('affiche le résultat avec la ville', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService: ResultatRechercheEmploiEurope = {
+						nombreResultats: 1,
+						offreList: [
+							{
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								pays: undefined,
+								titre: 'Titre 1',
+								ville: 'Paris',
+							},
+						],
+					};
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+
+					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+
+					// THEN
+					expect(resultats).toHaveLength(resultatsService.offreList.length);
+					expect(await screen.findByText('Entreprise 1')).toBeVisible();
+					expect(await screen.findByText('Titre 1')).toBeVisible();
+					expect(await screen.findByText('Paris')).toBeVisible();
+				});
+			});
+
 			describe('quand la recherche contient plusieurs résultats', () => {
 				it('affiche le nombre de résultats de la recherche', async () => {
 					// GIVEN
@@ -95,13 +238,12 @@ describe('RechercherEmploisEurope', () => {
 							{
 								id: '1',
 								nomEntreprise: 'Entreprise 1',
-								tags: ['Paris'],
 								titre: 'Titre 1',
+								ville: 'Paris',
 							},
 							{
 								id: '2',
 								nomEntreprise: 'Entreprise 2',
-								tags: [],
 								titre: 'Titre 2',
 							},
 						],
@@ -141,8 +283,8 @@ describe('RechercherEmploisEurope', () => {
 							{
 								id: '1',
 								nomEntreprise: 'Entreprise 1',
-								tags: ['Paris'],
 								titre: 'Titre 1',
+								ville: 'Paris',
 							},
 						],
 					};
@@ -182,13 +324,12 @@ describe('RechercherEmploisEurope', () => {
 						{
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
-							tags: ['Paris'],
 							titre: 'Titre 1',
+							ville: 'Paris',
 						},
 						{
 							id: '2',
 							nomEntreprise: 'Entreprise 2',
-							tags: [],
 							titre: 'Titre 2',
 						},
 					],
@@ -235,13 +376,12 @@ describe('RechercherEmploisEurope', () => {
 						{
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
-							tags: ['Paris'],
 							titre: 'Titre 1',
+							ville: 'Paris',
 						},
 						{
 							id: '2',
 							nomEntreprise: 'Entreprise 2',
-							tags: [],
 							titre: 'Titre 2',
 						},
 					],
@@ -281,8 +421,8 @@ describe('RechercherEmploisEurope', () => {
 					{
 						id: '1',
 						nomEntreprise: 'Entreprise 1',
-						tags: ['Paris'],
 						titre: undefined,
+						ville: 'Paris',
 					},
 				],
 			};
