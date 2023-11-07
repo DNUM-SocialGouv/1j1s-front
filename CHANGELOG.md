@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.178.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.177.0...v3.178.0) (2023-11-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* ajout iframe 1jeune1permis ([5cc7f3a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5cc7f3a50695ff9797c5de3538b4c23ca1663b8b))
+
 ## [3.177.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.2...v3.177.0) (2023-11-07)
 
 
