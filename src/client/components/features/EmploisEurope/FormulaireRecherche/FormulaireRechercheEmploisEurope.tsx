@@ -18,7 +18,7 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 import styles
 	from './FormulaireRechercheEmploisEurope.module.scss';
 
-function updateFilterQuery(filterQuery: string, filterToToggle: string) {
+function addTypeDeContratToQueryParams(filterQuery: string, filterToToggle: string) {
 	const currentString = filterQuery.split(',').filter((element) => element);
 	const indexOfValue = currentString.indexOf(filterToToggle);
 	if (indexOfValue >= 0) {
@@ -30,9 +30,54 @@ function updateFilterQuery(filterQuery: string, filterToToggle: string) {
 	return currentString.join(',');
 }
 
+function ModaleFiltreAvancee(props: {
+	close: () => void,
+	open: boolean,
+	toggleTypeContrat: (typeContrat: string) => void,
+	inputTypeContrat: string,
+	onClick: () => void
+}) {
+	return (
+		<ModalComponent
+			close={props.close}
+			closeTitle="Fermer les filtres"
+			isOpen={props.open}
+			aria-labelledby="dialog_label"
+		>
+			<ModalComponent.Title>
+				<Icon name="menu"/>
+				<span id="dialog_label">Filtrer ma recherche</span>
+			</ModalComponent.Title>
+			<ModalComponent.Content className={styles.filtresAvancesModalContenu}>
+				<FilterAccordion title="Type de contrat" open>
+					{typesContratEures.map((typeContrat, index) => (
+						<Checkbox
+							key={`Type de contrat ${index}`}
+							label={typeContrat.libellé}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
+							value={typeContrat.valeur}
+							checked={props.inputTypeContrat.includes(typeContrat.valeur)}
+						/>
+					))}
+				</FilterAccordion>
+			</ModalComponent.Content>
+			<ModalComponent.Footer>
+				<div className={styles.buttonRechercher}>
+					<ButtonComponent
+						icon={<Icon name="angle-right"/>}
+						iconPosition="right"
+						label="Appliquer les filtres"
+						onClick={props.onClick}
+					/>
+				</div>
+			</ModalComponent.Footer>
+		</ModalComponent>
+	);
+}
+
 export function FormulaireRechercheEmploisEurope() {
 	const rechercheEmploiEuropeForm = useRef<HTMLFormElement>(null);
-	
+
 	const queryParams = useEmploiEuropeQuery();
 	const {
 		motCle,
@@ -52,7 +97,7 @@ export function FormulaireRechercheEmploisEurope() {
 		: undefined;
 
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
-		setInputTypeContrat(updateFilterQuery(inputTypeContrat, typeContrat));
+		setInputTypeContrat(addTypeDeContratToQueryParams(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
 
 	const applyFiltresAvances = useCallback(() => {
@@ -99,42 +144,16 @@ export function FormulaireRechercheEmploisEurope() {
 								label="Filtrer ma recherche"
 								onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
 						  />
-							<input type="hidden" name="typeContrat" value={inputTypeContrat}/>
+						  <input type="hidden" name="typeContrat" value={inputTypeContrat}/>
 						</div>
 					}
-					<ModalComponent
-						close={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-						closeTitle="Fermer les filtres"
-						isOpen={isFiltresAvancesMobileOpen}
-						aria-labelledby="dialog_label">
-						<ModalComponent.Title>
-							<Icon name="menu"/>
-							<span id="dialog_label">Filtrer ma recherche</span>
-						</ModalComponent.Title>
-						<ModalComponent.Content className={styles.filtresAvancesModalContenu}>
-							<FilterAccordion title="Type de contrat" open>
-								{typesContratEures.map((typeContrat, index) => (
-									<Checkbox
-										key={`Type de contrat ${index}`}
-										label={typeContrat.libellé}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeContrat(e.target.value)}
-										value={typeContrat.valeur}
-										checked={inputTypeContrat.includes(typeContrat.valeur)}
-									/>
-								))}
-							</FilterAccordion>
-						</ModalComponent.Content>
-						<ModalComponent.Footer>
-							<div className={styles.buttonRechercher}>
-								<ButtonComponent
-									icon={<Icon name="angle-right"/>}
-									iconPosition="right"
-									label="Appliquer les filtres"
-									onClick={applyFiltresAvances}
-								/>
-							</div>
-						</ModalComponent.Footer>
-					</ModalComponent>
+					<ModaleFiltreAvancee
+						close={() => setIsFiltresAvancesMobileOpen(false)}
+						toggleTypeContrat={toggleTypeContrat}
+						inputTypeContrat={inputTypeContrat}
+						open={isFiltresAvancesMobileOpen}
+						onClick={applyFiltresAvances}
+					/>
 				</div>
 
 				{!isSmallScreen && (
