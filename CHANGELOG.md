@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.176.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.1...v3.176.2) (2023-11-07)
+
+
+### 👷 Autres changements
+
+* **deps:** update actions/setup-node action to v4 ([#2203](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2203)) ([9fd84d0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9fd84d09fda07d47f432e49743cb95021793ede6))
+
 ## [3.176.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.0...v3.176.1) (2023-11-07)
 
 
