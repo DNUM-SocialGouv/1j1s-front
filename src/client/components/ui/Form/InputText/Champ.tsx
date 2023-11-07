@@ -1,12 +1,4 @@
-import React, {
-	ComponentPropsWithoutRef,
-	ComponentPropsWithRef,
-	ComponentType,
-	useCallback,
-	useEffect,
-	useId,
-	useState,
-} from 'react';
+import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useState } from 'react';
 
 import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
@@ -14,8 +6,8 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import styles from './Champ.module.scss';
 import { Error } from './Error';
 import { Hint } from './Hint';
-import { Input } from './Input';
 import { Label } from './Label';
+import { Input } from '~/client/components/ui/Form/InputText/Input';
 
 
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
@@ -60,7 +52,8 @@ export const InputChamp = React.forwardRef(function InputChamp<T extends Compone
 		'aria-describedby': ariaDescribedby = '',
 		id,
 		onChange: onChangeProps = doNothing,
-		render: ComponentToRender,
+		onTouch: onTouchProps = doNothing,
+		render: Render,
 		...rest
 	}: InputChampProps<T>, outerRef: React.ForwardedRef<HTMLInputElement>) {
 	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
@@ -74,9 +67,14 @@ export const InputChamp = React.forwardRef(function InputChamp<T extends Compone
 		onChangeProps(event);
 		setErrorMessage(event.currentTarget.validationMessage);
 	}, [onChangeProps, setErrorMessage]);
+	
+	const onTouch = useCallback((touched: boolean, ...args: unknown[]) => {
+		onTouchProps(touched);
+		setTouched(touched);
+	}, [onTouchProps, setTouched]);
 
-	return (<ComponentToRender
-		onTouch={(touched: boolean, ...args: unknown[]) => setTouched(touched)}
+	return (<Input
+		onTouch={onTouch}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
 		id={inputId}

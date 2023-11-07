@@ -101,6 +101,23 @@ describe('<Champ/>', () => {
 			expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }));
 		});
 
+		it('accepte un onTouch', async () => {
+			const onTouch = jest.fn();
+			render(
+				<Champ>
+					<Champ.Input render={Input} onTouch={onTouch}/>
+				</Champ>,
+			);
+
+			const user = userEvent.setup();
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+
+			expect(onTouch).toHaveBeenCalledTimes(1);
+			expect(onTouch).toHaveBeenCalledWith(true);
+		});
+
 		it('merge le aria-describedby donné par le parent avec celui du message d’erreur et de l‘indication', async () => {
 			render(
 				<Champ>
