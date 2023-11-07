@@ -7,7 +7,6 @@ import styles from './Champ.module.scss';
 import { Error } from './Error';
 import { Hint } from './Hint';
 import { Label } from './Label';
-import { Input } from '~/client/components/ui/Form/InputText/Input';
 
 
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
@@ -35,19 +34,19 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	);
 }
 
-type InputChampProps<T extends ComponentChildrenPropsNecessary> = T & {
+type InputChampProps<T extends ComponentChildrenPropsNecessary> = T extends {render: unknown} ? never: T & {
 	render: React.ComponentType<T>
 };
 
 type ComponentChildrenPropsNecessary = {
-	onChange?: (event: { currentTarget: { validationMessage: string } }, ...args: unknown[]) => void
+	onChange?: (event: any, ...args: any[]) => void
 	onTouch?: (touched: boolean, ...args: unknown[]) => void
 	ref?: React.Ref<HTMLInputElement>
 	'aria-describedby'?: string
 	id?: string
 }
 
-export const InputChamp = React.forwardRef(function InputChamp<T extends ComponentChildrenPropsNecessary>(
+export const InputChamp:<W extends ComponentChildrenPropsNecessary>(props: InputChampProps<W>) => React.ReactNode = React.forwardRef(function InputChamp<U extends ComponentChildrenPropsNecessary>(
 	{
 		'aria-describedby': ariaDescribedby = '',
 		id,
@@ -55,7 +54,7 @@ export const InputChamp = React.forwardRef(function InputChamp<T extends Compone
 		onTouch: onTouchProps = doNothing,
 		render: Render,
 		...rest
-	}: InputChampProps<T>, outerRef: React.ForwardedRef<HTMLInputElement>) {
+	}: InputChampProps<U>, outerRef: React.ForwardedRef<HTMLInputElement>) {
 	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
@@ -63,17 +62,17 @@ export const InputChamp = React.forwardRef(function InputChamp<T extends Compone
 		id && setInputId(id);
 	}, [id, setInputId]);
 
-	const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>, ...args: unknown[]) => {
-		onChangeProps(event);
+	const onChange = useCallback((event: any, ...args: any[]) => {
+		onChangeProps(event, ...args);
 		setErrorMessage(event.currentTarget.validationMessage);
 	}, [onChangeProps, setErrorMessage]);
-	
+
 	const onTouch = useCallback((touched: boolean, ...args: unknown[]) => {
-		onTouchProps(touched);
+		onTouchProps(touched, ...args);
 		setTouched(touched);
 	}, [onTouchProps, setTouched]);
 
-	return (<Input
+	return (<Render
 		onTouch={onTouch}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
