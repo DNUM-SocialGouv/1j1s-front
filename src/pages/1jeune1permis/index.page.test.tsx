@@ -10,7 +10,7 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 
-import UnJeuneUnPermis, {getServerSideProps} from './index.page';
+import UnJeuneUnPermis, { getServerSideProps } from './index.page';
 
 jest.mock('next/head', () => HeadMock);
 
