@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.177.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.2...v3.177.0) (2023-11-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* afficher le détail d'une offre d'emploi en europe ([bb0278f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb0278f39dace9d53f7480dcf7e60d3edf3f7d2d))
+
+
+### 👷 Autres changements
+
+* **deps:** update hashicorp/setup-terraform action to v3 ([#2229](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2229)) ([b6e5b32](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6e5b322dd3289f59ac971f582569cedae4c6175))
+
 ## [3.176.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.176.1...v3.176.2) (2023-11-07)
 
 
