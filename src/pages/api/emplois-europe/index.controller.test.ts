@@ -90,6 +90,7 @@ describe('rechercher emplois en Europe', () => {
 					sortBy: 'BEST_MATCH',
 				},
 				searchCriteria: {
+					facetCriteria: [],
 				},
 			},
 		).reply(200, searchResult);
