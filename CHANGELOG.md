@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.179.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.178.0...v3.179.0) (2023-11-07)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **europe:** recherche emplois par type de contrat ([#2254](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2254)) ([5196c29](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5196c295f7942c17c04b035f1a95b74f675d7871))
+
 ## [3.178.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.177.0...v3.178.0) (2023-11-07)
 
 
