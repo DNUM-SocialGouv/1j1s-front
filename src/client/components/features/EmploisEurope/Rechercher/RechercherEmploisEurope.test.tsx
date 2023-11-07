@@ -466,19 +466,18 @@ describe('RechercherEmploisEurope', () => {
 	it('affiche les étiquette de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
 		// GIVEN
 		const emploiEuropeServiceMock = anEmploiEuropeService();
-		const resultatsService = {
+		const resultatsService: ResultatRechercheEmploiEurope = {
 			nombreResultats: 2,
 			offreList: [
 				{
 					id: '1',
 					nomEntreprise: 'Entreprise 1',
-					tags: ['Paris'],
 					titre: 'Titre 1',
+					ville: 'Paris',
 				},
 				{
 					id: '2',
 					nomEntreprise: 'Entreprise 2',
-					tags: [],
 					titre: 'Titre 2',
 				},
 			],
