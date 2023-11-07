@@ -18,7 +18,7 @@ import { isSuccess } from '~/server/errors/either';
 import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
-import { emailRegexHTML } from '~/shared/emailRegex';
+import { emailRegex } from '~/shared/emailRegex';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
   contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
@@ -60,7 +60,7 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 				required
 			/>
 			<InputText
-				pattern={emailRegexHTML}
+				pattern={emailRegex}
 				label="Adresse e-mail (facultatif)"
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"

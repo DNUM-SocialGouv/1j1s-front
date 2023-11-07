@@ -10,7 +10,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
-import { emailRegexHTML } from '~/shared/emailRegex';
+import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './Formulaire.module.scss';
 
@@ -70,7 +70,7 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 			/>
 			<InputText
 				label="Adresse email"
-				pattern={emailRegexHTML}
+				pattern={emailRegex}
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"
 				required

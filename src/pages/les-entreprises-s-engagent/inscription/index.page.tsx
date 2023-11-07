@@ -23,7 +23,7 @@ import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
-import { emailRegexHTML } from '~/shared/emailRegex';
+import { emailRegex } from '~/shared/emailRegex';
 
 export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
 
@@ -278,7 +278,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		  						/>
 		  						<InputText
 		  							label="Adresse e-mail de contact"
-		  							pattern={emailRegexHTML}
+		  							pattern={emailRegex}
 		  							name="email"
 		  							placeholder="Exemple : mail@exemple.com"
 		  							hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."

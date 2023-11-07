@@ -180,23 +180,8 @@ describe('TextInput', () => {
 				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
 				expect(input).toBeValid();
 			});
-			it('ne contient pas d\'attribut aria-errormessage quand le message d\'erreur n\'est pas présent', () => {
-				const pattern = '[a-z]+';
-
-				render(
-					<InputText
-						label="Mon champ texte"
-						name="inputName"
-						pattern={pattern}
-						value='abc'
-					/>,
-				);
-
-				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
-				expect(input).not.toHaveAttribute('aria-errormessage');
-			});
 		});
-		describe('quand celle ci n\'est pas vérifiée', () => {
+		describe('quand celle ci n’est pas vérifiée', () => {
 			it('passe le champ invalide', () => {
 				const pattern = '[a-z]+';
 

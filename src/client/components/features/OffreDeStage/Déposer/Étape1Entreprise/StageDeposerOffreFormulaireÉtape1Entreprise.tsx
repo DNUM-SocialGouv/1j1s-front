@@ -17,7 +17,7 @@ import {
 	ETAPE_ENTREPRISE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
-import { emailRegexHTML } from '~/shared/emailRegex';
+import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
 
@@ -50,7 +50,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			/>
 			<InputText
 				label="Adresse mail de contact"
-				pattern={emailRegexHTML}
+				pattern={emailRegex}
 				name={Employeur.EMAIL}
 				value={informationsEntreprise?.emailEmployeur}
 				placeholder="Exemple : contactRH@exemple.com"

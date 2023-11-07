@@ -16,7 +16,7 @@ export const enregistrerOffreDeStageBodySchema = Joi.object({
 	duree: Joi.string(),
 	employeur: Joi.object({
 		description: Joi.string().max(500).required(),
-		email: Joi.string().pattern(emailRegex).required(),
+		email: Joi.string().pattern(new RegExp(emailRegex)).required(),
 		logoUrl: Joi.string().uri(),
 		nom: Joi.string().required(),
 		siteUrl: Joi.string().uri(),
