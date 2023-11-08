@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ImmersionReferenceMonEntreprisePage from '~/pages/immersions/referencer-mon-entreprise/index.page';
 
 describe('Immersion / Référencer mon entreprise', () => {
@@ -19,7 +19,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<ImmersionReferenceMonEntreprisePage />
 			</DependenciesProvider>,
@@ -29,7 +29,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 	});
 
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -45,7 +45,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 	});
 
 	it('propose des liens vers les conditions générales d‘utilisation et la politique de confidentialité', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -63,7 +63,7 @@ describe('Immersion / Référencer mon entreprise', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

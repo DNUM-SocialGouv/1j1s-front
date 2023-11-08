@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DeposerOffreStagePage from '~/pages/stages/deposer-offre/index.page';
 
 describe('<DeposerOffreStagePage />', () => {
@@ -16,7 +16,7 @@ describe('<DeposerOffreStagePage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<DeposerOffreStagePage />
 			</DependenciesProvider>,

@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AidesLogement from '~/pages/logements/aides-logement/index.page';
 
 describe('Les aides au logement', () => {
@@ -21,7 +21,7 @@ describe('Les aides au logement', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<AidesLogement/>
 			</DependenciesProvider>,
@@ -31,7 +31,7 @@ describe('Les aides au logement', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -51,7 +51,7 @@ describe('Les aides au logement', () => {
 
 	describe('La carte partenaire de la CAF', () => {
 		it('ouvre le simulateur de la CAF dans un nouvel onglet', () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider

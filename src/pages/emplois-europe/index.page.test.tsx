@@ -12,7 +12,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import EmploiEuropePage, { getServerSideProps } from '~/pages/emplois-europe/index.page';
 
@@ -45,7 +45,7 @@ describe('Page emplois en europe', () => {
 			});
 			const { container } = render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					emploiEuropeService={anEmploiEuropeService()}
 				>
 					<EmploiEuropePage/>
@@ -56,7 +56,7 @@ describe('Page emplois en europe', () => {
 		it('je vois le titre', async () => {
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					emploiEuropeService={anEmploiEuropeService()}
 				>
 					<EmploiEuropePage/>
@@ -69,7 +69,7 @@ describe('Page emplois en europe', () => {
 		});
 
 		it('envoie les analytics', () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}

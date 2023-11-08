@@ -11,7 +11,7 @@ import React from 'react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
 import FormationsInitialesPage, { getServerSideProps } from '~/pages/formations-initiales/index.page';
 
@@ -25,7 +25,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>,
@@ -51,7 +51,7 @@ describe('quand le feature flip est actif', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>,
@@ -66,7 +66,7 @@ describe('quand le feature flip est actif', () => {
 	});
 
 	it('envoie les analytics de la page', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService} formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
@@ -84,7 +84,7 @@ describe('quand le feature flip est actif', () => {
 
 	it('affiche le titre de la page', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}
 				formationInitialeService={aFormationInitialeService()}>
 				<FormationsInitialesPage/>
 			</DependenciesProvider>);

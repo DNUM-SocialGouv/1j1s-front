@@ -1,6 +1,9 @@
 import { PageTags } from './analytics';
 
+
 export interface AnalyticsService {
-	envoyerAnalyticsPageVue(tags: PageTags): void;
 	isAllowed(): boolean;
+}
+export interface ManualAnalyticsService extends AnalyticsService {
+	envoyerAnalyticsPageVue(tags: PageTags): void;
 }

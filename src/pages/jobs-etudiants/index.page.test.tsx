@@ -9,7 +9,7 @@ import { render } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherJobÉtudiantPage from '~/pages/jobs-etudiants/index.page';
@@ -21,7 +21,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 				offreService={anOffreService()}
 				localisationService={aLocalisationService()}
 			>

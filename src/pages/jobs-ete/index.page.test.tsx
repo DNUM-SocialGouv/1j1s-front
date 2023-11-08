@@ -9,7 +9,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
@@ -28,7 +28,7 @@ describe('Page rechercher un job d‘été', () => {
 
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
@@ -53,7 +53,7 @@ describe('Page rechercher un job d‘été', () => {
 
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
@@ -66,7 +66,7 @@ describe('Page rechercher un job d‘été', () => {
 		});
 
 		it('envoie les analytics de la page à son affichage', async () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			mockUseRouter({ query: { page: '1' } });
 
 			render(

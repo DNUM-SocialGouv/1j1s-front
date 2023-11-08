@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
 
 const siret = '123';
@@ -26,7 +26,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
@@ -37,7 +37,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	});
 
 	it('le titre du document est correct', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
@@ -48,7 +48,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	});
 
 	it('affiche l‘iframe', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
@@ -60,7 +60,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
