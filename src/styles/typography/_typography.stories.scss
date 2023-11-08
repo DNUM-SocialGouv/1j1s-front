@@ -5,23 +5,18 @@
   grid-template-columns: auto auto;
 }
 
-.title > h2, .text > h2 {
+section > h2 {
   margin-bottom: 1rem;
   text-decoration: underline;
   color: utilities.$color-title-primary;
   @extend %title-large
 }
 
-.title > *:not(last-child),
-.text > *:not(last-child) {
+section > *:not(last-child) {
   margin-bottom: 20px;
 }
 
 .title {
-  .title-xLarge > h2 {
-    @extend %title-xLarge
-  }
-
   .title-large > h2 {
     @extend %title-large
   }
@@ -54,6 +49,26 @@
 
   .text-xsmall > h2 {
     @extend %text-xsmall
+  }
+}
+
+.champ {
+  p {
+    @extend %text-medium
+  }
+
+  .label-champ > h2 {
+    @extend %label-champ
+  }
+
+  .content-champ > h2 {
+    @extend %content-champ
+  }
+
+  .champ-example {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
   }
 }
 
