@@ -29,13 +29,11 @@ describe('RechercherOffreEmploi', () => {
 	describe('quand le composant est affiché sans recherche', () => {
 		it('affiche un formulaire pour la recherche d‘offres d‘emploi, avec un échantillon de résultat', async () => {
 			// GIVEN
-			const offreServiceMock = anOffreService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					offreService={offreServiceMock}
 				>
 					<RechercherOffreEmploi/>
 				</DependenciesProvider>,

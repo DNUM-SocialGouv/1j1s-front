@@ -26,16 +26,14 @@ export const emploisQuerySchema = Joi.object({
 export async function rechercherOffreEmploiHandler(
 	req: NextApiRequest,
 	res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
-	const params = emploiFiltreMapper(req);
+	const params = emploiFiltreMapper(req.query);
 	const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(params);
 	return handleResponse(résultatsRechercheOffreEmploi, res);
 }
 
 export default withMonitoring(withValidation({ query: emploisQuerySchema }, rechercherOffreEmploiHandler));
 
-export function emploiFiltreMapper(request: NextApiRequest): EmploiFiltre {
-	const { query } = request;
-
+export function emploiFiltreMapper(query: Partial<{[p: string]: string | string[]}>): EmploiFiltre {
 	return {
 		experienceExigence: query.experienceExigence ? String(query.experienceExigence) : undefined,
 		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) : undefined,

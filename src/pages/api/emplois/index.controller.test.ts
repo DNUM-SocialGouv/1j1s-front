@@ -54,7 +54,7 @@ describe('rechercher une offre d‘emploi', () => {
 			},
 		} as unknown as NextApiRequest;
 
-		const result = emploiFiltreMapper(request);
+		const result = emploiFiltreMapper(request.query);
 
 		expect(result).toEqual({
 			experienceExigence: undefined,

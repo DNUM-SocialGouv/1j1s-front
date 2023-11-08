@@ -80,7 +80,7 @@ export function FormulaireRechercheOffreEmploi() {
 	function updateRechercherOffreEmploiQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
-		return router.push({ query }, undefined, { shallow: true });
+		router.push({ query }, undefined, { scroll: false });
 	}
 
 	return (
@@ -96,7 +96,6 @@ export function FormulaireRechercheOffreEmploi() {
 						label="Métier, mot-clé"
 						value={inputMotCle}
 						name="motCle"
-						autoFocus
 						placeholder="Exemples : boulanger, informatique..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>

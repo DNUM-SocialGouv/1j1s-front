@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import {
 	FormulaireRechercheOffreEmploi,
@@ -24,45 +24,28 @@ import {
 	LightHeroPrimaryText,
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
-import { OffreService } from '~/client/services/offre/offre.service';
-import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
-import { Erreur } from '~/server/errors/erreur.types';
-import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
+import {
+	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
+	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
+	Offre,
+	RésultatsRechercheOffre,
+} from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
-export function RechercherOffreEmploi() {
+interface RechercherOffreEmploiProps {
+	resultats?: RésultatsRechercheOffre
+}
+
+export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 	const offreQuery = useOffreQuery();
-	const offreService = useDependency<OffreService>('offreService');
 
-	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [offreEmploiList, setOffreEmploiList] = useState<Offre[]>([]);
-	const [nombreRésultats, setNombreRésultats] = useState(0);
-	const [isLoading, setIsLoading] = useState(false);
-	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
-
-	useEffect(function fetchOffres() {
-		if (empty(offreQuery)) { return; }
-		
-		setIsLoading(true);
-		setErreurRecherche(undefined);
-		offreService.rechercherOffreEmploi(offreQuery)
-			.then((response) => {
-				if (response.instance === 'success') {
-					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-					setOffreEmploiList(response.result.résultats);
-					setNombreRésultats(response.result.nombreRésultats);
-				} else {
-					setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-					setErreurRecherche(response.errorType);
-				}
-				setIsLoading(false);
-			});
-	}, [offreQuery, offreService]);
+	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${props.resultats?.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`);
+	const offreEmploiList = props.resultats?.résultats || [];
+	const nombreRésultats = props.resultats?.nombreRésultats || 0;
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
@@ -87,10 +70,10 @@ export function RechercherOffreEmploi() {
 			<main id="contenu">
 				<RechercherSolutionLayout
 					bannière={<BannièreOffreEmploi/>}
-					erreurRecherche={erreurRecherche}
+					erreurRecherche={undefined}
 					étiquettesRecherche={<EtiquettesFiltreOffreEmploi/>}
 					formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
-					isLoading={isLoading}
+					isLoading={false}
 					messageRésultatRecherche={messageRésultatRecherche}
 					nombreSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
