@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
@@ -13,6 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagementService.fixture';
 import RechercherMissionServiceCiviquePage from '~/pages/service-civique/index.page';
+import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('<RechercherMissionServiceCiviquePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -27,6 +28,8 @@ describe('<RechercherMissionServiceCiviquePage />', () => {
 			>
 				<RechercherMissionServiceCiviquePage />);
 			</DependenciesProvider>);
+
+		await screen.findByRole('heading', { level: 3, name: aRésultatRechercheMission().résultats[0].titre });
 
 		await expect(container).toBeAccessible();
 	});

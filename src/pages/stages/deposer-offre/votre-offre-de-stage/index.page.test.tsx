@@ -27,10 +27,10 @@ describe('<DeposerOffreStageEtape2Page />', () => {
 			setItem: setLocalItem,
 		});
 		mockSessionStorage({ removeItem: removeSessionItem });
+		mockUseRouter({});
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}

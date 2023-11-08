@@ -13,6 +13,7 @@ import { anAnalyticsService } from '~/client/services/analytics/analytics.servic
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
+import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('Page rechercher un job d‘été', () => {
 	beforeEach(() => {
@@ -100,6 +101,8 @@ describe('Page rechercher un job d‘été', () => {
 					<RechercherJobsEtePage/>
 				</DependenciesProvider>,
 			);
+
+			await screen.findByRole('heading', { level: 3, name: aBarmanOffre().intitulé });
 
 			await expect(container).toBeAccessible();
 		});
