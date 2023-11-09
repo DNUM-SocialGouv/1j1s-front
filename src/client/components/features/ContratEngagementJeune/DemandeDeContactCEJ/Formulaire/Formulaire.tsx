@@ -104,7 +104,7 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				}}
 			/>
 			{isLoading
-				? (<ButtonComponent disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
+				? (<ButtonComponent className={styles.formulaireButton} disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
 				: (<ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" />)
 			}
 
