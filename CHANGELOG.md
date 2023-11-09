@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.179.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.1...v3.179.2) (2023-11-09)
+
+
+### 👷 Autres changements
+
+* **select:** sortir l'input du button ([#2258](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2258)) ([6d1122b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6d1122bc6f156fa75515a7da6589834d76edea98))
+
 ## [3.179.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.0...v3.179.1) (2023-11-09)
 
 
