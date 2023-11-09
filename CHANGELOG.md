@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.179.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.0...v3.179.1) (2023-11-09)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/dompurify to v3.0.5 ([#2274](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2274)) ([d8b03be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8b03bede6579984cc31e871efe37a64f906d2cd))
+* **deps:** update dependency @types/jest to v29.5.8 ([141790d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/141790dda637bf4eea27fc3f518cc6c5185d23b8))
+* **deps:** update dependency @types/jest-axe to v3.5.8 ([#2275](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2275)) ([0691581](https://github.com/DNUM-SocialGouv/1j1s-front/commit/069158167540d0fbcc2f3d8879b9bd10a20151dd))
+* **deps:** update dependency @types/lodash.debounce to v4.0.9 ([#2276](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2276)) ([221f385](https://github.com/DNUM-SocialGouv/1j1s-front/commit/221f38596f136a5c3791aedcd513b638501411a9))
+
 ## [3.179.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.178.0...v3.179.0) (2023-11-07)
 
 
