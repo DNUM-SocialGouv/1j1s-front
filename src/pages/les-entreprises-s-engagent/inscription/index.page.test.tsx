@@ -266,7 +266,7 @@ async function remplirFormulaireEtape1() {
 	await user.type(inputSecteur, 'Santé humaine et action sociale');
 	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
-	await user.click(screen.getByText('Taille de l’entreprise'));
+	await user.click(screen.getByRole('button', { name: 'Taille de l’entreprise' }));
 	await user.click(screen.getByText('20 à 49 salariés'));
 	const inputVille = screen.getByText('Ville du siège social de l’entreprise');
 	await user.type(inputVille, 'Paris');

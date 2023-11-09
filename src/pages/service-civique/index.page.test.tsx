@@ -11,10 +11,11 @@ import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { anOffreService } from '~/client/services/offre/offreService.fixture';
-import RechercherOffreEmploiPage from '~/pages/emplois/index.page';
+import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagementService.fixture';
+import RechercherMissionServiceCiviquePage from '~/pages/service-civique/index.page';
+import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
-describe('<RechercherOffreEmploiPage />', () => {
+describe('<RechercherMissionServiceCiviquePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({ query: { page: '1' } });
 		mockLargeScreen();
@@ -22,13 +23,14 @@ describe('<RechercherOffreEmploiPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={anAnalyticsService()}
-				offreService={anOffreService()}
 				localisationService={aLocalisationService()}
+				missionEngagementService={aMissionEngagementService()}
 			>
-				<RechercherOffreEmploiPage />);
+				<RechercherMissionServiceCiviquePage />);
 			</DependenciesProvider>);
 
-		await screen.findByRole('list', { name: /Offres d‘emplois/i });
+		await screen.findByRole('heading', { level: 3, name: aRésultatRechercheMission().résultats[0].titre });
+
 		await expect(container).toBeAccessible();
 	});
 });

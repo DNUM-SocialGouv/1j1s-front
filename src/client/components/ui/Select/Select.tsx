@@ -191,24 +191,25 @@ export function Select(props: SelectProps) {
 					aria-labelledby={labelledBy.current}
 					className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
 					onClick={() => setIsOptionListOpen(!isOptionListOpen)}
-					onBlur={() => required ? setIsTouched(true) : undefined}>
+				>
 					<span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
-					<input // TODO GMO 17-10-2023 Ne pas avoir un input en tant que child element d'un button (non valide selon spec HTML)
-						className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
-						id={selectId.current}
-						tabIndex={-1}
-						name={name}
-						value={selectedValue}
-						aria-hidden={true}
-						aria-invalid={hasError}
-						aria-errormessage={errorMessageBy.current} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
-						data-testid="Select-InputHidden"
-						autoComplete="off"
-						required={required}
-						onChange={() => ({})}
-					/>
 					{isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 				</button>
+				<input
+					className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
+					id={selectId.current}
+					tabIndex={-1}
+					name={name}
+					value={selectedValue}
+					aria-hidden="true"
+					aria-invalid={hasError}
+					aria-errormessage={errorMessageBy.current} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
+					data-testid="Select-InputHidden"
+					autoComplete="off"
+					required={required}
+					onChange={() => ({})}
+					onBlur={() => required ? setIsTouched(true) : undefined}
+				/>
 				{isOptionListOpen && renderOptionList()}
 			</div>
 			{hasError &&

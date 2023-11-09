@@ -1,6 +1,9 @@
 /**
  * @jest-environment jsdom
  */
+
+import '~/test-utils';
+
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -63,6 +66,24 @@ describe('Page Formations en Apprentissage', () => {
 				pagelabel: 'contenu_liste_niv_1',
 				'segment-site': 'contenu_liste',
 			});
+		});
+
+		it('n‘a pas de défaut d‘accessibilité', async () => {
+			const analyticsService = anAnalyticsService();
+			mockUseRouter({});
+
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={analyticsService}
+					formationService={aFormationService()}
+					metierService={aMetierService()}
+					localisationService={aLocalisationService()}
+				>
+					<FormationAlternancePage />
+				</DependenciesProvider>,
+			);
+
+			await expect(container).toBeAccessible();
 		});
 	});
 });
