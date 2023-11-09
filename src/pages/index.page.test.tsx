@@ -12,14 +12,14 @@ import React from 'react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import Accueil from '~/pages/index.page';
 
 describe('Page d‘accueil', () => {
-	let analyticsService: AnalyticsService;
+	let analyticsService: ManualAnalyticsService;
 	let marketingService: MarketingService;
 
 	beforeEach(() => {

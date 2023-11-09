@@ -2,7 +2,7 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
+import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
@@ -43,7 +43,7 @@ export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	alternanceService: AlternanceService
 	cookiesService: CookiesService
-	analyticsService: AnalyticsService
+	analyticsService: ManualAnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
