@@ -4,6 +4,13 @@
 // NOTE (GAFI 07-07-2023): Beaucoup du style post-UIKit est disponible sans beaucoup de modification dans le composant
 //  Combobox, idéalement à mettre en commun
 
+%label-champ{
+  @extend %text-medium;
+  @include utilities.media(large){
+    @extend %text-large
+  }
+}
+
 .textInput {
   position: relative;
   display: flex;
@@ -11,15 +18,12 @@
   align-items: stretch;
 
   &Label {
+    @extend %label-champ;
     margin-bottom: 0.5rem;
-    &Hint {
-      @extend %text-small;
-      color: utilities-deprecated.$color-error;
-    }
   }
 
   &Field {
-    @extend %text-small;
+    @extend %text-interactive-medium;
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;

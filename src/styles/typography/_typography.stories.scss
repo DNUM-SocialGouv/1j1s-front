@@ -52,22 +52,16 @@ section > *:not(last-child) {
   }
 }
 
-.champ {
+.text-interactive {
   p {
     @extend %text-medium
   }
 
-  .label-champ > h2 {
-    @extend %label-champ
+  .text-interactive-medium > h2 {
+    @extend %text-interactive-medium
   }
 
-  .content-champ > h2 {
-    @extend %content-champ
-  }
-
-  .champ-example {
-    display: flex;
-    flex-direction: column;
+  .text-interactive-example {
     width: min-content;
   }
 }

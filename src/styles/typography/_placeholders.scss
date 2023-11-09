@@ -31,7 +31,6 @@
   }
 }
 
-
 %text-large {
   font-size: 1.125rem;
   line-height: 1.35rem;
@@ -61,18 +60,9 @@
     line-height: 1.4rem;
   }
 }
+// todo passer en absolu les line-height
 
-%label-champ {
-  font-size: 1rem;
-  line-height: 1.2rem;
-
-  @include mixins.media(large) {
-    font-size: 1.125rem;
-    line-height: 1.35rem;
-  }
-}
-
-%content-champ {
+%text-interactive-medium {
   font-size: 0.875rem;
   line-height: 1.225rem;
 

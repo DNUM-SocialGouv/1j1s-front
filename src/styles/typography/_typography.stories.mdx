@@ -2,6 +2,7 @@ import {Canvas, Meta, Story} from "@storybook/blocks"
 import "./_typography.stories.scss"
 import {ButtonComponent} from "~/client/components/ui/Button/ButtonComponent";
 import {Input} from "../../client/components/ui/Form/InputText/Input";
+import {InputText} from "../../client/components/ui/Form/InputText/InputText";
 
 <Meta title="Toolbox/Typography"/>
 
@@ -55,31 +56,17 @@ La taille sera alors conforme à la taille médium du Kit UI en desktop et en mo
                     <p>%text-xsmall</p>
                 </div>
             </section>
-            <section className="champ">
-                <h2>Champ de saisie</h2>
-                <div className="label-champ">
-                    <h2>Label du champ</h2>
-                    <p>%label-champ</p>
-                </div>
-                <div className="content-champ">
-                    <h2>Contenu du champ(placeholder, texte saisi)</h2>
-                    <p>%content-champ</p>
+            <section className="text-interactive">
+                <h2>Texte des contenus intératifs</h2>
+                <div className="text-interactive-medium">
+                    <h2>Contenu intéractif médium (champ et label bouton)</h2>
+                    <p>%text-interactive-medium</p>
                 </div>
                 <div>
-                    <div className="champ-example">
-                        <label>Label du champ</label>
-                        <Input placeholder="Contenu du champ"/>
+                    <div className="text-interactive-example">
+                        <InputText label="Label du champ" placeholder="Contenu du champ"/>
+                        <ButtonComponent label="label du bouton"/>
                     </div>
-                </div>
-            </section>
-            <section className="button">
-                <h2>Bouton</h2>
-                <div className="label-button">
-                    <h2>Label d'un bouton</h2>
-                    <p>%label-button</p>
-                </div>
-                <div>
-                    <ButtonComponent label="label du bouton"/>
                 </div>
             </section>
         </div>

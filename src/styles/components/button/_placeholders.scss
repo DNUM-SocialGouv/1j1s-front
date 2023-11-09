@@ -3,7 +3,7 @@
 
 %button {
   padding: 0.5rem 0.75rem;
-  @extend %label-button;
+  @extend %text-interactive-medium;
 
   svg {
     height: 0.875rem;
