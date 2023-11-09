@@ -1,13 +1,13 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .radioButton {
   position: relative;
 
   .label {
     display: block;
-    font-size: 1rem;
-    line-height: 1.5rem;
     color: utilities-deprecated.$color-on-surface;
+    @extend %text-interactive-medium
   }
 
   input[type=radio] {

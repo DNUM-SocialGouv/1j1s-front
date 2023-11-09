@@ -4,7 +4,7 @@
 // NOTE (GAFI 07-07-2023): Beaucoup du style post-UIKit est disponible sans beaucoup de modification dans le composant
 //  Combobox, idéalement à mettre en commun
 
-%label-champ{
+@mixin label-champ{
   @extend %text-medium;
   @include utilities.media(large){
     @extend %text-large
@@ -18,7 +18,7 @@
   align-items: stretch;
 
   &Label {
-    @extend %label-champ;
+    @include label-champ;
     margin-bottom: 0.5rem;
   }
 
