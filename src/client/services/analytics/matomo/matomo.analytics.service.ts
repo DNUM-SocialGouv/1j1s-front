@@ -3,6 +3,14 @@ import { CookiesService } from '~/client/services/cookies/cookies.service';
 
 import { AnalyticsService } from '../analytics.service';
 
+declare global {
+	interface Window {
+		_paq: {
+			push(args: [string, ...unknown[]]): void
+		}
+	}
+}
+
 export class MatomoAnalyticsService implements AnalyticsService {
 	private static MATOMO_SERVICE = 'matomo';
 	private readonly cookiesService: CookiesService;
@@ -16,6 +24,7 @@ export class MatomoAnalyticsService implements AnalyticsService {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	envoyerAnalyticsPageVue(_tags: PageTags): void {
+		(window as Window)._paq.push(['trackPageView']);
 	}
 
 	isAllowed(): boolean {

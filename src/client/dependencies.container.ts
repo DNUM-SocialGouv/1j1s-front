@@ -5,6 +5,9 @@ import { AlternanceService } from '~/client/services/alternance/alternance.servi
 import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
+import {
+	MultipleAnalyticsServiceWrapper,
+} from '~/client/services/analytics/multipleServiceWrapper/multipleAnalyticsServiceWrapper';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
@@ -85,14 +88,15 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
-	const analyticsService = new EulerianAnalyticsService(cookiesService);
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
 
+	const multipleAnalyticsServices: AnalyticsService[] = [new EulerianAnalyticsService(cookiesService)];
 	if (process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_FEATURE === '1') {
-		new MatomoAnalyticsService(cookiesService);
+		multipleAnalyticsServices.push(new MatomoAnalyticsService(cookiesService));
 	}
+	const analyticsService = new MultipleAnalyticsServiceWrapper(multipleAnalyticsServices);
 
 	const youtubeService = new YoutubeVideoService(cookiesService);
 	const dateService = new JsDateService();
