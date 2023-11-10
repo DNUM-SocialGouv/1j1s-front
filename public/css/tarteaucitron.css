@@ -1,6 +1,7 @@
 #tarteaucitronInfo > p.tarteaucitronInfoParagraph {
     font-size: 1rem;
     text-align: center;
+    color: #FFFFFF
 }
 
 #tarteaucitronInfo > p.tarteaucitronInfoParagraph:not(:last-of-type) {
