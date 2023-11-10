@@ -10,14 +10,14 @@ import React from 'react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import ContratEngagementJeune from '~/pages/contrat-engagement-jeune/index.page';
 
 describe('Contrat engagement jeune', () => {
-	let analyticsService: ManualAnalyticsService;
+	let analyticsService: AnalyticsService;
 	let marketingService: MarketingService;
 
 	beforeEach(() => {

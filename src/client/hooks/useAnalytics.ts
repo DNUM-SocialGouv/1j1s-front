@@ -2,10 +2,10 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { PageTags } from '~/client/services/analytics/analytics';
-import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 
-function useAnalytics(pageTags: PageTags): ManualAnalyticsService {
-	const analyticsService = useDependency<ManualAnalyticsService>('analyticsService');
+function useAnalytics(pageTags: PageTags): AnalyticsService {
+	const analyticsService = useDependency<AnalyticsService>('analyticsService');
 	const analyticsAlreadySent = useRef(false);
 
 	const sendAnalytics = useCallback(() => {

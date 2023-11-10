@@ -10,7 +10,7 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
+import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
@@ -33,7 +33,7 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('Page Apprentissage Jeunes', () => {
-	let analyticsService: ManualAnalyticsService;
+	let analyticsService: AnalyticsService;
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
