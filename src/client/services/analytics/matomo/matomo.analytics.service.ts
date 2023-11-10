@@ -12,13 +12,14 @@ declare global {
 }
 
 export class MatomoAnalyticsService implements AnalyticsService {
-	private static MATOMO_SERVICE = 'matomo';
+	private static MATOMO_SERVICE = 'matomocloud';
 	private readonly cookiesService: CookiesService;
 
 	constructor(cookiesService: CookiesService) {
 		this.cookiesService = cookiesService;
 		this.cookiesService.addUser('matomoId', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_SITE_ID);
 		this.cookiesService.addUser('matomoHost', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST);
+		this.cookiesService.addUser('matomoCustomJSPath', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_CUSTOM_JS_PATH);
 		this.cookiesService.addService(MatomoAnalyticsService.MATOMO_SERVICE);
 	}
 
