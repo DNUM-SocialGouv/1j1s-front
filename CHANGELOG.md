@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.179.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.3...v3.179.4) (2023-11-11)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.18.9 ([#2280](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2280)) ([12b99b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/12b99b192d56a76eebe7edd97ed5de6d282c53f5))
+* **deps:** update dependency @types/react-autosuggest to v10.1.9 ([#2285](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2285)) ([9fcc5d0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9fcc5d0cabf744461d785fade4b297135f31c813))
+* **deps:** update dependency @types/uuid to v9.0.7 ([#2286](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2286)) ([cc9d67c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cc9d67c9de4298450e2635f9d4a1f4c3c6f3ccb5))
+* **deps:** update dependency eslint-plugin-testing-library to v6.1.2 ([#2287](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2287)) ([f9a4cd4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f9a4cd416c9ffe8af4d49db36234ee2d665ed158))
+
 ## [3.179.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.2...v3.179.3) (2023-11-09)
 
 
