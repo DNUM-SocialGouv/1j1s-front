@@ -4366,7 +4366,11 @@ tarteaucitron.services.matomocloud = {
       this.setVisitorCookieTimeout(getOriginalVisitorCookieTimeout());
     }]);
 
-    tarteaucitron.addScript('https://cdn.matomo.cloud/matomo.js', '', '', true, 'defer', true);
+      if (tarteaucitron.user.matomoCustomJSPath === undefined || tarteaucitron.user.matomoCustomJSPath == '') {
+          tarteaucitron.addScript('https://cdn.matomo.cloud/matomo.js', '', '', true, 'defer', true);
+      } else {
+          tarteaucitron.addScript(tarteaucitron.user.matomoCustomJSPath, '', '', true, 'defer', true);
+      }
 
     // waiting for Matomo to be ready to check first party cookies
     var interval = setInterval(function () {
