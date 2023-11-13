@@ -2,12 +2,9 @@ import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
+import { ManualAnalyticsService } from '~/client/services/analytics/manualAnalyticsService';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
-import {
-	MultipleAnalyticsServiceWrapper,
-} from '~/client/services/analytics/multipleServiceWrapper/multipleAnalyticsServiceWrapper';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
@@ -46,7 +43,7 @@ export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
 	alternanceService: AlternanceService
 	cookiesService: CookiesService
-	analyticsService: AnalyticsService
+	analyticsService: ManualAnalyticsService
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
@@ -92,11 +89,10 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();
 
-	const multipleAnalyticsServices: AnalyticsService[] = [new EulerianAnalyticsService(cookiesService)];
 	if (process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_FEATURE === '1') {
-		multipleAnalyticsServices.push(new MatomoAnalyticsService(cookiesService));
+		new MatomoAnalyticsService(cookiesService);
 	}
-	const analyticsService = new MultipleAnalyticsServiceWrapper(multipleAnalyticsServices);
+	const analyticsService = new EulerianAnalyticsService(cookiesService);
 
 	const youtubeService = new YoutubeVideoService(cookiesService);
 	const dateService = new JsDateService();

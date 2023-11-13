@@ -6,29 +6,29 @@ import { act, render } from '@testing-library/react';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { PageTags } from '~/client/services/analytics/analytics';
-import { AnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService, aPageTags } from '~/client/services/analytics/analytics.service.fixture';
+import { ManualAnalyticsService } from '~/client/services/analytics/manualAnalyticsService';
 
 function TestComponent({ pageTags }: { pageTags: PageTags }) {
 	useAnalytics(pageTags);
 
 	return <></>;
 }
-async function allowAnalytics(service: AnalyticsService) {
+async function allowAnalytics(service: ManualAnalyticsService) {
 	return act(() => {
 		service.isAllowed = () => true;
 		document.dispatchEvent(new Event('eulerian_allowed'));
 	});
 }
 
-async function loadPreviouslyAcceptedAnalytics(service: AnalyticsService) {
+async function loadPreviouslyAcceptedAnalytics(service: ManualAnalyticsService) {
 	return act(() => {
 		service.isAllowed = () => true;
 		document.dispatchEvent(new Event('eulerian_loaded'));
 	});
 }
 
-async function addPreviouslyAcceptedAnalytics(service: AnalyticsService) {
+async function addPreviouslyAcceptedAnalytics(service: ManualAnalyticsService) {
 	return act(() => {
 		service.isAllowed = () => true;
 		document.dispatchEvent(new Event('eulerian_added'));
@@ -37,7 +37,7 @@ async function addPreviouslyAcceptedAnalytics(service: AnalyticsService) {
 
 
 
-async function disallowAnalytics(service: AnalyticsService) {
+async function disallowAnalytics(service: ManualAnalyticsService) {
 	return act(() => {
 		service.isAllowed = () => false;
 		document.dispatchEvent(new Event('eulerian_disallowed'));
