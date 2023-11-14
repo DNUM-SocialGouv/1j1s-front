@@ -16,7 +16,7 @@ describe('Plan du site', () => {
     ${'Accueil'}                                              | ${'/'}
     
     ${'Emplois'}                                              | ${'/emplois'}
-    ${'Stages'}                                               | ${'/stages'}
+    ${'Stages d’études'}                                      | ${'/stages'}
     ${'Contrats d’alternance'}                                | ${'/apprentissage'}
     ${'Jobs d‘été'}                    			                  | ${'/jobs-ete'}
     ${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
@@ -81,7 +81,7 @@ describe('Plan du site', () => {
 				<PlanDuSite/>
 			</DependenciesProvider>,
 		);
-		
+
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 			page_template: 'contenu_statique',
 			pagegroup: 'contenu_statique',

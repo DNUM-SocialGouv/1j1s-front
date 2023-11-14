@@ -18,7 +18,7 @@ const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
-		{ label: 'Stages', link: '/stages' },
+		{ label: 'Stages d’études', link: '/stages' },
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
 		...(process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1' ? [{ label: 'Jobs d‘été ', link: '/jobs-ete' }] : []),
 		{ label: 'Jobs étudiants', link: '/jobs-etudiants' },

@@ -55,7 +55,7 @@ export default function Accueil() {
 			imageUrl: '/images/stage.webp',
 			link: '/stages',
 			linkLabel: 'Voir les offres',
-			title: 'Stages',
+			title: 'Stages d’études',
 		},
 		isStages3emeVisible ? {
 			children: <p>Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème</p>,

@@ -63,6 +63,20 @@ describe('Page d‘accueil', () => {
 	});
 
 	describe('la section offres', () => {
+		it('contient une carte de redirection vers les stages d’études', () => {
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres Plus de 20 000 offres de stages sélectionnées spécialement pour vous' } );
+			expect(redirectionVersStagesDEtudes).toBeVisible();
+			expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
+		});
+
 		describe('quand la feature stages de 3ème est activée', () => {
 			it('contient une carte de redirection vers les stages de 3ème', () => {
 				// GIVEN
@@ -76,9 +90,7 @@ describe('Page d‘accueil', () => {
 				);
 
 				// THEN
-				// const carteStage3eme = screen.getByRole('heading', { name: 'Stages de 3ème' });
 				const redirectionVersStages3eme = screen.getByRole('link', { name: 'Stages de 3ème Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' } );
-				// expect(carteStage3eme).toBeVisible();
 				expect(redirectionVersStages3eme).toBeVisible();
 				expect(redirectionVersStages3eme).toHaveAttribute('href', '/stages-3eme');
 			});
