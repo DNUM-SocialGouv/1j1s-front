@@ -11,7 +11,7 @@ describe('MatomoAnalyticsService', () => {
 
 		new MatomoAnalyticsService(cookiesService);
 
-		expect(cookiesService.addService).toHaveBeenCalledWith('matomocloud');
+		expect(cookiesService.addService).toHaveBeenCalledWith('matomocloud', { needConsent: true });
 		expect(cookiesService.addUser).toHaveBeenCalledWith('matomoId', 'site-id');
 		expect(cookiesService.addUser).toHaveBeenCalledWith('matomoHost', 'https://matomo.1j1s.fr/');
 		expect(cookiesService.addUser).toHaveBeenCalledWith('matomoCustomJSPath', 'piwik.js');

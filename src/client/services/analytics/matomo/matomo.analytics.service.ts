@@ -11,7 +11,7 @@ export class MatomoAnalyticsService implements AnalyticsService {
 		this.cookiesService.addUser('matomoId', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_SITE_ID);
 		this.cookiesService.addUser('matomoHost', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_HOST);
 		this.cookiesService.addUser('matomoCustomJSPath', process.env.NEXT_PUBLIC_ANALYTICS_MATOMO_CUSTOM_JS_PATH);
-		this.cookiesService.addService(MatomoAnalyticsService.MATOMO_SERVICE);
+		this.cookiesService.addService(MatomoAnalyticsService.MATOMO_SERVICE, { needConsent: true });
 	}
 
 	isAllowed(): boolean {

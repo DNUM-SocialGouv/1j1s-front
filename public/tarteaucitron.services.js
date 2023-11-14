@@ -4285,7 +4285,7 @@ tarteaucitron.services.matomo = {
   },
   key: 'matomo',
   name: 'Matomo (privacy by design)',
-  needConsent: true,
+  needConsent: false,
   type: 'analytic',
   uri: 'https://matomo.org/faq/general/faq_146/',
 };
@@ -4396,7 +4396,7 @@ tarteaucitron.services.matomocloud = {
   },
   key: 'matomocloud',
   name: 'Matomo Cloud (privacy by design)',
-  needConsent: true,
+  needConsent: false,
   type: 'analytic',
   uri: 'https://matomo.org/faq/general/faq_146/',
 };

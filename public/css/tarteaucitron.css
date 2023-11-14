@@ -1,3 +1,4 @@
+/* DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.CSS */
 #tarteaucitronInfo > p.tarteaucitronInfoParagraph {
     font-size: 1rem;
     text-align: center;
@@ -7,6 +8,7 @@
 #tarteaucitronInfo > p.tarteaucitronInfoParagraph:not(:last-of-type) {
     margin-bottom: 1rem;
 }
+/* FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.CSS */
 
 .tac_visually-hidden {
       position: absolute;
