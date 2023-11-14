@@ -59,6 +59,7 @@ namespace ApiEuresEmploiEuropeDetailXML {
 		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
 		PositionTitle?: string;
 		PositionLocation?: PositionLocation | Array<PositionLocation>
+		PositionOfferingTypeCode?: string
 	}
 
 	export interface PositionOpening {

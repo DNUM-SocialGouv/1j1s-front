@@ -36,7 +36,7 @@ export class ApiEuresEmploiEuropeMapper {
 		const itemDetail = responseDetail.data.items
 			.find((detail) => detail.jobVacancy.header.handle === handle);
 		const itemDetailXML= itemDetail?.jobVacancy.hrxml;
-		
+
 		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
@@ -50,13 +50,40 @@ export class ApiEuresEmploiEuropeMapper {
 		const countryCode = address?.CountryCode;
 		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
 
+		const positionOfferingTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionOfferingTypeCode);
+		const contractType = positionOfferingTypeCode ? this.mapToContractType(positionOfferingTypeCode) : undefined;
+
 		return {
 			id: handle,
 			nomEntreprise: organizationIdentifiers?.OrganizationName,
 			pays: country,
 			titre: positionProfile?.PositionTitle,
+			typeContrat: contractType,
 			urlCandidature: itemDetail?.related.urls[0].urlValue,
 			ville: addressCityName,
 		};
 	};
+
+	private mapToContractType(positionOfferingTypeCode: string) {
+
+		const positionOfferingTypeCodeLowerCased = positionOfferingTypeCode?.toLowerCase();
+
+		const referentiel = [
+			{ contractType: 'Apprentissage', euresCode: 'apprenticeship' },
+			{ contractType: 'Contrat déterminé', euresCode: 'contract' },
+			{ contractType: 'Contrat déterminé pour permanent', euresCode: 'contracttohire' },
+			{ contractType: 'Non spécifié', euresCode: 'NS' },
+			{ contractType: 'Embauche direct', euresCode: 'directhire' },
+			{ contractType: 'Stage', euresCode: 'internship' },
+			{ contractType: 'De garde / Sur appel', euresCode: 'oncall' },
+			{ contractType: 'Réserve de recrutement', euresCode: 'recruitmentreserve' },
+			{ contractType: 'Saisonnier', euresCode: 'seasonal' },
+			{ contractType: 'Indépendant', euresCode: 'selfemployed' },
+			{ contractType: 'Temporaire', euresCode: 'temporary' },
+			{ contractType: 'Temporaire pour permanent', euresCode: 'temporarytohire' },
+			{ contractType: 'Bénévole', euresCode: 'volunteer' },
+		];
+
+		return referentiel.find((totopasinspire) => totopasinspire.euresCode === positionOfferingTypeCodeLowerCased)?.contractType;
+	}
 }

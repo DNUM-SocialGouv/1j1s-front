@@ -4,6 +4,9 @@
 
 import { render, screen, within } from '@testing-library/react';
 
+import {
+	ListeResultatsEmploiEurope,
+} from '~/client/components/features/EmploisEurope/FormulaireRecherche/ListeResultatsEmploiEurope';
 import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/Rechercher/RechercherEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -421,48 +424,6 @@ describe('RechercherEmploisEurope', () => {
 		});
 	});
 
-	describe('quand un des résultats ne contient pas de titre', () => {
-		it('affiche le résultat avec un titre générique', async () => {
-			// GIVEN
-			const emploiEuropeServiceMock = anEmploiEuropeService();
-			const resultatsService: ResultatRechercheEmploiEurope = {
-				nombreResultats: 1,
-				offreList: [
-					{
-						id: '1',
-						nomEntreprise: 'Entreprise 1',
-						titre: undefined,
-						ville: 'Paris',
-					},
-				],
-			};
-			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
-
-			mockSmallScreen();
-			mockUseRouter({
-				query: {
-					motCle: 'Développeur',
-					page: '1',
-				},
-			});
-
-			// WHEN
-			render(
-				<DependenciesProvider
-					emploiEuropeService={emploiEuropeServiceMock}
-				>
-					<RechercherEmploisEurope/>
-				</DependenciesProvider>,
-			);
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-			const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
-
-			// THEN
-			expect(resultats).toHaveLength(resultatsService.offreList.length);
-			expect(await screen.findByText('Offre d’emploi sans titre')).toBeVisible();
-		});
-	});
-
 	it('affiche les étiquette de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
 		// GIVEN
 		const emploiEuropeServiceMock = anEmploiEuropeService();
@@ -511,5 +472,134 @@ describe('RechercherEmploisEurope', () => {
 		expect(etiquettes[0]).toHaveTextContent('Espagne');
 		expect(etiquettes[1]).toHaveTextContent('Contrat');
 		expect(etiquettes[2]).toHaveTextContent('Apprentissage');
+	});
+
+	describe('La liste des résultats de recherche des emplois en Europe', () => {
+		describe('quand un des résultats ne contient pas de titre', () => {
+			it('affiche le résultat avec un titre générique', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService: ResultatRechercheEmploiEurope = {
+					nombreResultats: 1,
+					offreList: [
+						{
+							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							titre: undefined,
+							ville: 'Paris',
+						},
+					],
+				};
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+
+				// THEN
+				expect(resultats).toHaveLength(resultatsService.offreList.length);
+				expect(await screen.findByText('Offre d’emploi sans titre')).toBeVisible();
+			});
+		});
+
+		describe('chaque résultat affiche des informations sur l’offre', () => {
+			it('si le type de contrat est présent, affiche le type de contrat', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService: ResultatRechercheEmploiEurope = {
+					nombreResultats: 1,
+					offreList: [
+						{
+							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							titre: undefined,
+							typeContrat: 'Embauche directe',
+							ville: 'Paris',
+						},
+					],
+				};
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
+				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).getByText('Embauche directe');
+				expect(tagTypeContrat).toBeVisible();
+			});
+
+			it('si le type de contrat n’est pas présent, n’affiche rien sur le type de contrat', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService: ResultatRechercheEmploiEurope = {
+					nombreResultats: 1,
+					offreList: [
+						{
+							id: '1',
+							nomEntreprise: 'Entreprise 1',
+							titre: undefined,
+							typeContrat: '',
+							ville: 'Paris',
+						},
+					],
+				};
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
+				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).queryByText('Embauche directe');
+				expect(tagTypeContrat).not.toBeInTheDocument();
+			});
+			// SULI c'est peut être un test inutile, à voir demain
+		});
 	});
 });

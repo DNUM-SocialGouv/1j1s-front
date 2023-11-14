@@ -25,6 +25,9 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
 	const location = emploiEurope.pays && emploiEurope.ville ? `${emploiEurope.pays}/${emploiEurope.ville}` : emploiEurope.pays ?? emploiEurope.ville;
 	const tags = location ? [location] : [];
+	const typeContract = emploiEurope.typeContrat;
+	if (typeContract) tags.push(typeContract);
+
 	return (
 		<li key={emploiEurope.id}>
 			<RésultatRechercherSolution
