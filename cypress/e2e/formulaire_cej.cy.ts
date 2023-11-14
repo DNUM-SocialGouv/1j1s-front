@@ -33,7 +33,7 @@ describe('Parcours formulaire cej', () => {
 			cy.get('input[name="mail"]').type('jean.dupont@mail.com');
 			cy.get('input[type="tel"]').type('0688552233');
 			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"] > li').first().click();
 
 			interceptGet(
 				{
@@ -54,7 +54,7 @@ describe('Parcours formulaire cej', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"] > li').first().click();
 
 			interceptPost(
 				{
@@ -65,7 +65,7 @@ describe('Parcours formulaire cej', () => {
 						statusCode: 201,
 					}),
 					responseBodyToCheck: {
-						age: 18,
+						age: 16,
 						codePostal: '75006',
 						email: 'jean.dupont@mail.com',
 						nom: 'dupont',
