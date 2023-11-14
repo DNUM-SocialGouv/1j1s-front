@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConseilsLogement from '~/pages/logements/conseils/index.page';
 
 describe('ConseilsLogement', () => {
@@ -21,7 +21,7 @@ describe('ConseilsLogement', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<ConseilsLogement/>
 			</DependenciesProvider>,
@@ -31,7 +31,7 @@ describe('ConseilsLogement', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -50,7 +50,7 @@ describe('ConseilsLogement', () => {
 	});
 
 	it('affiche le titre de la page', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -65,7 +65,7 @@ describe('ConseilsLogement', () => {
 	});
 
 	it('affiche les titres des articles en tant que headings de niveau 2', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

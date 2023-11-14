@@ -7,7 +7,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import {
 	aLesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
@@ -21,7 +21,7 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
 	const localisationService = aLocalisationService();
-	const analyticsService = anAnalyticsService();
+	const analyticsService = aManualAnalyticsService();
 
 	const routerPush = jest.fn();
 

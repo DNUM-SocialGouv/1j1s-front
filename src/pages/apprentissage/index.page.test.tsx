@@ -9,7 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
@@ -37,7 +37,7 @@ describe('Page rechercher une alternance', () => {
 
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					metierService={métiersServiceMock}
@@ -80,7 +80,7 @@ describe('Page rechercher une alternance', () => {
 				page: '1',
 			} });
 			const { container } = render(<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 				localisationService={localisationServiceMock}
 				alternanceService={alternanceServiceMock}
 				metierService={métiersServiceMock}
@@ -100,7 +100,7 @@ describe('Page rechercher une alternance', () => {
 			mockUseRouter({ query: { page: '1' } });
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					metierService={métiersServiceMock}
@@ -117,7 +117,7 @@ describe('Page rechercher une alternance', () => {
 			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMetierService();
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			mockUseRouter({ query: { page: '1' } });
 			render(

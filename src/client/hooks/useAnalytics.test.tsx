@@ -7,7 +7,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { PageTags } from '~/client/services/analytics/analytics';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
-import { anAnalyticsService, aPageTags } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService, aPageTags } from '~/client/services/analytics/analytics.service.fixture';
 
 function TestComponent({ pageTags }: { pageTags: PageTags }) {
 	useAnalytics(pageTags);
@@ -46,7 +46,7 @@ async function disallowAnalytics(service: ManualAnalyticsService) {
 
 describe('useAnalytics()', () => {
 	it("envoie les analytics de la page quand l'utilisateur accepte les cookies", async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 		const pageTags = aPageTags();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -60,7 +60,7 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
 	it('envoie les analytics au chargement de la page quand les cookies sont déjà acceptés', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => true });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => true });
 		const pageTags = aPageTags();
 
 		render(
@@ -73,7 +73,7 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
 	it('envoie les analytics une fois le script chargé quand les cookies sont déjà acceptés (mais que le script nétait pas chargé au premier rendu', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 		const pageTags = aPageTags();
 
 		render(
@@ -88,7 +88,7 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith(pageTags);
 	});
 	it('envoie les analytics une fois le script ajouté quand les cookies sont déjà acceptés (mais que le script nétait pas chargé au premier rendu', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 		const pageTags = aPageTags();
 
 		render(
@@ -104,7 +104,7 @@ describe('useAnalytics()', () => {
 	});
 
 	it('n’envoie pas les analytics quand les cookies sont refusés', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -115,7 +115,7 @@ describe('useAnalytics()', () => {
 		expect(analyticsService.envoyerAnalyticsPageVue).not.toHaveBeenCalled();
 	});
 	it('n’envoie qu’une fois les analytics quand l’utilisateur accepte plusieurs fois les cookies', async () => {
-		const analyticsService = anAnalyticsService({ isAllowed: () => false });
+		const analyticsService = aManualAnalyticsService({ isAllowed: () => false });
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<TestComponent pageTags={aPageTags()}/>

@@ -7,14 +7,14 @@ import '~/test-utils';
 import { render, screen } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DeposerOffrePage from '~/pages/apprentissage/deposer-offre/index.page';
 
 
 describe('deposer-offre', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -25,7 +25,7 @@ describe('deposer-offre', () => {
 		await expect(container).toBeAccessible();
 	});
 	it('contient un titre', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<DeposerOffrePage/>
@@ -38,7 +38,7 @@ describe('deposer-offre', () => {
 		expect(iframe).toBeInTheDocument();
 	});
 	it('contient un lien vers le formulaire LBA en cas de problème', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL = 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/';
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -51,7 +51,7 @@ describe('deposer-offre', () => {
 		expect(linkFomulaireLBA).toHaveAttribute('href', 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/espace-pro/creation/entreprise/redirec_from_widget_1j1s');
 	});
 	it('contient un lien vers la page d’authentification de LBA', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL = 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/';
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>

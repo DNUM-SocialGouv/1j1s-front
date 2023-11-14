@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import MentoratPage from '~/pages/mentorat/index.page';
 
 describe('MentoratPage', () => {
@@ -23,7 +23,7 @@ describe('MentoratPage', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<MentoratPage />
 			</DependenciesProvider>,
@@ -33,7 +33,7 @@ describe('MentoratPage', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -52,7 +52,7 @@ describe('MentoratPage', () => {
 	});
 
 	it('possède un bouton -Je trouve mon mentor- qui redirige l’utilisateur', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

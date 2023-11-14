@@ -11,7 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
 import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -37,7 +37,7 @@ describe('Page Apprentissage Jeunes', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
-		analyticsService = anAnalyticsService();
+		analyticsService = aManualAnalyticsService();
 	});
 
 	afterEach(() => {

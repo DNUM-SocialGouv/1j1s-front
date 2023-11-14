@@ -2,7 +2,7 @@ import { PageTags } from '~/client/services/analytics/analytics';
 
 import { ManualAnalyticsService } from './analytics.service';
 
-export function anAnalyticsService(overrides?: Partial<ManualAnalyticsService>): ManualAnalyticsService {
+export function aManualAnalyticsService(overrides?: Partial<ManualAnalyticsService>): ManualAnalyticsService {
 	return {
 		envoyerAnalyticsPageVue: jest.fn(),
 		isAllowed: jest.fn(() => true),

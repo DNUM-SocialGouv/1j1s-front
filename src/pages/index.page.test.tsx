@@ -13,7 +13,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import Accueil from '~/pages/index.page';
@@ -25,7 +25,7 @@ describe('Page d‘accueil', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
-		analyticsService = anAnalyticsService();
+		analyticsService = aManualAnalyticsService();
 		marketingService = aMarketingService();
 	});
 

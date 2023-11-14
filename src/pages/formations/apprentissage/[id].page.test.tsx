@@ -10,7 +10,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -173,7 +173,7 @@ describe('getServerSideProps', () => {
 describe('Page Consulter Formations en Apprentissage', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const formation = aFormation();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		mockUseRouter({});
 
 		const { container } = render(
@@ -190,7 +190,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 	it('retourne une page avec les informations de la formation', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -207,7 +207,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		mockUseRouter({ query: {} });
 		const formation = aFormation();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

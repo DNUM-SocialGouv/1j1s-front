@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobÉtudiantPage from '~/pages/jobs-etudiants/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
@@ -19,7 +19,7 @@ describe('<ConsulterJobÉtudiantPage />', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<ConsulterJobÉtudiantPage jobÉtudiant={offre} />);
 			</DependenciesProvider>,
