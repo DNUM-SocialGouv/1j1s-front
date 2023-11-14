@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.179.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.4...v3.179.5) (2023-11-14)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency axios to v1.6.1 ([#2284](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2284)) ([bb54e8e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb54e8eb4ba2d1a21866de433b16b242c1d5553f))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/react to v14.1.0 ([#2289](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2289)) ([fec0726](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fec07266ab5bea701e7ead27a32e413a20be7877))
+* **deps:** update dependency @typescript-eslint/eslint-plugin to v6.11.0 ([#2290](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2290)) ([7a4d8c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7a4d8c7cc0dcd68e557e13a6efd29f108687e454))
+
 ## [3.179.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.3...v3.179.4) (2023-11-11)
 
 
