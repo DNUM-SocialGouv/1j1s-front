@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.179.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.5...v3.179.6) (2023-11-14)
+
+
+### 🐛 Corrections de bogues
+
+* **multiple:** unification regex email front-back ([#2249](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2249)) ([aca2782](https://github.com/DNUM-SocialGouv/1j1s-front/commit/aca2782afb6e0a8b61b78e01f41fa5e8258f66fe))
+
 ## [3.179.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.4...v3.179.5) (2023-11-14)
 
 
