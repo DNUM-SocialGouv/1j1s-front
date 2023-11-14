@@ -4396,9 +4396,9 @@ tarteaucitron.services.matomocloud = {
   },
   key: 'matomocloud',
   name: 'Matomo Cloud (privacy by design)',
-/** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
+/** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS  **/
     needConsent: true,
-/** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
+/** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS  **/
     type: 'analytic',
   uri: 'https://matomo.org/faq/general/faq_146/',
 };
