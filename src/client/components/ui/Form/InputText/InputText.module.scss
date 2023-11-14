@@ -1,15 +1,11 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
+
 
 // NOTE (GAFI 07-07-2023): Beaucoup du style post-UIKit est disponible sans beaucoup de modification dans le composant
 //  Combobox, idéalement à mettre en commun
 
-@mixin label-champ{
-  @extend %text-medium;
-  @include utilities.media(large){
-    @extend %text-large
-  }
-}
 
 .textInput {
   position: relative;
@@ -18,7 +14,7 @@
   align-items: stretch;
 
   &Label {
-    @include label-champ;
+    @extend %label-champ;
     margin-bottom: 0.5rem;
   }
 

@@ -3,7 +3,7 @@
 
 %title-large {
   font-size: 1.5rem;
-  line-height: 1.2;
+  line-height: 1.4;
 
   @include mixins.media(large) {
     font-size: 1.75rem;
@@ -28,14 +28,22 @@
   }
 }
 
-%text-large {
+@mixin text-large {
   font-size: 1.125rem;
   line-height: 1.2;
 }
 
-%text-medium {
+%text-large {
+  @include text-large
+}
+
+@mixin text-medium {
   font-size: 1rem;
   line-height: 1.2;
+}
+
+%text-medium {
+  @include text-medium;
 }
 
 %text-small {

@@ -1,14 +1,7 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
 
-@mixin label-champ{
-  @extend %text-medium;
-  @include utilities.media(large){
-    @extend %text-large
-  }
-}
-
-//todo trouver une solution pour contourner le fait qu'on ne puisse pas utiliser un extend dans un include
 
 .wrapper {
   font-family: inherit;
@@ -16,7 +9,7 @@
 }
 
 .label {
-  @include label-champ;
+  @extend %label-champ;
   display: block;
   margin-bottom: 0.5rem;
 }

@@ -1,12 +1,6 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
-
-%label-champ {
-  @extend %text-medium;
-  @include utilities.media(large) {
-    @extend %text-large
-  }
-}
+@use "@styles/components/form/variables";
 
 .selectWrapper {
   position: relative;

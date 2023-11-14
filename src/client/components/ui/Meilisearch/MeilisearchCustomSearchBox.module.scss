@@ -1,4 +1,9 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/components/form/variables";
+
+.label {
+  @extend %label-champ;
+}
 
 .customSearchBox {
   &InputWrapper {

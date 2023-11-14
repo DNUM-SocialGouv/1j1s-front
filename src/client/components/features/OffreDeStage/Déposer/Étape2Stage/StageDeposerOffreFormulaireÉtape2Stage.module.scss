@@ -4,6 +4,7 @@
 .rémunération {
   &Label {
     margin-bottom: 0.5rem;
+    @extend %label-champ;
   }
 
   &Contenu {
@@ -37,6 +38,10 @@
 .contenuTeletravail {
   border: none;
 
+  & legend{
+    @extend %label-champ;
+  }
+
   .inputTeletravail {
     display: flex;
 
@@ -54,6 +59,10 @@
 .contenuDateDeDebut {
   border: none;
   width: 100%;
+
+  & legend{
+    @extend %label-champ;
+  }
 
   &InputDate {
     display: flex;
