@@ -3,6 +3,7 @@ import phone from 'phone';
 
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { emailRegex } from '~/shared/emailRegex';
 
 import { Entreprise, SecteurDActivité, TailleDEntreprise } from '../domain/Entreprise';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
@@ -43,7 +44,7 @@ export interface RejoindreLaMobilisation  {
 
 const EntrepriseValidator = Joi.object({
 	codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(), // Regex utilsée côté LEE
-	email: Joi.string().email().required(),
+	email: Joi.string().pattern(new RegExp(emailRegex)).required(),
 	nom: Joi.string().required(),
 	nomSociété: Joi.string().required(),
 	prénom: Joi.string().required(),

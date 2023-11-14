@@ -162,4 +162,41 @@ describe('TextInput', () => {
 			});
 		});
 	});
+
+	describe('quand le champ comporte un pattern expression régulière', () => {
+		describe('quand celle ci est vérifiée', () => {
+			it('laisses le champ valide', () => {
+				const pattern = '[a-z]+';
+
+				render(
+					<InputText
+						label="Mon champ texte"
+						name="inputName"
+						pattern={pattern}
+						value='abc'
+					/>,
+				);
+
+				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
+				expect(input).toBeValid();
+			});
+		});
+		describe('quand celle ci n’est pas vérifiée', () => {
+			it('passe le champ invalide', () => {
+				const pattern = '[a-z]+';
+
+				render(
+					<InputText
+						label="Mon champ texte"
+						name="inputName"
+						pattern={pattern}
+						value='123'
+					/>,
+				);
+
+				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
+				expect(input).toBeInvalid();
+			});
+		});
+	});
 });

@@ -11,17 +11,18 @@ import {
 	TypeÉtablissement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { dependencies } from '~/server/start';
+import { emailRegex } from '~/shared/emailRegex';
 
 export const demandeContactAccompagnementBodySchema = Joi.object({
 	age: Joi.number().min(16).max(30).required(),
 	commentaire: Joi.string().allow(''),
 	commune: Joi.string().required(),
-	email: Joi.string().email().allow(''),
+	email: Joi.string().pattern(new RegExp(emailRegex)).allow(''),
 	nom: Joi.string().required(),
 	prénom: Joi.string().required(),
 	téléphone: Joi.string().required(),
 	établissement: Joi.object({
-		email: Joi.string().email().required(),
+		email: Joi.string().pattern(new RegExp(emailRegex)).required(),
 		nom: Joi.string().required(),
 		type: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
 	}).required(),

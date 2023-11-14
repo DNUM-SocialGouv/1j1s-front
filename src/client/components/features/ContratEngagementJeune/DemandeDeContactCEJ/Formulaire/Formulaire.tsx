@@ -10,10 +10,9 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
+import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './Formulaire.module.scss';
-
-const EMAIL_REGEX = "^[a-zA-Z0-9!#$%&@'\u0022*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'\u0022*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$";
 
 interface FormulaireDeContactCEJProps {
   onSuccess?: () => void;
@@ -71,10 +70,11 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 			/>
 			<InputText
 				label="Adresse email"
-				pattern={EMAIL_REGEX}
+				pattern={emailRegex}
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"
 				required
+				type="text"
 			/>
 			<InputText
 				type="tel"
@@ -104,7 +104,7 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				}}
 			/>
 			{isLoading
-				? (<ButtonComponent disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
+				? (<ButtonComponent className={styles.formulaireButton} disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
 				: (<ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" />)
 			}
 
