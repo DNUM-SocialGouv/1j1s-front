@@ -13,8 +13,7 @@
     height: 2.5rem;
 
     &Input {
-      @extend %text-small;
-      font-family: Marianne;
+      @extend %text-interactive-medium;
       padding: 1rem;
       border: 1px solid utilities.$color-background-border;
       width: 100%;
@@ -23,7 +22,7 @@
     }
 
     &Unité {
-      @extend %text-small;
+      @extend %text-interactive-medium;
       padding: 0 2rem;
       align-items: center;
       display: flex;

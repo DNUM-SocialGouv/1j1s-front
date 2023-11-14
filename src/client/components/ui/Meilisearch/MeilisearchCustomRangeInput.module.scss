@@ -6,6 +6,7 @@
   margin-bottom: 1.5rem;
 
   & input {
+    @extend %text-interactive-medium;
     height: 2rem;
     width: 100%;
   }
@@ -29,7 +30,7 @@
 }
 
 .button {
-  @extend %text-small;
+  @extend %text-interactive-medium;
   display: flex;
   width: 100%;
   justify-content: space-between;
