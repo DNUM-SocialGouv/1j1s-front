@@ -3,63 +3,57 @@
 
 %title-large {
   font-size: 1.5rem;
-  line-height: 1.8rem;
+  line-height: 1.2;
 
   @include mixins.media(large) {
     font-size: 1.75rem;
-    line-height: 2.45rem;
   }
 }
 
 %title-medium {
   font-size: 1.25rem;
-  line-height: 1.5rem;
+  line-height: 1.2;
 
   @include mixins.media(large) {
     font-size: 1.5rem;
-    line-height: 1.8rem;
   }
 }
 
 %title-small {
   font-size: 1.125rem;
-  line-height: 1.2rem;
+  line-height: 1.2;
 
   @include mixins.media(large) {
     font-size: 1.25rem;
-    line-height: 1.5rem;
   }
 }
 
 %text-large {
   font-size: 1.125rem;
-  line-height: 1.35rem;
+  line-height: 1.2;
 }
 
 %text-medium {
   font-size: 1rem;
-  line-height: 1.2rem;
+  line-height: 1.2;
 }
 
 %text-small {
   font-size: 0.875rem;
-  line-height: 1.05rem;
+  line-height: 1.2;
 }
 
 %text-xsmall {
   font-size: 0.75rem;
-  line-height: 0.9rem;
+  line-height: 1.2;
 }
-
-// todo passer en absolu les line-height
 
 %text-interactive-medium {
   font-size: 0.875rem;
-  line-height: 1.225rem;
+  line-height: 1.4;
 
   @include mixins.media(large) {
     font-size: 1rem;
-    line-height: 1.4rem;
   }
 }
 
