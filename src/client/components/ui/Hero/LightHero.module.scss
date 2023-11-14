@@ -21,7 +21,7 @@ $color-texte-second-part: utilities.$color-secondary;
   &PrimaryText {
     color:$color-text-first-part;
 
-    @include utilities.media(medium) {
+    @include utilities.media(small) {
       font-weight: bold;
     }
   }
@@ -29,7 +29,7 @@ $color-texte-second-part: utilities.$color-secondary;
   &SecondaryText {
     color: $color-texte-second-part;
 
-    @include utilities.media(medium) {
+    @include utilities.media(small) {
       font-weight: bold;
     }
   }

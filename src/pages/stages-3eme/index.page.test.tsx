@@ -9,7 +9,7 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 
 import Stages3emePage, { getServerSideProps } from './index.page';
 
@@ -37,7 +37,7 @@ describe('Page stages de 3ème', () => {
 		it('n‘a pas de défaut d‘accessibilité', async () => {
 			const { container } = render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -47,7 +47,7 @@ describe('Page stages de 3ème', () => {
 		it('je vois le titre', async () => {
 			render(
 				<DependenciesProvider
-					analyticsService={anAnalyticsService()}
+					analyticsService={aManualAnalyticsService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -60,7 +60,7 @@ describe('Page stages de 3ème', () => {
 		});
 
 		it('envoie les analytics', () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}

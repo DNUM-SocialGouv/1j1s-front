@@ -91,7 +91,7 @@ describe('Plan du site', () => {
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider
