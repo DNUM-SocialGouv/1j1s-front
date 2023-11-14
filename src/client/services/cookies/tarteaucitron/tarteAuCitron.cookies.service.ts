@@ -5,7 +5,7 @@ export namespace TarteAuCitron {
   export type ServiceConfig<T> = Record<string, T>;
   export type InitConfig = Record<string, unknown>;
   export type User = unknown;
-	export type ServiceName = string;
+  export type ServiceName = string;
 }
 export type TarteAuCitron = {
   user: Record<string, TarteAuCitron.User>,

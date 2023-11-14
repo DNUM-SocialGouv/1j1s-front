@@ -9,8 +9,8 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { ManualAnalyticsService } from '~/client/services/analytics/manualAnalyticsService';
 import EuropePage from '~/pages/europe/index.page';
 
 describe('Page Europe', () => {

@@ -6,8 +6,8 @@ import { act, render } from '@testing-library/react';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { PageTags } from '~/client/services/analytics/analytics';
+import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { anAnalyticsService, aPageTags } from '~/client/services/analytics/analytics.service.fixture';
-import { ManualAnalyticsService } from '~/client/services/analytics/manualAnalyticsService';
 
 function TestComponent({ pageTags }: { pageTags: PageTags }) {
 	useAnalytics(pageTags);

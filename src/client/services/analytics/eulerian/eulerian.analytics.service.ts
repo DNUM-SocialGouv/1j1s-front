@@ -2,7 +2,7 @@ import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { TarteAuCitron } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
 
 import { PageTags, SITE_TAGS } from '../analytics';
-import { ManualAnalyticsService } from '../manualAnalyticsService';
+import { ManualAnalyticsService } from '../analytics.service';
 
 declare global {
   interface Window {

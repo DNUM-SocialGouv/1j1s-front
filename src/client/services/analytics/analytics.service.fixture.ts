@@ -1,6 +1,6 @@
 import { PageTags } from '~/client/services/analytics/analytics';
 
-import { ManualAnalyticsService } from './manualAnalyticsService';
+import { ManualAnalyticsService } from './analytics.service';
 
 export function anAnalyticsService(overrides?: Partial<ManualAnalyticsService>): ManualAnalyticsService {
 	return {
