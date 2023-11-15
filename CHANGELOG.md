@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.180.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.180.0...v3.180.1) (2023-11-15)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency axios to v1.6.2 ([#2301](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2301)) ([0f9c9b0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0f9c9b04f1672519739ca597a4374802b8374032))
+* **deps:** update dependency marked-gfm-heading-id to v3.1.1 ([#2293](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2293)) ([ac3353b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ac3353bb1ba433f26f643292f41129b08425086b))
+* **deps:** update dependency marked-mangle to v1.1.5 ([#2294](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2294)) ([21d9794](https://github.com/DNUM-SocialGouv/1j1s-front/commit/21d9794e55e9e9e3d2f88825ca4a2a023916f4c6))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency cypress to v13.5.1 ([#2297](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2297)) ([ff9c8b5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff9c8b57e5874fbfcacb2b23efe3dd03020da266))
+
 ## [3.180.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.8...v3.180.0) (2023-11-15)
 
 
