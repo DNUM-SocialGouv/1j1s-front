@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import MesAidesPage from '~/pages/mes-aides/index.page';
 
 describe('MesAidesPage', () => {
@@ -19,7 +19,7 @@ describe('MesAidesPage', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<MesAidesPage />
 			</DependenciesProvider>,
@@ -29,7 +29,7 @@ describe('MesAidesPage', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -48,7 +48,7 @@ describe('MesAidesPage', () => {
 	});
 
 	it('permet de rediriger l’utilisateur vers le simulateur d’aide', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

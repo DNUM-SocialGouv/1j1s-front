@@ -9,7 +9,7 @@ import { userEvent } from '@testing-library/user-event';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
 import { aServiceJeune, aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
@@ -32,7 +32,7 @@ describe('Page Espace Jeune', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<EspaceJeunePage
 					cartesActualites={carteActualites}
@@ -46,7 +46,7 @@ describe('Page Espace Jeune', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		const carteActualites = anActualiteList();
 		const serviceJeuneList = aServiceJeuneList();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -68,7 +68,7 @@ describe('Page Espace Jeune', () => {
 		it('n‘affiche pas le bouton voir plus si moins de 4 actualités', () => {
 			const carteActualites = [anActualite({ titre: 'Actualité 1' }), anActualite({ titre: 'Actualité 2' }), anActualite({ titre: 'Actualité 3' })];
 			const serviceJeuneList = aServiceJeuneList();
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider
@@ -89,7 +89,7 @@ describe('Page Espace Jeune', () => {
 				anActualite({ titre: 'Actualité 4' })];
 
 			const serviceJeuneList = aServiceJeuneList();
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider
@@ -116,7 +116,7 @@ describe('Page Espace Jeune', () => {
 				aServiceJeune({ titre: 'service 6' }),
 				aServiceJeune({ titre: 'service 7' }),
 			];
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
@@ -141,7 +141,7 @@ describe('Page Espace Jeune', () => {
 				aServiceJeune({ titre: 'service 6' }),
 				aServiceJeune({ titre: 'service 7' }),
 			];
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>
@@ -166,7 +166,7 @@ describe('Page Espace Jeune', () => {
 				aServiceJeune({ titre: 'service 6' }),
 				aServiceJeune({ titre: 'service 7' }),
 			];
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider analyticsService={analyticsService}>

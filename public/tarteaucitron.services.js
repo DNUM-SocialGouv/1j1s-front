@@ -4366,7 +4366,11 @@ tarteaucitron.services.matomocloud = {
       this.setVisitorCookieTimeout(getOriginalVisitorCookieTimeout());
     }]);
 
-    tarteaucitron.addScript('https://cdn.matomo.cloud/matomo.js', '', '', true, 'defer', true);
+      if (tarteaucitron.user.matomoCustomJSPath === undefined || tarteaucitron.user.matomoCustomJSPath == '') {
+          tarteaucitron.addScript('https://cdn.matomo.cloud/matomo.js', '', '', true, 'defer', true);
+      } else {
+          tarteaucitron.addScript(tarteaucitron.user.matomoCustomJSPath, '', '', true, 'defer', true);
+      }
 
     // waiting for Matomo to be ready to check first party cookies
     var interval = setInterval(function () {
@@ -4392,8 +4396,10 @@ tarteaucitron.services.matomocloud = {
   },
   key: 'matomocloud',
   name: 'Matomo Cloud (privacy by design)',
-  needConsent: false,
-  type: 'analytic',
+/** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS  **/
+    needConsent: true,
+/** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS  **/
+    type: 'analytic',
   uri: 'https://matomo.org/faq/general/faq_146/',
 };
 

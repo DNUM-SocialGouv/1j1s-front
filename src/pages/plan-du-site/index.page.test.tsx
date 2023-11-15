@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import PlanDuSite from '~/pages/plan-du-site/index.page';
 
 describe('Plan du site', () => {
@@ -55,7 +55,7 @@ describe('Plan du site', () => {
     ${'Politique de confidentialité'}                         | ${'/confidentialite'}`(
 		'présente la page $nom du site',
 		async ({ nom, path }) => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 
 			render(
 				<DependenciesProvider
@@ -72,7 +72,7 @@ describe('Plan du site', () => {
 		});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

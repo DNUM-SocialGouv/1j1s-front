@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[nomMetier].page';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 
@@ -24,7 +24,7 @@ describe('Page consulter fiche métier', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const ficheMetier = aFicheMetier();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -37,7 +37,7 @@ describe('Page consulter fiche métier', () => {
 
 	it('affiche les informations disponibles de la fiche métier', async () => {
 		const ficheMetier = aFicheMetier();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
@@ -55,7 +55,7 @@ describe('Page consulter fiche métier', () => {
 
 	it('envoie les analytics de la page à son affichage', () => {
 		const ficheMetier = aFicheMetier();
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}

@@ -9,7 +9,7 @@ import React from 'react';
 import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
@@ -23,7 +23,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const jobEte = aBarmanOffre();
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
 			</DependenciesProvider>,
 		);
@@ -34,7 +34,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('ajoute le nom de l’annonce au titre du document', async () => {
 		const jobEte = aBarmanOffre();
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
 			</DependenciesProvider>,
 		);
@@ -44,7 +44,7 @@ describe('<ConsulterJobEtePage />', () => {
 
 	it('affiche le détail de l’annonce', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>
 			</DependenciesProvider>,
 		);
@@ -54,7 +54,7 @@ describe('<ConsulterJobEtePage />', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>

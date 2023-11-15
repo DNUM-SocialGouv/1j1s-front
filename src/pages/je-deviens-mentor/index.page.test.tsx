@@ -8,7 +8,7 @@ import { render } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import JeDeviensMentorPage from '~/pages/je-deviens-mentor/index.page';
 
 describe('<JeDeviensMentorPage />', () => {
@@ -17,7 +17,7 @@ describe('<JeDeviensMentorPage />', () => {
 
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<JeDeviensMentorPage />
 			</DependenciesProvider>,

@@ -7,7 +7,7 @@ import '~/test-utils';
 import { render } from '@testing-library/react';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import Accessibilite from '~/pages/accessibilite/index.page';
 
 
@@ -127,7 +127,7 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<Accessibilite titre={titre} contenu={contenu}/>);
 			</DependenciesProvider>);
 
@@ -136,7 +136,7 @@ Cette procédure est à utiliser dans le cas suivant. Vous avez signalé au resp
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<Accessibilite titre={titre} contenu={contenu}/>);
 			</DependenciesProvider>);
 

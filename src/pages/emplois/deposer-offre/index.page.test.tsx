@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DéposerUneOffreDEmploi from '~/pages/emplois/deposer-offre/index.page';
 
 describe('Je recrute / Déposer une offre d‘emploi', () => {
@@ -19,7 +19,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<DéposerUneOffreDEmploi />
 			</DependenciesProvider>,
@@ -29,7 +29,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -48,7 +48,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	});
 
 	it('affiche un formulaire de référencement des entreprises dans une iframe', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider
@@ -64,7 +64,7 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 	});
 
 	it('propose des liens vers les conditions générales d‘utilisation et la politique de confidentialité', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		render(
 			<DependenciesProvider

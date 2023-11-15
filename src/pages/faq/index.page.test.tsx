@@ -12,7 +12,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import FaqPage from '~/pages/faq/index.page';
 import { FAQ } from '~/server/faq/domain/FAQ';
 import { aQuestion } from '~/server/faq/domain/FAQ.fixture';
@@ -39,7 +39,7 @@ describe('Page FAQ', () => {
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
@@ -51,7 +51,7 @@ describe('Page FAQ', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
@@ -68,7 +68,7 @@ describe('Page FAQ', () => {
 
 	it('affiche le titre de la page', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
@@ -78,7 +78,7 @@ describe('Page FAQ', () => {
 
 	it('affiche le sous titre de la page', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
@@ -89,7 +89,7 @@ describe('Page FAQ', () => {
 
 	it('affiche une liste de question', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
@@ -102,7 +102,7 @@ describe('Page FAQ', () => {
 
 	it('affiche les questions sous forme de lien', async () => {
 		render(
-			<DependenciesProvider analyticsService={anAnalyticsService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>
 			</DependenciesProvider>);
 
@@ -119,7 +119,7 @@ describe('Page FAQ', () => {
 	describe('quand la list de question est vide', () => {
 		it('n’affiche pas de liste', async () => {
 			render(
-				<DependenciesProvider analyticsService={anAnalyticsService()}>
+				<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 					<FaqPage listeDeQuestionRéponse={[]}/>
 				</DependenciesProvider>);
 
@@ -130,7 +130,7 @@ describe('Page FAQ', () => {
 
 	it('affiche le bouton de contact avec la bonne redirection', () => {
 
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<FaqPage listeDeQuestionRéponse={listeDeQuestionResultat}/>

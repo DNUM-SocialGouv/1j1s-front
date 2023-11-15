@@ -12,7 +12,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import DeposerOffreStageEtape2Page from '~/pages/stages/deposer-offre/votre-offre-de-stage/index.page';
 
 describe('<DeposerOffreStageEtape2Page />', () => {
@@ -33,7 +33,7 @@ describe('<DeposerOffreStageEtape2Page />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider
-				analyticsService={anAnalyticsService()}
+				analyticsService={aManualAnalyticsService()}
 			>
 				<DeposerOffreStageEtape2Page />
 			</DependenciesProvider>,

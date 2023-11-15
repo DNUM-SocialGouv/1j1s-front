@@ -9,7 +9,7 @@ import { render } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
@@ -46,7 +46,7 @@ describe('Page Formations en Apprentissage', () => {
 		});
 
 		it('envoie les analytics de la page à son affichage', () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			mockUseRouter({});
 
 			render(
@@ -69,7 +69,7 @@ describe('Page Formations en Apprentissage', () => {
 		});
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			mockUseRouter({});
 
 			const { container } = render(

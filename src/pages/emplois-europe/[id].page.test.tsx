@@ -10,7 +10,7 @@ import React from 'react';
 import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterEmploiEurope, { getServerSideProps } from '~/pages/emplois-europe/[id].page';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
@@ -57,7 +57,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
 			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
@@ -66,7 +66,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 
 	it('ajoute le titre de l’annonce au titre du document', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' }); 
 			
 		render(
@@ -79,7 +79,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 
 	it('affiche le titre de l’annonce', async () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' });
 
 		render(
@@ -93,7 +93,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 
 	it('envoie les analytics de la page à son affichage', () => {
-		const analyticsService = anAnalyticsService();
+		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
