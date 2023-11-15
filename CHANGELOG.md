@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.179.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.7...v3.179.8) (2023-11-15)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency html-validate to v8.7.1 ([#2291](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2291)) ([6c8a09a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6c8a09a0ebf313b3a81beb1a9f73518a59c01a97))
+
 ## [3.179.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.6...v3.179.7) (2023-11-14)
 
 
