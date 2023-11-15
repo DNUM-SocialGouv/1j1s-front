@@ -69,7 +69,7 @@ describe('Page Formations en Apprentissage', () => {
 		});
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			mockUseRouter({});
 
 			const { container } = render(

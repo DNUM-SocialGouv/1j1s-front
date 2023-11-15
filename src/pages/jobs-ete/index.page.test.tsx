@@ -89,7 +89,7 @@ describe('Page rechercher un job d‘été', () => {
 		});
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
-			const analyticsService = anAnalyticsService();
+			const analyticsService = aManualAnalyticsService();
 			mockUseRouter({ query: { page: '1' } });
 
 			const { container } = render(
