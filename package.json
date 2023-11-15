@@ -39,7 +39,7 @@
     "lodash.debounce": "4.0.8",
     "marked": "9.1.6",
     "marked-gfm-heading-id": "3.1.1",
-    "marked-mangle": "1.1.4",
+    "marked-mangle": "1.1.5",
     "next": "13.4.16",
     "next-joi": "2.2.1",
     "phone": "3.1.41",
