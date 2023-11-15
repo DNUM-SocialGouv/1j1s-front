@@ -5,6 +5,7 @@
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
+import { GetServerSidePropsContext } from 'next';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
@@ -14,7 +15,6 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherOffreEmploiPage, { getServerSideProps } from '~/pages/emplois/index.page';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
-import { GetServerSidePropsContext } from 'next';
 
 describe('Page Emploi', () => {
 	describe('<RechercherOffreEmploiPage />', () => {

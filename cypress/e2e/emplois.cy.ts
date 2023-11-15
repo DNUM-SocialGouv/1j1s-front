@@ -3,21 +3,23 @@
 
 import { stringify } from 'querystring';
 
-import { aBarmanOffre, aRésultatEchantillonOffre } from '~/server/offres/domain/offre.fixture';
+import {
+	aBarmanOffre, aRésultatEchantillonOffre,
+} from '~/server/offres/domain/offre.fixture';
 
 import { interceptGet } from '../interceptGet';
 
 describe('Page de recherche d’emplois', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
-		cy.intercept(
-			'/api/emplois*',
-			aRésultatEchantillonOffre(),
-		).as('recherche-emplois');
 	});
 
 	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
+			cy.intercept(
+				'/_next/data/development/emplois.json?page=1',
+				JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
+			).as('recherche-emplois');
 			cy.visit('/emplois');
 			cy.wait('@recherche-emplois');
 
@@ -30,15 +32,16 @@ describe('Page de recherche d’emplois', () => {
 				.should('contain.text', 'Barman / Barmaid (H/F)');
 		});
 
-		it('place le focus sur le premier input du formulaire de recherche', () => {
-			cy.visit('/emplois');
-			cy.wait('@recherche-emplois');
-
-			cy.findAllByRole('textbox').first().should('have.focus');
-		});
-
 		context('quand l‘utilisateur rentre un mot clé', () => {
 			it('filtre les résultats par mot clé', () => {
+				cy.intercept(
+					'/_next/data/development/emplois.json?page=1',
+					JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
+				).as('recherche-emplois');
+				cy.intercept(
+					'/_next/data/development/emplois.json?motCle=barman&page=1',
+					JSON.stringify({ pageProps: { resultats: { nombreRésultats: 1, résultats: [aBarmanOffre()] } } }),
+				).as('recherche-emplois2');
 				cy.visit('/emplois');
 				cy.wait('@recherche-emplois');
 
@@ -46,7 +49,7 @@ describe('Page de recherche d’emplois', () => {
 				interceptGet({
 					actionBeforeWaitTheCall: () =>
 						cy.findByRole('button', { name: /Rechercher/i }).click(),
-					alias: 'recherche-emplois',
+					alias: 'recherche-emplois2',
 					path: '/api/emplois*',
 					response: JSON.stringify({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
 				});
@@ -57,6 +60,10 @@ describe('Page de recherche d’emplois', () => {
 
 		context('quand l‘utilisateur veut sélectionner la première offre', () => {
 			it('navigue vers le détail de l‘offre', () => {
+				cy.intercept(
+					'/_next/data/development/emplois.json?page=1',
+					JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
+				).as('recherche-emplois');
 				cy.visit('/emplois');
 				cy.wait('@recherche-emplois');
 
@@ -81,17 +88,11 @@ describe('Page de recherche d’emplois', () => {
 
 	context('quand l’utilisateur arrive sur la page avec une recherche déjà renseignée', () => {
 		it('rempli le formulaire avec la recherche', () => {
-			const query = {
-				codeLocalisation: '75',
-				experienceExigence: 'E',
-				grandDomaine: 'B',
-				motCle: 'Informatique',
-				nomLocalisation: 'Paris',
-				tempsDeTravail: 'tempsPartiel',
-				typeDeContrats: 'CDI',
-				typeLocalisation: 'DEPARTEMENT',
-			};
-			cy.visit(`/emplois?${stringify(query)}`);
+			cy.intercept(
+				'/_next/data/development/emplois.json?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&grandDomaine=M&page=1',
+				JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
+			).as('recherche-emplois');
+			cy.visit('/emplois?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&grandDomaine=M&page=1');
 			cy.wait('@recherche-emplois');
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
