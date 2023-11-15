@@ -37,7 +37,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 			props: {},
 		};
 	}
-	// TODO : Validation Joi ?
 	const filtres = emploiFiltreMapper(context.query);
 
 	const resultatsRecherche = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(filtres);
