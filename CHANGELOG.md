@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.180.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.8...v3.180.0) (2023-11-15)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* mise en place de Matomo ([#2298](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2298)) ([cf3e5b9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cf3e5b94d4035fcb8d58f224102797d7034922d8))
+
 ## [3.179.8](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.179.7...v3.179.8) (2023-11-15)
 
 
