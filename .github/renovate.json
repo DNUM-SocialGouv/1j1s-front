@@ -7,7 +7,28 @@
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["patch"],
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "branch"
+    },
+    {
+      "groupName": "all non-major devDedependencies",
+      "groupSlug": "devDependecies-minor-patch",
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": ["minor"]
+    },
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "dependencies-minor-patch",
+      "matchDepTypes": ["dependencies"],
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
     }
   ],
   "platformAutomerge": true
