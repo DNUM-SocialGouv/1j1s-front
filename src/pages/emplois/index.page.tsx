@@ -22,14 +22,13 @@ export default function RechercherOffreEmploiPage(props: RechercherOffreEmploiPa
 	useEffect(() => {
 		if (router.isReady) {
 			const queryString = stringify(router.query);
-			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { shallow: true });
+			if (queryString.length === 0) router.replace({ query: 'page=1' }, undefined, { scroll: false });
 		}
 	}, [router]);
 
 	return <RechercherOffreEmploi resultats={props.resultats} />;
 }
 
-// NOTE (GAFI 08-08-2023): Rend le composant server-side
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<RechercherOffreEmploiPageProps>> {
 	const { query } = context;
 

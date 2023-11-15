@@ -50,7 +50,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -84,7 +84,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonAppliquerFiltres);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=MIS&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -118,7 +118,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonAppliquerFiltres);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -152,7 +152,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonAppliquerFiltres);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -186,10 +186,10 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { scroll: false });
 			});
 		});
 
@@ -224,7 +224,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				await user.click(buttonAppliquerFiltres);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -272,7 +272,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'typeDeContrats=CDD&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -300,7 +300,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -328,7 +328,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -356,7 +356,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { scroll: false });
 			});
 		});
 	});
