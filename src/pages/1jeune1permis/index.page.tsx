@@ -1,10 +1,13 @@
 import { GetServerSidePropsResult } from 'next';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 
 import styles from './index.module.scss';
+
+const URL_IFRAME_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis';
+const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr';
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
 	const isFeatureActive = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
@@ -22,11 +25,12 @@ export default function UnJeuneUnPermis() {
 
 	const [iframeHeight, setIframeHeight] = useState<string | undefined>(undefined);
 
-	const onMessage = (ev: MessageEvent<{ type: string; size: string }>) => {
-		if (typeof ev.data !== 'object') return;
-		if (!ev.data.type) return;
-		if (ev.data.type === 'resize-iframe') {
-			setIframeHeight(ev.data.size);
+	const onMessage = (event: MessageEvent<{ type: string; size: string }>) => {
+		if (event.origin !== DOMAINE_1JEUNE_1PERMIS || typeof event.data !== 'object' || !event.data.type) {
+			return;
+		}
+		if (event.data.type === 'resize-iframe') {
+			setIframeHeight(event.data.size);
 		}
 	};
 
@@ -48,12 +52,10 @@ export default function UnJeuneUnPermis() {
 				robots="index,follow"
 			/>
 			<Container>
-				<iframe className={styles.iframe} src={'/1jeune1permis/iframe'} height={iframeHeight}>
-
-				</iframe>
-				{/*<iframe className={styles.iframe}
+				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
-					src={'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis'}/>*/}
+					src={URL_IFRAME_1JEUNE_1PERMIS}
+					height={iframeHeight}/>
 			</Container>
 		</main>
 	);
