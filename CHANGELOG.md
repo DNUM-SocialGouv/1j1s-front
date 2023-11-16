@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.183.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.182.0...v3.183.0) (2023-11-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois europe:** ajout du bouton de candidature ([#2317](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2317)) ([08fb64a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/08fb64af08c88513c40606d1f060a8c9b29a23b7))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-config-next to v14.0.3 ([63c36a5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/63c36a514b7501cdc05153d8269fe036a4705ae6))
+
 ## [3.182.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.181.0...v3.182.0) (2023-11-16)
 
 
