@@ -21,9 +21,9 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 		return createSuccess(this.apiEuresEmploiEuropeMapper.mapRechercheEmploiEurope(response, responseDetail));
 	}
 
-	async get(): Promise<Either<EmploiEurope>> {
+	async get(handle: string): Promise<Either<EmploiEurope>> {
 		const response = mockResultatRechercheDetailApiEuresEmploiEurope();
-		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre('1', response));
+		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, response));
 	}
 }
 
