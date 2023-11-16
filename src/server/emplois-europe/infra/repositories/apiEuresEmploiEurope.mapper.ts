@@ -66,9 +66,7 @@ export class ApiEuresEmploiEuropeMapper {
 	};
 
 	private mapContractType(positionOfferingTypeCode: string) {
-		const positionOfferingTypeCodeLowerCased = positionOfferingTypeCode.toLowerCase();
-
 		return typesContratEures.find(
-			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCodeLowerCased)?.libellé;
+			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCode)?.libellé;
 	}
 }

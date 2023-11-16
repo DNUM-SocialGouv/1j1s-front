@@ -12,7 +12,7 @@ export const typesContratEures = [
 		valeur: 'contracttohire',
 	},
 	{
-		libellé: 'Embauche direct',
+		libellé: 'Embauche directe',
 		valeur: 'directhire',
 	},
 	{

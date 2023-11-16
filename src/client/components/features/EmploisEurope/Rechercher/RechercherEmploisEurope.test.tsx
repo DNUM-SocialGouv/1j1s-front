@@ -4,9 +4,6 @@
 
 import { render, screen, within } from '@testing-library/react';
 
-import {
-	ListeResultatsEmploiEurope,
-} from '~/client/components/features/EmploisEurope/FormulaireRecherche/ListeResultatsEmploiEurope';
 import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/Rechercher/RechercherEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
