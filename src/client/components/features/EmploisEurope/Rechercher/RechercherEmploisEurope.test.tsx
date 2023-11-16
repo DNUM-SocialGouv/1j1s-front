@@ -9,7 +9,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
-import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { aResultatRechercheEmploiEuropeList } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 describe('RechercherEmploisEurope', () => {
@@ -40,22 +40,23 @@ describe('RechercherEmploisEurope', () => {
 			it('affiche les résultats de la recherche', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
-					nombreResultats: 2,
-					offreList: [
-						{
-							id: '1',
-							nomEntreprise: 'Entreprise 1',
-							titre: 'Titre 1',
-							ville: 'Paris',
-						},
-						{
-							id: '2',
-							nomEntreprise: 'Entreprise 2',
-							titre: 'Titre 2',
-						},
-					],
-				};
+				const resultatsService = aResultatRechercheEmploiEuropeList(
+					{
+						nombreResultats: 2,
+						offreList: [
+							{
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								titre: 'Titre 1',
+								ville: 'Paris',
+							},
+							{
+								id: '2',
+								nomEntreprise: 'Entreprise 2',
+								titre: 'Titre 2',
+							},
+						],
+					});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
@@ -98,7 +99,7 @@ describe('RechercherEmploisEurope', () => {
 				it('affiche le résultat avec le pays et la ville', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
-					const resultatsService: ResultatRechercheEmploiEurope = {
+					const resultatsService = aResultatRechercheEmploiEuropeList({
 						nombreResultats: 1,
 						offreList: [
 							{
@@ -109,7 +110,7 @@ describe('RechercherEmploisEurope', () => {
 								ville: 'Paris',
 							},
 						],
-					};
+					});
 					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
@@ -146,7 +147,7 @@ describe('RechercherEmploisEurope', () => {
 				it('affiche le résultat avec le pays', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
-					const resultatsService: ResultatRechercheEmploiEurope = {
+					const resultatsService = aResultatRechercheEmploiEuropeList({
 						nombreResultats: 1,
 						offreList: [
 							{
@@ -157,7 +158,7 @@ describe('RechercherEmploisEurope', () => {
 								ville: undefined,
 							},
 						],
-					};
+					});
 					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
@@ -194,7 +195,7 @@ describe('RechercherEmploisEurope', () => {
 				it('affiche le résultat avec la ville', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
-					const resultatsService: ResultatRechercheEmploiEurope = {
+					const resultatsService = aResultatRechercheEmploiEuropeList({
 						nombreResultats: 1,
 						offreList: [
 							{
@@ -205,7 +206,7 @@ describe('RechercherEmploisEurope', () => {
 								ville: 'Paris',
 							},
 						],
-					};
+					});
 					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
@@ -242,7 +243,7 @@ describe('RechercherEmploisEurope', () => {
 				it('affiche le nombre de résultats de la recherche', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
-					const resultatsService: ResultatRechercheEmploiEurope = {
+					const resultatsService = aResultatRechercheEmploiEuropeList({
 						nombreResultats: 2,
 						offreList: [
 							{
@@ -257,7 +258,7 @@ describe('RechercherEmploisEurope', () => {
 								titre: 'Titre 2',
 							},
 						],
-					};
+					});
 					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
@@ -287,7 +288,7 @@ describe('RechercherEmploisEurope', () => {
 				it('affiche le nombre de résultats de la recherche', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
-					const resultatsService: ResultatRechercheEmploiEurope = {
+					const resultatsService = aResultatRechercheEmploiEuropeList({
 						nombreResultats: 1,
 						offreList: [
 							{
@@ -297,7 +298,7 @@ describe('RechercherEmploisEurope', () => {
 								ville: 'Paris',
 							},
 						],
-					};
+					});
 					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 					mockSmallScreen();
@@ -328,7 +329,7 @@ describe('RechercherEmploisEurope', () => {
 			it('affiche les résultats de la recherche', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
+				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 2,
 					offreList: [
 						{
@@ -343,7 +344,7 @@ describe('RechercherEmploisEurope', () => {
 							titre: 'Titre 2',
 						},
 					],
-				};
+				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
@@ -380,7 +381,7 @@ describe('RechercherEmploisEurope', () => {
 			it('affiche le nombre de résultats de la recherche', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
+				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 2,
 					offreList: [
 						{
@@ -395,7 +396,7 @@ describe('RechercherEmploisEurope', () => {
 							titre: 'Titre 2',
 						},
 					],
-				};
+				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
@@ -424,7 +425,7 @@ describe('RechercherEmploisEurope', () => {
 	it('affiche les étiquette de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
 		// GIVEN
 		const emploiEuropeServiceMock = anEmploiEuropeService();
-		const resultatsService: ResultatRechercheEmploiEurope = {
+		const resultatsService = aResultatRechercheEmploiEuropeList({
 			nombreResultats: 2,
 			offreList: [
 				{
@@ -439,7 +440,7 @@ describe('RechercherEmploisEurope', () => {
 					titre: 'Titre 2',
 				},
 			],
-		};
+		});
 		jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 		mockSmallScreen();
@@ -476,7 +477,7 @@ describe('RechercherEmploisEurope', () => {
 			it('affiche le résultat avec un titre générique', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
+				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
 					offreList: [
 						{
@@ -486,7 +487,7 @@ describe('RechercherEmploisEurope', () => {
 							ville: 'Paris',
 						},
 					],
-				};
+				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
@@ -517,7 +518,7 @@ describe('RechercherEmploisEurope', () => {
 			it('si le type de contrat est présent, affiche le type de contrat', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
+				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
 					offreList: [
 						{
@@ -528,7 +529,7 @@ describe('RechercherEmploisEurope', () => {
 							ville: 'Paris',
 						},
 					],
-				};
+				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
@@ -557,7 +558,7 @@ describe('RechercherEmploisEurope', () => {
 			it('si le type de contrat n’est pas présent, n’affiche rien sur le type de contrat', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService: ResultatRechercheEmploiEurope = {
+				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
 					offreList: [
 						{
@@ -568,7 +569,7 @@ describe('RechercherEmploisEurope', () => {
 							ville: 'Paris',
 						},
 					],
-				};
+				});
 				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
 				mockSmallScreen();
