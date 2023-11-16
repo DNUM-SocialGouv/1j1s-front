@@ -50,7 +50,8 @@ type PageGroup =
 	| 'service_civique_detail'
 	| 'service_civique_liste'
 	| 'service_jeune_liste'
-	| 'stages';
+	| 'stages'
+	| 'stages_3e_liste';
 
 export const SITE_TAGS: Record<string, string> = {
 	site_entity: 'Min. Travail',

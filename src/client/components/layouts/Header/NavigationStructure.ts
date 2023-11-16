@@ -18,7 +18,8 @@ const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
-		{ label: 'Stages', link: '/stages' },
+		{ label: 'Stages d’études', link: '/stages' },
+		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{ label: 'Stages de 3ème', link: '/stages-3eme' }] : []),
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
 		...(process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1' ? [{ label: 'Jobs d‘été ', link: '/jobs-ete' }] : []),
 		{ label: 'Jobs étudiants', link: '/jobs-etudiants' },

@@ -40,6 +40,7 @@ export default function Accueil() {
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
 	const isFormationsInitalesVisible = process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1';
+	const isStages3emeVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -54,8 +55,15 @@ export default function Accueil() {
 			imageUrl: '/images/stage.webp',
 			link: '/stages',
 			linkLabel: 'Voir les offres',
-			title: 'Stages',
+			title: 'Stages d’études',
 		},
+		isStages3emeVisible ? {
+			children: <p>Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème</p>,
+			imageUrl: '/images/stages-3eme/stages-3eme.webp',
+			link: '/stages-3eme',
+			linkLabel: 'Voir les offres',
+			title: 'Stages de 3ème',
+		} : undefined,
 		{
 			children: <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>,
 			imageUrl: '/images/alternance.webp',
