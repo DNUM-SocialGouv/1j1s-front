@@ -24,9 +24,11 @@
   color: $color-text;
 
   & input {
+    @extend %text-interactive-medium;
     background-color: transparent;
     padding: 0.5rem 1rem;
   }
+
   & button {
     vertical-align: middle;
     & svg {
@@ -37,7 +39,6 @@
       transform: rotate(-180deg);
     }
   }
-
 
   border-radius: $border-radius;
   @extend %outlined;

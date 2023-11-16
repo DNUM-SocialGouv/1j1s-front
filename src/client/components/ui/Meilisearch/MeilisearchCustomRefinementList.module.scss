@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/components/form/variables";
 
 .selectContainer {
   position: relative;
@@ -6,7 +7,7 @@
 }
 
 .button {
-  @extend %text-small;
+  @extend %text-interactive-medium;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -44,12 +45,8 @@
   border-radius: 0;
 }
 
-
-
 .label{
-  display: block;
-  border-bottom: 1px solid utilities-deprecated.$color-separator;
-  border-radius: 0;
+  @extend %label-champ;
 }
 
 .checkbox {

@@ -90,7 +90,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 	if (items.length === 0) return null;
 	return (
 		<div className={classNames(className)}>
-			<span id={labelledBy.current}>{label}</span>
+			<span className={styles.label} id={labelledBy.current}>{label}</span>
 			<div  className={styles.selectContainer} onBlur={onBlur}>
 				<button
 					type="button"

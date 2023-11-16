@@ -4,6 +4,7 @@
 .rémunération {
   &Label {
     margin-bottom: 0.5rem;
+    @extend %label-champ;
   }
 
   &Contenu {
@@ -12,8 +13,7 @@
     height: 2.5rem;
 
     &Input {
-      @extend %text-small;
-      font-family: Marianne;
+      @extend %text-interactive-medium;
       padding: 1rem;
       border: 1px solid utilities.$color-background-border;
       width: 100%;
@@ -22,7 +22,7 @@
     }
 
     &Unité {
-      @extend %text-small;
+      @extend %text-interactive-medium;
       padding: 0 2rem;
       align-items: center;
       display: flex;
@@ -36,6 +36,10 @@
 
 .contenuTeletravail {
   border: none;
+
+  & legend{
+    @extend %label-champ;
+  }
 
   .inputTeletravail {
     display: flex;
@@ -54,6 +58,10 @@
 .contenuDateDeDebut {
   border: none;
   width: 100%;
+
+  & legend{
+    @extend %label-champ;
+  }
 
   &InputDate {
     display: flex;

@@ -1,98 +1,100 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
 
 .selectWrapper {
-    position: relative;
-    flex-shrink: 0;
+  position: relative;
+  flex-shrink: 0;
 }
 
 .selectWrapperFlex {
-    flex-shrink: 0;
-    flex-grow: 1;
-    flex-basis: 25%;
+  flex-shrink: 0;
+  flex-grow: 1;
+  flex-basis: 25%;
 }
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 .options {
-    z-index: 2;
-    position: absolute;
-    padding: 8px;
-    width: 100%;
-    border: 1px solid utilities-deprecated.$color-separator;
-    border-radius: 20px;
-    background-color: utilities-deprecated.$color-background;
-    margin: 4px 0 0 0;
-    max-height: 300px;
-    overflow-y: auto;
+  z-index: 2;
+  position: absolute;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid utilities-deprecated.$color-separator;
+  border-radius: 20px;
+  background-color: utilities-deprecated.$color-background;
+  margin: 4px 0 0 0;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .option:not(:last-child) {
-    border-bottom: 1px solid utilities-deprecated.$color-separator;
-    border-radius: 0;
+  border-bottom: 1px solid utilities-deprecated.$color-separator;
+  border-radius: 0;
 }
 
 .optionName {
-    padding-left: 8px;
+  padding-left: 8px;
 }
 
 .listOptionButton {
-    justify-content: center;
-    padding: 10px 0;
-    display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  display: flex;
 }
 
 .button {
-    @extend %text-small;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    height: 2.5rem;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    color: utilities-deprecated.$color-mention-grey;
-    padding: 0.375rem 0.375rem 0.375rem 0.75rem;
-    border: 1px solid utilities-deprecated.$neutral-grey;
-    border-radius: 20px;
+  @extend %text-interactive-medium;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  color: utilities-deprecated.$color-mention-grey;
+  padding: 0.375rem 0.375rem 0.375rem 0.75rem;
+  border: 1px solid utilities-deprecated.$neutral-grey;
+  border-radius: 20px;
 
-    &[aria-expanded=true] {
-        border: 1px solid transparent;
-        outline: 2px solid utilities-deprecated.$color-primary;
-        outline-offset: -2px;
-    }
+  &[aria-expanded=true] {
+    border: 1px solid transparent;
+    outline: 2px solid utilities-deprecated.$color-primary;
+    outline-offset: -2px;
+  }
 
-    &Invalid {
-        border: 1px solid transparent;
-        outline: 2px solid utilities-deprecated.$color-error;
-        outline-offset: -2px;
-    }
+  &Invalid {
+    border: 1px solid transparent;
+    outline: 2px solid utilities-deprecated.$color-error;
+    outline-offset: -2px;
+  }
 
-    span {
-        text-align: left;
-    }
+  span {
+    text-align: left;
+  }
 }
 
 .innerInput {
-    position: absolute;
-    pointer-events: none;
-    opacity: 0;
-    inset: 0;
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  inset: 0;
 }
 
 .selectedLabel {
-    color: utilities-deprecated.$color-on-background;
+  color: utilities-deprecated.$color-on-background;
 }
 
 .selectLabel {
-    display:block;
-    margin-bottom: 0.5rem;
+  @extend %label-champ;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 
 .inputError {
-    @extend %text-small;
-    padding-top: 0.25rem;
-    color: utilities-deprecated.$color-error;
+  @extend %text-small;
+  padding-top: 0.25rem;
+  color: utilities-deprecated.$color-error;
 }

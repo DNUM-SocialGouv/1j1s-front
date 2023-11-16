@@ -5,6 +5,8 @@
   color: utilities.$color-primary;
   margin-top: 2rem;
   margin-bottom: 1.5rem;
+  @extend %label-champ;
+
   @include utilities.media(large) {
     margin-top: 3.5rem;
   }

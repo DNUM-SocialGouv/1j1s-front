@@ -39,13 +39,13 @@ describe('Parcours formulaire entreprise', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"] > li').first().click();
 
 			cy.get('input[name="companySiret"]').type('41816609600069');
 			cy.get('input[name="companySector"]').type('admin');
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"] > li').first().click();
 			cy.get('button').contains('Exemple : 250 à 499 salariés').click();
-			cy.get('ul[role="listbox"]').first().click();
+			cy.get('ul[role="listbox"] > li').first().click();
 
 			cy.get('button').contains('Suivant').click();
 
@@ -73,7 +73,7 @@ describe('Parcours formulaire entreprise', () => {
 						prénom: 'jean',
 						secteur: 'public-administration',
 						siret: '41816609600069',
-						taille: 'small',
+						taille: 'xxsmall',
 						travail: 'rh',
 						téléphone: '0199999999',
 						ville: 'Paris',

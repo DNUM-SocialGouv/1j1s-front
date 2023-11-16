@@ -134,7 +134,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 
 	return (
 		<div className={styles.formInput}>
-			<label htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
+			<label className={styles.label} htmlFor="rechercherLocalisation" id={LOCALISATION_LABEL_ID}>Localisation</label>
 			<div ref={autocompleteRef}>
 				<div
 					id="header-search"

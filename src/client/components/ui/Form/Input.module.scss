@@ -1,14 +1,19 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
+@use "@styles/components/form/variables";
+
 
 .wrapper {
   font-family: inherit;
   position: relative;
 }
+
 .label {
+  @extend %label-champ;
   display: block;
   margin-bottom: 0.5rem;
 }
+
 .suggestionList {
   z-index: 2;
   position: absolute;
@@ -43,7 +48,7 @@
 
 .formControl {
   &Input {
-    @extend %text-small;
+    @extend %text-interactive-medium;
     font-family: inherit;
     width: 100%;
     height: 2.5rem;

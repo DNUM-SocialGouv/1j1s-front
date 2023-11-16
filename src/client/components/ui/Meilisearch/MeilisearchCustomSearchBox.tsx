@@ -55,7 +55,7 @@ export const MeilisearchCustomSearchBox = (props: MeilisearchCustomSearchBoxProp
 
 	return (
 		<div className={classNames(className)}>
-			<label htmlFor={inputRef.current}>{label}</label>
+			<label className={styles.label} htmlFor={inputRef.current}>{label}</label>
 			<span className={styles.customSearchBoxInputWrapper}>
 				<input
 					id={inputRef.current}

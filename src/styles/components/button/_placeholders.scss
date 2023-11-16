@@ -1,9 +1,9 @@
 @use "@styles/media/mixins";
+@use "@styles/typography/placeholders";
 
 %button {
   padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
-  line-height: 0.875rem;
+  @extend %text-interactive-medium;
 
   svg {
     height: 0.875rem;
@@ -12,8 +12,6 @@
 
   @include mixins.media(large) {
     padding: 0.75rem 1rem;
-    font-size: 1rem;
-    line-height: 1rem;
 
     svg {
       height: 1rem;
