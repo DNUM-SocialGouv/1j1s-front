@@ -1,7 +1,7 @@
 @use "@styles/media/mixins";
 @use "@styles/theme/variables.scss";
 
-%title-large {
+@mixin title-large {
   font-size: 1.5rem;
   line-height: 1.4;
 
@@ -10,7 +10,7 @@
   }
 }
 
-%title-medium {
+@mixin title-medium {
   font-size: 1.25rem;
   line-height: 1.2;
 
@@ -19,7 +19,7 @@
   }
 }
 
-%title-small {
+@mixin title-small {
   font-size: 1.125rem;
   line-height: 1.2;
 
@@ -33,30 +33,22 @@
   line-height: 1.2;
 }
 
-%text-large {
-  @include text-large
-}
-
 @mixin text-medium {
   font-size: 1rem;
   line-height: 1.2;
 }
 
-%text-medium {
-  @include text-medium;
-}
-
-%text-small {
+@mixin text-small {
   font-size: 0.875rem;
   line-height: 1.2;
 }
 
-%text-xsmall {
+@mixin text-xsmall {
   font-size: 0.75rem;
   line-height: 1.2;
 }
 
-%text-interactive-medium {
+@mixin text-interactive-medium{
   font-size: 0.875rem;
   line-height: 1.4;
 
@@ -80,10 +72,10 @@
 
 %headline {
   color: variables.$color-primary;
-  @extend %title-large;
+  @include title-large;
 }
 
 %subheading {
-  @extend %title-large;
+  @include title-large;
 }
 

@@ -16,7 +16,7 @@
 }
 
 .contenu {
-  @extend %text-large;
+  @include utilities.text-large;
   margin-top: 3rem;
   display: flex;
   flex-direction: column;

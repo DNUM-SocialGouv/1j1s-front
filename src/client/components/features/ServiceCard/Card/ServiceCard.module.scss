@@ -1,5 +1,5 @@
-@use "@styles/utilities";
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 @use "@styles/components/link/_placeholders.scss";
 
 $cards-list-background-color: utilities.$color-background-primary-alternative;
@@ -113,7 +113,7 @@ $card-border-color: utilities.$color-background-border;
     }
 
     & .cardTitle {
-      @extend %text-medium;
+      @include utilities.text-medium;
       @extend %bold;
       margin-bottom: 0.5rem;
     }

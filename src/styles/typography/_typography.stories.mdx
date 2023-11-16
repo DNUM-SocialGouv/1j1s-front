@@ -12,7 +12,7 @@ Pour utiliser une taille de typographie, on procède de la manière suivante :
 @use "@styles/utilities";
 
 .maClasse {
-  @extend %text-medium;
+  @include utilities.text-medium;
 }
 ```
 La taille sera alors conforme à la taille médium du Kit UI en desktop et en mobile.
@@ -40,11 +40,11 @@ La taille sera alors conforme à la taille médium du Kit UI en desktop et en mo
                 <h2>Textes</h2>
                 <div className="text-large">
                     <h2>Texte large</h2>
-                    <p>%text-large</p>
+                    <p>text-large</p>
                 </div>
                 <div className="text-medium">
                     <h2>Texte medium</h2>
-                    <p>%text-medium</p>
+                    <p>text-medium</p>
                 </div>
                 <div className="text-small">
                     <h2>Texte small</h2>

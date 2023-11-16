@@ -16,11 +16,11 @@ body {
 }
 
 .text-large {
-  @extend %text-large;
+  @include placeholders.text-large;
 }
 
 .text-small {
-  @extend %text-small;
+  @include placeholders.text-small;
 }
 
 .headline {

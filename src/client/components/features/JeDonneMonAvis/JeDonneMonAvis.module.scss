@@ -15,7 +15,7 @@ $color-mobile-border: utilities.$color-background-border;
   }
 
   & .text {
-    @extend %text-medium;
+    @include utilities.text-medium;
     @extend %bold;
 
     margin-bottom: 1.5rem;

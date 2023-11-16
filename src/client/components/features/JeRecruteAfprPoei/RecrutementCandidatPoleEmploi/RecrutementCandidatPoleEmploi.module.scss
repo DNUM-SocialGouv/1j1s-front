@@ -8,13 +8,13 @@ $color-title: utilities.$color-title-primary;
   gap: 2rem;
 
   & h1 {
-    @extend %title-large;
+    @include utilities.title-large;
     @extend %bold;
     color: $color-title;
   }
 
   & .footnote {
-    @extend %text-small;
+    @include utilities.text-small;
     text-align: left;
   }
 

@@ -48,7 +48,7 @@
 
 .formControl {
   &Input {
-    @extend %text-interactive-medium;
+    @include utilities.text-interactive-medium;
     font-family: inherit;
     width: 100%;
     height: 2.5rem;
@@ -76,7 +76,7 @@
     }
 
     &Hint {
-      @extend %text-small;
+      @include utilities.text-small;
       color: utilities-deprecated.$color-error;
     }
   }
@@ -90,7 +90,7 @@
   align-items: center;
 
   &Error {
-    @extend %text-small;
+    @include utilities.text-small;
     align-items: center;
     color: utilities-deprecated.$color-error;
 

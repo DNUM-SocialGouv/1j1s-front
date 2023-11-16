@@ -13,7 +13,7 @@
     height: 2.5rem;
 
     &Input {
-      @extend %text-interactive-medium;
+      @include utilities.text-interactive-medium;
       padding: 1rem;
       border: 1px solid utilities.$color-background-border;
       width: 100%;
@@ -22,7 +22,7 @@
     }
 
     &Unité {
-      @extend %text-interactive-medium;
+      @include utilities.text-interactive-medium;
       padding: 0 2rem;
       align-items: center;
       display: flex;

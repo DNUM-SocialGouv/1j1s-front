@@ -16,7 +16,7 @@ $border-width-compensation: calc($error-border-width - $border-width);
   padding: 0.5rem 1rem;
   border-radius: $border-radius;
   border: $border-width solid $color-border;
-  @extend %text-interactive-medium;
+  @include utilities.text-interactive-medium;
 
   &:disabled,
   &:read-only {

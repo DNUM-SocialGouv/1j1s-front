@@ -24,7 +24,7 @@
   color: $color-text;
 
   & input {
-    @extend %text-interactive-medium;
+    @include utilities.text-interactive-medium;
     background-color: transparent;
     padding: 0.5rem 1rem;
   }

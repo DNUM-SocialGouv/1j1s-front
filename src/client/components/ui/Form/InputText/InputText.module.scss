@@ -19,7 +19,7 @@
   }
 
   &Field {
-    @extend %text-interactive-medium;
+    @include utilities.text-interactive-medium;
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
@@ -49,7 +49,7 @@
   &Hint {
     padding-top: 0.25rem;
     color: utilities-deprecated.$color-primary;
-    @extend %text-small;
+    @include utilities.text-small;
     line-height: 1rem;
 
     &Error {

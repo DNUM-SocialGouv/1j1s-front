@@ -4,7 +4,7 @@ $color-title: utilities.$color-title-primary;
 
 .commentCaMarche {
   & h2 {
-    @extend %title-medium;
+    @include utilities.title-medium;
     @extend %bold;
     color: $color-title;
     margin-bottom: 1.25rem;

@@ -39,7 +39,7 @@ $color-cej-background: #ea711b;
 }
 
 .banniereAccroche {
-  @extend %text-large;
+  @include utilities.text-large;
   @extend %bold;
   margin-top: 1.5rem;
 
@@ -49,7 +49,7 @@ $color-cej-background: #ea711b;
 }
 
 .titre {
-  @extend %title-large;
+  @include utilities.title-large;
   @extend %bold;
 }
 

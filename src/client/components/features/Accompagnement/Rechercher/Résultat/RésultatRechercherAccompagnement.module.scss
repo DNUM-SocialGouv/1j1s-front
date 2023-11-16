@@ -48,11 +48,11 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
 
 .title {
   margin-bottom: 0.5rem;
-  @extend %text-medium;
+  @include utilities.text-medium;
 }
 
 .address {
-  @extend %text-medium;
+  @include utilities.text-medium;
 }
 
 .tags {
@@ -104,7 +104,7 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
   }
 
   .summary {
-    @extend %text-medium;
+    @include utilities.text-medium;
     margin-bottom: 0.5rem;
     font-weight: normal;
     padding: 0.5rem 0 0 0;
@@ -168,7 +168,7 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
   margin-block: 0.25rem;
   margin-inline: auto;
   width: 16rem;
-  @extend %text-small;
+  @include utilities.text-small;
 
   @include utilities.media(large) {
     margin-left: 0;

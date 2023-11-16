@@ -46,7 +46,7 @@
 }
 
 .button {
-  @extend %text-interactive-medium;
+  @include utilities.text-interactive-medium;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -94,7 +94,7 @@
 }
 
 .inputError {
-  @extend %text-small;
+  @include utilities.text-small;
   padding-top: 0.25rem;
   color: utilities-deprecated.$color-error;
 }

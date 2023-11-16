@@ -1,7 +1,7 @@
 @use "@styles/utilities";
 
 .stats {
-  @extend %text-large;
+  @include utilities.text-large;
 
   .nombreResultats {
     @extend %bold;
