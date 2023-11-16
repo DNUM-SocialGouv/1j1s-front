@@ -1,7 +1,7 @@
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 
 interface ConsulterOffreEmploiEuropeProps {
   annonceEmploiEurope: EmploiEurope

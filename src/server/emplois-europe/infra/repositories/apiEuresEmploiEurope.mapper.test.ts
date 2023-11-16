@@ -56,11 +56,11 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					}),
 					anEmploiEurope({
 						id: '2',
-						nomEntreprise: undefined,
-						pays: undefined,
-						titre: undefined,
+						nomEntreprise: 'La Pâtisserie',
+						pays: 'France',
+						titre: 'Pâtissier (H/F)',
 						urlCandidature: 'https://urlDeCandidature2.com',
-						ville: undefined,
+						ville: 'Paris',
 					}),
 				],
 			}));

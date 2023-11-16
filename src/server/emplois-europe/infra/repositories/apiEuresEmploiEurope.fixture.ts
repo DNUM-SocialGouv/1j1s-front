@@ -34,7 +34,7 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						header: {
 							handle: '2',
 						},
-						hrxml: '<PositionOpening></PositionOpening>',
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris'),
 					}),
 					related: anApiEuresEmploiEuropeDetailRelated({
 						urls: [{
