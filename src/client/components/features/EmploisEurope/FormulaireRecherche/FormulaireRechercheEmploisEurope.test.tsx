@@ -10,6 +10,7 @@ import {
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {
 	beforeEach(() => {
@@ -85,7 +86,8 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'typeContrat=apprenticeship&page=1' }, undefined, { shallow: true });
+
+				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
 			});
 		});
 	});
@@ -125,7 +127,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'typeContrat=apprenticeship&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
 			});
 		});
 	});

@@ -8,6 +8,7 @@ import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import { aResultatRechercheEmploiEuropeList } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { createSuccess } from '~/server/errors/either';
@@ -449,7 +450,7 @@ describe('RechercherEmploisEurope', () => {
 				codePays: 'ES',
 				libellePays: 'Espagne',
 				page: '1',
-				typeContrat: 'contract,apprenticeship',
+				typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
 			},
 		});
 

@@ -1,5 +1,8 @@
 import { paysEuropeList } from '~/client/domain/pays';
-import { EURES_CONTRACT_TYPE_NOT_SPECIFIED, typesContratEures } from '~/client/domain/typesContratEures';
+import {
+	EURES_CONTRACT_TYPE,
+	typesContratEures,
+} from '~/client/domain/typesContratEures';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
@@ -66,7 +69,7 @@ export class ApiEuresEmploiEuropeMapper {
 	};
 
 	private mapContractType(positionOfferingTypeCode: string) {
-		if (positionOfferingTypeCode === EURES_CONTRACT_TYPE_NOT_SPECIFIED)
+		if (positionOfferingTypeCode === EURES_CONTRACT_TYPE.NS)
 			return undefined;
 		return typesContratEures.find(
 			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCode)?.libellé;

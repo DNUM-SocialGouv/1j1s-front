@@ -1,3 +1,4 @@
+import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
@@ -258,7 +259,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			describe('si le type de contrat EURES est fourni', () => {
 				it('retourne un emploi avec le type de contrat en français selon le référentiel', () => {
 					// GIVEN
-					const apprenticeshipContractType = 'apprenticeship';
+					const apprenticeshipContractType = EURES_CONTRACT_TYPE.Apprenticeship;
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, apprenticeshipContractType);
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(

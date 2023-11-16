@@ -1,57 +1,71 @@
-export const EURES_CONTRACT_TYPE_NOT_SPECIFIED = 'NS';
+export enum EURES_CONTRACT_TYPE {
+	Apprenticeship = 'Apprenticeship',
+	Contract = 'Contract',
+	ContractToHire = 'ContractToHire',
+	DirectHire = 'DirectHire',
+	Internship = 'Internship',
+	OnCall = 'OnCall',
+	RecruitmentReserve = 'RecruitmentReserve',
+	Seasonal = 'Seasonal',
+	SelfEmployed = 'SelfEmployed',
+	Temporary = 'Temporary',
+	TemporaryToHire = 'TemporaryToHire',
+	Volunteer = 'Volunteer',
+	NS = 'NS',
+}
 
 export const typesContratEures = [
 	{
 		libellé: 'Apprentissage',
-		valeur: 'apprenticeship',
+		valeur: EURES_CONTRACT_TYPE.Apprenticeship,
 	},
 	{
 		libellé: 'Contrat déterminé',
-		valeur: 'contract',
+		valeur: EURES_CONTRACT_TYPE.Contract,
 	},
 	{
 		libellé: 'Contrat déterminé pour permanent',
-		valeur: 'contracttohire',
+		valeur: EURES_CONTRACT_TYPE.ContractToHire,
 	},
 	{
 		libellé: 'Embauche directe',
-		valeur: 'directhire',
+		valeur: EURES_CONTRACT_TYPE.DirectHire,
 	},
 	{
 		libellé: 'Stage',
-		valeur: 'internship',
+		valeur: EURES_CONTRACT_TYPE.Internship,
 	},
 	{
 		libellé: 'De garde / Sur appel',
-		valeur: 'oncall',
+		valeur: EURES_CONTRACT_TYPE.OnCall,
 	},
 	{
 		libellé: 'Réserve de recrutement',
-		valeur: 'recruitmentreserve',
+		valeur: EURES_CONTRACT_TYPE.RecruitmentReserve,
 	},
 	{
 		libellé: 'Saisonnier',
-		valeur: 'seasonal',
+		valeur: EURES_CONTRACT_TYPE.Seasonal,
 	},
 	{
 		libellé: 'Indépendant',
-		valeur: 'selfemployed',
+		valeur: EURES_CONTRACT_TYPE.SelfEmployed,
 	},
 	{
 		libellé: 'Temporaire',
-		valeur: 'temporary',
+		valeur: EURES_CONTRACT_TYPE.Temporary,
 	},
 	{
 		libellé: 'Temporaire pour permanent',
-		valeur: 'temporarytohire',
+		valeur: EURES_CONTRACT_TYPE.TemporaryToHire,
 	},
 	{
 		libellé: 'Bénévole',
-		valeur: 'volunteer',
+		valeur: EURES_CONTRACT_TYPE.Volunteer,
 	},
 	{
 		libellé: 'Non spécifié',
-		valeur: EURES_CONTRACT_TYPE_NOT_SPECIFIED,
+		valeur: EURES_CONTRACT_TYPE.NS,
 	},
 ];
 
