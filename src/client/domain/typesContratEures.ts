@@ -1,3 +1,5 @@
+export const EURES_CONTRACT_TYPE_NOT_SPECIFIED = 'NS';
+
 export const typesContratEures = [
 	{
 		libellé: 'Apprentissage',
@@ -49,6 +51,7 @@ export const typesContratEures = [
 	},
 	{
 		libellé: 'Non spécifié',
-		valeur: 'NS',
+		valeur: EURES_CONTRACT_TYPE_NOT_SPECIFIED,
 	},
 ];
+

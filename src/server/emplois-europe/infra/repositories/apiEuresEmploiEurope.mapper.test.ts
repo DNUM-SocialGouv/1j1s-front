@@ -278,6 +278,28 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// THEN
 					expect(result.typeContrat).toBe('Apprentissage');
 				});
+				it('retourne un emploi avec le type de contrat à undefined quand le type de contrat EURES est "NS" (non spécifié)', () => {
+					// GIVEN
+					const nsEuresContractType = 'NS';
+					const handle = 'eures-offer-id';
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, nsEuresContractType);
+					const aDetailItemWithNsContractType = anApiEuresEmploiEuropeDetailItem(
+						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml,
+						}) },
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithNsContractType]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.typeContrat).toBe(undefined);
+				});
 				it('retourne un emploi avec le type de contrat à undefined quand le type de contrat EURES n’est pas connu du référentiel', () => {
 					// GIVEN
 					const unknownEuresContractType = 'does not exist';
