@@ -65,7 +65,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('ajoute le titre de l’annonce au titre du document', async () => {
+	it('ajoute le titre de l’annonce au titre du document si le titre est donné', async () => {
 		const analyticsService = aManualAnalyticsService();
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' }); 
 			
@@ -76,6 +76,19 @@ describe('<ConsulterEmploiEurope />', () => {
 		);
 
 		expect(document.title).toContain('Bäcker');
+	});
+
+	it('ajoute un titre par default document si le titre n‘est pas donné', async () => {
+		const analyticsService = aManualAnalyticsService();
+		emploiEurope = anEmploiEurope({ titre: undefined });
+
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+			</DependenciesProvider>,
+		);
+
+		expect(document.title).toContain('Offre d’emploi sans titre');
 	});
 
 	it('affiche le titre de l’annonce', async () => {

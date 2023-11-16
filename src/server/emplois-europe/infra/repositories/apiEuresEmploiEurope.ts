@@ -13,17 +13,62 @@ export interface ApiEuresEmploiEuropeRechercheResponse {
 	}
 }
 
+export interface ApiEuresEmploiEuropeResponseJobVacancy {
+	header: {
+		handle: string;
+	},
+	hrxml: string;
+}
+
+export interface ApiEuresEmploiEuropeResponseRelated {
+	urls: Array<{
+		urlValue: string
+	}>
+}
+
 export interface ApiEuresEmploiEuropeDetailResponse {
 	data: {
-		items: Array<{
-			jobVacancy: {
-				header: {
-					handle: string;
-				},
-				hrxml: string;
-			}
-		}>
+		items: Array<ApiEuresEmploiEuropeDetailItem>
 	}
+}
+
+export interface ApiEuresEmploiEuropeDetailItem {
+	jobVacancy: ApiEuresEmploiEuropeResponseJobVacancy,
+	related: ApiEuresEmploiEuropeResponseRelated
+}
+
+namespace ApiEuresEmploiEuropeDetailXML {
+	export interface OrganizationIdentifiers {
+		OrganizationName?: string;
+	}
+
+	export interface PositionOrganization {
+		OrganizationIdentifiers?: OrganizationIdentifiers | Array<OrganizationIdentifiers>
+	}
+
+	export interface Address {
+		'ns2:CityName'?: string;
+		CountryCode?: string;
+	}
+
+	export interface PositionLocation {
+		Address?: Address | Array<Address>
+	}
+
+	export interface PositionProfile {
+		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
+		PositionTitle?: string;
+		PositionLocation?: PositionLocation | Array<PositionLocation>
+	}
+
+	export interface PositionOpening {
+		PositionProfile?: PositionProfile | Array<PositionProfile>
+	}
+}
+
+export interface ApiEuresEmploiEuropeDetailXML {
+	PositionOpening?: ApiEuresEmploiEuropeDetailXML.PositionOpening
+		| Array<ApiEuresEmploiEuropeDetailXML.PositionOpening>
 }
 
 export interface ApiEuresEmploiEuropeRechercheRequestBody {
@@ -46,33 +91,4 @@ export interface ApiEuresEmploiEuropeRechercheRequestBody {
 			}>;
 		};
 	};
-}
-
-namespace ApiEuresEmploiEuropeDetailXML {
-	export interface OrganizationIdentifiers {
-		OrganizationName?: string;
-	}
-	export interface PositionOrganization {
-		OrganizationIdentifiers?: OrganizationIdentifiers | Array<OrganizationIdentifiers>
-	}
-	export interface Address {
-		'ns2:CityName'?: string;
-		CountryCode?: string;
-	}
-	export interface PositionLocation {
-		Address?: Address | Array<Address>
-	}
-	export interface PositionProfile {
-		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
-		PositionTitle?: string;
-		PositionLocation?: PositionLocation | Array<PositionLocation>
-	}
-	export interface PositionOpening {
-		PositionProfile?: PositionProfile | Array<PositionProfile>
-	}
-}
-
-export interface ApiEuresEmploiEuropeDetailXML {
-	PositionOpening?: ApiEuresEmploiEuropeDetailXML.PositionOpening
-		| Array<ApiEuresEmploiEuropeDetailXML.PositionOpening>
 }
