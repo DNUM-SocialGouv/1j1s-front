@@ -24,19 +24,19 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailResponse {
+export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
 			items: [
-				anApiEuresEmploiEuropeRechercheItem(),
-				anApiEuresEmploiEuropeRechercheItem({
-					jobVacancy: anApiEuresEmploiEuropeRechercheJobVacancy({
+				anApiEuresEmploiEuropeDetailItem(),
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
 							handle: '2',
 						},
 						hrxml: '<PositionOpening></PositionOpening>',
 					}),
-					related: anApiEuresEmploiEuropeRechercheRelated({
+					related: anApiEuresEmploiEuropeDetailRelated({
 						urls: [{
 							urlValue: 'https://urlDeCandidature2.com',
 						}],
@@ -48,25 +48,25 @@ export function anApiEuresEmploiEuropeRechercheDetailResponse(itemsToAdd: Array<
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheItem(override?: Partial<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailItem {
+export function anApiEuresEmploiEuropeDetailItem(override?: Partial<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailItem {
 	return {
-		jobVacancy: anApiEuresEmploiEuropeRechercheJobVacancy(),
-		related: anApiEuresEmploiEuropeRechercheRelated(),
+		jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy(),
+		related: anApiEuresEmploiEuropeDetailRelated(),
 		...override,
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheJobVacancy(override?: Partial<ApiEuresEmploiEuropeResponseJobVacancy>): ApiEuresEmploiEuropeResponseJobVacancy {
+export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEuresEmploiEuropeResponseJobVacancy>): ApiEuresEmploiEuropeResponseJobVacancy {
 	return {
 		header: {
 			handle: '1',
 		},
-		hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
 		...override,
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheRelated(override?: Partial<ApiEuresEmploiEuropeResponseRelated>): ApiEuresEmploiEuropeResponseRelated {
+export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresEmploiEuropeResponseRelated>): ApiEuresEmploiEuropeResponseRelated {
 	return {
 		urls: [{
 			urlValue: 'https://urlDeCandidature.com',
@@ -75,7 +75,7 @@ export function anApiEuresEmploiEuropeRechercheRelated(override?: Partial<ApiEur
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
 	return `
 		<PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID

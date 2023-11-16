@@ -9,7 +9,7 @@ import {
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
-	anApiEuresEmploiEuropeRechercheDetailXMLResponse,
+	anApiEuresEmploiEuropeDetailXMLResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 
 describe('rechercher emplois en Europe', () => {
@@ -42,7 +42,7 @@ describe('rechercher emplois en Europe', () => {
 							header: {
 								handle: '1',
 							},
-							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 								'Boulanger (H/F)',
 								'La Boulangerie',
 								'FR',
@@ -55,7 +55,7 @@ describe('rechercher emplois en Europe', () => {
 							header: {
 								handle: '2',
 							},
-							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie'),
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie'),
 						},
 					},
 				],
