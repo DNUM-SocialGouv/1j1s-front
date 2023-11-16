@@ -63,6 +63,10 @@ section > *:not(last-child) {
 
   .text-interactive-example {
     width: min-content;
+
+    & .text-interactive-example-input{
+      margin-bottom: 1rem;
+    }
   }
 }
 
