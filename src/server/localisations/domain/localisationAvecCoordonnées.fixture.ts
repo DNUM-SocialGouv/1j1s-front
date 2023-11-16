@@ -10,26 +10,17 @@ export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoor
 	};
 }
 
-export function aRésultatsRechercheCommune(): RésultatsRechercheCommune {
+export function aRésultatsRechercheCommune(communeList: Array<Commune>): RésultatsRechercheCommune {
 	return {
-		résultats: aCommuneList(),
+		résultats: communeList ?? aCommuneList(),
 	};
 }
 
 
 export function aCommuneList(): Commune[] {
 	return [
-		{
-			code: '75056',
-			codePostal: '75006',
-			coordonnées: {
-				latitude: 48.859,
-				longitude: 2.347,
-			},
-			libelle: 'Paris (75006)',
-			ville: 'Paris',
-		},
-		{
+		aCommune(),
+		aCommune({
 			code: '75115',
 			codePostal: '75015',
 			coordonnées: {
@@ -38,6 +29,21 @@ export function aCommuneList(): Commune[] {
 			},
 			libelle: 'Paris 15e Arrondissement (75015)',
 			ville: 'Paris 15e Arrondissement',
-		},
+		}),
 	];
+}
+
+
+export function aCommune(override?: Partial<Commune>): Commune{
+	return {
+		code: '75056',
+		codePostal: '75006',
+		coordonnées: {
+			latitude: 48.859,
+			longitude: 2.347,
+		},
+		libelle: 'Paris (75006)',
+		ville: 'Paris',
+		...override,
+	};
 }
