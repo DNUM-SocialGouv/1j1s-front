@@ -26,6 +26,7 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		nomEntreprise: 'La Boulangerie',
 		pays: 'France',
 		titre: 'Boulanger (H/F)',
+		urlCandidature: 'https://urlDeCandidature.com',
 		ville: 'Paris',
 		...override,
 	};

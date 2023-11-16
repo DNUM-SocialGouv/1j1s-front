@@ -66,7 +66,6 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				view: 'FULL_NO_ATTACHMENT',
 			};
 			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
-
 			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, response.data);
 
 			return createSuccess(detailOffre);

@@ -1,3 +1,4 @@
+import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import {
 	anApiEuresEmploiEuropeRechercheDetailResponse,
 	anApiEuresEmploiEuropeRechercheDetailXMLResponse,
@@ -40,20 +41,20 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			expect(resultatRechercheEmploiEurope).toEqual({
 				nombreResultats: 2,
 				offreList: [
-					{
+					anEmploiEurope({
 						id: '1',
 						nomEntreprise: 'La Boulangerie',
 						pays: 'France',
 						titre: 'Boulanger (H/F)',
 						ville: 'Paris',
-					},
-					{
+					}),
+					anEmploiEurope({
 						id: '2',
 						nomEntreprise: undefined,
 						pays: undefined,
 						titre: undefined,
 						ville: undefined,
-					},
+					}),
 				],
 			});
 		});
@@ -105,13 +106,13 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				expect(resultatRechercheEmploiEurope).toEqual({
 					nombreResultats: 1,
 					offreList: [
-						{
+						anEmploiEurope({
 							id: '1',
 							nomEntreprise: 'La Boulangerie',
 							pays: 'France',
 							titre: 'Boulanger (H/F)',
 							ville: 'Paris',
-						},
+						}),
 					],
 				});
 			});
@@ -163,12 +164,12 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				expect(resultatRechercheEmploiEurope).toEqual({
 					nombreResultats: 1,
 					offreList: [
-						{
+						anEmploiEurope({
 							id: '1',
 							nomEntreprise: 'La Boulangerie',
 							pays: 'France',
 							titre: 'Boulanger (H/F)',
-						},
+						}),
 					],
 				});
 			});
@@ -221,12 +222,12 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				expect(resultatRechercheEmploiEurope).toEqual({
 					nombreResultats: 1,
 					offreList: [
-						{
+						anEmploiEurope({
 							id: '1',
 							nomEntreprise: 'La Boulangerie',
 							titre: 'Boulanger (H/F)',
 							ville: 'Paris',
-						},
+						}),
 					],
 				});
 			});
@@ -244,14 +245,14 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			const resultatRechercheEmploiEurope = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 			// Then
-			expect(resultatRechercheEmploiEurope).toEqual(
-				{
-					id: '1',
-					nomEntreprise: 'La Boulangerie',
-					pays: 'France',
-					titre: 'Boulanger (H/F)',
-					ville: 'Paris',
-				});
+			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
+				id: '1',
+				nomEntreprise: 'La Boulangerie',
+				pays: 'France',
+				titre: 'Boulanger (H/F)',
+				urlCandidature: 'https://urlDeCandidature.com',
+				ville: 'Paris',
+			}));
 		});
 	});
 });

@@ -1,50 +1,77 @@
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeRechercheRequestBody,
+	ApiEuresEmploiEuropeRechercheRequestBody, ApiEuresEmploiEuropeResponseJobVacancy, ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 
 export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
 		dataSetRequest: {
-			excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+			excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 			pageNumber: '1',
 			resultsPerPage: '15',
 			sortBy: 'BEST_MATCH',
 		},
 		searchCriteria: {
 			facetCriteria: [],
-			keywordCriteria :
+			keywordCriteria:
 				{
-					keywordLanguageCode : 'fr', keywords : [
-						{ keywordScope : 'EVERYWHERE', keywordText : motCle },
+					keywordLanguageCode: 'fr', keywords: [
+						{ keywordScope: 'EVERYWHERE', keywordText: motCle },
 					],
 				},
 		},
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheDetailResponse(): ApiEuresEmploiEuropeDetailResponse {
+export function anApiEuresEmploiEuropeRechercheDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
 			items: [
-				{
-					jobVacancy: {
-						header: {
-							handle: '1',
-						},
-						hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
-					},
-				},
-				{
-					jobVacancy: {
+				anApiEuresEmploiEuropeRechercheItem(),
+				anApiEuresEmploiEuropeRechercheItem({
+					jobVacancy: anApiEuresEmploiEuropeRechercheJobVacancy({
 						header: {
 							handle: '2',
 						},
 						hrxml: '<PositionOpening></PositionOpening>',
-					},
-				},
+					}),
+					related: anApiEuresEmploiEuropeRechercheRelated({
+						urls: [{
+							urlValue: 'https://urlDeCandidature2.com',
+						}],
+					}),
+				}),
+				...itemsToAdd,
 			],
 		},
+	};
+}
+
+export function anApiEuresEmploiEuropeRechercheItem(override?: Partial<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailItem {
+	return {
+		jobVacancy: anApiEuresEmploiEuropeRechercheJobVacancy(),
+		related: anApiEuresEmploiEuropeRechercheRelated(),
+		...override,
+	};
+}
+
+export function anApiEuresEmploiEuropeRechercheJobVacancy(override?: Partial<ApiEuresEmploiEuropeResponseJobVacancy>): ApiEuresEmploiEuropeResponseJobVacancy {
+	return {
+		header: {
+			handle: '1',
+		},
+		hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+		...override,
+	};
+}
+
+export function anApiEuresEmploiEuropeRechercheRelated(override?: Partial<ApiEuresEmploiEuropeResponseRelated>): ApiEuresEmploiEuropeResponseRelated {
+	return {
+		urls: [{
+			urlValue: 'https://urlDeCandidature.com',
+		}],
+		...override,
 	};
 }
 

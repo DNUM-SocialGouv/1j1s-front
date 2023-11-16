@@ -33,10 +33,10 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	public mapDetailOffre = (handle: string, responseDetail: ApiEuresEmploiEuropeDetailResponse): EmploiEurope => {
-		const itemDetailXML = responseDetail.data.items
-			.find((detail) =>
-				detail.jobVacancy.header.handle === handle)?.jobVacancy.hrxml;
-
+		const itemDetail = responseDetail.data.items
+			.find((detail) => detail.jobVacancy.header.handle === handle);
+		const itemDetailXML= itemDetail?.jobVacancy.hrxml;
+		
 		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
@@ -55,6 +55,7 @@ export class ApiEuresEmploiEuropeMapper {
 			nomEntreprise: organizationIdentifiers?.OrganizationName,
 			pays: country,
 			titre: positionProfile?.PositionTitle,
+			urlCandidature: itemDetail?.related.urls[0].urlValue,
 			ville: addressCityName,
 		};
 	};
