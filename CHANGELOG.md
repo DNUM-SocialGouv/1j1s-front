@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.182.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.181.0...v3.182.0) (2023-11-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stages3eme:** creation de la page et feature flip ([#2299](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2299)) ([2e294a8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2e294a8b32b1953b5b8bb944471103f57c93eb6d))
+
 ## [3.181.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.180.2...v3.181.0) (2023-11-16)
 
 
