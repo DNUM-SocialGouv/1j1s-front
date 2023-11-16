@@ -77,7 +77,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 						{label}
 						{tooltip && tooltip}
 						{necessity && (
-							<span className="text-small"> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
+							<span> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
 						)}
 					</label>
 				</>

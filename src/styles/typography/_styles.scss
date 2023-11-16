@@ -15,14 +15,6 @@ body {
   color: theme-variables.$color-text-primary;
 }
 
-.text-large {
-  @include placeholders.text-large;
-}
-
-.text-small {
-  @include placeholders.text-small;
-}
-
 .headline {
   @extend %headline;
 }
