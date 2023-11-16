@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.181.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.180.2...v3.181.0) (2023-11-16)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** modification de la police des champs ([#2300](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2300)) ([e0335b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e0335b165945a056967c39e12d19489af7d0fa82))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update all non-major dependencies ([#2310](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2310)) ([9e1eec5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9e1eec53abbf4d3a04f921add03306e49ac0793c))
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#2313](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2313)) ([e9874bf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e9874bf3bb9cf8411bc3c176179ea77cf54a2cab))
+* **deps:** update dependency eslint-config-next to v14.0.2 ([#2089](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2089)) ([ab8f7d2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ab8f7d2dbfdaaeb892eef8cd1b88bb7b6c52180d))
+* groupe les MR de dépendances non majeures 🤖 ([#2309](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2309)) ([30d8316](https://github.com/DNUM-SocialGouv/1j1s-front/commit/30d8316ac5bdd88b85ce6dbf96093bf4f93617fb))
+
 ## [3.180.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.180.1...v3.180.2) (2023-11-15)
 
 
