@@ -516,7 +516,6 @@ describe('RechercherEmploisEurope', () => {
 				expect(await screen.findByText('Offre d’emploi sans titre')).toBeVisible();
 			});
 		});
-
 		describe('chaque résultat affiche des informations sur l’offre', () => {
 			it('si le type de contrat est présent, affiche le type de contrat', async () => {
 				// GIVEN
@@ -558,7 +557,6 @@ describe('RechercherEmploisEurope', () => {
 				const tagTypeContrat = within(premierResultat).getByText('Embauche directe');
 				expect(tagTypeContrat).toBeVisible();
 			});
-
 			it('si le type de contrat n’est pas présent, n’affiche rien sur le type de contrat', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
@@ -599,7 +597,6 @@ describe('RechercherEmploisEurope', () => {
 				const tagTypeContrat = within(premierResultat).queryByText('Embauche directe');
 				expect(tagTypeContrat).not.toBeInTheDocument();
 			});
-			// SULI c'est peut être un test inutile, à voir demain
 		});
 	});
 });

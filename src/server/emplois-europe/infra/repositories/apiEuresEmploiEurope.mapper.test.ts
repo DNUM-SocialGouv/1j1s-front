@@ -254,5 +254,75 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				ville: 'Paris',
 			}));
 		});
+		describe('type de contrat', () => {
+			describe('si le type de contrat EURES est fourni', () => {
+				it('retourne un emploi avec le type de contrat en français selon le référentiel', () => {
+					// GIVEN
+					const apprenticeshipContractType = 'apprenticeship';
+					const handle = 'eures-offer-id';
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, apprenticeshipContractType);
+					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
+						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml,
+						}) },
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.typeContrat).toBe('Apprentissage');
+				});
+				it('retourne un emploi avec le type de contrat à undefined quand le type de contrat EURES n’est pas connu du référentiel', () => {
+					// GIVEN
+					const unknownEuresContractType = 'does not exist';
+					const handle = 'eures-offer-id';
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, unknownEuresContractType);
+					const aDetailItemWithUnknownContractType = anApiEuresEmploiEuropeDetailItem(
+						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml,
+						}) },
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithUnknownContractType]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.typeContrat).toBe(undefined);
+				});
+
+			});
+			it('retourne un emploi avec le type de contrat à undefined si le type de contrat EURES n’est pas fourni', () => {
+				// GIVEN
+				const handle = 'eures-offer-id';
+				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle,
+						},
+						hrxml: hrxmlWithoutPositionOfferingTypeCode,
+					}) },
+				);
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+				// WHEN
+				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+				// THEN
+				expect(result.typeContrat).toBe(undefined);
+			});
+		});
 	});
 });

@@ -1027,7 +1027,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise', 'FR', 'Paris'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', 'Nom Entreprise', 'FR', 'Paris', 'NS'),
 					},
 					related: {
 						urls: [
