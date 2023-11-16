@@ -1,3 +1,4 @@
+import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import {
 	anApiEuresEmploiEuropeDetailItem, anApiEuresEmploiEuropeDetailJobVacancy,
 	anApiEuresEmploiEuropeDetailResponse,
@@ -7,16 +8,12 @@ import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/reposi
 import {
 	ApiEuresEmploiEuropeRepository,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
-import {
-	mockResultatRechercheDetailApiEuresEmploiEurope,
-} from '~/server/emplois-europe/infra/repositories/mockEmploiEurope.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
-import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 
 let apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper;
 describe('ApiEuresEmploiEuropeRepository', () => {

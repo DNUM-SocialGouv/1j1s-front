@@ -5,7 +5,6 @@ import { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
-	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import {
@@ -13,9 +12,7 @@ import {
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
-	anApiEuresEmploiEuropeDetailItem,
-	anApiEuresEmploiEuropeDetailJobVacancy, anApiEuresEmploiEuropeDetailResponse,
-	anApiEuresEmploiEuropeDetailXMLResponse,
+	anApiEuresEmploiEuropeDetailResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 
 describe('rechercher emplois en Europe', () => {
