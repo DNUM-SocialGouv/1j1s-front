@@ -55,7 +55,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 		messageResultatRechercheLabelPluriel,
 		nombreDeSkeleton,
 		ariaLabelListeDesResultats,
-		resultatDeRecherche,
+		resultatDeRecherche ,
 		isAffichageListeDeResultatsDesktopDirectionRow,
 	} = props;
 
@@ -97,7 +97,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 							messageResultatRechercheLabelPluriel={messageResultatRechercheLabelPluriel}
 							nombreDeSkeleton={nombreDeSkeleton}
 							ariaLabelListeDesResultats={ariaLabelListeDesResultats}
-							resultatDeRecherche={resultatDeRecherche}
+							resultatDeRecherche={resultatDeRecherche as HitComponent<BaseHit>}
 							isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 							nombreDeResultatParPage={nombreDeResultatParPage}
 							scrollToTopOfListeDesResultats={scrollToTopOfListeDesResultats}
@@ -160,5 +160,5 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 			/>
 		</>
 	);
-}) as <THit extends BaseHit>(props: AfficherResultatDeRechercheWithScrollProps<THit>, outerRef: React.Ref<HTMLElement> | null) => React.ReactElement;
+}) ;
 
