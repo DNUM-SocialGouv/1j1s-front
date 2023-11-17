@@ -3,7 +3,7 @@
  */
 
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
@@ -12,10 +12,8 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { createSuccess } from '~/server/errors/either';
 import {
 	aCommune,
-	aCommuneList,
 	aRésultatsRechercheCommune,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
-import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ComboboxCommune/>', () => {
 	it('affiche le combobox', () => {
@@ -73,15 +71,42 @@ describe('<ComboboxCommune/>', () => {
 		expect(onChange).toHaveBeenCalledTimes(1);
 	});
 
-	it('accepte les propriétés du combobox', () => {
+	it('accepte une default value', () => {
 		const localisationService = aLocalisationService();
-		const onFocus = jest.fn();
 		render(<DependenciesProvider localisationService={localisationService}>
-			<ComboboxCommune onFocus={onFocus} defaultValue={'defaultValue'}/>
+			<ComboboxCommune defaultValue={'defaultValue'}/>
 		</DependenciesProvider>);
 		const combobox = screen.getByRole('combobox');
 
 		expect(combobox).toHaveValue('defaultValue');
+	});
+
+	it('accepte les propriétés du combobox', async () => {
+		const localisationService = aLocalisationService();
+		const onFocus = jest.fn();
+		render(<DependenciesProvider localisationService={localisationService}>
+			<ComboboxCommune onFocus={onFocus}/>
+		</DependenciesProvider>);
+		const combobox = screen.getByRole('combobox');
+
+		await userEvent.click(combobox);
+		expect(onFocus).toHaveBeenCalledTimes(1);
+	});
+
+	it('lorsque je tappe un caractère, la valeur de l‘input est mise à jour', async () => {
+		const user = userEvent.setup();
+		const localisationService = aLocalisationService({
+			rechercherCommune: jest.fn(),
+		});
+
+		render(<DependenciesProvider localisationService={localisationService}>
+			<ComboboxCommune label={'comboboxLabel'}/>
+		</DependenciesProvider>);
+		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+		await user.type(combobox, 'ab');
+
+		expect(combobox).toHaveValue('ab');
 	});
 
 	it('n‘appelle pas le service lorsque l‘utilisateur tappe moins de 3 charactères', async () => {
@@ -143,4 +168,74 @@ describe('<ComboboxCommune/>', () => {
 			expect(options[1]).toHaveTextContent('Toulon');
 		});
 	});
+
+	describe('lorsque je sélectionne une valeur valide', () => {
+		it('met à jour la valeur du code commune', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune([
+				aCommune({ code: '91000', libelle: 'Paris' }),
+			]);
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+			await user.type(combobox, 'abc');
+			await user.click(screen.getByText('Paris'));
+
+			const inputCode = screen.getByDisplayValue('91000');
+			expect(inputCode).toBeInTheDocument();
+		});
+
+		it('met à jour la valeur de la latitude', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune([
+				aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+			]);
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+			await user.type(combobox, 'abc');
+			await user.click(screen.getByText('Paris'));
+
+			const inputCode = screen.getByDisplayValue('1.23');
+			expect(inputCode).toBeInTheDocument();
+		});
+
+		it('met à jour la valeur de la longitude', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune([
+				aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+			]);
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+			await user.type(combobox, 'abc');
+			await user.click(screen.getByText('Paris'));
+
+			const inputCode = screen.getByDisplayValue('4.56');
+			expect(inputCode).toBeInTheDocument();
+		});
+	});
+
+	it.todo('accepte une ref')
+	it.todo('gestion des erreurs/invalide')
+	it.todo('debounce')
+	it.todo('ajout du message d‘asynchonisme')
 });

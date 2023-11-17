@@ -29,6 +29,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	}, [filter, inputValue, ref]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
+		console.log(`ici ?? ${event.currentTarget}`)
 		onOptionSelection(event.currentTarget);
 		if (onClickProps) {
 			onClickProps(event);
