@@ -10,7 +10,7 @@ export function aLocalisationAvecCoordonnéesRepository() : LocalisationAvecCoor
 	};
 }
 
-export function aRésultatsRechercheCommune(communeList: Array<Commune>): RésultatsRechercheCommune {
+export function aRésultatsRechercheCommune(communeList?: Array<Commune>): RésultatsRechercheCommune {
 	return {
 		résultats: communeList ?? aCommuneList(),
 	};

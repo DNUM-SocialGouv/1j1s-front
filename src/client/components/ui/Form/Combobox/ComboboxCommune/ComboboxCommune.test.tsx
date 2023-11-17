@@ -9,11 +9,17 @@ import { userEvent } from '@testing-library/user-event';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { createSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aCommune,
 	aRésultatsRechercheCommune,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
+
+const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des lieux. Veuillez réessayer plus tard.';
+const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';
+const MESSAGE_CHARGEMENT = 'Chargement ...';
+const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, puis sélectionnez votre localisation';
 
 describe('<ComboboxCommune/>', () => {
 	it('affiche le combobox', () => {
@@ -234,8 +240,101 @@ describe('<ComboboxCommune/>', () => {
 		});
 	});
 
-	it.todo('accepte une ref')
-	it.todo('gestion des erreurs/invalide')
-	it.todo('debounce')
-	it.todo('ajout du message d‘asynchonisme')
+	describe('Message d‘asynchonisme', () => {
+		it('affiche le message d‘aide quand il a intéragit avec le champ', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+
+
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+			await user.type(combobox, 'ab');
+
+			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_CHAMP_VIDE);
+		});
+
+		it('affiche le message de chargement quand les résultats sont en train de charger', async () => {
+			const user = userEvent.setup();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockReturnValue(new Promise(() => {}));
+
+
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+			await user.type(combobox, 'abc');
+
+			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_CHARGEMENT);
+		});
+
+		it('affiche le message d‘erreur quand la recherche a echouée', async () => {
+			const user = userEvent.setup();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+
+
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+			await user.type(combobox, 'abc');
+
+			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_ERREUR_FETCH);
+		});
+
+		it('affiche le message pas de résultat quand il n‘y a pas de résultat', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune([]);
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+
+
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+			await user.type(combobox, 'abc');
+
+			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_PAS_DE_RESULTAT);
+		});
+
+		it('n‘affiche pas de message quand la recherche est en succès avec des résultats', async () => {
+			const user = userEvent.setup();
+			const communeList = aRésultatsRechercheCommune();
+			const localisationService = aLocalisationService({
+				rechercherCommune: jest.fn(),
+			});
+			jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+
+
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune label={'comboboxLabel'}/>
+			</DependenciesProvider>);
+
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+			await user.type(combobox, 'abc');
+
+			expect(screen.getByRole('status')).toHaveTextContent(/^$/);
+		});
+	});
+
+	it.todo('accepte une ref');
+	it.todo('gestion des erreurs/invalide');
 });
