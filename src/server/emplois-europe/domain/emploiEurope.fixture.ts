@@ -4,17 +4,22 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 	return {
 		nombreResultats: 2,
 		offreList: [
-			{
+			anEmploiEurope({
 				id: '1',
 				nomEntreprise: 'La Boulangerie',
+				pays: 'France',
 				titre: 'Boulanger (H/F)',
+				urlCandidature: 'https://urlDeCandidature.com',
 				ville: 'Paris',
-			},
-			{
+			}),
+			anEmploiEurope({
 				id: '2',
 				nomEntreprise: 'La Pâtisserie',
+				pays: 'France',
 				titre: 'Pâtissier (H/F)',
-			},
+				urlCandidature: 'https://urlDeCandidature2.com',
+				ville: 'Paris',
+			}),
 		],
 		...override,
 	};
@@ -26,6 +31,7 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		nomEntreprise: 'La Boulangerie',
 		pays: 'France',
 		titre: 'Boulanger (H/F)',
+		urlCandidature: 'https://urlDeCandidature.com',
 		ville: 'Paris',
 		...override,
 	};

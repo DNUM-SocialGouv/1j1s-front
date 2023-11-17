@@ -1,54 +1,81 @@
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeRechercheRequestBody,
+	ApiEuresEmploiEuropeRechercheRequestBody, ApiEuresEmploiEuropeResponseJobVacancy, ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 
 export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
 		dataSetRequest: {
-			excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+			excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 			pageNumber: '1',
 			resultsPerPage: '15',
 			sortBy: 'BEST_MATCH',
 		},
 		searchCriteria: {
 			facetCriteria: [],
-			keywordCriteria :
+			keywordCriteria:
 				{
-					keywordLanguageCode : 'fr', keywords : [
-						{ keywordScope : 'EVERYWHERE', keywordText : motCle },
+					keywordLanguageCode: 'fr', keywords: [
+						{ keywordScope: 'EVERYWHERE', keywordText: motCle },
 					],
 				},
 		},
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheDetailResponse(): ApiEuresEmploiEuropeDetailResponse {
+export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
 			items: [
-				{
-					jobVacancy: {
-						header: {
-							handle: '1',
-						},
-						hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
-					},
-				},
-				{
-					jobVacancy: {
+				anApiEuresEmploiEuropeDetailItem(),
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
 							handle: '2',
 						},
-						hrxml: '<PositionOpening></PositionOpening>',
-					},
-				},
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris'),
+					}),
+					related: anApiEuresEmploiEuropeDetailRelated({
+						urls: [{
+							urlValue: 'https://urlDeCandidature2.com',
+						}],
+					}),
+				}),
+				...itemsToAdd,
 			],
 		},
 	};
 }
 
-export function anApiEuresEmploiEuropeRechercheDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
+export function anApiEuresEmploiEuropeDetailItem(override?: Partial<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailItem {
+	return {
+		jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy(),
+		related: anApiEuresEmploiEuropeDetailRelated(),
+		...override,
+	};
+}
+
+export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEuresEmploiEuropeResponseJobVacancy>): ApiEuresEmploiEuropeResponseJobVacancy {
+	return {
+		header: {
+			handle: '1',
+		},
+		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+		...override,
+	};
+}
+
+export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresEmploiEuropeResponseRelated>): ApiEuresEmploiEuropeResponseRelated {
+	return {
+		urls: [{
+			urlValue: 'https://urlDeCandidature.com',
+		}],
+		...override,
+	};
+}
+
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
 	return `
 		<PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID

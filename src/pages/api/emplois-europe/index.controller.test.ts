@@ -5,11 +5,14 @@ import { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
+	aResultatRechercheEmploiEuropeList,
+} from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
-	anApiEuresEmploiEuropeRechercheDetailXMLResponse,
+	anApiEuresEmploiEuropeDetailResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 
 describe('rechercher emplois en Europe', () => {
@@ -34,51 +37,9 @@ describe('rechercher emplois en Europe', () => {
 			},
 		};
 
-		const detailResult: ApiEuresEmploiEuropeDetailResponse = {
-			data: {
-				items: [
-					{
-						jobVacancy: {
-							header: {
-								handle: '1',
-							},
-							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse(
-								'Boulanger (H/F)',
-								'La Boulangerie',
-								'FR',
-								'Paris',
-							),
-						},
-					},
-					{
-						jobVacancy: {
-							header: {
-								handle: '2',
-							},
-							hrxml: anApiEuresEmploiEuropeRechercheDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie'),
-						},
-					},
-				],
-			},
-		};
+		const detailResult: ApiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
 
-		const expected: ResultatRechercheEmploiEurope = {
-			nombreResultats: 2,
-			offreList: [
-				{
-					id: '1',
-					nomEntreprise: 'La Boulangerie',
-					pays: 'France',
-					titre: 'Boulanger (H/F)',
-					ville: 'Paris',
-				},
-				{
-					id: '2',
-					nomEntreprise: 'La Pâtisserie',
-					titre: 'Pâtissier (H/F)',
-				},
-			],
-		};
+		const expected: ResultatRechercheEmploiEurope = aResultatRechercheEmploiEuropeList();
 
 		nock('https://webgate.acceptance.ec.europa.eu/eures-api/output/api/v1/jv/').post(
 			'/search',

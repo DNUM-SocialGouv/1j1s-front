@@ -47,7 +47,7 @@ describe('Page d‘accueil', () => {
 					<Accueil/>
 				</DependenciesProvider>,
 			);
-			
+
 			expect(marketingService.trackPage).not.toHaveBeenCalled();
 		});
 		it('track la page si le feature flipping de la page est activé',   () => {
@@ -59,6 +59,59 @@ describe('Page d‘accueil', () => {
 			);
 
 			expect(marketingService.trackPage).toHaveBeenCalledWith('2023-09-1jeune1solution.gouv-PageAccueil-Arrivees');
+		});
+	});
+
+	describe('la section offres', () => {
+		it('contient une carte de redirection vers les stages d’études', () => {
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres Plus de 20 000 offres de stages sélectionnées spécialement pour vous' } );
+			expect(redirectionVersStagesDEtudes).toBeVisible();
+			expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
+		});
+
+		describe('quand la feature stages de 3ème est activée', () => {
+			it('contient une carte de redirection vers les stages de 3ème', () => {
+				// GIVEN
+				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
+
+				// WHEN
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const redirectionVersStages3eme = screen.getByRole('link', { name: 'Stages de 3ème Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' } );
+				expect(redirectionVersStages3eme).toBeVisible();
+				expect(redirectionVersStages3eme).toHaveAttribute('href', '/stages-3eme');
+			});
+		});
+
+		describe('quand la feature stages de 3ème est désactivée', () => {
+			it('ne contient pas de carte de redirection vers les stages de 3ème', () => {
+				// GIVEN
+				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
+
+				// WHEN
+				render(
+					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const redirectionStage3eme = screen.queryByRole('link', { name: 'Stages de 3ème Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+				expect(redirectionStage3eme).not.toBeInTheDocument();
+			});
 		});
 	});
 

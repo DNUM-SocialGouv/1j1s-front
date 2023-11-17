@@ -1,9 +1,13 @@
-import { anApiEuresRechercheBody } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
-import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
-import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
+import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import {
-	mockResultatRechercheDetailApiEuresEmploiEurope,
-} from '~/server/emplois-europe/infra/repositories/mockEmploiEurope.repository';
+	anApiEuresEmploiEuropeDetailItem, anApiEuresEmploiEuropeDetailJobVacancy,
+	anApiEuresEmploiEuropeDetailResponse,
+	anApiEuresRechercheBody,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
+import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import {
+	ApiEuresEmploiEuropeRepository,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -42,7 +46,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				const body = {
 					dataSetRequest: {
-						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 						pageNumber: '1',
 						resultsPerPage: '15',
 						sortBy: 'BEST_MATCH',
@@ -69,7 +73,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				const body = {
 					dataSetRequest: {
-						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 						pageNumber: '1',
 						resultsPerPage: '15',
 						sortBy: 'BEST_MATCH',
@@ -78,7 +82,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 						facetCriteria: [
 							{
 								facetName: 'LOCATION',
-								facetValues: [ 'FR' ],
+								facetValues: ['FR'],
 							},
 						],
 					},
@@ -102,7 +106,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 				const body = {
 					dataSetRequest: {
-						excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 						pageNumber: '1',
 						resultsPerPage: '15',
 						sortBy: 'BEST_MATCH',
@@ -111,7 +115,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 						facetCriteria: [
 							{
 								facetName: 'POSITION_OFFERING',
-								facetValues: [ 'CDI' ],
+								facetValues: ['CDI'],
 							},
 						],
 					},
@@ -135,7 +139,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			const page = 22;
 			const body = {
 				dataSetRequest: {
-					excludedDataSources :  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
+					excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
 					pageNumber: `${page}`,
 					resultsPerPage: '15',
 					sortBy: 'BEST_MATCH',
@@ -201,24 +205,28 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 
-			const apiEuresEmploiEuropeDetailResponse = mockResultatRechercheDetailApiEuresEmploiEurope();
-			const handle = 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ';
+			const handle = 'test';
+			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle: handle,
+						},
+					}),
+				})]);
 
 			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
 			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
 
 			// When
-			const detail = await  repository.get(handle);
+			const detail = await repository.get(handle);
 
 			// Then
-			expect(detail).toEqual(createSuccess({
+			expect(detail).toEqual(createSuccess(anEmploiEurope({
 				id: handle,
-				nomEntreprise: 'Nom Entreprise',
-				pays: 'France',
-				titre: 'Nom Offre',
-				ville: 'Paris',
-			}));
-		});
+			})));
+		})
+		;
 
 		describe('quand l’api répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
@@ -243,5 +251,6 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				expect(errorType).toEqual(errorReturnedByErrorManagementService);
 			});
 		});
-	});
+	})
+	;
 });
