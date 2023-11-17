@@ -53,6 +53,14 @@ describe('Header', () => {
 				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 				expect(campagneApprentissageLink).toBeVisible();
 			});
+
+			it('verifie un alt au logo du header', () => {
+				mockUseRouter({ pathname: '/' });
+				render(<Header/>);
+				
+				const logo = screen.getByRole('img', { name: 'République Française, Liberté, Egalité, Fraternité' });
+				expect(logo).toBeInTheDocument();
+			});
 		});
 
 		describe('quand la page courante est "Accueil"', () => {
