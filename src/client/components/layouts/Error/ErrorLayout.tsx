@@ -25,7 +25,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 			<div>
 				{children}
 				<div className={styles.buttonWrapper}>
-					<BackButton aria-label="Retourner à la page précédente" label="Retourner à la page précédente" appearance="primary" className={styles.backButton}/>
+					<BackButton alwaysDisplay={true} aria-label="Retourner à la page précédente" label="Retourner à la page précédente" appearance="primary" className={styles.backButton}/>
 					<LinkStyledAsButton href="/" appearance="asSecondaryButton" className={styles.homeLink}>Aller à l‘accueil</LinkStyledAsButton>
 				</div>
 			</div>

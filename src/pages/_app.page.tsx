@@ -9,7 +9,7 @@ import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
-import useReferrer from '~/client/hooks/useReferrer';
+import useDisplayBackButton from '~/client/hooks/useDisplayBackButton';
 import useSessionId from '~/client/hooks/useSessionId';
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
@@ -24,7 +24,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
 	const dependenciesContainerInstance = useMemo(() => sessionId && dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
-	useReferrer();
+
+	useDisplayBackButton();
 
 	useEffect(() => {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];

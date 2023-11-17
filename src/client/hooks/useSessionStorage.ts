@@ -21,6 +21,6 @@ function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T
 		remove: () => setDefaultValue(null),
 		set: setDefaultValue,
 	};
-};
+}
 
 export default useSessionStorage;
