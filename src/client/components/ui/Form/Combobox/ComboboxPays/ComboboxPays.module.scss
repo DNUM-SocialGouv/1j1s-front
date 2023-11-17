@@ -4,6 +4,6 @@
 $color-nombre-resultats: utilities.$color-text-placeholder;
 
 .nombreResultats {
-  @extend %text-small;
+  @include utilities.text-small;
   color: $color-nombre-resultats;
 }

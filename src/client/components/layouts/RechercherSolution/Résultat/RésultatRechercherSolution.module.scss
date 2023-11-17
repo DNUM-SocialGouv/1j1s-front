@@ -63,16 +63,16 @@ $border-card-lead: 4px solid $color-card-lead-border;
 
     .title {
       @extend %bold;
-      @extend %title-small;
+      @include utilities.title-small;
     }
 
     .subtitle {
       min-height: 24px;
-      @extend %text-medium;
+      @include utilities.text-medium;
     }
 
     .description {
-      @extend %text-medium;
+      @include utilities.text-medium;
     }
   }
 

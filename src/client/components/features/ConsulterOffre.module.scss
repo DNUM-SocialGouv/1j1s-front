@@ -15,7 +15,8 @@
 
 .titre h2,
 .titre .sousTitre {
-  @extend %bold, %text-medium;
+  font-weight: bold;
+  @include utilities.text-medium;
 }
 
 .titre ul {

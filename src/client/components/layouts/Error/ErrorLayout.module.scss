@@ -9,12 +9,13 @@
 }
 
 .title {
-  @extend %title-large , %bold;
+  @include utilities.title-large;
+  @extend %bold;
   padding-bottom: 2.5rem;
 }
 
 .subtitle {
-  @extend %title-small;
+  @include utilities.title-small;
   margin-bottom: 1rem;
 }
 

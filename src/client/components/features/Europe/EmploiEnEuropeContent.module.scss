@@ -56,11 +56,11 @@
     }
 
     & .description {
-      @extend %text-large;
+      @include utilities.text-large;
     }
 
     & .information {
-      @extend %text-small;
+      @include utilities.text-small;
       display: grid;
       grid-template-columns: auto 1fr;
       gap: .5rem;
@@ -76,7 +76,7 @@
     --width: #{$single-column-width};
 
     & h2 {
-      @extend %title-small;
+      @include utilities.title-small;
       font-weight: bold;
       margin-bottom: 1.5rem;
     }
@@ -89,7 +89,7 @@
     --width: #{$double-column-width};
 
     & h2 {
-      @extend %title-medium;
+      @include utilities.title-medium;
       color: $color-titre-dispositifs;
       padding-bottom: 4rem;
       text-align: center;
@@ -107,7 +107,7 @@
       }
 
       & > li {
-        @extend %text-medium;
+        @include utilities.text-medium;
         background-color: $color-card-background;
         border: 1px solid $color-card-border;
         border-radius: 2.5rem;
@@ -119,7 +119,7 @@
         }
 
         > h3 {
-          @extend %title-small;
+          @include utilities.title-small;
           font-weight: bold;
           text-align: center;
         }

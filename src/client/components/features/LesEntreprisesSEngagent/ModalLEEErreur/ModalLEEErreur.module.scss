@@ -17,7 +17,7 @@ $subHeading-color: utilities.$color-primary;
   }
 
   & .heading {
-    @extend %title-small;
+    @include utilities.title-small;
     @extend %bold;
   }
 

@@ -43,7 +43,7 @@
   }
 
   p {
-    @extend %text-small;
+    @include utilities.text-small;
     @include utilities-deprecated.media(small) {
       font-size: 1rem;
       margin-bottom: utilities.pixel-to-rem(6);

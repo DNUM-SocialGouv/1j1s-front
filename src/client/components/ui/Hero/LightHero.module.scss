@@ -7,7 +7,7 @@ $color-texte-second-part: utilities.$color-secondary;
   text-align: center;
   padding: 3rem 1rem 2rem 1rem;
   // FIXME (GAFI 21-09-2023): Est-ce que c'est vraiment au Hero de dicter la taille du texte contenu ? (non)
-  @extend %title-large;
+  @include utilities.title-large;
   @extend %max-container;
 
   @include utilities.media(large) {

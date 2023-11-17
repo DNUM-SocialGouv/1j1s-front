@@ -3,8 +3,7 @@
 
 %button {
   padding: 0.5rem 0.75rem;
-  @extend %text-interactive-medium;
-
+  @include placeholders.text-interactive-medium;
   svg {
     height: 0.875rem;
     width: 0.875rem;

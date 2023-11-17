@@ -2,7 +2,7 @@
 @use '@styles/utilities';
 
 .enqueteBanner {
-  @extend %text-small;
+  @include utilities.text-small;
   text-align: center;
   background: utilities-deprecated.$white-lilac;
   color: utilities-deprecated.$color-primary;

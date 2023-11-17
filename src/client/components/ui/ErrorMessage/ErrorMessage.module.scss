@@ -2,13 +2,13 @@
 
 .errorMessage {
   padding: 1rem;
-  @extend %text-large;
+  @include utilities.text-large;
   & > * {
     display: block;
     margin-bottom: 1rem;
   }
   &Title {
-    @extend %title-medium;
+    @include utilities.title-medium;
     @extend %bold;
   }
 }

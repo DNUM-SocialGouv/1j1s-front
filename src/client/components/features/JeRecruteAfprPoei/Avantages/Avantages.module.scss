@@ -16,13 +16,13 @@ $sous-titre-color: utilities.$color-secondary;
       & .titre {
         color: $titre-color;
         @extend %bold;
-        @extend %title-medium;
+        @include utilities.title-medium;
       }
 
       & .sousTitre {
         margin-top: .5rem;
         color: $sous-titre-color;
-        @extend %title-small;
+        @include utilities.title-small;
       }
 
       & .listeAvantages {
