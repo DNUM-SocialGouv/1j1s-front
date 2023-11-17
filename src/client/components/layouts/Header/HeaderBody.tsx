@@ -23,7 +23,7 @@ export function HeaderBody() {
 				<div className={styles.headerBodyLogoWrapper}>
 					<Image
 						src="/images/logos/république-française.svg"
-						alt=""
+						alt="République Française, Liberté, Egalité, Fraternité"
 						width="88"
 						height="80"
 						aria-hidden="true"
