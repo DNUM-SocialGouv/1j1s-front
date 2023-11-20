@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.183.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.0...v3.183.1) (2023-11-19)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update all non-major dependencies to v7.3.0 (minor) ([#2312](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2312)) ([ff4a1ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ff4a1ff529154c52dc2ccbdb3e9336752cea53f6))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/react to v14.1.2 ([#2326](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2326)) ([180b11d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/180b11dfab9c80e4414b1a9523888770f044d2e5))
+* **deps:** update dependency @types/node to v18.18.10 ([01c86c1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/01c86c185676628800e3d845e7865bd65ff36530))
+* **deps:** update react monorepo ([#1995](https://github.com/DNUM-SocialGouv/1j1s-front/issues/1995)) ([423f6ba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/423f6babe32e5bfb5844c47f7ee43fe4f869164f))
+
 ## [3.183.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.182.0...v3.183.0) (2023-11-16)
 
 
