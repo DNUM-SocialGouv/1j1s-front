@@ -33,8 +33,7 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 		mockUseRouter({});
 	});
 
-	// TODO (GMO 2023-11-06) : Corriger le tooltip pour faire passer ce test
-	it.skip('doit rendre du HTML respectant la specification', () => {
+	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
 			<DependenciesProvider stageService={aStageService()}>
 				<DeposerOffreStageEtape3Page/>
