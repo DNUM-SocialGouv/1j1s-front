@@ -122,7 +122,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	return (
 		<FormulaireÉtapeLayout
-			étape="Etape 1 sur 3 : Votre entreprise"
+			étape="Étape 1 sur 3 : Votre entreprise"
 		>
 			<FormulaireEntreprise/>
 		</FormulaireÉtapeLayout>

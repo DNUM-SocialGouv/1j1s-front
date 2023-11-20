@@ -79,7 +79,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		it('voit la première étape de formulaire', () => {
 			renderComponent();
 
-			expect(screen.getByText('Etape 1 sur 2')).toBeVisible();
+			expect(screen.getByText('Étape 1 sur 2')).toBeVisible();
 			labelsEtape1.forEach((label) => {
 				expect(screen.getByText(label.name)).toBeVisible();
 			});
@@ -120,7 +120,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			await remplirFormulaireEtape1();
 			await clickOnGoToEtape2();
 
-			expect(screen.getByText('Etape 2 sur 2')).toBeVisible();
+			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
 			labelsEtape2.forEach((label) => {
 				expect(screen.getByRole('textbox', label)).toBeVisible();
 			});
@@ -134,7 +134,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				await clickOnGoToEtape2();
 				await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
 
-				expect(screen.getByText('Etape 1 sur 2')).toBeVisible();
+				expect(screen.getByText('Étape 1 sur 2')).toBeVisible();
 			});
 		});
 	});

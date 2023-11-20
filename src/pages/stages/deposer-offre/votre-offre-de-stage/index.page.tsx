@@ -12,7 +12,7 @@ export default function DeposerOffreStageEtape2Page() {
 	return (
 		<>
 			<Head
-				title={'Dépôt d’offre de stage - Etape 2 sur 3 : Votre offre de stage | 1jeune1solution'}
+				title={'Dépôt d’offre de stage - Étape 2 sur 3 : Votre offre de stage | 1jeune1solution'}
 				robots="index,follow"
 			/>
 			<main id="contenu">

@@ -22,7 +22,7 @@ describe('<Entreprise />', () => {
 		it('affiche la première étape de formulaire', () => {
 			render(<Entreprise />);
 
-			expect(screen.getByText('Etape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
+			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
 			expect(screen.getByLabelText('Nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
 			expect(screen.getByText('Adresse mail de contact')).toBeInTheDocument();
 			expect(screen.getByLabelText('Courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();

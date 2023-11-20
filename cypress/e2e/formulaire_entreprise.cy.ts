@@ -46,8 +46,7 @@ describe('Parcours formulaire entreprise', () => {
 
 			cy.findByRole('button', { name: /Suivant/i }).click();
 
-			// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-			cy.findByText('Etape 2 sur 2').should('be.visible');
+			cy.findByText('Étape 2 sur 2').should('be.visible');
 
 			cy.findByRole('textbox', { name: /Prénom/i }).type('Jean');
 			cy.findByRole('textbox', { name: /^Nom/i }).type('Dupont');

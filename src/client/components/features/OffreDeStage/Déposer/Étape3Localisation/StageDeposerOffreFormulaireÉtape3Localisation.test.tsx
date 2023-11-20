@@ -106,7 +106,7 @@ describe('<Localisation />', () => {
 				</DependenciesProvider>,
 			);
 
-			expect(screen.getByText('Etape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
+			expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
 			expect(screen.getByLabelText('Pays')).toBeInTheDocument();
 			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
 			expect(screen.getByLabelText('Adresse')).toBeInTheDocument();

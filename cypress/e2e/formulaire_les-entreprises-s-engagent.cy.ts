@@ -39,8 +39,7 @@ describe('Inscription', () => {
 	});
 	describe('quand l’utilisateur arrive sur la page', () => {
 		it('voit afficher la première étape de formulaire', () => {
-			// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-			cy.findByText('Etape 1 sur 2').should('be.visible');
+			cy.contains('Étape 1 sur 2').should('exist');
 			cy.title().should('eq', TITLE_ETAPE_1);
 		});
 	});
@@ -48,7 +47,7 @@ describe('Inscription', () => {
 		it('passe à l’étape 2', () => {
 			remplirFormulaireEtape1();
 			cy.findByRole('button', { name: /Suivant/i }).click();
-			cy.findByText('Etape 2 sur 2').should('be.visible');
+			cy.findByText('Étape 2 sur 2').should('be.visible');
 			cy.title().should('eq', TITLE_ETAPE_2);
 		});
 	});
@@ -58,8 +57,7 @@ describe('Inscription', () => {
 			cy.findByRole('button', { name: /Suivant/i }).click();
 			// FIXME (GAFI 06-11-2023): Devrait être un lien ?
 			cy.findByRole('button', { name: /Retour/i }).click();
-			// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-			cy.findByText('Etape 1 sur 2').should('be.visible');
+			cy.contains('Étape 1 sur 2').should('exist');
 			cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).should('have.value', 'OCTO Technology');
 			cy.findByRole('textbox', { name: /SIRET/i }).should('have.value', '41816609600069');
 			// FIXME (GAFI 06-11-2023): Devrait être role combobox

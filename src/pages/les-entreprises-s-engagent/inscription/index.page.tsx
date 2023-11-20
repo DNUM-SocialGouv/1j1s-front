@@ -45,8 +45,8 @@ interface FormulaireÉtape2Props {
 }
 
 enum Etape {
-	ETAPE_1 = 'Etape 1 sur 2',
-	ETAPE_2 = 'Etape 2 sur 2'
+	ETAPE_1 = 'Étape 1 sur 2',
+	ETAPE_2 = 'Étape 2 sur 2'
 }
 
 export const TITLE_ÉTAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
