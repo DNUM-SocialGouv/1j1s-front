@@ -57,8 +57,8 @@ describe('Header', () => {
 			it('verifie un alt au logo du header', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				
-				const logo = screen.getByRole('img', { name: 'République Française, Liberté, Egalité, Fraternité' });
+
+				const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
 				expect(logo).toBeInTheDocument();
 			});
 		});
