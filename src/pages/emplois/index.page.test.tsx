@@ -14,7 +14,20 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherOffreEmploiPage, { getServerSideProps } from '~/pages/emplois/index.page';
+import { createFailure, createSuccess } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
+import { dependencies } from '~/server/start';
+
+jest.mock('~/server/start', () => ({
+	dependencies: {
+		offreEmploiDependencies: {
+			rechercherOffreEmploi: {
+				handle: jest.fn(),
+			},
+		},
+	},
+}));
 
 describe('Page Emploi', () => {
 	describe('<RechercherOffreEmploiPage />', () => {
@@ -64,6 +77,10 @@ describe('Page Emploi', () => {
 	});
 
 	describe('getServerSideProps', () => {
+		beforeEach(() => {
+			jest.resetAllMocks();
+		});
+
 		describe('lorsque la recherche est lancée sans query params', () => {
 			it('retourne un résultat vide', async () => {
 				// GIVEN
@@ -78,6 +95,80 @@ describe('Page Emploi', () => {
 				expect(result).toEqual({
 					props: {},
 				});
+				expect(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('lorsque la recherche est lancée avec des query params', () => {
+			it('filtre les offres et retourne le résultat', async () => {
+				// GIVEN
+				(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle as jest.Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
+
+				const context = {
+					query: {
+						page: 1,
+					},
+				} as unknown as GetServerSidePropsContext;
+
+				// WHEN
+				const result = await getServerSideProps(context);
+
+				// THEN
+				expect(result).toEqual({
+					props: {
+						resultats: aRésultatsRechercheOffre(),
+					},
+				});
+				expect(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle).toHaveBeenCalledWith({
+					page: 1,
+				});
+			});
+
+			describe('lorsque la recherche retourne une erreur', () => {
+				it('retourne une erreur de service indisponible', async () => {
+					// GIVEN
+					(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					const context = {
+						query: {
+							page: 1,
+						},
+					} as unknown as GetServerSidePropsContext;
+
+					// WHEN
+					const result = await getServerSideProps(context);
+
+					// THEN
+					expect(result).toEqual({
+						props: {
+							erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
+						},
+					});
+					expect(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle).toHaveBeenCalledWith({
+						page: 1,
+					});
+				});
+			});
+		});
+
+		describe('lorsque la recherche est lancée avec des query params invalides', () => {
+			it('retourne une erreur de demande incorrecte', async () => {
+				// GIVEN
+				const context = {
+					query: {
+						page: 'invalid',
+					},
+				} as unknown as GetServerSidePropsContext;
+
+				// WHEN
+				const result = await getServerSideProps(context);
+
+				// THEN
+				expect(result).toEqual({
+					props: {
+						erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE,
+					},
+				});
+				expect(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle).not.toHaveBeenCalled();
 			});
 		});
 	});

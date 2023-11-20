@@ -26,6 +26,7 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { Erreur } from '~/server/errors/erreur.types';
 import {
 	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
@@ -37,6 +38,7 @@ const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
 interface RechercherOffreEmploiProps {
+	erreurRecherche?: Erreur
 	resultats?: RésultatsRechercheOffre
 }
 
@@ -46,6 +48,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${props.resultats?.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`);
 	const offreEmploiList = props.resultats?.résultats || [];
 	const nombreRésultats = props.resultats?.nombreRésultats || 0;
+	const erreurRecherche = props.erreurRecherche;
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${nombreRésultats}`];
@@ -70,7 +73,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 			<main id="contenu">
 				<RechercherSolutionLayout
 					bannière={<BannièreOffreEmploi/>}
-					erreurRecherche={undefined}
+					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={<EtiquettesFiltreOffreEmploi/>}
 					formulaireRecherche={<FormulaireRechercheOffreEmploi/>}
 					isLoading={false}

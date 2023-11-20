@@ -1,8 +1,6 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import { stringify } from 'querystring';
-
 import {
 	aBarmanOffre, aRésultatEchantillonOffre,
 } from '~/server/offres/domain/offre.fixture';
@@ -88,12 +86,7 @@ describe('Page de recherche d’emplois', () => {
 
 	context('quand l’utilisateur arrive sur la page avec une recherche déjà renseignée', () => {
 		it('rempli le formulaire avec la recherche', () => {
-			cy.intercept(
-				'/_next/data/development/emplois.json?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&grandDomaine=M&page=1',
-				JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
-			).as('recherche-emplois');
-			cy.visit('/emplois?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&grandDomaine=M&page=1');
-			cy.wait('@recherche-emplois');
+			cy.visit('/emplois?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&experienceExigence=E&grandDomaine=B&page=1');
 
 			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
 			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
@@ -112,13 +105,7 @@ describe('Page de recherche d’emplois', () => {
 
 	context('quand les paramètres de l’url ne respectent pas le schema de validation du controller', () => {
 		it('retourne une erreur de demande incorrecte', () => {
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.visit('/emplois?page=67'),
-				alias: 'recherche-emplois-failed',
-				path:'/api/emplois?page=67',
-				response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
-				statusCode: 400,
-			});
+			cy.visit('/emplois?page=67');
 
 			cy.findByText('Erreur - Demande incorrecte').should('exist');
 		});
