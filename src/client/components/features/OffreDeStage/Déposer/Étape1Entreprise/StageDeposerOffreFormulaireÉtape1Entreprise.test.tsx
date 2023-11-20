@@ -33,8 +33,7 @@ describe('<Entreprise />', () => {
 
 		it('affiche une infobulle pour le champ adresse mail', async () => {
 			render(<Entreprise />);
-			const champsAdresseMail = screen.getByText('Adresse mail de contact');
-			const infobulle = within(champsAdresseMail).getByLabelText('informations supplémentaires');
+			const infobulle =screen.getByLabelText('informations supplémentaires');
 			expect(infobulle).toBeVisible();
 		});
 

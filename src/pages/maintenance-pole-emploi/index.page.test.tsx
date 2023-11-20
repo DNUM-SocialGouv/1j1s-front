@@ -14,6 +14,7 @@ import Page from '~/pages/maintenance-pole-emploi/index.page';
 
 describe('<Page />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
+		mockSmallScreen();
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<Page />
 		</DependenciesProvider> );
