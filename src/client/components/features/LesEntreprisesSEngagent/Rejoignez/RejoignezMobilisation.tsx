@@ -15,7 +15,7 @@ export default function RejoignezMobilisation() {
 			</div>
 			<LightHero className={styles.initiativeJeuneTitle}>
 				<h1>
-					<div className={styles.initiativeJeuneQuestion}>Votre entreprise recrute ou porte une initiative pour les jeunes ?</div>
+					<span className={styles.initiativeJeuneQuestion}>Votre entreprise recrute ou porte une initiative pour les jeunes ?</span>
 					<LightHeroPrimaryText>Rejoignez la mobilisation !</LightHeroPrimaryText>
 				</h1>
 			</LightHero>

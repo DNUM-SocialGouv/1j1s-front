@@ -12,8 +12,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
 
 describe('<LesEntreprisesSEngagent />', () => {
-	// TODO fix le HTML
-	it.todo('doit rendre du HTML respectant la specification', () => {
+	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<LesEntreprisesSEngagent/>
 		</DependenciesProvider> );
