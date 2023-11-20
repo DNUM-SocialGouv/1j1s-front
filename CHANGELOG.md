@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.183.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.2...v3.183.3) (2023-11-20)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update docusaurus monorepo to v3 (major) ([#2247](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2247)) ([1bda28a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1bda28a72721c7d4b63d39ab8d35821f7eba2327))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint to v8.54.0 ([#2325](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2325)) ([2be9539](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2be953900bc3705a1e9c7a1221bb12449d5caa55))
+
 ## [3.183.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.1...v3.183.2) (2023-11-20)
 
 
