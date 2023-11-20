@@ -26,6 +26,14 @@ describe('Header', () => {
 			expect(header).toBeInTheDocument();
 		});
 
+		it('affiche le logo de la République Française', () => {
+			mockUseRouter({ pathname: '/' });
+			render(<Header/>);
+
+			const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
+			expect(logo).toBeInTheDocument();
+		});
+
 		describe('quand on ouvre la navigation', () => {
 			it('affiche la navigation', async () => {
 				mockUseRouter({ pathname: '/' });
@@ -52,14 +60,6 @@ describe('Header', () => {
 				// THEN
 				const campagneApprentissageLink = screen.getByRole('link', { name: 'Découvrir et trouver sa voie avec l’apprentissage' });
 				expect(campagneApprentissageLink).toBeVisible();
-			});
-
-			it('verifie un alt au logo du header', () => {
-				mockUseRouter({ pathname: '/' });
-				render(<Header/>);
-
-				const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
-				expect(logo).toBeInTheDocument();
 			});
 		});
 
