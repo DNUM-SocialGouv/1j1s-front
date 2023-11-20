@@ -20,8 +20,7 @@ describe('MentoratPage', () => {
 		jest.clearAllMocks();
 	});
 
-	// TODO fixer le HTML pour faire passer ce test
-	it.todo('doit rendre du HTML respectant la specification', () => {
+	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<MentoratPage/>
 		</DependenciesProvider> );

@@ -81,9 +81,9 @@ export default function MentoratPage() {
 				<div className={classNames(styles.contentContainer)}>
 					<article className={styles.RaisonParticipationMentoratWrapper}>
 						<div className={styles.RaisonParticipationMentoratContent}>
-							<span className={styles.RaisonParticipationMentoratContent__Title}>
+							<div className={styles.RaisonParticipationMentoratContent__Title}>
 								<h1>Pourquoi participer à l’aventure du mentorat ?</h1>
-							</span>
+							</div>
 							<SeeMoreMobileOnly
 							  numberOfVisibleItems={0}
 								itemList={[<RaisonParticipationsMentorat key={0}/>]}
