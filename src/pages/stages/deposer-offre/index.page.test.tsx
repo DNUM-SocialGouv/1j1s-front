@@ -13,7 +13,7 @@ import DeposerOffreStagePage from '~/pages/stages/deposer-offre/index.page';
 
 describe('<DeposerOffreStagePage />', () => {
 	// TODO fixer le HTML
-	it.todo('doit rendre du HTML respectant la specification', () => {
+	it('doit rendre du HTML respectant la specification', () => {
 		mockUseRouter({});
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
