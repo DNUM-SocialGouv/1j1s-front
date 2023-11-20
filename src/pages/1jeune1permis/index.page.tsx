@@ -23,14 +23,14 @@ export async function getServerSideProps(): Promise<GetServerSidePropsResult<Rec
 
 export default function UnJeuneUnPermis() {
 
-	const [iframeHeight, setIframeHeight] = useState<string | undefined>(undefined);
+	const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
 
-	const onMessage = (event: MessageEvent<{ type: string; size: string }>) => {
+	const onMessage = (event: MessageEvent<{ type: string; height: number }>) => {
 		if (event.origin !== DOMAINE_1JEUNE_1PERMIS || typeof event.data !== 'object' || !event.data.type) {
 			return;
 		}
 		if (event.data.type === 'resize-iframe') {
-			setIframeHeight(event.data.size);
+			setIframeHeight(event.data.height);
 		}
 	};
 

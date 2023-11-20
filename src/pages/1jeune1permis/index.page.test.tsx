@@ -89,14 +89,14 @@ describe('1jeune1permis', () => {
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
 		fireEvent(window, new MessageEvent('message',
 			{ data: {
-				size: '2000px',
+				height: 2000,
 				type: 'resize-iframe',
 			},
 			origin: DOMAINE_1JEUNE_1PERMIS }),
 		);
 
 		// Then
-		expect(iframe).toHaveAttribute('height', '2000px');
+		expect(iframe).toHaveAttribute('height', '2000');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un evenement de type resize-iframe', async () => {
@@ -107,7 +107,7 @@ describe('1jeune1permis', () => {
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
 		fireEvent(window, new MessageEvent('message',
 			{ data: {
-				size: '2000px',
+				height: 2000,
 				type: 'do-not-resize-iframe',
 			},
 			origin: DOMAINE_1JEUNE_1PERMIS }),
@@ -142,7 +142,7 @@ describe('1jeune1permis', () => {
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
 		fireEvent(window, new MessageEvent('message',
 			{ data: {
-				size: '0px',
+				height: 2000,
 				type: 'resize-iframe',
 			},
 			origin: 'http://domaine-tres-malicieux.ninja' }),
