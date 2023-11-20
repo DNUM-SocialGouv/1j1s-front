@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.183.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.1...v3.183.2) (2023-11-20)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update all non-major dependencies ([#2321](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2321)) ([90b326b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/90b326b130cba1125a5636959ba4935127ceeb1f))
+
 ## [3.183.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.0...v3.183.1) (2023-11-19)
 
 
