@@ -1,10 +1,11 @@
 /// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
 
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 import { interceptGet } from '../interceptGet';
 
-describe('Parcours service civique', () => {
+context('Parcours service civique', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 		cy.visit('/service-civique');
@@ -12,12 +13,14 @@ describe('Parcours service civique', () => {
 
 	context('quand l‘utilisateur choisi un domaine', () => {
 		it('affiche la liste des résultats', () => {
-			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			// FIXME (GAFI 06-11-2023): Devrait être role combobox
+			cy.findByRole('button', { name: /Domaine/i }).click();
+			cy.findAllByRole('option').first().click();
 
 			interceptGet(
 				{
-					actionBeforeWaitTheCall: () => cy.get('input[name="libelleCommune"]').type('paris', { force: true }),
+					// FIXME (GAFI 06-11-2023): Devrait être role combobox
+					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Localisation/i }).type('paris'),
 					alias: 'recherche-communes',
 					path: '/api/communes*',
 					response: JSON.stringify({ résultats: [
@@ -34,27 +37,31 @@ describe('Parcours service civique', () => {
 					] } ),
 				},
 			);
-			cy.get('ul[role="listbox"]').first().click();
+			cy.findAllByRole('option').first().click();
 
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+				actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
 				alias: 'recherche-services-civique',
 				path: '/api/services-civique*',
 				response: JSON.stringify(aRésultatRechercheMission()),
 			});
 
-			cy.get('ul[aria-label="Offre pour le service civique"] > li').should('have.length', 2);
-			cy.get('ul[aria-label="Offre pour le service civique"] > li').first().should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
+			cy.findByRole('list', { name: /Offre pour le service civique/i }).children().should('have.length', 2);
+			cy.findByRole('list', { name: /Offre pour le service civique/i })
+				.children()
+				.first()
+				.should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
 		});
 	});
 
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
 		it('navigue vers le détail de l‘offre', () => {
-			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"]').first().click();
+			// FIXME (GAFI 06-11-2023): Devrait être role combobox
+			cy.findByRole('button', { name: /Domaine/i }).click();
+			cy.findAllByRole('option').first().click();
 
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.get('button').contains('Rechercher').click(),
+				actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
 				alias: 'recherche-services-civique',
 				path: '/api/services-civique*',
 				response: JSON.stringify(aRésultatRechercheMission()),
@@ -62,14 +69,20 @@ describe('Parcours service civique', () => {
 
 			const id = aRésultatRechercheMission().résultats[0].id;
 			interceptGet({
-				actionBeforeWaitTheCall: () => cy.get('ul[aria-label="Offre pour le service civique"] > li a').first().click(),
+				actionBeforeWaitTheCall: () => (
+					cy.findByRole('list', { name: /Offre pour le service civique/i })
+						.children()
+						.first()
+						.within(() => cy.findByRole('link', { name: /En savoir plus/i }).click())
+				),
 				alias: 'get-services-civique',
 				path: `/_next/data/*/service-civique/${id}.json?id=${id}`,
 				response: JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }),
 			});
 
-			cy.get('h1').should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
-			cy.get('ul[aria-label="Caractéristiques de la mission"]').should('be.visible');
+			cy.findByRole('heading', { level: 1 })
+				.should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
+			cy.findByRole('list', { name: /Caractéristiques de la mission/i }).should('be.visible');
 		});
 	});
 });
