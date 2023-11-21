@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { ReactElement, ReactNode, useEffect } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
 
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -22,6 +22,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
+	const dependenciesContainerInstance = useMemo(() => sessionId && dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
 	useReferrer();
 
@@ -43,8 +44,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 				<meta name="description" content="Toutes les solutions pour l‘avenir des jeunes"/>
 			</Head>
 			{
-				sessionId && (
-					<DependenciesProvider {...dependenciesContainer(sessionId)}>
+				dependenciesContainerInstance && (
+					<DependenciesProvider {...dependenciesContainerInstance}>
 						{getLayout(<Component {...pageProps} />)}
 					</DependenciesProvider>
 				)

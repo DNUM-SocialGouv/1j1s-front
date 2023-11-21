@@ -3,7 +3,7 @@ import { SendEventForHits } from 'instantsearch.js/es/lib/utils/createSendEventF
 import { BaseHit } from 'instantsearch.js/es/types/results';
 import singletonRouter from 'next/router';
 import React, { useRef } from 'react';
-import { Configure, Hits, InstantSearch, useInstantSearch } from 'react-instantsearch';
+import { Configure, Hits, InstantSearch, useInstantSearch, useStats } from 'react-instantsearch';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -131,6 +131,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 
 	const { status, results } = useInstantSearch();
 	const isSettingUp: boolean = results.__isArtificial ?? false;
+	const { nbHits } = useStats();
 
 	const ref = useSynchronizedRef(outerRef);
 
@@ -144,7 +145,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 						labelSingulier={messageResultatRechercheLabelSingulier}
 						labelPluriel={messageResultatRechercheLabelPluriel}
 						isLoading={isInstantSearchLoading}
-						numberOfResult={results.nbHits}
+						numberOfResult={nbHits}
 					/>
 				</Container>
 			</section>
