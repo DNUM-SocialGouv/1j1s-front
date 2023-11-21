@@ -2,9 +2,12 @@ import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import styles from '~/client/components/ui/Form/Input.module.scss';
+import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
+import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import { isSuccess } from '~/server/errors/either';
+import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 import { Combobox } from '../index';
@@ -25,6 +28,7 @@ type ComboboxCommuneProps = {
 		latitude?: string
 		longitude?: string
 	}
+	defaultDistance?: string
 } & ComboboxPropsWithOmit
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
@@ -32,6 +36,7 @@ const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération 
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, puis sélectionnez votre localisation';
+const DEFAULT_RADIUS_VALUE = '10';
 
 export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref) {
 	const {
@@ -39,6 +44,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		id: idProps,
 		onChange: onChangeProps = doNothing,
 		defaultCommune: defaultCommuneProps,
+		defaultDistance: defaultDistanceProps,
 		debounceTimeout = 0,
 		'aria-describedby': ariaDescribedby = '',
 		onInvalid: onInvalidProps = doNothing,
@@ -54,16 +60,17 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		longitude: defaultCommuneProps?.longitude ?? '',
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
+	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
 	const [fieldError, setFieldError] = useState<string | null>(null);
 
 	const errorId = useId();
 	const id = useId();
 	const inputId = idProps ?? id;
 
-	function isUserInputValid(commune: string) {
-		return commune.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+	function isUserInputValid(userInput: string) {
+		return userInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}
-
+	
 	function updateSupplementaryCommuneInformation(communeFound: Commune) {
 		setCommune({
 			code: communeFound?.code ?? '',
@@ -105,7 +112,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	function isPasDeResultat() {
 		return communeList.length === 0;
 	}
-	
+
 	function communeOptionMatchingWithUserInput(userInput: string, communeList: Array<Commune>) {
 		return communeList.find((commune) => userInput === commune.libelle);
 	}
@@ -116,7 +123,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				{label}
 			</label>
 			<Combobox
-				name="libelleCommune"
+				valueName="libelleCommune"
 				ref={ref}
 				filter={Combobox.noFilter}
 				aria-label={label}
@@ -155,6 +162,13 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			<input type="hidden" name="codeCommune" value={commune.code}/>
 			<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
 			<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
+			{!fieldError && commune.code && <Select
+				label="Rayon"
+				name="distanceCommune"
+				optionList={radiusList}
+				onChange={setDistanceCommune}
+				value={distanceCommune}
+	  />}
 		</div>
 	);
 });

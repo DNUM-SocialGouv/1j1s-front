@@ -11,6 +11,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { radiusList } from '~/server/localisations/domain/localisation';
 import {
 	aCommune,
 	aRésultatsRechercheCommune,
@@ -20,6 +21,7 @@ const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération 
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, puis sélectionnez votre localisation';
+const DEFAULT_RADIUS_VALUE = '10';
 
 describe('<ComboboxCommune/>', () => {
 	it('affiche le combobox', () => {
@@ -95,6 +97,23 @@ describe('<ComboboxCommune/>', () => {
 			expect(screen.getByDisplayValue('2.2')).toBeInTheDocument();
 			expect(screen.getByDisplayValue('48.8')).toBeInTheDocument();
 			expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+		});
+
+		it('accepte une default distance', () => {
+			const localisationService = aLocalisationService();
+			const radiusExpected = radiusList[1]
+			render(<DependenciesProvider localisationService={localisationService}>
+				<ComboboxCommune defaultCommune={{
+					code: '75056',
+					latitude: '48.8',
+					libelle: 'Paris 15e Arrondissement (75015)',
+					longitude: '2.2',
+				}} defaultDistance={radiusExpected.valeur}/>
+			</DependenciesProvider>);
+			const radiusInput = screen.getByRole('textbox', { name: 'Rayon' });
+
+			expect(radiusInput).toHaveValue(radiusExpected.valeur);
+			expect(radiusInput).toHaveDisplayValue(radiusExpected.libellé);
 		});
 
 		it('accepte un aria-describedBy', () => {
@@ -192,6 +211,18 @@ describe('<ComboboxCommune/>', () => {
 		await user.type(combobox, 'ab');
 
 		expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
+	});
+
+	it('n‘affiche pas l‘input de sélection du rayon', () => {
+		const localisationService = aLocalisationService({
+			rechercherCommune: jest.fn(),
+		});
+		render(<DependenciesProvider localisationService={localisationService}>
+			<ComboboxCommune label={'comboboxLabel'}/>
+		</DependenciesProvider>);
+
+		expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
+		expect(screen.queryByDisplayValue(DEFAULT_RADIUS_VALUE)).not.toBeInTheDocument();
 	});
 
 	describe('lorsque je fais une recherche avec au moins 3 caractères', () => {
@@ -321,6 +352,77 @@ describe('<ComboboxCommune/>', () => {
 
 				const inputCode = screen.getByDisplayValue('4.56');
 				expect(inputCode).toBeInTheDocument();
+			});
+
+			describe('selection du radius', () => {
+				it('affiche le bouton de sélection du radius avec sa valeur par default', async () => {
+					const user = userEvent.setup();
+					const communeList = aRésultatsRechercheCommune([
+						aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					]);
+					const localisationService = aLocalisationService({
+						rechercherCommune: jest.fn(),
+					});
+					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+					render(<DependenciesProvider localisationService={localisationService}>
+						<ComboboxCommune label={'comboboxLabel'}/>
+					</DependenciesProvider>);
+					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+					await user.type(combobox, 'abc');
+					await user.click(screen.getByText('Paris'));
+
+					expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
+					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeVisible();
+				});
+
+				it('quand on sélectionne un rayon, le rayon est sélectionné', async () => {
+					const user = userEvent.setup();
+					const radiusToSelect = radiusList[1];
+					const communeList = aRésultatsRechercheCommune([
+						aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+					]);
+					const localisationService = aLocalisationService({
+						rechercherCommune: jest.fn(),
+					});
+					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+					render(<DependenciesProvider localisationService={localisationService}>
+						<ComboboxCommune label={'comboboxLabel'}/>
+					</DependenciesProvider>);
+					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+					await user.type(combobox, 'abc');
+					await user.click(screen.getByText('Paris'));
+
+					const rayonSelect = screen.getByRole('button', { name: 'Rayon' });
+					await user.click(rayonSelect);
+					await user.click(screen.getByRole('option', { name: radiusToSelect.libellé }));
+
+					expect(screen.getByDisplayValue(radiusToSelect.valeur)).toBeVisible();
+				});
+			});
+
+			it('lorsque le combobox est invalide après avoir été valide, le bouton de sélection du rayon n‘apparait pas', async () => {
+				const user = userEvent.setup();
+				const communeList = aRésultatsRechercheCommune([
+					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+				]);
+				const localisationService = aLocalisationService({
+					rechercherCommune: jest.fn(),
+				});
+				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune required/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox');
+
+				await user.type(combobox, 'abc');
+				await user.click(screen.getByText('Paris'));
+				await user.tab();
+
+				await user.clear(combobox);
+
+				expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
 			});
 		});
 
