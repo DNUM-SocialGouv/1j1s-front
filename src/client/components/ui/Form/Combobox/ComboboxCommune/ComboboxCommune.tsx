@@ -28,7 +28,7 @@ const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisi
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, puis sélectionnez votre localisation';
 
-export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref ) {
+export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref) {
 	const {
 		label = 'Localisation',
 		id: idProps,
@@ -36,17 +36,18 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		defaultValue = '',
 		debounceTimeout = 0,
 		'aria-describedby': ariaDescribedby = '',
-		onInvalid: onInvalidProps= doNothing,
+		onInvalid: onInvalidProps = doNothing,
 		...rest
-	}= props;
+	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [communeList, setCommuneList] = useState<Array<Commune>>([]);
 	const [userInput, setUserInput] = useState<string>(defaultValue);
-	const [commune, setCommune]= useState<Commune>('')
-	const [codeCommune, setCodeCommune] = useState<string>('');
-	const [latitudeCommune, setLatitudeCommune] = useState<string>('');
-	const [longitudeCommune, setLongitudeCommune] = useState<string>('');
+	const [commune, setCommune] = useState<{ code: string, latitude: string, longitude: string }>({
+		code: '',
+		latitude: '',
+		longitude: '',
+	});
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [fieldError, setFieldError] = useState<string | null>(null);
 
@@ -65,7 +66,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			setCommuneList(response.result.résultats ?? []);
 		} else {
 			setStatus('failure');
-			// TODO (BRUJ 16/11/2023): rajouter la gestion d‘erreur
 		}
 	}, [localisationService]);
 
@@ -82,9 +82,11 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 
 	useEffect(function updateSupplementaryInformation() {
 		const communeFound = communeList.find((commune) => userInput === commune.libelle);
-		setCodeCommune(communeFound?.code ?? '');
-		setLatitudeCommune(communeFound?.coordonnées.latitude.toString() ?? '');
-		setLongitudeCommune(communeFound?.coordonnées.longitude.toString() ?? '');
+		setCommune({
+			code: communeFound?.code ?? '',
+			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
+			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
+		});
 	}, [communeList, userInput]);
 
 	useEffect(() => {
@@ -117,7 +119,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					onChangeProps(event, newValue);
 				}}
 				aria-describedby={`${ariaDescribedby} ${errorId}`}
-				onInvalid={(event)=>{
+				onInvalid={(event) => {
 					onInvalidProps(event);
 					setFieldError(event.currentTarget.validationMessage);
 				}}
@@ -139,9 +141,9 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				}</Combobox.AsyncMessage>
 			</Combobox>
 			<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
-			<input type="hidden" name="codeCommune" value={codeCommune}/>
-			<input type="hidden" name="latitudeCommune" value={latitudeCommune}/>
-			<input type="hidden" name="longitudeCommune" value={longitudeCommune}/>
+			<input type="hidden" name="codeCommune" value={commune.code}/>
+			<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
+			<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
 		</div>
 	);
 });
