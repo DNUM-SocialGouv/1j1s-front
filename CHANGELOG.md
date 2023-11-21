@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.184.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.4...v3.184.0) (2023-11-21)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois-europe:** afficher le tag de type de contrat ([#2315](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2315)) ([64ff0c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/64ff0c7527e1b270e919b6b2cf4e1b6651860152))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency redis to v4.6.11 ([#2336](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2336)) ([8557eef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8557eef8fbc60cc7344cf80f0cb0ff7d21d9a475))
+
 ## [3.183.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.3...v3.183.4) (2023-11-21)
 
 
