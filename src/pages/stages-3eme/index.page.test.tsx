@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 
 import Stages3emePage, { getServerSideProps } from './index.page';
 
@@ -38,9 +39,11 @@ describe('Page stages de 3ème', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
+					stage3emeService={aStage3emeService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
 			await expect(container).toBeAccessible();
 		});
 
@@ -48,9 +51,12 @@ describe('Page stages de 3ème', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
+					stage3emeService={aStage3emeService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
+
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
 
 			const pageHeading = screen.getByRole('heading', {
 				level: 1,
@@ -59,15 +65,18 @@ describe('Page stages de 3ème', () => {
 			expect(pageHeading).toBeVisible();
 		});
 
-		it('envoie les analytics', () => {
+		it('envoie les analytics', async () => {
 			const analyticsService = aManualAnalyticsService();
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
+					stage3emeService={aStage3emeService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>,
 			);
+
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
 
 			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'contenu_liste_niv_1',

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { PropsWithChildren, useId } from 'react';
+import React, { PropsWithChildren, ReactNode, useId } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -13,7 +13,7 @@ type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string;
 	intituléLienOffre?: string;
-	sousTitreOffre?: string;
+	sousTitreOffre?: string | ReactNode;
 	étiquetteOffreList: string[];
 } & LogoProps
 

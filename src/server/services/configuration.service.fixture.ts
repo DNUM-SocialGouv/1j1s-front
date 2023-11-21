@@ -17,6 +17,8 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_EURES_BASE_URL: 'https://webgate.acceptance.ec.europa.eu/eures-api/output/api/v1/jv/',
 			API_EURES_IS_MOCK_ACTIVE: false,
 			API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
+			API_IMMERSION_FACILE_STAGE_3EME_API_KEY: 'API_IMMERSION_FACILE_STAGE_3EME_API_KEY',
+			API_IMMERSION_FACILE_STAGE_3EME_URL: 'https://api.immersion-facile.beta.gouv.fr/v1/',
 			API_LA_BONNE_ALTERNANCE_CALLER: '1jeune-1solution-test',
 			API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.beta.gouv.fr/api/',
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',

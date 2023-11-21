@@ -174,6 +174,16 @@ import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
 } from '~/server/sitemap/configuration/dependencies.container';
+import {
+	Stage3emeDependencies,
+	stage3emeDependenciesContainer,
+} from '~/server/stage-3eme/configuration/dependencies.container';
+import {
+	getApiImmersionFacileStage3emeConfig,
+} from '~/server/stage-3eme/configuration/stage-3eme/stage3emeHttpClient.config';
+import {
+	ApiImmersionFacileStage3emeRepository,
+} from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.repository';
 
 export type Dependencies = {
 	ficheMetierDependencies: FicheMetierDependencies;
@@ -196,6 +206,7 @@ export type Dependencies = {
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
+	stage3emeDependencies: Stage3emeDependencies;
 }
 
 export function dependenciesContainer(): Dependencies {
@@ -328,6 +339,13 @@ export function dependenciesContainer(): Dependencies {
 		? emploiEuropeDependenciesContainer(new MockEmploiEuropeRepository(apiEuresEmploiEuropeMapper))
 		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
+	const stage3emeHttpClientService = new PublicHttpClientService(getApiImmersionFacileStage3emeConfig(serverConfigurationService));
+	const apiImmersionFacileStage3emeRepository = new ApiImmersionFacileStage3emeRepository(
+		stage3emeHttpClientService,
+		defaultErrorManagementService,
+	);
+	const stage3emeDependencies = stage3emeDependenciesContainer(apiImmersionFacileStage3emeRepository);
+
 	return {
 		alternanceDependencies,
 		cmsDependencies,
@@ -348,6 +366,7 @@ export function dependenciesContainer(): Dependencies {
 		offreJobÉtudiantDependencies,
 		robotsDependencies,
 		sitemapDependencies,
+		stage3emeDependencies,
 		établissementAccompagnementDependencies,
 	};
 }

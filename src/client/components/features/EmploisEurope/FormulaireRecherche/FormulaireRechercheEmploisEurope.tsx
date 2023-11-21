@@ -116,6 +116,7 @@ export function FormulaireRechercheEmploisEurope() {
 	return (
 		<form
 			ref={rechercheEmploiEuropeForm}
+			role="search"
 			className={styles.rechercheOffreForm}
 			aria-label="Rechercher une offre d'emploi en Europe"
 			onSubmit={updateRechercherEmploiEuropeQueryParams}

@@ -1,6 +1,6 @@
 import { GetServerSidePropsResult } from 'next';
 
-import RechercherStages3eme from '~/client/components/features/Stages3eme/RechercherStages3eme';
+import RechercherStages3eme from '~/client/components/features/Stages3eme/Rechercher/RechercherStages3eme';
 import useAnalytics from '~/client/hooks/useAnalytics';
 
 import analytics from './index.analytics';

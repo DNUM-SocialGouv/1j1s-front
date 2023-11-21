@@ -29,7 +29,7 @@ describe('RechercherEmploisEurope', () => {
 					<RechercherEmploisEurope/>
 				</DependenciesProvider>,
 			);
-			const formulaireRechercheEmploisEurope = screen.getByRole('form');
+			const formulaireRechercheEmploisEurope = screen.getByRole('search');
 
 			// THEN
 			expect(formulaireRechercheEmploisEurope).toBeVisible();
