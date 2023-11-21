@@ -8,7 +8,6 @@ import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCo
 import {
 	ComboboxMetiers,
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';

@@ -5,7 +5,6 @@ import styles from '~/client/components/ui/Form/Input.module.scss';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 import { isSuccess } from '~/server/errors/either';
 import { radiusList } from '~/server/localisations/domain/localisation';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';

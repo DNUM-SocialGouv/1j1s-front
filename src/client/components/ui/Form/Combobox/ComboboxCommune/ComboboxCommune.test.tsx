@@ -101,7 +101,7 @@ describe('<ComboboxCommune/>', () => {
 
 		it('accepte une default distance', () => {
 			const localisationService = aLocalisationService();
-			const radiusExpected = radiusList[1]
+			const radiusExpected = radiusList[1];
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune defaultCommune={{
 					code: '75056',
@@ -110,10 +110,8 @@ describe('<ComboboxCommune/>', () => {
 					longitude: '2.2',
 				}} defaultDistance={radiusExpected.valeur}/>
 			</DependenciesProvider>);
-			const radiusInput = screen.getByRole('textbox', { name: 'Rayon' });
 
-			expect(radiusInput).toHaveValue(radiusExpected.valeur);
-			expect(radiusInput).toHaveDisplayValue(radiusExpected.libellé);
+			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeVisible();
 		});
 
 		it('accepte un aria-describedBy', () => {
