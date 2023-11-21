@@ -2,6 +2,9 @@ export interface Stage3eme {
 	nomEntreprise: string
 	adresse: Stage3eme.Adresse
 	domaine: string
+	nombreDeSalaries?: string
+	candidatureSpontanee: boolean
+	modeDeContact?: string
 }
 
 export namespace Stage3eme {

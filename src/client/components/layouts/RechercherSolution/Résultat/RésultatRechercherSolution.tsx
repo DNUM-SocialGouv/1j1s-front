@@ -14,7 +14,7 @@ type RésultatRechercherSolutionProps = {
 	intituléOffre: string;
 	intituléLienOffre?: string;
 	sousTitreOffre?: string | ReactNode;
-	étiquetteOffreList: string[];
+	étiquetteOffreList: Array<string | undefined>;
 } & LogoProps
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {

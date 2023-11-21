@@ -9,6 +9,9 @@ export interface ApiImmersionFacileStage3emeRechercheResponse {
 		streetNumberAndAddress: string
 	}
 	romeLabel: string
+	contactMode?: string
+	numberOfEmployeeRange?: string
+	voluntaryToImmersion?: boolean
 }
 
 export const apiImmersionFacileStage3emeSchemas = {
