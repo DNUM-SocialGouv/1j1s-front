@@ -1,11 +1,14 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import {
-	aBarmanOffre, aRésultatEchantillonOffre,
-} from '~/server/offres/domain/offre.fixture';
+import { stringify } from 'querystring';
 
-import { interceptGet } from '../interceptGet';
+import { Success } from '../../src/server/errors/either';
+import { Offre, RésultatsRechercheOffre } from '../../src/server/offres/domain/offre';
+import {
+	getOffreRepositoryMockResults,
+	searchOffreRepositoryMockResults,
+} from '../../src/server/offres/infra/repositories/mockOffre.repository';
 
 describe('Page de recherche d’emplois', () => {
 	beforeEach(() => {
@@ -14,82 +17,68 @@ describe('Page de recherche d’emplois', () => {
 
 	context('Parcours standard', () => {
 		it('affiche 15 résultats par défaut', () => {
-			cy.intercept(
-				'/_next/data/development/emplois.json?page=1',
-				JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
-			).as('recherche-emplois');
+			const expectedResult = searchOffreRepositoryMockResults({ page: 1 }) as Success<RésultatsRechercheOffre>;
+
 			cy.visit('/emplois');
-			cy.wait('@recherche-emplois');
 
 			cy.findByRole('list', { name: /Offres d‘emplois/i })
 				.children()
-				.should('have.length', 15);
+				.should('have.length', expectedResult.result.résultats.length);
 			cy.findByRole('list', { name: /Offres d‘emplois/i })
 				.children()
 				.first()
-				.should('contain.text', 'Barman / Barmaid (H/F)');
+				.should('contain.text', expectedResult.result.résultats[0].intitulé);
 		});
 
 		context('quand l‘utilisateur rentre un mot clé', () => {
 			it('filtre les résultats par mot clé', () => {
-				cy.intercept(
-					'/_next/data/development/emplois.json?page=1',
-					JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
-				).as('recherche-emplois');
-				cy.intercept(
-					'/_next/data/development/emplois.json?motCle=barman&page=1',
-					JSON.stringify({ pageProps: { resultats: { nombreRésultats: 1, résultats: [aBarmanOffre()] } } }),
-				).as('recherche-emplois2');
+				const expectedResult = searchOffreRepositoryMockResults({ motClé: 'barman', page: 1 }) as Success<RésultatsRechercheOffre>;
+
 				cy.visit('/emplois');
-				cy.wait('@recherche-emplois');
 
-				cy.findByRole('textbox', { name: /Métier, mot-clé/i }).type('barman'),
-				interceptGet({
-					actionBeforeWaitTheCall: () =>
-						cy.findByRole('button', { name: /Rechercher/i }).click(),
-					alias: 'recherche-emplois2',
-					path: '/api/emplois*',
-					response: JSON.stringify({ nombreRésultats: 1, résultats: [aBarmanOffre()] }),
-				});
+				cy.findByRole('textbox', { name: /Métier, mot-clé/i }).type('barman');
 
-				cy.findByRole('list', { name: /Offres d‘emplois/i }).children().should('have.length', 1);
+				cy.findByRole('button', { name: /Rechercher/i }).click();
+
+				cy.findByRole('list', { name: /Offres d‘emplois/i })
+					.children()
+					.should('have.length', expectedResult.result.résultats.length);
 			});
 		});
 
 		context('quand l‘utilisateur veut sélectionner la première offre', () => {
 			it('navigue vers le détail de l‘offre', () => {
-				cy.intercept(
-					'/_next/data/development/emplois.json?page=1',
-					JSON.stringify({ pageProps: { resultats: aRésultatEchantillonOffre() } }),
-				).as('recherche-emplois');
+				const expectedResult = getOffreRepositoryMockResults() as Success<Offre>;
+
 				cy.visit('/emplois');
-				cy.wait('@recherche-emplois');
 
-				const id = aBarmanOffre().id;
+				cy.findByRole('list', { name: /Offres d‘emplois/i })
+					.children()
+					.first()
+					.click();
 
-				interceptGet({
-					actionBeforeWaitTheCall: () => (
-						cy.findByRole('list', { name: /Offres d‘emplois/i })
-							.children()
-							.first()
-							.click()
-					),
-					alias: 'get-emplois',
-					path: `/_next/data/*/emplois/${id}.json?id=${id}`,
-					response: JSON.stringify({ pageProps: { offreEmploi: aBarmanOffre() } }),
-				});
-
-				cy.findByRole('heading', { level: 1 }).should('contain.text', 'Barman / Barmaid (H/F)');
+				cy.findByRole('heading', { level: 1 }).should('contain.text', expectedResult.result.intitulé);
 			});
 		});
 	});
 
 	context('quand l’utilisateur arrive sur la page avec une recherche déjà renseignée', () => {
 		it('rempli le formulaire avec la recherche', () => {
-			cy.visit('/emplois?motCle=Informatique&nomLocalisation=Paris&codeLocalisation=75&typeLocalisation=DEPARTEMENT&typeDeContrats=CDI&tempsDeTravail=tempsPartiel&experienceExigence=E&grandDomaine=B&page=1');
+			const query = {
+				codeLocalisation: '75',
+				experienceExigence: 'E',
+				grandDomaine: 'B',
+				motCle: 'Informatique',
+				nomLocalisation: 'Paris',
+				tempsDeTravail: 'tempsPartiel',
+				typeDeContrats: 'CDI',
+				typeLocalisation: 'DEPARTEMENT',
+			};
 
-			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', 'Informatique');
-			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', 'Paris (75)');
+			cy.visit(`/emplois?${stringify(query)}`);
+
+			cy.findByRole('textbox', { name: /Métier, Mot-clé/i }).should('have.value', query.motCle);
+			cy.findByRole('combobox', { name: /Localisation/i }).should('have.value', `${query.nomLocalisation} (${query.codeLocalisation})`);
 
 			cy.findByRole('button', { name: /Filtrer ma recherche/i }).click();
 
