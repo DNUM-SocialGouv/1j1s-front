@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
+import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';
@@ -9,6 +10,8 @@ import { Commune } from '~/server/localisations/domain/localisationAvecCoordonn�
 import { Combobox } from '../index';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
+type ComboboxRef = React.ComponentRef<typeof Combobox>;
+
 type ComboboxPropsWithOmit = Omit<ComboboxProps, 'label' | 'defaultValue'>
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 
@@ -25,23 +28,31 @@ const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisi
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, puis sélectionnez votre localisation';
 
-
-export function ComboboxCommune({
-	label = 'Localisation',
-	id,
-	onChange: onChangeProps = doNothing,
-	defaultValue = '',
-	debounceTimeout = 0,
-	...rest
-}: ComboboxCommuneProps) {
+export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref ) {
+	const {
+		label = 'Localisation',
+		id: idProps,
+		onChange: onChangeProps = doNothing,
+		defaultValue = '',
+		debounceTimeout = 0,
+		'aria-describedby': ariaDescribedby = '',
+		onInvalid: onInvalidProps= doNothing,
+		...rest
+	}= props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [communeList, setCommuneList] = useState<Array<Commune>>([]);
 	const [userInput, setUserInput] = useState<string>(defaultValue);
+	const [commune, setCommune]= useState<Commune>('')
 	const [codeCommune, setCodeCommune] = useState<string>('');
 	const [latitudeCommune, setLatitudeCommune] = useState<string>('');
 	const [longitudeCommune, setLongitudeCommune] = useState<string>('');
 	const [status, setStatus] = useState<FetchStatus>('init');
+	const [fieldError, setFieldError] = useState<string | null>(null);
+
+	const errorId = useId();
+	const id = useId();
+	const inputId = idProps ?? id;
 
 	function isUserInputValid(commune: string) {
 		return commune.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
@@ -76,6 +87,11 @@ export function ComboboxCommune({
 		setLongitudeCommune(communeFound?.coordonnées.longitude.toString() ?? '');
 	}, [communeList, userInput]);
 
+	useEffect(() => {
+		return () => {
+			handleRechercherWithDebounce.cancel();
+		};
+	}, [handleRechercherWithDebounce]);
 
 	function isPasDeResultat() {
 		return communeList.length === 0;
@@ -83,24 +99,35 @@ export function ComboboxCommune({
 
 	return (
 		<div>
-			<label htmlFor={id}>
+			<label htmlFor={inputId}>
 				{label}
 			</label>
 			<Combobox
+				name="libelleCommune"
+				ref={ref}
 				filter={Combobox.noFilter}
 				aria-label={label}
-				id={id}
+				id={inputId}
 				value={userInput}
+				requireValidOption
 				onChange={(event, newValue) => {
+					setFieldError(null);
 					rechercherCommunes(newValue);
 					setUserInput(newValue);
 					onChangeProps(event, newValue);
+				}}
+				aria-describedby={`${ariaDescribedby} ${errorId}`}
+				onInvalid={(event)=>{
+					onInvalidProps(event);
+					setFieldError(event.currentTarget.validationMessage);
 				}}
 				{...rest}
 			>
 				{
 					(communeList.map((option: Commune) => (
-						<Combobox.Option key={option.libelle} value={option.libelle}>{option.libelle}</Combobox.Option>
+						<Combobox.Option key={option.libelle} value={option.libelle}>
+							{option.libelle}
+						</Combobox.Option>
 					)))
 				}
 				<Combobox.AsyncMessage>{
@@ -111,12 +138,13 @@ export function ComboboxCommune({
 					|| ''
 				}</Combobox.AsyncMessage>
 			</Combobox>
+			<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
 			<input type="hidden" name="codeCommune" value={codeCommune}/>
 			<input type="hidden" name="latitudeCommune" value={latitudeCommune}/>
 			<input type="hidden" name="longitudeCommune" value={longitudeCommune}/>
 		</div>
 	);
-}
+});
 
 function doNothing() {
 	return;
