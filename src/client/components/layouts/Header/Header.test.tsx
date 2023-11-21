@@ -230,13 +230,11 @@ describe('Header', () => {
 			jest.clearAllMocks();
 		});
 		describe('Par défaut', () => {
-			it('affiche la navigation mobile pour le burger menu quand le menu est fermer', () => {
+			it('n‘affiche pas la navigation mobile', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				const burgerMenu = screen.queryByRole('navigation', { name: 'ouvrir le menu principal' });
-				const menuPrincipal = screen.queryByRole('navigation', { name: 'menu principal' });
-				expect(burgerMenu).toBeInTheDocument();
-				expect(menuPrincipal).not.toBeInTheDocument();
+				const menu = screen.queryByRole('navigation', { name: 'menu principal' });
+				expect(menu).not.toBeInTheDocument();
 			});
 
 			describe('quand la fonctionnalité encart est activée', () => {
@@ -279,10 +277,11 @@ describe('Header', () => {
 			it('ouvre le menu le navigation mobile', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				const button = screen.getByRole('button');
+				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
+				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
-				expect(menu).toBeInTheDocument();
+				expect(menu).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 1', () => {
