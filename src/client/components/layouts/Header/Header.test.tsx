@@ -230,11 +230,11 @@ describe('Header', () => {
 			jest.clearAllMocks();
 		});
 		describe('Par défaut', () => {
-			it('n‘affiche pas la navigation mobile', () => {
+			it('affiche la navigation mobile pour le burger menu quand le menu est fermer', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				const menu = screen.queryByRole('navigation');
-				expect(menu).not.toBeInTheDocument();
+				const burgerMenu = screen.queryByRole('navigation');
+				expect(burgerMenu).toBeInTheDocument();
 			});
 
 			describe('quand la fonctionnalité encart est activée', () => {
