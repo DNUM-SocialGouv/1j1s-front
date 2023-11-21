@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.184.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.184.0...v3.184.1) (2023-11-21)
+
+
+### 🐛 Corrections de bogues
+
+* évite réinstanciation des dépendances (limite nombre appel Meili… ([#2323](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2323)) ([58925d6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/58925d6e79af5639d669a207ad7a23bd0bb4bc58))
+
 ## [3.184.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.4...v3.184.0) (2023-11-21)
 
 
