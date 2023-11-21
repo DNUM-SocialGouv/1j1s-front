@@ -19,7 +19,12 @@ type ComboboxCommuneProps = {
 	label?: string,
 	id?: string,
 	debounceTimeout?: number,
-	defaultValue?: string
+	defaultCommune?: {
+		code?: string,
+		libelle?: string
+		latitude?: string
+		longitude?: string
+	}
 } & ComboboxPropsWithOmit
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
@@ -33,7 +38,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		label = 'Localisation',
 		id: idProps,
 		onChange: onChangeProps = doNothing,
-		defaultValue = '',
+		defaultCommune: defaultCommuneProps,
 		debounceTimeout = 0,
 		'aria-describedby': ariaDescribedby = '',
 		onInvalid: onInvalidProps = doNothing,
@@ -42,11 +47,11 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [communeList, setCommuneList] = useState<Array<Commune>>([]);
-	const [userInput, setUserInput] = useState<string>(defaultValue);
+	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
 	const [commune, setCommune] = useState<{ code: string, latitude: string, longitude: string }>({
-		code: '',
-		latitude: '',
-		longitude: '',
+		code: defaultCommuneProps?.code ?? '',
+		latitude: defaultCommuneProps?.latitude ?? '',
+		longitude: defaultCommuneProps?.longitude ?? '',
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [fieldError, setFieldError] = useState<string | null>(null);
@@ -59,11 +64,21 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		return commune.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}
 
-	const rechercherCommunesWithUserInputValid = useCallback(async (commune: string) => {
-		const response = await localisationService.rechercherCommune(commune);
+	function updateSupplementaryCommuneInformation(communeFound: Commune) {
+		setCommune({
+			code: communeFound?.code ?? '',
+			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
+			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
+		});
+	}
+
+	const rechercherCommunesWithUserInputValid = useCallback(async (userInputCommune: string) => {
+		const response = await localisationService.rechercherCommune(userInputCommune);
 		if (response && isSuccess(response)) {
 			setStatus('success');
 			setCommuneList(response.result.résultats ?? []);
+			const communeFound = communeOptionMatchingWithUserInput(userInputCommune, response.result.résultats);
+			communeFound && updateSupplementaryCommuneInformation(communeFound);
 		} else {
 			setStatus('failure');
 		}
@@ -80,14 +95,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		}
 	}, [handleRechercherWithDebounce]);
 
-	useEffect(function updateSupplementaryInformation() {
-		const communeFound = communeList.find((commune) => userInput === commune.libelle);
-		setCommune({
-			code: communeFound?.code ?? '',
-			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
-			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
-		});
-	}, [communeList, userInput]);
 
 	useEffect(() => {
 		return () => {
@@ -98,10 +105,14 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	function isPasDeResultat() {
 		return communeList.length === 0;
 	}
+	
+	function communeOptionMatchingWithUserInput(userInput: string, communeList: Array<Commune>) {
+		return communeList.find((commune) => userInput === commune.libelle);
+	}
 
 	return (
 		<div>
-			<label htmlFor={inputId}>
+			<label htmlFor={inputId} className={styles.label}>
 				{label}
 			</label>
 			<Combobox

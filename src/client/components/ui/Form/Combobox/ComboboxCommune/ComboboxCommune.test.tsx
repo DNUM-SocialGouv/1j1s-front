@@ -79,14 +79,22 @@ describe('<ComboboxCommune/>', () => {
 			expect(onChange).toHaveBeenCalledTimes(1);
 		});
 
-		it('accepte une default value', () => {
+		it('accepte une default commune', () => {
 			const localisationService = aLocalisationService();
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune defaultValue={'defaultValue'}/>
+				<ComboboxCommune defaultCommune={{
+					code: '75056',
+					latitude: '48.8',
+					libelle: 'Paris 15e Arrondissement (75015)',
+					longitude: '2.2',
+				}}/>
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox');
 
-			expect(combobox).toHaveValue('defaultValue');
+			expect(combobox).toHaveValue('Paris 15e Arrondissement (75015)');
+			expect(screen.getByDisplayValue('2.2')).toBeInTheDocument();
+			expect(screen.getByDisplayValue('48.8')).toBeInTheDocument();
+			expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
 		});
 
 		it('accepte un aria-describedBy', () => {
@@ -120,7 +128,7 @@ describe('<ComboboxCommune/>', () => {
 			const onInvalid = jest.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune required onInvalid={onInvalid} defaultValue={'test'}/>
+				<ComboboxCommune required onInvalid={onInvalid} defaultCommune={{ libelle: 'Paris' }}/>
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox');
 			await user.clear(combobox);
