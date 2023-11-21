@@ -10,7 +10,7 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 
-import UnJeuneUnPermis, { getServerSideProps } from './index.page';
+import UnJeuneUnPermis, { getStaticProps } from './index.page';
 
 jest.mock('next/head', () => HeadMock);
 
@@ -28,7 +28,7 @@ describe('1jeune1permis', () => {
 			process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
 
 			// When
-			const result = await getServerSideProps();
+			const result = await getStaticProps();
 
 			// Then
 			expect(result).toMatchObject({ notFound: true });
