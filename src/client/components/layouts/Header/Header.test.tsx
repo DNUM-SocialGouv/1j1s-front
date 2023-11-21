@@ -233,8 +233,10 @@ describe('Header', () => {
 			it('affiche la navigation mobile pour le burger menu quand le menu est fermer', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				const burgerMenu = screen.queryByRole('navigation');
+				const burgerMenu = screen.queryByRole('navigation', { name: 'ouvrir le menu principal' });
+				const menuPrincipal = screen.queryByRole('navigation', { name: 'menu principal' });
 				expect(burgerMenu).toBeInTheDocument();
+				expect(menuPrincipal).not.toBeInTheDocument();
 			});
 
 			describe('quand la fonctionnalité encart est activée', () => {
@@ -279,7 +281,7 @@ describe('Header', () => {
 				render(<Header/>);
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
-				const menu = screen.getByRole('navigation');
+				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeInTheDocument();
 			});
 
@@ -288,7 +290,7 @@ describe('Header', () => {
 				render(<Header/>);
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
-				const menu = screen.getByRole('navigation');
+				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeInTheDocument();
 				expect(screen.getByText('Découvrir les métiers')).toBeInTheDocument();
 			});
@@ -298,7 +300,7 @@ describe('Header', () => {
 				render(<Header/>);
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
-				const menu = screen.getByRole('navigation');
+				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeInTheDocument();
 				expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
 			});
@@ -309,7 +311,7 @@ describe('Header', () => {
 				render(<Header/>);
 				const burger = screen.getByRole('button', { name: 'Menu' });
 				await user.click(burger);
-				const menu = screen.getByRole('navigation');
+				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 				expect(screen.getByText('Je deviens mentor')).toBeVisible();
 				const retourEnArrière = screen.getByRole('button', { name: 'Recruter et agir pour les jeunes' });
@@ -328,7 +330,7 @@ describe('Header', () => {
 				);
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
-				const menu = screen.getByRole('navigation');
+				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				const item = within(menu).getByRole('link');
 				fireEvent.click(item);
 				expect(menu).not.toBeInTheDocument();

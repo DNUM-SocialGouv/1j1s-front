@@ -29,7 +29,7 @@ export function HeaderBody() {
 						aria-hidden="true"
 					/>
 					{ !isLargeScreen &&
-						<nav role={!isModalOpen ? 'navigation' : ''}>
+						<nav role={'navigation'} aria-label="ouvrir le menu principal">
             	<ButtonComponent appearance='quaternary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
 						</nav>
 					}
