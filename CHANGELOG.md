@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.183.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.3...v3.183.4) (2023-11-21)
+
+
+### 👷 Autres changements
+
+* **deps:** update all non-major devdedependencies ([#2337](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2337)) ([fc19be8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fc19be8be5c363fbf3ef12513da5b8c0be7ab8f4))
+* **deps:** update dependency @types/jest to v29.5.9 ([999fda1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/999fda173b020e722dd31d1aac33b3cdf66de872))
+
 ## [3.183.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.183.2...v3.183.3) (2023-11-20)
 
 
