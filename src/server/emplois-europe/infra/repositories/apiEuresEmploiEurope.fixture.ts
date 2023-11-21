@@ -75,9 +75,9 @@ export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresE
 	};
 }
 
-export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string): string {
 	return `
-		<PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
+        <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
             schemeVersionID="1.3">DOCUMENT_ID
     </DocumentID>
@@ -126,8 +126,8 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
                                 75011
                             </ns2:CountrySubDivisionCode>
                             <CountryCode>
-                            		NL
-														</CountryCode>
+                                    NL
+                                                        </CountryCode>
                             <ns2:PostalCode>75001</ns2:PostalCode>
                         </Address>
                     </Communication>
@@ -160,9 +160,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
                          listVersionID="ESCOv1">
             http://data.europa.eu/esco/occupation/uuid
         </JobCategoryCode>
-        <PositionOfferingTypeCode>
-            DirectHire
-        </PositionOfferingTypeCode>
+        ${ typeContrat ? `<PositionOfferingTypeCode> ${typeContrat}</PositionOfferingTypeCode>`: ''}
         <PositionQualifications>
             <PositionCompetency>
                 <CompetencyID schemeID="ESCO_Skills" schemeVersionID="ESCOv1">
@@ -222,5 +220,5 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
         <ApplicationCloseDate>2023-10-15</ApplicationCloseDate>
     </PositionProfile>
 </PositionOpening>
-	`;
+    `;
 }

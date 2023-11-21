@@ -9,8 +9,8 @@ export interface EmploiEurope {
 	nomEntreprise?: string;
 	pays?: string;
 	ville?: string;
+	typeContrat?: string;
 	urlCandidature?: string;
-	// TODO (BRUJ 15/11/2023): URL De candidature obligatoirement ??
 }
 
 export interface EmploiEuropeFiltre {

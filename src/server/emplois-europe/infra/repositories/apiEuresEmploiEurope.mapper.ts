@@ -1,4 +1,8 @@
 import { paysEuropeList } from '~/client/domain/pays';
+import {
+	EURES_CONTRACT_TYPE,
+	typesContratEures,
+} from '~/client/domain/typesContratEures';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
@@ -36,7 +40,7 @@ export class ApiEuresEmploiEuropeMapper {
 		const itemDetail = responseDetail.data.items
 			.find((detail) => detail.jobVacancy.header.handle === handle);
 		const itemDetailXML= itemDetail?.jobVacancy.hrxml;
-		
+
 		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
@@ -50,13 +54,25 @@ export class ApiEuresEmploiEuropeMapper {
 		const countryCode = address?.CountryCode;
 		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
 
+		const positionOfferingTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionOfferingTypeCode);
+		const contractType = positionOfferingTypeCode ? this.mapContractType(positionOfferingTypeCode) : undefined;
+
 		return {
 			id: handle,
 			nomEntreprise: organizationIdentifiers?.OrganizationName,
 			pays: country,
 			titre: positionProfile?.PositionTitle,
+			typeContrat: contractType,
 			urlCandidature: itemDetail?.related.urls[0].urlValue,
 			ville: addressCityName,
 		};
 	};
+
+	private mapContractType(positionOfferingTypeCode: string) {
+		if (positionOfferingTypeCode === EURES_CONTRACT_TYPE.NS)
+			return undefined;
+		return typesContratEures.find(
+			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCode)?.libellé;
+
+	}
 }

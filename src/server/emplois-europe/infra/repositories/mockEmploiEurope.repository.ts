@@ -1142,7 +1142,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTMyYy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'directhire'),
 					},
 					related: {
 						urls: [
