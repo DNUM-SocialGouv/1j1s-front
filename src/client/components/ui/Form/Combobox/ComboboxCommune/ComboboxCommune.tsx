@@ -146,7 +146,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				>
 					{
 						(optionList.map((option: string) => (
-							<Combobox.Option key={option} value={option}>
+							<Combobox.Option key={option}>
 								{option}
 							</Combobox.Option>
 						)))
