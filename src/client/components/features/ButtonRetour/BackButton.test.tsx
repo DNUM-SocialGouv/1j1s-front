@@ -42,20 +42,5 @@ describe('BackButton', () => {
 			// Then
 			expect(screen.queryByRole('button', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();
 		});
-		describe('Lorsque alwaysDisplay est à true', () => {
-			it('affiche le bouton de retour', () => {
-				// Given
-				mockUseRouter({});
-				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue(null),
-				});
-
-				// When
-				render(<BackButton alwaysDisplay={true} />);
-
-				// Then
-				expect(screen.getByRole('button', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
-			});
-		});
 	});
 });

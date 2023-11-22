@@ -10,17 +10,16 @@ import { PREVIOUS_PAGE } from '~/client/hooks/useDisplayBackButton';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
 	label?: string
-	alwaysDisplay?: boolean
 }
 
-export function BackButton({ className, label= 'Retour', alwaysDisplay = false, ...rest }: BackButtonProps) {
+export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	const router = useRouter();
 
 	const [displayBackButton, setDisplayBackButton] = useState(false);
 	useEffect(() => {
 		const previousPage = sessionStorage.getItem(PREVIOUS_PAGE);
-		setDisplayBackButton(!!previousPage || alwaysDisplay);
-	}, [alwaysDisplay]);
+		setDisplayBackButton(!!previousPage);
+	}, []);
 
 	return (
 		displayBackButton &&
