@@ -81,23 +81,59 @@ describe('<ComboboxCommune/>', () => {
 			expect(onChange).toHaveBeenCalledTimes(1);
 		});
 
-		it('accepte une default commune', () => {
-			const localisationService = aLocalisationService();
-			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune defaultCommune={{
-					code: '75056',
-					latitude: '48.8',
-					libelle: 'Paris 15e Arrondissement (75015)',
-					longitude: '2.2',
-				}}/>
-			</DependenciesProvider>);
-			const combobox = screen.getByRole('combobox');
+		describe('default commune', () => {
+			it('accepte une default commune', () => {
+				const localisationService = aLocalisationService();
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune defaultCommune={{
+						code: '75056',
+						latitude: '48.8',
+						libelle: 'Paris 15e Arrondissement (75015)',
+						longitude: '2.2',
+					}}/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox');
 
-			expect(combobox).toHaveValue('Paris 15e Arrondissement (75015)');
-			expect(screen.getByDisplayValue('2.2')).toBeInTheDocument();
-			expect(screen.getByDisplayValue('48.8')).toBeInTheDocument();
-			expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+				expect(combobox).toHaveValue('Paris 15e Arrondissement (75015)');
+				expect(screen.getByDisplayValue('2.2')).toBeInTheDocument();
+				expect(screen.getByDisplayValue('48.8')).toBeInTheDocument();
+				expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+			});
+
+			it('ajoute le libelle dans les options pour rendre l‘input valide', () => {
+				const localisationService = aLocalisationService({
+					rechercherCommune: jest.fn(),
+				});
+
+				const commune = aCommune({
+					code: '75056',
+					coordonnées: {
+						latitude: 48.8,
+						longitude: 2.2,
+					},
+					libelle: 'Paris 15e Arrondissement (75015)',
+				});
+				const communeList = aRésultatsRechercheCommune([commune]);
+				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune defaultCommune={{
+						code: commune.code,
+						latitude: commune.coordonnées.latitude.toString(),
+						libelle: commune.libelle,
+						longitude: commune.coordonnées.longitude.toString(),
+					}}/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox');
+
+				const options = screen.getAllByRole('option', { hidden: true });
+				expect(options.length).toBe(1);
+				expect(options[0]).toBeInTheDocument();
+				expect(options[0]).toHaveTextContent(commune.libelle);
+				expect(combobox).toBeValid();
+			});
 		});
+
 
 		it('accepte une default distance', () => {
 			const localisationService = aLocalisationService();

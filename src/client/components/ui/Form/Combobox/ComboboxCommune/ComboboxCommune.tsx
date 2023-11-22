@@ -51,7 +51,9 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
-	const [communeList, setCommuneList] = useState<Array<Commune>>([]);
+
+
+	const [optionList, setOptionList] = useState<Array<string>>(defaultCommuneProps?.libelle ? [defaultCommuneProps?.libelle] : []);
 	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
 	const [commune, setCommune] = useState<{ code: string, latitude: string, longitude: string }>({
 		code: defaultCommuneProps?.code ?? '',
@@ -69,7 +71,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	function isUserInputValid(userInput: string) {
 		return userInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}
-	
+
 	function updateSupplementaryCommuneInformation(communeFound: Commune) {
 		setCommune({
 			code: communeFound?.code ?? '',
@@ -82,7 +84,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		const response = await localisationService.rechercherCommune(userInputCommune);
 		if (response && isSuccess(response)) {
 			setStatus('success');
-			setCommuneList(response.result.résultats ?? []);
+			const optionsList = response.result.résultats?.map((commune) => commune.libelle);
+			setOptionList(optionsList || []);
 			const communeFound = communeOptionMatchingWithUserInput(userInputCommune, response.result.résultats);
 			communeFound && updateSupplementaryCommuneInformation(communeFound);
 		} else {
@@ -109,7 +112,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	}, [handleRechercherWithDebounce]);
 
 	function isPasDeResultat() {
-		return communeList.length === 0;
+		return optionList.length === 0;
 	}
 
 	function communeOptionMatchingWithUserInput(userInput: string, communeList: Array<Commune>) {
@@ -143,9 +146,9 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				{...rest}
 			>
 				{
-					(communeList.map((option: Commune) => (
-						<Combobox.Option key={option.libelle} value={option.libelle}>
-							{option.libelle}
+					(optionList.map((option: string) => (
+						<Combobox.Option key={option} value={option}>
+							{option}
 						</Combobox.Option>
 					)))
 				}
