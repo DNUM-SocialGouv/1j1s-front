@@ -51,8 +51,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
 
-
-
 	const [optionList, setOptionList] = useState<Array<string>>(defaultCommuneProps?.libelle ? [defaultCommuneProps?.libelle] : []);
 	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
 	const [commune, setCommune] = useState<{ code: string, latitude: string, longitude: string }>({
@@ -120,50 +118,52 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	}
 
 	return (
-		<div>
-			<label htmlFor={inputId} className={styles.label}>
-				{label}
-			</label>
-			<Combobox
-				valueName="libelleCommune"
-				ref={ref}
-				filter={Combobox.noFilter}
-				aria-label={label}
-				id={inputId}
-				value={userInput}
-				requireValidOption
-				onChange={(event, newValue) => {
-					setFieldError(null);
-					rechercherCommunes(newValue);
-					setUserInput(newValue);
-					onChangeProps(event, newValue);
-				}}
-				aria-describedby={`${ariaDescribedby} ${errorId}`}
-				onInvalid={(event) => {
-					onInvalidProps(event);
-					setFieldError(event.currentTarget.validationMessage);
-				}}
-				{...rest}
-			>
-				{
-					(optionList.map((option: string) => (
-						<Combobox.Option key={option} value={option}>
-							{option}
-						</Combobox.Option>
-					)))
-				}
-				<Combobox.AsyncMessage>{
-					!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
-					|| status === 'failure' && MESSAGE_ERREUR_FETCH
-					|| status === 'pending' && MESSAGE_CHARGEMENT
-					|| isPasDeResultat() && MESSAGE_PAS_DE_RESULTAT
-					|| ''
-				}</Combobox.AsyncMessage>
-			</Combobox>
-			<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
-			<input type="hidden" name="codeCommune" value={commune.code}/>
-			<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
-			<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
+		<>
+			<div>
+				<label htmlFor={inputId} className={styles.label}>
+					{label}
+				</label>
+				<Combobox
+					valueName="libelleCommune"
+					ref={ref}
+					filter={Combobox.noFilter}
+					aria-label={label}
+					id={inputId}
+					value={userInput}
+					requireValidOption
+					onChange={(event, newValue) => {
+						setFieldError(null);
+						rechercherCommunes(newValue);
+						setUserInput(newValue);
+						onChangeProps(event, newValue);
+					}}
+					aria-describedby={`${ariaDescribedby} ${errorId}`}
+					onInvalid={(event) => {
+						onInvalidProps(event);
+						setFieldError(event.currentTarget.validationMessage);
+					}}
+					{...rest}
+				>
+					{
+						(optionList.map((option: string) => (
+							<Combobox.Option key={option} value={option}>
+								{option}
+							</Combobox.Option>
+						)))
+					}
+					<Combobox.AsyncMessage>{
+						!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
+						|| status === 'failure' && MESSAGE_ERREUR_FETCH
+						|| status === 'pending' && MESSAGE_CHARGEMENT
+						|| isPasDeResultat() && MESSAGE_PAS_DE_RESULTAT
+						|| ''
+					}</Combobox.AsyncMessage>
+				</Combobox>
+				<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
+				<input type="hidden" name="codeCommune" value={commune.code}/>
+				<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
+				<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
+			</div>
 			{!fieldError && commune.code && <Select
 				label="Rayon"
 				name="distanceCommune"
@@ -171,7 +171,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				onChange={setDistanceCommune}
 				value={distanceCommune}
 	  />}
-		</div>
+		</>
 	);
 });
 
