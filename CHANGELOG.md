@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.185.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.185.0...v3.185.1) (2023-11-23)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest to v29.5.10 ([#2344](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2344)) ([b9b6ccd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b9b6ccdb969f9718b0c617181d1608720d5ca758))
+* **deps:** update dependency @types/react-autosuggest to v10.1.10 ([#2347](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2347)) ([6beffa0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6beffa0df251f0cd7770466c44d7c7c6bf857524))
+
 ## [3.185.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.184.1...v3.185.0) (2023-11-23)
 
 
