@@ -1,14 +1,5 @@
 /// <reference types="cypress" />
-
-/***
- * DEVNOTE
- * il faut configurer votre .env avec
- * STRAPI_BASE_URL=http://127.0.0.1:1337/
- * STRAPI_URL_API=http://127.0.0.1:1337/api/
- * car cypress n'a pas accès au localhost:1337
- *
- * il faut utiliser le { force : true } parce que cypress ne peut pas remplir des champs pas visible
- */
+/// <reference types="@testing-library/cypress" />
 
 import { interceptGet } from '../interceptGet';
 import { interceptPost } from '../interceptPost';
@@ -21,23 +12,34 @@ describe('Parcours formulaire cej', () => {
 
 	context('quand l’utilisateur correctement remplie le formulaire', () => {
 		it('clique sur le bouton qui affiche le formulaire de contact', () => {
-			cy.get('button').contains('Demander à être contacté.e').click();
-			cy.contains('J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé').should('be.visible');
+			// FIXME (GAFI 23-10-2023): Mauvais point, ça devrait être un point médian
+			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
+			cy.findByRole('heading', {
+				// FIXME (GAFI 23-10-2023): deuxième titre de niveau 1 sur la page ...
+				level: 1,
+				name: /J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé/i,
+			}).should('be.visible');
 		});
 
 		it('affiche un message de succès', () => {
-			cy.get('button').contains('Demander à être contacté.e').click({ force: true });
+			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
 
-			cy.get('input[name="firstname"]').type('jean', { force: true });
-			cy.get('input[name="lastname"]').type('dupont', { force: true });
-			cy.get('input[name="mail"]').type('jean.dupont@mail.com');
-			cy.get('input[type="tel"]').type('0688552233');
-			cy.get('button').contains('Sélectionnez votre choix').click();
-			cy.get('ul[role="listbox"] > li').first().click();
+			cy.findByRole('textbox', { name: /Prénom/i }).should('have.focus');
+			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
+			// FIXME (BRUJ 22/11/2023): test flaky obligé de rajouter un .click()
+			cy.findByRole('textbox', { name: /Nom/ }).click();
+			cy.findByRole('textbox', { name: /Nom/ }).type('dupont');
+			cy.findByRole('textbox', { name: /Adresse email/i }).type('jean.dupont@mail.com');
+			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
+			// FIXME (GAFI 23-10-2023): Manque un circonflèxe par ici ...
+			cy.findByRole('button', { name: /^Age/i }).click();
+			// FIXME (GAFI 23-10-2023): Idéalement récupérer avec cy.findByRole('listbox', { name: /Age/i }).children()
+			//  À remplacer après fix du composant associé
+			cy.findAllByRole('option').first().click();
 
 			interceptGet(
 				{
-					actionBeforeWaitTheCall: () => cy.get('input[name="ville"]').type('paris', { force: true }),
+					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Ville/i }).type('paris'),
 					alias: 'recherche-communes',
 					path: '/api/communes*',
 					response: JSON.stringify({ résultats: [
@@ -51,14 +53,16 @@ describe('Parcours formulaire cej', () => {
 							libelle: 'Paris (75006)',
 							ville: 'Paris',
 						},
-					] } ),
+					] }),
 				},
 			);
-			cy.get('ul[role="listbox"] > li').first().click();
+			// FIXME (GAFI 23-10-2023): Idéalement récupérer avec cy.findByRole('listbox', { name: /Ville/i }).children()
+			//  À remplacer après fix du composant associé
+			cy.findAllByRole('option').first().click();
 
 			interceptPost(
 				{
-					actionBeforeWaitTheCall: () => cy.get('button').contains('Envoyer la demande').click(),
+					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Envoyer la demande/i }).click(),
 					alias: 'submit-form',
 					path: '/api/demandes-de-contact',
 					response: JSON.stringify({
@@ -77,7 +81,7 @@ describe('Parcours formulaire cej', () => {
 				},
 			);
 
-			cy.contains('Votre demande a bien été transmise !').should('be.visible');
+			cy.findByText('Votre demande a bien été transmise !').should('be.visible');
 		});
 	});
 });

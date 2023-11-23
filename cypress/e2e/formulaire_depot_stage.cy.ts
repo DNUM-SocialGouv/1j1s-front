@@ -113,8 +113,8 @@ describe('Dépôt de Stage', () => {
 				});
 
 				// FIXME (GAFI 06-11-2023): Devrait être combobox
-				//	Also besoin de type 2x parce que la lib est cassée
-				cy.findByRole('textbox', { name: /Pays/i }).type('France');
+				// NOTE (BRUJ 22/11/2023):  test flaky obligé de rajouter un click en amont
+				cy.findByRole('textbox', { name: /Pays/ }).click();
 				cy.findByRole('textbox', { name: /Pays/i }).type('France');
 				cy.findAllByRole('option').first().click();
 				cy.findByRole('textbox', { name: /Ville/i }).type(aFormulaireEtapeLocalisation().ville);
