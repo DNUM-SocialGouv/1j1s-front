@@ -135,7 +135,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 
 
-		it('accepte une default distance', () => {
+		it('accepte une distance par défaut', () => {
 			const localisationService = aLocalisationService();
 			const radiusExpected = radiusList[1];
 			render(<DependenciesProvider localisationService={localisationService}>
@@ -480,7 +480,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 	});
 
-	it('merge la description accessible avec l‘erreur', async () => {
+	it('fusionne la description accessible avec l‘erreur', async () => {
 		const user = userEvent.setup();
 		const messageErreur = 'Veuillez sélectionner une option dans la liste';
 		const aideSaisie = 'Commencez à taper pour voir des suggestions';

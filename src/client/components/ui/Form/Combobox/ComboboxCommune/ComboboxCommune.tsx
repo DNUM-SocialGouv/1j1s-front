@@ -84,7 +84,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			setStatus('success');
 			const optionsList = response.result.résultats?.map((commune) => commune.libelle);
 			setOptionList(optionsList || []);
-			const communeFound = communeOptionMatchingWithUserInput(userInputCommune, response.result.résultats);
+			const communeFound = findMatchingOptionFromUserInput(userInputCommune, response.result.résultats);
 			communeFound && updateSupplementaryCommuneInformation(communeFound);
 		} else {
 			setStatus('failure');
@@ -109,11 +109,11 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		};
 	}, [handleRechercherWithDebounce]);
 
-	function isPasDeResultat() {
+	function isListeDeResultatEmpty() {
 		return optionList.length === 0;
 	}
 
-	function communeOptionMatchingWithUserInput(userInput: string, communeList: Array<Commune>) {
+	function findMatchingOptionFromUserInput(userInput: string, communeList: Array<Commune>) {
 		return communeList.find((commune) => userInput === commune.libelle);
 	}
 
@@ -156,7 +156,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 						!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
-						|| isPasDeResultat() && MESSAGE_PAS_DE_RESULTAT
+						|| isListeDeResultatEmpty() && MESSAGE_PAS_DE_RESULTAT
 						|| ''
 					}</Combobox.AsyncMessage>
 				</Combobox>
