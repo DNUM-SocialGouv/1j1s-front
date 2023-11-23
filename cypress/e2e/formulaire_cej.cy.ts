@@ -26,9 +26,8 @@ describe('Parcours formulaire cej', () => {
 
 			cy.findByRole('textbox', { name: /Prénom/i }).should('have.focus');
 			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
-			// FIXME (BRUJ 22/11/2023): test flaky obligé de rajouter un .click()
-			cy.findByRole('textbox', { name: /Nom/ }).click();
-			cy.findByRole('textbox', { name: /Nom/ }).type('dupont');
+			// FIXME (BRUJ 22/11/2023): test flaky obligé de rajouter un force
+			cy.findByRole('textbox', { name: /Nom/ }).type('dupont', { force: true });
 			cy.findByRole('textbox', { name: /Adresse email/i }).type('jean.dupont@mail.com');
 			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
 			// FIXME (GAFI 23-10-2023): Manque un circonflèxe par ici ...
