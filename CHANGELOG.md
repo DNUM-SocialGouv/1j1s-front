@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.185.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.184.1...v3.185.0) (2023-11-23)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **cej:** test e2e flaky ([#2352](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2352)) ([d848de2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d848de270cc8041909bba4e4ad8acc7ed7c21d1e))
+
 ## [3.184.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.184.0...v3.184.1) (2023-11-21)
 
 
