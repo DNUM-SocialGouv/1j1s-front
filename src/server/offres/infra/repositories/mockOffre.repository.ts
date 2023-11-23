@@ -1,6 +1,6 @@
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
-import { createFailure, createSuccess, Either } from '../../../errors/either';
 import { Offre, OffreFiltre, RésultatsRechercheOffre } from '../../domain/offre';
 import { aBarmanOffre, aRésultatEchantillonOffre, aRésultatsRechercheOffre } from '../../domain/offre.fixture';
 import { OffreRepository } from '../../domain/offre.repository';

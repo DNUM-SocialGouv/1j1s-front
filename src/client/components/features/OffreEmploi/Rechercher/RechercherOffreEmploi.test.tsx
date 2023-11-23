@@ -173,12 +173,12 @@ describe('RechercherOffreEmploi', () => {
 		it('affiche le nombre de résultat au singulier', async () => {
 			// GIVEN
 			const offreServiceMock = aSingleResultOffreService();
-			const offre = {
+			const offre = aRésultatsRechercheOffre({
 				nombreRésultats: 1,
 				résultats: [
 					aBarmanOffre(),
 				],
-			};
+			});
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({ query: { motCle: 'barman', page: '1' } });
 
@@ -203,10 +203,10 @@ describe('RechercherOffreEmploi', () => {
 		it('affiche un message dédié', async () => {
 			// GIVEN
 			const offreServiceMock = aNoResultOffreService();
-			const resultats = {
+			const resultats = aRésultatsRechercheOffre({
 				nombreRésultats: 0,
 				résultats: [],
-			};
+			});
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 

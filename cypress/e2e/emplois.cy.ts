@@ -3,12 +3,12 @@
 
 import { stringify } from 'querystring';
 
-import { Success } from '../../src/server/errors/either';
-import { Offre, RésultatsRechercheOffre } from '../../src/server/offres/domain/offre';
+import { Success } from '~/server/errors/either';
+import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
 	getOffreRepositoryMockResults,
 	searchOffreRepositoryMockResults,
-} from '../../src/server/offres/infra/repositories/mockOffre.repository';
+} from '~/server/offres/infra/repositories/mockOffre.repository';
 
 describe('Page de recherche d’emplois', () => {
 	beforeEach(() => {

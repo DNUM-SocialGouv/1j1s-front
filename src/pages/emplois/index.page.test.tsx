@@ -54,10 +54,10 @@ describe('Page Emploi', () => {
 				const routerReplace = jest.fn();
 				mockUseRouter({ isReady: true, query: {}, replace: routerReplace });
 				mockLargeScreen();
-				const offres = {
+				const offres = aRésultatsRechercheOffre({
 					nombreRésultats: 0,
 					résultats: [],
-				};
+				});
 
 				// WHEN
 				render(
