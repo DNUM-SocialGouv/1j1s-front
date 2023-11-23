@@ -126,6 +126,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				<Combobox
 					valueName="libelleCommune"
 					ref={ref}
+					autoComplete="off"
 					filter={Combobox.noFilter}
 					aria-label={label}
 					id={inputId}
