@@ -4,10 +4,10 @@ import React, { FormEvent } from 'react';
 import styles
 	from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import {
 	ComboboxMetiers,
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -52,16 +52,16 @@ export function FormulaireRechercheAlternance() {
 							autoFocus
 							placeholder={'Exemples : enseignement, recherche...'}
 						/>
-						<InputCommune
-							code={codeCommune ?? ''}
-							libellé={libelleCommune ?? ''}
-							longitude={longitudeCommune ?? ''}
-							latitude={latitudeCommune ?? ''}
-							distance={distanceCommune ?? ''}
+						<ComboboxCommune
+							defaultCommune={{
+								code: codeCommune,
+								latitude: latitudeCommune,
+								libelle: libelleCommune,
+								longitude: longitudeCommune,
+							}}
+							defaultDistance={distanceCommune}
 							required
-							placeholder={'Exemples : Toulouse, Paris...'}
-							showRadius
-						/>
+							placeholder={'Exemples : Toulouse, Paris...'}/>
 					</div>
 				</div>
 				<div className={styles.buttonRechercher}>

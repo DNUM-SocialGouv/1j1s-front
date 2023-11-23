@@ -148,8 +148,8 @@ describe('RechercherAlternance', () => {
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
 			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expectedQuery);
 
-			const filtresRecherche = await screen.findByText('Paris (75001)');
-			expect(filtresRecherche).toBeInTheDocument();
+			const filtresRecherche = await screen.findAllByText('Paris (75001)');
+			expect(filtresRecherche.length >= 1).toBe(true);
 			const messageResultats = await screen.findByText(/résultats pour Boulangerie, pâtisserie, chocolaterie/);
 			expect(messageResultats).toBeInTheDocument();
 

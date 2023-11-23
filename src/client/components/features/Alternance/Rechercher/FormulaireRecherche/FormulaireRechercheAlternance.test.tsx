@@ -95,7 +95,7 @@ describe('FormulaireRechercheAlternance', () => {
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 
-			const inputCommune = screen.getByLabelText('Localisation');
+			const inputCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
@@ -171,7 +171,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const user = userEvent.setup();
 
-			const inputCommune = screen.getByLabelText('Localisation');
+			const inputCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(inputCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
@@ -184,38 +184,42 @@ describe('FormulaireRechercheAlternance', () => {
 	});
 
 	it('rempli automatiquement les champs lorsque les query params sont présents', () => {
-		mockUseRouter({ query: {
-			codeCommune: '75056',
-			codeRomes: 'D1102,D1104',
-			distanceCommune: '10',
-			latitudeCommune: '48.859',
-			libelleCommune: 'Paris (75001)',
-			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-			longitudeCommune: '2.347',
-		} });
+		mockUseRouter({
+			query: {
+				codeCommune: '75056',
+				codeRomes: 'D1102,D1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+			},
+		});
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercheAlternance />
+				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
 
 		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
 		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
-		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		const localisation = screen.getByRole('combobox', { name: 'Localisation' });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByTestId('Select-InputHidden');
 		expect(rayon).toHaveValue('10');
 	});
 
 	it('laisse le champ domaine vide quand il manque les codes romes dans les query params', () => {
-		mockUseRouter({ query: {
-			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-		} });
+		mockUseRouter({
+			query: {
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+			},
+		});
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercheAlternance />
+				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
 
@@ -228,13 +232,15 @@ describe('FormulaireRechercheAlternance', () => {
 		});
 	});
 	it('laisse le champ domaine vide quand il manque le libellé dans les query params', () => {
-		mockUseRouter({ query: {
-			codeRomes: 'D1102,D1104',
-		} });
+		mockUseRouter({
+			query: {
+				codeRomes: 'D1102,D1104',
+			},
+		});
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercheAlternance />
+				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
 
