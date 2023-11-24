@@ -9,22 +9,22 @@ import {
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage, mockSmallScreen } from '~/client/components/window.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
 import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
 import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
+		jest.resetAllMocks();
 		mockSmallScreen();
-		mockSessionStorage({
-			setItem: jest.fn().mockReturnValue('/annonces'),
-		});
 		const routerReload = jest.fn();
 		mockUseRouter({ reload: routerReload });
 	});
 
 	it('affiche le le bouton retour vers la liste des annonces', () => {
+		jest.spyOn(Object.getPrototypeOf(sessionStorage), 'getItem').mockReturnValue('/');
+
 		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.titre = 'Super T3 dans le centre de Paris';
 
