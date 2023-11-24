@@ -6,7 +6,6 @@ import {
 	anOrderedÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
-import communeList from '../fixture/communes/communeList.fixture.json';
 import { interceptGet } from '../interceptGet';
 
 describe('Parcours Accompagnement', () => {
@@ -27,7 +26,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('combobox', { name: 'Localisation' }).type('par');
 				cy.wait('@get-communes');
 				cy.findByRole('listbox', { name: 'Localisation' })
-					.within(() => cy.findAllByRole('option').first().click({force: true}));
+					.within(() => cy.findAllByRole('option').first().click({ force: true }));
 
 				cy.findByRole('button', { name: 'Type d‘accompagnement' }).click();
 				cy.findByRole('listbox')

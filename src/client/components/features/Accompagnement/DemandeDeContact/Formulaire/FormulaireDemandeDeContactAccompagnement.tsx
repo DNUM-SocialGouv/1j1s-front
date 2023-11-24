@@ -3,6 +3,7 @@ import styles
 	from 'src/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement.module.scss';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -18,7 +19,6 @@ import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { emailRegex } from '~/shared/emailRegex';
-import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
   contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement

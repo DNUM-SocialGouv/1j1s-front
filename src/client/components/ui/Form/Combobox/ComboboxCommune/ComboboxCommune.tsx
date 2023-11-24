@@ -64,8 +64,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
 	const [fieldError, setFieldError] = useState<string | null>(null);
 
-	console.log(defaultCommuneProps)
-	console.log(userInput, 'userInput')
 	const errorId = useId();
 	const id = useId();
 	const inputId = idProps ?? id;
