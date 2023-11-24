@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.187.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.186.0...v3.187.0) (2023-11-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **emplois:** passage ssr + scroll restoration ([#2273](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2273)) ([35a2135](https://github.com/DNUM-SocialGouv/1j1s-front/commit/35a21354d36346fa2677b54a6c96542137fbcd07))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency @sentry/nextjs to v7.81.1 ([#2332](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2332)) ([e3ae9b4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3ae9b4d28d903caa8aac4c7854c4f98bb98f63c))
+
 ## [3.186.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.185.1...v3.186.0) (2023-11-24)
 
 
