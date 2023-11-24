@@ -19,7 +19,7 @@ export function HeaderBody() {
 
 	return (
 		<Container className={styles.headerBodyContainer}>
-			<div className={styles.headerBody}>
+			<div className={styles.headerBody} >
 				<div className={styles.headerBodyLogoWrapper}>
 					<Image
 						src="/images/logos/république-française.svg"
@@ -29,7 +29,9 @@ export function HeaderBody() {
 						aria-hidden="true"
 					/>
 					{ !isLargeScreen &&
-            <ButtonComponent appearance='quaternary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
+						<nav role={'navigation'} aria-label="ouvrir le menu principal">
+            	<ButtonComponent appearance='quaternary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
+						</nav>
 					}
 				</div>
 				<div className={styles.headerBodyTitle}>1jeune1solution</div>

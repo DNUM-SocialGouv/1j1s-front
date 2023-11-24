@@ -22,7 +22,7 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }) {
 
 	return (
 		<Container className={styles.headerModalContainer}>
-			<nav role="navigation">
+			<nav role="navigation" aria-label="menu principal">
 				<ul className={styles.headerModalNavigationList}>
 					<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} onClick={toggleModal}/>
 					<NavItemWithSubItems className={styles.navItem} item={offresNav} onClick={toggleModal}/>
