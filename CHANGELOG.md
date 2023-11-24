@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.187.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.187.0...v3.187.1) (2023-11-24)
+
+
+### 🐛 Corrections de bogues
+
+* **multiple:** le bouton retour apparait tout le temps ([#2324](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2324)) ([5997793](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5997793d539b53204e258544edbfcd86a7dc572d))
+
 ## [3.187.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.186.0...v3.187.0) (2023-11-24)
 
 
