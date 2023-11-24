@@ -26,6 +26,14 @@ describe('Header', () => {
 			expect(header).toBeInTheDocument();
 		});
 
+		it('affiche le logo de la République Française', () => {
+			mockUseRouter({ pathname: '/' });
+			render(<Header/>);
+
+			const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
+			expect(logo).toBeInTheDocument();
+		});
+
 		describe('quand on ouvre la navigation', () => {
 			it('affiche la navigation', async () => {
 				mockUseRouter({ pathname: '/' });
