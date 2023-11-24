@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.186.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.185.1...v3.186.0) (2023-11-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** mise en place du combobox commune ([#2345](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2345)) ([460587c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/460587c75b46fdc286b257c6caa33cee696ec7e9))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency html-validate to v8.7.3 ([#2356](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2356)) ([fc668e9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fc668e923b5125ad2da1702640531a1364a343f4))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/node to v18.18.12 ([#2346](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2346)) ([1449254](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1449254896eca27cbe567e3c7e783de82c9af620))
+* **deps:** update dependency @types/node to v18.18.13 ([b90f88f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b90f88f0814db21d8487c65cbcf61111f67b7f2f))
+* **deps:** update react monorepo ([#2348](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2348)) ([e2a1d66](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e2a1d664cdd5b3d6d2ff026fd60c0c5f09366333))
+
 ## [3.185.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.185.0...v3.185.1) (2023-11-23)
 
 
