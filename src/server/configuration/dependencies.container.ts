@@ -147,6 +147,7 @@ import {
 	getApiPoleEmploiOffresConfig,
 	getApiPoleEmploiReferentielsConfig,
 } from '~/server/offres/configuration/pole-emploi/poleEmploiHttpClient.config';
+import { MockOffreRepository } from '~/server/offres/infra/repositories/mockOffre.repository';
 import {
 	ApiPoleEmploiOffreErrorManagementServiceGet,
 	ApiPoleEmploiOffreErrorManagementServiceSearch,
@@ -236,7 +237,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiPoleEmploiOffreErreurManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
 	const apiPoleEmploiOffreErreurManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
 	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreEmploiDependencies = offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
+	const offreEmploiDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+		? offresEmploiDependenciesContainer(new MockOffreRepository())
+		: offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
 
 	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
 	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);

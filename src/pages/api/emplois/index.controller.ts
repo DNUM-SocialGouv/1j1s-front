@@ -12,6 +12,8 @@ import { DomaineCode, MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre 
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 
+type RequestQuery = Partial<{[p: string]: string | string[]}>;
+
 export const emploisQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	experienceExigence: Joi.string().valid('D', 'S', 'E'),
@@ -26,16 +28,14 @@ export const emploisQuerySchema = Joi.object({
 export async function rechercherOffreEmploiHandler(
 	req: NextApiRequest,
 	res: NextApiResponse<RésultatsRechercheOffre | ErrorHttpResponse>) {
-	const params = emploiFiltreMapper(req);
+	const params = emploiFiltreMapper(req.query);
 	const résultatsRechercheOffreEmploi = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(params);
 	return handleResponse(résultatsRechercheOffreEmploi, res);
 }
 
 export default withMonitoring(withValidation({ query: emploisQuerySchema }, rechercherOffreEmploiHandler));
 
-export function emploiFiltreMapper(request: NextApiRequest): EmploiFiltre {
-	const { query } = request;
-
+export function emploiFiltreMapper(query: RequestQuery): EmploiFiltre {
 	return {
 		experienceExigence: query.experienceExigence ? String(query.experienceExigence) : undefined,
 		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) : undefined,

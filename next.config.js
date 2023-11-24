@@ -48,6 +48,9 @@ const moduleExports = {
 		NEXT_PUBLIC_APPLICATION_NAME: name,
 		NEXT_PUBLIC_APPLICATION_VERSION: version,
 	},
+	experimental: {
+	  scrollRestoration: true,
+	},
 	images: {
 		remotePatterns: [
 			...getImagesRemotePattern(),
