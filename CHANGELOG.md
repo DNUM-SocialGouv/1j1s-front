@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.188.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.187.1...v3.188.0) (2023-11-24)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** ajouter un alt au logo du header ([01cff4b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/01cff4b8b22247f62a3358559af295fa8a5d228f))
+* **UI:** wrapper le burger menu avec balise nav ([a00a646](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a00a646d220f8c7faceee83f8a0f48e96a5c8053))
+
 ## [3.187.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.187.0...v3.187.1) (2023-11-24)
 
 
