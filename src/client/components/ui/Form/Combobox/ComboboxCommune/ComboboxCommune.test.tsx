@@ -139,12 +139,16 @@ describe('<ComboboxCommune/>', () => {
 			const localisationService = aLocalisationService();
 			const radiusExpected = radiusList[1];
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune defaultCommune={{
-					code: '75056',
-					latitude: '48.8',
-					libelle: 'Paris 15e Arrondissement (75015)',
-					longitude: '2.2',
-				}} defaultDistance={radiusExpected.valeur}/>
+				<ComboboxCommune
+					defaultCommune={{
+						code: '75056',
+						latitude: '48.8',
+						libelle: 'Paris 15e Arrondissement (75015)',
+						longitude: '2.2',
+					}}
+					showRadiusInput
+					defaultDistance={radiusExpected.valeur}
+				/>
 			</DependenciesProvider>);
 
 			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeVisible();
@@ -399,7 +403,7 @@ describe('<ComboboxCommune/>', () => {
 					});
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
-						<ComboboxCommune label={'comboboxLabel'}/>
+						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
 					</DependenciesProvider>);
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
@@ -421,7 +425,7 @@ describe('<ComboboxCommune/>', () => {
 					});
 					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 					render(<DependenciesProvider localisationService={localisationService}>
-						<ComboboxCommune label={'comboboxLabel'}/>
+						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
 					</DependenciesProvider>);
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 

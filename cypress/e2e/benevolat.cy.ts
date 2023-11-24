@@ -6,33 +6,35 @@ import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEn
 import { interceptGet } from '../interceptGet';
 
 describe('Parcours bénévolat', () => {
-	beforeEach(() => {
-		cy.viewport('iphone-x');
-		cy.visit('/benevolat');
-	});
 
 	context('quand l‘utilisateur choisi un domaine', () => {
+		beforeEach(() => {
+			cy.viewport('iphone-x');
+			cy.visit('/benevolat');
+		});
 		it('affiche la liste des résultats', () => {
 			cy.findByRole('button', { name: /Domaine/i }).click();
 			cy.findAllByRole('option').first().click();
 
 			interceptGet(
 				{
-					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Localisation/i }).type('paris'),
+					actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Localisation/i }).type('paris'),
 					alias: 'recherche-communes',
 					path: '/api/communes*',
-					response: JSON.stringify({ résultats: [
-						{
-							code: '75056',
-							codePostal: '75006',
-							coordonnées: {
-								latitude: 48.859,
-								longitude: 2.347,
+					response: JSON.stringify({
+						résultats: [
+							{
+								code: '75056',
+								codePostal: '75006',
+								coordonnées: {
+									latitude: 48.859,
+									longitude: 2.347,
+								},
+								libelle: 'Paris (75006)',
+								ville: 'Paris',
 							},
-							libelle: 'Paris (75006)',
-							ville: 'Paris',
-						},
-					] }),
+						],
+					}),
 				},
 			);
 			cy.findAllByRole('option').first().click();
@@ -51,11 +53,12 @@ describe('Parcours bénévolat', () => {
 	});
 
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
+		beforeEach(() => {
+			cy.viewport('iphone-x');
+			cy.visit('/benevolat?domain=culture-loisirs&libelleCommune=Paris+%2875001%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
+		});
 		it('navigue vers le détail de l‘offre', () => {
 			const id = aRésultatRechercheMission().résultats[0].id;
-
-			cy.findByRole('button', { name: /Domaine/i }).click();
-			cy.findAllByRole('option').first().click();
 
 			interceptGet(
 				{
@@ -65,7 +68,7 @@ describe('Parcours bénévolat', () => {
 					response: JSON.stringify(aRésultatRechercheMission()),
 				},
 			);
-      
+
 			interceptGet(
 				{
 					actionBeforeWaitTheCall: () => (

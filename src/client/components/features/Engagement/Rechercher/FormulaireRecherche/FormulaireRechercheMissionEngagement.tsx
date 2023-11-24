@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
+import styles
+	from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -19,22 +20,27 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 	const router = useRouter();
 	const queryParams = useMissionEngagementQuery();
 
+	const {
+		codeCommune,
+		libelleCommune,
+		latitudeCommune,
+		longitudeCommune,
+		distanceCommune,
+	} = queryParams;
+
+	const defaultCommune = {
+		code: codeCommune,
+		latitude: latitudeCommune,
+		libelle: libelleCommune,
+		longitude: longitudeCommune,
+	};
+
 	const [domainValue, setDomainValue] = useState('');
-	const [inputLibelleCommune, setInputLibelleCommune] = useState<string>('');
-	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
-	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
-	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
-	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
 	const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
 
 
 	useEffect(function initFormValues() {
 		setDomainValue(queryParams.domain || '');
-		setInputLongitudeCommune(queryParams.longitudeCommune || '');
-		setInputLatitudeCommune(queryParams.latitudeCommune || '');
-		setInputCodeCommune(queryParams.codeCommune || '');
-		setInputLibelleCommune(queryParams.libelleCommune || '');
-		setInputDistanceCommune(queryParams.distanceCommune || '');
 		setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || false);
 	}, [queryParams]);
 
@@ -59,12 +65,11 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 						onChange={(value) => setDomainValue(value)}
 						value={domainValue}
 					/>
-					<InputCommune
-						code={inputCodeCommune}
-						libellé={inputLibelleCommune}
-						latitude={inputLatitudeCommune}
-						longitude={inputLongitudeCommune}
-						distance={inputDistanceCommune}
+					<ComboboxCommune
+						defaultCommune={defaultCommune}
+						defaultDistance={distanceCommune}
+						showRadiusInput
+						required
 					/>
 				</div>
 
