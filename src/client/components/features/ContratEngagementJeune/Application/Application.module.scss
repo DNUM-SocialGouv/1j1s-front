@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .application {
   padding: 40px 20px;
@@ -9,11 +10,6 @@
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-
-    &:focus {
-      outline: 2px solid utilities-deprecated.$color-on-primary;
-      outline-offset: 2px;
-    }
   }
 
   &Description {
@@ -48,7 +44,7 @@
       text-decoration: none;
 
       &:focus {
-        outline: 2px solid utilities-deprecated.$color-primary;
+        outline: 2px solid utilities.$color-primary;
         outline-offset: 2px;
       }
 

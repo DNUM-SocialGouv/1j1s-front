@@ -10,7 +10,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 export default function Application() {
 	return (
 		<div className={styles.application}>
-			<div className={styles.applicationContainer} tabIndex={0}>
+			<div className={styles.applicationContainer}>
 
 				<Image src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
 
