@@ -462,6 +462,26 @@ describe('<ComboboxCommune/>', () => {
 
 				expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
 			});
+
+			it('lorsque le combobox est vide et optionel, n‘affiche pas le bouton rayon', async () => {
+				const user = userEvent.setup();
+				const communeList = aRésultatsRechercheCommune([
+					aCommune({ coordonnées: { latitude: 1.23, longitude: 4.56 }, libelle: 'Paris' }),
+				]);
+				const localisationService = aLocalisationService({
+					rechercherCommune: jest.fn(),
+				});
+				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox');
+
+				await user.type(combobox, 'abc');
+				await user.clear(combobox);
+
+				expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
+			});
 		});
 
 		describe('lorsque je ne sélectionne pas une valeur valide', () => {

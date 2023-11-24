@@ -168,7 +168,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
 				<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
 			</div>
-			{showRadiusInput && !fieldError && commune.code && <Select
+			{showRadiusInput && !fieldError && commune.code && userInput && <Select
 				label="Rayon"
 				name="distanceCommune"
 				optionList={radiusList}

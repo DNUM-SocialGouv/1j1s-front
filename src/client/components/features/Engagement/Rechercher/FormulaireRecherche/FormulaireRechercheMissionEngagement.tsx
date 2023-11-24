@@ -69,7 +69,6 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 						defaultCommune={defaultCommune}
 						defaultDistance={distanceCommune}
 						showRadiusInput
-						required
 					/>
 				</div>
 

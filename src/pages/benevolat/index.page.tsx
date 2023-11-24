@@ -8,3 +8,9 @@ export default function RechercherMissionBénévolatPage() {
 
 	return <RechercherMission category={EngagementCategory.BENEVOLAT}/>;
 }
+
+export function getServerSideProps() {
+	return {
+		props: {},
+	};
+}
