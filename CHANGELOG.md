@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.189.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.189.0...v3.189.1) (2023-11-27)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest-axe to v3.5.9 ([fe7f4ca](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fe7f4caedd9de36160ff649c0c3d656b5bb1c72d))
+
 ## [3.189.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.188.1...v3.189.0) (2023-11-27)
 
 
