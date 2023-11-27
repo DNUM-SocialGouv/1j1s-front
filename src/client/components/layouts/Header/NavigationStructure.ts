@@ -88,6 +88,7 @@ const logementsNav = (): NavigationItemWithChildren => ({
 const aidesEtOutilsNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Simulateur d’aides financières', link: '/mes-aides' },
+		...(process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1' ? [{ label: 'Aides au permis de conduire', link: '/1jeune1permis' }] : []),
 		{ label: 'Créer son CV personnalisé', link: '/creer-mon-cv' },
 	],
 	label: 'Aides et outils',

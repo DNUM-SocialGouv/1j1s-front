@@ -120,6 +120,9 @@ export function aSitemap() {
 		<loc>http://localhost:3000/mes-aides</loc>
 	</url>
 	<url>
+		<loc>http://localhost:3000/1jeune1permis</loc>
+	</url>
+	<url>
 		<loc>http://localhost:3000/creer-mon-cv</loc>
 	</url>
 	<url>

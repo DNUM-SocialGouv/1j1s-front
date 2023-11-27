@@ -9,6 +9,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 
 import UnJeuneUnPermis, { getStaticProps } from './index.page';
 
@@ -38,14 +40,19 @@ describe('1jeune1permis', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		// When
 		const { container } = render(
-			<UnJeuneUnPermis/>);
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// Then
 		expect(container.outerHTML).toHTMLValidate();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const { container } = render(<UnJeuneUnPermis />);
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
 	});
@@ -55,7 +62,10 @@ describe('1jeune1permis', () => {
 		*  le choix a été fait de ne pas avoir de heading au dessus de l'iframe. Pour éviter une structuration incohérente de la page,
 		* nous devons nous assurer qu'aucun heading n'est présent */
 		// When
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// Then
 		const headings = screen.queryAllByRole('heading');
@@ -64,7 +74,10 @@ describe('1jeune1permis', () => {
 
 	it('a le titre de page 1jeune1permis', () => {
 		// When
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// Then
 		expect(document.title).toContain('1jeune1permis');
@@ -72,7 +85,10 @@ describe('1jeune1permis', () => {
 
 	it('affiche l\'iframe 1jeune1permis issue du site mes aides de Pôle emploi', () => {
 		// When
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// Then
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
@@ -83,7 +99,10 @@ describe('1jeune1permis', () => {
 	
 	it('redimensionne l\'iframe 1jeune1permis via la taille communiquée par l\'API postMessage', async () => {
 		// Given
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
@@ -101,7 +120,10 @@ describe('1jeune1permis', () => {
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un evenement de type resize-iframe', async () => {
 		// Given
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
@@ -119,7 +141,10 @@ describe('1jeune1permis', () => {
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un objet', async () => {
 		// Given
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
@@ -136,7 +161,10 @@ describe('1jeune1permis', () => {
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si l\'evenement ne provient pas du domaine sur lequel est située la page 1jeune1permis', async () => {
 		// Given
-		render(<UnJeuneUnPermis />);
+		render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>);
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
