@@ -46,9 +46,9 @@ export default function RechercherStages3eme() {
 	const messageResultatsRecherche: string = useMemo(() => {
 		const messageResultatRechercheSplit: string[] = [`${stage3emeList?.nombreDeResultats}`];
 		if (stage3emeList && stage3emeList.nombreDeResultats > 1) {
-			messageResultatRechercheSplit.push('stages de 3ème');
+			messageResultatRechercheSplit.push('entreprises accueillantes');
 		} else {
-			messageResultatRechercheSplit.push('stage de 3ème');
+			messageResultatRechercheSplit.push('entreprise accueillante');
 		}
 		return messageResultatRechercheSplit.join(' ');
 	}, [stage3emeList]);
