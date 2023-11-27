@@ -14,24 +14,20 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { MarketingService } from '~/client/services/marketing/marketing.service';
-import { aMarketingService } from '~/client/services/marketing/marketing.service.fixture';
 import Accueil from '~/pages/index.page';
 
 describe('Page d‘accueil', () => {
 	let analyticsService: ManualAnalyticsService;
-	let marketingService: MarketingService;
 
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });
 		analyticsService = aManualAnalyticsService();
-		marketingService = aMarketingService();
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+			<DependenciesProvider analyticsService={analyticsService}>
 				<Accueil/>
 			</DependenciesProvider>,
 		);
@@ -39,34 +35,11 @@ describe('Page d‘accueil', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	describe('marketingService', () => {
-		it('ne track pas la page si le feature flipping de la page est désactivé', () => {
-			process.env.NEXT_PUBLIC_CAMPAGNE_ACCUEIL_FEATURE= '0';
-			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
-					<Accueil/>
-				</DependenciesProvider>,
-			);
-
-			expect(marketingService.trackPage).not.toHaveBeenCalled();
-		});
-		it('track la page si le feature flipping de la page est activé',   () => {
-			process.env.NEXT_PUBLIC_CAMPAGNE_ACCUEIL_FEATURE= '1';
-			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
-					<Accueil/>
-				</DependenciesProvider>,
-			);
-
-			expect(marketingService.trackPage).toHaveBeenCalledWith('2023-09-1jeune1solution.gouv-PageAccueil-Arrivees');
-		});
-	});
-
 	describe('la section offres', () => {
 		it('contient une carte de redirection vers les stages d’études', () => {
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+				<DependenciesProvider analyticsService={analyticsService}>
 					<Accueil/>
 				</DependenciesProvider>,
 			);
@@ -84,7 +57,7 @@ describe('Page d‘accueil', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -103,7 +76,7 @@ describe('Page d‘accueil', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -120,7 +93,7 @@ describe('Page d‘accueil', () => {
 			it('je ne vois pas la carte de redirection vers les jobs d‘été', () => {
 				process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -133,7 +106,7 @@ describe('Page d‘accueil', () => {
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -152,7 +125,7 @@ describe('Page d‘accueil', () => {
 			it('je ne vois pas la carte de redirection vers les formations initiales', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);
@@ -164,7 +137,7 @@ describe('Page d‘accueil', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
 				render(
-					<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+					<DependenciesProvider analyticsService={analyticsService}>
 						<Accueil/>
 					</DependenciesProvider>,
 				);

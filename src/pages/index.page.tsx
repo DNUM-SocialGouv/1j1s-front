@@ -8,10 +8,8 @@ import { HeroPrimaryText, HeroSecondaryText, HeroWithIllustration } from '~/clie
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { MarketingService } from '~/client/services/marketing/marketing.service';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
 
@@ -24,17 +22,8 @@ interface CardContent {
 	title: string
 }
 
-const PAGE_NAME_ADFORM = '2023-09-1jeune1solution.gouv-PageAccueil-Arrivees';
-
 export default function Accueil() {
 	useAnalytics(analytics);
-
-	const marketingService = useDependency<MarketingService>('marketingService');
-	const marketingPageActif = process.env.NEXT_PUBLIC_CAMPAGNE_ACCUEIL_FEATURE === '1';
-
-	if (marketingPageActif) {
-		marketingService.trackPage(PAGE_NAME_ADFORM);
-	}
 
 	const { isLargeScreen } = useBreakpoint();
 
