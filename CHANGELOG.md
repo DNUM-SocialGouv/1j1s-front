@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.189.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.188.1...v3.189.0) (2023-11-27)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* redimensionnement de l'iframe 1jeune1permis via postMessage ([#2318](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2318)) ([5e950dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5e950dd855875d4bbb71eb22e4ef0391dcdb77bd))
+
 ## [3.188.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.188.0...v3.188.1) (2023-11-27)
 
 
