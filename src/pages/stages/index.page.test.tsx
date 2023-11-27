@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -35,5 +35,23 @@ describe('<RechercherOffreStagePage />', () => {
 		);
 
 		await expect(container).toBeAccessible();
+	});
+	it('doit rendre du HTML respectant la specification', async () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				rechercheClientService={aRechercheClientService()}
+				routingService={aRoutingService()}
+			>
+				<RechercherOffreStagePage />
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Des milliers d‘offres de stages');
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 });

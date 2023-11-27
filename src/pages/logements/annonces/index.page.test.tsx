@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -35,5 +35,23 @@ describe('<AnnoncesPage />', () => {
 		);
 
 		await expect(container).toBeAccessible();
+	});
+	it('doit rendre du HTML respectant la specification', async () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				rechercheClientService={aRechercheClientService()}
+				routingService={aRoutingService()}
+			>
+				<AnnoncesPage />
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Plus de 3 000 offres de logements étudiants et de locations jeune actif');
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 });

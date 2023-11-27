@@ -31,4 +31,18 @@ describe('<PageEvenements />', () => {
 
 		await expect(container).toBeAccessible();
 	});
+	it('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+			>
+				<PageEvenements />
+			</DependenciesProvider>,
+		);
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
 });

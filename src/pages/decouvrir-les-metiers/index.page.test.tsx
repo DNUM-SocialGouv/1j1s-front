@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -35,5 +35,23 @@ describe('<RechercherFicheMetierPage />', () => {
 		);
 
 		await expect(container).toBeAccessible();
+	});
+	it('doit rendre du HTML respectant la specification', async () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				rechercheClientService={aRechercheClientService()}
+				routingService={aRoutingService()}
+			>
+				<RechercherFicheMetierPage />
+			</DependenciesProvider>,
+		);
+
+		await screen.findByText('Je trouve le métier');
+
+		expect(container.outerHTML).toHTMLValidate();
 	});
 });

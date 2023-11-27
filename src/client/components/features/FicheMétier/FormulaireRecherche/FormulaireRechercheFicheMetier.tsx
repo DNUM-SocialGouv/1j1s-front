@@ -5,7 +5,7 @@ import styles  from '~/client/components/features/FicheMétier/FormulaireRecherc
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 
-const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
+const MEILISEARCH_SORT_BY_LABEL_ASC: SortBy<SearchResults.FacetValue> = ['name:asc'];
 
 export function FormulaireRechercheFicheMetier() {
 	return (
@@ -21,7 +21,7 @@ export function FormulaireRechercheFicheMetier() {
 				attribute="centres_interet"
 				limit={100}
 				label="Centres d‘intérêt"
-				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC as SortBy<SearchResults.FacetValue>}
+				sortBy={MEILISEARCH_SORT_BY_LABEL_ASC}
 	  />
 		</form>
 	);
