@@ -12,6 +12,7 @@ import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/clien
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme';
 
@@ -31,7 +32,7 @@ export default function RechercherStages3eme() {
 
 		stage3emeService.rechercherStage3eme()
 			.then((response) => {
-				if (response.instance === 'success') {
+				if (isSuccess(response)) {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultats === 0 ? ' - Aucun résultat' : ''}`));
 					setStage3emeList(response.result);
 				} else {

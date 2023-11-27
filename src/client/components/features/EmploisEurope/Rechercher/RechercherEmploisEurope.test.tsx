@@ -77,7 +77,8 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultats = resultatsUl[0].children;
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -133,8 +134,8 @@ describe('RechercherEmploisEurope', () => {
 					);
 
 					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-
-					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+					// eslint-disable-next-line testing-library/no-node-access
+					const resultats = resultatsUl[0].children;
 
 					// THEN
 					expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -181,8 +182,8 @@ describe('RechercherEmploisEurope', () => {
 					);
 
 					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-
-					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+					// eslint-disable-next-line testing-library/no-node-access
+					const resultats = resultatsUl[0].children;
 
 					// THEN
 					expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -229,8 +230,8 @@ describe('RechercherEmploisEurope', () => {
 					);
 
 					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-
-					const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+					// eslint-disable-next-line testing-library/no-node-access
+					const resultats = resultatsUl[0].children;
 
 					// THEN
 					expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -367,7 +368,8 @@ describe('RechercherEmploisEurope', () => {
 				);
 
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultats = resultatsUl[0].children;
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);
@@ -508,7 +510,8 @@ describe('RechercherEmploisEurope', () => {
 					</DependenciesProvider>,
 				);
 				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-				const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultats = resultatsUl[0].children;
 
 				// THEN
 				expect(resultats).toHaveLength(resultatsService.offreList.length);

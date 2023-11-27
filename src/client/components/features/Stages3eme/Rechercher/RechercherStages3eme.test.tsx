@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -34,8 +34,8 @@ describe('La recherche des stages de 3ème', () => {
 			expect(titre).toBeVisible();
 		});
 	});
-	describe('quand le composant est affiché pour une recherche avec résultats', () => {
-		it('affiche les résultats de la recherche', async () => {
+	describe('quand le composant est affiché pour une recherche avec 1 résultat', () => {
+		it('affiche le résultat de la recherche', async () => {
 			// GIVEN
 			mockSmallScreen();
 			mockUseRouter({ query: { location: 'here' } });
@@ -62,7 +62,8 @@ describe('La recherche des stages de 3ème', () => {
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
-			const resultats = await within(resultatsUl[0]).findAllByTestId('RésultatRechercherSolution');
+			// eslint-disable-next-line testing-library/no-node-access
+			const resultats = resultatsUl[0].children;
 
 			// THEN
 			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);
@@ -70,6 +71,59 @@ describe('La recherche des stages de 3ème', () => {
 			expect(resultats[0]).toHaveTextContent('Informatique');
 			expect(resultats[0]).toHaveTextContent('1 rue de la Paix');
 			expect(resultats[0]).toHaveTextContent('75000 Paris');
+		});
+	});
+	describe('quand le composant est affiché pour une recherche avec plusieurs résultats', () => {
+		it('affiche le résultat de la recherche', async () => {
+			// GIVEN
+			mockSmallScreen();
+			mockUseRouter({ query: { location: 'here' } });
+			const stage3emeServiceMock = aStage3emeService();
+			const resultatRecherche = aResultatRechercheStage3eme({
+				nombreDeResultats: 2,
+				resultats: [
+					{
+						adresse: {
+							codeDepartement: '75',
+							codePostal: '75000',
+							ligne: '1 rue de la Paix',
+							ville: 'Paris',
+						},
+						domaine: 'Informatique',
+						nomEntreprise: 'Entreprise 1',
+					},
+					{
+						adresse: {
+							codeDepartement: '75',
+							codePostal: '75000',
+							ligne: '2 rue de la Paix',
+							ville: 'Paris',
+						},
+						domaine: 'Informatique',
+						nomEntreprise: 'Entreprise 2',
+					},
+				],
+			});
+			jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
+
+			// WHEN
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock}>
+				<RechercherStages3eme/>
+			</DependenciesProvider>);
+			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			// eslint-disable-next-line testing-library/no-node-access
+			const resultats = resultatsUl[0].children;
+
+			// THEN
+			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);
+			expect(resultats[0]).toHaveTextContent('Entreprise 1');
+			expect(resultats[0]).toHaveTextContent('Informatique');
+			expect(resultats[0]).toHaveTextContent('1 rue de la Paix');
+			expect(resultats[0]).toHaveTextContent('75000 Paris');
+			expect(resultats[1]).toHaveTextContent('Entreprise 2');
+			expect(resultats[1]).toHaveTextContent('Informatique');
+			expect(resultats[1]).toHaveTextContent('2 rue de la Paix');
+			expect(resultats[1]).toHaveTextContent('75000 Paris');
 		});
 	});
 });

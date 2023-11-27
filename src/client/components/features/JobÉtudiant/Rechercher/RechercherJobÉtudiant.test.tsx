@@ -173,11 +173,13 @@ describe('RechercherJobÉtudiant', () => {
 				);
 
 				// WHEN
-				const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres de jobs étudiants' });
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultatRechercheOffreEmploiList = resultatsUl[0].children;
 				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres de jobs étudiants pour boulanger');
 
 				// THEN
-				expect(résultatRechercheOffreEmploiList).toHaveLength(3);
+				expect(resultatRechercheOffreEmploiList).toHaveLength(3);
 				expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
 				expect(offreServiceMock.rechercherJobÉtudiant).toHaveBeenCalledWith({ motCle: 'boulanger', page: '1' });
 			});

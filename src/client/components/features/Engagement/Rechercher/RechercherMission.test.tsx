@@ -71,7 +71,9 @@ describe('RechercherMission', () => {
 				);
 
 				expect(await screen.findByText('2 missions de service civique pour Culture et Loisirs')).toBeInTheDocument();
-				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
+				const resultatsUl = await screen.findAllByRole('list', { name: /Offre pour/ });
+				// eslint-disable-next-line testing-library/no-node-access
+				expect(resultatsUl[0].children).toHaveLength(2);
 				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith(expect.objectContaining({
 					domain: 'culture-loisirs',
 					page: '1',
@@ -123,7 +125,8 @@ describe('RechercherMission', () => {
 
 				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
-				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
+				// eslint-disable-next-line testing-library/no-node-access
+				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
 				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
 					distanceCommune: '30',
 					page: '1',
@@ -149,7 +152,8 @@ describe('RechercherMission', () => {
 				);
 
 				expect(await screen.findByText('2 missions de bénévolat pour Environnement')).toBeInTheDocument();
-				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
+				// eslint-disable-next-line testing-library/no-node-access
+				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
 				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
 					domain: 'environnement',
 					page: '1',
@@ -202,7 +206,8 @@ describe('RechercherMission', () => {
 
 				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
-				expect(await screen.findAllByTestId('RésultatRechercherSolution')).toHaveLength(2);
+				// eslint-disable-next-line testing-library/no-node-access
+				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
 				expect(missionEngagementServiceMock.rechercherMission).toHaveBeenCalledWith({
 					distanceCommune: '100',
 					page: '1',
