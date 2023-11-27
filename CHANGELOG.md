@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.190.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.189.1...v3.190.0) (2023-11-27)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **adform:** supprimer campagne cej et rentrée ([#2361](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2361)) ([ae758ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae758ce34e65b62e15348905d629469d0f76acaf))
+
 ## [3.189.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.189.0...v3.189.1) (2023-11-27)
 
 
