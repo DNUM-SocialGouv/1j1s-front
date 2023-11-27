@@ -1,7 +1,11 @@
 @use "@styles/utilities";
 
 .card {
-  width: 22.5rem;
+  max-width: 20rem;
+  width: auto;
+  @include utilities.media(medium) {
+    width: 22.5rem;
+  }
 }
 
 .cardList {

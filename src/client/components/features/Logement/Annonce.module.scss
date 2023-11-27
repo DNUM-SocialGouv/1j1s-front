@@ -2,14 +2,14 @@
 
 .Card {
   &ImageWrapper {
-    width: 360px;
+    width: 320px;
     height: 180px;
     overflow: hidden;
     img {
       object-fit: cover;
       object-position: center;
       height: 180px;
-      width: 360px;
+      width: 320px;
     }
   }
 
@@ -89,6 +89,12 @@
 
 @include utilities-deprecated.media(medium) {
   .Card {
+    &ImageWrapper {
+      width: 360px;
+      img {
+        width: 360px;
+      }
+    }
     &Contenu {
       & h3 {
         font-size: 1.125rem;
