@@ -75,7 +75,7 @@ export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresE
 	};
 }
 
-export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string, tempsDeTravail?: string): string {
 	return `
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -210,7 +210,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
         <ImmediateStartIndicator>
             false
         </ImmediateStartIndicator>
-        <PositionScheduleTypeCode>FullTime</PositionScheduleTypeCode>
+        ${ tempsDeTravail ? `<PositionScheduleTypeCode>${tempsDeTravail}</PositionScheduleTypeCode>` : ''}
         <OfferedRemunerationPackage>
             <RemunerationRange>
                 <RemunerationTypeCode>BasePay</RemunerationTypeCode>

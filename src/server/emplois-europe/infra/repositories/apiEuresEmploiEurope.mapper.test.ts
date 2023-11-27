@@ -1,3 +1,4 @@
+import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
 import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 import {
 	anEmploiEurope,
@@ -345,6 +346,75 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 				// THEN
 				expect(result.typeContrat).toBe(undefined);
+			});
+		});
+		describe('temps de travail', () => {
+			describe('si le temps de travail est fourni est fourni', () => {
+				it('retourne un emploi avec le temps de travail en français selon le référentiel', () => {
+					// GIVEN
+					const positionScheduleType = EURES_POSITION_SCHEDULE_TYPE.FlexTime;
+					const handle = 'eures-offer-id';
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, positionScheduleType);
+					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
+						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml,
+						}) },
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.tempsDeTravail).toBe('Temps flexible');
+				});
+				it('retourne un emploi avec le temps de travail à undefined quand le type de temps de travail n’est pas connu du référentiel', () => {
+					// GIVEN
+					const positionScheduleType = 'does not exist';
+					const handle = 'eures-offer-id';
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, positionScheduleType);
+					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
+						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml,
+						}) },
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.tempsDeTravail).toBeUndefined();
+				});
+			});
+			it('retourne un emploi avec le temps de travail à undefined si le type de contrat EURES n’est pas fourni', () => {
+				// GIVEN
+				const handle = 'eures-offer-id';
+				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle,
+						},
+						hrxml: hrxmlWithoutPositionOfferingTypeCode,
+					}) },
+				);
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+				// WHEN
+				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+				// THEN
+				expect(result.tempsDeTravail).toBe(undefined);
 			});
 		});
 	});

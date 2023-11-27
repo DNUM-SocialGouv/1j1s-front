@@ -1,3 +1,4 @@
+import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import {
 	EURES_CONTRACT_TYPE,
@@ -57,14 +58,18 @@ export class ApiEuresEmploiEuropeMapper {
 		const positionOfferingTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionOfferingTypeCode);
 		const contractType = positionOfferingTypeCode ? this.mapContractType(positionOfferingTypeCode) : undefined;
 
+		const positionScheduleTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionScheduleTypeCode);
+		const tempsDeTravail = positionScheduleTypeCode ? this.mapTempsDeTravail(positionScheduleTypeCode) : undefined;
+
 		return {
 			id: handle,
 			nomEntreprise: organizationIdentifiers?.OrganizationName,
 			pays: country,
+			tempsDeTravail,
 			titre: positionProfile?.PositionTitle,
 			typeContrat: contractType,
 			urlCandidature: itemDetail?.related.urls[0].urlValue,
-			ville: addressCityName,
+			ville: addressCityName, 
 		};
 	};
 
@@ -75,4 +80,10 @@ export class ApiEuresEmploiEuropeMapper {
 			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCode)?.libellé;
 
 	}
+
+	private mapTempsDeTravail(positionScheduleTypeCode: string) {
+		return tempsDeTravailEures.find(
+			(tempsDeTravail) => tempsDeTravail.valeur === positionScheduleTypeCode)?.libellé;
+	}
+
 }

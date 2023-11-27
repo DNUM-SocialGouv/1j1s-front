@@ -11,6 +11,7 @@ export interface EmploiEurope {
 	ville?: string;
 	typeContrat?: string;
 	urlCandidature?: string;
+	tempsDeTravail?: string;
 }
 
 export interface EmploiEuropeFiltre {
