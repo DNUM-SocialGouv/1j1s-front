@@ -1,3 +1,4 @@
+import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
@@ -34,7 +35,7 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						header: {
 							handle: '2',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT),
 					}),
 					related: anApiEuresEmploiEuropeDetailRelated({
 						urls: [{
@@ -61,7 +62,7 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		header: {
 			handle: '1',
 		},
-		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT ),
 		...override,
 	};
 }
