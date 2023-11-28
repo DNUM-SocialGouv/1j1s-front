@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -55,6 +55,23 @@ describe('1jeune1permis', () => {
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
+	});
+
+	it('envoie les analytics de la page', async () => {
+		const analyticsService = aManualAnalyticsService();
+		render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<UnJeuneUnPermis/>
+			</DependenciesProvider>,
+		);
+		await waitFor(() => {
+			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
+				page_template: 'contenu_liste_niv_1',
+				pagegroup: 'permis',
+				pagelabel: 'permis',
+				'segment-site': 'contenu_liste',
+			});
+		});
 	});
 
 	it('n\'a aucun heading', () => {
