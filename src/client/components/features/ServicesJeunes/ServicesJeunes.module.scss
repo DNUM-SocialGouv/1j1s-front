@@ -1,7 +1,6 @@
 @use "@styles/utilities";
 
 .card {
-  max-width: 20rem;
   width: auto;
   @include utilities.media(medium) {
     width: 22.5rem;
