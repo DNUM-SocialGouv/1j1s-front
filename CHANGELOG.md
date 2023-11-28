@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.192.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.191.1...v3.192.0) (2023-11-28)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage3eme:** recherche ([#2350](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2350)) ([a7d2d4f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a7d2d4f233cfc95c4dbe713f8d301f9221b96837))
+
+
+### 👷 Autres changements
+
+* **deps:** update getmeili/meilisearch docker tag to v1.5.0 ([#2330](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2330)) ([1aaa2bb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1aaa2bb10f30fd4b9830b07ad5bcbba90ccc4e82))
+
 ## [3.191.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.191.0...v3.191.1) (2023-11-28)
 
 
