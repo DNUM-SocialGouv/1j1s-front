@@ -28,6 +28,7 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
 		id: '1',
+		niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
 		nomEntreprise: 'La Boulangerie',
 		pays: 'France',
 		tempsDeTravail: 'Temps plein',

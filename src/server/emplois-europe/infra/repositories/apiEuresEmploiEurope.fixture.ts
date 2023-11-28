@@ -74,8 +74,8 @@ export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresE
 		...override,
 	};
 }
-
-export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string, tempsDeTravail?: string): string {
+// TODO: Remplacer les X arguments de la fixture par un objet
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string, tempsDeTravail?: string, educationLevelCode?: number): string {
 	return `
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -184,6 +184,14 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
                     </ScoreText>
                 </RequiredProficiencyLevel>
             </PositionCompetency>
+            <EducationRequirement>
+            ${(educationLevelCode !== undefined) ?  `<EducationLevelCode listName="EURES_ISCEDEducationLevel"
+                 					 listURI="https://ec.europa.eu/eures"
+                 					 listVersionID="2011"
+                 >
+                 					 ${educationLevelCode}
+                 </EducationLevelCode>` : ''}            
+            </EducationRequirement>
             <ExperienceSummary>
                 <ExperienceCategory>
                     <CategoryCode listName="ESCO_Occupations"

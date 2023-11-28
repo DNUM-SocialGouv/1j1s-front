@@ -628,6 +628,70 @@ describe('RechercherEmploisEurope', () => {
 				const tagTypeContrat = within(premierResultat).getByText('Temps partiel');
 				expect(tagTypeContrat).toBeVisible();
 			});
+			it('si le niveau d’études est présent, affiche le niveau d’études', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService = aResultatRechercheEmploiEuropeList({
+					nombreResultats: 1,
+					offreList: [ anEmploiEurope({ niveauEtudes: 'Enseignement supérieur de cycle court' }) ],
+				});
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
+				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).getByText('Enseignement supérieur de cycle court');
+				expect(tagTypeContrat).toBeVisible();
+			});
+			it('si le niveau d’études est "Autre", n’affiche pas le niveau d’études', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService = aResultatRechercheEmploiEuropeList({
+					nombreResultats: 1,
+					offreList: [ anEmploiEurope({ niveauEtudes: 'Autre' }) ],
+				});
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
+				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).getByText('Autre');
+				expect(tagTypeContrat).not.toBeInTheDocument();
+			});
 		});
 	});
 });

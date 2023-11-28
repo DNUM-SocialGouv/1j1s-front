@@ -55,14 +55,22 @@ namespace ApiEuresEmploiEuropeDetailXML {
 		Address?: Address | Array<Address>
 	}
 
+	export interface PositionQualifications {
+		EducationRequirement?: EducationRequirement | Array<EducationRequirement>
+	}
+
+	export interface EducationRequirement {
+		EducationLevelCode?: number;
+	}
+
 	export interface PositionProfile {
 		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
 		PositionTitle?: string;
 		PositionLocation?: PositionLocation | Array<PositionLocation>
 		PositionOfferingTypeCode?: string
 		PositionScheduleTypeCode?: string
+		PositionQualifications?: PositionQualifications | Array<PositionQualifications>
 	}
-
 	export interface PositionOpening {
 		PositionProfile?: PositionProfile | Array<PositionProfile>
 	}
