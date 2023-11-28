@@ -6,5 +6,9 @@ export const getTagsFromAnnonce = (emploiEurope: EmploiEurope): string[] => {
 	const typeContract = emploiEurope.typeContrat;
 	if (typeContract) tags.push(typeContract);
 
+	if (emploiEurope.tempsDeTravail) {
+		tags.push(emploiEurope.tempsDeTravail);
+	}
+
 	return tags;
 };

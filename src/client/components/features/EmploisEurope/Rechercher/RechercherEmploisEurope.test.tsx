@@ -10,7 +10,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
-import { aResultatRechercheEmploiEuropeList } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { anEmploiEurope, aResultatRechercheEmploiEuropeList } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 describe('RechercherEmploisEurope', () => {
@@ -595,6 +595,38 @@ describe('RechercherEmploisEurope', () => {
 				// THEN
 				const tagTypeContrat = within(premierResultat).queryByText('Embauche directe');
 				expect(tagTypeContrat).not.toBeInTheDocument();
+			});
+			it('si le temps de travail est présent, affiche le temps de travail', async () => {
+				// GIVEN
+				const emploiEuropeServiceMock = anEmploiEuropeService();
+				const resultatsService = aResultatRechercheEmploiEuropeList({
+					nombreResultats: 1,
+					offreList: [ anEmploiEurope({ 		tempsDeTravail: 'Temps partiel' }) ],
+				});
+				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+				mockSmallScreen();
+				mockUseRouter({
+					query: {
+						motCle: 'Développeur',
+						page: '1',
+					},
+				});
+
+				// WHEN
+				render(
+					<DependenciesProvider
+						emploiEuropeService={emploiEuropeServiceMock}
+					>
+						<RechercherEmploisEurope/>
+					</DependenciesProvider>,
+				);
+				const listeDesResultats = await screen.findByRole('list', { name: 'Offres d’emplois en Europe' });
+				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
+
+				// THEN
+				const tagTypeContrat = within(premierResultat).getByText('Temps partiel');
+				expect(tagTypeContrat).toBeVisible();
 			});
 		});
 	});

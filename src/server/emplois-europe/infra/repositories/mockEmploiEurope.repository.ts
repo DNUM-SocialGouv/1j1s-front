@@ -1073,7 +1073,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec temps de travail', undefined, undefined, undefined, undefined, 'FlexTime'),
 					},
 					related: {
 						urls: [
@@ -1142,7 +1142,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTMyYy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'directhire'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'DirectHire'),
 					},
 					related: {
 						urls: [

@@ -95,6 +95,19 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
+		it('si le temps de travail est présent, affiche le temps de travail', async () => {
+			// GIVEN
+			const offreEmploiEurope = anEmploiEurope({ tempsDeTravail: 'Temps partiel' });
+
+			// WHEN
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			// THEN
+			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+			const tagTypeContrat = within(listTags).getByText('Temps partiel');
+			expect(tagTypeContrat).toBeVisible();
+		});
+
 		describe('quand un résultat contient un pays et une ville', () => {
 			it('affiche le résultat avec le pays et la ville', async () => {
 				// GIVEN
