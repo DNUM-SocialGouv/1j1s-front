@@ -46,7 +46,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 			await user.click(submitButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29&codeCommune=75056') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
 		});
 	});
 	describe('lorsqu‘on recherche par type d‘accompagnement', () => {

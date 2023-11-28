@@ -63,7 +63,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
@@ -78,7 +78,7 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
@@ -113,14 +113,14 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
@@ -150,14 +150,14 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
@@ -188,7 +188,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
@@ -204,7 +204,7 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(

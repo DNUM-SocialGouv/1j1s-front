@@ -9,12 +9,14 @@ import { aCommuneList } from '../../src/server/localisations/domain/localisation
 import { interceptGet } from '../interceptGet';
 
 describe('Parcours Accompagnement', () => {
+	beforeEach(() => {
+		cy.viewport('iphone-x');
+	});
+
 	describe('quand l‘utilisateur arrive sur la page sans paramètre', () => {
 		beforeEach(() => {
-			cy.viewport('iphone-x');
 			cy.visit('/accompagnement');
 		});
-
 		describe('quand l‘utilisateur lance une recherche', () => {
 			it('affiche les résultats de recherche', () => {
 				cy.intercept(
@@ -26,7 +28,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('combobox', { name: 'Localisation' }).type('par');
 				cy.wait('@get-communes');
 				cy.findByRole('listbox', { name: 'Localisation' })
-					.within(() => cy.findAllByRole('option').first().click({ force: true }));
+					.within(() => cy.findAllByRole('option').first().click());
 
 				cy.findByRole('button', { name: 'Type d‘accompagnement' }).click();
 				cy.findByRole('listbox')
@@ -116,11 +118,6 @@ describe('Parcours Accompagnement', () => {
 	});
 
 	describe('quand l‘utilisateur ajoute des paramètre incorrecte à la query', () => {
-		beforeEach(() => {
-			cy.viewport('iphone-x');
-			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
-		});
-
 		it('affiche le message "Erreur - Demande incorrecte"', () => {
 			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
 			cy.findByText('Erreur - Demande incorrecte').should('be.visible');

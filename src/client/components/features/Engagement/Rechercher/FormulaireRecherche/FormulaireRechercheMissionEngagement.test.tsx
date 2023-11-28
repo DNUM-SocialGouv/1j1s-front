@@ -91,8 +91,10 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			const user = userEvent.setup();
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			const resultListCommune = screen.getAllByRole('option');
-			await user.click(resultListCommune[0]);
+
+			const listeSuggestions = screen.getByRole('listbox');
+			await user.selectOptions(listeSuggestions, 'Paris (75006)');
+
 			const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
 			await user.click(selectButtonRadius);
 

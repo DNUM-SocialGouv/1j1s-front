@@ -6,11 +6,12 @@ import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEn
 import { interceptGet } from '../interceptGet';
 
 context('Parcours service civique', () => {
-
+	beforeEach(() => {
+		cy.viewport('iphone-x');
+	});
 
 	context('quand l‘utilisateur choisi un domaine', () => {
 		beforeEach(() => {
-			cy.viewport('iphone-x');
 			cy.visit('/service-civique');
 		});
 		it('affiche la liste des résultats', () => {
@@ -20,7 +21,6 @@ context('Parcours service civique', () => {
 
 			interceptGet(
 				{
-					// FIXME (GAFI 06-11-2023): Devrait être role combobox
 					actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Localisation/i }).type('paris'),
 					alias: 'recherche-communes',
 					path: '/api/communes*',
@@ -57,7 +57,6 @@ context('Parcours service civique', () => {
 
 	context('quand l‘utilisateur clique sur le premier élément de la liste', () => {
 		beforeEach(() => {
-			cy.viewport('iphone-x');
 			cy.visit('/service-civique?domain=culture-loisirs&libelleCommune=Paris+%2875001%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
 		});
 		it('navigue vers le détail de l‘offre', () => {

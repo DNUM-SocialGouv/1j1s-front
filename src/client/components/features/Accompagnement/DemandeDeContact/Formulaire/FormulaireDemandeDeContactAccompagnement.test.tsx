@@ -116,8 +116,8 @@ async function envoyerDemandeContact() {
 	await userEvent.click(input);
 	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 	await userEvent.type(comboboxCommune, 'Paris');
-	const résultatCommuneList = screen.getAllByRole('option');
-	await userEvent.click(résultatCommuneList[0]);
+	const resultatCommuneList = screen.getAllByRole('option');
+	await userEvent.click(resultatCommuneList[0]);
 
 	const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
 	await userEvent.click(submitButton);
