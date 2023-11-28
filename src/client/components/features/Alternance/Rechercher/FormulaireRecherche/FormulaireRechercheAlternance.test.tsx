@@ -71,7 +71,7 @@ describe('FormulaireRechercheAlternance', () => {
 			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
-			expect(screen.getByRole('textbox', { name: 'Rayon' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
 		});
 	});
 
