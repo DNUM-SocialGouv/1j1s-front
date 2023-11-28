@@ -8,7 +8,7 @@ export function mapRechercheStage3eme(apiResponse: Array<ApiImmersionFacileStage
 			adresse: {
 				codeDepartement: stage3eme.address.departmentCode,
 				codePostal: stage3eme.address.postcode,
-				ligne: stage3eme.address.streetNumberAndAddress,
+				rueEtNumero: stage3eme.address.streetNumberAndAddress,
 				ville: stage3eme.address.city,
 			},
 			domaine: stage3eme.romeLabel,

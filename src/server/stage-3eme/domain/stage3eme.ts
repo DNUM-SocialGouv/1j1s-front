@@ -8,7 +8,7 @@ export namespace Stage3eme {
 	export interface Adresse {
 		codeDepartement: string
 		codePostal: string
-		ligne: string
+		rueEtNumero: string
 		ville: string
 	}
 }

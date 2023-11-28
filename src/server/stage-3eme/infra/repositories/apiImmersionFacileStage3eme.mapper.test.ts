@@ -41,7 +41,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75001',
-						ligne: '1 Rue de la Lune',
+						rueEtNumero: '1 Rue de la Lune',
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
@@ -51,7 +51,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75002',
-						ligne: '2 Rue de la Lune',
+						rueEtNumero: '2 Rue de la Lune',
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',

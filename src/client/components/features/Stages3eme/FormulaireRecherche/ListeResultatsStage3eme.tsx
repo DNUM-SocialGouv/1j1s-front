@@ -31,7 +31,7 @@ function ResultatStage3eme(stage3eme: Stage3eme) {
 				intituléOffre={stage3eme.nomEntreprise}
 				sousTitreOffre={<>
 					<p>{stage3eme.domaine}</p>
-					<p>{stage3eme.adresse.ligne}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
+					<p>{stage3eme.adresse.rueEtNumero}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
 				</>}
 				étiquetteOffreList={[]}
 			/>

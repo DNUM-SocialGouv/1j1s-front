@@ -47,7 +47,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '1 rue de la Paix',
+							rueEtNumero: '1 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',
@@ -61,9 +61,9 @@ describe('La recherche des stages de 3ème', () => {
 			render(<DependenciesProvider stage3emeService={stage3emeServiceMock}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			const listResultats = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
 			// eslint-disable-next-line testing-library/no-node-access
-			const resultats = resultatsUl[0].children;
+			const resultats = listResultats[0].children;
 
 			// THEN
 			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);
@@ -86,7 +86,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '1 rue de la Paix',
+							rueEtNumero: '1 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',
@@ -96,7 +96,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '2 rue de la Paix',
+							rueEtNumero: '2 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',
@@ -110,9 +110,9 @@ describe('La recherche des stages de 3ème', () => {
 			render(<DependenciesProvider stage3emeService={stage3emeServiceMock}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			const listResultats = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
 			// eslint-disable-next-line testing-library/no-node-access
-			const resultats = resultatsUl[0].children;
+			const resultats = listResultats[0].children;
 
 			// THEN
 			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);

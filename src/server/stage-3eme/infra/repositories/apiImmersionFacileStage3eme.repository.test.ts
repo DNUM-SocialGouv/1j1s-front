@@ -1,9 +1,8 @@
-import { createFailure, Success } from '~/server/errors/either';
+import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme';
 import { aResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
 import {
 	anApiImmersionFacileStage3eme,
@@ -45,24 +44,24 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
 
 				// When
-				const result = await repository.search() as Success<ResultatRechercheStage3eme>;
+				const result = await repository.search();
 
 				// Then
-				expect(result.result).toEqual(aResultatRechercheStage3eme({
+				expect(result).toEqual(createSuccess(aResultatRechercheStage3eme({
 					nombreDeResultats: 1,
 					resultats: [
 						{
 							adresse: {
 								codeDepartement: '75',
 								codePostal: '75001',
-								ligne: '1 Rue de la Lune',
+								rueEtNumero: '1 Rue de la Lune',
 								ville: 'Paris',
 							},
 							domaine: 'Boulangerie',
 							nomEntreprise: 'La Boulangerie',
 						},
 					],
-				}));
+				})));
 			});
 		});
 		
