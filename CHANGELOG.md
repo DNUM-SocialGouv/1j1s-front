@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.190.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.190.1...v3.190.2) (2023-11-28)
+
+
+### 👷 Autres changements
+
+* **deps:** update all non-major devdedependencies ([#2370](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2370)) ([d3971f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d3971f6d052ab8427876dde3005b6be88267e872))
+
 ## [3.190.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.190.0...v3.190.1) (2023-11-27)
 
 
