@@ -140,8 +140,8 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 					id="header-search"
 					role="combobox"
 					aria-expanded={suggestionsActive}
-					aria-controls={LOCALISATION_SUGGESTIONS_ID}
-					aria-owns={LOCALISATION_SUGGESTIONS_ID}
+					aria-controls={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
+					aria-owns={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
 					aria-haspopup="listbox"
 				>
 					<input
@@ -150,7 +150,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						name="inputLocalisation"
 						autoComplete="off"
 						aria-autocomplete="list"
-						aria-controls={LOCALISATION_SUGGESTIONS_ID}
+						aria-controls={suggestionsActive ? LOCALISATION_SUGGESTIONS_ID : undefined}
 						aria-activedescendant="rechercherLocalisation"
 						placeholder={'Exemples : Toulouse, Paris...'}
 						className={styles.formControlInput}
@@ -163,10 +163,7 @@ export function MeilisearchInputRefinement(props: UseRefinementListProps) {
 						onClick={() => setSuggestionsActive(!!localisation)}
 					/>
 				</div>
-				{suggestionsActive
-					? <SuggestionsLocalisationList />
-					: <ul id={LOCALISATION_SUGGESTIONS_ID} hidden/>
-				}
+				{suggestionsActive && <SuggestionsLocalisationList/>}
 			</div>
 		</div>
 	);
