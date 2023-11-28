@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.191.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.190.2...v3.191.0) (2023-11-28)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **1jeune1permis:** ajoute entrée au menu et tracking ([#2364](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2364)) ([59c970e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/59c970ef8aa27541598bbabb553a2b51531e995f))
+
 ## [3.190.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.190.1...v3.190.2) (2023-11-28)
 
 
