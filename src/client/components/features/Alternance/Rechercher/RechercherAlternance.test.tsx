@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
@@ -154,7 +154,9 @@ describe('RechercherAlternance', () => {
 			expect(messageResultats).toBeInTheDocument();
 
 
-			const resultListOffre = await within(await screen.findByRole('list', { name: 'Offres d’alternances' })).findAllByTestId('RésultatRechercherSolution');
+			const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’alternances' });
+			// eslint-disable-next-line testing-library/no-node-access
+			const resultListOffre = resultatsUl[0].children;
 			expect(resultListOffre).toHaveLength(alternanceFixture.length);
 			expect(await screen.findByText(alternanceFixture[0].titre)).toBeInTheDocument();
 			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();
@@ -177,7 +179,9 @@ describe('RechercherAlternance', () => {
 				await user.click(onglet);
 				expect(onglet).toHaveAttribute('aria-selected', 'true');
 
-				const resultListEntreprise = await within(await screen.findByRole('list', { name: 'Entreprises' })).findAllByTestId('RésultatRechercherSolution');
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Entreprises' });
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultListEntreprise = resultatsUl[0].children;
 				expect(resultListEntreprise).toHaveLength(entrepriseFixture.length);
 				expect(await screen.findByText(entrepriseFixture[0].nom)).toBeVisible();
 				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();

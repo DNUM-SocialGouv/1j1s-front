@@ -173,11 +173,12 @@ describe('RechercherJobEte', () => {
 				);
 
 				// WHEN
-				const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultatRechercheOffreEmploiList = (await screen.findAllByRole('list', { name: 'Offres de jobs d’été' }))[0].children;
 				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres de jobs d’été pour boulanger');
 
 				// THEN
-				expect(résultatRechercheOffreEmploiList).toHaveLength(3);
+				expect(resultatRechercheOffreEmploiList).toHaveLength(3);
 				expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
 				expect(offreServiceMock.rechercherJobEte).toHaveBeenCalledWith({ motCle: 'boulanger', page: '1' });
 			});

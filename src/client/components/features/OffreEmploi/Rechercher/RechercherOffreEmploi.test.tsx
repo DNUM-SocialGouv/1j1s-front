@@ -159,11 +159,13 @@ describe('RechercherOffreEmploi', () => {
 				);
 
 				// WHEN
-				const résultatRechercheOffreEmploiList = await screen.findAllByTestId('RésultatRechercherSolution');
+				const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d‘emplois' });
+				// eslint-disable-next-line testing-library/no-node-access
+				const resultatRechercheOffreEmploiList = resultatsUl[0].children;
 				const rechercheOffreEmploiNombreRésultats = await screen.findByText('3 offres d‘emplois pour boulanger');
 
 				// THEN
-				expect(résultatRechercheOffreEmploiList).toHaveLength(3);
+				expect(resultatRechercheOffreEmploiList).toHaveLength(3);
 				expect(rechercheOffreEmploiNombreRésultats).toBeInTheDocument();
 			});
 		});

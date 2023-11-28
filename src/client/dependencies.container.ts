@@ -36,6 +36,8 @@ import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { StageService } from '~/client/services/stage/stage.service';
+import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
+import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
@@ -59,6 +61,7 @@ export type Dependencies = {
 	marketingService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
+	stage3emeService: Stage3emeService
 }
 
 class DependencyInitException extends Error {
@@ -115,6 +118,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 			primaryKey: 'slug',
 		},
 	);
+	
+	const stage3emeService = new BffStage3emeService(httpClientService);
 
 	return {
 		alternanceService,
@@ -132,6 +137,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		missionEngagementService,
 		offreService,
 		rechercheClientService,
+		stage3emeService,
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,
