@@ -301,7 +301,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 					// THEN
-					expect(result.typeContrat).toBe(undefined);
+					expect(result.typeContrat).toBeUndefined();
 				});
 				it('retourne un emploi avec le type de contrat à undefined quand le type de contrat EURES n’est pas connu du référentiel', () => {
 					// GIVEN
@@ -323,7 +323,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 					// THEN
-					expect(result.typeContrat).toBe(undefined);
+					expect(result.typeContrat).toBeUndefined();
 				});
 
 			});
@@ -346,7 +346,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 				// THEN
-				expect(result.typeContrat).toBe(undefined);
+				expect(result.typeContrat).toBeUndefined();
 			});
 		});
 		describe('temps de travail', () => {
@@ -415,7 +415,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 				// THEN
-				expect(result.tempsDeTravail).toBe(undefined);
+				expect(result.tempsDeTravail).toBeUndefined();
 			});
 		});
 		describe('niveau d’études', () => {
@@ -484,7 +484,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
 
 				// THEN
-				expect(result.niveauEtudes).toBe(undefined);
+				expect(result.niveauEtudes).toBeUndefined();
 			});
 		});
 	});

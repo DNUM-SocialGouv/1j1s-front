@@ -689,7 +689,7 @@ describe('RechercherEmploisEurope', () => {
 				const premierResultat = (await within(listeDesResultats).findAllByRole('listitem'))[0];
 
 				// THEN
-				const tagTypeContrat = within(premierResultat).getByText('Autre');
+				const tagTypeContrat = within(premierResultat).queryByText('Autre');
 				expect(tagTypeContrat).not.toBeInTheDocument();
 			});
 		});
