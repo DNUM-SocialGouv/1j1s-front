@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
+import useAnalytics from '~/client/hooks/useAnalytics';
 
+import analyticsPageConfig from './index.analytics';
 import styles from './index.module.scss';
 
 const URL_IFRAME_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis';
@@ -23,6 +25,7 @@ export async function getStaticProps(): Promise<GetServerSidePropsResult<Record<
 
 export default function UnJeuneUnPermis() {
 
+	useAnalytics(analyticsPageConfig);
 	const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
 
 	const onMessage = (event: MessageEvent<{ type: string; height: number }>) => {
