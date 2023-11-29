@@ -11,6 +11,7 @@ import { dependencies } from '~/server/start';
 export const emploiEuropeRechercheQuerySchema = Joi.object({
 	codePays: Joi.string(),
 	motCle: Joi.string(),
+	niveauEtude: Joi.string(),
 	page: Joi.number().min(1).required(),
 	typeContrat: Joi.string(),
 }).options({ allowUnknown: true });
@@ -28,6 +29,7 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 	return {
 		codePays: query.codePays as string | undefined,
 		motCle: query.motCle as string | undefined,
+		niveauEtude: query.niveauEtude ? queryToArray(query.niveauEtude) : [],
 		page: Number(query.page),
 		typeContrat: query.typeContrat ? queryToArray(query.typeContrat) : [],
 	};

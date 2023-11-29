@@ -16,6 +16,7 @@ export interface EmploiEurope {
 export interface EmploiEuropeFiltre {
 	codePays?: string;
 	typeContrat?: string[];
+	niveauEtude?: string[];
 	motCle?: string;
 	page: number;
 }
