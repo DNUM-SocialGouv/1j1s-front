@@ -5,6 +5,7 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
@@ -138,6 +139,23 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		});
 	});
 
+	describe('quand l’utilisation clique sur Suivant et qu’il a rempli tous les champs en naviguant au clavier', () => {
+		it('il passe à l’étape 2', async () => {
+			// GIVEN
+			renderComponent();
+			await remplirFormulaireEtape1NavigationClavier();
+
+			// WHEN
+			await clickOnGoToEtape2();
+
+			// THEN
+			expect(screen.getByText('Etape 2 sur 2')).toBeVisible();
+			labelsEtape2.forEach((label) => {
+				expect(screen.getByRole('textbox', label)).toBeVisible();
+			});
+		});
+	});
+
 	describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
 		it('il voit des messages d’erreur', async () => {
 			// Given
@@ -264,14 +282,34 @@ async function remplirFormulaireEtape1() {
 	await user.type(inputSiret, '41816609600069');
 	const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
 	await user.type(inputSecteur, 'Santé humaine et action sociale');
-	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
 	await user.click(screen.getByRole('button', { name: 'Taille de l’entreprise' }));
 	await user.click(screen.getByText('20 à 49 salariés'));
 	const inputVille = screen.getByText('Ville du siège social de l’entreprise');
 	await user.type(inputVille, 'Paris');
-	// eslint-disable-next-line testing-library/no-wait-for-side-effects
 	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
+}
+
+async function remplirFormulaireEtape1NavigationClavier() {
+	const user = userEvent.setup();
+	const inputNomSociete = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
+	await user.type(inputNomSociete, 'Octo');
+	await user.tab();
+
+	await user.keyboard('Paris');
+	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
+	await user.tab();
+
+	await user.keyboard('41816609600069');
+	await user.tab();
+
+	await user.keyboard('Santé humaine et action sociale');
+	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
+	await user.tab();
+
+	await user.keyboard(KeyBoard.SPACE); //ouverture
+	await user.keyboard(KeyBoard.SPACE); // choix de la première option
+	await user.tab();
 }
 
 async function remplirFormulaireEtape2() {
