@@ -47,7 +47,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '1 rue de la Paix',
+							rueEtNumero: '1 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',
@@ -86,7 +86,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '1 rue de la Paix',
+							rueEtNumero: '1 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',
@@ -96,7 +96,7 @@ describe('La recherche des stages de 3ème', () => {
 						adresse: {
 							codeDepartement: '75',
 							codePostal: '75000',
-							ligne: '2 rue de la Paix',
+							rueEtNumero: '2 rue de la Paix',
 							ville: 'Paris',
 						},
 						domaine: 'Informatique',

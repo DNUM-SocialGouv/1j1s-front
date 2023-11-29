@@ -1,8 +1,8 @@
 import { ResultatRechercheStage3eme } from '../../domain/stage3eme';
 import { ApiImmersionFacileStage3emeRechercheResponse } from './apiImmersionFacileStage3eme';
 
-function mapModeDeContact(apiModeDeContact?: string): string | undefined {
-	switch (apiModeDeContact) {
+function mapModeDeContact(stage3eme: ApiImmersionFacileStage3emeRechercheResponse): string | undefined {
+	switch (stage3eme.contactMode) {
 		case 'IN_PERSON':
 			return 'Candidature en personne';
 		case 'EMAIL':
@@ -10,6 +10,9 @@ function mapModeDeContact(apiModeDeContact?: string): string | undefined {
 		case 'PHONE':
 			return 'Candidature par téléphone';
 		default:
+			if (stage3eme.voluntaryToImmersion) {
+				return 'Candidature spontanée';
+			}
 			return undefined;
 	}
 }
@@ -21,16 +24,13 @@ export function mapRechercheStage3eme(apiResponse: Array<ApiImmersionFacileStage
 			adresse: {
 				codeDepartement: stage3eme.address.departmentCode,
 				codePostal: stage3eme.address.postcode,
-				ligne: stage3eme.address.streetNumberAndAddress,
+				rueEtNumero: stage3eme.address.streetNumberAndAddress,
 				ville: stage3eme.address.city,
 			},
-			candidatureSpontanee: stage3eme.voluntaryToImmersion !== undefined && !stage3eme.voluntaryToImmersion,
 			domaine: stage3eme.romeLabel,
-			modeDeContact: mapModeDeContact(stage3eme.contactMode),
+			modeDeContact: mapModeDeContact(stage3eme),
 			nomEntreprise: stage3eme.name,
-			nombreDeSalaries: stage3eme.numberOfEmployeeRange && stage3eme.numberOfEmployeeRange !== ''
-				? stage3eme.numberOfEmployeeRange
-				: undefined,
+			nombreDeSalaries: stage3eme.numberOfEmployeeRange ? stage3eme.numberOfEmployeeRange : undefined,
 		})),
 	};
 }

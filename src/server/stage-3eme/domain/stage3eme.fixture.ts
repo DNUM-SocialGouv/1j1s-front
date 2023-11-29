@@ -8,7 +8,7 @@ export function aResultatRechercheStage3eme(override?: Partial<ResultatRecherche
 				adresse: {
 					codeDepartement: '75',
 					codePostal: '75000',
-					ligne: '1 rue de la Boulangerie',
+					rueEtNumero: '1 rue de la Boulangerie',
 					ville: 'Paris',
 				},
 				domaine: 'Boulangerie',
@@ -18,7 +18,7 @@ export function aResultatRechercheStage3eme(override?: Partial<ResultatRecherche
 				adresse: {
 					codeDepartement: '75',
 					codePostal: '75000',
-					ligne: '1 rue de la Pâtisserie',
+					rueEtNumero: '1 rue de la Pâtisserie',
 					ville: 'Paris',
 				},
 				domaine: 'Pâtisserie',
@@ -34,10 +34,9 @@ export function aStage3eme(override?: Partial<Stage3eme>): Stage3eme {
 		adresse: {
 			codeDepartement: '75',
 			codePostal: '75001',
-			ligne: '1 Rue de la Lune',
+			rueEtNumero: '1 Rue de la Lune',
 			ville: 'Paris',
 		},
-		candidatureSpontanee: false,
 		domaine: 'Boulangerie',
 		modeDeContact: 'Candidature en personne',
 		nomEntreprise: 'La Boulangerie',

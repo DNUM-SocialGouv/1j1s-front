@@ -47,10 +47,9 @@ describe('mapRechercheStage3eme.mapper', () => {
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75001',
-						ligne: '1 Rue de la Lune',
+						rueEtNumero: '1 Rue de la Lune',
 						ville: 'Paris',
 					},
-					candidatureSpontanee: false,
 					domaine: 'Boulangerie',
 					modeDeContact: 'Candidature en personne',
 					nomEntreprise: 'La Boulangerie',
@@ -60,10 +59,9 @@ describe('mapRechercheStage3eme.mapper', () => {
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75002',
-						ligne: '2 Rue de la Lune',
+						rueEtNumero: '2 Rue de la Lune',
 						ville: 'Paris',
 					},
-					candidatureSpontanee: false,
 					domaine: 'Boulangerie',
 					modeDeContact: undefined,
 					nomEntreprise: 'La Boulangerie 2',
@@ -86,6 +84,11 @@ describe('mapRechercheStage3eme.mapper', () => {
 			}),
 			anApiImmersionFacileStage3eme({
 				contactMode: undefined,
+				voluntaryToImmersion: true,
+			}),
+			anApiImmersionFacileStage3eme({
+				contactMode: undefined,
+				voluntaryToImmersion: false,
 			}),
 		];
 
@@ -94,7 +97,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 
 		// Then
 		expect(result).toEqual(aResultatRechercheStage3eme({
-			nombreDeResultats: 4,
+			nombreDeResultats: 5,
 			resultats: [
 				aStage3eme({
 					modeDeContact: 'Candidature en personne',
@@ -106,28 +109,10 @@ describe('mapRechercheStage3eme.mapper', () => {
 					modeDeContact: 'Candidature par téléphone',
 				}),
 				aStage3eme({
-					modeDeContact: undefined,
+					modeDeContact: 'Candidature spontanée',
 				}),
-			],
-		}));
-	});
-	it('retourne candidatureSpontanee à false si voluntaryToImmersion est undefined', () => {
-		// Given
-		const apiImmersionFacileStage3eme = [
-			anApiImmersionFacileStage3eme({
-				voluntaryToImmersion: undefined,
-			}),
-		];
-
-		// When
-		const result = mapRechercheStage3eme(apiImmersionFacileStage3eme);
-
-		// Then
-		expect(result).toEqual(aResultatRechercheStage3eme({
-			nombreDeResultats: 1,
-			resultats: [
 				aStage3eme({
-					candidatureSpontanee: false,
+					modeDeContact: undefined,
 				}),
 			],
 		}));

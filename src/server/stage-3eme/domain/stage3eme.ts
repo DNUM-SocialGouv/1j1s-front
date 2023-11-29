@@ -3,7 +3,6 @@ export interface Stage3eme {
 	adresse: Stage3eme.Adresse
 	domaine: string
 	nombreDeSalaries?: string
-	candidatureSpontanee: boolean
 	modeDeContact?: string
 }
 

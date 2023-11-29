@@ -26,7 +26,6 @@ export function ListeResultatsStage3eme({ resultatList }: ListeResultatsStage3em
 
 function ResultatStage3eme(stage3eme: Stage3eme) {
 	const tailleEntreprise = stage3eme.nombreDeSalaries ? `${stage3eme.nombreDeSalaries} salariés` : undefined;
-	const candidatureSpontanee = stage3eme.candidatureSpontanee ? 'Candidature spontanée' : undefined;
 	const modeDeContact = stage3eme.modeDeContact;
 	return (
 		<li key={uuidv4()}>
@@ -34,9 +33,9 @@ function ResultatStage3eme(stage3eme: Stage3eme) {
 				intituléOffre={stage3eme.nomEntreprise}
 				sousTitreOffre={<>
 					<p>{stage3eme.domaine}</p>
-					<p>{stage3eme.adresse.ligne}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
+					<p>{stage3eme.adresse.rueEtNumero}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
 				</>}
-				étiquetteOffreList={[tailleEntreprise, candidatureSpontanee, modeDeContact]}
+				étiquetteOffreList={[tailleEntreprise, modeDeContact]}
 			/>
 		</li>
 	);

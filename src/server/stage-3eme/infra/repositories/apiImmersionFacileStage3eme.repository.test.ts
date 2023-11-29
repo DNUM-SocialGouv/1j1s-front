@@ -55,7 +55,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 							adresse: {
 								codeDepartement: '75',
 								codePostal: '75001',
-								ligne: '1 Rue de la Lune',
+								rueEtNumero: '1 Rue de la Lune',
 								ville: 'Paris',
 							},
 							domaine: 'Boulangerie',
