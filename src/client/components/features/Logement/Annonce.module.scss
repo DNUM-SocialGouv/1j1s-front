@@ -46,7 +46,8 @@
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto auto;
     column-gap: 2rem;
-    padding: 1.5rem 0;
+    padding-top: .5rem;
+    padding-bottom: 1.5rem;
     @extend %text-medium;
     dd {
       > sup {
@@ -70,6 +71,7 @@
     .localisation {
       $lineHeight: 1.5;
       line-height: $lineHeight;
+      white-space: unset;
       span {
         @include utilities-deprecated.line-clamp(1, $lineHeight);
       }
@@ -82,6 +84,7 @@
       }
       > span {
         white-space: nowrap;
+        margin-left: .5rem;
       }
     }
   }
@@ -90,9 +93,9 @@
 @include utilities-deprecated.media(medium) {
   .Card {
     &ImageWrapper {
-      width: 360px;
+      width: 22.5rem;
       img {
-        width: 360px;
+        width: 22.5rem;
       }
     }
     &Contenu {

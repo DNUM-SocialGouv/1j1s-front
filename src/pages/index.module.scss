@@ -14,7 +14,8 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 }
 
 .card {
-    width: 20rem;
+    max-width: 22.5rem;
+    width: 100%;
     img {
         object-fit: cover;
     }

@@ -10,6 +10,10 @@
   transform-style: preserve-3d;
   transition: 700ms;
   transform: rotateY(var(--rotate-y, 0));
+  max-width: 20rem;
+  @include utilities-deprecated.media(medium) {
+    max-width: unset;
+  }
 }
 
 .card {

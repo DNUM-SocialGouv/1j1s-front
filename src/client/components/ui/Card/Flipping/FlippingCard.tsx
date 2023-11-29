@@ -93,7 +93,7 @@ export function FlippingCard(props: FlippingCardProps) {
 						className={classNames(styles.cardActionWrapper, hasFlipCardContent ? styles.cardActionWrapperSpaceBetween : styles.cardActionWrapperFlexEnd)}>
 						{hasFlipCardContent &&
                 <ButtonComponent
-                	label="Qui est concerné ?"
+                	label="Pour qui ?"
                 	appearance={'quaternary'}
                 	className={styles.cardActionWrapperButton}
                 	ref={flipButton}
@@ -107,10 +107,10 @@ export function FlippingCard(props: FlippingCardProps) {
 			{isCardFlipped && (
 				<div ref={cardFlipRef} className={classNames(styles.card, styles.cardFlipBack)}>
 					<button onClick={() => flipCard(true)} className={styles.cardFlipBackAction}>
-						<span className="sr-only">masquer la section qui est concerné</span>
+						<span className="sr-only">masquer la section pour qui</span>
 						<Icon name="angle-left" aria-hidden="true"/>
 					</button>
-					<div className={styles.cardFlipBackTitle}>Qui est concerné ?</div>
+					<div className={styles.cardFlipBackTitle}>Pour qui ?</div>
 					<div className={styles.cardFlipBackContent}><Marked markdown={flippingCardContent}/></div>
 				</div>)
 			}
