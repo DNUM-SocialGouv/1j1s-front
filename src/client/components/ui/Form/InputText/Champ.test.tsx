@@ -26,7 +26,7 @@ describe('<Champ/>', () => {
 
 		render(
 			<Champ>
-				<Champ.Input ref={()=> {console.log('toto')}} render={Input} validation={() => 'Message d’erreur'}/>
+				<Champ.Input ref={()=> {console.log('toto');}} render={Input} validation={() => 'Message d’erreur'}/>
 				<Champ.Error/>
 			</Champ>,
 		);
@@ -235,8 +235,6 @@ describe('<Champ/>', () => {
 			expect(erreur).toBeVisible();
 		});
 	});
-
-	it.todo('passer le champ en render prop');
 });
 
 async function touchChamp() {
