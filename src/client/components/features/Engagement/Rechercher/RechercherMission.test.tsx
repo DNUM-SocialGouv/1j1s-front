@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -115,13 +115,12 @@ describe('RechercherMission', () => {
 					</DependenciesProvider>,
 				);
 				const user = userEvent.setup();
-				const inputCommune = screen.getByTestId('InputCommune');
-				await user.type(inputCommune, 'Pari');
-				const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-				const resultListCommune = within(résultatsCommune).getAllByRole('option');
-				fireEvent.click(resultListCommune[0]);
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				await user.type(comboboxCommune, 'Pari');
+				const resultListCommune = screen.getAllByRole('option');
+				await user.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-				fireEvent.click(selectButtonRadius);
+				await user.click(selectButtonRadius);
 
 				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
@@ -196,13 +195,12 @@ describe('RechercherMission', () => {
 				);
 
 				const user = userEvent.setup();
-				const inputCommune = screen.getByTestId('InputCommune');
-				await user.type(inputCommune, 'Pari');
-				const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-				const resultListCommune = within(résultatsCommune).getAllByRole('option');
-				fireEvent.click(resultListCommune[0]);
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				await user.type(comboboxCommune, 'Pari');
+				const resultListCommune = screen.getAllByRole('option');
+				await user.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-				fireEvent.click(selectButtonRadius);
+				await user.click(selectButtonRadius);
 
 				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();

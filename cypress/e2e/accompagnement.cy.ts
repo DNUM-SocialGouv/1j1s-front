@@ -6,28 +6,27 @@ import {
 	anOrderedÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
-import communeList from '../fixture/communes/communeList.fixture.json';
 import { interceptGet } from '../interceptGet';
 
 describe('Parcours Accompagnement', () => {
+	beforeEach(() => {
+		cy.viewport('iphone-x');
+	});
+
 	describe('quand l‘utilisateur arrive sur la page sans paramètre', () => {
 		beforeEach(() => {
-			cy.viewport('iphone-x');
 			cy.visit('/accompagnement');
-
-			cy.intercept({ pathname: '/api/communes' }, { body: communeList, statusCode: 200 });
 		});
-
 		describe('quand l‘utilisateur lance une recherche', () => {
 			it('affiche les résultats de recherche', () => {
-				interceptGet({
-					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: 'Localisation' }).type('par'),
-					alias: 'recherche-commune',
-					path: '/api/communes?q=par*',
-					response: JSON.stringify({
-						résultats: aCommuneList(),
-					}),
-				});
+				cy.intercept(
+					'GET',
+					'/api/communes?q=*',
+					JSON.stringify({ résultats: aCommuneList() }),
+				).as('get-communes');
+
+				cy.findByRole('combobox', { name: 'Localisation' }).type('par');
+				cy.wait('@get-communes');
 				cy.findByRole('listbox', { name: 'Localisation' })
 					.within(() => cy.findAllByRole('option').first().click());
 
@@ -52,11 +51,11 @@ describe('Parcours Accompagnement', () => {
 			it('permet d‘envoyer une demande de contact', () => {
 				cy.intercept(
 					'GET',
-					'/api/communes?q=par*',
+					'/api/communes?q=*',
 					JSON.stringify({ résultats: aCommuneList() }),
 				).as('get-communes');
 
-				cy.findByRole('textbox', { name: 'Localisation' }).type('par');
+				cy.findByRole('combobox', { name: 'Localisation' }).type('par');
 				cy.wait('@get-communes');
 				cy.findByRole('listbox', { name: 'Localisation' })
 					.within(() => cy.findAllByRole('option').first().click());
@@ -87,9 +86,9 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('option', { name: '23 ans' }).click();
 
 				interceptGet({
-					actionBeforeWaitTheCall: () => cy.findAllByRole('textbox', { name: 'Localisation' }).last().type('par'),
+					actionBeforeWaitTheCall: () => cy.findAllByRole('combobox', { name: 'Localisation' }).last().type('par'),
 					alias: 'recherche-commune',
-					path: '/api/communes?q=par*',
+					path: '/api/communes?q=*',
 					response: JSON.stringify({
 						résultats: aCommuneList(),
 					}),
@@ -113,17 +112,12 @@ describe('Parcours Accompagnement', () => {
 		describe('quand l‘utilisateur n‘écrit rien et fait une recherche', () => {
 			it('affiche un text indiquant qu‘il faut saisir une localisation', () => {
 				cy.findByRole('button', { name: 'Rechercher' }).click();
-				cy.findByText('Veuillez saisir une localisation').should('be.visible');
+				cy.findByText('Veuillez sélectionner une option dans la liste').should('be.visible');
 			});
 		});
 	});
 
 	describe('quand l‘utilisateur ajoute des paramètre incorrecte à la query', () => {
-		beforeEach(() => {
-			cy.viewport('iphone-x');
-			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
-		});
-
 		it('affiche le message "Erreur - Demande incorrecte"', () => {
 			cy.visit('/accompagnement?libelleCommune=Figeac+%2846100%29&codeCommune=46102&oui=non');
 			cy.findByText('Erreur - Demande incorrecte').should('be.visible');

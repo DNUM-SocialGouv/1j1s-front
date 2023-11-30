@@ -11,3 +11,9 @@ export default function Accompagnement() {
 
 	return <RechercherAccompagnement />;
 }
+
+export function getServerSideProps() {
+	return {
+		props: {},
+	};
+}

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -23,7 +23,10 @@ describe('FormulaireRechercheAccompagnement', () => {
 		it('filtre les résultats par localisation',  async() => {
 			// GIVEN
 			const routerPush = jest.fn();
-			mockUseRouter({ push: routerPush });
+		
+			mockUseRouter({ push: routerPush, query: {
+				typeAccompagnement: 'pole_emploi',
+			} });
 			const localisationServiceMock = aLocalisationService();
 
 			render(
@@ -33,18 +36,18 @@ describe('FormulaireRechercheAccompagnement', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputCommune = screen.getByTestId('InputCommune');
-			await user.type(inputCommune, 'Pari');
-			const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-			const resultListCommune = within(résultatsCommune).getAllByRole('option');
-			fireEvent.click(resultListCommune[0]);
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
+			const resultListCommune = screen.getAllByRole('option');
+			await user.click(resultListCommune[0]);
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 
 			// WHEN
-			fireEvent.submit(submitButton);
+			await user.click(submitButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris+%2875006%29&codeCommune=75056' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
 		});
 	});
 	describe('lorsqu‘on recherche par type d‘accompagnement', () => {
@@ -63,8 +66,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 				</DependenciesProvider>,
 			);
 
-			const selectTypeAccompagnement = screen.getByRole('button', { expanded: false });
-			expect(selectTypeAccompagnement).toBeInTheDocument();
+			const selectTypeAccompagnement = screen.getByRole('button', { name:'Type d‘accompagnement' });
+			expect(selectTypeAccompagnement).toBeVisible();
 		});
 	});
 
@@ -81,7 +84,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 			</DependenciesProvider>,
 		);
 
-		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const typeAccompagnement = screen.getByTestId('Select-InputHidden');
 		expect(typeAccompagnement).toHaveValue('pole_emploi');

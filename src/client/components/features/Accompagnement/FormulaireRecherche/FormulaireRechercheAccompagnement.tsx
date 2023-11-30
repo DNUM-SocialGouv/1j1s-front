@@ -4,7 +4,7 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import styles
 	from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
@@ -20,16 +20,19 @@ const typeAccompagnementListe: Option[] = [
 export function FormulaireRechercheAccompagnement() {
 	const rechercheAccompagnementForm = useRef<HTMLFormElement>(null);
 
-	const [inputCodeCommune, setInputCodeCommune] = useState<string>('');
 	const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
-	const [inputLibelléCommune, setInputLibelléCommune] = useState<string>('');
 
 	const queryParams = useAccompagnementQuery();
+
+	const { libelleCommune, codeCommune } = queryParams;
+
+	const defaultCommuneValue = (libelleCommune && codeCommune)
+		? { code: codeCommune, libelle: libelleCommune }
+		: undefined;
+
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
-		setInputCodeCommune(queryParams.codeCommune || '');
-		setInputLibelléCommune(queryParams.libelleCommune || '');
 		setInputTypeAccompagnement(queryParams.typeAccompagnement || '');
 	}, [queryParams]);
 
@@ -48,12 +51,12 @@ export function FormulaireRechercheAccompagnement() {
 				className={styles.rechercheAccompagnementForm}
 				onSubmit={updateRechercheAccompagnementQueryParams}>
 				<div className={styles.filtresRecherche}>
-					<InputCommune
-						className={styles.inputCommune}
-						code={inputCodeCommune}
-						libellé={inputLibelléCommune}
-						required
-						showRadius={false}/>
+					<div className={styles.comboboxCommune}>
+						<ComboboxCommune
+							defaultCommune={defaultCommuneValue}
+							required
+						/>
+					</div>
 					<Select
 						id={'type-accompagnement'}
 						required
@@ -66,10 +69,10 @@ export function FormulaireRechercheAccompagnement() {
 				</div>
 				<ButtonComponent
 					className={styles.buttonRechercher}
-					label='Rechercher'
-					icon={<Icon name="magnifying-glass" />}
-					iconPosition='right'
-					type='submit'/>
+					label="Rechercher"
+					icon={<Icon name="magnifying-glass"/>}
+					iconPosition="right"
+					type="submit"/>
 			</form>
 		</>
 	);

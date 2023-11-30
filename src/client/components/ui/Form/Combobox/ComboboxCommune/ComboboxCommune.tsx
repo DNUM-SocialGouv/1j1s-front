@@ -28,6 +28,7 @@ type ComboboxCommuneProps = {
 		longitude?: string
 	}
 	defaultDistance?: string
+	showRadiusInput?: boolean
 } & ComboboxPropsWithOmit
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
@@ -47,6 +48,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		debounceTimeout = 0,
 		'aria-describedby': ariaDescribedby = '',
 		onInvalid: onInvalidProps = doNothing,
+		showRadiusInput = false,
 		...rest
 	} = props;
 	const localisationService = useDependency<LocalisationService>('localisationService');
@@ -129,6 +131,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					autoComplete="off"
 					filter={Combobox.noFilter}
 					aria-label={label}
+					placeholder={'Exemples : Paris, Béziers...'}
 					id={inputId}
 					value={userInput}
 					requireValidOption
@@ -165,7 +168,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
 				<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
 			</div>
-			{!fieldError && commune.code && <Select
+			{showRadiusInput && !fieldError && commune.code && userInput && <Select
 				label="Rayon"
 				name="distanceCommune"
 				optionList={radiusList}

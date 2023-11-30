@@ -8,3 +8,9 @@ export default function RechercherMissionServiceCiviquePage() {
 
 	return <RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>;
 }
+
+export function getServerSideProps() {
+	return {
+		props: {},
+	};
+}

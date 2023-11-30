@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -27,18 +27,21 @@ describe('FormulaireRechercheMissionEngagement', () => {
 					<FormulaireRechercheMissionEngagement domainList={domainList}/>
 				</DependenciesProvider>,
 			);
+			const user = userEvent.setup();
+			await user.type(screen.getByRole('combobox', { name: 'Localisation' }), 'Pari');
+			await user.click(screen.getAllByRole('option')[0]);
 
 			const sélectionnerUnDomaineButton = screen.getByRole('button', { name: 'Domaine' });
-			fireEvent.click(sélectionnerUnDomaineButton);
+			await user.click(sélectionnerUnDomaineButton);
 			const domaineÉducationOption = screen.getByRole('radio', { name: 'Éducation' });
-			fireEvent.click(domaineÉducationOption);
+			await user.click(domaineÉducationOption);
 			const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
 			// WHEN
-			fireEvent.submit(rechercherMissionButton);
+			await user.click(rechercherMissionButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: 'domain=education&page=1' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('domain=education') }, undefined, { shallow: true });
 		});
 	});
 
@@ -55,16 +58,19 @@ describe('FormulaireRechercheMissionEngagement', () => {
 					<FormulaireRechercheMissionEngagement domainList={domainList}/>
 				</DependenciesProvider>,
 			);
+			const user = userEvent.setup();
+			await user.type(screen.getByRole('combobox', { name: 'Localisation' }), 'Pari');
+			await user.click(screen.getAllByRole('option')[0]);
 
 			const ouvertsAuxMineursCheckbox = screen.getByRole('checkbox', { name: 'Dès 16 ans' });
-			fireEvent.click(ouvertsAuxMineursCheckbox);
+			await user.click(ouvertsAuxMineursCheckbox);
 			const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
 			// WHEN
-			fireEvent.submit(rechercherMissionButton);
+			await user.click(rechercherMissionButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: 'ouvertsAuxMineurs=true&page=1' }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ouvertsAuxMineurs=true') }, undefined, { shallow: true });
 		});
 	});
 
@@ -83,20 +89,21 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputCommune = screen.getByTestId('InputCommune');
-			await user.type(inputCommune, 'Pari');
-			const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-			const resultListCommune = within(résultatsCommune).getAllByRole('option');
-			fireEvent.click(resultListCommune[0]);
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
+
+			const listeSuggestions = screen.getByRole('listbox');
+			await user.selectOptions(listeSuggestions, 'Paris (75006)');
+
 			const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-			fireEvent.click(selectButtonRadius);
+			await user.click(selectButtonRadius);
 
 			const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });
-			fireEvent.click(rayon30kmOption);
+			await user.click(rayon30kmOption);
 			const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
 			// WHEN
-			fireEvent.submit(rechercherMissionButton);
+			await user.click(rechercherMissionButton);
 
 			// THEN
 			expect(routerPush).toHaveBeenCalledWith({ query: 'libelleCommune=Paris+%2875006%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=30&page=1' }, undefined, { shallow: true });

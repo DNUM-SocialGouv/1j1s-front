@@ -4,10 +4,10 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import styles
 	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import {
 	ComboboxMetiers,
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
-import { InputCommune } from '~/client/components/ui/Form/InputCommune/InputCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
@@ -21,24 +21,28 @@ export function FormulaireRechercherFormation() {
 		codeRomes,
 		codeCommune,
 		libelleCommune,
+		latitudeCommune,
+		longitudeCommune,
+		distanceCommune,
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
 		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
 
-	const [inputDistanceCommune, setInputDistanceCommune] = useState<string>('');
-	const [inputLongitudeCommune, setInputLongitudeCommune] = useState<string>('');
-	const [inputLatitudeCommune, setInputLatitudeCommune] = useState<string>('');
+	const communeDefaultValue = (codeCommune && latitudeCommune && libelleCommune && longitudeCommune) ? {
+		code: codeCommune,
+		latitude: latitudeCommune,
+		libelle: libelleCommune,
+		longitude: longitudeCommune,
+	}: undefined;
+
 	const [inputNiveauEtudes, setInputNiveauEtudes] = useState<string>('');
 
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
 		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
-		setInputDistanceCommune(queryParams.distanceCommune || '');
-		setInputLongitudeCommune(queryParams.longitudeCommune || '');
-		setInputLatitudeCommune(queryParams.latitudeCommune || '');
 		setInputNiveauEtudes(queryParams.niveauEtudes || '');
 	}, [queryParams]);
 
@@ -64,16 +68,12 @@ export function FormulaireRechercherFormation() {
 							autoFocus
 							placeholder="Exemples : ingénierie, agronomie..."
 						/>
-						<InputCommune
-							code={codeCommune}
-							libellé={libelleCommune}
-							longitude={inputLongitudeCommune}
-							latitude={inputLatitudeCommune}
-							distance={inputDistanceCommune}
+						<ComboboxCommune
+							defaultCommune={communeDefaultValue}
+							showRadiusInput
+							defaultDistance={distanceCommune}
 							required
-							placeholder={'Exemples : Toulouse, Paris...'}
-							showRadius
-						/>
+							placeholder={'Exemples : Toulouse, Paris...'}/>
 					</div>
 					<Select
 						name="niveauEtudes"

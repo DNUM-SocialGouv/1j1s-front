@@ -59,6 +59,7 @@ export function FormulaireRechercheAlternance() {
 								libelle: libelleCommune,
 								longitude: longitudeCommune,
 							}}
+							showRadiusInput
 							defaultDistance={distanceCommune}
 							required
 							placeholder={'Exemples : Toulouse, Paris...'}/>

@@ -30,7 +30,6 @@ describe('FormulaireRechercheAlternance', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 	});
-
 	describe('quand le composant est affiché sans recherche', () => {
 		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
 			// GIVEN
@@ -54,6 +53,25 @@ describe('FormulaireRechercheAlternance', () => {
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
 			expect(alternanceService.rechercherAlternance).toHaveBeenCalledTimes(0);
+		});
+		it('lorsque je séléctionne une commune, affiche le champ rayon', async () => {
+			render(
+				<DependenciesProvider
+					alternanceService={anAlternanceService()}
+					metierService={aMetierService()}
+					localisationService={aLocalisationService()}
+				>
+					<FormulaireRechercheAlternance/>
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
+			await user.click(screen.getAllByRole('option')[0]);
+
+			expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
 		});
 	});
 
@@ -95,8 +113,8 @@ describe('FormulaireRechercheAlternance', () => {
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 
-			const inputCommune = screen.getByRole('combobox', { name: 'Localisation' });
-			await user.type(inputCommune, 'Pari');
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -171,8 +189,8 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const user = userEvent.setup();
 
-			const inputCommune = screen.getByRole('combobox', { name: 'Localisation' });
-			await user.type(inputCommune, 'Pari');
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });

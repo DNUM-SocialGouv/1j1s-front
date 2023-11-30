@@ -63,7 +63,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
+			const aMetierList: Array<Metier> = [{
+				label: 'Conduite de travaux, direction de chantier',
+				romes: ['F1201', 'F1202', 'I1101'],
+			}];
 			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
 			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
 			const libelleCommune = 'Paris+%2875006%29';
@@ -75,11 +78,14 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider
+					formationService={formationService}
+					metierService={métierService}
+					localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -89,8 +95,8 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
-			const inputCommune = screen.getByLabelText('Localisation');
-			await user.type(inputCommune, 'Pari');
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -107,18 +113,21 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider
+					formationService={formationService}
+					metierService={métierService}
+					localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -141,26 +150,29 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [{
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider
+					formationService={formationService}
+					metierService={métierService}
+					localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
 
 			const user = userEvent.setup();
 
-			const inputCommune = screen.getByLabelText('Localisation');
-			await user.type(inputCommune, 'Pari');
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
@@ -176,7 +188,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMétierList: Array<Metier> = [{ label: 'Conduite de travaux, direction de chantier', romes: ['F1201', 'F1202', 'I1101'] }];
+			const aMetierList: Array<Metier> = [{
+				label: 'Conduite de travaux, direction de chantier',
+				romes: ['F1201', 'F1202', 'I1101'],
+			}];
 			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
 			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
 			const libelleCommune = 'Paris+%2875006%29';
@@ -189,11 +204,14 @@ describe('FormulaireRechercherFormation', () => {
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMétierList);
+			const métierService = aMetierService(aMetierList);
 
 			// When
 			render(
-				<DependenciesProvider formationService={formationService} metierService={métierService} localisationService={localisationService}>
+				<DependenciesProvider
+					formationService={formationService}
+					metierService={métierService}
+					localisationService={localisationService}>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -203,8 +221,8 @@ describe('FormulaireRechercherFormation', () => {
 			await user.type(inputMétiers, 'boulang');
 			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
-			const inputCommune = screen.getByLabelText('Localisation');
-			await user.type(inputCommune, 'Pari');
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
 			await user.click(screen.getAllByRole('option')[0]);
 
 			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’études visé (facultatif)' });
@@ -239,13 +257,13 @@ describe('FormulaireRechercherFormation', () => {
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercherFormation />
+				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);
 
 		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
-		const localisation = screen.getByRole('textbox', { name: /Localisation/i });
+		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByRole('button', { hidden: true, name: /Rayon/i });
 		expect(rayon).toHaveTextContent('10');
@@ -263,7 +281,7 @@ describe('FormulaireRechercherFormation', () => {
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercherFormation />
+				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);
 
@@ -284,7 +302,7 @@ describe('FormulaireRechercherFormation', () => {
 
 		render(
 			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
-				<FormulaireRechercherFormation />
+				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);
 

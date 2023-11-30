@@ -114,11 +114,10 @@ async function envoyerDemandeContact() {
 	const listbox = screen.getByRole('listbox');
 	const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
 	await userEvent.click(input);
-	const inputCommune = screen.getByTestId('InputCommune');
-	await userEvent.type(inputCommune, 'Paris');
-	const résultatsCommune = await screen.findByTestId('RésultatsCommune');
-	const résultatCommuneList = within(résultatsCommune).getAllByRole('option');
-	await userEvent.click(résultatCommuneList[0]);
+	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+	await userEvent.type(comboboxCommune, 'Paris');
+	const resultatCommuneList = screen.getAllByRole('option');
+	await userEvent.click(resultatCommuneList[0]);
 
 	const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
 	await userEvent.click(submitButton);
