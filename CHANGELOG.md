@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.193.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.192.3...v3.193.0) (2023-11-30)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **UI:** ajout du combobox commune sur toutes les pages concernées([#2358](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2358)) ([2aef36c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2aef36ce337c5110457c737b80ccd09e84467238))
+
 ## [3.192.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.192.2...v3.192.3) (2023-11-30)
 
 
