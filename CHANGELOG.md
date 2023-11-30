@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.192.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.192.2...v3.192.3) (2023-11-30)
+
+
+### 🐛 Corrections de bogues
+
+* ajout var scalingo immersion facile ([#2382](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2382)) ([8b0c0ee](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b0c0ee6433e572c841ca531ac67f574d3eac9a4))
+
 ## [3.192.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.192.1...v3.192.2) (2023-11-30)
 
 
