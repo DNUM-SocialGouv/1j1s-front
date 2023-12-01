@@ -332,21 +332,20 @@ describe('Keyboard Select', () => {
 			);
 			const button = screen.getByRole('button', { name: 'Temps de travail' });
 			button.focus();
-			await user.keyboard(KeyBoard.SPACE);
+			await user.keyboard(KeyBoard.SPACE); // ouverture de la liste des options
 			const optionList = await screen.findByRole('listbox');
 			const firstOption = within(optionList).getAllByRole('option')[0];
 
 			expect(firstOption).toHaveFocus();
 
-			await user.keyboard(KeyBoard.SPACE);
+			await user.keyboard(KeyBoard.ARROW_DOWN); // focus de la deuxième option
 
-			await user.keyboard(KeyBoard.ARROW_DOWN);
+			await user.keyboard(KeyBoard.SPACE); // choix de la deuxième option
 
 			const hiddenInput = await screen.findByTestId('Select-InputHidden');
-			expect(hiddenInput).toHaveValue('tempsPlein');
+			expect(hiddenInput).toHaveValue('tempsPartiel');
 
 			expect(optionList).not.toBeInTheDocument();
-
 		});
 
 		it('rend le focus au button select après avoir fermé les options', async () => {

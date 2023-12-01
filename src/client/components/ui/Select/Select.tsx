@@ -10,21 +10,21 @@ import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 
 interface SelectProps {
-  placeholder?: string;
-  optionList: Option[];
-  value?: string;
-  className?: string
-  label: string;
-  name?: string;
-  multiple?: boolean;
-  required?: boolean;
-  id?: string
-  onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
+	placeholder?: string;
+	optionList: Option[];
+	value?: string;
+	className?: string
+	label: string;
+	name?: string;
+	multiple?: boolean;
+	required?: boolean;
+	id?: string
+	onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
 }
 
 export interface Option {
-  libellé: string;
-  valeur: string;
+	libellé: string;
+	valeur: string;
 }
 
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
@@ -48,12 +48,12 @@ export function Select(props: SelectProps) {
 
 	const defaultPlaceholder = useMemo(() => multiple ? SELECT_PLACEHOLDER_PLURAL : SELECT_PLACEHOLDER_SINGULAR,
 		[multiple]);
-  
+
 	const multipleSelectLabel = useMemo(() => {
 		const selectedValueLength = String(selectedValue).split(',').length;
 		return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
 	}, [selectedValue]);
-  
+
 	const singleSelectLabel = useMemo(() => selectedOption ? selectedOption.libellé : '', [selectedOption]);
 
 	const buttonLabel = useMemo(() => {
@@ -81,7 +81,7 @@ export function Select(props: SelectProps) {
 	useEffect(function onValueChange() {
 		if (value) setSelectedValue(value);
 	}, [value]);
-  
+
 	useEffect(function setEventListenerOnMount() {
 		document.addEventListener('mousedown', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeOptionsOnEscape);
@@ -112,7 +112,10 @@ export function Select(props: SelectProps) {
 			const inputValue = currentInput.getAttribute('value');
 			if (multiple && inputValue !== null) onSelectMultipleChange(!currentInput.checked, inputValue);
 			else {
-				if (inputValue !== null) setSelectedValue(inputValue);
+				if (inputValue !== null) {
+					setSelectedValue(inputValue);
+					onChange?.(inputValue);
+				}
 				setIsOptionListOpen(false);
 				setFocusToSelectButton(currentItem);
 			}
@@ -161,7 +164,7 @@ export function Select(props: SelectProps) {
 			checked={isCurrentItemSelected(option)}
 			onChange={(event: ChangeEvent<HTMLInputElement>) => {
 				onSelectMultipleChange(event.target.checked, option.valeur);
-				// FIX: remove onChange, see if it cause problems 
+				// FIX: remove onChange, see if it cause problems
 			}}
 		/>
 	);
@@ -192,7 +195,8 @@ export function Select(props: SelectProps) {
 					className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
 					onClick={() => setIsOptionListOpen(!isOptionListOpen)}
 				>
-					<span className={classNames({ [styles.selectedLabel]: selectedValue })} data-testid="Select-Placeholder">{buttonLabel}</span>
+					<span className={classNames({ [styles.selectedLabel]: selectedValue })}
+						  data-testid="Select-Placeholder">{buttonLabel}</span>
 					{isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 				</button>
 				<input
@@ -213,9 +217,10 @@ export function Select(props: SelectProps) {
 				{isOptionListOpen && renderOptionList()}
 			</div>
 			{hasError &&
-        <p className={classNames(styles.inputError)} id={errorMessageBy.current}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */ }
-        	{errorMessage}
-        </p>
+				<p className={classNames(styles.inputError)}
+				   id={errorMessageBy.current}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */}
+					{errorMessage}
+				</p>
 			}
 		</div>
 	);
