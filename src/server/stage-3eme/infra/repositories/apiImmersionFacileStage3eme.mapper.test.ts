@@ -1,4 +1,4 @@
-import { aResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
+import { aResultatRechercheStage3eme, aStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
 import {
 	anApiImmersionFacileStage3eme,
 } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.fixture';
@@ -15,8 +15,11 @@ describe('mapRechercheStage3eme.mapper', () => {
 					postcode: '75001',
 					streetNumberAndAddress: '1 Rue de la Lune',
 				},
+				contactMode: 'IN_PERSON',
 				name: 'La Boulangerie',
+				numberOfEmployeeRange: '1-9',
 				romeLabel: 'Boulangerie',
+				voluntaryToImmersion: true,
 			}),
 			anApiImmersionFacileStage3eme({
 				address: {
@@ -25,8 +28,11 @@ describe('mapRechercheStage3eme.mapper', () => {
 					postcode: '75002',
 					streetNumberAndAddress: '2 Rue de la Lune',
 				},
+				contactMode: undefined,
 				name: 'La Boulangerie 2',
+				numberOfEmployeeRange: undefined,
 				romeLabel: 'Boulangerie',
+				voluntaryToImmersion: undefined,
 			}),
 		];
 
@@ -45,7 +51,9 @@ describe('mapRechercheStage3eme.mapper', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
+					modeDeContact: 'Candidature en personne',
 					nomEntreprise: 'La Boulangerie',
+					nombreDeSalaries: '1-9',
 				},
 				{
 					adresse: {
@@ -55,8 +63,57 @@ describe('mapRechercheStage3eme.mapper', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
+					modeDeContact: undefined,
 					nomEntreprise: 'La Boulangerie 2',
+					nombreDeSalaries: undefined,
 				},
+			],
+		}));
+	});
+	it('map les modes de contact', () => {
+		// Given
+		const apiImmersionFacileStage3eme = [
+			anApiImmersionFacileStage3eme({
+				contactMode: 'IN_PERSON',
+			}),
+			anApiImmersionFacileStage3eme({
+				contactMode: 'EMAIL',
+			}),
+			anApiImmersionFacileStage3eme({
+				contactMode: 'PHONE',
+			}),
+			anApiImmersionFacileStage3eme({
+				contactMode: undefined,
+				voluntaryToImmersion: true,
+			}),
+			anApiImmersionFacileStage3eme({
+				contactMode: undefined,
+				voluntaryToImmersion: false,
+			}),
+		];
+
+		// When
+		const result = mapRechercheStage3eme(apiImmersionFacileStage3eme);
+
+		// Then
+		expect(result).toEqual(aResultatRechercheStage3eme({
+			nombreDeResultats: 5,
+			resultats: [
+				aStage3eme({
+					modeDeContact: 'Candidature en personne',
+				}),
+				aStage3eme({
+					modeDeContact: 'Candidature par e-mail',
+				}),
+				aStage3eme({
+					modeDeContact: 'Candidature par téléphone',
+				}),
+				aStage3eme({
+					modeDeContact: 'Candidature spontanée',
+				}),
+				aStage3eme({
+					modeDeContact: undefined,
+				}),
 			],
 		}));
 	});

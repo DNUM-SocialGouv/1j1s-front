@@ -25,6 +25,8 @@ export function ListeResultatsStage3eme({ resultatList }: ListeResultatsStage3em
 }
 
 function ResultatStage3eme(stage3eme: Stage3eme) {
+	const tailleEntreprise = stage3eme.nombreDeSalaries ? `${stage3eme.nombreDeSalaries} salariés` : undefined;
+	const modeDeContact = stage3eme.modeDeContact;
 	return (
 		<li key={uuidv4()}>
 			<RésultatRechercherSolution
@@ -33,7 +35,7 @@ function ResultatStage3eme(stage3eme: Stage3eme) {
 					<p>{stage3eme.domaine}</p>
 					<p>{stage3eme.adresse.rueEtNumero}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
 				</>}
-				étiquetteOffreList={[]}
+				étiquetteOffreList={[tailleEntreprise, modeDeContact]}
 			/>
 		</li>
 	);

@@ -33,12 +33,14 @@ export function aStage3eme(override?: Partial<Stage3eme>): Stage3eme {
 	return {
 		adresse: {
 			codeDepartement: '75',
-			codePostal: '75000',
-			rueEtNumero: '1 rue de la Boulangerie',
+			codePostal: '75001',
+			rueEtNumero: '1 Rue de la Lune',
 			ville: 'Paris',
 		},
 		domaine: 'Boulangerie',
+		modeDeContact: 'Candidature en personne',
 		nomEntreprise: 'La Boulangerie',
+		nombreDeSalaries: '1-9',
 		...override,
 	};
 }
