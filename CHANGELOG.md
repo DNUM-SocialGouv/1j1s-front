@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.194.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.1...v3.194.2) (2023-12-01)
+
+
+### 🐛 Corrections de bogues
+
+* **select:** permettre de prendre en compte la selection d'une option quand elle se fait au clavier ([#2380](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2380)) ([b04ccc4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b04ccc49536a69454b28b20a72b71b114dfb7c5e))
+
 ## [3.194.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.0...v3.194.1) (2023-12-01)
 
 
