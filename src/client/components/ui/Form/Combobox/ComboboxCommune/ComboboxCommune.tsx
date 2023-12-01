@@ -7,7 +7,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';
 import { radiusList } from '~/server/localisations/domain/localisation';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import { Commune, CommuneToRename } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 import { Combobox } from '../index';
 
@@ -23,9 +23,11 @@ type ComboboxCommuneProps = {
 	debounceTimeout?: number,
 	defaultCommune?: {
 		code?: string,
+		codePostal?: string,
 		libelle?: string
 		latitude?: string
 		longitude?: string
+		ville?: string
 	}
 	defaultDistance?: string
 	showRadiusInput?: boolean
@@ -55,10 +57,12 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 
 	const [optionList, setOptionList] = useState<Array<string>>(defaultCommuneProps?.libelle ? [defaultCommuneProps?.libelle] : []);
 	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
-	const [commune, setCommune] = useState<{ code: string, latitude: string, longitude: string }>({
-		code: defaultCommuneProps?.code ?? '',
+	const [commune, setCommune] = useState<CommuneToRename>({
+		codeInsee: defaultCommuneProps?.code ?? '',
+		codePostal: defaultCommuneProps?.codePostal ?? '',
 		latitude: defaultCommuneProps?.latitude ?? '',
 		longitude: defaultCommuneProps?.longitude ?? '',
+		ville: defaultCommuneProps?.ville ?? '',
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
@@ -74,9 +78,11 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 
 	function updateSupplementaryCommuneInformation(communeFound: Commune) {
 		setCommune({
-			code: communeFound?.code ?? '',
+			codeInsee: communeFound?.code ?? '',
+			codePostal: communeFound?.codePostal ?? '',
 			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
 			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
+			ville: communeFound?.ville ?? '',
 		});
 	}
 
@@ -164,11 +170,13 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 					}</Combobox.AsyncMessage>
 				</Combobox>
 				<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
-				<input type="hidden" name="codeCommune" value={commune.code}/>
+				<input type="hidden" name="codeCommune" value={commune.codeInsee}/>
 				<input type="hidden" name="latitudeCommune" value={commune.latitude}/>
 				<input type="hidden" name="longitudeCommune" value={commune.longitude}/>
+				<input type="hidden" name="codePostal" value={commune.codePostal}/>
+				<input type="hidden" name="ville" value={commune.ville}/>
 			</div>
-			{showRadiusInput && !fieldError && commune.code && userInput && <Select
+			{showRadiusInput && !fieldError && commune.codeInsee && userInput && <Select
 				label="Rayon"
 				name="distanceCommune"
 				optionList={radiusList}

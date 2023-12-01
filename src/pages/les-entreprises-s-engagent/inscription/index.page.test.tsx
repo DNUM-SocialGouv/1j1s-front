@@ -107,7 +107,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			await clickOnGoToEtape2();
 
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Ville du siège social de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise' })).toBeInvalid();
 			expect(screen.getByRole('textbox', { name: 'Numéro de SIRET' })).toBeInvalid();
 			expect(screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' })).toBeInvalid();
 		});
@@ -278,14 +278,18 @@ async function remplirFormulaireEtape1() {
 	const user = userEvent.setup();
 	const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
 	await user.type(inputNomSociété, 'Octo');
+
 	const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
 	await user.type(inputSiret, '41816609600069');
+
 	const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
 	await user.type(inputSecteur, 'Santé humaine et action sociale');
 	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
+
 	await user.click(screen.getByRole('button', { name: 'Taille de l’entreprise' }));
 	await user.click(screen.getByText('20 à 49 salariés'));
-	const inputVille = screen.getByText('Ville du siège social de l’entreprise');
+
+	const inputVille = screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise' });
 	await user.type(inputVille, 'Paris');
 	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
 }

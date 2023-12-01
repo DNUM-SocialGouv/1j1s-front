@@ -5,6 +5,7 @@ import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngag
 import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEngagent/ModalLEEErreur/ModalLEEErreur';
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import InputAutocomplétionSecteurActivité, {
 	SecteurActivité,
@@ -89,6 +90,14 @@ export default function LesEntreprisesSEngagentInscription() {
 	const isDeuxièmeÉtapeValid = useMemo(() => Object.values(formulaireÉtape2).every((value) => value.length > 0), [formulaireÉtape2]);
 
 	const goToÉtape2 = useCallback((event: FormEvent<HTMLFormElement>) => {
+		const codePostalEntreprise = event.currentTarget.elements['codePostal'].value;
+		const villeEntreprise = event.currentTarget.elements['ville'].value;
+		setFormulaireÉtape1({
+			...formulaireÉtape1,
+			codePostal: codePostalEntreprise,
+			ville: villeEntreprise,
+		});
+
 		event.preventDefault();
 		setTitle(TITLE_ÉTAPE_2);
 		if (isPremièreÉtape && isPremièreÉtapeValid) {
@@ -162,21 +171,21 @@ export default function LesEntreprisesSEngagentInscription() {
 											})}
 											required
 										/>
-										<InputAutocomplétionCommune
-											required
-											id="autocomplete-commune"
+										<ComboboxCommune
+		  							required
 											label="Ville du siège social de l’entreprise"
 											name="companyPostalCode"
-											placeholder="Exemples : Paris, Béziers..."
-											valeurInitiale={autocomplétionCommuneValeur}
-											onSuggestionSelected={(event, suggestion) => {
-												setAutocomplétionCommuneValeur(suggestion);
-												setFormulaireÉtape1({
-													...formulaireÉtape1,
-													codePostal: suggestion.codePostal,
-													ville: suggestion.ville,
-												});
-											}}
+											defaultCommune={{
+		  								code: autocomplétionCommuneValeur?.code,
+		  								codePostal: autocomplétionCommuneValeur?.codePostal,
+												latitude: String(autocomplétionCommuneValeur?.coordonnées.latitude),
+												// TODO (SULI 30-11-2023): passer en number dans Commune
+		  								libelle: autocomplétionCommuneValeur?.libelle,
+		  								longitude: String(autocomplétionCommuneValeur?.coordonnées.longitude),
+		  								// TODO : idem
+		  								ville: autocomplétionCommuneValeur?.ville,
+		  							}}
+											placeholder={'Exemples : Paris, Béziers...'}
 										/>
 										<InputText
 											label="Numéro de SIRET"

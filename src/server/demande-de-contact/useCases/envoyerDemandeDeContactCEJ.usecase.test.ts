@@ -18,7 +18,7 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 			téléphone: '0678954322',
 			ville: 'Cergy',
 		};
-    
+
 		const demandeDeContactRepository = {
 			envoyer: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		} as unknown as DemandeDeContactRepository;
@@ -78,6 +78,7 @@ describe('EnvoyerDemandeDeContact pour le CEJ', () => {
 				{ email: 'toto chez msn' },
 				{ age: 12 },
 				{ age: 35 },
+				{ age : 34.6 },
 				{ téléphone: 'RTYHFYUIJN' },
 				{ téléphone: '555-2341-111' },
 			])('pour %j on retourne une erreur', async (queryParametersToTestInError) => {

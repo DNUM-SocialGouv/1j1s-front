@@ -134,7 +134,6 @@ describe('<ComboboxCommune/>', () => {
 			});
 		});
 
-
 		it('accepte une distance par défaut', () => {
 			const localisationService = aLocalisationService();
 			const radiusExpected = radiusList[1];
@@ -219,7 +218,7 @@ describe('<ComboboxCommune/>', () => {
 		});
 	});
 
-	it('lorsque je tappe un caractère, la valeur de l‘input est mise à jour', async () => {
+	it('lorsque je tape un caractère, la valeur de l‘input est mise à jour', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
 			rechercherCommune: jest.fn(),
@@ -235,7 +234,7 @@ describe('<ComboboxCommune/>', () => {
 		expect(combobox).toHaveValue('ab');
 	});
 
-	it('n‘appelle pas le service lorsque l‘utilisateur tappe moins de 3 charactères', async () => {
+	it('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
 			rechercherCommune: jest.fn(),
@@ -251,7 +250,7 @@ describe('<ComboboxCommune/>', () => {
 		expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
 	});
 
-	it('n‘affiche pas l‘input de sélection du rayon', () => {
+	it('n‘affiche pas l‘input de sélection du rayon par défaut', () => {
 		const localisationService = aLocalisationService({
 			rechercherCommune: jest.fn(),
 		});
@@ -264,7 +263,7 @@ describe('<ComboboxCommune/>', () => {
 	});
 
 	describe('lorsque je fais une recherche avec au moins 3 caractères', () => {
-		it('appelle le service lorsque l‘utilisateur tappe 3 charactères', async () => {
+		it('appelle le service lorsque l‘utilisateur tape 3 caractères', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
 				rechercherCommune: jest.fn(),
@@ -524,8 +523,8 @@ describe('<ComboboxCommune/>', () => {
 		expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 	});
 
-	describe('Message d‘asynchonisme', () => {
-		it('affiche le message d‘aide quand il a intéragit avec le champ', async () => {
+	describe('Message d‘asynchronisme', () => {
+		it('affiche le message d‘aide quand il a interagit avec le champ', async () => {
 			const user = userEvent.setup();
 			const communeList = aRésultatsRechercheCommune();
 			const localisationService = aLocalisationService({
@@ -563,7 +562,7 @@ describe('<ComboboxCommune/>', () => {
 			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_CHARGEMENT);
 		});
 
-		it('affiche le message d‘erreur quand la recherche a echouée', async () => {
+		it('affiche le message d‘erreur quand la recherche a échouée', async () => {
 			const user = userEvent.setup();
 			const localisationService = aLocalisationService({
 				rechercherCommune: jest.fn(),
