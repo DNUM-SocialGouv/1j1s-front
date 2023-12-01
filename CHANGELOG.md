@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.194.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.193.2...v3.194.0) (2023-12-01)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* **stage3eme:** ajouter tag carte résultats ([#2366](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2366)) ([4e60ee6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4e60ee6b78d05f130c8e1ea82e67e9557bbd81eb))
+
 ## [3.193.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.193.1...v3.193.2) (2023-12-01)
 
 
