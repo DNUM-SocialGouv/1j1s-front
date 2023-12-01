@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.193.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.193.0...v3.193.1) (2023-12-01)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update all non-major dependencies ([#2381](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2381)) ([e74aa4a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e74aa4a54d0cd9465b2ecc206f0561275a1b0c33))
+
+
+### 👷 Autres changements
+
+* **deps:** bump cloudflare/cloudflare in /terraform ([#2385](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2385)) ([b3dd717](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3dd717cda84349ffee34d75829081c2622fb0ce))
+* **deps:** update docusaurus monorepo to v3.0.1 ([b74845c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b74845c4f33fde2ef29456a0775a3557efec48bb))
+
 ## [3.193.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.192.3...v3.193.0) (2023-11-30)
 
 
