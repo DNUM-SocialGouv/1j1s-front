@@ -5,15 +5,15 @@
 import '~/test-utils';
 
 import { render, screen, waitFor } from '@testing-library/react';
+import { GetServerSidePropsContext } from 'next';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
-import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
+import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('Page rechercher un job d‘été', () => {
 	beforeEach(() => {
@@ -29,7 +29,6 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherJobsEtePage/>
@@ -37,7 +36,7 @@ describe('Page rechercher un job d‘été', () => {
 			);
 
 			await waitFor(async () => {
-				const result = await getServerSideProps();
+				const result = await getServerSideProps({} as GetServerSidePropsContext);
 				expect(result).toMatchObject({ notFound: true });
 			});
 		});
@@ -54,7 +53,6 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherJobsEtePage/>
@@ -72,7 +70,6 @@ describe('Page rechercher un job d‘été', () => {
 			render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherJobsEtePage/>
@@ -95,10 +92,9 @@ describe('Page rechercher un job d‘été', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
-					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherJobsEtePage/>
+					<RechercherJobsEtePage resultats={aRésultatsRechercheOffre()}/>
 				</DependenciesProvider>,
 			);
 

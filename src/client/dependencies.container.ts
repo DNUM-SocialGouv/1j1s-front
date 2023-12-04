@@ -36,7 +36,6 @@ import { NullMarketingService } from '~/client/services/marketing/null/null.mark
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { OffreService } from '~/client/services/offre/offre.service';
 import { RoutingService } from '~/client/services/routing/routing.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
@@ -59,7 +58,6 @@ export type Dependencies = {
 	metierLbaService: MetierService
 	metierStage3emeService: MetierService
 	missionEngagementService: MissionEngagementService
-	offreService: OffreService
 	rechercheClientService: SearchClient
 	routingService: RoutingService
 	stageService: StageService
@@ -85,7 +83,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const metierStage3emeService = new BffStage3emeMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
-	const offreService = new OffreService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
 	const demandeDeContactService = new DemandeDeContactService(httpClientService);
@@ -146,7 +143,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		metierLbaService,
 		metierStage3emeService,
 		missionEngagementService,
-		offreService,
 		rechercheClientService,
 		routingService,
 		stage3emeService,

@@ -11,11 +11,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import {
-	anOffreService,
-	aNoResultOffreService,
-	aSingleResultOffreService,
-} from '~/client/services/offre/offreService.fixture';
 import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('RechercherOffreEmploi', () => {
@@ -56,7 +51,6 @@ describe('RechercherOffreEmploi', () => {
 			describe('que la recherche est de type département', () => {
 				it('affiche les critères de recherche sous forme d‘étiquettes', async () => {
 					// GIVEN
-					const offreServiceMock = anOffreService();
 					const localisationServiceMock = aLocalisationService();
 					mockUseRouter({
 						query: {
@@ -70,7 +64,7 @@ describe('RechercherOffreEmploi', () => {
 					render(
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
-							offreService={offreServiceMock}>
+						>
 							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
 						</DependenciesProvider>,
 					);
@@ -86,7 +80,6 @@ describe('RechercherOffreEmploi', () => {
 			describe('que la recherche est de type commun', () => {
 				it('affiche les critères de recherche sous forme d‘étiquettes', async () => {
 					// GIVEN
-					const offreServiceMock = anOffreService();
 					const localisationServiceMock = aLocalisationService();
 					mockUseRouter({
 						query: {
@@ -101,7 +94,7 @@ describe('RechercherOffreEmploi', () => {
 					render(
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
-							offreService={offreServiceMock}>
+						>
 							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
 						</DependenciesProvider>,
 					);
@@ -115,7 +108,6 @@ describe('RechercherOffreEmploi', () => {
 
 				it('quand il n‘y a pas de code postal dans la query, affiche seulement le nom de la localisation dans l‘étiquette', async () => {
 					// GIVEN
-					const offreServiceMock = anOffreService();
 					const localisationServiceMock = aLocalisationService();
 					mockUseRouter({
 						query: {
@@ -129,7 +121,7 @@ describe('RechercherOffreEmploi', () => {
 					render(
 						<DependenciesProvider
 							localisationService={localisationServiceMock}
-							offreService={offreServiceMock}>
+						>
 							<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
 						</DependenciesProvider>,
 					);
@@ -145,14 +137,12 @@ describe('RechercherOffreEmploi', () => {
 		describe('quand on recherche par mot clé', () => {
 			it('affiche les résultats de recherche et le nombre de résultats', async () => {
 				// GIVEN
-				const offreServiceMock = anOffreService();
 				const localisationServiceMock = aLocalisationService();
 				mockUseRouter({ query: { motCle: 'boulanger', page: '1' } });
 
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						offreService={offreServiceMock}
 					>
 						<RechercherOffreEmploi resultats={aRésultatsRechercheOffre()}/>
 					</DependenciesProvider>,
@@ -174,7 +164,6 @@ describe('RechercherOffreEmploi', () => {
 	describe('quand le composant est affiché pour une recherche comportant un seul résultat', () => {
 		it('affiche le nombre de résultat au singulier', async () => {
 			// GIVEN
-			const offreServiceMock = aSingleResultOffreService();
 			const offre = aRésultatsRechercheOffre({
 				nombreRésultats: 1,
 				résultats: [
@@ -187,7 +176,6 @@ describe('RechercherOffreEmploi', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					offreService={offreServiceMock}
 				>
 					<RechercherOffreEmploi resultats={offre}/>
 				</DependenciesProvider>,
@@ -204,7 +192,6 @@ describe('RechercherOffreEmploi', () => {
 	describe('quand le composant est affiché pour une recherche sans résultats', () => {
 		it('affiche un message dédié', async () => {
 			// GIVEN
-			const offreServiceMock = aNoResultOffreService();
 			const resultats = aRésultatsRechercheOffre({
 				nombreRésultats: 0,
 				résultats: [],
@@ -215,7 +202,6 @@ describe('RechercherOffreEmploi', () => {
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
-					offreService={offreServiceMock}
 				>
 					<RechercherOffreEmploi resultats={resultats}/>
 				</DependenciesProvider>,

@@ -34,7 +34,7 @@ export function FormulaireRechercheJobEte() {
 	async function updateRechercherJobEteQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
-		return router.push({ query }, undefined, { shallow: true });
+		return router.push({ query }, undefined, { scroll: false });
 	}
 
 	return (

@@ -256,10 +256,14 @@ export function dependenciesContainer(): Dependencies {
 		: offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
 
 	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreJobÉtudiantDependencies = jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
+	const offreJobÉtudiantDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+		? jobsÉtudiantsDependenciesContainer(new MockOffreRepository())
+		: jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
 
 	const apiPoleEmploiJobEteOffreRepository = new ApiPoleEmploiJobEteRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreJobEteDependencies = jobsEteDependenciesContainer(apiPoleEmploiJobEteOffreRepository);
+	const offreJobEteDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+		? jobsEteDependenciesContainer(new MockOffreRepository())
+		: jobsEteDependenciesContainer(apiPoleEmploiJobEteOffreRepository);
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;

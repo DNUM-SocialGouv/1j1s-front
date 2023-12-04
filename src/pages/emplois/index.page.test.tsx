@@ -12,7 +12,6 @@ import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { anOffreService } from '~/client/services/offre/offreService.fixture';
 import RechercherOffreEmploiPage, { getServerSideProps } from '~/pages/emplois/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -38,7 +37,6 @@ describe('Page Emploi', () => {
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
-					offreService={anOffreService()}
 					localisationService={aLocalisationService()}
 				>
 					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
@@ -63,7 +61,6 @@ describe('Page Emploi', () => {
 				render(
 					<DependenciesProvider
 						analyticsService={aManualAnalyticsService()}
-						offreService={anOffreService()}
 						localisationService={aLocalisationService()}
 					>
 						<RechercherOffreEmploiPage resultats={offres} />);

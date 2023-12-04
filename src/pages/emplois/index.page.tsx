@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
@@ -6,11 +7,14 @@ import React, { useEffect } from 'react';
 import { RechercherOffreEmploi } from '~/client/components/features/OffreEmploi/Rechercher/RechercherOffreEmploi';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
-import { emploiFiltreMapper, emploisQuerySchema } from '~/pages/api/emplois/index.controller';
+import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
+import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/emplois/index.analytics';
+import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { DomaineCode, MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 
 interface RechercherOffreEmploiPageProps {
@@ -30,6 +34,31 @@ export default function RechercherOffreEmploiPage(props: RechercherOffreEmploiPa
 	}, [router]);
 
 	return <RechercherOffreEmploi resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
+}
+
+const emploisQuerySchema = Joi.object({
+	codeLocalisation: Joi.string().alphanum().max(5),
+	experienceExigence: Joi.string().valid('D', 'S', 'E'),
+	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
+	motCle: Joi.string(),
+	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
+	tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
+	typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),
+	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
+}).options({ allowUnknown: true });
+
+type RequestQuery = Partial<{[p: string]: string | string[]}>;
+
+function emploiFiltreMapper(query: RequestQuery): EmploiFiltre {
+	return {
+		experienceExigence: query.experienceExigence ? String(query.experienceExigence) : undefined,
+		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) : undefined,
+		localisation: mapLocalisation(query),
+		motClé: query.motCle ? String(query.motCle) : undefined,
+		page: Number(query.page),
+		tempsDeTravail: query.tempsDeTravail ? String(query.tempsDeTravail) : undefined,
+		typeDeContratList: query.typeDeContrats ? queryToArray(query.typeDeContrats) : undefined,
+	};
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<RechercherOffreEmploiPageProps>> {

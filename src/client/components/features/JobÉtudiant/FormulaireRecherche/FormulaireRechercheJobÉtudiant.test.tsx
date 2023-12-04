@@ -46,7 +46,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'motCle=boulanger&page=1' }, undefined, { scroll: false });
 			});
 		});
 
@@ -75,10 +75,10 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 
 				// THEN
 				expect(localisationServiceMock.rechercherLocalisation).toHaveBeenCalledWith('Par');
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { shallow: true });
-				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('nomLocalisation=Paris') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostalLocalisation=75001') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('typeLocalisation=COMMUNE') }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeLocalisation=75101') }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -127,7 +127,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { shallow: true });
+				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
 			});
 		});
 	});
