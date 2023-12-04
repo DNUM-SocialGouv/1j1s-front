@@ -53,7 +53,7 @@
     {
       "files": [
         "tests/client/components/*.tsx",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
+        "src/**/?(*.)+(spec|test).[jt]s?(x)"
       ],
       "extends": ["plugin:testing-library/react"]
     },
