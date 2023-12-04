@@ -149,7 +149,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			await clickOnGoToEtape2();
 
 			// THEN
-			expect(screen.getByText('Etape 2 sur 2')).toBeVisible();
+			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
 			labelsEtape2.forEach((label) => {
 				expect(screen.getByRole('textbox', label)).toBeVisible();
 			});
