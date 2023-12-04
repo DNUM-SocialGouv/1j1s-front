@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.194.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.2...v3.194.3) (2023-12-04)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @testing-library/jest-dom to v6.1.5 ([#2403](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2403)) ([ae13772](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae13772aa50abda3f41776edc54cb1f8b4ffc409))
+* **deps:** update dependency @types/react to v18.2.40 ([a6f8ab8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a6f8ab8d40bc4f5d7f327cc48eaecb88916dd105))
+* **deps:** update dependency @types/react to v18.2.41 ([f0c5c4f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f0c5c4f80f7d447c2b28ab090c2bbf63b50e0cdb))
+
 ## [3.194.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.1...v3.194.2) (2023-12-01)
 
 
