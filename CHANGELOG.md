@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.194.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.5...v3.194.6) (2023-12-04)
+
+
+### 🐛 Corrections de bogues
+
+* Fix les accents sur les majuscules pour les étapes ([#2333](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2333)) ([73712f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/73712f6b2f40ee8a4d0c78a68b99cd9b1b5867bc))
+
 ## [3.194.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.4...v3.194.5) (2023-12-04)
 
 
