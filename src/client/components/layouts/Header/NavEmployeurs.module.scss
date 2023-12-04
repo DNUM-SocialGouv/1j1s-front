@@ -63,6 +63,7 @@
     &.expanded {
       height: var(--contentHeight, 25rem);
       border-top: 1px solid utilities-deprecated.$color-separator;
+      overflow: scroll;
     }
 
     transition: height 200ms ease-in-out;
