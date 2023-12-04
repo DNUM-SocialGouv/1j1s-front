@@ -29,8 +29,7 @@ describe('Dépôt de Stage', () => {
 				cy.findByRole('textbox', { name: /Courte description de l’entreprise/i }).type(aFormulaireEtapeEntreprise().descriptionEmployeur);
 				cy.findByRole('button', { name: /Suivant/i }).click();
 
-				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-				cy.title().should('contain', 'Etape 2 sur 3');
+				cy.title().should('contain', 'Étape 2 sur 3');
 				cy.url().should('include', '/stages/deposer-offre/votre-offre-de-stage');
 			});
 		});
@@ -41,8 +40,7 @@ describe('Dépôt de Stage', () => {
 			it('redirige vers l’étape 1', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage');
 
-				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-				cy.title().should('contain', 'Etape 1 sur 3');
+				cy.title().should('contain', 'Étape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
@@ -65,8 +63,7 @@ describe('Dépôt de Stage', () => {
 				cy.findAllByRole('option').first().click();
 				cy.findByRole('button', { name: /Suivant/i }).click();
 
-				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-				cy.title().should('contain', 'Etape 3 sur 3');
+				cy.title().should('contain', 'Étape 3 sur 3');
 				cy.url().should('include', '/stages/deposer-offre/localisation');
 			});
 		});
@@ -81,8 +78,7 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
-				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-				cy.title().should('contain', 'Etape 1 sur 3');
+				cy.title().should('contain', 'Étape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});
@@ -96,8 +92,7 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
-				// FIXME (GAFI 06-11-2023): Manque un accent sur le "E"
-				cy.title().should('contain', 'Etape 1 sur 3');
+				cy.title().should('contain', 'Étape 1 sur 3');
 				cy.url().should('include', '/stages/deposer-offre');
 				cy.url().should('not.include', 'votre-offre-de-stage');
 			});

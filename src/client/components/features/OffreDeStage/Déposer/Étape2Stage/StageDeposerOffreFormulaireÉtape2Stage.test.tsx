@@ -26,7 +26,7 @@ describe('<Stage />', () => {
 		it('affiche la deuxième étape de formulaire', () => {
 			render(<Stage />);
 
-			expect(screen.getByText('Etape 2 sur 3 : Votre offre de stage')).toBeVisible();
+			expect(screen.getByText('Étape 2 sur 3 : Votre offre de stage')).toBeVisible();
 			expect(screen.getByLabelText('Nom de l’offre de stage (200 caractères maximum)')).toBeVisible();
 			expect(screen.getByLabelText('Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature')).toBeVisible();
 			expect(screen.getByLabelText('Description de l’offre de stage (200 caractères minimum)')).toBeVisible();

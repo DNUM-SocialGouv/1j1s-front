@@ -182,7 +182,7 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 
 	return (
 		<FormulaireÉtapeLayout
-			étape="Etape 2 sur 3 : Votre offre de stage"
+			étape="Étape 2 sur 3 : Votre offre de stage"
 			urlÉtapePrécédente={URL_DEPOSER_OFFRE}
 		>
 			<StageDeposerOffreFormulaireLayout

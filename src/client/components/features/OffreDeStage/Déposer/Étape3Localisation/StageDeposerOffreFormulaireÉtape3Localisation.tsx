@@ -141,7 +141,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	return (
 		<FormulaireÉtapeLayout
-			étape="Etape 3 sur 3 : Localisation du stage"
+			étape="Étape 3 sur 3 : Localisation du stage"
 			urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
 		>
 			<FormulaireLocalisation />
