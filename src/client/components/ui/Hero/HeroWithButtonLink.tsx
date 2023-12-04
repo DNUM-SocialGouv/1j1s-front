@@ -34,7 +34,7 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 						{content}
 					</p>
 					<div className={styles.linkAsButtonContainer}>
-						<LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButtonWithIcon><br />
+						<LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButtonWithIcon>
 						{(buttonLabelSecondary && buttonHrefSecondary) && <LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</LinkStyledAsButtonWithIcon>}
 					</div>
 					{additionalInformation}
