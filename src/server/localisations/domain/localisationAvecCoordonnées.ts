@@ -14,7 +14,7 @@ export interface CommuneToRename {
 	codePostal: string
 	longitude: string
 	latitude: string
-	ville: string
+	libelle: string
 }
 
 export interface RésultatsRechercheCommune {

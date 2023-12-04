@@ -27,7 +27,6 @@ type ComboboxCommuneProps = {
 		libelle?: string
 		latitude?: string
 		longitude?: string
-		ville?: string
 	}
 	defaultDistance?: string
 	showRadiusInput?: boolean
@@ -61,8 +60,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		codeInsee: defaultCommuneProps?.code ?? '',
 		codePostal: defaultCommuneProps?.codePostal ?? '',
 		latitude: defaultCommuneProps?.latitude ?? '',
+		libelle: defaultCommuneProps?.libelle ?? '',
 		longitude: defaultCommuneProps?.longitude ?? '',
-		ville: defaultCommuneProps?.ville ?? '',
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
@@ -81,8 +80,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			codeInsee: communeFound?.code ?? '',
 			codePostal: communeFound?.codePostal ?? '',
 			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
+			libelle: communeFound?.libelle ?? '',
 			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
-			ville: communeFound?.ville ?? '',
 		});
 	}
 

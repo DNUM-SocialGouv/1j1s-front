@@ -35,6 +35,7 @@ interface FormulaireÉtape1Props {
 	siret: string
 	secteur: string
 	taille: string
+	libelle: string
 }
 
 interface FormulaireÉtape2Props {
@@ -57,6 +58,7 @@ export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobil
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function LesEntreprisesSEngagentInscription() {
+	console.log('render component');
 	useAnalytics(analytics);
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
@@ -69,6 +71,7 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
 		codePostal: '',
+		libelle: '', // TODO (SULI 01-12-2023): transformer la structure pour grouper les infos concernant commune ensemble
 		nomSociété: '',
 		secteur: '',
 		siret: '',
@@ -90,21 +93,23 @@ export default function LesEntreprisesSEngagentInscription() {
 	const isDeuxièmeÉtapeValid = useMemo(() => Object.values(formulaireÉtape2).every((value) => value.length > 0), [formulaireÉtape2]);
 
 	const goToÉtape2 = useCallback((event: FormEvent<HTMLFormElement>) => {
+		const libelleVilleEntreprise =
 		const codePostalEntreprise = event.currentTarget.elements['codePostal'].value;
 		const villeEntreprise = event.currentTarget.elements['ville'].value;
 		setFormulaireÉtape1({
 			...formulaireÉtape1,
 			codePostal: codePostalEntreprise,
 			ville: villeEntreprise,
+			libelle:
 		});
 
 		event.preventDefault();
 		setTitle(TITLE_ÉTAPE_2);
-		if (isPremièreÉtape && isPremièreÉtapeValid) {
+		if (isPremièreÉtape && event.currentTarget.checkValidity()) {
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
 		}
-	}, [isPremièreÉtape, isPremièreÉtapeValid]);
+	}, [isPremièreÉtape, isPremièreÉtapeValid, formulaireÉtape1]);
 
 	const returnToÉtape1 = useCallback(() => {
 		setTitle(TITLE_ÉTAPE_1);
@@ -176,12 +181,9 @@ export default function LesEntreprisesSEngagentInscription() {
 											label="Ville du siège social de l’entreprise"
 											name="companyPostalCode"
 											defaultCommune={{
-		  								code: autocomplétionCommuneValeur?.code,
-		  								codePostal: autocomplétionCommuneValeur?.codePostal,
-												latitude: String(autocomplétionCommuneValeur?.coordonnées.latitude),
+												codePostal: formulaireÉtape1?.codePostal,
+		  								libelle: formulaireÉtape1?.libelle,
 												// TODO (SULI 30-11-2023): passer en number dans Commune
-		  								libelle: autocomplétionCommuneValeur?.libelle,
-		  								longitude: String(autocomplétionCommuneValeur?.coordonnées.longitude),
 		  								// TODO : idem
 		  								ville: autocomplétionCommuneValeur?.ville,
 		  							}}
