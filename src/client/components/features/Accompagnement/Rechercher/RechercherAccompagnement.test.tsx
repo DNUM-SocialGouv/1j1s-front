@@ -46,16 +46,16 @@ describe('RechercherAccompagnement', () => {
 			);
 
 			// WHEN
-			const formulaireRechercheÉtablissementAccompagnement = screen.getByRole('form');
-			const résultatRechercheÉtablissementAccompagnementList = screen.queryAllByTestId('RésultatRechercherSolution');
-			const rechercheÉtablissementAccompagnementNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
+			const formulaireRechercheEtablissementAccompagnement = screen.getByRole('form');
+			const résultatRechercheEtablissementAccompagnementList = screen.queryByRole('list', { name: 'Établissements d‘accompagnement' });
+			const rechercheEtablissementAccompagnementNombreResultats = screen.queryByRole('heading', { level: 2, name: /établissement/ });
 			const zeroResultsMessage = screen.queryByText('0 résultat');
-			const errorMessage = screen.queryByTestId('Erreur - Demande incorrecte');
+			const errorMessage = screen.queryByText('Erreur - Demande incorrecte');
 
 			// THEN
-			expect(formulaireRechercheÉtablissementAccompagnement).toBeInTheDocument();
-			expect(résultatRechercheÉtablissementAccompagnementList).toHaveLength(0);
-			expect(rechercheÉtablissementAccompagnementNombreRésultats).not.toBeInTheDocument();
+			expect(formulaireRechercheEtablissementAccompagnement).toBeInTheDocument();
+			expect(résultatRechercheEtablissementAccompagnementList).not.toBeInTheDocument();
+			expect(rechercheEtablissementAccompagnementNombreResultats).not.toBeInTheDocument();
 			expect(zeroResultsMessage).not.toBeInTheDocument();
 			expect(errorMessage).not.toBeInTheDocument();
 		});
@@ -93,7 +93,7 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)' } });
+				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -146,6 +146,7 @@ describe('RechercherAccompagnement', () => {
 				expect(résultatRechercheÉtablissementAccompagnementTitle[2].textContent).toEqual('Point information jeunesse - Saint-Céré');
 			});
 		});
+
 		it('affiche les informations des cards', () => {
 			// Given
 			mockUseRouter({});

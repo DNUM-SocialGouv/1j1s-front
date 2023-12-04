@@ -87,22 +87,22 @@ export default function RechercherFormation() {
 		/>
 		<main id="contenu">
 			<RechercherSolutionLayout
-				bannière={<BannièreFormation/>}
+				banniere={<BannièreFormation/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={<EtiquettesFiltreFormation/>}
+				etiquettesRecherche={<EtiquettesFiltreFormation/>}
 				formulaireRecherche={<FormulaireRechercherFormation/>}
-				isLoading={isLoading}
-				messageRésultatRecherche={messageRésultatRecherche}
-				nombreSolutions={formationList.length}
-				listeSolutionElement={
-					<ListeFormation
-						résultatList={formationList}
-						queryParams={transformObjectToQueryString({
-							...router.query,
-							libelleCommune: undefined,
-							libelleMetier: undefined,
-						})}
-					/>
+				isChargement={isLoading}
+				isEtatInitial={empty(formationQuery)}
+				messageResultatRecherche={messageRésultatRecherche}
+				nombreTotalSolutions={formationList.length}
+				listeSolutionElement={<ListeFormation
+					résultatList={formationList}
+					queryParams={transformObjectToQueryString({
+						...router.query,
+						libelleCommune: undefined,
+						libelleMetier: undefined,
+					})}
+				/>
 				}
 			/>
 			<EnTete heading="Découvrez des services faits pour vous"/>
@@ -136,7 +136,7 @@ interface ListeRésultatProps {
 
 function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 	if (!résultatList.length) {
-		return null;
+		return undefined;
 	}
 
 	return (

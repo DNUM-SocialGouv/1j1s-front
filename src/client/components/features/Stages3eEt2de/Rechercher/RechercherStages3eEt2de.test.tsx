@@ -20,6 +20,7 @@ describe('La recherche des stages de 3e et 2de', () => {
 	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
 		it('ne fait pas d‘appel et affiche un formulaire de recherche', async () => {
 			// GIVEN
+			mockSmallScreen();
 			mockUseRouter({});
 			const stage3eEt2deServiceMock = aStage3eEt2deService();
 			// WHEN

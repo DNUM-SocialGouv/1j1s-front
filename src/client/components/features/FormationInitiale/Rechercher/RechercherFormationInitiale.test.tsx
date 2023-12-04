@@ -162,11 +162,9 @@ describe('RechercherFormationInitiale', () => {
 				});
 			});
 		});
-
-
 	});
 
-	describe('Lorsque je fais une recherche de formation initiale avec une query vide', () => {
+	describe('Lorsque je fais une recherche de formation initiale sans domaine précisé', () => {
 		beforeEach(() => {
 			mockUseRouter({
 				query: {
@@ -174,6 +172,7 @@ describe('RechercherFormationInitiale', () => {
 				},
 			});
 		});
+
 		it('appelle le service concerné', async () => {
 			const aFormationService = aFormationInitialeService();
 			const formationsInitiales = [aFormationInitiale({ libelle: 'boulanger' }), aFormationInitiale({ libelle: 'patissier' })];

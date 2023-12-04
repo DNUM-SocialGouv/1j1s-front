@@ -72,15 +72,16 @@ export default function RechercherEmploisEurope() {
 		/>
 		<main id="contenu">
 			<RechercherSolutionLayout
-				bannière={<BanniereEmploisEurope/>}
+				banniere={<BanniereEmploisEurope/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={<EtiquettesFiltresRecherche/>}
+				etiquettesRecherche={<EtiquettesFiltresRecherche/>}
 				formulaireRecherche={<FormulaireRechercheEmploisEurope/>}
-				isLoading={isLoading}
-				nombreSolutions={nombreResultats}
+				isChargement={isLoading}
+				isEtatInitial={empty(emploiEuropeQuery)}
+				nombreTotalSolutions={nombreResultats}
 				paginationOffset={NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}
 				listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
-				messageRésultatRecherche={messageResultatRecherche}
+				messageResultatRecherche={messageResultatRecherche}
 			/>
 		</main>
 	</>;

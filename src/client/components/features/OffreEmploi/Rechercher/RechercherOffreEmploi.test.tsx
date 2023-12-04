@@ -22,6 +22,30 @@ describe('RechercherOffreEmploi', () => {
 		jest.clearAllMocks();
 	});
 
+	// NOTE (DORO 13/02/2024): Ce describe intervient entre le chargement de la page sans query params page=1 et la redirection vers la page avec query params page=1
+	describe('quand le composant est affiché sans query params', () => {
+		it('affiche un formulaire pour la recherche d’offre emploi, sans échantillon de résultat', async () => {
+			// GIVEN
+			const localisationServiceMock = aLocalisationService();
+			mockUseRouter({});
+			render(
+				<DependenciesProvider
+					localisationService={localisationServiceMock}
+				>
+					<RechercherOffreEmploi />
+				</DependenciesProvider>,
+			);
+
+			// WHEN
+			const formulaireRechercheOffreEmploi = screen.getByRole('search');
+			const nbResultats = screen.queryByText('0 résultat');
+
+			// THEN
+			expect(formulaireRechercheOffreEmploi).toBeInTheDocument();
+			expect(nbResultats).not.toBeInTheDocument();
+		});
+	});
+
 	describe('quand le composant est affiché sans recherche', () => {
 		it('affiche un formulaire pour la recherche d‘offres d‘emploi, avec un échantillon de résultat', async () => {
 			// GIVEN
@@ -36,7 +60,7 @@ describe('RechercherOffreEmploi', () => {
 			);
 
 			// WHEN
-			const formulaireRechercheOffreEmploi = screen.getByRole('form');
+			const formulaireRechercheOffreEmploi = screen.getByRole('search');
 			const errorMessage = screen.queryByText('0 résultat');
 
 			// THEN

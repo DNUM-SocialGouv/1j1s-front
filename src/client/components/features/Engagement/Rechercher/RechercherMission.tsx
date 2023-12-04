@@ -8,9 +8,6 @@ import {
 	EtiquettesFiltreMission,
 } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
 import { ListeMissions } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/ListeMissions';
-import {
-	MessageNombreResultats,
-} from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/MessageNombreResultats';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
@@ -82,14 +79,15 @@ export function RechercherMission(props: RechercherMissionProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={<BanniereMission isServiceCivique={isServiceCivique}/>}
+					banniere={<BanniereMission isServiceCivique={isServiceCivique}/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={<EtiquettesFiltreMission/>}
+					etiquettesRecherche={<EtiquettesFiltreMission/>}
 					formulaireRecherche={<FormulaireRechercheMissionEngagement domainList={isServiceCivique ? serviceCiviqueDomaineList : bénévolatDomaineList}/>}
-					isLoading={isLoading}
-					messageRésultatRecherche={
+					isChargement={isLoading}
+					isEtatInitial={empty(missionEngagementQuery)}
+					messageResultatRecherche={
 						<>
-							{MessageNombreResultats({
+							{messageNombreResultats({
 								domaine: domaine,
 								isServiceCivique: isServiceCivique,
 								nombreResultats: nombreResultats,
@@ -97,7 +95,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 							<Footnote.Reference to="partenaires" id="partenaires-reference" />
 						</>
 					}
-					nombreSolutions={nombreResultats}
+					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_MISSION_PAR_PAGE}
 					listeSolutionElement={<ListeMissions resultatList={missionList} isServiceCivique={isServiceCivique}/>}
 					footnote={
@@ -110,4 +108,22 @@ export function RechercherMission(props: RechercherMissionProps) {
 		</>
 	);
 }
+
+export function messageNombreResultats({ nombreResultats, isServiceCivique, domaine }: {
+	nombreResultats: number,
+	isServiceCivique: boolean,
+	domaine?: string
+}): string {
+	const motMission = (nombreResultats > 1) ? 'missions' : 'mission';
+	const categorie = isServiceCivique ? 'service civique' : 'bénévolat';
+
+	return [
+		nombreResultats.toString(),
+		motMission,
+		`de ${categorie}`,
+		domaine && `pour ${domaine}`,
+	].filter(Boolean)
+		.join(' ');
+}
+
 
