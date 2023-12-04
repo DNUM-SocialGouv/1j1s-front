@@ -22,7 +22,9 @@
     "analyze": "ANALYZE=true next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
+    "storybook:build": "storybook build",
+    "playwright": "npx playwright test",
+    "playwright:open": "npx playwright test --ui"
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.13.6",
@@ -56,6 +58,7 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "@socialgouv/eslint-config-recommended": "1.131.0",
     "@storybook/addon-essentials": "7.6.3",
     "@storybook/addon-interactions": "7.6.3",
