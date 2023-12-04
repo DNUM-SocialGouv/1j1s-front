@@ -8,8 +8,8 @@
     img {
       object-fit: cover;
       object-position: center;
-      height: 180px;
       width: 320px;
+      height: 180px;
     }
   }
 
@@ -92,12 +92,6 @@
 
 @include utilities-deprecated.media(medium) {
   .Card {
-    &ImageWrapper {
-      width: 22.5rem;
-      img {
-        width: 22.5rem;
-      }
-    }
     &Contenu {
       & h3 {
         font-size: 1.125rem;
