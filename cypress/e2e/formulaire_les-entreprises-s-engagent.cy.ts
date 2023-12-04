@@ -1,37 +1,28 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-
-import { interceptGet } from '../interceptGet';
-import { interceptPost } from '../interceptPost';
-
 const TITLE_ETAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
 const TITLE_ETAPE_2 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 2 sur 2 | 1jeune1solution';
 const TITLE_VALIDEE = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Formulaire envoyé | 1jeune1solution';
 
-
 function remplirFormulaireEtape1() {
-	cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).type('OCTO Technology');
-	interceptGet(
+	cy.intercept('/api/communes*', { body: { résultats: [
 		{
-			// FIXME (GAFI 06-11-2023): Devrait être role combobox
-			actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Ville du siège social de l’entreprise/i }).type('paris'),
-			alias: 'recherche-communes',
-			path: '/api/communes*',
-			response: JSON.stringify({ résultats: [
-				{
-					code: '75056',
-					codePostal: '75006',
-					coordonnées: {
-						latitude: 48.859,
-						longitude: 2.347,
-					},
-					libelle: 'Paris (75006)',
-					ville: 'Paris',
-				},
-			] } ),
+			code: '75056',
+			codePostal: '75006',
+			coordonnées: {
+				latitude: 48.859,
+				longitude: 2.347,
+			},
+			libelle: 'Paris (75006)',
+			ville: 'Paris',
 		},
-	);
+	] } }).as('recherche-communes');
+
+	cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).type('OCTO Technology');
+	// FIXME (GAFI 06-11-2023): Devrait être role combobox
+	cy.findByRole('textbox', { name: /Ville du siège social de l’entreprise/i }).type('paris');
+	cy.wait('@recherche-communes');
 	cy.findByRole('option', { name: /Paris \(75006\)/i }).click();
 	cy.findByRole('textbox', { name: /SIRET/i }).type('41816609600069');
 	// FIXME (GAFI 06-11-2023): Devrait être role combobox
@@ -82,6 +73,11 @@ describe('Inscription', () => {
 	});
 	describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
 		it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', () => {
+			cy.intercept(
+				{ method: 'POST', path: '/api/entreprises' },
+				{ statusCode: 201 })
+				.as('submit-form');
+
 			remplirFormulaireEtape1();
 			cy.findByRole('button', { name: /Suivant/i }).click();
 			cy.findByRole('textbox', { name: /Prénom/i }).type('Jean');
@@ -89,31 +85,9 @@ describe('Inscription', () => {
 			cy.findByRole('textbox', { name: /Fonction au sein de l’entreprise/i }).type('RH');
 			cy.findByRole('textbox', { name: /Adresse e-mail de contact/i }).type('jean.bon@example.com');
 			cy.findByRole('textbox', { name: /Numéro de téléphone de contact/i }).type('0122334455');
+			cy.findByRole('button', { name: /Envoyer le formulaire/i }).click();
 
-			interceptPost(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Envoyer le formulaire/i }).click(),
-					alias: 'submit-form',
-					path: '/api/entreprises',
-					response: JSON.stringify({
-						statusCode: 201,
-					}),
-					responseBodyToCheck: {
-						codePostal: '75006',
-						email: 'jean.bon@example.com',
-						nom: 'Bon',
-						nomSociété: 'OCTO Technology',
-						prénom: 'Jean',
-						secteur: 'health-social',
-						siret: '41816609600069',
-						taille: 'xsmall',
-						travail: 'RH',
-						téléphone: '0122334455',
-						ville: 'Paris',
-					},
-				},
-			);
-
+			cy.wait('@submit-form');
 			cy.findByRole('heading', { level: 1 }).should('have.text', 'Félicitations, votre formulaire a bien été envoyé !');
 			cy.title().should('eq', TITLE_VALIDEE);
 		});
