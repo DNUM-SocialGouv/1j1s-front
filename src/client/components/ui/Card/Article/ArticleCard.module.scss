@@ -82,8 +82,4 @@
 .link {
   display: inline-block;
   width: 100%;
-  max-width: 20rem;
-  @include utilities-deprecated.media(medium) {
-    max-width: unset;
-  }
 }

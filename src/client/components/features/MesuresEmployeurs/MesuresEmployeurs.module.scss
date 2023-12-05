@@ -19,9 +19,11 @@
     @include utilities-deprecated.media(medium) {
       margin-bottom: 2rem;
     }
-    > li > div {
+
+    > li {
+      flex-grow: 1;
+      flex-basis: 100%;
       max-width: 22.5rem;
-      width: auto;
     }
   }
 }

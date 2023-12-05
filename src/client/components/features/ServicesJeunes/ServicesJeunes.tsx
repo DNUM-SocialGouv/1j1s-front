@@ -23,14 +23,15 @@ export function ServicesJeunes(props: ServicesJeunesProps) {
 
 	return (
 		<>
-			<Container className={styles.cardList}>
+			<Container className={styles.container}>
 				<SeeMoreItemList
 					seeLessLabel="Voir moins de services"
 					seeMoreLabel="Voir plus de services"
 					seeLessAriaLabel={'Voir moins de résultats sur les services conçus pour les jeunes'}
 					seeMoreAriaLabel={'Voir plus de résultats sur les services conçus pour les jeunes'}
 					numberOfVisibleItems={NUMBER_OF_VISIBLE_ITEMS}
-					itemList={cardListToDisplay} />
+					itemList={cardListToDisplay}
+				/>
 			</Container>
 		</>
 	);

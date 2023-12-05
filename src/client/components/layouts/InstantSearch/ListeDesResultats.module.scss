@@ -25,23 +25,17 @@ $color-background-resultats-list: utilities.$color-background-primary-alternativ
     gap: 1.5rem;
     flex-direction: column;
     flex-wrap: wrap;
-    > li {
-      width: 100%;
-      max-width: 20rem;
-    }
-  }
-}
 
-@include utilities.media(medium) {
-  .listeDesResultats {
-    & ol {
+    @include utilities.media(medium) {
       gap: 2rem 2.5rem;
       flex-direction: row;
       justify-content: center;
-      > li {
-        width: 22.5rem;
-        max-width: unset;
-      }
+    }
+
+    > li {
+      flex-grow: 1;
+      flex-basis: 100%;
+      max-width: 22.5rem;
     }
   }
 }

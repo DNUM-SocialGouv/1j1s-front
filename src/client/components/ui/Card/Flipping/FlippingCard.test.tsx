@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('<FlippingCard>', () => {
 	beforeEach(() => mockUseRouter({}));
-	it('utilise le formalisme markdown pour pour qui', async () => {
+	it('utilise le formalisme markdown pour "pour qui"', async () => {
 		// Given
 		const pourQui = 'ceci est le texte de **pour qui**';
 		const user = userEvent.setup();
