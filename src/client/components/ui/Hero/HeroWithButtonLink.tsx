@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
@@ -34,8 +35,8 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 						{content}
 					</p>
 					<div className={styles.linkAsButtonContainer}>
-						<LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButtonWithIcon><br />
-						{(buttonLabelSecondary && buttonHrefSecondary) && <LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</LinkStyledAsButtonWithIcon>}
+						<LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButtonWithIcon>
+						{(buttonLabelSecondary && buttonHrefSecondary) && <LinkStyledAsButtonWithIcon className={classNames(styles.linkAsButton, styles.linkAsButtonSecondary)} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</LinkStyledAsButtonWithIcon>}
 					</div>
 					{additionalInformation}
 				</div>
