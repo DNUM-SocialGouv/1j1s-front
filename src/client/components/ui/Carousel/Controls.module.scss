@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .controls {
   z-index: 10;
@@ -18,5 +19,16 @@
   }
   &Next {
     right: 0.5rem;
+  }
+  &:focus {
+    box-shadow:0 0 0 4px utilities.$color-background-primary-alternative;
+  }
+  @supports selector(&:focus-visible) {
+    &:focus {
+      box-shadow: revert;
+    }
+    &:focus-visible {
+      box-shadow:0 0 0 4px utilities.$color-background-primary-alternative;
+    }
   }
 }
