@@ -9,6 +9,7 @@ export type EmploiEuropeQueryParams = {
 	motCle?: string
 	page?: string
 	typeContrat?: string
+	niveauEtude?: string
 }
 
 export function useEmploiEuropeQuery(): EmploiEuropeQueryParams {
@@ -18,6 +19,7 @@ export function useEmploiEuropeQuery(): EmploiEuropeQueryParams {
 		codePays: getSingleQueryParam(query.codePays),
 		libellePays: getSingleQueryParam(query.libellePays),
 		motCle: getSingleQueryParam(query.motCle),
+		niveauEtude: getSingleQueryParam(query.niveauEtude),
 		page: getSingleQueryParam(query.page),
 		typeContrat: getSingleQueryParam(query.typeContrat),
 	}), [query]);

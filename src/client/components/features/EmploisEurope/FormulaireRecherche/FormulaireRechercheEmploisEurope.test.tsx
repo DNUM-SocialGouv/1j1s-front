@@ -90,6 +90,34 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
 			});
 		});
+		describe('quand on recherche par niveau d’étude', () => {
+			it('ajoute les niveaux d’étude aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				const buttonFiltresAvances = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresAvances);
+				const modalComponent = screen.getByRole('dialog');
+				const checkboxNiveauEtude = within(modalComponent).getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
+				await user.click(checkboxNiveauEtude);
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+				await user.click(buttonAppliquerFiltres);
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+				
+				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
+			});
+		});
 	});
 
 	describe('en version desktop', () => {
@@ -103,6 +131,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			);
 
 			expect(screen.getByRole('button', { name: 'Type de contrat' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Niveau d\'études demandé' })).toBeInTheDocument();
 		});
 
 		describe('quand on recherche par type de contrat', () => {
@@ -128,6 +157,33 @@ describe('FormulaireRechercheEmploisEurope', () => {
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
+			});
+		});
+
+		describe('quand on recherche par niveau d\'étude', () => {
+			it('ajoute les niveaux d\'étude aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				// WHEN
+				const button = screen.getByRole('button', { name: 'Niveau d\'études demandé' });
+				await user.click(button);
+
+				const checkboxNiveauEtude = screen.getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
+				await user.click(checkboxNiveauEtude);
+
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+
+				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
 			});
 		});
 	});

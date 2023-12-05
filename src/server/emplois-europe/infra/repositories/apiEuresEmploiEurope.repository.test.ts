@@ -132,6 +132,40 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			});
 		});
 
+		describe('quand un niveauEtude est fourni', () => {
+			it('appelle l’api Eures avec le niveauEtude', () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+				
+				const body = {
+					dataSetRequest: {
+						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
+						pageNumber: '1',
+						resultsPerPage: '15',
+						sortBy: 'BEST_MATCH',
+					},
+					searchCriteria: {
+						facetCriteria: [
+							{
+								facetName: 'EDUCATION_LEVEL',
+								facetValues: ['7'],
+							},
+						],
+					},
+				};
+				
+				// When
+				repository.search({
+					niveauEtude: ['7'],
+					page: 1,
+				});
+				
+				// Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
+		});
+
 		it('appelle l’api Eures avec la page correspondante', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();

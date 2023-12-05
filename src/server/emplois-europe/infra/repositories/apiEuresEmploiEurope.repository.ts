@@ -29,6 +29,9 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		if (filtre.typeContrat !== undefined && filtre.typeContrat.length > 0) {
 			facetCriteria.push({ facetName: 'POSITION_OFFERING', facetValues: filtre.typeContrat });
 		}
+		if (filtre.niveauEtude !== undefined && filtre.niveauEtude.length > 0) {
+			facetCriteria.push({ facetName: 'EDUCATION_LEVEL', facetValues: filtre.niveauEtude });
+		}
 
 		return {
 			dataSetRequest: {

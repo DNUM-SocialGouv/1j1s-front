@@ -9,6 +9,7 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
+import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import { typesContratEures } from '~/client/domain/typesContratEures';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -34,7 +35,9 @@ function ModaleFiltreAvancee(props: {
 	close: () => void,
 	open: boolean,
 	toggleTypeContrat: (typeContrat: string) => void,
+	toggleNiveauEtude: (niveauEtude: string) => void,
 	inputTypeContrat: string,
+	inputNiveauEtude: string,
 	onClick: () => void
 }) {
 	return (
@@ -56,7 +59,19 @@ function ModaleFiltreAvancee(props: {
 							label={typeContrat.libellé}
 							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
 							value={typeContrat.valeur}
+							// NOTE (DORO - 05-12-2023): Pourrait ne plus marcher si on ajoute des types de contrat (cas avec 2 chiffres)
 							checked={props.inputTypeContrat.includes(typeContrat.valeur)}
+						/>
+					))}
+				</FilterAccordion>
+				<FilterAccordion title="Niveau d'études demandé">
+					{niveauEtudeEures.map((niveauEtude, index) => (
+						<Checkbox
+							key={`Niveau d'études demandé ${index}`}
+							label={niveauEtude.libellé}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
+							value={niveauEtude.valeur}
+							checked={props.inputNiveauEtude.includes(niveauEtude.valeur)}
 						/>
 					))}
 				</FilterAccordion>
@@ -84,14 +99,16 @@ export function FormulaireRechercheEmploisEurope() {
 		libellePays,
 		codePays,
 		typeContrat,
+		niveauEtude,
 	} = queryParams;
 	const router = useRouter();
 
 	const { isSmallScreen } = useBreakpoint();
-	const [isFiltresAvancesMobileOpen, setIsFiltresAvancesMobileOpen] = useState(false);
+	const [isFiltresAvancesMobileOpen, setIsFiltresAvancesMobileOpen] = useState<boolean>(false);
 
-	const [inputMotCle, setInputMotCle] = useState(motCle ?? '');
-	const [inputTypeContrat, setInputTypeContrat] = useState(typeContrat ?? '');
+	const [inputMotCle, setInputMotCle] = useState<string>(motCle ?? '');
+	const [inputTypeContrat, setInputTypeContrat] = useState<string>(typeContrat ?? '');
+	const [inputNiveauEtude, setInputNiveauEtude] = useState<string>(niveauEtude ?? '');
 	const localisationDefaultValue = (codePays && libellePays)
 		? { code: codePays, label: libellePays }
 		: undefined;
@@ -99,6 +116,10 @@ export function FormulaireRechercheEmploisEurope() {
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
 		setInputTypeContrat(addTypeDeContratToQueryParams(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
+	
+	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
+		setInputNiveauEtude(addTypeDeContratToQueryParams(inputNiveauEtude, niveauEtude));
+	}, [inputNiveauEtude]);
 
 	const applyFiltresAvances = useCallback(() => {
 		setIsFiltresAvancesMobileOpen(false);
@@ -146,12 +167,15 @@ export function FormulaireRechercheEmploisEurope() {
 								onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
 						  />
 						  <input type="hidden" name="typeContrat" value={inputTypeContrat}/>
+						  <input type="hidden" name="niveauEtude" value={inputNiveauEtude}/>
 						</div>
 					}
 					<ModaleFiltreAvancee
 						close={() => setIsFiltresAvancesMobileOpen(false)}
 						toggleTypeContrat={toggleTypeContrat}
+						toggleNiveauEtude={toggleNiveauEtude}
 						inputTypeContrat={inputTypeContrat}
+						inputNiveauEtude={inputNiveauEtude}
 						open={isFiltresAvancesMobileOpen}
 						onClick={applyFiltresAvances}
 					/>
@@ -166,6 +190,14 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Type de contrat"
 							value={inputTypeContrat}
 							name="typeContrat"
+						/>
+						<Select
+							multiple
+							optionList={niveauEtudeEures}
+							onChange={setInputNiveauEtude}
+							label="Niveau d'études demandé"
+							value={inputNiveauEtude}
+							name="niveauEtude"
 						/>
 					</div>
 				)}
