@@ -82,7 +82,7 @@ describe('DetailOffreEmploiEurope', () => {
 		expect(linkCandidature).not.toBeInTheDocument();
 	});
 	describe('Tags', () => {
-		it('si le type de contrat est présent, affiche le type de contrat', async () => {
+		it('si le type de contrat est présent, affiche le type de contrat',  () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ typeContrat: 'Embauche directe' });
 		
@@ -95,7 +95,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le temps de travail est présent, affiche le temps de travail', async () => {
+		it('si le temps de travail est présent, affiche le temps de travail',  () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ tempsDeTravail: 'Temps partiel' });
 
@@ -108,7 +108,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes', async () => {
+		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes',  () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Niveau maîtrise (Master) ou équivalent' });
 
@@ -121,7 +121,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes', async () => {
+		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes',  () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Autre' });
 
@@ -135,7 +135,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient un pays et une ville', () => {
-			it('affiche le résultat avec le pays et la ville', async () => {
+			it('affiche le résultat avec le pays et la ville',  () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: 'Paris' });
 
@@ -150,7 +150,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient un pays mais pas de ville', () => {
-			it('affiche le résultat avec le pays', async () => {
+			it('affiche le résultat avec le pays',  () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: undefined });
 
@@ -165,7 +165,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient une ville mais pas de pays', () => {
-			it('affiche le résultat avec la ville', async () => {
+			it('affiche le résultat avec la ville',  () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: undefined, ville: 'Paris' });
 

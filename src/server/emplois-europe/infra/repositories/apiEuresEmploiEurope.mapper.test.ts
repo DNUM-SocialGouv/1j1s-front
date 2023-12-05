@@ -396,16 +396,16 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					expect(result.tempsDeTravail).toBeUndefined();
 				});
 			});
-			it('retourne un emploi avec le temps de travail à undefined si le type de contrat EURES n’est pas fourni', () => {
+			it('retourne un emploi avec le temps de travail à undefined si le temps de travail n’est pas fourni', () => {
 				// GIVEN
 				const handle = 'eures-offer-id';
-				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const hrxmlWithoutPositionScheduleTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
 				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
 					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
 							handle,
 						},
-						hrxml: hrxmlWithoutPositionOfferingTypeCode,
+						hrxml: hrxmlWithoutPositionScheduleTypeCode,
 					}) },
 				);
 				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
