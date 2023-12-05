@@ -2,8 +2,6 @@
 
 .section {
   border-radius: 20px;
-  box-shadow: utilities-deprecated.$box-shadow;
-  overflow: hidden;
 
   &:not(:last-of-type) {
     margin-bottom: 1rem;
