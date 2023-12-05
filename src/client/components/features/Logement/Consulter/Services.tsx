@@ -3,12 +3,11 @@ import React from 'react';
 
 import styles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
-import Service = AnnonceDeLogement.Service;
+import { Service } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 interface ServicesProps {
-	inclus: Array<AnnonceDeLogement.Service>;
-	optionnels: Array<AnnonceDeLogement.Service>;
+	inclus: Array<Service>;
+	optionnels: Array<Service>;
 }
 
 type ServicesAffichables = Exclude<Service, Service.NON_RENSEIGNE>

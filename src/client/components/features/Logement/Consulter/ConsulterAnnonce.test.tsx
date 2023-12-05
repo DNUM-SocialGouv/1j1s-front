@@ -11,8 +11,9 @@ import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulte
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
+import { Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
@@ -242,7 +243,7 @@ describe('<ConsulterAnnonce />', () => {
 		describe('quand la source est immojeune', () => {
 			it('retourne le logo immojeune',  () => {
 				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'immojeune' as AnnonceDeLogement.Source;
+				annonceDeLogement.source = 'immojeune' as Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
 				expect(diffuseur).toBeVisible();
@@ -255,7 +256,7 @@ describe('<ConsulterAnnonce />', () => {
 		describe('quand la source est studapart', () => {
 			it('retourne le logo studapart',  () => {
 				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'studapart' as AnnonceDeLogement.Source;
+				annonceDeLogement.source = 'studapart' as Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
 				expect(diffuseur).toBeVisible();
@@ -268,7 +269,7 @@ describe('<ConsulterAnnonce />', () => {
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
 				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'seLoger' as AnnonceDeLogement.Source;
+				annonceDeLogement.source = 'seLoger' as Source;
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.queryByText('Ce bien est diffusé par');
 				expect(diffuseur).not.toBeInTheDocument();

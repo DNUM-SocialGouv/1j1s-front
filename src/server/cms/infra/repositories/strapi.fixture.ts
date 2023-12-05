@@ -357,33 +357,6 @@ export function aStrapiOffreDeStageSlugList(): Strapi.CollectionType<Pick<Strapi
 	};
 }
 
-export function aStrapiAnnonceDeLogementSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.AnnonceLogement, 'slug'>> {
-	return {
-		data: [
-			{
-				attributes: { slug: 'studio-bis-de-28m-a-partir-de-645-1439954' },
-				id: 333,
-			},
-			{
-				attributes: { slug: 'appartement-t2-de-30m-a-partir-de-675-par-mois-1439955' },
-				id: 334,
-			},
-			{
-				attributes: { slug: 'studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875' },
-				id: 335,
-			},
-		],
-		meta: {
-			pagination: {
-				page: 1,
-				pageCount: 1,
-				pageSize: 3,
-				total: 3,
-			},
-		},
-	};
-}
-
 export function aStrapiVideosCampagneApprentissage(): Strapi.CollectionType<Strapi.CollectionType.VideoCampagneApprentissage> {
 	return aStrapiCollectionType([{
 		Titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",

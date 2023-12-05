@@ -5,7 +5,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
 import { useLocale } from '~/client/context/locale.context';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
 

@@ -6,7 +6,7 @@ export function aStrapiCmsRepository(override?: Partial<StrapiRepository>): CmsR
 	return {
 		getActualitéList: jest.fn(),
 		getAllVideosCampagneApprentissage: jest.fn(),
-		getAnnonceDeLogementBySlug: jest.fn(),
+		// getAnnonceDeLogementBySlug: jest.fn(),
 		getArticleBySlug: jest.fn(),
 		getCollectionType: jest.fn(),
 		getCollectionTypeDeprecated: jest.fn(),
@@ -15,7 +15,7 @@ export function aStrapiCmsRepository(override?: Partial<StrapiRepository>): CmsR
 		getMesuresEmployeurs: jest.fn(),
 		getOffreDeStageBySlug: jest.fn(),
 		getServiceJeuneList: jest.fn(),
-		listAllAnnonceDeLogementSlug: jest.fn(),
+		// listAllAnnonceDeLogementSlug: jest.fn(),
 		listAllArticleSlug: jest.fn(),
 		listAllOffreDeStageSlug: jest.fn(),
 		save: jest.fn(),

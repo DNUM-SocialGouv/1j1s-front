@@ -5,7 +5,7 @@ import styles from '~/client/components/features/Logement/Consulter/BilanEnerget
 import cardStyles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
 import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
-import { CategorieEnergetique } from '~/server/cms/domain/annonceDeLogement.type';
+import { CategorieEnergetique } from '~/server/logements/domain/annonceDeLogement';
 
 const LessOrEqual = () => <>{'\u{02A7D}'}</>;
 const MoreOrEqual = () => <>{'\u{02A7E}'}</>;

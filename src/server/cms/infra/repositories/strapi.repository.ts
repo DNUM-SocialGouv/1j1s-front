@@ -1,5 +1,4 @@
 import { Actualité } from '~/server/cms/domain/actualité';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
@@ -8,7 +7,6 @@ import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStag
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
-	mapAnnonceLogement,
 	mapArticle,
 	mapEnregistrerOffreDeStage,
 	mapMesuresEmployeurs,
@@ -156,12 +154,6 @@ export class StrapiRepository implements CmsRepository {
 		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
 
-	async listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>> {
-		const query = 'fields[0]=slug';
-		const flatMapSlug = (annoneDeLogement: Strapi.CollectionType.AnnonceLogement): string => annoneDeLogement.slug;
-		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.AnnonceLogement, string>(RESOURCE_ANNONCE_DE_LOGEMENT, query, flatMapSlug);
-	}
-
 	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
 		const query = 'fields[0]=slug';
 		const flatMapSlug = (offreDeStage: Strapi.CollectionType.OffreStage): string => offreDeStage.slug;
@@ -200,12 +192,6 @@ export class StrapiRepository implements CmsRepository {
 		const query = `filters[slug][$eq]=${slug}&populate=deep`;
 		const offreStageList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.OffreStage, OffreDeStage>(RESOURCE_OFFRE_DE_STAGE, query, mapOffreStage);
 		return this.getFirstFromCollection(offreStageList);
-	}
-
-	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
-		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const annonceLogementList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.AnnonceLogement, AnnonceDeLogement>(RESOURCE_ANNONCE_DE_LOGEMENT, query, mapAnnonceLogement);
-		return this.getFirstFromCollection(annonceLogementList);
 	}
 
 	async saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>> {

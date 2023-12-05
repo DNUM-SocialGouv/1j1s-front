@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { Actualité } from '~/server/cms/domain/actualité';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
@@ -152,62 +151,6 @@ export function mapOffreStage(response: Strapi.CollectionType.OffreStage): Offre
 		urlDeCandidature: response.urlDeCandidature || undefined,
 	};
 }
-
-function mapAnnonceDeLogementLocalisation(localisation: Strapi.CollectionType.AnnonceLogement.Localisation): AnnonceDeLogement.Localisation {
-	return {
-		adresse: localisation.adresse,
-		codePostal: localisation.codePostal,
-		département: localisation.département,
-		pays: localisation.pays,
-		région: localisation.région,
-		ville: localisation.ville,
-	};
-}
-
-function mapImage(imageUrl: { value: string }): Image {
-	return {
-		alt: '',
-		src: imageUrl.value,
-	};
-}
-
-function mapAnnonceDeLogementBilanÉnergétique(bilanEnergetique: Strapi.CollectionType.AnnonceLogement.BilanEnergetique): AnnonceDeLogement.BilanEnergetique {
-	return {
-		consommationEnergetique: bilanEnergetique.consommationEnergetique,
-		emissionDeGaz: bilanEnergetique.emissionDeGaz,
-	};
-}
-
-export function mapAnnonceLogement(annonceLogementResponse: Strapi.CollectionType.AnnonceLogement): AnnonceDeLogement {
-	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
-
-	return {
-		bilanEnergetique: mapAnnonceDeLogementBilanÉnergétique(annonceLogementResponse.bilanEnergetique),
-		charge: annonceLogementResponse.charge,
-		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
-		dateDeMiseAJour,
-		description: annonceLogementResponse.description,
-		devise: annonceLogementResponse.devise,
-		garantie: annonceLogementResponse.garantie,
-		imageList: annonceLogementResponse.imagesUrl?.map(mapImage) || [],
-		localisation: mapAnnonceDeLogementLocalisation(annonceLogementResponse.localisation),
-		meublé: annonceLogementResponse.meuble,
-		nombreDePièces: annonceLogementResponse.nombreDePieces,
-		prix: annonceLogementResponse.prix,
-		prixHT: annonceLogementResponse.prixHT,
-		servicesInclus: annonceLogementResponse.servicesInclus.map((service) => service.nom),
-		servicesOptionnels: annonceLogementResponse.servicesOptionnels.map((service) => service.nom),
-		source: annonceLogementResponse.source,
-		surface: annonceLogementResponse.surface,
-		surfaceMax: annonceLogementResponse.surfaceMax,
-		titre: annonceLogementResponse.titre,
-		type: annonceLogementResponse.type,
-		typeBien: annonceLogementResponse.typeBien,
-		urlDeCandidature: annonceLogementResponse.url,
-		étage: annonceLogementResponse.etage,
-	};
-}
-
 export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
 	return {
 		dateDeDebutMax: body.dateDeDebutMax,

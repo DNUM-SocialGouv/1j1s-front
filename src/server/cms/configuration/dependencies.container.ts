@@ -1,5 +1,4 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { ConsulterAnnonceLogementUseCase } from '~/server/cms/useCases/consulterAnnonceLogement.useCase';
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
 import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConsulterOffreStageUseCase } from '~/server/cms/useCases/consulterOffreStage.useCase';
@@ -13,7 +12,6 @@ import {
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
-	consulterAnnonceLogement: ConsulterAnnonceLogementUseCase
 	consulterArticle: ConsulterArticleUseCase
 	consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
 	consulterOffreStage: ConsulterOffreStageUseCase
@@ -32,7 +30,6 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 	const duréeDeValiditéEnSecondes = IS_REVIEW_APP ? 20 : UN_JOUR_EN_SECONDES;
 
 	return {
-		consulterAnnonceLogement: new ConsulterAnnonceLogementUseCase(cmsRepository),
 		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		consulterOffreStage: new ConsulterOffreStageUseCase(cmsRepository),

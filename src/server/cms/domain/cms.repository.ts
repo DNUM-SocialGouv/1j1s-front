@@ -1,5 +1,4 @@
 import { Actualité } from '~/server/cms/domain/actualité';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
@@ -11,7 +10,7 @@ import { Either } from '~/server/errors/either';
 export interface CmsRepository {
 	getActualitéList(): Promise<Either<Actualité[]>>
 
-	getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
+	// getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
 
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
 
@@ -25,7 +24,7 @@ export interface CmsRepository {
 
 	getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>>
 
-	listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
+	// listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
 
 	listAllArticleSlug(): Promise<Either<Array<string>>>
 

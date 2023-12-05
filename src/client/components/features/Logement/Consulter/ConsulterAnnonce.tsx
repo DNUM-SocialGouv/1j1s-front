@@ -14,7 +14,8 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+import { Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
 import { DateMiseÀJour } from './DateMiseÀJour';
@@ -102,7 +103,7 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 	</div>;
 };
 
-function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
+function AnnonceSource({ source }: { source: Source }) {
 	return useMemo(() => {
 		switch (source) {
 			case 'immojeune':
@@ -126,7 +127,7 @@ function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
 function CandidaterDesktop({
 														 source,
 														 urlDeCandidature,
-													 }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) {
+													 }: { source: Source, urlDeCandidature: string }) {
 	return (
 		<div className={classNames(styles.cardCandidater)}>
 			<AnnonceSource source={source}/>

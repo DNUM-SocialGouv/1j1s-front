@@ -1,12 +1,11 @@
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
-import Localisation = AnnonceDeLogement.Localisation;
+import { Localisation } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
-function doitSuffixerAdresse(localisation: AnnonceDeLogement.Localisation) {
+function doitSuffixerAdresse(localisation: Localisation) {
 	return localisation.ville != null
 		&& localisation.adresse != null;
 }
 
-function doitWrapperCodePostal(localisation: AnnonceDeLogement.Localisation) {
+function doitWrapperCodePostal(localisation: Localisation) {
 	return localisation.codePostal != null && (localisation.ville != null || localisation.adresse != null);
 }
 

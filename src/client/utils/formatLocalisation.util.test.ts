@@ -1,6 +1,6 @@
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import Localisation = AnnonceDeLogement.Localisation;
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 describe('Localisation formatting', () => {
 	it("n'affiche que la ville si que la ville n'est présente", async () => {

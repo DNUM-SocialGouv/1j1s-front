@@ -251,34 +251,6 @@ export namespace Strapi {
 			erreur: string
 		}
 
-		export interface AnnonceLogement {
-			titre: string
-			slug: string
-			dateDeDisponibilite: string
-			nombreDePieces: number
-			surface: number
-			surfaceMax?: number
-			etage?: number
-			prix: number
-			prixHT?: number
-			charge?: number
-			garantie?: number
-			type: string
-			typeBien: string
-			meuble: boolean
-			url: string
-			sourceUpdatedAt: Date
-			sourceCreatedAt: Date
-			devise: string
-			description: string
-			localisation: AnnonceLogement.Localisation
-			bilanEnergetique: AnnonceLogement.BilanEnergetique
-			imagesUrl?: Array<{ value: string }>
-			source: AnnonceLogement.Source
-			servicesInclus: Array<{ nom: AnnonceLogement.Service }>
-			servicesOptionnels: Array<{ nom: AnnonceLogement.Service }>
-		}
-
 		export namespace AnnonceLogement {
 			export interface Localisation {
 				ville?: string
