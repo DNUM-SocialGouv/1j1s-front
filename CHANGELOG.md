@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.195.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.7...v3.195.0) (2023-12-05)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* fixer les chevauchement boutons dans la page événements ([#2410](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2410)) ([39a2839](https://github.com/DNUM-SocialGouv/1j1s-front/commit/39a283984a707e60a87839b244f21a655fb629c5))
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update dependency marked to v11 ([#2379](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2379)) ([86b2097](https://github.com/DNUM-SocialGouv/1j1s-front/commit/86b2097532add60e032477f809d004c115534bc3))
+
 ## [3.194.7](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.6...v3.194.7) (2023-12-04)
 
 
