@@ -17,7 +17,6 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import analytics from '~/pages/logements/annonces/index.analytics';
 
-const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 const ANNONCE_PAR_PAGE = 9 ;
 
 export default function AnnoncesPage() {
@@ -43,12 +42,10 @@ export default function AnnoncesPage() {
 				nombreDeResultatParPage={ANNONCE_PAR_PAGE}
 				titre="Plus de 3 000 offres de logements étudiants et de locations jeune actif"
 				sousTitre="partout en France"
-				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheAnnonceLogement />}
 				messageResultatRechercheLabelSingulier="annonce pour étudiants"
 				messageResultatRechercheLabelPluriel="annonces pour étudiants"
 				nombreDeSkeleton={3}
-				ariaLabelListeDesResultats="Annonces de logement"
 				resultatDeRecherche={AnnonceDeLogement}
 				tagList={<MeilisearchCustomCurrentRefinements transformItems={transformItems} />}
 				isAffichageListeDeResultatsDesktopDirectionRow={false}

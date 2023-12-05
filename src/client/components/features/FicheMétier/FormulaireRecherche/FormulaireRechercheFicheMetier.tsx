@@ -1,10 +1,11 @@
-import React from 'react';
+import { SearchResults } from 'algoliasearch-helper';
+import { SortBy } from 'instantsearch.js/es/types';
 
 import styles  from '~/client/components/features/FicheMétier/FormulaireRecherche/FormulaireRechercheFicheMetier.module.scss';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 
-const MEILISEARCH_SORT_BY_LABEL_ASC = ['name:asc'];
+const MEILISEARCH_SORT_BY_LABEL_ASC: SortBy<SearchResults.FacetValue> = ['name:asc'];
 
 export function FormulaireRechercheFicheMetier() {
 	return (

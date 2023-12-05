@@ -16,7 +16,6 @@ import styles from '~/pages/decouvrir-les-metiers/index.module.scss';
 
 const MEILISEARCH_INDEX = 'fiche-metier';
 const HITS_PER_PAGE = 15;
-const MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED = true;
 
 export default function RechercherFicheMetierPage() {
 	useAnalytics(analytics);
@@ -33,12 +32,10 @@ export default function RechercherFicheMetierPage() {
 				nombreDeResultatParPage={HITS_PER_PAGE}
 				titre="Je trouve le métier"
 				sousTitre="qui me correspond"
-				isMeilisearchQueryParamsRoutingEnabled={MEILISEARCH_QUERYPARAMS_ROUTING_ENABLED}
 				formulaireDeRecherche={<FormulaireRechercheFicheMetier />}
 				messageResultatRechercheLabelSingulier="fiche métier"
 				messageResultatRechercheLabelPluriel="fiches métier"
 				nombreDeSkeleton={2}
-				ariaLabelListeDesResultats="fiches métier"
 				resultatDeRecherche={RésultatRechercherMétier}
 				tagList={<MeilisearchCustomCurrentRefinements />}
 				isAffichageListeDeResultatsDesktopDirectionRow

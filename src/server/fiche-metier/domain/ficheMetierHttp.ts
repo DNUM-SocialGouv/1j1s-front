@@ -1,13 +1,34 @@
 import {
-	FicheMétierHttp,
-	FicheMétierHttpNestedField,
-	FicheMétierHttpNestedFieldStatut,
-} from '~/server/cms/infra/repositories/strapi.response';
-import {
 	FicheMétier,
 	FicheMetierNestedField,
 	FicheMetierNestedFieldStatut,
 } from '~/server/fiche-metier/domain/ficheMetier';
+
+export interface FicheMétierHttp {
+	acces_metier: string
+	accroche_metier: string
+	centres_interet: FicheMétierHttpNestedField[],
+	competences: string
+	condition_travail: string
+	formations_min_requise: FicheMétierHttpNestedField[]
+	id: string
+	identifiant: string
+	nature_travail: string
+	niveau_acces_min: FicheMétierHttpNestedField[]
+	nom_metier: string
+	secteurs_activite: FicheMétierHttpNestedField[],
+	statuts: FicheMétierHttpNestedFieldStatut[],
+	vie_professionnelle: string
+}
+
+export interface FicheMétierHttpNestedField {
+	identifiant: string
+	libelle: string
+}
+
+export interface FicheMétierHttpNestedFieldStatut extends FicheMétierHttpNestedField {
+	id_ideo1: string
+}
 
 export function mapFicheMetier(ficheMetierHttp: Partial<FicheMétierHttp>): Partial<FicheMétier> {
 	return {
@@ -41,7 +62,6 @@ function mapFicheMetierNestedFieldList(nestedFieldList: FicheMétierHttpNestedFi
 
 function mapFicheMetierNestedField(nestedField: FicheMétierHttpNestedField): FicheMetierNestedField {
 	return {
-		id: nestedField.id,
 		idOnisep: nestedField.identifiant,
 		libelle: nestedField.libelle,
 	};
