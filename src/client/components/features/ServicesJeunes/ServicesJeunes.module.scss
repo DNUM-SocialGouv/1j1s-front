@@ -1,11 +1,17 @@
 @use "@styles/utilities";
 
 .card {
-  width: 22.5rem;
+  max-width: 22.5rem;
 }
 
-.cardList {
+.container {
   @include utilities.media(medium) {
     padding-top: 2rem;
+  }
+
+  & div > ul > li {
+    flex-grow: 1;
+    flex-basis: 100%;
+    max-width: 22.5rem;
   }
 }

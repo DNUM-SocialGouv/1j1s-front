@@ -36,7 +36,11 @@ $pagination-available-page-color: utilities.$color-text-primary;
   }
 
   li > a {
-    padding: 0.5rem 1rem;
+    padding: .5rem .75rem;
+    @include utilities.media(small) {
+        padding: .5rem 1rem;
+    }
+
 
     &[aria-disabled="true"] {
       color: $pagination-disabled-page-color;

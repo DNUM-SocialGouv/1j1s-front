@@ -31,7 +31,7 @@
         }
     }
     &Content {
-        min-height: 10.75rem;
+        min-height: 9rem;
         padding-top: 0.75rem;
         overflow: auto;
         &Header {
@@ -51,7 +51,6 @@
     &Description > * {
         font-size: 1em;
         padding-right: 2rem;
-        padding-bottom: 1rem;
         margin: 0;
     }
 

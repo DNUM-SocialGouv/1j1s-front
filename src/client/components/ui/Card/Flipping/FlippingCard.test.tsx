@@ -10,14 +10,14 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('<FlippingCard>', () => {
 	beforeEach(() => mockUseRouter({}));
-	it('utilise le formalisme markdown pour qui est concerné', async () => {
+	it('utilise le formalisme markdown pour "pour qui"', async () => {
 		// Given
 		const pourQui = 'ceci est le texte de **pour qui**';
 		const user = userEvent.setup();
 		// When
 		render(<FlippingCard link="/coucou" title="test" imageUrl="/test.img" flippingCardContent={ pourQui } />);
 
-		const button = screen.getByRole('button', { name: 'Qui est concerné ?' });
+		const button = screen.getByRole('button', { name: 'Pour qui ?' });
 		await user.click(button);
 
 		// Then
