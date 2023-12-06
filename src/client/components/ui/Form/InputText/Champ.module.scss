@@ -16,22 +16,22 @@ $margin-vertical: 0.5rem;
 
 
 .error{
-  @extend %text-small;
+  @include utilities.text-small;
   color: $error-color-text;
 }
 
 .hint{
-  @extend %text-small;
+  @include utilities.text-small;
   color: $hint-color-text;
 }
 
 .label {
   display: block;
-  @extend %text-large;
+  @include utilities.text-large;
 
   .complement {
     display: block;
-    @extend %text-small;
+    @include utilities.text-small;
     // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
   }
 }
