@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 
+import { Combobox } from '~/client/components/ui/Form/Combobox';
+
 import { Champ } from './Champ';
+import { Input } from './Input';
 
 const meta: Meta<typeof Champ> = {
 	component: Champ,
@@ -14,18 +17,7 @@ export const exemple: Story = {
 	render: (args) => (
 		<Champ {...args}>
 			<Champ.Label>Pays <Champ.Label.Complement>(Un pays Européen)</Champ.Label.Complement></Champ.Label>
-			<Champ.Input/>
-		</Champ>
-	),
-};
-
-export const Erreur: Story = {
-	args: {},
-	render: (args) => (
-		<Champ {...args}>
-			<Champ.Label>Pays</Champ.Label>
-			<Champ.Input />
-			<Champ.Error>Vous n‘avez pas fourni un pays valide</Champ.Error>
+			<Champ.Input render={Input} />
 		</Champ>
 	),
 };
@@ -35,8 +27,8 @@ export const Required: Story = {
 	render: (args) => {
 		return(
 			<Champ {...args}>
-				<Champ.Label>Pays</Champ.Label>
-				<Champ.Input  required={true}/>
+				<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
+				<Champ.Input render={Input} required={true}/>
 				<Champ.Error/>
 			</Champ>);
 	},
@@ -47,20 +39,38 @@ export const Indication: Story = {
 	render: (args) => (
 		<Champ {...args}>
 			<Champ.Label>Pays</Champ.Label>
-			<Champ.Input />
+			<Champ.Input render={Input} />
+			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
+		</Champ>
+	),
+};
+export const IndicationEtErreur: Story = {
+	args: {},
+	render: (args) => (
+		<Champ {...args}>
+			<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
+			<Champ.Input render={Input} required />
+			<Champ.Error/>
 			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
 		</Champ>
 	),
 };
 
-export const IndicationEtErreur: Story = {
+export const ComposantNonInput: Story = {
 	args: {},
-	render: (args) => (
-		<Champ {...args}>
-			<Champ.Label>Pays</Champ.Label>
-			<Champ.Input />
-			<Champ.Error>Vous n‘avez pas fourni un pays valide</Champ.Error>
-			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
-		</Champ>
-	),
+	render: (args) => {
+		return(
+			<Champ {...args}>
+				<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
+				<Champ.Input render={Combobox} aria-label="Pays" required={true}>
+					<Combobox.Option>France</Combobox.Option>
+					<Combobox.Option>Allemagne</Combobox.Option>
+					<Combobox.Option>Suisse</Combobox.Option>
+					<Combobox.Option>Norvège</Combobox.Option>
+					<Combobox.Option>Espagne</Combobox.Option>
+					<Combobox.Option>Italie</Combobox.Option>
+				</Champ.Input>
+				<Champ.Error/>
+			</Champ>);
+	},
 };
