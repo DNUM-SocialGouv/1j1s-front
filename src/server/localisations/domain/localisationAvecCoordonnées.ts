@@ -15,6 +15,7 @@ export interface CommuneToRename {
 	longitude: string
 	latitude: string
 	libelle: string
+	ville: string
 }
 
 export interface RésultatsRechercheCommune {

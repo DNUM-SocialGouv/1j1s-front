@@ -6,7 +6,6 @@ import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEnga
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
 import InputAutocomplétionSecteurActivité, {
 	SecteurActivité,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
@@ -23,7 +22,6 @@ import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.anal
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 import { emailRegex } from '~/shared/emailRegex';
 
 export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
@@ -58,14 +56,12 @@ export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobil
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
 export default function LesEntreprisesSEngagentInscription() {
-	console.log('render component');
 	useAnalytics(analytics);
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
 	const [title, setTitle] = useState<string>(TITLE_ÉTAPE_1);
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-	const [autocomplétionCommuneValeur, setAutocomplétionCommuneValeur] = useState<Commune>();
 	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
@@ -93,18 +89,14 @@ export default function LesEntreprisesSEngagentInscription() {
 	const isDeuxièmeÉtapeValid = useMemo(() => Object.values(formulaireÉtape2).every((value) => value.length > 0), [formulaireÉtape2]);
 
 	const goToÉtape2 = useCallback((event: FormEvent<HTMLFormElement>) => {
-		const libelleVilleEntreprise =
 		const codePostalEntreprise = event.currentTarget.elements['codePostal'].value;
 		const villeEntreprise = event.currentTarget.elements['ville'].value;
 		setFormulaireÉtape1({
 			...formulaireÉtape1,
 			codePostal: codePostalEntreprise,
 			ville: villeEntreprise,
-			libelle:
 		});
-
 		event.preventDefault();
-		setTitle(TITLE_ÉTAPE_2);
 		if (isPremièreÉtape && event.currentTarget.checkValidity()) {
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
@@ -118,7 +110,6 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
 		if (isPremièreÉtapeValid && isDeuxièmeÉtapeValid) {
 			setIsLoading(true);
 			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireÉtape1, ...formulaireÉtape2 });
@@ -177,16 +168,17 @@ export default function LesEntreprisesSEngagentInscription() {
 											required
 										/>
 										<ComboboxCommune
-		  							required
+		  									required
 											label="Ville du siège social de l’entreprise"
 											name="companyPostalCode"
 											defaultCommune={{
 												codePostal: formulaireÉtape1?.codePostal,
-		  								libelle: formulaireÉtape1?.libelle,
-												// TODO (SULI 30-11-2023): passer en number dans Commune
-		  								// TODO : idem
-		  								ville: autocomplétionCommuneValeur?.ville,
-		  							}}
+		  										libelle: formulaireÉtape1?.libelle,
+		  										ville: formulaireÉtape1?.ville,
+		  									}}
+											onChange={(event: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
+												setFormulaireÉtape1({ ...formulaireÉtape1, libelle: newValue });
+											}}
 											placeholder={'Exemples : Paris, Béziers...'}
 										/>
 										<InputText

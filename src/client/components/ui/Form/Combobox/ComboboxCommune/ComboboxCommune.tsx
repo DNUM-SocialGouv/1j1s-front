@@ -22,9 +22,10 @@ type ComboboxCommuneProps = {
 	id?: string,
 	debounceTimeout?: number,
 	defaultCommune?: {
-		code?: string,
-		codePostal?: string,
+		code?: string
+		codePostal?: string
 		libelle?: string
+		ville?: string
 		latitude?: string
 		longitude?: string
 	}
@@ -62,6 +63,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		latitude: defaultCommuneProps?.latitude ?? '',
 		libelle: defaultCommuneProps?.libelle ?? '',
 		longitude: defaultCommuneProps?.longitude ?? '',
+		ville: defaultCommuneProps?.ville ?? '',
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
@@ -82,6 +84,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			latitude: communeFound?.coordonnées.latitude.toString() ?? '',
 			libelle: communeFound?.libelle ?? '',
 			longitude: communeFound?.coordonnées.longitude.toString() ?? '',
+			ville: communeFound?.ville,
 		});
 	}
 
