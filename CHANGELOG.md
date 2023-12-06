@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.195.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.1...v3.195.2) (2023-12-06)
+
+
+### 🐛 Corrections de bogues
+
+* **logement:** Scroll horizontal en mobile sur la page Annonces de Logement ([#2368](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2368)) ([bcc77b3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bcc77b342f74e59fec80711e24cc97b7f888137e))
+
 ## [3.195.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.0...v3.195.1) (2023-12-06)
 
 
