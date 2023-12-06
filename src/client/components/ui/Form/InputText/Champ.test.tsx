@@ -5,17 +5,16 @@
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { ComponentPropsWithoutRef } from 'react';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
-import { Champ, InputChamp } from '~/client/components/ui/Form/InputText/Champ';
+import { Champ } from '~/client/components/ui/Form/InputText/Champ';
 import { Input } from '~/client/components/ui/Form/InputText/Input';
 
 describe('<Champ/>', () => {
 	it('affiche son contenu', () => {
 		render(
 			<Champ>
-				<Champ.Input render={Input}/>
+				<Champ.Input render={Input} />
 			</Champ>,
 		);
 
@@ -26,7 +25,7 @@ describe('<Champ/>', () => {
 
 		render(
 			<Champ>
-				<Champ.Input ref={()=> {console.log('toto');}} render={Input} validation={() => 'Message d’erreur'}/>
+				<Champ.Input render={Input} validation={() => 'Message d’erreur'}/>
 				<Champ.Error/>
 			</Champ>,
 		);

@@ -1,6 +1,5 @@
 import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useState } from 'react';
 
-import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
 import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -8,7 +7,6 @@ import styles from './Champ.module.scss';
 import { Error } from './Error';
 import { Hint } from './Hint';
 import { Label } from './Label';
-
 
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
@@ -35,62 +33,61 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	);
 }
 
-type InputChampProps<T extends ComponentChildrenPropsNecessary<ChangeEvent, ChangeArgs>, ChangeEvent extends { currentTarget: { validationMessage: string }}, ChangeArgs> = T extends {render: unknown} ? never: T & {
-	render: React.ComponentType<T>
+type InputChampProps<Props extends ComponentChildrenPropsNecessary> = Props extends {render: unknown} ? never: Props & {
+	render: React.ComponentType<Props>
 };
 
-type ComponentChildrenPropsNecessary<ChangeEvent extends { currentTarget: { validationMessage: string }}, ChangeArgs> = {
-	onChange?: (event: ChangeEvent, ...args: ChangeArgs[]) => void
-	onTouch?: (touched: boolean, ...args: unknown[]) => void
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ChangeFunction = (event: React.ChangeEvent<HTMLInputElement>, ...args: any[]) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TouchFunction = (touched: boolean, ...args: any[]) => void;
+type ComponentChildrenPropsNecessary = {
+	onChange?: ChangeFunction
+	onTouch?: TouchFunction
 	ref?: React.Ref<HTMLInputElement>
 	'aria-describedby'?: string
 	id?: string
 }
 
-export const InputChamp:<
-	Props extends ComponentChildrenPropsNecessary<ChangeEvent, ChangeArgs>,
-	ChangeEvent extends { currentTarget: { validationMessage: string }},
-	ChangeArgs
->(props: InputChampProps<T, ChangeEvent, ChangeArgs>) => React.ReactNode
-	= React.forwardRef(function InputChamp<
-	T extends ComponentChildrenPropsNecessary<ChangeEvent, ChangeArgs>,
-	ChangeEvent extends { currentTarget: { validationMessage: string }},
-	ChangeArgs
+export const InputChamp: <
+	Props extends ComponentChildrenPropsNecessary
+>(props: InputChampProps<Props>) => React.ReactNode = React.forwardRef(function InputChamp<
+	Props extends ComponentChildrenPropsNecessary,
 >(
-		{
-			'aria-describedby': ariaDescribedby = '',
-			id,
-			onChange: onChangeProps = doNothing,
-			onTouch: onTouchProps = doNothing,
-			render: Render,
-			...rest
-		}: InputChampProps<T, ChangeEvent, ChangeArgs>, outerRef: React.ForwardedRef<HTMLInputElement>) {
-		const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
-		const inputRef = useSynchronizedRef(outerRef);
+	{
+		'aria-describedby': ariaDescribedby = '',
+		id,
+		onChange: onChangeProps = doNothing,
+		onTouch: onTouchProps = doNothing,
+		render: Render,
+		...rest
+	}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
+	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
+	const inputRef = useSynchronizedRef(outerRef);
 
-		useEffect(() => {
-			id && setInputId(id);
-		}, [id, setInputId]);
+	useEffect(() => {
+		id && setInputId(id);
+	}, [id, setInputId]);
 
-		const onChange = useCallback((event: U, ...args: V[]) => {
-			onChangeProps(event, ...args);
-			setErrorMessage(event.currentTarget.validationMessage);
-		}, [onChangeProps, setErrorMessage]);
+	const onChange = useCallback<ChangeFunction>((event, ...args) => {
+		onChangeProps(event, ...args);
+		setErrorMessage(event.currentTarget.validationMessage);
+	}, [onChangeProps, setErrorMessage]);
 
-		const onTouch = useCallback((touched: boolean, ...args: unknown[]) => {
-			onTouchProps(touched, ...args);
-			setTouched(touched);
-		}, [onTouchProps, setTouched]);
+	const onTouch = useCallback<TouchFunction>((touched, ...args) => {
+		onTouchProps(touched, ...args);
+		setTouched(touched);
+	}, [onTouchProps, setTouched]);
 
-		return (<Render
-			onTouch={onTouch}
-			ref={inputRef}
-			aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
-			id={inputId}
-			onChange={onChange}
-			{...rest}
-		/>);
-	});
+	return (<Render
+		onTouch={onTouch}
+		ref={inputRef}
+		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
+		id={inputId}
+		onChange={onChange}
+		{...rest}
+	/>);
+});
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {
 	const { errorId, setErrorId, touched, errorMessage } = useChampContext();
