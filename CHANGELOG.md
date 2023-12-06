@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.195.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.0...v3.195.1) (2023-12-06)
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/jest to v29.5.11 ([bb82c30](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb82c30ceb3ad073c0d2b8c02f4cab87ac0c3cf3))
+* **deps:** update dependency cypress to v13.6.1 ([b56f8b2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b56f8b2f9fdd1549416985252d86a26ea2e17fce))
+
 ## [3.195.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.194.7...v3.195.0) (2023-12-05)
 
 
