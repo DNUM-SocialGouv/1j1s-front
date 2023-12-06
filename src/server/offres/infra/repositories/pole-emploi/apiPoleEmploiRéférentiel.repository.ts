@@ -13,7 +13,7 @@ export class ApiPoleEmploiRéférentielRepository {
 
 	async findCodeInseeInRéférentielCommune(code: string): Promise<string> {
 		const responseInCache = await this.cacheService.get<RésultatsRéférentielCommunesResponse[]>(this.CACHE_KEY);
-		if(responseInCache) {
+		if (responseInCache) {
 			return mapCodeInsee(responseInCache, code);
 		} else {
 			const response = await this.httpClientServiceWithAuthentification.get<RésultatsRéférentielCommunesResponse[]>('/communes');
@@ -21,6 +21,11 @@ export class ApiPoleEmploiRéférentielRepository {
 			return mapCodeInsee(response.data, code);
 		}
 	};
+
+	async searchMetier(motCle: string): Promise<Array<string>> {
+		const response = await this.httpClientServiceWithAuthentification.get<Array<string>>(`/appellations/${motCle}`);
+		return response.data;
+	}
 }
 
 export interface RésultatsRéférentielCommunesResponse {

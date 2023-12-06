@@ -5,14 +5,16 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 import { Stage3emeRepository } from '~/server/stage-3eme/domain/stage3eme.repository';
 import { ApiImmersionFacileStage3emeRechercheResponse, apiImmersionFacileStage3emeSchemas } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme';
 import { mapRechercheStage3eme } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.mapper';
+import { Stage3emeFiltre } from '~/server/stage-3eme/domain/stage3eme';
 
 export class ApiImmersionFacileStage3emeRepository implements Stage3emeRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async search() {
+	async search(filtre: Stage3emeFiltre) {
 		try {
-			const endpoint = '/search?latitude=48.8535&longitude=2.34839&distanceKm=10';
+			const endpoint = '/search?latitude=48.8535&longitude=2.34839&distanceKm=10'
+				.concat(filtre.codeMetier ? `&appellationCodes=${filtre.codeMetier}` : '');
 			const response = await this.httpClientService.get<Array<ApiImmersionFacileStage3emeRechercheResponse>>(endpoint);
 			const apiValidationError = validateApiResponse<Array<ApiImmersionFacileStage3emeRechercheResponse>>(response.data, apiImmersionFacileStage3emeSchemas.search);
 			if (apiValidationError) {

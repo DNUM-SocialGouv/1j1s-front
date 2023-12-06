@@ -22,7 +22,10 @@ export const apiImmersionFacileStage3emeSchemas = {
 			postcode: Joi.string(),
 			streetNumberAndAddress: Joi.string(),
 		}),
+		contactMode: Joi.string(),
 		name: Joi.string(),
+		numberOfEmployeeRange: Joi.string(),
 		romeLabel: Joi.string(),
+		voluntaryToImmersion: Joi.boolean(),
 	})).options({ allowUnknown: true }),
 };
