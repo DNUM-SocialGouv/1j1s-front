@@ -46,6 +46,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 		if (!this.isAuthorizationHeaderInConfig()) {
 			await this.retrieveToken();
 		}
+		console.log('get', endpoint, config);
 		return super.get(endpoint, config);
 	}
 
@@ -103,6 +104,7 @@ export class AuthenticatedHttpClientService extends PublicHttpClientService {
 	}
 
 	protected setAuthorizationHeader(token: string): void {
+		console.log('token', token);
 		this.client.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 

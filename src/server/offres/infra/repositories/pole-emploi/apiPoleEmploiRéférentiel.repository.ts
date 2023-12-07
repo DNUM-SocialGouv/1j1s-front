@@ -21,11 +21,6 @@ export class ApiPoleEmploiRéférentielRepository {
 			return mapCodeInsee(response.data, code);
 		}
 	};
-
-	async searchMetier(motCle: string): Promise<Array<string>> {
-		const response = await this.httpClientServiceWithAuthentification.get<Array<string>>(`/appellations/${motCle}`);
-		return response.data;
-	}
 }
 
 export interface RésultatsRéférentielCommunesResponse {
