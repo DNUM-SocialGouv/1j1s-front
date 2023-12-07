@@ -16,7 +16,7 @@ export const exemple: Story = {
 	args: {},
 	render: (args) => (
 		<Champ {...args}>
-			<Champ.Label>Pays <Champ.Label.Complement>(Un pays Européen)</Champ.Label.Complement></Champ.Label>
+			<Champ.Label>Pays</Champ.Label>
 			<Champ.Input render={Input} />
 		</Champ>
 	),
@@ -40,7 +40,7 @@ export const Indication: Story = {
 		<Champ {...args}>
 			<Champ.Label>Pays</Champ.Label>
 			<Champ.Input render={Input} />
-			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
+			<Champ.Hint>e.g. France</Champ.Hint>
 		</Champ>
 	),
 };
@@ -51,7 +51,7 @@ export const IndicationEtErreur: Story = {
 			<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
 			<Champ.Input render={Input} required />
 			<Champ.Error/>
-			<Champ.Hint>Indiquer un pays au Nord de la France</Champ.Hint>
+			<Champ.Hint>e.g. France</Champ.Hint>
 		</Champ>
 	),
 };
