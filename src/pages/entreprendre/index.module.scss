@@ -1,7 +1,7 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
-$color-background-container-accordion: utilities.$color-background-primary;
+$color-background-reseaux: utilities.$color-background-primary;
 
 .phases {
   display: flex;
@@ -51,7 +51,7 @@ $color-background-container-accordion: utilities.$color-background-primary;
 }
 
 .réseaux {
-  background-color: $color-background-container-accordion;
+  background-color: $color-background-reseaux;
 
   &Content {
     & > details + details {
