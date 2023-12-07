@@ -41,6 +41,7 @@ type ComboboxProps = Omit<
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
 	onInput?: (event: React.FormEvent<HTMLInputElement>, newValue: string) => void,
+	onTouch?: (touched: boolean) => void,
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
 	valueName?: string;
@@ -61,6 +62,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onBlur: onBlurProps = doNothing,
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
+	onTouch: onTouchProps= doNothing,
 	requireValidOption = false,
 	required = false,
 	filter = filterValueOrLabelStartsWith,
@@ -178,7 +180,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 
 		dispatch(new Actions.CloseList());
-		setTouchedOnBlur(value);
+		const touched = setTouchedOnBlur(value);
+		if (touched) { onTouchProps(touched); }
 		onBlurProps(event);
 	}, [setTouchedOnBlur, value, onBlurProps]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
