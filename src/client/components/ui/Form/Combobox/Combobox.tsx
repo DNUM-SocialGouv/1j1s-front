@@ -183,7 +183,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		const touched = setTouchedOnBlur(value);
 		if (touched) { onTouchProps(touched); }
 		onBlurProps(event);
-	}, [setTouchedOnBlur, value, onBlurProps]);
+	}, [setTouchedOnBlur, value, onBlurProps, onTouchProps]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
