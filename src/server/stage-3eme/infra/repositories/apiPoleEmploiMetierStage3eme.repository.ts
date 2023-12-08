@@ -1,14 +1,14 @@
+import { createSuccess, Either } from '~/server/errors/either';
 import { CacheService } from '~/server/services/cache/cache.service';
+import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
-import { createFailure, createSuccess, Either } from '../../../errors/either';
-import { ErreurMetier } from '../../../errors/erreurMetier.types';
-import { ErrorManagementService } from '../../../services/error/errorManagement.service';
 import { MetierStage3eme } from '../../domain/metierStage3eme';
+import { MetierStage3emeRepository } from '../../domain/metierStage3eme.repository';
 import { ApiPoleEmploiMetierStage3eme } from './apiPoleEmploiMetierStage3eme';
 import { mapMetierStage3eme } from './apiPoleEmploiMetierStage3eme.mapper';
 
-class ApiPoleEmploiMetierStage3emeRepository {
+export class ApiPoleEmploiMetierStage3emeRepository implements MetierStage3emeRepository {
 	constructor(
 		private readonly httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
 		private readonly cacheService: CacheService,
@@ -17,21 +17,21 @@ class ApiPoleEmploiMetierStage3emeRepository {
 
 	private CACHE_KEY = 'REFERENTIEL_METIER_STAGE_3EME';
 
-	async searchMetier(motCle: string): Promise<Either<MetierStage3eme>> {
+	async search(motCle?: string): Promise<Either<MetierStage3eme[]>> {
 		try {
 			let response = await this.cacheService.get<Array<ApiPoleEmploiMetierStage3eme>>(this.CACHE_KEY);
 			if (!response) {
-				response = (await this.httpClientServiceWithAuthentification.get<Array<ApiPoleEmploiMetierStage3eme>>(`/appellations/${motCle}`)).data;
+				response = (await this.httpClientServiceWithAuthentification.get<Array<ApiPoleEmploiMetierStage3eme>>('/appellations')).data;
 				this.cacheService.set(this.CACHE_KEY, response, 24);
 			}
-
-			const metier = response.find((metier) => metier.libelle.toLowerCase().includes(motCle.toLowerCase()));
-			if (!metier) {
-				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			if (!motCle) {
+				return createSuccess(mapMetierStage3eme(response));
 			}
 
-			return createSuccess(mapMetierStage3eme(metier));
-		} catch(error) {
+			const metiers = response.filter((metier) => metier.libelle.toLowerCase().includes(motCle.toLowerCase()));
+
+			return createSuccess(mapMetierStage3eme(metiers));
+		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Immersion Facile Stage 3eme',
 				contexte: 'search stage 3eme',

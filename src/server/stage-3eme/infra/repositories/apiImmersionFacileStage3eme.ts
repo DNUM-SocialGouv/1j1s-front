@@ -24,7 +24,6 @@ export const apiImmersionFacileStage3emeSchemas = {
 		}),
 		contactMode: Joi.string(),
 		name: Joi.string(),
-		numberOfEmployeeRange: Joi.string(),
 		romeLabel: Joi.string(),
 		voluntaryToImmersion: Joi.boolean(),
 	})).options({ allowUnknown: true }),

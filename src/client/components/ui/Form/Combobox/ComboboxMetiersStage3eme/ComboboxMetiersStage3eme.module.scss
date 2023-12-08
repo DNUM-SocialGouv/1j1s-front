@@ -1,0 +1,9 @@
+@use "../../Input.module";
+@use "@styles/utilities" as utilities;
+
+$color-nombre-resultats: utilities.$color-text-placeholder;
+
+.nombreResultats {
+  @include utilities.text-small;
+  color: $color-nombre-resultats;
+}

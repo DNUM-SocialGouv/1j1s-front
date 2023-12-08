@@ -1,0 +1,43 @@
+import * as ComboboxMetiersStage3emeStories from './ComboboxMetiersStage3eme.stories';
+import {Controls, Meta, Canvas} from "@storybook/blocks";
+
+<Meta of={ComboboxMetiersStage3emeStories} />
+
+
+# Definition
+
+`ComboboxMetiersStage3eme` est le composant utilisé dans les formulaires de recherche de stages de 3eme.
+
+Il permet de renseigner un métier précis par rapport à la recherche effectuée.
+
+## Props
+
+### ComboboxMetiersStage3eme
+
+Le `ComboboxMetiersStage3eme` peut prendre les props suivantes :
+
+<Controls />
+
+**Mais également tous [les attributs d'un `input` HTML natif](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)**
+
+## Stories
+Un exemple d'utilisation basique du `ComboboxMetiersStage3eme`
+
+<Canvas of={ComboboxMetiersStage3emeStories.exemple}/>
+
+Et comme précisé ci-dessus, il peut également prendre des props d'un input HTML classique, par exemple un placeholder.
+
+Voici un exemple de `ComboboxMetiersStage3eme` avec placeholder et un debounceTimeout à 2 sec pour constater l'utilité du debounce.
+
+<Canvas of={ComboboxMetiersStage3eme.AvecPlaceholderEtDebounce}/>
+
+## Informations supplémentaires
+
+### Gestion des états
+Le `ComboboxMetiersStage3eme` embarque une gestion interne des états :
+- affichage du chargement pendant le chargement des métiers
+- affichage des résultats correspondants à l'input utilisateur (ainsi qu'un compteur de résultats)
+- affichage en erreur lorsque le chargement des métiers est en erreur
+
+### Source du référentiel de `ComboboxMetiersStage3eme`
+Aujourd'hui, le référentiel des métiers est fourni par Stage3emeService.

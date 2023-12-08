@@ -185,6 +185,9 @@ import {
 import {
 	ApiImmersionFacileStage3emeRepository,
 } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.repository';
+import {
+	ApiPoleEmploiMetierStage3emeRepository,
+} from '~/server/stage-3eme/infra/repositories/apiPoleEmploiMetierStage3eme.repository';
 
 export type Dependencies = {
 	ficheMetierDependencies: FicheMetierDependencies;
@@ -347,7 +350,8 @@ export function dependenciesContainer(): Dependencies {
 		stage3emeHttpClientService,
 		defaultErrorManagementService,
 	);
-	const stage3emeDependencies = stage3emeDependenciesContainer(apiImmersionFacileStage3emeRepository);
+	const apiPoleEmploiMetierStage3emeRepository = new ApiPoleEmploiMetierStage3emeRepository(poleEmploiRéférentielsHttpClientService, cacheService, defaultErrorManagementService);
+	const stage3emeDependencies = stage3emeDependenciesContainer(apiImmersionFacileStage3emeRepository, apiPoleEmploiMetierStage3emeRepository);
 
 	return {
 		alternanceDependencies,
