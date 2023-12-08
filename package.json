@@ -92,7 +92,7 @@
     "nock": "13.4.0",
     "sass": "1.69.5",
     "storybook": "7.6.3",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "typescript": "5.3.3"
   },
