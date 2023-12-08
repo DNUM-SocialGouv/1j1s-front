@@ -445,6 +445,11 @@ var tarteaucitron = {
 
                     if (tarteaucitron.parameters.highPrivacy) {
                         html += '       ' + tarteaucitron.lang.alertBigPrivacy;
+						html += '<details>';
+						html += '<summary>' + tarteaucitron.lang.more + '</summary>';
+					  	html += '         ' + tarteaucitron.lang.disclaimer;
+						html += '</details>';
+
                     } else {
                         html += '       ' + tarteaucitron.lang.alertBigClick + ' ' + tarteaucitron.lang.alertBig;
                     }
