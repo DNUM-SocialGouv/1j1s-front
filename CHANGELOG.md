@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.195.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.3...v3.195.4) (2023-12-08)
+
+
+### 🐛 Corrections de bogues
+
+* **deps:** update all non-major dependencies ([#2414](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2414)) ([6ccbc22](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6ccbc22147780ea18b6da6438d215d32b229de08))
+* **deps:** update all non-major dependencies ([#2425](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2425)) ([669ff92](https://github.com/DNUM-SocialGouv/1j1s-front/commit/669ff929528e3ee50b8384e19d56985aa8654a19))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency eslint-config-next to v14.0.4 ([818c335](https://github.com/DNUM-SocialGouv/1j1s-front/commit/818c335b4a2ba55a3a9bee6cdf5e1bca89df24f3))
+
 ## [3.195.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.2...v3.195.3) (2023-12-07)
 
 
