@@ -14,7 +14,7 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import LesEntreprisesSEngagentInscription, {
-	FormulaireEngagement,
+	EntrepriseSouhaitantSEngager,
 } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -205,7 +205,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		});
 		it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
 			renderComponent();
-			const expected: FormulaireEngagement = {
+			const expected: EntrepriseSouhaitantSEngager = {
 				codePostal: '75015',
 				email: 'toto@email.com',
 				nom: 'Tata',

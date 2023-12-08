@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useMemo, useRef,useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEngagent/ModalLEEErreur/ModalLEEErreur';
@@ -26,14 +26,26 @@ import { emailRegex } from '~/shared/emailRegex';
 
 export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
 
+export type EntrepriseSouhaitantSEngager = {
+	codePostal: string
+	nomSociété: string
+	secteur: string
+	siret: string
+	taille: string
+	ville: string
+	prénom: string
+	nom: string
+	email: string
+	travail: string
+	téléphone: string
+}
 interface FormulaireÉtape1Props {
 	nomSociété: string
-	codePostal: string
 	ville: string
 	siret: string
 	secteur: string
 	taille: string
-	libelle: string
+	libelleCommune: string
 }
 
 interface FormulaireÉtape2Props {
@@ -65,9 +77,22 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
-	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
+	const entrepriseSouhaitantSEngager = useRef<EntrepriseSouhaitantSEngager>({
 		codePostal: '',
-		libelle: '', // TODO (SULI 01-12-2023): transformer la structure pour grouper les infos concernant commune ensemble
+		email: '',
+		nom: '',
+		nomSociété: '',
+		prénom: '',
+		secteur: '',
+		siret: '',
+		taille: '',
+		travail: '',
+		téléphone: '',
+		ville: '',
+	});
+
+	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
+		libelleCommune: '', // TODO (SULI 01-12-2023): transformer la structure pour grouper les infos concernant commune ensemble
 		nomSociété: '',
 		secteur: '',
 		siret: '',
@@ -85,23 +110,40 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
 	const isDeuxièmeÉtape = useMemo(() => étape === Etape.ETAPE_2, [étape]);
-	const isPremièreÉtapeValid = useMemo(() => Object.values(formulaireÉtape1).every((value) => value.length > 0), [formulaireÉtape1]);
-	const isDeuxièmeÉtapeValid = useMemo(() => Object.values(formulaireÉtape2).every((value) => value.length > 0), [formulaireÉtape2]);
+
+	function saveStep1(formStep1Date: FormData) {
+		entrepriseSouhaitantSEngager.current = {
+			...entrepriseSouhaitantSEngager.current,
+			codePostal: String(formStep1Date.get('codePostal')),
+			nomSociété: String(formStep1Date.get('companyName')),
+			secteur: formulaireÉtape1.secteur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			siret: String(formStep1Date.get('companySiret')),
+			taille: String(formStep1Date.get('companySize')),
+			ville: String(formStep1Date.get('ville')),
+		};
+	}
+
+	function saveStep2(formStep2Data: FormData) {
+		entrepriseSouhaitantSEngager.current = {
+			...entrepriseSouhaitantSEngager.current,
+			email: String(formStep2Data.get('email')),
+			nom: String(formStep2Data.get('lastName')),
+			prénom: String(formStep2Data.get('firstName')),
+			travail: String(formStep2Data.get('job')),
+			téléphone: String(formStep2Data.get('phone')),
+		};
+	}
 
 	const goToÉtape2 = useCallback((event: FormEvent<HTMLFormElement>) => {
-		const codePostalEntreprise = event.currentTarget.elements['codePostal'].value;
-		const villeEntreprise = event.currentTarget.elements['ville'].value;
-		setFormulaireÉtape1({
-			...formulaireÉtape1,
-			codePostal: codePostalEntreprise,
-			ville: villeEntreprise,
-		});
 		event.preventDefault();
 		if (isPremièreÉtape && event.currentTarget.checkValidity()) {
+			const formStep1: HTMLFormElement = event.currentTarget;
+			const formStep1Data = new FormData(formStep1);
+			saveStep1(formStep1Data);
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
 		}
-	}, [isPremièreÉtape, isPremièreÉtapeValid, formulaireÉtape1]);
+	}, [isPremièreÉtape, entrepriseSouhaitantSEngager, formulaireÉtape1]);
 
 	const returnToÉtape1 = useCallback(() => {
 		setTitle(TITLE_ÉTAPE_1);
@@ -110,9 +152,13 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		if (isPremièreÉtapeValid && isDeuxièmeÉtapeValid) {
+		if (event.currentTarget.checkValidity()) {
+			const formStep2: HTMLFormElement = event.currentTarget;
+			const formStep2Data = new FormData(formStep2);
+			saveStep2(formStep2Data);
+
 			setIsLoading(true);
-			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement({ ...formulaireÉtape1, ...formulaireÉtape2 });
+			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement(entrepriseSouhaitantSEngager.current);
 
 			if (isSuccess(response)) {
 				setTitle(TITLE_VALIDÉE);
@@ -122,7 +168,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 			setIsLoading(false);
 		}
-	}, [isPremièreÉtapeValid, isDeuxièmeÉtapeValid, formulaireÉtape1, formulaireÉtape2, lesEntreprisesSEngagentService]);
+	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService]);
 
 
 	return (
@@ -170,14 +216,12 @@ export default function LesEntreprisesSEngagentInscription() {
 										<ComboboxCommune
 		  									required
 											label="Ville du siège social de l’entreprise"
-											name="companyPostalCode"
+											name="companyPostalCode" // todo modifier le name ici car l'input derriere contient la commune et non pas le code postal
 											defaultCommune={{
-												codePostal: formulaireÉtape1?.codePostal,
-		  										libelle: formulaireÉtape1?.libelle,
-		  										ville: formulaireÉtape1?.ville,
+		  										libelle: formulaireÉtape1?.libelleCommune,
 		  									}}
-											onChange={(event: React.ChangeEvent<HTMLInputElement>, newValue: string) => {
-												setFormulaireÉtape1({ ...formulaireÉtape1, libelle: newValue });
+											onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
+												setFormulaireÉtape1({ ...formulaireÉtape1, libelleCommune: newLibelle });
 											}}
 											placeholder={'Exemples : Paris, Béziers...'}
 										/>
