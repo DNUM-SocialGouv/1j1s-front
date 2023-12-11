@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import {
 	DetailEmploiEurope,
@@ -81,4 +81,103 @@ describe('DetailOffreEmploiEurope', () => {
 
 		expect(linkCandidature).not.toBeInTheDocument();
 	});
+	describe('Tags', () => {
+		it('si le type de contrat est présent, affiche le type de contrat',  () => {
+			// GIVEN
+			const offreEmploiEurope = anEmploiEurope({ typeContrat: 'Embauche directe' });
+		
+			// WHEN
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			// THEN
+			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+			const tagTypeContrat = within(listTags).getByText('Embauche directe');
+			expect(tagTypeContrat).toBeVisible();
+		});
+
+		it('si le temps de travail est présent, affiche le temps de travail',  () => {
+			// GIVEN
+			const offreEmploiEurope = anEmploiEurope({ tempsDeTravail: 'Temps partiel' });
+
+			// WHEN
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			// THEN
+			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+			const tagTypeContrat = within(listTags).getByText('Temps partiel');
+			expect(tagTypeContrat).toBeVisible();
+		});
+
+		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes',  () => {
+			// GIVEN
+			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Niveau maîtrise (Master) ou équivalent' });
+
+			// WHEN
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			// THEN
+			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+			const tagTypeContrat = within(listTags).getByText('Niveau maîtrise (Master) ou équivalent');
+			expect(tagTypeContrat).toBeVisible();
+		});
+
+		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes',  () => {
+			// GIVEN
+			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Autre' });
+
+			// WHEN
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			// THEN
+			const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+			const tagTypeContrat = within(listTags).queryByText('Autre');
+			expect(tagTypeContrat).not.toBeInTheDocument();
+		});
+
+		describe('quand un résultat contient un pays et une ville', () => {
+			it('affiche le résultat avec le pays et la ville',  () => {
+				// GIVEN
+				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: 'Paris' });
+
+				// WHEN
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+				// THEN
+				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+				const tagTypeContrat = within(listTags).getByText('France/Paris');
+				expect(tagTypeContrat).toBeVisible();
+			});
+		});
+
+		describe('quand un résultat contient un pays mais pas de ville', () => {
+			it('affiche le résultat avec le pays',  () => {
+				// GIVEN
+				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: undefined });
+
+				// WHEN
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+				// THEN
+				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+				const tagTypeContrat = within(listTags).getByText('France');
+				expect(tagTypeContrat).toBeVisible();
+			});
+		});
+
+		describe('quand un résultat contient une ville mais pas de pays', () => {
+			it('affiche le résultat avec la ville',  () => {
+				// GIVEN
+				const offreEmploiEurope = anEmploiEurope({ pays: undefined, ville: 'Paris' });
+
+				// WHEN
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+				// THEN
+				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+				const tagTypeContrat = within(listTags).getByText('Paris');
+				expect(tagTypeContrat).toBeVisible();
+			});
+		});
+	});
+	
 });

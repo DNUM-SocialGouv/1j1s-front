@@ -1,3 +1,5 @@
+import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
+import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import {
 	EURES_CONTRACT_TYPE,
@@ -57,10 +59,21 @@ export class ApiEuresEmploiEuropeMapper {
 		const positionOfferingTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionOfferingTypeCode);
 		const contractType = positionOfferingTypeCode ? this.mapContractType(positionOfferingTypeCode) : undefined;
 
+		const positionScheduleTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionScheduleTypeCode);
+		const tempsDeTravail = positionScheduleTypeCode ? this.mapTempsDeTravail(positionScheduleTypeCode) : undefined;
+
+		const positionQualifications = this.getElementOrFirstElementInArray(positionProfile?.PositionQualifications);
+		const educationRequirement = this.getElementOrFirstElementInArray(positionQualifications?.EducationRequirement);
+		const educationLevelCode = this.getElementOrFirstElementInArray(educationRequirement?.EducationLevelCode);
+		const niveauEtudes = this.mapNiveauEtudes(educationLevelCode);
+
+
 		return {
 			id: handle,
+			niveauEtudes,
 			nomEntreprise: organizationIdentifiers?.OrganizationName,
 			pays: country,
+			tempsDeTravail,
 			titre: positionProfile?.PositionTitle,
 			typeContrat: contractType,
 			urlCandidature: itemDetail?.related.urls[0].urlValue,
@@ -74,5 +87,14 @@ export class ApiEuresEmploiEuropeMapper {
 		return typesContratEures.find(
 			(typeContratEures) => typeContratEures.valeur === positionOfferingTypeCode)?.libellé;
 
+	}
+	private mapTempsDeTravail(positionScheduleTypeCode: string) {
+		return tempsDeTravailEures.find(
+			(tempsDeTravail) => tempsDeTravail.valeur === positionScheduleTypeCode)?.libellé;
+	}
+
+	private mapNiveauEtudes(educationLevelCode?: number) {
+		return niveauEtudesEures.find(
+			(niveauEtudes) => niveauEtudes.valeur === educationLevelCode)?.libellé;
 	}
 }

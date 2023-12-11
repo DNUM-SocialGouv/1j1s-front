@@ -1,3 +1,5 @@
+import { NiveauEtudes } from '~/client/domain/niveauEtudesEures';
+
 export interface ResultatRechercheEmploiEurope {
 	offreList: EmploiEurope[];
 	nombreResultats: number;
@@ -11,6 +13,8 @@ export interface EmploiEurope {
 	ville?: string;
 	typeContrat?: string;
 	urlCandidature?: string;
+	tempsDeTravail?: string;
+	niveauEtudes?: NiveauEtudes;
 }
 
 export interface EmploiEuropeFiltre {

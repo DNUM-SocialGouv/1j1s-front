@@ -1,3 +1,4 @@
+import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/utils';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
@@ -23,18 +24,13 @@ export function ListeResultatsEmploiEurope({ resultatList }: ListeResultatsEmplo
 }
 
 function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
-	const location = emploiEurope.pays && emploiEurope.ville ? `${emploiEurope.pays}/${emploiEurope.ville}` : emploiEurope.pays ?? emploiEurope.ville;
-	const tags = location ? [location] : [];
-	const typeContract = emploiEurope.typeContrat;
-	if (typeContract) tags.push(typeContract);
-
 	return (
 		<li key={emploiEurope.id}>
 			<RésultatRechercherSolution
 				intituléOffre={emploiEurope.titre ?? 'Offre d’emploi sans titre'}
 				lienOffre={`/emplois-europe/${emploiEurope.id}`}
 				sousTitreOffre={emploiEurope.nomEntreprise}
-				étiquetteOffreList={tags}
+				étiquetteOffreList={getTagsFromAnnonce(emploiEurope)}
 			/>
 		</li>
 	);

@@ -1,3 +1,4 @@
+import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import {
@@ -1027,7 +1028,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise', 'FR', 'Paris'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec niveau d’études', 'Nom Entreprise', 'FR', 'Paris', undefined, undefined, EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT),
 					},
 					related: {
 						urls: [
@@ -1073,7 +1074,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec temps de travail', undefined, undefined, undefined, undefined, 'FlexTime'),
 					},
 					related: {
 						urls: [
@@ -1142,7 +1143,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTMyYy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'directhire'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'DirectHire'),
 					},
 					related: {
 						urls: [

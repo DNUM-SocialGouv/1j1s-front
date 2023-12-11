@@ -1,3 +1,4 @@
+import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
@@ -34,7 +35,7 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						header: {
 							handle: '2',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT),
 					}),
 					related: anApiEuresEmploiEuropeDetailRelated({
 						urls: [{
@@ -61,7 +62,7 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		header: {
 			handle: '1',
 		},
-		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT ),
 		...override,
 	};
 }
@@ -74,8 +75,8 @@ export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresE
 		...override,
 	};
 }
-
-export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string): string {
+// TODO: Remplacer les X arguments de la fixture par un objet
+export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string, tempsDeTravail?: string, educationLevelCode?: number): string {
 	return `
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -184,6 +185,14 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
                     </ScoreText>
                 </RequiredProficiencyLevel>
             </PositionCompetency>
+            <EducationRequirement>
+            ${(educationLevelCode !== undefined) ?  `<EducationLevelCode listName="EURES_ISCEDEducationLevel"
+                 					 listURI="https://ec.europa.eu/eures"
+                 					 listVersionID="2011"
+                 >
+                 					 ${educationLevelCode}
+                 </EducationLevelCode>` : ''}            
+            </EducationRequirement>
             <ExperienceSummary>
                 <ExperienceCategory>
                     <CategoryCode listName="ESCO_Occupations"
@@ -210,7 +219,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
         <ImmediateStartIndicator>
             false
         </ImmediateStartIndicator>
-        <PositionScheduleTypeCode>FullTime</PositionScheduleTypeCode>
+        ${ tempsDeTravail ? `<PositionScheduleTypeCode>${tempsDeTravail}</PositionScheduleTypeCode>` : ''}
         <OfferedRemunerationPackage>
             <RemunerationRange>
                 <RemunerationTypeCode>BasePay</RemunerationTypeCode>
