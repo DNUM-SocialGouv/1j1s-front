@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.198.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.197.2...v3.198.0) (2023-12-11)
+
+
+### Features
+
+* afficher les tags dans le détail d'une offre emploi en Europe (+ ajouts de deux tags) ([#2374](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2374)) ([1c04bf0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1c04bf0ad46f162ed7d09945da95e9dd8ccb7556))
+
 ## [3.197.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.197.1...v3.197.2) (2023-12-11)
 
 
