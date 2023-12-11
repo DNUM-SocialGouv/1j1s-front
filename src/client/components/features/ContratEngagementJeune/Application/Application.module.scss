@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .application {
   padding: 40px 20px;
@@ -41,6 +42,11 @@
       border-radius: 8px;
       padding: 8px 10px;
       text-decoration: none;
+
+      &:focus {
+        outline: 2px solid utilities.$color-primary;
+        outline-offset: 2px;
+      }
 
       @include utilities-deprecated.media(large) {
         font-size: 0.875rem;

@@ -1,4 +1,7 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$color-background-reseaux: utilities.$color-background-primary;
 
 .phases {
   display: flex;
@@ -48,7 +51,7 @@
 }
 
 .réseaux {
-  background-color: utilities-deprecated.$color-background-white-lilac;
+  background-color: $color-background-reseaux;
 
   &Content {
     & > details + details {
