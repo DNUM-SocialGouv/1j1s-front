@@ -15,4 +15,5 @@ jobs:
     steps:
       - uses: google-github-actions/release-please-action@v4
         with:
+          release-type: node
           manifest-file: .release-please-manifest.json
