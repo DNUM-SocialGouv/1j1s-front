@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.197.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.196.0...v3.197.0) (2023-12-11)
+
+
+### ✨ Nouvelles fonctionnalités
+
+* rendre focus visible pour redirections playstore ([#2341](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2341)) ([3111390](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3111390ef0da8e3e0d8e1b9ffdf8b230fc22a936))
+
+
+### 👷 Autres changements
+
+* **deps:** update dependency @types/react to v18.2.43 ([#2432](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2432)) ([3dde8f5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3dde8f5e649439347be4573fe2bbe3faad419600))
+* **deps:** update dependency ts-node to v10.9.2 ([#2429](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2429)) ([2e84103](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2e84103405557d59cee6ce4ee5fc60025e33f00a))
+* **deps:** update storybook monorepo to v7.6.4 ([#2430](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2430)) ([bccc0ba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bccc0bab391fe8ff64788d57b5748968fd2039c3))
+
 ## [3.196.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.195.4...v3.196.0) (2023-12-08)
 
 
