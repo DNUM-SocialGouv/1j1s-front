@@ -123,12 +123,13 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'resize-iframe',
+		});
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'resize-iframe',
-			},
-			origin: DOMAINE_1JEUNE_1PERMIS }),
+			{ data,
+				origin: DOMAINE_1JEUNE_1PERMIS }),
 		);
 
 		// Then
@@ -144,12 +145,14 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'do-not-resize-iframe',
+		});
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'do-not-resize-iframe',
-			},
-			origin: DOMAINE_1JEUNE_1PERMIS }),
+			{ data,
+				origin: DOMAINE_1JEUNE_1PERMIS }),
 		);
 
 		// Then
@@ -165,6 +168,7 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+
 		fireEvent(window, new MessageEvent('message',
 			{
 				data: 'hello !',
@@ -185,12 +189,14 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'resize-iframe',
+		});
+
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'resize-iframe',
-			},
-			origin: 'http://domaine-tres-malicieux.ninja' }),
+			{ data, 
+				origin: 'http://domaine-tres-malicieux.ninja' }),
 		);
 
 		// Then
