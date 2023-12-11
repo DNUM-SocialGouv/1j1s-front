@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.197.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.197.1...v3.197.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* **ci:** release-please manifest virgule manquante ([#2438](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2438)) ([d80b5a2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d80b5a28c019effebdb517c30ecb716d64e7f126))
+* **ci:** release-please passage v4 ([#2435](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2435)) ([9819fcb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9819fcbd5e63082221b03a51cff567fa4f13bdff))
+* **ci:** release-please re-add release-type node ([#2437](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2437)) ([e7b8204](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e7b8204a86f76db6fe51cfcbccf7b91ea0d82875))
+* **ci:** release-please-manifest-location for v4 ([#2436](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2436)) ([f54368a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f54368ae13fd0a1907ecf15fcf73b895c1fd31a4))
+
 ## [3.197.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.197.0...v3.197.1) (2023-12-11)
 
 
