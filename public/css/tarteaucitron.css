@@ -5,13 +5,6 @@
     color: #FFFFFF
 }
 
-#tarteaucitronDisclaimerAlert > details > summary,
-#tarteaucitronDisclaimerAlert > details > p {
-    margin-top: 1rem;
-    font-size: 1rem;
-    color: #FFFFFF
-}
-
 #tarteaucitronInfo > p.tarteaucitronInfoParagraph:not(:last-of-type) {
     margin-bottom: 1rem;
 }
