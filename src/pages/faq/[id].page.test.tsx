@@ -24,7 +24,7 @@ describe('<ConsulterArticlePage />', () => {
 		});
 
 		const { container } = render(
-			<ConsulterArticlePage faqRéponse={faqRéponse   }/>);
+			<ConsulterArticlePage faqRéponse={faqRéponse}/>);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});

@@ -79,7 +79,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 							<span> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
 						)}
 					</label>
-					{tooltip && tooltip}
+					{tooltip}
 				</div>
 			)}
 			<input

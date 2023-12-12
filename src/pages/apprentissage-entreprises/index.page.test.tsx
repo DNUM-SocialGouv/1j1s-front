@@ -6,7 +6,6 @@ import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
 
-import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
@@ -31,7 +30,6 @@ jest.mock('~/server/start', () => ({
 describe('<ApprentissageEntreprises />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		mockSmallScreen();
-		mockUseRouter({ query: { page: '1' } });
 		const videos = aVideoCampagneApprentissageList();
 
 		const { container } = render(
@@ -47,7 +45,6 @@ describe('<ApprentissageEntreprises />', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
-		mockUseRouter({ query: { page: '1' } });
 		const videos = aVideoCampagneApprentissageList();
 
 		const { container } = render(

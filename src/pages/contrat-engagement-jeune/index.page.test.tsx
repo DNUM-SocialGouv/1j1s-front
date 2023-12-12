@@ -24,7 +24,7 @@ describe('Contrat engagement jeune', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={analyticsService} marketingService={marketingService}>
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
 			<ContratEngagementJeune/>
 		</DependenciesProvider> );
 
