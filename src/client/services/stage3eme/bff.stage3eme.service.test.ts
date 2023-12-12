@@ -38,31 +38,16 @@ describe('BffStage3emeService', () => {
 	});
 
 	describe('rechercherAppellationMetier', () => {
-		describe('quand un mot clé est fourni', () => {
-			it('appelle le endpoint avec les bons paramètres', async () => {
-				// Given
-				const httpClientService = anHttpClientService();
-				const bffStage3emeService = new BffStage3emeService(httpClientService);
+		it('appelle le endpoint avec les bons paramètres', async () => {
+			// Given
+			const httpClientService = anHttpClientService();
+			const bffStage3emeService = new BffStage3emeService(httpClientService);
 
-				// When
-				await bffStage3emeService.rechercherAppellationMetier('motCle');
+			// When
+			await bffStage3emeService.rechercherAppellationMetier('motCle');
 
-				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers?motCle=motCle');
-			});
-		});
-		describe('quand aucun mot clé n’est fourni', () => {
-			it('appelle le endpoint avec les bons paramètres', async () => {
-				// Given
-				const httpClientService = anHttpClientService();
-				const bffStage3emeService = new BffStage3emeService(httpClientService);
-
-				// When
-				await bffStage3emeService.rechercherAppellationMetier();
-
-				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers');
-			});
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers?motCle=motCle');
 		});
 	});
 });

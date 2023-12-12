@@ -49,11 +49,16 @@ export default function RechercherStages3eme() {
 		const messageResultatRechercheSplit: string[] = [`${stage3emeList?.nombreDeResultats}`];
 		if (stage3emeList && stage3emeList.nombreDeResultats > 1) {
 			messageResultatRechercheSplit.push('entreprises accueillantes');
-		} else {
+		} else if (stage3emeList && stage3emeList.nombreDeResultats === 1) {
 			messageResultatRechercheSplit.push('entreprise accueillante');
+		} else {
+			return '';
+		}
+		if (stage3emeQuery.libelleMetier) {
+			messageResultatRechercheSplit.push(`pour ${stage3emeQuery.libelleMetier}`);
 		}
 		return messageResultatRechercheSplit.join(' ');
-	}, [stage3emeList]);
+	}, [stage3emeList, stage3emeQuery.libelleMetier]);
 
 	return <>
 		<Head

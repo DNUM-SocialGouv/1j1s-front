@@ -13,16 +13,16 @@ export const stage3emeRechercheQuerySchema = Joi.object({
 }).options({ allowUnknown: true });
 
 export async function rechercherStage3emeHandler(req: NextApiRequest, res: NextApiResponse<ResultatRechercheStage3eme | ErrorHttpResponse>) {
-	const params = stage3emeFiltreMapper(req);
-	const resultatsRechercheStage3eme = await dependencies.stage3emeDependencies.rechercherStage3eme.handle(params);
+	const filtresDeRecherche = stage3emeFiltreMapper(req);
+	const resultatsRechercheStage3eme = await dependencies.stage3emeDependencies.rechercherStage3eme.handle(filtresDeRecherche);
 	return handleResponse(resultatsRechercheStage3eme, res);
 }
 
 export default withMonitoring(withValidation({ query: stage3emeRechercheQuerySchema }, rechercherStage3emeHandler));
 
-export function stage3emeFiltreMapper(request: NextApiRequest) {
+function stage3emeFiltreMapper(request: NextApiRequest) {
 	const { query } = request;
 	return {
-		codeMetier: query.codeMetier as string | undefined,
+		codeMetier: query.codeMetier ? String(query.codeMetier ) : undefined,
 	};
 }

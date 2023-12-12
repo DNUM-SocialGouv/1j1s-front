@@ -9,7 +9,7 @@ import { MetierStage3eme } from '~/server/stage-3eme/domain/metierStage3eme';
 import { dependencies } from '~/server/start';
 
 export const metierStage3emeRechercheQuerySchema = Joi.object({
-	motCle: Joi.string(),
+	motCle: Joi.string().required(),
 }).options({ allowUnknown: true });
 
 export async function rechercherAppellationMetierHandler(req: NextApiRequest, res: NextApiResponse<MetierStage3eme[] | ErrorHttpResponse>) {
@@ -22,5 +22,5 @@ export default withMonitoring(withValidation({ query: metierStage3emeRechercheQu
 
 function metierStage3emeFiltreMapper(request: NextApiRequest) {
 	const { query } = request;
-	return query.motCle as string | undefined;
+	return query.motCle as string;
 }

@@ -4,7 +4,7 @@ import nock from 'nock';
 import { rechercherStage3emeHandler } from '~/pages/api/stages-3eme/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme';
-import { aResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
+import { aResultatRechercheStage3eme, aStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
 import {
 	ApiImmersionFacileStage3emeRechercheResponse,
 } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme';
@@ -22,7 +22,7 @@ describe('rechercher stage 3eme', () => {
 		const expected: ResultatRechercheStage3eme = aResultatRechercheStage3eme({
 			nombreDeResultats: 2,
 			resultats: [
-				{
+				aStage3eme({
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75001',
@@ -33,8 +33,8 @@ describe('rechercher stage 3eme', () => {
 					modeDeContact: 'Candidature en personne',
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
-				},
-				{
+				}),
+				aStage3eme({
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75001',
@@ -45,7 +45,7 @@ describe('rechercher stage 3eme', () => {
 					modeDeContact: 'Candidature en personne',
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
-				},
+				}),
 			],
 		});
 
@@ -59,9 +59,9 @@ describe('rechercher stage 3eme', () => {
 				codeMetier: 'codeMetier',
 			},
 			test: async ({ fetch }) => {
-				const res = await fetch({ method: 'GET' });
-				const json = await res.json();
-				expect(json).toEqual(expected);
+				const resultatsStages3eme = await fetch({ method: 'GET' });
+				const jsonResultatsStages3eme = await resultatsStages3eme.json();
+				expect(jsonResultatsStages3eme).toEqual(expected);
 			},
 			url: '/stages-3eme',
 		});

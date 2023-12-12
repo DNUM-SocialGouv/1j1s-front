@@ -20,7 +20,7 @@ export const apiImmersionFacileStage3emeSchemas = {
 			city: Joi.string(),
 			departmentCode: Joi.string(),
 			postcode: Joi.string(),
-			streetNumberAndAddress: Joi.string(),
+			streetNumberAndAddress: Joi.string().allow(''),
 		}),
 		contactMode: Joi.string(),
 		name: Joi.string(),

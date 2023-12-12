@@ -12,11 +12,11 @@ export class BffStage3emeService implements Stage3emeService {
 	constructor(private httpClientService: HttpClientService) {}
 
 	async rechercherStage3eme(query: Stage3emeQueryParams) {
-		const queryString = removeUndefinedKeys(query);
-		return await this.httpClientService.get<ResultatRechercheStage3eme>(`stages-3eme?${stringify(queryString)}`);
+		const queryString = stringify(removeUndefinedKeys(query));
+		return await this.httpClientService.get<ResultatRechercheStage3eme>(`stages-3eme?${queryString}`);
 	}
 	
-	async rechercherAppellationMetier(motCle?: string) {
-		return await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers${motCle ? `?motCle=${motCle}` : ''}`);
+	async rechercherAppellationMetier(motCle: string) {
+		return await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers?motCle=${motCle}`);
 	}
 }

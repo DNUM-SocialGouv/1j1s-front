@@ -43,7 +43,7 @@ export function FormulaireRechercheStages3eme() {
 				<div className={styles.inputButtonWrapper}>
 					<ComboboxMetiersStage3eme
 						defaultValue={metierDefaultValue}
-						placeholder={'Exemples : enseignement, recherche...'}
+						placeholder={'Exemples : boulanger, styliste...'}
 						label={'Métier (facultatif)'}
 					/>
 				</div>
