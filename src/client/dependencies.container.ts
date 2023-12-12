@@ -121,7 +121,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 			keepZeroFacets: true,
 			primaryKey: 'slug',
 		},
-	);
+	).searchClient;
 
 	const stage3emeService = new BffStage3emeService(httpClientService);
 
