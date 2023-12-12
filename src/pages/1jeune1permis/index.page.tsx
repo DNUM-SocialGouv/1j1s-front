@@ -23,7 +23,7 @@ export async function getStaticProps(): Promise<GetServerSidePropsResult<Record<
 	};
 }
 
-interface EventMessage { type: string; height: number }
+interface MessageEventData { type: string; height: number }
 export default function UnJeuneUnPermis() {
 
 	useAnalytics(analyticsPageConfig);
@@ -31,9 +31,9 @@ export default function UnJeuneUnPermis() {
 	const iRef = useRef<HTMLIFrameElement>(null);
 
 	const onMessage = (event: MessageEvent<string>) => {
-		let data: EventMessage;
+		let data: MessageEventData;
 		try {
-			data = JSON.parse(event.data) as EventMessage;
+			data = JSON.parse(event.data) as MessageEventData;
 		} catch {
 			return;
 		}
