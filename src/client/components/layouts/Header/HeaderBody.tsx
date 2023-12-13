@@ -38,8 +38,8 @@ export function HeaderBody() {
 				{ isLargeScreen && displayBanner &&
 				  <Link href="/contrat-engagement-jeune" className={styles.headerBodyBanner}>
 				  	<div>
-					    <div className={styles.headerBodyBannerTitle}>Découvrez le Contrat Engagement Jeune, la solution pour vous&nbsp;!</div>
-					    <div className={styles.headerBodyBannerContent}>Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi</div>
+					    <div className={styles.headerBodyBannerTitle}>Vous souhaitez recruter des élèves de 3ème et 2nd&nbsp;?</div>
+					    <div className={styles.headerBodyBannerContent}>Contactez nous&nbsp;!</div>
 				  	</div>
 				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
 				  </Link>

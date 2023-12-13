@@ -258,9 +258,10 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
+					const encartLien = screen.getByRole('link', { name: /Vous souhaitez recruter des élèves de 3ème et 2nd ?/ });
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
+					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
+					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
