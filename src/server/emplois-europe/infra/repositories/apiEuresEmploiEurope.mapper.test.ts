@@ -229,6 +229,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			});
 		});
 	});
+
 	describe('mapDetailOffre', () => {
 		it('retourne un EmploiEurope', () => {
 			// Given
@@ -395,6 +396,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				expect(result.typeContrat).toBeUndefined();
 			});
 		});
+
 		describe('temps de travail', () => {
 			describe('si le temps de travail est fourni', () => {
 				it('retourne un emploi avec le temps de travail en français selon le référentiel', () => {
@@ -477,6 +479,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				expect(result.tempsDeTravail).toBeUndefined();
 			});
 		});
+
 		describe('niveau d’études', () => {
 			describe('si le niveau d’études est fourni', () => {
 				it('retourne un emploi avec le niveau d’études en français selon le référentiel', () => {
@@ -637,11 +640,11 @@ describe('apiEuresEmploiEuropeMapper', () => {
 											codeDuNiveauDeLangue: LEVEL_CODE.C2,
 											detailCompetenceLanguistique: [{
 												codeDuNiveauDeLaCompetence: LEVEL_CODE.A2,
-												nomCompetence: 'CEF-Speaking-Interaction',
+												nomCompetence: 'Interaction orale',
 												nomDuNiveauDeLaCompetence: LEVEL_NAME.INTERMEDIAIRE,
 											}, {
 												codeDuNiveauDeLaCompetence: LEVEL_CODE.C1,
-												nomCompetence: 'CEF-Writing-Interaction',
+												nomCompetence: 'Interaction écrite',
 												nomDuNiveauDeLaCompetence: LEVEL_NAME.AUTONOME,
 											}],
 											langage: 'français',
@@ -664,6 +667,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 														competenciesDimensions: [
 															{ competencyDimensionName: 'CEF-Speaking-Interaction', levelCode: 'toto' as LEVEL_CODE },
 															{ competencyDimensionName: 'CEF-Writing-Interaction', levelCode: LEVEL_CODE.C1 },
+															{ competencyDimensionName: 'pas une interaction qui existe', levelCode: LEVEL_CODE.C1 },
 														],
 														language: language,
 														levelCode: LEVEL_CODE.C2,
@@ -684,7 +688,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 											codeDuNiveauDeLangue: LEVEL_CODE.C2,
 											detailCompetenceLanguistique: [{
 												codeDuNiveauDeLaCompetence: LEVEL_CODE.C1,
-												nomCompetence: 'CEF-Writing-Interaction',
+												nomCompetence: 'Interaction écrite',
 												nomDuNiveauDeLaCompetence: LEVEL_NAME.AUTONOME,
 											}],
 											langage: 'français',
@@ -801,7 +805,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 									listeCompetencesLinguistiques: [{
 										competenceType: 'language',
 										competenciesDimensions: [{
-											competencyDimensionName: 'je suis la competence',
+											competencyDimensionName: 'cef-understanding-listening',
 											levelCode: LEVEL_CODE.A2,
 										}],
 										language: 'fr',
@@ -828,7 +832,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							codeDuNiveauDeLangue: LEVEL_CODE.C2,
 							detailCompetenceLanguistique: [{
 								codeDuNiveauDeLaCompetence: LEVEL_CODE.A2,
-								nomCompetence: 'je suis la competence',
+								nomCompetence: 'Compréhension à l’audition',
 								nomDuNiveauDeLaCompetence: LEVEL_NAME.INTERMEDIAIRE,
 							}],
 							langage: 'français',

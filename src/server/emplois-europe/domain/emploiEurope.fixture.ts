@@ -32,7 +32,7 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 			codeDuNiveauDeLangue: LEVEL_CODE.A2,
 			detailCompetenceLanguistique: [{
 				codeDuNiveauDeLaCompetence: LEVEL_CODE.B2,
-				nomCompetence: 'competence demandée',
+				nomCompetence: 'Interaction orale',
 				nomDuNiveauDeLaCompetence: LEVEL_NAME.AVANCE,
 			}],
 			langage: 'français',

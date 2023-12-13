@@ -101,7 +101,7 @@ interface languageCompetency {
 
 function anXMLResponseLanguageCompetency(languageCompetencies: Array<languageCompetency> = [{
 	competenciesDimensions: [{
-		competencyDimensionName: 'competence demandée',
+		competencyDimensionName: 'CEF-Speaking-interaction',
 		levelCode: LEVEL_CODE.B2,
 	}],
 	language: 'fr',
