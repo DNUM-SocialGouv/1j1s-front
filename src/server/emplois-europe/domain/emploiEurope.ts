@@ -1,4 +1,5 @@
 import { NiveauEtudes } from '~/client/domain/niveauEtudesEures';
+import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 
 export interface ResultatRechercheEmploiEurope {
 	offreList: EmploiEurope[];
@@ -15,6 +16,23 @@ export interface EmploiEurope {
 	urlCandidature?: string;
 	tempsDeTravail?: string;
 	niveauEtudes?: NiveauEtudes;
+	description?: string;
+	listePermis: Array<string>;
+	langueDeTravail: Array<string>;
+	competencesLinguistiques: Array<CompetenceLinguistique>
+}
+
+export interface CompetenceLinguistique {
+	codeDuNiveauDeLangue: LEVEL_CODE
+	nomDuNiveauDeLangue: LEVEL_NAME
+	langage: string
+	detailCompetenceLanguistique: Array<LanguageSpecificationCompetence>
+}
+
+export interface LanguageSpecificationCompetence {
+	codeDuNiveauDeLaCompetence: LEVEL_CODE
+	nomDuNiveauDeLaCompetence: LEVEL_NAME
+	nomCompetence: string
 }
 
 export interface EmploiEuropeFiltre {

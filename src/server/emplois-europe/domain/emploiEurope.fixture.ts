@@ -1,4 +1,5 @@
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 
 export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRechercheEmploiEurope>): ResultatRechercheEmploiEurope {
 	return {
@@ -27,12 +28,26 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
+		competencesLinguistiques: [{
+			codeDuNiveauDeLangue: LEVEL_CODE.A2,
+			detailCompetenceLanguistique: [{
+				codeDuNiveauDeLaCompetence: LEVEL_CODE.B2,
+				nomCompetence: 'competence demandée',
+				nomDuNiveauDeLaCompetence: LEVEL_NAME.AVANCE,
+			}],
+			langage: 'français',
+			nomDuNiveauDeLangue: LEVEL_NAME.INTERMEDIAIRE,
+		}],
+		description: '<p><strong>Fonction:</strong></p><ul><li>En tant que Co&#233;quipier cuisine, tu es un ambassadeur/une ambassadrice de la marque et tu portes nos valeurs dans ta boulangerie-restaurant.</li> <li>Tu pr&#233;pares nos plats dans ta cuisine et tu es un soutien au service en salle si n&#233;cessaire. La pr&#233;paration (mise en place) est &#233;galement sous ta responsabilit&#233;.</li> </ul>',
 		id: '1',
+		langueDeTravail: ['néerlandais'],
+		listePermis: ['B'],
 		niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
 		nomEntreprise: 'La Boulangerie',
 		pays: 'France',
 		tempsDeTravail: 'Temps plein',
 		titre: 'Boulanger (H/F)',
+		typeContrat: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
 		ville: 'Paris',
 		...override,

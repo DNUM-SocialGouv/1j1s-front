@@ -20,11 +20,11 @@ import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { Domaines } from '~/server/cms/domain/offreDeStage.type';
 import { emailRegex } from '~/shared/emailRegex';
+import { urlRegex } from '~/shared/urlRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
 
-const url_regex = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
-const EMAIL_OR_URL_REGEX = `^${emailRegex}|${url_regex}$`;
+const EMAIL_OR_URL_REGEX = `^${emailRegex}|${urlRegex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
 const UNITE = '€';
 const LONGUEUR_MAX_TITRE = 200;

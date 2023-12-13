@@ -1,6 +1,7 @@
 import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
+import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheResponse,
@@ -16,6 +17,7 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
 	) {
 	}
+
 	async search(): Promise<Either<ResultatRechercheEmploiEurope>> {
 		const response = mockResultatRechercheApiEuresEmploiEurope();
 		const responseDetail = mockResultatRechercheDetailApiEuresEmploiEurope();
@@ -1028,7 +1030,41 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec niveau d’études', 'Nom Entreprise', 'FR', 'Paris', undefined, undefined, EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
+							listeCompetencesLinguistiques: [{
+								competenciesDimensions:[
+									{
+										competencyDimensionName: 'Expression orale',
+										levelCode: LEVEL_CODE.B2,
+									},
+									{
+										competencyDimensionName: 'Expression écrite',
+										levelCode: LEVEL_CODE.C2,
+									},
+								],
+								language: 'fr',
+								levelCode: LEVEL_CODE.B2,
+							}, {
+								competenciesDimensions:[
+									{
+										competencyDimensionName: 'Expression orale',
+										levelCode: LEVEL_CODE.A2,
+									},
+									{
+										competencyDimensionName: 'Expression écrite',
+										levelCode: LEVEL_CODE.C2,
+									},
+								],
+								language: 'nl',
+								levelCode: LEVEL_CODE.C2,
+							}],
+							nomEntreprise: 'Nom Entreprise',
+							pays: 'FR',
+							titre: 'Nom Offre aaaaa',
+							typeContrat: undefined,
+							ville: 'Paris',
+						}),
 					},
 					related: {
 						urls: [
@@ -1051,7 +1087,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3ODMxMyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(undefined, 'Nom Entreprise', 'FR', 'Paris'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris' }),
 					},
 					related: {
 						urls: [
@@ -1074,7 +1110,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec temps de travail', undefined, undefined, undefined, undefined, 'FlexTime'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ tempsDeTravail: 'FlexTime', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1097,7 +1133,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAyMjM3NyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1120,7 +1156,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItYjQ5Ni02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1143,7 +1179,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTMyYy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Offre avec un type de contrat', undefined, undefined, undefined, 'DirectHire'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Offre avec un type de contrat', typeContrat: 'DirectHire' }),
 					},
 					related: {
 						urls: [
@@ -1166,7 +1202,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItMTA3NS02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1189,7 +1225,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmZiMTZlYjMtZmYxMC0zZjk3LWUwNTMtOGU5MmIyMGE2ZWRhIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1212,7 +1248,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3MzIwNCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1235,7 +1271,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItYjMwZi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1258,7 +1294,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItYjQ5Ny02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1281,7 +1317,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAwMzg4MCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1304,7 +1340,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk4NDgwOCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1327,7 +1363,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctMTcxMS02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1350,7 +1386,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA2NjdiNjktZWY2Zi03MmNjLWUwNjMtOGU5MmIyMGEzNTcyIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1373,7 +1409,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAyOTg5MiA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1396,7 +1432,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDA0NTQyMiA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1419,7 +1455,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA1MjVkNmYtMjRjNS05Y2MzLWUwNjMtOGU5MmIyMGFmZjc5IDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1442,7 +1478,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA2NjdiNjktZTA1Ny03MmNjLWUwNjMtOGU5MmIyMGEzNTcyIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1465,7 +1501,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA1MjVkNmYtMWIzNy05Y2MzLWUwNjMtOGU5MmIyMGFmZjc5IDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1488,7 +1524,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk4MzcyMyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1511,7 +1547,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDA0NTM4OCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1534,7 +1570,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAyNjI1OCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1557,7 +1593,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA2NjdiNjktZDcxMi03MmNjLWUwNjMtOGU5MmIyMGEzNTcyIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1580,7 +1616,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'MzkxMjcwNiA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1603,7 +1639,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItZjY2NS02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1626,7 +1662,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA2NjdiNjktZTI2My03MmNjLWUwNjMtOGU5MmIyMGEzNTcyIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1649,7 +1685,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItOWY5OC02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1672,7 +1708,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk4MzcyNCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1695,7 +1731,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWEtNGQ4OS02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1718,7 +1754,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItZmM5Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1741,7 +1777,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmZiMTZlYjMtZjE0My0zZjk3LWUwNTMtOGU5MmIyMGE2ZWRhIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1764,7 +1800,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAwNjU5OCA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1787,7 +1823,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk4MzcyMiA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1810,7 +1846,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'NDAzMDY2OSA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1833,7 +1869,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'MDA2NjdiNjktZTk0Mi03MmNjLWUwNjMtOGU5MmIyMGEzNTcyIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1856,7 +1892,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItNjliZi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1879,7 +1915,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTQtZWM1NC02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1902,7 +1938,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZWItZmNkMy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
@@ -1925,7 +1961,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ADG',
 							handle: 'MzA0NDkgMTE0Mw',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Nom Offre', 'Nom Entreprise'),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ nomEntreprise: 'Nom Entreprise', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [

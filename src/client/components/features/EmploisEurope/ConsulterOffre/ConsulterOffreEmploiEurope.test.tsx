@@ -9,46 +9,77 @@ import {
 } from '~/client/components/features/EmploisEurope/ConsulterOffre/ConsulterOffreEmploiEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
+import { queries } from '~/test-utils';
 
 describe('DetailOffreEmploiEurope', () => {
+
 	beforeEach(() => {
 		mockUseRouter({});
 	});
 
-	it('affiche le titre de l‘offre d‘emploi si il est disponible', () => {
-		const offreEmploiEurope = anEmploiEurope({ titre: 'Boulanger' });
+	describe('affiche le titre de l‘offre', () => {
+		it('affiche le titre de l‘offre d‘emploi si il est disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ titre: 'Boulanger' });
 
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
-		const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
+			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
 
 
-		expect(titreDeLOffre).toBeVisible();
+			expect(titreDeLOffre).toBeVisible();
+		});
+
+		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est indisponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ titre: undefined });
+
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
+
+
+			expect(titreDeLOffre).toBeVisible();
+		});
+
+		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est une chaine de caractères vides', () => {
+			const offreEmploiEurope = anEmploiEurope({ titre: '' });
+
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
+
+
+			expect(titreDeLOffre).toBeVisible();
+		});
 	});
 
-	it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est indisponible', () => {
-		const offreEmploiEurope = anEmploiEurope({ titre: undefined });
+	describe('lorsque je souhaite postuler a une offre', () => {
+		it('affiche le bouton pour postuler à une offre si le lien est donné', () => {
+			const offreEmploiEurope = anEmploiEurope({ urlCandidature: 'https://urlDeCandidature.com' });
 
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
-
-		const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 
-		expect(titreDeLOffre).toBeVisible();
+			const linkCandidature = screen.getByRole('link', { name: 'Je postule sur Eures' });
+
+			expect(linkCandidature).toHaveAttribute('href', 'https://urlDeCandidature.com');
+			expect(linkCandidature).toBeVisible();
+		});
+
+		it('n‘affiche pas le bouton pour postuler à une offre si le lien n‘est pas donné', () => {
+
+			const offreEmploiEurope = anEmploiEurope({ urlCandidature: undefined });
+
+			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+
+			const linkCandidature = screen.queryByRole('link', { name: 'Je postule sur Eures' });
+
+			expect(linkCandidature).not.toBeInTheDocument();
+		});
 	});
 
-	it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est une chaine de caractères vides', () => {
-		const offreEmploiEurope = anEmploiEurope({ titre: '' });
-
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
-
-		const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Offre d’emploi sans titre' });
-
-
-		expect(titreDeLOffre).toBeVisible();
-	});
-
-	it('affiche un le nom de l\'entreprise si il est disponible', () => {
+	it('affiche le nom de l‘entreprise si il est disponible', () => {
 		const offreEmploiEurope = anEmploiEurope({ nomEntreprise: 'Ma Mie d‘amour' });
 
 		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
@@ -59,27 +90,106 @@ describe('DetailOffreEmploiEurope', () => {
 		expect(nomDeLEntreprise).toBeVisible();
 	});
 
-	it('affiche le bouton pour postuler à une offre si le lien est donné', () => {
-		const offreEmploiEurope = anEmploiEurope({ urlCandidature: 'https://urlDeCandidature.com' });
+	describe('affiche la description de l‘offre', () => {
+		it('affiche la description de l‘offre si elle est disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: 'Je suis la description' });
 
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
+			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
+		});
 
-		const linkCandidature = screen.getByRole('link', { name: 'Je postule sur Eures' });
+		it('sanitize la description de l‘offre', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
 
-		expect(linkCandidature).toHaveAttribute('href', 'https://urlDeCandidature.com');
-		expect(linkCandidature).toBeVisible();
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
+		});
+
+		it('n‘affiche pas la description de l‘offre si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: undefined });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Description du poste')).not.toBeInTheDocument();
+		});
 	});
 
-	it('n‘affiche pas le bouton pour postuler à une offre si le lien n‘est pas donné', () => {
-		const offreEmploiEurope = anEmploiEurope({ urlCandidature: undefined });
+	describe('affiche le permis requis', () => {
+		it('affiche les permis requis si ils sont disponibles', () => {
+			const offreEmploiEurope = anEmploiEurope({ listePermis: ['B', 'C'] });
 
-		render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
+			expect(getByDescriptionTerm('Type de permis requis')).toHaveTextContent('B, C');
+		});
 
-		const linkCandidature = screen.queryByRole('link', { name: 'Je postule sur Eures' });
+		it('n‘affiche pas le permis requis si il n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ listePermis: [] });
 
-		expect(linkCandidature).not.toBeInTheDocument();
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('langue de travail', () => {
+		it('affiche les langues si elles sont disponibles', () => {
+			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: ['Anglais', 'Français'] });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Langue de travail')).toHaveTextContent('Anglais, Français');
+		});
+
+		it('n‘affiche pas la langue si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Langue de travail')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('les compétences linguistiques', () => {
+		it('affiche les compétences demandées', () => {
+			const offreEmploiEurope = anEmploiEurope({
+				competencesLinguistiques: [{
+					codeDuNiveauDeLangue: LEVEL_CODE.B2,
+					detailCompetenceLanguistique: [
+						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.A1, nomCompetence: 'competence 1', nomDuNiveauDeLaCompetence: LEVEL_NAME.ELEMENTAIRE },
+						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.C2, nomCompetence: 'competence 2', nomDuNiveauDeLaCompetence: LEVEL_NAME.MAITRISE },
+					],
+					langage: 'français',
+					nomDuNiveauDeLangue: LEVEL_NAME.AVANCE,
+				}],
+			});
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			const competencesLinguistiquesDescription = queryByDescriptionTerm('Compétences linguistiques requises');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('français (B2 - avancé)');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 1 (A1 - élémentaire)');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 2 (C2 - maitrise)');
+		});
+
+		it('n‘affiche pas les compétences s‘il n‘y en a pas', () => {
+			const offreEmploiEurope = anEmploiEurope({ competencesLinguistiques: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Compétences linguistiques requises')).not.toBeInTheDocument();
+		});
 	});
 	describe('Tags', () => {
 		it('si le type de contrat est présent, affiche le type de contrat',  () => {

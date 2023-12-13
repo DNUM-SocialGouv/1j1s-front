@@ -11,10 +11,10 @@ import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
 import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
 import { paysEuropeList } from '~/client/domain/pays';
-import { typesContratEures } from '~/client/domain/typesContratEures';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
 import styles
 	from './FormulaireRechercheEmploisEurope.module.scss';

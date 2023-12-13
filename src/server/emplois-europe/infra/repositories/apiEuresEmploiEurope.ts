@@ -1,3 +1,5 @@
+import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
+
 export const NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE = 15;
 
 export interface ApiEuresEmploiEuropeRechercheResponse {
@@ -37,7 +39,7 @@ export interface ApiEuresEmploiEuropeDetailItem {
 	related: ApiEuresEmploiEuropeResponseRelated
 }
 
-namespace ApiEuresEmploiEuropeDetailXML {
+export namespace ApiEuresEmploiEuropeDetailXML {
 	export interface OrganizationIdentifiers {
 		OrganizationName?: string;
 	}
@@ -55,24 +57,50 @@ namespace ApiEuresEmploiEuropeDetailXML {
 		Address?: Address | Array<Address>
 	}
 
+	export interface PositionProfile {
+		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
+		PositionTitle?: string;
+		PositionLocation?: PositionLocation | Array<PositionLocation>
+		PositionOfferingTypeCode?: string
+		WorkingLanguageCode?: string
+		PositionFormattedDescription?: PositionFormattedDescription | Array<PositionFormattedDescription>
+		PositionScheduleTypeCode?: string
+		PositionQualifications?: PositionQualifications | Array<PositionQualifications>
+	}
+
+
 	export interface PositionQualifications {
+		PositionCompetency: PositionCompetency | Array<PositionCompetency>
+		LicenseTypeCode: string
 		EducationRequirement?: EducationRequirement | Array<EducationRequirement>
+	}
+
+	export interface PositionCompetency {
+		TaxonomyID: string,
+		CompetencyID: string,
+		RequiredProficiencyLevel?: {
+			ScoreText?: LEVEL_CODE
+		}
+		CompetencyDimension?: Array<CompetencyDimension> | CompetencyDimension
+	}
+
+	export interface CompetencyDimension {
+		CompetencyDimensionTypeCode: string
+		Score: {
+			ScoreText: LEVEL_CODE
+		}
 	}
 
 	export interface EducationRequirement {
 		EducationLevelCode?: number;
 	}
 
-	export interface PositionProfile {
-		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
-		PositionTitle?: string;
-		PositionLocation?: PositionLocation | Array<PositionLocation>
-		PositionOfferingTypeCode?: string
-		PositionScheduleTypeCode?: string
-		PositionQualifications?: PositionQualifications | Array<PositionQualifications>
-	}
 	export interface PositionOpening {
 		PositionProfile?: PositionProfile | Array<PositionProfile>
+	}
+
+	export interface PositionFormattedDescription {
+		Content: string
 	}
 }
 
