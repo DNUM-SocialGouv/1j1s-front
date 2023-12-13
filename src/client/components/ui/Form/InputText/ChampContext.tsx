@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useContext } from 'react';
 
-type ContextType = {
+type ChampContextType = {
 	errorId: string
 	setErrorId: Dispatch<SetStateAction<string>>
 	hintId: string
@@ -13,11 +13,11 @@ type ContextType = {
 	setErrorMessage: Dispatch<SetStateAction<string>>
 };
 
-const Context = React.createContext<ContextType | null>(null);
+const ChampContext = React.createContext<ChampContextType | null>(null);
 
-export const ChampContextProvider = Context.Provider;
+export const ChampContextProvider = ChampContext.Provider;
 
-export function useChampContext(): ContextType | Record<string, never> {
-	const context = useContext(Context);
+export function useChampContext(): ChampContextType | Record<string, never> {
+	const context = useContext(ChampContext);
 	return context ?? {};
 }
