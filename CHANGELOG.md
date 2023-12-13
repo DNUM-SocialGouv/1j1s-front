@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.199.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.198.3...v3.199.0) (2023-12-13)
+
+
+### Features
+
+* **emplois europe:** ajout de la description et du niveau de langue ([c437cbe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c437cbe282dbbf48e7367fdc766c62a0c1d7a34b))
+
 ## [3.198.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.198.2...v3.198.3) (2023-12-12)
 
 
