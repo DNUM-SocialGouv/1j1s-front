@@ -7,7 +7,12 @@ import {
 	LanguageSpecificationCompetence,
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
-import { langageCompetenceName, langageParPaysEures, niveauLangage } from '~/server/emplois-europe/infra/langageEures';
+import {
+	langageCompetenceName,
+	langageParPaysEures,
+	LEVEL_CODE,
+	niveauLangage,
+} from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeDetailXML,
@@ -146,23 +151,26 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	private getSpecificationCompetenceLanguage(competencyDimension: Array<CompetencyDimension> | CompetencyDimension): Array<LanguageSpecificationCompetence> {
-		
-		function findCompetencyName(competencyDimension: string): string | undefined {
+		function findCompetencyName(competencyDimension: string) {
 			return langageCompetenceName.find((competency) => competency.codeValue === competencyDimension.toLowerCase())?.codeDescription;
+		}
+
+		function findCompetencyLevel(levelCode: LEVEL_CODE){
+			return niveauLangage.find((niveau) => niveau.valeur === levelCode);
 		}
 		
 		const competencies = this.transformElementToArray(competencyDimension);
 		const languageCompetenciesDetails: Array<LanguageSpecificationCompetence> = [];
 
 		competencies?.map((competencyDimension) => {
-			const niveauRequis = niveauLangage.find((niveau) => niveau.valeur === competencyDimension.Score.ScoreText);
+			const competencyLevel = findCompetencyLevel(competencyDimension.Score.ScoreText);
 			const competencyName= findCompetencyName(competencyDimension.CompetencyDimensionTypeCode);
 
-			if (niveauRequis && competencyName) {
+			if (competencyLevel && competencyName) {
 				languageCompetenciesDetails.push({
-					codeDuNiveauDeLaCompetence: niveauRequis.valeur,
+					codeDuNiveauDeLaCompetence: competencyLevel.valeur,
 					nomCompetence: competencyName,
-					nomDuNiveauDeLaCompetence: niveauRequis.libellé,
+					nomDuNiveauDeLaCompetence: competencyLevel.libellé,
 				});
 			}
 		});
