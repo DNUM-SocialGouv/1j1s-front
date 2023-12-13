@@ -7,5 +7,5 @@ import styles from '../Champ.module.scss';
 type ErrorProps = ComponentPropsWithoutRef<'p'>
 
 export function Error({ className, ...rest }: ErrorProps) {
-	return <p className={classNames(className, styles.error)} {...rest}/>;
+	return <p className={classNames(styles.error, className)} {...rest}/>;
 }
