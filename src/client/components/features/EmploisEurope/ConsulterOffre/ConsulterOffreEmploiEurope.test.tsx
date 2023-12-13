@@ -307,7 +307,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune année d‘expérience requise')
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune année d‘expérience requise');
 		});
 
 		it('lorsque qu‘une année d‘expérience est demandée', () => {
@@ -316,7 +316,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an')
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an');
 		});
 
 		it('lorsque plusieurs années d‘expériences sont demandées', () => {
@@ -325,7 +325,7 @@ describe('DetailOffreEmploiEurope', () => {
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans')
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans');
 		});
 	});
 });

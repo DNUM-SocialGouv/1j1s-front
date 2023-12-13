@@ -28,6 +28,7 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
+		anneesDExperience: 3,
 		competencesLinguistiques: [{
 			codeDuNiveauDeLangue: LEVEL_CODE.A2,
 			detailCompetenceLanguistique: [{
@@ -50,7 +51,6 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		typeContrat: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
 		ville: 'Paris',
-		anneesDExperience: 3,
 		...override,
 	};
 }

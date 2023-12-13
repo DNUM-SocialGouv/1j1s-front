@@ -258,7 +258,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
                                   listVersionID="ESCOv1">
                         http://data.europa.eu/esco/occupation/uuid-4
                     </CategoryCode>
-                    ${anneesDExperience ? `<Measure unitCode="year">${anneesDExperience}</Measure>` : ''}
+                    <Measure unitCode="year">${anneesDExperience ? anneesDExperience : 3}</Measure>
                     <ns2:Description>description de l‘experience demandée</ns2:Description>
                 </ExperienceCategory>
             </ExperienceSummary>

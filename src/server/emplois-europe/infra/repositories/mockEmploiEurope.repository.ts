@@ -1031,6 +1031,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							handle: 'ZmY5ZDUwZWMtNjlkNy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							anneesDExperience: undefined,
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
 							listeCompetencesLinguistiques: [{
 								competenciesDimensions:[
@@ -1064,7 +1065,6 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							titre: 'Nom Offre aaaaa',
 							typeContrat: undefined,
 							ville: 'Paris',
-							anneesDExperience: undefined
 						}),
 					},
 					related: {
@@ -1088,7 +1088,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3ODMxMyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris', anneesDExperience: 1 }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ anneesDExperience: 1, pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris' }),
 					},
 					related: {
 						urls: [
@@ -1111,7 +1111,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ tempsDeTravail: 'FlexTime', titre: 'Nom Offre', anneesDExperience: 2 }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ anneesDExperience: 2, tempsDeTravail: 'FlexTime', titre: 'Nom Offre' }),
 					},
 					related: {
 						urls: [
