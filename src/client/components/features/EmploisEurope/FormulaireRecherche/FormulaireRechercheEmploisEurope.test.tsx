@@ -10,7 +10,7 @@ import {
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
-import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
+import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {
 	beforeEach(() => {

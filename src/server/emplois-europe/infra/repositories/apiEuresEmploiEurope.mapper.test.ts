@@ -1,10 +1,10 @@
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
 import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
-import { EURES_CONTRACT_TYPE } from '~/client/domain/typesContratEures';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
@@ -13,6 +13,7 @@ import {
 	anApiEuresEmploiEuropeDetailXMLResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
 describe('apiEuresEmploiEuropeMapper', () => {
@@ -90,11 +91,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
-								'Boulanger (H/F)',
-								'La Boulangerie',
-								'FR',
-								'Paris',
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+								pays: 'FR',
+								ville: 'Paris',
+							},
 							),
 						}),
 					}),
@@ -144,9 +144,12 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 								hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
-									'Boulanger (H/F)',
-									'La Boulangerie',
-									'FR',
+									{
+										nomEntreprise: 'La Boulangerie',
+										pays: 'FR',
+										titre: 'Boulanger (H/F)',
+										ville: undefined,
+									},
 								),
 							}),
 						}),
@@ -195,10 +198,12 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 								hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
-									'Boulanger (H/F)',
-									'La Boulangerie',
-									undefined,
-									'Paris',
+									{
+										nomEntreprise: 'La Boulangerie',
+										pays: undefined,
+										titre: 'Boulanger (H/F)',
+										ville: 'Paris',
+									},
 								),
 							}),
 						}),
@@ -227,12 +232,27 @@ describe('apiEuresEmploiEuropeMapper', () => {
 	describe('mapDetailOffre', () => {
 		it('retourne un EmploiEurope', () => {
 			// Given
-			const handle = '1';
+			const handle = '3';
 			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
 				[
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris'),
+							header: {
+								handle: handle,
+							},
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+								{
+									description: 'Je suis la description',
+									educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+									listeLangueDeTravail: ['FR', 'EN'],
+									listePermis: ['B', 'C'],
+									nomEntreprise: 'La Boulangerie',
+									pays: 'FR',
+									tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
+									titre: 'Boulanger (H/F)',
+									ville: 'Paris',
+								},
+							),
 						}),
 						related: anApiEuresEmploiEuropeDetailRelated({
 							urls: [{
@@ -249,10 +269,16 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 			// Then
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
-				id: '1',
+				description: 'Je suis la description',
+				id: '3',
+				langueDeTravail: ['français', 'anglais'],
+				listePermis: ['B', 'C'],
+				niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
 				nomEntreprise: 'La Boulangerie',
 				pays: 'France',
+				tempsDeTravail: 'Temps plein',
 				titre: 'Boulanger (H/F)',
+				typeContrat: undefined,
 				urlCandidature: 'https://urlDeCandidature.com',
 				ville: 'Paris',
 			}));
@@ -263,14 +289,22 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const apprenticeshipContractType = EURES_CONTRACT_TYPE.Apprenticeship;
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, apprenticeshipContractType);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
+						nomEntreprise: undefined,
+						pays: undefined,
+						titre: undefined,
+						typeContrat: apprenticeshipContractType,
+						ville: undefined,
+					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -285,14 +319,19 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const nsEuresContractType = 'NS';
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, nsEuresContractType);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(
+						{
+							typeContrat: nsEuresContractType,
+						});
 					const aDetailItemWithNsContractType = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithNsContractType]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -307,14 +346,17 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const unknownEuresContractType = 'does not exist';
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, unknownEuresContractType);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(
+						{ typeContrat: unknownEuresContractType });
 					const aDetailItemWithUnknownContractType = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithUnknownContractType]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -330,14 +372,18 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			it('retourne un emploi avec le type de contrat à undefined si le type de contrat EURES n’est pas fourni', () => {
 				// GIVEN
 				const handle = 'eures-offer-id';
-				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse({
+					typeContrat: undefined,
+				});
 				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
-					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-						header: {
-							handle,
-						},
-						hrxml: hrxmlWithoutPositionOfferingTypeCode,
-					}) },
+					{
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml: hrxmlWithoutPositionOfferingTypeCode,
+						}),
+					},
 				);
 				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -355,14 +401,18 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const positionScheduleType = EURES_POSITION_SCHEDULE_TYPE.FlexTime;
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, positionScheduleType);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
+						tempsDeTravail: positionScheduleType,
+					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -377,14 +427,18 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const positionScheduleType = 'does not exist';
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, positionScheduleType);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
+						typeContrat: positionScheduleType,
+					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -399,14 +453,19 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			it('retourne un emploi avec le temps de travail à undefined si le temps de travail n’est pas fourni', () => {
 				// GIVEN
 				const handle = 'eures-offer-id';
-				const hrxmlWithoutPositionScheduleTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const hrxmlWithoutPositionScheduleTypeCode = anApiEuresEmploiEuropeDetailXMLResponse(
+					{ 
+						tempsDeTravail: undefined,
+					});
 				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
-					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-						header: {
-							handle,
-						},
-						hrxml: hrxmlWithoutPositionScheduleTypeCode,
-					}) },
+					{
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml: hrxmlWithoutPositionScheduleTypeCode,
+						}),
+					},
 				);
 				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -424,14 +483,18 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const educationLevelCode = EURES_EDUCATION_LEVEL_CODES_TYPE.ENSEIGNEMENT_PRESCOLAIRE;
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, undefined, educationLevelCode);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
+						educationLevelCode: educationLevelCode,
+					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -446,14 +509,19 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					// GIVEN
 					const educationLevelCode = 9999999999;
 					const handle = 'eures-offer-id';
-					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(undefined, undefined, undefined, undefined, undefined, undefined, educationLevelCode);
+					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse(
+						{
+							educationLevelCode: educationLevelCode,
+						});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
-						{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle,
-							},
-							hrxml,
-						}) },
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml,
+							}),
+						},
 					);
 					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -468,14 +536,20 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			it('retourne un emploi avec le niveau d’études à undefined si le type de contrat EURES n’est pas fourni', () => {
 				// GIVEN
 				const handle = 'eures-offer-id';
-				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse();
+				const hrxmlWithoutPositionOfferingTypeCode = anApiEuresEmploiEuropeDetailXMLResponse(
+					{
+						educationLevelCode: undefined,
+					},
+				);
 				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
-					{ jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-						header: {
-							handle,
-						},
-						hrxml: hrxmlWithoutPositionOfferingTypeCode,
-					}) },
+					{
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml: hrxmlWithoutPositionOfferingTypeCode,
+						}),
+					},
 				);
 				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
@@ -485,6 +559,290 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 				// THEN
 				expect(result.niveauEtudes).toBeUndefined();
+			});
+		});
+
+		describe('compétences linguistiques', () => {
+			describe('si une seule compétence est fourni', () => {
+				describe('si la compétence demandée est une compétence linguistique', () => {
+					describe('si le code de la langue fait parti du référentiel', () => {
+						describe('si le niveau attendu fait parti du référentiel', () => {
+							it('renvoie le niveau attendu et la langue', () => {
+								const handle = 'eures-offer-id';
+								const language = 'fr';
+								const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+									{
+										jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+											header: {
+												handle,
+											},
+											hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+												listeCompetencesLinguistiques: [{
+													language: language,
+													levelCode: LEVEL_CODE.C2,
+												}],
+											}),
+										}),
+									},
+								);
+								const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+								const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+								// WHEN
+								const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+								// THEN
+								expect(result.competencesLinguistiques).toEqual(anEmploiEurope({
+									competencesLinguistiques: [{
+										codeDuNiveauDeLangue: LEVEL_CODE.C2,
+										detailCompetenceLanguistique: [],
+										langage: 'français',
+										nomDuNiveauDeLangue: LEVEL_NAME.MAITRISE,
+									}],
+								}).competencesLinguistiques);
+							});
+
+							describe('si des informations plus précises sur la compétence sont fournies', () => {
+								it('renvoie les informations complémentaires', () => {
+									const handle = 'eures-offer-id';
+									const language = 'fr';
+									const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+										{
+											jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+												header: {
+													handle,
+												},
+												hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+													listeCompetencesLinguistiques: [{
+														competenciesDimensions: [
+															{ competencyDimensionName: 'CEF-Speaking-Interaction', levelCode: LEVEL_CODE.A2 },
+															{ competencyDimensionName: 'CEF-Writing-Interaction', levelCode: LEVEL_CODE.C1 },
+														],
+														language: language,
+														levelCode: LEVEL_CODE.C2,
+													}],
+												}),
+											}),
+										},
+									);
+									const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+									const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+									// WHEN
+									const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+									// THEN
+									expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
+										competencesLinguistiques: [{
+											codeDuNiveauDeLangue: LEVEL_CODE.C2,
+											detailCompetenceLanguistique: [{
+												codeDuNiveauDeLaCompetence: LEVEL_CODE.A2,
+												nomCompetence: 'CEF-Speaking-Interaction',
+												nomDuNiveauDeLaCompetence: LEVEL_NAME.INTERMEDIAIRE,
+											}, {
+												codeDuNiveauDeLaCompetence: LEVEL_CODE.C1,
+												nomCompetence: 'CEF-Writing-Interaction',
+												nomDuNiveauDeLaCompetence: LEVEL_NAME.AUTONOME,
+											}],
+											langage: 'français',
+											nomDuNiveauDeLangue: LEVEL_NAME.MAITRISE,
+										}],
+									}).competencesLinguistiques);
+								});
+
+								it('ne renvoie pas les informations complémentaires des compétences avec un niveau inconnu du reférentiel', () => {
+									const handle = 'eures-offer-id';
+									const language = 'fr';
+									const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+										{
+											jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+												header: {
+													handle,
+												},
+												hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+													listeCompetencesLinguistiques: [{
+														competenciesDimensions: [
+															{ competencyDimensionName: 'CEF-Speaking-Interaction', levelCode: 'toto' as LEVEL_CODE },
+															{ competencyDimensionName: 'CEF-Writing-Interaction', levelCode: LEVEL_CODE.C1 },
+														],
+														language: language,
+														levelCode: LEVEL_CODE.C2,
+													}],
+												}),
+											}),
+										},
+									);
+									const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+									const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+									// WHEN
+									const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+									// THEN
+									expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
+										competencesLinguistiques: [{
+											codeDuNiveauDeLangue: LEVEL_CODE.C2,
+											detailCompetenceLanguistique: [{
+												codeDuNiveauDeLaCompetence: LEVEL_CODE.C1,
+												nomCompetence: 'CEF-Writing-Interaction',
+												nomDuNiveauDeLaCompetence: LEVEL_NAME.AUTONOME,
+											}],
+											langage: 'français',
+											nomDuNiveauDeLangue: LEVEL_NAME.MAITRISE,
+										}],
+									}).competencesLinguistiques);
+								});
+							});
+						});
+
+						describe('si le niveau attendu ne fait pas parti du référentiel', () => {
+							it('ne renvoi pas la compétence linguistique', () => {
+								const handle = 'eures-offer-id';
+								const language = 'fr';
+								const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+									{
+										jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+											header: {
+												handle,
+											},
+											hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+												listeCompetencesLinguistiques: [{
+													language: language,
+													levelCode: 'toto' as LEVEL_CODE,
+												}],
+											}),
+										}),
+									},
+								);
+								const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+								const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+								// WHEN
+								const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+								// THEN
+								expect(result.competencesLinguistiques).toStrictEqual([]);
+							});
+						});
+					});
+
+					describe('si le code de la langue ne fait pas parti du référentiel', () => {
+						it('ne renvoi pas la compétence linguistique', () => {
+							const handle = 'eures-offer-id';
+							const language = 'pas un langage';
+							const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+								{
+									jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+										header: {
+											handle,
+										},
+										hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+											listeCompetencesLinguistiques: [{
+												language: language,
+												levelCode: LEVEL_CODE.B2,
+											}],
+										}),
+									}),
+								},
+							);
+							const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+							const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+							// WHEN
+							const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+							// THEN
+							expect(result.competencesLinguistiques).toStrictEqual([]);
+						});
+					});
+				});
+				describe('si la compétence demandée n‘est pas une compétence linguistique', () => {
+					it('ne renvoie pas la compétence linguistique', () => {
+						const handle = 'eures-offer-id';
+						const language = 'fr';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										listeCompetencesLinguistiques: [{
+											competenceType: 'other',
+											language: language,
+											levelCode: LEVEL_CODE.B2,
+										}],
+									}),
+								}),
+							},
+						);
+						const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+						// THEN
+						expect(result.competencesLinguistiques).toStrictEqual([]);
+					});
+				});
+			});
+
+			describe('si plusieurs compétences sont fournies', () => {
+				it('renvoie les données associés', () => {
+					const handle = 'eures-offer-id';
+					const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+						{
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle,
+								},
+								hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+									listeCompetencesLinguistiques: [{
+										competenceType: 'language',
+										competenciesDimensions: [{
+											competencyDimensionName: 'je suis la competence',
+											levelCode: LEVEL_CODE.A2,
+										}],
+										language: 'fr',
+										levelCode: LEVEL_CODE.C2,
+									},
+									{
+										competenceType: 'language',
+										language: 'nl',
+										levelCode: LEVEL_CODE.C1,
+									}],
+								}),
+							}),
+						},
+					);
+					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+					// WHEN
+					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+					// THEN
+					expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
+						competencesLinguistiques: [{
+							codeDuNiveauDeLangue: LEVEL_CODE.C2,
+							detailCompetenceLanguistique: [{
+								codeDuNiveauDeLaCompetence: LEVEL_CODE.A2,
+								nomCompetence: 'je suis la competence',
+								nomDuNiveauDeLaCompetence: LEVEL_NAME.INTERMEDIAIRE,
+							}],
+							langage: 'français',
+							nomDuNiveauDeLangue: LEVEL_NAME.MAITRISE,
+						},
+						{
+							codeDuNiveauDeLangue: LEVEL_CODE.C1,
+							detailCompetenceLanguistique: [],
+							langage: 'néerlandais',
+							nomDuNiveauDeLangue: LEVEL_NAME.AUTONOME,
+						}],
+					}).competencesLinguistiques,
+					);
+				});
 			});
 		});
 	});

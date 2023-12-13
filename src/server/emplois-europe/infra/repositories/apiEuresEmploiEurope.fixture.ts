@@ -1,8 +1,11 @@
 import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
+import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
-	ApiEuresEmploiEuropeRechercheRequestBody, ApiEuresEmploiEuropeResponseJobVacancy, ApiEuresEmploiEuropeResponseRelated,
+	ApiEuresEmploiEuropeRechercheRequestBody,
+	ApiEuresEmploiEuropeResponseJobVacancy,
+	ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 
 export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
@@ -35,7 +38,14 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						header: {
 							handle: '2',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Pâtissier (H/F)', 'La Pâtisserie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+							nomEntreprise: 'La Pâtisserie',
+							pays: 'FR',
+							tempsDeTravail: 'FullTime',
+							titre: 'Pâtissier (H/F)', 
+							ville: 'Paris',
+						}),
 					}),
 					related: anApiEuresEmploiEuropeDetailRelated({
 						urls: [{
@@ -62,7 +72,10 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		header: {
 			handle: '1',
 		},
-		hrxml: anApiEuresEmploiEuropeDetailXMLResponse('Boulanger (H/F)', 'La Boulangerie', 'FR', 'Paris', undefined, 'FullTime', EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT ),
+		hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+			{
+				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT, nomEntreprise: 'La Boulangerie', pays: 'FR', tempsDeTravail: 'FullTime', titre: 'Boulanger (H/F)', ville: 'Paris',
+			}),
 		...override,
 	};
 }
@@ -75,9 +88,73 @@ export function anApiEuresEmploiEuropeDetailRelated(override?: Partial<ApiEuresE
 		...override,
 	};
 }
-// TODO: Remplacer les X arguments de la fixture par un objet
-export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntreprise?: string, pays?: string, ville?: string, typeContrat?: string, tempsDeTravail?: string, educationLevelCode?: number): string {
-	return `
+
+interface languageCompetency {
+	language: string,
+	levelCode?: LEVEL_CODE
+	competenceType?: string
+	competenciesDimensions?: Array<{
+		competencyDimensionName: string,
+		levelCode: LEVEL_CODE
+	}>
+}
+
+function anXMLResponseLanguageCompetency(languageCompetencies: Array<languageCompetency> = [{
+	competenciesDimensions: [{
+		competencyDimensionName: 'competence demandée',
+		levelCode: LEVEL_CODE.B2,
+	}],
+	language: 'fr',
+	levelCode: LEVEL_CODE.A2,
+}]) {
+	return (languageCompetencies.map((competenceInfo) =>
+		`<PositionCompetency><CompetencyID>${competenceInfo.language}</CompetencyID>
+<TaxonomyID>${competenceInfo.competenceType ? competenceInfo.competenceType : 'language'}</TaxonomyID>
+<RequiredProficiencyLevel>
+	${competenceInfo.levelCode && `<ScoreText>${competenceInfo.levelCode}</ScoreText>`}
+</RequiredProficiencyLevel>
+${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
+			`<CompetencyDimension>
+				<CompetencyDimensionTypeCode>${competencyInfo.competencyDimensionName}</CompetencyDimensionTypeCode>
+				<Score>
+					<ScoreText>${competencyInfo.levelCode}</ScoreText>
+				</Score>
+			</CompetencyDimension>`)}
+</PositionCompetency>`));
+}
+
+
+interface ApiEuresEmploiEuropeDetailXMLResponsFixture {
+	titre?: string,
+	nomEntreprise?: string,
+	pays?: string,
+	ville?: string,
+	typeContrat?: string,
+	description?: string,
+	listePermis?: Array<string>,
+	listeCompetencesLinguistiques?: Array<languageCompetency>
+	listeLangueDeTravail?: Array<string>
+	tempsDeTravail?: string,
+	educationLevelCode?: number
+}
+
+function anXMLLicenseDriving(listePermis?: Array<string>){
+	if(!listePermis){
+		return '<LicenseTypeCode>B</LicenseTypeCode>';
+	}
+	return `${listePermis.map((permis)=> (`<LicenseTypeCode>${permis}</LicenseTypeCode>`) )}`;
+}
+
+function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
+	if(!listeLangueDeTravail){
+		return '<WorkingLanguageCode>nl</WorkingLanguageCode>';
+	}
+	return `${listeLangueDeTravail.map((langueDeTravail)=> (`<WorkingLanguageCode>${langueDeTravail}</WorkingLanguageCode>`) )}`;
+}
+
+
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode }: ApiEuresEmploiEuropeDetailXMLResponsFixture): string {
+	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
             schemeVersionID="1.3">DOCUMENT_ID
@@ -161,31 +238,11 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
                          listVersionID="ESCOv1">
             http://data.europa.eu/esco/occupation/uuid
         </JobCategoryCode>
-        ${ typeContrat ? `<PositionOfferingTypeCode> ${typeContrat}</PositionOfferingTypeCode>`: ''}
+        ${typeContrat ? `<PositionOfferingTypeCode> ${typeContrat}</PositionOfferingTypeCode>` : ''}
         <PositionQualifications>
-            <PositionCompetency>
-                <CompetencyID schemeID="ESCO_Skills" schemeVersionID="ESCOv1">
-                    http://data.europa.eu/esco/skill/uuid-2
-                </CompetencyID>
-                <TaxonomyID>other</TaxonomyID>
-                <RequiredProficiencyLevel>
-                    <ScoreText maximumScoreText="C2" minimumScoreText="A1">
-                        B2
-                    </ScoreText>
-                </RequiredProficiencyLevel>
-            </PositionCompetency>
-            <PositionCompetency>
-                <CompetencyID schemeID="ESCO_Skills" schemeVersionID="ESCOv1">
-                    http://data.europa.eu/esco/skill/uuid-3
-                </CompetencyID>
-                <TaxonomyID>other</TaxonomyID>
-                <RequiredProficiencyLevel>
-                    <ScoreText maximumScoreText="C2" minimumScoreText="A1">
-                        A2
-                    </ScoreText>
-                </RequiredProficiencyLevel>
-            </PositionCompetency>
-            <EducationRequirement>
+           	${anXMLLicenseDriving(listePermis)}
+            ${anXMLResponseLanguageCompetency(listeCompetencesLinguistiques)}
+             <EducationRequirement>
             ${(educationLevelCode !== undefined) ?  `<EducationLevelCode listName="EURES_ISCEDEducationLevel"
                  					 listURI="https://ec.europa.eu/eures"
                  					 listVersionID="2011"
@@ -210,12 +267,12 @@ export function anApiEuresEmploiEuropeDetailXMLResponse(titre?: string, nomEntre
             </ExperienceSummary>
         </PositionQualifications>
         <PositionFormattedDescription>
-            <Content>Contenu de l offre</Content>
+        	${description ? `<Content>${description}</Content>` : '<Content>&lt;p&gt;&lt;strong&gt;Fonction:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;En tant que Co&amp;#233;quipier cuisine, tu es un ambassadeur/une ambassadrice de la marque et tu portes nos valeurs dans ta boulangerie-restaurant.&lt;/li&gt; &lt;li&gt;Tu pr&amp;#233;pares nos plats dans ta cuisine et tu es un soutien au service en salle si n&amp;#233;cessaire. La pr&amp;#233;paration (mise en place) est &amp;#233;galement sous ta responsabilit&amp;#233;.&lt;/li&gt; &lt;/ul&gt;</Content>'}
         </PositionFormattedDescription>
         <TravelPreference>
             <ns2:Description>UNKNOWN</ns2:Description>
         </TravelPreference>
-        <WorkingLanguageCode>nl</WorkingLanguageCode>
+        ${anXMLWorkingLanguage(listeLangueDeTravail)}
         <ImmediateStartIndicator>
             false
         </ImmediateStartIndicator>
