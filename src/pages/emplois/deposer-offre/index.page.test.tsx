@@ -16,6 +16,14 @@ describe('Je recrute / Déposer une offre d‘emploi', () => {
 		mockSmallScreen();
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<DéposerUneOffreDEmploi/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider

@@ -14,6 +14,18 @@ import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterOffreEmploiPage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+		mockSmallScreen();
+		const offre = aBarmanOffre();
+
+		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterOffreEmploiPage offreEmploi={offre}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();

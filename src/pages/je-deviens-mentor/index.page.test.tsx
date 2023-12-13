@@ -12,6 +12,15 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import JeDeviensMentorPage from '~/pages/je-deviens-mentor/index.page';
 
 describe('<JeDeviensMentorPage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockSmallScreen();
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<JeDeviensMentorPage/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 

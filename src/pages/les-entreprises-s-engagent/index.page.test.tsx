@@ -12,6 +12,14 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import LesEntreprisesSEngagent from '~/pages/les-entreprises-s-engagent/index.page';
 
 describe('<LesEntreprisesSEngagent />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<LesEntreprisesSEngagent/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		const { container } = render(

@@ -45,7 +45,7 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 	}, []);
 
 	return (
-		<div
+		<span
 			onMouseEnter={() => setIsOpen(true)}
 			onMouseLeave={() => setIsOpen(false)}
 			onFocus={() => setIsOpen(true)}
@@ -66,14 +66,14 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				onClick={() => setIsOpen(!isOpen)}>
 				<Icon name={icon} className={styles.icon}/>
 			</button>
-			<div className={classNames(styles.tooltip)} role="tooltip" id={tooltipId} hidden={!isOpen}>
+			<span className={classNames(styles.tooltip)} role="tooltip" id={tooltipId} hidden={!isOpen}>
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(!isOpen)}>
 					<Icon name="close" />
 				</button>
-				<p className={styles.description}>
+				<span className={styles.description}>
 					{children}
-				</p>
-			</div>
-		</div>
+				</span>
+			</span>
+		</span>
 	);
 }

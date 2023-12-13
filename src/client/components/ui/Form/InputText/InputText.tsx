@@ -72,18 +72,19 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 	return (
 		<div className={classNames(styles.textInput, className)}>
 			{label && (
-				<>
-					<label className={styles.textInputLabel} htmlFor={inputId.current}>
+				<div className={styles.textInputLabel}>
+					<label htmlFor={inputId.current}>
 						{label}
-						{tooltip && tooltip}
 						{necessity && (
 							<span> (champ {necessity === 'required' ? 'obligatoire' : 'optionnel'})</span>
 						)}
 					</label>
-				</>
+					{tooltip}
+				</div>
 			)}
 			<input
 				ref={ref}
+				type="text"
 				{...rest}
 				id={inputId.current}
 				aria-describedby={hint && hintId.current}

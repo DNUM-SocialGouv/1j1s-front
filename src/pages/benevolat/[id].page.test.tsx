@@ -14,6 +14,19 @@ import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('<ConsulterMissionEngagementPage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const mission = anAmbassadeurDuDonDeVêtementMission();
+
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterMissionEngagementPage missionEngagement={mission}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const mission = anAmbassadeurDuDonDeVêtementMission();
 

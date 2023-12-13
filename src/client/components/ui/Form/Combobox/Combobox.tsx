@@ -191,6 +191,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<input
+					type="text"
 					role="combobox"
 				 	aria-expanded={open}
 					aria-autocomplete="list"

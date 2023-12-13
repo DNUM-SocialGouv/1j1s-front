@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import {
 	render,
 	screen,
-	within,
 } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
@@ -33,8 +32,7 @@ describe('<Entreprise />', () => {
 
 		it('affiche une infobulle pour le champ adresse mail', async () => {
 			render(<Entreprise />);
-			const champsAdresseMail = screen.getByText('Adresse mail de contact');
-			const infobulle = within(champsAdresseMail).getByLabelText('informations supplémentaires');
+			const infobulle =screen.getByLabelText('informations supplémentaires');
 			expect(infobulle).toBeVisible();
 		});
 

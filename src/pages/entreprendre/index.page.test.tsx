@@ -13,6 +13,17 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Entreprendre from '~/pages/entreprendre/index.page';
 
 describe('<Entreprendre />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<Entreprendre/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();

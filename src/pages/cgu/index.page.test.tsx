@@ -13,6 +13,18 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Cgu from '~/pages/cgu/index.page';
 
 describe('<Cgu />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+		mockSmallScreen();
+
+		const { container } = render(
+			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+				<Cgu titre={'titre'} contenu={'contenu'}/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();

@@ -25,6 +25,15 @@ describe('Page d‘accueil', () => {
 		analyticsService = aManualAnalyticsService();
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(
+			<DependenciesProvider analyticsService={analyticsService}>
+				<Accueil/>
+			</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>

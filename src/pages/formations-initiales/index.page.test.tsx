@@ -45,6 +45,24 @@ describe('quand le feature flip est actif', () => {
 		mockLargeScreen();
 	});
 
+	it('doit rendre du HTML respectant la specification', async () => {
+		const user = userEvent.setup();
+
+
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				formationInitialeService={aFormationInitialeService()}>
+				<FormationsInitialesPage/>
+			</DependenciesProvider> );
+
+		const rechercherButton = screen.getByRole('button', { name: 'Rechercher' });
+		await user.click(rechercherButton);
+
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+		
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({ query: { page: '1' } });
 		const user = userEvent.setup();

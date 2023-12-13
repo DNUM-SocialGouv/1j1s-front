@@ -12,6 +12,16 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import JeRecrutePage from '~/pages/je-recrute/index.page';
 
 describe('<JeRecrutePage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockSmallScreen();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<JeRecrutePage/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 

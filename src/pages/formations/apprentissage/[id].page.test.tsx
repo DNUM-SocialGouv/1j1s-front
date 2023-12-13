@@ -171,6 +171,17 @@ describe('getServerSideProps', () => {
 });
 
 describe('Page Consulter Formations en Apprentissage', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const formation = aFormation();
+		mockUseRouter({});
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterFormationPage formation={formation}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const formation = aFormation();
 		const analyticsService = aManualAnalyticsService();

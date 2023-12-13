@@ -18,6 +18,14 @@ describe('Les aides au logement', () => {
 		mockSmallScreen();
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<AidesLogement/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider

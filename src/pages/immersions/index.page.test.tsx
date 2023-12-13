@@ -11,6 +11,14 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import Immersions from '~/pages/immersions/index.page';
 
 describe('<Immersions />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<Immersions/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
 			<DependenciesProvider

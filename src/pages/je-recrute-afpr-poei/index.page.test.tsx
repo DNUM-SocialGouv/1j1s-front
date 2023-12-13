@@ -12,6 +12,16 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import JeRecruteAfprPoeiPage from '~/pages/je-recrute-afpr-poei/index.page';
 
 describe('<JeRecruteAfprPoeiPage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockSmallScreen();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<JeRecruteAfprPoeiPage/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
 

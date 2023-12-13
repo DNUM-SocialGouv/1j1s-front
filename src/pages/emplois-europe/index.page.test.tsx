@@ -8,6 +8,7 @@ import {
 	render,
 	screen,
 } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -37,7 +38,29 @@ describe('Page emplois en europe', () => {
 			mockUseRouter({});
 			mockSmallScreen();
 		});
+		it('doit rendre du HTML respectant la specification', async() => {
+			const user = userEvent.setup();
+			mockUseRouter({
+				query: {
+					page: '1',
+				},
+			});
+
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					emploiEuropeService={anEmploiEuropeService()}>
+					<EmploiEuropePage/>
+				</DependenciesProvider> );
+			
+			const boutonRecherche = screen.getByRole('button', { name: 'Rechercher' });
+			await user.click(boutonRecherche);
+			
+			expect(container.outerHTML).toHTMLValidate();
+		});
+			
 		it('n‘a pas de défaut d‘accessibilité', async () => {
+			const user = userEvent.setup();
 			mockUseRouter({
 				query: {
 					page: '1',
@@ -50,6 +73,10 @@ describe('Page emplois en europe', () => {
 				>
 					<EmploiEuropePage/>
 				</DependenciesProvider>);
+			const boutonRecherche = screen.getByRole('button', { name: 'Rechercher' });
+			await user.click(boutonRecherche);
+
+
 			await expect(container).toBeAccessible();
 		});
 

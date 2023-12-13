@@ -56,6 +56,14 @@ describe('<ConsulterEmploiEurope />', () => {
 		});
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const analyticsService = aManualAnalyticsService();
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+		</DependenciesProvider>);
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>

@@ -22,6 +22,14 @@ describe('Page consulter fiche métier', () => {
 		jest.clearAllMocks();
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterFicheMetierPage ficheMetier={aFicheMetier()}/>
+		</DependenciesProvider> );
+		
+		expect(container.outerHTML).toHTMLValidate();
+	});
+		
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const ficheMetier = aFicheMetier();
 		const analyticsService = aManualAnalyticsService();

@@ -20,6 +20,16 @@ describe('<ConsulterJobEtePage />', () => {
 		mockUseRouter({});
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const jobEte = aBarmanOffre();
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterJobEtePage jobEte={jobEte}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const jobEte = aBarmanOffre();
 		const { container } = render(

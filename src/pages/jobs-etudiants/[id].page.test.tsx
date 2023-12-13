@@ -13,6 +13,16 @@ import ConsulterJobÉtudiantPage from '~/pages/jobs-etudiants/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterJobÉtudiantPage />', () => {
+	it('doit rendre du HTML respectant la specification', () => {
+		mockUseRouter({});
+
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<ConsulterJobÉtudiantPage jobÉtudiant={aBarmanOffre()}/>
+		</DependenciesProvider> );
+		
+		expect(container.outerHTML).toHTMLValidate();
+	});
+		
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const offre = aBarmanOffre();
 

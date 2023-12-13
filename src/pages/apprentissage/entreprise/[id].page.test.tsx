@@ -25,6 +25,14 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 		mockUseRouter({});
 	});
 
+	it('doit rendre du HTML respectant la specification', () => {
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<AnnonceAlternanceEntreprisePage id={siret}/>
+		</DependenciesProvider> );
+
+		expect(container.outerHTML).toHTMLValidate();
+	});
+
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
