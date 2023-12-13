@@ -20,6 +20,7 @@ import {
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { Erreur } from '~/server/errors/erreur.types';
+import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 
 export default function RechercherEmploisEurope() {
 	const emploiEuropeQuery = useEmploiEuropeQuery();
@@ -48,7 +49,9 @@ export default function RechercherEmploisEurope() {
 	}, [emploiEuropeQuery, emploiEuropeService]);
 
 	const messageResultatRecherche: string = useMemo(() => {
-		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
+		const nombreResultatsFormaté = formatNumberWithSpace(nombreResultats);
+
+		const messageResultatRechercheSplit: string[] = [`${nombreResultatsFormaté}`];
 		if (nombreResultats > 1) {
 			messageResultatRechercheSplit.push('offres d’emplois en Europe');
 		} else {

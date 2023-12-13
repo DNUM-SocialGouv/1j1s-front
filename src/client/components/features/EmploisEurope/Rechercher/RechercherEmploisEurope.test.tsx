@@ -245,11 +245,11 @@ describe('RechercherEmploisEurope', () => {
 			});
 
 			describe('quand la recherche contient plusieurs résultats', () => {
-				it('affiche le nombre de résultats de la recherche', async () => {
+				it('affiche le nombre de résultats de la recherche avec des espaces tous les 3 caractères', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
 					const resultatsService = aResultatRechercheEmploiEuropeList({
-						nombreResultats: 2,
+						nombreResultats: 123456789,
 						offreList: [
 							anEmploiEurope({
 								id: '1',
@@ -284,7 +284,7 @@ describe('RechercherEmploisEurope', () => {
 					);
 					const nombreResultats = await screen.findByRole('heading', {
 						level: 2,
-						name: '2 offres d’emplois en Europe pour Développeur',
+						name: '123 456 789 offres d’emplois en Europe pour Développeur',
 					});
 
 					// THEN
