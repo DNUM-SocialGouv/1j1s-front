@@ -14,13 +14,13 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
+import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { Erreur } from '~/server/errors/erreur.types';
-import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 
 export default function RechercherEmploisEurope() {
 	const emploiEuropeQuery = useEmploiEuropeQuery();
