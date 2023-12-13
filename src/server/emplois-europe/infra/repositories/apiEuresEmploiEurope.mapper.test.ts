@@ -252,6 +252,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 									tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
 									titre: 'Boulanger (H/F)',
 									ville: 'Paris',
+									anneesDExperience: 3
 								},
 							),
 						}),
@@ -282,8 +283,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				typeContrat: undefined,
 				urlCandidature: 'https://urlDeCandidature.com',
 				ville: 'Paris',
+				anneesDExperience: 3
 			}));
 		});
+
 		describe('type de contrat', () => {
 			describe('si le type de contrat EURES est fourni', () => {
 				it('retourne un emploi avec le type de contrat en français selon le référentiel', () => {
@@ -605,8 +608,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								}).competencesLinguistiques);
 							});
 
-							describe('si des informations plus précises sur la compétence sont fournies', () => {
-								it('renvoie les informations complémentaires', () => {
+							describe('si des compétences plus précises sont fournies', () => {
+								it('renvoie les compétences supplémentaires avec le nom de la compétence selon le référentiel', () => {
 									const handle = 'eures-offer-id';
 									const language = 'fr';
 									const aDetailItem = anApiEuresEmploiEuropeDetailItem(

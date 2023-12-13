@@ -1064,6 +1064,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							titre: 'Nom Offre aaaaa',
 							typeContrat: undefined,
 							ville: 'Paris',
+							anneesDExperience: undefined
 						}),
 					},
 					related: {
@@ -1087,7 +1088,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3ODMxMyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris' }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris', anneesDExperience: 1 }),
 					},
 					related: {
 						urls: [
@@ -1110,7 +1111,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ tempsDeTravail: 'FlexTime', titre: 'Nom Offre' }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ tempsDeTravail: 'FlexTime', titre: 'Nom Offre', anneesDExperience: 2 }),
 					},
 					related: {
 						urls: [

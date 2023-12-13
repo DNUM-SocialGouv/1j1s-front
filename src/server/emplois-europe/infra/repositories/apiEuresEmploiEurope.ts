@@ -73,6 +73,7 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 		PositionCompetency: PositionCompetency | Array<PositionCompetency>
 		LicenseTypeCode: string
 		EducationRequirement?: EducationRequirement | Array<EducationRequirement>
+		ExperienceSummary?: ExperienceSummary | Array<ExperienceSummary>
 	}
 
 	export interface PositionCompetency {
@@ -94,6 +95,15 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 	export interface EducationRequirement {
 		EducationLevelCode?: number;
 	}
+
+	export interface ExperienceSummary {
+		ExperienceCategory?: ExperienceCategory | Array<ExperienceCategory>
+	}
+
+	interface ExperienceCategory{
+		Measure: number | Array<number>
+	}
+
 
 	export interface PositionOpening {
 		PositionProfile?: PositionProfile | Array<PositionProfile>

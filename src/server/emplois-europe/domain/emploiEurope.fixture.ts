@@ -50,6 +50,7 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		typeContrat: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
 		ville: 'Paris',
+		anneesDExperience: 3,
 		...override,
 	};
 }

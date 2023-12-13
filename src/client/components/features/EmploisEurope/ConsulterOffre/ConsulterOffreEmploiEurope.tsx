@@ -36,12 +36,19 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 		});
 	}
 
+	function getYearsOfExperience(yearOfExperience: number) {
+		if (yearOfExperience === 0) return 'Aucune année d‘expérience requise';
+		if (yearOfExperience === 1) return '1 an';
+		return `${yearOfExperience} ans`
+	}
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{annonceEmploiEurope.titre || 'Offre d’emploi sans titre'}</h1>
 				{annonceEmploiEurope.nomEntreprise && <p className={styles.sousTitre}>{annonceEmploiEurope.nomEntreprise}</p>}
-				<TagList className={styles.tags} list={getTagsFromAnnonce(annonceEmploiEurope)} aria-label="Caractéristiques de l‘offre d‘emploi" />
+				<TagList className={styles.tags} list={getTagsFromAnnonce(annonceEmploiEurope)}
+								 aria-label="Caractéristiques de l‘offre d‘emploi"/>
 			</header>
 			{annonceEmploiEurope.urlCandidature &&
           <LinkStyledAsButtonWithIcon href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
@@ -50,21 +57,25 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 			<section className={styles.contenu}>
 				<dl>
 					{annonceEmploiEurope.description && <div className={styles.caracteristique}>
-						<dt>Description du poste</dt>
-						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
-					</div>}
+              <dt>Description du poste</dt>
+              <dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
+          </div>}
 					{annonceEmploiEurope.listePermis?.length > 0 && <div className={styles.caracteristique}>
-						<dt>Type de permis requis</dt>
-						<dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
-					</div>}
+              <dt>Type de permis requis</dt>
+              <dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
+          </div>}
+					{annonceEmploiEurope.anneesDExperience !== undefined && <div className={styles.caracteristique}>
+              <dt>Expérience</dt>
+              <dd>{getYearsOfExperience(annonceEmploiEurope.anneesDExperience)}</dd>
+          </div>}
 					{annonceEmploiEurope.langueDeTravail.length > 0 && <div className={styles.caracteristique}>
-						<dt>Langue de travail</dt>
-						<dd className={styles.langueDeTravailDescription}>{annonceEmploiEurope.langueDeTravail.join(', ')}</dd>
-					</div>}
+              <dt>Langue de travail</dt>
+              <dd className={styles.langueDeTravailDescription}>{annonceEmploiEurope.langueDeTravail.join(', ')}</dd>
+          </div>}
 					{competencesLinguistiques?.length > 0 && <div className={styles.caracteristique}>
-						<dt>Compétences linguistiques requises</dt>
-						<dd>{getCompetencesLinguistiquesRequises()}</dd>
-					</div>}
+              <dt>Compétences linguistiques requises</dt>
+              <dd>{getCompetencesLinguistiquesRequises()}</dd>
+          </div>}
 				</dl>
 			</section>
 		</ConsulterOffreLayout>

@@ -90,112 +90,11 @@ describe('DetailOffreEmploiEurope', () => {
 		expect(nomDeLEntreprise).toBeVisible();
 	});
 
-	describe('affiche la description de l‘offre', () => {
-		it('affiche la description de l‘offre si elle est disponible', () => {
-			const offreEmploiEurope = anEmploiEurope({ description: 'Je suis la description' });
-
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
-		});
-
-		it('sanitize la description de l‘offre', () => {
-			const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
-
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
-		});
-
-		it('n‘affiche pas la description de l‘offre si elle n‘est pas disponible', () => {
-			const offreEmploiEurope = anEmploiEurope({ description: undefined });
-
-			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(queryByDescriptionTerm('Description du poste')).not.toBeInTheDocument();
-		});
-	});
-
-	describe('affiche le permis requis', () => {
-		it('affiche les permis requis si ils sont disponibles', () => {
-			const offreEmploiEurope = anEmploiEurope({ listePermis: ['B', 'C'] });
-
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(getByDescriptionTerm('Type de permis requis')).toHaveTextContent('B, C');
-		});
-
-		it('n‘affiche pas le permis requis si il n‘est pas disponible', () => {
-			const offreEmploiEurope = anEmploiEurope({ listePermis: [] });
-
-			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
-		});
-	});
-
-	describe('langue de travail', () => {
-		it('affiche les langues si elles sont disponibles', () => {
-			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: ['Anglais', 'Français'] });
-
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(getByDescriptionTerm('Langue de travail')).toHaveTextContent('Anglais, Français');
-		});
-
-		it('n‘affiche pas la langue si elle n‘est pas disponible', () => {
-			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: [] });
-
-			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(queryByDescriptionTerm('Langue de travail')).not.toBeInTheDocument();
-		});
-	});
-
-	describe('les compétences linguistiques', () => {
-		it('affiche les compétences demandées', () => {
-			const offreEmploiEurope = anEmploiEurope({
-				competencesLinguistiques: [{
-					codeDuNiveauDeLangue: LEVEL_CODE.B2,
-					detailCompetenceLanguistique: [
-						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.A1, nomCompetence: 'competence 1', nomDuNiveauDeLaCompetence: LEVEL_NAME.ELEMENTAIRE },
-						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.C2, nomCompetence: 'competence 2', nomDuNiveauDeLaCompetence: LEVEL_NAME.MAITRISE },
-					],
-					langage: 'français',
-					nomDuNiveauDeLangue: LEVEL_NAME.AVANCE,
-				}],
-			});
-
-			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			const competencesLinguistiquesDescription = queryByDescriptionTerm('Compétences linguistiques requises');
-			expect(competencesLinguistiquesDescription).toHaveTextContent('français (B2 - avancé)');
-			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 1 (A1 - élémentaire)');
-			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 2 (C2 - maitrise)');
-		});
-
-		it('n‘affiche pas les compétences s‘il n‘y en a pas', () => {
-			const offreEmploiEurope = anEmploiEurope({ competencesLinguistiques: [] });
-
-			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
-
-			expect(queryByDescriptionTerm('Compétences linguistiques requises')).not.toBeInTheDocument();
-		});
-	});
 	describe('Tags', () => {
 		it('si le type de contrat est présent, affiche le type de contrat',  () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ typeContrat: 'Embauche directe' });
-		
+
 			// WHEN
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
@@ -289,5 +188,144 @@ describe('DetailOffreEmploiEurope', () => {
 			});
 		});
 	});
-	
+
+	describe('affiche la description de l‘offre', () => {
+		it('affiche la description de l‘offre si elle est disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: 'Je suis la description' });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
+		});
+
+		it('sanitize la description de l‘offre', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
+		});
+
+		it('n‘affiche pas la description de l‘offre si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ description: undefined });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Description du poste')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('affiche le permis requis', () => {
+		it('affiche les permis requis si ils sont disponibles', () => {
+			const offreEmploiEurope = anEmploiEurope({ listePermis: ['B', 'C'] });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Type de permis requis')).toHaveTextContent('B, C');
+		});
+
+		it('n‘affiche pas le permis requis si il n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ listePermis: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('langue de travail', () => {
+		it('affiche les langues si elles sont disponibles', () => {
+			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: ['Anglais', 'Français'] });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Langue de travail')).toHaveTextContent('Anglais, Français');
+		});
+
+		it('n‘affiche pas la langue si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Langue de travail')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('les compétences linguistiques', () => {
+		it('affiche les compétences demandées', () => {
+			const offreEmploiEurope = anEmploiEurope({
+				competencesLinguistiques: [{
+					codeDuNiveauDeLangue: LEVEL_CODE.B2,
+					detailCompetenceLanguistique: [
+						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.A1, nomCompetence: 'competence 1', nomDuNiveauDeLaCompetence: LEVEL_NAME.ELEMENTAIRE },
+						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.C2, nomCompetence: 'competence 2', nomDuNiveauDeLaCompetence: LEVEL_NAME.MAITRISE },
+					],
+					langage: 'français',
+					nomDuNiveauDeLangue: LEVEL_NAME.AVANCE,
+				}],
+			});
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			const competencesLinguistiquesDescription = getByDescriptionTerm('Compétences linguistiques requises');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('français (B2 - avancé)');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 1 (A1 - élémentaire)');
+			expect(competencesLinguistiquesDescription).toHaveTextContent('competence 2 (C2 - maitrise)');
+		});
+
+		it('n‘affiche pas les compétences s‘il n‘y en a pas', () => {
+			const offreEmploiEurope = anEmploiEurope({ competencesLinguistiques: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Compétences linguistiques requises')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('niveau d‘expérience', () => {
+		it('lorsque le niveau d‘expérience n‘est pas fourni, n‘affiche pas de message', () => {
+			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: undefined });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Expérience')).not.toBeInTheDocument();
+		});
+
+		it('lorsque qu‘aucune année d‘expérience est demandée', () => {
+			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 0 });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune année d‘expérience requise')
+		});
+
+		it('lorsque qu‘une année d‘expérience est demandée', () => {
+			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 1 });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an')
+		});
+
+		it('lorsque plusieurs années d‘expériences sont demandées', () => {
+			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 5 });
+
+			const { getByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans')
+		});
+	});
 });

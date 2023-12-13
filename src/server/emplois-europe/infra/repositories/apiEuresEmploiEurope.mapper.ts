@@ -89,6 +89,10 @@ export class ApiEuresEmploiEuropeMapper {
 
 		const positionsCompetencies = positionQualifications?.PositionCompetency;
 		const competencesLinguistiques = positionsCompetencies ? this.getLanguageCompetencies(positionsCompetencies) : [];
+		
+		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
+		const experienceCategory= this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
+		const anneesDExperience= this.getElementOrFirstElementInArray(experienceCategory?.Measure);
 
 		const listDrivingLicense = this.transformElementToArray<string>(positionQualifications?.LicenseTypeCode);
 
@@ -99,6 +103,7 @@ export class ApiEuresEmploiEuropeMapper {
 		const niveauEtudes = this.mapNiveauEtudes(educationLevelCode);
 
 		return {
+			anneesDExperience,
 			competencesLinguistiques: competencesLinguistiques,
 			description: descriptionDetail,
 			id: handle,
