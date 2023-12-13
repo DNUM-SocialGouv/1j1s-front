@@ -637,6 +637,8 @@ span#tarteaucitronDisclaimerAlert {
     padding: 10px 0 10px 0;
     margin: auto;
     width: 100%;
+    overflow: scroll;
+    max-height: 80%;
 }
 
 #tarteaucitronAlertBig #tarteaucitronPrivacyUrl,
