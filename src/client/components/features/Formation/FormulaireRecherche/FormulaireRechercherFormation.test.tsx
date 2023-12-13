@@ -12,14 +12,16 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercherFormation,
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
+import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
-import { Metier } from '~/server/metiers/domain/metier';
+import { createSuccess } from '~/server/errors/either';
+import { MetierLba } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 describe('FormulaireRechercherFormation', () => {
@@ -31,7 +33,6 @@ describe('FormulaireRechercherFormation', () => {
 		it('affiche un formulaire pour la recherche de formation, sans échantillon de résultat', async () => {
 			// GIVEN
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
 
@@ -39,8 +40,8 @@ describe('FormulaireRechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					metierService={métierService}
 					localisationService={localisationService}
+					httpClientService={anHttpClientService()}
 				>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
@@ -58,21 +59,23 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
-				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+				label: aListeDeMetierLaBonneAlternance()[0].label,
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMetierList);
+			const httpService = anHttpClientService();
+			jest.spyOn(httpService, 'get').mockResolvedValue(createSuccess(aMetierList));
 
 			// When
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					metierService={métierService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+					httpClientService={httpService}
+				>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -109,21 +112,23 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMetierList);
+			const httpService = anHttpClientService();
+			jest.spyOn(httpService, 'get').mockResolvedValue(createSuccess(aMetierList));
 
 			// When
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					metierService={métierService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+					httpClientService={httpService}
+				>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -147,21 +152,23 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMetierList);
+			const httpService = anHttpClientService();
+			jest.spyOn(httpService, 'get').mockResolvedValue(createSuccess(aMetierList));
 
 			// When
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					metierService={métierService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+					httpClientService={httpService}
+				>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -186,21 +193,23 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
-			const métierService = aMetierService(aMetierList);
+			const httpService = anHttpClientService();
+			jest.spyOn(httpService, 'get').mockResolvedValue(createSuccess(aMetierList));
 
 			// When
 			render(
 				<DependenciesProvider
 					formationService={formationService}
-					metierService={métierService}
-					localisationService={localisationService}>
+					localisationService={localisationService}
+					httpClientService={httpService}
+				>
 					<FormulaireRechercherFormation/>
 				</DependenciesProvider>,
 			);
@@ -255,9 +264,11 @@ describe('FormulaireRechercherFormation', () => {
 			}),
 		};
 		mockUseRouter({ query });
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);
@@ -279,9 +290,11 @@ describe('FormulaireRechercherFormation', () => {
 			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
 		};
 		mockUseRouter({ query });
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);
@@ -300,9 +313,11 @@ describe('FormulaireRechercherFormation', () => {
 			codeRomes: 'D1102,D1104',
 		};
 		mockUseRouter({ query });
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercherFormation/>
 			</DependenciesProvider>,
 		);

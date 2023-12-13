@@ -10,6 +10,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage from '~/pages/apprentissage/index.page';
@@ -41,6 +42,7 @@ describe('Page rechercher une alternance', () => {
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					metierService={métiersServiceMock}
+					httpClientService={anHttpClientService()}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -82,6 +84,7 @@ describe('Page rechercher une alternance', () => {
 				localisationService={localisationServiceMock}
 				alternanceService={alternanceServiceMock}
 				metierService={métiersServiceMock}
+				httpClientService={anHttpClientService()}
 			>
 				<RechercherAlternancePage/>
 			</DependenciesProvider>,
@@ -102,6 +105,7 @@ describe('Page rechercher une alternance', () => {
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					metierService={métiersServiceMock}
+					httpClientService={anHttpClientService()}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -124,6 +128,7 @@ describe('Page rechercher une alternance', () => {
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
 					metierService={métiersServiceMock}
+					httpClientService={anHttpClientService()}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,

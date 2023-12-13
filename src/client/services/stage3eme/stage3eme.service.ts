@@ -5,5 +5,5 @@ import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme
 
 export interface Stage3emeService {
 	rechercherStage3eme(query: Stage3emeQueryParams): Promise<Either<ResultatRechercheStage3eme>>;
-	rechercherAppellationMetier(motCle: string): Promise<Either<MetierStage3eme[]>>;
+	rechercherMetier(motCle: string): Promise<Either<MetierStage3eme[]>>;
 }

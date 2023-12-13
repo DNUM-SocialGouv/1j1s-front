@@ -8,17 +8,19 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
+import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import {
 	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
-import { Metier } from '~/server/metiers/domain/metier';
+import { createSuccess } from '~/server/errors/either';
+import { MetierLba } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 describe('FormulaireRechercheAlternance', () => {
@@ -29,16 +31,17 @@ describe('FormulaireRechercheAlternance', () => {
 		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
 			// GIVEN
 			const alternanceService = anAlternanceService();
-			const metierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 			// WHEN
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -50,11 +53,13 @@ describe('FormulaireRechercheAlternance', () => {
 			expect(alternanceService.rechercherAlternance).toHaveBeenCalledTimes(0);
 		});
 		it('lorsque je séléctionne une commune, affiche le champ rayon', async () => {
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 			render(
 				<DependenciesProvider
 					alternanceService={anAlternanceService()}
-					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -76,20 +81,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -128,20 +134,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -166,20 +173,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<MetierLba> = [{
+				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
 			}];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -214,9 +222,11 @@ describe('FormulaireRechercheAlternance', () => {
 				}),
 			},
 		});
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
@@ -235,9 +245,11 @@ describe('FormulaireRechercheAlternance', () => {
 				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
 			},
 		});
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
@@ -256,9 +268,11 @@ describe('FormulaireRechercheAlternance', () => {
 				codeRomes: 'D1102,D1104',
 			},
 		});
+		const httpClientService = anHttpClientService();
+		jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} httpClientService={httpClientService}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);

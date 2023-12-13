@@ -10,6 +10,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 
 import Stages3emePage, { getServerSideProps } from './index.page';
@@ -40,6 +42,7 @@ describe('Page stages de 3ème', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
+					httpClientService={anHttpClientService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -52,6 +55,7 @@ describe('Page stages de 3ème', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
+					httpClientService={anHttpClientService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -64,6 +68,8 @@ describe('Page stages de 3ème', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
+					metierService={aMetierService()}
+					httpClientService={anHttpClientService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -83,6 +89,8 @@ describe('Page stages de 3ème', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					stage3emeService={aStage3emeService()}
+					metierService={aMetierService()}
+					httpClientService={anHttpClientService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>,

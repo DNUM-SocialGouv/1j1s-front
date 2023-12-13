@@ -1,7 +1,7 @@
 import { Either } from '~/server/errors/either';
 
-import { Metier } from './metier';
+import { MetierLba } from './metier';
 
 export interface MétierRepository {
-	getMetierList(recherche: string): Promise<Either<Array<Metier>>>
+	getMetierList(recherche: string): Promise<Either<Array<MetierLba>>>
 }

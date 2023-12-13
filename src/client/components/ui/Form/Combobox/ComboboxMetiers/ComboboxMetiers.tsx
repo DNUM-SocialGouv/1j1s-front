@@ -1,8 +1,9 @@
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
+import { MetierCode } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
 
 import { Combobox } from '..';
@@ -11,7 +12,7 @@ import styles from './ComboboxMetiers.module.scss';
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 export type MetierOption = {
 	label: string,
-	romes: string[],
+	code: MetierCode[],
 };
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
   label?: string,
@@ -54,7 +55,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		...comboboxProps
 	} = props;
 
-	const metierRechercheService = useDependency<BffMetierService>('metierService');
+	const metierRechercheService = useDependency<MetierService>('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
@@ -72,7 +73,10 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 			if (response && isSuccess(response)) {
 				setStatus('success');
-				setMetiers(response.result);
+				setMetiers(response.result.map((metier) => ({
+					code: metier.code.map((code) => code.toString()),
+					label: metier.label,
+				})));
 			} else {
 				setStatus('failure');
 			}
@@ -131,7 +135,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 			>
 				{
 					(metiers.map((suggestion) => (
-						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
+						<Combobox.Option key={suggestion.label} value={suggestion.code}>{suggestion.label}</Combobox.Option>
 					)))
 				}
 				<Combobox.AsyncMessage>

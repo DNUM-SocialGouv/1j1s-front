@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router';
-import { FormEvent, useRef } from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { ComboboxMetiersStage3eme } from '~/client/components/ui/Form/Combobox/ComboboxMetiersStage3eme';
+import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { DependenciesProvider, useDependency } from '~/client/context/dependenciesContainer.context';
 import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
+import { HttpClientService } from '~/client/services/httpClient.service';
+import { BffStage3emeMetierService } from '~/client/services/metiers/bff.stage.metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheStages3eme() {
@@ -17,8 +21,10 @@ export function FormulaireRechercheStages3eme() {
 	} = queryParams;
 
 	const metierDefaultValue = (codeMetier && libelleMetier)
-		? { code: codeMetier, libelle: libelleMetier }
+		? { code: [new MetierCodeAppellation(codeMetier)], label: libelleMetier }
 		: undefined;
+	
+	const metierService = new BffStage3emeMetierService(useDependency<HttpClientService>('httpClientService'));
 
 	const rechercheStage3emeForm = useRef<HTMLFormElement>(null);
 
@@ -41,11 +47,14 @@ export function FormulaireRechercheStages3eme() {
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
-					<ComboboxMetiersStage3eme
-						defaultValue={metierDefaultValue}
-						placeholder={'Exemples : boulanger, styliste...'}
-						label={'Métier (facultatif)'}
-					/>
+					<DependenciesProvider metierService={metierService}>
+						<ComboboxMetiers
+							defaultValue={metierDefaultValue}
+							placeholder={'Exemples : boulanger, styliste...'}
+							label={'Métier (facultatif)'}
+							valueName={'codeMetier'}
+						/>
+					</DependenciesProvider>
 				</div>
 			</div>
 			<div className={styles.buttonRechercher}>

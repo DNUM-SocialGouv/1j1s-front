@@ -52,14 +52,15 @@ export type Dependencies = {
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
+	httpClientService: HttpClientService
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
+	metierService: MetierService
 	missionEngagementService: MissionEngagementService
 	offreService: OffreService
 	rechercheClientService: SearchClient
 	routingService: RoutingService
 	stageService: StageService
-	metierService: MetierService
 	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 	marketingService: MarketingService
@@ -136,6 +137,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		emploiEuropeService: emploiEuropeService,
 		formationInitialeService,
 		formationService,
+		httpClientService,
 		lesEntreprisesSEngagentService,
 		localisationService,
 		marketingService,

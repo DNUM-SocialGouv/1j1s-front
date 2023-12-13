@@ -11,6 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -30,15 +31,15 @@ describe('FormulaireRechercheStages3eme', () => {
 			const routerPush = jest.fn();
 			const user = userEvent.setup();
 			mockUseRouter({ push: routerPush });
-			const stage3emeService = aStage3emeService({
-				rechercherAppellationMetier: jest.fn().mockResolvedValue(createSuccess([
-					{ code: 'codeMetier', libelle: 'boulanger' },
-				])),
-			});
+			const httpClientService = anHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess([
+				{ code: 'codeMetier', libelle: 'boulanger' },
+			]));
 			
 			render(
 				<DependenciesProvider
-					stage3emeService={stage3emeService}
+					stage3emeService={aStage3emeService()}
+					httpClientService={httpClientService}
 				>
 					<FormulaireRechercheStages3eme />
 				</DependenciesProvider>,

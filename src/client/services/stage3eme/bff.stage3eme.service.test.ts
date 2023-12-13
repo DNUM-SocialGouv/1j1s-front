@@ -44,7 +44,7 @@ describe('BffStage3emeService', () => {
 			const bffStage3emeService = new BffStage3emeService(httpClientService);
 
 			// When
-			await bffStage3emeService.rechercherAppellationMetier('motCle');
+			await bffStage3emeService.rechercherMetier('motCle');
 
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers?motCle=motCle');

@@ -11,7 +11,10 @@ import {
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
+import { DependenciesProvider, useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
+import { HttpClientService } from '~/client/services/httpClient.service';
+import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
 
@@ -30,8 +33,10 @@ export function FormulaireRechercherFormation() {
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { label: libelleMetier, romes: codeRomes }
+		? { code: codeRomes, label: libelleMetier }
 		: undefined;
+
+	const metierService = new BffMetierService(useDependency<HttpClientService>('httpClientService'));
 
 	const communeDefaultValue = mapToCommune({
 		codeCommune,
@@ -67,12 +72,15 @@ export function FormulaireRechercherFormation() {
 			>
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
-						<ComboboxMetiers
-							defaultValue={domaineDefaultValue}
-							required
-							autoFocus
-							placeholder="Exemples : ingénierie, agronomie..."
-						/>
+						<DependenciesProvider metierService={metierService}>
+							<ComboboxMetiers
+								defaultValue={domaineDefaultValue}
+								required
+								autoFocus
+								placeholder="Exemples : ingénierie, agronomie..."
+								valueName={'codeRomes'}
+							/>
+						</DependenciesProvider>
 						<ComboboxCommune
 							defaultCommune={communeDefaultValue}
 							showRadiusInput

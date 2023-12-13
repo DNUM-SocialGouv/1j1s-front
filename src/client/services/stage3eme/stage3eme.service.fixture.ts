@@ -6,7 +6,7 @@ import { Stage3emeService } from './stage3eme.service';
 
 export function aStage3emeService(override?: Partial<Stage3emeService>): Stage3emeService {
 	return {
-		rechercherAppellationMetier: jest.fn().mockResolvedValue(createSuccess(aListeDeMetierStage3eme())),
+		rechercherMetier: jest.fn().mockResolvedValue(createSuccess(aListeDeMetierStage3eme())),
 		rechercherStage3eme: jest.fn().mockResolvedValue(createSuccess(aResultatRechercheStage3eme())),
 		...override,
 	};

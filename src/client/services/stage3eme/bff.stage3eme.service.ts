@@ -16,7 +16,7 @@ export class BffStage3emeService implements Stage3emeService {
 		return await this.httpClientService.get<ResultatRechercheStage3eme>(`stages-3eme?${queryString}`);
 	}
 	
-	async rechercherAppellationMetier(motCle: string) {
+	async rechercherMetier(motCle: string) {
 		return await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers?motCle=${motCle}`);
 	}
 }
