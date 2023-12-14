@@ -75,6 +75,7 @@ export default function RechercherEmploisEurope() {
 				.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
 			filtreList.push(...typeContratLibelleList);
 		}
+		if(filtreList.length === 0) return ;
 		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
 	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.libellePays]);
 

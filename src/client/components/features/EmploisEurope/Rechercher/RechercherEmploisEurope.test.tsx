@@ -434,55 +434,97 @@ describe('RechercherEmploisEurope', () => {
 		});
 	});
 
-	it('affiche les étiquette de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
-		// GIVEN
-		const emploiEuropeServiceMock = anEmploiEuropeService();
-		const resultatsService = aResultatRechercheEmploiEuropeList({
-			nombreResultats: 2,
-			offreList: [
-				anEmploiEurope({
-					id: '1',
-					nomEntreprise: 'Entreprise 1',
-					titre: 'Titre 1',
-					ville: 'Paris',
-				}),
-				anEmploiEurope({
-					id: '2',
-					nomEntreprise: 'Entreprise 2',
-					titre: 'Titre 2',
-				}),
-			],
+	describe('étiquettes filtre de recherche', () => {
+		it('affiche les étiquettes de filtres de recherche correspondant aux paramètres dans l’URL', async () => {
+			// GIVEN
+			const emploiEuropeServiceMock = anEmploiEuropeService();
+			const resultatsService = aResultatRechercheEmploiEuropeList({
+				nombreResultats: 2,
+				offreList: [
+					anEmploiEurope({
+						id: '1',
+						nomEntreprise: 'Entreprise 1',
+						titre: 'Titre 1',
+						ville: 'Paris',
+					}),
+					anEmploiEurope({
+						id: '2',
+						nomEntreprise: 'Entreprise 2',
+						titre: 'Titre 2',
+					}),
+				],
+			});
+			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+			mockSmallScreen();
+			mockUseRouter({
+				query: {
+					codePays: 'ES',
+					libellePays: 'Espagne',
+					page: '1',
+					typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
+				},
+			});
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					emploiEuropeService={emploiEuropeServiceMock}
+				>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
+			expect(etiquettesRecherche).toBeVisible();
+			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
+			expect(etiquettes).toHaveLength(3);
+			expect(etiquettes[0]).toHaveTextContent('Espagne');
+			expect(etiquettes[1]).toHaveTextContent('Contrat');
+			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
 		});
-		jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
+			const emploiEuropeServiceMock = anEmploiEuropeService();
+			const resultatsService = aResultatRechercheEmploiEuropeList({
+				nombreResultats: 2,
+				offreList: [
+					anEmploiEurope({
+						id: '1',
+						nomEntreprise: 'Entreprise 1',
+						titre: 'Titre 1',
+						ville: 'Paris',
+					}),
+					anEmploiEurope({
+						id: '2',
+						nomEntreprise: 'Entreprise 2',
+						titre: 'Titre 2',
+					}),
+				],
+			});
+			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
-		mockSmallScreen();
-		mockUseRouter({
-			query: {
-				codePays: 'ES',
-				libellePays: 'Espagne',
-				page: '1',
-				typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
-			},
+			mockSmallScreen();
+			mockUseRouter({
+				query: {
+					page: '1',
+				},
+			});
+
+			render(
+				<DependenciesProvider
+					emploiEuropeService={emploiEuropeServiceMock}
+				>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>,
+			);
+
+			await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+			const etiquettesRecherche =  screen.queryByRole('list', { name: 'Filtres de la recherche' });
+			expect(etiquettesRecherche).not.toBeInTheDocument();
 		});
-
-		// WHEN
-		render(
-			<DependenciesProvider
-				emploiEuropeService={emploiEuropeServiceMock}
-			>
-				<RechercherEmploisEurope/>
-			</DependenciesProvider>,
-		);
-
-		// THEN
-		const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
-		expect(etiquettesRecherche).toBeVisible();
-		const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
-		expect(etiquettes).toHaveLength(3);
-		expect(etiquettes[0]).toHaveTextContent('Espagne');
-		expect(etiquettes[1]).toHaveTextContent('Contrat');
-		expect(etiquettes[2]).toHaveTextContent('Apprentissage');
 	});
+
 
 	describe('La liste des résultats de recherche des emplois en Europe', () => {
 		describe('quand un des résultats ne contient pas de titre', () => {
