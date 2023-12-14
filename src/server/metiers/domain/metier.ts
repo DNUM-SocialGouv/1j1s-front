@@ -1,6 +1,6 @@
 import { MetierCode, MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 
-export interface MetierLba {
+export interface MetierLba extends Metier {
 	label: string
 	code: Array<MetierCodeRome>
 }

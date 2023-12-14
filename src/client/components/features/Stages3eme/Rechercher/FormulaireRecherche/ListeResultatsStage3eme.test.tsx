@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
 	ListeResultatsStage3eme,
-} from '~/client/components/features/Stages3eme/FormulaireRecherche/ListeResultatsStage3eme';
+} from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/ListeResultatsStage3eme';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { aResultatRechercheStage3eme, aStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
 

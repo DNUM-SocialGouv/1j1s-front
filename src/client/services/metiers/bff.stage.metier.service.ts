@@ -15,8 +15,8 @@ export class BffStage3emeMetierService implements MetierService {
 			return metier;
 		}
 		return createSuccess(metier.result.map((metier) => ({
-			code: [new MetierCodeAppellation(metier.code)],
-			label: metier.libelle,
+			code: metier.code.map((code) => (new MetierCodeAppellation(code.code))),
+			label: metier.label,
 		})));
 	}
 }

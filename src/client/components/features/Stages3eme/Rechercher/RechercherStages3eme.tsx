@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 
 import {
 	FormulaireRechercheStages3eme,
-} from '~/client/components/features/Stages3eme/FormulaireRecherche/FormulaireRechercheStages3eme';
+} from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/FormulaireRechercheStages3eme';
 import {
 	ListeResultatsStage3eme,
-} from '~/client/components/features/Stages3eme/FormulaireRecherche/ListeResultatsStage3eme';
+} from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/ListeResultatsStage3eme';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';

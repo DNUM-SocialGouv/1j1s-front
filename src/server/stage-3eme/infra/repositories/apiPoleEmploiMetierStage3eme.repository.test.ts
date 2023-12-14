@@ -1,3 +1,4 @@
+import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { Success } from '~/server/errors/either';
 import { NullCacheService } from '~/server/services/cache/nullCache.service';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -45,8 +46,8 @@ describe('ApiPoleEmploiMetierStage3emeRepository', () => {
 			// Then
 			expect(resultat.result).toEqual([
 				{
-					code: 'codeMetier2',
-					libelle: 'libelleMetier2',
+					code: [new MetierCodeAppellation('codeMetier2')],
+					label: 'libelleMetier2',
 				},
 			]);
 		});

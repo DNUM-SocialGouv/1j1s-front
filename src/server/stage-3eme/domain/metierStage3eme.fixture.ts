@@ -1,14 +1,16 @@
+import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
+
 import { MetierStage3eme } from './metierStage3eme';
 
 export function aListeDeMetierStage3eme(): MetierStage3eme[] {
 	return [
 		{
-			code: 'code1',
-			libelle: 'libelle1',
+			code: [new MetierCodeAppellation('code1')],
+			label: 'libelle1',
 		},
 		{
-			code: 'code2',
-			libelle: 'libelle2',
+			code: [new MetierCodeAppellation('code2')],
+			label: 'libelle2',
 		},
 	];
 }

@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useRef } from 'react';
 
-import styles
-	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
@@ -12,6 +10,9 @@ import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { BffStage3emeMetierService } from '~/client/services/metiers/bff.stage.metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
+
+import styles
+	from './FormulaireRechercheStage3eme.module.scss';
 
 export function FormulaireRechercheStages3eme() {
 	const queryParams = useStage3emeQuery();
@@ -32,9 +33,10 @@ export function FormulaireRechercheStages3eme() {
 
 	function updateRechercherStage3emeQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		const queryFromForm = getFormAsQuery(event.currentTarget, queryParams, false);
 		// NOTE (DORO 22-11-2023): Query params "location=here" temporaire pour afficher les résultats de recherche (à remplacer par les vrais query params quand la recherche par localisation sera implémentée)
-		return router.push({ query: `location=here${query ? '&' + query : ''}` }, undefined, { shallow: true });
+		const query = `location=here${queryFromForm ? '&' + queryFromForm : ''}`;
+		return router.push({ query }, undefined, { shallow: true });
 	}
 
 	return (
