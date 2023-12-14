@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.199.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.199.0...v3.199.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios-cache-interceptor to v1.3.3 ([#2457](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2457)) ([ddedbc8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ddedbc8f5ce0a50990f7bacfcb2c212895f8e8f7))
+
 ## [3.199.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.198.3...v3.199.0) (2023-12-13)
 
 
