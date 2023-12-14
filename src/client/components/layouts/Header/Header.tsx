@@ -24,7 +24,7 @@ ${bulletList}    L'URL ou le mail pour envoyer sa candidature.${lineBreak}
 ${lineBreak}
 Nous vous recontacterons au plus vite.`;
 
-const MAILTO = `mailto:contact-1J1S@sg.social.gouv.fr?subject=[Déposer une offre de stage de 3ème ou 2nd]&body=${body}`;
+export const MAILTO_STAGE_3E_2ND = `mailto:contact-1J1S@sg.social.gouv.fr?subject=[Déposer une offre de stage de 3ème ou 2nd]&body=${body}`;
 export function Header() {
 	const { isLargeScreen } = useBreakpoint();
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
@@ -37,7 +37,7 @@ export function Header() {
 			className={styles.header}
 			role="banner">
 			{!isLargeScreen && displayCampagneEnCoursBanner &&
-          <Link href={MAILTO} className={styles.headerBannerMobile}>
+          <Link href={MAILTO_STAGE_3E_2ND} className={styles.headerBannerMobile}>
           	<div className={styles.headerBannerMobileTitle}>Vous souhaitez recruter des élèves de 3ème et 2nd&nbsp;?</div>
           	<Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
           </Link>
