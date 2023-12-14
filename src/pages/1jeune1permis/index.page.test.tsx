@@ -133,7 +133,7 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).toHaveAttribute('height', '2000');
+		expect(iframe).toHaveAttribute('style', '--1jeune1permis-iframe-height: 2000px;');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un evenement de type resize-iframe', async () => {
@@ -156,7 +156,7 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un objet', async () => {
@@ -177,7 +177,7 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si l\'evenement ne provient pas du domaine sur lequel est située la page 1jeune1permis', async () => {
@@ -200,6 +200,6 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 });

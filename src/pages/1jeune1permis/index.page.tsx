@@ -76,7 +76,7 @@ export default function UnJeuneUnPermis() {
 				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
 					src={URL_IFRAME_1JEUNE_1PERMIS}
-					style={{ '--1jeune1permis-iframe-height' : `${iframeHeight}px` } as React.CSSProperties}
+					style={iframeHeight ? { '--1jeune1permis-iframe-height' : `${iframeHeight}px` } as React.CSSProperties : {}}
 					ref={iRef}/>
 			</Container>
 		</main>
