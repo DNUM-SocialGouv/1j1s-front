@@ -32,17 +32,22 @@ export default function UnJeuneUnPermis() {
 
 	const onMessage = (event: MessageEvent<string>) => {
 		let data: MessageEventData;
+
+		if (event.origin !== DOMAINE_1JEUNE_1PERMIS) {
+			return;
+		}
+
 		try {
-			data = JSON.parse(event.data) as MessageEventData;
+			data = JSON.parse(event.data);
 		} catch {
 			return;
 		}
-		if (event.origin !== DOMAINE_1JEUNE_1PERMIS || typeof data !== 'object' || data.type !== 'resize-iframe') {
+
+		if (typeof data !== 'object' || data.type !== 'resize-iframe') {
 			return;
 		}
-		if (data.type === 'resize-iframe') {
-			setIframeHeight(data.height);
-		}
+
+		setIframeHeight(data.height);
 	};
 
 	useEffect(() => {
@@ -58,7 +63,7 @@ export default function UnJeuneUnPermis() {
 
 	setInterval(() => {
 		// Polling pour déclencher l'envoi de la taille de l'iframe
-		(iRef.current?.contentWindow)?.postMessage('size-request', '*');
+		iRef.current?.contentWindow?.postMessage('size-request', '*');
 	}, 100);
 
 	return (
@@ -71,7 +76,7 @@ export default function UnJeuneUnPermis() {
 				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
 					src={URL_IFRAME_1JEUNE_1PERMIS}
-					height={iframeHeight}
+					style={{ '--1jeune1permis-iframe-height' : `${iframeHeight}px` } as React.CSSProperties}
 					ref={iRef}/>
 			</Container>
 		</main>
