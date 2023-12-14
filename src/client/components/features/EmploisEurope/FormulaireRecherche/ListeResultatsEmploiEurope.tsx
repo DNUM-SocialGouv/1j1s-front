@@ -27,7 +27,7 @@ function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
 	return (
 		<li key={emploiEurope.id}>
 			<RésultatRechercherSolution
-				intituléOffre={emploiEurope.titre ?? 'Offre d’emploi sans titre'}
+				intituléOffre={emploiEurope.titre ? <span lang="">{emploiEurope.titre}</span> : 'Offre d’emploi sans titre'}
 				lienOffre={`/emplois-europe/${emploiEurope.id}`}
 				sousTitreOffre={emploiEurope.nomEntreprise}
 				étiquetteOffreList={getTagsFromAnnonce(emploiEurope)}

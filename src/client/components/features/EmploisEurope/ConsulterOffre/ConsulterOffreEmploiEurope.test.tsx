@@ -199,7 +199,7 @@ describe('DetailOffreEmploiEurope', () => {
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
 			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
-			expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', )
+			expect(screen.getByText('Je suis la description')).toHaveAttribute('lang' );
 		});
 
 		it('sanitize la description de l‘offre', () => {
