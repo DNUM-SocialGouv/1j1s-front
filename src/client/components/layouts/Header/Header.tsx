@@ -8,17 +8,20 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+const bulletList = '%E2%80%A2';
+const lineBreak = '%0D%0A';
+
 const body = `Afin de recevoir des candidatures correspondant au besoin de la mission proposée, nous vous conseillons de bien détailler votre offre, en n'oubliant pas de préciser : 
-%0D%0A
-%E2%80%A2    Un titre pour votre offre de stage ;%0D%0A
-%E2%80%A2    La description des missions (n'hésitez pas à faire une liste) ;%0D%0A 
-%E2%80%A2    Le lieu du stage (ville, code postal, département, région, pays) ;%0D%0A
-%E2%80%A2    Votre secteur d'activité ;%0D%0A 
-%E2%80%A2    Les dates de début et de fin du stage ;%0D%0A 
-%E2%80%A2    Les coordonnées et le  SIRET de votre entreprise ;%0D%0A
-%E2%80%A2    Vos coordonnées ;%0D%0A
-%E2%80%A2    L'URL ou le mail pour envoyer sa candidature.%0D%0A 
-%0D%0A
+${lineBreak}
+${bulletList}    Un titre pour votre offre de stage ;${lineBreak}
+${bulletList}    La description des missions (n'hésitez pas à faire une liste) ;${lineBreak} 
+${bulletList}    Le lieu du stage (ville, code postal, département, région, pays) ;${lineBreak}
+${bulletList}    Votre secteur d'activité ;${lineBreak} 
+${bulletList}    Les dates de début et de fin du stage ;${lineBreak} 
+${bulletList}    Les coordonnées et le  SIRET de votre entreprise ;${lineBreak}
+${bulletList}    Vos coordonnées ;${lineBreak}
+${bulletList}    L'URL ou le mail pour envoyer sa candidature.${lineBreak} 
+${lineBreak}
 Nous vous recontacterons au plus vite.`;
 
 const MAILTO = `mailto:contact-1J1S@sg.social.gouv.fr?subject=[Déposer une offre de stage de 3ème ou 2nd]&body=${body}`;

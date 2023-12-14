@@ -39,7 +39,7 @@ export function HeaderBody() {
 				  <Link href="/contrat-engagement-jeune" className={styles.headerBodyBanner}>
 				  	<div>
 					    <div className={styles.headerBodyBannerTitle}>Vous souhaitez recruter des élèves de 3ème et 2nd&nbsp;?</div>
-					    <div className={styles.headerBodyBannerContent}>Contactez nous&nbsp;!</div>
+					    <div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
 				  	</div>
 				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
 				  </Link>
