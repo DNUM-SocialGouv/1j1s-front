@@ -128,10 +128,11 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
+				const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3ème et 2nde ?/ });
 				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveTextContent(/Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i);
-				expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
+				expect(encartLien).toHaveTextContent(/Envoyez nous un e-mail !/i);
+				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
+				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
 			});
 		});
 
@@ -258,9 +259,10 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
+					const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3ème et 2nde ?/ });
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', '/contrat-engagement-jeune');
+					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
+					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {

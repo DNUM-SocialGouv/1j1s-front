@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import {  MAILTO_STAGE_3E_2ND } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -36,10 +37,10 @@ export function HeaderBody() {
 				</div>
 				<div className={styles.headerBodyTitle}>1jeune1solution</div>
 				{ isLargeScreen && displayBanner &&
-				  <Link href="/contrat-engagement-jeune" className={styles.headerBodyBanner}>
+				  <Link href={MAILTO_STAGE_3E_2ND} className={styles.headerBodyBanner}>
 				  	<div>
-					    <div className={styles.headerBodyBannerTitle}>Découvrez le Contrat Engagement Jeune, la solution pour vous&nbsp;!</div>
-					    <div className={styles.headerBodyBannerContent}>Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi</div>
+					    <div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3ème et 2nde&nbsp;?</div>
+					    <div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
 				  	</div>
 				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
 				  </Link>
