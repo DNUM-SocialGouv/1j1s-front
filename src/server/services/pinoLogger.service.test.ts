@@ -14,7 +14,7 @@ const mockedLogger = {
 	trace: jest.fn(),
 	warn: jest.fn(),
 };
-pinoMock.mockImplementation(() => mockedLogger as unknown as pino.Logger);
+pinoMock.mockImplementation(() => mockedLogger as unknown as pino.Logger<string>);
 
 
 describe('PinoLoggerService', () => {
