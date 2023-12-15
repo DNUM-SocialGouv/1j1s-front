@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.200.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.199.1...v3.200.0) (2023-12-15)
+
+
+### Features
+
+* **stage 3eme:** modification de la bannière d'accueil ([#2456](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2456)) ([2b9d997](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2b9d99716b772fd94b5f77fc874b66f12a6e636a))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies (minor) ([#2443](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2443)) ([1b123ae](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1b123aefaf4702f0ae0a8bd5a78047e75ee3765f))
+
 ## [3.199.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.199.0...v3.199.1) (2023-12-14)
 
 
