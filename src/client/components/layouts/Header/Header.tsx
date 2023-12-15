@@ -39,7 +39,7 @@ export function Header() {
 			role="banner">
 			{!isLargeScreen && displayCampagneEnCoursBanner &&
 		<Link href={MAILTO_STAGE_3E_2ND} className={styles.headerBannerMobile}>
-		  <div className={styles.headerBannerMobileTitle}>Vous souhaitez recruter des élèves de 3ème et 2nd&nbsp;?</div>
+		  <div className={styles.headerBannerMobileTitle}>Vous voulez accueillir des stagiaires de 3ème et 2nde&nbsp;?</div>
 		  <Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
 		</Link>
 			}

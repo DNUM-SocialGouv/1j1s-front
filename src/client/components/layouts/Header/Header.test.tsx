@@ -128,7 +128,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByRole('link', { name: /Vous souhaitez recruter des élèves de 3ème et 2nd ?/ });
+				const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3ème et 2nde ?/ });
 				expect(encartLien).toBeVisible();
 				expect(encartLien).toHaveTextContent(/Envoyez nous un e-mail !/i);
 				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
@@ -259,7 +259,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: /Vous souhaitez recruter des élèves de 3ème et 2nd ?/ });
+					const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3ème et 2nde ?/ });
 					expect(encartLien).toBeVisible();
 					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
 					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
