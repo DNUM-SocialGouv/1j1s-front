@@ -12,7 +12,7 @@ import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/Comb
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -32,15 +32,15 @@ describe('FormulaireRechercheStages3eme', () => {
 			const routerPush = jest.fn();
 			const user = userEvent.setup();
 			mockUseRouter({ push: routerPush });
-			const httpClientService = anHttpClientService();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess([
+			const metierService = aMetierService();
+			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([
 				{ code: [new MetierCodeAppellation('codeMetier')], label: 'boulanger' },
 			]));
-			
+
 			render(
 				<DependenciesProvider
 					stage3emeService={aStage3emeService()}
-					httpClientService={httpClientService}
+					metierStage3emeService={metierService}
 				>
 					<FormulaireRechercheStages3eme />
 				</DependenciesProvider>,

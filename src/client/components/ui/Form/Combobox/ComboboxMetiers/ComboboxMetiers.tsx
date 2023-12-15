@@ -2,7 +2,7 @@ import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { MetierCode } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useMetierDependency } from '~/client/context/metier.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
 
@@ -55,7 +55,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		...comboboxProps
 	} = props;
 
-	const metierRechercheService = useDependency<MetierService>('metierService');
+	const metierRechercheService = useMetierDependency<MetierService>('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =

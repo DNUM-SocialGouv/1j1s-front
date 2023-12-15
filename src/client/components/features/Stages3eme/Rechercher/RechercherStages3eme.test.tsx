@@ -7,7 +7,6 @@ import { render, screen } from '@testing-library/react';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 import { createSuccess } from '~/server/errors/either';
@@ -22,7 +21,7 @@ describe('La recherche des stages de 3ème', () => {
 			mockUseRouter({});
 			const stage3emeServiceMock = aStage3emeService();
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierService={aMetierService()} httpClientService={anHttpClientService()}>
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 
@@ -60,7 +59,7 @@ describe('La recherche des stages de 3ème', () => {
 			jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierService={aMetierService()} httpClientService={anHttpClientService()}>
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
@@ -111,7 +110,7 @@ describe('La recherche des stages de 3ème', () => {
 			jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierService={aMetierService()} httpClientService={anHttpClientService()}>
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
@@ -158,7 +157,7 @@ describe('La recherche des stages de 3ème', () => {
 				jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 				// WHEN
-				render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierService={aMetierService()} httpClientService={anHttpClientService()}>
+				render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
 					<RechercherStages3eme/>
 				</DependenciesProvider>);
 				const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante pour Informatique');

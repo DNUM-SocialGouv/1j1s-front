@@ -11,7 +11,6 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
@@ -45,9 +44,8 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
-					httpClientService={anHttpClientService()}
 				>
 					<RechercherAlternance/>
 				</DependenciesProvider>,
@@ -138,9 +136,8 @@ describe('RechercherAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
-					httpClientService={anHttpClientService()}
 				>
 					<RechercherAlternance/>
 				</DependenciesProvider>,
@@ -170,9 +167,8 @@ describe('RechercherAlternance', () => {
 				render(
 					<DependenciesProvider
 						alternanceService={alternanceServiceMock}
-						metierService={métierServiceMock}
+						metierLbaService={métierServiceMock}
 						localisationService={localisationServiceMock}
-						httpClientService={anHttpClientService()}
 					>
 						<RechercherAlternance/>
 					</DependenciesProvider>,
@@ -202,9 +198,8 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							alternanceService={alternanceServiceMock}
-							metierService={aMetierService()}
+							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
-							httpClientService={anHttpClientService()}
 						>
 							<RechercherAlternance/>
 						</DependenciesProvider>,
@@ -223,9 +218,8 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							alternanceService={alternanceServiceMock}
-							metierService={aMetierService()}
+							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
-							httpClientService={anHttpClientService()}
 						>
 							<RechercherAlternance/>
 						</DependenciesProvider>,
@@ -248,9 +242,8 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							alternanceService={alternanceServiceMock}
-							metierService={aMetierService()}
+							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
-							httpClientService={anHttpClientService()}
 						>
 							<RechercherAlternance/>
 						</DependenciesProvider>,
@@ -269,9 +262,8 @@ describe('RechercherAlternance', () => {
 					render(
 						<DependenciesProvider
 							alternanceService={alternanceServiceMock}
-							metierService={aMetierService()}
+							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
-							httpClientService={anHttpClientService()}
 						>
 							<RechercherAlternance/>
 						</DependenciesProvider>,
@@ -294,9 +286,8 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}
-				metierService={aMetierService()}
+				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
-				httpClientService={anHttpClientService()}
 			>
 				<RechercherAlternance/>
 			</DependenciesProvider>,
@@ -315,9 +306,8 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={anAlternanceService()}
-				metierService={aMetierService()}
+				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
-				httpClientService={anHttpClientService()}
 			>
 				<RechercherAlternance/>
 			</DependenciesProvider>,
@@ -354,9 +344,8 @@ describe('RechercherAlternance', () => {
 		render(
 			<DependenciesProvider
 				alternanceService={alternanceServiceMock}
-				metierService={aMetierService()}
+				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
-				httpClientService={anHttpClientService()}
 			>
 				<RechercherAlternance/>
 			</DependenciesProvider>,

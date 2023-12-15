@@ -33,7 +33,8 @@ import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { BffLbaMetierService } from '~/client/services/metiers/bff.lba.metier.service';
+import { BffStage3emeMetierService } from '~/client/services/metiers/bff.stage3eme.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
@@ -52,10 +53,10 @@ export type Dependencies = {
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
-	httpClientService: HttpClientService
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
-	metierService: MetierService
+	metierLbaService: MetierService
+	metierStage3emeService: MetierService
 	missionEngagementService: MissionEngagementService
 	offreService: OffreService
 	rechercheClientService: SearchClient
@@ -79,7 +80,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const alternanceService = new AlternanceService(httpClientService);
-	const metierService = new BffMetierService(httpClientService);
+	const metierLbaService = new BffLbaMetierService(httpClientService);
+	const metierStage3emeService = new BffStage3emeMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);
@@ -137,11 +139,11 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		emploiEuropeService: emploiEuropeService,
 		formationInitialeService,
 		formationService,
-		httpClientService,
 		lesEntreprisesSEngagentService,
 		localisationService,
 		marketingService,
-		metierService,
+		metierLbaService,
+		metierStage3emeService,
 		missionEngagementService,
 		offreService,
 		rechercheClientService,

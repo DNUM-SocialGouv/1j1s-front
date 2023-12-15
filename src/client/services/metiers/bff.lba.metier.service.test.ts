@@ -1,13 +1,13 @@
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { BffLbaMetierService } from '~/client/services/metiers/bff.lba.metier.service';
 import { createSuccess } from '~/server/errors/either';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
-describe('MetierService', () => {
+describe('BffLbaMetierService', () => {
 	describe('rechercherMetier', () => {
-		it('appelle la bonne alternance avec le métier recherché', async () => {
+		it('appelle le bon endpoint avec le métier recherché', async () => {
 			const httpClientService = anHttpClientService();
-			const metierService = new BffMetierService(httpClientService);
+			const metierService = new BffLbaMetierService(httpClientService);
 			const metierQuery = 'boulang';
 
 			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));

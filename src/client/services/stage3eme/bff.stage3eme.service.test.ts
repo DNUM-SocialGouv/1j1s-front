@@ -36,18 +36,4 @@ describe('BffStage3emeService', () => {
 			});
 		});
 	});
-
-	describe('rechercherAppellationMetier', () => {
-		it('appelle le endpoint avec les bons paramètres', async () => {
-			// Given
-			const httpClientService = anHttpClientService();
-			const bffStage3emeService = new BffStage3emeService(httpClientService);
-
-			// When
-			await bffStage3emeService.rechercherMetier('motCle');
-
-			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers?motCle=motCle');
-		});
-	});
 });

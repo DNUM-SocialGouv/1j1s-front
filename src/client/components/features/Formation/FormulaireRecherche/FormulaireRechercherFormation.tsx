@@ -11,10 +11,10 @@ import {
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
-import { DependenciesProvider, useDependency } from '~/client/context/dependenciesContainer.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
-import { HttpClientService } from '~/client/services/httpClient.service';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
 
@@ -36,7 +36,7 @@ export function FormulaireRechercherFormation() {
 		? { code: codeRomes, label: libelleMetier }
 		: undefined;
 
-	const metierService = new BffMetierService(useDependency<HttpClientService>('httpClientService'));
+	const metierService = useDependency<MetierService>('metierLbaService');
 
 	const communeDefaultValue = mapToCommune({
 		codeCommune,
@@ -72,7 +72,7 @@ export function FormulaireRechercherFormation() {
 			>
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
-						<DependenciesProvider metierService={metierService}>
+						<MetierDependenciesProvider metierService={metierService}>
 							<ComboboxMetiers
 								defaultValue={domaineDefaultValue}
 								required
@@ -80,7 +80,7 @@ export function FormulaireRechercherFormation() {
 								placeholder="Exemples : ingénierie, agronomie..."
 								valueName={'codeRomes'}
 							/>
-						</DependenciesProvider>
+						</MetierDependenciesProvider>
 						<ComboboxCommune
 							defaultCommune={communeDefaultValue}
 							showRadiusInput

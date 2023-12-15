@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createSuccess, Either } from '~/server/errors/either';
 import { Metier } from '~/server/metiers/domain/metier';
@@ -52,9 +52,9 @@ export const exemple: Story = {
 	},
 	render: ({ ...args }) => {
 		return (
-			<DependenciesProvider metierService={new MetierServiceStub()}>
+			<MetierDependenciesProvider metierService={new MetierServiceStub()}>
 				<ComboboxMetiers {...args} />
-			</DependenciesProvider>
+			</MetierDependenciesProvider>
 		);
 	},
 };
@@ -66,9 +66,9 @@ export const AvecPlaceholderEtDebounce: Story = {
 	},
 	render: ({ ...args }) => {
 		return (
-			<DependenciesProvider metierService={new MetierServiceStub()}>
+			<MetierDependenciesProvider metierService={new MetierServiceStub()}>
 				<ComboboxMetiers {...args} />
-			</DependenciesProvider>
+			</MetierDependenciesProvider>
 		);
 	},
 };

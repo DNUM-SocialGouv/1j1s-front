@@ -9,7 +9,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
@@ -35,9 +34,8 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
-					httpClientService={anHttpClientService()}
 				>
 					<RechercherFormation/>
 				</DependenciesProvider>,
@@ -76,9 +74,8 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
-					httpClientService={anHttpClientService()}
 				>
 					<RechercherFormation/>
 				</DependenciesProvider>,
@@ -128,9 +125,8 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
-					httpClientService={anHttpClientService()}
 				>
 					<RechercherFormation/>
 				</DependenciesProvider>,
@@ -155,9 +151,8 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationServiceMock}
-				metierService={métierServiceMock}
+				metierLbaService={métierServiceMock}
 				localisationService={localisationServiceMock}
-				httpClientService={anHttpClientService()}
 			>
 				<RechercherFormation/>
 			</DependenciesProvider>,
@@ -199,9 +194,8 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationService}
-				metierService={aMetierService()}
+				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
-				httpClientService={anHttpClientService()}
 			>
 				<RechercherFormation/>
 			</DependenciesProvider>,

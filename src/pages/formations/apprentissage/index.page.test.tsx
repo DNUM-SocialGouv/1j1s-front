@@ -11,7 +11,6 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aFormationService } from '~/client/services/formation/formation.service.fixture';
-import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import FormationAlternancePage, { getServerSideProps } from '~/pages/formations/apprentissage/index.page';
@@ -54,9 +53,8 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					formationService={aFormationService()}
-					metierService={aMetierService()}
+					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
-					httpClientService={anHttpClientService()}
 				>
 					<FormationAlternancePage />
 				</DependenciesProvider>,
@@ -78,9 +76,8 @@ describe('Page Formations en Apprentissage', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					formationService={aFormationService()}
-					metierService={aMetierService()}
+					metierLbaService={aMetierService()}
 					localisationService={aLocalisationService()}
-					httpClientService={anHttpClientService()}
 				>
 					<FormationAlternancePage />
 				</DependenciesProvider>,

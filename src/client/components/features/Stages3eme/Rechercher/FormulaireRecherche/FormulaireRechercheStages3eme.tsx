@@ -5,10 +5,10 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { DependenciesProvider, useDependency } from '~/client/context/dependenciesContainer.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
-import { HttpClientService } from '~/client/services/httpClient.service';
-import { BffStage3emeMetierService } from '~/client/services/metiers/bff.stage.metier.service';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 import styles
@@ -25,7 +25,7 @@ export function FormulaireRechercheStages3eme() {
 		? { code: [new MetierCodeAppellation(codeMetier)], label: libelleMetier }
 		: undefined;
 	
-	const metierService = new BffStage3emeMetierService(useDependency<HttpClientService>('httpClientService'));
+	const metierService = useDependency<MetierService>('metierStage3emeService');
 
 	const rechercheStage3emeForm = useRef<HTMLFormElement>(null);
 
@@ -49,14 +49,14 @@ export function FormulaireRechercheStages3eme() {
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
-					<DependenciesProvider metierService={metierService}>
+					<MetierDependenciesProvider metierService={metierService}>
 						<ComboboxMetiers
 							defaultValue={metierDefaultValue}
 							placeholder={'Exemples : boulanger, styliste...'}
 							label={'Métier (facultatif)'}
 							valueName={'codeMetier'}
 						/>
-					</DependenciesProvider>
+					</MetierDependenciesProvider>
 				</div>
 			</div>
 			<div className={styles.buttonRechercher}>

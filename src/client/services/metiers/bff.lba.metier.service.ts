@@ -4,7 +4,7 @@ import { MetierService } from '~/client/services/metiers/metier.service';
 import { createSuccess, Either } from '~/server/errors/either';
 import { Metier, MetierLba } from '~/server/metiers/domain/metier';
 
-export class BffMetierService implements MetierService {
+export class BffLbaMetierService implements MetierService {
 	constructor(private httpClientService: HttpClientService) {}
 
 	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
