@@ -17,6 +17,20 @@
 }
 /* FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.CSS */
 
+/* A NE PAS REPORTER SI MAJ DU FICHIER TARTEAUCITRON.CSS */
+
+span#tarteaucitronDisclaimerAlert {
+    overflow: scroll;
+    max-height: 50vh;
+}
+@media only screen and (max-width: 768px) {
+    #tarteaucitronRoot span#tarteaucitronDisclaimerAlert {
+        font-size: 16px;
+    }
+}
+
+/* FIN - A NE PAS REPORTER SI MAJ DU FICHIER TARTEAUCITRON.CSS */
+
 .tac_visually-hidden {
       position: absolute;
       width: 1px;
@@ -637,8 +651,6 @@ span#tarteaucitronDisclaimerAlert {
     padding: 10px 0 10px 0;
     margin: auto;
     width: 100%;
-    overflow: scroll;
-    max-height: 80%;
 }
 
 #tarteaucitronAlertBig #tarteaucitronPrivacyUrl,
