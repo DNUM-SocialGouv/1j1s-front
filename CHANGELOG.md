@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.201.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.201.0...v3.201.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* **cookie:** impossible de fermer le panneau de premier niveau des cookie sur mobile ([#2452](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2452)) ([62462c3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/62462c386a979be74822e3c22af8f749f6e8bb35))
+
 ## [3.201.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.200.0...v3.201.0) (2023-12-15)
 
 
