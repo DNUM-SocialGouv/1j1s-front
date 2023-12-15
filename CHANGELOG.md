@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.201.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.200.0...v3.201.0) (2023-12-15)
+
+
+### Features
+
+* **emploi europe:** ajout du niveau d'expérience dans le détail ([#2455](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2455)) ([7c58fa8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c58fa869bfa38e440c6faf0e58167532e35aad0))
+
 ## [3.200.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.199.1...v3.200.0) (2023-12-15)
 
 
