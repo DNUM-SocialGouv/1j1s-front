@@ -101,7 +101,7 @@ interface languageCompetency {
 
 function anXMLResponseLanguageCompetency(languageCompetencies: Array<languageCompetency> = [{
 	competenciesDimensions: [{
-		competencyDimensionName: 'competence demandée',
+		competencyDimensionName: 'CEF-Speaking-interaction',
 		levelCode: LEVEL_CODE.B2,
 	}],
 	language: 'fr',
@@ -135,7 +135,8 @@ interface ApiEuresEmploiEuropeDetailXMLResponsFixture {
 	listeCompetencesLinguistiques?: Array<languageCompetency>
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
-	educationLevelCode?: number
+	educationLevelCode?: number,
+	anneesDExperience?: number
 }
 
 function anXMLLicenseDriving(listePermis?: Array<string>){
@@ -153,7 +154,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode }: ApiEuresEmploiEuropeDetailXMLResponsFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience }: ApiEuresEmploiEuropeDetailXMLResponsFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -257,12 +258,8 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
                                   listVersionID="ESCOv1">
                         http://data.europa.eu/esco/occupation/uuid-4
                     </CategoryCode>
-                    <Measure
-                            unitCode="month">12
-                    </Measure>
-                    <ns2:Description>Description de l offre d
-                        emploi
-                    </ns2:Description>
+                    <Measure unitCode="year">${anneesDExperience ? anneesDExperience : 3}</Measure>
+                    <ns2:Description>description de l‘experience demandée</ns2:Description>
                 </ExperienceCategory>
             </ExperienceSummary>
         </PositionQualifications>

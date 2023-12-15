@@ -28,11 +28,12 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
+		anneesDExperience: 3,
 		competencesLinguistiques: [{
 			codeDuNiveauDeLangue: LEVEL_CODE.A2,
 			detailCompetenceLanguistique: [{
 				codeDuNiveauDeLaCompetence: LEVEL_CODE.B2,
-				nomCompetence: 'competence demandée',
+				nomCompetence: 'Interaction orale',
 				nomDuNiveauDeLaCompetence: LEVEL_NAME.AVANCE,
 			}],
 			langage: 'français',

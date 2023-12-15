@@ -7,7 +7,12 @@ import {
 	LanguageSpecificationCompetence,
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
-import { langageParPaysEures, niveauLangage } from '~/server/emplois-europe/infra/langageEures';
+import {
+	langageCompetenceName,
+	langageParPaysEures,
+	LEVEL_CODE,
+	niveauLangage,
+} from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeDetailXML,
@@ -84,6 +89,10 @@ export class ApiEuresEmploiEuropeMapper {
 
 		const positionsCompetencies = positionQualifications?.PositionCompetency;
 		const competencesLinguistiques = positionsCompetencies ? this.getLanguageCompetencies(positionsCompetencies) : [];
+		
+		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
+		const experienceCategory= this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
+		const anneesDExperience= this.getElementOrFirstElementInArray(experienceCategory?.Measure);
 
 		const listDrivingLicense = this.transformElementToArray<string>(positionQualifications?.LicenseTypeCode);
 
@@ -94,6 +103,7 @@ export class ApiEuresEmploiEuropeMapper {
 		const niveauEtudes = this.mapNiveauEtudes(educationLevelCode);
 
 		return {
+			anneesDExperience,
 			competencesLinguistiques: competencesLinguistiques,
 			description: descriptionDetail,
 			id: handle,
@@ -146,16 +156,26 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	private getSpecificationCompetenceLanguage(competencyDimension: Array<CompetencyDimension> | CompetencyDimension): Array<LanguageSpecificationCompetence> {
+		function findCompetencyName(competencyDimension: string) {
+			return langageCompetenceName.find((competency) => competency.codeValue === competencyDimension.toLowerCase())?.codeDescription;
+		}
+
+		function findCompetencyLevel(levelCode: LEVEL_CODE){
+			return niveauLangage.find((niveau) => niveau.valeur === levelCode);
+		}
+		
 		const competencies = this.transformElementToArray(competencyDimension);
 		const languageCompetenciesDetails: Array<LanguageSpecificationCompetence> = [];
 
 		competencies?.map((competencyDimension) => {
-			const niveauRequis = niveauLangage.find((niveau) => niveau.valeur === competencyDimension.Score.ScoreText);
-			if (niveauRequis) {
+			const competencyLevel = findCompetencyLevel(competencyDimension.Score.ScoreText);
+			const competencyName= findCompetencyName(competencyDimension.CompetencyDimensionTypeCode);
+
+			if (competencyLevel && competencyName) {
 				languageCompetenciesDetails.push({
-					codeDuNiveauDeLaCompetence: niveauRequis.valeur,
-					nomCompetence: competencyDimension.CompetencyDimensionTypeCode,
-					nomDuNiveauDeLaCompetence: niveauRequis.libellé,
+					codeDuNiveauDeLaCompetence: competencyLevel.valeur,
+					nomCompetence: competencyName,
+					nomDuNiveauDeLaCompetence: competencyLevel.libellé,
 				});
 			}
 		});

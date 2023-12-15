@@ -14,6 +14,7 @@ import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
+import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
@@ -48,7 +49,9 @@ export default function RechercherEmploisEurope() {
 	}, [emploiEuropeQuery, emploiEuropeService]);
 
 	const messageResultatRecherche: string = useMemo(() => {
-		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
+		const nombreResultatsFormaté = formatNumberWithSpace(nombreResultats);
+
+		const messageResultatRechercheSplit: string[] = [`${nombreResultatsFormaté}`];
 		if (nombreResultats > 1) {
 			messageResultatRechercheSplit.push('offres d’emplois en Europe');
 		} else {
@@ -72,6 +75,7 @@ export default function RechercherEmploisEurope() {
 				.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
 			filtreList.push(...typeContratLibelleList);
 		}
+		if(filtreList.length === 0) return ;
 		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
 	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.libellePays]);
 

@@ -20,6 +20,7 @@ export interface EmploiEurope {
 	listePermis: Array<string>;
 	langueDeTravail: Array<string>;
 	competencesLinguistiques: Array<CompetenceLinguistique>
+	anneesDExperience?: number
 }
 
 export interface CompetenceLinguistique {

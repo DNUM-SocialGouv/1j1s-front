@@ -786,4 +786,31 @@ export const niveauLangage = [
 	},
 ];
 
+export const langageCompetenceName = [
+	{
+		codeDescription: 'Compréhension à l’audition',
+		codeValue: 'cef-understanding-listening',
+	},
+	{
+		codeDescription: 'Compréhension à la lecture',
+		codeValue: 'cef-understanding-reading',
+	},
+	{
+		codeDescription: 'Interaction orale',
+		codeValue: 'cef-speaking-interaction',
+	},
+	{
+		codeDescription: 'Production orale',
+		codeValue: 'cef-speaking-production',
+	},
+	{
+		codeDescription: 'Interaction écrite',
+		codeValue: 'cef-writing-interaction',
+	},
+	{
+		codeDescription: 'Production écrite',
+		codeValue: 'cef-writing-production',
+	},
+];
+
 
