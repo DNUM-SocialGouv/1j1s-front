@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,20 +19,32 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
-      - run: npm ci && cp .env.test .env
-      - run: npx playwright install
-      - run: npx playwright install-deps
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install
+          npx playwright install-deps
+
+      # next a forcément besoin d'un fichier .env pour tourner du coup, on copie colle toutes les variables du serveur dedans
+      # pas très propre, mais ça évite de les faire une par une à la mano
+      - name: Setup env file
+        run: cp .env.test .env
+
       - name: Start redis
         run: |
           nohup docker-compose up </dev/null &>/dev/null &
+
       - name: Sleep for 5 seconds
         run: sleep 5s
         shell: bash
+
       - name: Run playwright
         run: |
           npm run playwright
