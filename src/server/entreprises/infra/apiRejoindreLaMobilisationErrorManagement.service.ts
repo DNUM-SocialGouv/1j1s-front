@@ -24,6 +24,7 @@ export class ApiRejoindreLaMobilisationErrorManagementService extends DefaultErr
 	}
 
 	protected createFailureForHttpError(error: HttpError) {
+		// FIXME (SULI 18-12-2023): supprimer la condition du message car plus d'actualité par rapport à la réponse de LEE
 		if (error.response?.status === 400 && error?.response?.data?.message === ApiRejoindreLaMobilisationMessageError.ERROR_400) {
 			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 		}
