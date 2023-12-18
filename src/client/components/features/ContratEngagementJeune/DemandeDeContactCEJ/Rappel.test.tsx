@@ -54,7 +54,7 @@ describe('<Rappel />', () => {
 			expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
 			expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
 			expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+			expect(screen.getByRole('combobox', { name: 'Ville' })).toBeInTheDocument();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
 		});
