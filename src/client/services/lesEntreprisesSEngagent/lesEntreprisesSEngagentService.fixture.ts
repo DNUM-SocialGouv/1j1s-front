@@ -12,33 +12,22 @@ export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentServic
 	} as unknown as LesEntreprisesSEngagentService;
 }
 
-export const aCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation = () => ({
-	codePostal: '75015',
-	email: 'machin.chose@bidule.com',
-	nom: 'Chose',
-	nomSociété: 'Bidule co.',
-	prénom: 'Machin',
-	secteur: 'other-services',
-	siret: '12345678901114',
-	taille: 'medium',
-	travail: 'Chef',
-	téléphone: '0123456789',
-	ville: 'Paris (15e arrondissement)',
-});
-
-export const anEntreprise: () => Entreprise = () => ({
-	codePostal: '75015',
-	email: 'machin.chose@bidule.com',
-	nom: 'Chose',
-	nomSociété: 'Bidule co.',
-	prénom: 'Machin',
-	secteur: 'other-services',
-	siret: '12345678901114',
-	taille: 'medium',
-	travail: 'Chef',
-	téléphone: '+33123456789',
-	ville: 'Paris (15e arrondissement)',
-});
+export function anEntreprise(overrides?: Partial<Entreprise>): Entreprise {
+	return {
+		codePostal: '75015',
+		email: 'machin.chose@bidule.com',
+		nom: 'Chose',
+		nomSociété: 'Bidule co.',
+		prénom: 'Machin',
+		secteur: 'other-services',
+		siret: '12345678901114',
+		taille: 'medium',
+		travail: 'Chef',
+		téléphone: '+33123456789',
+		ville: 'Paris (15e arrondissement)',
+		...overrides,
+	};
+};
 
 export const anEntrepriseMember = () => ({
 	companyName: 'Bidule co.',
