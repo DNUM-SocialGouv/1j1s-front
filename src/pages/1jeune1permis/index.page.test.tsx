@@ -114,7 +114,7 @@ describe('1jeune1permis', () => {
 	});
 	
 	
-	it('redimensionne l\'iframe 1jeune1permis via la taille communiquée par l\'API postMessage', async () => {
+	it('redimensionne l\'iframe 1jeune1permis via la taille communiquée par l\'API postMessage avec une marge de 40 pixels', async () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
@@ -123,16 +123,17 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'resize-iframe',
+		});
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'resize-iframe',
-			},
-			origin: DOMAINE_1JEUNE_1PERMIS }),
+			{ data,
+				origin: DOMAINE_1JEUNE_1PERMIS }),
 		);
 
 		// Then
-		expect(iframe).toHaveAttribute('height', '2000');
+		expect(iframe).toHaveAttribute('style', '--1jeune1permis-iframe-height: 2040px;');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un evenement de type resize-iframe', async () => {
@@ -144,16 +145,18 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'do-not-resize-iframe',
+		});
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'do-not-resize-iframe',
-			},
-			origin: DOMAINE_1JEUNE_1PERMIS }),
+			{ data,
+				origin: DOMAINE_1JEUNE_1PERMIS }),
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un objet', async () => {
@@ -165,6 +168,7 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+
 		fireEvent(window, new MessageEvent('message',
 			{
 				data: 'hello !',
@@ -173,7 +177,7 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si l\'evenement ne provient pas du domaine sur lequel est située la page 1jeune1permis', async () => {
@@ -185,15 +189,17 @@ describe('1jeune1permis', () => {
 
 		// When
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
+		const data = JSON.stringify({
+			height: 2000,
+			type: 'resize-iframe',
+		});
+
 		fireEvent(window, new MessageEvent('message',
-			{ data: {
-				height: 2000,
-				type: 'resize-iframe',
-			},
-			origin: 'http://domaine-tres-malicieux.ninja' }),
+			{ data, 
+				origin: 'http://domaine-tres-malicieux.ninja' }),
 		);
 
 		// Then
-		expect(iframe).not.toHaveAttribute('height');
+		expect(iframe).not.toHaveAttribute('style');
 	});
 });

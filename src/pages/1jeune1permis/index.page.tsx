@@ -1,5 +1,5 @@
 import { GetServerSidePropsResult } from 'next';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -22,19 +22,32 @@ export async function getStaticProps(): Promise<GetServerSidePropsResult<Record<
 		props: {},
 	};
 }
-
+const ADDITIONAL_PIXEL_MARGIN = 40;
+interface MessageEventData { type: string; height: number }
 export default function UnJeuneUnPermis() {
 
 	useAnalytics(analyticsPageConfig);
 	const [iframeHeight, setIframeHeight] = useState<number | undefined>(undefined);
+	const iRef = useRef<HTMLIFrameElement>(null);
 
-	const onMessage = (event: MessageEvent<{ type: string; height: number }>) => {
-		if (event.origin !== DOMAINE_1JEUNE_1PERMIS || typeof event.data !== 'object' || !event.data.type) {
+	const onMessage = (event: MessageEvent<string>) => {
+		let data: MessageEventData;
+
+		if (event.origin !== DOMAINE_1JEUNE_1PERMIS) {
 			return;
 		}
-		if (event.data.type === 'resize-iframe') {
-			setIframeHeight(event.data.height);
+
+		try {
+			data = JSON.parse(event.data);
+		} catch {
+			return;
 		}
+
+		if (typeof data !== 'object' || data.type !== 'resize-iframe') {
+			return;
+		}
+
+		setIframeHeight(data.height + ADDITIONAL_PIXEL_MARGIN);
 	};
 
 	useEffect(() => {
@@ -48,6 +61,11 @@ export default function UnJeuneUnPermis() {
 		};
 	});
 
+	setInterval(() => {
+		// Polling pour déclencher l'envoi de la taille de l'iframe
+		iRef.current?.contentWindow?.postMessage('size-request', '*');
+	}, 100);
+
 	return (
 		<main id="contenu">
 			<Head
@@ -58,7 +76,8 @@ export default function UnJeuneUnPermis() {
 				<iframe className={styles.iframe}
 					title="Informations sur le dispositif 1 jeune 1 permis"
 					src={URL_IFRAME_1JEUNE_1PERMIS}
-					height={iframeHeight}/>
+					style={iframeHeight ? { '--1jeune1permis-iframe-height' : `${iframeHeight}px` } as React.CSSProperties : {}}
+					ref={iRef}/>
 			</Container>
 		</main>
 	);
