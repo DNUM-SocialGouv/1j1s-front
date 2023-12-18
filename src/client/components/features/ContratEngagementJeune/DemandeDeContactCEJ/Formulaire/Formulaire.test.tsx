@@ -3,16 +3,22 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
+import FormulaireDeContactCEJ
+	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
-jest.setTimeout(10000);
+jest.mock('lodash/debounce', () =>
+	jest.fn((fn) => {
+		fn.cancel = jest.fn();
+		fn.return = jest.fn();
+		return fn;
+	}));
 describe('<FormulaireDeContactCEJ />', () => {
 
 	function renderComponent() {
@@ -44,7 +50,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 		expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
 		expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
 		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-		expect(screen.getByLabelText('Ville')).toBeInTheDocument();
+		expect(screen.getByRole('combobox', { name: 'Ville' })).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
 	});
 
@@ -67,7 +73,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				const { demandeDeContactServiceMock } = renderComponent();
 
 				// When
-				await remplirFormulaireDeContact({
+				await remplirFormulaireDeContactEtEnvoyer({
 					age: '19 ans',
 					email: 'toto@msn.fr',
 					nom: 'Mc Totface',
@@ -75,6 +81,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 					téléphone: '0123456789',
 					ville: 'Paris',
 				});
+				// screen.debug(undefined, Infinity);
 
 				// Then
 				expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
@@ -92,7 +99,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				const { onSuccess } = renderComponent();
 
 				// When
-				await remplirFormulaireDeContact({
+				await remplirFormulaireDeContactEtEnvoyer({
 					age: '19 ans',
 					email: 'toto@msn.fr',
 					nom: 'Mc Totface',
@@ -136,20 +143,20 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
 
-async function remplirFormulaireDeContact(data: ContactInputs, submit = true) {
+async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	const user = userEvent.setup();
 	await user.type(screen.getByLabelText('Prénom'), data.prénom);
 	await user.type(screen.getByLabelText('Nom'), data.nom);
 	await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
 	await user.type(screen.getByLabelText('Adresse email'), data.email);
 
-	await user.type(screen.getByLabelText('Ville'), data.ville);
-	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
+	await user.type(screen.getByRole('combobox', { name: 'Ville' }), data.ville);
+	await user.click(await screen.findByText('Paris 15e Arrondissement (75015)'));
 
 	await user.click(screen.getByRole('button', { name: 'Age' }));
 	await user.click(screen.getByText(data.age));
-	if (submit) {
-		await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
-	}
+
+	await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 }
+
 

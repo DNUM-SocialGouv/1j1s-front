@@ -140,7 +140,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
 		}
-	}, [isPremièreÉtape, entrepriseSouhaitantSEngager, formulaireÉtape1, saveStep1]);
+	}, [isPremièreÉtape, saveStep1]);
 
 	const returnToStep1 = useCallback(() => {
 		setTitle(TITLE_ÉTAPE_1);
@@ -222,7 +222,7 @@ export default function LesEntreprisesSEngagentInscription() {
 											onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
 												setFormulaireÉtape1({ ...formulaireÉtape1, libelleCommune: newLibelle });
 											}}
-											placeholder={'Exemples : Paris, Béziers...'}
+											debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter test sur debounce
 										/>
 										<InputText
 											label="Numéro de SIRET"
