@@ -290,7 +290,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 	describe('en cas d´erreur', () => {
 		describe('montre une modale', () => {
-			it('avec un lien de retour au formulaire', async () => {
+			it('avec un bouton de retour au formulaire', async () => {
 				// Given
 				renderComponent();
 				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
@@ -305,9 +305,8 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				// Then
 				const modale = await screen.findByRole('dialog');
 
-				const lien = within(modale).getByRole('link', { name: 'Retourner au formulaire' });
-				expect(lien).toBeVisible();
-				expect(lien).toHaveAttribute('href', '/les-entreprises-s-engagent/inscription');
+				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retourner au formulaire' });
+				expect(retournerAuFormulaire).toBeVisible();
 			});
 			it('avec un lien de retour à l‘accueil', async () => {
 				// Given
@@ -327,6 +326,25 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				const lien = within(modale).getByRole('link', { name: 'Aller à l’accueil' });
 				expect(lien).toBeVisible();
 				expect(lien).toHaveAttribute('href', '/');
+			});
+			it('le bouton de retour au formulaire ferme la modale', async () => {
+				// Given
+				const user = userEvent.setup();
+				renderComponent();
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
+				const modale = await screen.findByRole('dialog');
+				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retourner au formulaire' });
+
+				// When
+				await user.click(retournerAuFormulaire);
+
+				// Then
+				expect(modale).not.toBeVisible();
 			});
 		});
 	});
