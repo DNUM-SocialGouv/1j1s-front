@@ -36,28 +36,23 @@ describe('Parcours formulaire cej', () => {
 			//  À remplacer après fix du composant associé
 			cy.findAllByRole('option').first().click();
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('textbox', { name: /Ville/i }).type('paris'),
-					alias: 'recherche-communes',
-					path: '/api/communes*',
-					response: JSON.stringify({ résultats: [
-						{
-							code: '75056',
-							codePostal: '75006',
-							coordonnées: {
-								latitude: 48.859,
-								longitude: 2.347,
-							},
-							libelle: 'Paris (75006)',
-							ville: 'Paris',
+			cy.intercept(
+				'/api/communes*',
+				JSON.stringify({ résultats: [
+					{
+						code: '75056',
+						codePostal: '75006',
+						coordonnées: {
+							latitude: 48.859,
+							longitude: 2.347,
 						},
-					] }),
-				},
-			);
-			// FIXME (GAFI 23-10-2023): Idéalement récupérer avec cy.findByRole('listbox', { name: /Ville/i }).children()
-			//  À remplacer après fix du composant associé
-			cy.findAllByRole('option').first().click();
+						libelle: 'Paris (75006)',
+						ville: 'Paris',
+					},
+				] }),
+			).as('get-communes');
+			cy.findByRole('combobox', { name: /Ville/i }).type('paris');
+			cy.findByRole('option', { name: 'Paris (75006)' }).click();
 
 			interceptPost(
 				{

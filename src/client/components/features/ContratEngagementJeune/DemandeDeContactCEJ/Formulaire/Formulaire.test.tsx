@@ -13,12 +13,6 @@ import { DemandeDeContactService } from '~/client/services/demandeDeContact/dema
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
-jest.mock('lodash/debounce', () =>
-	jest.fn((fn) => {
-		fn.cancel = jest.fn();
-		fn.return = jest.fn();
-		return fn;
-	}));
 describe('<FormulaireDeContactCEJ />', () => {
 
 	function renderComponent() {

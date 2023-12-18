@@ -9,15 +9,6 @@ export interface Commune {
   }
 }
 
-export interface CommuneToRename {
-	codeInsee: string
-	codePostal: string
-	longitude: string
-	latitude: string
-	libelle: string
-	ville: string
-}
-
 export interface RésultatsRechercheCommune {
   résultats: Commune[]
 }
