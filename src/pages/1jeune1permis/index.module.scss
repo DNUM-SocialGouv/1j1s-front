@@ -2,7 +2,6 @@
 
 .iframe {
   min-width: 100%;
-  min-height: 1600px;
-  height: var(--1jeune1permis-iframe-height);
+  height: var(--1jeune1permis-iframe-height, 1600px);
   margin-top: 1rem;
 }

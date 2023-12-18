@@ -114,7 +114,7 @@ describe('1jeune1permis', () => {
 	});
 	
 	
-	it('redimensionne l\'iframe 1jeune1permis via la taille communiquée par l\'API postMessage', async () => {
+	it('redimensionne l\'iframe 1jeune1permis via la taille communiquée par l\'API postMessage avec une marge de 40 pixels', async () => {
 		// Given
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
@@ -133,7 +133,7 @@ describe('1jeune1permis', () => {
 		);
 
 		// Then
-		expect(iframe).toHaveAttribute('style', '--1jeune1permis-iframe-height: 2000px;');
+		expect(iframe).toHaveAttribute('style', '--1jeune1permis-iframe-height: 2040px;');
 	});
 
 	it('ne redimensionne pas l\'iframe 1jeune1permis via si la donnée transmise n\'est pas un evenement de type resize-iframe', async () => {

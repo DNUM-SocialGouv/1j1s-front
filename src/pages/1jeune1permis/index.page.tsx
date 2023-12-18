@@ -22,7 +22,7 @@ export async function getStaticProps(): Promise<GetServerSidePropsResult<Record<
 		props: {},
 	};
 }
-
+const ADDITIONAL_PIXEL_MARGIN = 40;
 interface MessageEventData { type: string; height: number }
 export default function UnJeuneUnPermis() {
 
@@ -47,7 +47,7 @@ export default function UnJeuneUnPermis() {
 			return;
 		}
 
-		setIframeHeight(data.height);
+		setIframeHeight(data.height + ADDITIONAL_PIXEL_MARGIN);
 	};
 
 	useEffect(() => {
