@@ -73,17 +73,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	const id = useId();
 	const inputId = idProps ?? id;
 
-	useEffect(function retrieveCommune() {
-		if (isUserInputValid(commune.libelle)) {
-			const fetchCorrespondingCommune = async () => {
-				await rechercherCommunesWithUserInputValid(commune.libelle);
-			};
-
-			fetchCorrespondingCommune()
-				.catch((e) => console.error('oups', e));
-		}
-	}, []); // dependance vide car on veut seulement retrieve la première fois que le composant est render
-
 	function isUserInputValid(userInput: string) {
 		return userInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}

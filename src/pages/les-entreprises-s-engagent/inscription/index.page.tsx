@@ -24,8 +24,6 @@ import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
 
-export type FormulaireEngagement = FormulaireÉtape1Props & FormulaireÉtape2Props;
-
 export type EntrepriseSouhaitantSEngager = {
 	codePostal: string
 	nomSociété: string
@@ -39,9 +37,9 @@ export type EntrepriseSouhaitantSEngager = {
 	travail: string
 	téléphone: string
 }
+
 interface FormulaireÉtape1Props {
 	nomSociété: string
-	ville: string
 	siret: string
 	secteur: string
 	taille: string
@@ -92,12 +90,11 @@ export default function LesEntreprisesSEngagentInscription() {
 	});
 
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
-		libelleCommune: '', // TODO (SULI 01-12-2023): transformer la structure pour grouper les infos concernant commune ensemble
+		libelleCommune: '',
 		nomSociété: '',
 		secteur: '',
 		siret: '',
 		taille: '',
-		ville: '',
 	});
 
 	const [formulaireÉtape2, setFormulaireÉtape2] = useState<FormulaireÉtape2Props>({
@@ -134,7 +131,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		};
 	}
 
-	const goToÉtape2 = useCallback((event: FormEvent<HTMLFormElement>) => {
+	const goToStep2 = useCallback((event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (isPremièreÉtape && event.currentTarget.checkValidity()) {
 			const formStep1: HTMLFormElement = event.currentTarget;
@@ -143,9 +140,9 @@ export default function LesEntreprisesSEngagentInscription() {
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
 		}
-	}, [isPremièreÉtape, entrepriseSouhaitantSEngager, formulaireÉtape1]);
+	}, [isPremièreÉtape, entrepriseSouhaitantSEngager, formulaireÉtape1, saveStep1]);
 
-	const returnToÉtape1 = useCallback(() => {
+	const returnToStep1 = useCallback(() => {
 		setTitle(TITLE_ÉTAPE_1);
 		setÉtape(Etape.ETAPE_1);
 	}, []);
@@ -200,7 +197,7 @@ export default function LesEntreprisesSEngagentInscription() {
 									className={styles.boutonRetour}>
 									Retour
 								</LinkStyledAsButtonWithIcon>
-								<form className={styles.formulaire} onSubmit={goToÉtape2}>
+								<form className={styles.formulaire} onSubmit={goToStep2} aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}>
 									<div className={styles.bodyFormulaire}>
 										<InputText
 											label="Nom de l’entreprise"
@@ -216,9 +213,11 @@ export default function LesEntreprisesSEngagentInscription() {
 										<ComboboxCommune
 		  									required
 											label="Ville du siège social de l’entreprise"
-											name="companyPostalCode" // todo modifier le name ici car l'input derriere contient la commune et non pas le code postal
+											name="companyCommuneLibelle"
 											defaultCommune={{
-		  										libelle: formulaireÉtape1?.libelleCommune,
+		  										codePostal: entrepriseSouhaitantSEngager.current.codePostal || undefined,
+												libelle: formulaireÉtape1?.libelleCommune,
+												ville: entrepriseSouhaitantSEngager.current.ville || undefined,
 		  									}}
 											onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
 												setFormulaireÉtape1({ ...formulaireÉtape1, libelleCommune: newLibelle });
@@ -287,7 +286,7 @@ export default function LesEntreprisesSEngagentInscription() {
 									className={styles.boutonRetour}
 									icon={<Icon name="angle-left"/>}
 									iconPosition="left"
-									onClick={returnToÉtape1}
+									onClick={returnToStep1}
 									label="Retour"
 								/>
 								<form className={styles.formulaire} onSubmit={submitFormulaire}>

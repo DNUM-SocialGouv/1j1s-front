@@ -126,7 +126,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			});
 		});
 
-		describe('puis passe à l’étape 2 et qu’il clique sur Retour', () => {
+		describe('une fois sur l’étape 2 et qu’il clique sur Retour', () => {
 			it('il repasse à l’étape 1', async () => {
 				renderComponent();
 
@@ -136,97 +136,149 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 				expect(screen.getByText('Étape 1 sur 2')).toBeVisible();
 			});
-		});
-	});
 
-	describe('quand l’utilisation clique sur Suivant et qu’il a rempli tous les champs en naviguant au clavier', () => {
-		it('il passe à l’étape 2', async () => {
-			// GIVEN
-			renderComponent();
-			await remplirFormulaireEtape1NavigationClavier();
+			it('les champs de l’étape 1 sont restés remplis', async () => {
+				// GIVEN
+				renderComponent();
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
 
-			// WHEN
-			await clickOnGoToEtape2();
+				// WHEN
+				await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
 
-			// THEN
-			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
-			labelsEtape2.forEach((label) => {
-				expect(screen.getByRole('textbox', label)).toBeVisible();
+				// THEN
+				const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
+				expect(inputNomSociété).toHaveValue('Octo');
+
+				const inputVille = screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise' });
+				expect(inputVille).toHaveValue('Paris 15e Arrondissement (75015)');
+
+				const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
+				expect(inputSiret).toHaveValue('41816609600069');
+
+				const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
+				expect(inputSecteur).toHaveValue('Santé humaine et action sociale');
+
+				const tailleEntreprise = screen.getByRole('button', { name: 'Taille de l’entreprise' });
+				expect(tailleEntreprise).toHaveTextContent('20 à 49 salariés'); // FIXME (SULI 12-12-2023): changer ce test quand select ne sera plus un button
+			});
+
+			it('les données complémentaires du champ de ville sont également bien renseignées lors de la soumission du formulaire', async () => {
+				// GIVEN
+				renderComponent();
+				const expected: EntrepriseSouhaitantSEngager = {
+					codePostal: '75015',
+					email: 'toto@email.com',
+					nom: 'Tata',
+					nomSociété: 'Octo',
+					prénom: 'Toto',
+					secteur: 'health-social',
+					siret: '41816609600069',
+					taille: 'xsmall',
+					travail: 'RH',
+					téléphone: '0122334455',
+					ville: 'Paris 15e Arrondissement',
+				};
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
+				await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
+				await clickOnGoToEtape2();
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
+
+				expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
 			});
 		});
-	});
 
-	describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
-		it('il voit des messages d’erreur', async () => {
+		describe('quand l’utilisation clique sur Suivant et qu’il a rempli tous les champs en naviguant au clavier', () => {
+			it('il passe à l’étape 2', async () => {
+			// GIVEN
+				renderComponent();
+				await remplirFormulaireEtape1NavigationClavier();
+
+				// WHEN
+				await clickOnGoToEtape2();
+
+				// THEN
+				expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
+				labelsEtape2.forEach((label) => {
+					expect(screen.getByRole('textbox', label)).toBeVisible();
+				});
+			});
+		});
+
+		describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
+			it('il voit des messages d’erreur', async () => {
 			// Given
-			renderComponent();
+				renderComponent();
 
-			await remplirFormulaireEtape1();
-			await clickOnGoToEtape2();
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
 
-			const [labelPrénom, ...autresLabels] = labelsEtape2;
-			const inputPrénom = screen.getByRole('textbox', labelPrénom);
-			await userEvent.type(inputPrénom, 'Toto');
+				const [labelPrénom, ...autresLabels] = labelsEtape2;
+				const inputPrénom = screen.getByRole('textbox', labelPrénom);
+				await userEvent.type(inputPrénom, 'Toto');
 
-			// When
-			await clickOnEnvoyerLeFormulaire();
+				// When
+				await clickOnEnvoyerLeFormulaire();
 
-			// Then
-			expect(screen.getByRole('textbox', labelPrénom)).toBeValid();
-			for (const label of autresLabels) {
-				expect(screen.getByRole('textbox', label)).toBeInvalid();
-			}
+				// Then
+				expect(screen.getByRole('textbox', labelPrénom)).toBeValid();
+				for (const label of autresLabels) {
+					expect(screen.getByRole('textbox', label)).toBeInvalid();
+				}
+			});
 		});
-	});
 
-	describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
-		it('le bouton est désactivé', async () => {
-			const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
-			jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {}));
+		describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
+			it('le bouton est désactivé', async () => {
+				const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {}));
 
-			render(
-				<DependenciesProvider
-					analyticsService={analyticsService}
-					lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
-					localisationService={localisationService}
-				>
-					<LesEntreprisesSEngagentInscription/>
-				</DependenciesProvider>,
-			);
+				render(
+					<DependenciesProvider
+						analyticsService={analyticsService}
+						lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
+						localisationService={localisationService}
+					>
+						<LesEntreprisesSEngagentInscription/>
+					</DependenciesProvider>,
+				);
 
-			await remplirFormulaireEtape1();
-			await clickOnGoToEtape2();
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
 
-			await remplirFormulaireEtape2();
-			await clickOnEnvoyerLeFormulaire();
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
 
-			const button = screen.getByRole('button', { name: 'Envoyer le formulaire' });
-			expect(button).toBeDisabled();
-		});
-		it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
-			renderComponent();
-			const expected: EntrepriseSouhaitantSEngager = {
-				codePostal: '75015',
-				email: 'toto@email.com',
-				nom: 'Tata',
-				nomSociété: 'Octo',
-				prénom: 'Toto',
-				secteur: 'health-social',
-				siret: '41816609600069',
-				taille: 'xsmall',
-				travail: 'RH',
-				téléphone: '0122334455',
-				ville: 'Paris 15e Arrondissement',
-			};
+				const button = screen.getByRole('button', { name: 'Envoyer le formulaire' });
+				expect(button).toBeDisabled();
+			});
+			it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
+				renderComponent();
+				const expected: EntrepriseSouhaitantSEngager = {
+					codePostal: '75015',
+					email: 'toto@email.com',
+					nom: 'Tata',
+					nomSociété: 'Octo',
+					prénom: 'Toto',
+					secteur: 'health-social',
+					siret: '41816609600069',
+					taille: 'xsmall',
+					travail: 'RH',
+					téléphone: '0122334455',
+					ville: 'Paris 15e Arrondissement',
+				};
 
-			await remplirFormulaireEtape1();
-			await clickOnGoToEtape2();
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
 
-			await remplirFormulaireEtape2();
-			await clickOnEnvoyerLeFormulaire();
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
 
-			expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
-			expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeVisible();
+				expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
+				expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeVisible();
+			});
 		});
 	});
 
