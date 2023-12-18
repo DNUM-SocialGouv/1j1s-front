@@ -165,7 +165,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 			setIsLoading(false);
 		}
-	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService]);
+	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService, saveStep2]);
 
 
 	return (

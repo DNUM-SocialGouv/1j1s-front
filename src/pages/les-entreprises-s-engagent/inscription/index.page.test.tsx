@@ -11,11 +11,10 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import {
 	aLesEntreprisesSEngagentService,
+	anEntrepriseSouhaitantSEngager,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import LesEntreprisesSEngagentInscription, {
-	EntrepriseSouhaitantSEngager,
-} from '~/pages/les-entreprises-s-engagent/inscription/index.page';
+import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
@@ -173,7 +172,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			it('les données complémentaires du champ de ville sont également bien renseignées lors de la soumission du formulaire', async () => {
 				// GIVEN
 				renderComponent();
-				const expected: EntrepriseSouhaitantSEngager = {
+				const expected = anEntrepriseSouhaitantSEngager({
 					codePostal: '75015',
 					email: 'toto@email.com',
 					nom: 'Tata',
@@ -185,7 +184,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 					travail: 'RH',
 					téléphone: '0122334455',
 					ville: 'Paris 15e Arrondissement',
-				};
+				});
 				await remplirFormulaireEtape1();
 				await clickOnGoToEtape2();
 				await userEvent.click(screen.getByRole('button', { name: 'Retour' }));
@@ -263,7 +262,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			});
 			it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
 				renderComponent();
-				const expected: EntrepriseSouhaitantSEngager = {
+				const expected = anEntrepriseSouhaitantSEngager({
 					codePostal: '75015',
 					email: 'toto@email.com',
 					nom: 'Tata',
@@ -275,7 +274,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 					travail: 'RH',
 					téléphone: '0122334455',
 					ville: 'Paris 15e Arrondissement',
-				};
+				});
 
 				await remplirFormulaireEtape1();
 				await clickOnGoToEtape2();

@@ -1,3 +1,4 @@
+import { EntrepriseSouhaitantSEngager } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import { Entreprise } from '~/server/entreprises/domain/Entreprise';
 import { createSuccess } from '~/server/errors/either';
 
@@ -7,6 +8,23 @@ export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentServic
 	return {
 		envoyerFormulaireEngagement: jest.fn().mockResolvedValue(createSuccess(undefined)),
 	} as unknown as LesEntreprisesSEngagentService;
+}
+
+export function anEntrepriseSouhaitantSEngager(overrides?: Partial<EntrepriseSouhaitantSEngager>): EntrepriseSouhaitantSEngager {
+	return {
+		codePostal: '75015',
+		email: 'toto@email.com',
+		nom: 'Tata',
+		nomSociété: 'Octo',
+		prénom: 'Toto',
+		secteur: 'health-social',
+		siret: '41816609600069',
+		taille: 'xsmall',
+		travail: 'RH',
+		téléphone: '0122334455',
+		ville: 'Paris 15e Arrondissement',
+		...overrides,
+	};
 }
 
 export function anEntreprise(overrides?: Partial<Entreprise>): Entreprise {
