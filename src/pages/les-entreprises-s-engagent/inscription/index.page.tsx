@@ -108,7 +108,7 @@ export default function LesEntreprisesSEngagentInscription() {
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
 	const isDeuxièmeÉtape = useMemo(() => étape === Etape.ETAPE_2, [étape]);
 
-	function saveStep1(formStep1Date: FormData) {
+	const saveStep1 = useCallback((formStep1Date: FormData) => {
 		entrepriseSouhaitantSEngager.current = {
 			...entrepriseSouhaitantSEngager.current,
 			codePostal: String(formStep1Date.get('codePostal')),
@@ -118,9 +118,9 @@ export default function LesEntreprisesSEngagentInscription() {
 			taille: String(formStep1Date.get('companySize')),
 			ville: String(formStep1Date.get('ville')),
 		};
-	}
+	}, [formulaireÉtape1]);
 
-	function saveStep2(formStep2Data: FormData) {
+	const saveStep2 = useCallback((formStep2Data: FormData) => {
 		entrepriseSouhaitantSEngager.current = {
 			...entrepriseSouhaitantSEngager.current,
 			email: String(formStep2Data.get('email')),
@@ -129,7 +129,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			travail: String(formStep2Data.get('job')),
 			téléphone: String(formStep2Data.get('phone')),
 		};
-	}
+	}, []);
 
 	const goToStep2 = useCallback((event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -165,7 +165,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 			setIsLoading(false);
 		}
-	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService]);
+	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService, saveStep2]);
 
 
 	return (
