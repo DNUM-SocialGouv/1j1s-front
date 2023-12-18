@@ -1,0 +1,37 @@
+name: Run playwright test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  create:
+    branches: [ "renovate/**" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+      - run: npm ci && cp .env.test .env
+      - name: Start redis
+        run: |
+          nohup docker-compose up </dev/null &>/dev/null &
+      - name: Sleep for 5 seconds
+        run: sleep 5s
+        shell: bash
+      - name: Run playwright
+        run: |
+          npm run playwright
