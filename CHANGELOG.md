@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.202.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.1...v3.202.2) (2023-12-19)
+
+
+### Bug Fixes
+
+* **logement:** taille image annonce ([#2466](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2466)) ([0e7be12](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0e7be12919ce0c95a087c69361bb20fde6c1ba16))
+
 ## [3.202.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.0...v3.202.1) (2023-12-19)
 
 
