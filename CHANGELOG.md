@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.202.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.201.4...v3.202.0) (2023-12-19)
+
+
+### Features
+
+* **transverse:** ajout de redirection pour les pages 404 consultées ([#2465](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2465)) ([8e6c8c5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8e6c8c59e4b009f62f562a931fdaf1d0d2b703de))
+
 ## [3.201.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.201.3...v3.201.4) (2023-12-18)
 
 
