@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.202.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.0...v3.202.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency redis to v4.6.12 ([#2479](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2479)) ([99c818c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/99c818ce9d6ca412ed71d850d132469d70bf6013))
+
 ## [3.202.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.201.4...v3.202.0) (2023-12-19)
 
 
