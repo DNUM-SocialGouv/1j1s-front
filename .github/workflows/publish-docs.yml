@@ -31,7 +31,7 @@ jobs:
         working-directory: docs
 
       - name: Téléverser les fichiers compilés Docusaurus
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docusaurus
           path: ./docs/build
@@ -56,7 +56,7 @@ jobs:
           npm run storybook:build
 
       - name: Téléverser les fichiers compilés Storybook
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: storybook
           path: ./storybook-static
