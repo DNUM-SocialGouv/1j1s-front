@@ -154,7 +154,7 @@ describe('<Champ/>', () => {
 			expect(erreur).toHaveAccessibleDescription('Je suis l‘indication');
 		});
 
-		it('lorsque je fournis un id à l‘erreur, le aria-describedby contient l‘erreur', async () => {
+		it('lorsque je fournis un id à l‘erreur, le aria-describedby contient l‘erreur quand le champ est bien en erreur', async () => {
 			render(<Champ>
 				<Champ.Input render={Input} validation={() => 'Ceci est une erreur'}/>
 				<Champ.Error id="idExpected"/>
