@@ -41,4 +41,5 @@ export interface EmploiEuropeFiltre {
 	niveauEtude?: string[];
 	motCle?: string;
 	page: number;
+	secteurActivite?: string[]
 }
