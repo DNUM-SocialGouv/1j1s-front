@@ -30,9 +30,12 @@ Il gère également automatiquement l'affichage du message d'erreur custom ainsi
 </Champ>
 ```
 
-Le composant `<Champ.Input>` prend en props un composant à utiliser (e.g. `Input`, `Combobox`, `Textarea`, ...) par la props `render`.
+J'aurai expliciter par une phrase ce que tu as en exemple,
 
-**Ce composant doit au moins accepter les props suivantes :**
+Le composant `<Champ.Input>` prend en props un composant à utiliser (e.g. `Input`, `Combobox`, `Textarea`, ...) par la props `render`.
+Remarque : si le composant à utiliser prend des `children`, ces `children` peuvent être donnés au `<Champ.Input>`comme dans l'exemple ci-dessus dans lequel `<Combobox>` prend des `<Combobox.Option>` en `children`
+
+**Le composant à afficher doit au moins accepter les props suivantes :**
 ```ts
 type ComponentChildrenPropsNecessary = {
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>, ...args: any[]) => void;
