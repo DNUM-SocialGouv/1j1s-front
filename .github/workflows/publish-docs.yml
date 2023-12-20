@@ -68,13 +68,13 @@ jobs:
 
     steps:
       - name: Télécharger les fichiers Docusaurus
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docusaurus
           path: ./docs
 
       - name: Télécharger les fichiers Storybook
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: storybook
           path: ./docs/storybook
