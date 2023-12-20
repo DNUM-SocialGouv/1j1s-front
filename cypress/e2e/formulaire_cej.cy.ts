@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import { interceptGet } from '../interceptGet';
 import { interceptPost } from '../interceptPost';
 
 describe('Parcours formulaire cej', () => {

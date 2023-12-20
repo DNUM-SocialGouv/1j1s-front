@@ -85,12 +85,14 @@ describe('<ComboboxCommune/>', () => {
 			it('accepte une default commune', () => {
 				const localisationService = aLocalisationService();
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune defaultCommune={{
+					<ComboboxCommune defaultCommune={aCommune({
 						code: '75056',
-						latitude: '48.8',
+						coordonnées: {
+							latitude: 48.8,
+							longitude: 2.2,
+						},
 						libelle: 'Paris 15e Arrondissement (75015)',
-						longitude: '2.2',
-					}}/>
+					})}/>
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -117,12 +119,7 @@ describe('<ComboboxCommune/>', () => {
 				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
 
 				render(<DependenciesProvider localisationService={localisationService}>
-					<ComboboxCommune defaultCommune={{
-						code: commune.code,
-						latitude: commune.coordonnées.latitude.toString(),
-						libelle: commune.libelle,
-						longitude: commune.coordonnées.longitude.toString(),
-					}}/>
+					<ComboboxCommune defaultCommune={commune}/>
 				</DependenciesProvider>);
 				const combobox = screen.getByRole('combobox');
 
@@ -139,12 +136,14 @@ describe('<ComboboxCommune/>', () => {
 			const radiusExpected = radiusList[1];
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune
-					defaultCommune={{
+					defaultCommune={aCommune({
 						code: '75056',
-						latitude: '48.8',
+						coordonnées: {
+							latitude: 48.8,
+							longitude: 2.2,
+						},
 						libelle: 'Paris 15e Arrondissement (75015)',
-						longitude: '2.2',
-					}}
+					})}
 					showRadiusInput
 					defaultDistance={radiusExpected.valeur}
 				/>
@@ -184,7 +183,7 @@ describe('<ComboboxCommune/>', () => {
 			const onInvalid = jest.fn();
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune required onInvalid={onInvalid} defaultCommune={{ libelle: 'Paris' }}/>
+				<ComboboxCommune required onInvalid={onInvalid} defaultCommune={aCommune({ libelle: 'Paris' })}/>
 			</DependenciesProvider>);
 			const combobox = screen.getByRole('combobox');
 			await user.clear(combobox);
