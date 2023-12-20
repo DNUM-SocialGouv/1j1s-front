@@ -164,7 +164,6 @@ export function Select(props: SelectProps) {
 			checked={isCurrentItemSelected(option)}
 			onChange={(event: ChangeEvent<HTMLInputElement>) => {
 				onSelectMultipleChange(event.target.checked, option.valeur);
-				// FIX: remove onChange, see if it cause problems
 			}}
 		/>
 	);

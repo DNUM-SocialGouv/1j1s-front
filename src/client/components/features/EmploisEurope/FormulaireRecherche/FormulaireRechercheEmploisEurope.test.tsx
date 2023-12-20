@@ -192,7 +192,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			codePays: 'ES',
 			libellePays: 'Espagne',
 			motCle: 'boulanger',
-		} });
+			secteurActivite: 'B',
+		},
+		});
 
 		render(
 			<FormulaireRechercheEmploisEurope />,

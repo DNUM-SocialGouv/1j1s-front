@@ -11,6 +11,7 @@ import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
 import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
 import { paysEuropeList } from '~/client/domain/pays';
+import { secteurActiviteEures } from '~/client/domain/secteurActiviteEures';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -19,7 +20,7 @@ import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEur
 import styles
 	from './FormulaireRechercheEmploisEurope.module.scss';
 
-function addTypeDeContratToQueryParams(filterQuery: string, filterToToggle: string) {
+function addSelectionToQueryParams(filterQuery: string, filterToToggle: string) {
 	const currentString = filterQuery.split(',').filter((element) => element);
 	const indexOfValue = currentString.indexOf(filterToToggle);
 	if (indexOfValue >= 0) {
@@ -36,8 +37,10 @@ function ModaleFiltreAvancee(props: {
 	open: boolean,
 	toggleTypeContrat: (typeContrat: string) => void,
 	toggleNiveauEtude: (niveauEtude: string) => void,
+	toggleSecteurActivite: (secteurActivite: string) => void,
 	inputTypeContrat: string,
 	inputNiveauEtude: string,
+	inputSecteurActivite: string,
 	onClick: () => void
 }) {
 	return (
@@ -75,6 +78,17 @@ function ModaleFiltreAvancee(props: {
 						/>
 					))}
 				</FilterAccordion>
+				<FilterAccordion title="Domaines">
+					{secteurActiviteEures.map((secteurActivite, index) => (
+						<Checkbox
+							key={`Domaine ${index}`}
+							label={secteurActivite.libellé}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
+							value={secteurActivite.valeur}
+							checked={props.inputSecteurActivite.includes(secteurActivite.valeur)}
+						/>
+					))}
+				</FilterAccordion>
 			</ModalComponent.Content>
 			<ModalComponent.Footer>
 				<div className={styles.buttonRechercher}>
@@ -100,6 +114,7 @@ export function FormulaireRechercheEmploisEurope() {
 		codePays,
 		typeContrat,
 		niveauEtude,
+		secteurActivite,
 	} = queryParams;
 	const router = useRouter();
 
@@ -109,17 +124,22 @@ export function FormulaireRechercheEmploisEurope() {
 	const [inputMotCle, setInputMotCle] = useState<string>(motCle ?? '');
 	const [inputTypeContrat, setInputTypeContrat] = useState<string>(typeContrat ?? '');
 	const [inputNiveauEtude, setInputNiveauEtude] = useState<string>(niveauEtude ?? '');
+	const [inputSecteurActivite, setInputSecteurActivite] = useState<string>(secteurActivite ?? '');
 	const localisationDefaultValue = (codePays && libellePays)
 		? { code: codePays, label: libellePays }
 		: undefined;
 
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
-		setInputTypeContrat(addTypeDeContratToQueryParams(inputTypeContrat, typeContrat));
+		setInputTypeContrat(addSelectionToQueryParams(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
 	
 	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
-		setInputNiveauEtude(addTypeDeContratToQueryParams(inputNiveauEtude, niveauEtude));
+		setInputNiveauEtude(addSelectionToQueryParams(inputNiveauEtude, niveauEtude));
 	}, [inputNiveauEtude]);
+
+	const toggleSecteurActivite = useCallback((secteurActivite: string) => {
+		setInputSecteurActivite(addSelectionToQueryParams(inputSecteurActivite, secteurActivite));
+	}, [inputSecteurActivite]);
 
 	const applyFiltresAvances = useCallback(() => {
 		setIsFiltresAvancesMobileOpen(false);
@@ -174,7 +194,9 @@ export function FormulaireRechercheEmploisEurope() {
 						close={() => setIsFiltresAvancesMobileOpen(false)}
 						toggleTypeContrat={toggleTypeContrat}
 						toggleNiveauEtude={toggleNiveauEtude}
+						toggleSecteurActivite={toggleSecteurActivite}
 						inputTypeContrat={inputTypeContrat}
+						inputSecteurActivite={inputSecteurActivite}
 						inputNiveauEtude={inputNiveauEtude}
 						open={isFiltresAvancesMobileOpen}
 						onClick={applyFiltresAvances}
@@ -198,6 +220,14 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Niveau d'études demandé"
 							value={inputNiveauEtude}
 							name="niveauEtude"
+						/>
+						<Select
+							multiple
+							optionList={secteurActiviteEures}
+							onChange={setInputSecteurActivite}
+							label="Domaines"
+							value={inputSecteurActivite}
+							name="secteurActivite"
 						/>
 					</div>
 				)}
