@@ -191,8 +191,8 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 
 				// When
 				repository.search({
-					secteurActivite: ['A', 'B'],
 					page: 1,
+					secteurActivite: ['A', 'B'],
 				});
 
 				// Then

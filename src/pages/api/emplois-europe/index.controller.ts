@@ -13,6 +13,7 @@ export const emploiEuropeRechercheQuerySchema = Joi.object({
 	motCle: Joi.string(),
 	niveauEtude: Joi.string(),
 	page: Joi.number().min(1).required(),
+	secteurActivite: Joi.string(),
 	typeContrat: Joi.string(),
 }).options({ allowUnknown: true });
 
@@ -31,6 +32,7 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 		motCle: query.motCle as string | undefined,
 		niveauEtude: query.niveauEtude ? queryToArray(query.niveauEtude) : [],
 		page: Number(query.page),
+		secteurActivite: query.secteurActivite ? queryToArray(query.secteurActivite) : [],
 		typeContrat: query.typeContrat ? queryToArray(query.typeContrat) : [],
 	};
 }
