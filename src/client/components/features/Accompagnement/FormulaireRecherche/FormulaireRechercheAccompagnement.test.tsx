@@ -11,6 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 
@@ -23,7 +24,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 		it('filtre les résultats par localisation',  async() => {
 			// GIVEN
 			const routerPush = jest.fn();
-		
+
 			mockUseRouter({ push: routerPush, query: {
 				typeAccompagnement: 'pole_emploi',
 			} });
@@ -73,9 +74,11 @@ describe('FormulaireRechercheAccompagnement', () => {
 
 	it('rempli les champs du formulaire avec les query params', async () => {
 		mockUseRouter({ query: {
-			codeCommune: '75001',
-			libelleCommune: 'Paris (75001)',
 			typeAccompagnement: 'pole_emploi',
+			...aCommuneQuery({
+				codeCommune: '75001',
+				libelleCommune: 'Paris (75001)',
+			}),
 		} });
 
 		render(

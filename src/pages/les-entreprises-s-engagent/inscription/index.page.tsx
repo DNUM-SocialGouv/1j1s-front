@@ -38,22 +38,6 @@ export type EntrepriseSouhaitantSEngager = {
 	téléphone: string
 }
 
-interface FormulaireÉtape1Props {
-	nomSociété: string
-	siret: string
-	secteur: string
-	taille: string
-	libelleCommune: string
-}
-
-interface FormulaireÉtape2Props {
-	prénom: string
-	nom: string
-	email: string
-	travail: string
-	téléphone: string
-}
-
 enum Etape {
 	ETAPE_1 = 'Étape 1 sur 2',
 	ETAPE_2 = 'Étape 2 sur 2'

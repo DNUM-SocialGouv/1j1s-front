@@ -10,6 +10,7 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 const typeAccompagnementListe: Option[] = [
 	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.AGENCE_POLE_EMPLOI },
@@ -22,23 +23,31 @@ export function FormulaireRechercheAccompagnement() {
 
 	const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
 
-	const queryParams = useAccompagnementQuery();
+	const accompagnementQueryParams = useAccompagnementQuery();
+	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune } = accompagnementQueryParams;
 
-	const { libelleCommune, codeCommune } = queryParams;
-
-	const defaultCommuneValue = (libelleCommune && codeCommune)
-		? { code: codeCommune, libelle: libelleCommune }
+	const defaultCommuneValue: Commune | undefined = (libelleCommune && codeCommune && codePostal && ville && longitudeCommune && latitudeCommune)
+		? { // FIXME (SULI 20-12-2023): extraire dans un mapper
+			code: codeCommune,
+			codePostal,
+			coordonnées: {
+				latitude: Number(latitudeCommune),
+				longitude: Number(longitudeCommune),
+			},
+			libelle: libelleCommune,
+			ville,
+		}
 		: undefined;
 
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
-		setInputTypeAccompagnement(queryParams.typeAccompagnement || '');
-	}, [queryParams]);
+		setInputTypeAccompagnement(accompagnementQueryParams.typeAccompagnement || '');
+	}, [accompagnementQueryParams]);
 
 	async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		const query = getFormAsQuery(event.currentTarget, accompagnementQueryParams, false);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
