@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ChangeEvent, FormEvent, useCallback, useMemo, useRef, useState } from 'react';
+import React, { FormEvent, useCallback, useMemo, useRef, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEngagent/ModalLEEErreur/ModalLEEErreur';
@@ -77,22 +77,6 @@ export default function LesEntreprisesSEngagentInscription() {
 
 	const formStep1Ref = useRef<HTMLFormElement>(null);
 	const formStep2Ref = useRef<HTMLFormElement>(null);
-
-	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
-		libelleCommune: '',
-		nomSociété: '',
-		secteur: '',
-		siret: '',
-		taille: '',
-	});
-
-	const [formulaireÉtape2, setFormulaireÉtape2] = useState<FormulaireÉtape2Props>({
-		email: '',
-		nom: '',
-		prénom: '',
-		travail: '',
-		téléphone: '',
-	});
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
 	const isDeuxiemeEtape = useMemo(() => étape === Etape.ETAPE_2, [étape]);
@@ -182,36 +166,20 @@ export default function LesEntreprisesSEngagentInscription() {
 										label="Nom de l’entreprise"
 										name="companyName"
 										placeholder="Exemples : Crédit Agricole, SNCF…"
-										value={formulaireÉtape1.nomSociété}
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
-											...formulaireÉtape1,
-											nomSociété: event.currentTarget.value,
-										})}
 										required
 									/>
 									<ComboboxCommune
 										required
 										label="Ville du siège social de l’entreprise"
 										name="companyCommuneLibelle"
-										onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
-											setFormulaireÉtape1({
-												...formulaireÉtape1,
-												libelleCommune: newLibelle,
-											});
-										}}
 										debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter test sur debounce
 									/>
 									<InputText
 										label="Numéro de SIRET"
 										name="companySiret"
 										placeholder="Exemple : 12345678901112"
-										value={formulaireÉtape1.siret}
 										required
 										pattern={'^[0-9]{14}$'}
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
-											...formulaireÉtape1,
-											siret: event.currentTarget.value,
-										})}
 									/>
 									<InputAutocomplétionSecteurActivité
 										required
@@ -221,10 +189,6 @@ export default function LesEntreprisesSEngagentInscription() {
 										placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
 										valeurInitiale={secteurActiviteChoisie}
 										onSuggestionSelected={(event, suggestion) => {
-											setFormulaireÉtape1((previousFormulaireÉtape1) => ({
-												...previousFormulaireÉtape1,
-												secteur: suggestion.valeur,
-											}));
 											setSecteurActiviteChoisie(suggestion);
 										}}
 									/>
@@ -234,13 +198,6 @@ export default function LesEntreprisesSEngagentInscription() {
 										name="companySize"
 										placeholder="Exemple : 250 à 499 salariés"
 										optionList={taillesEntreprises}
-										onChange={(value: string) => {
-											setFormulaireÉtape1((previousFormulaireÉtape1) => ({
-												...previousFormulaireÉtape1,
-												taille: value,
-											}));
-										}}
-										value={formulaireÉtape1.taille}
 									/>
 								</div>
 
@@ -270,34 +227,19 @@ export default function LesEntreprisesSEngagentInscription() {
 										label="Prénom"
 										name="firstName"
 										placeholder="Exemples : Marc, Sonia…"
-										value={formulaireÉtape2.prénom}
 										required
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-											...formulaireÉtape2,
-											prénom: event.currentTarget.value,
-										})}
 									/>
 									<InputText
 										label="Nom"
 										name="lastName"
 										placeholder="Exemples : Ducourt, Dupont…"
-										value={formulaireÉtape2.nom}
 										required
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-											...formulaireÉtape2,
-											nom: event.currentTarget.value,
-										})}
 									/>
 									<InputText
 										label="Fonction au sein de l’entreprise"
 										name="job"
 										placeholder="Exemples : RH, Chargé de communications"
-										value={formulaireÉtape2.travail}
 										required
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-											...formulaireÉtape2,
-											travail: event.currentTarget.value,
-										})}
 									/>
 									<InputText
 										label="Adresse e-mail de contact"
@@ -305,12 +247,7 @@ export default function LesEntreprisesSEngagentInscription() {
 										name="email"
 										placeholder="Exemple : mail@exemple.com"
 										hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-										value={formulaireÉtape2.email}
 										required
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-											...formulaireÉtape2,
-											email: event.currentTarget.value,
-										})}
 									/>
 									<InputText
 										label="Numéro de téléphone de contact"
@@ -318,12 +255,7 @@ export default function LesEntreprisesSEngagentInscription() {
 										placeholder="Exemple : 0199999999"
 										pattern="^(\+33|0|0033)[1-9]\d{8}$"
 										hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-										value={formulaireÉtape2.téléphone}
 										required
-										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-											...formulaireÉtape2,
-											téléphone: event.currentTarget.value,
-										})}
 									/>
 								</div>
 								<div className={styles.validationEtape2}>
