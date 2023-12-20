@@ -72,13 +72,12 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
+	const [secteurActiviteChoisie, setSecteurActiviteChoisie] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
-	const formStep1Ref = useRef<HTMLFormElement>();
-	const formStep2Ref = useRef<HTMLFormElement>();
+	const formStep1Ref = useRef<HTMLFormElement>(null);
+	const formStep2Ref = useRef<HTMLFormElement>(null);
 
-	const secteurEntreprise = useState<string>('');
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
 		libelleCommune: '',
 		nomSociété: '',
@@ -111,25 +110,23 @@ export default function LesEntreprisesSEngagentInscription() {
 		setÉtape(Etape.ETAPE_1);
 	}, []);
 
-	function buildEntrepriseSouhaitantSEngager(): EntrepriseSouhaitantSEngager {
-		const formStep1Data = new FormData(formStep1Ref.current);
-		const formStep2Data = new FormData(formStep2Ref.current);
-		console.log(formStep1Data);
-		console.log(formStep2Data);
+	const buildEntrepriseSouhaitantSEngager = useCallback((): EntrepriseSouhaitantSEngager => {
+		const formStep1Data = new FormData(formStep1Ref.current || undefined);
+		const formStep2Data = new FormData(formStep2Ref.current || undefined);
 		return {
 			codePostal: String(formStep1Data.get('codePostal')),
 			email: String(formStep2Data.get('email')),
 			nom: String(formStep2Data.get('lastName')),
 			nomSociété: String(formStep1Data.get('companyName')),
 			prénom: String(formStep2Data.get('firstName')),
-			secteur: formulaireÉtape1.secteur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			secteur: secteurActiviteChoisie!.valeur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
 			siret: String(formStep1Data.get('companySiret')),
 			taille: String(formStep1Data.get('companySize')),
 			travail: String(formStep2Data.get('job')),
 			téléphone: String(formStep2Data.get('phone')),
 			ville: String(formStep1Data.get('ville')),
 		};
-	}
+	}, [secteurActiviteChoisie]);
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -145,7 +142,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 			setIsLoading(false);
 		}
-	}, [lesEntreprisesSEngagentService]);
+	}, [lesEntreprisesSEngagentService, buildEntrepriseSouhaitantSEngager]);
 
 
 	return (
@@ -222,9 +219,13 @@ export default function LesEntreprisesSEngagentInscription() {
 										label="Secteur d’activité de l’entreprise"
 										name="companySector"
 										placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
-										valeurInitiale={secteurActivitéValeur}
+										valeurInitiale={secteurActiviteChoisie}
 										onSuggestionSelected={(event, suggestion) => {
-											setSecteurActivitéValeur(suggestion);
+											setFormulaireÉtape1((previousFormulaireÉtape1) => ({
+												...previousFormulaireÉtape1,
+												secteur: suggestion.valeur,
+											}));
+											setSecteurActiviteChoisie(suggestion);
 										}}
 									/>
 									<Select
