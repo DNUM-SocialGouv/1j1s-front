@@ -23,7 +23,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange: onChangeProps = doNothing,
 		onFocus: onFocusProps = doNothing,
 		onBlur: onBlurProps = doNothing,
-		onTouch = doNothing,
+		onTouch: onTouchProps = doNothing,
 		...props
 	}, outerRef) {
 	const inputRef = useSynchronizedRef(outerRef);
@@ -48,9 +48,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 
 	const onBlur = useCallback(async function onFocus(event: FocusEvent<HTMLInputElement>) {
 		const touched = setTouchedOnBlur(event.currentTarget.value);
-		if (touched) { onTouch(touched); }
+		if (touched) { onTouchProps(touched); }
 		onBlurProps(event);
-	}, [onBlurProps, onTouch, setTouchedOnBlur]);
+	}, [onBlurProps, onTouchProps, setTouchedOnBlur]);
 
 	return <input
 		data-touched={touched}
