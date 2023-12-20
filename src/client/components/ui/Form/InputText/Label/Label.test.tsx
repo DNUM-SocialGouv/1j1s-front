@@ -42,7 +42,7 @@ describe('<Label>', () => {
 			expect(screen.getByText(/Je suis le complément/)).toBeVisible();
 		});
 
-		it('accepte les props natives d’un small', () => {
+		it('accepte les props natives d’une balise small', () => {
 			render(
 				<Label>
 					Label <Label.Complement aria-label="foo">(Complement)</Label.Complement>
