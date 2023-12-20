@@ -17,7 +17,9 @@ const ChampContext = React.createContext<ChampContextType | null>(null);
 
 export const ChampContextProvider = ChampContext.Provider;
 
-export function useChampContext(): ChampContextType | Record<string, never> {
+type EmptyObject = Record<string, never>;
+
+export function useChampContext(): ChampContextType | EmptyObject {
 	const context = useContext(ChampContext);
 	return context ?? {};
 }
