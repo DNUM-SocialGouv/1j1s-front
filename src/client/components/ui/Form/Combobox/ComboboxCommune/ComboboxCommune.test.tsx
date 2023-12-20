@@ -618,4 +618,12 @@ describe('<ComboboxCommune/>', () => {
 			expect(screen.getByRole('status')).toHaveTextContent(/^$/);
 		});
 	});
+
+	describe('Les informations d’une commune sont correctement renseignées', () => {
+	  it.todo('le code postal est présent');
+	  it.todo('le code insee est présent');
+	  it.todo('la ville est présent');
+	  it.todo('la longitude est présente');
+	  it.todo('la latitude est présente');
+	});
 });

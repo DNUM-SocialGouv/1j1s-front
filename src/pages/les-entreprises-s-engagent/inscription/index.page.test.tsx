@@ -131,6 +131,15 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				expect(screen.getByRole('textbox', label)).toBeVisible();
 			});
 		});
+		it('l’étape 1 devient cachée', async () => {
+			renderComponent();
+			await remplirFormulaireEtape1();
+
+			await clickOnGoToEtape2();
+
+			const formulaireEtape1 = screen.getByRole('form', { hidden: true, name: 'Formulaire Les entreprise s’engagent - Étape 1' });
+			expect(formulaireEtape1).not.toBeVisible();
+		});
 
 		describe('une fois sur l’étape 2 et qu’il clique sur Retour', () => {
 			it('il repasse à l’étape 1', async () => {

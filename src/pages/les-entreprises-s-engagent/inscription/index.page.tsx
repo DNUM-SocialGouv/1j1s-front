@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { ChangeEvent, FormEvent, useCallback, useMemo, useRef,useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useMemo, useRef, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEngagent/ModalLEEErreur/ModalLEEErreur';
@@ -75,20 +75,10 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [secteurActivitéValeur, setSecteurActivitéValeur] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
-	const entrepriseSouhaitantSEngager = useRef<EntrepriseSouhaitantSEngager>({
-		codePostal: '',
-		email: '',
-		nom: '',
-		nomSociété: '',
-		prénom: '',
-		secteur: '',
-		siret: '',
-		taille: '',
-		travail: '',
-		téléphone: '',
-		ville: '',
-	});
+	const formStep1Ref = useRef<HTMLFormElement>();
+	const formStep2Ref = useRef<HTMLFormElement>();
 
+	const secteurEntreprise = useState<string>('');
 	const [formulaireÉtape1, setFormulaireÉtape1] = useState<FormulaireÉtape1Props>({
 		libelleCommune: '',
 		nomSociété: '',
@@ -106,56 +96,46 @@ export default function LesEntreprisesSEngagentInscription() {
 	});
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
-	const isDeuxièmeÉtape = useMemo(() => étape === Etape.ETAPE_2, [étape]);
-
-	const saveStep1 = useCallback((formStep1Date: FormData) => {
-		entrepriseSouhaitantSEngager.current = {
-			...entrepriseSouhaitantSEngager.current,
-			codePostal: String(formStep1Date.get('codePostal')),
-			nomSociété: String(formStep1Date.get('companyName')),
-			secteur: formulaireÉtape1.secteur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
-			siret: String(formStep1Date.get('companySiret')),
-			taille: String(formStep1Date.get('companySize')),
-			ville: String(formStep1Date.get('ville')),
-		};
-	}, [formulaireÉtape1]);
-
-	const saveStep2 = useCallback((formStep2Data: FormData) => {
-		entrepriseSouhaitantSEngager.current = {
-			...entrepriseSouhaitantSEngager.current,
-			email: String(formStep2Data.get('email')),
-			nom: String(formStep2Data.get('lastName')),
-			prénom: String(formStep2Data.get('firstName')),
-			travail: String(formStep2Data.get('job')),
-			téléphone: String(formStep2Data.get('phone')),
-		};
-	}, []);
+	const isDeuxiemeEtape = useMemo(() => étape === Etape.ETAPE_2, [étape]);
 
 	const goToStep2 = useCallback((event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (isPremièreÉtape && event.currentTarget.checkValidity()) {
-			const formStep1: HTMLFormElement = event.currentTarget;
-			const formStep1Data = new FormData(formStep1);
-			saveStep1(formStep1Data);
 			setTitle(TITLE_ÉTAPE_2);
 			setÉtape(Etape.ETAPE_2);
 		}
-	}, [isPremièreÉtape, saveStep1]);
+	}, [isPremièreÉtape]);
 
 	const returnToStep1 = useCallback(() => {
 		setTitle(TITLE_ÉTAPE_1);
 		setÉtape(Etape.ETAPE_1);
 	}, []);
 
+	function buildEntrepriseSouhaitantSEngager(): EntrepriseSouhaitantSEngager {
+		const formStep1Data = new FormData(formStep1Ref.current);
+		const formStep2Data = new FormData(formStep2Ref.current);
+		console.log(formStep1Data);
+		console.log(formStep2Data);
+		return {
+			codePostal: String(formStep1Data.get('codePostal')),
+			email: String(formStep2Data.get('email')),
+			nom: String(formStep2Data.get('lastName')),
+			nomSociété: String(formStep1Data.get('companyName')),
+			prénom: String(formStep2Data.get('firstName')),
+			secteur: formulaireÉtape1.secteur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			siret: String(formStep1Data.get('companySiret')),
+			taille: String(formStep1Data.get('companySize')),
+			travail: String(formStep2Data.get('job')),
+			téléphone: String(formStep2Data.get('phone')),
+			ville: String(formStep1Data.get('ville')),
+		};
+	}
+
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (event.currentTarget.checkValidity()) {
-			const formStep2: HTMLFormElement = event.currentTarget;
-			const formStep2Data = new FormData(formStep2);
-			saveStep2(formStep2Data);
-
 			setIsLoading(true);
-			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement(entrepriseSouhaitantSEngager.current);
+			const response = await lesEntreprisesSEngagentService.envoyerFormulaireEngagement(buildEntrepriseSouhaitantSEngager());
 
 			if (isSuccess(response)) {
 				setTitle(TITLE_VALIDÉE);
@@ -165,7 +145,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			}
 			setIsLoading(false);
 		}
-	}, [entrepriseSouhaitantSEngager, lesEntreprisesSEngagentService, saveStep2]);
+	}, [lesEntreprisesSEngagentService]);
 
 
 	return (
@@ -186,184 +166,177 @@ export default function LesEntreprisesSEngagentInscription() {
 					</div>
 					<div className={styles.content}>
 						<div className={styles.etape}>{étape}</div>
-						<div className={styles.mandatoryFields}>Tous les champs du formulaire sont obligatoires</div>
-						{isPremièreÉtape && (
-							<>
-								<LinkStyledAsButtonWithIcon
-									href="/les-entreprises-s-engagent"
-									appearance="asSecondaryButton"
-									iconPosition={'left'}
-									icon={<Icon name="angle-left"/>}
-									className={styles.boutonRetour}>
+						<div className={styles.mandatoryFields}>Tous les champs du formulaire sont
+							obligatoires
+						</div>
+						<div hidden={isPremièreÉtape ? undefined : true}>
+							<LinkStyledAsButtonWithIcon
+								href="/les-entreprises-s-engagent"
+								appearance="asSecondaryButton"
+								iconPosition={'left'}
+								icon={<Icon name="angle-left"/>}
+								className={styles.boutonRetour}>
 									Retour
-								</LinkStyledAsButtonWithIcon>
-								<form className={styles.formulaire} onSubmit={goToStep2} aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}>
-									<div className={styles.bodyFormulaire}>
-										<InputText
-											label="Nom de l’entreprise"
-											name="companyName"
-											placeholder="Exemples : Crédit Agricole, SNCF…"
-											value={formulaireÉtape1.nomSociété}
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+							</LinkStyledAsButtonWithIcon>
+							<form className={styles.formulaire} ref={formStep1Ref} onSubmit={goToStep2}
+									  aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}>
+								<div className={styles.bodyFormulaire}>
+									<InputText
+										label="Nom de l’entreprise"
+										name="companyName"
+										placeholder="Exemples : Crédit Agricole, SNCF…"
+										value={formulaireÉtape1.nomSociété}
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+											...formulaireÉtape1,
+											nomSociété: event.currentTarget.value,
+										})}
+										required
+									/>
+									<ComboboxCommune
+										required
+										label="Ville du siège social de l’entreprise"
+										name="companyCommuneLibelle"
+										onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
+											setFormulaireÉtape1({
 												...formulaireÉtape1,
-												nomSociété: event.currentTarget.value,
-											})}
-											required
-										/>
-										<ComboboxCommune
-		  									required
-											label="Ville du siège social de l’entreprise"
-											name="companyCommuneLibelle"
-											defaultCommune={{
-		  										codePostal: entrepriseSouhaitantSEngager.current.codePostal || undefined,
-												libelle: formulaireÉtape1?.libelleCommune,
-												ville: entrepriseSouhaitantSEngager.current.ville || undefined,
-		  									}}
-											onChange={(event: React.ChangeEvent<HTMLInputElement>, newLibelle: string) => {
-												setFormulaireÉtape1({ ...formulaireÉtape1, libelleCommune: newLibelle });
-											}}
-											debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter test sur debounce
-										/>
-										<InputText
-											label="Numéro de SIRET"
-											name="companySiret"
-											placeholder="Exemple : 12345678901112"
-											value={formulaireÉtape1.siret}
-											required
-											pattern={'^[0-9]{14}$'}
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
-												...formulaireÉtape1,
-												siret: event.currentTarget.value,
-											})}
-										/>
-										<InputAutocomplétionSecteurActivité
-											required
-											id="autocomplete-secteur-activité"
-											label="Secteur d’activité de l’entreprise"
-											name="companySector"
-											placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
-											valeurInitiale={secteurActivitéValeur}
-											onSuggestionSelected={(event, suggestion) => {
-												setSecteurActivitéValeur(suggestion);
-												setFormulaireÉtape1({
-													...formulaireÉtape1,
-													secteur: suggestion.valeur,
-												});
-											}}
-										/>
-										<Select
-											required
-											label="Taille de l’entreprise"
-											name="companySize"
-											placeholder="Exemple : 250 à 499 salariés"
-											optionList={taillesEntreprises}
-											onChange={(value: string) => {
-												setFormulaireÉtape1((previousFormulaireÉtape1) => ({
-													...previousFormulaireÉtape1,
-													taille: value,
-												}));
-											}}
-											value={formulaireÉtape1.taille}
-										/>
-									</div>
+												libelleCommune: newLibelle,
+											});
+										}}
+										debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter test sur debounce
+									/>
+									<InputText
+										label="Numéro de SIRET"
+										name="companySiret"
+										placeholder="Exemple : 12345678901112"
+										value={formulaireÉtape1.siret}
+										required
+										pattern={'^[0-9]{14}$'}
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape1({
+											...formulaireÉtape1,
+											siret: event.currentTarget.value,
+										})}
+									/>
+									<InputAutocomplétionSecteurActivité
+										required
+										id="autocomplete-secteur-activité"
+										label="Secteur d’activité de l’entreprise"
+										name="companySector"
+										placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
+										valeurInitiale={secteurActivitéValeur}
+										onSuggestionSelected={(event, suggestion) => {
+											setSecteurActivitéValeur(suggestion);
+										}}
+									/>
+									<Select
+										required
+										label="Taille de l’entreprise"
+										name="companySize"
+										placeholder="Exemple : 250 à 499 salariés"
+										optionList={taillesEntreprises}
+										onChange={(value: string) => {
+											setFormulaireÉtape1((previousFormulaireÉtape1) => ({
+												...previousFormulaireÉtape1,
+												taille: value,
+											}));
+										}}
+										value={formulaireÉtape1.taille}
+									/>
+								</div>
 
-									<div className={styles.validationEtape1}>
-										<ButtonComponent
-											icon={<Icon name="angle-right"/>}
-											iconPosition="right"
-											label="Suivant"
-											type="submit"
-										/>
-										<DéchargeRGPD/>
-									</div>
-								</form>
-							</>
-						)}
-						{isDeuxièmeÉtape && (
-							<>
-								<ButtonComponent
-									appearance="secondary"
-									className={styles.boutonRetour}
-									icon={<Icon name="angle-left"/>}
-									iconPosition="left"
-									onClick={returnToStep1}
-									label="Retour"
-								/>
-								<form className={styles.formulaire} onSubmit={submitFormulaire}>
-									<div className={styles.bodyFormulaire}>
-										<InputText
-											label="Prénom"
-											name="firstName"
-											placeholder="Exemples : Marc, Sonia…"
-											value={formulaireÉtape2.prénom}
-											required
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-												...formulaireÉtape2,
-												prénom: event.currentTarget.value,
-											})}
-										/>
-										<InputText
-											label="Nom"
-											name="lastName"
-											placeholder="Exemples : Ducourt, Dupont…"
-											value={formulaireÉtape2.nom}
-											required
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-												...formulaireÉtape2,
-												nom: event.currentTarget.value,
-											})}
-										/>
-										<InputText
-											label="Fonction au sein de l’entreprise"
-											name="job"
-											placeholder="Exemples : RH, Chargé de communications"
-											value={formulaireÉtape2.travail}
-											required
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-												...formulaireÉtape2,
-												travail: event.currentTarget.value,
-											})}
-										/>
-										<InputText
-											label="Adresse e-mail de contact"
-											pattern={emailRegex}
-											name="email"
-											placeholder="Exemple : mail@exemple.com"
-											hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-											value={formulaireÉtape2.email}
-											required
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-												...formulaireÉtape2,
-												email: event.currentTarget.value,
-											})}
-										/>
-										<InputText
-											label="Numéro de téléphone de contact"
-											name="phone"
-											placeholder="Exemple : 0199999999"
-											pattern="^(\+33|0|0033)[1-9]\d{8}$"
-											hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-											value={formulaireÉtape2.téléphone}
-											required
-											onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
-												...formulaireÉtape2,
-												téléphone: event.currentTarget.value,
-											})}
-										/>
-									</div>
-									<div className={styles.validationEtape2}>
-										<ButtonComponent
-											icon={<Icon name="angle-right"/>}
-											iconPosition="right"
-											label="Envoyer le formulaire"
-											type="submit"
-											disabled={isLoading}
-										/>
-										<DéchargeRGPD/>
-									</div>
-								</form>
-							</>
-						)}
+								<div className={styles.validationEtape1}>
+									<ButtonComponent
+										icon={<Icon name="angle-right"/>}
+										iconPosition="right"
+										label="Suivant"
+										type="submit"
+									/>
+									<DéchargeRGPD/>
+								</div>
+							</form>
+						</div>
+						<div hidden={isDeuxiemeEtape ? undefined : true}>
+							<ButtonComponent
+								appearance="secondary"
+								className={styles.boutonRetour}
+								icon={<Icon name="angle-left"/>}
+								iconPosition="left"
+								onClick={returnToStep1}
+								label="Retour"
+							/>
+							<form className={styles.formulaire} ref={formStep2Ref} onSubmit={submitFormulaire}>
+								<div className={styles.bodyFormulaire}>
+									<InputText
+										label="Prénom"
+										name="firstName"
+										placeholder="Exemples : Marc, Sonia…"
+										value={formulaireÉtape2.prénom}
+										required
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+											...formulaireÉtape2,
+											prénom: event.currentTarget.value,
+										})}
+									/>
+									<InputText
+										label="Nom"
+										name="lastName"
+										placeholder="Exemples : Ducourt, Dupont…"
+										value={formulaireÉtape2.nom}
+										required
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+											...formulaireÉtape2,
+											nom: event.currentTarget.value,
+										})}
+									/>
+									<InputText
+										label="Fonction au sein de l’entreprise"
+										name="job"
+										placeholder="Exemples : RH, Chargé de communications"
+										value={formulaireÉtape2.travail}
+										required
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+											...formulaireÉtape2,
+											travail: event.currentTarget.value,
+										})}
+									/>
+									<InputText
+										label="Adresse e-mail de contact"
+										pattern={emailRegex}
+										name="email"
+										placeholder="Exemple : mail@exemple.com"
+										hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
+										value={formulaireÉtape2.email}
+										required
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+											...formulaireÉtape2,
+											email: event.currentTarget.value,
+										})}
+									/>
+									<InputText
+										label="Numéro de téléphone de contact"
+										name="phone"
+										placeholder="Exemple : 0199999999"
+										pattern="^(\+33|0|0033)[1-9]\d{8}$"
+										hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
+										value={formulaireÉtape2.téléphone}
+										required
+										onChange={(event: ChangeEvent<HTMLInputElement>) => setFormulaireÉtape2({
+											...formulaireÉtape2,
+											téléphone: event.currentTarget.value,
+										})}
+									/>
+								</div>
+								<div className={styles.validationEtape2}>
+									<ButtonComponent
+										icon={<Icon name="angle-right"/>}
+										iconPosition="right"
+										label="Envoyer le formulaire"
+										type="submit"
+										disabled={isLoading}
+									/>
+									<DéchargeRGPD/>
+								</div>
+							</form>
+						</div>
 						<p className={styles.footer}>
 							Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une
 							modification,{' '}
