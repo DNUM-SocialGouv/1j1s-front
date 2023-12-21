@@ -8,6 +8,7 @@ import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCo
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
@@ -26,18 +27,7 @@ export function FormulaireRechercheAccompagnement() {
 	const accompagnementQueryParams = useAccompagnementQuery();
 	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune } = accompagnementQueryParams;
 
-	const defaultCommuneValue: Commune | undefined = (libelleCommune && codeCommune && codePostal && ville && longitudeCommune && latitudeCommune)
-		? { // FIXME (SULI 20-12-2023): extraire dans un mapper
-			code: codeCommune,
-			codePostal,
-			coordonnées: {
-				latitude: Number(latitudeCommune),
-				longitude: Number(longitudeCommune),
-			},
-			libelle: libelleCommune,
-			ville,
-		}
-		: undefined;
+	const defaultCommuneValue: Commune | undefined = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
 
 	const router = useRouter();
 
@@ -64,6 +54,7 @@ export function FormulaireRechercheAccompagnement() {
 						<ComboboxCommune
 							defaultCommune={defaultCommuneValue}
 							required
+							debounceTimeout={200}
 						/>
 					</div>
 					<Select

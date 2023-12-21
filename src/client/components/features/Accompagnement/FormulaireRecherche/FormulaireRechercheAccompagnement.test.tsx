@@ -39,7 +39,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 			const user = userEvent.setup();
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			const resultListCommune = screen.getAllByRole('option');
+			const resultListCommune = await screen.findAllByRole('option');
 			await user.click(resultListCommune[0]);
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 
