@@ -6,7 +6,6 @@ import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type MissionEngagementQueryParams = {
 	domain: string | undefined
-	codeRomes: string | undefined
 	distanceCommune: string | undefined
 	ouvertsAuxMineurs: true | undefined
 	page: string | undefined
@@ -16,7 +15,6 @@ export function useMissionEngagementQuery(): MissionEngagementQueryParams {
 	const { query } = useRouter();
 	const communeQueryParams = useCommuneQuery();
 	return useMemo(() => ({
-		codeRomes: getSingleQueryParam(query.codeRomes),
 		distanceCommune: getSingleQueryParam(query.distanceCommune),
 		domain: getSingleQueryParam(query.domain),
 		ouvertsAuxMineurs: query.ouvertsAuxMineurs === 'true' || undefined,

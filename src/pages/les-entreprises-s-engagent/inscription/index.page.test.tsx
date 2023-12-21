@@ -18,13 +18,6 @@ import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engage
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
-jest.mock('lodash/debounce', () =>
-	jest.fn((fn) => {
-		fn.cancel = jest.fn();
-		fn.return = jest.fn();
-		return fn;
-	}));
-
 describe('LesEntreprisesSEngagentInscription', () => {
 	const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
 	const localisationService = aLocalisationService();

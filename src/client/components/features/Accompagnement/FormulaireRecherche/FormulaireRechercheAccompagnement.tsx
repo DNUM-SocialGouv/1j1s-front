@@ -54,7 +54,6 @@ export function FormulaireRechercheAccompagnement() {
 						<ComboboxCommune
 							defaultCommune={defaultCommuneValue}
 							required
-							debounceTimeout={200}
 						/>
 					</div>
 					<Select

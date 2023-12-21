@@ -233,6 +233,25 @@ describe('<ComboboxCommune/>', () => {
 		expect(combobox).toHaveValue('ab');
 	});
 
+	it('par défaut, la recherche n’est lancée qu’au bout d’un certain temps après le dernier input utilisateur', async() => {
+		// GIVEN
+		const user = userEvent.setup();
+		const localisationService = aLocalisationService();
+
+		render(<DependenciesProvider localisationService={localisationService}>
+			<ComboboxCommune label={'commune'}/>
+		</DependenciesProvider>);
+		const comboboxCommune = screen.getByRole('combobox', { name: 'commune' });
+
+		// WHEN
+		await user.type(comboboxCommune, 'Paris (750');
+		await user.type(comboboxCommune, 'Paris 15');
+
+		// THEN
+		await screen.findAllByRole('option');
+		expect(localisationService.rechercherCommune).toHaveBeenCalledTimes(1);
+	});
+
 	it('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères', async () => {
 		const user = userEvent.setup();
 		const localisationService = aLocalisationService({
@@ -264,9 +283,7 @@ describe('<ComboboxCommune/>', () => {
 	describe('lorsque je fais une recherche avec au moins 3 caractères', () => {
 		it('appelle le service lorsque l‘utilisateur tape 3 caractères', async () => {
 			const user = userEvent.setup();
-			const localisationService = aLocalisationService({
-				rechercherCommune: jest.fn(),
-			});
+			const localisationService = aLocalisationService();
 
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'}/>
@@ -275,6 +292,7 @@ describe('<ComboboxCommune/>', () => {
 
 			await user.type(combobox, 'abc');
 
+			await screen.findAllByRole('option');
 			expect(localisationService.rechercherCommune).toHaveBeenCalledTimes(1);
 			expect(localisationService.rechercherCommune).toHaveBeenCalledWith('abc');
 		});
@@ -296,7 +314,7 @@ describe('<ComboboxCommune/>', () => {
 
 			await user.type(combobox, 'abc');
 
-			const options = screen.getAllByRole('option');
+			const options = await screen.findAllByRole('option');
 			expect(options.length).toBe(2);
 			expect(options[0]).toBeVisible();
 			expect(options[0]).toHaveTextContent('Paris');
@@ -321,7 +339,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 				await user.type(combobox, 'abc');
-				await user.click(screen.getByText('Paris'));
+				await user.click(await screen.findByText('Paris'));
 
 				expect(combobox).toBeValid();
 				expect(screen.queryByText(messageErreur)).not.toBeInTheDocument();
@@ -342,7 +360,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 				await user.type(combobox, 'abc');
-				await user.click(screen.getByText('Paris'));
+				await user.click(await screen.findByText('Paris'));
 
 				const inputCode = screen.getByDisplayValue('91000');
 				expect(inputCode).toBeInTheDocument();
@@ -363,7 +381,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 				await user.type(combobox, 'abc');
-				await user.click(screen.getByText('Paris'));
+				await user.click(await screen.findByText('Paris'));
 
 				const inputCode = screen.getByDisplayValue('1.23');
 				expect(inputCode).toBeInTheDocument();
@@ -384,7 +402,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 				await user.type(combobox, 'abc');
-				await user.click(screen.getByText('Paris'));
+				await user.click(await screen.findByText('Paris'));
 
 				const inputCode = screen.getByDisplayValue('4.56');
 				expect(inputCode).toBeInTheDocument();
@@ -406,7 +424,7 @@ describe('<ComboboxCommune/>', () => {
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 					await user.type(combobox, 'abc');
-					await user.click(screen.getByText('Paris'));
+					await user.click(await screen.findByText('Paris'));
 
 					expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
 					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeVisible();
@@ -428,7 +446,7 @@ describe('<ComboboxCommune/>', () => {
 					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 					await user.type(combobox, 'abc');
-					await user.click(screen.getByText('Paris'));
+					await user.click(await screen.findByText('Paris'));
 
 					const rayonSelect = screen.getByRole('button', { name: 'Rayon' });
 					await user.click(rayonSelect);
@@ -453,7 +471,7 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox');
 
 				await user.type(combobox, 'abc');
-				await user.click(screen.getByText('Paris'));
+				await user.click(await screen.findByText('Paris'));
 				await user.tab();
 
 				await user.clear(combobox);
@@ -570,7 +588,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
@@ -589,7 +607,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
@@ -608,7 +626,7 @@ describe('<ComboboxCommune/>', () => {
 
 
 			render(<DependenciesProvider localisationService={localisationService}>
-				<ComboboxCommune label={'comboboxLabel'}/>
+				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
 			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });

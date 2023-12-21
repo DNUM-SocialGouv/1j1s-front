@@ -1,3 +1,5 @@
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
+import { MissionEngagementQueryParams } from '~/client/hooks/useMissionEngagementQuery';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
@@ -10,14 +12,19 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'service-civique';
-				const missionEngagementQuery = { domain: 'sante', page: '2' };
+				const missionEngagementQuery: MissionEngagementQueryParams = {
+					distanceCommune: '10',
+					domain: 'sante',
+					ouvertsAuxMineurs: true,
+					page: '2',
+					...aCommuneQuery() };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
 				expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-				expect(httpClientService.get).toHaveBeenCalledWith('services-civique?domain=sante&page=2');
+				expect(httpClientService.get).toHaveBeenCalledWith('services-civique?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
 
 			});
 		});
@@ -27,25 +34,35 @@ describe('MissionEngagementService', () => {
 				const httpClientService = anHttpClientService();
 				const missionEngagementService = new MissionEngagementService(httpClientService);
 				const catégorie = 'bénévolat';
-				const missionEngagementQuery = { domain: 'sante', page: '2' };
+				const missionEngagementQuery: MissionEngagementQueryParams = {
+					distanceCommune: '10',
+					domain: 'sante',
+					ouvertsAuxMineurs: true,
+					page: '2',
+					...aCommuneQuery() };
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
 				const result = await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
 				expect(result).toEqual({ instance: 'success', result: aRésultatRechercheMission() });
-				expect(httpClientService.get).toHaveBeenCalledWith('benevolats?domain=sante&page=2');
+				expect(httpClientService.get).toHaveBeenCalledWith('benevolats?distanceCommune=10&domain=sante&ouvertsAuxMineurs=true&page=2&codeCommune=75056&codePostal=75006&latitudeCommune=48.859&libelleCommune=Paris%20(75006)&longitudeCommune=2.347&ville=Paris');
 			});
 		});
 		it('filtre les clés undefined', async () => {
 			const httpClientService = anHttpClientService();
 			const missionEngagementService = new MissionEngagementService(httpClientService);
 			const catégorie = 'bénévolat';
-			const missionEngagementQuery = { codeRomes: undefined };
+			const missionEngagementQuery: MissionEngagementQueryParams = {
+				distanceCommune: '10',
+				domain: undefined,
+				ouvertsAuxMineurs: true,
+				page: '2',
+				...aCommuneQuery() };
 
 			await missionEngagementService.rechercherMission(missionEngagementQuery, catégorie);
 
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.not.stringContaining('codeRomes'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.not.stringContaining('domain'));
 		});
 	});
 });

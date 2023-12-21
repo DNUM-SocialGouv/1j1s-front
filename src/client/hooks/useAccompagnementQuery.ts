@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import { CommuneQueryParams, useCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-export interface AccompagnementQueryParams extends CommuneQueryParams {
+export type AccompagnementQueryParams = {
 	typeAccompagnement: string | undefined;
-}
+} & CommuneQueryParams
 
 export function useAccompagnementQuery(): AccompagnementQueryParams {
 	const { query } = useRouter();

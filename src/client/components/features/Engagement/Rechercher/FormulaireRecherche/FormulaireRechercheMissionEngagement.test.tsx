@@ -29,7 +29,8 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			);
 			const user = userEvent.setup();
 			await user.type(screen.getByRole('combobox', { name: 'Localisation' }), 'Pari');
-			await user.click(screen.getAllByRole('option')[0]);
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
 
 			const sélectionnerUnDomaineButton = screen.getByRole('button', { name: 'Domaine' });
 			await user.click(sélectionnerUnDomaineButton);
@@ -60,7 +61,8 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			);
 			const user = userEvent.setup();
 			await user.type(screen.getByRole('combobox', { name: 'Localisation' }), 'Pari');
-			await user.click(screen.getAllByRole('option')[0]);
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
 
 			const ouvertsAuxMineursCheckbox = screen.getByRole('checkbox', { name: 'Dès 16 ans' });
 			await user.click(ouvertsAuxMineursCheckbox);
@@ -91,8 +93,8 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
 
-			const listeSuggestions = screen.getByRole('listbox');
-			await user.selectOptions(listeSuggestions, 'Paris (75006)');
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
 
 			const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -100,75 +102,76 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			await user.click(rechercherMissionButton);
 
 			// THEN
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29' ) }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056' ) }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859' ) }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347' ) }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006' ) }, undefined, { shallow: true });
-			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { shallow: true });
 		});
 		describe('le rayon', () => {
-		  it('de 10km par défaut est ajouté aux query params', async () => {
-			  // GIVEN
-			  const routerPush = jest.fn();
-			  mockUseRouter({ push: routerPush });
-			  const domainList = aMissionEngagementDomainList();
-			  const localisationServiceMock = aLocalisationService();
+			it('de 10km par défaut est ajouté aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				mockUseRouter({ push: routerPush });
+				const domainList = aMissionEngagementDomainList();
+				const localisationServiceMock = aLocalisationService();
 
-			  render(
-				  <DependenciesProvider localisationService={localisationServiceMock}>
-					  <FormulaireRechercheMissionEngagement domainList={domainList}/>
-				  </DependenciesProvider>,
-			  );
+				render(
+					<DependenciesProvider localisationService={localisationServiceMock}>
+						<FormulaireRechercheMissionEngagement domainList={domainList}/>
+					</DependenciesProvider>,
+				);
 
-			  const user = userEvent.setup();
-			  const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
-			  await user.type(comboboxCommune, 'Pari');
+				const user = userEvent.setup();
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				await user.type(comboboxCommune, 'Pari');
 
-			  const listeSuggestions = screen.getByRole('listbox');
-			  await user.selectOptions(listeSuggestions, 'Paris (75006)');
+				const localisationOptions = await screen.findAllByRole('option');
+				await user.click(localisationOptions[0]);
 
-			  const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
-			  // WHEN
-			  await user.click(rechercherMissionButton);
+				const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
-			  // THEN
-			  expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10') }, undefined, { shallow: true });
-		  });
-		  it('sélectionné par l‘utilisateur est ajouté aux query params', async () => {
-			  // GIVEN
-			  const routerPush = jest.fn();
-			  mockUseRouter({ push: routerPush });
-			  const domainList = aMissionEngagementDomainList();
-			  const localisationServiceMock = aLocalisationService();
+				// WHEN
+				await user.click(rechercherMissionButton);
 
-			  render(
-				  <DependenciesProvider localisationService={localisationServiceMock}>
-					  <FormulaireRechercheMissionEngagement domainList={domainList}/>
-				  </DependenciesProvider>,
-			  );
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10') }, undefined, { shallow: true });
+			});
+			it('sélectionné par l‘utilisateur est ajouté aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				mockUseRouter({ push: routerPush });
+				const domainList = aMissionEngagementDomainList();
+				const localisationServiceMock = aLocalisationService();
 
-			  const user = userEvent.setup();
-			  const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
-			  await user.type(comboboxCommune, 'Pari');
+				render(
+					<DependenciesProvider localisationService={localisationServiceMock}>
+						<FormulaireRechercheMissionEngagement domainList={domainList}/>
+					</DependenciesProvider>,
+				);
 
-			  const listeSuggestions = screen.getByRole('listbox');
-			  await user.selectOptions(listeSuggestions, 'Paris (75006)');
+				const user = userEvent.setup();
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				await user.type(comboboxCommune, 'Pari');
 
-			  const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
-			  await user.click(selectButtonRadius);
+				const localisationOptions = await screen.findAllByRole('option');
+				await user.click(localisationOptions[0]);
 
-			  const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });
-			  await user.click(rayon30kmOption);
-			  const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
+				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
+				await user.click(selectButtonRadius);
 
-			  // WHEN
-			  await user.click(rechercherMissionButton);
+				const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });
+				await user.click(rayon30kmOption);
+				const rechercherMissionButton = screen.getByRole('button', { name: 'Rechercher' });
 
-			  // THEN
-			  expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=30') }, undefined, { shallow: true });
-		  });
+				// WHEN
+				await user.click(rechercherMissionButton);
+
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=30') }, undefined, { shallow: true });
+			});
 		});
 	});
 });

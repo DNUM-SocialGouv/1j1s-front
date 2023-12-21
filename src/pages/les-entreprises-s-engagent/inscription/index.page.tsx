@@ -156,7 +156,6 @@ export default function LesEntreprisesSEngagentInscription() {
 										required
 										label="Ville du siège social de l’entreprise"
 										name="companyCommuneLibelle"
-										debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter test sur debounce
 									/>
 									<InputText
 										label="Numéro de SIRET"

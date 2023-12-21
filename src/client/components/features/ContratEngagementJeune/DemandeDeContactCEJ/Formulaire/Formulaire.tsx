@@ -94,7 +94,6 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				required
 				label="Ville"
 				name='commune'
-				debounceTimeout={300} // TODO (SULI 18-12-2023): ajouter un test sur le debouncex
 			/>
 			{isLoading
 				? (<ButtonComponent className={styles.formulaireButton} disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)

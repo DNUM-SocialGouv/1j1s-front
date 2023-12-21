@@ -32,6 +32,7 @@ const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisi
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères ou le code postal de la ville, puis sélectionnez votre localisation';
 const DEFAULT_RADIUS_VALUE = '10';
+const DEFAULT_DEBOUNCE_TIMEOUT = 200;
 
 export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref) {
 	const {
@@ -40,7 +41,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		onChange: onChangeProps = doNothing,
 		defaultCommune: defaultCommuneProps,
 		defaultDistance: defaultDistanceProps,
-		debounceTimeout = 0,
+		debounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
 		'aria-describedby': ariaDescribedby = '',
 		onInvalid: onInvalidProps = doNothing,
 		showRadiusInput = false,
