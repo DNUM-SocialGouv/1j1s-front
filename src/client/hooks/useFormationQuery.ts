@@ -1,39 +1,25 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
+import { CommuneQueryParams, useCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { getArrayQueryParam, getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
 export type FormationQueryParams = {
 	codeRomes?: string[]
 	libelleMetier?: string
-	codeCommune?: string
 	distanceCommune?: string
-	libelleCommune?: string
-	longitudeCommune?: string
-	latitudeCommune?: string
 	niveauEtudes?: string
-}
+} & CommuneQueryParams
 
 export function useFormationQuery(): FormationQueryParams {
 	const { query } = useRouter();
+	const communeQuery = useCommuneQuery();
 
 	return useMemo(() => ({
-		codeCommune: getSingleQueryParam(query.codeCommune),
 		codeRomes: getArrayQueryParam(query.codeRomes),
 		distanceCommune: getSingleQueryParam(query.distanceCommune),
-		latitudeCommune: getSingleQueryParam(query.latitudeCommune),
-		libelleCommune: getSingleQueryParam(query.libelleCommune),
 		libelleMetier: getSingleQueryParam(query.libelleMetier),
-		longitudeCommune: getSingleQueryParam(query.longitudeCommune),
 		niveauEtudes: getSingleQueryParam(query.niveauEtudes),
-	}), [
-		query.codeCommune,
-		query.codeRomes,
-		query.distanceCommune,
-		query.latitudeCommune,
-		query.libelleCommune,
-		query.libelleMetier,
-		query.longitudeCommune,
-		query.niveauEtudes,
-	]);
+		...communeQuery,
+	}), [query, communeQuery]);
 }

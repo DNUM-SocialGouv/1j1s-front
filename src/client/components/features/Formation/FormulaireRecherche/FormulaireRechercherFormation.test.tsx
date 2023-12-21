@@ -15,17 +15,12 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
-
-jest.mock('lodash/debounce', () =>
-	jest.fn((fn) => {
-		fn.cancel = jest.fn();
-		return fn;
-	}));
 
 describe('FormulaireRechercherFormation', () => {
 	beforeEach(() => {
@@ -58,8 +53,8 @@ describe('FormulaireRechercherFormation', () => {
 		});
 	});
 
-	describe('lorsqu‘on recherche par commune et par métier', () => {
-		it('filtre les résultats par localisation et métier', async () => {
+	describe('lorsqu‘on recherche par localisation et par métier', () => {
+		it('les informations sur la localisation et le métier sont poussées dans l’url', async () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
@@ -67,14 +62,6 @@ describe('FormulaireRechercherFormation', () => {
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
-			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
-			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
-			const libelleCommune = 'Paris+%2875006%29';
-			const longitudeCommune = '2.347';
-			const latitudeCommune = '48.859';
-			const codeCommune = '75056';
-			const distanceCommune = '10';
-
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -93,18 +80,26 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			await user.click(screen.getAllByRole('option')[0]);
+			const localisatoinOptions = await screen.findAllByRole('option');
+			await user.click(localisatoinOptions[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
 
 			// Then
-			const expectedQuery = `libelleMetier=${expectedLibelle}&codeRomes=${expectedCodeRomes}&libelleCommune=${libelleCommune}&codeCommune=${codeCommune}&latitudeCommune=${latitudeCommune}&longitudeCommune=${longitudeCommune}&distanceCommune=${distanceCommune}`;
-			expect(routerPush).toHaveBeenCalledWith({ query: expectedQuery }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=Conduite+de+travaux%2C+direction+de+chantier' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeRomes=F1201%2CF1202%2CI1101' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006&ville=Paris&distanceCommune=10' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris' ) }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10' ) }, undefined, { shallow: true });
 		});
 	});
 
@@ -135,7 +130,7 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
@@ -173,7 +168,8 @@ describe('FormulaireRechercherFormation', () => {
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			await user.click(screen.getAllByRole('option')[0]);
+			const localisationsOptions = await screen.findAllByRole('option');
+			await user.click(localisationsOptions[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
@@ -184,7 +180,7 @@ describe('FormulaireRechercherFormation', () => {
 	});
 
 	describe('lorsqu‘on recherche par commune, métier et niveau d’études', () => {
-		it('filtre les résultats par localisation, métier et niveau d’études', async () => {
+		it('les informations de localisation, métier, et niveau d’études sont ajoutées à l‘url', async () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
@@ -192,15 +188,6 @@ describe('FormulaireRechercherFormation', () => {
 				label: 'Conduite de travaux, direction de chantier',
 				romes: ['F1201', 'F1202', 'I1101'],
 			}];
-			const expectedLibelle = 'Conduite+de+travaux%2C+direction+de+chantier';
-			const expectedCodeRomes = 'F1201%2CF1202%2CI1101';
-			const libelleCommune = 'Paris+%2875006%29';
-			const longitudeCommune = '2.347';
-			const latitudeCommune = '48.859';
-			const codeCommune = '75056';
-			const distanceCommune = '10';
-			const niveauEtudes = '3';
-
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -219,11 +206,12 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(screen.getByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			await user.click(screen.getAllByRole('option')[0]);
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
 
 			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’études visé (facultatif)' });
 			await user.click(selectNiveauEtudes);
@@ -237,21 +225,31 @@ describe('FormulaireRechercherFormation', () => {
 
 
 			// Then
-			const expectedQuery = `libelleMetier=${expectedLibelle}&codeRomes=${expectedCodeRomes}&libelleCommune=${libelleCommune}&codeCommune=${codeCommune}&latitudeCommune=${latitudeCommune}&longitudeCommune=${longitudeCommune}&distanceCommune=${distanceCommune}&niveauEtudes=${niveauEtudes}`;
-			expect(routerPush).toHaveBeenCalledWith({ query: expectedQuery }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=Conduite+de+travaux%2C+direction+de+chantier') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeRomes=F1201%2CF1202%2CI1101') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('distanceCommune=10') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('niveauEtudes=3') }, undefined, { shallow: true });
 		});
 	});
 
-	it('rempli automatiquement les champs lorsque les query params sont présents', () => {
+	it('rempli automatiquement les champs lorsque les query params sont présents', async () => {
 		const query = {
-			codeCommune: '75056',
 			codeRomes: 'D1102,D1104',
 			distanceCommune: '10',
-			latitudeCommune: '48.859',
-			libelleCommune: 'Paris (75001)',
 			libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-			longitudeCommune: '2.347',
 			niveauEtudes: '4',
+			...aCommuneQuery({
+				codeCommune: '75056',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				longitudeCommune: '2.347',
+			}),
 		};
 		mockUseRouter({ query });
 
@@ -263,7 +261,7 @@ describe('FormulaireRechercherFormation', () => {
 
 		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
-		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
+		const localisation = await screen.findByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByRole('button', { hidden: true, name: /Rayon/i });
 		expect(rayon).toHaveTextContent('10');
