@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
@@ -11,10 +12,10 @@ import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
 import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
 import { paysEuropeList } from '~/client/domain/pays';
-import { secteurActiviteEures } from '~/client/domain/secteurActiviteEures';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
 import styles
@@ -56,9 +57,9 @@ function ModaleFiltreAvancee(props: {
 			</ModalComponent.Title>
 			<ModalComponent.Content className={styles.filtresAvancesModalContenu}>
 				<FilterAccordion title="Type de contrat" open>
-					{typesContratEures.map((typeContrat, index) => (
+					{typesContratEures.map((typeContrat) => (
 						<Checkbox
-							key={`Type de contrat ${index}`}
+							key={uuidv4()}
 							label={typeContrat.libellé}
 							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTypeContrat(e.target.value)}
 							value={typeContrat.valeur}
@@ -68,9 +69,9 @@ function ModaleFiltreAvancee(props: {
 					))}
 				</FilterAccordion>
 				<FilterAccordion title="Niveau d'études demandé">
-					{niveauEtudeEures.map((niveauEtude, index) => (
+					{niveauEtudeEures.map((niveauEtude) => (
 						<Checkbox
-							key={`Niveau d'études demandé ${index}`}
+							key={uuidv4()}
 							label={niveauEtude.libellé}
 							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleNiveauEtude(e.target.value)}
 							value={niveauEtude.valeur}
@@ -79,9 +80,9 @@ function ModaleFiltreAvancee(props: {
 					))}
 				</FilterAccordion>
 				<FilterAccordion title="Domaines">
-					{secteurActiviteEures.map((secteurActivite, index) => (
+					{secteurActiviteEures.map((secteurActivite) => (
 						<Checkbox
-							key={`Domaine ${index}`}
+							key={uuidv4()}
 							label={secteurActivite.libellé}
 							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleSecteurActivite(e.target.value)}
 							value={secteurActivite.valeur}
