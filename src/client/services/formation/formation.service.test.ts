@@ -1,3 +1,4 @@
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { FormationQueryParams } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
@@ -7,11 +8,13 @@ describe('FormationService', () => {
 		const httpClientService = anHttpClientService();
 		const formationService = new FormationService(httpClientService);
 		const formationQuery = {
-			codeCommune: '13180',
 			codeRomes: ['D123', 'D122'],
 			distanceCommune: '30',
-			latitudeCommune: '2.37',
-			longitudeCommune: '15.845',
+			...aCommuneQuery({
+				codeCommune: '13180',
+				latitudeCommune: '2.37',
+				longitudeCommune: '15.845',
+			}),
 		};
 
 		await formationService.rechercherFormation(formationQuery);
@@ -31,12 +34,14 @@ describe('FormationService', () => {
 					const httpClientService = anHttpClientService();
 					const formationService = new FormationService(httpClientService);
 					const formationQuery = {
-						codeCommune: '13180',
 						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
-						latitudeCommune: '2.37',
-						longitudeCommune: '15.845',
 						niveauEtudes: '6',
+						...aCommuneQuery({
+							codeCommune: '13180',
+							latitudeCommune: '2.37',
+							longitudeCommune: '15.845',
+						}),
 					};
 
 					await formationService.rechercherFormation(formationQuery);
@@ -49,12 +54,14 @@ describe('FormationService', () => {
 					const httpClientService = anHttpClientService();
 					const formationService = new FormationService(httpClientService);
 					const formationQuery = {
-						codeCommune: '13180',
 						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
-						latitudeCommune: '2.37',
-						longitudeCommune: '15.845',
 						niveauEtudes: 'indifférent',
+						...aCommuneQuery({
+							codeCommune: '13180',
+							latitudeCommune: '2.37',
+							longitudeCommune: '15.845',
+						}),
 					};
 
 					await formationService.rechercherFormation(formationQuery);
@@ -69,12 +76,14 @@ describe('FormationService', () => {
 				const httpClientService = anHttpClientService();
 				const formationService = new FormationService(httpClientService);
 				const formationQuery = {
-					codeCommune: '13180',
 					codeRomes: ['D123', 'D122'],
 					distanceCommune: '30',
-					latitudeCommune: '2.37',
-					longitudeCommune: '15.845',
 					niveauEtudes: undefined,
+					...aCommuneQuery({
+						codeCommune: '13180',
+						latitudeCommune: '2.37',
+						longitudeCommune: '15.845',
+					}),
 				};
 
 				await formationService.rechercherFormation(formationQuery);
@@ -88,7 +97,7 @@ describe('FormationService', () => {
 		const httpClientService = anHttpClientService();
 		const formationService = new FormationService(httpClientService);
 		const formationQuery: FormationQueryParams = {
-			libelleCommune: 'Paris (75001)',
+			...aCommuneQuery(),
 		};
 
 		await formationService.rechercherFormation(formationQuery);
