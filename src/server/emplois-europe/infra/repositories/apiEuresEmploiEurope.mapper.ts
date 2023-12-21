@@ -22,6 +22,15 @@ import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/
 import { XmlService } from '~/server/services/xml/xml.service';
 import Competency = ApiEuresEmploiEuropeDetailXML.PositionCompetency;
 import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension;
+import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode;
+
+
+const optionsParserToGetAttributs = {
+	alwaysCreateTextNode: true,
+	attributeNamePrefix: '',
+	attributesGroupName: 'attributs',
+	ignoreAttributes: false,
+};
 
 export class ApiEuresEmploiEuropeMapper {
 	constructor(
@@ -49,6 +58,10 @@ export class ApiEuresEmploiEuropeMapper {
 		return [element];
 	}
 
+	private getTextValue<T>(element: { '#text': T}): T {
+		return element['#text'];
+	}
+
 	mapRechercheEmploiEurope(reponseRecherche: ApiEuresEmploiEuropeRechercheResponse, reponseDetailRecherche: ApiEuresEmploiEuropeDetailResponse): ResultatRechercheEmploiEurope {
 		return {
 			nombreResultats: reponseRecherche.data.dataSetInfo.totalMatchingCount,
@@ -64,7 +77,7 @@ export class ApiEuresEmploiEuropeMapper {
 			.find((detail) => detail.jobVacancy.header.handle === handle);
 		const itemDetailXML = itemDetail?.jobVacancy.hrxml;
 
-		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML);
+		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetailXML, optionsParserToGetAttributs);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
 		const positionProfile = this.getElementOrFirstElementInArray(positionOpening?.PositionProfile);
@@ -74,49 +87,54 @@ export class ApiEuresEmploiEuropeMapper {
 		const organizationIdentifiers = this.getElementOrFirstElementInArray(positionOrganization?.OrganizationIdentifiers);
 
 		const workingLanguage = positionProfile?.WorkingLanguageCode ? this.mapWorkingLanguage(positionProfile?.WorkingLanguageCode) : [];
+		const languageCodeOffer = positionProfile?.attributs?.languageCode ?? '';
 
 		const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
 		const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
 		const addressCityName = address?.['ns2:CityName'];
-		const countryCode = address?.CountryCode;
+		const countryCode = address?.CountryCode && this.getTextValue(address.CountryCode);
 		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
 
-		const positionOfferingTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionOfferingTypeCode);
-		const contractType = positionOfferingTypeCode ? this.mapContractType(positionOfferingTypeCode) : undefined;
+		const positionOfferingTypeCode = this.getElementOrFirstElementInArray(positionProfile?.PositionOfferingTypeCode);
+		const positionOfferingTypeCodeText = positionOfferingTypeCode && this.getTextValue(positionOfferingTypeCode);
+		const contractType = positionOfferingTypeCodeText ? this.mapContractType(positionOfferingTypeCodeText) : undefined;
 
-		const positionScheduleTypeCode = this.getElementOrFirstElementInArray<string>(positionProfile?.PositionScheduleTypeCode);
-		const tempsDeTravail = positionScheduleTypeCode ? this.mapTempsDeTravail(positionScheduleTypeCode) : undefined;
+		const positionScheduleTypeCode = this.getElementOrFirstElementInArray(positionProfile?.PositionScheduleTypeCode);
+		const positionScheduleTypeCodeText = positionScheduleTypeCode && this.getTextValue(positionScheduleTypeCode);
+		const tempsDeTravail = positionScheduleTypeCodeText ? this.mapTempsDeTravail(positionScheduleTypeCodeText) : undefined;
 
 		const positionsCompetencies = positionQualifications?.PositionCompetency;
 		const competencesLinguistiques = positionsCompetencies ? this.getLanguageCompetencies(positionsCompetencies) : [];
-		
-		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
-		const experienceCategory= this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
-		const anneesDExperience= this.getElementOrFirstElementInArray(experienceCategory?.Measure);
 
-		const listDrivingLicense = this.transformElementToArray<string>(positionQualifications?.LicenseTypeCode);
+		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
+		const experienceCategory = this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
+		const anneesDExperience = this.getElementOrFirstElementInArray(experienceCategory?.Measure);
+
+		const listDrivingLicense = this.transformElementToArray(positionQualifications?.LicenseTypeCode);
+		const listDrivingLicenseText = listDrivingLicense.map((drivingLicense) => this.getTextValue(drivingLicense));
 
 		const descriptionDetail = positionDescription?.Content;
 
 		const educationRequirement = this.getElementOrFirstElementInArray(positionQualifications?.EducationRequirement);
 		const educationLevelCode = this.getElementOrFirstElementInArray(educationRequirement?.EducationLevelCode);
-		const niveauEtudes = this.mapNiveauEtudes(educationLevelCode);
-
+		const educationLevelCodeText = educationLevelCode && this.getTextValue(educationLevelCode);
+		const niveauEtudes = this.mapNiveauEtudes(educationLevelCodeText);
 		return {
-			anneesDExperience,
+			anneesDExperience: anneesDExperience !== undefined ? this.getTextValue(anneesDExperience) : undefined,
+			codeLangueDeLOffre: languageCodeOffer,
 			competencesLinguistiques: competencesLinguistiques,
-			description: descriptionDetail,
+			description: descriptionDetail && this.getTextValue(descriptionDetail),
 			id: handle,
 			langueDeTravail: workingLanguage,
-			listePermis: listDrivingLicense,
+			listePermis: listDrivingLicenseText,
 			niveauEtudes,
-			nomEntreprise: organizationIdentifiers?.OrganizationName,
+			nomEntreprise: organizationIdentifiers?.OrganizationName && this.getTextValue(organizationIdentifiers.OrganizationName),
 			pays: country,
 			tempsDeTravail,
-			titre: positionProfile?.PositionTitle,
+			titre: positionProfile?.PositionTitle && this.getTextValue(positionProfile.PositionTitle),
 			typeContrat: contractType,
 			urlCandidature: itemDetail?.related.urls[0].urlValue,
-			ville: addressCityName,
+			ville: addressCityName && this.getTextValue(addressCityName),
 		};
 	};
 
@@ -137,9 +155,9 @@ export class ApiEuresEmploiEuropeMapper {
 			(niveauEtudes) => niveauEtudes.valeur === educationLevelCode)?.libellé;
 	}
 
-	private mapWorkingLanguage(workingLanguageCode: string | Array<string>) {
+	private mapWorkingLanguage(workingLanguageCode: WorkingLanguageCode | Array<WorkingLanguageCode>) {
 		const listWorkingLanguageName: Array<string> = [];
-		const listWorkingLanguage = this.transformElementToArray<string>(workingLanguageCode);
+		const listWorkingLanguage = this.transformElementToArray<WorkingLanguageCode>(workingLanguageCode);
 
 		function findWorkingLanguageName(workingLanguageCode: string) {
 			return langageParPaysEures.find(
@@ -148,7 +166,8 @@ export class ApiEuresEmploiEuropeMapper {
 		}
 
 		listWorkingLanguage.map((workingLanguage) => {
-			const workingLanguageName = findWorkingLanguageName(workingLanguage);
+			const workingLanguageText = this.getTextValue(workingLanguage);
+			const workingLanguageName = findWorkingLanguageName(workingLanguageText);
 			if (workingLanguageName) listWorkingLanguageName.push(workingLanguageName);
 		});
 
@@ -160,16 +179,18 @@ export class ApiEuresEmploiEuropeMapper {
 			return langageCompetenceName.find((competency) => competency.codeValue === competencyDimension.toLowerCase())?.codeDescription;
 		}
 
-		function findCompetencyLevel(levelCode: LEVEL_CODE){
+		function findCompetencyLevel(levelCode: LEVEL_CODE) {
 			return niveauLangage.find((niveau) => niveau.valeur === levelCode);
 		}
-		
+
 		const competencies = this.transformElementToArray(competencyDimension);
 		const languageCompetenciesDetails: Array<LanguageSpecificationCompetence> = [];
 
 		competencies?.map((competencyDimension) => {
-			const competencyLevel = findCompetencyLevel(competencyDimension.Score.ScoreText);
-			const competencyName= findCompetencyName(competencyDimension.CompetencyDimensionTypeCode);
+			const scoreText = this.getTextValue(competencyDimension.Score.ScoreText);
+			const competencyLevel = findCompetencyLevel(scoreText);
+			const competencyDimensionText = this.getTextValue(competencyDimension.CompetencyDimensionTypeCode);
+			const competencyName = findCompetencyName(competencyDimensionText);
 
 			if (competencyLevel && competencyName) {
 				languageCompetenciesDetails.push({
@@ -190,12 +211,14 @@ export class ApiEuresEmploiEuropeMapper {
 		const listPositionsCompetencies = this.transformElementToArray(positionsCompetencies);
 
 		listPositionsCompetencies.map((positionCompetency) => {
-			if (positionCompetency.TaxonomyID !== TAXONOMY_ID_LANGUAGE) return;
+			const taxonomyID = this.getTextValue(positionCompetency.TaxonomyID);
+			if (taxonomyID !== TAXONOMY_ID_LANGUAGE) return;
 
-			const languageName = langageParPaysEures.find((langage) => langage.codeValue === positionCompetency.CompetencyID.toLowerCase())?.codeDescription;
+			const compentencyId = this.getTextValue(positionCompetency.CompetencyID).toLowerCase();
+			const languageName = langageParPaysEures.find((langage) => langage.codeValue === compentencyId)?.codeDescription;
 			if (!languageName) return;
 
-			const scoreText = positionCompetency.RequiredProficiencyLevel?.ScoreText;
+			const scoreText = positionCompetency.RequiredProficiencyLevel?.ScoreText && this.getTextValue(positionCompetency.RequiredProficiencyLevel.ScoreText);
 			const niveauRequis = niveauLangage.find((niveau) => niveau.valeur === scoreText);
 			if (!niveauRequis) return;
 

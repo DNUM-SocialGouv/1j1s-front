@@ -1032,6 +1032,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							anneesDExperience: undefined,
+							codeLangueDeLOffre: 'nl',
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
 							listeCompetencesLinguistiques: [{
 								competenciesDimensions:[

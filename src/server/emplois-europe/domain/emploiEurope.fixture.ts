@@ -29,6 +29,7 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
 		anneesDExperience: 3,
+		codeLangueDeLOffre: 'nl',
 		competencesLinguistiques: [{
 			codeDuNiveauDeLangue: LEVEL_CODE.A2,
 			detailCompetenceLanguistique: [{

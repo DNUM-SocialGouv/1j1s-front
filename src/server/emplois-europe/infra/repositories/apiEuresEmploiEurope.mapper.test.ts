@@ -244,6 +244,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 								{
 									anneesDExperience: 3,
+									codeLangueDeLOffre: 'fr',
 									description: 'Je suis la description',
 									educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
 									listeLangueDeTravail: ['FR', 'EN'],
@@ -272,6 +273,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			// Then
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
 				anneesDExperience: 3,
+				codeLangueDeLOffre: 'fr',
 				description: 'Je suis la description',
 				id: '3',
 				langueDeTravail: ['français', 'anglais'],
