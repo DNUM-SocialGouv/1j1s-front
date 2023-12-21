@@ -1,4 +1,5 @@
 import { AlternanceQueryParams } from '~/client/hooks/useAlternanceQuery';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 
@@ -8,11 +9,14 @@ describe('AlternanceService', () => {
 			const httpClientService = anHttpClientService();
 			const alternanceService = new AlternanceService(httpClientService);
 			const alternanceQuery = {
-				codeCommune: '13180',
 				codeRomes: ['D123', 'D122'],
 				distanceCommune: '30',
-				latitudeCommune: '2.37',
-				longitudeCommune: '15.845',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				...aCommuneQuery({
+					codeCommune: '13180',
+					latitudeCommune: '2.37',
+					longitudeCommune: '15.845',
+				}),
 			};
 
 			await alternanceService.rechercherAlternance(alternanceQuery);
@@ -28,7 +32,14 @@ describe('AlternanceService', () => {
 			const httpClientService = anHttpClientService();
 			const alternanceService = new AlternanceService(httpClientService);
 			const alternanceQuery = {
-				codeCommune: undefined,
+				codeRomes: ['D123', 'D122'],
+				distanceCommune: '30',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				...aCommuneQuery({
+					codeCommune: undefined,
+					latitudeCommune: '2.37',
+					longitudeCommune: '15.845',
+				}),
 			};
 
 			await alternanceService.rechercherAlternance(alternanceQuery);
@@ -39,7 +50,12 @@ describe('AlternanceService', () => {
 			const httpClientService = anHttpClientService();
 			const alternanceService = new AlternanceService(httpClientService);
 			const alternanceQuery: AlternanceQueryParams = {
-				libelleCommune: 'Paris (75001)',
+				codeRomes: ['D123', 'D122'],
+				distanceCommune: '30',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				...aCommuneQuery({
+					libelleCommune: 'Paris (75001)',
+				}),
 			};
 
 			await alternanceService.rechercherAlternance(alternanceQuery);
@@ -47,5 +63,4 @@ describe('AlternanceService', () => {
 			expect(httpClientService.get).not.toHaveBeenCalledWith(expect.stringContaining('libelleCommune'));
 		});
 	});
-
 });
