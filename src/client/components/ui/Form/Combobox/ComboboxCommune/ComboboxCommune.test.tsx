@@ -408,6 +408,44 @@ describe('<ComboboxCommune/>', () => {
 				expect(inputCode).toBeInTheDocument();
 			});
 
+			it('met à jour la valeur de la ville', async () => {
+				const user = userEvent.setup();
+				const communeList = aRésultatsRechercheCommune([
+					aCommune({ libelle: 'Paris (75019)', ville: 'Paris' }),
+				]);
+				const localisationService = aLocalisationService();
+				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune label={'comboboxLabel'}/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+				await user.type(combobox, 'abc');
+				await user.click(await screen.findByText('Paris (75019)'));
+
+				const inputCode = screen.getByDisplayValue('Paris');
+				expect(inputCode).toBeInTheDocument();
+			});
+
+			it('met à jour la valeur du code postal', async () => {
+				const user = userEvent.setup();
+				const communeList = aRésultatsRechercheCommune([
+					aCommune({ codePostal: '75006', libelle: 'Paris' }),
+				]);
+				const localisationService = aLocalisationService();
+				jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess(communeList));
+				render(<DependenciesProvider localisationService={localisationService}>
+					<ComboboxCommune label={'comboboxLabel'}/>
+				</DependenciesProvider>);
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
+
+				await user.type(combobox, 'abc');
+				await user.click(await screen.findByText('Paris'));
+
+				const inputCode = screen.getByDisplayValue('75006');
+				expect(inputCode).toBeInTheDocument();
+			});
+
 			describe('selection du radius', () => {
 				it('affiche le bouton de sélection du radius avec sa valeur par default', async () => {
 					const user = userEvent.setup();
@@ -634,13 +672,5 @@ describe('<ComboboxCommune/>', () => {
 
 			expect(screen.getByRole('status')).toHaveTextContent(/^$/);
 		});
-	});
-
-	describe('Les informations d’une commune sont correctement renseignées', () => {
-	  it.todo('le code postal est présent');
-	  it.todo('le code insee est présent');
-	  it.todo('la ville est présent');
-	  it.todo('la longitude est présente');
-	  it.todo('la latitude est présente');
 	});
 });
