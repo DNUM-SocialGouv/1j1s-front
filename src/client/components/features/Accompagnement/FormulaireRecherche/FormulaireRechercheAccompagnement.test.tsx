@@ -21,7 +21,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 	});
 
 	describe('lorsqu‘on recherche par commune', () => {
-		it('filtre les résultats par localisation',  async() => {
+		it('les informations de la commune sont ajoutées à l’url',  async() => {
 			// GIVEN
 			const routerPush = jest.fn();
 
@@ -49,6 +49,10 @@ describe('FormulaireRechercheAccompagnement', () => {
 			// THEN
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859&longitudeCommune=2.347&codePostal=75006&ville=Paris') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { shallow: true });
 		});
 	});
 	describe('lorsqu‘on recherche par type d‘accompagnement', () => {
