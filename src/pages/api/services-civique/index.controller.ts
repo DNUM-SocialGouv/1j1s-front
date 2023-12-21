@@ -20,7 +20,7 @@ export const missionServiceCiviqueQuerySchema = Joi.object({
 	longitudeCommune: Joi.number().optional(),
 	ouvertsAuxMineurs: Joi.boolean().optional(),
 	page: Joi.number().min(1).required(),
-});
+}).options({ allowUnknown: true });
 
 export async function rechercherMissionHandler(req: NextApiRequest, res: NextApiResponse<RésultatsRechercheMission | ErrorHttpResponse>) {
 	const résultatRechercherMission = await dependencies.engagementDependencies.rechercherMissionServiceCivique.handle(missionRequestMapper(req));

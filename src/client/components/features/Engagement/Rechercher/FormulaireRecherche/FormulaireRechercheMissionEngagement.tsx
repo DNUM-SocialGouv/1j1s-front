@@ -8,12 +8,13 @@ import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { MissionEngagement } from '~/server/engagement/domain/engagement';
 
 interface FormulaireRechercheMissionEngagementProps {
-  domainList: MissionEngagement.Domaine[]
+	domainList: MissionEngagement.Domaine[]
 }
 
 export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireRechercheMissionEngagementProps) {
@@ -25,15 +26,19 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		libelleCommune,
 		latitudeCommune,
 		longitudeCommune,
+		ville,
+		codePostal,
 		distanceCommune,
 	} = queryParams;
 
-	const defaultCommune = {
-		code: codeCommune,
-		latitude: latitudeCommune,
-		libelle: libelleCommune,
-		longitude: longitudeCommune,
-	};
+	const defaultCommune = mapToCommune({
+		codeCommune,
+		codePostal,
+		latitudeCommune,
+		libelleCommune,
+		longitudeCommune,
+		ville,
+	});
 
 	const [domainValue, setDomainValue] = useState('');
 	const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
@@ -83,7 +88,8 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 			</div>
 
 			<div className={styles.rechercherMissionEngagementButton}>
-				<ButtonComponent label='Rechercher' icon={<Icon name="magnifying-glass" />} iconPosition='right' type='submit' />
+				<ButtonComponent label="Rechercher" icon={<Icon name="magnifying-glass"/>} iconPosition="right"
+								 type="submit"/>
 			</div>
 		</form>
 	);

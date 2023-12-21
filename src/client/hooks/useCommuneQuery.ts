@@ -49,6 +49,7 @@ export function mapToCommune(communeQuery: CommuneQueryParams): Commune | undefi
 	if (!isCommuneAvailableInQuery) {
 		return undefined;
 	}
+
 	return {
 		code: communeQuery.codeCommune!,
 		codePostal: communeQuery.codePostal!,
