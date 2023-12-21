@@ -117,7 +117,7 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 				await user.type(comboboxCommune, 'Pari');
-				const resultListCommune = screen.getAllByRole('option');
+				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
 				await user.click(selectButtonRadius);
@@ -197,7 +197,7 @@ describe('RechercherMission', () => {
 				const user = userEvent.setup();
 				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 				await user.type(comboboxCommune, 'Pari');
-				const resultListCommune = screen.getAllByRole('option');
+				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
 				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
 				await user.click(selectButtonRadius);
