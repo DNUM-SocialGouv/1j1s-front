@@ -1421,7 +1421,7 @@ describe('<Combobox />', () => {
 				await user.type(input, 'A');
 				await user.tab();
 
-				await user.type(input, `{${KeyBoard.BACKSPACE}`);
+				await user.type(input, `{${KeyBoard.BACKSPACE}}`);
 
 				expect(onInvalid).toHaveBeenCalled();
 			});
