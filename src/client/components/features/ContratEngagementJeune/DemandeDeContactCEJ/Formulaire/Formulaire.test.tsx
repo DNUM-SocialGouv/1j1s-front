@@ -39,13 +39,13 @@ describe('<FormulaireDeContactCEJ />', () => {
 		renderComponent();
 		// When
 		// Then
-		expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
-		expect(screen.getByLabelText('Nom')).toBeInTheDocument();
-		expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
-		expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
-		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-		expect(screen.getByRole('combobox', { name: 'Ville' })).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
+		expect(screen.getByLabelText('Prénom')).toBeVisible();
+		expect(screen.getByLabelText('Nom')).toBeVisible();
+		expect(screen.getByLabelText('Adresse email')).toBeVisible();
+		expect(screen.getByLabelText('Téléphone')).toBeVisible();
+		expect(screen.getByText('Age', { exact: true })).toBeVisible();
+		expect(screen.getByRole('combobox', { name: 'Ville' })).toBeVisible();
+		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
 	it('a un champ Age obligatoire', async () => {
@@ -75,7 +75,6 @@ describe('<FormulaireDeContactCEJ />', () => {
 					téléphone: '0123456789',
 					ville: 'Paris',
 				});
-				// screen.debug(undefined, Infinity);
 
 				// Then
 				expect(demandeDeContactServiceMock.envoyerPourLeCEJ).toHaveBeenCalledWith({
@@ -116,7 +115,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 			// Then
 			const link = screen.getByRole('link', { name: politiqueConfidentialité });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('/confidentialite'));
 		});
 	});
@@ -129,7 +128,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 			// Then
 			const link = screen.getByRole('link', { name: cgu });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('/cgu'));
 		});
 	});
