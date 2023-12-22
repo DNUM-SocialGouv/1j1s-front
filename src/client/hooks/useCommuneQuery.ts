@@ -37,7 +37,6 @@ export function aCommuneQuery(overrides?: Partial<CommuneQueryParams>): CommuneQ
 		...overrides,
 	};
 }
-
 export function mapToCommune(communeQuery: CommuneQueryParams): Commune | undefined {
 	const isCommuneAvailableInQuery = communeQuery.libelleCommune
 		&& communeQuery.codeCommune

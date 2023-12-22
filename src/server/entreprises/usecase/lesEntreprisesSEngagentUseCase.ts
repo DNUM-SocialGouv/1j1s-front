@@ -1,6 +1,6 @@
 import { Either } from '~/server/errors/either';
 
-import { Entreprise } from '../domain/Entreprise';
+import { EntrepriseSouhaitantSEngager } from '../domain/EntrepriseSouhaitantSEngager';
 import { RejoindreLaMobilisationRepository } from '../domain/RejoindreLaMobilisation.repository';
 
 export class LesEntreprisesSEngagentUseCase {
@@ -8,7 +8,7 @@ export class LesEntreprisesSEngagentUseCase {
     private lEERepository: RejoindreLaMobilisationRepository,
 	) {}
 
-	async rejoindreLaMobilisation(entrepriseDemandantARejoindreLaMobilisation: Entreprise): Promise<Either<void>> {
+	async rejoindreLaMobilisation(entrepriseDemandantARejoindreLaMobilisation: EntrepriseSouhaitantSEngager): Promise<Either<void>> {
 		return await this.lEERepository.save(entrepriseDemandantARejoindreLaMobilisation);
 	}
 }

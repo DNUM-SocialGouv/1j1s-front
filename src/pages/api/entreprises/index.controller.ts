@@ -7,7 +7,7 @@ import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.mi
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
+import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { dependencies } from '~/server/start';
 import { emailRegex } from '~/shared/emailRegex';
 

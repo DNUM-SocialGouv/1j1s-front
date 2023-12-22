@@ -1,4 +1,4 @@
-import { Entreprise } from '~/server/entreprises/domain/Entreprise';
+import { EntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
@@ -10,7 +10,7 @@ export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisa
 		private readonly errorManagementService: ErrorManagementService) {
 	}
 
-	async save(entreprise: Entreprise): Promise<Either<void>> {
+	async save(entreprise: EntrepriseSouhaitantSEngager): Promise<Either<void>> {
 		try {
 			await this.httpClientService.post('/api/members', this.mapEntreprise(entreprise));
 		} catch (error) {
@@ -24,7 +24,7 @@ export class ApiRejoindreLaMobilisationRepository implements RejoindreLaMobilisa
 		return createSuccess(undefined);
 	}
 
-	private mapEntreprise(e: Entreprise) {
+	private mapEntreprise(e: EntrepriseSouhaitantSEngager) {
 		return {
 			companyName: e.nomSociété,
 			companyPostalCode: e.codePostal,

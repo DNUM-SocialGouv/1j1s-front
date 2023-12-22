@@ -1,5 +1,5 @@
 import { HttpClientService } from '~/client/services/httpClient.service';
-import { EntrepriseSouhaitantSEngager } from '~/pages/les-entreprises-s-engagent/inscription/index.page';
+import { EntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { Either } from '~/server/errors/either';
 
 export class LesEntreprisesSEngagentService {

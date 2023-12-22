@@ -2,9 +2,7 @@ import { anHttpClientService } from '~/client/services/httpClientService.fixture
 import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
-import {
-	anEntrepriseSouhaitantSEngager,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
@@ -21,9 +19,9 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'Dev',
+				secteur: 'accommodation-catering',
 				siret: '123456789123',
-				taille: '~ 1000',
+				taille: 'xsmall',
 				travail: 'Dev',
 				téléphone: '0611223344',
 				ville: 'Maison-Alfort',
@@ -35,9 +33,9 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'Dev',
+				secteur: 'accommodation-catering',
 				siret: '123456789123',
-				taille: '~ 1000',
+				taille: 'xsmall',
 				travail: 'Dev',
 				téléphone: '0611223344',
 				ville: 'Maison-Alfort',
@@ -58,9 +56,9 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'Dev',
+				secteur: 'accommodation-catering',
 				siret: '123456789123',
-				taille: '~ 1000',
+				taille: 'xsmall',
 				travail: 'Dev',
 				téléphone: '0611223344',
 				ville: 'Maison-Lafitte',

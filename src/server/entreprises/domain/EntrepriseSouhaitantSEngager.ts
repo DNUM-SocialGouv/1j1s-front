@@ -38,7 +38,7 @@ export const TailleDEntreprise = {
 	huge: 'Plus de 5000 salariés',
 };
 
-export interface Entreprise {
+export interface EntrepriseSouhaitantSEngager {
   nomSociété: string;
   codePostal: string;
   ville: string;

@@ -20,23 +20,9 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
-import { TailleDEntreprise } from '~/server/entreprises/domain/Entreprise';
+import { EntrepriseSouhaitantSEngager, SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
-
-export type EntrepriseSouhaitantSEngager = {
-	codePostal: string
-	nomSociété: string
-	secteur: string
-	siret: string
-	taille: string
-	ville: string
-	prénom: string
-	nom: string
-	email: string
-	travail: string
-	téléphone: string
-}
 
 enum Etape {
 	ETAPE_1 = 'Étape 1 sur 2',
@@ -87,9 +73,9 @@ export default function LesEntreprisesSEngagentInscription() {
 			nom: String(formStep2Data.get('lastName')),
 			nomSociété: String(formStep1Data.get('companyName')),
 			prénom: String(formStep2Data.get('firstName')),
-			secteur: secteurActiviteChoisie!.valeur, // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			secteur: secteurActiviteChoisie!.valeur as (keyof typeof SecteurDActivité), // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
 			siret: String(formStep1Data.get('companySiret')),
-			taille: String(formStep1Data.get('companySize')),
+			taille: String(formStep1Data.get('companySize')) as (keyof typeof TailleDEntreprise),
 			travail: String(formStep2Data.get('job')),
 			téléphone: String(formStep2Data.get('phone')),
 			ville: String(formStep1Data.get('ville')),

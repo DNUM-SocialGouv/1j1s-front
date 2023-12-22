@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react';
 
 import InputAutocomplétion from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétion';
-import { SecteurDActivité } from '~/server/entreprises/domain/Entreprise';
+import { SecteurDActivité } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 
 export interface SecteurActivité {
   libellé: string;

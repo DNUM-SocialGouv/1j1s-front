@@ -1,4 +1,4 @@
-import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -15,18 +15,18 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 		usecase = new LesEntreprisesSEngagentUseCase(lEERepository);
 	});
 	describe('.rejoindreLaMobilisation(command)', () => {
-		const entreprise = anEntreprise();
+		const entreprise = anEntrepriseSouhaitantSEngager();
 
 		describe('Quand tout est valide', () => {
 			it('sauvegarde dans le dépôt', async () => {
 				// When
-				await usecase.rejoindreLaMobilisation(anEntreprise());
+				await usecase.rejoindreLaMobilisation(anEntrepriseSouhaitantSEngager());
 				// Then
 				expect(lEERepository.save).toHaveBeenCalledWith(entreprise);
 			});
 			it('résout un succès', async () => {
 				// When
-				const actual = await usecase.rejoindreLaMobilisation(anEntreprise());
+				const actual = await usecase.rejoindreLaMobilisation(anEntrepriseSouhaitantSEngager());
 				// Then
 				expect(actual).toEqual(createSuccess(undefined));
 			});
@@ -37,7 +37,7 @@ describe('LesEntreprisesSEngagentUseCase', () => {
 				});
 				it('résout cette erreur métier', async () => {
 					// When
-					const actual = await usecase.rejoindreLaMobilisation(anEntreprise());
+					const actual = await usecase.rejoindreLaMobilisation(anEntrepriseSouhaitantSEngager());
 					// Then
 					expect(actual).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				});

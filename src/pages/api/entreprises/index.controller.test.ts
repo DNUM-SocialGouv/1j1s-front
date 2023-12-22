@@ -2,8 +2,8 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import {
-	anEntreprise,
 	anEntrepriseMember,
+	anEntrepriseSouhaitantSEngager,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import entreprisesHandler, { enregistrerEntreprisesHandler } from '~/pages/api/entreprises/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
@@ -24,7 +24,7 @@ describe('enregistrerEntreprisesHandler', () => {
 			handler: (req, res) => enregistrerEntreprisesHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({
-					body: JSON.stringify(anEntreprise()),
+					body: JSON.stringify(anEntrepriseSouhaitantSEngager()),
 					headers: {
 						'content-type': 'application/json',
 					},
@@ -69,7 +69,7 @@ describe('enregistrerEntreprisesHandler', () => {
 				  const res = await fetch({
 					  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					  // @ts-expect-error
-					  body: JSON.stringify(anEntreprise(queryParametersToTestInError)),
+					  body: JSON.stringify(anEntrepriseSouhaitantSEngager(queryParametersToTestInError)),
 					  headers: {
 						  'content-type': 'application/json',
 					  },

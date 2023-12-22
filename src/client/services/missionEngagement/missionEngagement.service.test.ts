@@ -17,7 +17,10 @@ describe('MissionEngagementService', () => {
 					domain: 'sante',
 					ouvertsAuxMineurs: true,
 					page: '2',
-					...aCommuneQuery() };
+					...aCommuneQuery({
+
+					}),
+				};
 
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(createSuccess(aRésultatRechercheMission()));
 
