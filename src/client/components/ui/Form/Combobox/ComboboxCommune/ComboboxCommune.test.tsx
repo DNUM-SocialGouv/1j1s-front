@@ -339,7 +339,8 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel' });
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				const parisOption = await screen.findByText('Paris');
+				await user.click(parisOption);
 
 				expect(combobox).toBeValid();
 				expect(screen.queryByText(messageErreur)).not.toBeInTheDocument();
@@ -509,7 +510,8 @@ describe('<ComboboxCommune/>', () => {
 				const combobox = screen.getByRole('combobox');
 
 				await user.type(combobox, 'abc');
-				await user.click(await screen.findByText('Paris'));
+				const parisOption = await screen.findByText('Paris');
+				await user.click(parisOption);
 				await user.tab();
 
 				await user.clear(combobox);

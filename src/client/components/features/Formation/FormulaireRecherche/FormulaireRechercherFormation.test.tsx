@@ -80,12 +80,13 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			const localisatoinOptions = await screen.findAllByRole('option');
-			await user.click(localisatoinOptions[0]);
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
@@ -130,7 +131,8 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
@@ -206,7 +208,8 @@ describe('FormulaireRechercherFormation', () => {
 			const user = userEvent.setup();
 			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
 			await user.type(inputMétiers, 'boulang');
-			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');

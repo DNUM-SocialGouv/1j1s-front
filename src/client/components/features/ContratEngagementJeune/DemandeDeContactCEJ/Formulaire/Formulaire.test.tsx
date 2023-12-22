@@ -144,7 +144,8 @@ async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	await user.type(screen.getByLabelText('Adresse email'), data.email);
 
 	await user.type(screen.getByRole('combobox', { name: 'Ville' }), data.ville);
-	await user.click(await screen.findByText('Paris 15e Arrondissement (75015)'));
+	const paris15eOption = await screen.findByText('Paris 15e Arrondissement (75015)');
+	await user.click(paris15eOption);
 
 	await user.click(screen.getByRole('button', { name: 'Age' }));
 	await user.click(screen.getByText(data.age));

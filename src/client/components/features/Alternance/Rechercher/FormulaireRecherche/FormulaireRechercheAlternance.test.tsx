@@ -98,7 +98,8 @@ describe('FormulaireRechercheAlternance', () => {
 			const user = userEvent.setup();
 			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
 			await user.type(inputMetiers, 'boulang');
-			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
 
 
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
@@ -149,7 +150,8 @@ describe('FormulaireRechercheAlternance', () => {
 			const user = userEvent.setup();
 			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
 			await user.type(inputMetiers, 'boulang');
-			await user.click(await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label }));
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
