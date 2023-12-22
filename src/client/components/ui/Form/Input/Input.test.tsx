@@ -5,7 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { Input } from '~/client/components/ui/Form/InputText/Input';
+import { Input } from './Input';
 
 describe('<Input/>', () => {
 	it('affiche un textbox', () => {
@@ -103,10 +103,29 @@ describe('<Input/>', () => {
 			const user = userEvent.setup();
 			render(<Input validation={validation}/>);
 
-			const input = screen.getByRole('textbox');
+			const input = screen.getByRole<HTMLInputElement>('textbox');
 			await user.type(input, 'a');
 
 			expect(input).toBeInvalid();
+			expect(input.validationMessage).toEqual('error');
+		});
+
+		it('appelle le onChange des props après s’être mis à jour', async () => {
+			let validationMessage: string = '';
+			const validation = jest.fn().mockReturnValue('error');
+			const onChange = jest.fn((event) => { validationMessage = event.target.validationMessage; });
+			const user = userEvent.setup();
+			render(<Input validation={validation} onChange={onChange}/>);
+
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+
+			expect(validationMessage).toEqual('error');
+
+			validation.mockReturnValue('');
+			await user.type(input, 'a');
+
+			expect(validationMessage).toEqual('');
 		});
 	});
 
@@ -148,6 +167,18 @@ describe('<Input/>', () => {
 			await user.tab();
 
 			expect(input).toHaveAttribute('data-touched', 'false');
+		});
+
+		it('appelle onTouch quand le champ est touché', async () => {
+			const user = userEvent.setup();
+			const onTouch = jest.fn();
+			render(<Input onTouch={onTouch} />);
+
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+
+			expect(onTouch).toHaveBeenCalledTimes(1);
 		});
 	});
 });

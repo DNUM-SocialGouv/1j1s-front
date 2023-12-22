@@ -23,6 +23,16 @@ import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
+// FIXME (GAFI 27-11-2023): Temporary fix concerning https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67428
+type Labelled = {
+	'aria-label': string,
+} | {
+	'aria-labelledby': string,
+} | {
+	'aria-label': string,
+	'aria-labelledby': string,
+};
+
 type ComboboxProps = Omit<
 	React.ComponentPropsWithoutRef<'input'>,
 	'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
@@ -31,16 +41,11 @@ type ComboboxProps = Omit<
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
 	onInput?: (event: React.FormEvent<HTMLInputElement>, newValue: string) => void,
+	onTouch?: (touched: boolean) => void,
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
 	valueName?: string;
-} & ({
-	'aria-label': string,
-	'aria-labelledby'?: string,
-} | {
-	'aria-label'?: string,
-	'aria-labelledby': string,
-});
+} & Labelled;
 
 
 
@@ -57,6 +62,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onBlur: onBlurProps = doNothing,
 	onFocus: onFocusProps= doNothing,
 	onInput: onInputProps= doNothing,
+	onTouch: onTouchProps= doNothing,
 	requireValidOption = false,
 	required = false,
 	filter = filterValueOrLabelStartsWith,
@@ -174,13 +180,18 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 
 		dispatch(new Actions.CloseList());
-		setTouchedOnBlur(value);
+		const touched = setTouchedOnBlur(value);
+		if (touched) { onTouchProps(touched); }
 		onBlurProps(event);
-	}, [setTouchedOnBlur, value, onBlurProps]);
+	}, [setTouchedOnBlur, value, onBlurProps, onTouchProps]);
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
 	}, [onFocusProps, saveValueOnFocus, value]);
+
+	// FIXME (GAFI 27-11-2023): Temporary fix concerning https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67428
+	const ariaLabelledby = 'aria-labelledby' in inputProps ? inputProps['aria-labelledby'] : undefined;
+	const ariaLabel = 'aria-label' in inputProps ? inputProps['aria-label'] : undefined;
 
 	return (
 		<ComboboxProvider value={{
@@ -221,8 +232,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}
-					aria-labelledby={inputProps['aria-labelledby']}
-					aria-label={inputProps['aria-label']}>
+					aria-labelledby={ariaLabelledby}
+					aria-label={ariaLabel}>
 					<Icon name={'angle-down'} />
 				</button>
 				<ul
@@ -230,8 +241,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					id={listboxId}
 					hidden={!open}
 					ref={listboxRef}
-					aria-labelledby={inputProps['aria-labelledby']}
-					aria-label={inputProps['aria-label']}>
+					aria-labelledby={ariaLabelledby}
+					aria-label={ariaLabel}>
 					{children}
 				</ul>
 			</div>

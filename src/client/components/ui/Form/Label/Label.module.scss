@@ -1,0 +1,12 @@
+@use "@styles/utilities";
+
+.label {
+  display: block;
+  @include utilities.text-large;
+
+  .complement {
+    display: block;
+    @include utilities.text-small;
+    // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
+  }
+}

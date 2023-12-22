@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ComponentPropsWithoutRef } from 'react';
 
+import { Label } from '../Label';
 import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
@@ -14,7 +15,7 @@ export const exemple: Story = {
 	args: {},
 	render: (args) => (
 		<>
-			<label htmlFor="pays">Pays</label>
+			<Label htmlFor="pays">Pays</Label>
 			<Input id="pays" {...args} />
 		</>
 	),
@@ -26,7 +27,7 @@ export const disabled: Story = {
 	},
 	render: (args) => (
 		<>
-			<label htmlFor="pays">Pays</label>
+			<Label htmlFor="pays">Pays</Label>
 			<Input id="pays" {...args} />
 		</>
 	),
@@ -39,7 +40,7 @@ export const withValidation: Story = {
 	},
 	render: (args) => (
 		<>
-			<label htmlFor="pays">Pays (Entrer France)</label>
+			<Label htmlFor="pays">Pays (Entrer France)</Label>
 			<Input id="pays" {...args}/>
 		</>
 	),

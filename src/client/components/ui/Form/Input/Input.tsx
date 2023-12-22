@@ -11,6 +11,7 @@ type ErrorMessage = string;
 
 type InputProps = ComponentPropsWithoutRef<'input'> & {
 	validation?: (value: ComponentPropsWithoutRef<'input'>['value']) => ErrorMessage;
+	onTouch?: (touched: boolean) => void,
 }
 
 // TODO (SULI 30-10-2023): le composant Input doit remplacer entièrement InputText à la fin, pas oublier de changer le nom du dossier etc
@@ -22,6 +23,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange: onChangeProps = doNothing,
 		onFocus: onFocusProps = doNothing,
 		onBlur: onBlurProps = doNothing,
+		onTouch: onTouchProps = doNothing,
 		...props
 	}, outerRef) {
 	const inputRef = useSynchronizedRef(outerRef);
@@ -33,10 +35,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 	}, [inputRef, validation]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
-		onChangeProps(event);
-
 		const error = validation(event.currentTarget.value);
 		event.currentTarget?.setCustomValidity(error);
+
+		onChangeProps(event);
 	}, [onChangeProps, validation]);
 
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLInputElement>) {
@@ -44,10 +46,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onFocusProps(event);
 	}, [onFocusProps, saveValueOnFocus]);
 
-	const onBlur = useCallback(function onFocus(event: FocusEvent<HTMLInputElement>) {
-		setTouchedOnBlur(event.currentTarget.value);
+	const onBlur = useCallback(async function onFocus(event: FocusEvent<HTMLInputElement>) {
+		const touched = setTouchedOnBlur(event.currentTarget.value);
+		if (touched) { onTouchProps(touched); }
 		onBlurProps(event);
-	}, [onBlurProps, setTouchedOnBlur]);
+	}, [onBlurProps, onTouchProps, setTouchedOnBlur]);
 
 	return <input
 		data-touched={touched}

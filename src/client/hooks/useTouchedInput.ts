@@ -10,9 +10,12 @@ export function useTouchedInput() {
 
 	const setTouchedOnBlur = useCallback(function touch(currentValue: string) {
 		if (valueOnFocus.current !== currentValue) {
+			const wasAlreadyTouched = touched;
 			setTouched(true);
+			return !wasAlreadyTouched;
 		}
-	}, []);
+		return false;
+	}, [touched]);
 
 	return { saveValueOnFocus, setTouchedOnBlur, touched };
 }

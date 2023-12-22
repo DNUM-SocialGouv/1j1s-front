@@ -1421,7 +1421,7 @@ describe('<Combobox />', () => {
 				await user.type(input, 'A');
 				await user.tab();
 
-				await user.type(input, '{Backspace}');
+				await user.type(input, `{${KeyBoard.BACKSPACE}}`);
 
 				expect(onInvalid).toHaveBeenCalled();
 			});
@@ -1436,6 +1436,25 @@ describe('<Combobox />', () => {
 				);
 
 				expect(onInvalid).not.toHaveBeenCalled();
+			});
+			it('appelle le callback onTouch quand le champ devient touched', async () => {
+				const user = userEvent.setup();
+				const onTouch = jest.fn();
+				render(
+					<Combobox aria-label="Test" required onTouch={onTouch}>
+						<Combobox.Option>Option 1</Combobox.Option>
+						<Combobox.Option>Option 2</Combobox.Option>
+						<Combobox.Option>Option 3</Combobox.Option>
+					</Combobox>,
+				);
+				const input = screen.getByRole('combobox');
+				await user.type(input, 'A');
+				await user.tab();
+
+				await user.type(input, '{Backspace}');
+
+				expect(onTouch).toHaveBeenCalledTimes(1);
+				expect(onTouch).toHaveBeenCalledWith(true);
 			});
 		});
 

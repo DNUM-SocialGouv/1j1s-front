@@ -1,0 +1,8 @@
+@use "@styles/utilities";
+
+$margin-vertical: 0.5rem;
+
+.champ {
+  display: grid;
+  gap: $margin-vertical;
+}
