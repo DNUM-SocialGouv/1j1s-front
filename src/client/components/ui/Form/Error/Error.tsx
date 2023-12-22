@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import { ComponentPropsWithoutRef } from 'react';
 
-import styles from '../Champ.module.scss';
-
+import styles from './Error.module.scss';
 
 type ErrorProps = ComponentPropsWithoutRef<'p'>
 

@@ -1,26 +1,15 @@
 @use "@styles/utilities";
 
-$error-color-text: utilities.$color-error;
 $hint-color-text: utilities.$color-primary;
 $margin-vertical: 0.5rem;
 
-.champ{
-  & .error, & .hint{
-    margin-top: $margin-vertical
-  }
-
-  & .label{
-    margin-bottom: $margin-vertical
-  }
+.champ {
+  display: grid;
+  gap: $margin-vertical;
 }
 
 
-.error{
-  @include utilities.text-small;
-  color: $error-color-text;
-}
-
-.hint{
+.hint {
   @include utilities.text-small;
   color: $hint-color-text;
 }

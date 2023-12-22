@@ -48,7 +48,7 @@ describe('<Champ/>', () => {
 		expect(input).toHaveAccessibleName('Prénom');
 	});
 
-	describe('<InputChamp/>', () => {
+	describe('<Champ.Input/>', () => {
 		it('accepte un composant a afficher', () => {
 			render(
 				<Champ>
@@ -177,7 +177,7 @@ describe('<Champ/>', () => {
 		});
 	});
 
-	describe('<InputError/>', () => {
+	describe('<Champ.Error/>', () => {
 		it('accepte les propriété de l‘Erreur', async () => {
 			render(
 				<Champ>

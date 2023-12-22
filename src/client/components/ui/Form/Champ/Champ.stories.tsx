@@ -2,8 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 
+import { Input } from '../Input';
 import { Champ } from './Champ';
-import { Input } from './Input';
 
 const meta: Meta<typeof Champ> = {
 	component: Champ,
