@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.203.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.3...v3.203.0) (2023-12-21)
+
+
+### Features
+
+* **transverse:** remplacer les replaceAll pour améliorer la compatibilité ([#2487](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2487)) ([1c9ab8e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1c9ab8e060369bd88086c386e2ff700c72e9b1bd))
+
 ## [3.202.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.2...v3.202.3) (2023-12-21)
 
 
