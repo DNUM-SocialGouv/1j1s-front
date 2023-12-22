@@ -124,7 +124,7 @@ ${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
 }
 
 
-interface ApiEuresEmploiEuropeDetailXMLResponsFixture {
+interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	titre?: string,
 	nomEntreprise?: string,
 	pays?: string,
@@ -155,7 +155,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponsFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -171,7 +171,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
         <PartyID>NL001</PartyID>
         <PartyName>ABC</PartyName>
     </PostingRequester>
-    <PositionProfile languageCode="${codeLangueDeLOffre ? codeLangueDeLOffre: 'nl'}">
+    <PositionProfile languageCode="${codeLangueDeLOffre || 'nl'}">
         <PostingInstruction>
             <PostingOptionCode>EURESFlag</PostingOptionCode>
             <ApplicationMethod>
