@@ -35,10 +35,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 	}, [inputRef, validation]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
-		onChangeProps(event);
-
 		const error = validation(event.currentTarget.value);
 		event.currentTarget?.setCustomValidity(error);
+
+		onChangeProps(event);
 	}, [onChangeProps, validation]);
 
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLInputElement>) {
