@@ -62,7 +62,7 @@ describe('enregistrerEntreprisesHandler', () => {
 		  { prénom: '' },
 		  { nom: '' },
 		  { travail: '' },
-	  ])('l’url contenant le paramètre %j est invalide', async (queryParametersToTestInError) => {
+	  ])('l’url contenant le paramètre %o est invalide', async (queryParametersToTestInError) => {
 		  await testApiHandler<void | ErrorHttpResponse>({
 			  handler: (req, res) => entreprisesHandler(req, res),
 			  test: async ({ fetch }) => {
