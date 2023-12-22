@@ -7,8 +7,9 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
-import { Champ } from '~/client/components/ui/Form/InputText/Champ';
-import { Input } from '~/client/components/ui/Form/InputText/Input';
+import { Input } from '~/client/components/ui/Form/Input';
+
+import { Champ } from './Champ';
 
 describe('<Champ/>', () => {
 	it('affiche son contenu', () => {

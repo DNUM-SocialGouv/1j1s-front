@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { Hint } from '~/client/components/ui/Form/InputText/Hint/Hint';
+import { Hint } from './Hint';
 
 describe('<Hint/>', () => {
 	it('Je vois l‘indication', () => {

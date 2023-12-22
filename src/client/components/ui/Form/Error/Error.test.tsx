@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { Error } from '~/client/components/ui/Form/InputText/Error/Error';
+import { Error } from './Error';
 
 describe('<Error/>', () => {
 	it('Je vois l‘erreur', () => {

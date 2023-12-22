@@ -4,7 +4,8 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { Label } from '~/client/components/ui/Form/InputText/Label';
+import { Label } from './Label';
+
 
 describe('<Label>', () => {
 	it('je vois le label', () => {

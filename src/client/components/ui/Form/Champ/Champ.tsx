@@ -1,12 +1,12 @@
 import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useState } from 'react';
 
-import { ChampContextProvider, useChampContext } from '~/client/components/ui/Form/InputText/ChampContext';
+import { Error } from '~/client/components/ui/Form/Error';
+import { Hint } from '~/client/components/ui/Form/Hint';
+import { Label } from '~/client/components/ui/Form/Label';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Champ.module.scss';
-import { Error } from './Error';
-import { Hint } from './Hint';
-import { Label } from './Label';
+import { ChampContextProvider, useChampContext } from './ChampContext';
 
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
