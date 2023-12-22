@@ -11,7 +11,6 @@ import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
-import { Commune } from '~/server/localisations/domain/localisationAvecCoordonnées';
 
 const typeAccompagnementListe: Option[] = [
 	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.AGENCE_POLE_EMPLOI },
@@ -25,15 +24,15 @@ export function FormulaireRechercheAccompagnement() {
 	const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
 
 	const accompagnementQueryParams = useAccompagnementQuery();
-	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune } = accompagnementQueryParams;
+	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune, typeAccompagnement } = accompagnementQueryParams;
 
-	const defaultCommuneValue: Commune | undefined = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
+	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
 
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
-		setInputTypeAccompagnement(accompagnementQueryParams.typeAccompagnement || '');
-	}, [accompagnementQueryParams]);
+		setInputTypeAccompagnement(typeAccompagnement || '');
+	}, [typeAccompagnement]);
 
 	async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
