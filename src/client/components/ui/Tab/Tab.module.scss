@@ -1,13 +1,22 @@
 @use "@styles/utilities-deprecated";
+$margin-tab-label: 1rem;
 
 .tab {
   &Label {
     &Container{
       display: flex;
       @extend %max-container;
+      gap: calc($margin-tab-label/2)
     }
 
-    margin: 0 0.25rem;
+    &:last-child{
+      margin-right: $margin-tab-label;
+    }
+
+    &:first-child{
+      margin-left: $margin-tab-label;
+    }
+
     padding: 7px 11px 8px 11px;
     @extend %text-medium;
     border: 1px solid utilities-deprecated.$color-primary;
@@ -27,6 +36,6 @@
       background-color: utilities-deprecated.$color-background-white-lilac;
     }
     @extend %max-container;
-    padding: 40px 0;
+    padding: 40px 1rem;
   }
 }
