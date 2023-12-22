@@ -27,6 +27,8 @@ const contactLesEntreprisesSEngagentSchema = Joi.object({
 
 function validatePhone(input: string): string {
 	const { isValid, phoneNumber } = phone(input, { country: 'FR', validateMobilePrefix: false });
+	// FIXME (SULI 22-12-2023): supprimer cette vérification, et se baser sur la même regex que l'input côté front
+	// FIXME cela permettra de supprimer la dépendance vers 'phone'
 	if (!isValid) {
 		throw Error('Le numéro de téléphone n‘est pas un numéro français valide');
 	}
