@@ -118,6 +118,40 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
 			});
 		});
+
+		describe('quand on recherche par secteur d‘activité', () => {
+			it('ajoute les secteurs d‘activité aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				const buttonFiltresAvances = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresAvances);
+				const modalComponent = screen.getByRole('dialog');
+
+				const checkboxSecteurActivite = within(modalComponent).getByRole('checkbox', { name: 'Agriculture, sylviculture et pêche' });
+				await user.click(checkboxSecteurActivite);
+
+				const checkboxSecteurActiviteSecondOption = within(modalComponent).getByRole('checkbox', { name: 'Hébergement et restauration' });
+				await user.click(checkboxSecteurActiviteSecondOption);
+
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+				await user.click(buttonAppliquerFiltres);
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+
+				expect(routerPush).toHaveBeenCalledWith({ query: 'secteurActivite=A%2CI&page=1' }, undefined, { shallow: true });
+			});
+		});
 	});
 
 	describe('en version desktop', () => {
@@ -184,6 +218,36 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				// THEN
 
 				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
+			});
+		});
+
+		describe('quand on recherche par secteur d‘activité', () => {
+			it('ajoute les secteurs d‘activités aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				// WHEN
+				const button = screen.getByRole('button', { name: 'Domaines' });
+				await user.click(button);
+
+				const checkboxSecteurActivite = screen.getByRole('checkbox', { name: 'Agriculture, sylviculture et pêche' });
+				await user.click(checkboxSecteurActivite);
+
+				const checkboxSecteurActiviteSecondOption = screen.getByRole('checkbox', { name: 'Hébergement et restauration' });
+				await user.click(checkboxSecteurActiviteSecondOption);
+
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+
+				expect(routerPush).toHaveBeenCalledWith({ query: 'secteurActivite=A%2CI&page=1' }, undefined, { shallow: true });
 			});
 		});
 	});

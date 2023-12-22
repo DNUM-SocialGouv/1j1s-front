@@ -189,6 +189,7 @@ export function FormulaireRechercheEmploisEurope() {
 						  />
 						  <input type="hidden" name="typeContrat" value={inputTypeContrat}/>
 						  <input type="hidden" name="niveauEtude" value={inputNiveauEtude}/>
+						  <input type="hidden" name="secteurActivite" value={inputSecteurActivite}/>
 						</div>
 					}
 					<ModaleFiltreAvancee
