@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef } from 'react';
 
-import styles from '../Champ/Champ.module.scss';
+import styles from './Label.module.scss';
 
 type LabelProps = ComponentPropsWithoutRef<'label'> & {
 	label?: string
