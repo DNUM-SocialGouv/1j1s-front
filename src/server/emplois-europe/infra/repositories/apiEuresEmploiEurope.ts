@@ -51,7 +51,7 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 	}
 
 	export interface Address {
-		'ns2:CityName'?: {
+		CityName?: {
 			'textContent': string
 		};
 		CountryCode?: {

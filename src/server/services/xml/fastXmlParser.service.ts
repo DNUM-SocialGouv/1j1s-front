@@ -12,6 +12,7 @@ export class FastXmlParserService implements XmlService {
 		attributeNamePrefix: '',
 		attributesGroupName: 'attributs',
 		ignoreAttributes: false,
+		removeNSPrefix: true,
 		textNodeName: TEXT_NODE_NAME,
 	};
 
