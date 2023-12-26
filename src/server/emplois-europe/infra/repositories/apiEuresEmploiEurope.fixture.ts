@@ -109,7 +109,7 @@ function anXMLResponseLanguageCompetency(languageCompetencies: Array<languageCom
 }]) {
 	return (languageCompetencies.map((competenceInfo) =>
 		`<PositionCompetency><CompetencyID>${competenceInfo.language}</CompetencyID>
-<TaxonomyID>${competenceInfo.competenceType ? competenceInfo.competenceType : 'language'}</TaxonomyID>
+<TaxonomyID>${competenceInfo.competenceType ? competenceInfo.competenceType : 'Language'}</TaxonomyID>
 <RequiredProficiencyLevel>
 	${competenceInfo.levelCode && `<ScoreText>${competenceInfo.levelCode}</ScoreText>`}
 </RequiredProficiencyLevel>

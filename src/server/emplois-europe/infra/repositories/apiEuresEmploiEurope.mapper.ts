@@ -190,7 +190,7 @@ export class ApiEuresEmploiEuropeMapper {
 
 		listPositionsCompetencies.map((positionCompetency) => {
 			const taxonomyID = this.xmlService.getTextValue(positionCompetency.TaxonomyID);
-			if (taxonomyID !== TAXONOMY_ID_LANGUAGE) return;
+			if (taxonomyID.toLowerCase() !== TAXONOMY_ID_LANGUAGE) return;
 
 			const compentencyId = this.xmlService.getTextValue(positionCompetency.CompetencyID).toLowerCase();
 			const languageName = findLanguageNameCompetency(compentencyId);
