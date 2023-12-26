@@ -1,9 +1,9 @@
 import { Option } from '~/client/components/ui/Select/Select';
+import { ACCOMPAGNEMENT_MAX_AGE, ACCOMPAGNEMENT_MIN_AGE } from '~/server/demande-de-contact/domain/demandeDeContact';
 
-const AGE_MINIMUM = 16;
-
-export const ageOptions: Option[] = Array.from(Array(15).keys()).map((index) => {
-	const age = index + AGE_MINIMUM;
+const numberOfDifferentsAges = ACCOMPAGNEMENT_MAX_AGE-ACCOMPAGNEMENT_MIN_AGE+1;
+export const ageOptions: Option[] = Array.from(Array(numberOfDifferentsAges).keys()).map((index) => {
+	const age = index + ACCOMPAGNEMENT_MIN_AGE;
 	return {
 		libellé: `${age} ans`,
 		valeur: `${age}`,

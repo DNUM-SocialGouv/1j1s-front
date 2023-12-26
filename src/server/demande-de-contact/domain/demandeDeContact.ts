@@ -29,3 +29,6 @@ export interface DemandeDeContactAccompagnement {
 }
 
 export type Age = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30;
+
+export const ACCOMPAGNEMENT_MIN_AGE = 16;
+export const ACCOMPAGNEMENT_MAX_AGE = 30;
