@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.205.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.204.1...v3.205.0) (2023-12-26)
+
+
+### Features
+
+* **emplois europe:** Ajout de la recherche par secteur d'activité ([#2484](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2484)) ([1cba74a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1cba74aaccf14bad70d350a2a4143079045ca5c3))
+
 ## [3.204.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.204.0...v3.204.1) (2023-12-26)
 
 
