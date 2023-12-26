@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.204.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.204.0...v3.204.1) (2023-12-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency classnames to v2.3.3 ([#2495](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2495)) ([bf5b2c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bf5b2c6d5e6169324103b935ae83f105913b3736))
+
 ## [3.204.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.203.0...v3.204.0) (2023-12-26)
 
 
