@@ -20,8 +20,7 @@ function remplirFormulaireEtape1() {
 	] } }).as('recherche-communes');
 
 	cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).type('OCTO Technology');
-	// FIXME (GAFI 06-11-2023): Devrait être role combobox
-	cy.findByRole('textbox', { name: /Ville du siège social de l’entreprise/i }).type('paris');
+	cy.findByRole('combobox', { name: /Ville du siège social de l’entreprise/i }).type('paris');
 	cy.wait('@recherche-communes');
 	cy.findByRole('option', { name: /Paris \(75006\)/i }).click();
 	cy.findByRole('textbox', { name: /SIRET/i }).type('41816609600069');

@@ -1,20 +1,19 @@
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
+import { CommuneQueryParams, useCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 
-export interface AccompagnementQueryParams {
-  codeCommune?: string
-  libelleCommune?: string
-  typeAccompagnement?: string
-}
+export type AccompagnementQueryParams = {
+	typeAccompagnement: string | undefined;
+} & CommuneQueryParams
 
 export function useAccompagnementQuery(): AccompagnementQueryParams {
 	const { query } = useRouter();
+	const communeQuery = useCommuneQuery();
 
 	return useMemo(() => ({
-		codeCommune: getSingleQueryParam(query.codeCommune),
-		libelleCommune: getSingleQueryParam(query.libelleCommune),
 		typeAccompagnement: getSingleQueryParam(query.typeAccompagnement),
-	}), [query]);
+		...communeQuery,
+	}), [communeQuery, query]);
 }

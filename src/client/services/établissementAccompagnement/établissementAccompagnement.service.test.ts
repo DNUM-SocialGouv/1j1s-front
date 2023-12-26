@@ -1,3 +1,4 @@
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
@@ -15,14 +16,19 @@ describe('établissementAccompagnementService', () => {
 			jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anOrderedÉtablissementAccompagnementList()));
 			const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClient);
 			const accompagnementQueryParams = {
-				codeCommune: '41600',
-				libelleCommune: 'Lamotte-Beuvron',
 				typeAccompagnement: 'cij',
-			};  
+				...aCommuneQuery({
+					codeCommune: '41600',
+					libelleCommune: 'Lamotte-Beuvron',
+				}),
+			};
 
 			const actual = await établissementAccompagnementService.rechercher(accompagnementQueryParams);
 
-			expect(httpClient.get).toHaveBeenCalledWith('etablissements-accompagnement?codeCommune=41600&libelleCommune=Lamotte-Beuvron&typeAccompagnement=cij');
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('etablissements-accompagnement?'));
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('codeCommune=41600'));
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('libelleCommune=Lamotte-Beuvron'));
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('typeAccompagnement=cij'));
 			expect(actual).toEqual(createSuccess(anOrderedÉtablissementAccompagnementList()));
 		});
 	});

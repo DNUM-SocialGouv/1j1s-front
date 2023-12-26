@@ -1,4 +1,4 @@
-import { anEntreprise } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -28,7 +28,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 
 		it('envoie un POST vers l‘API des entreprise s‘engagent', async () => {
 			// Given
-			const entreprise = anEntreprise();
+			const entreprise = anEntrepriseSouhaitantSEngager();
 			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse({}, 201));
 			// When
 			const result = await repository.save(entreprise);
@@ -41,7 +41,7 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 		it('résout une erreur quand le service est indisponible', async () => {
 			// Given
 			const expectedFailure = ErreurMetier.SERVICE_INDISPONIBLE;
-			const entreprise = anEntreprise();
+			const entreprise = anEntrepriseSouhaitantSEngager();
 			const errorHttp = anHttpError(503);
 			jest.spyOn(httpClientService, 'post').mockRejectedValue(errorHttp);
 			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));

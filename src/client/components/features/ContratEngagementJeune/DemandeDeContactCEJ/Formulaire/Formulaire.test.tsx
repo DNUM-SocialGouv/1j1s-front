@@ -3,16 +3,16 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import FormulaireDeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
+import FormulaireDeContactCEJ
+	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
-jest.setTimeout(10000);
 describe('<FormulaireDeContactCEJ />', () => {
 
 	function renderComponent() {
@@ -39,13 +39,13 @@ describe('<FormulaireDeContactCEJ />', () => {
 		renderComponent();
 		// When
 		// Then
-		expect(screen.getByLabelText('Prénom')).toBeInTheDocument();
-		expect(screen.getByLabelText('Nom')).toBeInTheDocument();
-		expect(screen.getByLabelText('Adresse email')).toBeInTheDocument();
-		expect(screen.getByLabelText('Téléphone')).toBeInTheDocument();
-		expect(screen.getByText('Age', { exact: true })).toBeInTheDocument();
-		expect(screen.getByLabelText('Ville')).toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeInTheDocument();
+		expect(screen.getByLabelText('Prénom')).toBeVisible();
+		expect(screen.getByLabelText('Nom')).toBeVisible();
+		expect(screen.getByLabelText('Adresse email')).toBeVisible();
+		expect(screen.getByLabelText('Téléphone')).toBeVisible();
+		expect(screen.getByText('Age', { exact: true })).toBeVisible();
+		expect(screen.getByRole('combobox', { name: 'Ville' })).toBeVisible();
+		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
 	it('a un champ Age obligatoire', async () => {
@@ -67,7 +67,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				const { demandeDeContactServiceMock } = renderComponent();
 
 				// When
-				await remplirFormulaireDeContact({
+				await remplirFormulaireDeContactEtEnvoyer({
 					age: '19 ans',
 					email: 'toto@msn.fr',
 					nom: 'Mc Totface',
@@ -92,7 +92,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				const { onSuccess } = renderComponent();
 
 				// When
-				await remplirFormulaireDeContact({
+				await remplirFormulaireDeContactEtEnvoyer({
 					age: '19 ans',
 					email: 'toto@msn.fr',
 					nom: 'Mc Totface',
@@ -115,7 +115,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 			// Then
 			const link = screen.getByRole('link', { name: politiqueConfidentialité });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('/confidentialite'));
 		});
 	});
@@ -128,7 +128,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 			// Then
 			const link = screen.getByRole('link', { name: cgu });
-			expect(link).toBeInTheDocument();
+			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('/cgu'));
 		});
 	});
@@ -136,20 +136,21 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' | 'ville', string>
 
-async function remplirFormulaireDeContact(data: ContactInputs, submit = true) {
+async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	const user = userEvent.setup();
 	await user.type(screen.getByLabelText('Prénom'), data.prénom);
 	await user.type(screen.getByLabelText('Nom'), data.nom);
 	await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
 	await user.type(screen.getByLabelText('Adresse email'), data.email);
 
-	await user.type(screen.getByLabelText('Ville'), data.ville);
-	await waitFor(() => user.click(screen.getByText('Paris 15e Arrondissement (75015)')));
+	await user.type(screen.getByRole('combobox', { name: 'Ville' }), data.ville);
+	const paris15eOption = await screen.findByText('Paris 15e Arrondissement (75015)');
+	await user.click(paris15eOption);
 
 	await user.click(screen.getByRole('button', { name: 'Age' }));
 	await user.click(screen.getByText(data.age));
-	if (submit) {
-		await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
-	}
+
+	await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 }
+
 

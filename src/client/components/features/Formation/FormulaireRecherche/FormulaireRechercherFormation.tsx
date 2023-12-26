@@ -10,6 +10,7 @@ import {
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
@@ -24,18 +25,22 @@ export function FormulaireRechercherFormation() {
 		latitudeCommune,
 		longitudeCommune,
 		distanceCommune,
+		ville,
+		codePostal,
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
 		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
 
-	const communeDefaultValue = (codeCommune && latitudeCommune && libelleCommune && longitudeCommune) ? {
-		code: codeCommune,
-		latitude: latitudeCommune,
-		libelle: libelleCommune,
-		longitude: longitudeCommune,
-	}: undefined;
+	const communeDefaultValue = mapToCommune({
+		codeCommune,
+		codePostal,
+		latitudeCommune,
+		libelleCommune,
+		longitudeCommune,
+		ville,
+	});
 
 	const [inputNiveauEtudes, setInputNiveauEtudes] = useState<string>('');
 

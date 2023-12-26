@@ -1,7 +1,7 @@
 import { Either } from '~/server/errors/either';
 
-import { Entreprise } from './Entreprise';
+import { EntrepriseSouhaitantSEngager } from './EntrepriseSouhaitantSEngager';
 
 export interface RejoindreLaMobilisationRepository {
-    save(entreprise: Entreprise, annotation?: string): Promise<Either<void>>;
+    save(entreprise: EntrepriseSouhaitantSEngager, annotation?: string): Promise<Either<void>>;
 }

@@ -6,7 +6,12 @@ export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelis
 		([key, value]) => (
 			[key, typeof value === 'string' ? value : value.name]
 		),
-	).filter((element) => element[0] in queryParamsWhitelist && element[1] !== '' && element[1] !== 'false');
+	).filter((inputData) => {
+		const inputName = inputData[0];
+		const inputValue = inputData[1];
+		return inputName in queryParamsWhitelist && inputValue !== '' && inputValue !== 'false';
+	});
+
 	if (appendPageQueryParam) {
 		formEntries.push(['page', '1']);
 	}

@@ -2,7 +2,7 @@ import React, { FormEvent, PropsWithChildren, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import InputAutocomplétionCommune from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionCommune';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -22,8 +22,6 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
-	const [inputVille, setInputVille] = useState('');
-	const [inputCodePostal, setInputCodePostal] = useState('');
 
 	async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -32,12 +30,12 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 		setIsLoading(true);
 		const response = await demandeDeContactService.envoyerPourLeCEJ({
 			age: Number(data.get('age')),
-			codePostal: inputCodePostal,
+			codePostal: String(data.get('codePostal')),
 			email: String(data.get('mail')),
 			nom: String(data.get('lastname')),
 			prénom: String(data.get('firstname')),
 			téléphone: String(data.get('phone')),
-			ville: inputVille,
+			ville: String(data.get('ville')),
 		});
 		setIsLoading(false);
 
@@ -92,16 +90,10 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 				onChange={setInputAge}
 				value={inputAge}
 			/>
-			<InputAutocomplétionCommune
+			<ComboboxCommune
 				required
-				id="autocomplete-commune"
 				label="Ville"
-				name="ville"
-				placeholder="Exemples : Paris, Béziers..."
-				onSuggestionSelected={(event, suggestion) => {
-					setInputCodePostal(suggestion.codePostal);
-					setInputVille(suggestion.ville);
-				}}
+				name='commune'
 			/>
 			{isLoading
 				? (<ButtonComponent className={styles.formulaireButton} disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)

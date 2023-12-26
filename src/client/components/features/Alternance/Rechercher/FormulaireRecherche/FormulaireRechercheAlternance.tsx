@@ -10,6 +10,7 @@ import {
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheAlternance() {
@@ -22,11 +23,22 @@ export function FormulaireRechercheAlternance() {
 		distanceCommune,
 		longitudeCommune,
 		latitudeCommune,
+		ville,
+		codePostal,
 	} = queryParams;
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
 		? { label: libelleMetier, romes: codeRomes }
 		: undefined;
+
+	const defaultCommune = mapToCommune({
+		codeCommune,
+		codePostal,
+		latitudeCommune,
+		libelleCommune,
+		longitudeCommune,
+		ville,
+	});
 
 	const router = useRouter();
 
@@ -53,12 +65,7 @@ export function FormulaireRechercheAlternance() {
 							placeholder={'Exemples : enseignement, recherche...'}
 						/>
 						<ComboboxCommune
-							defaultCommune={{
-								code: codeCommune,
-								latitude: latitudeCommune,
-								libelle: libelleCommune,
-								longitude: longitudeCommune,
-							}}
+							defaultCommune={defaultCommune}
 							showRadiusInput
 							defaultDistance={distanceCommune}
 							required

@@ -11,6 +11,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 
@@ -20,10 +21,10 @@ describe('FormulaireRechercheAccompagnement', () => {
 	});
 
 	describe('lorsqu‘on recherche par commune', () => {
-		it('filtre les résultats par localisation',  async() => {
+		it('les informations de la commune sont ajoutées à l’url',  async() => {
 			// GIVEN
 			const routerPush = jest.fn();
-		
+
 			mockUseRouter({ push: routerPush, query: {
 				typeAccompagnement: 'pole_emploi',
 			} });
@@ -38,7 +39,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 			const user = userEvent.setup();
 			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
 			await user.type(comboboxCommune, 'Pari');
-			const resultListCommune = screen.getAllByRole('option');
+			const resultListCommune = await screen.findAllByRole('option');
 			await user.click(resultListCommune[0]);
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -48,6 +49,10 @@ describe('FormulaireRechercheAccompagnement', () => {
 			// THEN
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleCommune=Paris+%2875006%29') }, undefined, { shallow: true });
 			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codeCommune=75056') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('latitudeCommune=48.859&longitudeCommune=2.347&codePostal=75006&ville=Paris') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('longitudeCommune=2.347') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('codePostal=75006') }, undefined, { shallow: true });
+			expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('ville=Paris') }, undefined, { shallow: true });
 		});
 	});
 	describe('lorsqu‘on recherche par type d‘accompagnement', () => {
@@ -73,9 +78,11 @@ describe('FormulaireRechercheAccompagnement', () => {
 
 	it('rempli les champs du formulaire avec les query params', async () => {
 		mockUseRouter({ query: {
-			codeCommune: '75001',
-			libelleCommune: 'Paris (75001)',
 			typeAccompagnement: 'pole_emploi',
+			...aCommuneQuery({
+				codeCommune: '75001',
+				libelleCommune: 'Paris (75001)',
+			}),
 		} });
 
 		render(

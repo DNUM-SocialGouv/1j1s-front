@@ -67,8 +67,7 @@ export function RechercherAccompagnement() {
 		} else {
 			setErreurRecherche(ErreurMetier.DEMANDE_INCORRECTE);
 		}
-		// eslint-disable-next-line
-  }, [accompagnementQuery, isEachQueryParamPresent]);
+	}, [accompagnementQuery, isEachQueryParamPresent, établissementAccompagnementService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];

@@ -1,7 +1,11 @@
 import Joi from 'joi';
 import phone from 'phone';
 
-import { DemandeDeContactCEJ,parseAge } from '~/server/demande-de-contact/domain/demandeDeContact';
+import {
+	ACCOMPAGNEMENT_MAX_AGE,
+	ACCOMPAGNEMENT_MIN_AGE,
+	DemandeDeContactCEJ,
+} from '~/server/demande-de-contact/domain/demandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -13,7 +17,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 
 	async handle(command: Partial<DemandeDeContactCEJ>): Promise<Either<void>> {
 		try {
-			const demandeDeContactCEJ: DemandeDeContactCEJ = Joi.attempt(command, DemandeDeContactCEJValidator);
+			const demandeDeContactCEJ = Joi.attempt<Joi.Schema<DemandeDeContactCEJ>>(command, DemandeDeContactCEJValidator);
 			return this.demandeDeContactRepository.envoyer(demandeDeContactCEJ);
 		} catch (e) {
 			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
@@ -22,7 +26,7 @@ export class EnvoyerDemandeDeContactCEJUseCase {
 }
 
 export const DemandeDeContactCEJValidator = Joi.object({
-	age: Joi.number().allow(16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30).custom(parseAge).required(),
+	age: Joi.number().integer().min(ACCOMPAGNEMENT_MIN_AGE).max(ACCOMPAGNEMENT_MAX_AGE).required(),
 	codePostal: Joi.string().pattern(/^((?:0[1-9]|[1-8]\d|9[0-5])\d{3}|(?:97[1-6]\d{2}))$/, 'code postal français').required(),
 	email: Joi.string().pattern(new RegExp(emailRegex)).required(),
 	nom: Joi.string().required(),

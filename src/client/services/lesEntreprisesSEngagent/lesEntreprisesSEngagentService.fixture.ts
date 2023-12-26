@@ -1,10 +1,7 @@
-import { Entreprise } from '~/server/entreprises/domain/Entreprise';
-import { RejoindreLaMobilisation } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
+import { EntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { createSuccess } from '~/server/errors/either';
 
-import {
-	LesEntreprisesSEngagentService,
-} from './lesEntreprisesSEngagent.service';
+import { LesEntreprisesSEngagentService } from './lesEntreprisesSEngagent.service';
 
 export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentService {
 	return {
@@ -12,33 +9,22 @@ export function aLesEntreprisesSEngagentService(): LesEntreprisesSEngagentServic
 	} as unknown as LesEntreprisesSEngagentService;
 }
 
-export const aCommandeRejoindreLaMobilisation: () => RejoindreLaMobilisation = () => ({
-	codePostal: '75015',
-	email: 'machin.chose@bidule.com',
-	nom: 'Chose',
-	nomSociété: 'Bidule co.',
-	prénom: 'Machin',
-	secteur: 'other-services',
-	siret: '12345678901114',
-	taille: 'medium',
-	travail: 'Chef',
-	téléphone: '0123456789',
-	ville: 'Paris (15e arrondissement)',
-});
-
-export const anEntreprise: () => Entreprise = () => ({
-	codePostal: '75015',
-	email: 'machin.chose@bidule.com',
-	nom: 'Chose',
-	nomSociété: 'Bidule co.',
-	prénom: 'Machin',
-	secteur: 'other-services',
-	siret: '12345678901114',
-	taille: 'medium',
-	travail: 'Chef',
-	téléphone: '+33123456789',
-	ville: 'Paris (15e arrondissement)',
-});
+export function anEntrepriseSouhaitantSEngager(overrides?: Partial<EntrepriseSouhaitantSEngager>): EntrepriseSouhaitantSEngager {
+	return {
+		codePostal: '75015',
+		email: 'machin.chose@bidule.com',
+		nom: 'Chose',
+		nomSociété: 'Bidule co.',
+		prénom: 'Machin',
+		secteur: 'other-services',
+		siret: '12345678901114',
+		taille: 'medium',
+		travail: 'Chef',
+		téléphone: '+33123456789',
+		ville: 'Paris (15e arrondissement)',
+		...overrides,
+	};
+};
 
 export const anEntrepriseMember = () => ({
 	companyName: 'Bidule co.',
@@ -52,19 +38,4 @@ export const anEntrepriseMember = () => ({
 	job: 'Chef',
 	lastname: 'Chose',
 	phone: '+33123456789',
-});
-
-export const aContenuEntreprise = (annotation?: string) => ({
-	code_postal: '75015',
-	email: 'machin.chose@bidule.com',
-	nom: 'Chose',
-	nom_societe: 'Bidule co.',
-	prenom: 'Machin',
-	secteur: 'other-services',
-	siret: '12345678901114',
-	taille: 'medium',
-	telephone: '+33123456789',
-	travail: 'Chef',
-	ville: 'Paris (15e arrondissement)',
-	...(annotation ? { erreur: annotation } : {}),
 });

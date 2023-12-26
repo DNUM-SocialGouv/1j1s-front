@@ -8,6 +8,7 @@ import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCo
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
@@ -22,23 +23,20 @@ export function FormulaireRechercheAccompagnement() {
 
 	const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
 
-	const queryParams = useAccompagnementQuery();
+	const accompagnementQueryParams = useAccompagnementQuery();
+	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune, typeAccompagnement } = accompagnementQueryParams;
 
-	const { libelleCommune, codeCommune } = queryParams;
-
-	const defaultCommuneValue = (libelleCommune && codeCommune)
-		? { code: codeCommune, libelle: libelleCommune }
-		: undefined;
+	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
 
 	const router = useRouter();
 
 	useEffect(function initFormValues() {
-		setInputTypeAccompagnement(queryParams.typeAccompagnement || '');
-	}, [queryParams]);
+		setInputTypeAccompagnement(typeAccompagnement || '');
+	}, [typeAccompagnement]);
 
 	async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const query = getFormAsQuery(event.currentTarget, queryParams, false);
+		const query = getFormAsQuery(event.currentTarget, accompagnementQueryParams, false);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
