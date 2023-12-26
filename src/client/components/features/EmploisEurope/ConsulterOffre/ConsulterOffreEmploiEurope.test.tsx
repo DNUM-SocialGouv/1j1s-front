@@ -20,7 +20,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 	describe('affiche le titre de l‘offre', () => {
 		it('affiche le titre de l‘offre d‘emploi si il est disponible avec l‘attribut langue associé', () => {
-			const offreEmploiEurope = anEmploiEurope({ titre: 'Boulanger', codeLangueDeLOffre: 'lb' });
+			const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', titre: 'Boulanger' });
 
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
