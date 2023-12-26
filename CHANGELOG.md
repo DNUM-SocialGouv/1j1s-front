@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.205.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.205.0...v3.205.1) (2023-12-26)
+
+
+### Bug Fixes
+
+* **regex-email:** ajout des tests et du fix ([#2491](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2491)) ([e779d49](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e779d49196a2b1b19b93d97a13091f6725bb866b))
+
 ## [3.205.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.204.1...v3.205.0) (2023-12-26)
 
 
