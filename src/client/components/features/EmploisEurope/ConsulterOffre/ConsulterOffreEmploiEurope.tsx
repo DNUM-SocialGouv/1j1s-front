@@ -16,6 +16,7 @@ interface ConsulterOffreEmploiEuropeProps {
 export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploiEuropeProps) {
 	const descriptionSanitized = useSanitize(annonceEmploiEurope.description);
 	const competencesLinguistiques = annonceEmploiEurope.competencesLinguistiques;
+	const codeLangueDeLOffre = annonceEmploiEurope.codeLangueDeLOffre ?? '';
 
 	function getDetailLanguageCompetence(detailCompetenceLanguistique: Array<LanguageSpecificationCompetence>) {
 		return <ul>
@@ -41,11 +42,11 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 		if (yearOfExperience === 1) return '1 an';
 		return `${yearOfExperience} ans`;
 	}
-
+	
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
-				<h1>{annonceEmploiEurope.titre || 'Offre d’emploi sans titre'}</h1>
+				<h1 lang={codeLangueDeLOffre}>{annonceEmploiEurope.titre || 'Offre d’emploi sans titre'}</h1>
 				{annonceEmploiEurope.nomEntreprise && <p className={styles.sousTitre}>{annonceEmploiEurope.nomEntreprise}</p>}
 				<TagList className={styles.tags} list={getTagsFromAnnonce(annonceEmploiEurope)} aria-label="Caractéristiques de l‘offre d‘emploi" />
 			</header>
@@ -57,7 +58,7 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 				<dl>
 					{annonceEmploiEurope.description && <div className={styles.caracteristique}>
 						<dt>Description du poste</dt>
-						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang=""/>
+						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre}/>
 		  </div>}
 					{annonceEmploiEurope.listePermis?.length > 0 && <div className={styles.caracteristique}>
 						<dt>Type de permis requis</dt>
