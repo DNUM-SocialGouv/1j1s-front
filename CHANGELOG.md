@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.206.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.205.1...v3.206.0) (2023-12-26)
+
+
+### Features
+
+* **emploi europe:** récupérer les attributs du xml ([#2488](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2488)) ([635112c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/635112cbdcd37df1ed9c3ddd64b92cb079c42ed7))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2492](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2492)) ([112f9c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/112f9c7e0e9e778e7a95dae3d1d6f734d1ae6c21))
+
 ## [3.205.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.205.0...v3.205.1) (2023-12-26)
 
 
