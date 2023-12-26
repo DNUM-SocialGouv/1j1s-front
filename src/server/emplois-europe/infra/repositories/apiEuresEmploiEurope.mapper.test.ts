@@ -461,7 +461,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				// GIVEN
 				const handle = 'eures-offer-id';
 				const hrxmlWithoutPositionScheduleTypeCode = anApiEuresEmploiEuropeDetailXMLResponse(
-					{ 
+					{
 						tempsDeTravail: undefined,
 					});
 				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
