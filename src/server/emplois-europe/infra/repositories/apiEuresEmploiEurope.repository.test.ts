@@ -166,6 +166,40 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			});
 		});
 
+		describe('quand un secteur d‘activité est fourni', () => {
+			it('appelle l’api Eures avec le secteur d‘activite', () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+
+				const body = {
+					dataSetRequest: {
+						excludedDataSources: [{ dataSourceId: 29 }, { dataSourceId: 81 }, { dataSourceId: 781 }],
+						pageNumber: '1',
+						resultsPerPage: '15',
+						sortBy: 'BEST_MATCH',
+					},
+					searchCriteria: {
+						facetCriteria: [
+							{
+								facetName: 'SECTOR',
+								facetValues: ['A', 'B'],
+							},
+						],
+					},
+				};
+
+				// When
+				repository.search({
+					page: 1,
+					secteurActivite: ['A', 'B'],
+				});
+
+				// Then
+				expect(httpClientService.post).toHaveBeenCalledWith('/search', body);
+			});
+		});
+
 		it('appelle l’api Eures avec la page correspondante', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();

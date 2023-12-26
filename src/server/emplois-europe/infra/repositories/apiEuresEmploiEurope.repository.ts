@@ -32,6 +32,9 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		if (filtre.niveauEtude !== undefined && filtre.niveauEtude.length > 0) {
 			facetCriteria.push({ facetName: 'EDUCATION_LEVEL', facetValues: filtre.niveauEtude });
 		}
+		if (filtre.secteurActivite !== undefined && filtre.secteurActivite.length > 0){
+			facetCriteria.push({ facetName: 'SECTOR', facetValues: filtre.secteurActivite });
+		}
 
 		return {
 			dataSetRequest: {
