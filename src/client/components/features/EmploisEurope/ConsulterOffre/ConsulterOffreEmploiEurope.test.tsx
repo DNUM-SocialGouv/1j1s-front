@@ -19,15 +19,15 @@ describe('DetailOffreEmploiEurope', () => {
 	});
 
 	describe('affiche le titre de l‘offre', () => {
-		it('affiche le titre de l‘offre d‘emploi si il est disponible avec l‘attribut langue inconnu', () => {
-			const offreEmploiEurope = anEmploiEurope({ titre: 'Boulanger' });
+		it('affiche le titre de l‘offre d‘emploi si il est disponible avec l‘attribut langue associé', () => {
+			const offreEmploiEurope = anEmploiEurope({ titre: 'Boulanger', codeLangueDeLOffre: 'lb' });
 
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
 			
 			expect(titreDeLOffre).toBeVisible();
-			expect(titreDeLOffre).toHaveAttribute('lang', '');
+			expect(titreDeLOffre).toHaveAttribute('lang', 'lb');
 		});
 
 		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est indisponible, sans l‘attribut langue', () => {
@@ -192,14 +192,14 @@ describe('DetailOffreEmploiEurope', () => {
 	});
 
 	describe('affiche la description de l‘offre', () => {
-		it('affiche la description de l‘offre si elle est disponible avec l‘attribut langue inconnue', () => {
-			const offreEmploiEurope = anEmploiEurope({ description: 'Je suis la description' });
+		it('affiche la description de l‘offre si elle est disponible avec l‘attribut langue associée', () => {
+			const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', description: 'Je suis la description' });
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
 			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
-			expect(screen.getByText('Je suis la description')).toHaveAttribute('lang' );
+			expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', 'lb');
 		});
 
 		it('sanitize la description de l‘offre', () => {

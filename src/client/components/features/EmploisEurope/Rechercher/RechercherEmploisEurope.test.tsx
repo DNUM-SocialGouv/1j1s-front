@@ -564,13 +564,14 @@ describe('RechercherEmploisEurope', () => {
 				expect(title).toBeVisible();
 				expect(title).not.toHaveAttribute('lang');
 			});
-			it('quand le titre est présent, affiche le titre avec l‘attribut langue inconnue', async () => {
+			it('quand le titre est présent, affiche le titre avec l‘attribut langue associé', async () => {
 				// GIVEN
 				const emploiEuropeServiceMock = anEmploiEuropeService();
 				const resultatsService = aResultatRechercheEmploiEuropeList({
 					nombreResultats: 1,
 					offreList: [
 						anEmploiEurope({
+							codeLangueDeLOffre: 'lb',
 							id: '1',
 							nomEntreprise: 'Entreprise 1',
 							titre: 'je suis le titre',
@@ -598,7 +599,7 @@ describe('RechercherEmploisEurope', () => {
 				);
 
 				const title = await screen.findByText('je suis le titre');
-				expect(title).toHaveAttribute('lang', '');
+				expect(title).toHaveAttribute('lang', 'lb');
 			});
 		});
 		describe('chaque résultat affiche des informations sur l’offre', () => {
