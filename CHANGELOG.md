@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.204.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.203.0...v3.204.0) (2023-12-26)
+
+
+### Features
+
+* **combobox:** ameliorer laccessibilite des combobox input autocompletion commune ([#2474](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2474)) ([4628d22](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4628d22ddd0245227a6a143f10788188ee4d2bfe))
+* Molécule input avec label et message d'erreur ([#2250](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2250)) ([b7a4ff4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b7a4ff40d2ec7a83b3f2d0069d295f02eb6b03a5))
+
 ## [3.203.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.202.3...v3.203.0) (2023-12-21)
 
 
