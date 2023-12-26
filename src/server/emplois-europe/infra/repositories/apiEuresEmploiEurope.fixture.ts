@@ -109,7 +109,7 @@ function anXMLResponseLanguageCompetency(languageCompetencies: Array<languageCom
 }]) {
 	return (languageCompetencies.map((competenceInfo) =>
 		`<PositionCompetency><CompetencyID>${competenceInfo.language}</CompetencyID>
-<TaxonomyID>${competenceInfo.competenceType ? competenceInfo.competenceType : 'language'}</TaxonomyID>
+<TaxonomyID>${competenceInfo.competenceType ? competenceInfo.competenceType : 'Language'}</TaxonomyID>
 <RequiredProficiencyLevel>
 	${competenceInfo.levelCode && `<ScoreText>${competenceInfo.levelCode}</ScoreText>`}
 </RequiredProficiencyLevel>
@@ -124,7 +124,7 @@ ${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
 }
 
 
-interface ApiEuresEmploiEuropeDetailXMLResponsFixture {
+interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	titre?: string,
 	nomEntreprise?: string,
 	pays?: string,
@@ -136,7 +136,8 @@ interface ApiEuresEmploiEuropeDetailXMLResponsFixture {
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
 	educationLevelCode?: number,
-	anneesDExperience?: number
+	anneesDExperience?: number,
+	codeLangueDeLOffre?: string
 }
 
 function anXMLLicenseDriving(listePermis?: Array<string>){
@@ -154,7 +155,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience }: ApiEuresEmploiEuropeDetailXMLResponsFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -170,7 +171,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
         <PartyID>NL001</PartyID>
         <PartyName>ABC</PartyName>
     </PostingRequester>
-    <PositionProfile languageCode="nl">
+    <PositionProfile languageCode="${codeLangueDeLOffre || 'nl'}">
         <PostingInstruction>
             <PostingOptionCode>EURESFlag</PostingOptionCode>
             <ApplicationMethod>
@@ -244,7 +245,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
            	${anXMLLicenseDriving(listePermis)}
             ${anXMLResponseLanguageCompetency(listeCompetencesLinguistiques)}
              <EducationRequirement>
-            ${(educationLevelCode !== undefined) ?  `<EducationLevelCode listName="EURES_ISCEDEducationLevel"
+            ${(educationLevelCode !== undefined) ? `<EducationLevelCode listName="EURES_ISCEDEducationLevel"
                  					 listURI="https://ec.europa.eu/eures"
                  					 listVersionID="2011"
                  >
@@ -273,7 +274,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
         <ImmediateStartIndicator>
             false
         </ImmediateStartIndicator>
-        ${ tempsDeTravail ? `<PositionScheduleTypeCode>${tempsDeTravail}</PositionScheduleTypeCode>` : ''}
+        ${tempsDeTravail ? `<PositionScheduleTypeCode>${tempsDeTravail}</PositionScheduleTypeCode>` : ''}
         <OfferedRemunerationPackage>
             <RemunerationRange>
                 <RemunerationTypeCode>BasePay</RemunerationTypeCode>

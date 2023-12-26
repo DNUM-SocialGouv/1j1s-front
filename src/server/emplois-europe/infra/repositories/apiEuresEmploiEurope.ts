@@ -41,7 +41,9 @@ export interface ApiEuresEmploiEuropeDetailItem {
 
 export namespace ApiEuresEmploiEuropeDetailXML {
 	export interface OrganizationIdentifiers {
-		OrganizationName?: string;
+		OrganizationName?: {
+			'textContent': string
+		};
 	}
 
 	export interface PositionOrganization {
@@ -49,8 +51,12 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 	}
 
 	export interface Address {
-		'ns2:CityName'?: string;
-		CountryCode?: string;
+		CityName?: {
+			'textContent': string
+		};
+		CountryCode?: {
+			'textContent': string
+		};
 	}
 
 	export interface PositionLocation {
@@ -59,49 +65,79 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 
 	export interface PositionProfile {
 		PositionOrganization?: PositionOrganization | Array<PositionOrganization>
-		PositionTitle?: string;
+		PositionTitle?: {
+			'textContent': string
+		};
 		PositionLocation?: PositionLocation | Array<PositionLocation>
-		PositionOfferingTypeCode?: string
-		WorkingLanguageCode?: string
+		PositionOfferingTypeCode?: {
+			'textContent': string
+		};
+		WorkingLanguageCode?: WorkingLanguageCode;
 		PositionFormattedDescription?: PositionFormattedDescription | Array<PositionFormattedDescription>
-		PositionScheduleTypeCode?: string
+		PositionScheduleTypeCode?: {
+			'textContent': string
+		};
 		PositionQualifications?: PositionQualifications | Array<PositionQualifications>
+		attributs?: {
+			languageCode?: string
+		}
 	}
 
+	export interface WorkingLanguageCode {
+		'textContent': string
+	}
 
 	export interface PositionQualifications {
 		PositionCompetency: PositionCompetency | Array<PositionCompetency>
-		LicenseTypeCode: string
+		LicenseTypeCode: {
+			'textContent': string
+		};
 		EducationRequirement?: EducationRequirement | Array<EducationRequirement>
 		ExperienceSummary?: ExperienceSummary | Array<ExperienceSummary>
 	}
 
 	export interface PositionCompetency {
-		TaxonomyID: string,
-		CompetencyID: string,
+		TaxonomyID: {
+			'textContent': string
+		},
+		CompetencyID: {
+			'textContent': string
+		},
 		RequiredProficiencyLevel?: {
-			ScoreText?: LEVEL_CODE
+			ScoreText?:{
+				'textContent': LEVEL_CODE
+			},
 		}
 		CompetencyDimension?: Array<CompetencyDimension> | CompetencyDimension
 	}
 
 	export interface CompetencyDimension {
-		CompetencyDimensionTypeCode: string
+		CompetencyDimensionTypeCode: {
+			'textContent': string
+		}
 		Score: {
-			ScoreText: LEVEL_CODE
+			ScoreText:  {
+				'textContent': LEVEL_CODE
+			}
 		}
 	}
 
 	export interface EducationRequirement {
-		EducationLevelCode?: number;
+		EducationLevelCode?: {
+			'textContent': number
+		};
 	}
 
 	export interface ExperienceSummary {
 		ExperienceCategory?: ExperienceCategory | Array<ExperienceCategory>
 	}
 
-	interface ExperienceCategory{
-		Measure: number | Array<number>
+	interface ExperienceCategory {
+		Measure: {
+			'textContent': number
+		} | Array<{
+			'textContent': number
+		}>
 	}
 
 
@@ -109,8 +145,11 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 		PositionProfile?: PositionProfile | Array<PositionProfile>
 	}
 
+
 	export interface PositionFormattedDescription {
-		Content: string
+		Content: {
+			'textContent': string
+		};
 	}
 }
 

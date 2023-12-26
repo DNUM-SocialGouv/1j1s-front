@@ -21,6 +21,7 @@ export interface EmploiEurope {
 	langueDeTravail: Array<string>;
 	competencesLinguistiques: Array<CompetenceLinguistique>
 	anneesDExperience?: number
+	codeLangueDeLOffre?: string
 }
 
 export interface CompetenceLinguistique {
