@@ -16,12 +16,6 @@ import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
-jest.mock('lodash/debounce', () =>
-	jest.fn((fn) => {
-		fn.cancel = jest.fn();
-		return fn;
-	}));
-
 describe('FormulaireRechercheStages3eme', () => {
 	beforeEach(() => {
 		mockSmallScreen();
@@ -45,14 +39,15 @@ describe('FormulaireRechercheStages3eme', () => {
 					<FormulaireRechercheStages3eme />
 				</DependenciesProvider>,
 			);
-			
+
 			// WHEN
 			const inputRechercheMetier = screen.getByRole('combobox', { name: 'Métier (facultatif)' });
 			await user.type(inputRechercheMetier, 'boulanger');
-			await user.click(screen.getByRole('option', { name: 'boulanger' }));
+			const boulangerOption = await screen.findByRole('option', { name: 'boulanger' });
+			await user.click(boulangerOption);
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(buttonRechercher);
-			
+
 			// THEN
 			// NOTE (DORO 22-11-2023): Query params "location=here" temporaire pour afficher les résultats de recherche (à remplacer par les vrais query params quand la recherche par localisation sera implémentée)
 			expect(routerPush).toHaveBeenCalledWith({ query: 'location=here&libelleMetier=boulanger&codeMetier=codeMetier' }, undefined, { shallow: true });
