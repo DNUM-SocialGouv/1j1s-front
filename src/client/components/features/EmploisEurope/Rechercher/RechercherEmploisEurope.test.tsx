@@ -39,6 +39,7 @@ describe('RechercherEmploisEurope', () => {
 			expect(emploiEuropeServiceMock.rechercherEmploiEurope).toHaveBeenCalledTimes(0);
 		});
 	});
+
 	describe('quand le composant est affiché pour une recherche avec résultats', () => {
 		describe('quand l’URL contient un mot clé de recherche', () => {
 			it('affiche les résultats de la recherche', async () => {
@@ -525,7 +526,6 @@ describe('RechercherEmploisEurope', () => {
 		});
 	});
 
-
 	describe('La liste des résultats de recherche des emplois en Europe', () => {
 		describe('titre', () => {
 			it('quand le titre n‘est pas présent, affiche un titre générique sans l‘attribut lang', async () => {
@@ -564,42 +564,82 @@ describe('RechercherEmploisEurope', () => {
 				expect(title).toBeVisible();
 				expect(title).not.toHaveAttribute('lang');
 			});
-			it('quand le titre est présent, affiche le titre avec l‘attribut langue associé', async () => {
-				// GIVEN
-				const emploiEuropeServiceMock = anEmploiEuropeService();
-				const resultatsService = aResultatRechercheEmploiEuropeList({
-					nombreResultats: 1,
-					offreList: [
-						anEmploiEurope({
-							codeLangueDeLOffre: 'lb',
-							id: '1',
-							nomEntreprise: 'Entreprise 1',
-							titre: 'je suis le titre',
-							ville: 'Paris',
-						}),
-					],
+			describe('titre présent', () => {
+				it('quand le titre est présent, affiche le titre avec l‘attribut langue associé', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService = aResultatRechercheEmploiEuropeList({
+						nombreResultats: 1,
+						offreList: [
+							anEmploiEurope({
+								codeLangueDeLOffre: 'lb',
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								titre: 'je suis le titre',
+								ville: 'Paris',
+							}),
+						],
+					});
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const title = await screen.findByText('je suis le titre');
+					expect(title).toHaveAttribute('lang', 'lb');
 				});
-				jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
-				mockSmallScreen();
-				mockUseRouter({
-					query: {
-						motCle: 'Développeur',
-						page: '1',
-					},
+				it('si la langue n‘est pas présente, affiche le titre avec l‘attribut langue inconnue', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService = aResultatRechercheEmploiEuropeList({
+						nombreResultats: 1,
+						offreList: [
+							anEmploiEurope({
+								codeLangueDeLOffre: undefined,
+								id: '1',
+								nomEntreprise: 'Entreprise 1',
+								titre: 'je suis le titre',
+								ville: 'Paris',
+							}),
+						],
+					});
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const title = await screen.findByText('je suis le titre');
+					expect(title).toHaveAttribute('lang', '');
 				});
-
-				// WHEN
-				render(
-					<DependenciesProvider
-						emploiEuropeService={emploiEuropeServiceMock}
-					>
-						<RechercherEmploisEurope/>
-					</DependenciesProvider>,
-				);
-
-				const title = await screen.findByText('je suis le titre');
-				expect(title).toHaveAttribute('lang', 'lb');
 			});
 		});
 		describe('chaque résultat affiche des informations sur l’offre', () => {

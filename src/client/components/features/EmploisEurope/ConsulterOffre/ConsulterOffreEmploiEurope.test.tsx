@@ -19,15 +19,27 @@ describe('DetailOffreEmploiEurope', () => {
 	});
 
 	describe('affiche le titre de l‘offre', () => {
-		it('affiche le titre de l‘offre d‘emploi si il est disponible avec l‘attribut langue associé', () => {
-			const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', titre: 'Boulanger' });
+		describe('titre disponible', () => {
+			it('affiche le titre de l‘offre d‘emploi avec l‘attribut langue associé', () => {
+				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', titre: 'Boulanger' });
 
-			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
-			const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
-			
-			expect(titreDeLOffre).toBeVisible();
-			expect(titreDeLOffre).toHaveAttribute('lang', 'lb');
+				const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
+
+				expect(titreDeLOffre).toBeVisible();
+				expect(titreDeLOffre).toHaveAttribute('lang', 'lb');
+			});
+			it('si la langue n‘est pas présente, affiche le titre avec l‘attribut langue inconnue', () => {
+				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: undefined, titre: 'Boulanger' });
+
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+				const titreDeLOffre = screen.getByRole('heading', { level: 1, name: 'Boulanger' });
+
+				expect(titreDeLOffre).toBeVisible();
+				expect(titreDeLOffre).toHaveAttribute('lang', '');
+			});
 		});
 
 		it('affiche \'Titre non renseigné\' si le titre de l‘offre d‘emploi est indisponible, sans l‘attribut langue', () => {
@@ -192,23 +204,33 @@ describe('DetailOffreEmploiEurope', () => {
 	});
 
 	describe('affiche la description de l‘offre', () => {
-		it('affiche la description de l‘offre si elle est disponible avec l‘attribut langue associée', () => {
-			const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', description: 'Je suis la description' });
+		describe('description disponible', () => {
+			it('affiche la description de l‘offre si elle est disponible avec l‘attribut langue associée', () => {
+				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: 'lb', description: 'Je suis la description' });
 
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
-			expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', 'lb');
-		});
+				expect(getByDescriptionTerm('Description du poste')).toHaveTextContent('Je suis la description');
+				expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', 'lb');
+			});
 
-		it('sanitize la description de l‘offre', () => {
-			const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
+			it('si la langue n‘est pas présente, affiche la description avec l‘attribut langue inconnue', () => {
+				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: undefined, description: 'Je suis la description' });
 
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
-			expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
+				expect(screen.getByText('Je suis la description')).toHaveAttribute('lang', '');
+			});
+
+			it('sanitize la description de l‘offre', () => {
+				const offreEmploiEurope = anEmploiEurope({ description: '<a href=\'javascript:alert(1)\'>Je suis la description</a>' });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(within(getByDescriptionTerm('Description du poste')).getByText('Je suis la description')).not.toHaveAttribute('href');
+			});
 		});
 
 		it('n‘affiche pas la description de l‘offre si elle n‘est pas disponible', () => {
