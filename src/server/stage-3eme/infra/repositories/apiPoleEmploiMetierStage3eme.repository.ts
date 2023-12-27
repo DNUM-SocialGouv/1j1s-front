@@ -8,8 +8,6 @@ import { MetierStage3emeRepository } from '../../domain/metierStage3eme.reposito
 import { ApiPoleEmploiMetierStage3eme } from './apiPoleEmploiMetierStage3eme';
 import { mapMetierStage3eme } from './apiPoleEmploiMetierStage3eme.mapper';
 
-const NOMBRE_HEURES_EXPIRATION_CACHE = 24;
-
 export class ApiPoleEmploiMetierStage3emeRepository implements MetierStage3emeRepository {
 	constructor(
 		private readonly httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
@@ -18,13 +16,14 @@ export class ApiPoleEmploiMetierStage3emeRepository implements MetierStage3emeRe
 	) {}
 
 	private CACHE_KEY = 'REFERENTIEL_METIER_STAGE_3EME';
+	private NOMBRE_HEURES_EXPIRATION_CACHE = 24;
 
 	async search(motCle: string): Promise<Either<MetierStage3eme[]>> {
 		try {
 			let response = await this.cacheService.get<Array<ApiPoleEmploiMetierStage3eme>>(this.CACHE_KEY);
 			if (!response) {
 				response = (await this.httpClientServiceWithAuthentification.get<Array<ApiPoleEmploiMetierStage3eme>>('/appellations')).data;
-				this.cacheService.set(this.CACHE_KEY, response, NOMBRE_HEURES_EXPIRATION_CACHE);
+				this.cacheService.set(this.CACHE_KEY, response, this.NOMBRE_HEURES_EXPIRATION_CACHE);
 			}
 
 			const metiers = response.filter((metier) => metier.libelle.toLowerCase().includes(motCle.toLowerCase()));

@@ -3,10 +3,10 @@ export interface MetierCode {
 }
 
 export class MetierCodeRome implements MetierCode {
-	constructor(public code: string) {}
+	constructor(public codeRomes: string[]) {}
 
 	public toString(): string {
-		return this.code;
+		return this.codeRomes.toString();
 	}
 }
 
