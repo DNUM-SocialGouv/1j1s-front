@@ -17,7 +17,7 @@ import { aFormationService, aRésultatFormation } from '~/client/services/format
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetier, aMetierService,aMetiersList } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('FormulaireRechercherFormation', () => {
 	beforeEach(() => {

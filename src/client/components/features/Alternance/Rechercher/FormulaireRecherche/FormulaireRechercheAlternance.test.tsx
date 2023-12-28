@@ -18,7 +18,7 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aResultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('FormulaireRechercheAlternance', () => {
 	beforeEach(() => {

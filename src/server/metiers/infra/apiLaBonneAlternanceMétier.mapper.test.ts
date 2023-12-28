@@ -1,5 +1,5 @@
 import { MetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
-import { aMetier } from '~/server/metiers/domain/métier.fixture';
+import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
 import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
 

@@ -2,7 +2,7 @@ import { anHttpClientService } from '~/client/services/httpClientService.fixture
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { aMetiersList } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('BffLbaMetierService', () => {
 	describe('rechercherMetier', () => {

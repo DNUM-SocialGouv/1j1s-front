@@ -1,4 +1,4 @@
-import { MetierAlternance } from '~/server/metiers/domain/metier';
+import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
 
 export function aListeDeMetierLaBonneAlternance(): Array<MetierAlternance> {
 	return [

@@ -1,7 +1,7 @@
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { MetierAlternance } from '~/server/metiers/domain/metier';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';

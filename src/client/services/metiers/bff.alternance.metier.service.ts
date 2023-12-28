@@ -2,7 +2,7 @@ import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Met
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
-import { MetierAlternance } from '~/server/metiers/domain/metier';
+import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
 
 export class BffAlternanceMetierService implements MetierService {
 	constructor(private httpClientService: HttpClientService) {}

@@ -3,10 +3,10 @@
 
 import { Formation } from '~/server/formations/domain/formation';
 import { aRésultatRechercheFormationList } from '~/server/formations/domain/formation.fixture';
+
 import {
 	aListeDeMetierLaBonneAlternance,
-} from '~/server/metiers/domain/métier.fixture';
-
+} from '../../src/server/metiers/domain/metierAlternance.fixture';
 import { interceptGet } from '../interceptGet';
 
 

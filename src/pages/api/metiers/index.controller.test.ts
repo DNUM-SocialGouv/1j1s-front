@@ -3,8 +3,8 @@ import nock from 'nock';
 
 import { récupérerMétierAlternanceHandler } from '~/pages/api/metiers/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
-import { MetierAlternance } from '~/server/metiers/domain/metier';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 import {
 	aMetierLaBonneAlternanceApiResponse,
 } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
