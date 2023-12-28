@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { FormEvent, useCallback, useMemo, useRef, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
-import { ModalLEEErreur } from '~/client/components/features/LesEntreprisesSEngagent/ModalLEEErreur/ModalLEEErreur';
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
@@ -11,8 +10,6 @@ import InputAutocomplétionSecteurActivité, {
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModaleErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModaleErrorSubmission';
-import ModaleErrorSubmissionStories
-	from '~/client/components/ui/Form/ModaleErrorSubmission/ModaleErrorSubmission.stories';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';

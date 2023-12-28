@@ -39,11 +39,11 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import { OffreService } from '~/client/services/offre/offre.service';
 import { RoutingService } from '~/client/services/routing/routing.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
+import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
-import { StageService } from '~/client/services/stage/stage.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {

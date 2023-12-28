@@ -1,10 +1,10 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
 
 import { HttpClientService } from '../httpClient.service';
-import { StageService } from '~/client/services/stage/stage.service';
 
 export class BffStageService implements StageService {
 
