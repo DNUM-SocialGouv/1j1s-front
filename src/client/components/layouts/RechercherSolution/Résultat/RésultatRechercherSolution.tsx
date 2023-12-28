@@ -11,7 +11,7 @@ import useBreakpoint from '~/client/hooks/useBreakpoint';
 type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
 type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
-	intituléOffre: string;
+	intituléOffre: string | ReactNode;
 	intituléLienOffre?: string;
 	sousTitreOffre?: string | ReactNode;
 	étiquetteOffreList: Array<string | undefined>;

@@ -16,6 +16,7 @@ interface ConsulterOffreEmploiEuropeProps {
 export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploiEuropeProps) {
 	const descriptionSanitized = useSanitize(annonceEmploiEurope.description);
 	const competencesLinguistiques = annonceEmploiEurope.competencesLinguistiques;
+	const codeLangueDeLOffre = annonceEmploiEurope.codeLangueDeLOffre ?? '';
 
 	function getDetailLanguageCompetence(detailCompetenceLanguistique: Array<LanguageSpecificationCompetence>) {
 		return <ul>
@@ -45,37 +46,38 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
-				<h1>{annonceEmploiEurope.titre || 'Offre d’emploi sans titre'}</h1>
+				{annonceEmploiEurope.titre ? <h1 lang={codeLangueDeLOffre}>{annonceEmploiEurope.titre}</h1>
+					: <h1>Offre d’emploi sans titre</h1>}
 				{annonceEmploiEurope.nomEntreprise && <p className={styles.sousTitre}>{annonceEmploiEurope.nomEntreprise}</p>}
 				<TagList className={styles.tags} list={getTagsFromAnnonce(annonceEmploiEurope)}
 								 aria-label="Caractéristiques de l‘offre d‘emploi"/>
 			</header>
 			{annonceEmploiEurope.urlCandidature &&
-          <LinkStyledAsButtonWithIcon href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
-              Je postule sur Eures
-          </LinkStyledAsButtonWithIcon>}
+		<LinkStyledAsButtonWithIcon href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
+		  Je postule sur Eures
+		</LinkStyledAsButtonWithIcon>}
 			<section className={styles.contenu}>
 				<dl>
 					{annonceEmploiEurope.description && <div className={styles.caracteristique}>
 						<dt>Description du poste</dt>
-						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }}/>
-					</div>}
+						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre}/>
+		  </div>}
 					{annonceEmploiEurope.listePermis?.length > 0 && <div className={styles.caracteristique}>
 						<dt>Type de permis requis</dt>
 						<dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
-					</div>}
+		  </div>}
 					{annonceEmploiEurope.anneesDExperience !== undefined && <div className={styles.caracteristique}>
 						<dt>Expérience</dt>
 						<dd>{getYearsOfExperience(annonceEmploiEurope.anneesDExperience)}</dd>
-					</div>}
+		  </div>}
 					{annonceEmploiEurope.langueDeTravail.length > 0 && <div className={styles.caracteristique}>
 						<dt>Langue de travail</dt>
 						<dd className={styles.langueDeTravailDescription}>{annonceEmploiEurope.langueDeTravail.join(', ')}</dd>
-					</div>}
+		  </div>}
 					{competencesLinguistiques?.length > 0 && <div className={styles.caracteristique}>
 						<dt>Compétences linguistiques requises</dt>
 						<dd>{getCompetencesLinguistiquesRequises()}</dd>
-					</div>}
+		  </div>}
 				</dl>
 			</section>
 		</ConsulterOffreLayout>
