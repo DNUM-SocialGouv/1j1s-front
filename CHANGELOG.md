@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.207.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.207.0...v3.207.1) (2023-12-28)
+
+
+### Bug Fixes
+
+* **transverse:** ajout de marge autour des onglets ([#2503](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2503)) ([48afd62](https://github.com/DNUM-SocialGouv/1j1s-front/commit/48afd62b3367f3cf4b8fa96aaf24f70335d937b9))
+
 ## [3.207.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.206.0...v3.207.0) (2023-12-28)
 
 
