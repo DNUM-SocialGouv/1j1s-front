@@ -8,7 +8,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionPays
 	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { ModaleErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModaleErrorSubmission';
+import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
@@ -150,7 +150,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			>
 				<FormulaireLocalisation />
 			</FormulaireÉtapeLayout>
-			<ModaleErrorSubmission isOpen={isModalErrorSubmitOpen} onClose={() => setIsModalErrorSubmitOpen(false)}/>
+			<ModalErrorSubmission isOpen={isModalErrorSubmitOpen} onClose={() => setIsModalErrorSubmitOpen(false)}/>
 		</>
 	);
 };

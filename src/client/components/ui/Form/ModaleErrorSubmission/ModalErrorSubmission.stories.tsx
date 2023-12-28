@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ModaleErrorSubmission } from './ModaleErrorSubmission';
+import { ModalErrorSubmission } from './ModalErrorSubmission';
 
-const meta: Meta<typeof ModaleErrorSubmission> = {
-	component: ModaleErrorSubmission,
+const meta: Meta<typeof ModalErrorSubmission> = {
+	component: ModalErrorSubmission,
 	title: 'Components/Form/ModaleErrorSubmission',
 };
 
 export default meta;
 
-type Story = StoryObj<typeof ModaleErrorSubmission>;
+type Story = StoryObj<typeof ModalErrorSubmission>;
 
 export const Example: Story = {
 	args: { isOpen: true, onClose: () => window.alert('action de fermeture de la modale') },

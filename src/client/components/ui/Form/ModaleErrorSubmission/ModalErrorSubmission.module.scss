@@ -1,11 +1,15 @@
 @use "@styles/utilities";
 $description-color: utilities.$color-primary;
 
-.content {
+@mixin center-verticaly {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.content {
+  @include center-verticaly;
   display: flex;
   flex-direction: column;
   align-items: center;

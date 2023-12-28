@@ -9,7 +9,7 @@ import InputAutocomplétionSecteurActivité, {
 	SecteurActivité,
 } from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { ModaleErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModaleErrorSubmission';
+import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -261,7 +261,7 @@ export default function LesEntreprisesSEngagentInscription() {
 		<div className={styles.success}>
 		  <h1>Félicitations, votre formulaire a bien été envoyé !</h1>
 		</div>}
-			<ModaleErrorSubmission
+			<ModalErrorSubmission
 				isOpen={isErreurModalOpen}
 				onClose={() => setIsErreurModalOpen(false)}
 				description={'Pour plus d‘informations, rendez-vous sur le site des entreprises s‘engagent'}/>

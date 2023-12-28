@@ -135,9 +135,8 @@ describe('<Localisation />', () => {
 					mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
 
 					const user = userEvent.setup();
-					const stageService = aStageService({
-						enregistrerOffreDeStage: jest.fn().mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
-					});
+					const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
+					jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
 
 					render(
 						<DependenciesProvider stageService={stageService}>
