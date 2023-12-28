@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.207.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.206.0...v3.207.0) (2023-12-28)
+
+
+### Features
+
+* **emplois europe:** ajout de l'attribut lang ([#2459](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2459)) ([2f034ac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2f034ac54ecd0c3d4923276ec6611a77e7dd06fb))
+
 ## [3.206.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.205.1...v3.206.0) (2023-12-26)
 
 
