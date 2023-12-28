@@ -1,5 +1,7 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
 $margin-tab-label: 1rem;
+$backgroung-color-pannel: utilities.$color-background-primary-alternative;
 
 .tab {
   &Label {
@@ -17,23 +19,23 @@ $margin-tab-label: 1rem;
       margin-left: $margin-tab-label;
     }
 
-    padding: 7px 11px 8px 11px;
-    @extend %text-medium;
-    border: 1px solid utilities-deprecated.$color-primary;
+    padding: 0.5rem 1rem;
+    @include utilities.text-large;
+    border: 1px solid utilities.$color-primary;
     border-bottom: none;
-    color: utilities-deprecated.$color-primary;
+    color: utilities.$color-primary;
 
     &[aria-selected="true"] {
       @extend %bold;
       padding: 5px 11px 8px 11px;
-      background-color: utilities-deprecated.$color-background-white-lilac;
-      border-top: 3px solid utilities-deprecated.$color-primary;
+      background-color: $backgroung-color-pannel;
+      border-top: 3px solid utilities.$color-primary;
     }
   }
 
   &Panel {
     &Container {
-      background-color: utilities-deprecated.$color-background-white-lilac;
+      background-color: $backgroung-color-pannel;
     }
     @extend %max-container;
     padding: 40px 1rem;
