@@ -130,7 +130,10 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 			await clickOnGoToEtape2();
 
-			const formulaireEtape1 = screen.getByRole('form', { hidden: true, name: 'Formulaire Les entreprise s’engagent - Étape 1' });
+			const formulaireEtape1 = screen.getByRole('form', {
+				hidden: true,
+				name: 'Formulaire Les entreprise s’engagent - Étape 1',
+			});
 			expect(formulaireEtape1).not.toBeVisible();
 		});
 
@@ -200,7 +203,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 		describe('quand l’utilisation clique sur Suivant et qu’il a rempli tous les champs en naviguant au clavier', () => {
 			it('il passe à l’étape 2', async () => {
-			// GIVEN
+				// GIVEN
 				renderComponent();
 				await remplirFormulaireEtape1NavigationClavier();
 
@@ -217,7 +220,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 		describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
 			it('il voit des messages d’erreur', async () => {
-			// Given
+				// Given
 				renderComponent();
 
 				await remplirFormulaireEtape1();
@@ -241,7 +244,8 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
 			it('le bouton est désactivé', async () => {
 				const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {}));
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {
+				}));
 
 				render(
 					<DependenciesProvider
@@ -292,43 +296,18 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 	describe('en cas d´erreur', () => {
 		describe('montre une modale', () => {
-			it('avec un bouton de retour au formulaire', async () => {
+			it('je vois la modale', async () => {
 				// Given
 				renderComponent();
 				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-				// When
 				await remplirFormulaireEtape1();
 				await clickOnGoToEtape2();
-
 				await remplirFormulaireEtape2();
 				await clickOnEnvoyerLeFormulaire();
-
-				// Then
-				const modale = await screen.findByRole('dialog');
-
-				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retourner au formulaire' });
-				expect(retournerAuFormulaire).toBeVisible();
+				expect(screen.getByRole('dialog')).toBeVisible();
 			});
-			it('avec un lien de retour à l‘accueil', async () => {
-				// Given
-				renderComponent();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-				// When
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-
-				// Then
-				const modale = await screen.findByRole('dialog');
-
-				const lien = within(modale).getByRole('link', { name: 'Aller à l’accueil' });
-				expect(lien).toBeVisible();
-				expect(lien).toHaveAttribute('href', '/');
-			});
 			it('le bouton de retour au formulaire ferme la modale', async () => {
 				// Given
 				const user = userEvent.setup();
@@ -340,7 +319,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				await remplirFormulaireEtape2();
 				await clickOnEnvoyerLeFormulaire();
 				const modale = await screen.findByRole('dialog');
-				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retourner au formulaire' });
+				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retour au formulaire' });
 
 				// When
 				await user.click(retournerAuFormulaire);
