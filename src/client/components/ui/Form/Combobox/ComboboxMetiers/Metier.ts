@@ -1,4 +1,4 @@
-export type MetierOption = {
+export type Metier = {
 	label: string,
 	code: string,
 };

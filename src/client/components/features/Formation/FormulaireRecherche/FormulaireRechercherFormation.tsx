@@ -5,7 +5,7 @@ import styles from '~/client/components/features/Formation/FormulaireRecherche/F
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
-import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -30,7 +30,7 @@ export function FormulaireRechercherFormation() {
 		codePostal,
 	} = queryParams;
 
-	const domaineDefaultValue: MetierOption | undefined = (codeRomes && libelleMetier)
+	const domaineDefaultValue: Metier | undefined = (codeRomes && libelleMetier)
 		? { code: codeRomes.toString(), label: libelleMetier }
 		: undefined;
 

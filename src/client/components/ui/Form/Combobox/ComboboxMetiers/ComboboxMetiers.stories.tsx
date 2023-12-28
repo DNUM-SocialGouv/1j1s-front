@@ -6,7 +6,7 @@ import { createSuccess, Either } from '~/server/errors/either';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 import { ComboboxMetiers } from '.';
-import { MetierOption } from './MetierOption';
+import { Metier } from './Metier';
 
 const meta: Meta<typeof ComboboxMetiers> = {
 	argTypes: {
@@ -35,10 +35,10 @@ const meta: Meta<typeof ComboboxMetiers> = {
 };
 
 class MetierServiceStub implements MetierService {
-	async rechercherMetier(query: string): Promise<Either<MetierOption[]>> {
+	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
 		return new Promise((resolve) => setTimeout(() => resolve(createSuccess(
 			aListeDeMetierLaBonneAlternance()
-				.filter((metier: MetierOption) => (
+				.filter((metier: Metier) => (
 					metier.label.toLowerCase().includes(query.toLowerCase()))),
 		)), 1000));
 	}

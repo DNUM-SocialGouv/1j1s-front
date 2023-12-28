@@ -1,9 +1,8 @@
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
-import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { useMetierDependency } from '~/client/context/metier.context';
-import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
 
 import { Combobox } from '..';
@@ -12,7 +11,7 @@ import styles from './ComboboxMetiers.module.scss';
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
   label?: string,
-	defaultValue?: MetierOption,
+	defaultValue?: Metier,
   debounceTimeout?: number,
 	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
 	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
@@ -55,7 +54,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
-		useState<MetierOption[]>(defaultValue ? [ defaultValue ] : []);
+		useState<Metier[]>(defaultValue ? [ defaultValue ] : []);
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [ value, setValue ] = useState(defaultValue?.label ?? '');
 

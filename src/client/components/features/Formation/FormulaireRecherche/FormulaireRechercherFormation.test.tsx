@@ -8,14 +8,14 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercherFormation,
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
-import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierOption, aMetierOptionList, aMetierService } from '~/client/services/metiers/metier.fixture';
+import { aMetier, aMetierService,aMetiersList } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
@@ -54,7 +54,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierOption> = [aMetierOption({
+			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
 				label: aListeDeMetierLaBonneAlternance()[0].label,
 			})];
@@ -107,7 +107,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierOption> = [aMetierOption({
+			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
 			})];
@@ -147,7 +147,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierOption> = [aMetierOption({
+			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
 			})];
@@ -188,7 +188,7 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierOption> = [aMetierOption({
+			const aMetierList: Array<Metier> = [aMetier({
 				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
 			})];
@@ -260,7 +260,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetiersList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>
@@ -286,7 +286,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetiersList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>
@@ -309,7 +309,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetiersList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>
