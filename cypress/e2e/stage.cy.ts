@@ -3,7 +3,7 @@
 
 import stageNonFiltreeResponse from '../fixture/annonces/stageNonFiltreeMeilisearcheResponse.fixture.json';
 
-describe('Parcours logement', () => {
+describe('Recherche de stages', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 		cy.visit('/stages');

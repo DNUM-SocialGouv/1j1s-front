@@ -3,46 +3,41 @@
  */
 import '@testing-library/jest-dom';
 
-import {
-	render,
-	screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import Localisation from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
+import Localisation
+	from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
 import {
 	aFormulaireEtapeEntreprise,
 	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import {
-	mockLocalStorage,
-	mockSessionStorage,
-} from '~/client/components/window.mock';
+import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { StageService } from '~/client/services/stage/stage.service';
 import { aStageService } from '~/client/services/stage/stageService.fixture';
+import { createFailure } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('<Localisation />', () => {
-	let stageService: StageService;
+	const mockLocalStorageGetItem = jest.fn();
+	const mockSessionStorageGetItem = jest.fn();
 
 	beforeEach(() => {
-		stageService = aStageService();
+		jest.clearAllMocks();
+		mockUseRouter({});
+		mockLocalStorage({ getItem: mockLocalStorageGetItem });
+		mockSessionStorage({ getItem: mockSessionStorageGetItem });
 	});
 
-	afterEach(() => {
-		jest.clearAllMocks();
-	});
 
 	describe('quand l’étape 1 n’est pas remplie', () => {
-		beforeEach(() => {
-			mockLocalStorage({ getItem: jest.fn().mockReturnValue(null) });
-			mockSessionStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage())) });
-		});
-
 		it('redirige vers l’étape 1 du formulaire', async () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
+			const stageService = aStageService();
+			mockLocalStorageGetItem.mockReturnValue(null);
+
 			render(
 				<DependenciesProvider stageService={stageService}>
 					<Localisation/>
@@ -54,13 +49,13 @@ describe('<Localisation />', () => {
 	});
 
 	describe('quand l’étape 2 n’est pas remplie', () => {
-		beforeEach(function () {
-			mockLocalStorage({ getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise())) });
-			mockSessionStorage({ getItem: jest.fn().mockReturnValue(null) });
-		});
 		it('redirige vers l’étape 1 du formulaire', async () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
+			const stageService = aStageService();
+			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+			mockSessionStorageGetItem.mockReturnValue(null);
+
 			render(
 				<DependenciesProvider stageService={stageService}>
 					<Localisation/>
@@ -72,22 +67,14 @@ describe('<Localisation />', () => {
 	});
 
 	describe('quand l’étape 1 et 2 sont remplies', () => {
-		let getSessionItem: jest.Mock;
-		let setLocalItem: jest.Mock;
-		let removeSessionItem: jest.Mock;
-
 		beforeEach(() => {
-			setLocalItem = jest.fn();
-			removeSessionItem = jest.fn();
-			getSessionItem = jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-			mockLocalStorage({
-				getItem: jest.fn().mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise())),
-				setItem: setLocalItem,
-			});
-			mockSessionStorage({ getItem: getSessionItem, removeItem: removeSessionItem });
 		});
 
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 2', async () => {
+			const stageService = aStageService();
+			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+
 			render(
 				<DependenciesProvider stageService={stageService}>
 					<Localisation/>
@@ -100,6 +87,10 @@ describe('<Localisation />', () => {
 		});
 
 		it('affiche la troisième étape de formulaire', () => {
+			const stageService = aStageService();
+			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+
 			render(
 				<DependenciesProvider stageService={stageService}>
 					<Localisation/>
@@ -119,24 +110,53 @@ describe('<Localisation />', () => {
 		it('il voit affiché des champs facultatifs', async () => {
 			const labelRegion = 'Région';
 			const labelDepartement = 'Département';
-			// Given
+			const stageService = aStageService();
+			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+
 			render(
 				<DependenciesProvider stageService={stageService}>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
 
-			//When
 			await userEvent.type(screen.getByLabelText(labelRegion), 's{backspace}');
 			await userEvent.type(screen.getByLabelText(labelDepartement), 's{backspace}');
 
-			// Then
 			expect(screen.getByLabelText(labelRegion)).toBeValid();
 			expect(screen.getByLabelText(labelDepartement)).toBeValid();
 		});
 
+
+		describe('quand l’étape 1 et 2 sont remplies', () => {
+			describe('modale d‘erreur', () => {
+				it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
+					mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+					mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+
+					const user = userEvent.setup();
+					const stageService = aStageService({
+						enregistrerOffreDeStage: jest.fn().mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+					});
+
+					render(
+						<DependenciesProvider stageService={stageService}>
+							<Localisation/>
+						</DependenciesProvider>,
+					);
+
+					await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+					await user.click(screen.getByRole('option', { name: 'France' }));
+					expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
+					await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
+					await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
+					await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+
+					await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
+
+					expect(screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' })).toBeVisible();
+				});
+			});
+		});
 	});
-
 });
-
-

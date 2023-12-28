@@ -9,7 +9,7 @@ import {
 	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import { StageService } from '~/client/services/stage/stage.service';
+import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { createSuccess } from '~/server/errors/either';
 
 describe('stageService', () => {
@@ -19,7 +19,7 @@ describe('stageService', () => {
 			const httpClient = anHttpClientService();
 			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
 			const offreToSubmit = aFormulaireEnvoyePostedValue();
-			const stageService = new StageService(httpClient);
+			const stageService = new BffStageService(httpClient);
 
 			// WHEN
 			const result = await stageService.enregistrerOffreDeStage(aFormulaireEtapeEntreprise(), aFormulaireEtapeStage(), aFormulaireEtapeLocalisation());

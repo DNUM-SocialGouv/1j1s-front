@@ -12,13 +12,14 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import { StageService } from '~/client/services/stage/stage.service';
+import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import {
 	ETAPE_ENTREPRISE,
 	ETAPE_LOCALISATION,
 	ETAPE_OFFRE_DE_STAGE,
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
+import { ModaleErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModaleErrorSubmission';
 
 enum Localisation {
 	PAYS = 'pays',
@@ -30,7 +31,8 @@ enum Localisation {
 }
 export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	const router = useRouter();
-	const stageService = useDependency<StageService>('stageService');
+	const [isModalErrorSubmitOpen, setIsModalErrorSubmitOpen] = useState<boolean>(false);
+	const stageService = useDependency<BffStageService>('stageService');
 
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -135,17 +137,21 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				sessionStorageStage.remove();
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
+			setIsModalErrorSubmitOpen(true);
 			setSubmitButtonDisabled(false);
 		}
 	}
 
 	return (
-		<FormulaireÉtapeLayout
-			étape="Étape 3 sur 3 : Localisation du stage"
-			urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
-		>
-			<FormulaireLocalisation />
-		</FormulaireÉtapeLayout>
+		<>
+			<FormulaireÉtapeLayout
+				étape="Étape 3 sur 3 : Localisation du stage"
+				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
+			>
+				<FormulaireLocalisation />
+			</FormulaireÉtapeLayout>
+			<ModaleErrorSubmission isOpen={isModalErrorSubmitOpen} onClose={() => setIsModalErrorSubmitOpen(false)}/>
+		</>
 	);
 };
 

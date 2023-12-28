@@ -38,11 +38,12 @@ import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { RoutingService } from '~/client/services/routing/routing.service';
-import { StageService } from '~/client/services/stage/stage.service';
+import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
+import { StageService } from '~/client/services/stage/stage.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -88,7 +89,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
-	const stageService = new StageService(httpClientService);
+	const stageService = new BffStageService(httpClientService);
 	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
 		? new TarteAuCitronCookiesService(window.tarteaucitron)
 		: new NullCookiesService();
