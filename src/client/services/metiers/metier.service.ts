@@ -1,6 +1,6 @@
+import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
 import { Either } from '~/server/errors/either';
-import { Metier } from '~/server/metiers/domain/metier';
 
 export interface MetierService {
-	rechercherMetier(query: string): Promise<Either<Metier[]>> ;
+	rechercherMetier(query: string): Promise<Either<MetierOption[]>> ;
 }

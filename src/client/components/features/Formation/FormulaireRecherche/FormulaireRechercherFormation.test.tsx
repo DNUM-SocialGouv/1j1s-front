@@ -2,26 +2,21 @@
  * @jest-environment jsdom
  */
 
-import {
-	render,
-	screen,
-	within,
-} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import {
 	FormulaireRechercherFormation,
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
-import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
+import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
+import { aMetierOption, aMetierOptionList, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { MetierLba } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 describe('FormulaireRechercherFormation', () => {
@@ -59,10 +54,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: aListeDeMetierLaBonneAlternance()[0].label,
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -112,10 +107,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -152,10 +147,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -193,10 +188,10 @@ describe('FormulaireRechercherFormation', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const formationService = aFormationService(aRésultatFormation());
@@ -265,7 +260,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>
@@ -291,7 +286,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>
@@ -314,7 +309,7 @@ describe('FormulaireRechercherFormation', () => {
 		};
 		mockUseRouter({ query });
 		const metierService = aMetierService();
-		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
+		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierOptionList()));
 
 		render(
 			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={metierService}>

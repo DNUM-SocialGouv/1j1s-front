@@ -8,19 +8,16 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
-import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
+import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
-import {
-	aResultatRechercherMultipleAlternance,
-} from '~/server/alternances/domain/alternance.fixture';
+import { aMetierOption, aMetierService } from '~/client/services/metiers/metier.fixture';
+import { aResultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { MetierLba } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 describe('FormulaireRechercheAlternance', () => {
@@ -77,10 +74,10 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
@@ -130,10 +127,10 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
@@ -169,10 +166,10 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<MetierLba> = [{
-				code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+			const aMetierList: Array<MetierOption> = [aMetierOption({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);

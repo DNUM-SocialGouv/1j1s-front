@@ -1,6 +1,6 @@
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { MetierLba } from '~/server/metiers/domain/metier';
+import { MetierAlternance } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
@@ -22,7 +22,7 @@ describe('ApiLaBonneAlternanceMétierRepository', () => {
 
 				expect(httpClientService.get).toHaveBeenCalledTimes(1);
 				expect(response.instance).toEqual('success');
-				expect((response as Success<Array<MetierLba>>).result).toEqual(expected);
+				expect((response as Success<Array<MetierAlternance>>).result).toEqual(expected);
 			});
 		});
 

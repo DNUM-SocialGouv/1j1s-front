@@ -8,7 +8,6 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercheStages3eme,
 } from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/FormulaireRechercheStages3eme';
-import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -28,7 +27,7 @@ describe('FormulaireRechercheStages3eme', () => {
 			mockUseRouter({ push: routerPush });
 			const metierService = aMetierService();
 			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess([
-				{ code: [new MetierCodeAppellation('codeMetier')], label: 'boulanger' },
+				{ code: 'codeMetier', label: 'boulanger' },
 			]));
 
 			render(

@@ -1,18 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles
-	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
+import styles from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import {
-	ComboboxMetiers,
-} from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
-import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -32,8 +30,8 @@ export function FormulaireRechercherFormation() {
 		codePostal,
 	} = queryParams;
 
-	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { code: codeRomes, label: libelleMetier }
+	const domaineDefaultValue: MetierOption | undefined = (codeRomes && libelleMetier)
+		? { code: codeRomes.toString(), label: libelleMetier }
 		: undefined;
 
 	const metierService = useDependency<MetierService>('metierLbaService');

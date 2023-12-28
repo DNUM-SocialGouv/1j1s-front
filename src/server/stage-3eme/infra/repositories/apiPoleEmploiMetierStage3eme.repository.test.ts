@@ -1,4 +1,3 @@
-import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { Success } from '~/server/errors/either';
 import { aCacheService } from '~/server/services/cache/cache.service.fixture';
 import { NullCacheService } from '~/server/services/cache/nullCache.service';
@@ -87,13 +86,13 @@ describe('ApiPoleEmploiMetierStage3emeRepository', () => {
 			const resultsMetiersStage3eme = await repository.search('boulanger') as Success<MetierStage3eme[]>;
 
 			// Then
-			const expectedMetiersStage3eme =[
+			const expectedMetiersStage3eme = [
 				aMetierStage3eme({
-					code: new MetierCodeAppellation('11573'),
+					code: '11573',
 					label: 'Boulanger/Boulangère',
 				}),
 				aMetierStage3eme({
-					code: new MetierCodeAppellation('17564'),
+					code: '17564',
 					label: 'Apprenti boulanger',
 				}),
 			];

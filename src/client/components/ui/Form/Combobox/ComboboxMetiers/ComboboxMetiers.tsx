@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
-import { MetierCode } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
+import { MetierOption } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierOption';
 import { useMetierDependency } from '~/client/context/metier.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { isSuccess } from '~/server/errors/either';
@@ -10,10 +10,6 @@ import { Combobox } from '..';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
-export type MetierOption = {
-	label: string,
-	code: MetierCode[],
-};
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
   label?: string,
 	defaultValue?: MetierOption,
@@ -73,10 +69,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 			if (response && isSuccess(response)) {
 				setStatus('success');
-				setMetiers(response.result.map((metier) => ({
-					code: metier.code.map((code) => code.toString()),
-					label: metier.label,
-				})));
+				setMetiers(response.result);
 			} else {
 				setStatus('failure');
 			}
@@ -114,8 +107,8 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				ref={ref}
 				autoComplete="off"
 				id={inputId}
-				valueName={'codeRomes'}
-				name={'libelleMetier'}
+				valueName={comboboxProps.valueName || 'codeMetier'}
+				name={comboboxProps.name || 'libelleMetier'}
 				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);

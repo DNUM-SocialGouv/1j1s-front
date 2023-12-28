@@ -3,7 +3,6 @@ import React, { FormEvent, useRef } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
-import { MetierCodeAppellation } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
@@ -11,8 +10,7 @@ import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
-import styles
-	from './FormulaireRechercheStage3eme.module.scss';
+import styles from './FormulaireRechercheStage3eme.module.scss';
 
 export function FormulaireRechercheStages3eme() {
 	const queryParams = useStage3emeQuery();
@@ -22,9 +20,9 @@ export function FormulaireRechercheStages3eme() {
 	} = queryParams;
 
 	const metierDefaultValue = (codeMetier && libelleMetier)
-		? { code: [new MetierCodeAppellation(codeMetier)], label: libelleMetier }
+		? { code: codeMetier, label: libelleMetier }
 		: undefined;
-	
+
 	const metierService = useDependency<MetierService>('metierStage3emeService');
 
 	const rechercheStage3emeForm = useRef<HTMLFormElement>(null);

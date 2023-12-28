@@ -33,7 +33,7 @@ export function FormulaireRechercheAlternance() {
 	const metierService = useDependency<MetierService>('metierLbaService');
 
 	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { code: codeRomes, label: libelleMetier }
+		? { code: codeRomes.toString(), label: libelleMetier }
 		: undefined;
 
 	const defaultCommune = mapToCommune({

@@ -1,9 +1,6 @@
-import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
 import { MetierLaBonneAlternanceApiResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import { aMetier } from '~/server/metiers/domain/métier.fixture';
-import {
-	aMetierLaBonneAlternanceApiResponse,
-} from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
+import { aMetierLaBonneAlternanceApiResponse } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.fixture';
 import { mapMetier } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.mapper';
 
 describe('mapMetier', () => {
@@ -13,17 +10,17 @@ describe('mapMetier', () => {
 		const result = mapMetier(responseAPI);
 
 		expect(result).toEqual([
-			aMetier({ code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')], label: 'Conduite de travaux, direction de chantier' }),
-			aMetier({ code: [new MetierCodeRome('F1106'), new MetierCodeRome('F1104'), new MetierCodeRome('I1101')], label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)' }),
-			aMetier({ code: [new MetierCodeRome('H1209'), new MetierCodeRome('H1504')], label: 'Génie électrique' }),
-			aMetier({ code: [new MetierCodeRome('I1304'), new MetierCodeRome('I1602')], label: 'Aéronautique' }),
-			aMetier({ code: [new MetierCodeRome('H1201'), new MetierCodeRome('H1505'), new MetierCodeRome('H2301')], label: 'Chimie' }),
-			aMetier({ code: [new MetierCodeRome('H1206'), new MetierCodeRome('H1402')], label: 'Electronique, informatique industrielle' }),
-			aMetier({ code: [new MetierCodeRome('F1106')], label: 'Electricité, climatisation, domotique, électronique' }),
-			aMetier({ code: [new MetierCodeRome('H1206')], label: 'Biologie, santé, sciences physiques' }),
-			aMetier({ code: [new MetierCodeRome('H1302'), new MetierCodeRome('H1206')], label: 'Energie' }),
-			aMetier({ code: [new MetierCodeRome('I1310'), new MetierCodeRome('I1502')], label: 'Mécanique, maintenance industrielle' }),
-			aMetier({ code: [new MetierCodeRome('H1208'), new MetierCodeRome('I1301')], label: 'Robotique, systèmes automatisés' }),
+			aMetier({ codeRomes: ['F1201', 'F1202', 'I1101'], label: 'Conduite de travaux, direction de chantier' }),
+			aMetier({ codeRomes: ['F1106', 'F1104', 'I1101'], label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)' }),
+			aMetier({ codeRomes: ['H1209', 'H1504'], label: 'Génie électrique' }),
+			aMetier({ codeRomes: ['I1304', 'I1602'], label: 'Aéronautique' }),
+			aMetier({ codeRomes: ['H1201', 'H1505', 'H2301'], label: 'Chimie' }),
+			aMetier({ codeRomes: ['H1206', 'H1402'], label: 'Electronique, informatique industrielle' }),
+			aMetier({ codeRomes: ['F1106'], label: 'Electricité, climatisation, domotique, électronique' }),
+			aMetier({ codeRomes: ['H1206'], label: 'Biologie, santé, sciences physiques' }),
+			aMetier({ codeRomes: ['H1302', 'H1206'], label: 'Energie' }),
+			aMetier({ codeRomes: ['I1310', 'I1502'], label: 'Mécanique, maintenance industrielle' }),
+			aMetier({ codeRomes: ['H1208', 'I1301'], label: 'Robotique, systèmes automatisés' }),
 		]);
 	});
 });

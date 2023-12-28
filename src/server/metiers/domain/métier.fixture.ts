@@ -1,25 +1,24 @@
-import { MetierCodeRome } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/MetierCode';
-import { MetierLba } from '~/server/metiers/domain/metier';
+import { MetierAlternance } from '~/server/metiers/domain/metier';
 
-export function aListeDeMetierLaBonneAlternance(): Array<MetierLba> {
+export function aListeDeMetierLaBonneAlternance(): Array<MetierAlternance> {
 	return [
-		{ code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')], label: 'Conduite de travaux, direction de chantier' },
-		{ code: [new MetierCodeRome('F1106'), new MetierCodeRome('F1104'), new MetierCodeRome('I1101')], label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)' },
-		{ code: [new MetierCodeRome('H1209'), new MetierCodeRome('H1504')], label: 'Génie électrique' },
-		{ code: [new MetierCodeRome('I1304'), new MetierCodeRome('I1602')], label: 'Aéronautique' },
-		{ code: [new MetierCodeRome('H1201'), new MetierCodeRome('H1505'), new MetierCodeRome('H2301')], label: 'Chimie' },
-		{ code: [new MetierCodeRome('H1206'), new MetierCodeRome('H1402')], label: 'Electronique, informatique industrielle' },
-		{ code: [new MetierCodeRome('F1106')], label: 'Electricité, climatisation, domotique, électronique' },
-		{ code: [new MetierCodeRome('H1206')], label: 'Biologie, santé, sciences physiques' },
-		{ code: [new MetierCodeRome('H1302'), new MetierCodeRome('H1206')], label: 'Energie' },
-		{ code: [new MetierCodeRome('I1310'), new MetierCodeRome('I1502')], label: 'Mécanique, maintenance industrielle' },
-		{ code: [new MetierCodeRome('H1208'), new MetierCodeRome('I1301')], label: 'Robotique, systèmes automatisés' },
+		{ codeRomes: ['F1201', 'F1202', 'I1101'], label: 'Conduite de travaux, direction de chantier' },
+		{ codeRomes: ['F1106', 'F1104', 'I1101'], label: 'Ingéniérie en BTP (Bureau d études, conception technique, BIM, …)' },
+		{ codeRomes: ['H1209', 'H1504'], label: 'Génie électrique' },
+		{ codeRomes: ['I1304', 'I1602'], label: 'Aéronautique' },
+		{ codeRomes: ['H1201', 'H1505', 'H2301'], label: 'Chimie' },
+		{ codeRomes: ['H1206', 'H1402'], label: 'Electronique, informatique industrielle' },
+		{ codeRomes: ['F1106'], label: 'Electricité, climatisation, domotique, électronique' },
+		{ codeRomes: ['H1206'], label: 'Biologie, santé, sciences physiques' },
+		{ codeRomes: ['H1302', 'H1206'], label: 'Energie' },
+		{ codeRomes: ['I1310', 'I1502'], label: 'Mécanique, maintenance industrielle' },
+		{ codeRomes: ['H1208', 'I1301'], label: 'Robotique, systèmes automatisés' },
 	];
 }
 
-export function aMetier(override: Partial<MetierLba>): MetierLba {
+export function aMetier(override: Partial<MetierAlternance>): MetierAlternance {
 	return {
-		code: [new MetierCodeRome('F1201'), new MetierCodeRome('F1202'), new MetierCodeRome('I1101')],
+		codeRomes: ['F1201', 'F1202', 'I1101'],
 		label: 'Conduite de travaux, direction de chantier',
 		...override,
 	};

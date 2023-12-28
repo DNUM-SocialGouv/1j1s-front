@@ -3,10 +3,10 @@ import { Meta, StoryObj } from '@storybook/react';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createSuccess, Either } from '~/server/errors/either';
-import { Metier } from '~/server/metiers/domain/metier';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
 
 import { ComboboxMetiers } from '.';
+import { MetierOption } from './MetierOption';
 
 const meta: Meta<typeof ComboboxMetiers> = {
 	argTypes: {
@@ -35,10 +35,10 @@ const meta: Meta<typeof ComboboxMetiers> = {
 };
 
 class MetierServiceStub implements MetierService {
-	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
+	async rechercherMetier(query: string): Promise<Either<MetierOption[]>> {
 		return new Promise((resolve) => setTimeout(() => resolve(createSuccess(
 			aListeDeMetierLaBonneAlternance()
-				.filter((metier: Metier) => (
+				.filter((metier: MetierOption) => (
 					metier.label.toLowerCase().includes(query.toLowerCase()))),
 		)), 1000));
 	}
