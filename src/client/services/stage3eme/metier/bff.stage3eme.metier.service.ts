@@ -8,13 +8,18 @@ export class BffStage3emeMetierService implements MetierService {
 	constructor(private httpClientService: HttpClientService) {}
 
 	async rechercherMetier(query: string): Promise<Either<MetierOption[]>> {
-		const metiers = await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers?motCle=${query}`);
-		if (isFailure(metiers)) {
-			return metiers;
+		const metiersStage3eme = await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers?motCle=${query}`);
+		if (isFailure(metiersStage3eme)) {
+			return metiersStage3eme;
 		}
-		return createSuccess(metiers.result.map((metier) => ({
-			code: metier.code,
-			label: metier.label,
-		})));
+		const metiers = this.mapToMetier(metiersStage3eme.result);
+		return createSuccess(metiers);
+	}
+
+	private mapToMetier(metiersStage3eme: MetierStage3eme[]) {
+		return metiersStage3eme.map((metierStage3eme) => ({
+			code: metierStage3eme.code,
+			label: metierStage3eme.label,
+		}));
 	}
 }

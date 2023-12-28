@@ -51,7 +51,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		...comboboxProps
 	} = props;
 
-	const metierRechercheService = useMetierDependency<MetierService>('metierService');
+	const metierRechercheService = useMetierDependency('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =

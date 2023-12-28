@@ -34,13 +34,13 @@ import { AdformMarketingService } from '~/client/services/marketing/adform/adfor
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import { BffLbaMetierService } from '~/client/services/metiers/bff.lba.metier.service';
-import { BffStage3emeMetierService } from '~/client/services/metiers/bff.stage3eme.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { RoutingService } from '~/client/services/routing/routing.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
+import { BffStage3emeMetierService } from '~/client/services/stage3eme/metier/bff.stage3eme.metier.service';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';

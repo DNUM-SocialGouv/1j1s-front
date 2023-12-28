@@ -20,11 +20,11 @@ export function MetierDependenciesProvider({
 	);
 }
 
-export function useMetierDependency<D = MetierService>(key: keyof MetierDependencies): D {
+export function useMetierDependency(key: keyof MetierDependencies): MetierService {
 	const dependencies = React.useContext(MetierDependenciesContext);
-	const dependency: MetierService | undefined = dependencies[key];
-	if(!dependency) {
+	const metierService: MetierService | undefined = dependencies[key];
+	if(!metierService) {
 		throw new DependencyException(key);
 	}
-	return dependency as unknown as D;
+	return metierService;
 }
