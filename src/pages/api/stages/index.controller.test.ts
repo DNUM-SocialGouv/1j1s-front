@@ -1,11 +1,12 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
-import { enregistrerOffreDeStageHandler  } from '~/pages/api/stages/index.controller';
+import { anEmployeurDepotStage, anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
+import depotOffreDeStageController, { enregistrerOffreDeStageHandler } from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { anOffreDeStageDepotStrapi } from '~/server/cms/infra/repositories/strapi.fixture';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -30,7 +31,7 @@ describe('enregistrer une offre de stage', () => {
 				.reply(201);
 
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => enregistrerOffreDeStageHandler(req, res),
+				handler: (req, res) => depotOffreDeStageController(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify(anOffreDeStageDepot()),
@@ -44,6 +45,26 @@ describe('enregistrer une offre de stage', () => {
 					expect(strapiReceivedBodyData).toEqual(anOffreDeStageDepotStrapi());
 					strapiAuth.done();
 					strapiApi.done();
+				},
+				url: '/stages',
+			});
+		});
+	});
+
+	describe('quand l’offre de stage n’a pas un format valide, retourne une 400', () => {
+		it('le nom de l’employeur ne doit pas dépasser 255 caractères', async () => {
+			const nomTresTresLong = 'Plateforme ultra haut champ 3T-7T du Centre Hospitalier Universitaire (CHU) de Poitiers. Laboratoire commun Imagerie Métabolique Multinoyaux Multiorganes (I3M), Laboratoire et Mathématiques et Applications (LMA), Centre National de la Recherche Scientifique (CNRS) UMR 7348, Université de Poitiers, France.';
+			await testApiHandler<void | ErrorHttpResponse>({
+				handler: (req, res) => depotOffreDeStageController(req, res),
+				test: async ({ fetch }) => {
+					const res = await fetch({
+						body: JSON.stringify(anOffreDeStageDepot({ employeur: anEmployeurDepotStage({ nom: nomTresTresLong }) })),
+						headers: {
+							'content-type': 'application/json',
+						},
+						method: 'POST',
+					});
+					expect(res.status).toEqual(400);
 				},
 				url: '/stages',
 			});
