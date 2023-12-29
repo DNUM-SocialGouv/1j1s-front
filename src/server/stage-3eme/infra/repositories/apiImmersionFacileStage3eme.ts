@@ -11,7 +11,7 @@ export interface ApiImmersionFacileStage3emeRechercheResponse {
 	romeLabel: string
 	contactMode?: string
 	numberOfEmployeeRange?: string
-	voluntaryToImmersion?: boolean
+	voluntaryToImmersion: boolean
 }
 
 export const apiImmersionFacileStage3emeSchemas = {
@@ -20,9 +20,11 @@ export const apiImmersionFacileStage3emeSchemas = {
 			city: Joi.string(),
 			departmentCode: Joi.string(),
 			postcode: Joi.string(),
-			streetNumberAndAddress: Joi.string(),
-		}),
-		name: Joi.string(),
-		romeLabel: Joi.string(),
+			streetNumberAndAddress: Joi.string().allow(''),
+		}).required(),
+		contactMode: Joi.string(),
+		name: Joi.string().required(),
+		romeLabel: Joi.string().required(),
+		voluntaryToImmersion: Joi.boolean().required(),
 	})).options({ allowUnknown: true }),
 };

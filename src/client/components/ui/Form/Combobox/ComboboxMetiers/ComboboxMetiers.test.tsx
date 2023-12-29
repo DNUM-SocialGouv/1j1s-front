@@ -8,14 +8,14 @@ import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockScrollIntoView } from '~/client/components/window.mock';
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
+import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { createFailure, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { Metier } from '~/server/metiers/domain/metier';
 
 describe('<ComboboxMetiers />', () => {
 	beforeAll(() => {
@@ -28,9 +28,9 @@ describe('<ComboboxMetiers />', () => {
 			const ref = jest.fn();
 
 			render(
-				<DependenciesProvider metierService={aMetierService()}>
+				<MetierDependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0} ref={ref} />
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
@@ -39,9 +39,9 @@ describe('<ComboboxMetiers />', () => {
 			const id = 'id';
 
 			render(
-				<DependenciesProvider metierService={aMetierService()}>
+				<MetierDependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name='métier' label='Rechercher un métier' id={id} />
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
@@ -51,9 +51,9 @@ describe('<ComboboxMetiers />', () => {
 			const user = userEvent.setup();
 			const onInvalid = jest.fn();
 			render(
-				<DependenciesProvider metierService={aMetierService()}>
+				<MetierDependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name='métier' label='Rechercher un métier' onInvalid={onInvalid}/>
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
@@ -68,10 +68,10 @@ describe('<ComboboxMetiers />', () => {
 			const messageErreur = 'Veuillez sélectionner une option dans la liste';
 			const aideSaisie = 'Commencez à taper pour voir des suggestions';
 			render(
-				<DependenciesProvider metierService={aMetierService()}>
+				<MetierDependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name='métier' label='Rechercher un métier' aria-describedby="aide-saisie" />
 					<p id="aide-saisie">{aideSaisie}</p>
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
@@ -86,9 +86,9 @@ describe('<ComboboxMetiers />', () => {
 			const id = 'id';
 
 			render(
-				<DependenciesProvider metierService={aMetierService()}>
+				<MetierDependenciesProvider metierService={aMetierService()}>
 					<ComboboxMetiers name='métier' id={id} />
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox');
@@ -101,9 +101,9 @@ describe('<ComboboxMetiers />', () => {
 			const metierServiceMock = aMetierService([]);
 			const user = userEvent.setup();
 
-			render(<DependenciesProvider metierService={metierServiceMock}>
+			render(<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
-			</DependenciesProvider>);
+			</MetierDependenciesProvider>);
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(comboboxMetiers, 'dddddd');
 			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …');
@@ -116,15 +116,15 @@ describe('<ComboboxMetiers />', () => {
 	describe('quand la recherche correspond à des métiers', () => {
 		it('affiche les métiers possibles', async () => {
 			const metierServiceMock = aMetierService([
-				{ label: 'Electronique, informatique industrielle', romes: ['H1206', 'H1402'] },
-				{ label: 'Electricité, climatisation, domotique, électronique', romes: ['F1106'] },
-				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
+				aMetier({ code: 'H1206,H1402', label: 'Electronique, informatique industrielle' }),
+				aMetier({ code: 'F1106' ,label: 'Electricité, climatisation, domotique, électronique' }),
+				aMetier({ code: 'H1209,H1504', label: 'Génie électrique' }),
 			]);
 			const user = userEvent.setup();
 
-			render(<DependenciesProvider metierService={metierServiceMock}>
+			render(<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
-			</DependenciesProvider>);
+			</MetierDependenciesProvider>);
 			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 			await user.type(comboboxMetiers, 'boulang');
 
@@ -138,18 +138,18 @@ describe('<ComboboxMetiers />', () => {
 			it('le message est au pluriel quand plusieurs résultats sont trouvés', async () => {
 				const user = userEvent.setup();
 				const metierServiceMock = aMetierService([
-					{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-					{ label: 'Aéronautique', romes: ['I1304', 'I1602'] },
-					{ label: 'Chimie', romes: ['H1201', 'H1505', 'H2301'] },
+					aMetier({ code: 'H1209,H1504', label: 'Génie électrique' }),
+					aMetier({ code: 'I1304,I1602', label: 'Aéronautique' }),
+					aMetier({ code: 'H1201,H1505,H2301', label: 'Chimie' }),
 				]);
 				render(
-					<DependenciesProvider metierService={metierServiceMock}>
+					<MetierDependenciesProvider metierService={metierServiceMock}>
 						<ComboboxMetiers
 							name='métier'
 							label='Rechercher un métier'
 							debounceTimeout={0}
 						/>
-					</DependenciesProvider>,
+					</MetierDependenciesProvider>,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -160,17 +160,17 @@ describe('<ComboboxMetiers />', () => {
 			});
 			it('le message est au singulier quand un seul résultat est trouvé', async () => {
 				const user = userEvent.setup();
-				const metierServiceMock = aMetierService([
-					{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-				]);
+				const metierServiceMock = aMetierService([aMetier(
+					{ code: 'H1209,H1504', label: 'Génie électrique' },
+				)]);
 				render(
-					<DependenciesProvider metierService={metierServiceMock}>
+					<MetierDependenciesProvider metierService={metierServiceMock}>
 						<ComboboxMetiers
 							name='métier'
 							label='Rechercher un métier'
 							debounceTimeout={0}
 						/>
-					</DependenciesProvider>,
+					</MetierDependenciesProvider>,
 				);
 
 				await user.type(screen.getByRole('combobox'), 'test');
@@ -188,9 +188,9 @@ describe('<ComboboxMetiers />', () => {
 
 				render(
 					<form aria-label="Métier">
-						<DependenciesProvider metierService={metierServiceMock}>
+						<MetierDependenciesProvider metierService={metierServiceMock}>
 							<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
-						</DependenciesProvider>
+						</MetierDependenciesProvider>
 					</form>,
 				);
 				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
@@ -198,20 +198,20 @@ describe('<ComboboxMetiers />', () => {
 				await user.click(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' }));
 
 				expect(comboboxMetiers).toHaveValue('Conduite de travaux, direction de chantier');
-				expect(screen.getByRole('form')).toHaveFormValues({ codeRomes: 'F1201,F1202,I1101' });
+				expect(screen.getByRole('form')).toHaveFormValues({ codeMetier: 'F1201,F1202,I1101' });
 			});
 		});
 		describe('quand je choisi un métier avec le clavier', () => {
 			it('affiche le métier sélectionné', async () => {
-				const metierServiceMock = aMetierService([
-					{ label: 'Ingénierie en BTP', romes: ['F1106'] },
-				]);
+				const metierServiceMock = aMetierService([aMetier(
+					{ code: 'F1106', label: 'Ingénierie en BTP' },
+				)]);
 				const user = userEvent.setup();
 
 				render(
-					<DependenciesProvider metierService={metierServiceMock}>
+					<MetierDependenciesProvider metierService={metierServiceMock}>
 						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
-					</DependenciesProvider>,
+					</MetierDependenciesProvider>,
 				);
 				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
 				await user.type(comboboxMetiers, 'Ingé');
@@ -228,12 +228,12 @@ describe('<ComboboxMetiers />', () => {
 		const user = userEvent.setup();
 		const metierServiceMock= aMetierService();
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 				/>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		// WHEN
@@ -249,22 +249,22 @@ describe('<ComboboxMetiers />', () => {
 		const metierServiceMock = aMetierService([]);
 
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<form aria-label="form">
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
 						defaultValue={{
+							code: 'I1234,J5678',
 							label: 'Ingénieur en ingénierie',
-							romes: ['I1234', 'J5678'],
 						}} debounceTimeout={0}/>
 				</form>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		const form = screen.getByRole('form');
 		expect(form).toHaveFormValues({
-			codeRomes: 'I1234,J5678',
+			codeMetier: 'I1234,J5678',
 			métier: 'Ingénieur en ingénierie',
 		});
 	});
@@ -275,13 +275,13 @@ describe('<ComboboxMetiers />', () => {
 		jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 
 		render(
-			<DependenciesProvider metierService={metierService}>
+			<MetierDependenciesProvider metierService={metierService}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 					debounceTimeout={0}
 				/>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		await user.type(screen.getByRole('combobox'), 'test');
@@ -296,13 +296,13 @@ describe('<ComboboxMetiers />', () => {
 			rechercherMetier: jest.fn(() => new Promise<Either<Metier[]>>(() => {})),
 		};
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 					debounceTimeout={0}
 				/>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		await user.type(screen.getByRole('combobox'), 'test');
@@ -316,13 +316,13 @@ describe('<ComboboxMetiers />', () => {
 		const user = userEvent.setup();
 		const metierServiceMock = aMetierService([]);
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 					debounceTimeout={0}
 				/>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		await user.type(screen.getByRole('combobox'), 'test');
@@ -338,13 +338,13 @@ describe('<ComboboxMetiers />', () => {
 		const user = userEvent.setup();
 		const metierServiceMock = aMetierService();
 		render(
-			<DependenciesProvider metierService={metierServiceMock}>
+			<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
 					debounceTimeout={0}
 				/>
-			</DependenciesProvider>,
+			</MetierDependenciesProvider>,
 		);
 
 		const deplierSuggestions = screen.getByRole('button', { name: 'Rechercher un métier' });
@@ -358,17 +358,17 @@ describe('<ComboboxMetiers />', () => {
 	describe('quand le champ est vidé', () => {
 		it('affiche un message dans les suggestions', async () => {
 			const user = userEvent.setup();
-			const metierServiceMock = aMetierService([
-				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-			]);
+			const metierServiceMock = aMetierService([aMetier(
+				{ code: 'H1209,H1504', label: 'Génie électrique' },
+			)]);
 			render(
-				<DependenciesProvider metierService={metierServiceMock}>
+				<MetierDependenciesProvider metierService={metierServiceMock}>
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
 						debounceTimeout={0}
 					/>
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox');
@@ -382,17 +382,17 @@ describe('<ComboboxMetiers />', () => {
 
 		it('n’affiche aucune suggestion', async () => {
 			const user = userEvent.setup();
-			const metierServiceMock = aMetierService([
-				{ label: 'Génie électrique', romes: ['H1209', 'H1504'] },
-			]);
+			const metierServiceMock = aMetierService([aMetier(
+				{ code: 'H1209,H1504', label: 'Génie électrique' },
+			)]);
 			render(
-				<DependenciesProvider metierService={metierServiceMock}>
+				<MetierDependenciesProvider metierService={metierServiceMock}>
 					<ComboboxMetiers
 						name='métier'
 						label='Rechercher un métier'
 						debounceTimeout={0}
 					/>
-				</DependenciesProvider>,
+				</MetierDependenciesProvider>,
 			);
 
 			const combobox = screen.getByRole('combobox');

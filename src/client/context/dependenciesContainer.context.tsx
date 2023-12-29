@@ -5,7 +5,7 @@ import {
 	Dependency,
 } from '~/client/dependencies.container';
 
-class DependencyException extends Error {
+export class DependencyException extends Error {
 	constructor(key: string) {
 		super(`Dependency ${key} not found`);
 		this.name = 'DependencyException';

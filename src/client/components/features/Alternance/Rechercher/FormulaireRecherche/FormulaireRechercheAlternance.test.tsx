@@ -8,18 +8,17 @@ import { userEvent } from '@testing-library/user-event';
 import {
 	FormulaireRechercheAlternance,
 } from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetierService } from '~/client/services/metiers/metier.fixture';
-import {
-	aResultatRechercherMultipleAlternance,
-} from '~/server/alternances/domain/alternance.fixture';
-import { Metier } from '~/server/metiers/domain/metier';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/métier.fixture';
+import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
+import { aResultatRechercherMultipleAlternance } from '~/server/alternances/domain/alternance.fixture';
+import { createSuccess } from '~/server/errors/either';
+import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('FormulaireRechercheAlternance', () => {
 	beforeEach(() => {
@@ -29,7 +28,6 @@ describe('FormulaireRechercheAlternance', () => {
 		it('affiche un formulaire pour la recherche d‘alternance, sans échantillon de résultat', async () => {
 			// GIVEN
 			const alternanceService = anAlternanceService();
-			const metierService = aMetierService();
 			const localisationService = aLocalisationService();
 			mockUseRouter({});
 
@@ -37,8 +35,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					metierLbaService={aMetierService()}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -53,8 +51,8 @@ describe('FormulaireRechercheAlternance', () => {
 			render(
 				<DependenciesProvider
 					alternanceService={anAlternanceService()}
-					metierService={aMetierService()}
 					localisationService={aLocalisationService()}
+					metierLbaService={aMetierService()}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -76,20 +74,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [aMetier({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const metierService = aMetierService();
+			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					metierLbaService={metierService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -128,20 +127,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [aMetier({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const metierService = aMetierService();
+			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					metierLbaService={metierService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -166,20 +166,21 @@ describe('FormulaireRechercheAlternance', () => {
 			// Given
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
-			const aMetierList: Array<Metier> = [{
+			const aMetierList: Array<Metier> = [aMetier({
+				code: 'F1201,F1202,I1101',
 				label: 'Conduite de travaux, direction de chantier',
-				romes: ['F1201', 'F1202', 'I1101'],
-			}];
+			})];
 
 			const localisationService = aLocalisationService();
 			const alternanceService = anAlternanceService(aResultatRechercherMultipleAlternance().offreList, aResultatRechercherMultipleAlternance().entrepriseList);
-			const metierService = aMetierService(aMetierList);
+			const metierService = aMetierService();
+			jest.spyOn(metierService, 'rechercherMetier').mockResolvedValue(createSuccess(aMetierList));
 			// When
 			render(
 				<DependenciesProvider
 					alternanceService={alternanceService}
-					metierService={metierService}
 					localisationService={localisationService}
+					metierLbaService={metierService}
 				>
 					<FormulaireRechercheAlternance/>
 				</DependenciesProvider>,
@@ -216,7 +217,7 @@ describe('FormulaireRechercheAlternance', () => {
 		});
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
@@ -237,7 +238,7 @@ describe('FormulaireRechercheAlternance', () => {
 		});
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);
@@ -258,7 +259,7 @@ describe('FormulaireRechercheAlternance', () => {
 		});
 
 		render(
-			<DependenciesProvider metierService={aMetierService()} localisationService={aLocalisationService()}>
+			<DependenciesProvider localisationService={aLocalisationService()} metierLbaService={aMetierService()}>
 				<FormulaireRechercheAlternance/>
 			</DependenciesProvider>,
 		);

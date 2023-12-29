@@ -19,3 +19,7 @@ export interface ResultatRechercheStage3eme {
 	nombreDeResultats: number
 	resultats: Array<Stage3eme>
 }
+
+export interface Stage3emeFiltre {
+	codeMetier?: string
+}

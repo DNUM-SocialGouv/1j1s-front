@@ -8,8 +8,8 @@ import {
 	anAlternanceMatchaBoulanger,
 	anAlternancePEJobs,
 } from '~/server/alternances/domain/alternance.fixture';
-import { aMetier } from '~/server/metiers/domain/métier.fixture';
 
+import { aMetier } from '../../src/server/metiers/domain/metierAlternance.fixture';
 import { interceptGet } from '../interceptGet';
 
 const aQuery = {

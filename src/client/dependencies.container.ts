@@ -33,13 +33,14 @@ import { LoggerService } from '~/client/services/logger.service';
 import { AdformMarketingService } from '~/client/services/marketing/adform/adform.marketing.service';
 import { MarketingService } from '~/client/services/marketing/marketing.service';
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { OffreService } from '~/client/services/offre/offre.service';
 import { RoutingService } from '~/client/services/routing/routing.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
+import { BffStage3emeMetierService } from '~/client/services/stage3eme/metier/bff.stage3eme.metier.service';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
@@ -54,12 +55,13 @@ export type Dependencies = {
 	formationInitialeService: FormationInitialeInterface
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
+	metierLbaService: MetierService
+	metierStage3emeService: MetierService
 	missionEngagementService: MissionEngagementService
 	offreService: OffreService
 	rechercheClientService: SearchClient
 	routingService: RoutingService
 	stageService: StageService
-	metierService: MetierService
 	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
 	marketingService: MarketingService
@@ -78,7 +80,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const alternanceService = new AlternanceService(httpClientService);
-	const metierService = new BffMetierService(httpClientService);
+	const metierLbaService = new BffAlternanceMetierService(httpClientService);
+	const metierStage3emeService = new BffStage3emeMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const offreService = new OffreService(httpClientService);
@@ -139,7 +142,8 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		lesEntreprisesSEngagentService,
 		localisationService,
 		marketingService,
-		metierService,
+		metierLbaService,
+		metierStage3emeService,
 		missionEngagementService,
 		offreService,
 		rechercheClientService,

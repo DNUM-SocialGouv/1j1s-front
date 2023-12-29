@@ -1,7 +1,7 @@
 import { Either } from '~/server/errors/either';
 
-import { ResultatRechercheStage3eme } from './stage3eme';
+import { ResultatRechercheStage3eme, Stage3emeFiltre } from './stage3eme';
 
 export interface Stage3emeRepository {
-	search(): Promise<Either<ResultatRechercheStage3eme>>
+	search(filtre: Stage3emeFiltre): Promise<Either<ResultatRechercheStage3eme>>
 }

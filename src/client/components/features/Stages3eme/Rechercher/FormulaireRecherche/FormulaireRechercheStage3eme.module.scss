@@ -1,0 +1,60 @@
+@use "sass:color";
+@use "@styles/utilities";
+@use "@styles/components/form/variables";
+
+$color-border-filters: lighten(utilities.$color-primary, 15%);
+$color-message-champs-obligatoires: utilities.$color-primary;
+
+.rechercheOffreForm {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$form-submit-button-vertical-gap-mobile;
+}
+
+.filtresRechercherOffre {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$form-vertical-gap-mobile;
+
+  & .inputButtonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$form-vertical-gap-mobile;
+  }
+}
+
+.buttonRechercher > button {
+  width: 100%;
+}
+
+@include utilities.media(medium) {
+  .rechercheOffreForm {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    gap: variables.$form-horizontal-gap;
+  }
+
+  .filtresRechercherOffre {
+    gap: variables.$form-vertical-gap-desktop;
+
+    &  .inputButtonWrapper {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      gap: variables.$form-vertical-gap-desktop;
+      flex-wrap: wrap;
+      padding-block: 0;
+    }
+  }
+
+  .buttonRechercher {
+    margin-top: utilities.pixel-to-rem(28);
+  }
+
+  .inputButtonWrapper > div {
+    flex-grow: 1;
+  }
+}

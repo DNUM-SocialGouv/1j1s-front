@@ -1,17 +1,18 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import styles
-	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
+import styles from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import {
-	ComboboxMetiers,
-} from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { Formation } from '~/server/formations/domain/formation';
 
@@ -29,9 +30,11 @@ export function FormulaireRechercherFormation() {
 		codePostal,
 	} = queryParams;
 
-	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { label: libelleMetier, romes: codeRomes }
+	const domaineDefaultValue: Metier | undefined = (codeRomes && libelleMetier)
+		? { code: codeRomes.toString(), label: libelleMetier }
 		: undefined;
+
+	const metierService = useDependency<MetierService>('metierLbaService');
 
 	const communeDefaultValue = mapToCommune({
 		codeCommune,
@@ -67,12 +70,15 @@ export function FormulaireRechercherFormation() {
 			>
 				<div className={styles.filtresRechercherFormation}>
 					<div className={styles.inputButtonWrapper}>
-						<ComboboxMetiers
-							defaultValue={domaineDefaultValue}
-							required
-							autoFocus
-							placeholder="Exemples : ingénierie, agronomie..."
-						/>
+						<MetierDependenciesProvider metierService={metierService}>
+							<ComboboxMetiers
+								defaultValue={domaineDefaultValue}
+								required
+								autoFocus
+								placeholder="Exemples : ingénierie, agronomie..."
+								valueName={'codeRomes'}
+							/>
+						</MetierDependenciesProvider>
 						<ComboboxCommune
 							defaultCommune={communeDefaultValue}
 							showRadiusInput

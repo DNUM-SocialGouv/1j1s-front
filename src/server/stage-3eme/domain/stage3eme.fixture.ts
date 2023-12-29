@@ -1,4 +1,4 @@
-import { ResultatRechercheStage3eme, Stage3eme } from './stage3eme';
+import { ResultatRechercheStage3eme, Stage3eme, Stage3emeFiltre } from './stage3eme';
 
 export function aResultatRechercheStage3eme(override?: Partial<ResultatRechercheStage3eme>): ResultatRechercheStage3eme {
 	return {
@@ -41,6 +41,13 @@ export function aStage3eme(override?: Partial<Stage3eme>): Stage3eme {
 		modeDeContact: 'Candidature en personne',
 		nomEntreprise: 'La Boulangerie',
 		nombreDeSalaries: '1-9',
+		...override,
+	};
+}
+
+export function aStage3emeFiltre(override?: Partial<Stage3emeFiltre>): Stage3emeFiltre {
+	return {
+		codeMetier: undefined,
 		...override,
 	};
 }

@@ -9,8 +9,11 @@ import {
 	ComboboxMetiers,
 } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
+import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
 export function FormulaireRechercheAlternance() {
@@ -27,8 +30,10 @@ export function FormulaireRechercheAlternance() {
 		codePostal,
 	} = queryParams;
 
+	const metierService = useDependency<MetierService>('metierLbaService');
+
 	const domaineDefaultValue = (codeRomes && libelleMetier)
-		? { label: libelleMetier, romes: codeRomes }
+		? { code: codeRomes.toString(), label: libelleMetier }
 		: undefined;
 
 	const defaultCommune = mapToCommune({
@@ -58,12 +63,16 @@ export function FormulaireRechercheAlternance() {
 			>
 				<div className={styles.filtresRechercherOffre}>
 					<div className={styles.inputButtonWrapper}>
-						<ComboboxMetiers
-							defaultValue={domaineDefaultValue}
-							required
-							autoFocus
-							placeholder={'Exemples : enseignement, recherche...'}
-						/>
+						<MetierDependenciesProvider metierService={metierService}>
+							<ComboboxMetiers
+								defaultValue={domaineDefaultValue}
+								required
+								autoFocus
+								placeholder={'Exemples : enseignement, recherche...'}
+								valueName={'codeRomes'}
+							/>
+						</MetierDependenciesProvider>
+
 						<ComboboxCommune
 							defaultCommune={defaultCommune}
 							showRadiusInput

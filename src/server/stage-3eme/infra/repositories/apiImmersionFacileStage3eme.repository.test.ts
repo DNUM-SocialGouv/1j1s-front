@@ -3,8 +3,12 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme';
-import { aResultatRechercheStage3eme, aStage3eme } from '~/server/stage-3eme/domain/stage3eme.fixture';
+import { ResultatRechercheStage3eme, Stage3emeFiltre } from '~/server/stage-3eme/domain/stage3eme';
+import {
+	aResultatRechercheStage3eme,
+	aStage3eme,
+	aStage3emeFiltre,
+} from '~/server/stage-3eme/domain/stage3eme.fixture';
 import {
 	anApiImmersionFacileStage3eme,
 } from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.fixture';
@@ -14,16 +18,36 @@ import {
 
 describe('ApiImmersionFacileStage3emeRepository', () => {
 	describe('search', () => {
-		it('appelle l’api Immersion Facile avec les bon paramètres', () => {
-			// Given
-			const httpClientService = aPublicHttpClientService();
-			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
+		describe('quand un code métier est fourni', () => {
+			it('appelle l’api Immersion Facile avec les bon paramètres', () => {
+				// Given
+				const filtre: Stage3emeFiltre = aStage3emeFiltre({
+					codeMetier: 'codeMetier',
+				});
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
 
-			// When
-			repository.search();
+				// When
+				repository.search(filtre);
 
-			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10');
+				// Then
+				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&appellationCodes[]=codeMetier');
+			});
+		});
+
+		describe('quand aucun code métier n’est fourni', () => {
+			it('appelle l’api Immersion Facile avec les bon paramètres', () => {
+				// Given
+				const filtre: Stage3emeFiltre = aStage3emeFiltre();
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
+
+				// When
+				repository.search(filtre);
+
+				// Then
+				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10');
+			});
 		});
 
 		describe('quand l’api Immersion Facile répond avec des données valide', () => {
@@ -45,7 +69,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
 
 				// When
-				const result = await repository.search() as Success<ResultatRechercheStage3eme>;
+				const result = await repository.search(aStage3emeFiltre()) as Success<ResultatRechercheStage3eme>;
 
 				// Then
 				expect(result.result).toEqual(aResultatRechercheStage3eme({
@@ -78,7 +102,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
 				
 				// WHEN
-				const result = await repository.search();
+				const result = await repository.search(aStage3emeFiltre());
 				
 				// THEN
 				expect(result).toEqual(createFailure(errorReturnedByErrorManagementService));

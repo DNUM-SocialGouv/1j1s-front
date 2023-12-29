@@ -1,21 +1,17 @@
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
-import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { BffMetierService } from '~/client/services/metiers/bff.metier.service';
+import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
+import { useMetierDependency } from '~/client/context/metier.context';
 import { isSuccess } from '~/server/errors/either';
 
 import { Combobox } from '..';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
-export type MetierOption = {
-	label: string,
-	romes: string[],
-};
 type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
   label?: string,
-	defaultValue?: MetierOption,
+	defaultValue?: Metier,
   debounceTimeout?: number,
 	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
 	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
@@ -54,11 +50,11 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 		...comboboxProps
 	} = props;
 
-	const metierRechercheService = useDependency<BffMetierService>('metierService');
+	const metierRechercheService = useMetierDependency('metierService');
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
-		useState<MetierOption[]>(defaultValue ? [ defaultValue ] : []);
+		useState<Metier[]>(defaultValue ? [ defaultValue ] : []);
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [ value, setValue ] = useState(defaultValue?.label ?? '');
 
@@ -110,8 +106,8 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				ref={ref}
 				autoComplete="off"
 				id={inputId}
-				valueName={'codeRomes'}
-				name={'libelleMetier'}
+				valueName={comboboxProps.valueName || 'codeMetier'}
+				name={comboboxProps.name || 'libelleMetier'}
 				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
@@ -131,7 +127,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 			>
 				{
 					(metiers.map((suggestion) => (
-						<Combobox.Option key={suggestion.label} value={suggestion.romes}>{suggestion.label}</Combobox.Option>
+						<Combobox.Option key={suggestion.label} value={suggestion.code}>{suggestion.label}</Combobox.Option>
 					)))
 				}
 				<Combobox.AsyncMessage>

@@ -40,7 +40,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					metierService={métiersServiceMock}
+					metierLbaService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -81,7 +81,7 @@ describe('Page rechercher une alternance', () => {
 				analyticsService={aManualAnalyticsService()}
 				localisationService={localisationServiceMock}
 				alternanceService={alternanceServiceMock}
-				metierService={métiersServiceMock}
+				metierLbaService={métiersServiceMock}
 			>
 				<RechercherAlternancePage/>
 			</DependenciesProvider>,
@@ -101,7 +101,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					metierService={métiersServiceMock}
+					metierLbaService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,
@@ -123,7 +123,7 @@ describe('Page rechercher une alternance', () => {
 					analyticsService={analyticsService}
 					localisationService={localisationServiceMock}
 					alternanceService={alternanceServiceMock}
-					metierService={métiersServiceMock}
+					metierLbaService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
 				</DependenciesProvider>,

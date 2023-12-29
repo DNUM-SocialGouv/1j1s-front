@@ -34,7 +34,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -74,7 +74,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -125,7 +125,7 @@ describe('RechercherFormation', () => {
 			render(
 				<DependenciesProvider
 					formationService={formationServiceMock}
-					metierService={métierServiceMock}
+					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
 					<RechercherFormation/>
@@ -151,7 +151,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationServiceMock}
-				metierService={métierServiceMock}
+				metierLbaService={métierServiceMock}
 				localisationService={localisationServiceMock}
 			>
 				<RechercherFormation/>
@@ -194,7 +194,7 @@ describe('RechercherFormation', () => {
 		render(
 			<DependenciesProvider
 				formationService={formationService}
-				metierService={aMetierService()}
+				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
 				<RechercherFormation/>

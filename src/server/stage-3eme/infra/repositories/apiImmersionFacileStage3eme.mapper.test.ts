@@ -32,7 +32,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 				name: 'La Boulangerie 2',
 				numberOfEmployeeRange: undefined,
 				romeLabel: 'Boulangerie',
-				voluntaryToImmersion: undefined,
+				voluntaryToImmersion: false,
 			}),
 		];
 

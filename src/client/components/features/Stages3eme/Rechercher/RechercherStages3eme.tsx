@@ -2,14 +2,15 @@ import { useEffect, useMemo, useState } from 'react';
 
 import {
 	FormulaireRechercheStages3eme,
-} from '~/client/components/features/Stages3eme/FormulaireRecherche/FormulaireRechercheStages3eme';
+} from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/FormulaireRechercheStages3eme';
 import {
 	ListeResultatsStage3eme,
-} from '~/client/components/features/Stages3eme/FormulaireRecherche/ListeResultatsStage3eme';
+} from '~/client/components/features/Stages3eme/Rechercher/FormulaireRecherche/ListeResultatsStage3eme';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { isSuccess } from '~/server/errors/either';
@@ -19,6 +20,7 @@ import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme
 const PREFIX_TITRE_PAGE = 'Rechercher un stage de 3ème';
 
 export default function RechercherStages3eme() {
+	const stage3emeQuery = useStage3emeQuery();
 	const stage3emeService = useDependency<Stage3emeService>('stage3emeService');
 
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
@@ -30,7 +32,7 @@ export default function RechercherStages3eme() {
 		setIsLoading(true);
 		setErreurRecherche(undefined);
 
-		stage3emeService.rechercherStage3eme()
+		stage3emeService.rechercherStage3eme(stage3emeQuery)
 			.then((response) => {
 				if (isSuccess(response)) {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultats === 0 ? ' - Aucun résultat' : ''}`));
@@ -41,17 +43,22 @@ export default function RechercherStages3eme() {
 				}
 				setIsLoading(false);
 			});
-	}, [stage3emeService]);
+	}, [stage3emeService, stage3emeQuery]);
 
 	const messageResultatsRecherche: string = useMemo(() => {
 		const messageResultatRechercheSplit: string[] = [`${stage3emeList?.nombreDeResultats}`];
 		if (stage3emeList && stage3emeList.nombreDeResultats > 1) {
 			messageResultatRechercheSplit.push('entreprises accueillantes');
-		} else {
+		} else if (stage3emeList && stage3emeList.nombreDeResultats === 1) {
 			messageResultatRechercheSplit.push('entreprise accueillante');
+		} else {
+			return '';
+		}
+		if (stage3emeQuery.libelleMetier) {
+			messageResultatRechercheSplit.push(`pour ${stage3emeQuery.libelleMetier}`);
 		}
 		return messageResultatRechercheSplit.join(' ');
-	}, [stage3emeList]);
+	}, [stage3emeList, stage3emeQuery.libelleMetier]);
 
 	return <>
 		<Head
