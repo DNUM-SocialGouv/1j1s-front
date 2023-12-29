@@ -117,8 +117,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 			'NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL or NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY environment variable is missing',
 		);
 	}
-
-	const rechercheClientService = instantMeiliSearch(
+	const instantMeiliSearchObject  = instantMeiliSearch(
 		meiliSearchBaseUrl,
 		meiliSearchApiKey,
 		{
@@ -126,6 +125,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 			primaryKey: 'slug',
 		},
 	);
+	const rechercheClientService = instantMeiliSearchObject.searchClient;
 
 	const stage3emeService = new BffStage3emeService(httpClientService);
 
