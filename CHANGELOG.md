@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.209.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.208.0...v3.209.0) (2023-12-29)
+
+
+### Features
+
+* **UI:** ajout de la modale erreur stage et les entreprises s'engagent ([#2506](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2506)) ([db2fd94](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db2fd94a42b40aa8d75227255f812c660c6332a7))
+
 ## [3.208.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.207.2...v3.208.0) (2023-12-29)
 
 
