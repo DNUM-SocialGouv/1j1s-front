@@ -1,14 +1,15 @@
 @use "@styles/utilities";
+
 $description-color: utilities.$color-primary;
 
 @mixin center-verticaly {
-  position: absolute;
+  position: sticky;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
 }
 
 .content {
+  text-align: center;
   @include center-verticaly;
   display: flex;
   flex-direction: column;
@@ -23,13 +24,16 @@ $description-color: utilities.$color-primary;
 }
 
 .description {
-    margin-top: 1rem;
-    color: $description-color;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-top: 1rem;
+  color: $description-color;
 }
 
 .redirections {
   margin-top: 2.5rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1rem;
 }
