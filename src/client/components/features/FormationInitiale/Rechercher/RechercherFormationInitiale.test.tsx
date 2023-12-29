@@ -286,6 +286,21 @@ describe('RechercherFormationInitiale', () => {
 				const monCompteFormationCard = within(servicesItems[3]).getByRole('link');
 				expect(monCompteFormationCard).toHaveAttribute('href', 'https://www.moncompteformation.gouv.fr/espace-prive/html/#/');
 			});
+			it('une cinquième redirection vers le service Pix', () => {
+				// GIVEN
+				const aFormationService = aFormationInitialeService();
+
+				// WHEN
+				render(<DependenciesProvider formationInitialeService={aFormationService}>
+					<RechercherFormationInitiale/>
+				</DependenciesProvider>);
+
+				// THEN
+				const servicesList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+				const servicesItems = within(servicesList).getAllByRole('listitem');
+				const monCompteFormationCard = within(servicesItems[4]).getByRole('link');
+				expect(monCompteFormationCard).toHaveAttribute('href', 'https://app.pix.fr/campagnes/NRABNT181/presentation');
+			});
 		});
 	});
 });

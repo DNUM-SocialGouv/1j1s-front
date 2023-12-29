@@ -12,6 +12,7 @@ import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard
 import { MétierDuSoinPartner } from '~/client/components/features/ServiceCard/MétiersDuSoinPartner';
 import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
+import { PixPartner } from '~/client/components/features/ServiceCard/PixPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -110,6 +111,7 @@ export default function RechercherFormation() {
 				<MonCompteFormationPartner/>
 				<ParcourSupPartner/>
 				<CarifOrefPartner/>
+				<PixPartner/>
 				<MétierDuSoinPartner/>
 			</ServiceCardList>
 		</main>
