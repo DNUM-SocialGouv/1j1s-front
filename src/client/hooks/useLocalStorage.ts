@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function useLocalStorage<T>(key: string): {get: () => T | null, set: (value: T) => void, remove: () => void} {
+function useLocalStorage<T>(key: string): { get: () => T | null, set: (value: T) => void, remove: () => void } {
 	const [defaultValue, setDefaultValue] = useState<T | null>(null);
 
 	const get = (): T | null => {
@@ -21,6 +21,6 @@ function useLocalStorage<T>(key: string): {get: () => T | null, set: (value: T) 
 		remove: () => setDefaultValue(null),
 		set: setDefaultValue,
 	};
-};
+}
 
 export default useLocalStorage;

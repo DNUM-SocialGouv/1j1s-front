@@ -1,12 +1,12 @@
+import { StageService } from '~/client/services/stage/stage.service';
 import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { createSuccess } from '~/server/errors/either';
 
-import { StageService } from './stage.service';
-
-export function aStageService(): StageService {
+export function aStageService(override?: Partial<StageService>): StageService {
 	return {
 		enregistrerOffreDeStage: jest.fn().mockResolvedValue(createSuccess(undefined)),
-	} as unknown as StageService;
+		...override,
+	};
 }
 
 export function anOffreDeStageDepot(): OffreDeStageDepot {

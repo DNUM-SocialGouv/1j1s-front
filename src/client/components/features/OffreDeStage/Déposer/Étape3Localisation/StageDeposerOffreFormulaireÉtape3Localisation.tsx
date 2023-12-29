@@ -8,11 +8,12 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import InputAutocomplétionPays
 	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import { StageService } from '~/client/services/stage/stage.service';
+import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import {
 	ETAPE_ENTREPRISE,
 	ETAPE_LOCALISATION,
@@ -30,7 +31,8 @@ enum Localisation {
 }
 export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	const router = useRouter();
-	const stageService = useDependency<StageService>('stageService');
+	const [isModalErrorSubmitOpen, setIsModalErrorSubmitOpen] = useState<boolean>(false);
+	const stageService = useDependency<BffStageService>('stageService');
 
 	const formRef = useRef<HTMLFormElement>(null);
 
@@ -135,17 +137,21 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				sessionStorageStage.remove();
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
+			setIsModalErrorSubmitOpen(true);
 			setSubmitButtonDisabled(false);
 		}
 	}
 
 	return (
-		<FormulaireÉtapeLayout
-			étape="Étape 3 sur 3 : Localisation du stage"
-			urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
-		>
-			<FormulaireLocalisation />
-		</FormulaireÉtapeLayout>
+		<>
+			<FormulaireÉtapeLayout
+				étape="Étape 3 sur 3 : Localisation du stage"
+				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
+			>
+				<FormulaireLocalisation />
+			</FormulaireÉtapeLayout>
+			<ModalErrorSubmission isOpen={isModalErrorSubmitOpen} onClose={() => setIsModalErrorSubmitOpen(false)}/>
+		</>
 	);
 };
 
