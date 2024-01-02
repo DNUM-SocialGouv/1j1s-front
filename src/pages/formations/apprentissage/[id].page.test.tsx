@@ -165,6 +165,37 @@ describe('getServerSideProps', () => {
 						expect(value).toEqual({ props: { formation: formation, statistiques: statistiques } });
 					});
 				});
+				describe('lorsqu un paramètre supplémentaire est fourni en query' , () => {
+					// Test ajouté suite à un bug
+					it('retourne quand même les props de la page avec les statistiques', async () => {
+						const formation = aFormation();
+						const statistiques: Statistique = {
+							millesime: '2020',
+							region: 'Provence-Alpes-Côte d‘Azur',
+							tauxAutres6Mois: '0.2',
+							tauxEnEmploi6Mois: '0.0',
+							tauxEnFormation: '0.1',
+						};
+						const queryParam = {
+							codeCommune: '13180',
+							codeRomes: 'F1603',
+							distanceCommune: '30',
+							id: '1',
+							latitudeCommune: '48.2',
+							longitudeCommune: '29.10',
+							niveauEtudes: '6',
+							parametreSupplementaire: 'foobarbaz',
+						} as ParsedUrlQuery;
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createSuccess(statistiques) });
+
+						const value = await getServerSideProps({
+							params: { id: '1' },
+							query: queryParam,
+						} as GetServerSidePropsContext<{ id: string }>);
+
+						expect(value).toEqual({ props: { formation: formation, statistiques: statistiques } });
+					});
+				});
 			});
 		});
 	});
