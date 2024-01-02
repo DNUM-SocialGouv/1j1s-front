@@ -8,6 +8,8 @@ import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { Input } from '~/client/components/ui/Form/Input';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -47,7 +49,13 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				value={informationsEntreprise?.nomEmployeur}
 				placeholder="Exemples : Crédit Agricole, SNCF…"
 				required
+				maxLength={255}
 			/>
+			<Champ>
+				<Champ.Label>Nom de l’entreprise ou de l’employeur<Champ.Label.Complement>(255 caractères maximum)</Champ.Label.Complement></Champ.Label>
+				<Champ.Input render={Input} aria-label="Pays" required={true}/>
+				<Champ.Error/>
+			</Champ>
 			<InputText
 				label="Adresse mail de contact"
 				pattern={emailRegex}

@@ -22,7 +22,7 @@ describe('<Entreprise />', () => {
 			render(<Entreprise />);
 
 			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
-			expect(screen.getByLabelText('Nom de l’entreprise ou de l’employeur')).toBeInTheDocument();
+			expect(screen.getByLabelText('Nom de l’entreprise ou de l’employeur (255 caractères maximum)')).toBeInTheDocument();
 			expect(screen.getByText('Adresse mail de contact')).toBeInTheDocument();
 			expect(screen.getByLabelText('Courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
 			expect(screen.getByLabelText('Logo de l’entreprise - lien/URL')).toBeInTheDocument();

@@ -2,7 +2,7 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import { anEmployeurDepotStage, anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
-import depotOffreDeStageController, { enregistrerOffreDeStageHandler } from '~/pages/api/stages/index.controller';
+import depotOffreDeStageController from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { anOffreDeStageDepotStrapi } from '~/server/cms/infra/repositories/strapi.fixture';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
