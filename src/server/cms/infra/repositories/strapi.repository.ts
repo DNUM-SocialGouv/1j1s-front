@@ -28,7 +28,6 @@ const RESOURCE_ACTUALITE = 'actualite';
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
-const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
 
 export class StrapiRepository implements CmsRepository {

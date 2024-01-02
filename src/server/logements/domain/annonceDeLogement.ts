@@ -1,5 +1,5 @@
 import { Image } from '~/client/components/props';
-import { BilanEnergetique, Localisation, Service, Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
+import { BilanEnergetique, Service, Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 export interface AnnonceDeLogement {
 	titre: string
@@ -16,7 +16,7 @@ export interface AnnonceDeLogement {
 	garantie?: number
 	dateDeDisponibilité: string
 	meublé: boolean
-	localisation: Localisation
+	localisation: AnnonceDeLogement.Localisation
 	description: string
 	devise: string
 	imageList: Array<Image>
@@ -25,6 +25,17 @@ export interface AnnonceDeLogement {
 	source: Source
 	urlDeCandidature: string
 	bilanEnergetique: BilanEnergetique
+}
+
+export namespace AnnonceDeLogement {
+	export interface Localisation {
+		ville?: string
+		adresse?: string
+		département?: string
+		codePostal?: string
+		région?: string
+		pays?: string
+	}
 }
 
 export type CategorieEnergetique = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'

@@ -10,8 +10,6 @@ import { Either } from '~/server/errors/either';
 export interface CmsRepository {
 	getActualitéList(): Promise<Either<Actualité[]>>
 
-	// getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>>
-
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
 
 	getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>>
@@ -23,8 +21,6 @@ export interface CmsRepository {
 	getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>>
 
 	getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>>
-
-	// listAllAnnonceDeLogementSlug(): Promise<Either<Array<string>>>
 
 	listAllArticleSlug(): Promise<Either<Array<string>>>
 

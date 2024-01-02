@@ -1,9 +1,9 @@
 import { Image } from '~/server/cms/domain/image';
 
 import { AnnonceDeLogement } from '../domain/annonceDeLogement';
-import { Localisation, StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
+import { StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
 
-function mapAnnonceDeLogementLocalisation(localisation: Localisation): Localisation {
+function mapAnnonceDeLogementLocalisation(localisation: AnnonceDeLogement.Localisation): AnnonceDeLogement.Localisation {
 	return {
 		adresse: localisation.adresse,
 		codePostal: localisation.codePostal,

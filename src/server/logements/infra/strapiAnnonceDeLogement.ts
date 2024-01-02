@@ -1,4 +1,4 @@
-import { CategorieEnergetique } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogement, CategorieEnergetique } from '~/server/logements/domain/annonceDeLogement';
 
 export interface StrapiAnnonceDeLogement {
 	titre: string
@@ -20,21 +20,12 @@ export interface StrapiAnnonceDeLogement {
 	sourceCreatedAt: Date
 	devise: string
 	description: string
-	localisation: Localisation
+	localisation: AnnonceDeLogement.Localisation
 	bilanEnergetique: BilanEnergetique
 	imagesUrl?: Array<{ value: string }>
 	source: Source
 	servicesInclus: Array<{ nom: Service }>
 	servicesOptionnels: Array<{ nom: Service }>
-}
-
-export interface Localisation {
-	ville?: string
-	adresse?: string
-	département?: string
-	codePostal?: string
-	région?: string
-	pays?: string
 }
 
 export interface BilanEnergetique {

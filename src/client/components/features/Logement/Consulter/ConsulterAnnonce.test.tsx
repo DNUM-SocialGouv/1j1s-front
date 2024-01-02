@@ -11,7 +11,6 @@ import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulte
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 import { Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 

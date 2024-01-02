@@ -1,15 +1,15 @@
-import { Localisation } from '~/server/logements/infra/strapiAnnonceDeLogement';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
-function doitSuffixerAdresse(localisation: Localisation) {
+function doitSuffixerAdresse(localisation: AnnonceDeLogement.Localisation) {
 	return localisation.ville != null
 		&& localisation.adresse != null;
 }
 
-function doitWrapperCodePostal(localisation: Localisation) {
+function doitWrapperCodePostal(localisation: AnnonceDeLogement.Localisation) {
 	return localisation.codePostal != null && (localisation.ville != null || localisation.adresse != null);
 }
 
-export default function formatLocalisation(localisation: Localisation) {
+export default function formatLocalisation(localisation: AnnonceDeLogement.Localisation) {
 	const ville = localisation.ville ?? '';
 	let adresse = localisation.adresse ?? '';
 	let codePostal = localisation.codePostal ?? '';
