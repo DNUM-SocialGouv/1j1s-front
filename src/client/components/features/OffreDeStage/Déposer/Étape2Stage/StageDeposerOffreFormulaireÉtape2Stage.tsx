@@ -18,7 +18,7 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
-import { Domaines } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines } from '~/server/stages/domain/stages';
 import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
 

@@ -3,14 +3,11 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { OffreDeStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	mapArticle,
-	mapEnregistrerOffreDeStage,
 	mapMesuresEmployeurs,
-	mapOffreStage,
 	mapServiceJeuneList,
 	mapStrapiListeActualités,
 	mapVideoCampagneApprentissage,
@@ -27,7 +24,6 @@ const RESOURCE_ARTICLE = 'articles';
 const RESOURCE_ACTUALITE = 'actualite';
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
-const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
 
 export class StrapiRepository implements CmsRepository {
@@ -153,12 +149,6 @@ export class StrapiRepository implements CmsRepository {
 		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
 
-	async listAllOffreDeStageSlug(): Promise<Either<Array<string>>> {
-		const query = 'fields[0]=slug';
-		const flatMapSlug = (offreDeStage: Strapi.CollectionType.OffreStage): string => offreDeStage.slug;
-		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.OffreStage, string>(RESOURCE_OFFRE_DE_STAGE, query, flatMapSlug);
-	}
-
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
 		const query = 'populate=deep';
 		return this.getSingleType<Strapi.CollectionType.Article, Article>(this.getResourceMentionObligatoire(type), query, mapArticle);
@@ -185,17 +175,6 @@ export class StrapiRepository implements CmsRepository {
 	async getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>> {
 		const query = 'populate=deep';
 		return this.getSingleType<Strapi.SingleType.LesMesuresEmployeurs, MesureEmployeur[]>(RESOURCE_MESURES_EMPLOYEURS, query, mapMesuresEmployeurs);
-	}
-
-	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
-		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const offreStageList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.OffreStage, OffreDeStage>(RESOURCE_OFFRE_DE_STAGE, query, mapOffreStage);
-		return this.getFirstFromCollection(offreStageList);
-	}
-
-	async saveOffreDeStage(offre: OffreDeStageDepot): Promise<Either<void>> {
-		const offreStrapi = mapEnregistrerOffreDeStage(offre);
-		return this.save<Strapi.CollectionType.OffreStageDepot, void>(RESOURCE_OFFRE_DE_STAGE, offreStrapi);
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

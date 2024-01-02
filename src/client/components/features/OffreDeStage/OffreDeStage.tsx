@@ -3,10 +3,7 @@ import React from 'react';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
-import {
-	Domaines,
-	OffreDeStageIndexée,
-} from '~/server/cms/domain/offreDeStage.type';
+import { Domaines, OffreDeStageIndexée } from '~/server/stages/domain/stages';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 

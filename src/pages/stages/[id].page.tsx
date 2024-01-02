@@ -8,8 +8,8 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import analytics from '~/pages/stages/[id].analytics';
-import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
+import { OffreDeStage } from '~/server/stages/domain/stages';
 import { dependencies } from '~/server/start';
 
 interface ConsulterStagePageProps {
@@ -43,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Stag
 
 	const { id: slug } = context.params;
 
-	const offreDeStage = await dependencies.cmsDependencies.consulterOffreStage.handle(slug);
+	const offreDeStage = await dependencies.stagesDependencies.consulterOffreStage.handle(slug);
 
 	if (offreDeStage.instance === 'failure') {
 		return { notFound: true };

@@ -11,7 +11,7 @@ import {
 } from '~/client/components/features/OffreDeStage/offreDeStageIndexee.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { Domaines } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines } from '~/server/stages/domain/stages';
 
 describe('Une carte d’offre de stage affiche des étiquettes', () => {
 

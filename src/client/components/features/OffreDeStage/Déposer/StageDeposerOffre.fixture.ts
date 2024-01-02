@@ -1,4 +1,4 @@
-import { Domaines } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines } from '~/server/stages/domain/stages';
 
 export const aFormulaireEtapeEntreprise = () => {
 	return {

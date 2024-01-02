@@ -1,10 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Actualité } from '~/server/cms/domain/actualité';
 import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { Domaines, OffreDeStage, OffreDeStageDepot, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
@@ -116,73 +113,6 @@ function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | unde
 	return {
 		alt: response.data.attributes.alternativeText || '',
 		src: response.data.attributes.url,
-	};
-}
-
-export function mapOffreStage(response: Strapi.CollectionType.OffreStage): OffreDeStage {
-	return {
-		dateDeDebutMax: response.dateDeDebutMax,
-		dateDeDebutMin: response.dateDeDebutMin,
-		description: response.description,
-		domaines: response.domaines
-			?.filter((domaine) => domaine.nom !== Strapi.CollectionType.OffreStage.Domaines.Nom.NON_RENSEIGNE)
-			.map((domaine) => domaine.nom as unknown as Domaines) || [],
-		dureeEnJour: response.dureeEnJour ?? undefined,
-		dureeEnJourMax: response.dureeEnJourMax ?? undefined,
-		employeur: response.employeur ? {
-			description: response.employeur.description || undefined,
-			logoUrl: response.employeur.logoUrl || undefined,
-			nom: response.employeur.nom,
-			siteUrl: response.employeur.siteUrl || undefined,
-		}: undefined,
-		id: response.id,
-		localisation: response.localisation ? {
-			codePostal: response.localisation.codePostal || undefined,
-			departement: response.localisation.departement || undefined,
-			pays: response.localisation.pays || undefined,
-			region: response.localisation.region || undefined,
-			ville: response.localisation.ville || undefined,
-		} : undefined,
-		remunerationBase: response.remunerationBase ?? undefined,
-		slug: response.slug,
-		source: response.source || undefined,
-		teletravailPossible: response.teletravailPossible ?? undefined,
-		titre: response.titre,
-		urlDeCandidature: response.urlDeCandidature || undefined,
-	};
-}
-export function mapEnregistrerOffreDeStage(body: OffreDeStageDepot): Strapi.CollectionType.OffreStageDepot {
-	return {
-		dateDeDebutMax: body.dateDeDebutMax,
-		dateDeDebutMin: body.dateDeDebutMin,
-		description: body.description,
-		domaines: body.domaine ? [{
-			nom: body.domaine.toString() as Strapi.CollectionType.OffreStage.Domaines.Nom,
-		}] : [],
-		dureeEnJour: Number(body.duree),
-		employeur: {
-			description: body.employeur.description,
-			email: body.employeur.email,
-			logoUrl: body.employeur.logoUrl || null,
-			nom: body.employeur.nom,
-			siteUrl: body.employeur.siteUrl || null,
-		},
-		identifiantSource: uuidv4(),
-		localisation: {
-			adresse: body.localisation.adresse,
-			codePostal: body.localisation.codePostal,
-			departement: body.localisation.departement || null,
-			pays: body.localisation.pays,
-			region: body.localisation.region || null,
-			ville: body.localisation.ville,
-		},
-		//Ajoute l'offre en 'draft' dans le CMS
-		publishedAt: null,
-		remunerationBase: body.remunerationBase ?? null,
-		source: SourceDesDonnées.INTERNE,
-		teletravailPossible: body.teletravailPossible ?? null,
-		titre: body.titre,
-		urlDeCandidature: body.urlDeCandidature,
 	};
 }
 

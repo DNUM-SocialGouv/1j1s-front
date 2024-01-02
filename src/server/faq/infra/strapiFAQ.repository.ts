@@ -32,7 +32,7 @@ export class StrapiFAQRepository implements FAQRepository {
 	}
 
 	async listAllFAQSlug(): Promise<Either<Array<FAQ.Slug>>> {
-		const query = '[fields][0]=slug';
+		const query = 'fields[0]=slug';
 		const strapiQuestionSlugs = await this.strapiService.getCollectionType<FAQResponseStrapi.QuestionSlug>(RESOURCE_FAQ, query);
 
 		if (isSuccess(strapiQuestionSlugs)) {

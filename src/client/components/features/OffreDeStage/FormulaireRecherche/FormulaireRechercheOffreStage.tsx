@@ -6,7 +6,7 @@ import styles
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
-import { Domaines } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines } from '~/server/stages/domain/stages';
 
 const LIMIT_MAX_FACETS = 100000;
 const LIMIT_MAX_DOMAINS = 100;

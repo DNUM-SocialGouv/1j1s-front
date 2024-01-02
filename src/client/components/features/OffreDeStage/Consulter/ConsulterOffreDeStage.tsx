@@ -7,7 +7,7 @@ import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsB
 import { getHtmlFromMd } from '~/client/components/ui/Marked/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
-import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { OffreDeStage } from '~/server/stages/domain/stages';
 
 interface ConsulterOffreDeStageProps {
 	offreDeStage: OffreDeStage

@@ -10,7 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterOffreStagePage from '~/pages/stages/[id].page';
-import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
+import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 
 describe('<ConsulterOffreStagePage />', () => {
 	const offreDeStage = anOffreDeStage();

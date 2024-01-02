@@ -101,7 +101,7 @@ describe('Strapi FAQ Repository', () => {
 			const strapiService = aStrapiCmsRepository();
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiQuestionSlug()]));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
-			const query= '[fields][0]=slug';
+			const query = 'fields[0]=slug';
 
 			await strapiFAQRepository.listAllFAQSlug();
 

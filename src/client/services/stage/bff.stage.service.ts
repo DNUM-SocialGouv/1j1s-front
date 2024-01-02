@@ -1,14 +1,15 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
-import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
+import { Domaines, OffreStageDepot } from '~/server/stages/domain/stages';
 
 import { HttpClientService } from '../httpClient.service';
+import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export class BffStageService implements StageService {
-
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: HttpClientService) {
+	}
 
 	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Promise<Either<void>> {
 		const offreDeStage = this.préparerDonnéesOffreDeStage(informationsEntreprise, informationsStage, informationsLocalisation);
@@ -49,3 +50,4 @@ export class BffStageService implements StageService {
 		return removeNullOrEmptyValue<OffreDeStageDepot>(formData);
 	}
 }
+

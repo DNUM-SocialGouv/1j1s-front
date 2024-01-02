@@ -48,15 +48,6 @@ export type LocalisationStageIndexée = {
 	pays: string // enum de pays ? (interessant pour savoir si pays en full + majuscule …) (https://www.npmjs.com/package/i18n-iso-countries ?)
 }
 
-export interface LocalisationDepotStageIndexée {
-	adresse: string
-	ville: string
-	departement: string | null
-	codePostal: string
-	region: string | null
-	pays: string
-}
-
 export enum SourceDesDonnées {
 	INTERNE = 'interne',
 	WELCOME_TO_THE_JUNGLE = 'welcome to the jungle',
@@ -94,22 +85,6 @@ export interface EmployeurStageCMS {
 	siteUrl?: string
 }
 
-export interface EmployeurDepotStage {
-	nom: string
-	description: string
-	logoUrl: string | null
-	siteUrl: string | null
-	email: string
-}
-
-export interface DomaineStageCMS {
-	nom: Domaines
-}
-
-export interface DomaineStageDepot {
-	nom: Domaines
-}
-
 export interface OffreDeStage {
 	titre: string
 	id: string
@@ -138,16 +113,39 @@ export namespace OffreDeStage {
 	}
 }
 
-export interface OffreDeStageDepot {
-	dateDeDebutMin: string
-	dateDeDebutMax: string
-	description: string
-	domaine: Domaines
-	duree: string
-	employeur: EmployeurDepotStage
-	localisation: LocalisationDepotStageIndexée
-	remunerationBase: number
-	teletravailPossible: boolean | null
-	titre: string
-	urlDeCandidature: string
+
+export namespace OffreStageDepot {
+	interface LocalisationDepotStageIndexée {
+		adresse: string
+		ville: string
+		departement: string | null
+		codePostal: string
+		region: string | null
+		pays: string
+	}
+
+	interface EmployeurDepotStage {
+		nom: string
+		description: string
+		logoUrl: string | null
+		siteUrl: string | null
+		email: string
+	}
+
+	export interface OffreDeStageDepot {
+		dateDeDebutMin: string
+		dateDeDebutMax: string
+		description: string
+		domaine: Domaines
+		duree: string
+		employeur: EmployeurDepotStage
+		localisation: LocalisationDepotStageIndexée
+		remunerationBase: number
+		teletravailPossible: boolean | null
+		titre: string
+		urlDeCandidature: string
+	}
 }
+
+
+

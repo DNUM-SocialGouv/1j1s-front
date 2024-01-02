@@ -6,8 +6,8 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/cms/domain/offreDeStage.fixture';
-import { Domaines, OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines, OffreDeStage } from '~/server/stages/domain/stages';
+import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { queries } from '~/test-utils';
 
 describe('ConsulterOffreDeStage', () => {

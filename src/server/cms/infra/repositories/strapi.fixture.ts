@@ -1,4 +1,3 @@
-import { SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function aStrapiSingleRelation<T>(data: T): { [Key in keyof Strapi.SingleRelation<T>]: NonNullable<Strapi.SingleRelation<T>[Key]> } {
@@ -193,81 +192,6 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 	};
 }
 
-export function anOffreDeStageResponse(override? : Partial<Strapi.CollectionType.OffreStage>): Strapi.CollectionType.OffreStage {
-	return {
-		createdAt: '2023-01-06T07:49:10.773Z',
-		dateDeDebutMax: '2024-09-01',
-		dateDeDebutMin: '2024-09-01',
-		description: 'Poste ouvert aux personnes en situation de handicap',
-		domaines: [],
-		dureeEnJour: 720,
-		dureeEnJourMax: 800,
-		employeur: {
-			description: null,
-			email: null,
-			logoUrl: null,
-			nom: 'La Relève',
-			siteUrl: null,
-		},
-		id: 'anId',
-		identifiantSource: '036780b7-95ba-4711-bf26-471d1f95051c',
-		localisation: {
-			adresse: null,
-			codePostal: null,
-			departement: null,
-			pays: 'France',
-			region: null,
-			ville: null,
-		},
-		publishedAt: '2023-01-06T07:49:10.756Z',
-		remunerationBase: 1000,
-		slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
-		source: 'jobteaser' as SourceDesDonnées,
-		sourceCreatedAt: '',
-		sourcePublishedAt: '',
-		sourceUpdatedAt: '',
-		teletravailPossible: true,
-		titre: 'Alternance Audit - Tours ( H/F)',
-		updatedAt: '2023-01-06T07:49:10.773Z',
-		urlDeCandidature: 'https://www.jobteaser.com/en/job-offers/10067252',
-		...override,
-	};
-}
-
-export function anOffreDeStageDepotStrapi(): Strapi.CollectionType.OffreStageDepot {
-	return {
-		dateDeDebutMax: '2023-02-03',
-		dateDeDebutMin: '2023-02-03',
-		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
-		domaines: [
-			{ nom: Strapi.CollectionType.OffreStage.Domaines.Nom.ACHAT },
-		],
-		dureeEnJour: 30,
-		employeur: {
-			description: 'description entreprise',
-			email: 'example@example.com',
-			logoUrl: 'https://fake-url.com',
-			nom: 'SNCF',
-			siteUrl: 'https://fake-url.com',
-		},
-		identifiantSource: '123456789',
-		localisation: {
-			adresse: 'Vieux port Marseille',
-			codePostal: '13000',
-			departement: 'Var',
-			pays: 'FR',
-			region: 'Provence-Alpes-Côte d\'Azure',
-			ville: 'Paris',
-		},
-		publishedAt: null,
-		remunerationBase: 560,
-		source: SourceDesDonnées.INTERNE,
-		teletravailPossible: true,
-		titre: 'Assistant conducteur train',
-		urlDeCandidature: 'mailto:admin@example.com',
-	};
-}
-
 export function anEntrepriseRejoindreLaMobilisationStrapi(): Strapi.CollectionType.Entreprise {
 	return {
 		code_postal: '75015',
@@ -284,6 +208,7 @@ export function anEntrepriseRejoindreLaMobilisationStrapi(): Strapi.CollectionTy
 		ville: 'Paris (15e arrondissement)',
 	};
 }
+
 export function aStrapiArticleCollectionType(): Strapi.CollectionType<Strapi.CollectionType.Article> {
 	return aStrapiCollectionType([aStrapiArticle()]);
 }
@@ -328,33 +253,6 @@ export function aStrapiLesMesuresJeunesSingleType(): Strapi.SingleType<Strapi.Si
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		})],
 	});
-}
-
-export function aStrapiOffreDeStageSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.OffreStage, 'slug'>> {
-	return {
-		data: [
-			{
-				attributes: { slug: 'stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba' },
-				id: 222,
-			},
-			{
-				attributes: { slug: 'praktikant-unternehmensbewertung-m-w-d-f5d7f0f1-734b-4e56-8230-5397c8ffa434' },
-				id: 223,
-			},
-			{
-				attributes: { slug: 'associate-consultant-intern-aci-aeb25e90-f124-4d14-a70e-e8eb1b513257' },
-				id: 224,
-			},
-		],
-		meta: {
-			pagination: {
-				page: 1,
-				pageCount: 1,
-				pageSize: 3,
-				total: 3,
-			},
-		},
-	};
 }
 
 export function aStrapiVideosCampagneApprentissage(): Strapi.CollectionType<Strapi.CollectionType.VideoCampagneApprentissage> {

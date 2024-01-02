@@ -1,6 +1,7 @@
 import { StageService } from '~/client/services/stage/stage.service';
-import { Domaines, EmployeurDepotStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { createSuccess } from '~/server/errors/either';
+import { Domaines, EmployeurDepotStage,OffreStageDepot } from '~/server/stages/domain/stages';
+import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export function aStageService(override?: Partial<StageService>): StageService {
 	return {
