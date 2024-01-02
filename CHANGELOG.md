@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.210.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.210.0...v3.210.1) (2024-01-02)
+
+
+### Bug Fixes
+
+* evite page 404 sur le detail d'une formation apprentissage ([#2517](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2517)) ([5017394](https://github.com/DNUM-SocialGouv/1j1s-front/commit/501739413d4132ccd39abc08057b4bb2c59a2955))
+
 ## [3.210.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.209.1...v3.210.0) (2024-01-02)
 
 
