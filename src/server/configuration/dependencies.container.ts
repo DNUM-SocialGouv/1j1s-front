@@ -350,7 +350,7 @@ export function dependenciesContainer(): Dependencies {
 	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository, defaultErrorManagementService);
 	const annonceDeLogementDependencies = annonceDeLogementDependenciesContainer(annonceDeLogementRepository);
 
-	const stagesRepository = new StrapiStagesRepository(cmsRepository);
+	const stagesRepository = new StrapiStagesRepository(cmsRepository, defaultErrorManagementService);
 	const stagesDependencies = stagesDependenciesContainer(stagesRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);

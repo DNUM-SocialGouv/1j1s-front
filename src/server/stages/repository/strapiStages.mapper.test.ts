@@ -2,7 +2,7 @@ import { Domaines, OffreDeStage, SourceDesDonnées } from '~/server/stages/domai
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { anOffreDeStageResponse } from '~/server/stages/repository/strapiStages.fixture';
-import { flatMapSlug, mapOffreStage } from '~/server/stages/repository/strapiStages.mapper';
+import { mapOffreStage } from '~/server/stages/repository/strapiStages.mapper';
 
 describe('mapOffreDeStage', () => {
 	it('map vers une offre de stage à afficher', () => {
@@ -81,11 +81,5 @@ describe('mapOffreDeStage', () => {
 
 			expect(result.domaines).toStrictEqual([Domaines.ACHAT]);
 		});
-	});
-});
-
-describe('flatMapSlug', () => {
-	it('renvoie le slug', () => {
-		expect(flatMapSlug(anOffreDeStageResponse({ slug: 'slug' }))).toStrictEqual('slug');
 	});
 });

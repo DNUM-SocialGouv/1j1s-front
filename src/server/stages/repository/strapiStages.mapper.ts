@@ -36,10 +36,6 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 	};
 }
 
-export function flatMapSlug(offreDeStage: OffreStageResponseStrapi.OffreStage): string {
-	return offreDeStage.slug;
-}
-
 export function mapEnregistrerOffreDeStage(body: OffreStageDepot.OffreDeStageDepot): OffreStageDepotStrapi{
 	return {
 		dateDeDebutMax: body.dateDeDebutMax,
@@ -65,7 +61,7 @@ export function mapEnregistrerOffreDeStage(body: OffreStageDepot.OffreDeStageDep
 			region: body.localisation.region || null,
 			ville: body.localisation.ville,
 		},
-		//Ajoute l'offre en 'draft' dans le CMS
+		// NOTE (BRUJ 02/01/2024): 'publishedAt' à null rajoute l'offre en draft dans le cms
 		publishedAt: null,
 		remunerationBase: body.remunerationBase ?? null,
 		source: SourceDesDonnées.INTERNE,

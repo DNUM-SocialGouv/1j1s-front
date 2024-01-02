@@ -41,6 +41,6 @@ export function mapFicheMetier(response: StrapiFicheMetier): FicheMétier {
 
 const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
 
-export function getNomMetier (strapiFicheMetier: StrapiFicheMetier): string {
-	return(strapiFicheMetier[FICHE_METIER_NOM_METIER_FIELD_NAME]);
+export function getNomMetier(strapiFicheMetier: StrapiFicheMetier): string {
+	return (strapiFicheMetier[FICHE_METIER_NOM_METIER_FIELD_NAME]);
 }
