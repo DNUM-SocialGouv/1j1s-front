@@ -162,18 +162,19 @@ describe('RechercherJobEte', () => {
 		it('affiche le nombre de résultat au singulier', async () => {
 			// GIVEN
 			const localisationServiceMock = aLocalisationService();
+			const expected = aRésultatsRechercheOffre({
+				nombreRésultats: 1,
+				résultats: [
+					aBarmanOffre(),
+				],
+			});
 			mockUseRouter({ query: { motCle: 'barman', page: '1' } });
 
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={aRésultatsRechercheOffre({
-						nombreRésultats: 1,
-						résultats: [
-							aBarmanOffre(),
-						],
-					})}/>
+					<RechercherJobEte resultats={expected}/>
 				</DependenciesProvider>,
 			);
 
@@ -189,16 +190,17 @@ describe('RechercherJobEte', () => {
 		it('affiche un message dédié', async () => {
 			// GIVEN
 			const localisationServiceMock = aLocalisationService();
+			const expected = aRésultatsRechercheOffre({
+				nombreRésultats: 0,
+				résultats: [],
+			});
 			mockUseRouter({ query: { motCle: 'mot clé qui ne donne aucun résultat', page: '1' } });
 
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherJobEte resultats={aRésultatsRechercheOffre({
-						nombreRésultats: 0,
-						résultats: [],
-					})}/>
+					<RechercherJobEte resultats={expected}/>
 				</DependenciesProvider>,
 			);
 

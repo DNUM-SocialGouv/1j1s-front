@@ -50,7 +50,7 @@ function jobEteFiltreMapper(query: RequestQuery): JobEteFiltre {
 	return {
 		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) as DomaineCode[] : undefined,
 		localisation: mapLocalisation(query),
-		motClé: query.motCle ? String(query.motCle) : '',
+		motClé: query.motCle ? String(query.motCle) : undefined,
 		page: Number(query.page),
 	};
 }

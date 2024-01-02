@@ -51,7 +51,7 @@ function jobÉtudiantFiltreMapper(query: RequestQuery): JobÉtudiantFiltre {
 	return {
 		grandDomaineList: query.grandDomaine ? queryToArray(query.grandDomaine) : undefined,
 		localisation: mapLocalisation(query),
-		motClé: query.motCle ? String(query.motCle) : '',
+		motClé: query.motCle ? String(query.motCle) : undefined,
 		page: Number(query.page),
 	};
 }
