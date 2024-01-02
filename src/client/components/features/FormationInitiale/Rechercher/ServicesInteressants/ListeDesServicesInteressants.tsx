@@ -5,6 +5,7 @@ import { CarifOrefPartner } from '~/client/components/features/ServiceCard/Carif
 import { FormationsEnApprentissageCard } from '~/client/components/features/ServiceCard/FormationsEnApprentissageCard';
 import { MonCompteFormationPartner } from '~/client/components/features/ServiceCard/MonCompteFormationPartner';
 import { ParcourSupPartner } from '~/client/components/features/ServiceCard/ParcourSupPartner';
+import { PixPartner } from '~/client/components/features/ServiceCard/PixPartner';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 
 export function ListeDesServicesInteressants() {
@@ -15,6 +16,7 @@ export function ListeDesServicesInteressants() {
 			<FormationsEnApprentissageCard/>
 			<ParcourSupPartner/>
 			<MonCompteFormationPartner/>
+			<PixPartner/>
 		</ServiceCardList>
 	</>;;
 }

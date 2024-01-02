@@ -168,11 +168,13 @@ describe('RechercherFormation', () => {
 		const parcoursupCard = within(listeDeServices).getByRole('heading', { name: /La plateforme de pré-inscription en première année de l’enseignement supérieur/i });
 		const carifOrefCard = within(listeDeServices).getByRole('heading', { name: /Besoin d’une formation qualifiante pour préparer votre entrée, votre maintien ou votre retour sur le marché du travail ?/i });
 		const metiersDuSoinCard = within(listeDeServices).getByRole('heading', { name: /Renseignez-vous sur les métiers du soin/i });
+		const pixCard = within(listeDeServices).getByRole('heading', { name: /Testez vous sur Pix !/i });
 		expect(campagneApprentissageCard).toBeVisible();
 		expect(cpfCard).toBeVisible();
 		expect(parcoursupCard).toBeVisible();
 		expect(carifOrefCard).toBeVisible();
 		expect(metiersDuSoinCard).toBeVisible();
+		expect(pixCard).toBeVisible();
 	});
 
 	it('filtre les query params envoyés au service', async () => {
