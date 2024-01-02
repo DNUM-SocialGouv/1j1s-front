@@ -1,6 +1,6 @@
-import { createSuccess } from '../../errors/either';
-import { aFicheMetier, aListNomMetier } from '../../fiche-metier/domain/ficheMetier.fixture';
-import { StagesRepository } from '../domain/stages.repository';
+import { createSuccess } from '~/server/errors/either';
+import { aFicheMetier, aListNomMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
+import { StagesRepository } from '~/server/stages/domain/stages.repository';
 
 export function aStagesRepository(override?: Partial<StagesRepository>): StagesRepository{
 	return {

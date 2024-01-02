@@ -1,4 +1,4 @@
-import { SourceDesDonnées } from '../domain/stages';
+import { SourceDesDonnées } from '~/server/stages/domain/stages';
 
 
 export namespace OffreStageResponseStrapi {

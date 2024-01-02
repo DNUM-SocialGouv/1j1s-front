@@ -1,8 +1,7 @@
+import { StagesRepository } from '~/server/stages/domain/stages.repository';
+import { ConsulterOffreStageUseCase } from '~/server/stages/useCase/consulterOffreStage.useCase';
 import { EnregistrerOffreDeStageUseCase } from '~/server/stages/useCase/enregistrerOffreDeStage.useCase';
-
-import { StagesRepository } from '../domain/stages.repository';
-import { ConsulterOffreStageUseCase } from '../useCase/consulterOffreStage.useCase';
-import { ListerStagesSlugsUseCase } from '../useCase/listerStagesSlugs.useCase';
+import { ListerStagesSlugsUseCase } from '~/server/stages/useCase/listerStagesSlugs.useCase';
 
 export interface StagesDependencies {
 	consulterOffreStage: ConsulterOffreStageUseCase
