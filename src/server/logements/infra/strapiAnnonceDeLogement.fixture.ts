@@ -1,4 +1,7 @@
-import { Service, StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
+
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
+
+import { StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
 
 const aDate = () => new Date('2022-01-01T00:00:00.000Z');
 export function aStrapiAnnonceDeLogement(override?: Partial<StrapiAnnonceDeLogement>): StrapiAnnonceDeLogement {
@@ -19,12 +22,12 @@ export function aStrapiAnnonceDeLogement(override?: Partial<StrapiAnnonceDeLogem
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			{ nom: Service.INTERNET },
-			{ nom: Service.ASPIRATEUR },
+			{ nom: AnnonceDeLogement.Service.INTERNET },
+			{ nom: AnnonceDeLogement.Service.ASPIRATEUR },
 		],
 		servicesOptionnels: [
-			{ nom: Service.TV },
-			{ nom: Service.LOCAL_A_VELO },
+			{ nom: AnnonceDeLogement.Service.TV },
+			{ nom: AnnonceDeLogement.Service.LOCAL_A_VELO },
 		],
 		slug: 'logement-slug',
 		source: 'immojeune',

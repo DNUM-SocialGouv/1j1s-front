@@ -1,5 +1,4 @@
 import { Image } from '~/client/components/props';
-import { BilanEnergetique, Service, Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 export interface AnnonceDeLogement {
 	titre: string
@@ -20,11 +19,11 @@ export interface AnnonceDeLogement {
 	description: string
 	devise: string
 	imageList: Array<Image>
-	servicesInclus: Array<Service>
-	servicesOptionnels: Array<Service>
-	source: Source
+	servicesInclus: Array<AnnonceDeLogement.Service>
+	servicesOptionnels: Array<AnnonceDeLogement.Service>
+	source: AnnonceDeLogement.Source
 	urlDeCandidature: string
-	bilanEnergetique: BilanEnergetique
+	bilanEnergetique: AnnonceDeLogement.BilanEnergetique
 }
 
 export namespace AnnonceDeLogement {
@@ -36,6 +35,39 @@ export namespace AnnonceDeLogement {
 		région?: string
 		pays?: string
 	}
-}
 
-export type CategorieEnergetique = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
+	export interface BilanEnergetique {
+		consommationEnergetique?: CategorieEnergetique,
+		emissionDeGaz?: CategorieEnergetique
+	}
+
+	export type CategorieEnergetique = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G'
+
+	export enum Service {
+		ASCENSEUR = 'ascenseur',
+		ASPIRATEUR = 'aspirateur',
+		CAVE = 'cave',
+		FER_A_REPASSER = 'fer à repasser',
+		FIBRE_OPTIQUE = 'fibre optique',
+		FOUR = 'four',
+		GARAGE = 'garage',
+		GARDIEN_RESIDENCE = 'gardien résidentiel',
+		INTERNET = 'internet',
+		LAVE_LINGE = 'machine à laver',
+		LAVE_VAISSELLE = 'lave vaisselle',
+		LOCAL_A_VELO = 'local à vélo',
+		MICRO_ONDE = 'micro-onde',
+		NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
+		PARKING = 'parking',
+		PISCINE = 'piscine',
+		REFRIGERATEUR = 'réfrigérateur',
+		SALLE_DE_BAIN_PRIVATIVE = 'salle de bain privative',
+		SALLE_DE_SPORT = 'salle de sport',
+		SECHE_LINGE = 'sèche linge',
+		TERRACE = 'terrace',
+		TV = 'télévision',
+		NON_RENSEIGNE = 'non renseigné',
+	}
+
+	export type Source = 'immojeune' | 'studapart'
+}

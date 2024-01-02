@@ -1,4 +1,4 @@
-import { Service } from '~/server/logements/infra/strapiAnnonceDeLogement';
+
 
 import { AnnonceDeLogement } from './annonceDeLogement';
 
@@ -21,12 +21,12 @@ export function anAnnonceDeLogement(override?: Partial<AnnonceDeLogement>): Anno
 		prix: 1000,
 		prixHT: 980,
 		servicesInclus: [
-			Service.INTERNET,
-			Service.ASPIRATEUR,
+			AnnonceDeLogement.Service.INTERNET,
+			AnnonceDeLogement.Service.ASPIRATEUR,
 		],
 		servicesOptionnels: [
-			Service.TV,
-			Service.LOCAL_A_VELO,
+			AnnonceDeLogement.Service.TV,
+			AnnonceDeLogement.Service.LOCAL_A_VELO,
 		],
 		source: 'immojeune',
 		surface: 10,

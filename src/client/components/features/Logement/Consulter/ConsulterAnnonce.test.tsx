@@ -12,7 +12,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { LocaleProvider } from '~/client/context/locale.context';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
-import { Source } from '~/server/logements/infra/strapiAnnonceDeLogement';
 
 describe('<ConsulterAnnonce />', () => {
 	beforeEach(() => {
@@ -241,8 +240,7 @@ describe('<ConsulterAnnonce />', () => {
 	describe('source', () => {
 		describe('quand la source est immojeune', () => {
 			it('retourne le logo immojeune',  () => {
-				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'immojeune' as Source;
+				const annonceDeLogement = anAnnonceDeLogement({ source: 'immojeune' });
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
 				expect(diffuseur).toBeVisible();
@@ -254,8 +252,7 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est studapart', () => {
 			it('retourne le logo studapart',  () => {
-				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'studapart' as Source;
+				const annonceDeLogement = anAnnonceDeLogement({ source: 'studapart' });
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.getByText('Ce bien est diffusé par');
 				expect(diffuseur).toBeVisible();
@@ -267,8 +264,9 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
-				const annonceDeLogement = anAnnonceDeLogement();
-				annonceDeLogement.source = 'seLoger' as Source;
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-expect-error
+				const annonceDeLogement = anAnnonceDeLogement({ source: 'seloger' });
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
 				const diffuseur = screen.queryByText('Ce bien est diffusé par');
 				expect(diffuseur).not.toBeInTheDocument();

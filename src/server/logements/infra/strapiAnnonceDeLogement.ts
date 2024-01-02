@@ -1,4 +1,4 @@
-import { AnnonceDeLogement, CategorieEnergetique } from '~/server/logements/domain/annonceDeLogement';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 export interface StrapiAnnonceDeLogement {
 	titre: string
@@ -21,42 +21,9 @@ export interface StrapiAnnonceDeLogement {
 	devise: string
 	description: string
 	localisation: AnnonceDeLogement.Localisation
-	bilanEnergetique: BilanEnergetique
+	bilanEnergetique: AnnonceDeLogement.BilanEnergetique
 	imagesUrl?: Array<{ value: string }>
-	source: Source
-	servicesInclus: Array<{ nom: Service }>
-	servicesOptionnels: Array<{ nom: Service }>
+	source: AnnonceDeLogement.Source
+	servicesInclus: Array<{ nom: AnnonceDeLogement.Service }>
+	servicesOptionnels: Array<{ nom: AnnonceDeLogement.Service }>
 }
-
-export interface BilanEnergetique {
-	consommationEnergetique?: CategorieEnergetique,
-	emissionDeGaz?: CategorieEnergetique
-}
-
-export enum Service {
-	ASCENSEUR = 'ascenseur',
-	ASPIRATEUR = 'aspirateur',
-	CAVE = 'cave',
-	FER_A_REPASSER = 'fer à repasser',
-	FIBRE_OPTIQUE = 'fibre optique',
-	FOUR = 'four',
-	GARAGE = 'garage',
-	GARDIEN_RESIDENCE = 'gardien résidentiel',
-	INTERNET = 'internet',
-	LAVE_LINGE = 'machine à laver',
-	LAVE_VAISSELLE = 'lave vaisselle',
-	LOCAL_A_VELO = 'local à vélo',
-	MICRO_ONDE = 'micro-onde',
-	NECESSAIRE_DE_NETTOYAGE = 'nécessaire de nettoyage',
-	PARKING = 'parking',
-	PISCINE = 'piscine',
-	REFRIGERATEUR = 'réfrigérateur',
-	SALLE_DE_BAIN_PRIVATIVE = 'salle de bain privative',
-	SALLE_DE_SPORT = 'salle de sport',
-	SECHE_LINGE = 'sèche linge',
-	TERRACE = 'terrace',
-	TV = 'télévision',
-	NON_RENSEIGNE = 'non renseigné',
-}
-
-export type Source = 'immojeune' | 'studapart'

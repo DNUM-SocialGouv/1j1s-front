@@ -3,7 +3,8 @@ import React from 'react';
 
 import styles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
-import { Service } from '~/server/logements/infra/strapiAnnonceDeLogement';
+import Service = AnnonceDeLogement.Service
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 interface ServicesProps {
 	inclus: Array<Service>;
