@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.210.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.209.1...v3.210.0) (2024-01-02)
+
+
+### Features
+
+* **pix-partner:** ajout de carte partenaire pix sur formation initiale et formation en alternance ([#2512](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2512)) ([1caa3f0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1caa3f0a4d6dce844c033180d48fa589ca709e3f))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2513](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2513)) ([202c69c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/202c69cd7a25b790ab6a53f8b1bd0ef51dd4eacd))
+
 ## [3.209.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.209.0...v3.209.1) (2023-12-29)
 
 
