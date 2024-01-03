@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {
 	FormulaireRechercheJobEte,
@@ -23,42 +23,31 @@ import {
 	LightHeroSecondaryText,
 } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
-import { OffreService } from '~/client/services/offre/offre.service';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE, Offre } from '~/server/offres/domain/offre';
+import {
+	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
+	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
+	Offre,
+	RésultatsRechercheOffre,
+} from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job d’été';
 const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
 
-export function RechercherJobEte() {
+interface RechercherJobEteProps {
+	erreurRecherche?: Erreur
+	resultats?: RésultatsRechercheOffre
+}
+
+export function RechercherJobEte(props: RechercherJobEteProps) {
 	const offreEmploiQuery = useOffreQuery();
-	const offreService = useDependency<OffreService>('offreService');
 
-	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [jobEteList, setJobEteList] = useState<Offre[]>([]);
-	const [nombreResultats, setNombreResultats] = useState(0);
-	const [isLoading, setIsLoading] = useState(false);
-	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
-
-	useEffect(() => {
-		setIsLoading(true);
-		setErreurRecherche(undefined);
-		offreService.rechercherJobEte(offreEmploiQuery)
-			.then((response) => {
-				if (response.instance === 'success') {
-					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`));
-					setJobEteList(response.result.résultats);
-					setNombreResultats(response.result.nombreRésultats);
-				} else {
-					setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-					setErreurRecherche(response.errorType);
-				}
-				setIsLoading(false);
-			});
-	}, [offreEmploiQuery, offreService]);
+	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${props.resultats?.nombreRésultats === 0 ? ' - Aucun résultat' : ''}`);
+	const jobEteList = props.resultats?.résultats || [];
+	const nombreResultats = props.resultats?.nombreRésultats || 0;
+	const erreurRecherche = props.erreurRecherche;
 
 	const messageResultatRecherche: string = useMemo(() => {
 		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
@@ -99,7 +88,7 @@ export function RechercherJobEte() {
 					erreurRecherche={erreurRecherche}
 					étiquettesRecherche={etiquettesRecherche}
 					formulaireRecherche={<FormulaireRechercheJobEte/>}
-					isLoading={isLoading}
+					isLoading={false}
 					messageRésultatRecherche={messageResultatRecherche}
 					nombreSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
