@@ -14,7 +14,7 @@ export class StrapiAnnonceDeLogementRepository implements AnnonceDeLogementRepos
 	}
 
 	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
-		const query = `filters[slug][$eq]=${slug}`;
+		const query = `filters[slug][$eq]=${slug}&populate=deep`;
 		const strapiAnnonceDeLogement = await this.strapiService.getFirstFromCollectionType<StrapiAnnonceDeLogement>(RESOURCE_ANNONCE_DE_LOGEMENT, query);
 
 		if (isFailure(strapiAnnonceDeLogement)) {
