@@ -9,10 +9,10 @@ import {
 import { mapStatistiques } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.mapper';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
-import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
-	constructor(private readonly httpClientService: PublicHttpClientService, private readonly apiGeoLocalisationRepository: LocalisationRepository, private readonly errorManagementService: ErrorManagementService) {}
+	constructor(private readonly httpClientService: AuthenticatedHttpClientService, private readonly apiGeoLocalisationRepository: LocalisationRepository, private readonly errorManagementService: ErrorManagementService) {}
 
 	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
 		try {

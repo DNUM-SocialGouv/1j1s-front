@@ -275,7 +275,7 @@ export function dependenciesContainer(): Dependencies {
 
 	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
-	const trajectoiresProHttpClientService = new PublicHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService));
+	const trajectoiresProHttpClientService = new AuthenticatedHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService), loggerService);
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
 	const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService, apiGeoErrorManagementService);

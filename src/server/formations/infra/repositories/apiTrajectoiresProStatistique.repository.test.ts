@@ -14,7 +14,10 @@ import { aLocalisationRepository } from '~/server/localisations/domain/localisat
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
-import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import {
+	anAuthenticatedHttpClientService,
+	anAxiosResponse,
+} from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('apiTrajectoiresProCertification.repository', () => {
 	let codeCertification: string;
@@ -27,7 +30,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 	describe('get', () => {
 		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
-			const httpService = aPublicHttpClientService();
+			const httpService = anAuthenticatedHttpClientService();
 			const localisationRepository = aLocalisationRepository();
 			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
@@ -39,7 +42,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
 			it('retourne l’erreur renvoyée par l’api geoLocalisation', async () => {
-				const httpService = aPublicHttpClientService();
+				const httpService = anAuthenticatedHttpClientService();
 				const localisationRepository = aLocalisationRepository();
 				const failure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(failure);
@@ -55,7 +58,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
 			it('appelle l’api trajectoiresProCertification avec les bons paramètres', async () => {
-				const httpService = aPublicHttpClientService();
+				const httpService = anAuthenticatedHttpClientService();
 				const localisationRepository = aLocalisationRepository();
 				const codeRegion = createSuccess('11');
 				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(codeRegion);
@@ -70,7 +73,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 			describe('lorsque l’appel à l’api trajectoiresProCertification échoue', () => {
 				it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
-					const httpService = aPublicHttpClientService();
+					const httpService = anAuthenticatedHttpClientService();
 					const localisationRepository = aLocalisationRepository();
 					const errorManagementService = anErrorManagementService();
 					const httpError = anHttpError(404);
@@ -96,7 +99,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 			describe('lorsque l’appel à l’api trajectoiresProCertification réussit', () => {
 				describe('et que la région des statistiques n’est pas retournée', () => {
 					it('une erreur est logguée', async () => {
-						const httpService = aPublicHttpClientService();
+						const httpService = anAuthenticatedHttpClientService();
 						const localisationRepository = aLocalisationRepository();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
 							region: undefined,
@@ -117,7 +120,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						}));
 					});
 					it('une erreur est retournée par l‘error management service', async () => {
-						const httpService = aPublicHttpClientService();
+						const httpService = anAuthenticatedHttpClientService();
 						const localisationRepository = aLocalisationRepository();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
 							region: undefined,
@@ -137,7 +140,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 
 				describe('et que la région est retournée mais pas les statistiques', () => {
 					it('une erreur est logguée', async () => {
-						const httpService = aPublicHttpClientService();
+						const httpService = anAuthenticatedHttpClientService();
 						const localisationRepository = aLocalisationRepository();
 						const errorManagementService = anErrorManagementService();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
@@ -164,7 +167,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						}));
 					});
 					it('une erreur est retournée par la gestion d’erreur', async () => {
-						const httpService = aPublicHttpClientService();
+						const httpService = anAuthenticatedHttpClientService();
 						const localisationRepository = aLocalisationRepository();
 						const errorManagementService = anErrorManagementService();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
@@ -184,7 +187,7 @@ describe('apiTrajectoiresProCertification.repository', () => {
 				describe('et la réponse contient la région et au moins une statistique', () => {
 					it('retourne les statistiques de la formation', async () => {
 						// Given
-						const httpService = aPublicHttpClientService();
+						const httpService = anAuthenticatedHttpClientService();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse({
 							millesime: '2020_2021',
 							region: {
