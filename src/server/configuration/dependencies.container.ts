@@ -338,7 +338,7 @@ export function dependenciesContainer(): Dependencies {
 	const faqRepository = new StrapiFAQRepository(cmsRepository);
 	const faqDependencies=  FAQDependenciesContainer(faqRepository);
 
-	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository);
+	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository, defaultErrorManagementService);
 	const annonceDeLogementDependencies = annonceDeLogementDependenciesContainer(annonceDeLogementRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);

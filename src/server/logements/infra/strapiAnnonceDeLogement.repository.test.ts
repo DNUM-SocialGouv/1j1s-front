@@ -1,8 +1,9 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
-import { createFailure, createSuccess, Success } from '~/server/errors/either';
+import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
 import { aStrapiAnnonceDeLogement } from './strapiAnnonceDeLogement.fixture';
 import { StrapiAnnonceDeLogementRepository } from './strapiAnnonceDeLogement.repository';
@@ -38,6 +39,44 @@ describe('Strapi annonces de logements', () => {
 				// THEN
 				expect(result.instance).toBe('success');
 				expect((result as Success<AnnonceDeLogement>).result).toEqual(anAnnonceDeLogement());
+			});
+
+			describe('si le mapping vers annonce de logement est en erreur', () => {
+				it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
+					// GIVEN
+					const strapiService = aStrapiCmsRepository();
+					const errorManagementService = anErrorManagementService();
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
+					const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, errorManagementService);
+					const slug = aStrapiAnnonceDeLogement().slug;
+
+					// WHEN
+					await strapiAnnonceDeLogementRepository.getAnnonceDeLogementBySlug(slug);
+
+					// THEN
+					expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(
+						expect.any(Error),
+						{ apiSource: 'Strapi - annonce de logement', contexte: 'consulter détail', message: 'impossible de mapper vers une annonce de logement' });
+				});
+				it('retourne une erreur CONTENU INDISPONIBLE', async () => {
+					// GIVEN
+					const strapiService = aStrapiCmsRepository();
+					const errorManagementService = anErrorManagementService();
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
+					const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, errorManagementService);
+					const slug = aStrapiAnnonceDeLogement().slug;
+
+					// WHEN
+					const result = await strapiAnnonceDeLogementRepository.getAnnonceDeLogementBySlug(slug);
+
+					// THEN
+					expect(result.instance).toBe('failure');
+					expect((result as Failure).errorType).toEqual(ErreurMetier.CONTENU_INDISPONIBLE);
+				});
 			});
 		});
 
