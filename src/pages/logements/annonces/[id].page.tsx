@@ -57,7 +57,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Loge
 	}
 	const { id: slug } = context.params;
 
-	const annonceDeLogement = await dependencies.cmsDependencies.consulterAnnonceLogement.handle(slug);
+	const annonceDeLogement = await dependencies.annonceDeLogementDependencies.consulterAnnonceLogementUseCase.handle(slug);
 	if (annonceDeLogement.instance === 'failure') {
 		return { notFound: true };
 	}
