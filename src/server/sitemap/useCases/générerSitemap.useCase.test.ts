@@ -7,10 +7,10 @@ import { aFAQRepository } from '~/server/faq/infra/strapiFAQ.repository.fixture'
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import { aFicheMetierRepository } from '~/server/fiche-metier/infra/strapiFicheMetier.repository.fixture';
 import { AnnonceDeLogementRepository } from '~/server/logements/domain/annonceDeLogement.repository';
+import { anAnnonceDeLogementSlugList } from '~/server/logements/infra/strapiAnnonceDeLogement.fixture';
 import { anAnnonceDeLogementRepository } from '~/server/logements/infra/strapiAnnonceDeLogement.repository.fixture';
 import {
 	aFicheMetierNomMetierList,
-	anAnnonceDeLogementPathList,
 	anArticlePathList,
 	anOffreDeStagePathList,
 	aSitemap,
@@ -31,7 +31,7 @@ describe('GénérerSitemapUseCase', () => {
 		cmsRepository = aStrapiCmsRepository();
 		cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
 		faqRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aListeFAQSlug()));
-		annonceDeLogementRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementPathList()));
+		annonceDeLogementRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementSlugList()));
 		cmsRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStagePathList()));
 	});
 	describe('feature flip Formation en apprentissage', () => {

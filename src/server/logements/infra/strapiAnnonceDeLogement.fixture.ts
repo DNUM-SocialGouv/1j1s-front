@@ -1,4 +1,3 @@
-
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 import { StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
@@ -41,4 +40,12 @@ export function aStrapiAnnonceDeLogement(override?: Partial<StrapiAnnonceDeLogem
 		url: 'lien-immo-jeune.com',
 		...override,
 	};
+}
+
+export function anAnnonceDeLogementSlugList(): Array<string> {
+	return [
+		'studio-bis-de-28m-a-partir-de-645-1439954',
+		'appartement-t2-de-30m-a-partir-de-675-par-mois-1439955',
+		'studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875',
+	];
 }

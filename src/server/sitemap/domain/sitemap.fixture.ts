@@ -90,14 +90,6 @@ export function anOffreDeStagePathList(): Array<string> {
 	];
 }
 
-export function anAnnonceDeLogementPathList(): Array<string> {
-	return [
-		'studio-bis-de-28m-a-partir-de-645-1439954',
-		'appartement-t2-de-30m-a-partir-de-675-par-mois-1439955',
-		'studio-avec-grand-lit-double-et-canape-de-23-24-m-a-partir-de-465-par-mois-1470875',
-	];
-}
-
 export function aSitemap() {
 	return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
