@@ -3,6 +3,7 @@
 $margin-vertical: 0.5rem;
 
 .champ {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: $margin-vertical;
 }

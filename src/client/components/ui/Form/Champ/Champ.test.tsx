@@ -234,6 +234,8 @@ describe('<Champ/>', () => {
 
 			expect(erreur).toBeVisible();
 		});
+
+		it.todo('affiche l’erreur suelement quand le champ est touché et qu‘il y a un message d’erreur');
 	});
 });
 

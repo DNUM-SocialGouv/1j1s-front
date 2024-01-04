@@ -96,7 +96,7 @@ function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>
 		id && setErrorId(id);
 	}, [id, setErrorId]);
 
-	return (touched && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
+	return (touched && errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {

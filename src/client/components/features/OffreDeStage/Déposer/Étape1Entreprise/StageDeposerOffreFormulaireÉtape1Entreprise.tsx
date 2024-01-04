@@ -4,7 +4,9 @@ import React, {
 	useRef,
 } from 'react';
 
-import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
+import {
+	StageDeposerOffreFormulaireLayout,
+} from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -25,7 +27,7 @@ import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
 
 const URL_REGEX = '(https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*))';
 
-enum Employeur {
+enum InputName {
 	DESCRIPTION = 'descriptionEmployeur',
 	EMAIL = 'emailEmployeur',
 	LOGO = 'logoEmployeur',
@@ -43,34 +45,53 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	function ChampsObligatoires() {
 		return <>
-			<InputText
-				label="Nom de l’entreprise ou de l’employeur"
-				name={Employeur.NOM}
-				value={informationsEntreprise?.nomEmployeur}
-				placeholder="Exemples : Crédit Agricole, SNCF…"
-				required
-				maxLength={255}
-			/>
 			<Champ>
-				<Champ.Label>Nom de l’entreprise ou de l’employeur<Champ.Label.Complement>(255 caractères maximum)</Champ.Label.Complement></Champ.Label>
-				<Champ.Input render={Input} aria-label="Pays" required={true}/>
+				<Champ.Label>Nom de l’entreprise ou de l’employeur
+					<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name={InputName.NOM}
+										 required
+										 maxLength={255}
+										 defaultValue={informationsEntreprise?.nomEmployeur}/>
+				<Champ.Error/>
+				<Champ.Hint>255 caractères maximum</Champ.Hint>
+			</Champ>
+			<Champ>
+				<Champ.Label>Adresse mail de contact
+					<Tooltip icon="information" ariaLabel="informations supplémentaires"
+									 tooltipId="informations-supplementaires">Cette adresse de contact sera utilisée dans le cas où
+						il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière.
+						Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.
+					</Tooltip>
+					<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name={InputName.EMAIL}
+										 pattern={emailRegex}
+										 defaultValue={informationsEntreprise?.emailEmployeur}
+										 required/>
 				<Champ.Error/>
 			</Champ>
-			<InputText
-				label="Adresse mail de contact"
-				pattern={emailRegex}
-				name={Employeur.EMAIL}
-				value={informationsEntreprise?.emailEmployeur}
-				placeholder="Exemple : contactRH@exemple.com"
-				required
-				tooltip={<Tooltip icon='information' ariaLabel='informations supplémentaires' tooltipId='informations-supplementaires'>Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.</Tooltip>}
-			/>
+			{/*			<Champ className={styles.textareaWrapper}>
+				<Champ.Label>Courte description de l’entreprise
+					<Champ.Label.Complement>Informations sur votre entreprise : son histoire, des objectifs, des enjeux…</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={TextArea}
+										 name={InputName.DESCRIPTION}
+										 required
+										 maxLength={500}
+										 rows={10}
+										 defaultValue={informationsEntreprise?.descriptionEmployeur}/>
+				<Champ.Error/>
+				<Champ.Hint>255 caractères maximum</Champ.Hint>
+			</Champ>*/}
 			<TextArea
 				className={styles.textareaWrapper}
 				id="description"
 				label="Courte description de l’entreprise (500 caractères maximum)"
 				placeholder="Informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
-				name={Employeur.DESCRIPTION}
+				name={InputName.DESCRIPTION}
 				defaultValue={informationsEntreprise?.descriptionEmployeur}
 				required
 				rows={10}
@@ -84,7 +105,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			<InputText
 				label="Logo de l’entreprise - lien/URL"
 				type="url"
-				name={Employeur.LOGO}
+				name={InputName.LOGO}
 				value={informationsEntreprise?.logoEmployeur}
 				pattern={URL_REGEX}
 				placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
@@ -92,7 +113,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			<InputText
 				label="Lien du site de l’entreprise - lien/URL"
 				type="url"
-				name={Employeur.SITE}
+				name={InputName.SITE}
 				value={informationsEntreprise?.siteEmployeur}
 				pattern={URL_REGEX}
 				placeholder="Exemple : https://1jeune1solution.gouv.fr"
@@ -139,10 +160,10 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 function parseDonnéesEntreprise(formData: FormData): OffreDeStageDeposee.Entreprise {
 	return {
-		descriptionEmployeur: String(formData.get(Employeur.DESCRIPTION)),
-		emailEmployeur: String(formData.get(Employeur.EMAIL)),
-		logoEmployeur: String(formData.get(Employeur.LOGO)),
-		nomEmployeur: String(formData.get(Employeur.NOM)),
-		siteEmployeur: String(formData.get(Employeur.SITE)),
+		descriptionEmployeur: String(formData.get(InputName.DESCRIPTION)),
+		emailEmployeur: String(formData.get(InputName.EMAIL)),
+		logoEmployeur: String(formData.get(InputName.LOGO)),
+		nomEmployeur: String(formData.get(InputName.NOM)),
+		siteEmployeur: String(formData.get(InputName.SITE)),
 	};
 }

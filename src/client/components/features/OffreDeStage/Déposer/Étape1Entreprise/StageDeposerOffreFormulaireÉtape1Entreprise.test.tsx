@@ -22,11 +22,11 @@ describe('<Entreprise />', () => {
 			render(<Entreprise />);
 
 			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
-			expect(screen.getByLabelText('Nom de l’entreprise ou de l’employeur (255 caractères maximum)')).toBeInTheDocument();
-			expect(screen.getByText('Adresse mail de contact')).toBeInTheDocument();
-			expect(screen.getByLabelText('Courte description de l’entreprise (500 caractères maximum)')).toBeInTheDocument();
-			expect(screen.getByLabelText('Logo de l’entreprise - lien/URL')).toBeInTheDocument();
-			expect(screen.getByLabelText('Lien du site de l’entreprise - lien/URL')).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Courte description de l’entreprise (500 caractères maximum)' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' })).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
@@ -53,16 +53,16 @@ describe('<Entreprise />', () => {
 	});
 
 	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 1', () => {
-		it('il voit des messages d’erreur', async () => {
+		it('il voit une erreur native sur le premier champ obligatoire mais non rempli', async () => {
 			render(<Entreprise />);
 
-			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur' });
+			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
 
 			await BoutonSuivant();
 
-			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur' })).toBeValid();
-			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact' })).toBeInvalid();
+			expect(inputNomSociété).toBeValid();
+			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toBeInvalid();
 		});
 	});
 
