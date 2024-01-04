@@ -28,7 +28,7 @@
     "@meilisearch/instant-meilisearch": "0.14.0",
     "@next/bundle-analyzer": "14.0.4",
     "@sentry/nextjs": "7.91.0",
-    "axios": "1.6.3",
+    "axios": "1.6.4",
     "axios-cache-interceptor": "1.4.1",
     "classnames": "2.5.1",
     "dompurify": "3.0.6",
