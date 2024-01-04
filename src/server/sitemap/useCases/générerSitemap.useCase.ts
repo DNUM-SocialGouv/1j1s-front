@@ -8,6 +8,7 @@ import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either, isSuccess } from '~/server/errors/either';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
+import { AnnonceDeLogementRepository } from '~/server/logements/domain/annonceDeLogement.repository';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
@@ -34,8 +35,12 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/simulation?simulateur=alternant',
 	'/apprentissage/simulation?simulateur=employeur',
 ];
+
 export class GénérerSitemapUseCase {
-	constructor(private cmsRepository: CmsRepository, private ficheMetierRepository: FicheMetierRepository, private faqRepository: FAQRepository) {
+	constructor(private cmsRepository: CmsRepository,
+				private ficheMetierRepository: FicheMetierRepository,
+				private faqRepository: FAQRepository,
+				private annonceDeLogementRepository: AnnonceDeLogementRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
@@ -48,7 +53,7 @@ export class GénérerSitemapUseCase {
 			this.cmsRepository.listAllArticleSlug(),
 			this.faqRepository.listAllFAQSlug(),
 			this.cmsRepository.listAllOffreDeStageSlug(),
-			this.cmsRepository.listAllAnnonceDeLogementSlug(),
+			this.annonceDeLogementRepository.listAllAnnonceDeLogementSlug(),
 		]);
 		const dynamicPathList = [
 			...this.mapDynamicPathListResult(ficheMetierNomMetierListResult, DÉCOUVRIR_LES_METIERS_ROOT_PATH),
@@ -74,7 +79,7 @@ export class GénérerSitemapUseCase {
 	}
 
 	private mapDynamicPathListResult(dynamicPathListResult: Either<Array<string>>, rootPath: string): Array<string> {
-		if(isSuccess(dynamicPathListResult)) {
+		if (isSuccess(dynamicPathListResult)) {
 			return dynamicPathListResult.result
 				.map(this.escapeSpecialCharacters)
 				.map((path) => `/${rootPath}/${path}`);

@@ -1,8 +1,6 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
-import { anAnnonceDeLogement, anAnnonceDeLogementResponse } from '~/server/cms/domain/annonceDeLogement.fixture';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
@@ -17,7 +15,6 @@ import {
 	anActualiteFixture,
 	anOffreDeStageDepotStrapi,
 	anOffreDeStageResponse,
-	aStrapiAnnonceDeLogementSlugList,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiCollectionType,
@@ -40,11 +37,7 @@ import {
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import {
-	anAnnonceDeLogementPathList,
-	anArticlePathList,
-	anOffreDeStagePathList,
-} from '~/server/sitemap/domain/sitemap.fixture';
+import { anArticlePathList, anOffreDeStagePathList } from '~/server/sitemap/domain/sitemap.fixture';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -260,41 +253,7 @@ describe('strapi cms repository', () => {
 		});
 	});
 
-	describe('getAnnonceDeLogementBySlug', () => {
-		describe('Si un logement est trouvé', () => {
-			it('récupère l‘annonce de logement selon le slug', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anAnnonceDeLogementResponse()])));
-				const slug = anAnnonceDeLogementResponse().slug;
 
-				const { result } = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug) as Success<AnnonceDeLogement>;
-				expect(result).toEqual(anAnnonceDeLogement());
-				expect(httpClientService.get).toHaveBeenCalledWith(`annonces-de-logement?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
-			});
-		});
-
-		describe('Si le logement n‘est pas trouvé', () => {
-			it('retourne une erreur', async () => {
-				const httpError = anHttpError(500);
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
-				const errorManagementService = anErrorManagementService({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) });
-				const httpClientService = aPublicHttpClientService({
-					get: jest.fn(async () => {
-						throw httpError;
-					}),
-				});
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
-				const slug = 'bad-slug';
-
-				const result = await strapiCmsRepository.getAnnonceDeLogementBySlug(slug);
-				expect((result as Failure).errorType).toEqual(expectedFailure);
-			});
-		});
-	});
 
 	describe('getOffreDeStageBySlug', () => {
 		describe('Si un stage est trouvé', () => {
@@ -353,21 +312,7 @@ describe('strapi cms repository', () => {
 		});
 	});
 
-	describe('listAllAnnonceDeLogementSlug', () => {
-		it('retourne un tableau contenant tous les slugs d’annonce de logement', async () => {
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiAnnonceDeLogementSlugList()));
-			const expected = anAnnonceDeLogementPathList();
 
-			const { result } = await strapiCmsRepository.listAllAnnonceDeLogementSlug() as Success<Array<string>>;
-
-			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('annonces-de-logement?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
-
-		});
-	});
 
 	describe('getAllVideosCampagneApprentissage', () => {
 		it('retourne la liste de videos', async () => {

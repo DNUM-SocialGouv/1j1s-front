@@ -7,7 +7,7 @@ import React from 'react';
 
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
 import { LocaleProvider } from '~/client/context/locale.context';
-import { anAnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.fixture';
+import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 
 describe('<InformationsGénérales />', () => {
 	describe('Prix', () => {

@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
-import { AnnonceDeLogementIndexee } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogementIndexee';
 
 
 const anAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {

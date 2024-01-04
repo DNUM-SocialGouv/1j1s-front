@@ -136,6 +136,11 @@ import {
 } from '~/server/localisations/infra/repositories/apiAdresseErrorManagement.service';
 import { ApiGeoRepository } from '~/server/localisations/infra/repositories/apiGeo.repository';
 import { ApiGeoErrorManagementService } from '~/server/localisations/infra/repositories/apiGeoErrorManagement.service';
+import {
+	AnnonceDeLogementDependencies,
+	annonceDeLogementDependenciesContainer,
+} from '~/server/logements/configuration/dependencies.container';
+import { StrapiAnnonceDeLogementRepository } from '~/server/logements/infra/strapiAnnonceDeLogement.repository';
 import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
@@ -192,6 +197,7 @@ import {
 export type Dependencies = {
 	ficheMetierDependencies: FicheMetierDependencies;
 	faqDependencies: FAQDependencies;
+	annonceDeLogementDependencies: AnnonceDeLogementDependencies;
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	formationInitialeDependencies: FormationInitialeDependencies;
@@ -332,13 +338,16 @@ export function dependenciesContainer(): Dependencies {
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
 	const ficheMetierDependencies=  ficheMetierDependenciesContainer(ficheMetierRepository);
-	
+
 	const faqRepository = new StrapiFAQRepository(cmsRepository);
 	const faqDependencies=  FAQDependenciesContainer(faqRepository);
 
+	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository, defaultErrorManagementService);
+	const annonceDeLogementDependencies = annonceDeLogementDependenciesContainer(annonceDeLogementRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();
@@ -359,6 +368,7 @@ export function dependenciesContainer(): Dependencies {
 
 	return {
 		alternanceDependencies,
+		annonceDeLogementDependencies,
 		cmsDependencies,
 		demandeDeContactDependencies,
 		emploiEuropeDependencies,

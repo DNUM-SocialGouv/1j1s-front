@@ -14,7 +14,7 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
-import { AnnonceDeLogement } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
 import { DateMiseÀJour } from './DateMiseÀJour';

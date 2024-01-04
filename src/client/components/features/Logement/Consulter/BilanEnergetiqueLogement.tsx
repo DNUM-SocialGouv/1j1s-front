@@ -5,14 +5,14 @@ import styles from '~/client/components/features/Logement/Consulter/BilanEnerget
 import cardStyles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
 import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
-import { CategorieEnergetique } from '~/server/cms/domain/annonceDeLogement.type';
+import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 const LessOrEqual = () => <>{'\u{02A7D}'}</>;
 const MoreOrEqual = () => <>{'\u{02A7E}'}</>;
 const LessThan = () => <>{'\u{0003C}'}</>;
 const MoreThan = () => <>{'\u{0003E}'}</>;
 
-const CONSOMMATION_ENERGETIQUE: Record<CategorieEnergetique, React.ReactNode> = {
+const CONSOMMATION_ENERGETIQUE: Record<AnnonceDeLogement.CategorieEnergetique, React.ReactNode> = {
 	A: <>Excellente performance énergétique (consommation <LessThan/> 50 kWh/<SquareMeter/>/an)</>,
 	B: <>Très bonne performance énergétique (consommation de 51 à 90 kWh/<SquareMeter/>/an)</>,
 	C: <>Bonne performance énergétique (consommation de 91 à 150 kWh/<SquareMeter/>/an)</>,
@@ -22,7 +22,7 @@ const CONSOMMATION_ENERGETIQUE: Record<CategorieEnergetique, React.ReactNode> = 
 	G: <>Très mauvaise performance énergétique (consommation <MoreOrEqual/> 451 kWh/<SquareMeter/>/an)</>,
 };
 
-const EMISSION_DE_GAZ: Record<CategorieEnergetique, React.ReactNode> = {
+const EMISSION_DE_GAZ: Record<AnnonceDeLogement.CategorieEnergetique, React.ReactNode> = {
 	A: <>Très peu d’émission de gaz à effet de serre (émission de gaz <LessOrEqual/> 5 kg/<SquareMeter/>/an)</>,
 	B: <>Peu d’émission de gaz à effet de serre (émission de gaz de 6 à 10 kg/<SquareMeter/>/an)</>,
 	C: <>Émission de gaz à effet de serre correcte (émission de gaz de 11 à 20 kg/<SquareMeter/>/an) </>,
@@ -36,8 +36,8 @@ const consommationTexte = 'La classe énergie d’un appartement ou d’une mais
 const emissionTexte = 'Les classes de consommation Gaz à Effet de Serre est un système de notation basée sur le calcul des gaz à effet de serre émis par votre logement pour que ce dernier fonctionne. Ils sont liés au système de chauffage et d’eau chaude, à l’isolation thermique du bâtiment, au système de refroidissement de votre maison ou appartement ainsi qu’à la nature de l’énergie consommée au sein de l’habitation. Un bien classé A témoigne d’une maison peu polluante. À l’inverse, un bien classé G vous indique un	logement très polluant.';
 
 interface BilanEnergetiqueLogementProps {
-    consommationEnergetique?: CategorieEnergetique
-    emissionDeGaz?: CategorieEnergetique
+    consommationEnergetique?: AnnonceDeLogement.CategorieEnergetique
+    emissionDeGaz?: AnnonceDeLogement.CategorieEnergetique
 }
 
 export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
