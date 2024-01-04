@@ -31,7 +31,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				repository.search(filtre);
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&appellationCodes[]=codeMetier');
+				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier');
 			});
 		});
 
@@ -46,7 +46,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				repository.search(filtre);
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10');
+				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true');
 			});
 		});
 

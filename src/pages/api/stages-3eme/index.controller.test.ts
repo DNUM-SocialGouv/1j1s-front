@@ -50,7 +50,7 @@ describe('rechercher stage 3eme', () => {
 		});
 
 		nock('https://staging.immersion-facile.beta.gouv.fr/api/v2').get(
-			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&appellationCodes[]=codeMetier',
+			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier',
 		).reply(200, searchResult);
 
 		await testApiHandler<ResultatRechercheStage3eme | ErrorHttpResponse>({
