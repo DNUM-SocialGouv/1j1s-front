@@ -12,6 +12,7 @@ import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
 import { DateService } from '~/client/services/date/date.service';
 import { JsDateService } from '~/client/services/date/js/js.date.service';
+import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
 	ÉtablissementAccompagnementService,
@@ -88,7 +89,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const offreService = new OffreService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
-	const demandeDeContactService = new DemandeDeContactService(httpClientService);
+	const demandeDeContactService = new BffDemandeDeContactService(httpClientService);
 	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);

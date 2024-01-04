@@ -1,4 +1,4 @@
-import { HttpClientService } from '~/client/services/httpClient.service';
+ import { HttpClientService } from '~/client/services/httpClient.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { Either } from '~/server/errors/either';
 import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';

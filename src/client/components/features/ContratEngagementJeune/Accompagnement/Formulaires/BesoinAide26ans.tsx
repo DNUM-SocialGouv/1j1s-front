@@ -4,7 +4,9 @@ import { FormulairesProps } from '~/client/components/features/ContratEngagement
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-export default function BesoinAide26ans({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: FormulairesProps ) {
+
+type BesoinAideProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsDispositifsReferencesModalOpen'>
+export default function BesoinAide26ans({ setTypeFormulaireAffiché, setIsDispositifsReferencesModalOpen }: BesoinAideProps ) {
 	return <>
 		<button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>
 			<TextIcon icon="angle-left" iconPosition="left">Retour</TextIcon>

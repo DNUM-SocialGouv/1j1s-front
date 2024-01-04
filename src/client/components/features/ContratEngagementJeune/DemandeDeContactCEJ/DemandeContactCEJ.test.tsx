@@ -6,30 +6,30 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import Rappel from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel';
+import DemandeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
+import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 
 
-describe('<Rappel />', () => {
+describe('<DemandeContactCEJ />', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
 	function renderComponent() {
 		const onSuccess = jest.fn();
-		const anDemandeDeContactService = (): DemandeDeContactService => ({
+		const anDemandeDeContactService = (): BffDemandeDeContactService => ({
 			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
 			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		} as unknown as DemandeDeContactService);
+		} as unknown as BffDemandeDeContactService);
 		const demandeDeContactServiceMock = anDemandeDeContactService();
 		const localisationService = aLocalisationService();
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
-				<Rappel/>
+				<DemandeContactCEJ/>
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock, onSuccess };

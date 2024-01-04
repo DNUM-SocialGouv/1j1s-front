@@ -19,6 +19,7 @@ interface ModalDemandeDeContactAccompagnementProps {
   setIsOpen: (value: boolean) => void
 }
 
+// TODO (BRUJ 04/01/2024): Faire la modification ici modale d‘erreur
 export function ModalDemandeDeContactAccompagnement(props: ModalDemandeDeContactAccompagnementProps) {
 	const { contactÉtablissementAccompagnement, isOpen, setIsOpen } = props;
 	const [isSuccess, setIsSuccess] = useState(false);

@@ -1,4 +1,4 @@
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
+import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -9,7 +9,7 @@ describe('DemandeDeContactService', () => {
 			// Given
 			const httpClientService = anHttpClientService();
 			jest.spyOn(httpClientService,'post').mockResolvedValue(createSuccess(undefined));
-			const demandeContactService = new DemandeDeContactService(httpClientService);
+			const demandeContactService = new BffDemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
 				codePostal: '95000',
@@ -32,7 +32,7 @@ describe('DemandeDeContactService', () => {
 			// Given
 			const httpClientService = anHttpClientService();
 			jest.spyOn(httpClientService,'post').mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
-			const demandeContactService = new DemandeDeContactService(httpClientService);
+			const demandeContactService = new BffDemandeDeContactService(httpClientService);
 			const body = {
 				age: 18,
 				codePostal: '95000',

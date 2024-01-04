@@ -16,7 +16,7 @@ import {
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 export interface RésultatRechercherAccompagnementProps {
-  établissement: ÉtablissementAccompagnement
+	établissement: ÉtablissementAccompagnement
 }
 
 export function RésultatRechercherAccompagnement({ établissement }: RésultatRechercherAccompagnementProps) {
@@ -24,7 +24,7 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 
 	const isMissionLocale = établissement.type === TypeÉtablissement.MISSION_LOCALE;
 	const [isPopInOpen, setIsPopInOpen] = useState(false);
-  
+
 	const openContactÉtablissementModal = useCallback(() => {
 		setIsPopInOpen(true);
 	}, []);
@@ -45,15 +45,15 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 			}
 			{
 				isMissionLocale && établissement.email &&
-        <ModalDemandeDeContactAccompagnement
-        	contactÉtablissementAccompagnement={{
-        		email: établissement.email,
-        		nom: établissement.nom,
-        		type: établissement.type,
-        	}}
-        	isOpen={isPopInOpen}
-        	setIsOpen={setIsPopInOpen}
-        />
+				<ModalDemandeDeContactAccompagnement
+					contactÉtablissementAccompagnement={{
+						email: établissement.email,
+						nom: établissement.nom,
+						type: établissement.type,
+					}}
+					isOpen={isPopInOpen}
+					setIsOpen={setIsPopInOpen}
+				/>
 			}
 		</>
 	);

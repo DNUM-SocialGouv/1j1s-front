@@ -1,20 +1,21 @@
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 
-import FormulaireDeContactCEJ
-	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
+import {
+	FormulaireDeContactCEJ,
+} from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/FormulaireContactCEJ';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
-import styles from './Modal.module.scss';
+import styles from './ModaleDemandeContactCEJ.module.scss';
 
 interface ModalDemandeDeContactCEJProps {
-  isOpen: boolean
-  setIsOpen: (value: boolean) => void
+	isOpen: boolean
+	setIsOpen: (value: boolean) => void
 }
 
-export function Modal(props: ModalDemandeDeContactCEJProps) {
+export function ModaleDemandeContactCEJ(props: ModalDemandeDeContactCEJProps) {
 	const { isOpen, setIsOpen } = props;
 	const [isSuccess, setIsSuccess] = useState(false);
 
@@ -26,6 +27,7 @@ export function Modal(props: ModalDemandeDeContactCEJProps) {
 		setIsSuccess(true);
 	}
 
+	// TODO (BRUJ 04/01/2024): faire des modification ici
 	return (
 		<ModalComponent
 			isOpen={isOpen}
@@ -33,9 +35,9 @@ export function Modal(props: ModalDemandeDeContactCEJProps) {
 			aria-labelledby={!isSuccess ? 'dialog_label' : 'dialog_label_success'}
 		>
 			{!isSuccess &&
-        <ModalComponent.Title className={styles.modalTitle} id="dialog_label">
-          J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
-        </ModalComponent.Title>
+          <ModalComponent.Title className={styles.modalTitle} id="dialog_label">
+              J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
+          </ModalComponent.Title>
 			}
 			<ModalComponent.Content
 				className={classNames({ [styles.rappelContent]: !isSuccess, [styles.rappelContentSuccess]: isSuccess })}
@@ -43,9 +45,7 @@ export function Modal(props: ModalDemandeDeContactCEJProps) {
 				{!isSuccess ? (
 					<>
 						<small className={styles.modalSubTitle}>(Tous les champs sont obligatoires)</small>
-						<FormulaireDeContactCEJ onSuccess={() => onFormulaireEnvoyé() }>
-							<ButtonComponent label='Fermer' onClick={ () => setIsOpen(false)} title="Fermer, Revenir à la page" />
-						</FormulaireDeContactCEJ>
+						<FormulaireDeContactCEJ isSuccessOnSubmit={() => onFormulaireEnvoyé()}/>
 					</>
 				) : (
 					<div className={styles.success}>
