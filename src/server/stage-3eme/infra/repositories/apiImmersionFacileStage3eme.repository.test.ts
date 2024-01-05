@@ -18,8 +18,44 @@ import {
 
 describe('ApiImmersionFacileStage3emeRepository', () => {
 	describe('search', () => {
+		it('appelle le bon endpoint de l’api Immersion Facile', () => {
+			// Given
+			const filtre: Stage3emeFiltre = aStage3emeFiltre();
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
+
+			// When
+			repository.search(filtre);
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('/search'));
+		});
+		it('appelle l’api Immersion Facile avec la localisation fournis', () => {
+			// Given
+			const filtre: Stage3emeFiltre = aStage3emeFiltre();
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
+
+			// When
+			repository.search(filtre);
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitude=48.8535&longitude=2.34839&distanceKm=10'));
+		});
+		it('appelle l\'api Immersion Facile avec le filtre qui ne remonte que les entreprise volontaires', () => {
+			// Given
+			const filtre: Stage3emeFiltre = aStage3emeFiltre();
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
+
+			// When
+			repository.search(filtre);
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&voluntaryToImmersion=true'));
+		});
 		describe('quand un code métier est fourni', () => {
-			it('appelle l’api Immersion Facile avec les bon paramètres', () => {
+			it('appelle l’api Immersion Facile avec le code métier fourni', () => {
 				// Given
 				const filtre: Stage3emeFiltre = aStage3emeFiltre({
 					codeMetier: 'codeMetier',
@@ -31,12 +67,12 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				repository.search(filtre);
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier');
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&appellationCodes[]=codeMetier'));
 			});
 		});
 
 		describe('quand aucun code métier n’est fourni', () => {
-			it('appelle l’api Immersion Facile avec les bon paramètres', () => {
+			it('appelle l’api Immersion Facile sans le code métier fourni', () => {
 				// Given
 				const filtre: Stage3emeFiltre = aStage3emeFiltre();
 				const httpClientService = aPublicHttpClientService();
@@ -46,7 +82,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				repository.search(filtre);
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true');
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.not.stringContaining('&appellationCodes[]='));
 			});
 		});
 
