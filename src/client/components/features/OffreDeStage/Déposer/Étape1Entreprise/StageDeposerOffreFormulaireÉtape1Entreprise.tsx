@@ -1,8 +1,5 @@
 import { useRouter } from 'next/router';
-import React, {
-	FormEvent,
-	useRef,
-} from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import {
 	StageDeposerOffreFormulaireLayout,
@@ -12,15 +9,11 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
-import {
-	ETAPE_ENTREPRISE,
-	URL_DEPOSER_OFFRE,
-} from '~/pages/stages/deposer-offre/index.page';
+import { ETAPE_ENTREPRISE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
@@ -73,19 +66,6 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 required/>
 				<Champ.Error/>
 			</Champ>
-			{/*			<Champ className={styles.textareaWrapper}>
-				<Champ.Label>Courte description de l’entreprise
-					<Champ.Label.Complement>Informations sur votre entreprise : son histoire, des objectifs, des enjeux…</Champ.Label.Complement>
-				</Champ.Label>
-				<Champ.Input render={TextArea}
-										 name={InputName.DESCRIPTION}
-										 required
-										 maxLength={500}
-										 rows={10}
-										 defaultValue={informationsEntreprise?.descriptionEmployeur}/>
-				<Champ.Error/>
-				<Champ.Hint>255 caractères maximum</Champ.Hint>
-			</Champ>*/}
 			<TextArea
 				className={styles.textareaWrapper}
 				id="description"
@@ -102,22 +82,28 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	function ChampsFacultatifs() {
 		return <>
-			<InputText
-				label="Logo de l’entreprise - lien/URL"
-				type="url"
-				name={InputName.LOGO}
-				value={informationsEntreprise?.logoEmployeur}
-				pattern={URL_REGEX}
-				placeholder="Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3..."
-			/>
-			<InputText
-				label="Lien du site de l’entreprise - lien/URL"
-				type="url"
-				name={InputName.SITE}
-				value={informationsEntreprise?.siteEmployeur}
-				pattern={URL_REGEX}
-				placeholder="Exemple : https://1jeune1solution.gouv.fr"
-			/>
+			<Champ>
+				<Champ.Label>Logo de l’entreprise - lien/URL
+					<Champ.Label.Complement>Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 type="url"
+										 name={InputName.LOGO}
+										 defaultValue={informationsEntreprise?.logoEmployeur}
+										 pattern={URL_REGEX}/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>Lien du site de l’entreprise - lien/URL
+					<Champ.Label.Complement>Exemple : https://1jeune1solution.gouv.fr</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 type="url"
+										 name={InputName.SITE}
+										 defaultValue={informationsEntreprise?.siteEmployeur}
+										 pattern={URL_REGEX}/>
+				<Champ.Error/>
+			</Champ>
 		</>;
 	}
 

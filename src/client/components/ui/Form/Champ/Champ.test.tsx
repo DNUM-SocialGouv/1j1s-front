@@ -217,7 +217,7 @@ describe('<Champ/>', () => {
 			expect(erreur).not.toBeInTheDocument();
 		});
 
-		it('lorsque le champ est touched, affiche l‘erreur', async () => {
+		it('lorsque le champ est touched et qu’il y a une erreur, affiche l‘erreur', async () => {
 			const user = userEvent.setup();
 			render(
 				<Champ>
@@ -234,8 +234,6 @@ describe('<Champ/>', () => {
 
 			expect(erreur).toBeVisible();
 		});
-
-		it.todo('affiche l’erreur suelement quand le champ est touché et qu‘il y a un message d’erreur');
 	});
 });
 

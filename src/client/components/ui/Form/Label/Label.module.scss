@@ -2,11 +2,19 @@
 
 .label {
   display: block;
-  @include utilities.text-large;
+  overflow-wrap: anywhere;
+  @include utilities.text-medium;
+
+  @include utilities.media(small) {
+    @include utilities.text-large;
+  }
 
   .complement {
     display: block;
+    overflow: hidden;
+    color: utilities.$color-text-placeholder; //devrait s'appeler color-text-secondary d'après l'ui kit
     @include utilities.text-small;
+    line-height: 1.4; // représente + que 140% du font-size, sinon coupe la boucle du g
     // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
   }
 }
