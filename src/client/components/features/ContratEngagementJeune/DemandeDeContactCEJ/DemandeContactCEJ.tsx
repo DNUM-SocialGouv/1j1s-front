@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 
-import styles from './DemandeContactCEJ.module.scss';
+import {
+	ModaleDemandeContactCEJ,
+} from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/ModaleDemandeContactCEJ/ModaleDemandeContactCEJ';
+
 import { Container } from '../../../layouts/Container/Container';
 import { ButtonComponent } from '../../../ui/Button/ButtonComponent';
-import {
-	ModaleDemandeContactCEJ
-} from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/ModaleDemandeContactCEJ/ModaleDemandeContactCEJ';
+import styles from './DemandeContactCEJ.module.scss';
 
 export default function DemandeContactCEJ() {
 	const [isPopInOpen, setIsPopInOpen] = useState(false);

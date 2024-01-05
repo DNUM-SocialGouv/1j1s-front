@@ -1,11 +1,10 @@
-import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
 	FormulaireDeContactCEJ,
 } from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/FormulaireContactCEJ';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
+import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
+import { ModaleSuccessSubmission } from '~/client/components/ui/Form/ModaleSuccessSubmission/ModaleSuccessSubmission';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 import styles from './ModaleDemandeContactCEJ.module.scss';
@@ -15,51 +14,39 @@ interface ModalDemandeDeContactCEJProps {
 	setIsOpen: (value: boolean) => void
 }
 
-export function ModaleDemandeContactCEJ(props: ModalDemandeDeContactCEJProps) {
-	const { isOpen, setIsOpen } = props;
-	const [isSuccess, setIsSuccess] = useState(false);
+type formulaireStatus = 'notSubmitted' | 'error' | 'success'
 
-	useEffect(() => {
-		if (!isOpen) setIsSuccess(false);
-	}, [isOpen]);
+export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeContactCEJProps) {
+	const [statusForm, setStatusForm] = useState<formulaireStatus>('notSubmitted');
 
-	function onFormulaireEnvoyé() {
-		setIsSuccess(true);
-	}
-
-	// TODO (BRUJ 04/01/2024): faire des modification ici
 	return (
-		<ModalComponent
-			isOpen={isOpen}
-			close={() => setIsOpen(false)}
-			aria-labelledby={!isSuccess ? 'dialog_label' : 'dialog_label_success'}
-		>
-			{!isSuccess &&
-          <ModalComponent.Title className={styles.modalTitle} id="dialog_label">
-              J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
-          </ModalComponent.Title>
-			}
-			<ModalComponent.Content
-				className={classNames({ [styles.rappelContent]: !isSuccess, [styles.rappelContentSuccess]: isSuccess })}
+		<>
+			<ModalComponent
+				isOpen={isOpen}
+				close={() => setIsOpen(false)}
+				aria-labelledby={'dialog_label'}
 			>
-				{!isSuccess ? (
-					<>
-						<small className={styles.modalSubTitle}>(Tous les champs sont obligatoires)</small>
-						<FormulaireDeContactCEJ isSuccessOnSubmit={() => onFormulaireEnvoyé()}/>
-					</>
-				) : (
-					<div className={styles.success}>
-						<CheckIcon circled={true} animate className={styles.successIcon}/>
-						<h1 id="dialog_label_success" className={styles.successMessage}>Votre demande a bien été transmise !</h1>
-						<ButtonComponent
-							type="button"
-							label="Fermer"
-							onClick={() => setIsOpen(false)}
-							title="Fermer, Revenir à la page"
-						/>
-					</div>
-				)}
-			</ModalComponent.Content>
-		</ModalComponent>
+				<ModalComponent.Title className={styles.modalTitle} id="dialog_label">
+					J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
+				</ModalComponent.Title>
+				<ModalComponent.Content>
+					<small className={styles.modalSubTitle}>(Tous les champs sont obligatoires)</small>
+					<FormulaireDeContactCEJ isSuccessOnSubmit={(isSuccess: boolean) => {
+						setIsOpen(false);
+						setStatusForm(isSuccess ? 'success' : 'error');
+					}}/>
+				</ModalComponent.Content>
+			</ModalComponent>
+
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
+				setIsOpen(false);
+				setStatusForm('notSubmitted');
+			}}/>
+
+			<ModalErrorSubmission isOpen={statusForm === 'error'} onClose={() => {
+				setIsOpen(true);
+				setStatusForm('notSubmitted');
+			}}/>
+		</>
 	);
 }

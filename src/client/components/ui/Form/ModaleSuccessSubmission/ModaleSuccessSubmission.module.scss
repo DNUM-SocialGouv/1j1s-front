@@ -1,0 +1,21 @@
+@use "@styles/utilities";
+
+$color-subtitle: utilities.$color-primary;
+$color-success-message: utilities.$color-primary;
+$color-success-icon: utilities.$color-success;
+
+.content {
+  text-align: center;
+
+  & .contentMessage {
+    margin: 1rem 0;
+    color: $color-success-message;
+  }
+
+  & .contentIcon {
+    margin: auto;
+    width: 8rem;
+    height: 8rem;
+    color: $color-success-icon;
+  }
+}

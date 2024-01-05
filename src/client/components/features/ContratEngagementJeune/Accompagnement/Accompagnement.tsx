@@ -84,8 +84,8 @@ export default function Accompagnement() {
 				href={deuxièmeLienPôleEmploi}/>
 
 			<ModaleMissionLocale
-				missionLocaleModalOpen={isMissionLocaleModalOpen}
-				onChangeMissionLocalModalIsOpen={(isModaleOpen: boolean) => setIsMissionLocaleModalOpen(isModaleOpen)}/>
+				isMissionLocaleModaleOpen={isMissionLocaleModalOpen}
+				setIsMissionLocaleModaleOpen={setIsMissionLocaleModalOpen}/>
 
 			<ModaleDispositifsReferences
 				open={isDispositifsReferencesModalOpen}

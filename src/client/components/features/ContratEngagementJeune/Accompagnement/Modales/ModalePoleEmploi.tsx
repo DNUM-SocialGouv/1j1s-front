@@ -1,6 +1,6 @@
-import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 export function ModalePoleEmploi(props: { open: boolean, close: () => void, href: string }) {
 	return <ModalComponent

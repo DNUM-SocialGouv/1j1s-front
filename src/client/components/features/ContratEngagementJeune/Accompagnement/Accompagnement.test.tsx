@@ -301,7 +301,7 @@ describe('<Accompagnement />', () => {
 					await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 
 					const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
-					await user.click(within(modaleErreur).getByRole('button', { name: 'Fermer' }))
+					await user.click(within(modaleErreur).getByRole('button', { name: 'Fermer' }));
 					expect(modaleErreur).not.toBeInTheDocument();
 
 					expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();

@@ -1,4 +1,4 @@
-@use "../../../../../../styles/utilities";
+@use "@styles/utilities";
 
 $color-subtitle: utilities.$color-primary;
 $color-success-message: utilities.$color-primary;
@@ -20,18 +20,3 @@ $color-success-icon: utilities.$color-success;
   text-align: center;
 }
 
-.success {
-  text-align: center;
-
-  &Message {
-    margin: 1rem 0;
-    color: $color-success-message;
-  }
-
-  &Icon {
-    margin: auto;
-    width: 8rem;
-    height: 8rem;
-    color: $color-success-icon;
-  }
-}

@@ -6,11 +6,12 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
+
+import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 
 describe('<FormulaireDeContactCEJ />', () => {
 

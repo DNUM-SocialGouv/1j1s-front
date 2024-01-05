@@ -1,7 +1,6 @@
+import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { Either } from '~/server/errors/either';
-import { DemandeDeContact } from '~/server/demande-de-contact/domain/demandeDeContact';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 
 export interface FormulaireDemandeDeContactCEJ {
   age: number

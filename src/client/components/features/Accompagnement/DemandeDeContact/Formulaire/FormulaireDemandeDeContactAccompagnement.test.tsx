@@ -17,10 +17,10 @@ import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
-import {
-	aLocalisationService,
-} from '~/client/services/localisation/localisation.service.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
+import { createFailure } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
@@ -30,13 +30,13 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	let établissementAccompagnementService: ÉtablissementAccompagnementService;
 	const contactÉtablissementAccompagnement = aContactÉtablissementAccompagnement();
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-	let onSubmit: () => void;
+	let isSuccessOnSubmit: () => void;
 
 	beforeEach(() => {
 		mockSmallScreen();
 		localisationService = aLocalisationService();
 		établissementAccompagnementService = anÉtablissementAccompagnementService();
-		onSubmit = jest.fn();
+		isSuccessOnSubmit = jest.fn();
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -47,7 +47,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			<DependenciesProvider localisationService={localisationService} établissementAccompagnementService={établissementAccompagnementService}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-					onSuccess={onSubmit}
+					isSuccessOnSubmit={isSuccessOnSubmit}
 				/>
 			</DependenciesProvider>,
 		);
@@ -97,6 +97,23 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			await envoyerDemandeContact();
 
 			expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledWith(demandeDeContactAccompagnement);
+		});
+
+		it('lorsque l‘envoie est un success appelle isSuccessOnSubmit à true', async () => {
+			renderComponent();
+
+			await envoyerDemandeContact();
+
+			expect(isSuccessOnSubmit).toHaveBeenCalledWith(true);
+		});
+
+		it('lorsque l‘envoie est en erreur appelle isSuccessOnSubmit à false', async () => {
+			renderComponent();
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+			await envoyerDemandeContact();
+
+			expect(isSuccessOnSubmit).toHaveBeenCalledWith(false);
 		});
 	});
 });

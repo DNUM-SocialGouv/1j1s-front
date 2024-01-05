@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import {
@@ -6,59 +5,56 @@ import {
 } from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
 import styles
 	from '~/client/components/features/Accompagnement/DemandeDeContact/ModalDemandeDeContactAccompagnement.module.scss';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { CheckIcon } from '~/client/components/ui/Icon/check.icon';
+import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
+import { ModaleSuccessSubmission } from '~/client/components/ui/Form/ModaleSuccessSubmission/ModaleSuccessSubmission';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 interface ModalDemandeDeContactAccompagnementProps {
-  contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
-  isOpen: boolean
-  setIsOpen: (value: boolean) => void
+	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
+	isOpen: boolean
+	setIsOpen: (value: boolean) => void
 }
 
-// TODO (BRUJ 04/01/2024): Faire la modification ici modale d‘erreur
-export function ModalDemandeDeContactAccompagnement(props: ModalDemandeDeContactAccompagnementProps) {
-	const { contactÉtablissementAccompagnement, isOpen, setIsOpen } = props;
-	const [isSuccess, setIsSuccess] = useState(false);
+type formulaireStatus = 'notSubmitted' | 'error' | 'success'
+
+export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, isOpen, setIsOpen }: ModalDemandeDeContactAccompagnementProps) {
+	const [statusForm, setStatusForm] = useState<formulaireStatus>('notSubmitted');
 
 	return (
-		<ModalComponent
-			isOpen={isOpen}
-			close={() => setIsOpen(false)}
-			aria-labelledby={!isSuccess ? 'dialog_label' : 'dialog_label_success'}
-		>
-			{!isSuccess &&
-        <ModalComponent.Title className={styles.modalTitle} id="dialog_label">
-          Je souhaite être contacté(e) par la Mission Locale
-        </ModalComponent.Title>
-			}
-			<ModalComponent.Content
-				className={classNames({ [styles.rappelContent]: !isSuccess, [styles.rappelContentSuccess]: isSuccess })}
+		<>
+			<ModalComponent
+				isOpen={isOpen}
+				close={() => setIsOpen(false)}
+				aria-labelledby={'dialog_label'}
 			>
-				{!isSuccess ? (
-					<>
-						<small className={styles.modalSubTitle}>Tous les champs sont obligatoires sauf mention contraire</small>
-						<FormulaireDemandeDeContactAccompagnement
-							contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-							onSuccess={() => setIsSuccess(true)}
-						/>
-					</>
-				) : (
-					<div className={styles.success}>
-						<CheckIcon circled={true} animate className={styles.successIcon}/>
-						<h1 id="dialog_label_success" className={styles.successMessage}>Votre demande a bien été transmise !</h1>
-						<ButtonComponent
-							type="button"
-							label="Fermer"
-							onClick={() => setIsOpen(false)}
-							title="Fermer, Revenir à la page"
-						/>
-					</div>
-				)}
-			</ModalComponent.Content>
-		</ModalComponent>
+				<ModalComponent.Title className={styles.modalTitle} id="dialog_label">
+						Je souhaite être contacté(e) par la Mission Locale
+				</ModalComponent.Title>
+				<ModalComponent.Content>
+					<small className={styles.modalSubTitle}>Tous les champs sont obligatoires sauf mention contraire</small>
+					<FormulaireDemandeDeContactAccompagnement
+						contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
+						isSuccessOnSubmit={(isSuccess: boolean) => {
+							setIsOpen(false);
+							setStatusForm(isSuccess ? 'success' : 'error');
+						}}
+					/>
+				</ModalComponent.Content>
+			</ModalComponent>
+
+			<ModaleSuccessSubmission isOpen={statusForm === 'success'} onClose={() => {
+				setIsOpen(false);
+				setStatusForm('notSubmitted');
+			}}/>
+
+			<ModalErrorSubmission isOpen={statusForm === 'error'} onClose={() => {
+				setIsOpen(true);
+				setStatusForm('notSubmitted');
+			}}/>
+		</>
+
 	);
 }

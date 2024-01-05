@@ -96,23 +96,6 @@
     text-align: center;
   }
 
-  &Success {
-    text-align: center;
-
-    &Message {
-      margin: 1rem 0;
-      color: utilities-deprecated.$color-primary;
-    }
-
-    &Icon {
-      margin: auto;
-      width: 8rem;
-      height: 8rem;
-      color: utilities-deprecated.$color-secondary;
-    }
-  }
-
-
   &Dispositifs {
     &__Title {
       @extend %text-xLarge;
