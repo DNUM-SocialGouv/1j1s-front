@@ -25,8 +25,8 @@ describe('<Entreprise />', () => {
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeInTheDocument();
 			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toBeInTheDocument();
 			expect(screen.getByRole('textbox', { name: 'Courte description de l’entreprise (500 caractères maximum)' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' })).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
@@ -37,18 +37,20 @@ describe('<Entreprise />', () => {
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
-			const labelLogo = 'Logo de l’entreprise - lien/URL';
-			const labelSite = 'Lien du site de l’entreprise - lien/URL';
+			const labelLogo = 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…';
+			const labelSite = 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr';
 			// Given
 			render(<Entreprise />);
+			const logoEntrepriseInput = screen.getByRole('textbox', { name: labelLogo });
+			const siteEntrepriseInput = screen.getByRole('textbox', { name : labelSite });
 
-			//When
-			await userEvent.type(screen.getByLabelText(labelLogo), 's{backspace}');
-			await userEvent.type(screen.getByLabelText(labelSite), 's{backspace}');
+			// When
+			await userEvent.type(logoEntrepriseInput, 's{backspace}');
+			await userEvent.type(siteEntrepriseInput, 's{backspace}');
 
 			// Then
-			expect(screen.getByLabelText(labelLogo)).toBeValid();
-			expect(screen.getByLabelText(labelSite)).toBeValid();
+			expect(logoEntrepriseInput).toBeValid();
+			expect(siteEntrepriseInput).toBeValid();
 		});
 	});
 
@@ -73,7 +75,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' });
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
 				await userEvent.type(logoUrlInputText, 'some random text');
 
 				// Then
@@ -87,7 +89,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL' });
+				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
 				await userEvent.type(logoUrlInputText, 'http://some.random.url.com');
 
 				// Then
@@ -103,7 +105,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' });
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
 				await userEvent.type(websiteUrlInputText, 'some random text');
 
 				// Then
@@ -117,7 +119,7 @@ describe('<Entreprise />', () => {
 				render(<Entreprise />);
 
 				// When
-				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL' });
+				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
 				await userEvent.type(websiteUrlInputText, 'http://some.random.url.com');
 
 				// Then
