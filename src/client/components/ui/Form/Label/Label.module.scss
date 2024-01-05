@@ -12,9 +12,8 @@
   .complement {
     display: block;
     overflow: hidden;
-    color: utilities.$color-text-placeholder; //devrait s'appeler color-text-secondary d'après l'ui kit
-    @include utilities.text-small;
-    line-height: 1.4; // représente + que 140% du font-size, sinon coupe la boucle du g
-    // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
+    color: utilities.$color-text-placeholder; // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur : devrait s'appeler color-text-secondary d'après l'ui kit
+    @include utilities.text-xsmall;
+    line-height: 1.4;
   }
 }

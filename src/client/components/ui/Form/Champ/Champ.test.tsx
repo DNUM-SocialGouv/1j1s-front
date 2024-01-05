@@ -12,6 +12,17 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Champ } from './Champ';
 
 describe('<Champ/>', () => {
+	it('accepte un className en plus du style "champ" déjà en place', () => {
+		const { container } = render(
+			<Champ className={'someStyle'}>
+				<Champ.Input render={Input} />
+			</Champ>,
+		);
+
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(container.children[0]).toHaveAttribute('class', 'champ someStyle');
+	});
+
 	it('affiche son contenu', () => {
 		render(
 			<Champ>

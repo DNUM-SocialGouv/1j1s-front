@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useState } from 'react';
 
 import { Error } from '~/client/components/ui/Form/Error';
@@ -14,6 +15,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [touched, setTouched] = useState<boolean>(false);
 	const [inputId, setInputId] = useState<string>(useId());
 	const [errorMessage, setErrorMessage] = useState<string>('');
+	const { className: classNameProps, ...otherProps } = props;
 
 	return (
 		<ChampContextProvider value={{
@@ -28,7 +30,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 			setTouched,
 			touched,
 		}}>
-			<div className={styles.champ} {...props}/>
+			<div className={classNames(styles.champ, classNameProps)} {...otherProps}/>
 		</ChampContextProvider>
 	);
 }

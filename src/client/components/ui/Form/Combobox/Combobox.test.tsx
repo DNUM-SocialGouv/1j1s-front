@@ -128,6 +128,7 @@ describe('<Combobox />', () => {
 
 			// NOTE (GAFI 26-06-2023): Test explicitement qu'on place la classe sur le premier élément pour pouvoir tout styliser
 			// eslint-disable-next-line testing-library/no-node-access
+			console.log(container.children);
 			expect(container.children).toHaveLength(1);
 			// eslint-disable-next-line testing-library/no-node-access
 			expect(container.firstChild).toHaveAttribute('class', expect.stringContaining('test'));

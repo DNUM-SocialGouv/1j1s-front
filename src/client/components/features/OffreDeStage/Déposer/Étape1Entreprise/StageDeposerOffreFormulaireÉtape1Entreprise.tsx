@@ -37,7 +37,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	function ChampsObligatoires() {
 		return <>
-			<Champ>
+			<Champ className={styles.nomEntreprise}>
 				<Champ.Label>Nom de l’entreprise ou de l’employeur
 					<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
 				</Champ.Label>
