@@ -64,7 +64,6 @@ export default function RechercherEmploisEurope() {
 		return messageResultatRechercheSplit.join(' ');
 	}, [nombreResultats, emploiEuropeQuery.motCle]);
 
-	//TODO add etiquettes
 	const etiquettesRecherche = useMemo(() => {
 		const filtreList: string[] = [];
 		if (emploiEuropeQuery.libellePays) {

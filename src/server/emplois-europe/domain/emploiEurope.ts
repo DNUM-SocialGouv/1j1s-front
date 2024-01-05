@@ -44,4 +44,5 @@ export interface EmploiEuropeFiltre {
 	motCle?: string;
 	page: number;
 	secteurActivite?: string[]
+	tempsDeTravail?: string[]
 }

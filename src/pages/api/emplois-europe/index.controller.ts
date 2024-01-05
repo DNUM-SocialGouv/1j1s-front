@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { EURES_POSITION_SCHEDULE_TYPE, tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
@@ -14,6 +15,7 @@ export const emploiEuropeRechercheQuerySchema = Joi.object({
 	niveauEtude: Joi.string(),
 	page: Joi.number().min(1).required(),
 	secteurActivite: Joi.string(),
+	tempsDeTravail: Joi.string(), //TODO voir si possible de filtrer proprement uniquement les valeurs acceptées pour le filtre
 	typeContrat: Joi.string(),
 }).options({ allowUnknown: true });
 
@@ -33,6 +35,7 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 		niveauEtude: query.niveauEtude ? queryToArray(query.niveauEtude) : [],
 		page: Number(query.page),
 		secteurActivite: query.secteurActivite ? queryToArray(query.secteurActivite) : [],
+		tempsDeTravail: query.tempsDeTravail ? queryToArray(query.tempsDeTravail) : [],
 		typeContrat: query.typeContrat ? queryToArray(query.typeContrat) : [],
 	};
 }
