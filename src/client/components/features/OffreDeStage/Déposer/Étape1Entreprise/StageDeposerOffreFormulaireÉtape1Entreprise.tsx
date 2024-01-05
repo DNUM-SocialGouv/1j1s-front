@@ -11,7 +11,6 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import { ETAPE_ENTREPRISE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { emailRegex } from '~/shared/emailRegex';
@@ -45,6 +44,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				<Champ.Input render={Input}
 										 name={InputName.NOM}
 										 required
+										 type="text"
 										 maxLength={255}
 										 defaultValue={informationsEntreprise?.nomEmployeur}/>
 				<Champ.Error/>
@@ -52,19 +52,20 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 			</Champ>
 			<Champ>
 				<Champ.Label>Adresse mail de contact
-					<Tooltip icon="information" ariaLabel="informations supplémentaires"
-									 tooltipId="informations-supplementaires">Cette adresse de contact sera utilisée dans le cas où
-						il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière.
-						Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.
-					</Tooltip>
 					<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
 				</Champ.Label>
 				<Champ.Input render={Input}
 										 name={InputName.EMAIL}
 										 pattern={emailRegex}
 										 defaultValue={informationsEntreprise?.emailEmployeur}
-										 required/>
+										 required
+										 type="email"/>
 				<Champ.Error/>
+				<Champ.Hint>
+					Cette adresse de contact sera utilisée dans le cas où
+					il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière.
+					Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.
+				</Champ.Hint>
 			</Champ>
 			<TextArea
 				className={styles.textareaWrapper}

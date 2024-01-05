@@ -30,10 +30,12 @@ describe('<Entreprise />', () => {
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
-		it('affiche une infobulle pour le champ adresse mail', async () => {
+		it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
 			render(<Entreprise />);
-			const infobulle =screen.getByLabelText('informations supplémentaires');
-			expect(infobulle).toBeVisible();
+
+			const emailInput = screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' });
+
+			expect(emailInput).toHaveAccessibleDescription(expect.stringContaining('Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.'));
 		});
 
 		it('il voit afficher des champs facultatifs', async () => {
