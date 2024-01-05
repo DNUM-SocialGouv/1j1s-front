@@ -1,7 +1,8 @@
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+
 import { CheckIcon } from '../../Icon/check.icon';
 import { ModalComponent } from '../../Modal/ModalComponent';
 import styles from './ModaleSuccessSubmission.module.scss';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 
 interface ModaleSuccessSubmissionProps {
 	isOpen: boolean
