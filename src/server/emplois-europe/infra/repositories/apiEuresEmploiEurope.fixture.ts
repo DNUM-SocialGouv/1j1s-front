@@ -7,6 +7,7 @@ import {
 	ApiEuresEmploiEuropeResponseJobVacancy,
 	ApiEuresEmploiEuropeResponseRelated,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
 export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEuropeRechercheRequestBody {
 	return {
@@ -40,10 +41,14 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+							experienceNecessaire:{
+								duree: 3,
+								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+							},
 							nomEntreprise: 'La Pâtisserie',
 							pays: 'FR',
 							tempsDeTravail: 'FullTime',
-							titre: 'Pâtissier (H/F)', 
+							titre: 'Pâtissier (H/F)',
 							ville: 'Paris',
 						}),
 					}),
@@ -74,7 +79,16 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		},
 		hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 			{
-				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT, nomEntreprise: 'La Boulangerie', pays: 'FR', tempsDeTravail: 'FullTime', titre: 'Boulanger (H/F)', ville: 'Paris',
+				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+				experienceNecessaire: {
+					duree: 3,
+					unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+				},
+				nomEntreprise: 'La Boulangerie',
+				pays: 'FR',
+				tempsDeTravail: 'FullTime',
+				titre: 'Boulanger (H/F)',
+				ville: 'Paris',
 			}),
 		...override,
 	};
@@ -136,7 +150,10 @@ interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
 	educationLevelCode?: number,
-	anneesDExperience?: number,
+	experienceNecessaire?: {
+		duree: number,
+		unite?: UNITE_EXPERIENCE_NECESSAIRE
+	},
 	codeLangueDeLOffre?: string
 }
 
@@ -155,7 +172,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, anneesDExperience, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experienceNecessaire, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -205,9 +222,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
                             <ns2:CountrySubDivisionCode>
                                 75011
                             </ns2:CountrySubDivisionCode>
-                            <CountryCode>
-                                    NL
-                                                        </CountryCode>
+                            <CountryCode>NL</CountryCode>
                             <ns2:PostalCode>75001</ns2:PostalCode>
                         </Address>
                     </Communication>
@@ -259,7 +274,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
                                   listVersionID="ESCOv1">
                         http://data.europa.eu/esco/occupation/uuid-4
                     </CategoryCode>
-                    <Measure unitCode="year">${anneesDExperience ? anneesDExperience : 3}</Measure>
+                    ${experienceNecessaire ? `<Measure unitCode=${experienceNecessaire.unite ? `"${experienceNecessaire.unite}"`: undefined}>${experienceNecessaire.duree}</Measure>` : `<Measure unitCode="${UNITE_EXPERIENCE_NECESSAIRE.YEAR}">3</Measure>`}
                     <ns2:Description>description de l‘experience demandée</ns2:Description>
                 </ExperienceCategory>
             </ExperienceSummary>

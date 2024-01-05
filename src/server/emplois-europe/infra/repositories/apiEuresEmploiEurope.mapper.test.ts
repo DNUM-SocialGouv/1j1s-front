@@ -14,6 +14,7 @@ import {
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 
 describe('apiEuresEmploiEuropeMapper', () => {
@@ -243,10 +244,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							},
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 								{
-									anneesDExperience: 3,
 									codeLangueDeLOffre: 'fr',
 									description: 'Je suis la description',
 									educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+									experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 									listeLangueDeTravail: ['FR', 'EN'],
 									listePermis: ['B', 'C'],
 									nomEntreprise: 'La Boulangerie',
@@ -272,9 +273,9 @@ describe('apiEuresEmploiEuropeMapper', () => {
 
 			// Then
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
-				anneesDExperience: 3,
 				codeLangueDeLOffre: 'fr',
 				description: 'Je suis la description',
+				experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				id: '3',
 				langueDeTravail: ['français', 'anglais'],
 				listePermis: ['B', 'C'],
@@ -852,6 +853,64 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					}).competencesLinguistiques,
 					);
 				});
+			});
+		});
+
+		describe('expérience exigée', () => {
+			it('lorsque la durée et l‘unité sont fournies', () => {
+				const handle = 'eures-offer-id';
+				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+					{
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+								experienceNecessaire: {
+									duree: 6,
+									unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+								},
+							}),
+						}),
+					},
+				);
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+				// WHEN
+				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+				// THEN
+				expect(result.experienceNecessaire?.duree).toBe(6);
+				expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
+			});
+
+			it('lorsque l‘unité n‘est pas fournie, renvoie uniquement la durée', () => {
+				const handle = 'eures-offer-id';
+				const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+					{
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							header: {
+								handle,
+							},
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+								experienceNecessaire: {
+									duree: 6,
+									unite: undefined,
+								},
+							}),
+						}),
+					},
+				);
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
+				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+				// WHEN
+				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+
+				// THEN
+				expect(result.experienceNecessaire?.duree).toBe(6);
+				expect(result.experienceNecessaire?.unite).toBe(undefined);
 			});
 		});
 	});

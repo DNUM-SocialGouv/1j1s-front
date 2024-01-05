@@ -67,14 +67,14 @@ export class ApiEuresEmploiEuropeMapper {
 		const niveauEtudes = this.getNiveauEtude(positionQualifications);
 		const langueDeTravail = this.getLangueDeTravail(positionProfile?.WorkingLanguageCode);
 		const competencesLinguistiques = this.getCompetencesLinguistiques(positionQualifications);
-		const anneesDExperience = this.getAnneesExperience(positionQualifications);
+		const experienceNecessaire = this.getExperienceNecessaire(positionQualifications);
 		const listePermisDeConduire = this.getListePermisDeConduire(positionQualifications);
 
 		return {
-			anneesDExperience,
 			codeLangueDeLOffre,
 			competencesLinguistiques,
 			description: descriptionDeLOffre,
+			experienceNecessaire: experienceNecessaire,
 			id: handle,
 			langueDeTravail,
 			listePermis: listePermisDeConduire,
@@ -245,11 +245,21 @@ export class ApiEuresEmploiEuropeMapper {
 		return languageCompetenciesDetails;
 	}
 
-	private getAnneesExperience(positionQualifications?: PositionQualifications) {
+	private getExperienceNecessaire(positionQualifications?: PositionQualifications) {
 		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
+
 		const experienceCategory = this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
-		const anneesDExperience = this.getElementOrFirstElementInArray(experienceCategory?.Measure);
-		return anneesDExperience !== undefined ? this.xmlService.getTextValue(anneesDExperience) : undefined;
+		const experienceNecessaire = this.getElementOrFirstElementInArray(experienceCategory?.Measure);
+		if (!experienceNecessaire)
+			return undefined;
+
+		const duree = this.xmlService.getTextValue(experienceNecessaire);
+		const unitCode = experienceNecessaire.attributs?.unitCode;
+
+		return {
+			duree,
+			unite: unitCode,
+		};
 	}
 
 	private getListePermisDeConduire(positionQualifications?: PositionQualifications) {

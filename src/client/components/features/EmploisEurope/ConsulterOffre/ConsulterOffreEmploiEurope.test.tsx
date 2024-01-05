@@ -10,6 +10,7 @@ import {
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { queries } from '~/test-utils';
 
 describe('DetailOffreEmploiEurope', () => {
@@ -105,7 +106,7 @@ describe('DetailOffreEmploiEurope', () => {
 	});
 
 	describe('Tags', () => {
-		it('si le type de contrat est présent, affiche le type de contrat',  () => {
+		it('si le type de contrat est présent, affiche le type de contrat', () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ typeContrat: 'Embauche directe' });
 
@@ -118,7 +119,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le temps de travail est présent, affiche le temps de travail',  () => {
+		it('si le temps de travail est présent, affiche le temps de travail', () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ tempsDeTravail: 'Temps partiel' });
 
@@ -131,7 +132,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes',  () => {
+		it('si le niveau d‘etudes est présent, affiche le niveau d‘etudes', () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Niveau maîtrise (Master) ou équivalent' });
 
@@ -144,7 +145,7 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(tagTypeContrat).toBeVisible();
 		});
 
-		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes',  () => {
+		it('si le niveau d‘etudes est "Autre", n‘affiche pas le niveau d‘etudes', () => {
 			// GIVEN
 			const offreEmploiEurope = anEmploiEurope({ niveauEtudes: 'Autre' });
 
@@ -158,7 +159,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient un pays et une ville', () => {
-			it('affiche le résultat avec le pays et la ville',  () => {
+			it('affiche le résultat avec le pays et la ville', () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: 'Paris' });
 
@@ -173,7 +174,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient un pays mais pas de ville', () => {
-			it('affiche le résultat avec le pays',  () => {
+			it('affiche le résultat avec le pays', () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: undefined });
 
@@ -188,7 +189,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient une ville mais pas de pays', () => {
-			it('affiche le résultat avec la ville',  () => {
+			it('affiche le résultat avec la ville', () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ pays: undefined, ville: 'Paris' });
 
@@ -216,7 +217,10 @@ describe('DetailOffreEmploiEurope', () => {
 			});
 
 			it('si la langue n‘est pas présente, affiche la description avec l‘attribut langue inconnue', () => {
-				const offreEmploiEurope = anEmploiEurope({ codeLangueDeLOffre: undefined, description: 'Je suis la description' });
+				const offreEmploiEurope = anEmploiEurope({
+					codeLangueDeLOffre: undefined,
+					description: 'Je suis la description',
+				});
 
 				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
@@ -289,8 +293,16 @@ describe('DetailOffreEmploiEurope', () => {
 				competencesLinguistiques: [{
 					codeDuNiveauDeLangue: LEVEL_CODE.B2,
 					detailCompetenceLanguistique: [
-						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.A1, nomCompetence: 'competence 1', nomDuNiveauDeLaCompetence: LEVEL_NAME.ELEMENTAIRE },
-						{ codeDuNiveauDeLaCompetence: LEVEL_CODE.C2, nomCompetence: 'competence 2', nomDuNiveauDeLaCompetence: LEVEL_NAME.MAITRISE },
+						{
+							codeDuNiveauDeLaCompetence: LEVEL_CODE.A1,
+							nomCompetence: 'competence 1',
+							nomDuNiveauDeLaCompetence: LEVEL_NAME.ELEMENTAIRE,
+						},
+						{
+							codeDuNiveauDeLaCompetence: LEVEL_CODE.C2,
+							nomCompetence: 'competence 2',
+							nomDuNiveauDeLaCompetence: LEVEL_NAME.MAITRISE,
+						},
 					],
 					langage: 'français',
 					nomDuNiveauDeLangue: LEVEL_NAME.AVANCE,
@@ -318,7 +330,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 	describe('niveau d‘expérience', () => {
 		it('lorsque le niveau d‘expérience n‘est pas fourni, n‘affiche pas de message', () => {
-			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: undefined });
+			const offreEmploiEurope = anEmploiEurope({ experienceNecessaire: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
@@ -326,31 +338,105 @@ describe('DetailOffreEmploiEurope', () => {
 			expect(queryByDescriptionTerm('Expérience')).not.toBeInTheDocument();
 		});
 
-		it('lorsque qu‘aucune année d‘expérience est demandée', () => {
-			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 0 });
+		it('lorsque qu‘aucune expérience est requise', () => {
+			const offreEmploiEurope = anEmploiEurope({
+				experienceNecessaire: {
+					duree: 0,
+				},
+			});
 
 			const { getByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune année d‘expérience requise');
+			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('Aucune expérience requise');
 		});
 
-		it('lorsque qu‘une année d‘expérience est demandée', () => {
-			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 1 });
+		describe('lorsque l‘unité est en mois', () => {
+			it('lorsque qu‘un mois est demandé', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 1, unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+					},
+				});
 
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an');
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 mois');
+			});
+
+			it('lorsque plusieurs mois sont demandés', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 5, unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 mois');
+			});
 		});
 
-		it('lorsque plusieurs années d‘expériences sont demandées', () => {
-			const offreEmploiEurope = anEmploiEurope({ anneesDExperience: 5 });
+		describe('lorsque l‘unité est en années', () => {
+			it('lorsque qu‘un an est demandé', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 1,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+					},
+				});
 
-			const { getByDescriptionTerm } = render(<DetailEmploiEurope
-				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
-			expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans');
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 an');
+			});
+
+			it('lorsque plusieurs mois sont demandées', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 5,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 ans');
+			});
+		});
+
+		describe('lorsque l‘unité est en semaine', () => {
+			it('lorsque qu‘une semaine est demandée', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 1,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 semaine');
+			});
+
+			it('lorsque plusieurs semaines sont demandées', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 5,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 semaines');
+			});
 		});
 	});
 });
