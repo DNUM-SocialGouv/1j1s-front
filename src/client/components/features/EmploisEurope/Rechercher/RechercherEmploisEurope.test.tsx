@@ -8,6 +8,7 @@ import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {
 	anEmploiEurope,
@@ -463,6 +464,7 @@ describe('RechercherEmploisEurope', () => {
 					codePays: 'ES',
 					libellePays: 'Espagne',
 					page: '1',
+					tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
 					typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
 				},
 			});
@@ -480,10 +482,11 @@ describe('RechercherEmploisEurope', () => {
 			const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquettesRecherche).toBeVisible();
 			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
-			expect(etiquettes).toHaveLength(3);
+			expect(etiquettes).toHaveLength(4);
 			expect(etiquettes[0]).toHaveTextContent('Espagne');
 			expect(etiquettes[1]).toHaveTextContent('Contrat');
 			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
+			expect(etiquettes[3]).toHaveTextContent('Temps plein');
 		});
 		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
 			const emploiEuropeServiceMock = anEmploiEuropeService();

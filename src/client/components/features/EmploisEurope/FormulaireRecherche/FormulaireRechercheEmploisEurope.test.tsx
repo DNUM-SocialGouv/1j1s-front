@@ -10,6 +10,7 @@ import {
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {
@@ -90,6 +91,34 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
 			});
 		});
+		describe('quand on recherche par temps de travail', () => {
+			it('ajoute les types de temps de travail aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				const buttonFiltresAvances = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+				// WHEN
+				await user.click(buttonFiltresAvances);
+				const modalComponent = screen.getByRole('dialog');
+				const checkboxApprentissage = within(modalComponent).getByRole('checkbox', { name: 'Temps partiel' });
+				await user.click(checkboxApprentissage);
+				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
+				await user.click(buttonAppliquerFiltres);
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+
+				expect(routerPush).toHaveBeenCalledWith({ query: `tempsDeTravail=${EURES_POSITION_SCHEDULE_TYPE.PartTime}&page=1` }, undefined, { shallow: true });
+			});
+		});
 		describe('quand on recherche par niveau d’étude', () => {
 			it('ajoute les niveaux d’étude aux query params', async () => {
 				// GIVEN
@@ -160,12 +189,15 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		});
 
 		it('affiche les filtres avancés sans modale', async () => {
+			mockUseRouter({});
+
 			render(
 				<FormulaireRechercheEmploisEurope />,
 			);
 
-			expect(screen.getByRole('button', { name: 'Type de contrat' })).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Niveau d\'études demandé' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Type de contrat' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Temps de travail' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Niveau d\'études demandé' })).toBeVisible();
 		});
 
 		describe('quand on recherche par type de contrat', () => {
@@ -191,6 +223,32 @@ describe('FormulaireRechercheEmploisEurope', () => {
 
 				// THEN
 				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
+			});
+		});
+
+		describe('quand on recherche par temps de travail', () => {
+			it('ajoute les temps de travail aux query params', async () => {
+				// GIVEN
+				const routerPush = jest.fn();
+				const user = userEvent.setup();
+				mockUseRouter({ push: routerPush });
+
+				render(
+					<FormulaireRechercheEmploisEurope />,
+				);
+
+				// WHEN
+				const button = screen.getByRole('button', { name: 'Temps de travail' });
+				await user.click(button);
+
+				const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Temps plein' });
+				await user.click(checkboxApprentissage);
+
+				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
+				await user.click(buttonRechercher);
+
+				// THEN
+				expect(routerPush).toHaveBeenCalledWith({ query: `tempsDeTravail=${EURES_POSITION_SCHEDULE_TYPE.FullTime}&page=1` }, undefined, { shallow: true });
 			});
 		});
 
@@ -252,13 +310,16 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		});
 	});
 	it('rempli automatiquement les champs lorsque les query params sont présents', async () => {
+		mockLargeScreen();
 		mockUseRouter({ query: {
 			codePays: 'ES',
 			libellePays: 'Espagne',
 			motCle: 'boulanger',
 			secteurActivite: 'B',
+			tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
 		},
 		});
+		const user = userEvent.setup();
 
 		render(
 			<FormulaireRechercheEmploisEurope />,
@@ -268,6 +329,13 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		expect(inputRechercheMotCle).toHaveValue('boulanger');
 		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays)' });
 		expect(inputRechercheLocalisation).toHaveValue('Espagne');
+
+		const button = screen.getByRole('button', { name: 'Temps de travail' });
+		await user.click(button);
+
+		const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Temps plein' });
+		expect(checkboxApprentissage).toHaveAttribute('checked');
+
 	});
 	it('laisse le champ localisation vide si il manque le code pays dans les query params', async () => {
 		mockUseRouter({ query: {

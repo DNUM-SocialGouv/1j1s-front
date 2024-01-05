@@ -11,6 +11,7 @@ import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
@@ -63,6 +64,7 @@ export default function RechercherEmploisEurope() {
 		return messageResultatRechercheSplit.join(' ');
 	}, [nombreResultats, emploiEuropeQuery.motCle]);
 
+	//TODO add etiquettes
 	const etiquettesRecherche = useMemo(() => {
 		const filtreList: string[] = [];
 		if (emploiEuropeQuery.libellePays) {
@@ -75,9 +77,16 @@ export default function RechercherEmploisEurope() {
 				.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
 			filtreList.push(...typeContratLibelleList);
 		}
+		if (emploiEuropeQuery.tempsDeTravail) {
+			const tempsDeTravailList = emploiEuropeQuery.tempsDeTravail.split(',');
+			const tempsDeTravailLibelleList = tempsDeTravailList
+				.filter((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)?.libellé)
+				.map((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)!.libellé);
+			filtreList.push(...tempsDeTravailLibelleList);
+		}
 		if(filtreList.length === 0) return ;
 		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
-	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.libellePays]);
+	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.tempsDeTravail, emploiEuropeQuery.libellePays]);
 
 	return <>
 		<Head
