@@ -148,7 +148,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 						facetCriteria: [
 							{
 								facetName: 'WORK_SCHEDULE',
-								facetValues: ['CDI'],
+								facetValues: ['FullTime'],
 							},
 						],
 					},
