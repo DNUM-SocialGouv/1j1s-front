@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.211.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.210.4...v3.211.0) (2024-01-08)
+
+
+### Features
+
+* **stage3eme:** recherche uniquement les entreprises accueillantes ([#2526](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2526)) ([5171f02](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5171f020763b5720df63df9968bce8fb6b74629b))
+
 ## [3.210.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.210.3...v3.210.4) (2024-01-08)
 
 
