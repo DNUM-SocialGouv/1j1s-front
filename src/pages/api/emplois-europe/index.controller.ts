@@ -1,7 +1,6 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { EURES_POSITION_SCHEDULE_TYPE, tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
