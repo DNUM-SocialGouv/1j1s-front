@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.212.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.211.0...v3.212.0) (2024-01-08)
+
+
+### Features
+
+* **formations:** token statistiques inserjeunes ([#2520](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2520)) ([8008eeb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8008eeb46a4914e5ccdfc7316f9966c6d2173289))
+
 ## [3.211.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.210.4...v3.211.0) (2024-01-08)
 
 
