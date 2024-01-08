@@ -64,7 +64,7 @@ export const InputChamp: <
 		render: Render,
 		...rest
 	}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
-	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
+	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
 	useEffect(() => {
@@ -84,7 +84,7 @@ export const InputChamp: <
 	return (<Render
 		onTouch={onTouch}
 		ref={inputRef}
-		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
+		aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
 		id={inputId}
 		onChange={onChange}
 		{...rest}

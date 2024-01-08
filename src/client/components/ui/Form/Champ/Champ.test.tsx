@@ -220,7 +220,7 @@ describe('<Champ/>', () => {
 			render(
 				<Champ>
 					<Champ.Input render={Input} validation={() => 'Je suis l‘erreur'}/>
-					<Champ.Error id="idExpected"/>
+					<Champ.Error/>
 				</Champ>,
 			);
 
@@ -244,6 +244,29 @@ describe('<Champ/>', () => {
 			const erreur = screen.getByText('Constraints not satisfied');
 
 			expect(erreur).toBeVisible();
+		});
+
+		it('lorsque le champ est touched et qu’il n’y a pas d’erreur, n’affiche pas l‘erreur et l‘input n‘a pas l‘id de l‘erreur dans son attribut aria-describedby', async () => {
+			// Given
+			const user = userEvent.setup();
+			render(
+				<Champ>
+					<Champ.Input render={Input} id={'input-id'} required/>
+					<Champ.Error id={'erreur-id'} data-testid={'erreur-id'}/>
+				</Champ>,
+			);
+
+			// When
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+
+			// Then
+			const erreur = screen.queryByTestId('erreur-id');
+			const inputAriaDescribedBy = input.getAttribute('aria-describedby');
+
+			expect(erreur).toBeNull();
+			expect(inputAriaDescribedBy?.includes('erreur-id')).toBeFalsy();
 		});
 	});
 });
