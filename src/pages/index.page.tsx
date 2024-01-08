@@ -84,7 +84,7 @@ export default function Accueil() {
 			linkLabel: 'Voir les offres',
 			title: 'Expérience en Europe',
 		},
-	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 	const formationEtOrientationCardListContent = [
 		isFormationsInitalesVisible ? {
@@ -115,7 +115,7 @@ export default function Accueil() {
 			linkLabel: 'En savoir plus',
 			title: 'Participer à des évènements',
 		},
-	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 	const engagementEtBenevolatCardListContent = [
 		{
@@ -214,7 +214,7 @@ export default function Accueil() {
 			linkLabel: 'En savoir plus',
 			title: 'Je crée mon CV personnalisé',
 		},
-	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 
 	const getCardList = (cardListContent: CardContent[]) => {
