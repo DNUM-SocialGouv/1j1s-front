@@ -1,6 +1,5 @@
 import { stringify } from 'querystring';
 
-import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
 import { Stage3emeQueryParams } from '~/client/hooks/useStage3emeQuery';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
