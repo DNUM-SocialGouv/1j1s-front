@@ -31,10 +31,15 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 				</ModalComponent.Title>
 				<ModalComponent.Content>
 					<small className={styles.modalSubTitle}>(Tous les champs sont obligatoires)</small>
-					<FormulaireDeContactCEJ isSuccessOnSubmit={(isSuccess: boolean) => {
-						setIsOpen(false);
-						setStatusForm(isSuccess ? 'success' : 'error');
-					}}/>
+					<FormulaireDeContactCEJ
+						onSuccess={() => {
+							setIsOpen(false);
+							setStatusForm('success');
+						}}
+						onFailure={() => {
+							setIsOpen(false);
+							setStatusForm('error');
+						}}/>
 				</ModalComponent.Content>
 			</ModalComponent>
 

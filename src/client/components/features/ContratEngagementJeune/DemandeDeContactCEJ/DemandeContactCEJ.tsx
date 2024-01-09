@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import {
 	ModaleDemandeContactCEJ,
 } from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/ModaleDemandeContactCEJ/ModaleDemandeContactCEJ';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 
-import { Container } from '../../../layouts/Container/Container';
-import { ButtonComponent } from '../../../ui/Button/ButtonComponent';
 import styles from './DemandeContactCEJ.module.scss';
 
 export default function DemandeContactCEJ() {

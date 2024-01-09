@@ -16,7 +16,7 @@ interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
 	keepModalMounted?: boolean
 }
 
-const MODAL_ANIMATION_TIME_IN_MS = 300;
+export const MODAL_ANIMATION_TIME_IN_MS = 300;
 
 export function ModalComponent(props: ModalProps) {
 	const {

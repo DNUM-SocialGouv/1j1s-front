@@ -16,7 +16,8 @@ import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 describe('<FormulaireDeContactCEJ />', () => {
 
 	function renderComponent() {
-		const isSuccessOnSubmit = jest.fn();
+		const onSuccess = jest.fn();
+		const onFailure = jest.fn();
 		const anDemandeDeContactService = (): BffDemandeDeContactService => ({
 			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
 			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
@@ -26,10 +27,10 @@ describe('<FormulaireDeContactCEJ />', () => {
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
-				<FormulaireDeContactCEJ isSuccessOnSubmit={isSuccessOnSubmit}/>
+				<FormulaireDeContactCEJ onSuccess={onSuccess} onFailure={onFailure}/>
 			</DependenciesProvider>,
 		);
-		return { demandeDeContactServiceMock, onSuccess: isSuccessOnSubmit };
+		return { demandeDeContactServiceMock, onSuccess };
 	}
 
 	it('affiche un formulaire de rappel', async () => {
@@ -100,7 +101,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				});
 
 				// Then
-				expect(onSuccess).toHaveBeenCalled();
+				expect(onSuccess).toHaveBeenCalledTimes(1);
 			});
 		});
 	});

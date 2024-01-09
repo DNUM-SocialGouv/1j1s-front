@@ -5,6 +5,7 @@
 import { act, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { MODAL_ANIMATION_TIME_IN_MS } from '~/client/components/ui/Modal/ModalComponent';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
@@ -86,7 +87,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			await user.click(buttonDemandeContact);
 
 			// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-			await act(() => delay(300));
+			await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 
 			await remplirFormulaire();
 
@@ -122,7 +123,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				await user.click(buttonDemandeContact);
 
 				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(300));
+				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 
 				await remplirFormulaire();
 
@@ -159,7 +160,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				await user.click(buttonDemandeContact);
 
 				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(300));
+				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 
 				await remplirFormulaire();
 

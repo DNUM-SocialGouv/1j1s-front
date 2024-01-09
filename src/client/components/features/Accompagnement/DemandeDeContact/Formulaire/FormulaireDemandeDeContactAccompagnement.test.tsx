@@ -30,13 +30,15 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	let établissementAccompagnementService: ÉtablissementAccompagnementService;
 	const contactÉtablissementAccompagnement = aContactÉtablissementAccompagnement();
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
-	let isSuccessOnSubmit: () => void;
+	let onSuccess: () => void;
+	let onFailure: () => void;
 
 	beforeEach(() => {
 		mockSmallScreen();
 		localisationService = aLocalisationService();
 		établissementAccompagnementService = anÉtablissementAccompagnementService();
-		isSuccessOnSubmit = jest.fn();
+		onSuccess = jest.fn();
+		onFailure = jest.fn();
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -47,7 +49,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			<DependenciesProvider localisationService={localisationService} établissementAccompagnementService={établissementAccompagnementService}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-					isSuccessOnSubmit={isSuccessOnSubmit}
+					onSuccess={onSuccess}
+					onFailure={onFailure}
 				/>
 			</DependenciesProvider>,
 		);
@@ -99,21 +102,21 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 			expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledWith(demandeDeContactAccompagnement);
 		});
 
-		it('lorsque l‘envoie est un success appelle isSuccessOnSubmit à true', async () => {
+		it('lorsque l‘envoie est un success appelle onSuccess', async () => {
 			renderComponent();
 
 			await envoyerDemandeContact();
 
-			expect(isSuccessOnSubmit).toHaveBeenCalledWith(true);
+			expect(onSuccess).toHaveBeenCalledTimes(1);
 		});
 
-		it('lorsque l‘envoie est en erreur appelle isSuccessOnSubmit à false', async () => {
+		it('lorsque l‘envoie est en erreur appelle onFailure', async () => {
 			renderComponent();
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			await envoyerDemandeContact();
 
-			expect(isSuccessOnSubmit).toHaveBeenCalledWith(false);
+			expect(onFailure).toHaveBeenCalledTimes(1);
 		});
 	});
 });

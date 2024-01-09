@@ -37,9 +37,13 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 					<small className={styles.modalSubTitle}>Tous les champs sont obligatoires sauf mention contraire</small>
 					<FormulaireDemandeDeContactAccompagnement
 						contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
-						isSuccessOnSubmit={(isSuccess: boolean) => {
+						onSuccess={() => {
 							setIsOpen(false);
-							setStatusForm(isSuccess ? 'success' : 'error');
+							setStatusForm('success');
+						}}
+						onFailure={() => {
+							setIsOpen(false);
+							setStatusForm('error');
 						}}
 					/>
 				</ModalComponent.Content>

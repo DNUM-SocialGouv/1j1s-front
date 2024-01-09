@@ -28,10 +28,15 @@ export function ModaleMissionLocale({ isMissionLocaleModaleOpen, setIsMissionLoc
 			</ModalComponent.Title>
 			<ModalComponent.Content>
 				<small className={styles.accompagnementModalSubTitle}>(Tous les champs sont obligatoires)</small>
-				<FormulaireDeContactCEJ isSuccessOnSubmit={(isSuccess: boolean) => {
-					setIsMissionLocaleModaleOpen(false);
-					setStatusForm(isSuccess ? 'success' : 'error');
-				}}/>
+				<FormulaireDeContactCEJ
+					onSuccess={() => {
+						setIsMissionLocaleModaleOpen(false);
+						setStatusForm('success');
+					}}
+					onFailure={() => {
+						setIsMissionLocaleModaleOpen(false);
+						setStatusForm('error');
+					}}/>
 			</ModalComponent.Content>
 		</ModalComponent>
 

@@ -15,10 +15,11 @@ import { emailRegex } from '~/shared/emailRegex';
 import styles from './FormulaireContactCEJ.module.scss';
 
 interface FormulaireDeContactCEJProps {
-	isSuccessOnSubmit: (isSuccess: boolean) => void;
+	onSuccess: () => void;
+	onFailure: () => void;
 }
 
-export function FormulaireDeContactCEJ({ isSuccessOnSubmit }: FormulaireDeContactCEJProps) {
+export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeContactCEJProps) {
 	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const demandeDeContactService = useDependency<BffDemandeDeContactService>('demandeDeContactService');
@@ -39,9 +40,9 @@ export function FormulaireDeContactCEJ({ isSuccessOnSubmit }: FormulaireDeContac
 		});
 		setIsLoading(false);
 		if (isSuccess(response)) {
-			isSuccessOnSubmit(true);
+			onSuccess();
 		} else {
-			isSuccessOnSubmit(false);
+			onFailure();
 		}
 	}
 

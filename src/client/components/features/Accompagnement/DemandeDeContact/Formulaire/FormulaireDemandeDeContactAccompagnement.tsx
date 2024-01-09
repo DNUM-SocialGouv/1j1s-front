@@ -22,11 +22,11 @@ import { emailRegex } from '~/shared/emailRegex';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
 	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
-
-	isSuccessOnSubmit: (isSuccess: boolean) => void;
+	onSuccess: () => void;
+	onFailure: () => void;
 }
 
-export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, isSuccessOnSubmit }: FormulaireDemandeDeContactAccompagnementProps) {
+export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, onSuccess, onFailure }: FormulaireDemandeDeContactAccompagnementProps) {
 	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
 
 	async function envoyerFormulaire(event: FormEvent<HTMLFormElement>) {
@@ -36,9 +36,9 @@ export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissement
 		const demandeDeContactAccompagnement = mapDemandeDeContactAccompagnement(data, contactÉtablissementAccompagnement);
 		const result = await établissementAccompagnementService.envoyerDemandeContact(demandeDeContactAccompagnement);
 		if (isSuccess(result)) {
-			isSuccessOnSubmit(true);
+			onSuccess();
 		} else {
-			isSuccessOnSubmit(false);
+			onFailure();
 		}
 	}
 
