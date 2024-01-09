@@ -2,10 +2,12 @@ import { useRouter } from 'next/router';
 import React, { FormEvent, useRef } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
+import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -17,7 +19,15 @@ export function FormulaireRechercheStages3eme() {
 	const {
 		libelleMetier,
 		codeMetier,
+		codeCommune,
+		codePostal,
+		latitudeCommune,
+		libelleCommune,
+		longitudeCommune,
+		ville,
 	} = queryParams;
+
+	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
 
 	const metierDefaultValue = (codeMetier && libelleMetier)
 		? { code: codeMetier, label: libelleMetier }
@@ -31,13 +41,12 @@ export function FormulaireRechercheStages3eme() {
 
 	function updateRechercherStage3emeQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const queryFromForm = getFormAsQuery(event.currentTarget, queryParams, false);
-		// NOTE (DORO 22-11-2023): Query params "location=here" temporaire pour afficher les résultats de recherche (à remplacer par les vrais query params quand la recherche par localisation sera implémentée)
-		const query = `location=here${queryFromForm ? '&' + queryFromForm : ''}`;
+		const query = getFormAsQuery(event.currentTarget, queryParams, false);
 		return router.push({ query }, undefined, { shallow: true });
 	}
 
-	return (
+	return (<>
+		<p className={styles.champsInformation}>Tous les champs sont obligatoires sauf mention contraire</p>
 		<form
 			ref={rechercheStage3emeForm}
 			role="search"
@@ -55,16 +64,18 @@ export function FormulaireRechercheStages3eme() {
 							valueName={'codeMetier'}
 						/>
 					</MetierDependenciesProvider>
+					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue}/>
 				</div>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
-					label='Rechercher'
-					icon={<Icon name="magnifying-glass" />}
-					iconPosition='right'
-					type='submit'
+					label="Rechercher"
+					icon={<Icon name="magnifying-glass"/>}
+					iconPosition="right"
+					type="submit"
 				/>
 			</div>
 		</form>
+	</>
 	);
 }

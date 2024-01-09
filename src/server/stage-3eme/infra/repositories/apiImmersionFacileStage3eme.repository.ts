@@ -13,8 +13,11 @@ export class ApiImmersionFacileStage3emeRepository implements Stage3emeRepositor
 
 	async search(filtre: Stage3emeFiltre) {
 		try {
-			const endpoint = '/search?latitude=48.8535&longitude=2.34839&distanceKm=10'
+			const endpoint = '/search?'
 				.concat('&voluntaryToImmersion=true')
+				.concat(`&latitude=${filtre.latitudeCommune}`)
+				.concat(`&longitude=${filtre.longitudeCommune}`)
+				.concat(`&distanceKm=${filtre.distanceCommune}`)
 				.concat(filtre.codeMetier ? `&appellationCodes[]=${filtre.codeMetier}` : '');
 			const response = await this.httpClientService.get<Array<ApiImmersionFacileStage3emeRechercheResponse>>(endpoint);
 			const apiValidationError = validateApiResponse<Array<ApiImmersionFacileStage3emeRechercheResponse>>(response.data, apiImmersionFacileStage3emeSchemas.search);

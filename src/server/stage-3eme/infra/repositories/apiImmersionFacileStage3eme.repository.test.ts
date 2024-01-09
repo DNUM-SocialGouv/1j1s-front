@@ -30,6 +30,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 			// Then
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('/search'));
 		});
+
 		it('appelle l’api Immersion Facile avec la localisation fournis', () => {
 			// Given
 			const filtre: Stage3emeFiltre = aStage3emeFiltre();
@@ -40,11 +41,17 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 			repository.search(filtre);
 
 			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitude=48.8535&longitude=2.34839&distanceKm=10'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitude=2&longitude=3&distanceKm=10'));
 		});
-		it('appelle l\'api Immersion Facile avec le filtre qui ne remonte que les entreprise volontaires', () => {
+
+		it('appelle l‘api Immersion Facile avec le filtre qui ne remonte que les entreprise volontaires', () => {
 			// Given
-			const filtre: Stage3emeFiltre = aStage3emeFiltre();
+			const filtre: Stage3emeFiltre = aStage3emeFiltre({
+				codeMetier: undefined,
+				distanceCommune: '10',
+				latitudeCommune: '2',
+				longitudeCommune: '3',
+			});
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
 

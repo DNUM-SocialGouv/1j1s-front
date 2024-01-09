@@ -22,4 +22,7 @@ export interface ResultatRechercheStage3eme {
 
 export interface Stage3emeFiltre {
 	codeMetier?: string
+	latitudeCommune: string
+	longitudeCommune: string
+	distanceCommune: string
 }
