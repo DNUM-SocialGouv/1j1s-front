@@ -264,6 +264,7 @@ export default function LesEntreprisesSEngagentInscription() {
 			<ModalErrorSubmission
 				isOpen={isErreurModalOpen}
 				onClose={() => setIsErreurModalOpen(false)}
+				onBackToForm={() => setIsErreurModalOpen(false)}
 				description={'Pour plus d‘informations, rendez-vous sur le site des entreprises s‘engagent'}/>
 		</main>
 	);

@@ -308,7 +308,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				expect(screen.getByRole('dialog')).toBeVisible();
 			});
 
-			it('le bouton de retour au formulaire ferme la modale', async () => {
+			it('le bouton de Retour au formulaire ferme la modale', async () => {
 				// Given
 				const user = userEvent.setup();
 				renderComponent();
@@ -326,6 +326,26 @@ describe('LesEntreprisesSEngagentInscription', () => {
 
 				// Then
 				expect(modale).not.toBeVisible();
+			});
+
+			it('le bouton de Fermer ferme la modale', async () => {
+				// Given
+				const user = userEvent.setup();
+				renderComponent();
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
+				const modale = await screen.findByRole('dialog');
+				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Fermer' });
+
+				// When
+				await user.click(retournerAuFormulaire);
+
+				// Then
+				expect(modale).not.toBeInTheDocument();
 			});
 		});
 	});

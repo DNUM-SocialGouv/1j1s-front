@@ -48,10 +48,15 @@ export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeCon
 				setStatusForm('notSubmitted');
 			}}/>
 
-			<ModalErrorSubmission isOpen={statusForm === 'error'} onClose={() => {
-				setIsOpen(true);
-				setStatusForm('notSubmitted');
-			}}/>
+			<ModalErrorSubmission
+				isOpen={statusForm === 'error'}
+				onClose={() => {
+					setStatusForm('notSubmitted');
+				}}
+				onBackToForm={() => {
+					setIsOpen(true);
+					setStatusForm('notSubmitted');
+				}}/>
 		</>
 	);
 }

@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import Localisation
@@ -128,33 +128,91 @@ describe('<Localisation />', () => {
 		});
 
 
-		describe('quand l’étape 1 et 2 sont remplies', () => {
-			describe('modale d‘erreur', () => {
-				it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
-					mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-					mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+		describe('modale d‘erreur', () => {
+			it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
+				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
 
-					const user = userEvent.setup();
-					const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
-					jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+				const user = userEvent.setup();
+				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
 
-					render(
-						<DependenciesProvider stageService={stageService}>
-							<Localisation/>
-						</DependenciesProvider>,
-					);
+				render(
+					<DependenciesProvider stageService={stageService}>
+						<Localisation/>
+					</DependenciesProvider>,
+				);
 
-					await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
-					await user.click(screen.getByRole('option', { name: 'France' }));
-					expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
-					await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
-					await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
-					await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+				await user.click(screen.getByRole('option', { name: 'France' }));
+				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
+				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
+				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
 
-					await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
+				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
 
-					expect(screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' })).toBeVisible();
-				});
+				expect(screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' })).toBeVisible();
+			});
+
+			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer', async () => {
+				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+
+				const user = userEvent.setup();
+				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+
+				render(
+					<DependenciesProvider stageService={stageService}>
+						<Localisation/>
+					</DependenciesProvider>,
+				);
+
+				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+				await user.click(screen.getByRole('option', { name: 'France' }));
+				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
+				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
+				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+
+				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
+
+				const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
+				expect(modaleErreur).toBeVisible();
+				await user.click(within(modaleErreur).getByRole('button', { name:'Fermer' }));
+
+				expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeVisible();
+			});
+
+			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire', async () => {
+				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+
+				const user = userEvent.setup();
+				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
+				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
+
+				render(
+					<DependenciesProvider stageService={stageService}>
+						<Localisation/>
+					</DependenciesProvider>,
+				);
+
+				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+				await user.click(screen.getByRole('option', { name: 'France' }));
+				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
+				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
+				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
+				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+
+				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
+
+				const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
+				expect(modaleErreur).toBeVisible();
+				await user.click(within(modaleErreur).getByRole('button', { name:'Retour au formulaire' }));
+
+				expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeVisible();
 			});
 		});
 	});

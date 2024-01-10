@@ -54,10 +54,14 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				setStatusForm('notSubmitted');
 			}}/>
 
-			<ModalErrorSubmission isOpen={statusForm === 'error'} onClose={() => {
-				setIsOpen(true);
-				setStatusForm('notSubmitted');
-			}}/>
+			<ModalErrorSubmission isOpen={statusForm === 'error'} 
+				onClose={() => {
+					setStatusForm('notSubmitted');
+				}}
+				onBackToForm={() => {
+					setIsOpen(true);
+					setStatusForm('notSubmitted');
+				}}/>
 		</>
 
 	);

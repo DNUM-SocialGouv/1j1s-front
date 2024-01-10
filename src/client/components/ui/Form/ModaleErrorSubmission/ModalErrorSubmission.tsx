@@ -9,10 +9,11 @@ import styles from './ModalErrorSubmission.module.scss';
 interface ModaleErrorSubmissionProps {
 	isOpen: boolean
 	onClose: () => void
+	onBackToForm: () => void
 	description?: React.ReactElement | string
 }
 
-export function ModalErrorSubmission({ isOpen, onClose, description }: ModaleErrorSubmissionProps) {
+export function ModalErrorSubmission({ isOpen, onClose, description, onBackToForm }: ModaleErrorSubmissionProps) {
 	return <ModalComponent isOpen={isOpen} close={onClose} aria-labelledby={'error_title'}>
 		<ModalComponent.Content className={styles.content}>
 			<ModalComponent.Title className={styles.title} id={'error_title'}>
@@ -24,7 +25,7 @@ export function ModalErrorSubmission({ isOpen, onClose, description }: ModaleErr
 				</div>
 			}
 			<span className={styles.redirections}>
-				<ButtonComponent appearance={'primary'} onClick={onClose} label={'Retour au formulaire'}/>
+				<ButtonComponent appearance={'primary'} onClick={onBackToForm} label={'Retour au formulaire'}/>
 				<LinkStyledAsButtonWithIcon appearance={'asSecondaryButton'} href="/">
 					Aller à l‘accueil
 				</LinkStyledAsButtonWithIcon>

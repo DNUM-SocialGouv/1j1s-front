@@ -95,6 +95,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			expect(établissementAccompagnementService.envoyerDemandeContact).toHaveBeenCalledTimes(1);
 			expect(screen.getByRole('dialog', { name: 'Votre demande a bien été transmise !' })).toBeVisible();
 		});
+
 		describe('modale d‘erreur', () => {
 			it('lorsque l‘envoi de la demande de contact est en echec, affiche la modale d‘echec et ferme la modale de formulaire', async () => {
 				const user = userEvent.setup();
@@ -133,7 +134,48 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				expect(screen.queryByRole('dialog', { name: 'Je souhaite être contacté(e) par la Mission Locale' })).not.toBeInTheDocument();
 			});
 
-			it('lorsque je ferme la modale d‘erreur, ouvre la modale de formulaire', async () => {
+			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire, ouvre la modale de formulaire', async () => {
+				const user = userEvent.setup();
+				const établissement: ÉtablissementAccompagnement = {
+					adresse: 'address',
+					email: 'email',
+					horaires: [],
+					id: 'id',
+					nom: 'nom',
+					telephone: 'telephone',
+					type: TypeÉtablissement.MISSION_LOCALE,
+				};
+				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const localisationService = aLocalisationService();
+
+				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+				render(<DependenciesProvider
+					établissementAccompagnementService={établissementAccompagnementService}
+					localisationService={localisationService}>
+					<RésultatRechercherAccompagnement établissement={établissement}/>
+				</DependenciesProvider>);
+
+				const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+				expect(buttonDemandeContact).toBeVisible();
+				await user.click(buttonDemandeContact);
+
+				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
+				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
+
+				await remplirFormulaire();
+
+				await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
+
+
+				const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
+				await user.click(within(modaleErreur).getByRole('button', { name: 'Retour au formulaire' }));
+				expect(modaleErreur).not.toBeInTheDocument();
+
+				expect(screen.getByRole('dialog', { name: 'Je souhaite être contacté(e) par la Mission Locale' })).toBeVisible();
+			});
+
+			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer, ferme la modale et ne re ouvre pas le formulaire', async () => {
 				const user = userEvent.setup();
 				const établissement: ÉtablissementAccompagnement = {
 					adresse: 'address',
@@ -171,7 +213,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				await user.click(within(modaleErreur).getByRole('button', { name: 'Fermer' }));
 				expect(modaleErreur).not.toBeInTheDocument();
 
-				expect(screen.getByRole('dialog', { name: 'Je souhaite être contacté(e) par la Mission Locale' })).toBeVisible();
+				expect(screen.queryByRole('dialog', { name: 'Je souhaite être contacté(e) par la Mission Locale' })).not.toBeInTheDocument();
 			});
 		});
 	});

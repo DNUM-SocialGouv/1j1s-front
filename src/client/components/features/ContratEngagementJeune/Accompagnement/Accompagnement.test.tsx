@@ -271,7 +271,44 @@ describe('<Accompagnement />', () => {
 					expect(screen.queryByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).not.toBeInTheDocument();
 				});
 
-				it('lorsque je ferme la modale d‘erreur, ouvre la modale de formulaire', async () => {
+				it('lorsque je clique sur le bouton Retour au formulaire, ferme la modale d‘erreur et ouvre la modale de formulaire', async () => {
+					const user = userEvent.setup();
+
+					const demandeDeContactService = aDemandeDeContactService();
+					jest.spyOn(demandeDeContactService, 'envoyerPourLeCEJ').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+					const localisationService = aLocalisationService();
+					jest.spyOn(localisationService, 'rechercherCommune').mockResolvedValue(createSuccess({
+						résultats: [aCommune({
+							libelle: formulaireContact.ville,
+						})],
+					}));
+
+					render(
+						<DependenciesProvider
+							demandeDeContactService={demandeDeContactService}
+							localisationService={localisationService}>
+							<Accompagnement/>
+						</DependenciesProvider>,
+					);
+
+					const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
+					await user.click(boutonFormulaireMissionLocale);
+
+					// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
+					await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
+					await remplirFormulaire();
+
+					await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
+
+					const modaleErreur = screen.getByRole('dialog', { name: 'Une erreur est survenue lors de l‘envoi du formulaire' });
+					await user.click(within(modaleErreur).getByRole('button', { name: 'Retour au formulaire' }));
+					expect(modaleErreur).not.toBeInTheDocument();
+
+					expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
+				});
+
+				it('lorsque je clique sur le bouton Fermer, ferme la modale d‘erreur et n‘ouvre pas la modale de formulaire', async () => {
 					const user = userEvent.setup();
 
 					const demandeDeContactService = aDemandeDeContactService();
@@ -305,7 +342,7 @@ describe('<Accompagnement />', () => {
 					await user.click(within(modaleErreur).getByRole('button', { name: 'Fermer' }));
 					expect(modaleErreur).not.toBeInTheDocument();
 
-					expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
+					expect(screen.queryByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).not.toBeInTheDocument();
 				});
 			});
 		});
