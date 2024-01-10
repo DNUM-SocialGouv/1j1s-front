@@ -18,18 +18,20 @@ import RechercherStages3eme from './RechercherStages3eme';
 
 describe('La recherche des stages de 3ème', () => {
 	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
-		it('affiche un formulaire de recherche', async () => {
+		it('ne fait pas d‘appel et affiche un formulaire de recherche', async () => {
 			// GIVEN
 			mockUseRouter({});
 			const stage3emeServiceMock = aStage3emeService();
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={aMetierService()}>
+			const metierStage3emeService = aMetierService();
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={metierStage3emeService}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 
 			// THEN
 			const formulaireRecherche = await screen.findByRole('search', { name: 'Rechercher un stage de 3ème' });
 			expect(formulaireRecherche).toBeVisible();
+			expect(stage3emeServiceMock.rechercherStage3eme).not.toHaveBeenCalled();
 			const titre = await screen.findByRole('heading', {
 				level: 1,
 				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème',

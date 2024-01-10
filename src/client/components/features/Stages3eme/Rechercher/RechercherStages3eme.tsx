@@ -13,6 +13,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -30,9 +31,12 @@ export default function RechercherStages3eme() {
 	const [stage3emeList, setStage3emeList] = useState<ResultatRechercheStage3eme | undefined>(undefined);
 
 	useEffect(() => {
+		if (empty(stage3emeQuery)) {
+			return;
+		}
+
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-
 		stage3emeService.rechercherStage3eme(stage3emeQuery)
 			.then((response) => {
 				if (isSuccess(response)) {
