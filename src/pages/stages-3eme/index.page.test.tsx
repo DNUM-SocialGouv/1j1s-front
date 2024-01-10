@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 
@@ -42,6 +43,7 @@ describe('Page stages de 3ème', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
 					metierStage3emeService={aMetierService()}
+					localisationService={aLocalisationService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -55,6 +57,7 @@ describe('Page stages de 3ème', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
 					metierStage3emeService={aMetierService()}
+					localisationService={aLocalisationService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -68,6 +71,7 @@ describe('Page stages de 3ème', () => {
 					analyticsService={aManualAnalyticsService()}
 					stage3emeService={aStage3emeService()}
 					metierStage3emeService={aMetierService()}
+					localisationService={aLocalisationService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
@@ -88,6 +92,7 @@ describe('Page stages de 3ème', () => {
 					analyticsService={analyticsService}
 					stage3emeService={aStage3emeService()}
 					metierStage3emeService={aMetierService()}
+					localisationService={aLocalisationService()}
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>,

@@ -9,9 +9,11 @@ import {
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useStage3emeQuery } from '~/client/hooks/useStage3emeQuery';
 import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -29,9 +31,12 @@ export default function RechercherStages3eme() {
 	const [stage3emeList, setStage3emeList] = useState<ResultatRechercheStage3eme | undefined>(undefined);
 
 	useEffect(() => {
+		if (empty(stage3emeQuery)) {
+			return;
+		}
+
 		setIsLoading(true);
 		setErreurRecherche(undefined);
-
 		stage3emeService.rechercherStage3eme(stage3emeQuery)
 			.then((response) => {
 				if (isSuccess(response)) {
@@ -60,6 +65,15 @@ export default function RechercherStages3eme() {
 		return messageResultatRechercheSplit.join(' ');
 	}, [stage3emeList, stage3emeQuery.libelleMetier]);
 
+	const etiquettesRecherche = useMemo(() => {
+		const filtreList: string[] = [];
+		if (stage3emeQuery.libelleCommune) {
+			filtreList.push(stage3emeQuery.libelleCommune);
+		}
+		if (filtreList.length === 0) return;
+		return <TagList list={filtreList} aria-label="Filtres de la recherche"/>;
+	}, [stage3emeQuery.libelleCommune]);
+
 	return <>
 		<Head
 			title={title}
@@ -70,9 +84,10 @@ export default function RechercherStages3eme() {
 			<RechercherSolutionLayout
 				bannière={<BaniereStages3eme/>}
 				erreurRecherche={erreurRecherche}
+				étiquettesRecherche={etiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheStages3eme/>}
 				isLoading={isLoading}
-			  listeSolutionElement={<ListeResultatsStage3eme resultatList={stage3emeList} />}
+				listeSolutionElement={<ListeResultatsStage3eme resultatList={stage3emeList}/>}
 				messageRésultatRecherche={messageResultatsRecherche}
 				nombreSolutions={stage3emeList?.nombreDeResultats ?? 0}
 			/>

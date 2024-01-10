@@ -10,7 +10,10 @@ import { dependencies } from '~/server/start';
 
 export const stage3emeRechercheQuerySchema = Joi.object({
 	codeMetier: Joi.string(),
-}).options({ allowUnknown: true });
+	distanceCommune: Joi.string().required(),
+	latitudeCommune: Joi.string().required(),
+	longitudeCommune: Joi.string().required(),
+});
 
 export async function rechercherStage3emeHandler(req: NextApiRequest, res: NextApiResponse<ResultatRechercheStage3eme | ErrorHttpResponse>) {
 	const filtresDeRecherche = stage3emeFiltreMapper(req);
@@ -23,6 +26,9 @@ export default withMonitoring(withValidation({ query: stage3emeRechercheQuerySch
 function stage3emeFiltreMapper(request: NextApiRequest) {
 	const { query } = request;
 	return {
-		codeMetier: query.codeMetier ? String(query.codeMetier ) : undefined,
+		codeMetier: query.codeMetier ? String(query.codeMetier) : undefined,
+		distanceCommune: query.distanceCommune ? String(query.distanceCommune) : '',
+		latitudeCommune: query.latitudeCommune ? String(query.latitudeCommune) : '',
+		longitudeCommune: query.longitudeCommune ? String(query.longitudeCommune) : '',
 	};
 }

@@ -5,9 +5,16 @@
 $color-border-filters: lighten(utilities.$color-primary, 15%);
 $color-message-champs-obligatoires: utilities.$color-primary;
 
+.champsInformation{
+  color: $color-message-champs-obligatoires;
+  @include utilities.text-large;
+}
+
 .rechercheOffreForm {
   display: flex;
   flex-direction: column;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   gap: variables.$form-submit-button-vertical-gap-mobile;
 }
 
@@ -30,10 +37,10 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 
 @include utilities.media(medium) {
   .rechercheOffreForm {
-    flex-direction: row;
-    align-items: flex-start;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
+    flex-direction: row;
+    align-items: flex-start;
     gap: variables.$form-horizontal-gap;
   }
 

@@ -2,11 +2,13 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
+import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service.fixture';
 import { createSuccess } from '~/server/errors/either';
@@ -16,18 +18,20 @@ import RechercherStages3eme from './RechercherStages3eme';
 
 describe('La recherche des stages de 3ème', () => {
 	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
-		it('affiche un formulaire de recherche', async () => {
+		it('ne fait pas d‘appel et affiche un formulaire de recherche', async () => {
 			// GIVEN
 			mockUseRouter({});
 			const stage3emeServiceMock = aStage3emeService();
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
+			const metierStage3emeService = aMetierService();
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={metierStage3emeService}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 
 			// THEN
 			const formulaireRecherche = await screen.findByRole('search', { name: 'Rechercher un stage de 3ème' });
 			expect(formulaireRecherche).toBeVisible();
+			expect(stage3emeServiceMock.rechercherStage3eme).not.toHaveBeenCalled();
 			const titre = await screen.findByRole('heading', {
 				level: 1,
 				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème',
@@ -35,11 +39,12 @@ describe('La recherche des stages de 3ème', () => {
 			expect(titre).toBeVisible();
 		});
 	});
+
 	describe('quand le composant est affiché pour une recherche avec 1 résultat', () => {
 		it('affiche le résultat de la recherche', async () => {
 			// GIVEN
 			mockSmallScreen();
-			mockUseRouter({ query: { location: 'here' } });
+			mockUseRouter({ query: { ...aCommuneQuery() } });
 			const stage3emeServiceMock = aStage3emeService();
 			const resultatRecherche = aResultatRechercheStage3eme({
 				nombreDeResultats: 1,
@@ -59,7 +64,7 @@ describe('La recherche des stages de 3ème', () => {
 			jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={aMetierService()}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
@@ -76,11 +81,12 @@ describe('La recherche des stages de 3ème', () => {
 			expect(resultats[0]).toHaveTextContent('75000 Paris');
 		});
 	});
+
 	describe('quand le composant est affiché pour une recherche avec plusieurs résultats', () => {
 		it('affiche le résultat de la recherche', async () => {
 			// GIVEN
 			mockSmallScreen();
-			mockUseRouter({ query: { location: 'here' } });
+			mockUseRouter({ query: { ...aCommuneQuery() } });
 			const stage3emeServiceMock = aStage3emeService();
 			const resultatRecherche = aResultatRechercheStage3eme({
 				nombreDeResultats: 2,
@@ -110,7 +116,7 @@ describe('La recherche des stages de 3ème', () => {
 			jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 			// WHEN
-			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={aMetierService()}>
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
@@ -135,7 +141,7 @@ describe('La recherche des stages de 3ème', () => {
 			it('affiche le résultat de la recherche', async () => {
 				// GIVEN
 				mockSmallScreen();
-				mockUseRouter({ query: { libelleMetier: 'Informatique', location: 'here' } });
+				mockUseRouter({ query: { libelleMetier: 'Informatique', ...aCommuneQuery() } });
 				const stage3emeServiceMock = aStage3emeService();
 
 				const resultatRecherche = aResultatRechercheStage3eme({
@@ -157,7 +163,7 @@ describe('La recherche des stages de 3ème', () => {
 				jest.spyOn(stage3emeServiceMock, 'rechercherStage3eme').mockResolvedValue(createSuccess(resultatRecherche));
 
 				// WHEN
-				render(<DependenciesProvider stage3emeService={stage3emeServiceMock} metierStage3emeService={aMetierService()}>
+				render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={aMetierService()}>
 					<RechercherStages3eme/>
 				</DependenciesProvider>);
 				const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante pour Informatique');
@@ -165,6 +171,24 @@ describe('La recherche des stages de 3ème', () => {
 				// THEN
 				expect(messageResultatsRecherche).toBeVisible();
 			});
+		});
+	});
+
+	describe('étiquettes de recherche', () => {
+		it('je vois la localisation', async () => {
+			mockSmallScreen();
+			mockUseRouter({ query: { ...aCommuneQuery({ libelleCommune: 'Paris' }) } });
+			const stage3emeServiceMock = aStage3emeService();
+
+			render(<DependenciesProvider stage3emeService={stage3emeServiceMock} localisationService={aLocalisationService()} metierStage3emeService={aMetierService()}>
+				<RechercherStages3eme/>
+			</DependenciesProvider>);
+
+			await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+
+			const etiquetteList = screen.getByRole('list', { name: 'Filtres de la recherche' });
+			expect(etiquetteList).toBeVisible();
+			expect(within(etiquetteList).getByRole('listitem')).toHaveTextContent('Paris');
 		});
 	});
 });

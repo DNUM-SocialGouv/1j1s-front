@@ -48,6 +48,9 @@ export function aStage3eme(override?: Partial<Stage3eme>): Stage3eme {
 export function aStage3emeFiltre(override?: Partial<Stage3emeFiltre>): Stage3emeFiltre {
 	return {
 		codeMetier: undefined,
+		distanceCommune: '10',
+		latitudeCommune: '2',
+		longitudeCommune: '3',
 		...override,
 	};
 }
