@@ -264,7 +264,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Niveau d\'études demandé' });
+				const button = screen.getByRole('button', { name: 'Niveau d‘études demandé' });
 				await user.click(button);
 
 				const checkboxNiveauEtude = screen.getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
