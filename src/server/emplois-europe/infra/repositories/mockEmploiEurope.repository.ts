@@ -10,6 +10,7 @@ import {
 	anApiEuresEmploiEuropeDetailXMLResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { createSuccess, Either } from '~/server/errors/either';
 
 export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
@@ -1035,7 +1036,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
 							experienceNecessaire: undefined,
 							listeCompetencesLinguistiques: [{
-								competenciesDimensions:[
+								competenciesDimensions: [
 									{
 										competencyDimensionName: 'Expression orale',
 										levelCode: LEVEL_CODE.B2,
@@ -1048,7 +1049,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 								language: 'fr',
 								levelCode: LEVEL_CODE.B2,
 							}, {
-								competenciesDimensions:[
+								competenciesDimensions: [
 									{
 										competencyDimensionName: 'Expression orale',
 										levelCode: LEVEL_CODE.A2,
@@ -1089,7 +1090,12 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'BE ACTIRIS CONF',
 							handle: 'Mzk3ODMxMyA0NA',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ experienceNecessaire: 1, pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris' }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							experienceNecessaire: {
+								duree: 1,
+								unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+							}, pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris',
+						}),
 					},
 					related: {
 						urls: [
@@ -1112,7 +1118,12 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ experienceNecessaire: 2, tempsDeTravail: 'FlexTime', titre: 'Nom Offre' }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							experienceNecessaire: {
+								duree: 2,
+								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+							}, tempsDeTravail: 'FlexTime', titre: 'Nom Offre',
+						}),
 					},
 					related: {
 						urls: [
@@ -1181,7 +1192,10 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							dataSourceName: 'NL TEST',
 							handle: 'ZmY5ZDUwZTctZTMyYy02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({ titre: 'Offre avec un type de contrat', typeContrat: 'DirectHire' }),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							titre: 'Offre avec un type de contrat',
+							typeContrat: 'DirectHire',
+						}),
 					},
 					related: {
 						urls: [
