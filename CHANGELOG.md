@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.213.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.212.2...v3.213.0) (2024-01-10)
+
+
+### Features
+
+* **CEJ:** ajout de la gestion d'erreur sur les formulaires accompagnement ([#2530](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2530)) ([897e341](https://github.com/DNUM-SocialGouv/1j1s-front/commit/897e341cba6cbe1e9715bc35b8e1f19039fba414))
+
 ## [3.212.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.212.1...v3.212.2) (2024-01-10)
 
 
