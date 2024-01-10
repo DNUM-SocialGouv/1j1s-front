@@ -26,7 +26,7 @@ describe('FormulaireRechercheStages3eme', () => {
 		mockSmallScreen();
 	});
 
-	it('quand la query comporte la localisation, ajoute la valeur par default dans l‘input', () => {
+	it('quand la query comporte la localisation, ajoute la valeur correspondante dans l‘input', () => {
 		const routerPush = jest.fn();
 
 		mockUseRouter({
@@ -106,7 +106,7 @@ describe('FormulaireRechercheStages3eme', () => {
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=boulanger&codeMetier=codeMetier') }, undefined, { shallow: true });
 	});
 
-	it('quand on recherche par localisation, ajoute la localisation au query', async () => {
+	it('quand on recherche par localisation, ajoute la localisation aux query params', async () => {
 		const routerPush = jest.fn();
 		const user = userEvent.setup();
 		mockUseRouter({ push: routerPush });

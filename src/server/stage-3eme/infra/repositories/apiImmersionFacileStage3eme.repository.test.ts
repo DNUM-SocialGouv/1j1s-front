@@ -31,9 +31,13 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('/search'));
 		});
 
-		it('appelle l’api Immersion Facile avec la localisation fournis', () => {
+		it('appelle l’api Immersion Facile avec la localisation fournie', () => {
 			// Given
-			const filtre: Stage3emeFiltre = aStage3emeFiltre();
+			const filtre: Stage3emeFiltre = aStage3emeFiltre({
+				distanceCommune: '10',
+				latitudeCommune: '2',
+				longitudeCommune: '3',
+			});
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, anErrorManagementService());
 
@@ -132,7 +136,7 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				}));
 			});
 		});
-		
+
 		describe('quand l’api répond avec une erreur', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				// GIVEN
@@ -143,10 +147,10 @@ describe('ApiImmersionFacileStage3emeRepository', () => {
 				const repository = new ApiImmersionFacileStage3emeRepository(httpClientService, errorManagementService);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
-				
+
 				// WHEN
 				const result = await repository.search(aStage3emeFiltre());
-				
+
 				// THEN
 				expect(result).toEqual(createFailure(errorReturnedByErrorManagementService));
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
