@@ -2,11 +2,18 @@
 
 .label {
   display: block;
-  @include utilities.text-large;
+  overflow-wrap: anywhere;
+  @include utilities.text-medium;
+
+  @include utilities.media(small) {
+    @include utilities.text-large;
+  }
 
   .complement {
     display: block;
-    @include utilities.text-small;
-    // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur
+    overflow: hidden;
+    color: utilities.$color-text-placeholder; // TODO (BRUJ 06-10-2023): Ajouter la bonne couleur : devrait s'appeler color-text-secondary d'après l'ui kit
+    @include utilities.text-xsmall;
+    line-height: 1.4;
   }
 }

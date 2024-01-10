@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useState } from 'react';
 
 import { Error } from '~/client/components/ui/Form/Error';
@@ -14,6 +15,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [touched, setTouched] = useState<boolean>(false);
 	const [inputId, setInputId] = useState<string>(useId());
 	const [errorMessage, setErrorMessage] = useState<string>('');
+	const { className: classNameProps, ...otherProps } = props;
 
 	return (
 		<ChampContextProvider value={{
@@ -28,7 +30,7 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 			setTouched,
 			touched,
 		}}>
-			<div className={styles.champ} {...props}/>
+			<div className={classNames(styles.champ, classNameProps)} {...otherProps}/>
 		</ChampContextProvider>
 	);
 }
@@ -62,7 +64,7 @@ export const InputChamp: <
 		render: Render,
 		...rest
 	}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
-	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage } = useChampContext();
+	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
 	useEffect(() => {
@@ -82,7 +84,7 @@ export const InputChamp: <
 	return (<Render
 		onTouch={onTouch}
 		ref={inputRef}
-		aria-describedby={`${ariaDescribedby} ${errorId} ${hintId}`}
+		aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
 		id={inputId}
 		onChange={onChange}
 		{...rest}
@@ -96,7 +98,7 @@ function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>
 		id && setErrorId(id);
 	}, [id, setErrorId]);
 
-	return (touched && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
+	return (touched && errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {

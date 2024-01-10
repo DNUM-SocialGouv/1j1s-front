@@ -1,8 +1,13 @@
 @use "@styles/utilities";
 
-$margin-vertical: 0.5rem;
+$margin-vertical: 0.2rem;
 
 .champ {
-  display: grid;
-  gap: $margin-vertical;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  @include utilities.media(medium) {
+    gap: 0.5rem;
+  }
 }

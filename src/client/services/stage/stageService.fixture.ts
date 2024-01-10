@@ -1,5 +1,5 @@
 import { StageService } from '~/client/services/stage/stage.service';
-import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
+import { Domaines, EmployeurDepotStage, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { createSuccess } from '~/server/errors/either';
 
 export function aStageService(override?: Partial<StageService>): StageService {
@@ -9,7 +9,18 @@ export function aStageService(override?: Partial<StageService>): StageService {
 	};
 }
 
-export function anOffreDeStageDepot(): OffreDeStageDepot {
+export function anEmployeurDepotStage(overrides?: Partial<EmployeurDepotStage>): EmployeurDepotStage {
+	return {
+		description: 'description entreprise',
+		email: 'example@example.com',
+		logoUrl: 'https://fake-url.com',
+		nom: 'SNCF',
+		siteUrl: 'https://fake-url.com',
+		...overrides,
+	};
+}
+
+export function anOffreDeStageDepot(overrides?: Partial<OffreDeStageDepot>): OffreDeStageDepot {
 	return {
 		dateDeDebutMax: '2023-02-03',
 		dateDeDebutMin: '2023-02-03',
@@ -35,5 +46,6 @@ export function anOffreDeStageDepot(): OffreDeStageDepot {
 		teletravailPossible: true,
 		titre: 'Assistant conducteur train',
 		urlDeCandidature: 'mailto:admin@example.com',
+		...overrides,
 	};
 }

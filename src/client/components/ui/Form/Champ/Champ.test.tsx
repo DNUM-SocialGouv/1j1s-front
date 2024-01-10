@@ -12,6 +12,17 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Champ } from './Champ';
 
 describe('<Champ/>', () => {
+	it('accepte un className en plus du style "champ" déjà en place', () => {
+		const { container } = render(
+			<Champ className={'someStyle'}>
+				<Champ.Input render={Input} />
+			</Champ>,
+		);
+
+		// eslint-disable-next-line testing-library/no-node-access
+		expect(container.children[0]).toHaveAttribute('class', 'champ someStyle');
+	});
+
 	it('affiche son contenu', () => {
 		render(
 			<Champ>
@@ -209,7 +220,7 @@ describe('<Champ/>', () => {
 			render(
 				<Champ>
 					<Champ.Input render={Input} validation={() => 'Je suis l‘erreur'}/>
-					<Champ.Error id="idExpected"/>
+					<Champ.Error/>
 				</Champ>,
 			);
 
@@ -217,7 +228,7 @@ describe('<Champ/>', () => {
 			expect(erreur).not.toBeInTheDocument();
 		});
 
-		it('lorsque le champ est touched, affiche l‘erreur', async () => {
+		it('lorsque le champ est touched et qu’il y a une erreur, affiche l‘erreur', async () => {
 			const user = userEvent.setup();
 			render(
 				<Champ>
@@ -233,6 +244,29 @@ describe('<Champ/>', () => {
 			const erreur = screen.getByText('Constraints not satisfied');
 
 			expect(erreur).toBeVisible();
+		});
+
+		it('lorsque le champ est touched et qu’il n’y a pas d’erreur, n’affiche pas l‘erreur et l‘input n‘a pas l‘id de l‘erreur dans son attribut aria-describedby', async () => {
+			// Given
+			const user = userEvent.setup();
+			render(
+				<Champ>
+					<Champ.Input render={Input} id={'input-id'} required/>
+					<Champ.Error id={'erreur-id'} data-testid={'erreur-id'}/>
+				</Champ>,
+			);
+
+			// When
+			const input = screen.getByRole('textbox');
+			await user.type(input, 'a');
+			await user.tab();
+
+			// Then
+			const erreur = screen.queryByTestId('erreur-id');
+			const inputAriaDescribedBy = input.getAttribute('aria-describedby');
+
+			expect(erreur).toBeNull();
+			expect(inputAriaDescribedBy?.includes('erreur-id')).toBeFalsy();
 		});
 	});
 });
