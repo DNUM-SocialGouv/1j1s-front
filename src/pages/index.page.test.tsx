@@ -157,4 +157,32 @@ describe('Page d‘accueil', () => {
 			});
 		});
 	});
+	describe('1jeune1permis', () => {
+		describe('quand le feature flip 1jeune1permis n‘est pas actif', () => {
+			it('je ne vois pas la carte de redirection vers les aides au permis de conduire', () => {
+				process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '0';
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+				expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
+			});
+		});
+		describe('quand le feature flip des formations initales est actif', () => {
+			it('je vois la carte de redirection vers les aides au permis de conduire',  () => {
+				process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
+
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				const link = screen.getByRole('link', { name: /Découvrez les aides auxquelles vous avez droit pour passer votre permis de conduire/ });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', '/1jeune1permis');
+			});
+		});
+	});
 });

@@ -30,6 +30,7 @@ export default function Accueil() {
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
 	const isFormationsInitalesVisible = process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1';
 	const isStages3emeVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
+	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -83,7 +84,7 @@ export default function Accueil() {
 			linkLabel: 'Voir les offres',
 			title: 'Expérience en Europe',
 		},
-	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 	const formationEtOrientationCardListContent = [
 		isFormationsInitalesVisible ? {
@@ -114,7 +115,7 @@ export default function Accueil() {
 			linkLabel: 'En savoir plus',
 			title: 'Participer à des évènements',
 		},
-	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent != undefined);
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
 
 	const engagementEtBenevolatCardListContent = [
 		{
@@ -199,6 +200,13 @@ export default function Accueil() {
 			linkLabel: 'Découvrir mes aides',
 			title: 'Simulateur d’aides financières',
 		},
+		is1Jeune1PermisVisible ? {
+			children: <p>Découvrez les aides auxquelles vous avez droit pour passer votre permis de conduire</p>,
+			imageUrl: '/images/1jeune1permis.webp',
+			link: '/1jeune1permis',
+			linkLabel: 'En savoir plus',
+			title: 'Aides au permis de conduire',
+		} : undefined,
 		{
 			children: <p>Mettez en avant vos compétences dans un CV, même si vous pensez ne pas avoir d‘expérience</p>,
 			imageUrl: '/images/créer-son-cv.webp',
@@ -206,7 +214,8 @@ export default function Accueil() {
 			linkLabel: 'En savoir plus',
 			title: 'Je crée mon CV personnalisé',
 		},
-	];
+	].filter<CardContent>((cardContent?: CardContent): cardContent is CardContent => cardContent !== undefined);
+
 
 	const getCardList = (cardListContent: CardContent[]) => {
 		return cardListContent.map((props, index) => (
