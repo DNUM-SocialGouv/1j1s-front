@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.214.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.213.0...v3.214.0) (2024-01-10)
+
+
+### Features
+
+* ajoute la carte 1jeune1permis sur la page d'accueil ([#2539](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2539)) ([d8d8157](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d8d815782ef995de75a5793c5ec95e5502c35af6))
+
 ## [3.213.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.212.2...v3.213.0) (2024-01-10)
 
 
