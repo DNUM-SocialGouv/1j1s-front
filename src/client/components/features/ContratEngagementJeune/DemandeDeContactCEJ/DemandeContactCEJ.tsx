@@ -2,13 +2,14 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import {
-	Modal,
-} from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Modal/Modal';
-import styles from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Rappel.module.scss';
+	ModaleDemandeContactCEJ,
+} from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/ModaleDemandeContactCEJ/ModaleDemandeContactCEJ';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 
-export default function Rappel() {
+import styles from './DemandeContactCEJ.module.scss';
+
+export default function DemandeContactCEJ() {
 	const [isPopInOpen, setIsPopInOpen] = useState(false);
 
 	return (
@@ -17,7 +18,7 @@ export default function Rappel() {
 				<h2>J‘ai des questions sur le Contrat d‘Engagement Jeune</h2>
 				<ButtonComponent label='Demander à être contacté.e' onClick={() => setIsPopInOpen(true)} />
 			</Container>
-			<Modal
+			<ModaleDemandeContactCEJ
 				isOpen={isPopInOpen}
 				setIsOpen={setIsPopInOpen}
 			/>

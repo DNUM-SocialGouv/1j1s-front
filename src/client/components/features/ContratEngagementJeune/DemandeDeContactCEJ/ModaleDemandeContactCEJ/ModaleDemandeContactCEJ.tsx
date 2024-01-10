@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 
 import {
-	FormulaireDemandeDeContactAccompagnement,
-} from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
-import styles
-	from '~/client/components/features/Accompagnement/DemandeDeContact/ModalDemandeDeContactAccompagnement.module.scss';
+	FormulaireDeContactCEJ,
+} from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/FormulaireContactCEJ';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { ModaleSuccessSubmission } from '~/client/components/ui/Form/ModaleSuccessSubmission/ModaleSuccessSubmission';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
-import {
-	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
-interface ModalDemandeDeContactAccompagnementProps {
-	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
+import styles from './ModaleDemandeContactCEJ.module.scss';
+
+interface ModalDemandeDeContactCEJProps {
 	isOpen: boolean
 	setIsOpen: (value: boolean) => void
 }
 
 type formulaireStatus = 'notSubmitted' | 'error' | 'success'
 
-export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, isOpen, setIsOpen }: ModalDemandeDeContactAccompagnementProps) {
+export function ModaleDemandeContactCEJ({ isOpen, setIsOpen }: ModalDemandeDeContactCEJProps) {
 	const [statusForm, setStatusForm] = useState<formulaireStatus>('notSubmitted');
 
 	return (
@@ -31,12 +27,11 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				aria-labelledby={'dialog_label'}
 			>
 				<ModalComponent.Title className={styles.modalTitle} id="dialog_label">
-						Je souhaite être contacté(e) par la Mission Locale
+					J‘ai des questions sur le Contrat d‘Engagement Jeune et souhaite être rappelé
 				</ModalComponent.Title>
 				<ModalComponent.Content>
-					<small className={styles.modalSubTitle}>Tous les champs sont obligatoires sauf mention contraire</small>
-					<FormulaireDemandeDeContactAccompagnement
-						contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
+					<small className={styles.modalSubTitle}>(Tous les champs sont obligatoires)</small>
+					<FormulaireDeContactCEJ
 						onSuccess={() => {
 							setIsOpen(false);
 							setStatusForm('success');
@@ -44,8 +39,7 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 						onFailure={() => {
 							setIsOpen(false);
 							setStatusForm('error');
-						}}
-					/>
+						}}/>
 				</ModalComponent.Content>
 			</ModalComponent>
 
@@ -54,7 +48,8 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 				setStatusForm('notSubmitted');
 			}}/>
 
-			<ModalErrorSubmission isOpen={statusForm === 'error'} 
+			<ModalErrorSubmission
+				isOpen={statusForm === 'error'}
 				onClose={() => {
 					setStatusForm('notSubmitted');
 				}}
@@ -63,6 +58,5 @@ export function ModalDemandeDeContactAccompagnement({ contactÉtablissementAccom
 					setStatusForm('notSubmitted');
 				}}/>
 		</>
-
 	);
 }

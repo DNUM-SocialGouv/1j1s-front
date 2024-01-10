@@ -5,7 +5,9 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: FormulairesProps) {
+type PasDAccompagnementProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen'>
+
+export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: PasDAccompagnementProps) {
 	const { isSmallScreen, isMediumScreen } = useBreakpoint();
 	const isMobile = isSmallScreen || isMediumScreen;
 
@@ -17,8 +19,12 @@ export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMis
 		<div>
 			{isMobile && <span>Sélectionnez l‘option qui vous correspond :</span>}
 			<button className={styles.optionBouton} onClick={() => setIsMissionLocaleModalOpen(true)}>Moins de 18 ans</button>
-			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('BesoinAide') }>Entre 18 et 25 ans</button>
-			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('BesoinAide26ans') }>Plus de 25 ans</button>
+			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('BesoinAide')}>Entre 18 et 25
+				ans
+			</button>
+			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('BesoinAide26ans')}>Plus de 25
+				ans
+			</button>
 		</div>
 	</>;
 }

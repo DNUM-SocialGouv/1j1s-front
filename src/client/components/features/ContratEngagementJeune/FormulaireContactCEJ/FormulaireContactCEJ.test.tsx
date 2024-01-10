@@ -6,29 +6,28 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import FormulaireDeContactCEJ
-	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/Formulaire/Formulaire';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
+import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
+
+import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 
 describe('<FormulaireDeContactCEJ />', () => {
 
 	function renderComponent() {
 		const onSuccess = jest.fn();
-		const anDemandeDeContactService = (): DemandeDeContactService => ({
+		const onFailure = jest.fn();
+		const anDemandeDeContactService = (): BffDemandeDeContactService => ({
 			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
 			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		} as unknown as DemandeDeContactService);
+		} as unknown as BffDemandeDeContactService);
 		const demandeDeContactServiceMock = anDemandeDeContactService();
 		const localisationService = aLocalisationService();
 
 		render(
 			<DependenciesProvider demandeDeContactService={demandeDeContactServiceMock} localisationService={localisationService}>
-				<FormulaireDeContactCEJ onSuccess={onSuccess}>
-          Revenir
-				</FormulaireDeContactCEJ>
+				<FormulaireDeContactCEJ onSuccess={onSuccess} onFailure={onFailure}/>
 			</DependenciesProvider>,
 		);
 		return { demandeDeContactServiceMock, onSuccess };
@@ -102,7 +101,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 				});
 
 				// Then
-				expect(onSuccess).toHaveBeenCalled();
+				expect(onSuccess).toHaveBeenCalledTimes(1);
 			});
 		});
 	});

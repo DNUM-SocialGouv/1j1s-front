@@ -1,4 +1,4 @@
-import React, { FormEvent, PropsWithChildren, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -8,20 +8,21 @@ import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
-import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
+import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
 
-import styles from './Formulaire.module.scss';
+import styles from './FormulaireContactCEJ.module.scss';
 
 interface FormulaireDeContactCEJProps {
-  onSuccess?: () => void;
+	onSuccess: () => void;
+	onFailure: () => void;
 }
 
-export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<FormulaireDeContactCEJProps>) {
+export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeContactCEJProps) {
 	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
+	const demandeDeContactService = useDependency<BffDemandeDeContactService>('demandeDeContactService');
 
 	async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -38,13 +39,10 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 			ville: String(data.get('ville')),
 		});
 		setIsLoading(false);
-
 		if (isSuccess(response)) {
-			if (onSuccess) {
-				onSuccess();
-			}
+			onSuccess();
 		} else {
-			alert('Erreur dans l‘envoi du formulaire :' + response.errorType);
+			onFailure();
 		}
 	}
 
@@ -52,6 +50,7 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 		<form
 			className={styles.formulaire}
 			onSubmit={envoyerFormulaireDeContact}
+			aria-label="formulaire cej"
 		>
 			<InputText
 				label="Prénom"
@@ -93,15 +92,20 @@ export default function FormulaireDeContactCEJ({ onSuccess }: PropsWithChildren<
 			<ComboboxCommune
 				required
 				label="Ville"
-				name='commune'
+				name="commune"
 			/>
 			{isLoading
-				? (<ButtonComponent className={styles.formulaireButton} disabled icon={<SpinnerIcon />} iconPosition='left' label='Envoi en cours' />)
-				: (<ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" />)
+				? (<ButtonComponent
+					className={styles.formulaireButton}
+					disabled
+					icon={<SpinnerIcon/>}
+					iconPosition="left"
+					label="Envoi en cours"/>)
+				: (<ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>)
 			}
 
 			<div className={styles.formulaireDécharge}>
-				<DéchargeRGPD />
+				<DéchargeRGPD/>
 			</div>
 		</form>
 	);

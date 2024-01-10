@@ -1,0 +1,22 @@
+@use "@styles/utilities";
+
+$color-subtitle: utilities.$color-primary;
+$color-success-message: utilities.$color-primary;
+$color-success-icon: utilities.$color-success;
+
+.modalTitle {
+  @extend %bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  display: revert;
+  text-align: center;
+}
+
+.modalSubTitle {
+  display:block;
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: $color-subtitle;
+  text-align: center;
+}
+

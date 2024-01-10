@@ -1,11 +1,9 @@
+import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { createSuccess } from '~/server/errors/either';
 
-import { DemandeDeContactService } from './demandeDeContact.service';
-
-export function aDemandeDeContactService(): DemandeDeContactService {
+export function aDemandeDeContactService(override?: Partial<DemandeDeContactService>): DemandeDeContactService {
 	return {
 		envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		envoyerPourLePOE: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-	} as unknown as DemandeDeContactService;
+		...override,
+	};
 }

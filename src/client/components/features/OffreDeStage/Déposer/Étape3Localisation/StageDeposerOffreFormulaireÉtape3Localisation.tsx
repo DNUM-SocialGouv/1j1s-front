@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
-import { StageDeposerOffreFormulaireLayout } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
+import {
+	StageDeposerOffreFormulaireLayout,
+} from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -29,6 +31,7 @@ enum Localisation {
 	REGION = 'region',
 	DEPARTEMENT = 'departement',
 }
+
 export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	const router = useRouter();
 	const [isModalErrorSubmitOpen, setIsModalErrorSubmitOpen] = useState<boolean>(false);
@@ -148,9 +151,12 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				étape="Étape 3 sur 3 : Localisation du stage"
 				urlÉtapePrécédente={`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`}
 			>
-				<FormulaireLocalisation />
+				<FormulaireLocalisation/>
 			</FormulaireÉtapeLayout>
-			<ModalErrorSubmission isOpen={isModalErrorSubmitOpen} onClose={() => setIsModalErrorSubmitOpen(false)}/>
+			<ModalErrorSubmission
+				isOpen={isModalErrorSubmitOpen}
+				onClose={() => setIsModalErrorSubmitOpen(false)}
+				onBackToForm={() => setIsModalErrorSubmitOpen(false)}/>
 		</>
 	);
 };

@@ -4,31 +4,15 @@ $color-subtitle: utilities.$color-primary;
 $color-success-message: utilities.$color-primary;
 $color-success-icon: utilities.$color-success;
 
-.modalTitle {
-  @extend %bold;
-  font-size: 1.5rem;
-  margin-top: 1rem;
-  display: revert;
-  text-align: center;
-}
-
-.modalSubTitle {
-  display:block;
-  font-size: 1rem;
-  margin-top: 1rem;
-  color: $color-subtitle;
-  text-align: center;
-}
-
-.success {
+.content {
   text-align: center;
 
-  &Message {
+  & .contentMessage {
     margin: 1rem 0;
     color: $color-success-message;
   }
 
-  &Icon {
+  & .contentIcon {
     margin: auto;
     width: 8rem;
     height: 8rem;

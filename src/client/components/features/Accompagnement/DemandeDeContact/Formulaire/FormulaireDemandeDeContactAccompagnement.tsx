@@ -1,4 +1,4 @@
-import React, { FormEvent, PropsWithChildren } from 'react';
+import React, { FormEvent } from 'react';
 import styles
 	from 'src/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement.module.scss';
 
@@ -21,13 +21,12 @@ import {
 import { emailRegex } from '~/shared/emailRegex';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
-  contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
-
-  onSuccess(): void;
+	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
+	onSuccess: () => void;
+	onFailure: () => void;
 }
 
-export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildren<FormulaireDemandeDeContactAccompagnementProps>) {
-	const { contactÉtablissementAccompagnement, onSuccess } = props;
+export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, onSuccess, onFailure }: FormulaireDemandeDeContactAccompagnementProps) {
 	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
 
 	async function envoyerFormulaire(event: FormEvent<HTMLFormElement>) {
@@ -38,9 +37,11 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 		const result = await établissementAccompagnementService.envoyerDemandeContact(demandeDeContactAccompagnement);
 		if (isSuccess(result)) {
 			onSuccess();
+		} else {
+			onFailure();
 		}
 	}
-	
+
 	return (
 		<form
 			className={styles.formulaire}
@@ -95,11 +96,11 @@ export function FormulaireDemandeDeContactAccompagnement(props: PropsWithChildre
 			/>
 			<div className={styles.formulaireDécharge}>
 				<p>
-          Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre
-          à votre demande. Pour en savoir plus vous pouvez consulter la <Link href="/confidentialite">politique de
-          confidentialité</Link> et les <Link href="/cgu">CGU</Link> de la DGEFP. En cliquant sur “Envoyer mes
-          informations“ vos données seront transmises à la mission locale de la zone géographique dans laquelle vous
-          résidez pour que celle-ci prenne contact avec vous.
+					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre
+					à votre demande. Pour en savoir plus vous pouvez consulter la <Link href="/confidentialite">politique de
+					confidentialité</Link> et les <Link href="/cgu">CGU</Link> de la DGEFP. En cliquant sur “Envoyer mes
+					informations“ vos données seront transmises à la mission locale de la zone géographique dans laquelle vous
+					résidez pour que celle-ci prenne contact avec vous.
 				</p>
 			</div>
 		</form>
