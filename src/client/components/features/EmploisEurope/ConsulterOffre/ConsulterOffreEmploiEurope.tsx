@@ -53,6 +53,8 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 				return `${experienceNecessaire.duree} semaine${isPlural ? 's' : ''}`;
 			case UNITE_EXPERIENCE_NECESSAIRE.YEAR:
 				return `${experienceNecessaire.duree} an${isPlural ? 's' : ''}`;
+			case UNITE_EXPERIENCE_NECESSAIRE.DAY:
+				return `${experienceNecessaire.duree} jour${isPlural ? 's' : ''}`;
 			default:
 				return `${experienceNecessaire.duree} (non spécifié)`;
 		}

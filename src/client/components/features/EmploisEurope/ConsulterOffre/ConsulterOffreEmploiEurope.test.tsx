@@ -438,5 +438,35 @@ describe('DetailOffreEmploiEurope', () => {
 				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 semaines');
 			});
 		});
+
+		describe('lorsque l‘unité est en jour', () => {
+			it('lorsque qu‘un jour est demandée', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 1,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('1 jour');
+			});
+
+			it('lorsque plusieurs jours sont demandées', () => {
+				const offreEmploiEurope = anEmploiEurope({
+					experienceNecessaire: {
+						duree: 5,
+						unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+					},
+				});
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Expérience')).toHaveTextContent('5 jours');
+			});
+		});
 	});
 });
