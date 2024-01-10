@@ -147,7 +147,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 					searchCriteria: {
 						facetCriteria: [
 							{
-								facetName: 'WORK_SCHEDULE',
+								facetName: 'POSITION_SCHEDULE',
 								facetValues: ['FullTime'],
 							},
 						],

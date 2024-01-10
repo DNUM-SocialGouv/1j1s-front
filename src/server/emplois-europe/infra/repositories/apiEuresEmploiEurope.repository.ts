@@ -30,7 +30,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			facetCriteria.push({ facetName: 'POSITION_OFFERING', facetValues: filtre.typeContrat });
 		}
 		if (filtre.tempsDeTravail !== undefined && filtre.tempsDeTravail.length > 0) {
-			facetCriteria.push({ facetName: 'WORK_SCHEDULE', facetValues: filtre.tempsDeTravail });
+			facetCriteria.push({ facetName: 'POSITION_SCHEDULE', facetValues: filtre.tempsDeTravail });
 		}
 		if (filtre.niveauEtude !== undefined && filtre.niveauEtude.length > 0) {
 			facetCriteria.push({ facetName: 'EDUCATION_LEVEL', facetValues: filtre.niveauEtude });
