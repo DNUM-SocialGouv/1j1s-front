@@ -107,8 +107,8 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				// WHEN
 				await user.click(buttonFiltresAvances);
 				const modalComponent = screen.getByRole('dialog');
-				const checkboxApprentissage = within(modalComponent).getByRole('checkbox', { name: 'Temps partiel' });
-				await user.click(checkboxApprentissage);
+				const checkboxTempsDeTravail = within(modalComponent).getByRole('checkbox', { name: 'Temps partiel' });
+				await user.click(checkboxTempsDeTravail);
 				const buttonAppliquerFiltres = within(modalComponent).getByRole('button', { name: 'Appliquer les filtres' });
 				await user.click(buttonAppliquerFiltres);
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -197,7 +197,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 
 			expect(screen.getByRole('button', { name: 'Type de contrat' })).toBeVisible();
 			expect(screen.getByRole('button', { name: 'Temps de travail' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Niveau d\'études demandé' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Niveau d‘études demandé' })).toBeVisible();
 		});
 
 		describe('quand on recherche par type de contrat', () => {
@@ -241,8 +241,8 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				const button = screen.getByRole('button', { name: 'Temps de travail' });
 				await user.click(button);
 
-				const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Temps plein' });
-				await user.click(checkboxApprentissage);
+				const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
+				await user.click(checkboxTempsDeTravail);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
@@ -333,8 +333,8 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		const button = screen.getByRole('button', { name: 'Temps de travail' });
 		await user.click(button);
 
-		const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Temps plein' });
-		expect(checkboxApprentissage).toHaveAttribute('checked');
+		const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
+		expect(checkboxTempsDeTravail).toHaveAttribute('checked');
 
 	});
 	it('laisse le champ localisation vide si il manque le code pays dans les query params', async () => {

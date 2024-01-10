@@ -83,7 +83,7 @@ function ModaleFiltreAvancee(props: {
 						/>
 					))}
 				</FilterAccordion>
-				<FilterAccordion title="Niveau d'études demandé">
+				<FilterAccordion title="Niveau d‘études demandé">
 					{niveauEtudeEures.map((niveauEtude) => (
 						<Checkbox
 							key={uuidv4()}
@@ -252,7 +252,7 @@ export function FormulaireRechercheEmploisEurope() {
 							multiple
 							optionList={niveauEtudeEures}
 							onChange={setInputNiveauEtude}
-							label="Niveau d'études demandé"
+							label="Niveau d‘études demandé"
 							value={inputNiveauEtude}
 							name="niveauEtude"
 						/>

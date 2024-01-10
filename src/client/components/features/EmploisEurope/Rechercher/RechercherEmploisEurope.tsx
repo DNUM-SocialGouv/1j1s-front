@@ -7,12 +7,12 @@ import {
 import {
 	ListeResultatsEmploiEurope,
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/ListeResultatsEmploiEurope';
+import {
+	EtiquettesFiltresRecherche,
+} from '~/client/components/features/EmploisEurope/Rechercher/EtiquettesFiltresRecherche';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
@@ -21,8 +21,6 @@ import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
-import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
-import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { Erreur } from '~/server/errors/erreur.types';
 
 export default function RechercherEmploisEurope() {
@@ -66,43 +64,6 @@ export default function RechercherEmploisEurope() {
 		return messageResultatRechercheSplit.join(' ');
 	}, [nombreResultats, emploiEuropeQuery.motCle]);
 
-	const etiquettesRecherche = useMemo(() => {
-		const filtreList: string[] = [];
-		if (emploiEuropeQuery.libellePays) {
-			filtreList.push(emploiEuropeQuery.libellePays);
-		}
-		if (emploiEuropeQuery.typeContrat) {
-			const typeContratList = emploiEuropeQuery.typeContrat.split(',');
-			const typeContratLibelleList = typeContratList
-				.filter((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)?.libellé)
-				.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
-			filtreList.push(...typeContratLibelleList);
-		}
-		if (emploiEuropeQuery.tempsDeTravail) {
-			const tempsDeTravailList = emploiEuropeQuery.tempsDeTravail.split(',');
-			const tempsDeTravailLibelleList = tempsDeTravailList
-				.filter((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)?.libellé)
-				.map((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)!.libellé);
-			filtreList.push(...tempsDeTravailLibelleList);
-		}
-		if (emploiEuropeQuery.niveauEtude) {
-			const niveauEtudesList = emploiEuropeQuery.niveauEtude.split(',');
-			const niveauEtudesLibelleList = niveauEtudesList
-				.filter((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)?.libellé)
-				.map((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)!.libellé);
-			filtreList.push(...niveauEtudesLibelleList);
-		}
-		if (emploiEuropeQuery.secteurActivite) {
-			const secteurActiviteList = emploiEuropeQuery.secteurActivite.split(',');
-			const secteurActiviteLibelleList = secteurActiviteList
-				.filter((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)?.libellé)
-				.map((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)!.libellé);
-			filtreList.push(...secteurActiviteLibelleList);
-		}
-		if(filtreList.length === 0) return ;
-		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
-	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.tempsDeTravail, emploiEuropeQuery.libellePays, emploiEuropeQuery.niveauEtude, emploiEuropeQuery.secteurActivite]);
-
 	return <>
 		<Head
 			title="Rechercher un emploi en Europe | 1jeune1solution"
@@ -113,7 +74,7 @@ export default function RechercherEmploisEurope() {
 			<RechercherSolutionLayout
 				bannière={<BanniereEmploisEurope/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={etiquettesRecherche}
+				étiquettesRecherche={<EtiquettesFiltresRecherche/>}
 				formulaireRecherche={<FormulaireRechercheEmploisEurope/>}
 				isLoading={isLoading}
 				nombreSolutions={nombreResultats}
