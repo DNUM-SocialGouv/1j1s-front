@@ -202,7 +202,7 @@ export default function Accueil() {
 		},
 		is1Jeune1PermisVisible ? {
 			children: <p>Découvrez les aides auxquelles vous avez droit pour passer votre permis de conduire</p>,
-			imageUrl: '/images/1jeune1permis.jpg',
+			imageUrl: '/images/1jeune1permis.webp',
 			link: '/1jeune1permis',
 			linkLabel: 'En savoir plus',
 			title: 'Aides au permis de conduire',
