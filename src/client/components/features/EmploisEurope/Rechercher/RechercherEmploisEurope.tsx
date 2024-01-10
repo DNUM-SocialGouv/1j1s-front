@@ -12,6 +12,7 @@ import { RechercherSolutionLayout } from '~/client/components/layouts/Rechercher
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
+import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import empty from '~/client/utils/empty';
@@ -20,6 +21,7 @@ import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { Erreur } from '~/server/errors/erreur.types';
 
@@ -83,9 +85,23 @@ export default function RechercherEmploisEurope() {
 				.map((tempsDeTravail) => tempsDeTravailEures.find((tempsDeTravailEures) => tempsDeTravailEures.valeur === tempsDeTravail)!.libellé);
 			filtreList.push(...tempsDeTravailLibelleList);
 		}
+		if (emploiEuropeQuery.niveauEtude) {
+			const niveauEtudesList = emploiEuropeQuery.niveauEtude.split(',');
+			const niveauEtudesLibelleList = niveauEtudesList
+				.filter((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)?.libellé)
+				.map((niveauEtudes) => niveauEtudesEures.find((niveauEtudesEures) => niveauEtudesEures.valeur.toString() === niveauEtudes)!.libellé);
+			filtreList.push(...niveauEtudesLibelleList);
+		}
+		if (emploiEuropeQuery.secteurActivite) {
+			const secteurActiviteList = emploiEuropeQuery.secteurActivite.split(',');
+			const secteurActiviteLibelleList = secteurActiviteList
+				.filter((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)?.libellé)
+				.map((secteurActivite) => secteurActiviteEures.find((secteurActiviteEures) => secteurActiviteEures.valeur.toString() === secteurActivite)!.libellé);
+			filtreList.push(...secteurActiviteLibelleList);
+		}
 		if(filtreList.length === 0) return ;
 		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
-	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.tempsDeTravail, emploiEuropeQuery.libellePays]);
+	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.tempsDeTravail, emploiEuropeQuery.libellePays, emploiEuropeQuery.niveauEtude, emploiEuropeQuery.secteurActivite]);
 
 	return <>
 		<Head

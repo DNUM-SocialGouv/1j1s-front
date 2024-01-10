@@ -9,11 +9,14 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
+import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
+import { EmploiEuropeQueryParams } from '~/client/hooks/useEmploiEuropeQuery';
 import { anEmploiEuropeService } from '~/client/services/europe/emploiEurope.service.fixture';
 import {
 	anEmploiEurope,
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { SecteurActiviteCode } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 import { createSuccess } from '~/server/errors/either';
 
@@ -458,15 +461,18 @@ describe('RechercherEmploisEurope', () => {
 			});
 			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
 
+			const query: EmploiEuropeQueryParams = {
+				codePays: 'ES',
+				libellePays: 'Espagne',
+				niveauEtude: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
+				page: '1',
+				secteurActivite: SecteurActiviteCode.AGRICULTURE,
+				tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
+				typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
+			};
 			mockSmallScreen();
 			mockUseRouter({
-				query: {
-					codePays: 'ES',
-					libellePays: 'Espagne',
-					page: '1',
-					tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
-					typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
-				},
+				query,
 			});
 
 			// WHEN
@@ -482,11 +488,13 @@ describe('RechercherEmploisEurope', () => {
 			const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquettesRecherche).toBeVisible();
 			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
-			expect(etiquettes).toHaveLength(4);
+			expect(etiquettes).toHaveLength(6);
 			expect(etiquettes[0]).toHaveTextContent('Espagne');
 			expect(etiquettes[1]).toHaveTextContent('Contrat');
 			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
 			expect(etiquettes[3]).toHaveTextContent('Temps plein');
+			expect(etiquettes[4]).toHaveTextContent('Niveau maîtrise (Master) ou équivalent');
+			expect(etiquettes[5]).toHaveTextContent('Agriculture');
 		});
 		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
 			const emploiEuropeServiceMock = anEmploiEuropeService();

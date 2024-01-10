@@ -33,7 +33,6 @@ function addSelectionToQueryParams(filterQuery: string, filterToToggle: string) 
 	return currentString.join(',');
 }
 
-// TODO infra qui remonte trop loin? 
 const valeursFiltresTempsDeTravail = tempsDeTravailEures.filter((tempsDeTravail) => tempsDeTravail.valeur !== EURES_POSITION_SCHEDULE_TYPE.Any);
 
 function ModaleFiltreAvancee(props: {

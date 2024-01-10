@@ -14,7 +14,7 @@ export const emploiEuropeRechercheQuerySchema = Joi.object({
 	niveauEtude: Joi.string(),
 	page: Joi.number().min(1).required(),
 	secteurActivite: Joi.string(),
-	tempsDeTravail: Joi.string(), //TODO voir si possible de filtrer proprement uniquement les valeurs acceptées pour le filtre
+	tempsDeTravail: Joi.string(),
 	typeContrat: Joi.string(),
 }).options({ allowUnknown: true });
 
