@@ -39,6 +39,8 @@ describe('E-mail regex', () => {
 		'email@-example.com',
 		'email@example..com',
 		'Abc..123@example.com',
+		'email@ example.com',
+		'email @example.com',
 	])('%s est invalide', (invalidEmail) => {
 		// WHEN
 		const isMatching = new RegExp(emailRegex).test(invalidEmail);
