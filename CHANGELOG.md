@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.215.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.215.1...v3.215.2) (2024-01-11)
+
+
+### Bug Fixes
+
+* **emplois europe:** gestion des unités de l'expérience requise ([#2544](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2544)) ([1170777](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1170777571fd8d112fa4c767bd22e22aaec8bbc0))
+
 ## [3.215.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.215.0...v3.215.1) (2024-01-10)
 
 
