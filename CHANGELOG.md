@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.217.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.216.0...v3.217.0) (2024-01-11)
+
+
+### Features
+
+* ajoute un tag aux resultats de recherche pour les entreprises a… ([#2551](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2551)) ([e735add](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e735add9df96f7f42d3ca47232a4fa6e5ac120c1))
+
 ## [3.216.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.215.2...v3.216.0) (2024-01-11)
 
 
