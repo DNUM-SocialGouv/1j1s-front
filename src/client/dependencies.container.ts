@@ -40,9 +40,11 @@ import { MissionEngagementService } from '~/client/services/missionEngagement/mi
 import { RoutingService } from '~/client/services/routing/routing.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
-import { BffStage3emeService } from '~/client/services/stage3eme/bff.stage3eme.service';
-import { BffStage3emeMetierService } from '~/client/services/stage3eme/metier/bff.stage3eme.metier.service';
-import { Stage3emeService } from '~/client/services/stage3eme/stage3eme.service';
+import { BffStage3emeEt2ndService } from '~/client/services/stage3emeEt2nd/bff.stage3emeEt2nd.service';
+import {
+	BffStage3emeEt2ndMetierService,
+} from '~/client/services/stage3emeEt2nd/metier/bff.stage3emeEt2ndMetier.service';
+import { Stage3emeEt2ndService } from '~/client/services/stage3emeEt2nd/stage3emeEt2nd.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
@@ -57,7 +59,7 @@ export type Dependencies = {
 	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
 	metierLbaService: MetierService
-	metierStage3emeService: MetierService
+	metierStage3emeEt2ndService: MetierService
 	missionEngagementService: MissionEngagementService
 	rechercheClientService: SearchClient
 	routingService: RoutingService
@@ -67,7 +69,7 @@ export type Dependencies = {
 	marketingService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
-	stage3emeService: Stage3emeService
+	stage3emeEt2ndService: Stage3emeEt2ndService
 }
 
 class DependencyInitException extends Error {
@@ -81,7 +83,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const alternanceService = new AlternanceService(httpClientService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
-	const metierStage3emeService = new BffStage3emeMetierService(httpClientService);
+	const metierStage3emeEt2ndService = new BffStage3emeEt2ndMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
@@ -125,7 +127,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	);
 	const rechercheClientService = instantMeiliSearchObject.searchClient;
 
-	const stage3emeService = new BffStage3emeService(httpClientService);
+	const stage3emeEt2ndService = new BffStage3emeEt2ndService(httpClientService);
 
 	const routingService = new RoutingService(createInstantSearchRouterNext({ singletonRouter }));
 
@@ -135,18 +137,18 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		cookiesService,
 		dateService,
 		demandeDeContactService,
-		emploiEuropeService: emploiEuropeService,
+		emploiEuropeService,
 		formationInitialeService,
 		formationService,
 		lesEntreprisesSEngagentService,
 		localisationService,
 		marketingService,
 		metierLbaService,
-		metierStage3emeService,
+		metierStage3emeEt2ndService,
 		missionEngagementService,
 		rechercheClientService,
 		routingService,
-		stage3emeService,
+		stage3emeEt2ndService,
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,

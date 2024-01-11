@@ -22,7 +22,7 @@ describe('Plan du site', () => {
 		
 		${'Emplois'}                                              | ${'/emplois'}
 		${'Stages d’études'}                                      | ${'/stages'}
-		${'Stages de 3ème et 2nd'}                                | ${'/stages-3eme-et-2n'}
+		${'Stages de 3ème et 2nd'}                                | ${'/stages-3eme-et-2nd'}
 		${'Contrats d’alternance'}                                | ${'/apprentissage'}
 		${'Jobs d‘été'}                                           | ${'/jobs-ete'}
 		${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}

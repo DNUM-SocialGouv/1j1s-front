@@ -183,16 +183,16 @@ import {
 import {
 	Stage3emeDependencies,
 	stage3emeDependenciesContainer,
-} from '~/server/stage-3eme/configuration/dependencies.container';
+} from '~/server/stage-3eme-et-2nd/configuration/dependencies.container';
 import {
-	getApiImmersionFacileStage3emeConfig,
-} from '~/server/stage-3eme/configuration/stage-3eme/stage3emeHttpClient.config';
+	getApiImmersionFacileStage3emeEt2ndConfig,
+} from '~/server/stage-3eme-et-2nd/configuration/stage-3eme-et-2nd/stage3emeEt2ndHttpClient.config';
 import {
-	ApiImmersionFacileStage3emeRepository,
-} from '~/server/stage-3eme/infra/repositories/apiImmersionFacileStage3eme.repository';
+	ApiImmersionFacileStage3emeEt2ndRepository,
+} from '~/server/stage-3eme-et-2nd/infra/repositories/apiImmersionFacileStage3emeEt2nd.repository';
 import {
-	ApiPoleEmploiMetierStage3emeRepository,
-} from '~/server/stage-3eme/infra/repositories/apiPoleEmploiMetierStage3eme.repository';
+	ApiPoleEmploiMetierStage3emeEt2ndRepository,
+} from '~/server/stage-3eme-et-2nd/infra/repositories/apiPoleEmploiMetierStage3emeEt2nd.repository';
 
 export type Dependencies = {
 	ficheMetierDependencies: FicheMetierDependencies;
@@ -358,12 +358,12 @@ export function dependenciesContainer(): Dependencies {
 		? emploiEuropeDependenciesContainer(new MockEmploiEuropeRepository(apiEuresEmploiEuropeMapper))
 		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
-	const stage3emeHttpClientService = new PublicHttpClientService(getApiImmersionFacileStage3emeConfig(serverConfigurationService));
-	const apiImmersionFacileStage3emeRepository = new ApiImmersionFacileStage3emeRepository(
+	const stage3emeHttpClientService = new PublicHttpClientService(getApiImmersionFacileStage3emeEt2ndConfig(serverConfigurationService));
+	const apiImmersionFacileStage3emeRepository = new ApiImmersionFacileStage3emeEt2ndRepository(
 		stage3emeHttpClientService,
 		defaultErrorManagementService,
 	);
-	const apiPoleEmploiMetierStage3emeRepository = new ApiPoleEmploiMetierStage3emeRepository(poleEmploiRéférentielsHttpClientService, cacheService, defaultErrorManagementService);
+	const apiPoleEmploiMetierStage3emeRepository = new ApiPoleEmploiMetierStage3emeEt2ndRepository(poleEmploiRéférentielsHttpClientService, cacheService, defaultErrorManagementService);
 	const stage3emeDependencies = stage3emeDependenciesContainer(apiImmersionFacileStage3emeRepository, apiPoleEmploiMetierStage3emeRepository);
 
 	return {
