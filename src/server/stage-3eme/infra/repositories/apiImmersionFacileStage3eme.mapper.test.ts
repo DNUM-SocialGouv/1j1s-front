@@ -16,6 +16,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 					streetNumberAndAddress: '1 Rue de la Lune',
 				},
 				contactMode: 'IN_PERSON',
+				fitForDisabledWorkers: true,
 				name: 'La Boulangerie',
 				numberOfEmployeeRange: '1-9',
 				romeLabel: 'Boulangerie',
@@ -29,6 +30,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 					streetNumberAndAddress: '2 Rue de la Lune',
 				},
 				contactMode: undefined,
+				fitForDisabledWorkers: false,
 				name: 'La Boulangerie 2',
 				numberOfEmployeeRange: undefined,
 				romeLabel: 'Boulangerie',
@@ -44,6 +46,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 			nombreDeResultats: 2,
 			resultats: [
 				{
+					accessiblePersonnesEnSituationDeHandicap: true,
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75001',
@@ -56,6 +59,7 @@ describe('mapRechercheStage3eme.mapper', () => {
 					nombreDeSalaries: '1-9',
 				},
 				{
+					accessiblePersonnesEnSituationDeHandicap: false,
 					adresse: {
 						codeDepartement: '75',
 						codePostal: '75002',

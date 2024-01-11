@@ -12,6 +12,7 @@ export interface ApiImmersionFacileStage3emeRechercheResponse {
 	contactMode?: string
 	numberOfEmployeeRange?: string
 	voluntaryToImmersion: boolean
+	fitForDisabledWorkers: boolean
 }
 
 export const apiImmersionFacileStage3emeSchemas = {

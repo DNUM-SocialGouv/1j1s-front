@@ -31,6 +31,7 @@ export function aResultatRechercheStage3eme(override?: Partial<ResultatRecherche
 
 export function aStage3eme(override?: Partial<Stage3eme>): Stage3eme {
 	return {
+		accessiblePersonnesEnSituationDeHandicap: true,
 		adresse: {
 			codeDepartement: '75',
 			codePostal: '75001',
