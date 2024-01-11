@@ -48,11 +48,11 @@ export default function Accueil() {
 			title: 'Stages d’études',
 		},
 		isStages3emeVisible ? {
-			children: <p>Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème</p>,
+			children: <p>Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd</p>,
 			imageUrl: '/images/stages-3eme/stages-3eme.webp',
-			link: '/stages-3eme',
+			link: '/stages-3eme-et-2nd',
 			linkLabel: 'Voir les offres',
-			title: 'Stages de 3ème',
+			title: 'Stages de 3ème et 2nd',
 		} : undefined,
 		{
 			children: <p>Trouvez votre entreprise pour concrétiser vos projets d’alternance</p>,

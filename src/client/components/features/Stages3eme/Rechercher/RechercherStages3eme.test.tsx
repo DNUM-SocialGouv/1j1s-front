@@ -16,7 +16,7 @@ import { aResultatRechercheStage3eme, aStage3eme } from '~/server/stage-3eme/dom
 
 import RechercherStages3eme from './RechercherStages3eme';
 
-describe('La recherche des stages de 3ème', () => {
+describe('La recherche des stages de 3ème et 2nd', () => {
 	describe('quand le composant est affiché sans paramètres de recherche dans l’URL', () => {
 		it('ne fait pas d‘appel et affiche un formulaire de recherche', async () => {
 			// GIVEN
@@ -29,12 +29,12 @@ describe('La recherche des stages de 3ème', () => {
 			</DependenciesProvider>);
 
 			// THEN
-			const formulaireRecherche = await screen.findByRole('search', { name: 'Rechercher un stage de 3ème' });
+			const formulaireRecherche = await screen.findByRole('search', { name: 'Rechercher un stage de 3ème et 2nd' });
 			expect(formulaireRecherche).toBeVisible();
 			expect(stage3emeServiceMock.rechercherStage3eme).not.toHaveBeenCalled();
 			const titre = await screen.findByRole('heading', {
 				level: 1,
-				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème',
+				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd',
 			});
 			expect(titre).toBeVisible();
 		});
@@ -68,7 +68,7 @@ describe('La recherche des stages de 3ème', () => {
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('1 entreprise accueillante');
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème et 2nd' });
 			// eslint-disable-next-line testing-library/no-node-access
 			const resultats = resultatsUl[0].children;
 
@@ -120,7 +120,7 @@ describe('La recherche des stages de 3ème', () => {
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 			const messageResultatsRecherche = await screen.findByText('2 entreprises accueillantes');
-			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			const resultatsUl = await screen.findAllByRole('list', { name: 'Stages de 3ème et 2nd' });
 			// eslint-disable-next-line testing-library/no-node-access
 			const resultats = resultatsUl[0].children;
 
@@ -184,7 +184,7 @@ describe('La recherche des stages de 3ème', () => {
 				<RechercherStages3eme/>
 			</DependenciesProvider>);
 
-			await screen.findAllByRole('list', { name: 'Stages de 3ème' });
+			await screen.findAllByRole('list', { name: 'Stages de 3ème et 2nd' });
 
 			const etiquetteList = screen.getByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquetteList).toBeVisible();

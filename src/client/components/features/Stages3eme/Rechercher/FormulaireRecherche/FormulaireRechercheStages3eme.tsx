@@ -51,7 +51,7 @@ export function FormulaireRechercheStages3eme() {
 			ref={rechercheStage3emeForm}
 			role="search"
 			className={styles.rechercheOffreForm}
-			aria-label="Rechercher un stage de 3ème"
+			aria-label="Rechercher un stage de 3ème et 2nd"
 			onSubmit={updateRechercherStage3emeQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>

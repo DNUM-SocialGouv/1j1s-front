@@ -8,7 +8,7 @@ export class BffStage3emeMetierService implements MetierService {
 	constructor(private httpClientService: HttpClientService) {}
 
 	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
-		const metiersStage3eme = await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme/metiers?motCle=${query}`);
+		const metiersStage3eme = await this.httpClientService.get<MetierStage3eme[]>(`stages-3eme-et-2nd/metiers?motCle=${query}`);
 		if (isFailure(metiersStage3eme)) {
 			return metiersStage3eme;
 		}

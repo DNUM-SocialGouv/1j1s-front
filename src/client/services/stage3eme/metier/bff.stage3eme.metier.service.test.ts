@@ -14,7 +14,7 @@ describe('BffStage3emeMetierService', () => {
 			const result = await metierService.rechercherMetier(metierQuery);
 
 			expect(result).toEqual({ instance: 'success', result: aListeDeMetierStage3eme() });
-			expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme/metiers?motCle=boulang');
+			expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme-et-2nd/metiers?motCle=boulang');
 		});
 	});
 });

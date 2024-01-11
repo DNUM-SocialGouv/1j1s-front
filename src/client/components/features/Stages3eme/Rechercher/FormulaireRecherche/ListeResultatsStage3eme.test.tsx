@@ -33,7 +33,7 @@ describe('<ListeResultatsStage3eme />', () => {
 			render(<ListeResultatsStage3eme resultatList={resultatRecherche} />);
 
 			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème' });
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème et 2nd' });
 			expect(resultatsUl).toBeInTheDocument();
 			// eslint-disable-next-line testing-library/no-node-access
 			const resultats = resultatsUl.children;
@@ -59,7 +59,7 @@ describe('<ListeResultatsStage3eme />', () => {
 			render(<ListeResultatsStage3eme resultatList={resultatRecherche} />);
 
 			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème' });
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème et 2nd' });
 			expect(resultatsUl).toBeInTheDocument();
 			// eslint-disable-next-line testing-library/no-node-access
 			const resultats = resultatsUl.children;
@@ -95,7 +95,7 @@ describe('<ListeResultatsStage3eme />', () => {
 			render(<ListeResultatsStage3eme resultatList={resultatRecherche} />);
 
 			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème' });
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème et 2nd' });
 			expect(resultatsUl).toBeInTheDocument();
 			// eslint-disable-next-line testing-library/no-node-access
 			const resultats = resultatsUl.children;

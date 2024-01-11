@@ -16,7 +16,7 @@ import { aStage3emeService } from '~/client/services/stage3eme/stage3eme.service
 
 import Stages3emePage, { getServerSideProps } from './index.page';
 
-describe('Page stages de 3ème', () => {
+describe('Page stages de 3ème et 2nd', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
@@ -48,7 +48,7 @@ describe('Page stages de 3ème', () => {
 					<Stages3emePage/>
 				</DependenciesProvider>);
 
-			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' });
 			expect(container.outerHTML).toHTMLValidate();
 		});
 		it('n‘a pas de défaut d‘accessibilité', async () => {
@@ -61,7 +61,7 @@ describe('Page stages de 3ème', () => {
 				>
 					<Stages3emePage/>
 				</DependenciesProvider>);
-			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' });
 			await expect(container).toBeAccessible();
 		});
 
@@ -76,11 +76,11 @@ describe('Page stages de 3ème', () => {
 					<Stages3emePage/>
 				</DependenciesProvider>);
 
-			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' });
 
 			const pageHeading = screen.getByRole('heading', {
 				level: 1,
-				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème',
+				name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd',
 			});
 			expect(pageHeading).toBeVisible();
 		});
@@ -98,7 +98,7 @@ describe('Page stages de 3ème', () => {
 				</DependenciesProvider>,
 			);
 
-			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' });
 
 			expect(analyticsService.envoyerAnalyticsPageVue).toHaveBeenCalledWith({
 				page_template: 'contenu_liste_niv_1',

@@ -19,7 +19,7 @@ import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ResultatRechercheStage3eme } from '~/server/stage-3eme/domain/stage3eme';
 
-const PREFIX_TITRE_PAGE = 'Rechercher un stage de 3ème';
+const PREFIX_TITRE_PAGE = 'Rechercher un stage de 3ème et 2nd';
 
 export default function RechercherStages3eme() {
 	const stage3emeQuery = useStage3emeQuery();
@@ -77,7 +77,7 @@ export default function RechercherStages3eme() {
 	return <>
 		<Head
 			title={title}
-			description="Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème"
+			description="Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd"
 			robots="index,follow"
 		/>
 		<main id="contenu">
@@ -100,7 +100,7 @@ function BaniereStages3eme() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>Des milliers d’entreprises prêtes à vous accueillir</LightHeroPrimaryText>
-				<LightHeroSecondaryText>pour votre stage de 3ème</LightHeroSecondaryText>
+				<LightHeroSecondaryText>pour votre stage de 3ème et 2nd</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);

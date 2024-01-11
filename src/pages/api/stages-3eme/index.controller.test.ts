@@ -63,7 +63,7 @@ describe('rechercher stage 3eme', () => {
 				const jsonResultatsStages3eme = await resultatsStages3eme.json();
 				expect(jsonResultatsStages3eme).toEqual(expected);
 			},
-			url: '/stages-3eme?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839',
+			url: '/stages-3eme-et-2nd?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839',
 		});
 	});
 });

@@ -29,7 +29,7 @@ describe('BffStage3emeService', () => {
 				});
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('stages-3eme?codeMetier=codeMetier'));
+				expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('stages-3eme-et-2nd?codeMetier=codeMetier'));
 			});
 		});
 		describe('quand la recherche est effectuée sans code metier', () => {
@@ -52,7 +52,7 @@ describe('BffStage3emeService', () => {
 				});
 
 				// Then
-				expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme?distanceCommune=10&latitudeCommune=48.859&longitudeCommune=2.347');
+				expect(httpClientService.get).toHaveBeenCalledWith('stages-3eme-et-2nd?distanceCommune=10&latitudeCommune=48.859&longitudeCommune=2.347');
 			});
 		});
 	});

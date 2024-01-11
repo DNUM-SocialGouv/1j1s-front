@@ -17,7 +17,7 @@ export function ListeResultatsStage3eme({ resultatList }: ListeResultatsStage3em
 
 	return (
 		<ListeRésultatsRechercherSolution
-			aria-label={'Stages de 3ème'}
+			aria-label={'Stages de 3ème et 2nd'}
 		>
 			{resultatList.resultats.map((stage3eme) => ResultatStage3eme(stage3eme))}
 		</ListeRésultatsRechercherSolution>

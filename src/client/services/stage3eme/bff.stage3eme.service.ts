@@ -13,7 +13,7 @@ export class BffStage3emeService implements Stage3emeService {
 	public async rechercherStage3eme(query: Stage3emeQueryParams) {
 		const queryWithoutUnnecessaryParams = this.removeUnnecessaryParams(query);
 		const queryString = stringify(removeUndefinedKeys(queryWithoutUnnecessaryParams));
-		return await this.httpClientService.get<ResultatRechercheStage3eme>(`stages-3eme?${queryString}`);
+		return await this.httpClientService.get<ResultatRechercheStage3eme>(`stages-3eme-et-2nd?${queryString}`);
 	}
 
 	private removeUnnecessaryParams(query: Stage3emeQueryParams) {

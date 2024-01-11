@@ -59,8 +59,8 @@ describe('Page d‘accueil', () => {
 			expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
 		});
 
-		describe('quand la feature stages de 3ème est activée', () => {
-			it('contient une carte de redirection vers les stages de 3ème', () => {
+		describe('quand la feature stages de 3ème et 2nd est activée', () => {
+			it('contient une carte de redirection vers les stages de 3ème et 2nd', () => {
 				// GIVEN
 				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
 
@@ -72,14 +72,14 @@ describe('Page d‘accueil', () => {
 				);
 
 				// THEN
-				const redirectionVersStages3eme = screen.getByRole('link', { name: 'Stages de 3ème Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' } );
+				const redirectionVersStages3eme = screen.getByRole('link', { name: 'Stages de 3ème et 2nd Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' } );
 				expect(redirectionVersStages3eme).toBeVisible();
-				expect(redirectionVersStages3eme).toHaveAttribute('href', '/stages-3eme');
+				expect(redirectionVersStages3eme).toHaveAttribute('href', '/stages-3eme-et-2nd');
 			});
 		});
 
-		describe('quand la feature stages de 3ème est désactivée', () => {
-			it('ne contient pas de carte de redirection vers les stages de 3ème', () => {
+		describe('quand la feature stages de 3ème et 2nd est désactivée', () => {
+			it('ne contient pas de carte de redirection vers les stages de 3ème et 2nd', () => {
 				// GIVEN
 				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
 
@@ -91,7 +91,7 @@ describe('Page d‘accueil', () => {
 				);
 
 				// THEN
-				const redirectionStage3eme = screen.queryByRole('link', { name: 'Stages de 3ème Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème' });
+				const redirectionStage3eme = screen.queryByRole('link', { name: 'Stages de 3ème et 2nd Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3ème et 2nd' });
 				expect(redirectionStage3eme).not.toBeInTheDocument();
 			});
 		});
