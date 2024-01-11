@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.216.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.215.2...v3.216.0) (2024-01-11)
+
+
+### Features
+
+* **emplois en europe:** ajout d'un filtre par temps de travail ([#2531](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2531)) ([ec2757d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ec2757d83430cebd6035090974aaa35fabeb2c73))
+
 ## [3.215.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.215.1...v3.215.2) (2024-01-11)
 
 
