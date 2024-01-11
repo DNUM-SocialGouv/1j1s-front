@@ -25,8 +25,18 @@ export function ListeResultatsStage3eme({ resultatList }: ListeResultatsStage3em
 }
 
 function ResultatStage3eme(stage3eme: Stage3eme) {
-	const tailleEntreprise = stage3eme.nombreDeSalaries ? `${stage3eme.nombreDeSalaries} salariés` : undefined;
-	const modeDeContact = stage3eme.modeDeContact;
+	const étiquetteOffreList: string[] = [];
+
+	if (stage3eme.nombreDeSalaries) {
+		étiquetteOffreList.push(`${stage3eme.nombreDeSalaries} salariés`);
+	}
+	if (stage3eme.modeDeContact) {
+		étiquetteOffreList.push(stage3eme.modeDeContact);
+	}
+	if (stage3eme.accessiblePersonnesEnSituationDeHandicap) {
+		étiquetteOffreList.push('Accessible aux personnes en situation de handicap');
+	}
+
 	return (
 		<li key={uuidv4()}>
 			<RésultatRechercherSolution
@@ -35,7 +45,7 @@ function ResultatStage3eme(stage3eme: Stage3eme) {
 					<p>{stage3eme.domaine}</p>
 					<p>{stage3eme.adresse.rueEtNumero}, {stage3eme.adresse.codePostal} {stage3eme.adresse.ville}</p>
 				</>}
-				étiquetteOffreList={[tailleEntreprise, modeDeContact]}
+				étiquetteOffreList={étiquetteOffreList}
 			/>
 		</li>
 	);

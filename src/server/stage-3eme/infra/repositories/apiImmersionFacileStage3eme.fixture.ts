@@ -9,6 +9,7 @@ export function anApiImmersionFacileStage3eme(override?: Partial<ApiImmersionFac
 			streetNumberAndAddress: '1 Rue de la Lune',
 		},
 		contactMode: 'IN_PERSON',
+		fitForDisabledWorkers: true,
 		name: 'La Boulangerie',
 		numberOfEmployeeRange: '1-9',
 		romeLabel: 'Boulangerie',

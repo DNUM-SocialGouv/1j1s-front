@@ -21,6 +21,7 @@ export function mapRechercheStage3eme(apiResponse: Array<ApiImmersionFacileStage
 	return {
 		nombreDeResultats: apiResponse.length,
 		resultats: apiResponse.map((stage3eme) => ({
+			accessiblePersonnesEnSituationDeHandicap: stage3eme.fitForDisabledWorkers,
 			adresse: {
 				codeDepartement: stage3eme.address.departmentCode,
 				codePostal: stage3eme.address.postcode,

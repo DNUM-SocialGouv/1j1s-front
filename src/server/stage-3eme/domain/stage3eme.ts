@@ -1,4 +1,5 @@
 export interface Stage3eme {
+	accessiblePersonnesEnSituationDeHandicap: boolean,
 	nomEntreprise: string
 	adresse: Stage3eme.Adresse
 	domaine: string
