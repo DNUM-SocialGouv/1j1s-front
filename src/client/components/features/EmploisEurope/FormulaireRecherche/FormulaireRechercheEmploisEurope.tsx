@@ -10,6 +10,7 @@ import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
+import { EURES_POSITION_SCHEDULE_TYPE, tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
 import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -18,8 +19,7 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 import { secteurActiviteEures } from '~/server/emplois-europe/infra/secteurActiviteEures';
 import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 
-import styles
-	from './FormulaireRechercheEmploisEurope.module.scss';
+import styles from './FormulaireRechercheEmploisEurope.module.scss';
 
 function addSelectionToQueryParams(filterQuery: string, filterToToggle: string) {
 	const currentString = filterQuery.split(',').filter((element) => element);
@@ -33,13 +33,17 @@ function addSelectionToQueryParams(filterQuery: string, filterToToggle: string) 
 	return currentString.join(',');
 }
 
+const valeursFiltresTempsDeTravail = tempsDeTravailEures.filter((tempsDeTravail) => tempsDeTravail.valeur !== EURES_POSITION_SCHEDULE_TYPE.Any);
+
 function ModaleFiltreAvancee(props: {
 	close: () => void,
 	open: boolean,
 	toggleTypeContrat: (typeContrat: string) => void,
+	toggleTempsDeTravail: (tempsDeTravail: string) => void,
 	toggleNiveauEtude: (niveauEtude: string) => void,
 	toggleSecteurActivite: (secteurActivite: string) => void,
 	inputTypeContrat: string,
+	inputTempsDeTravail: string,
 	inputNiveauEtude: string,
 	inputSecteurActivite: string,
 	onClick: () => void
@@ -68,7 +72,18 @@ function ModaleFiltreAvancee(props: {
 						/>
 					))}
 				</FilterAccordion>
-				<FilterAccordion title="Niveau d'études demandé">
+				<FilterAccordion title="Temps de travail">
+					{valeursFiltresTempsDeTravail.map((tempsDeTravail) => (
+						<Checkbox
+							key={uuidv4()}
+							label={tempsDeTravail.libellé}
+							onChange={(e: ChangeEvent<HTMLInputElement>) => props.toggleTempsDeTravail(e.target.value)}
+							value={tempsDeTravail.valeur}
+							checked={props.inputTempsDeTravail.includes(tempsDeTravail.valeur)}
+						/>
+					))}
+				</FilterAccordion>
+				<FilterAccordion title="Niveau d‘études demandé">
 					{niveauEtudeEures.map((niveauEtude) => (
 						<Checkbox
 							key={uuidv4()}
@@ -116,6 +131,7 @@ export function FormulaireRechercheEmploisEurope() {
 		typeContrat,
 		niveauEtude,
 		secteurActivite,
+		tempsDeTravail,
 	} = queryParams;
 	const router = useRouter();
 
@@ -124,6 +140,7 @@ export function FormulaireRechercheEmploisEurope() {
 
 	const [inputMotCle, setInputMotCle] = useState<string>(motCle ?? '');
 	const [inputTypeContrat, setInputTypeContrat] = useState<string>(typeContrat ?? '');
+	const [inputTempsDeTravail, setInputTempsDeTravail] = useState<string>(tempsDeTravail ?? '');
 	const [inputNiveauEtude, setInputNiveauEtude] = useState<string>(niveauEtude ?? '');
 	const [inputSecteurActivite, setInputSecteurActivite] = useState<string>(secteurActivite ?? '');
 	const localisationDefaultValue = (codePays && libellePays)
@@ -133,6 +150,10 @@ export function FormulaireRechercheEmploisEurope() {
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
 		setInputTypeContrat(addSelectionToQueryParams(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
+	
+	const toggleTempsDeTravail = useCallback((tempsDeTravail: string) => {
+		setInputTempsDeTravail(addSelectionToQueryParams(inputTempsDeTravail, tempsDeTravail));
+	}, [inputTempsDeTravail]);
 	
 	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
 		setInputNiveauEtude(addSelectionToQueryParams(inputNiveauEtude, niveauEtude));
@@ -187,7 +208,8 @@ export function FormulaireRechercheEmploisEurope() {
 								label="Filtrer ma recherche"
 								onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
 						  />
-						  <input type="hidden" name="typeContrat" value={inputTypeContrat}/>
+							<input type="hidden" name="typeContrat" value={inputTypeContrat}/>
+							<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
 						  <input type="hidden" name="niveauEtude" value={inputNiveauEtude}/>
 						  <input type="hidden" name="secteurActivite" value={inputSecteurActivite}/>
 						</div>
@@ -195,11 +217,13 @@ export function FormulaireRechercheEmploisEurope() {
 					<ModaleFiltreAvancee
 						close={() => setIsFiltresAvancesMobileOpen(false)}
 						toggleTypeContrat={toggleTypeContrat}
+						toggleTempsDeTravail={toggleTempsDeTravail}
 						toggleNiveauEtude={toggleNiveauEtude}
 						toggleSecteurActivite={toggleSecteurActivite}
 						inputTypeContrat={inputTypeContrat}
 						inputSecteurActivite={inputSecteurActivite}
 						inputNiveauEtude={inputNiveauEtude}
+						inputTempsDeTravail={inputTempsDeTravail}
 						open={isFiltresAvancesMobileOpen}
 						onClick={applyFiltresAvances}
 					/>
@@ -217,9 +241,18 @@ export function FormulaireRechercheEmploisEurope() {
 						/>
 						<Select
 							multiple
+							optionList={valeursFiltresTempsDeTravail}
+							onChange={setInputTempsDeTravail}
+							label="Temps de travail"
+							value={inputTempsDeTravail}
+							name="tempsDeTravail"
+						/>
+
+						<Select
+							multiple
 							optionList={niveauEtudeEures}
 							onChange={setInputNiveauEtude}
-							label="Niveau d'études demandé"
+							label="Niveau d‘études demandé"
 							value={inputNiveauEtude}
 							name="niveauEtude"
 						/>

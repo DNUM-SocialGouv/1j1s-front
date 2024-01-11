@@ -7,9 +7,11 @@ import {
 import {
 	ListeResultatsEmploiEurope,
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/ListeResultatsEmploiEurope';
+import {
+	EtiquettesFiltresRecherche,
+} from '~/client/components/features/EmploisEurope/Rechercher/EtiquettesFiltresRecherche';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
@@ -19,7 +21,6 @@ import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
-import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
 import { Erreur } from '~/server/errors/erreur.types';
 
 export default function RechercherEmploisEurope() {
@@ -63,22 +64,6 @@ export default function RechercherEmploisEurope() {
 		return messageResultatRechercheSplit.join(' ');
 	}, [nombreResultats, emploiEuropeQuery.motCle]);
 
-	const etiquettesRecherche = useMemo(() => {
-		const filtreList: string[] = [];
-		if (emploiEuropeQuery.libellePays) {
-			filtreList.push(emploiEuropeQuery.libellePays);
-		}
-		if (emploiEuropeQuery.typeContrat) {
-			const typeContratList = emploiEuropeQuery.typeContrat.split(',');
-			const typeContratLibelleList = typeContratList
-				.filter((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)?.libellé)
-				.map((typeContrat) => typesContratEures.find((typeContratEures) => typeContratEures.valeur === typeContrat)!.libellé);
-			filtreList.push(...typeContratLibelleList);
-		}
-		if(filtreList.length === 0) return ;
-		return <TagList list={filtreList} aria-label="Filtres de la recherche" />;
-	}, [emploiEuropeQuery.typeContrat, emploiEuropeQuery.libellePays]);
-
 	return <>
 		<Head
 			title="Rechercher un emploi en Europe | 1jeune1solution"
@@ -89,7 +74,7 @@ export default function RechercherEmploisEurope() {
 			<RechercherSolutionLayout
 				bannière={<BanniereEmploisEurope/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={etiquettesRecherche}
+				étiquettesRecherche={<EtiquettesFiltresRecherche/>}
 				formulaireRecherche={<FormulaireRechercheEmploisEurope/>}
 				isLoading={isLoading}
 				nombreSolutions={nombreResultats}

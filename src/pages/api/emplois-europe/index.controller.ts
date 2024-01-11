@@ -14,6 +14,7 @@ export const emploiEuropeRechercheQuerySchema = Joi.object({
 	niveauEtude: Joi.string(),
 	page: Joi.number().min(1).required(),
 	secteurActivite: Joi.string(),
+	tempsDeTravail: Joi.string(),
 	typeContrat: Joi.string(),
 }).options({ allowUnknown: true });
 
@@ -33,6 +34,7 @@ export function emploiEuropeFiltreMapper(request: NextApiRequest): EmploiEuropeF
 		niveauEtude: query.niveauEtude ? queryToArray(query.niveauEtude) : [],
 		page: Number(query.page),
 		secteurActivite: query.secteurActivite ? queryToArray(query.secteurActivite) : [],
+		tempsDeTravail: query.tempsDeTravail ? queryToArray(query.tempsDeTravail) : [],
 		typeContrat: query.typeContrat ? queryToArray(query.typeContrat) : [],
 	};
 }
