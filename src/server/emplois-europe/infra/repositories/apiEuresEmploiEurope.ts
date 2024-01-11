@@ -1,4 +1,5 @@
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
 export const NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE = 15;
 
@@ -104,7 +105,7 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 			'textContent': string
 		},
 		RequiredProficiencyLevel?: {
-			ScoreText?:{
+			ScoreText?: {
 				'textContent': LEVEL_CODE
 			},
 		}
@@ -116,7 +117,7 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 			'textContent': string
 		}
 		Score: {
-			ScoreText:  {
+			ScoreText: {
 				'textContent': LEVEL_CODE
 			}
 		}
@@ -133,11 +134,14 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 	}
 
 	interface ExperienceCategory {
-		Measure: {
-			'textContent': number
-		} | Array<{
-			'textContent': number
-		}>
+		Measure: Measure | Array<Measure>
+	}
+
+	interface Measure {
+		'textContent': number
+		attributs?: {
+			unitCode?: UNITE_EXPERIENCE_NECESSAIRE
+		}
 	}
 
 

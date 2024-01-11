@@ -1,5 +1,6 @@
 import { NiveauEtudes } from '~/client/domain/niveauEtudesEures';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
 export interface ResultatRechercheEmploiEurope {
 	offreList: EmploiEurope[];
@@ -20,8 +21,13 @@ export interface EmploiEurope {
 	listePermis: Array<string>;
 	langueDeTravail: Array<string>;
 	competencesLinguistiques: Array<CompetenceLinguistique>
-	anneesDExperience?: number
+	experienceNecessaire?: ExperienceNecessaire
 	codeLangueDeLOffre?: string
+}
+
+export interface ExperienceNecessaire {
+	duree: number,
+	unite?: UNITE_EXPERIENCE_NECESSAIRE,
 }
 
 export interface CompetenceLinguistique {
