@@ -166,8 +166,8 @@ describe('<ListeResultatsStage3eme />', () => {
 			// THEN
 			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3ème' });
 			const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-			const tagAccessiblePSH = within(tagsList).getByText('Accessible aux personnes en situation de handicap');
-			expect(tagAccessiblePSH).toBeVisible();
+			const tagHandiAccessible = within(tagsList).getByText('Handi-accessible');
+			expect(tagHandiAccessible).toBeVisible();
 		});
 
 		it('n’ajoute pas de liste de tags si aucune info à y afficher', () => {

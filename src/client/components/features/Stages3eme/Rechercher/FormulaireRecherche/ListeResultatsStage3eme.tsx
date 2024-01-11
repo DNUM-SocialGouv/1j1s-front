@@ -34,7 +34,7 @@ function ResultatStage3eme(stage3eme: Stage3eme) {
 		étiquetteOffreList.push(stage3eme.modeDeContact);
 	}
 	if (stage3eme.accessiblePersonnesEnSituationDeHandicap) {
-		étiquetteOffreList.push('Accessible aux personnes en situation de handicap');
+		étiquetteOffreList.push('Handi-accessible');
 	}
 
 	return (
