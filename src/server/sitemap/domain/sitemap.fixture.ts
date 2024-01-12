@@ -160,7 +160,7 @@ export function aSitemap() {
 		<loc>http://localhost:3000/stages</loc>
 	</url>
 	<url>
-		<loc>http://localhost:3000/stages-3eme</loc>
+		<loc>http://localhost:3000/stages-3e-et-2de</loc>
 	</url>
 	<url>
 		<loc>http://localhost:3000/apprentissage</loc>

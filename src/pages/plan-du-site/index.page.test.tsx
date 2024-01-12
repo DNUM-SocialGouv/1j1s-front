@@ -22,7 +22,7 @@ describe('Plan du site', () => {
 		
 		${'Emplois'}                                              | ${'/emplois'}
 		${'Stages d’études'}                                      | ${'/stages'}
-		${'Stages de 3ème'}                                       | ${'/stages-3eme'}
+		${'Stages de 3e et 2de'}                                | ${'/stages-3e-et-2de'}
 		${'Contrats d’alternance'}                                | ${'/apprentissage'}
 		${'Jobs d‘été'}                                           | ${'/jobs-ete'}
 		${'Jobs étudiants'}                                       | ${'/jobs-etudiants'}
@@ -87,7 +87,7 @@ describe('Plan du site', () => {
 
 		it.each`
 		nom                                                       | path
-		${'Stages de 3ème'}                                       | ${'/stages-3eme'}
+		${'Stages de 3e et 2de'}                                | ${'/stages-3e-et-2de'}
 		${'Emplois en Europe'}                                    | ${'/emplois-europe'}
 		${'Formations initiales'}                                 | ${'/formations-initiales'}`
 		('La page $nom n’est pas présente', async ({ nom }) => {

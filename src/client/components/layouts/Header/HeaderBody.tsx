@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import {  MAILTO_STAGE_3E_2ND } from '~/client/components/layouts/Header/Header';
+import { MAILTO_STAGE_3E_2DE } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -20,7 +20,7 @@ export function HeaderBody() {
 
 	return (
 		<Container className={styles.headerBodyContainer}>
-			<div className={styles.headerBody} >
+			<div className={styles.headerBody}>
 				<div className={styles.headerBodyLogoWrapper}>
 					<Image
 						src="/images/logos/république-française.svg"
@@ -29,33 +29,35 @@ export function HeaderBody() {
 						height="80"
 						aria-hidden="true"
 					/>
-					{ !isLargeScreen &&
+					{!isLargeScreen &&
 						<nav role={'navigation'} aria-label="ouvrir le menu principal">
-            	<ButtonComponent appearance='quaternary' icon={<Icon name='burger-menu'/>} iconPosition='top' onClick={toggleModal} label='Menu' />
+							<ButtonComponent appearance="quaternary" icon={<Icon name="burger-menu"/>} iconPosition="top"
+															 onClick={toggleModal} label="Menu"/>
 						</nav>
 					}
 				</div>
 				<div className={styles.headerBodyTitle}>1jeune1solution</div>
-				{ isLargeScreen && displayBanner &&
-				  <Link href={MAILTO_STAGE_3E_2ND} className={styles.headerBodyBanner}>
-				  	<div>
-					    <div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3ème et 2nde&nbsp;?</div>
-					    <div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
-				  	</div>
-				  	<Icon className={styles.headerBodyBannerIcon} name='angle-right' />
-				  </Link>
+				{isLargeScreen && displayBanner &&
+					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
+						<div>
+							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
+							</div>
+							<div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
+						</div>
+						<Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
+					</Link>
 				}
 			</div>
-			{ !isLargeScreen &&
-        <ModalComponent close={toggleModal} isOpen={isModalOpen}>
-        	<ModalComponent.Title>
-        		<Icon name="menu" />
-        		<span>Menu</span>
-        	</ModalComponent.Title>
-        	<ModalComponent.Content>
-        		<HeaderNavMobile toggleModal={toggleModal} />
-        	</ModalComponent.Content>
-        </ModalComponent>
+			{!isLargeScreen &&
+				<ModalComponent close={toggleModal} isOpen={isModalOpen}>
+					<ModalComponent.Title>
+						<Icon name="menu"/>
+						<span>Menu</span>
+					</ModalComponent.Title>
+					<ModalComponent.Content>
+						<HeaderNavMobile toggleModal={toggleModal}/>
+					</ModalComponent.Content>
+				</ModalComponent>
 			}
 		</Container>
 	);
