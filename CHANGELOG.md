@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.218.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.217.0...v3.218.0) (2024-01-12)
+
+
+### Features
+
+* **stage 3eme:** changer 3eme par 3e et 2de ([#2553](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2553)) ([9c1cbb2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c1cbb2e3ea5516c9cd7f15614e2d088f80a8812))
+
 ## [3.217.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.216.0...v3.217.0) (2024-01-11)
 
 
