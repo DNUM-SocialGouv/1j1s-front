@@ -8,6 +8,7 @@ import {
 	ListeResultatsStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Rechercher/FormulaireRecherche/ListeResultatsStage3eEt2de';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { aResultatRechercheStage3eEt2de, aStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 
 describe('<ListeResultatsStage3eEt2de />', () => {
@@ -128,25 +129,91 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			expect(tagNombreDeSalariés).toBeVisible();
 		});
 
-		it('ajoute un tag correspondant au mode de contact, si l’information est présente', () => {
-			// GIVEN
-			const resultatRecherche = aResultatRechercheStage3eEt2de({
-				nombreDeResultats: 1,
-				resultats: [
-					aStage3eEt2de({
-						modeDeContact: 'Pigeon voyageur',
-					}),
-				],
+		describe('ajoute un tag correspondant au mode de contact', () => {
+			it('si la candidature se fait en personne ajoute "Candidature en personne"', () => {
+				// GIVEN
+				const resultatRecherche = aResultatRechercheStage3eEt2de({
+					nombreDeResultats: 1,
+					resultats: [
+						aStage3eEt2de({
+							modeDeContact: ModeDeContact.IN_PERSON,
+						}),
+					],
+				});
+
+				// WHEN
+				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+				// THEN
+				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagModeDeContact = within(tagsList).getByText('Candidature en personne');
+				expect(tagModeDeContact).toBeVisible();
 			});
+			it('si la candidature se fait par e-mail ajoute "Candidate par e-mail', () => {
+				// GIVEN
+				const resultatRecherche = aResultatRechercheStage3eEt2de({
+					nombreDeResultats: 1,
+					resultats: [
+						aStage3eEt2de({
+							modeDeContact: ModeDeContact.EMAIL,
+						}),
+					],
+				});
 
-			// WHEN
-			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+				// WHEN
+				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
 
-			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-			const tagModeDeContact = within(tagsList).getByText('Pigeon voyageur');
-			expect(tagModeDeContact).toBeVisible();
+				// THEN
+				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagModeDeContact = within(tagsList).getByText('Candidature par e-mail');
+				expect(tagModeDeContact).toBeVisible();
+			});
+			it('si la candidature se fait par téléphone ajoute "Candidature par téléphone"', () => {
+				// GIVEN
+				const resultatRecherche = aResultatRechercheStage3eEt2de({
+					nombreDeResultats: 1,
+					resultats: [
+						aStage3eEt2de({
+							modeDeContact: ModeDeContact.PHONE,
+						}),
+					],
+				});
+
+				// WHEN
+				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+				// THEN
+				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagModeDeContact = within(tagsList).getByText('Candidature par téléphone');
+				expect(tagModeDeContact).toBeVisible();
+			});
+			it('si l’information n’est pas connue n’ajoute pas de tag', () => {
+				// GIVEN
+				const resultatRecherche = aResultatRechercheStage3eEt2de({
+					nombreDeResultats: 1,
+					resultats: [
+						aStage3eEt2de({
+							modeDeContact: undefined,
+						}),
+					],
+				});
+
+				// WHEN
+				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+				// THEN
+				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+				const tagsUl = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
+				const tagModeDeContactTel = within(tagsUl).queryByText('Candidature par téléphone');
+				const tagModeDeContactEmail = within(tagsUl).queryByText('Candidature par e-mail');
+				const tagModeDeContactEnPersonne = within(tagsUl).queryByText('Candidature en personne');
+				expect(tagModeDeContactTel).not.toBeInTheDocument();
+				expect(tagModeDeContactEmail).not.toBeInTheDocument();
+				expect(tagModeDeContactEnPersonne).not.toBeInTheDocument();
+			});
 		});
 
 		it('ajoute un tag correspond si l’offre est accessible aux personnes en situation de handicap', () => {

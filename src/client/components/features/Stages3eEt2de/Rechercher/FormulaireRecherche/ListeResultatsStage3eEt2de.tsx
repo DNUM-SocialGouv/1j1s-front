@@ -4,6 +4,7 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 interface ListeResultatsStage3eEt2deProps {
@@ -30,8 +31,23 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 	if (stage3eEt2de.nombreDeSalaries) {
 		étiquetteOffreList.push(`${stage3eEt2de.nombreDeSalaries} salariés`);
 	}
+
+	function getModeDeContactWording(modeDeContact: ModeDeContact): string | undefined { // todo à ranger quelque part
+		switch (modeDeContact) {
+			case ModeDeContact.IN_PERSON:
+				return 'Candidature en personne';
+			case ModeDeContact.EMAIL:
+				return 'Candidature par e-mail';
+			case ModeDeContact.PHONE:
+				return 'Candidature par téléphone';
+			default:
+				return undefined;
+		}
+	}
+
 	if (stage3eEt2de.modeDeContact) {
-		étiquetteOffreList.push(stage3eEt2de.modeDeContact);
+		const modeDeContactWording = getModeDeContactWording(stage3eEt2de.modeDeContact);
+		modeDeContactWording && étiquetteOffreList.push(modeDeContactWording);
 	}
 	if (stage3eEt2de.accessiblePersonnesEnSituationDeHandicap) {
 		étiquetteOffreList.push('Handi-accessible');
