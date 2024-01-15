@@ -85,7 +85,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
-			const resultsMetiersStage3eEt2de = await repository.search('boulanger') as Success<MetierStage3eEt2de[]>;
+			const resultsMetiersStage3eEt2de = await repository.search('boulanger');
 
 			// Then
 			const expectedMetiersStage3eEt2de = [
@@ -120,6 +120,164 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 					apiSource: 'API Pole Emploi',
 					contexte: 'search appellation metiers stage 3e et 2de',
 					message: 'impossible d’effectuer une recherche d’appellation metiers stage 3e et 2de',
+				}));
+			});
+		});
+	});
+
+	describe('getMetiersByAppellationCodes', () => {
+		describe('quand le cache des appellations métier est disponible', () => {
+			it('utilise le cache pour récupérer les appellations métiers', async () => {
+				// Given
+				const cacheService = aCacheService();
+				jest.spyOn(cacheService, 'get').mockResolvedValueOnce([
+					anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+					anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+					anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+				]);
+				const httpClientService = anAuthenticatedHttpClientService();
+
+				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+
+				// When
+				await repository.getMetiersByAppellationCodes(['11573', '11564']);
+
+				// Then
+				expect(cacheService.get).toHaveBeenCalledWith('REFERENTIEL_METIER_STAGE_3EME');
+				expect(httpClientService.get).not.toHaveBeenCalled();
+			});
+		});
+
+		describe('quand le cache des appellations métier n’est pas disponible', () => {
+			it('appelle l’api Pole Emploi avec les bon paramètres', async () => {
+				// Given
+				const cacheService = aCacheService();
+				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				const httpClientService = anAuthenticatedHttpClientService();
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
+
+				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+
+				// When
+				await repository.getMetiersByAppellationCodes(['11573', '11564']);
+
+				// Then
+				expect(cacheService.get).toHaveBeenCalledWith('REFERENTIEL_METIER_STAGE_3EME');
+				expect(httpClientService.get).toHaveBeenCalledWith('/appellations');
+			});
+			it('sauvegarde le résultat de l’appel en cache pour 24 heures', async () => {
+				// Given
+				const cacheService = aCacheService();
+				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
+				const httpClientService = anAuthenticatedHttpClientService();
+				const apiResponse = [anApiPoleEmploiMetierStage3eEt2de()];
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+
+				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+
+				// When
+				await repository.getMetiersByAppellationCodes(['11573', '11564']);
+
+				// Then
+				expect(cacheService.set).toHaveBeenCalledWith('REFERENTIEL_METIER_STAGE_3EME', apiResponse, 24 );
+			});
+		});
+
+		it('retourne la liste des appellations métier en fonction des appellationCodes', async () => {
+			// Given
+			const httpClientService = anAuthenticatedHttpClientService();
+			const apiResponse = [
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+			];
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+
+			// When
+			const resultsMetiersStage3eEt2de =
+				await repository.getMetiersByAppellationCodes([apiResponse[0].code, apiResponse[2].code]);
+
+			// Then
+			const expectedMetiersStage3eEt2de = [
+				aMetierStage3eEt2de({
+					code: apiResponse[0].code,
+					label: apiResponse[0].libelle,
+				}),
+				aMetierStage3eEt2de({
+					code: apiResponse[2].code,
+					label: apiResponse[2].libelle,
+				}),
+			];
+			expect(resultsMetiersStage3eEt2de.instance).toBe('success');
+			expect((resultsMetiersStage3eEt2de as Success<MetierStage3eEt2de[]>).result).toStrictEqual(expectedMetiersStage3eEt2de);
+		});
+
+		it('retourne une liste vide si aucun appellationCode n’est fourni', async () => {
+			// Given
+			const httpClientService = anAuthenticatedHttpClientService();
+			const apiResponse = [
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+			];
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+
+			// When
+			const resultsMetiersStage3eEt2de =
+				await repository.getMetiersByAppellationCodes([]);
+
+			// Then
+			const expectedMetiersStage3eEt2de: MetierStage3eEt2de[] = [];
+			expect(resultsMetiersStage3eEt2de.instance).toBe('success');
+			expect((resultsMetiersStage3eEt2de as Success<MetierStage3eEt2de[]>).result).toStrictEqual(expectedMetiersStage3eEt2de);
+		});
+
+		it('retourne seulement la liste des appellations ayant un appellationCode valide', async () => {
+			// Given
+			const httpClientService = anAuthenticatedHttpClientService();
+			const apiResponse = [
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+			];
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
+			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+
+			// When
+			const resultsMetiersStage3eEt2de =
+				await repository.getMetiersByAppellationCodes([apiResponse[0].code, 'invalid-code']);
+
+			// Then
+			const expectedMetiersStage3eEt2de = [
+				aMetierStage3eEt2de({
+					code: apiResponse[0].code,
+					label: apiResponse[0].libelle,
+				}),
+			];
+			expect(resultsMetiersStage3eEt2de.instance).toBe('success');
+			expect((resultsMetiersStage3eEt2de as Success<MetierStage3eEt2de[]>).result).toStrictEqual(expectedMetiersStage3eEt2de);
+		});
+
+		describe('en cas d’erreur pendant la récupération des appellations métier', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				// Given
+				const httpError = anHttpError(500);
+				const httpClientService = anAuthenticatedHttpClientService();
+				jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
+				const errorManagementService = anErrorManagementService();
+				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
+
+				// When
+				await repository.getMetiersByAppellationCodes([]);
+
+				// Then
+				expect(httpClientService.get).toHaveBeenCalled();
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
+					apiSource: 'API Pole Emploi',
+					contexte: 'get appellations métiers à partir des appellationCodes stage 3e et 2de',
+					message: 'impossible de récupérer les appellations métiers à partir des appellationCodes stage 3e et 2de',
 				}));
 			});
 		});
