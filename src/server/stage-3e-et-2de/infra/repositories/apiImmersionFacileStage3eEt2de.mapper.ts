@@ -1,7 +1,10 @@
-
+import { CandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
-import { ApiImmersionFacileStage3eEt2deRechercheResponse } from './apiImmersionFacileStage3eEt2de';
+import {
+	ApiImmersionFacileStage3eEt2deCandidature,
+	ApiImmersionFacileStage3eEt2deRechercheResponse,
+} from './apiImmersionFacileStage3eEt2de';
 
 function mapModeDeContact(stage3eEt2de: ApiImmersionFacileStage3eEt2deRechercheResponse): string | undefined {
 	switch (stage3eEt2de.contactMode) {
@@ -35,5 +38,16 @@ export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileSt
 			nomEntreprise: stage3eEt2de.name,
 			nombreDeSalaries: stage3eEt2de.numberOfEmployeeRange ? stage3eEt2de.numberOfEmployeeRange : undefined,
 		})),
+	};
+}
+
+export function mapCandidatureStage3eEt2de(candidature: CandidatureStage3eEt2de): ApiImmersionFacileStage3eEt2deCandidature {
+	return {
+		appellationCode: candidature.appellationCode,
+		contactMode: candidature.modeDeContact,
+		potentialBeneficiaryEmail: candidature.email,
+		potentialBeneficiaryFirstName: candidature.prenom,
+		potentialBeneficiaryLastName: candidature.nom,
+		siret: candidature.siret,
 	};
 }

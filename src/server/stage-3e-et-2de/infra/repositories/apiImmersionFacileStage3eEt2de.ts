@@ -29,3 +29,12 @@ export const apiImmersionFacileStage3eEt2deSchemas = {
 		voluntaryToImmersion: Joi.boolean().required(),
 	})).options({ allowUnknown: true }),
 };
+
+export interface ApiImmersionFacileStage3eEt2deCandidature {
+	potentialBeneficiaryFirstName: string
+	potentialBeneficiaryLastName: string
+	potentialBeneficiaryEmail: string
+	appellationCode: string
+	siret: string
+	contactMode: string
+}

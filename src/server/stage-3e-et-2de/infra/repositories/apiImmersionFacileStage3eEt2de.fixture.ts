@@ -1,4 +1,7 @@
-import { ApiImmersionFacileStage3eEt2deRechercheResponse } from './apiImmersionFacileStage3eEt2de';
+import {
+	ApiImmersionFacileStage3eEt2deCandidature,
+	ApiImmersionFacileStage3eEt2deRechercheResponse,
+} from './apiImmersionFacileStage3eEt2de';
 
 export function anApiImmersionFacileStage3eEt2de(override?: Partial<ApiImmersionFacileStage3eEt2deRechercheResponse>): ApiImmersionFacileStage3eEt2deRechercheResponse {
 	return {
@@ -14,6 +17,18 @@ export function anApiImmersionFacileStage3eEt2de(override?: Partial<ApiImmersion
 		numberOfEmployeeRange: '1-9',
 		romeLabel: 'Boulangerie',
 		voluntaryToImmersion: true,
+		...override,
+	};
+}
+
+export function anApiImmersionFacileStage3eEt2deCandidature(override?: Partial<ApiImmersionFacileStage3eEt2deCandidature>): ApiImmersionFacileStage3eEt2deCandidature {
+	return {
+		appellationCode: '11573',
+		contactMode: 'PHONE',
+		potentialBeneficiaryEmail: 'email@example.com',
+		potentialBeneficiaryFirstName: 'John',
+		potentialBeneficiaryLastName: 'Doe',
+		siret: '12345678912345',
 		...override,
 	};
 }
