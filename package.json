@@ -89,7 +89,7 @@
     "jest-axe": "8.0.0",
     "jest-environment-jsdom": "29.7.0",
     "next-test-api-route-handler": "3.2.0",
-    "nock": "13.4.0",
+    "nock": "13.5.0",
     "sass": "1.69.7",
     "storybook": "7.6.8",
     "ts-node": "10.9.2",
