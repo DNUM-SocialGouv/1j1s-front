@@ -72,7 +72,11 @@
     "@types/jest-axe": "3.5.9",
     "@types/lodash.debounce": "4.0.9",
     "@types/marked": "5.0.2",
+<<<<<<< HEAD
     "@types/node": "18.19.8",
+=======
+    "@types/node": "18.19.6",
+>>>>>>> cc5276ca (chore(deps): update dependency @types/react to v18.2.48)
     "@types/react": "18.2.48",
     "@types/react-autosuggest": "10.1.11",
     "@types/react-dom": "18.2.18",
