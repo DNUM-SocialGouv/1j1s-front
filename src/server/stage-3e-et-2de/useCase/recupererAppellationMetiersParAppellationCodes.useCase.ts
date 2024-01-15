@@ -4,6 +4,6 @@ export class RecupererAppellationMetiersParAppellationCodesUseCase {
 	constructor(private repository: MetierStage3eEt2deRepository) {}
 
 	async handle(appellationCodes: string[]) {
-		return this.repository.(motCle);
+		return this.repository.getMetiersByAppellationCodes(appellationCodes);
 	}
 }

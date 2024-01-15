@@ -11,7 +11,7 @@ import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3
 import { aMetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de.fixture';
 import {
 	anApiPoleEmploiMetierStage3eEt2de,
-} from '~/server/stage-3e-et-2de/infra/repositories/anApiPoleEmploiMetierStage3eEt2de';
+} from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.fixture';
 import {
 	ApiPoleEmploiMetierStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
