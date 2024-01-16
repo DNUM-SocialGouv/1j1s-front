@@ -1,9 +1,9 @@
-import { Actualité } from '~/server/cms/domain/actualité'
-import { Article } from '~/server/cms/domain/article'
-import { Image } from '~/server/cms/domain/image'
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur'
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune'
-import { Strapi } from '~/server/cms/infra/repositories/strapi.response'
+import { Actualité } from '~/server/cms/domain/actualité';
+import { Article } from '~/server/cms/domain/article';
+import { Image } from '~/server/cms/domain/image';
+import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
+import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
 	return {

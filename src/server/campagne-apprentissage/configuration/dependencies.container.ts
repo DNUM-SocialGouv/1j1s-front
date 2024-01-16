@@ -1,13 +1,11 @@
-import { AnnonceDeLogementRepository } from '../domain/annonceDeLogement.repository';
 import { VideoCampagneApprentissageRepository } from '../domain/videoCampagneApprentissage.repository';
-import { ConsulterAnnonceLogementUseCase } from '../useCases/consulterAnnonceDeLogement.useCase';
 import { RecupererVideosCampagneApprentissageUseCase } from '../useCases/recupererVideosCampagneApprentissage.useCase';
 
 export interface CampagneApprentissageDependencies {
 	recupererVideosCampagneApprentissageUseCase: RecupererVideosCampagneApprentissageUseCase
 }
 
-export function campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository: VideoCampagneApprentissageRepository): AnnonceDeLogementDependencies {
+export function campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository: VideoCampagneApprentissageRepository): CampagneApprentissageDependencies {
 	return {
 		recupererVideosCampagneApprentissageUseCase: new RecupererVideosCampagneApprentissageUseCase(videoCampagneApprentissageRepository),
 	};

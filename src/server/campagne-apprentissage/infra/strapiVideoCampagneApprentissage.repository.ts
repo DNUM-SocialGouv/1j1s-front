@@ -15,7 +15,7 @@ export class StrapiVideoCampagneApprentissageRepository implements VideoCampagne
 
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
 		const query = 'sort[0]=Index';
-		const strapiVideosCampagne = await this.strapiService.getCollectionType<StrapiVideoCampagneApprentissage[]>(this.RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query);
+		const strapiVideosCampagne = await this.strapiService.getCollectionType<StrapiVideoCampagneApprentissage>(this.RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query);
 		if (isFailure(strapiVideosCampagne)) {
 			return strapiVideosCampagne;
 		}
