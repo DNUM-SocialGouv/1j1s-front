@@ -18,7 +18,7 @@ describe('récupérer les métiers correspondant à la recherche', () => {
 		).reply(200, aMetierLaBonneAlternanceApiResponse());
 
 		await testApiHandler<MetierAlternance[] | ErrorHttpResponse>({
-			handler: (req, res) => récupérerMétierAlternanceHandler(req, res),
+			pagesHandler: (req, res) => récupérerMétierAlternanceHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();

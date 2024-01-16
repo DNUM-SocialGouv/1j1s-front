@@ -65,7 +65,7 @@ describe('rechercher emplois en Europe', () => {
 		).reply(200, detailResult);
 
 		await testApiHandler<Array<ResultatRechercheEmploiEurope> | ErrorHttpResponse>({
-			handler: (req, res) => rechercherEmploiEuropeHandler(req, res),
+			pagesHandler: (req, res) => rechercherEmploiEuropeHandler(req, res),
 			params: {
 				page: '1',
 			},

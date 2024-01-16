@@ -23,7 +23,7 @@ describe('rechercher alternance', () => {
 		).reply(200, aLaBonneAlternanceApiJobsResponse());
 
 		await testApiHandler<ResultatRechercheAlternance | ErrorHttpResponse>({
-			handler: (req, res) => rechercherAlternanceHandler(req, res),
+			pagesHandler: (req, res) => rechercherAlternanceHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();

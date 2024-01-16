@@ -19,7 +19,7 @@ describe('envoyer une demande de contact', () => {
 				.reply(200);
       
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => envoyerDemandeContactAccompagnementHandler(req, res),
+				pagesHandler: (req, res) => envoyerDemandeContactAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify({

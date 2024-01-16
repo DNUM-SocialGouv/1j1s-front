@@ -24,7 +24,7 @@ describe('rechercher formation', () => {
 			).reply(200, aLaBonneAlternanceApiRésultatRechercheFormationResponse());
 
 			await testApiHandler<Array<RésultatRechercheFormation> | ErrorHttpResponse>({
-				handler: (req, res) => rechercherFormationHandler(req, res),
+				pagesHandler: (req, res) => rechercherFormationHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
@@ -51,7 +51,7 @@ describe('rechercher formation', () => {
 			).reply(200, aLaBonneAlternanceApiRésultatRechercheFormationResponse());
 
 			await testApiHandler<Array<RésultatRechercheFormation> | ErrorHttpResponse>({
-				handler: (req, res) => rechercherFormationHandler(req, res),
+				pagesHandler: (req, res) => rechercherFormationHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();

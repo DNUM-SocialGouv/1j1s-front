@@ -21,7 +21,7 @@ describe('rechercher une mission du service civique', () => {
 			.reply(200, anAxiosResponse(aSearchMissionEngagementResponse()).data);
 
 		await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-			handler: (req, res) => rechercherMissionHandler(req, res),
+			pagesHandler: (req, res) => rechercherMissionHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
@@ -34,7 +34,7 @@ describe('rechercher une mission du service civique', () => {
 	describe('quand le schema des paramètres de l’url n‘est pas respecté', () => {
 		it('retourne directement une erreur', async () => {
 			await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-				handler: (req, res) => withValidation({ query: missionServiceCiviqueQuerySchema }, rechercherMissionHandler)(req, res),
+				pagesHandler: (req, res) => withValidation({ query: missionServiceCiviqueQuerySchema }, rechercherMissionHandler)(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();

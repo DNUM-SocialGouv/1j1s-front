@@ -31,7 +31,7 @@ describe('rechercher alternance', () => {
 		).reply(200, { matchas: [aMatchaResponse()] });
 
 		await testApiHandler<Alternance | ErrorHttpResponse>({
-			handler: (req, res) => getAlternanceHandler(req, res),
+			pagesHandler: (req, res) => getAlternanceHandler(req, res),
 			params: { id: alternanceId },
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
@@ -48,7 +48,7 @@ describe('rechercher alternance', () => {
 		).reply(200, { matchas: [aMatchaResponse()] });
 
 		await testApiHandler<Alternance | ErrorHttpResponse>({
-			handler: (req, res) => getAlternanceHandler(req, res),
+			pagesHandler: (req, res) => getAlternanceHandler(req, res),
 			params: { id: alternanceId },
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });

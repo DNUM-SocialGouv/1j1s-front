@@ -50,7 +50,7 @@ describe('rechercher une localisation', () => {
 				}]);
 
 			await testApiHandler<RechercheLocalisationApiResponse | ErrorHttpResponse>({
-				handler: (req, res) => rechercherLocalisationHandler(req, res),
+				pagesHandler: (req, res) => rechercherLocalisationHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
@@ -94,7 +94,7 @@ describe('rechercher une localisation', () => {
 	describe('quand la réponse est en échec', () => {
 		it('retourne un message d‘erreur', async () => {
 			await testApiHandler<RechercheLocalisationApiResponse | ErrorHttpResponse>({
-				handler: (req, res) => rechercherLocalisationHandler(req, res),
+				pagesHandler: (req, res) => rechercherLocalisationHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();

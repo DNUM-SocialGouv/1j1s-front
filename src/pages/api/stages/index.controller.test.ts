@@ -31,7 +31,7 @@ describe('enregistrer une offre de stage', () => {
 				.reply(201);
 
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => depotOffreDeStageController(req, res),
+				pagesHandler: (req, res) => depotOffreDeStageController(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify(anOffreDeStageDepot()),
@@ -55,7 +55,7 @@ describe('enregistrer une offre de stage', () => {
 		it('le nom de l’employeur ne doit pas dépasser 255 caractères', async () => {
 			const nomTresTresLong = 'Plateforme ultra haut champ 3T-7T du Centre Hospitalier Universitaire (CHU) de Poitiers. Laboratoire commun Imagerie Métabolique Multinoyaux Multiorganes (I3M), Laboratoire et Mathématiques et Applications (LMA), Centre National de la Recherche Scientifique (CNRS) UMR 7348, Université de Poitiers, France.';
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => depotOffreDeStageController(req, res),
+				pagesHandler: (req, res) => depotOffreDeStageController(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify(anOffreDeStageDepot({ employeur: anEmployeurDepotStage({ nom: nomTresTresLong }) })),

@@ -21,7 +21,7 @@ describe('enregistrerEntreprisesHandler', () => {
 			.reply(201);
 
 		await testApiHandler<void | ErrorHttpResponse>({
-			handler: (req, res) => enregistrerEntreprisesHandler(req, res),
+			pagesHandler: (req, res) => enregistrerEntreprisesHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({
 					body: JSON.stringify(anEntrepriseSouhaitantSEngager()),
@@ -64,7 +64,7 @@ describe('enregistrerEntreprisesHandler', () => {
 		  { travail: '' },
 	  ])('l’url contenant le paramètre %o est invalide', async (queryParametersToTestInError) => {
 		  await testApiHandler<void | ErrorHttpResponse>({
-			  handler: (req, res) => entreprisesHandler(req, res),
+			  pagesHandler: (req, res) => entreprisesHandler(req, res),
 			  test: async ({ fetch }) => {
 				  const res = await fetch({
 					  // eslint-disable-next-line @typescript-eslint/ban-ts-comment

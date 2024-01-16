@@ -26,7 +26,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
 				.reply(201);
 
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
+				pagesHandler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify({
@@ -67,7 +67,7 @@ describe('enregistrerDemandeDeContactHandler', () => {
 	describe('quand le type de demande de contact est incorrecte', () => {
 		it('répond une 400 quand DEMANDE_INCORRECTE', async () => {
 			await testApiHandler<void | ErrorHttpResponse>({
-				handler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
+				pagesHandler: (req, res) => enregistrerDemandeDeContactHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
 						body: JSON.stringify({
