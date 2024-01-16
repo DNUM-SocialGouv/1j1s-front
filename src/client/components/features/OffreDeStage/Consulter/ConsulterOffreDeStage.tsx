@@ -8,6 +8,7 @@ import { getHtmlFromMd } from '~/client/components/ui/Marked/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { OffreDeStage } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 interface ConsulterOffreDeStageProps {
 	offreDeStage: OffreDeStage
@@ -15,8 +16,13 @@ interface ConsulterOffreDeStageProps {
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
 	const listeEtiquettes = useMemo(() => {
+		const domainesWithoutNonRenseigne = offreDeStage.domaines
+			? offreDeStage.domaines
+				.filter((domaine) => domaine !== DomainesStage.NON_RENSEIGNE)
+			: [];
+
 		const tags = [
-			...offreDeStage.domaines,
+			...domainesWithoutNonRenseigne,
 			offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
 			dureeCategorisee(offreDeStage.dureeEnJour || 0),
 		];
@@ -49,11 +55,11 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				<div className={commonStyles.buttonAsLinkWrapper}>
 					<div className={commonStyles.buttonAsLink}>
 						{offreDeStage.urlDeCandidature &&
-                <LinkStyledAsButtonWithIcon
-                	href={offreDeStage.urlDeCandidature}
-                	appearance="asPrimaryButton">
-                    Postuler
-                </LinkStyledAsButtonWithIcon>
+							<LinkStyledAsButtonWithIcon
+								href={offreDeStage.urlDeCandidature}
+								appearance="asPrimaryButton">
+								Postuler
+							</LinkStyledAsButtonWithIcon>
 						}
 					</div>
 				</div>
@@ -61,15 +67,15 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 			<section className={commonStyles.contenu}>
 				<dl>
 					{offreDeStage.employeur?.description &&
-              <div>
-              	<dt>Description de l‘employeur :</dt>
-              	<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
-              </div>}
+						<div>
+							<dt>Description de l‘employeur :</dt>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeurHtmlSanitiezd }}/>
+						</div>}
 					{offreDeStage.description &&
-              <div>
-              	<dt>Description du poste :</dt>
-              	<dd dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
-              </div>
+						<div>
+							<dt>Description du poste :</dt>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionHtmlSanitized }}/>
+						</div>
 					}
 					<div>
 						<dt>Rémunération :</dt>

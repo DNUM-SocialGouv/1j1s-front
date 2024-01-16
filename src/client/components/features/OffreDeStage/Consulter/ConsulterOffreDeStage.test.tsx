@@ -158,7 +158,18 @@ describe('ConsulterOffreDeStage', () => {
 				expect(displayedTagsTextContents).toContain(DomainesStage.ACHAT);
 				expect(displayedTagsTextContents).toContain(DomainesStage.CONSEIL);
 			});
-			
+
+			it('n‘affiche pas le domaine non renseigné', () => {
+				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.NON_RENSEIGNE] });
+
+				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
+				expect(displayedTagsTextContents).toContain(DomainesStage.ACHAT);
+				expect(displayedTagsTextContents).not.toContain(DomainesStage.NON_RENSEIGNE);
+			});
+
 			describe('concernant la localisation du stage', () => {
 				it('affiche la ville du stage quand elle est présente', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
