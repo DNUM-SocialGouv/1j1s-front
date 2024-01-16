@@ -67,11 +67,11 @@ export const apiEtablissementSearchSchemas = Joi.array().items(
 						}),
 					).required(),
 				}),
-			).required(),
+			),
 			id: Joi.string().required(),
 			nom: Joi.string().required(),
 			pivotLocal: Joi.string().required(),
-			telephone: Joi.string().required(),
+			telephone: Joi.string(),
 		}).required(),
 	}).options({ allowUnknown: true }),
 );
