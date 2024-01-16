@@ -27,7 +27,6 @@ export function HeaderBody() {
 						alt="République Française, Liberté, Egalité, Fraternité"
 						width="88"
 						height="80"
-						aria-hidden="true"
 					/>
 					{!isLargeScreen &&
 						<nav role={'navigation'} aria-label="ouvrir le menu principal">
