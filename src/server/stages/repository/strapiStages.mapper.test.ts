@@ -1,12 +1,13 @@
-import { Domaines, OffreDeStage, SourceDesDonnées } from '~/server/stages/domain/stages';
+import { OffreDeStage, SourceDesDonnées } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
-import { anOffreDeStageResponse } from '~/server/stages/repository/strapiStages.fixture';
+import { aStrapiOffreDeStage } from '~/server/stages/repository/strapiStages.fixture';
 import { mapOffreStage } from '~/server/stages/repository/strapiStages.mapper';
 
 describe('mapOffreDeStage', () => {
 	it('map vers une offre de stage à afficher', () => {
-		const offreDeStageResponse: OffreStageResponseStrapi.OffreStage = anOffreDeStageResponse({
+		const offreDeStageResponse: OffreStageResponseStrapi.OffreStage = aStrapiOffreDeStage({
 			createdAt: '2023-01-06T07:49:10.773Z',
 			dateDeDebutMax: '2024-09-01',
 			dateDeDebutMin: '2024-09-01',
@@ -73,13 +74,13 @@ describe('mapOffreDeStage', () => {
 		it('ne prend pas en compte le domaine "Non renseigné"', () => {
 			const domainesAvecUnDomaineNonRenseigne = {
 				domaines: [
-					{ nom: OffreStageResponseStrapi.Domaines.Nom.ACHAT },
-					{ nom: OffreStageResponseStrapi.Domaines.Nom.NON_RENSEIGNE },
+					{ nom: DomainesStage.ACHAT },
+					{ nom: DomainesStage.NON_RENSEIGNE },
 				],
 			};
-			const result = mapOffreStage(anOffreDeStageResponse(domainesAvecUnDomaineNonRenseigne));
+			const result = mapOffreStage(aStrapiOffreDeStage(domainesAvecUnDomaineNonRenseigne));
 
-			expect(result.domaines).toStrictEqual([Domaines.ACHAT]);
+			expect(result.domaines).toStrictEqual([DomainesStage.ACHAT]);
 		});
 	});
 });

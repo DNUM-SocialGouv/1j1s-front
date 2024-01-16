@@ -1,6 +1,7 @@
 import { StageService } from '~/client/services/stage/stage.service';
 import { createSuccess } from '~/server/errors/either';
-import { Domaines, EmployeurDepotStage,OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreStageDepot } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export function aStageService(override?: Partial<StageService>): StageService {
@@ -10,7 +11,7 @@ export function aStageService(override?: Partial<StageService>): StageService {
 	};
 }
 
-export function anEmployeurDepotStage(overrides?: Partial<EmployeurDepotStage>): EmployeurDepotStage {
+export function anEmployeurDepotStage(overrides?: Partial<OffreStageDepot.EmployeurDepotStage>): OffreStageDepot.EmployeurDepotStage {
 	return {
 		description: 'description entreprise',
 		email: 'example@example.com',
@@ -26,7 +27,7 @@ export function anOffreDeStageDepot(overrides?: Partial<OffreDeStageDepot>): Off
 		dateDeDebutMax: '2023-02-03',
 		dateDeDebutMin: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
-		domaine: 'achats' as Domaines,
+		domaine: DomainesStage.ACHAT,
 		duree: '30',
 		employeur: {
 			description: 'description entreprise',

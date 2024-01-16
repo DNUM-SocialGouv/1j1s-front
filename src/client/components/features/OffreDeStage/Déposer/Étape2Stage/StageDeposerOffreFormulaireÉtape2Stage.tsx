@@ -18,7 +18,7 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
-import { Domaines } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
 
@@ -212,7 +212,7 @@ function parseDonneesOffreDeStage(formData: FormData): OffreDeStageDeposee.Stage
 		dateDeDebutMax: !isDateDeDebutPrecise(formData) ? String(formData.get(StageEnum.DATE_DE_DEBUT_MAX)) : String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		dateDeDebutMin: String(formData.get(StageEnum.DATE_DE_DEBUT_MIN)),
 		descriptionOffre: String(formData.get(StageEnum.DESCRIPTION)),
-		domaineStage: formData.get(StageEnum.DOMAINE) as Domaines,
+		domaineStage: formData.get(StageEnum.DOMAINE) as DomainesStage,
 		dureeStage: String(formData.get(StageEnum.DUREE)),
 		isDateDeDebutPrecise: formData.get(StageEnum.IS_DATE_DE_DEBUT_PRECISE) as IsDateDeDebutPrecise,
 		lienCandidature: String(formData.get(StageEnum.LIEN_CANDIDATURE)),

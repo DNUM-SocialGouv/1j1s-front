@@ -1,7 +1,8 @@
 import { SourceDesDonnées } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
-export function anOffreDeStageResponse(override?: Partial<OffreStageResponseStrapi.OffreStage>): OffreStageResponseStrapi.OffreStage {
+export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi.OffreStage>): OffreStageResponseStrapi.OffreStage {
 	return {
 		createdAt: '2023-01-06T07:49:10.773Z',
 		dateDeDebutMax: '2024-09-01',
@@ -42,13 +43,13 @@ export function anOffreDeStageResponse(override?: Partial<OffreStageResponseStra
 	};
 }
 
-export function anOffreDeStageDepotStrapi(): OffreStageDepotStrapi {
+export function aStrapiOffreDeStageDepot(): OffreStageDepotStrapi {
 	return {
 		dateDeDebutMax: '2023-02-03',
 		dateDeDebutMin: '2023-02-03',
 		description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
 		domaines: [
-			{ nom: OffreStageResponseStrapi.Domaines.Nom.ACHAT },
+			{ nom: DomainesStage.ACHAT },
 		],
 		dureeEnJour: 30,
 		employeur: {

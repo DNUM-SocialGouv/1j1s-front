@@ -1,4 +1,4 @@
-import { Domaines } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export const aFormulaireEtapeEntreprise = () => {
 	return {
@@ -15,7 +15,7 @@ export const aFormulaireEtapeStage = () => {
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
 		descriptionOffre: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor eu augue ut lectus arcu bibendum. Curabitur gravida arcu ac tortor dignissim convallis aenean. Adipiscing commodo elit at imperdiet. Ipsum a arcu cursus vitae congue. Sed euismod nisi porta lorem. Facilisis gravida neque convallis a cras semper auctor neque vitae. Ante in nibh mauris cursus. In iaculis nunc sed augue lacus. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.',
-		domaineStage: Domaines.ACHAT,
+		domaineStage: DomainesStage.ACHAT,
 		dureeStage: '30',
 		isDateDeDebutPrecise: 'true' as const,
 		lienCandidature: 'oui@non.com',
@@ -41,7 +41,7 @@ export const aFormulaireEnvoyePostedValue = () => {
 		dateDeDebutMax: '2123-02-20',
 		dateDeDebutMin: '2123-01-20',
 		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor eu augue ut lectus arcu bibendum. Curabitur gravida arcu ac tortor dignissim convallis aenean. Adipiscing commodo elit at imperdiet. Ipsum a arcu cursus vitae congue. Sed euismod nisi porta lorem. Facilisis gravida neque convallis a cras semper auctor neque vitae. Ante in nibh mauris cursus. In iaculis nunc sed augue lacus. Pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.',
-		domaine: Domaines.ACHAT,
+		domaine: DomainesStage.ACHAT,
 		duree: '30',
 		employeur: {
 			description: 'test description',

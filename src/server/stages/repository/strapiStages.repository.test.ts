@@ -6,7 +6,7 @@ import { aLogInformation, anErrorManagementService } from '~/server/services/err
 import { OffreStageDepot } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
-import { anOffreDeStageDepotStrapi, anOffreDeStageResponse } from '~/server/stages/repository/strapiStages.fixture';
+import { aStrapiOffreDeStage,aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
@@ -16,9 +16,9 @@ jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
 describe('strapiStagesRepository', () => {
 	describe('getOffreDeStageBySlug', () => {
-		it('appelle le strapi service avec les bons paramètres et renvoie un success de l‘offre de stage mappé', async () => {
+		it('appelle le strapi service avec les bons paramètres', async () => {
 			const strapiService = aStrapiCmsRepository();
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(anOffreDeStageResponse()));
+			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
 			const slug = 'slug';
 			const query = `filters[slug][$eq]=${slug}&populate=deep`;
 
@@ -29,10 +29,10 @@ describe('strapiStagesRepository', () => {
 			expect(strapiService.getFirstFromCollectionType).toHaveBeenCalledWith(RESOURCE_OFFRE_DE_STAGE, query);
 		});
 
-		it('lorsque la requete est en succès, renvoie un success de l‘offre de stage mappé', async () => {
+		it('lorsque la requête est en succès, renvoie un success de l‘offre de stage mappé', async () => {
 			const strapiService = aStrapiCmsRepository();
 
-			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(anOffreDeStageResponse()));
+			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiOffreDeStage()));
 			const slug = 'slug';
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
@@ -41,13 +41,13 @@ describe('strapiStagesRepository', () => {
 			expect(stage).toStrictEqual(createSuccess(anOffreDeStage()));
 		});
 
-		it('lorsque la requete est en succès mais le résulat ne correspond pas au contrat d‘interface, log l‘erreur et renvoie la failure associée', async () => {
+		it('lorsque la requête est en succès mais le résulat ne correspond pas au contrat d‘interface, log l‘erreur et renvoie la failure associée', async () => {
 			const strapiService = aStrapiCmsRepository();
 			const errorManagementService = anErrorManagementService();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
 			const slug = 'slug';
-			const offreDeStageAvecDonnéesErronées = anOffreDeStageResponse({ domaines: 35 } as unknown as Partial<OffreStageResponseStrapi.OffreStage>);
+			const offreDeStageAvecDonnéesErronées = aStrapiOffreDeStage({ domaines: 35 } as unknown as Partial<OffreStageResponseStrapi.OffreStage>);
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(offreDeStageAvecDonnéesErronées));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
 
@@ -55,13 +55,13 @@ describe('strapiStagesRepository', () => {
 
 			expect(stage).toStrictEqual(expectedFailure);
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(expect.any(Error), aLogInformation({
-				apiSource: 'STRAPI - offre de stage',
+				apiSource: 'Strapi - offre de stage',
 				contexte: 'get offre de stage par slug',
 				message: 'impossible de mapper les stages par slug',
 			}));
 		});
 
-		it('lorsque la requete est en echec, renvoie cet echec', async () => {
+		it('lorsque la requête est en échec, renvoie cet échec', async () => {
 			const slug = 'slug';
 			const strapiService = aStrapiCmsRepository();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
@@ -77,7 +77,7 @@ describe('strapiStagesRepository', () => {
 	describe('listAllOffreDeStageSlug', () => {
 		it('appelle le strapi service avec les bons paramètres et renvoie un success de l‘offre de stage mappé', async () => {
 			const strapiService = aStrapiCmsRepository();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([anOffreDeStageResponse({ slug: 'slug 1' }), anOffreDeStageResponse({ slug: 'slug 2' })]));
+			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
 			const query = 'fields[0]=slug';
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
@@ -87,9 +87,9 @@ describe('strapiStagesRepository', () => {
 			expect(strapiService.getCollectionType).toHaveBeenCalledWith(RESOURCE_OFFRE_DE_STAGE, query);
 		});
 
-		it('lorsque la requete est en succès, renvoie un success avec la liste des slugs', async () => {
+		it('lorsque la requête est en succès, renvoie un success avec la liste des slugs', async () => {
 			const strapiService = aStrapiCmsRepository();
-			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([anOffreDeStageResponse({ slug: 'slug 1' }), anOffreDeStageResponse({ slug: 'slug 2' })]));
+			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiOffreDeStage({ slug: 'slug 1' }), aStrapiOffreDeStage({ slug: 'slug 2' })]));
 
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, anErrorManagementService());
 			const listSlugs = await strapiStagesRepository.listAllOffreDeStageSlug();
@@ -97,7 +97,7 @@ describe('strapiStagesRepository', () => {
 			expect(listSlugs).toStrictEqual(createSuccess(['slug 1', 'slug 2']));
 		});
 
-		it('lorsque la requete est en echec, renvoie cet echec', async () => {
+		it('lorsque la requête est en échec, renvoie cet échec', async () => {
 			const strapiService = aStrapiCmsRepository();
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(expectedFailure);
@@ -110,32 +110,10 @@ describe('strapiStagesRepository', () => {
 	});
 
 	describe('saveOffreDeStage', () => {
-		it('lorsque le mapping de l‘offre a enregistrer est en erreur, log l‘erreur et renvoie une failure', async () => {
-			const strapiService = aStrapiCmsRepository();
-			const errorManagementService = anErrorManagementService();
-			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
-			const offreSauvegarde = anOffreDeStageDepotStrapi();
-			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
-			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
-
-			const result = await strapiStagesRepository.saveOffreDeStage({
-				...anOffreDeStageResponse(),
-				employeur: null,
-			} as unknown as OffreDeStageDepot);
-
-			expect(result).toStrictEqual(expectedFailure);
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(expect.any(Error), aLogInformation({
-				apiSource: 'STRAPI - offre de stage',
-				contexte: 'save offre de stage',
-				message: 'impossible de mapper l‘offre a enregistrer',
-			}));
-		});
-
 		it('appelle le strapi service avec les bons paramètres et renvoie la reponse', async () => {
 			// Given
 			const strapiService = aStrapiCmsRepository();
-			const offreSauvegarde = anOffreDeStageDepotStrapi();
+			const offreSauvegarde = aStrapiOffreDeStageDepot();
 			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
 
 			const offreDeStageDepot = anOffreDeStageDepot();
@@ -148,6 +126,28 @@ describe('strapiStagesRepository', () => {
 			expect(strapiService.save).toHaveBeenCalledTimes(1);
 			expect(strapiService.save).toHaveBeenCalledWith(RESOURCE_OFFRE_DE_STAGE, offreSauvegarde);
 			expect(result).toEqual(createSuccess(offreSauvegarde));
+		});
+
+		it('lorsque le mapping de l‘offre a enregistrer est en erreur, log l‘erreur et renvoie une failure', async () => {
+			const strapiService = aStrapiCmsRepository();
+			const errorManagementService = anErrorManagementService();
+			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
+			const offreSauvegarde = aStrapiOffreDeStageDepot();
+			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
+			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
+
+			const result = await strapiStagesRepository.saveOffreDeStage({
+				...aStrapiOffreDeStage(),
+				employeur: null,
+			} as unknown as OffreDeStageDepot);
+
+			expect(result).toStrictEqual(expectedFailure);
+			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(expect.any(Error), aLogInformation({
+				apiSource: 'Strapi - offre de stage',
+				contexte: 'save offre de stage',
+				message: 'impossible de mapper le dépôt d‘offre',
+			}));
 		});
 	});
 });

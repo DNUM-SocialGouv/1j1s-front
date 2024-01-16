@@ -6,16 +6,16 @@ import styles
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
-import { Domaines } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 const LIMIT_MAX_FACETS = 100000;
 const LIMIT_MAX_DOMAINS = 100;
 const MEILISEARCH_SORT_BY_LABEL_ASC = 'name:asc';
 
 export function sortWithNonRenseigneInTheEnd(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
-	if (a.name === Domaines.NON_RENSEIGNE) {
+	if (a.name === DomainesStage.NON_RENSEIGNE) {
 		return 1;
-	} else if (b.name === Domaines.NON_RENSEIGNE) {
+	} else if (b.name === DomainesStage.NON_RENSEIGNE) {
 		return -1;
 	}
 	return a.name.localeCompare(b.name);

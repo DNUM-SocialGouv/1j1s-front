@@ -1,44 +1,4 @@
-export enum Domaines {
-	ACHAT = 'achats',
-	CULTURE = 'activités sociales et culturelles',
-	AGRICULTURE = 'agriculture',
-	ARCHITECTURE = 'architecture / urbanisme / immobilier',
-	AUDIT = 'audit',
-	CHIMIE = 'chimie / biologie / agronomie',
-	COMMERCE = 'commerce',
-	COMMUNICATION = 'communication',
-	COMMUNITY_MANAGEMENT = 'community management',
-	COMPTABILITE = 'comptabilité / contrôle de gestion',
-	GENIE_CIVIL = 'conception / génie civil / génie industriel',
-	CONSEIL = 'conseil',
-	DESIGN = 'design / UX / UI',
-	INFORMATIQUE = 'développement informatique',
-	DIRECTION = 'direction d‘entreprise',
-	ENERGIE = 'énergie / matériaux / mécanique / électronique',
-	ENSEIGNEMENT = 'enseignement',
-	ENVIRONNEMENT = 'environnement',
-	EVENEMENTIEL = 'évènementiel',
-	DATA = 'études / statistiques / data',
-	FISCALITE = 'fiscalite / finance / assurance',
-	GESTION_PROJET = 'gestion de projet / produit',
-	GRAPHISME = 'graphisme / illustration',
-	HOTELLERIE = 'hôtellerie - restauration',
-	TELECOM = 'infra / réseaux / télécoms',
-	JOURNALISME = 'journalisme / rp / médias',
-	JURIDIQUE = 'juridique',
-	LOGISTIQUE = 'logistique',
-	LUXE = 'luxe / mode / textile',
-	MARKETING = 'marketing',
-	EXPLOITATION = 'production / fabrication / exploitation',
-	MAINTENANCE = 'qualité / maintenance',
-	SUPPORT = 'relation client / support',
-	RH = 'rh / formation',
-	SANTE = 'santé / services à la personne',
-	SECTEUR_PUBLIC = 'secteur public',
-	TRAVAUX = 'travaux / chantiers',
-	VENTES = 'ventes',
-	NON_RENSEIGNE = 'non renseigné' // obligatoire en unitaire et n/a par défaut
-}
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export type LocalisationStageIndexée = {
 	ville?: string
@@ -65,7 +25,7 @@ export type OffreDeStageIndexée = {
 	dateDeDebutMax?: string
 	id: string
 	slug: string
-	domaines?: Array<Domaines>
+	domaines?: Array<DomainesStage>
 	duree?: string
 	dureeCategorisee?: string,
 	dureeEnJour?: number
@@ -93,7 +53,7 @@ export interface OffreDeStage {
 	dateDeDebutMax?: string
 	description: string
 	urlDeCandidature?: string
-	domaines: Array<Domaines>
+	domaines: Array<DomainesStage>
 	dureeEnJour?: number
 	dureeEnJourMax?: number
 	localisation?: OffreDeStage.Localisation
@@ -115,7 +75,7 @@ export namespace OffreDeStage {
 
 
 export namespace OffreStageDepot {
-	interface LocalisationDepotStageIndexée {
+	interface Localisation {
 		adresse: string
 		ville: string
 		departement: string | null
@@ -124,7 +84,7 @@ export namespace OffreStageDepot {
 		pays: string
 	}
 
-	interface EmployeurDepotStage {
+	export interface EmployeurDepotStage {
 		nom: string
 		description: string
 		logoUrl: string | null
@@ -136,16 +96,13 @@ export namespace OffreStageDepot {
 		dateDeDebutMin: string
 		dateDeDebutMax: string
 		description: string
-		domaine: Domaines
+		domaine: DomainesStage
 		duree: string
 		employeur: EmployeurDepotStage
-		localisation: LocalisationDepotStageIndexée
+		localisation: Localisation
 		remunerationBase: number
 		teletravailPossible: boolean | null
 		titre: string
 		urlDeCandidature: string
 	}
 }
-
-
-

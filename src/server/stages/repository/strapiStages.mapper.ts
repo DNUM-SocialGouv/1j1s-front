@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Domaines, OffreDeStage, OffreStageDepot, SourceDesDonnées } from '~/server/stages/domain/stages';
+import { OffreDeStage, OffreStageDepot, SourceDesDonnées } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
 export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): OffreDeStage {
@@ -8,9 +9,7 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 		dateDeDebutMax: response.dateDeDebutMax,
 		dateDeDebutMin: response.dateDeDebutMin,
 		description: response.description,
-		domaines: response.domaines
-			?.filter((domaine) => domaine.nom !== OffreStageResponseStrapi.Domaines.Nom.NON_RENSEIGNE)
-			.map((domaine) => domaine.nom as unknown as Domaines) || [],
+		domaines: response.domaines?.map((domaine) => domaine.nom) || [],
 		dureeEnJour: response.dureeEnJour ?? undefined,
 		dureeEnJourMax: response.dureeEnJourMax ?? undefined,
 		employeur: response.employeur ? {
@@ -36,13 +35,13 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 	};
 }
 
-export function mapEnregistrerOffreDeStage(body: OffreStageDepot.OffreDeStageDepot): OffreStageDepotStrapi{
+export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageDepot): OffreStageDepotStrapi {
 	return {
 		dateDeDebutMax: body.dateDeDebutMax,
 		dateDeDebutMin: body.dateDeDebutMin,
 		description: body.description,
 		domaines: body.domaine ? [{
-			nom: body.domaine.toString() as OffreStageResponseStrapi.Domaines.Nom,
+			nom: body.domaine.toString() as DomainesStage,
 		}] : [],
 		dureeEnJour: Number(body.duree),
 		employeur: {

@@ -1,4 +1,4 @@
-import { Domaines } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export namespace OffreDeStageDeposee {
 
@@ -15,7 +15,7 @@ export namespace OffreDeStageDeposee {
 		dateDeDebutMax: string
 		isDateDeDebutPrecise: 'true' | 'false'
 		descriptionOffre: string
-		domaineStage?: Domaines
+		domaineStage?: DomainesStage
 		dureeStage: string
 		lienCandidature: string
 		nomOffre: string

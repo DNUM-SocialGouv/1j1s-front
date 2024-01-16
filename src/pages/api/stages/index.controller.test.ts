@@ -5,7 +5,7 @@ import { anEmployeurDepotStage, anOffreDeStageDepot } from '~/client/services/st
 import depotOffreDeStageController from '~/pages/api/stages/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { OffreStageDepot } from '~/server/stages/domain/stages';
-import { anOffreDeStageDepotStrapi } from '~/server/stages/repository/strapiStages.fixture';
+import { aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
 import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 
@@ -42,8 +42,8 @@ describe('enregistrer une offre de stage', () => {
 						method: 'POST',
 					});
 					expect(res.status).toEqual(200);
-					const strapiReceivedBodyData: OffreDeStageDepot = strapiReceivedBody.data;
-					expect(strapiReceivedBodyData).toEqual(anOffreDeStageDepotStrapi());
+					const strapiReceivedBodyData = strapiReceivedBody.data;
+					expect(strapiReceivedBodyData).toEqual(aStrapiOffreDeStageDepot());
 					strapiAuth.done();
 					strapiApi.done();
 				},

@@ -11,7 +11,7 @@ import {
 } from '~/client/components/features/OffreDeStage/offreDeStageIndexee.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { Domaines } from '~/server/stages/domain/stages';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 describe('Une carte d’offre de stage affiche des étiquettes', () => {
 
@@ -26,9 +26,9 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 
 	describe('concernant les domaines du stage', () => {
 		it('un domaine "Non renseigné" n’est pas affiché', () => {
-			const displayedDomain = Domaines.MAINTENANCE;
+			const displayedDomain = DomainesStage.MAINTENANCE;
 			const displayedFormattedDomain = 'Qualité / Maintenance';
-			const offreStage = anOffreDeStageIndexee({ domaines: [displayedDomain, Domaines.NON_RENSEIGNE] });
+			const offreStage = anOffreDeStageIndexee({ domaines: [displayedDomain, DomainesStage.NON_RENSEIGNE] });
 
 			render(
 				<OffreDeStage

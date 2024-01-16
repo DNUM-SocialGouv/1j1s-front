@@ -2,10 +2,11 @@ import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/D
 import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Either } from '~/server/errors/either';
-import { Domaines, OffreStageDepot } from '~/server/stages/domain/stages';
+import { OffreStageDepot } from '~/server/stages/domain/stages';
 
 import { HttpClientService } from '../httpClient.service';
 import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export class BffStageService implements StageService {
 	constructor(private httpClientService: HttpClientService) {
@@ -25,7 +26,7 @@ export class BffStageService implements StageService {
 			dateDeDebutMax: informationsStage.dateDeDebutMax,
 			dateDeDebutMin: informationsStage.dateDeDebutMin,
 			description: informationsStage.descriptionOffre,
-			domaine: informationsStage.domaineStage as Domaines || Domaines.NON_RENSEIGNE,
+			domaine: informationsStage.domaineStage || DomainesStage.NON_RENSEIGNE,
 			duree: informationsStage.dureeStage,
 			employeur: {
 				description: informationsEntreprise.descriptionEmployeur,
