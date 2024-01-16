@@ -11,7 +11,9 @@ import {
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
-import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
+import {
+	aVideoCampagneApprentissageList,
+} from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageEntreprises', () => {
 	beforeEach(() => {

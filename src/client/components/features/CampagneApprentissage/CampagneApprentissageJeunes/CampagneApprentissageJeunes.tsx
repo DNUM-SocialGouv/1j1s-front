@@ -14,7 +14,7 @@ import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
 import styles from '../CampagneApprentissage.module.scss';
 

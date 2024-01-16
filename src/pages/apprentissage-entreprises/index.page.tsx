@@ -6,7 +6,7 @@ import {
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analyticsPageConfig from '~/pages/apprentissage-entreprises/index.analytics';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
@@ -28,7 +28,7 @@ export default function ApprentissageEntreprises ({ videos }: ApprentissageEntre
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<ApprentissageEntreprisesPageProps>> {
-	const videos = await dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle();
+	const videos = await dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle();
 	if (isFailure(videos)) {
 		return {
 			props: {

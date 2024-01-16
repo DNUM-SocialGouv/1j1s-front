@@ -1,7 +1,4 @@
 import { Actualité } from '~/server/cms/domain/actualité';
-import {
-	aStrapiVideoCampagneApprentissage,
-} from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage.fixture';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
@@ -10,7 +7,6 @@ import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	anActualiteFixture,
 	aStrapiArticleCollectionType,
@@ -245,26 +241,6 @@ describe('strapi cms repository', () => {
 				expect(result.result).toEqual(expectedMesuresEmployeurs);
 				expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate=deep');
 			});
-		});
-	});
-
-
-	describe('getAllVideosCampagneApprentissage', () => {
-		it('retourne la liste de videos', async () => {
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideoCampagneApprentissage()));
-
-			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
-			expect(result).toEqual([
-				{
-					titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
-					transcription: '[transcription]',
-					videoId: 'V3cxW3ZRV-I',
-				},
-			]);
-			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?sort[0]=Index&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 });

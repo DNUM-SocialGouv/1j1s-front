@@ -5,7 +5,7 @@ import {
 } from '~/client/components/features/CampagneApprentissage/CampagneApprentissageJeunes/CampagneApprentissageJeunes';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 import { isFailure } from '~/server/errors/either';
 import { dependencies } from '~/server/start';
 
@@ -30,7 +30,7 @@ export default function ApprentissageJeunes(props: ApprentissageJeunesPageProps)
 }
 
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<ApprentissageJeunesPageProps>> {
-	const videos = await dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle();
+	const videos = await dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle();
 	if (isFailure(videos)) {
 		return {
 			props: {

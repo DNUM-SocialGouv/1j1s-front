@@ -4,9 +4,6 @@ import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consul
 import { ListerServicesJeunesUseCase } from '~/server/cms/useCases/listerServicesJeunes.useCase';
 import { RécupérerActualitésUseCase } from '~/server/cms/useCases/récupérerActualités.useCase';
 import { RécupérerMesuresEmployeursUseCase } from '~/server/cms/useCases/récupérerMesuresEmployeurs.useCase';
-import {
-	RecupererVideosCampagneApprentissageUseCase,
-} from '~/server/cms/useCases/recupererVideosCampagneApprentissage.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
@@ -16,7 +13,6 @@ export interface CmsDependencies {
 	récupérerActualités: RécupérerActualitésUseCase
 	listerServicesJeunes: ListerServicesJeunesUseCase
 	récupérerMesuresEmployeurs: RécupérerMesuresEmployeursUseCase
-	recupererVideosCampagneApprentissage: RecupererVideosCampagneApprentissageUseCase
 }
 
 const UN_JOUR_EN_SECONDES = 60 * 60 * 24;
@@ -30,7 +26,6 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
 		listerServicesJeunes: new ListerServicesJeunesUseCase(cmsRepository),
-		recupererVideosCampagneApprentissage: new RecupererVideosCampagneApprentissageUseCase(cmsRepository),
 		récupérerActualités: new RécupérerActualitésUseCase(cmsRepository),
 		récupérerMesuresEmployeurs: new RécupérerMesuresEmployeursUseCase(cmsRepository),
 	};

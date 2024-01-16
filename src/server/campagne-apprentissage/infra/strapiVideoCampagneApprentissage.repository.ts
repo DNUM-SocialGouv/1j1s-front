@@ -29,8 +29,6 @@ export class StrapiVideoCampagneApprentissageRepository implements VideoCampagne
 				message: 'impossible de mapper correctement une vidéo de la campagne apprentissage',
 			});
 		}
-
-		// sinon gérer erreur
 	}
 
 	private mapToVideoCampagneApprentissage(strapiVideoCampagneApprentissage: StrapiVideoCampagneApprentissage): VideoCampagneApprentissage {
