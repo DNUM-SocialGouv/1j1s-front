@@ -15,6 +15,10 @@ export interface ApiImmersionFacileStage3eEt2deRechercheResponse {
 	numberOfEmployeeRange?: string
 	voluntaryToImmersion: boolean
 	fitForDisabledWorkers: boolean
+	appellations: Array<{
+		appellationCode: string
+	}>
+	siret: string
 }
 
 export const apiImmersionFacileStage3eEt2deSchemas = {

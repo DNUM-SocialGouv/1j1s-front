@@ -33,10 +33,12 @@ export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileSt
 				rueEtNumero: stage3eEt2de.address.streetNumberAndAddress,
 				ville: stage3eEt2de.address.city,
 			},
+			appellationCodes: stage3eEt2de.appellations.map((appellation) => appellation.appellationCode),
 			domaine: stage3eEt2de.romeLabel,
 			modeDeContact: stage3eEt2de.contactMode,
 			nomEntreprise: stage3eEt2de.name,
 			nombreDeSalaries: stage3eEt2de.numberOfEmployeeRange ? stage3eEt2de.numberOfEmployeeRange : undefined,
+			siret: stage3eEt2de.siret,
 		})),
 	};
 }

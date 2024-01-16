@@ -7,6 +7,8 @@ export interface Stage3eEt2de {
 	domaine: string
 	nombreDeSalaries?: string
 	modeDeContact?: ModeDeContact
+	siret: string
+	appellationCodes: string[]
 }
 
 export namespace Stage3eEt2de {

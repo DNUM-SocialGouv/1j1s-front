@@ -40,10 +40,12 @@ export function aStage3eEt2de(override?: Partial<Stage3eEt2de>): Stage3eEt2de {
 			rueEtNumero: '1 Rue de la Lune',
 			ville: 'Paris',
 		},
+		appellationCodes: ['11573', '11574'],
 		domaine: 'Boulangerie',
 		modeDeContact: ModeDeContact.IN_PERSON,
 		nomEntreprise: 'La Boulangerie',
 		nombreDeSalaries: '1-9',
+		siret: '12345678912345',
 		...override,
 	};
 }

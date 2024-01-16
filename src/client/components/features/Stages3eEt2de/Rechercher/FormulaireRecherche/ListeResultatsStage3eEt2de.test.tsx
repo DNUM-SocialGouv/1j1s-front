@@ -106,6 +106,61 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			expect(resultats[1]).toHaveTextContent('2 rue de la Paix');
 			expect(resultats[1]).toHaveTextContent('75000 Paris');
 		});
+		it('un lien pour candidater', () => {
+			// GIVEN
+			const resultatRecherche = aResultatRechercheStage3eEt2de({
+				nombreDeResultats: 2,
+				resultats: [
+					aStage3eEt2de({
+						appellationCodes: ['1234', '5678'],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Entreprise 1',
+						siret: '12345678912345',
+					}),
+					aStage3eEt2de({
+						appellationCodes: ['1236', '5679'],
+						modeDeContact: ModeDeContact.EMAIL,
+						nomEntreprise: 'Entreprise 2',
+						siret: '12345678912346',
+					}),
+				],
+			});
+
+			// WHEN
+			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+			// THEN
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+			const lienCandidature = within(resultatsUl).getAllByRole('link', { name: 'Candidater' });
+			expect(lienCandidature).toHaveLength(resultatRecherche.nombreDeResultats);
+			expect(lienCandidature[0]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1234%2C5678&modeDeContact=IN_PERSON&nomEntreprise=Entreprise+1&siret=12345678912345');
+			expect(lienCandidature[1]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1236%2C5679&modeDeContact=EMAIL&nomEntreprise=Entreprise+2&siret=12345678912346');
+		});
+
+		describe('lorsque le mode de contact est inconnu', () => {
+			it('le lien pour candidater n’est pas affiché', () => {
+				// GIVEN
+				const resultatRecherche = aResultatRechercheStage3eEt2de({
+					nombreDeResultats: 1,
+					resultats: [
+						aStage3eEt2de({
+							modeDeContact: ModeDeContact.IN_PERSON,
+						}),
+						aStage3eEt2de({
+							modeDeContact: undefined,
+						}),
+					],
+				});
+
+				// WHEN
+				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+				// THEN
+				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+				const lienCandidature = within(resultatsUl).queryAllByRole('link', { name: 'Candidater' });
+				expect(lienCandidature).toHaveLength(1);
+			});
+		});
 	});
 	describe('tags', () => {
 		it('ajoute un tag correspondant au nombre de salariés, si l’information est présente', () => {

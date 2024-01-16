@@ -53,6 +53,16 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		étiquetteOffreList.push('Handi-accessible');
 	}
 
+	const donneesLienOffre = {
+		appellationCodes: stage3eEt2de.appellationCodes.toString(),
+		modeDeContact: stage3eEt2de.modeDeContact ? stage3eEt2de.modeDeContact.toString() : '',
+		nomEntreprise: stage3eEt2de.nomEntreprise,
+		siret: stage3eEt2de.siret,
+	};
+
+	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(donneesLienOffre).toString()}` : undefined;
+	const intituléLienOffre = stage3eEt2de.modeDeContact ? 'Candidater' : undefined;
+
 	return (
 		<li key={uuidv4()}>
 			<RésultatRechercherSolution
@@ -62,6 +72,8 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 					<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
+				lienOffre={lienOffre}
+				intituléLienOffre={intituléLienOffre}
 			/>
 		</li>
 	);

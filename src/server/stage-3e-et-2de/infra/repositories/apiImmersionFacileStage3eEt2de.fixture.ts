@@ -13,11 +13,20 @@ export function anApiImmersionFacileStage3eEt2de(override?: Partial<ApiImmersion
 			postcode: '75001',
 			streetNumberAndAddress: '1 Rue de la Lune',
 		},
+		appellations: [
+			{
+				appellationCode: '11573',
+			},
+			{
+				appellationCode: '11574',
+			},
+		],
 		contactMode: ModeDeContact.IN_PERSON,
 		fitForDisabledWorkers: true,
 		name: 'La Boulangerie',
 		numberOfEmployeeRange: '1-9',
 		romeLabel: 'Boulangerie',
+		siret: '12345678912345',
 		voluntaryToImmersion: true,
 		...override,
 	};
