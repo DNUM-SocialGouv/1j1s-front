@@ -1,42 +1,5 @@
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-
-export type LocalisationStageIndexée = {
-	ville?: string
-	departement?: string
-	codePostal?: string
-	region?: string // enum de region ? (interessant pour savoir si pays en full + majuscule …)
-	pays: string // enum de pays ? (interessant pour savoir si pays en full + majuscule …) (https://www.npmjs.com/package/i18n-iso-countries ?)
-}
-
-export enum SourceDesDonnées {
-	INTERNE = 'interne',
-	WELCOME_TO_THE_JUNGLE = 'welcome to the jungle',
-	JOBIJOBA = 'jobijoba',
-	HELLOWORK = 'hellowork',
-	JOBTEASER = 'jobteaser',
-	STAGEFR_COMPRESSE = 'stagefr-compresse',
-	STAGEFR_DECOMPRESSE = 'stagefr-decompresse',
-}
-
-export type OffreDeStageIndexée = {
-	titre: string
-	description: string
-	dateDeDebutMin?: string
-	dateDeDebutMax?: string
-	id: string
-	slug: string
-	domaines?: Array<DomainesStage>
-	duree?: string
-	dureeCategorisee?: string,
-	dureeEnJour?: number
-	dureeEnJourMax?: number
-	localisation?: LocalisationStageIndexée
-	nomEmployeur?: string
-	logoUrlEmployeur?: string
-	remunerationBase: number
-	source?: SourceDesDonnées
-	teletravailPossible?: boolean
-};
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 export interface EmployeurStageCMS {
 	nom: string

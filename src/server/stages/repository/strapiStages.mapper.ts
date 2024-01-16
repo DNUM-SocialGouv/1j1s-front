@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { OffreDeStage, OffreStageDepot, SourceDesDonnées } from '~/server/stages/domain/stages';
-import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
 export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): OffreDeStage {
@@ -41,7 +41,7 @@ export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageD
 		dateDeDebutMin: body.dateDeDebutMin,
 		description: body.description,
 		domaines: body.domaine ? [{
-			nom: body.domaine.toString() as DomainesStage,
+			nom: body.domaine,
 		}] : [],
 		dureeEnJour: Number(body.duree),
 		employeur: {

@@ -1,5 +1,5 @@
-import { SourceDesDonnées } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 
 export namespace OffreStageResponseStrapi {

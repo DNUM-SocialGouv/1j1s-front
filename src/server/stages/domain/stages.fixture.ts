@@ -1,5 +1,6 @@
 import Localisation = OffreDeStage.Localisation;
-import { OffreDeStage, SourceDesDonnées } from '~/server/stages/domain/stages';
+import { OffreDeStage } from '~/server/stages/domain/stages';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage {
 	return {

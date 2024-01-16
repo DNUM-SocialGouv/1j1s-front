@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
-import { OffreDeStageIndexée } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';

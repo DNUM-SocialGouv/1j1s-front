@@ -1,5 +1,5 @@
-import { SourceDesDonnées } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
 export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi.OffreStage>): OffreStageResponseStrapi.OffreStage {
@@ -43,7 +43,7 @@ export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi.
 	};
 }
 
-export function aStrapiOffreDeStageDepot(): OffreStageDepotStrapi {
+export function aStrapiOffreDeStageDepot(overrides?: Partial<OffreStageDepotStrapi>): OffreStageDepotStrapi {
 	return {
 		dateDeDebutMax: '2023-02-03',
 		dateDeDebutMin: '2023-02-03',
@@ -74,5 +74,6 @@ export function aStrapiOffreDeStageDepot(): OffreStageDepotStrapi {
 		teletravailPossible: true,
 		titre: 'Assistant conducteur train',
 		urlDeCandidature: 'mailto:admin@example.com',
+		...overrides,
 	};
 }
