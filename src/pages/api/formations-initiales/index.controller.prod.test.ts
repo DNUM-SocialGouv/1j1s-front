@@ -92,7 +92,7 @@ describe('lorsque je veux faire une recherche de formations initiales', () => {
 
 		// WHEN
 		await testApiHandler<ResultatRechercheFormationsInitiales | ErrorHttpResponse>({
-			handler: (req, res) => rechercherFormationInitialeHandler(req, res),
+			pagesHandler: (req, res) => rechercherFormationInitialeHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const reponseBody = await res.json();

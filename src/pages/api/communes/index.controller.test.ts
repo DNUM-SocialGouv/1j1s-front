@@ -40,7 +40,7 @@ describe('rechercherCommuneHandler', () => {
 			};
 
 			await testApiHandler<RésultatsRechercheCommune | ErrorHttpResponse>({
-				handler: (req, res) => rechercherCommuneHandler(req, res),
+				pagesHandler: (req, res) => rechercherCommuneHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();

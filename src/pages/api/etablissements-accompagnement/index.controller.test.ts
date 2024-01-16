@@ -21,7 +21,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				.reply(200, aRésultatRechercheÉtablissementPublicResponse());
 
 			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
-				handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
+				pagesHandler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
@@ -38,7 +38,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				.reply(404, anAxiosError({ response: anAxiosResponse({}, 404) }));
 
 			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
-				handler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
+				pagesHandler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();

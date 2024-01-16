@@ -54,7 +54,7 @@ describe('rechercher stage 3e et 2de', () => {
 		).reply(200, searchResult);
 
 		await testApiHandler<ResultatRechercheStage3eEt2de | ErrorHttpResponse>({
-			handler: (req, res) => rechercherStage3eEt2deHandler(req, res),
+			pagesHandler: (req, res) => rechercherStage3eEt2deHandler(req, res),
 			params: {
 				codeMetier: 'codeMetier',
 			},

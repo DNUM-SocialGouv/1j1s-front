@@ -16,7 +16,7 @@ describe('rechercher une mission de bénévolat', () => {
 			.reply(200, anAxiosResponse(aSearchMissionEngagementResponse()).data);
 
 		await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-			handler: (req, res) => rechercherMissionHandler(req, res),
+			pagesHandler: (req, res) => rechercherMissionHandler(req, res),
 			test: async ({ fetch }) => {
 				const res = await fetch({ method: 'GET' });
 				const json = await res.json();
@@ -29,7 +29,7 @@ describe('rechercher une mission de bénévolat', () => {
 	describe('quand le schema des paramètres n‘est pas respecté', () => {
 		it('retourne directement une erreur', async () => {
 			await testApiHandler<RésultatsRechercheMission | ErrorHttpResponse>({
-				handler: (req, res) => withValidation({ query: missionBenevolatQuerySchema }, rechercherMissionHandler)(req, res),
+				pagesHandler: (req, res) => withValidation({ query: missionBenevolatQuerySchema }, rechercherMissionHandler)(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
