@@ -1,3 +1,5 @@
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+
 import {
 	ApiImmersionFacileStage3eEt2deCandidature,
 	ApiImmersionFacileStage3eEt2deRechercheResponse,
@@ -11,7 +13,7 @@ export function anApiImmersionFacileStage3eEt2de(override?: Partial<ApiImmersion
 			postcode: '75001',
 			streetNumberAndAddress: '1 Rue de la Lune',
 		},
-		contactMode: 'IN_PERSON',
+		contactMode: ModeDeContact.IN_PERSON,
 		fitForDisabledWorkers: true,
 		name: 'La Boulangerie',
 		numberOfEmployeeRange: '1-9',

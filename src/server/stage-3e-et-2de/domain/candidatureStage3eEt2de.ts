@@ -4,7 +4,7 @@ export interface CandidatureStage3eEt2de {
 	email: string
 	appellationCode: string
 	siret: string
-	modeDeContact: string
+	modeDeContact: ModeDeContact
 }
 
 export enum ModeDeContact {

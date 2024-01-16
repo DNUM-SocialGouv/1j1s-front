@@ -2,6 +2,7 @@ import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
 import handler from '~/pages/api/stages-3e-et-2de/candidature/index.controller';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 import {
 	anApiImmersionFacileStage3eEt2deCandidature,
@@ -61,9 +62,9 @@ describe('candidature stage 3e et 2de', () => {
 	});
 
 	it.each([
-		{ modeDeContact: 'PHONE' },
-		{ modeDeContact: 'EMAIL' },
-		{ modeDeContact: 'IN_PERSON' },
+		{ modeDeContact: ModeDeContact.PHONE },
+		{ modeDeContact: ModeDeContact.EMAIL },
+		{ modeDeContact: ModeDeContact.IN_PERSON },
 		{ otherQuery: 'otherQuery' },
 	])('répond une 200 quand le paramètre %o est correct', async (candidature) => {
 		// Given

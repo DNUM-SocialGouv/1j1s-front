@@ -33,7 +33,7 @@ function mapCandidature(req: NextApiRequest): CandidatureStage3eEt2de {
 	return {
 		appellationCode: String(query.appellationCode),
 		email: String(query.email),
-		modeDeContact: String(query.modeDeContact),
+		modeDeContact: ModeDeContact[query.modeDeContact as keyof typeof ModeDeContact],
 		nom: String(query.nom),
 		prenom: String(query.prenom),
 		siret: String(query.siret),

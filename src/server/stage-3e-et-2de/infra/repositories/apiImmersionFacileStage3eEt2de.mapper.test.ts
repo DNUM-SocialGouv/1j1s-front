@@ -1,10 +1,9 @@
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
+import { aResultatRechercheStage3eEt2de, aStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 import {
-	aResultatRechercheStage3eEt2de,
-	aStage3eEt2de,
-} from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
-import {
-	anApiImmersionFacileStage3eEt2de, anApiImmersionFacileStage3eEt2deCandidature,
+	anApiImmersionFacileStage3eEt2de,
+	anApiImmersionFacileStage3eEt2deCandidature,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.fixture';
 import {
 	mapCandidatureStage3eEt2de,
@@ -23,7 +22,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 						postcode: '75001',
 						streetNumberAndAddress: '1 Rue de la Lune',
 					},
-					contactMode: 'IN_PERSON',
+					contactMode: ModeDeContact.IN_PERSON,
 					fitForDisabledWorkers: true,
 					name: 'La Boulangerie',
 					numberOfEmployeeRange: '1-9',
@@ -62,7 +61,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 							ville: 'Paris',
 						},
 						domaine: 'Boulangerie',
-						modeDeContact: 'Candidature en personne',
+						modeDeContact: ModeDeContact.IN_PERSON,
 						nomEntreprise: 'La Boulangerie',
 						nombreDeSalaries: '1-9',
 					},
@@ -86,17 +85,13 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 			// Given
 			const apiImmersionFacileStage3eEt2de = [
 				anApiImmersionFacileStage3eEt2de({
-					contactMode: 'IN_PERSON',
+					contactMode: ModeDeContact.IN_PERSON,
 				}),
 				anApiImmersionFacileStage3eEt2de({
-					contactMode: 'EMAIL',
+					contactMode: ModeDeContact.EMAIL,
 				}),
 				anApiImmersionFacileStage3eEt2de({
-					contactMode: 'PHONE',
-				}),
-				anApiImmersionFacileStage3eEt2de({
-					contactMode: undefined,
-					voluntaryToImmersion: true,
+					contactMode: ModeDeContact.PHONE,
 				}),
 				anApiImmersionFacileStage3eEt2de({
 					contactMode: undefined,
@@ -109,19 +104,16 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 
 			// Then
 			expect(result).toEqual(aResultatRechercheStage3eEt2de({
-				nombreDeResultats: 5,
+				nombreDeResultats: 4,
 				resultats: [
 					aStage3eEt2de({
-						modeDeContact: 'Candidature en personne',
+						modeDeContact: ModeDeContact.IN_PERSON,
 					}),
 					aStage3eEt2de({
-						modeDeContact: 'Candidature par e-mail',
+						modeDeContact: ModeDeContact.EMAIL,
 					}),
 					aStage3eEt2de({
-						modeDeContact: 'Candidature par téléphone',
-					}),
-					aStage3eEt2de({
-						modeDeContact: 'Candidature spontanée',
+						modeDeContact: ModeDeContact.PHONE,
 					}),
 					aStage3eEt2de({
 						modeDeContact: undefined,
@@ -137,7 +129,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 			const candidature = aCandidatureStage3eEt2de({
 				appellationCode: '11573',
 				email: 'email@example.com',
-				modeDeContact: 'PHONE',
+				modeDeContact: ModeDeContact.PHONE,
 				nom: 'Doe',
 				prenom: 'John',
 				siret: '12345678912345',

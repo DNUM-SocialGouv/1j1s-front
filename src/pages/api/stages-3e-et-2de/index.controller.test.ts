@@ -3,6 +3,7 @@ import nock from 'nock';
 
 import { rechercherStage3eEt2deHandler } from '~/pages/api/stages-3e-et-2de/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 import { aResultatRechercheStage3eEt2de, aStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 import {
@@ -30,7 +31,7 @@ describe('rechercher stage 3e et 2de', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
-					modeDeContact: 'Candidature en personne',
+					modeDeContact: ModeDeContact.IN_PERSON,
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
 				}),
@@ -42,7 +43,7 @@ describe('rechercher stage 3e et 2de', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
-					modeDeContact: 'Candidature en personne',
+					modeDeContact: ModeDeContact.IN_PERSON,
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
 				}),
