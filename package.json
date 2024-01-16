@@ -4,7 +4,11 @@
     "node": "18",
     "npm": "10"
   },
+<<<<<<< HEAD
   "version": "3.219.1",
+=======
+  "version": "3.218.1",
+>>>>>>> 21ee3c48 (chore(main): release 3.218.1 (#2562))
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
