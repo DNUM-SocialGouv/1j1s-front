@@ -1,14 +1,16 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
-import { Domaines, OffreDeStageDepot } from '~/server/cms/domain/offreDeStage.type';
 import { Either } from '~/server/errors/either';
+import { OffreStageDepot } from '~/server/stages/domain/stages';
 
 import { HttpClientService } from '../httpClient.service';
+import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 export class BffStageService implements StageService {
-
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: HttpClientService) {
+	}
 
 	async enregistrerOffreDeStage(informationsEntreprise: OffreDeStageDeposee.Entreprise, informationsStage: OffreDeStageDeposee.Stage, informationsLocalisation: OffreDeStageDeposee.Localisation): Promise<Either<void>> {
 		const offreDeStage = this.préparerDonnéesOffreDeStage(informationsEntreprise, informationsStage, informationsLocalisation);
@@ -24,7 +26,7 @@ export class BffStageService implements StageService {
 			dateDeDebutMax: informationsStage.dateDeDebutMax,
 			dateDeDebutMin: informationsStage.dateDeDebutMin,
 			description: informationsStage.descriptionOffre,
-			domaine: informationsStage.domaineStage as Domaines || Domaines.NON_RENSEIGNE,
+			domaine: informationsStage.domaineStage || DomainesStage.NON_RENSEIGNE,
 			duree: informationsStage.dureeStage,
 			employeur: {
 				description: informationsEntreprise.descriptionEmployeur,
@@ -49,3 +51,4 @@ export class BffStageService implements StageService {
 		return removeNullOrEmptyValue<OffreDeStageDepot>(formData);
 	}
 }
+

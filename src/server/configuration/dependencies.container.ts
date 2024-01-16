@@ -38,7 +38,9 @@ import {
 	emploiEuropeDependenciesContainer,
 } from '~/server/emplois-europe/configuration/dependencies.container';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
-import { ApiEuresEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
+import {
+	ApiEuresEmploiEuropeRepository,
+} from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.repository';
 import { MockEmploiEuropeRepository } from '~/server/emplois-europe/infra/repositories/mockEmploiEurope.repository';
 import {
 	getApiEngagementConfig,
@@ -193,10 +195,13 @@ import {
 import {
 	ApiPoleEmploiMetierStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
+import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
+import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 
 export type Dependencies = {
 	ficheMetierDependencies: FicheMetierDependencies;
 	faqDependencies: FAQDependencies;
+	stagesDependencies: StagesDependencies;
 	annonceDeLogementDependencies: AnnonceDeLogementDependencies;
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
@@ -226,7 +231,7 @@ export function dependenciesContainer(): Dependencies {
 
 	if (process.env.NODE_ENV === 'test') {
 		loggerService = aLoggerService();
-	}  else {
+	} else {
 		loggerService = new PinoLoggerService(
 			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_DSN,
 			serverConfigurationService.getConfiguration().NEXT_PUBLIC_SENTRY_LOG_LEVEL,
@@ -337,17 +342,20 @@ export function dependenciesContainer(): Dependencies {
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
-	const ficheMetierDependencies=  ficheMetierDependenciesContainer(ficheMetierRepository);
+	const ficheMetierDependencies = ficheMetierDependenciesContainer(ficheMetierRepository);
 
 	const faqRepository = new StrapiFAQRepository(cmsRepository);
-	const faqDependencies=  FAQDependenciesContainer(faqRepository);
+	const faqDependencies = FAQDependenciesContainer(faqRepository);
 
 	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository, defaultErrorManagementService);
 	const annonceDeLogementDependencies = annonceDeLogementDependenciesContainer(annonceDeLogementRepository);
 
+	const stagesRepository = new StrapiStagesRepository(cmsRepository, defaultErrorManagementService);
+	const stagesDependencies = stagesDependenciesContainer(stagesRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();
@@ -388,6 +396,7 @@ export function dependenciesContainer(): Dependencies {
 		robotsDependencies,
 		sitemapDependencies,
 		stage3eEt2deDependencies,
+		stagesDependencies,
 		établissementAccompagnementDependencies,
 	};
 }

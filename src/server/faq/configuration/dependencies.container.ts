@@ -1,5 +1,5 @@
 import { StrapiFAQRepository } from '../infra/strapiFAQ.repository';
-import { ConsulterFAQUseCase } from '../useCases/consultertFAQ.useCase';
+import { ConsulterFAQUseCase } from '../useCases/consulterFAQ.useCase';
 import { ListerFAQUseCase } from '../useCases/listerFAQ.useCase';
 
 export interface FAQDependencies {

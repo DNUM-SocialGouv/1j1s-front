@@ -1,4 +1,3 @@
-import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
@@ -7,25 +6,19 @@ import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fix
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
-import { anOffreDeStage } from '~/server/cms/domain/offreDeStage.fixture';
-import { OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	anActualiteFixture,
-	anOffreDeStageDepotStrapi,
-	anOffreDeStageResponse,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
-	aStrapiCollectionType,
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
-	aStrapiOffreDeStageSlugList,
 	aStrapiSingleType,
 	aStrapiVideosCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
@@ -37,7 +30,7 @@ import {
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { anArticlePathList, anOffreDeStagePathList } from '~/server/sitemap/domain/sitemap.fixture';
+import { anArticlePathList } from '~/server/sitemap/domain/sitemap.fixture';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -252,66 +245,6 @@ describe('strapi cms repository', () => {
 			});
 		});
 	});
-
-
-
-	describe('getOffreDeStageBySlug', () => {
-		describe('Si un stage est trouvé', () => {
-			it('récupère l‘offre de stage selon le slug', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-				httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiCollectionType([anOffreDeStageResponse()])));
-				const slug = anOffreDeStageResponse().slug;
-
-				const { result } = await strapiCmsRepository.getOffreDeStageBySlug(slug) as Success<OffreDeStage>;
-				expect(result).toEqual(anOffreDeStage());
-				expect(httpClientService.get).toHaveBeenCalledWith(`offres-de-stage?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
-			});
-		});
-	});
-
-	describe('saveOffreDeStage', () => {
-		describe('Si un stage est fourni', () => {
-			it('il est enregistré dans le cms', async () => {
-				// Given
-				const httpClientService = aPublicHttpClientService();
-				const authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				const strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-
-				const offreDeStageDepot = anOffreDeStageDepot();
-				const offreDeStageDepotStrapi = anOffreDeStageDepotStrapi();
-
-				// When
-				(authenticatedHttpClientService.post as jest.Mock).mockResolvedValue(anAxiosResponse(anOffreDeStageDepotStrapi()));
-				const result = await strapiCmsRepository.saveOffreDeStage(offreDeStageDepot);
-
-				// Then
-				expect(result).toEqual(createSuccess(anOffreDeStageDepotStrapi()));
-				expect(authenticatedHttpClientService.post).toHaveBeenCalledWith('offres-de-stage', { data: offreDeStageDepotStrapi });
-			});
-		});
-	});
-
-	describe('listAllOffreDeStageSlug', () => {
-		it('retourne un tableau contenant tous les slugs d’offre de stage', async () => {
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-			);
-			(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiOffreDeStageSlugList()));
-			const expected = anOffreDeStagePathList();
-
-			const { result } = await strapiCmsRepository.listAllOffreDeStageSlug() as Success<Array<string>>;
-
-			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('offres-de-stage?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
-
-		});
-	});
-
 
 
 	describe('getAllVideosCampagneApprentissage', () => {

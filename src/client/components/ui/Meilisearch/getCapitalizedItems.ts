@@ -1,4 +1,4 @@
-export const getCapitalizedItems = (label: string) => {
+export function getCapitalizedItems(label: string) {
 	const SPLIT_SEPARATOR = ' / ';
 	const labelSplit = label.split(SPLIT_SEPARATOR);
 	for (let i = 0; i < labelSplit.length; i++) {

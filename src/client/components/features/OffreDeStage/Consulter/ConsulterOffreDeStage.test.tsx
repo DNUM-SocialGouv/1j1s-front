@@ -6,8 +6,9 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/cms/domain/offreDeStage.fixture';
-import { Domaines, OffreDeStage } from '~/server/cms/domain/offreDeStage.type';
+import { OffreDeStage } from '~/server/stages/domain/stages';
+import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { queries } from '~/test-utils';
 
 describe('ConsulterOffreDeStage', () => {
@@ -148,16 +149,27 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('dans les étiquettes', () => {
 			it('concernant les domaines du stage', () => {
-				const offreDeStage = anOffreDeStage({ domaines: [Domaines.ACHAT, Domaines.CONSEIL] });
+				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.CONSEIL] });
 
 				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
-				expect(displayedTagsTextContents).toContain(Domaines.ACHAT);
-				expect(displayedTagsTextContents).toContain(Domaines.CONSEIL);
+				expect(displayedTagsTextContents).toContain(DomainesStage.ACHAT);
+				expect(displayedTagsTextContents).toContain(DomainesStage.CONSEIL);
 			});
-			
+
+			it('n‘affiche pas le domaine non renseigné', () => {
+				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.NON_RENSEIGNE] });
+
+				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+
+				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
+				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
+				expect(displayedTagsTextContents).toContain(DomainesStage.ACHAT);
+				expect(displayedTagsTextContents).not.toContain(DomainesStage.NON_RENSEIGNE);
+			});
+
 			describe('concernant la localisation du stage', () => {
 				it('affiche la ville du stage quand elle est présente', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });

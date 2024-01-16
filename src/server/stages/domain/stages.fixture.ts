@@ -1,5 +1,6 @@
-import { OffreDeStage, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
 import Localisation = OffreDeStage.Localisation;
+import { OffreDeStage } from '~/server/stages/domain/stages';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage {
 	return {
@@ -42,4 +43,12 @@ export function anOffreDeStageLocalisation(override?: Partial<Localisation>): Lo
 		ville: undefined,
 		...override,
 	};
+}
+
+export function anOffreDeStageSlugsList(): Array<string> {
+	return [
+		'stage-assistant-consultant-en-gestion-de-patrimoine-1a154a14-e68c-45ba-913a-7487eb9089ba',
+		'praktikant-unternehmensbewertung-m-w-d-f5d7f0f1-734b-4e56-8230-5397c8ffa434',
+		'associate-consultant-intern-aci-aeb25e90-f124-4d14-a70e-e8eb1b513257',
+	];
 }

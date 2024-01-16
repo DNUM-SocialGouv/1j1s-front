@@ -1,4 +1,9 @@
-import { LocalisationStageIndexée, OffreDeStageIndexée, SourceDesDonnées } from '~/server/cms/domain/offreDeStage.type';
+
+import {
+	LocalisationStageIndexée,
+	OffreDeStageIndexée,
+} from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
+import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 export function anOffreDeStageIndexee(override?: Partial<OffreDeStageIndexée>): OffreDeStageIndexée {
 	return {
