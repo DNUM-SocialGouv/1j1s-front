@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.218.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.0...v3.218.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* **accompagnement:** validation objets non required ([2d49b96](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2d49b9678a664c23e120d8aa24a0a74ea337daa4))
+
 ## [3.218.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.217.0...v3.218.0) (2024-01-12)
 
 
