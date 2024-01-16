@@ -1,4 +1,7 @@
 import { Actualité } from '~/server/cms/domain/actualité';
+import {
+	aStrapiVideoCampagneApprentissage,
+} from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage.fixture';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
@@ -15,7 +18,6 @@ import {
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
 	aStrapiSingleType,
-	aStrapiVideosCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
@@ -252,7 +254,7 @@ describe('strapi cms repository', () => {
 			httpClientService = aPublicHttpClientService();
 			authenticatedHttpClientService = anAuthenticatedHttpClientService();
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideosCampagneApprentissage()));
+			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideoCampagneApprentissage()));
 
 			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
 			expect(result).toEqual([

@@ -145,11 +145,5 @@ export namespace Strapi {
 			travail: string
 			erreur: string
 		}
-
-		export interface VideoCampagneApprentissage {
-			Titre: string
-			Transcription: string
-			Url: string
-		}
 	}
 }
