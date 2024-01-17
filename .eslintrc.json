@@ -36,6 +36,13 @@
       "args": "after-used",
       "destructuredArrayIgnorePattern": "^_"
     }],
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-ignore": true,
+        "ts-expect-error": false
+      }
+    ],
     "@typescript-eslint/no-namespace": "off",
     "quote-props": ["error", "as-needed"],
     "no-console": "error",

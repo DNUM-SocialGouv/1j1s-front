@@ -67,7 +67,6 @@ describe('enregistrerEntreprisesHandler', () => {
 			  pagesHandler: (req, res) => entreprisesHandler(req, res),
 			  test: async ({ fetch }) => {
 				  const res = await fetch({
-					  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					  // @ts-expect-error
 					  body: JSON.stringify(anEntrepriseSouhaitantSEngager(queryParametersToTestInError)),
 					  headers: {

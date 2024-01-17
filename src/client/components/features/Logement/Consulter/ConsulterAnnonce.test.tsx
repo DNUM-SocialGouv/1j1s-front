@@ -264,7 +264,6 @@ describe('<ConsulterAnnonce />', () => {
 
 		describe('quand la source est inconnu', () => {
 			it('retourne rien', () => {
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-expect-error
 				const annonceDeLogement = anAnnonceDeLogement({ source: 'seloger' });
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
