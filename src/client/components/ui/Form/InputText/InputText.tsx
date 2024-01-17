@@ -14,11 +14,11 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 type InputValue = string | ReadonlyArray<string> | number | undefined;
 
 interface TextInputProps extends React.ComponentPropsWithoutRef<'input'> {
-  hint?: string
-  label?: string
-  necessity?: 'optional' | 'required'
-  validation?: (value: InputValue) => string | null | undefined;
-  tooltip?: React.ReactNode
+	hint?: string
+	label?: string
+	necessity?: 'optional' | 'required'
+	validation?: (value: InputValue) => string | null | undefined;
+	tooltip?: React.ReactNode
 }
 
 // eslint-disable-next-line react/display-name
@@ -69,6 +69,11 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 		setValueState(event.target.value);
 	}, [onChange]);
 
+	function onBlur() {
+		typeof valueState === 'string' && setValueState(valueState.trim());
+		setTouched(true);
+	}
+
 	return (
 		<div className={classNames(styles.textInput, className)}>
 			{label && (
@@ -92,7 +97,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 				aria-errormessage={error && errorId.current}
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				onChange={onInputChange}
-				onBlur={() => setTouched(true) }
+				onBlur={onBlur}
 				value={valueState}
 			/>
 			{error && (

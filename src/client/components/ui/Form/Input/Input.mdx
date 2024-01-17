@@ -1,0 +1,15 @@
+import {Meta, Canvas} from "@storybook/blocks";
+import * as InputStories from "./Input.stories";
+
+<Meta of={InputStories}/>
+
+# Definition
+
+Le composant `Input` permet de créer un élément de saie. Il s'utilise avec le composant `Champ`.
+
+# Specification
+
+Le champ input supprime automatiquement les espaces exterieurs lors de la perte de focus.
+Cette fonctionnalité nous permet d'éviter les problèmes sur les champs téléphones et email.
+
+<Canvas of={InputStories.exemple} />

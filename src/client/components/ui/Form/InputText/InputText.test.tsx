@@ -73,7 +73,7 @@ describe('TextInput', () => {
 	});
 
 	describe('quand le champ comporte une règle de validation', () => {
-		function validateEvenInputValue (value: string | ReadonlyArray<string> | number | undefined) {
+		function validateEvenInputValue(value: string | ReadonlyArray<string> | number | undefined) {
 			if (typeof value === 'string') {
 				return parseInt(value, 10) % 2 === 0 ? null : 'Le nombre n‘est pas pair';
 			} else {
@@ -89,7 +89,7 @@ describe('TextInput', () => {
 						name="inputName"
 						hint="Entrez un nom pair"
 						validation={validateEvenInputValue}
-						value='6'
+						value="6"
 					/>,
 				);
 
@@ -103,7 +103,7 @@ describe('TextInput', () => {
 						name="inputName"
 						hint="Entrez un nom pair"
 						validation={validateEvenInputValue}
-						value='6'
+						value="6"
 					/>,
 				);
 
@@ -120,7 +120,7 @@ describe('TextInput', () => {
 						name="inputName"
 						hint="Entrez un nom pair"
 						validation={validateEvenInputValue}
-						value='9'
+						value="9"
 					/>,
 				);
 
@@ -173,7 +173,7 @@ describe('TextInput', () => {
 						label="Mon champ texte"
 						name="inputName"
 						pattern={pattern}
-						value='abc'
+						value="abc"
 					/>,
 				);
 
@@ -190,7 +190,7 @@ describe('TextInput', () => {
 						label="Mon champ texte"
 						name="inputName"
 						pattern={pattern}
-						value='123'
+						value="123"
 					/>,
 				);
 
@@ -198,5 +198,16 @@ describe('TextInput', () => {
 				expect(input).toBeInvalid();
 			});
 		});
+	});
+
+	it('lorsque l‘on quitte le champ, les espaces avant et après sont supprimés', async () => {
+		const user = userEvent.setup();
+		render(<InputText/>);
+
+		const inputText = screen.getByRole('textbox');
+		await user.type(inputText, '   la phrase avec des espaces    ');
+		await user.tab();
+
+		expect(inputText).toHaveValue('la phrase avec des espaces');
 	});
 });

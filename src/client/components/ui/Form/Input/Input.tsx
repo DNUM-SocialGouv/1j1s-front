@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ComponentPropsWithoutRef, FocusEvent, useCallback, useEffect } from 'react';
+import React, { ComponentPropsWithoutRef, FocusEvent, useCallback, useEffect, useState } from 'react';
 
 import { ChangeEvent } from '~/client/components/ui/Form/Combobox/ChangeEvent';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
@@ -23,11 +23,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange: onChangeProps = doNothing,
 		onFocus: onFocusProps = doNothing,
 		onBlur: onBlurProps = doNothing,
+		defaultValue: defaultValueProps = '',
 		onTouch: onTouchProps = doNothing,
 		...props
 	}, outerRef) {
 	const inputRef = useSynchronizedRef(outerRef);
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
+	const [value, setValue] = useState(defaultValueProps);
 
 	useEffect(() => {
 		const error = validation(inputRef.current?.value);
@@ -35,7 +37,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 	}, [inputRef, validation]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
-		const error = validation(event.currentTarget.value);
+		const inputValue = event.currentTarget.value;
+		setValue(inputValue);
+		const error = validation(inputValue);
 		event.currentTarget?.setCustomValidity(error);
 
 		onChangeProps(event);
@@ -46,9 +50,13 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onFocusProps(event);
 	}, [onFocusProps, saveValueOnFocus]);
 
-	const onBlur = useCallback(async function onFocus(event: FocusEvent<HTMLInputElement>) {
+	const onBlur = useCallback(async function onBlur(event: FocusEvent<HTMLInputElement>) {
 		const touched = setTouchedOnBlur(event.currentTarget.value);
-		if (touched) { onTouchProps(touched); }
+		setValue(event.currentTarget.value.trim());
+
+		if (touched) {
+			onTouchProps(touched);
+		}
 		onBlurProps(event);
 	}, [onBlurProps, onTouchProps, setTouchedOnBlur]);
 
@@ -58,6 +66,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		onChange={onChange}
 		onFocus={onFocus}
 		onBlur={onBlur}
+		value={value}
 		className={classNames(styles.input, className)}
 		{...props}
 	/>;
