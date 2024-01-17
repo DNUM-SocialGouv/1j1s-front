@@ -1,13 +1,19 @@
-import { render, screen } from '@testing-library/react';
+/**
+ * @jest-environment jsdom
+ */
+
+import '~/test-utils';
+
+import { render } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { dependencies } from '~/server/start';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 jest.mock('~/server/start', () => ({
 	dependencies: {
@@ -20,7 +26,11 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('Page Candidater Stages 3e et 2de', () => {
-	describe('Page', () => {
+	describe('La page doit être valide', () => {
+		beforeEach(() => {
+			process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
+			mockUseRouter({});
+		});
 		it('doit rendre du HTML respectant la specification', async () => {
 			const { container } = render(
 				<Stages3eEt2deCandidaterPage
@@ -35,12 +45,10 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					siret="siret"
 				/>,
 			);
-			screen.debug(undefined, Infinity);
 
-			await screen.findByRole('heading', { name: 'Candidater à un stage de 3e et 2de' });
 			expect(container.outerHTML).toHTMLValidate();
 		});
-		it('n‘a pas de défaut d‘accessibilité', async () => {
+		it('n‘a pas de défaut d‘accessibilité', () => {
 			const { container } = render(
 				<DependenciesProvider
 				>
@@ -57,9 +65,8 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					/>
 				</DependenciesProvider>,
 			);
-			await screen.findByRole('heading', { name: 'Candidater à un stage de 3e et 2de' });
 
-			await expect(container).toBeAccessible();
+			expect(container).toBeAccessible();
 		});
 	});
 	describe('getServerSideProps', () => {

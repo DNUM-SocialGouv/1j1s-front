@@ -47,7 +47,6 @@ describe('Page stages de 3e et 2de', () => {
 				>
 					<Stages3eEt2dePage/>
 				</DependenciesProvider>);
-
 			await screen.findByRole('heading', { name: 'Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' });
 			expect(container.outerHTML).toHTMLValidate();
 		});

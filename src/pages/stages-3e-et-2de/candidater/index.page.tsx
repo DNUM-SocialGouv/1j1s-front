@@ -19,10 +19,11 @@ export interface Stage3eEt2deCandidaterPageProps {
 export default function Stages3eEt2deCandidaterPage(props: Stage3eEt2deCandidaterPageProps ) {
 	return <>
 		<Head
-			title={'Candidater à un stage de 3e et 2de | 1jeune1solution'}
+			title='Candidater à un stage de 3e et 2de | 1jeune1solution'
 			description="Candidater à un stage de 3e et 2de"
 			robots="index,follow"
 		/>
+
 		<main id="contenu">
 			<CandidaterStage3eEt2de {...props} />
 		</main>
