@@ -50,12 +50,12 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).not.toHaveBeenCalled();
 				});
 			});
-			describe('lorsque la query est invalide', () => {
+			describe('lorsque la query ne contient pas toutes les données nécessaires', () => {
 				it('retourne une page 404', async () => {
 					// Given
 					const queryWithInvalidSiretType = {
 						appellationCodes: 'appellationCodes',
-						modeDeContact: 'modeDeContact',
+						modeDeContact: 'IN_PERSON',
 						nomEntreprise: 'nomEntreprise',
 						siret: 1,
 					};
@@ -69,14 +69,34 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).not.toHaveBeenCalled();
 				});
 			});
-			describe('lorsque la query est valide', () => {
+			describe('lorsque la query est contient toutes les données nécessaires', () => {
 				describe('lorsque la récupération des appellations échoue', () => {
 					it('retourne une page 404', async () => {
 						// Given
-						(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 						const query = {
 							appellationCodes: 'appellationCodes',
-							modeDeContact: 'modeDeContact',
+							modeDeContact: 'IN_PERSON',
+							nomEntreprise: 'nomEntreprise',
+							siret: 'siret',
+						};
+						const context = { query } as unknown as GetServerSidePropsContext;
+
+						// When
+						const result = await getServerSideProps(context);
+
+						// Then
+						expect(result).toMatchObject({ notFound: true });
+						expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).toHaveBeenCalledWith(['appellationCodes']);
+					});
+				});
+				describe('lorsque la récupération des appellations retourne un tableau vide', () => {
+					it('retourne une page 404', async () => {
+						// Given
+						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([]));
+						const query = {
+							appellationCodes: 'appellationCodes',
+							modeDeContact: 'IN_PERSON',
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
@@ -93,7 +113,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				describe('lorsque la récupération des appellations réussit', () => {
 					it('retourne les props', async () => {
 						// Given
-						(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle as jest.Mock).mockReturnValue(createSuccess([
+						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([
 							{
 								code: 'code',
 								label: 'label',
@@ -105,7 +125,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 						]));
 						const query = {
 							appellationCodes: 'appellationCodes',
-							modeDeContact: 'modeDeContact',
+							modeDeContact: 'IN_PERSON',
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
@@ -127,7 +147,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 										label: 'label2',
 									},
 								],
-								modeDeContact: 'modeDeContact',
+								modeDeContact: 'IN_PERSON',
 								nomEntreprise: 'nomEntreprise',
 								siret: 'siret',
 							},
