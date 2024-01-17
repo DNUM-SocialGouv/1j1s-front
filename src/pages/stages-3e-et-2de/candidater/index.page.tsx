@@ -1,21 +1,32 @@
 import Joi from 'joi';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
+import CandidaterStage3eEt2de from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
 import empty from '~/client/utils/empty';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { dependencies } from '~/server/start';
+import { Head } from '~/client/components/head/Head';
 
-interface Stage3eEt2deCandidaterPageProps {
+export interface Stage3eEt2deCandidaterPageProps {
 	nomEntreprise: string;
 	appellations: Array<MetierStage3eEt2de>
 	siret: string;
 	modeDeContact: ModeDeContact;
 }
 
-export default function Stages3eEt2deCandidaterPage( props: Stage3eEt2deCandidaterPageProps ) {
-	console.log(props);
+export default function Stages3eEt2deCandidaterPage(props: Stage3eEt2deCandidaterPageProps ) {
+	return <>
+		<Head
+			title={'Candidater à un stage de 3e et 2de | 1jeune1solution'}
+			description="Candidater à un stage de 3e et 2de"
+			robots="index,follow"
+		/>
+		<main id="contenu">
+			<CandidaterStage3eEt2de {...props} />
+		</main>
+	</>;
 }
 
 const stage3eEt2deCandidaterQuerySchema = Joi.object({

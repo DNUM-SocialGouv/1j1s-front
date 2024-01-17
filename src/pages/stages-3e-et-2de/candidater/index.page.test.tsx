@@ -1,8 +1,12 @@
+import { render, screen } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 
-import { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
+import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { dependencies } from '~/server/start';
 
 jest.mock('~/server/start', () => ({
@@ -16,6 +20,48 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('Page Candidater Stages 3e et 2de', () => {
+	describe('Page', () => {
+		it('doit rendre du HTML respectant la specification', async () => {
+			const { container } = render(
+				<Stages3eEt2deCandidaterPage
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="nomEntreprise"
+					siret="siret"
+				/>,
+			);
+			screen.debug(undefined, Infinity);
+
+			await screen.findByRole('heading', { name: 'Candidater à un stage de 3e et 2de' });
+			expect(container.outerHTML).toHTMLValidate();
+		});
+		it('n‘a pas de défaut d‘accessibilité', async () => {
+			const { container } = render(
+				<DependenciesProvider
+				>
+					<Stages3eEt2deCandidaterPage
+						appellations={[
+							{
+								code: 'code',
+								label: 'label',
+							},
+						]}
+						modeDeContact={ModeDeContact.IN_PERSON}
+						nomEntreprise="nomEntreprise"
+						siret="siret"
+					/>
+				</DependenciesProvider>,
+			);
+			await screen.findByRole('heading', { name: 'Candidater à un stage de 3e et 2de' });
+
+			await expect(container).toBeAccessible();
+		});
+	});
 	describe('getServerSideProps', () => {
 		describe('lorsque la feature n‘est pas activée', () => {
 			it('retourne une page 404', async () => {
