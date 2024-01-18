@@ -11,7 +11,6 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 type Story = StoryObj<typeof Input>;
-
 export const exemple: Story = {
 	args: {},
 	render: (args) => (

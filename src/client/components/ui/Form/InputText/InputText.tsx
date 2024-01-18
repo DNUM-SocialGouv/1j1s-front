@@ -69,11 +69,6 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 		setValueState(event.target.value);
 	}, [onChange]);
 
-	function onBlur() {
-		typeof valueState === 'string' && setValueState(valueState.trim());
-		setTouched(true);
-	}
-
 	return (
 		<div className={classNames(styles.textInput, className)}>
 			{label && (
@@ -97,7 +92,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 				aria-errormessage={error && errorId.current}
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				onChange={onInputChange}
-				onBlur={onBlur}
+				onBlur={() => setTouched(true) }
 				value={valueState}
 			/>
 			{error && (

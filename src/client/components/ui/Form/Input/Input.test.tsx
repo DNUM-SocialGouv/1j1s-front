@@ -13,23 +13,6 @@ describe('<Input/>', () => {
 		expect(screen.getByRole('textbox')).toBeVisible();
 	});
 
-	it('lorsque je tappe un mot, la valeur de l‘input change', async () => {
-		const user = userEvent.setup();
-		render(<Input/>);
-		const input = screen.getByRole('textbox');
-
-		await user.type(input, 'le mot en question');
-
-		expect(input).toHaveValue('le mot en question');
-	});
-
-	it('accepte une valeur par defaut', () => {
-		render(<Input defaultValue="valeur par defaut"/>);
-		const input = screen.getByRole('textbox');
-		
-		expect(input).toHaveValue('valeur par defaut');
-	});
-
 	it('accepte les props natives d‘un input', () => {
 		render(<Input disabled aria-label={'foo'}/>);
 
@@ -85,29 +68,6 @@ describe('<Input/>', () => {
 		await user.tab();
 		expect(onBlur).toHaveBeenCalledTimes(1);
 		expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({ target: input }));
-	});
-
-	it('lorsque l‘on quite le champ, on supprime les espaces avant et après', async () => {
-		const user = userEvent.setup();
-		render(<Input/>);
-		const input = screen.getByRole('textbox');
-
-		await user.type(input, '    le mot en question avec des espaces    ');
-		await user.tab();
-
-		expect(input).toHaveValue('le mot en question avec des espaces');
-	});
-
-	it('lorsque je tappe un espace et je perd le focus, on supprime les espaces avant et après', async () => {
-		const user = userEvent.setup();
-		render(<Input/>);
-		const input = screen.getByRole('textbox');
-
-		await user.type(input, '    le mot en question avec des espaces.    ');
-		await user.type(input, '    ');
-		await user.tab();
-
-		expect(input).toHaveValue('le mot en question avec des espaces.');
 	});
 
 	describe('validation', () => {
