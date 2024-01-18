@@ -1,0 +1,21 @@
+@use "@styles/utilities";
+
+.header {
+  background-color: utilities.$color-background-primary-alternative;
+  padding: 4rem 6.75rem;
+
+  & .titre {
+    text-align: center;
+    @extend %headline;
+    @extend %bold;
+  }
+
+  & .sousTitre {
+    @include utilities.text-medium;
+    color: utilities.$color-text-primary-alternative;
+  }
+}
+
+.formulaireContainer {
+  padding: 2rem 6.75rem 6.75rem 3rem;
+}
