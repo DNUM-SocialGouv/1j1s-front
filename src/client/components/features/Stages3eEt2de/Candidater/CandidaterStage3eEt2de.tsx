@@ -29,7 +29,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		</div>
 
 		<Container className={styles.formulaireContainer}>
-			<BackButton label={'Retour à la recherche'}/>
+			<BackButton className={styles.boutonRetour} label={'Retour à la recherche'}/>
 
 			<p>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
@@ -59,12 +59,14 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 				/>
 				<ButtonComponent label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>
-			<p>
-				Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à
-				votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP.
-				En cliquant sur &quot;Envoyer mes informations&quot;, vos données seront transmises à la mission locale de la zone
-				géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous.
-			</p>
+			<div className={styles.decharge}>
+				<p>
+					En cliquant sur &quot;Envoyer les informations&quot;, vous acceptez que vos données à caractère personnel soient
+					transmises à l’entreprise {nomEntreprise} pour que celle-ci prenne contact avec vous.
+					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à
+					votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP.
+				</p>
+			</div>
 		</Container>
 	</>;
 }

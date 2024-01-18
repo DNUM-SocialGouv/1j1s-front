@@ -2,11 +2,12 @@
 
 .header {
   background-color: utilities.$color-background-primary-alternative;
-  padding: 4rem 6.75rem;
+  padding: 2rem 1rem;
 
   & .titre {
     text-align: center;
     @extend %headline;
+    font-size: 1.25rem;
     @extend %bold;
   }
 
@@ -17,5 +18,21 @@
 }
 
 .formulaireContainer {
-  padding: 2rem 6.75rem 6.75rem 3rem;
+  padding: 0 1rem;
+
+  & .boutonRetour {
+    margin: 1.25rem 0 1.25rem 0;
+  }
+}
+
+.decharge {
+  background-color: utilities.$color-background-primary-alternative;
+  border-radius: 1.25rem;
+  margin: 1.5rem 0 1.5rem 0;
+
+  p {
+    color: utilities.$color-text-placeholder;
+    font-size: 0.7rem;
+    padding: 1rem;
+  }
 }
