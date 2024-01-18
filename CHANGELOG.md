@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.218.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.1...v3.218.2) (2024-01-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency joi to v17.12.0 ([#2568](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2568)) ([66837ca](https://github.com/DNUM-SocialGouv/1j1s-front/commit/66837ca653ee57ee6b627e78b62e94811fe95e04))
+
 ## [3.218.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.0...v3.218.1) (2024-01-16)
 
 
