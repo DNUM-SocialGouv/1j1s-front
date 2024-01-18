@@ -18,6 +18,7 @@ describe('StrapiVideoCampagneApprentissageRepository', () => {
 			const strapiService = aStrapiCmsRepository();
 			const strapiVideoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(strapiService, anErrorManagementService());
 			const strapiVideoResourceName = 'videos-campagne-apprentissages';
+			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiVideoCampagneApprentissage()]));
 
 			// WHEN
 			await strapiVideoCampagneApprentissageRepository.getAllVideosCampagneApprentissage();
