@@ -124,6 +124,20 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				expect(screen.getByRole('textbox', label)).toBeVisible();
 			});
 		});
+
+		it('lorsque il remplit le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
+			const user = userEvent.setup();
+			renderComponent();
+
+			await remplirFormulaireEtape1();
+			await clickOnGoToEtape2();
+
+			const mailInput = screen.getByRole('textbox', { name : 'Adresse e-mail de contact' });
+
+			await user.type(mailInput, '     mail@avecespaces.com    ');
+			expect(mailInput).toHaveValue('mail@avecespaces.com');
+		});
+
 		it('l’étape 1 devient cachée', async () => {
 			renderComponent();
 			await remplirFormulaireEtape1();

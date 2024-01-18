@@ -218,6 +218,7 @@ export default function LesEntreprisesSEngagentInscription() {
 								label="Adresse e-mail de contact"
 								pattern={emailRegex}
 								name="email"
+								type="email"
 								placeholder="Exemple : mail@exemple.com"
 								hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
 								required
