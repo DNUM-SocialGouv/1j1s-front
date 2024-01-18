@@ -4,6 +4,8 @@ import { BackButton } from '~/client/components/features/ButtonRetour/BackButton
 import styles from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { Input } from '~/client/components/ui/Form/Input';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Select } from '~/client/components/ui/Select/Select';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
@@ -38,24 +40,42 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 			<form
 				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${nomEntreprise}`}
 			>
-				<InputText
-					label="Prénom"
-					name="prenom"
-					required
-				/>
-				<InputText
-					label="Nom"
-					name="nom"
-					required
-				/>
-				<InputText
-					label="E-mail"
-					name="email"
-					required
-				/>
+				<Champ>
+					<Champ.Label>Prénom
+						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="prenom"
+											 required
+											 type="text"
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>Nom
+						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="nom"
+											 required
+											 type="text"
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>Téléphone
+						<Champ.Label.Complement>Exemple : 0601020304</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="telephone"
+											 required
+											 type="tel" // todo : ajouter le pattern de validation téléphone
+					/>
+					<Champ.Error/>
+				</Champ>
 				<Select
 					optionList={appellations.map((appellation) => ({ libellé: appellation.label, valeur: appellation.code }))}
-					label="Appellation"
+					label="Métier sur lequel porte la demande d’immersion"
 					name="appellation"
 					required
 				/>

@@ -34,6 +34,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(titre).toBeVisible();
 		expect(titre).toHaveTextContent('Je candidate à l’offre de stage de 3e et 2de de l’entreprise Carrefour');
 	});
+
 	it('affiche un texte explicatif du process de candidature', () => {
 		// GIVEN
 
@@ -124,15 +125,16 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// THEN
 		const formulaire = screen.getByRole('form');
 		expect(formulaire).toBeVisible();
-		const inputPrenom = screen.getByLabelText('Prénom');
+		const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
 		expect(inputPrenom).toBeVisible();
-		const inputNom = screen.getByLabelText('Nom');
+		const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
 		expect(inputNom).toBeVisible();
-		const inputEmail = screen.getByLabelText('E-mail');
-		expect(inputEmail).toBeVisible();
+		const inputTelephone = screen.getByRole('textbox', { name:'Téléphone Exemple : 0601020304' });
+		expect(inputTelephone).toBeVisible();
 		const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
 		expect(boutonEnvoyer).toBeVisible();
 	});
+
 	it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {
 		// GIVEN
 
