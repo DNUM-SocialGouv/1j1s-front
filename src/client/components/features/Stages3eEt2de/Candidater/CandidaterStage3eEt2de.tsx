@@ -19,19 +19,21 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 
 	return <>
 		<div className={styles.header}>
-			<h1 className={styles.titre}>Je candidate à l’offre de stage de 3e et 2de de l’entreprise {nomEntreprise}</h1>
-			{/*TODO stage de 3e et 2de ou 3e et 2de ?*/}
-			<p className={styles.sousTitre}>Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.</p>
-			<p className={styles.sousTitre}>Nous allons vous transmettre par e-mail le nom de la personne à contacter, son numéro de téléphone ainsi que des
-				conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne
-				peuvent pas être communiquées à d’autres personnes.
-			</p>
+			<div className={styles.headerTextContainer}>
+				<h1 className={styles.titre}>Je candidate à l’offre de stage de 3e et 2de de l’entreprise <em>{nomEntreprise}</em></h1>
+				{/*TODO stage de 3e et 2de ou 3e et 2de ?*/}
+				<p className={styles.sousTitre}>Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.</p>
+				<p className={styles.sousTitre}>Nous allons vous transmettre par e-mail le nom de la personne à contacter, son numéro de téléphone ainsi que des
+					conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne
+					peuvent pas être communiquées à d’autres personnes.
+				</p>
+			</div>
 		</div>
 
 		<Container className={styles.formulaireContainer}>
 			<BackButton className={styles.boutonRetour} label={'Retour à la recherche'}/>
 
-			<p>Tous les champs sont obligatoires (sauf mention contraire)</p>
+			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
 			<form
 				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${nomEntreprise}`}
@@ -57,7 +59,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					name="appellation"
 					required
 				/>
-				<ButtonComponent label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
+				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>
 			<div className={styles.decharge}>
 				<p>
