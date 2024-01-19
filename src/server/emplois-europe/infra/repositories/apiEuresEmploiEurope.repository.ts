@@ -7,10 +7,12 @@ import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEur
 import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheRequestBody,
-	ApiEuresEmploiEuropeRechercheResponse, NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
+	ApiEuresEmploiEuropeRechercheResponse,
+	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
@@ -75,11 +77,14 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 				view: 'FULL_NO_ATTACHMENT',
 			};
 			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
-			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, response.data);
+
+			const itemDetail = this.apiEuresEmploiEuropeMapper.findItemByHandle(response.data.data.items, handle);
+			if(!itemDetail) return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+
+			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail);
 
 			return createSuccess(detailOffre);
-		}
-		catch (error) {
+		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Eures',
 				contexte: 'get emploi europe',

@@ -235,41 +235,38 @@ describe('apiEuresEmploiEuropeMapper', () => {
 		it('retourne un EmploiEurope', () => {
 			// Given
 			const handle = '3';
-			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
-				[
-					anApiEuresEmploiEuropeDetailItem({
-						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-							header: {
-								handle: handle,
-							},
-							hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
-								{
-									codeLangueDeLOffre: 'fr',
-									description: 'Je suis la description',
-									educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-									experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
-									listeLangueDeTravail: ['FR', 'EN'],
-									listePermis: ['B', 'C'],
-									nomEntreprise: 'La Boulangerie',
-									pays: 'FR',
-									tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
-									titre: 'Boulanger (H/F)',
-									ville: 'Paris',
-								},
-							),
-						}),
-						related: anApiEuresEmploiEuropeDetailRelated({
-							urls: [{
-								urlValue: 'https://urlDeCandidature.com',
-							}],
-						}),
-					}),
-				]);
+			const item = anApiEuresEmploiEuropeDetailItem({
+				jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+					header: {
+						handle: handle,
+					},
+					hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+						{
+							codeLangueDeLOffre: 'fr',
+							description: 'Je suis la description',
+							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+							experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
+							listeLangueDeTravail: ['FR', 'EN'],
+							listePermis: ['B', 'C'],
+							nomEntreprise: 'La Boulangerie',
+							pays: 'FR',
+							tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
+							titre: 'Boulanger (H/F)',
+							ville: 'Paris',
+						},
+					),
+				}),
+				related: anApiEuresEmploiEuropeDetailRelated({
+					urls: [{
+						urlValue: 'https://urlDeCandidature.com',
+					}],
+				}),
+			});
 
 			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 			// When
-			const resultatRechercheEmploiEurope = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+			const resultatRechercheEmploiEurope = mapper.mapDetailOffre(handle, item);
 
 			// Then
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
@@ -313,11 +310,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
 					expect(result.typeContrat).toBe('Apprentissage');
@@ -340,11 +336,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithNsContractType]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithNsContractType);
 
 					// THEN
 					expect(result.typeContrat).toBeUndefined();
@@ -365,11 +360,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithUnknownContractType]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithUnknownContractType);
 
 					// THEN
 					expect(result.typeContrat).toBeUndefined();
@@ -392,11 +386,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						}),
 					},
 				);
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 				// WHEN
-				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
 				expect(result.typeContrat).toBeUndefined();
@@ -422,11 +415,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
 					expect(result.tempsDeTravail).toBe('Temps flexible');
@@ -448,11 +440,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
 					expect(result.tempsDeTravail).toBeUndefined();
@@ -475,11 +466,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						}),
 					},
 				);
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 				// WHEN
-				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
 				expect(result.tempsDeTravail).toBeUndefined();
@@ -505,11 +495,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
 					expect(result.niveauEtudes).toBe('Enseignement préscolaire');
@@ -532,11 +521,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItemWithContractTypeApprenticeship]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItemWithContractTypeApprenticeship);
 
 					// THEN
 					expect(result.niveauEtudes).toBeUndefined();
@@ -560,11 +548,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						}),
 					},
 				);
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 				// WHEN
-				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
 				expect(result.niveauEtudes).toBeUndefined();
@@ -594,11 +581,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 										}),
 									},
 								);
-								const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 								const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 								// WHEN
-								const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+								const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 								// THEN
 								expect(result.competencesLinguistiques).toEqual(anEmploiEurope({
@@ -634,11 +620,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 											}),
 										},
 									);
-									const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 									const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 									// WHEN
-									const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+									const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 									// THEN
 									expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
@@ -682,11 +667,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 											}),
 										},
 									);
-									const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 									const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 									// WHEN
-									const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+									const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 									// THEN
 									expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
@@ -724,11 +708,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 										}),
 									},
 								);
-								const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 								const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 								// WHEN
-								const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+								const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 								// THEN
 								expect(result.competencesLinguistiques).toStrictEqual([]);
@@ -755,11 +738,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 									}),
 								},
 							);
-							const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 							const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 							// WHEN
-							const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+							const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 							// THEN
 							expect(result.competencesLinguistiques).toStrictEqual([]);
@@ -786,11 +768,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								}),
 							},
 						);
-						const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 						// WHEN
-						const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 						// THEN
 						expect(result.competencesLinguistiques).toStrictEqual([]);
@@ -826,11 +807,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						},
 					);
-					const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 					const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 					// WHEN
-					const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+					const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 					// THEN
 					expect(result.competencesLinguistiques).toStrictEqual(anEmploiEurope({
@@ -874,11 +854,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						}),
 					},
 				);
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 				// WHEN
-				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
 				expect(result.experienceNecessaire?.duree).toBe(6);
@@ -902,16 +881,35 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						}),
 					},
 				);
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([aDetailItem]);
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
 				// WHEN
-				const result = mapper.mapDetailOffre(handle, apiEuresEmploiEuropeDetailResponse);
+				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
 				expect(result.experienceNecessaire?.duree).toBe(6);
 				expect(result.experienceNecessaire?.unite).toBe(undefined);
 			});
+		});
+	});
+
+	describe('findItemByHandle', () => {
+		it('renvoie l‘item avec le bon Handle', () => {
+			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+			const itemExpectedInResult = anApiEuresEmploiEuropeDetailItem({
+				jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 3' } }),
+			});
+
+			const items = [
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 1' } }) }),
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 2' } }) }),
+				itemExpectedInResult];
+
+			const result = mapper.findItemByHandle(items, 'id 3');
+
+			expect(result).toEqual(itemExpectedInResult);
 		});
 	});
 });
