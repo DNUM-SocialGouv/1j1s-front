@@ -22,7 +22,7 @@ describe('candidature stage 3e et 2de', () => {
 
 		// When
 		await testApiHandler({
-			handler: (req, res) => handler(req, res),
+			pagesHandler: (req, res) => handler(req, res),
 			params: { ...candidature },
 			test: async ({ fetch }) => {
 				const response = await fetch({
@@ -44,7 +44,7 @@ describe('candidature stage 3e et 2de', () => {
 	])('répond une 400 quand le paramètre %o est incorrect', async (candidature) => {
 		// When
 		await testApiHandler({
-			handler: (req, res) => handler(req, res),
+			pagesHandler: (req, res) => handler(req, res),
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
 			params: { ...aCandidatureStage3eEt2de(candidature) },
@@ -77,7 +77,7 @@ describe('candidature stage 3e et 2de', () => {
 
 		// When
 		await testApiHandler({
-			handler: (req, res) => handler(req, res),
+			pagesHandler: (req, res) => handler(req, res),
 			params: { ...aCandidatureStage3eEt2de(candidature) },
 			test: async ({ fetch }) => {
 				const response = await fetch({
