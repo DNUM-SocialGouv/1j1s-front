@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import { Combobox } from '~/client/components/ui/Form/Combobox';
@@ -21,6 +20,7 @@ import {
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
+import { debounce, useDebounce } from '~/client/utils/debounce';
 import { isSuccess } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
@@ -48,7 +48,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		label = DEFAULT_LABEL,
 		defaultValue,
 		onChange: onChangeProps = () => null,
-		debounceTimeout = 300,
+		debounceTimeout = 3000,
 		id: idProps,
 		onInvalid: onInvalidProps = () => null,
 		'aria-labelledby': ariaLabelledby = '',
@@ -108,7 +108,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		}
 		setStatus('pending');
 
-		handleRechercherWithDebounce(userInput);
+		handleRechercherWithDebounce.debounced(userInput);
 	}, [handleRechercherWithDebounce, localisationService]);
 
 	useEffect(() => {
