@@ -7,13 +7,13 @@ import '~/test-utils';
 import { render } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { dependencies } from '~/server/start';
-import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 jest.mock('~/server/start', () => ({
 	dependencies: {

@@ -186,10 +186,7 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<Champ.Label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>
-				{label}
-				{ labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement> }
-			</Champ.Label>
+			<label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
 			<div ref={optionsRef} className={styles.container}>
 				<button
 					type="button"

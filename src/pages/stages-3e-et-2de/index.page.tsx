@@ -5,7 +5,6 @@ import RechercherStages3eEt2de
 import useAnalytics from '~/client/hooks/useAnalytics';
 
 import analytics from './index.analytics';
-import { Head } from '~/client/components/head/Head';
 
 export default function Stages3eEt2dePage() {
 	useAnalytics(analytics);

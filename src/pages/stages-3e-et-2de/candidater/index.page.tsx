@@ -2,12 +2,12 @@ import Joi from 'joi';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 
 import CandidaterStage3eEt2de from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
+import { Head } from '~/client/components/head/Head';
 import empty from '~/client/utils/empty';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { dependencies } from '~/server/start';
-import { Head } from '~/client/components/head/Head';
 
 export interface Stage3eEt2deCandidaterPageProps {
 	nomEntreprise: string;

@@ -6,7 +6,6 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Select } from '~/client/components/ui/Select/Select';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 
@@ -14,7 +13,9 @@ import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candid
 export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPageProps) {
 	const {
 		nomEntreprise,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		siret,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		modeDeContact,
 		appellations,
 	} = props;
@@ -78,7 +79,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					label="Métier sur lequel porte la demande d’immersion"
 					name="appellation"
 					required
-					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+					// labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
 				/>
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>
