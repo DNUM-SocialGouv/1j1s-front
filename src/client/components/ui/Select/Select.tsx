@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { handleKeyBoardInteraction, setFocusToSelectButton } from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
@@ -20,6 +21,7 @@ interface SelectProps {
 	required?: boolean;
 	id?: string
 	onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
+	labelComplement?: string
 }
 
 export interface Option {
@@ -32,7 +34,7 @@ const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
 export function Select(props: SelectProps) {
-	const { className, id, optionList, value, placeholder, name, label, multiple, required, onChange } = props;
+	const { className, id, optionList, value, placeholder, name, label, multiple, required, onChange, labelComplement } = props;
 	const errorMessageBy = useRef(uuidv4());
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const labelledBy = useRef(uuidv4());
@@ -184,7 +186,10 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
+			<Champ.Label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>
+				{label}
+				{ labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement> }
+			</Champ.Label>
 			<div ref={optionsRef} className={styles.container}>
 				<button
 					type="button"

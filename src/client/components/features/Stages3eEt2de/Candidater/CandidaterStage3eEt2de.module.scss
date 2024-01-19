@@ -78,11 +78,12 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 .decharge {
   background-color: utilities.$color-background-primary-alternative;
   border-radius: 1.25rem;
-  margin: 1.5rem 0 1.5rem 0;
+  margin: 1.5rem auto 1.5rem auto;
+  max-width: 60.75rem;
 
   p {
     color: utilities.$color-text-placeholder;
-    font-size: 0.7rem;
+    font-size: 0.875rem;
     padding: 1rem;
   }
 }

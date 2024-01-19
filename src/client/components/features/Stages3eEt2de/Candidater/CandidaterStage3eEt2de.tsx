@@ -78,15 +78,16 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					label="Métier sur lequel porte la demande d’immersion"
 					name="appellation"
 					required
+					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
 				/>
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>
 			<div className={styles.decharge}>
 				<p>
-					En cliquant sur &quot;Envoyer les informations&quot;, vous acceptez que vos données à caractère personnel soient
-					transmises à l’entreprise {nomEntreprise} pour que celle-ci prenne contact avec vous.
-					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à
-					votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP.
+					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour
+					répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les
+					CGU de la DGEFP. En cliquant sur &quot;Envoyer mes informations&quot;, vos données seront transmises à la mission
+					locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous
 				</p>
 			</div>
 		</Container>
