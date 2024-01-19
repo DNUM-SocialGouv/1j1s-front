@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "@meilisearch/instant-meilisearch": "0.14.0",
-    "@next/bundle-analyzer": "14.0.4",
+    "@next/bundle-analyzer": "14.1.0",
     "@sentry/nextjs": "7.93.0",
     "axios": "1.6.5",
-    "axios-cache-interceptor": "1.4.1",
+    "axios-cache-interceptor": "1.5.1",
     "classnames": "2.5.1",
     "dompurify": "3.0.8",
     "fast-xml-parser": "4.3.3",
