@@ -20,7 +20,7 @@ import {
 import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
-import { debounce, useDebounce } from '~/client/utils/debounce';
+import { debounce } from '~/client/utils/debounce';
 import { isSuccess } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
