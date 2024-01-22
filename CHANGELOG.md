@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.218.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.3...v3.218.4) (2024-01-22)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2556](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2556)) ([6530fac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6530facc8208d66380dbfcd6b6bdf4dc59addc3e))
+* import lodash.debounce au lieu de lodash/debounce ([#2578](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2578)) ([e4756e8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e4756e8b3e9cff39d62e8d97c45a941f030d4d32))
+
 ## [3.218.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.2...v3.218.3) (2024-01-19)
 
 
