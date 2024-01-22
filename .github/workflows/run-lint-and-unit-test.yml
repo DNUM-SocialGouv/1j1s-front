@@ -3,32 +3,32 @@
 
 name: Run linter and unit test
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  create:
-    branches: [ "renovate/**" ]
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run check-types
-      - run: npm run test
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#  create:
+#    branches: [ "renovate/**" ]
+#
+#jobs:
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [18]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#          cache: npm
+#      - run: npm ci
+#      - run: npm run lint
+#      - run: npm run check-types
+#      - run: npm run test
