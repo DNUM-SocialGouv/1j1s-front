@@ -1,0 +1,17 @@
+@use "@styles/utilities";
+
+.titre {
+  @extend %headline;
+  @extend %bold;
+
+  margin: 4rem auto 1rem auto;
+  max-width: 47.25rem;
+  text-align: center;
+
+}
+
+.texte {
+  max-width: 47.25rem;
+  margin: 0 auto;
+  text-align: center;
+}

@@ -27,16 +27,16 @@ export async function envoyerCandidatureStage3eEt2deHandler(req: NextApiRequest,
 	return handleResponse(reponseEnvoieCandidature, res);
 }
 
-export default withMethods(['POST'], withMonitoring(withValidation({ query: envoyerCandidatureStage3eEt2deQuerySchema }, envoyerCandidatureStage3eEt2deHandler)));
+export default withMethods(['POST'], withMonitoring(withValidation({ body: envoyerCandidatureStage3eEt2deQuerySchema }, envoyerCandidatureStage3eEt2deHandler)));
 
 function mapCandidature(req: NextApiRequest): CandidatureStage3eEt2de {
-	const query = req.query;
+	const body = req.body;
 	return {
-		appellationCode: String(query.appellationCode),
-		email: String(query.email),
-		modeDeContact: ModeDeContact[query.modeDeContact as keyof typeof ModeDeContact],
-		nom: String(query.nom),
-		prenom: String(query.prenom),
-		siret: String(query.siret),
+		appellationCode: String(body.appellationCode),
+		email: String(body.email),
+		modeDeContact: ModeDeContact[body.modeDeContact as keyof typeof ModeDeContact],
+		nom: String(body.nom),
+		prenom: String(body.prenom),
+		siret: String(body.siret),
 	};
 }

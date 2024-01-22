@@ -28,6 +28,7 @@ export class BffStage3eEt2deService implements Stage3eEt2deService {
 	}
 
 	async candidaterStage3eEt2de(candidatureStage3eEt2de: CandidatureStage3eEt2de): Promise<Either<undefined>> {
+		console.log(candidatureStage3eEt2de);
 		return this.httpClientService.post<CandidatureStage3eEt2de>('stages-3e-et-2de/candidature', candidatureStage3eEt2de);
 	}
 }

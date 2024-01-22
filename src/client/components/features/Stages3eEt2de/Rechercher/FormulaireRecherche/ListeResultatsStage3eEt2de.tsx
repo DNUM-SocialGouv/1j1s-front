@@ -56,6 +56,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 
 	return (
 		<li key={uuidv4()}>
+			<p>{stage3eEt2de.modeDeContact}</p>
 			<RésultatRechercherSolution
 				intituléOffre={stage3eEt2de.nomEntreprise}
 				sousTitreOffre={<>

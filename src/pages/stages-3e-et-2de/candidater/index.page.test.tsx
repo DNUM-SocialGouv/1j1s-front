@@ -9,6 +9,7 @@ import { GetServerSidePropsContext } from 'next';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -33,21 +34,23 @@ describe('Page Candidater Stages 3e et 2de', () => {
 		});
 		it('doit rendre du HTML respectant la specification', async () => {
 			const { container } = render(
-				<Stages3eEt2deCandidaterPage
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-						{
-							code: 'code2',
-							label: 'label2',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="nomEntreprise"
-					siret="siret"
-				/>,
+				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<Stages3eEt2deCandidaterPage
+						appellations={[
+							{
+								code: 'code',
+								label: 'label',
+							},
+							{
+								code: 'code2',
+								label: 'label2',
+							},
+						]}
+						modeDeContact={ModeDeContact.IN_PERSON}
+						nomEntreprise="nomEntreprise"
+						siret="siret"
+					/>,
+				</DependenciesProvider>,
 			);
 
 			expect(container.outerHTML).toHTMLValidate();
@@ -55,6 +58,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 		it('n‘a pas de défaut d‘accessibilité', () => {
 			const { container } = render(
 				<DependenciesProvider
+					stage3eEt2deService={aStage3eEt2deService()}
 				>
 					<Stages3eEt2deCandidaterPage
 						appellations={[
