@@ -205,7 +205,7 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 				const tagModeDeContact = within(tagsList).getByText('Candidature en personne');
 				expect(tagModeDeContact).toBeVisible();
 			});
-			it('si la candidature se fait par e-mail ajoute "Candidate par e-mail', () => {
+			it('si la candidature se fait par e-mail ajoute "Candidature par e-mail', () => {
 				// GIVEN
 				const resultatRecherche = aResultatRechercheStage3eEt2de({
 					nombreDeResultats: 1,

@@ -1,10 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
+	getModeDeContactWording,
+} from '~/client/components/features/Stages3eEt2de/Rechercher/FormulaireRecherche/getModeDeContactWording';
+import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
-import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+import {
+	RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 interface ListeResultatsStage3eEt2deProps {
@@ -32,19 +36,6 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		étiquetteOffreList.push(`${stage3eEt2de.nombreDeSalaries} salariés`);
 	}
 
-	function getModeDeContactWording(modeDeContact: ModeDeContact): string | undefined { // todo à ranger quelque part
-		switch (modeDeContact) {
-			case ModeDeContact.IN_PERSON:
-				return 'Candidature en personne';
-			case ModeDeContact.EMAIL:
-				return 'Candidature par e-mail';
-			case ModeDeContact.PHONE:
-				return 'Candidature par téléphone';
-			default:
-				return undefined;
-		}
-	}
-
 	if (stage3eEt2de.modeDeContact) {
 		const modeDeContactWording = getModeDeContactWording(stage3eEt2de.modeDeContact);
 		modeDeContactWording && étiquetteOffreList.push(modeDeContactWording);
@@ -53,14 +44,14 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		étiquetteOffreList.push('Handi-accessible');
 	}
 
-	const donneesLienOffre = {
+	const paramsLienOffre = {
 		appellationCodes: stage3eEt2de.appellationCodes.toString(),
 		modeDeContact: stage3eEt2de.modeDeContact ? stage3eEt2de.modeDeContact.toString() : '',
 		nomEntreprise: stage3eEt2de.nomEntreprise,
 		siret: stage3eEt2de.siret,
 	};
 
-	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(donneesLienOffre).toString()}` : undefined;
+	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(paramsLienOffre).toString()}` : undefined;
 	const intituléLienOffre = stage3eEt2de.modeDeContact ? 'Candidater' : undefined;
 
 	return (

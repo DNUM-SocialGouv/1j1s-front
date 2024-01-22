@@ -6,22 +6,6 @@ import {
 	ApiImmersionFacileStage3eEt2deRechercheResponse,
 } from './apiImmersionFacileStage3eEt2de';
 
-// function mapModeDeContact(stage3eEt2de: ApiImmersionFacileStage3eEt2deRechercheResponse): string | undefined {
-// 	switch (stage3eEt2de.contactMode) {
-// 		case ModeDeContact.IN_PERSON:
-// 			return 'Candidature en personne';
-// 		case ModeDeContact.EMAIL:
-// 			return 'Candidature par e-mail';
-// 		case ModeDeContact.PHONE:
-// 			return 'Candidature par téléphone';
-// 		default:
-// 			if (stage3eEt2de.voluntaryToImmersion) {
-// 				return 'Candidature spontanée';
-// 			}
-// 			return undefined;
-// 	}
-// }
-
 export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileStage3eEt2deRechercheResponse>): ResultatRechercheStage3eEt2de {
 	return {
 		nombreDeResultats: apiResponse.length,
