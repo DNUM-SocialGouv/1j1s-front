@@ -39,6 +39,10 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							code: 'code',
 							label: 'label',
 						},
+						{
+							code: 'code2',
+							label: 'label2',
+						},
 					]}
 					modeDeContact={ModeDeContact.IN_PERSON}
 					nomEntreprise="nomEntreprise"

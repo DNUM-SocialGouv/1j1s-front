@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import CandidaterStage3eEt2de from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
@@ -119,6 +119,10 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					code: 'code',
 					label: 'label',
 				},
+				{
+					code: 'code2',
+					label: 'label2',
+				},
 			]}
 			modeDeContact={ModeDeContact.IN_PERSON}
 			nomEntreprise="Carrefour"
@@ -136,6 +140,67 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(inputTelephone).toBeVisible();
 		const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
 		expect(boutonEnvoyer).toBeVisible();
+	});
+
+	describe('lorsque l’entreprise ne propose qu’un seul métier', () => {
+		it('affiche un champ de sélection du métier désactivé avec comme valeur le métier', () => {
+			// GIVEN
+
+			// WHEN
+			render(<CandidaterStage3eEt2de
+				appellations={[
+					{
+						code: 'code',
+						label: 'label du métier',
+					},
+				]}
+				modeDeContact={ModeDeContact.IN_PERSON}
+				nomEntreprise="Carrefour"
+				siret="37000000000000"
+			/>);
+
+			// THEN
+			const inputAppellation = screen.getByRole('textbox', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+			expect(inputAppellation).toBeVisible();
+			expect(inputAppellation).toBeDisabled();
+			expect(inputAppellation).toHaveValue('label du métier');
+			expect(inputAppellation).toHaveAttribute('type', 'text');
+		});
+	});
+
+	describe('lorsque l’entreprise propose plusieurs métiers', () => {
+		it('affiche un champ de sélection du métier actif', async () => {
+			// GIVEN
+			const user = userEvent.setup();
+			// WHEN
+			render(<CandidaterStage3eEt2de
+				appellations={[
+					{
+						code: 'code',
+						label: 'label',
+					},
+					{
+						code: 'code2',
+						label: 'label2',
+					},
+				]}
+				modeDeContact={ModeDeContact.IN_PERSON}
+				nomEntreprise="Carrefour"
+				siret="37000000000000"
+			/>);
+			const inputAppellation = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+
+			await user.click(inputAppellation);
+			const options = screen.getByRole('listbox');
+			const metierOptions = within(options).getAllByRole('option');
+
+			// THEN
+			expect(inputAppellation).toBeVisible();
+			expect(inputAppellation).not.toBeDisabled();
+			expect(metierOptions).toHaveLength(2);
+			expect(metierOptions[0]).toHaveTextContent('label');
+			expect(metierOptions[1]).toHaveTextContent('label2');
+		});
 	});
 
 	it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {

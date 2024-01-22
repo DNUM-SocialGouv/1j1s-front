@@ -9,6 +9,7 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import styles from './Champ.module.scss';
 import { ChampContextProvider, useChampContext } from './ChampContext';
 
+// FIXME (DORO 22-01-2024): Embarquer la gestion de l'etat désactivé (voir UI kit)
 export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	const [errorId, setErrorId] = useState<string>(useId());
 	const [hintId, setHintId] = useState<string>(useId());

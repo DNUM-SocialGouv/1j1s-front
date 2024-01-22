@@ -6,6 +6,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
+import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { Select } from '~/client/components/ui/Select/Select';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 
@@ -73,14 +74,33 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					/>
 					<Champ.Error/>
 				</Champ>
-				<Select
-					optionList={appellations.map((appellation) => ({ libellé: appellation.label, valeur: appellation.code }))}
-					label="Métier sur lequel porte la demande d’immersion"
-					name="appellation"
-					required
-					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
-					disabled
-				/>
+				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de disabled dans Select */ }
+				{ appellations.length > 1 ?
+					<Select
+						optionList={appellations.map((appellation) => ({ libellé: appellation.label, valeur: appellation.code }))}
+						label="Métier sur lequel porte la demande d’immersion"
+						name="appellation"
+						required
+						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+					/>
+					:
+					<Champ>
+						{ /* FIXME (DORO 22-01-2024): Embarquer la gestion de l'etat désactivé (voir UI kit) */ }
+						<Champ.Label className={styles.elementDesactive}>
+							Métier sur lequel porte la demande d’immersion
+							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par l’entreprise</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="appellation"
+												 required
+												 value={appellations[0].label}
+												 disabled
+						             className={styles.elementDesactive}
+						             type="text"
+						/>
+						<Champ.Error/>
+					</Champ>
+				}
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>
 			<div className={styles.decharge}>

@@ -229,7 +229,7 @@ export function Select(props: SelectProps) {
 					required={required}
 					onChange={() => ({})}
 					onBlur={() => required ? setIsTouched(true) : undefined}
-					type="hidden"
+					type="text"
 					{...rest}
 				/>
 				{isOptionListOpen && renderOptionList()}
