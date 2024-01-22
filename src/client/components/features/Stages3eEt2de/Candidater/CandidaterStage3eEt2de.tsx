@@ -23,8 +23,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	return <>
 		<div className={styles.header}>
 			<div className={styles.headerTextContainer}>
-				<h1 className={styles.titre}>Je candidate à l’offre de stage de 3e et 2de de l’entreprise <em>{nomEntreprise}</em></h1>
-				{/*TODO stage de 3e et 2de ou 3e et 2de ?*/}
+				<h1 className={styles.titre}>Je candidate à l’offre de stage de 3e ou de 2de de l’entreprise <em>{nomEntreprise}</em></h1>
 				<p className={styles.sousTitre}>Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.</p>
 				<p className={styles.sousTitre}>Nous allons vous transmettre par e-mail le nom de la personne à contacter, son numéro de téléphone ainsi que des
 					conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne
@@ -34,7 +33,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		</div>
 
 		<Container className={styles.formulaireContainer}>
-			<BackButton className={styles.boutonRetour} label={'Retour à la recherche'}/>
+			<BackButton className={styles.boutonRetour}/>
 
 			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
@@ -80,6 +79,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					name="appellation"
 					required
 					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+					disabled
 				/>
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>

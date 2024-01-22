@@ -10,7 +10,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 
-interface SelectProps {
+type SelectProps = React.HTMLProps<HTMLInputElement> & {
 	placeholder?: string;
 	optionList: Option[];
 	value?: string;
@@ -34,7 +34,19 @@ const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
 export function Select(props: SelectProps) {
-	const { className, id, optionList, value, placeholder, name, label, multiple, required, onChange, labelComplement } = props;
+	const { className,
+		id,
+		optionList,
+		value,
+		placeholder,
+		name,
+		label,
+		multiple,
+		required,
+		onChange,
+		labelComplement,
+		...rest
+	} = props;
 	const errorMessageBy = useRef(uuidv4());
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const labelledBy = useRef(uuidv4());
@@ -218,6 +230,7 @@ export function Select(props: SelectProps) {
 					onChange={() => ({})}
 					onBlur={() => required ? setIsTouched(true) : undefined}
 					type="hidden"
+					{...rest}
 				/>
 				{isOptionListOpen && renderOptionList()}
 			</div>

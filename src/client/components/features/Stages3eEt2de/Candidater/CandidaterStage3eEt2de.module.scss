@@ -4,11 +4,11 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 
 .header {
   background-color: utilities.$color-background-primary-alternative;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
 
 
   @include utilities.media(medium) {
-    padding: 4rem 1rem 4rem;
+    padding: 4rem 0 4rem;
   }
 
   & .headerTextContainer {
@@ -16,6 +16,7 @@ $color-message-champs-obligatoires: utilities.$color-primary;
     display: flex;
     flex-direction: column;
     gap: utilities.pixel-to-rem(12);
+    padding: 0 1rem;
   }
 
   & .titre {

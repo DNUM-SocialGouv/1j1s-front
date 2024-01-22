@@ -7,6 +7,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import CandidaterStage3eEt2de from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockSessionStorage } from '~/client/components/window.mock';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 
 describe('Candidater à un stage de 3e et 2de', () => {
@@ -32,7 +33,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// THEN
 		const titre = screen.getByRole('heading', { level: 1 });
 		expect(titre).toBeVisible();
-		expect(titre).toHaveTextContent('Je candidate à l’offre de stage de 3e et 2de de l’entreprise Carrefour');
+		expect(titre).toHaveTextContent('Je candidate à l’offre de stage de 3e ou de 2de de l’entreprise Carrefour');
 	});
 
 	it('affiche un texte explicatif du process de candidature', () => {
@@ -62,7 +63,9 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// GIVEN
 		const routerBack = jest.fn();
 		mockUseRouter({ back: routerBack });
-		// todo: mock sesssion storage fonctionne paaaas c'est la merde DORO ne veut pas l'écrire dans le test mais dans le code ça marche :(
+		mockSessionStorage({
+			getItem: jest.fn().mockReturnValue('/page-1'),
+		});
 		const user = userEvent.setup();
 
 		// WHEN
@@ -77,7 +80,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			nomEntreprise="Carrefour"
 			siret="37000000000000"
 		/>);
-		const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
+		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
 		await user.click(boutonRetour);
 
 		// THEN
