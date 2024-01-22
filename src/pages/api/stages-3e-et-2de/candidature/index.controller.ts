@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { withMethods } from '~/pages/api/middlewares/methods/methods.middleware';
 import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.middleware';
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
@@ -26,7 +27,7 @@ export async function envoyerCandidatureStage3eEt2deHandler(req: NextApiRequest,
 	return handleResponse(reponseEnvoieCandidature, res);
 }
 
-export default withMonitoring(withValidation({ query: envoyerCandidatureStage3eEt2deQuerySchema }, envoyerCandidatureStage3eEt2deHandler));
+export default withMethods(['POST'], withMonitoring(withValidation({ query: envoyerCandidatureStage3eEt2deQuerySchema }, envoyerCandidatureStage3eEt2deHandler)));
 
 function mapCandidature(req: NextApiRequest): CandidatureStage3eEt2de {
 	const query = req.query;
