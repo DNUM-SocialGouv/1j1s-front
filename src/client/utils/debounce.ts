@@ -1,9 +1,10 @@
-export interface DebounceFunction<T extends (...args: unknown[]) => unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface DebounceFunction<T extends (...args: any[]) => any> {
 		debounced: (...args: Parameters<T>) => void;
 		cancel: () => void;
 	}
-
-export function debounce<T extends (...args: unknown[]) => unknown>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function debounce<T extends (...args: any[]) => any>(
 	func: T,
 	delay: number,
 ): DebounceFunction<T> {
