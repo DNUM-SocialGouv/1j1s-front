@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
 import styles from '~/client/components/ui/Form/Input.module.scss';

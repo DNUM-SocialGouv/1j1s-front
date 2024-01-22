@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash.debounce';
 import React, { ReactElement, SyntheticEvent, useEffect, useId, useMemo, useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
