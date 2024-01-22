@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import styles from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de.module.scss';
@@ -7,7 +7,10 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { CandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
 
 
@@ -20,6 +23,23 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		modeDeContact,
 		appellations,
 	} = props;
+
+	const stage3eEt2deService = useDependency<Stage3eEt2deService>('stage3eEt2deService');
+
+	async function envoyerCandidature(event: FormEvent<HTMLFormElement>) {
+		event?.preventDefault();
+		const form: HTMLFormElement = event.currentTarget;
+		const data = new FormData(form);
+		const candidature: CandidatureStage3eEt2de = {
+			appellationCode: String(data.get('metierCode')),
+			email: String(data.get('email')),
+			modeDeContact: modeDeContact,
+			nom: String(data.get('nom')),
+			prenom: String(data.get('prenom')),
+			siret: siret,
+		};
+		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
+	}
 
 	return <>
 		<div className={styles.header}>
@@ -40,6 +60,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 
 			<form
 				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${nomEntreprise}`}
+				onSubmit={envoyerCandidature}
 			>
 				<Champ>
 					<Champ.Label>Prénom
@@ -80,7 +101,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					<Select
 						optionList={appellations.map((appellation) => ({ libellé: appellation.label, valeur: appellation.code }))}
 						label="Métier sur lequel porte la demande d’immersion"
-						name="appellation"
+						name="metierCode"
 						required
 						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
 					/>

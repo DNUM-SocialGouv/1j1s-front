@@ -21,17 +21,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// GIVEN
 
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-			]}
-			modeDeContact={ ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const titre = screen.getByRole('heading', { level: 1 });
@@ -43,17 +47,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// GIVEN
 
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-			]}
-			modeDeContact={ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const explicationPart1 = screen.getByText('Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.');
@@ -72,17 +80,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		const user = userEvent.setup();
 
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-			]}
-			modeDeContact={ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
 		await user.click(boutonRetour);
 
@@ -95,18 +107,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// GIVEN
 
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-			]}
-			modeDeContact={ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
-
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 		// THEN
 		const message = screen.getByText('Tous les champs sont obligatoires (sauf mention contraire)');
 		expect(message).toBeVisible();
@@ -114,22 +129,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 	it('affiche un formulaire de candidature', () => {
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-				{
-					code: 'code2',
-					label: 'label2',
-				},
-			]}
-			modeDeContact={ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
-
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 		// THEN
 		const formulaire = screen.getByRole('form');
 		expect(formulaire).toBeVisible();
@@ -149,18 +163,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// GIVEN
 
 				// WHEN
-				render(<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label du métier',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
-				/>);
-
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							appellations={[
+								{
+									code: 'code',
+									label: 'label du métier',
+								},
+							]}
+							modeDeContact={ModeDeContact.IN_PERSON}
+							nomEntreprise="Carrefour"
+							siret="37000000000000"
+						/>
+					</DependenciesProvider>,
+				);
 				// THEN
 				const inputAppellation = screen.getByRole('textbox', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				expect(inputAppellation).toBeVisible();
@@ -175,21 +192,25 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// GIVEN
 				const user = userEvent.setup();
 				// WHEN
-				render(<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-						{
-							code: 'code2',
-							label: 'label2',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
-				/>);
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							appellations={[
+								{
+									code: 'code',
+									label: 'label',
+								},
+								{
+									code: 'code2',
+									label: 'label2',
+								},
+							]}
+							modeDeContact={ModeDeContact.IN_PERSON}
+							nomEntreprise="Carrefour"
+							siret="37000000000000"
+						/>
+					</DependenciesProvider>,
+				);
 				const inputAppellation = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 
 				await user.click(inputAppellation);
@@ -210,17 +231,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// GIVEN
 
 		// WHEN
-		render(<CandidaterStage3eEt2de
-			appellations={[
-				{
-					code: 'code',
-					label: 'label',
-				},
-			]}
-			modeDeContact={ModeDeContact.IN_PERSON}
-			nomEntreprise="Carrefour"
-			siret="37000000000000"
-		/>);
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>
+			</DependenciesProvider>,
+		);
 
 		// THEN
 		const message = screen.getByText('Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP. En cliquant sur "Envoyer mes informations", vos données seront transmises à la mission locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous');
@@ -246,7 +271,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					]}
 					modeDeContact={ModeDeContact.PHONE}
 					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					siret="12345678912345"
 				/>
 			</DependenciesProvider>);
 			const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
@@ -267,7 +292,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// THEN
 			const expectedCandidature3eEt2de = aCandidatureStage3eEt2de({
-				appellationCode: '67891',
+				appellationCode: '12345',
 				email: 'alexis.dupont@example.com',
 				modeDeContact: ModeDeContact.PHONE,
 				nom: 'Dupont',
