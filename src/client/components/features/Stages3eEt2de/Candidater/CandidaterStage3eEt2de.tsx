@@ -79,7 +79,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					label="Métier sur lequel porte la demande d’immersion"
 					name="appellation"
 					required
-					// labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
 				/>
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations" type="submit" />{/*TODO pas ouf le wording nan ?*/}
 			</form>

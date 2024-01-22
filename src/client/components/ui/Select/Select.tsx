@@ -186,7 +186,10 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>{label}</label>
+			<Champ.Label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>
+				{label}
+				{ labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement> }
+			</Champ.Label>
 			<div ref={optionsRef} className={styles.container}>
 				<button
 					type="button"
@@ -214,6 +217,7 @@ export function Select(props: SelectProps) {
 					required={required}
 					onChange={() => ({})}
 					onBlur={() => required ? setIsTouched(true) : undefined}
+					type="hidden"
 				/>
 				{isOptionListOpen && renderOptionList()}
 			</div>
