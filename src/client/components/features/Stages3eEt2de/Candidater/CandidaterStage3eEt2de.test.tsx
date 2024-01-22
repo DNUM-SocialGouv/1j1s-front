@@ -136,70 +136,72 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(inputPrenom).toBeVisible();
 		const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
 		expect(inputNom).toBeVisible();
-		const inputTelephone = screen.getByRole('textbox', { name:'Téléphone Exemple : 0601020304' });
-		expect(inputTelephone).toBeVisible();
+		const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+		expect(inputEmail).toBeVisible();
 		const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
 		expect(boutonEnvoyer).toBeVisible();
 	});
 
-	describe('lorsque l’entreprise ne propose qu’un seul métier', () => {
-		it('affiche un champ de sélection du métier désactivé avec comme valeur le métier', () => {
-			// GIVEN
+	describe('affiche les métiers de l’entreprise dans le formulaire', () => {
+		describe('lorsque l’entreprise ne propose qu’un seul métier', () => {
+			it('affiche un champ de sélection du métier désactivé avec comme valeur le métier', () => {
+				// GIVEN
 
-			// WHEN
-			render(<CandidaterStage3eEt2de
-				appellations={[
-					{
-						code: 'code',
-						label: 'label du métier',
-					},
-				]}
-				modeDeContact={ModeDeContact.IN_PERSON}
-				nomEntreprise="Carrefour"
-				siret="37000000000000"
-			/>);
+				// WHEN
+				render(<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label du métier',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>);
 
-			// THEN
-			const inputAppellation = screen.getByRole('textbox', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-			expect(inputAppellation).toBeVisible();
-			expect(inputAppellation).toBeDisabled();
-			expect(inputAppellation).toHaveValue('label du métier');
-			expect(inputAppellation).toHaveAttribute('type', 'text');
+				// THEN
+				const inputAppellation = screen.getByRole('textbox', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				expect(inputAppellation).toBeVisible();
+				expect(inputAppellation).toBeDisabled();
+				expect(inputAppellation).toHaveValue('label du métier');
+				expect(inputAppellation).toHaveAttribute('type', 'text');
+			});
 		});
-	});
 
-	describe('lorsque l’entreprise propose plusieurs métiers', () => {
-		it('affiche un champ de sélection du métier actif', async () => {
-			// GIVEN
-			const user = userEvent.setup();
-			// WHEN
-			render(<CandidaterStage3eEt2de
-				appellations={[
-					{
-						code: 'code',
-						label: 'label',
-					},
-					{
-						code: 'code2',
-						label: 'label2',
-					},
-				]}
-				modeDeContact={ModeDeContact.IN_PERSON}
-				nomEntreprise="Carrefour"
-				siret="37000000000000"
-			/>);
-			const inputAppellation = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+		describe('lorsque l’entreprise propose plusieurs métiers', () => {
+			it('affiche un champ de sélection du métier actif', async () => {
+				// GIVEN
+				const user = userEvent.setup();
+				// WHEN
+				render(<CandidaterStage3eEt2de
+					appellations={[
+						{
+							code: 'code',
+							label: 'label',
+						},
+						{
+							code: 'code2',
+							label: 'label2',
+						},
+					]}
+					modeDeContact={ModeDeContact.IN_PERSON}
+					nomEntreprise="Carrefour"
+					siret="37000000000000"
+				/>);
+				const inputAppellation = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 
-			await user.click(inputAppellation);
-			const options = screen.getByRole('listbox');
-			const metierOptions = within(options).getAllByRole('option');
+				await user.click(inputAppellation);
+				const options = screen.getByRole('listbox');
+				const metierOptions = within(options).getAllByRole('option');
 
-			// THEN
-			expect(inputAppellation).toBeVisible();
-			expect(inputAppellation).not.toBeDisabled();
-			expect(metierOptions).toHaveLength(2);
-			expect(metierOptions[0]).toHaveTextContent('label');
-			expect(metierOptions[1]).toHaveTextContent('label2');
+				// THEN
+				expect(inputAppellation).toBeVisible();
+				expect(inputAppellation).not.toBeDisabled();
+				expect(metierOptions).toHaveLength(2);
+				expect(metierOptions[0]).toHaveTextContent('label');
+				expect(metierOptions[1]).toHaveTextContent('label2');
+			});
 		});
 	});
 
@@ -222,5 +224,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		// THEN
 		const message = screen.getByText('Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP. En cliquant sur "Envoyer mes informations", vos données seront transmises à la mission locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous');
 		expect(message).toBeVisible();
+	});
+
+	describe('soumission du formulaire', () => {
 	});
 });

@@ -8,6 +8,7 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { emailRegex } from '~/shared/emailRegex';
 
 
 export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPageProps) {
@@ -63,13 +64,14 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 					<Champ.Error/>
 				</Champ>
 				<Champ>
-					<Champ.Label>Téléphone
-						<Champ.Label.Complement>Exemple : 0601020304</Champ.Label.Complement>
+					<Champ.Label>E-mail
+						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-											 name="telephone"
+											 name="email"
 											 required
-											 type="tel" // todo : ajouter le pattern de validation téléphone
+											 type="email"
+											 pattern={emailRegex}
 					/>
 					<Champ.Error/>
 				</Champ>
