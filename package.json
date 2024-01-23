@@ -25,9 +25,9 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.14.0",
+    "@meilisearch/instant-meilisearch": "0.15.0",
     "@next/bundle-analyzer": "14.1.0",
-    "@sentry/nextjs": "7.93.0",
+    "@sentry/nextjs": "7.94.1",
     "axios": "1.6.5",
     "axios-cache-interceptor": "1.5.1",
     "classnames": "2.5.1",
