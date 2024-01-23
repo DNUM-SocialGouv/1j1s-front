@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.218.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.4...v3.218.5) (2024-01-23)
+
+
+### Bug Fixes
+
+* ne permet plus les espaces dans la regex des emails ([#2554](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2554)) ([10fc68e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/10fc68ed2112c261d13fa565dec022500a80b024))
+* supprime le aria-hidden sur le logo du header ([#2563](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2563)) ([f349db2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f349db201a6e8f805b138c609e5f4424fa6ad202))
+
 ## [3.218.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.3...v3.218.4) (2024-01-22)
 
 
