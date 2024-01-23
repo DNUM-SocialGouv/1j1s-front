@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.219.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.5...v3.219.0) (2024-01-23)
+
+
+### Features
+
+* modifie le mailTo de dépôt d'offre de stage de 3e et 2d ([#2583](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2583)) ([b796ec6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b796ec6166f179fb58f412d5ad7d1f3114a4bedb))
+
 ## [3.218.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.4...v3.218.5) (2024-01-23)
 
 
