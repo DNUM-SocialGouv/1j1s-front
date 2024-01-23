@@ -14,12 +14,12 @@ const lineBreak = '%0D%0A';
 const body = `Afin de recevoir des candidatures correspondant au besoin de la mission proposée, nous vous conseillons de bien détailler votre offre, en n'oubliant pas de préciser : 
 ${lineBreak}
 ${bulletList}    Un titre pour votre offre de stage ;${lineBreak}
-${bulletList}    La description des missions (n'hésitez pas à faire une liste) ;${lineBreak}
-${bulletList}    Le lieu du stage (ville, code postal, département, région, pays) ;${lineBreak}
+${bulletList}    La description des activités (n'hésitez pas à faire une liste) ;${lineBreak}
+${bulletList}    L'adresse du lieu du stage (ville, code postal, département, région, pays) - obligatoire ;${lineBreak}
 ${bulletList}    Votre secteur d'activité ;${lineBreak}
-${bulletList}    Les dates de début et de fin du stage ;${lineBreak}
-${bulletList}    Les coordonnées et le  SIRET de votre entreprise ;${lineBreak}
-${bulletList}    Vos coordonnées ;${lineBreak}
+${bulletList}    Les dates de début et de fin du stage (entre le 17 et 28 juin 2024) ;${lineBreak}
+${bulletList}    Les coordonnées et le SIRET de votre entreprise ;${lineBreak}
+${bulletList}    Votre identité et coordonnées de la personne à contacter ;${lineBreak}
 ${bulletList}    L'URL ou le mail pour envoyer sa candidature.${lineBreak}
 ${lineBreak}
 Nous vous recontacterons au plus vite.`;
