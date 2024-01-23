@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import styles from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de.module.scss';
@@ -32,9 +32,12 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 
 	const stage3eEt2deService = useDependency<Stage3eEt2deService>('stage3eEt2deService');
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const isMoreThanOneMetier = metiersStage3eEt2de.length > 1 && metiersStage3eEt2de.length !== 0;
 
 	async function envoyerCandidature(event: FormEvent<HTMLFormElement>) {
+		setIsLoading(true);
 		event?.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
@@ -47,7 +50,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 			siret: siret,
 		};
 		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
-		// TODO : gérer le chargement
+		setIsLoading(false);
 		if (resultat.instance === 'success') onSuccess();
 		if (resultat.instance === 'failure') onFailure();
 	}
@@ -140,7 +143,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					</Champ>
 				}
 				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations"
-				                 type="submit"/>{/*TODO pas ouf le wording nan ?*/}
+				                 type="submit" disabled={isLoading}/>{/*TODO pas ouf le wording nan ?*/}
 			</form>
 		</Container>
 		<div className={styles.decharge}>

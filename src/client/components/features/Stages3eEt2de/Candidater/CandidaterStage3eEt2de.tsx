@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
 	EchecEnvoyerCandidatureStage3eEt2de,
@@ -20,7 +20,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	} = props;
 
 	const [etatSoumission, setEtatSoumission] =
-		React.useState<'initial' | 'succes' | 'echec'>('initial');
+		useState<'initial' | 'succes' | 'echec'>('initial');
 
 	if (etatSoumission === 'initial') {
 		return <FormulaireCandidaterStage3eEt2de
