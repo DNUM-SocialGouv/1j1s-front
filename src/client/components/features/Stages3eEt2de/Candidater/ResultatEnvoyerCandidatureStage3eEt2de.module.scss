@@ -1,0 +1,75 @@
+@use "@styles/utilities";
+
+$color-title-error: utilities.$color-warning;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+%titre {
+  @extend %headline;
+  @extend %bold;
+
+  margin: 4rem auto 1rem auto;
+  max-width: 47.25rem;
+  text-align: center;
+}
+
+.titreSucces {
+  @extend %titre;
+}
+
+.titreErreur {
+  @extend %titre;
+  color: $color-title-error;
+}
+
+.texte {
+  max-width: 47.25rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.boutonsCTA {
+  width: 100%;
+  align-self: center;
+  @include utilities.media(medium) {
+    width: max-content;
+  }
+}
+
+.boutonRetourFormulaire {
+  margin-top: 2rem;
+  align-self: center;
+  width: 100%;
+  button {
+    width: 100%;
+  }
+  @include utilities.media(medium) {
+    width: 19rem;
+  }
+}
+
+.boutonContinuerRecherche {
+  margin-top: 2rem;
+  width: 100%;
+  button {
+    width: 100%;
+  }
+}
+
+.boutonRetourRecherche {
+  margin-top: .5rem;
+  margin-bottom: 4rem;
+  button {
+    width: 100%;
+  }
+}
+
+.boutonRetourAccueil {
+  margin-top: .5rem;
+  margin-bottom: 4rem;
+  width: 100%;
+}

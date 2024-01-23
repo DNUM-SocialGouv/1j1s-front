@@ -1,6 +1,9 @@
 import React from 'react';
 
 import {
+	EchecEnvoyerCandidatureStage3eEt2de,
+} from '~/client/components/features/Stages3eEt2de/Candidater/EchecEnvoyerCandidatureStage3eEt2de';
+import {
 	FormulaireCandidaterStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/FormulaireCandidaterStage3eEt2de';
 import {
@@ -34,5 +37,5 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		return <SuccesEnvoyerCandidatureStage3eEt2de />;
 	}
 
-	return null;
+	return <EchecEnvoyerCandidatureStage3eEt2de retourFormulaire={() => setEtatSoumission('initial')} />;
 }
