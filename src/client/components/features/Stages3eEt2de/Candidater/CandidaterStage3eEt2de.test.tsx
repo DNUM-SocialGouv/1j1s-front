@@ -394,6 +394,100 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				const texte = screen.getByText('L’entreprise a choisi d’être contactée par e-mail. Elle recevra donc vos informations et vous recontactera par la suite.');
 				expect(texte).toBeVisible();
 			});
+
+			it('affiche un lien de retour à l’accueil', async () => {
+				// GIVEN
+				const user = userEvent.setup();
+				const stage3eEt2deService = aStage3eEt2deService();
+				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+
+				// WHEN
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					<CandidaterStage3eEt2de
+						appellations={[
+							{
+								code: '12345',
+								label: 'Chargé / Chargée de relations entreprises',
+							},
+							{
+								code: '67891',
+								label: 'Conseiller / Conseillère en insertion professionnelle',
+							},
+						]}
+						modeDeContact={ModeDeContact.PHONE}
+						nomEntreprise="Carrefour"
+						siret="12345678912345"
+					/>
+				</DependenciesProvider>);
+				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				await user.type(inputPrenom, 'Alexis');
+				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				await user.type(inputNom, 'Dupont');
+				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				await user.type(inputEmail, 'test@example.com');
+				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				await user.click(inputMetier);
+				const options = screen.getByRole('listbox');
+				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
+				await user.click(premiereOption);
+				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+				await user.click(envoyerBouton);
+
+				// THEN
+				const lienAccueil = screen.getByRole('link', { name: 'Retourner à l’accueil' });
+				expect(lienAccueil).toBeVisible();
+				expect(lienAccueil).toHaveAttribute('href', '/');
+			});
+
+			it('affiche un bouton revenant a la recherche', async () => {
+				// GIVEN
+				const routerBack = jest.fn();
+				mockUseRouter({ back: routerBack });
+				mockSessionStorage({
+					getItem: jest.fn().mockReturnValue('/page-1'),
+				});
+				const user = userEvent.setup();
+				const stage3eEt2deService = aStage3eEt2deService();
+				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+
+				// WHEN
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					<CandidaterStage3eEt2de
+						appellations={[
+							{
+								code: '12345',
+								label: 'Chargé / Chargée de relations entreprises',
+							},
+							{
+								code: '67891',
+								label: 'Conseiller / Conseillère en insertion professionnelle',
+							},
+						]}
+						modeDeContact={ModeDeContact.PHONE}
+						nomEntreprise="Carrefour"
+						siret="12345678912345"
+					/>
+				</DependenciesProvider>);
+				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				await user.type(inputPrenom, 'Alexis');
+				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				await user.type(inputNom, 'Dupont');
+				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				await user.type(inputEmail, 'test@example.com');
+				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				await user.click(inputMetier);
+				const options = screen.getByRole('listbox');
+				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
+				await user.click(premiereOption);
+				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+				await user.click(envoyerBouton);
+				const boutonRetour = screen.getByRole('button', { name: 'Déposer une autre offre de stage' });
+				await user.click(boutonRetour);
+
+				// THEN
+				expect(boutonRetour).toBeVisible();
+				expect(routerBack).toHaveBeenCalled();
+			});
 		});
 	});
 });

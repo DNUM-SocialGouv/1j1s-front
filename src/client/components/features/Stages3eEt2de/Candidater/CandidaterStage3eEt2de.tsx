@@ -25,7 +25,6 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 			metiersStage3eEt2de={appellations}
 			siret={siret}
 			modeDeContact={modeDeContact}
-			appellations={appellations}
 			onSuccess={() => setEtatSoumission('succes')}
 			onFailure={() => setEtatSoumission('echec')}
 		/>;

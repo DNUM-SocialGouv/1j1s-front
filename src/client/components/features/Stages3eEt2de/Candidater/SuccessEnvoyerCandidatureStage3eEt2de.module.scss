@@ -1,5 +1,11 @@
 @use "@styles/utilities";
 
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
 .titre {
   @extend %headline;
   @extend %bold;
@@ -7,11 +13,29 @@
   margin: 4rem auto 1rem auto;
   max-width: 47.25rem;
   text-align: center;
-
 }
 
 .texte {
   max-width: 47.25rem;
   margin: 0 auto;
   text-align: center;
+}
+
+.boutonRetourAccueil {
+  margin-top: 2rem;
+  align-self: center;
+  width: 100%;
+  @include utilities.media(medium) {
+    width: 18rem;
+  }
+}
+
+.boutonRetourDeposerOffre {
+  margin-top: .5rem;
+  margin-bottom: 4rem;
+  align-self: center;
+  width: 100%;
+  @include utilities.media(medium) {
+    width: 18rem;
+  }
 }
