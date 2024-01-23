@@ -79,7 +79,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
 
 			const itemDetail = this.apiEuresEmploiEuropeMapper.findItemByHandle(response.data.data.items, handle);
-			if(!itemDetail) return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+			if(!itemDetail) return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail);
 

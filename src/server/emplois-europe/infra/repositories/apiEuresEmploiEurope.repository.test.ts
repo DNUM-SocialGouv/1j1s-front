@@ -304,7 +304,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			});
 		});
 
-		it('lorsqu‘aucun résultat n‘est trouvé renvoie une failure demande incorrecte', async () => {
+		it('lorsqu‘aucun résultat n‘est trouvé renvoie une failure contenu indisponible', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 
@@ -321,7 +321,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			const detail = await repository.get('id');
 
 			// Then
-			expect(detail).toEqual(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
+			expect(detail).toEqual(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 		});
 
 		it('retourne le détail de l\'emploi en Europe demandé', async () => {
