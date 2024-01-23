@@ -10,7 +10,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 
-type SelectProps = React.HTMLProps<HTMLInputElement> & {
+type SelectProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	placeholder?: string;
 	optionList: Option[];
 	value?: string;
