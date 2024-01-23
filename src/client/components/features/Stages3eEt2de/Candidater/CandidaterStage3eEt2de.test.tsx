@@ -5,7 +5,9 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import CandidaterStage3eEt2de from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
+import CandidaterStage3eEt2de, {
+	aStage3eEt2deCandidaterPageProps,
+} from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -21,20 +23,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 	});
 	it('affiche un titre avec le nom de l’entreprise', () => {
 		// GIVEN
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
 
 		// WHEN
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-					]}
-					modeDeContact={ ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -47,20 +56,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 	it('affiche un texte explicatif du process de candidature', () => {
 		// GIVEN
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
 
 		// WHEN
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -80,20 +96,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			getItem: jest.fn().mockReturnValue('/page-1'),
 		});
 		const user = userEvent.setup();
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
 
 		// WHEN
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -107,20 +130,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 	it('affiche un message indiquant que tous les champs sont obligatoires', () => {
 		// GIVEN
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
 
 		// WHEN
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -130,19 +160,28 @@ describe('Candidater à un stage de 3e et 2de', () => {
 	});
 
 	it('affiche un formulaire de candidature', () => {
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					appellations={[
+		// GIVEN
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
 						{
 							code: 'code',
 							label: 'label',
 						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
+
+		// WHEN
+		render(
+			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<CandidaterStage3eEt2de
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -163,20 +202,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque l’entreprise ne propose qu’un seul métier', () => {
 			it('affiche un champ de sélection du métier désactivé avec comme valeur le métier', () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: 'code',
+									label: 'label du métier',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					},
+				);
 
 				// WHEN
 				render(
 					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
-							appellations={[
-								{
-									code: 'code',
-									label: 'label du métier',
-								},
-							]}
-							modeDeContact={ModeDeContact.IN_PERSON}
-							nomEntreprise="Carrefour"
-							siret="37000000000000"
+							{...props}
 						/>
 					</DependenciesProvider>,
 				);
@@ -193,11 +239,10 @@ describe('Candidater à un stage de 3e et 2de', () => {
 			it('affiche un champ de sélection du métier actif', async () => {
 				// GIVEN
 				const user = userEvent.setup();
-				// WHEN
-				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-						<CandidaterStage3eEt2de
-							appellations={[
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
 								{
 									code: 'code',
 									label: 'label',
@@ -206,10 +251,19 @@ describe('Candidater à un stage de 3e et 2de', () => {
 									code: 'code2',
 									label: 'label2',
 								},
-							]}
-							modeDeContact={ModeDeContact.IN_PERSON}
-							nomEntreprise="Carrefour"
-							siret="37000000000000"
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					},
+				);
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							{...props}
 						/>
 					</DependenciesProvider>,
 				);
@@ -231,20 +285,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 	it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {
 		// GIVEN
+		const props = aStage3eEt2deCandidaterPageProps(
+			{
+				donneesEntreprise: {
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				},
+			},
+		);
 
 		// WHEN
 		render(
 			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
-					appellations={[
-						{
-							code: 'code',
-							label: 'label',
-						},
-					]}
-					modeDeContact={ModeDeContact.IN_PERSON}
-					nomEntreprise="Carrefour"
-					siret="37000000000000"
+					{...props}
 				/>
 			</DependenciesProvider>,
 		);
@@ -258,23 +319,30 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque plusieurs métiers sont proposés', () => {
 			it('envoie les données de la candidature', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-							{
-								code: '67891',
-								label: 'Conseiller / Conseillère en insertion professionnelle',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -309,19 +377,26 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque un seul métier est proposé', () => {
 			it('envoie les données de la candidature', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: '12345',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -351,6 +426,25 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque la candidature est envoyée avec succès', () => {
 			it('affiche une page de succès', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
@@ -358,19 +452,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-							{
-								code: '67891',
-								label: 'Conseiller / Conseillère en insertion professionnelle',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 
@@ -398,6 +480,25 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			it('affiche un lien de retour à l’accueil', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
@@ -405,19 +506,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-							{
-								code: '67891',
-								label: 'Conseiller / Conseillère en insertion professionnelle',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -442,6 +531,25 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			it('affiche un bouton de retour à la recherche', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					},
+				);
 				const routerBack = jest.fn();
 				mockUseRouter({ back: routerBack });
 				mockSessionStorage({
@@ -454,19 +562,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-							{
-								code: '67891',
-								label: 'Conseiller / Conseillère en insertion professionnelle',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -494,6 +590,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		describe('lorsque l’envoi de la candidature échoue', () => {
 			it('affiche une page d’erreur', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: 'code',
+									label: 'label',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
@@ -501,15 +612,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -530,6 +633,21 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			it('affiche un bouton de retour au formulaire', async () => {
 				// GIVEN
+				const props = aStage3eEt2deCandidaterPageProps(
+					{
+						donneesEntreprise: {
+							appellations: [
+								{
+									code: 'code',
+									label: 'label',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					},
+				);
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
@@ -537,15 +655,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// WHEN
 				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
-						appellations={[
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -581,19 +691,24 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				});
 				const user = userEvent.setup();				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
-				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						appellations={[
+				const props = aStage3eEt2deCandidaterPageProps({
+					donneesEntreprise: {
+						appellations: [
 							{
 								code: '12345',
 								label: 'Chargé / Chargée de relations entreprises',
 							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						],
+						modeDeContact: ModeDeContact.PHONE,
+						nomEntreprise: 'Carrefour',
+						siret: '12345678912345',
+					},
+				});
+
+				// WHEN
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					<CandidaterStage3eEt2de
+						{...props}
 					/>
 				</DependenciesProvider>);
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
@@ -619,22 +734,27 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(new Promise(() => {}));
-
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						appellations={[
+				const props = aStage3eEt2deCandidaterPageProps({
+					donneesEntreprise: {
+						appellations: [
 							{
 								code: '12345',
 								label: 'Chargé / Chargée de relations entreprises',
 							},
 							{
-								code: '67891',
-								label: 'Conseiller / Conseillère en insertion professionnelle',
+								code: '67890',
+								label: 'Boulanger / Boulangère',
 							},
-						]}
-						modeDeContact={ModeDeContact.PHONE}
-						nomEntreprise="Carrefour"
-						siret="12345678912345"
+						],
+						modeDeContact: ModeDeContact.PHONE,
+						nomEntreprise: 'Carrefour',
+						siret: '12345678912345',
+					},
+				});
+
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					<CandidaterStage3eEt2de
+						{...props}
 					/>
 				</DependenciesProvider>);
 

@@ -7,13 +7,15 @@ import '~/test-utils';
 import { render } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 
+import {
+	aStage3eEt2deCandidaterPageProps,
+} from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { dependencies } from '~/server/start';
 
 jest.mock('~/server/start', () => ({
@@ -33,22 +35,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			mockUseRouter({});
 		});
 		it('doit rendre du HTML respectant la specification', async () => {
+			const props = aStage3eEt2deCandidaterPageProps();
 			const { container } = render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<Stages3eEt2deCandidaterPage
-						appellations={[
-							{
-								code: 'code',
-								label: 'label',
-							},
-							{
-								code: 'code2',
-								label: 'label2',
-							},
-						]}
-						modeDeContact={ModeDeContact.IN_PERSON}
-						nomEntreprise="nomEntreprise"
-						siret="siret"
+						{...props}
 					/>,
 				</DependenciesProvider>,
 			);
@@ -56,20 +47,13 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			expect(container.outerHTML).toHTMLValidate();
 		});
 		it('n‘a pas de défaut d‘accessibilité', () => {
+			const props = aStage3eEt2deCandidaterPageProps();
 			const { container } = render(
 				<DependenciesProvider
 					stage3eEt2deService={aStage3eEt2deService()}
 				>
 					<Stages3eEt2deCandidaterPage
-						appellations={[
-							{
-								code: 'code',
-								label: 'label',
-							},
-						]}
-						modeDeContact={ModeDeContact.IN_PERSON}
-						nomEntreprise="nomEntreprise"
-						siret="siret"
+						{...props}
 					/>
 				</DependenciesProvider>,
 			);
@@ -198,19 +182,21 @@ describe('Page Candidater Stages 3e et 2de', () => {
 						// Then
 						expect(result).toEqual({
 							props: {
-								appellations: [
-									{
-										code: 'code',
-										label: 'label',
-									},
-									{
-										code: 'code2',
-										label: 'label2',
-									},
-								],
-								modeDeContact: 'IN_PERSON',
-								nomEntreprise: 'nomEntreprise',
-								siret: 'siret',
+								donneesEntreprise: {
+									appellations: [
+										{
+											code: 'code',
+											label: 'label',
+										},
+										{
+											code: 'code2',
+											label: 'label2',
+										},
+									],
+									modeDeContact: 'IN_PERSON',
+									nomEntreprise: 'nomEntreprise',
+									siret: 'siret',
+								},
 							},
 						});
 						expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).toHaveBeenCalledWith(['appellationCodes']);

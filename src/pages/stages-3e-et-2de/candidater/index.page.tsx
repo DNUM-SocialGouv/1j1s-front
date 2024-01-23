@@ -10,10 +10,12 @@ import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3
 import { dependencies } from '~/server/start';
 
 export interface Stage3eEt2deCandidaterPageProps {
-	nomEntreprise: string;
-	appellations: Array<MetierStage3eEt2de>
-	siret: string;
-	modeDeContact: ModeDeContact;
+	donneesEntreprise: {
+		nomEntreprise: string;
+		appellations: Array<MetierStage3eEt2de>
+		siret: string;
+		modeDeContact: ModeDeContact;
+	}
 }
 
 export default function Stages3eEt2deCandidaterPage(props: Stage3eEt2deCandidaterPageProps ) {
@@ -64,10 +66,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	}
 
 	const props: Stage3eEt2deCandidaterPageProps = {
-		appellations: appellations.result,
-		modeDeContact: query.modeDeContact as ModeDeContact,
-		nomEntreprise: query.nomEntreprise as string,
-		siret: query.siret as string,
+		donneesEntreprise: {
+			appellations: appellations.result,
+			modeDeContact: query.modeDeContact as ModeDeContact,
+			nomEntreprise: query.nomEntreprise as string,
+			siret: query.siret as string,
+		},
 	};
 	return { props };
 }

@@ -10,6 +10,7 @@ import {
 	SuccesEnvoyerCandidatureStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/SuccesEnvoyerCandidatureStage3eEt2de';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 
 export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPageProps) {
 	const {
@@ -17,7 +18,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		siret,
 		modeDeContact,
 		appellations,
-	} = props;
+	} = props.donneesEntreprise;
 
 	const [etatSoumission, setEtatSoumission] =
 		useState<'initial' | 'succes' | 'echec'>('initial');
@@ -38,4 +39,21 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	}
 
 	return <EchecEnvoyerCandidatureStage3eEt2de retourFormulaire={() => setEtatSoumission('initial')} />;
+}
+
+export function aStage3eEt2deCandidaterPageProps(override?: Partial<Stage3eEt2deCandidaterPageProps>): Stage3eEt2deCandidaterPageProps {
+	return {
+		donneesEntreprise: {
+			appellations: [
+				{
+					code: 'code',
+					label: 'label',
+				},
+			],
+			modeDeContact: ModeDeContact.IN_PERSON,
+			nomEntreprise: 'nomEntreprise',
+			siret: 'siret',
+		},
+		...override,
+	};
 }
