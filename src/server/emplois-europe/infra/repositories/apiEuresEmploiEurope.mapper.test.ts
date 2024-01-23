@@ -892,24 +892,4 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			});
 		});
 	});
-
-	describe('findItemByHandle', () => {
-		it('renvoie l‘item avec le bon Handle', () => {
-			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
-			const itemExpectedInResult = anApiEuresEmploiEuropeDetailItem({
-				jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 3' } }),
-			});
-
-			const items = [
-				anApiEuresEmploiEuropeDetailItem({
-					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 1' } }) }),
-				anApiEuresEmploiEuropeDetailItem({
-					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({ header: { handle: 'id 2' } }) }),
-				itemExpectedInResult];
-
-			const result = mapper.findItemByHandle(items, 'id 3');
-
-			expect(result).toEqual(itemExpectedInResult);
-		});
-	});
 });

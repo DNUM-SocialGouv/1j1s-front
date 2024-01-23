@@ -5,6 +5,7 @@ import {
 } from '~/server/emplois-europe/domain/emploiEurope';
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
@@ -69,6 +70,10 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 		return response;
 	}
 
+	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
+		return items.find((detail) => detail.jobVacancy.header.handle === handle);
+	}
+
 	async get(handle: string): Promise<Either<EmploiEurope>> {
 		const endpoint = '/get';
 		try {
@@ -78,7 +83,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			};
 			const response: { data: ApiEuresEmploiEuropeDetailResponse } = await this.httpClientService.post(endpoint, body);
 
-			const itemDetail = this.apiEuresEmploiEuropeMapper.findItemByHandle(response.data.data.items, handle);
+			const itemDetail = this.findItemByHandle(response.data.data.items, handle);
 			if(!itemDetail) return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
 			const detailOffre = this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail);

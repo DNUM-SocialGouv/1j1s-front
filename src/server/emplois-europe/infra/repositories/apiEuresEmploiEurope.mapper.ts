@@ -34,7 +34,7 @@ export class ApiEuresEmploiEuropeMapper {
 	) {
 	}
 
-	public findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
+	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
 		return items.find((detail) => detail.jobVacancy.header.handle === handle);
 	}
 

@@ -3,6 +3,7 @@ import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-eu
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
@@ -20,6 +21,10 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 	) {
 	}
 
+	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
+		return items.find((detail) => detail.jobVacancy.header.handle === handle);
+	}
+
 	async search(): Promise<Either<ResultatRechercheEmploiEurope>> {
 		const response = mockResultatRechercheApiEuresEmploiEurope();
 		const responseDetail = mockResultatRechercheDetailApiEuresEmploiEurope();
@@ -29,7 +34,7 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 	async get(handle: string): Promise<Either<EmploiEurope>> {
 		const response = mockResultatRechercheDetailApiEuresEmploiEurope();
 
-		const itemDetail = this.apiEuresEmploiEuropeMapper.findItemByHandle(response.data.items, handle);
+		const itemDetail = this.findItemByHandle(response.data.items, handle);
 		if(!itemDetail) return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 
 		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail));
