@@ -47,6 +47,16 @@ describe('<FormulaireDeContactCEJ />', () => {
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
+	it('lorsque je remplis le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
+		const user = userEvent.setup();
+
+		renderComponent();
+		const mailInput = screen.getByRole('textbox', { name : 'Adresse email' });
+
+		await user.type(mailInput, '     mail@avecespaces.com    ');
+		expect(mailInput).toHaveValue('mail@avecespaces.com');
+	});
+
 	it('a un champ Age obligatoire', async () => {
 		// Given
 		renderComponent();

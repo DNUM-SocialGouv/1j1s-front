@@ -71,7 +71,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				name="mail"
 				placeholder="Exemple : jean.dupont@gmail.com"
 				required
-				type="text"
+				type="email"
 			/>
 			<InputText
 				type="tel"

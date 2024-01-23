@@ -30,13 +30,26 @@ describe('<Entreprise />', () => {
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
-		it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
-			render(<Entreprise />);
+		describe('champ adresse mail', () => {
+			it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
+				render(<Entreprise />);
 
-			const emailInput = screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' });
+				const emailInput = screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' });
 
-			expect(emailInput).toHaveAccessibleDescription(expect.stringContaining('Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.'));
+				expect(emailInput).toHaveAccessibleDescription(expect.stringContaining('Cette adresse de contact sera utilisée dans le cas où il manquerait des informations pour valider votre demande, ou pour vous informer du statut de cette dernière. Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.'));
+			});
+
+			it('lorsque je remplis le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
+				const user = userEvent.setup();
+
+				render(<Entreprise />);
+				const mailInput = screen.getByRole('textbox', { name : /Adresse mail/ });
+
+				await user.type(mailInput, '     mail@avecespaces.com    ');
+				expect(mailInput).toHaveValue('mail@avecespaces.com');
+			});
 		});
+
 
 		it('il voit afficher des champs facultatifs', async () => {
 			const labelLogo = 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…';

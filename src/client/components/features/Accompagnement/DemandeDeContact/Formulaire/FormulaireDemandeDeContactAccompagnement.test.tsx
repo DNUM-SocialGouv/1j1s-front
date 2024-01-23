@@ -46,7 +46,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 	function renderComponent() {
 		render(
-			<DependenciesProvider localisationService={localisationService} établissementAccompagnementService={établissementAccompagnementService}>
+			<DependenciesProvider localisationService={localisationService}
+				établissementAccompagnementService={établissementAccompagnementService}>
 				<FormulaireDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={contactÉtablissementAccompagnement}
 					onSuccess={onSuccess}
@@ -56,17 +57,32 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		);
 	}
 
-	it('a un champ Adresse e-mail facultatif', async () => {
-		const label = 'Adresse e-mail (facultatif)';
-		// Given
-		renderComponent();
+	describe('champ email', () => {
+		it('a un champ Adresse e-mail facultatif', async () => {
+			const label = 'Adresse e-mail (facultatif)';
+			// Given
+			renderComponent();
 
-		//When
-		await userEvent.type(screen.getByLabelText(label), 's{backspace}');
+			//When
+			await userEvent.type(screen.getByLabelText(label), 's{backspace}');
 
-		// Then
-		expect(screen.getByLabelText(label)).toBeValid();
+			// Then
+			expect(screen.getByLabelText(label)).toBeValid();
+		});
+		it('ne prend pas en compte les espaces avant et après', async () => {
+			const label = 'Adresse e-mail (facultatif)';
+			// Given
+			renderComponent();
+
+			//When
+			const inputEmail = screen.getByRole('textbox', { name: label });
+			await userEvent.type(inputEmail, '    mail@avecespace.com   ');
+
+			// Then
+			expect(inputEmail).toHaveValue('mail@avecespace.com');
+		});
 	});
+
 
 	it('a un champ Commentaire facultatif', async () => {
 		const label = 'Commentaires ou autres informations utiles (facultatif)';

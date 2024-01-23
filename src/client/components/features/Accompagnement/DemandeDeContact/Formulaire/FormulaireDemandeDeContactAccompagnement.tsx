@@ -64,6 +64,7 @@ export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissement
 				pattern={emailRegex}
 				label="Adresse e-mail (facultatif)"
 				name="mail"
+				type="email"
 				placeholder="Exemple : jean.dupont@gmail.com"
 			/>
 			<InputText
