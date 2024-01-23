@@ -11,6 +11,7 @@ import { mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import { createSuccess } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
@@ -276,13 +277,13 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						siret="12345678912345"
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
 				await user.type(inputEmail, 'alexis.dupont@example.com');
-				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				await user.click(inputMetier);
 				const options = screen.getByRole('listbox');
 				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
@@ -323,11 +324,11 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						siret="12345678912345"
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
 				await user.type(inputEmail, 'alexis.dupont@example.com');
 
 				// WHEN
@@ -373,13 +374,13 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					/>
 				</DependenciesProvider>);
 
-				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
 				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				await user.click(inputMetier);
 				const options = screen.getByRole('listbox');
 				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
@@ -419,13 +420,13 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						siret="12345678912345"
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
 				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				await user.click(inputMetier);
 				const options = screen.getByRole('listbox');
 				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
@@ -434,7 +435,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				await user.click(envoyerBouton);
 
 				// THEN
-				const lienAccueil = screen.getByRole('link', { name: 'Retourner à l’accueil' });
+				const lienAccueil = screen.getByRole('link', { name: 'Retour à l’accueil' });
 				expect(lienAccueil).toBeVisible();
 				expect(lienAccueil).toHaveAttribute('href', '/');
 			});
@@ -468,25 +469,61 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						siret="12345678912345"
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name:'Prénom Exemple : Alexis' });
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name:'Nom Exemple : Dupont' });
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name:'E-mail Exemple : alexis.dupont@example.com' });
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
 				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name:'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				await user.click(inputMetier);
 				const options = screen.getByRole('listbox');
 				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
 				await user.click(premiereOption);
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
-				const boutonRetour = screen.getByRole('button', { name: 'Déposer une autre offre de stage' });
+				const boutonRetour = screen.getByRole('button', { name: 'Continuer la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
 				expect(boutonRetour).toBeVisible();
 				expect(routerBack).toHaveBeenCalled();
+			});
+		});
+
+		describe('lorsque l’envoi de la candidature échoue', () => {
+			it('affiche un message d’erreur', async () => {
+				// GIVEN
+				const user = userEvent.setup();
+				const stage3eEt2deService = aStage3eEt2deService();
+				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockRejectedValue(ErreurMetier.SERVICE_INDISPONIBLE);
+
+				// WHEN
+				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					<CandidaterStage3eEt2de
+						appellations={[
+							{
+								code: '12345',
+								label: 'Chargé / Chargée de relations entreprises',
+							},
+						]}
+						modeDeContact={ModeDeContact.PHONE}
+						nomEntreprise="Carrefour"
+						siret="12345678912345"
+					/>
+				</DependenciesProvider>);
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+				await user.type(inputPrenom, 'Alexis');
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+				await user.type(inputNom, 'Dupont');
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+				await user.type(inputEmail, 'test@example.com');
+				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+				await user.click(envoyerBouton);
+
+				// THEN
+				const message = screen.getByText('Le service est momentanément indisponible. Merci de réessayer ultérieurement.');
+				expect(message).toBeVisible();
 			});
 		});
 	});

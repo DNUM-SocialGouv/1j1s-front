@@ -21,21 +21,24 @@
   text-align: center;
 }
 
-.boutonRetourAccueil {
+.boutonRetourDeposerOffre {
   margin-top: 2rem;
   align-self: center;
   width: 100%;
+  button {
+    width: 100%;
+  }
   @include utilities.media(medium) {
-    width: 18rem;
+    width: 19rem;
   }
 }
 
-.boutonRetourDeposerOffre {
+.boutonRetourAccueil {
   margin-top: .5rem;
   margin-bottom: 4rem;
   align-self: center;
   width: 100%;
   @include utilities.media(medium) {
-    width: 18rem;
+    width: 19rem;
   }
 }

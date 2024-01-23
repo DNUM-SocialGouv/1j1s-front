@@ -8,19 +8,20 @@ export function SuccesEnvoyerCandidatureStage3eEt2de() {
 	return <Container className={styles.container}>
 		<h1 className={styles.titre}>Féliciations, vos informations ont bien été envoyées</h1>
 		<p className={styles.texte}>L’entreprise a choisi d’être contactée par e-mail. Elle recevra donc vos informations et vous recontactera par la suite.</p>
-		<LinkStyledAsButton
-			href={'/'}
-			appearance={'asPrimaryButton'}
-			className={styles.boutonRetourAccueil}
-		>
-			Retourner à l’accueil
-		</LinkStyledAsButton>
 		<BackButton
-			label="Déposer une autre offre de stage"
-			aria-label="Déposer une autre offre de stage"
+			label="Continuer la recherche"
+			aria-label="Continuer la recherche"
 			icon={undefined}
 			iconPosition={undefined}
 			className={styles.boutonRetourDeposerOffre}
+			appearance={'primary'}
 		/>
+		<LinkStyledAsButton
+			href={'/'}
+			appearance={'asSecondaryButton'}
+			className={styles.boutonRetourAccueil}
+		>
+			Retour à l’accueil
+		</LinkStyledAsButton>
 	</Container>;
 }
