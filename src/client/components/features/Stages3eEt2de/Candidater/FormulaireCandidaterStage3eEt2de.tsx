@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
-import styles from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de.module.scss';
+import styles from '~/client/components/features/Stages3eEt2de/Candidater/FormulaireCandidaterStage3eEt2de.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
