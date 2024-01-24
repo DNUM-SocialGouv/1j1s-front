@@ -68,6 +68,32 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			expect(resultats[0]).toHaveTextContent('Informatique');
 			expect(resultats[1]).toHaveTextContent('Mécanique');
 		});
+		it('des metiers proposés', () => {
+			// GIVEN
+			const resultatRecherche = aResultatRechercheStage3eEt2de({
+				nombreDeResultats: 2,
+				resultats: [
+					aStage3eEt2de({
+						appellationLibelle: ['Métier 1', 'Métier 2'],
+					}),
+					aStage3eEt2de({
+						appellationLibelle: ['Métier 3', 'Métier 4'],
+					}),
+				],
+			});
+
+			// WHEN
+			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+			// THEN
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+			expect(resultatsUl).toBeInTheDocument();
+			// eslint-disable-next-line testing-library/no-node-access
+			const resultats = resultatsUl.children;
+			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);
+			expect(resultats[0]).toHaveTextContent('Métier 1, Métier 2');
+			expect(resultats[1]).toHaveTextContent('Métier 3, Métier 4');
+		});
 		it('de l’adresse', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({

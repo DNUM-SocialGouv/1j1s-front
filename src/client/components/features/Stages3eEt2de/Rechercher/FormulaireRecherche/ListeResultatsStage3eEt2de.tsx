@@ -61,6 +61,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				sousTitreOffre={<>
 					<p>{stage3eEt2de.domaine}</p>
 					<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
+					<p>{stage3eEt2de.appellationLibelle.map((appellationLibelle) => appellationLibelle).join(', ')}</p>
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
