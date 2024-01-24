@@ -27,7 +27,7 @@ export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileSt
 	};
 }
 
-export function mapCandidatureStage3eEt2de(candidature: CandidatureStage3eEt2de): ApiImmersionFacileStage3eEt2deCandidature {
+export function mapToApiImmersionFacileStage3eEt2deCandidature(candidature: CandidatureStage3eEt2de): ApiImmersionFacileStage3eEt2deCandidature {
 	return {
 		appellationCode: candidature.appellationCode,
 		contactMode: candidature.modeDeContact,

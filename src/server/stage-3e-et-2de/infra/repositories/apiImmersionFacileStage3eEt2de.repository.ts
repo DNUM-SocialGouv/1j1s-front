@@ -10,8 +10,8 @@ import {
 	apiImmersionFacileStage3eEt2deSchemas,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de';
 import {
-	mapCandidatureStage3eEt2de,
 	mapRechercheStage3eEt2de,
+	mapToApiImmersionFacileStage3eEt2deCandidature,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.mapper';
 
 export class ApiImmersionFacileStage3eEt2deRepository implements Stage3eEt2deRepository {
@@ -48,7 +48,7 @@ export class ApiImmersionFacileStage3eEt2deRepository implements Stage3eEt2deRep
 
 	async sendCandidatureStage3eEt2de(candidature: CandidatureStage3eEt2de): Promise<Either<undefined>> {
 		try {
-			const apiImmersionFacileStage3eEt2deCandidature = mapCandidatureStage3eEt2de(candidature);
+			const apiImmersionFacileStage3eEt2deCandidature = mapToApiImmersionFacileStage3eEt2deCandidature(candidature);
 			await this.httpClientService.post('/contact-establishment', apiImmersionFacileStage3eEt2deCandidature);
 			return createSuccess(undefined);
 		} catch (error) {

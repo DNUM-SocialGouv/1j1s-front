@@ -172,7 +172,7 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
-			const candidature: CandidatureStage3eEt2de = aCandidatureStage3eEt2de();
+			const candidature = aCandidatureStage3eEt2de();
 
 			// When
 			repository.sendCandidatureStage3eEt2de(candidature);
@@ -186,7 +186,7 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
-				const candidature: CandidatureStage3eEt2de = aCandidatureStage3eEt2de();
+				const candidature = aCandidatureStage3eEt2de();
 
 				// When
 				const result = await repository.sendCandidatureStage3eEt2de(candidature);

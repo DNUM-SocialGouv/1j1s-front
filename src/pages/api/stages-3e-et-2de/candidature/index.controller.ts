@@ -14,7 +14,7 @@ import { dependencies } from '~/server/start';
 export const envoyerCandidatureStage3eEt2deQuerySchema = Joi.object({
 	appellationCode: Joi.string().required(),
 	email: Joi.string().email().required(),
-	modeDeContact: Joi.string().valid(ModeDeContact.EMAIL, ModeDeContact.IN_PERSON, ModeDeContact.PHONE).required(), // TODO, : Tester c'est chelou quand meme
+	modeDeContact: Joi.string().valid(...Object.values(ModeDeContact)).required(),
 	nom: Joi.string().required(),
 	prenom: Joi.string().required(),
 	siret: Joi.string().required(),

@@ -6,8 +6,8 @@ import {
 	anApiImmersionFacileStage3eEt2deCandidature,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.fixture';
 import {
-	mapCandidatureStage3eEt2de,
 	mapRechercheStage3eEt2de,
+	mapToApiImmersionFacileStage3eEt2deCandidature,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.mapper';
 
 describe('map ApiImmersionFacileStage3eEt2de', () => {
@@ -138,7 +138,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 		});
 	});
 
-	describe('mapCandidatureStage3eEt2de', () => {
+	describe('mapToApiImmersionFacileCandidatureStage3eEt2de', () => {
 		it('retourne une ApiImmersionFacileStage3eEt2deCandidature avec les données de la candidature', () => {
 			// Given
 			const candidature = aCandidatureStage3eEt2de({
@@ -151,7 +151,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 			});
 
 			// When
-			const result = mapCandidatureStage3eEt2de(candidature);
+			const result = mapToApiImmersionFacileStage3eEt2deCandidature(candidature);
 
 			// Then
 			expect(result).toEqual(anApiImmersionFacileStage3eEt2deCandidature({
