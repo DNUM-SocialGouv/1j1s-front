@@ -4,11 +4,7 @@
     "node": "18",
     "npm": "10"
   },
-<<<<<<< HEAD
   "version": "3.219.1",
-=======
-  "version": "3.218.1",
->>>>>>> 21ee3c48 (chore(main): release 3.218.1 (#2562))
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -76,21 +72,13 @@
     "@types/jest-axe": "3.5.9",
     "@types/lodash.debounce": "4.0.9",
     "@types/marked": "5.0.2",
-<<<<<<< HEAD
     "@types/node": "18.19.8",
-=======
-    "@types/node": "18.19.6",
->>>>>>> cc5276ca (chore(deps): update dependency @types/react to v18.2.48)
     "@types/react": "18.2.48",
     "@types/react-autosuggest": "10.1.11",
     "@types/react-dom": "18.2.18",
     "@types/uuid": "9.0.7",
     "@typescript-eslint/eslint-plugin": "6.19.0",
-<<<<<<< HEAD
     "cypress": "13.6.3",
-=======
-    "cypress": "13.6.2",
->>>>>>> 11c986f6 (chore(deps): update dependency @typescript-eslint/eslint-plugin to v6.19.0 (#2560))
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
     "eslint-plugin-cypress": "2.15.1",
