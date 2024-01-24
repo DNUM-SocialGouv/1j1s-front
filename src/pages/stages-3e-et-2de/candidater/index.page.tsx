@@ -9,13 +9,15 @@ import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { dependencies } from '~/server/start';
 
+export interface DonneesEntreprise {
+	appellations: MetierStage3eEt2de[];
+	modeDeContact: ModeDeContact;
+	nomEntreprise: string;
+	siret: string;
+}
+
 export interface Stage3eEt2deCandidaterPageProps {
-	donneesEntreprise: {
-		nomEntreprise: string;
-		appellations: Array<MetierStage3eEt2de>
-		siret: string;
-		modeDeContact: ModeDeContact;
-	}
+	donneesEntreprise: DonneesEntreprise
 }
 
 export default function Stages3eEt2deCandidaterPage(props: Stage3eEt2deCandidaterPageProps ) {
