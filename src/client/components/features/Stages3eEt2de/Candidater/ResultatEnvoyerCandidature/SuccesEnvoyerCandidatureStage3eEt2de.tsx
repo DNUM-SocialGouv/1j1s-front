@@ -1,7 +1,6 @@
-import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
-import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
-
+import { Container } from '../../../../layouts/Container/Container';
+import { LinkStyledAsButton } from '../../../../ui/LinkStyledAsButton/LinkStyledAsButton';
+import { BackButton } from '../../../ButtonRetour/BackButton';
 import styles from './ResultatEnvoyerCandidatureStage3eEt2de.module.scss';
 
 export function SuccesEnvoyerCandidatureStage3eEt2de() {

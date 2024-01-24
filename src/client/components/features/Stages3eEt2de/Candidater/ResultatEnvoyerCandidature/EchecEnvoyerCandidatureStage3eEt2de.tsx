@@ -1,8 +1,8 @@
-import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
+import { Container } from '../../../../layouts/Container/Container';
+import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
+import { BackButton } from '../../../ButtonRetour/BackButton';
 import styles
-	from '~/client/components/features/Stages3eEt2de/Candidater/ResultatEnvoyerCandidatureStage3eEt2de.module.scss';
-import { Container } from '~/client/components/layouts/Container/Container';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+	from './ResultatEnvoyerCandidatureStage3eEt2de.module.scss';
 
 export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 	retourFormulaire: () => void,

@@ -1,17 +1,17 @@
 import React, { FormEvent, useState } from 'react';
 
-import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
-import styles from '~/client/components/features/Stages3eEt2de/Candidater/FormulaireCandidaterStage3eEt2de.module.scss';
-import { Container } from '~/client/components/layouts/Container/Container';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { Input } from '~/client/components/ui/Form/Input';
-import { Select } from '~/client/components/ui/Select/Select';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
-import { CandidatureStage3eEt2de, ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
-import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
-import { emailRegex } from '~/shared/emailRegex';
+import { CandidatureStage3eEt2de, ModeDeContact } from '../../../../../../server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+import { MetierStage3eEt2de } from '../../../../../../server/stage-3e-et-2de/domain/metierStage3eEt2de';
+import { emailRegex } from '../../../../../../shared/emailRegex';
+import { useDependency } from '../../../../../context/dependenciesContainer.context';
+import { Stage3eEt2deService } from '../../../../../services/stage3eEt2de/stage3eEt2de.service';
+import { Container } from '../../../../layouts/Container/Container';
+import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
+import { Champ } from '../../../../ui/Form/Champ/Champ';
+import { Input } from '../../../../ui/Form/Input';
+import { Select } from '../../../../ui/Select/Select';
+import { BackButton } from '../../../ButtonRetour/BackButton';
+import styles from './FormulaireCandidaterStage3eEt2de.module.scss';
 
 export function FormulaireCandidaterStage3eEt2de(props: {
 	modeDeContact: ModeDeContact,
