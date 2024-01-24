@@ -49,7 +49,6 @@ type ComboboxProps = Omit<
 } & Labelled;
 
 
-
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	value: valueProps,
@@ -61,9 +60,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
 	onBlur: onBlurProps = doNothing,
-	onFocus: onFocusProps= doNothing,
-	onInput: onInputProps= doNothing,
-	onTouch: onTouchProps= doNothing,
+	onFocus: onFocusProps = doNothing,
+	onInput: onInputProps = doNothing,
+	onTouch: onTouchProps = doNothing,
 	requireValidOption = false,
 	required = false,
 	filter = filterValueOrLabelStartsWith,
@@ -79,12 +78,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			open: false,
 			suggestionList: listboxRef,
 			value: valueProps?.toString()
-						?? defaultValue?.toString()
-						?? '',
+				?? defaultValue?.toString()
+				?? '',
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
-	const [ matchingOptionValue, setMatchingOptionValue ] = useState<string>('');
+	const [matchingOptionValue, setMatchingOptionValue] = useState<string>('');
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
@@ -98,15 +97,15 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
-	useEffect(function validateAgainstSuggestionList() {
-		if (requireValidOption) {
-			if (findMatchingOption(listboxRef.current) || value === '' && !required) {
-				inputRef.current?.setCustomValidity('');
-			} else {
-				inputRef.current?.setCustomValidity('Veuillez sélectionner une option dans la liste');
-			}
+	const validation = useCallback(function validation() {
+		if (!requireValidOption) return '';
+
+		if (findMatchingOption(listboxRef.current) || value === '' && !required) {
+			return '';
 		}
-	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption, required, value]);
+
+		return 'Veuillez sélectionner une option dans la liste';
+	}, [findMatchingOption, requireValidOption, required, value]);
 
 	useEffect(function checkValidity() {
 		if (touched) {
@@ -169,10 +168,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 		onKeyDownProps(event);
 	}, [onKeyDownProps, triggerChangeEvent]);
+
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
 		onChangeProps(event, event.currentTarget.value);
 	}, [onChangeProps]);
+
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
 		if (newFocusStillInCombobox) {
@@ -182,9 +183,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 		dispatch(new Actions.CloseList());
 		const touched = setTouchedOnBlur(value);
-		if (touched) { onTouchProps(touched); }
+		if (touched) {
+			onTouchProps(touched);
+		}
 		onBlurProps(event);
 	}, [setTouchedOnBlur, value, onBlurProps, onTouchProps]);
+
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
@@ -205,11 +209,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 				<Input
 					type="text"
 					role="combobox"
-				 	aria-expanded={open}
+					aria-expanded={open}
 					aria-autocomplete="list"
 					aria-activedescendant={activeDescendant}
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
+					validation={validation}
 					value={value}
 					name={(valueName && name) || (name && `${name}.label`)}
 					data-touched={touched}
@@ -235,7 +240,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-expanded={open}
 					aria-labelledby={ariaLabelledby}
 					aria-label={ariaLabel}>
-					<Icon name={'angle-down'} />
+					<Icon name={'angle-down'}/>
 				</button>
 				<ul
 					role="listbox"
