@@ -8,8 +8,8 @@ import { render } from '@testing-library/react';
 import { GetServerSidePropsContext } from 'next';
 
 import {
-	aStage3eEt2deCandidaterPageProps,
-} from '~/client/components/features/Stages3eEt2de/Candidater/CandidaterStage3eEt2de';
+	aDonneesEntrepriseStage3eEt2de,
+} from '~/client/components/features/Stages3eEt2de/Candidater/donneesEntreprise.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
@@ -35,11 +35,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			mockUseRouter({});
 		});
 		it('doit rendre du HTML respectant la specification', async () => {
-			const props = aStage3eEt2deCandidaterPageProps();
+			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de();
 			const { container } = render(
 				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
 					<Stages3eEt2deCandidaterPage
-						{...props}
+						donneesEntreprise={donneesEntreprise}
 					/>,
 				</DependenciesProvider>,
 			);
@@ -47,13 +47,13 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			expect(container.outerHTML).toHTMLValidate();
 		});
 		it('n‘a pas de défaut d‘accessibilité', () => {
-			const props = aStage3eEt2deCandidaterPageProps();
+			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de();
 			const { container } = render(
 				<DependenciesProvider
 					stage3eEt2deService={aStage3eEt2deService()}
 				>
 					<Stages3eEt2deCandidaterPage
-						{...props}
+						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>,
 			);

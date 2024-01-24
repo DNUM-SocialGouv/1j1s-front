@@ -71,8 +71,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 		donneesEntreprise: {
 			appellations: appellations.result,
 			modeDeContact: query.modeDeContact as ModeDeContact,
-			nomEntreprise: query.nomEntreprise as string,
-			siret: query.siret as string,
+			nomEntreprise: String(query.nomEntreprise),
+			siret: String(query.siret),
 		},
 	};
 	return { props };
