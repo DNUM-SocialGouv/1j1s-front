@@ -12,14 +12,12 @@ export function SuccesEnvoyerCandidatureStage3eEt2de() {
 			<BackButton
 				label="Continuer la recherche"
 				aria-label="Continuer la recherche"
-				icon={undefined}
-				iconPosition={undefined}
 				className={styles.boutonContinuerRecherche}
-				appearance={'primary'}
+				appearance="primary"
 			/>
 			<LinkStyledAsButton
 				href={'/'}
-				appearance={'asSecondaryButton'}
+				appearance="asSecondaryButton"
 				className={styles.boutonRetourAccueil}
 			>
 				Retour à l’accueil

@@ -13,7 +13,7 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 		<p className={styles.texte}>Nous n’avons pas pu envoyer vos informations à l’entreprise. Veuillez réessayer plus tard</p>
 		<div className={styles.boutonsCTA}>
 			<ButtonComponent
-				appearance={'primary'}
+				appearance="primary"
 				label="Retour au formulaire"
 				onClick={props.retourFormulaire}
 				className={styles.boutonRetourFormulaire}
@@ -21,10 +21,8 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 			<BackButton
 				label="Retour à la recherche"
 				aria-label="Retour à la recherche"
-				icon={undefined}
-				iconPosition={undefined}
 				className={styles.boutonRetourRecherche}
-				appearance={'secondary'}
+				appearance="secondary"
 			/>
 		</div>
 	</Container>;
