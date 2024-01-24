@@ -20,7 +20,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	} = props.donneesEntreprise;
 
 	const [etatSoumission, setEtatSoumission] =
-		useState<'initial' | 'succes' | 'echec'>('succes');
+		useState<'initial' | 'succes' | 'echec'>('initial');
 
 	if (etatSoumission === 'initial') {
 		return <FormulaireCandidaterStage3eEt2de
