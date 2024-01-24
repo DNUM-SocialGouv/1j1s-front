@@ -431,7 +431,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// THEN
 				const titre = screen.getByRole('heading', { level: 1 });
 				expect(titre).toBeVisible();
-				expect(titre).toHaveTextContent('Féliciations, vos informations ont bien été envoyées');
+				expect(titre).toHaveTextContent('Félicitations, vos informations ont bien été envoyées');
 				const texte = screen.getByText('L’entreprise a choisi d’être contactée par e-mail. Elle recevra donc vos informations et vous recontactera par la suite.');
 				expect(texte).toBeVisible();
 			});
