@@ -49,7 +49,24 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 			repository.search(filtre);
 
 			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitude=2&longitude=3&distanceKm=10'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&latitude=2&longitude=3&distanceKm=10'));
+		});
+
+		it('appelle l‘api Immersion Facile avec l’option pour trier les offres par date', () => {
+			// Given
+			const filtre: Stage3eEt2deFiltre = aStage3eEt2deFiltre({
+				distanceCommune: '10',
+				latitudeCommune: '2',
+				longitudeCommune: '3',
+			});
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
+
+			// When
+			repository.search(filtre);
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&sortedBy=date'));
 		});
 
 		it('appelle l‘api Immersion Facile avec le filtre qui ne remonte que les entreprise volontaires', () => {

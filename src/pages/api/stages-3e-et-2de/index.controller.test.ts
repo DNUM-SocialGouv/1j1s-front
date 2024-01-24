@@ -51,7 +51,7 @@ describe('rechercher stage 3e et 2de', () => {
 		});
 
 		nock('https://staging.immersion-facile.beta.gouv.fr/api/v2').get(
-			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier',
+			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier&sortedBy=date',
 		).reply(200, searchResult);
 
 		await testApiHandler<ResultatRechercheStage3eEt2de | ErrorHttpResponse>({
@@ -64,7 +64,7 @@ describe('rechercher stage 3e et 2de', () => {
 				const jsonResultatsStages3eEt2de = await resultatsStages3eEt2de.json();
 				expect(jsonResultatsStages3eEt2de).toEqual(expected);
 			},
-			url: '/stages-3e-et-2de?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839',
+			url: '/stages-3e-et-2de?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839&sortedBy=date',
 		});
 	});
 });
