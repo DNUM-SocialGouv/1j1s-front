@@ -1,3 +1,5 @@
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de, Stage3eEt2deFiltre } from './stage3eEt2de';
 
 export function aResultatRechercheStage3eEt2de(override?: Partial<ResultatRechercheStage3eEt2de>): ResultatRechercheStage3eEt2de {
@@ -38,10 +40,12 @@ export function aStage3eEt2de(override?: Partial<Stage3eEt2de>): Stage3eEt2de {
 			rueEtNumero: '1 Rue de la Lune',
 			ville: 'Paris',
 		},
+		appellationCodes: ['11573', '11574'],
 		domaine: 'Boulangerie',
-		modeDeContact: 'Candidature en personne',
+		modeDeContact: ModeDeContact.IN_PERSON,
 		nomEntreprise: 'La Boulangerie',
 		nombreDeSalaries: '1-9',
+		siret: '12345678912345',
 		...override,
 	};
 }

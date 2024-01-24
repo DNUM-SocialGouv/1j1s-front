@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+
 export interface ApiImmersionFacileStage3eEt2deRechercheResponse {
 	name: string
 	address: {
@@ -9,10 +11,14 @@ export interface ApiImmersionFacileStage3eEt2deRechercheResponse {
 		streetNumberAndAddress: string
 	}
 	romeLabel: string
-	contactMode?: string
+	contactMode?: ModeDeContact
 	numberOfEmployeeRange?: string
 	voluntaryToImmersion: boolean
 	fitForDisabledWorkers: boolean
+	appellations: Array<{
+		appellationCode: string
+	}>
+	siret: string
 }
 
 export const apiImmersionFacileStage3eEt2deSchemas = {
@@ -29,3 +35,12 @@ export const apiImmersionFacileStage3eEt2deSchemas = {
 		voluntaryToImmersion: Joi.boolean().required(),
 	})).options({ allowUnknown: true }),
 };
+
+export interface ApiImmersionFacileStage3eEt2deCandidature {
+	potentialBeneficiaryFirstName: string
+	potentialBeneficiaryLastName: string
+	potentialBeneficiaryEmail: string
+	appellationCode: string
+	siret: string
+	contactMode: string
+}

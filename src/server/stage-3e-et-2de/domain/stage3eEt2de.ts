@@ -1,10 +1,14 @@
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+
 export interface Stage3eEt2de {
 	accessiblePersonnesEnSituationDeHandicap: boolean,
 	nomEntreprise: string
 	adresse: Stage3eEt2de.Adresse
 	domaine: string
 	nombreDeSalaries?: string
-	modeDeContact?: string
+	modeDeContact?: ModeDeContact
+	siret: string
+	appellationCodes: string[]
 }
 
 export namespace Stage3eEt2de {
