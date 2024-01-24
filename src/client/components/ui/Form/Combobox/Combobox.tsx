@@ -13,6 +13,7 @@ import React, {
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
@@ -201,7 +202,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			state: { ...state, value },
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
-				<input
+				<Input
 					type="text"
 					role="combobox"
 				 	aria-expanded={open}
@@ -217,7 +218,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					required={required}
 					{...inputProps} />
-				<input
+				<Input
 					type="hidden"
 					name={valueName ?? (name && `${name}.value`)}
 					value={matchingOptionValue}
