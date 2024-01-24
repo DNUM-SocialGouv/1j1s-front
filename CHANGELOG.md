@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.220.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.219.1...v3.220.0) (2024-01-24)
+
+
+### Features
+
+* **stage3e2de:** formulaire de candidature (backend) ([#2573](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2573)) ([f109b9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f109b9a8c0e05a5abdeaa75fb35594d4f35f0914))
+
 ## [3.219.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.219.0...v3.219.1) (2024-01-24)
 
 
