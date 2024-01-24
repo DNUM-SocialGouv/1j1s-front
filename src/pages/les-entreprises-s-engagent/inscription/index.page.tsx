@@ -4,11 +4,10 @@ import React, { FormEvent, useCallback, useMemo, useRef, useState } from 'react'
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { Combobox } from '~/client/components/ui/Form/Combobox';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import InputAutocomplétionSecteurActivité, {
-	SecteurActivité,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -23,9 +22,12 @@ import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.anal
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import {
 	EntrepriseSouhaitantSEngager,
-	SecteurDActivité,
 	TailleDEntreprise,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+	secteurActiviteRejoindreLaMobilisation,
+} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
 
@@ -47,7 +49,6 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-	const [secteurActiviteChoisie, setSecteurActiviteChoisie] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
 	const formStep1Ref = useRef<HTMLFormElement>(null);
@@ -78,14 +79,14 @@ export default function LesEntreprisesSEngagentInscription() {
 			nom: String(formStep2Data.get('lastName')),
 			nomSociété: String(formStep1Data.get('companyName')),
 			prénom: String(formStep2Data.get('firstName')),
-			secteur: secteurActiviteChoisie!.valeur as (keyof typeof SecteurDActivité), // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			secteur: String(formStep1Data.get('companySector')) as SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 			siret: String(formStep1Data.get('companySiret')),
 			taille: String(formStep1Data.get('companySize')) as (keyof typeof TailleDEntreprise),
 			travail: String(formStep2Data.get('job')),
 			téléphone: String(formStep2Data.get('phone')),
 			ville: String(formStep1Data.get('ville')),
 		};
-	}, [secteurActiviteChoisie]);
+	}, []);
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -134,8 +135,12 @@ export default function LesEntreprisesSEngagentInscription() {
 								className={styles.boutonRetour}>
 								Retour
 							</LinkStyledAsButtonWithIcon>
-							<form className={styles.formulaire} ref={formStep1Ref} onSubmit={goToStep2}
-								aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}>
+							<form
+								className={styles.formulaire}
+								ref={formStep1Ref}
+								onSubmit={goToStep2}
+								aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}
+							>
 								<div className={styles.bodyFormulaire}>
 									<InputText
 										label="Nom de l’entreprise"
@@ -155,17 +160,26 @@ export default function LesEntreprisesSEngagentInscription() {
 										required
 										pattern={'^[0-9]{14}$'}
 									/>
-									<InputAutocomplétionSecteurActivité
-										required
-										id="autocomplete-secteur-activité"
-										label="Secteur d’activité de l’entreprise"
-										name="companySector"
-										placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
-										valeurInitiale={secteurActiviteChoisie}
-										onSuggestionSelected={(event, suggestion) => {
-											setSecteurActiviteChoisie(suggestion);
-										}}
-									/>
+									<Champ>
+										<Champ.Label>
+											Secteur d’activité de l’entreprise
+											<Champ.Label.Complement>Exemples : Administration publique, Fonction publique d’Etat
+												…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Combobox}
+											aria-label={'Secteur d’activité de l’entreprise'}
+											valueName={'companySector'}
+											required
+											requireValidOption
+											autoComplete="off">
+											{secteurActiviteRejoindreLaMobilisation.map((secteurActivite) => (
+												<Combobox.Option key={secteurActivite.valeur} value={secteurActivite.valeur}>
+													{secteurActivite.libellé}
+												</Combobox.Option>))}
+										</Champ.Input>
+										<Champ.Error/>
+									</Champ>
 									<Select
 										required
 										label="Taille de l’entreprise"
@@ -193,7 +207,8 @@ export default function LesEntreprisesSEngagentInscription() {
 								icon={<Icon name="angle-left"/>}
 								iconPosition="left"
 								onClick={returnToStep1}
-								label="Retour"/>
+								label="Retour"
+							/>
 							<form className={styles.formulaire} ref={formStep2Ref} onSubmit={submitFormulaire}>
 								<div className={styles.bodyFormulaire}>
 									<InputText

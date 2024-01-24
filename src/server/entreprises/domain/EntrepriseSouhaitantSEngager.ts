@@ -1,3 +1,7 @@
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
+
 export const SecteurDActivité = {
 	'accommodation-catering': 'Hébergement et restauration',
 	'administrative-support': 'Activités de services administratifs et de soutien',
@@ -43,7 +47,7 @@ export interface EntrepriseSouhaitantSEngager {
   codePostal: string;
   ville: string;
   siret: string;
-  secteur: keyof typeof SecteurDActivité;
+  secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM;
   taille: keyof typeof TailleDEntreprise;
   prénom: string;
   nom: string;

@@ -15,6 +15,9 @@ import {
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
@@ -66,24 +69,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		});
 	});
 
-	describe('quand l’utilisateur arrive sur la page', () => {
-		it('peut cliquer sur le lien "Retour" pour retourner sur la page de description des entreprises s’engagent', async () => {
-			renderComponent();
-
-			const retourLink = screen.getByRole('link', { name: 'Retour' });
-
-			expect(retourLink).toHaveAttribute('href', '/les-entreprises-s-engagent');
-		});
-
-		it('voit la première étape de formulaire', () => {
-			renderComponent();
-
-			expect(screen.getByText('Étape 1 sur 2')).toBeVisible();
-			labelsEtape1.forEach((label) => {
-				expect(screen.getByText(label.name)).toBeVisible();
-			});
-		});
-
+	describe('sur l‘étape 1', () => {
 		it('envoie les analytics de la page à son affichage', () => {
 			renderComponent();
 
@@ -94,10 +80,58 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				'segment-site': 'funnel_etape_1',
 			});
 		});
-	});
 
-	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli le formulaire', () => {
-		it('il voit des messages d’erreur', async () => {
+		it('il voit l‘étape 1 du formulaire', () => {
+			renderComponent();
+
+			expect(screen.getByText('Étape 1 sur 2')).toBeVisible();
+			labelsEtape1.forEach((label) => {
+				expect(screen.getByText(label.name)).toBeVisible();
+			});
+		});
+
+		it('lorsqu‘il clique sur Retour, retourne sur la page de description des entreprises s’engagent', async () => {
+			renderComponent();
+
+			const retourLink = screen.getByRole('link', { name: 'Retour' });
+
+			expect(retourLink).toHaveAttribute('href', '/les-entreprises-s-engagent');
+		});
+
+		it('lorsqu‘il remplit toute l‘étape 1 puis clique sur Suivant, il passe à l’étape 2 et ne voit plus l‘étape 1', async () => {
+			renderComponent();
+
+			await remplirFormulaireEtape1();
+			await clickOnGoToEtape2();
+
+			const formulaireEtape1 = screen.getByRole('form', {
+				hidden: true,
+				name: 'Formulaire Les entreprise s’engagent - Étape 1',
+			});
+			expect(formulaireEtape1).not.toBeVisible();
+
+			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
+			labelsEtape2.forEach((label) => {
+				expect(screen.getByRole('textbox', label)).toBeVisible();
+			});
+		});
+
+		it('lorsqu’il remplit toute l‘étape 1 au clavier puis clique sur Suivant, il passe à l’étape 2', async () => {
+			// GIVEN
+			renderComponent();
+			await remplirFormulaireEtape1NavigationClavier();
+
+			// WHEN
+			await clickOnGoToEtape2();
+
+			// THEN
+			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
+			labelsEtape2.forEach((label) => {
+				expect(screen.getByRole('textbox', label)).toBeVisible();
+			});
+		});
+
+		it('lorsqu‘il clique sur Suivant mais n’a pas rempli le formulaire, il voit des messages d’erreur', async () => {
 			renderComponent();
 
 			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise' });
@@ -108,47 +142,153 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise' })).toBeValid();
 			expect(screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise' })).toBeInvalid();
 			expect(screen.getByRole('textbox', { name: 'Numéro de SIRET' })).toBeInvalid();
-			expect(screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' })).toBeInvalid();
+			expect(screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise' })).toBeInvalid();
 		});
 	});
 
-	describe('quand l’utilisateur clique sur Suivant et qu’il a rempli tous les champs', () => {
-		it('il passe à l’étape 2', async () => {
-			renderComponent();
-
-			await remplirFormulaireEtape1();
-			await clickOnGoToEtape2();
-
-			expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
-			labelsEtape2.forEach((label) => {
-				expect(screen.getByRole('textbox', label)).toBeVisible();
-			});
-		});
-
-		it('lorsque il remplit le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
+	describe('sur l‘étape 2', () => {
+		it('lorsqu‘il remplit le champ email avec des espaces avant et après, ils ne sont pas pris en compte', async () => {
 			const user = userEvent.setup();
 			renderComponent();
 
 			await remplirFormulaireEtape1();
 			await clickOnGoToEtape2();
 
-			const mailInput = screen.getByRole('textbox', { name : 'Adresse e-mail de contact' });
+			const mailInput = screen.getByRole('textbox', { name: 'Adresse e-mail de contact' });
 
 			await user.type(mailInput, '     mail@avecespaces.com    ');
 			expect(mailInput).toHaveValue('mail@avecespaces.com');
 		});
 
-		it('l’étape 1 devient cachée', async () => {
-			renderComponent();
-			await remplirFormulaireEtape1();
+		describe('lorsqu‘il a rempli l‘étape 2 puis envoie le formulaire', () => {
+			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
+				const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
+				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {
+				}));
 
+				render(
+					<DependenciesProvider
+						analyticsService={analyticsService}
+						lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
+						localisationService={localisationService}
+					>
+						<LesEntreprisesSEngagentInscription/>
+					</DependenciesProvider>,
+				);
+
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
+
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
+
+				const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
+				expect(loadingSubmitButton).toBeVisible();
+				expect(loadingSubmitButton).toBeDisabled();
+			});
+
+			it('appelle l’api avec les valeurs du formulaire et affiche un message de succès à l’utilisateur', async () => {
+				renderComponent();
+				const expected = anEntrepriseSouhaitantSEngager({
+					codePostal: '75015',
+					email: 'toto@email.com',
+					nom: 'Tata',
+					nomSociété: 'Octo',
+					prénom: 'Toto',
+					secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.HEALTH_SOCIAL,
+					siret: '41816609600069',
+					taille: 'xsmall',
+					travail: 'RH',
+					téléphone: '0122334455',
+					ville: 'Paris 15e Arrondissement',
+				});
+
+				await remplirFormulaireEtape1();
+				await clickOnGoToEtape2();
+
+				await remplirFormulaireEtape2();
+				await clickOnEnvoyerLeFormulaire();
+
+				expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
+				expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeVisible();
+			});
+
+			describe('en cas d´erreur lors de l‘appelle à l‘api', () => {
+				describe('montre une modale d‘erreur', () => {
+					it('je vois la modale', async () => {
+						// Given
+						renderComponent();
+						jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+						await remplirFormulaireEtape1();
+						await clickOnGoToEtape2();
+						await remplirFormulaireEtape2();
+						await clickOnEnvoyerLeFormulaire();
+						expect(screen.getByRole('dialog')).toBeVisible();
+					});
+
+					it('le bouton de Retour au formulaire ferme la modale', async () => {
+						// Given
+						const user = userEvent.setup();
+						renderComponent();
+						jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+						await remplirFormulaireEtape1();
+						await clickOnGoToEtape2();
+						await remplirFormulaireEtape2();
+						await clickOnEnvoyerLeFormulaire();
+						const modale = await screen.findByRole('dialog');
+						const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retour au formulaire' });
+
+						// When
+						await user.click(retournerAuFormulaire);
+
+						// Then
+						expect(modale).not.toBeVisible();
+					});
+
+					it('le bouton de Fermer ferme la modale', async () => {
+						// Given
+						const user = userEvent.setup();
+						renderComponent();
+						jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
+						await remplirFormulaireEtape1();
+						await clickOnGoToEtape2();
+						await remplirFormulaireEtape2();
+						await clickOnEnvoyerLeFormulaire();
+						const modale = await screen.findByRole('dialog');
+						const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Fermer' });
+
+						// When
+						await user.click(retournerAuFormulaire);
+
+						// Then
+						expect(modale).not.toBeInTheDocument();
+					});
+				});
+			});
+		});
+
+		it('lorsqu‘il a mal rempli l’étape 2 puis envoie le formulaire, il voit des messages d’erreur', async () => {
+			// Given
+			renderComponent();
+
+			await remplirFormulaireEtape1();
 			await clickOnGoToEtape2();
 
-			const formulaireEtape1 = screen.getByRole('form', {
-				hidden: true,
-				name: 'Formulaire Les entreprise s’engagent - Étape 1',
-			});
-			expect(formulaireEtape1).not.toBeVisible();
+			const [labelPrénom, ...autresLabels] = labelsEtape2;
+			const inputPrénom = screen.getByRole('textbox', labelPrénom);
+			await userEvent.type(inputPrénom, 'Toto');
+
+			// When
+			await clickOnEnvoyerLeFormulaire();
+
+			// Then
+			expect(screen.getByRole('textbox', labelPrénom)).toBeValid();
+			for (const label of autresLabels) {
+				expect(screen.getByRole('textbox', label)).toBeInvalid();
+			}
 		});
 
 		describe('une fois sur l’étape 2 et qu’il clique sur Retour', () => {
@@ -181,14 +321,14 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
 				expect(inputSiret).toHaveValue('41816609600069');
 
-				const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
+				const inputSecteur = screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise' });
 				expect(inputSecteur).toHaveValue('Santé humaine et action sociale');
 
 				const tailleEntreprise = screen.getByRole('button', { name: 'Taille de l’entreprise' });
 				expect(tailleEntreprise).toHaveTextContent('20 à 49 salariés'); // FIXME (SULI 12-12-2023): changer ce test quand select ne sera plus un button
 			});
 
-			it('les données complémentaires du champ de ville sont également bien renseignées lors de la soumission du formulaire', async () => {
+			it('les données sont bien renseignées lors de la soumission du formulaire', async () => {
 				// GIVEN
 				renderComponent();
 				const expected = anEntrepriseSouhaitantSEngager({
@@ -197,7 +337,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 					nom: 'Tata',
 					nomSociété: 'Octo',
 					prénom: 'Toto',
-					secteur: 'health-social',
+					secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.HEALTH_SOCIAL,
 					siret: '41816609600069',
 					taille: 'xsmall',
 					travail: 'RH',
@@ -214,155 +354,6 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
 			});
 		});
-
-		describe('quand l’utilisation clique sur Suivant et qu’il a rempli tous les champs en naviguant au clavier', () => {
-			it('il passe à l’étape 2', async () => {
-				// GIVEN
-				renderComponent();
-				await remplirFormulaireEtape1NavigationClavier();
-
-				// WHEN
-				await clickOnGoToEtape2();
-
-				// THEN
-				expect(screen.getByText('Étape 2 sur 2')).toBeVisible();
-				labelsEtape2.forEach((label) => {
-					expect(screen.getByRole('textbox', label)).toBeVisible();
-				});
-			});
-		});
-
-		describe('quand l’utilisateur a mal rempli l’étape 2 du formulaire et clique sur Envoyer le formulaire', () => {
-			it('il voit des messages d’erreur', async () => {
-				// Given
-				renderComponent();
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-
-				const [labelPrénom, ...autresLabels] = labelsEtape2;
-				const inputPrénom = screen.getByRole('textbox', labelPrénom);
-				await userEvent.type(inputPrénom, 'Toto');
-
-				// When
-				await clickOnEnvoyerLeFormulaire();
-
-				// Then
-				expect(screen.getByRole('textbox', labelPrénom)).toBeValid();
-				for (const label of autresLabels) {
-					expect(screen.getByRole('textbox', label)).toBeInvalid();
-				}
-			});
-		});
-
-		describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
-			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
-				const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {
-				}));
-
-				render(
-					<DependenciesProvider
-						analyticsService={analyticsService}
-						lesEntreprisesSEngagentService={aLesEntreprisesSEngagementServiceMock}
-						localisationService={localisationService}
-					>
-						<LesEntreprisesSEngagentInscription/>
-					</DependenciesProvider>,
-				);
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-
-				const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
-				expect(loadingSubmitButton).toBeVisible();
-				expect(loadingSubmitButton).toBeDisabled();
-			});
-			it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
-				renderComponent();
-				const expected = anEntrepriseSouhaitantSEngager({
-					codePostal: '75015',
-					email: 'toto@email.com',
-					nom: 'Tata',
-					nomSociété: 'Octo',
-					prénom: 'Toto',
-					secteur: 'health-social',
-					siret: '41816609600069',
-					taille: 'xsmall',
-					travail: 'RH',
-					téléphone: '0122334455',
-					ville: 'Paris 15e Arrondissement',
-				});
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-
-				expect(aLesEntreprisesSEngagementServiceMock.envoyerFormulaireEngagement).toHaveBeenCalledWith(expected);
-				expect(screen.getByText('Félicitations, votre formulaire a bien été envoyé !')).toBeVisible();
-			});
-		});
-	});
-
-	describe('en cas d´erreur', () => {
-		describe('montre une modale', () => {
-			it('je vois la modale', async () => {
-				// Given
-				renderComponent();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-				expect(screen.getByRole('dialog')).toBeVisible();
-			});
-
-			it('le bouton de Retour au formulaire ferme la modale', async () => {
-				// Given
-				const user = userEvent.setup();
-				renderComponent();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-				const modale = await screen.findByRole('dialog');
-				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Retour au formulaire' });
-
-				// When
-				await user.click(retournerAuFormulaire);
-
-				// Then
-				expect(modale).not.toBeVisible();
-			});
-
-			it('le bouton de Fermer ferme la modale', async () => {
-				// Given
-				const user = userEvent.setup();
-				renderComponent();
-				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-
-				await remplirFormulaireEtape1();
-				await clickOnGoToEtape2();
-				await remplirFormulaireEtape2();
-				await clickOnEnvoyerLeFormulaire();
-				const modale = await screen.findByRole('dialog');
-				const retournerAuFormulaire = within(modale).getByRole('button', { name: 'Fermer' });
-
-				// When
-				await user.click(retournerAuFormulaire);
-
-				// Then
-				expect(modale).not.toBeInTheDocument();
-			});
-		});
 	});
 });
 
@@ -374,9 +365,9 @@ async function remplirFormulaireEtape1() {
 	const inputSiret = screen.getByRole('textbox', { name: 'Numéro de SIRET' });
 	await user.type(inputSiret, '41816609600069');
 
-	const inputSecteur = screen.getByRole('textbox', { name: 'Secteur d’activité de l’entreprise' });
-	await user.type(inputSecteur, 'Santé humaine et action sociale');
-	await waitFor(() => user.click(screen.getByText('Santé humaine et action sociale')));
+	const inputSecteur = screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise' });
+	await user.type(inputSecteur, 'Santé humaine');
+	user.click(screen.getByRole('option', { name: 'Santé humaine et action sociale' }));
 
 	await user.click(screen.getByRole('button', { name: 'Taille de l’entreprise' }));
 	await user.click(screen.getByText('20 à 49 salariés'));
