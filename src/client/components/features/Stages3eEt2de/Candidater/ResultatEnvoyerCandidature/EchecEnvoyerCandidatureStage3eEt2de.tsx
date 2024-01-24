@@ -1,6 +1,7 @@
-import { Container } from '../../../../layouts/Container/Container';
-import { ButtonComponent } from '../../../../ui/Button/ButtonComponent';
-import { BackButton } from '../../../ButtonRetour/BackButton';
+import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
+import { Container } from '~/client/components/layouts/Container/Container';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+
 import styles
 	from './ResultatEnvoyerCandidatureStage3eEt2de.module.scss';
 
