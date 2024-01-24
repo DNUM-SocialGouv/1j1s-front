@@ -34,12 +34,22 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 		inputRef.current?.setCustomValidity(error);
 	}, [inputRef, validation]);
 
+	useEffect(() => {
+		if (touched) {
+			inputRef.current?.checkValidity();
+		}
+	}, [inputRef, touched]);
+
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		const error = validation(event.currentTarget.value);
 		event.currentTarget?.setCustomValidity(error);
 
+		if (touched) {
+			inputRef.current?.checkValidity();
+		}
+
 		onChangeProps(event);
-	}, [onChangeProps, validation]);
+	}, [inputRef, onChangeProps, touched, validation]);
 
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLInputElement>) {
 		saveValueOnFocus(event.currentTarget.value);
@@ -48,7 +58,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 
 	const onBlur = useCallback(async function onFocus(event: FocusEvent<HTMLInputElement>) {
 		const touched = setTouchedOnBlur(event.currentTarget.value);
-		if (touched) { onTouchProps(touched); }
+		if (touched) {
+			onTouchProps(touched);
+		}
 		onBlurProps(event);
 	}, [onBlurProps, onTouchProps, setTouchedOnBlur]);
 
