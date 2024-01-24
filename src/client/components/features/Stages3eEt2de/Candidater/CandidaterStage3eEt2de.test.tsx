@@ -83,7 +83,6 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(explicationPart2).toBeVisible();
 	});
 
-
 	it('affiche un bouton de retour à la recherche', async () => {
 		// GIVEN
 		const routerBack = jest.fn();
@@ -322,17 +321,12 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'alexis.dupont@example.com');
-				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-				await user.click(inputMetier);
-				const options = screen.getByRole('listbox');
-				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
-				await user.click(premiereOption);
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					metierLabel: 'Chargé / Chargée de relations entreprises',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 
 				// WHEN
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
@@ -374,12 +368,11 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'alexis.dupont@example.com');
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 
 				// WHEN
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
@@ -426,17 +419,12 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					/>
 				</DependenciesProvider>);
 
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-				await user.click(inputMetier);
-				const options = screen.getByRole('listbox');
-				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
-				await user.click(premiereOption);
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					metierLabel: 'Chargé / Chargée de relations entreprises',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 
@@ -474,17 +462,12 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-				await user.click(inputMetier);
-				const options = screen.getByRole('listbox');
-				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
-				await user.click(premiereOption);
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					metierLabel: 'Chargé / Chargée de relations entreprises',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 
@@ -527,17 +510,12 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-				await user.click(inputMetier);
-				const options = screen.getByRole('listbox');
-				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
-				await user.click(premiereOption);
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					metierLabel: 'Chargé / Chargée de relations entreprises',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 				const boutonRetour = screen.getByRole('button', { name: 'Continuer la recherche' });
@@ -575,12 +553,11 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 
@@ -616,12 +593,11 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
+				await remplirLeFormulaire({
+					email: 'alexis.dupont@example.com',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 				const boutonRetour = screen.getByRole('button', { name: 'Retour au formulaire' });
@@ -668,12 +644,11 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						donneesEntreprise={donneesEntreprise}
 					/>
 				</DependenciesProvider>);
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
+				await remplirLeFormulaire({
+					email: 'test@example.com',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
 				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
@@ -714,17 +689,12 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					/>
 				</DependenciesProvider>);
 
-				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				await user.type(inputPrenom, 'Alexis');
-				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-				await user.type(inputNom, 'Dupont');
-				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-				await user.type(inputEmail, 'test@example.com');
-				const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-				await user.click(inputMetier);
-				const options = screen.getByRole('listbox');
-				const premiereOption = within(options).getByRole('radio', { name: 'Chargé / Chargée de relations entreprises' });
-				await user.click(premiereOption);
+				await remplirLeFormulaire({
+					email: 'test@example.com',
+					metierLabel: 'Chargé / Chargée de relations entreprises',
+					nom: 'Dupont',
+					prenom: 'Alexis',
+				});
 
 				// WHEN
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
@@ -737,3 +707,31 @@ describe('Candidater à un stage de 3e et 2de', () => {
 	});
 });
 
+type DonneesFormulaires = {
+	prenom: string
+	nom: string
+	email: string
+	metierLabel?: string
+}
+async function remplirLeFormulaire(donneesFormulaire: DonneesFormulaires) {
+	const user = userEvent.setup();
+
+	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+	await user.type(inputPrenom, donneesFormulaire.prenom);
+	const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+	await user.type(inputNom, donneesFormulaire.nom);
+	const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+	await user.type(inputEmail, donneesFormulaire.email);
+	if (donneesFormulaire.metierLabel) {
+		await selectionnerUnMetier(donneesFormulaire.metierLabel);
+	}
+}
+
+async function selectionnerUnMetier(metierLabel: string) {
+	const user = userEvent.setup();
+	const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+	await user.click(inputMetier);
+	const options = screen.getByRole('listbox');
+	const optionDuMetierLabel = within(options).getByRole('radio', { name: metierLabel });
+	await user.click(optionDuMetierLabel);
+}
