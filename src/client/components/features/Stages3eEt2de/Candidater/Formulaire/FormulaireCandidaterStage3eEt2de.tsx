@@ -126,7 +126,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					/>
 					:
 					<Champ>
-						{ /* FIXME (DORO 22-01-2024): Embarquer la gestion de l'etat désactivé (voir UI kit) */}
+						{ /* FIXME (DORO 22-01-2024): Embarquer dans Champ la gestion de l'etat désactivé (voir UI kit) */}
 						<Champ.Label className={styles.elementDesactive}>
 							Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
@@ -143,8 +143,12 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 						<Champ.Error/>
 					</Champ>
 				}
-				<ButtonComponent className={styles.boutonSoumission} label="Envoyer les informations"
-				                 type="submit" disabled={isLoading}/>{/*TODO pas ouf le wording nan ?*/}
+				<ButtonComponent
+					className={styles.boutonSoumission}
+					label="Envoyer les informations"
+					type="submit"
+					disabled={isLoading}
+				/>
 			</form>
 		</Container>
 		<div className={styles.decharge}>

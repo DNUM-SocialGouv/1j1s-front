@@ -64,7 +64,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
 	const isAppellationsInvalid = appellations.instance === 'failure' || appellations.result.length === 0;
 	if (isAppellationsInvalid) {
-		return { notFound: true }; // TODO : Gestion d'erreur
+		return { notFound: true };
 	}
 
 	const props: Stage3eEt2deCandidaterPageProps = {
