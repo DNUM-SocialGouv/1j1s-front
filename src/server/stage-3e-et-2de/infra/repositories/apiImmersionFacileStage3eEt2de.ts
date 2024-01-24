@@ -17,6 +17,7 @@ export interface ApiImmersionFacileStage3eEt2deRechercheResponse {
 	fitForDisabledWorkers: boolean
 	appellations: Array<{
 		appellationCode: string
+		appellationLabel: string
 	}>
 	siret: string
 }

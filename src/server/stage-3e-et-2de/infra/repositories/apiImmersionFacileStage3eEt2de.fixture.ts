@@ -16,9 +16,11 @@ export function anApiImmersionFacileStage3eEt2de(override?: Partial<ApiImmersion
 		appellations: [
 			{
 				appellationCode: '11573',
+				appellationLabel: 'Boulangerie',
 			},
 			{
 				appellationCode: '11574',
+				appellationLabel: 'Pâtisserie',
 			},
 		],
 		contactMode: ModeDeContact.IN_PERSON,

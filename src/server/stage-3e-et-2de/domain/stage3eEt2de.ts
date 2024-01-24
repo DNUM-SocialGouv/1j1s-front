@@ -9,6 +9,7 @@ export interface Stage3eEt2de {
 	modeDeContact?: ModeDeContact
 	siret: string
 	appellationCodes: string[]
+	appellationLibelle: string[]
 }
 
 export namespace Stage3eEt2de {

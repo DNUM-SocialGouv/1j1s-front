@@ -18,6 +18,7 @@ export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileSt
 				ville: stage3eEt2de.address.city,
 			},
 			appellationCodes: stage3eEt2de.appellations.map((appellation) => appellation.appellationCode),
+			appellationLibelle: stage3eEt2de.appellations.map((appellation) => appellation.appellationLabel),
 			domaine: stage3eEt2de.romeLabel,
 			modeDeContact: stage3eEt2de.contactMode,
 			nomEntreprise: stage3eEt2de.name,
