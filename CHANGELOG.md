@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.219.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.219.0...v3.219.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2576](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2576)) ([7a2bb76](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7a2bb760325fba0112b70002b6602611b4514661))
+* **emplois europe:** renvoyer une erreur quand l‘offre n‘est pas trouvée ([#2574](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2574)) ([010cf66](https://github.com/DNUM-SocialGouv/1j1s-front/commit/010cf667514bf57a7ff0212ed1b8099c3abc6f44))
+
 ## [3.219.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.5...v3.219.0) (2024-01-23)
 
 
