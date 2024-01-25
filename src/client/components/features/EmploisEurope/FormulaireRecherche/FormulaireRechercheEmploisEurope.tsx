@@ -11,7 +11,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
 import { EURES_POSITION_SCHEDULE_TYPE, tempsDeTravailEures } from '~/client/domain/codesTempsTravailEures';
-import { niveauEtudeEures } from '~/client/domain/niveauEtudeEures';
+import { niveauEtudesEures } from '~/client/domain/niveauEtudesEures';
 import { paysEuropeList } from '~/client/domain/pays';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
@@ -84,7 +84,7 @@ function ModaleFiltreAvancee(props: {
 					))}
 				</FilterAccordion>
 				<FilterAccordion title="Niveau d‘études demandé">
-					{niveauEtudeEures.map((niveauEtude) => (
+					{niveauEtudesEures.map((niveauEtude) => (
 						<Checkbox
 							key={uuidv4()}
 							label={niveauEtude.libellé}
@@ -150,11 +150,11 @@ export function FormulaireRechercheEmploisEurope() {
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
 		setInputTypeContrat(addSelectionToQueryParams(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
-	
+
 	const toggleTempsDeTravail = useCallback((tempsDeTravail: string) => {
 		setInputTempsDeTravail(addSelectionToQueryParams(inputTempsDeTravail, tempsDeTravail));
 	}, [inputTempsDeTravail]);
-	
+
 	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
 		setInputNiveauEtude(addSelectionToQueryParams(inputNiveauEtude, niveauEtude));
 	}, [inputNiveauEtude]);
@@ -250,7 +250,7 @@ export function FormulaireRechercheEmploisEurope() {
 
 						<Select
 							multiple
-							optionList={niveauEtudeEures}
+							optionList={niveauEtudesEures}
 							onChange={setInputNiveauEtude}
 							label="Niveau d‘études demandé"
 							value={inputNiveauEtude}
