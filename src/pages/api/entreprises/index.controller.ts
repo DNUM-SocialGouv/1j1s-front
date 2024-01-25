@@ -7,7 +7,10 @@ import { withMonitoring } from '~/pages/api/middlewares/monitoring/monitoring.mi
 import { withValidation } from '~/pages/api/middlewares/validation/validation.middleware';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
-import { SecteurDActivité, TailleDEntreprise } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+	TailleDEntreprise,
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { dependencies } from '~/server/start';
 import { emailRegex } from '~/shared/emailRegex';
 
@@ -17,7 +20,7 @@ const contactLesEntreprisesSEngagentSchema = Joi.object({
 	nom: Joi.string().required(),
 	nomSociété: Joi.string().required(),
 	prénom: Joi.string().required(),
-	secteur: Joi.string().valid(...Object.keys(SecteurDActivité)).required(),
+	secteur: Joi.string().valid(...Object.values(SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM)).required(),
 	siret: Joi.string().pattern(/^[0-9]+$/, 'numbers').length(14).required(),
 	taille: Joi.string().valid(...Object.keys(TailleDEntreprise)).required(),
 	travail: Joi.string().required(),

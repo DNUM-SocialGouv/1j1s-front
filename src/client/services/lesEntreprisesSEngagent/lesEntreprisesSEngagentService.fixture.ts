@@ -1,7 +1,7 @@
-import { EntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import {
+	EntrepriseSouhaitantSEngager,
 	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
-} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { createSuccess } from '~/server/errors/either';
 
 import { LesEntreprisesSEngagentService } from './lesEntreprisesSEngagent.service';
