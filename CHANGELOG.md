@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.221.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.220.1...v3.221.0) (2024-01-25)
+
+
+### Features
+
+* **stage3eme:** recherche triee par date ([#2591](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2591)) ([7eecb87](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7eecb8756ff1db8caf8bd058bb08a6f89ab6a08b))
+
 ## [3.220.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.220.0...v3.220.1) (2024-01-24)
 
 
