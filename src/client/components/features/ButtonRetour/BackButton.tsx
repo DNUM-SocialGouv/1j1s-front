@@ -9,7 +9,10 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { PREVIOUS_PAGE } from '~/client/hooks/useDisplayBackButton';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
-	label?: string
+	label: string
+	'aria-label': string
+} | Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
+	label?: never
 }
 
 export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
