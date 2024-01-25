@@ -1044,7 +1044,7 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							codeLangueDeLOffre: 'nl',
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_DOCTORAT_OU_EQUIVALENT,
-							experienceNecessaire: undefined,
+							experiencesNecessaires: undefined,
 							listeCompetencesLinguistiques: [{
 								competenciesDimensions: [
 									{
@@ -1101,10 +1101,13 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							handle: 'Mzk3ODMxMyA0NA',
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-							experienceNecessaire: {
+							experiencesNecessaires: [{
 								duree: 1,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
-							}, pays: 'FR', titre: 'Nom Entreprise', ville: 'Paris',
+							}],
+							pays: 'FR',
+							titre: 'Nom Entreprise',
+							ville: 'Paris',
 						}),
 					},
 					related: {
@@ -1129,10 +1132,11 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 							handle: 'ZmY5ZDUwZTctZTQ4Zi02Zjg1LWUwNTMtOGU5MmIyMGE4NzEzIDI2MQ',
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-							experienceNecessaire: {
+							experiencesNecessaires: [{
 								duree: 2,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-							}, tempsDeTravail: 'FlexTime', titre: 'Nom Offre',
+							}],
+							tempsDeTravail: 'FlexTime', titre: 'Nom Offre',
 						}),
 					},
 					related: {

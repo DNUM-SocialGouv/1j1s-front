@@ -2,7 +2,7 @@ import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEu
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse,
+	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeResponseJobVacancy,
 	ApiEuresEmploiEuropeResponseRelated,
@@ -41,10 +41,10 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-							experienceNecessaire:{
+							experiencesNecessaires:[{
 								duree: 3,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-							},
+							}],
 							nomEntreprise: 'La Pâtisserie',
 							pays: 'FR',
 							tempsDeTravail: 'FullTime',
@@ -80,10 +80,10 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 			{
 				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-				experienceNecessaire: {
+				experiencesNecessaires: [{
 					duree: 3,
 					unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-				},
+				}],
 				nomEntreprise: 'La Boulangerie',
 				pays: 'FR',
 				tempsDeTravail: 'FullTime',
@@ -150,10 +150,10 @@ interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
 	educationLevelCode?: number,
-	experienceNecessaire?: {
+	experiencesNecessaires?: {
 		duree: number,
 		unite?: UNITE_EXPERIENCE_NECESSAIRE
-	},
+	}[],
 	codeLangueDeLOffre?: string
 }
 
@@ -172,7 +172,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experienceNecessaire, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -267,17 +267,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
                  					 ${educationLevelCode}
                  </EducationLevelCode>` : ''}            
             </EducationRequirement>
-            <ExperienceSummary>
-                <ExperienceCategory>
-                    <CategoryCode listName="ESCO_Occupations"
-                                  listURI="https://ec.europa.eu/esco/portal"
-                                  listVersionID="ESCOv1">
-                        http://data.europa.eu/esco/occupation/uuid-4
-                    </CategoryCode>
-                    ${experienceNecessaire ? `<Measure unitCode=${experienceNecessaire.unite ? `"${experienceNecessaire.unite}"`: undefined}>${experienceNecessaire.duree}</Measure>` : `<Measure unitCode="${UNITE_EXPERIENCE_NECESSAIRE.YEAR}">3</Measure>`}
-                    <ns2:Description>description de l‘experience demandée</ns2:Description>
-                </ExperienceCategory>
-            </ExperienceSummary>
+            ${buildExperienceSummary(experiencesNecessaires)}
         </PositionQualifications>
         <PositionFormattedDescription>
         	${description ? `<Content>${description}</Content>` : '<Content>&lt;p&gt;&lt;strong&gt;Fonction:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;En tant que Co&amp;#233;quipier cuisine, tu es un ambassadeur/une ambassadrice de la marque et tu portes nos valeurs dans ta boulangerie-restaurant.&lt;/li&gt; &lt;li&gt;Tu pr&amp;#233;pares nos plats dans ta cuisine et tu es un soutien au service en salle si n&amp;#233;cessaire. La pr&amp;#233;paration (mise en place) est &amp;#233;galement sous ta responsabilit&amp;#233;.&lt;/li&gt; &lt;/ul&gt;</Content>'}
@@ -300,4 +290,36 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
     </PositionProfile>
 </PositionOpening>
     `;
+}
+
+
+function buildExperienceSummary(experiencesNecessaires: ApiEuresEmploiEuropeDetailXMLResponseFixture['experiencesNecessaires']): string {
+	if (!experiencesNecessaires) {
+		return `
+			<ExperienceSummary>
+				<ExperienceCategory>
+					<CategoryCode listName="ESCO_Occupations" listURI="https://ec.europa.eu/esco/portal" listVersionID="ESCOv1">
+						http://data.europa.eu/esco/occupation/uuid-4
+					</CategoryCode>
+					<Measure unitCode="${UNITE_EXPERIENCE_NECESSAIRE.YEAR}">3</Measure>
+					<ns2:Description>description de l‘experience demandée</ns2:Description>
+				</ExperienceCategory>
+			</ExperienceSummary>`;
+	}
+
+	const experiencesCategories = experiencesNecessaires.map((experienceNecessaire) => {
+		return `
+			<ExperienceCategory>
+				<CategoryCode listName="ESCO_Occupations" listURI="https://ec.europa.eu/esco/portal" listVersionID="ESCOv1">
+					http://data.europa.eu/esco/occupation/uuid-4
+				</CategoryCode>
+				<Measure unitCode=${experienceNecessaire.unite ? `"${experienceNecessaire.unite}"`: undefined}>${experienceNecessaire.duree}</Measure>
+				<ns2:Description>description de l‘experience demandée</ns2:Description>
+			</ExperienceCategory>`;
+	});
+
+	return `
+		<ExperienceSummary>
+			${experiencesCategories}		
+		</ExperienceSummary>`;
 }

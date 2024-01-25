@@ -245,7 +245,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							codeLangueDeLOffre: 'fr',
 							description: 'Je suis la description',
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-							experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
+							experiencesNecessaires: [{ duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR }],
 							listeLangueDeTravail: ['FR', 'EN'],
 							listePermis: ['B', 'C'],
 							nomEntreprise: 'La Boulangerie',
@@ -846,10 +846,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								handle,
 							},
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-								experienceNecessaire: {
+								experiencesNecessaires: [{
 									duree: 6,
 									unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-								},
+								}],
 							}),
 						}),
 					},
@@ -873,10 +873,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								handle,
 							},
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-								experienceNecessaire: {
+								experiencesNecessaires: [{
 									duree: 6,
 									unite: undefined,
-								},
+								}],
 							}),
 						}),
 					},
@@ -889,6 +889,19 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				// THEN
 				expect(result.experienceNecessaire?.duree).toBe(6);
 				expect(result.experienceNecessaire?.unite).toBe(undefined);
+			});
+
+			describe('lorsque plusieurs expériences sont mentionnées', () => {
+				describe('et que la durée requise est différente d’une expérience à l’autre', function () {
+					it('renvoie la durée la plus longue de toutes les expériences', () => {
+
+					});
+				});
+				describe('et que la durée requise est identique d’une expérience à l’autre', function () {
+					it('renvoie la durée de la première expérience', () => {
+
+					});
+				});
 			});
 		});
 	});
