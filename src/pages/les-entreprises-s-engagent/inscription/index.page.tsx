@@ -8,7 +8,7 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
@@ -142,24 +142,34 @@ export default function LesEntreprisesSEngagentInscription() {
 								aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}
 							>
 								<div className={styles.bodyFormulaire}>
-									<InputText
-										label="Nom de l’entreprise"
-										name="companyName"
-										placeholder="Exemples : Crédit Agricole, SNCF…"
-										required
-									/>
+									<Champ>
+										<Champ.Label>
+											Nom de l’entreprise
+											<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'companyName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
 									<ComboboxCommune
 										required
 										label="Ville du siège social de l’entreprise"
 										name="companyCommuneLibelle"
 									/>
-									<InputText
-										label="Numéro de SIRET"
-										name="companySiret"
-										placeholder="Exemple : 12345678901112"
-										required
-										pattern={'^[0-9]{14}$'}
-									/>
+									<Champ>
+										<Champ.Label>
+											Numéro de SIRET
+											<Champ.Label.Complement>Exemple : 12345678901112</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											pattern={'^[0-9]{14}$'}
+											name={'companySiret'}
+											required/>
+										<Champ.Error/>
+									</Champ>
 									<Champ>
 										<Champ.Label>
 											Secteur d’activité de l’entreprise
@@ -211,41 +221,77 @@ export default function LesEntreprisesSEngagentInscription() {
 							/>
 							<form className={styles.formulaire} ref={formStep2Ref} onSubmit={submitFormulaire}>
 								<div className={styles.bodyFormulaire}>
-									<InputText
-										label="Prénom"
-										name="firstName"
-										placeholder="Exemples : Marc, Sonia…"
-										required
-									/>
-									<InputText
-										label="Nom"
-										name="lastName"
-										placeholder="Exemples : Ducourt, Dupont…"
-										required
-									/>
-									<InputText
-										label="Fonction au sein de l’entreprise"
-										name="job"
-										placeholder="Exemples : RH, Chargé de communications"
-										required
-									/>
-									<InputText
-										label="Adresse e-mail de contact"
-										pattern={emailRegex}
-										name="email"
-										type="email"
-										placeholder="Exemple : mail@exemple.com"
-										hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-										required
-									/>
-									<InputText
-										label="Numéro de téléphone de contact"
-										name="phone"
-										placeholder="Exemple : 0199999999"
-										pattern="^(\+33|0|0033)[1-9]\d{8}$"
-										hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-										required
-									/>
+									<Champ>
+										<Champ.Label>
+											Prénom
+											<Champ.Label.Complement>Exemples : Marc, Sonia…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'firstName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Nom
+											<Champ.Label.Complement>Exemples : Ducourt, Dupont…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'lastName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Fonction au sein de l’entreprise
+											<Champ.Label.Complement>
+												Exemples : RH, Chargé de communications
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'job'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Adresse e-mail de contact
+											<Champ.Label.Complement>
+												Exemple : mail@exemple.com
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											pattern={emailRegex}
+											type="email"
+											render={Input}
+											name={'email'}
+											required/>
+										<Champ.Hint>Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies.</Champ.Hint>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Numéro de téléphone de contact
+											<Champ.Label.Complement>
+												Exemple : 0199999999
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											pattern="^(\+33|0|0033)[1-9]\d{8}$"
+											type="email"
+											render={Input}
+											name={'phone'}
+											required/>
+										<Champ.Hint>Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies.</Champ.Hint>
+										<Champ.Error/>
+									</Champ>
 								</div>
 								<div className={styles.validationEtape2}>
 									{isLoading
