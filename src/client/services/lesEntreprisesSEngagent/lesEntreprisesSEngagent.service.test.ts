@@ -2,7 +2,12 @@ import { anHttpClientService } from '~/client/services/httpClientService.fixture
 import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
-import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import {
+	anEntrepriseSouhaitantSEngager,
+} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
@@ -19,7 +24,7 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'accommodation-catering',
+				secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.ACCOMMODATION_CATERING,
 				siret: '123456789123',
 				taille: 'xsmall',
 				travail: 'Dev',
@@ -33,7 +38,7 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'accommodation-catering',
+				secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.ACCOMMODATION_CATERING,
 				siret: '123456789123',
 				taille: 'xsmall',
 				travail: 'Dev',
@@ -56,7 +61,7 @@ describe('LesEntreprisesSEngagentService', () => {
 				nom: 'Toto',
 				nomSociété: 'Octo',
 				prénom: 'Tata',
-				secteur: 'accommodation-catering',
+				secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.ACCOMMODATION_CATERING,
 				siret: '123456789123',
 				taille: 'xsmall',
 				travail: 'Dev',
