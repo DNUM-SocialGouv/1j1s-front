@@ -1,0 +1,18 @@
+@use "@styles/utilities";
+
+.listeMetiers {
+  > li {
+    display: inline;
+
+    > p {
+      display: inline;
+    }
+  }
+
+  > li::before {
+    content: ', ';
+  }
+  > li:first-of-type::before{
+    content: none;
+  }
+}

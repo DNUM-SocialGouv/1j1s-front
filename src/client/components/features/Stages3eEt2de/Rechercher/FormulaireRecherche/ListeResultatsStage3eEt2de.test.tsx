@@ -71,13 +71,10 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 		it('des metiers proposés', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({
-				nombreDeResultats: 2,
+				nombreDeResultats: 3,
 				resultats: [
 					aStage3eEt2de({
-						appellationLibelle: ['Métier 1', 'Métier 2'],
-					}),
-					aStage3eEt2de({
-						appellationLibelle: ['Métier 3', 'Métier 4'],
+						appellationLibelle: ['Métier 1', 'Métier 2', 'Métier 3'],
 					}),
 				],
 			});
@@ -88,11 +85,14 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			// THEN
 			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
 			expect(resultatsUl).toBeInTheDocument();
-			// eslint-disable-next-line testing-library/no-node-access
-			const resultats = resultatsUl.children;
-			expect(resultats).toHaveLength(resultatRecherche.nombreDeResultats);
-			expect(resultats[0]).toHaveTextContent('Métier 1, Métier 2');
-			expect(resultats[1]).toHaveTextContent('Métier 3, Métier 4');
+			const resultatsLis = within(resultatsUl).getAllByRole('listitem');
+			const metiersPremiereOffreUl = within(resultatsLis[0]).getByRole('list', { name: 'Métiers proposés' });
+			expect(metiersPremiereOffreUl).toBeVisible();
+			const metiersPremiereOffre = within(metiersPremiereOffreUl).getAllByRole('listitem');
+			expect(metiersPremiereOffre).toHaveLength(3);
+			expect(metiersPremiereOffre[0]).toHaveTextContent('Métier 1');
+			expect(metiersPremiereOffre[1]).toHaveTextContent('Métier 2');
+			expect(metiersPremiereOffre[2]).toHaveTextContent('Métier 3');
 		});
 		it('de l’adresse', () => {
 			// GIVEN
