@@ -25,7 +25,8 @@ export class ApiImmersionFacileStage3eEt2deRepository implements Stage3eEt2deRep
 				.concat(`&latitude=${filtre.latitudeCommune}`)
 				.concat(`&longitude=${filtre.longitudeCommune}`)
 				.concat(`&distanceKm=${filtre.distanceCommune}`)
-				.concat(filtre.codeMetier ? `&appellationCodes[]=${filtre.codeMetier}` : '');
+				.concat(filtre.codeMetier ? `&appellationCodes[]=${filtre.codeMetier}` : '')
+				.concat('&sortedBy=date');
 			const response = await this.httpClientService.get<Array<ApiImmersionFacileStage3eEt2deRechercheResponse>>(endpoint);
 			const apiValidationError = validateApiResponse<Array<ApiImmersionFacileStage3eEt2deRechercheResponse>>(response.data, apiImmersionFacileStage3eEt2deSchemas.search);
 			if (apiValidationError) {
