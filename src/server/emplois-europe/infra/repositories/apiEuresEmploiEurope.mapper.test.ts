@@ -894,12 +894,96 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			describe('lorsque plusieurs expériences sont mentionnées', () => {
 				describe('et que la durée requise est différente d’une expérience à l’autre', function () {
 					it('renvoie la durée la plus longue de toutes les expériences', () => {
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 12,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}, {
+											duree: 5,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.experienceNecessaire?.duree).toBe(2);
+						expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
 					});
 				});
 				describe('et que la durée requise est identique d’une expérience à l’autre', function () {
-					it('renvoie la durée de la première expérience', () => {
+					it('renvoie cette durée', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 1,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}, {
+											duree: 1,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.experienceNecessaire?.duree).toBe(1);
+						expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.MONTH);
+					});
+				});
+				describe('et que la durée requise est inconnue sur toutes les expériences', function () {
+					it('renvoie une experience requise undefined', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [undefined, undefined],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.experienceNecessaire).toBe(undefined);
 					});
 				});
 			});

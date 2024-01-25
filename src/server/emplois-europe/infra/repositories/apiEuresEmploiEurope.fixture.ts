@@ -2,7 +2,7 @@ import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEu
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
-	ApiEuresEmploiEuropeDetailResponse, ApiEuresEmploiEuropeDetailXML,
+	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeResponseJobVacancy,
 	ApiEuresEmploiEuropeResponseRelated,
@@ -150,10 +150,10 @@ interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	listeLangueDeTravail?: Array<string>
 	tempsDeTravail?: string,
 	educationLevelCode?: number,
-	experiencesNecessaires?: {
+	experiencesNecessaires?: Array<{
 		duree: number,
 		unite?: UNITE_EXPERIENCE_NECESSAIRE
-	}[],
+	} | undefined>,
 	codeLangueDeLOffre?: string
 }
 
@@ -292,7 +292,6 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
     `;
 }
 
-
 function buildExperienceSummary(experiencesNecessaires: ApiEuresEmploiEuropeDetailXMLResponseFixture['experiencesNecessaires']): string {
 	if (!experiencesNecessaires) {
 		return `
@@ -308,6 +307,15 @@ function buildExperienceSummary(experiencesNecessaires: ApiEuresEmploiEuropeDeta
 	}
 
 	const experiencesCategories = experiencesNecessaires.map((experienceNecessaire) => {
+		if (!experienceNecessaire) {
+			return `
+				<ExperienceCategory>
+					<CategoryCode listName="ESCO_Occupations" listURI="https://ec.europa.eu/esco/portal" listVersionID="ESCOv1">
+					\thttp://data.europa.eu/esco/occupation/uuid-4
+					</CategoryCode>
+					<ns2:Description>description de l‘experience demandée</ns2:Description>
+				</ExperienceCategory>`;
+		}
 		return `
 			<ExperienceCategory>
 				<CategoryCode listName="ESCO_Occupations" listURI="https://ec.europa.eu/esco/portal" listVersionID="ESCOv1">
