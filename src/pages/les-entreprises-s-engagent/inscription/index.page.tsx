@@ -285,7 +285,7 @@ export default function LesEntreprisesSEngagentInscription() {
 										</Champ.Label>
 										<Champ.Input
 											pattern="^(\+33|0|0033)[1-9]\d{8}$"
-											type="email"
+											type="tel"
 											render={Input}
 											name={'phone'}
 											required/>
