@@ -74,7 +74,7 @@ export const InputChamp: <
 	}, [id, setInputId]);
 
 	const onChange = useCallback<ChangeFunction>((event, ...args) => {
-		setErrorMessage(event.currentTarget.validationMessage);
+		setErrorMessage('');
 		onChangeProps(event, ...args);
 	}, [onChangeProps, setErrorMessage]);
 
