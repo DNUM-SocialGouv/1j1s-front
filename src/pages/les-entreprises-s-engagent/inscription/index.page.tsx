@@ -29,6 +29,7 @@ import {
 	secteurActiviteRejoindreLaMobilisation,
 } from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
+import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { emailRegex } from '~/shared/emailRegex';
 
 enum Etape {
@@ -42,6 +43,7 @@ export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobil
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
+type SecteurActivite = { libellé: string, valeur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM }
 export default function LesEntreprisesSEngagentInscription() {
 	useAnalytics(analytics);
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
@@ -51,7 +53,22 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
+	function sortWithAutreInTheEnd(secteurActiviteA: SecteurActivite, secteurActiviteB: SecteurActivite) {
+		function isOtherOrOtherServicies(secteurValeur: string) {
+			return secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES || secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER;
+		}
+
+		if (isOtherOrOtherServicies(secteurActiviteA.valeur)) {
+			return 1;
+		} else if (isOtherOrOtherServicies(secteurActiviteB.valeur)) {
+			return -1;
+		}
+		return secteurActiviteA.libellé.localeCompare(secteurActiviteB.libellé);
+	}
+
+
 	const formStep1Ref = useRef<HTMLFormElement>(null);
+	const secteurActiviteOrdreAlphabetique = secteurActiviteRejoindreLaMobilisation.sort(sortWithAutreInTheEnd);
 	const formStep2Ref = useRef<HTMLFormElement>(null);
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
@@ -183,7 +200,7 @@ export default function LesEntreprisesSEngagentInscription() {
 											required
 											requireValidOption
 											autoComplete="off">
-											{secteurActiviteRejoindreLaMobilisation.map((secteurActivite) => (
+											{secteurActiviteOrdreAlphabetique.map((secteurActivite) => (
 												<Combobox.Option key={secteurActivite.valeur} value={secteurActivite.valeur}>
 													{secteurActivite.libellé}
 												</Combobox.Option>))}
@@ -272,7 +289,8 @@ export default function LesEntreprisesSEngagentInscription() {
 											render={Input}
 											name={'email'}
 											required/>
-										<Champ.Hint>Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies.</Champ.Hint>
+										<Champ.Hint>Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les
+											informations suivies.</Champ.Hint>
 										<Champ.Error/>
 									</Champ>
 
@@ -289,7 +307,8 @@ export default function LesEntreprisesSEngagentInscription() {
 											render={Input}
 											name={'phone'}
 											required/>
-										<Champ.Hint>Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies.</Champ.Hint>
+										<Champ.Hint>Ce numéro nous permettra de communiquer avec vous afin de gérer les informations
+											suivies.</Champ.Hint>
 										<Champ.Error/>
 									</Champ>
 								</div>
