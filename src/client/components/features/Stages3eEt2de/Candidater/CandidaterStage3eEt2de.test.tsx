@@ -213,7 +213,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// THEN
 				const inputAppellation = screen.getByRole('textbox', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 				expect(inputAppellation).toBeVisible();
-				expect(inputAppellation).toBeDisabled();
+				expect(inputAppellation).toHaveAttribute('readonly');
 				expect(inputAppellation).toHaveValue('label du métier');
 				expect(inputAppellation).toHaveAttribute('type', 'text');
 			});

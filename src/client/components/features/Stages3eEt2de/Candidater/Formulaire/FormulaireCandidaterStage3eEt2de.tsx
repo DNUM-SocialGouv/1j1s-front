@@ -43,6 +43,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const candidature: CandidatureStage3eEt2de = {
+			// NOTE (SULI 25-01-2024): Deux façon de récupérer appellationCode car pour la présence d'un seul métier, on utilise le composant Select et il fournit seulement le label et pas le code
 			appellationCode: isMoreThanOneMetier ? String(data.get('metierCode')) : metiersStage3eEt2de[0].code,
 			email: String(data.get('email')),
 			modeDeContact: modeDeContact,
@@ -115,7 +116,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					/>
 					<Champ.Error/>
 				</Champ>
-				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de disabled dans Select */}
+				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 				{isMoreThanOneMetier ?
 					<Select
 						optionList={metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
@@ -126,7 +127,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					/>
 					:
 					<Champ>
-						{ /* FIXME (DORO 22-01-2024): Embarquer dans Champ la gestion de l'etat désactivé (voir UI kit) */}
+						{ /* FIXME (DORO 22-01-2024): Embarquer dans Champ la gestion de l'état readonly (voir UI kit) */}
 						<Champ.Label className={styles.elementDesactive}>
 							Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
@@ -136,7 +137,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 						             name="metierCode"
 						             required
 						             value={metiersStage3eEt2de[0].label}
-						             disabled
+						             readOnly
 						             className={styles.elementDesactive}
 						             type="text"
 						/>
