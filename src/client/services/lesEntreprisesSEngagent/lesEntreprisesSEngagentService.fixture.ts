@@ -1,4 +1,7 @@
 import { EntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { createSuccess } from '~/server/errors/either';
 
 import { LesEntreprisesSEngagentService } from './lesEntreprisesSEngagent.service';
@@ -16,7 +19,7 @@ export function anEntrepriseSouhaitantSEngager(overrides?: Partial<EntrepriseSou
 		nom: 'Chose',
 		nomSociété: 'Bidule co.',
 		prénom: 'Machin',
-		secteur: 'other-services',
+		secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES,
 		siret: '12345678901114',
 		taille: 'medium',
 		travail: 'Chef',
@@ -29,7 +32,7 @@ export function anEntrepriseSouhaitantSEngager(overrides?: Partial<EntrepriseSou
 export const anEntrepriseMember = () => ({
 	companyName: 'Bidule co.',
 	companyPostalCode: '75015',
-	companySector: 'other-services',
+	companySector: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES,
 	companySiret: '12345678901114',
 	companySize: 'medium',
 	email: 'machin.chose@bidule.com',
