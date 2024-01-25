@@ -45,6 +45,7 @@ type ChangeFunction = (event: React.ChangeEvent<HTMLInputElement>, ...args: any[
 type TouchFunction = (touched: boolean, ...args: any[]) => void;
 type ComponentChildrenPropsNecessary = {
 	onChange?: ChangeFunction
+	onInvalid?: ChangeFunction
 	onTouch?: TouchFunction
 	ref?: React.Ref<HTMLInputElement>
 	'aria-describedby'?: string
@@ -60,6 +61,7 @@ export const InputChamp: <
 		'aria-describedby': ariaDescribedby = '',
 		id,
 		onChange: onChangeProps = doNothing,
+		onInvalid: onInvalidProps = doNothing,
 		onTouch: onTouchProps = doNothing,
 		render: Render,
 		...rest
@@ -72,8 +74,8 @@ export const InputChamp: <
 	}, [id, setInputId]);
 
 	const onChange = useCallback<ChangeFunction>((event, ...args) => {
-		onChangeProps(event, ...args);
 		setErrorMessage(event.currentTarget.validationMessage);
+		onChangeProps(event, ...args);
 	}, [onChangeProps, setErrorMessage]);
 
 	const onTouch = useCallback<TouchFunction>((touched, ...args) => {
@@ -81,11 +83,17 @@ export const InputChamp: <
 		setTouched(touched);
 	}, [onTouchProps, setTouched]);
 
+	const onInvalid = useCallback<ChangeFunction>((event, ...args) => {
+		setErrorMessage(event.currentTarget.validationMessage);
+		onInvalidProps(event, ...args);
+	}, [onInvalidProps, setErrorMessage]);
+
 	return (<Render
 		onTouch={onTouch}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
 		id={inputId}
+		onInvalid={onInvalid}
 		onChange={onChange}
 		{...rest}
 	/>);
