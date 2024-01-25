@@ -90,6 +90,23 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			});
 		});
 
+		describe('champ secteur d‘activité', () => {
+			it('les secteurs d‘activités sont triés par ordre alphabétique avec "autres" et "autres activités" à la fin', async () => {
+				const user = userEvent.setup();
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: /Secteur d’activité de l’entreprise/ }));
+
+				const listbox = screen.getByRole('listbox', { name: /Secteur d’activité de l’entreprise/ });
+				const listOptions = within(listbox).getAllByRole('option');
+				const numberOfOptions = listOptions.length;
+				expect(listOptions[0]).toHaveTextContent('Activités de services administratifs et de soutien');
+				expect(listOptions[1]).toHaveTextContent('Activités des ménages en tant qu‘employeurs, activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre');
+				expect(listOptions[numberOfOptions - 2]).toHaveTextContent('Autre');
+				expect(listOptions[numberOfOptions - 1]).toHaveTextContent('Autres activités de services');
+			});
+		});
+
 		it('lorsqu‘il clique sur Retour, retourne sur la page de description des entreprises s’engagent', async () => {
 			renderComponent();
 
