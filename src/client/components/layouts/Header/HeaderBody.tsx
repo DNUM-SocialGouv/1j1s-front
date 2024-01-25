@@ -21,21 +21,36 @@ export function HeaderBody() {
 	return (
 		<Container className={styles.headerBodyContainer}>
 			<div className={styles.headerBody}>
-				<div className={styles.headerBodyLogoWrapper}>
-					<Image
-						src="/images/logos/république-française.svg"
-						alt="République Française, Liberté, Egalité, Fraternité"
-						width="88"
-						height="80"
-					/>
-					{!isLargeScreen &&
-						<nav role={'navigation'} aria-label="ouvrir le menu principal">
-							<ButtonComponent appearance="quaternary" icon={<Icon name="burger-menu"/>} iconPosition="top"
-															 onClick={toggleModal} label="Menu"/>
-						</nav>
-					}
+				<div className={styles.headerBodyLien}>
+					<div className={styles.headerBodyLogoWrapper}>
+						<Image
+							src="/images/logos/république-française.svg"
+							alt="République Française, Liberté, Egalité, Fraternité"
+							width="88"
+							height="80"
+						/>
+						{!isLargeScreen &&
+							<nav role={'navigation'} aria-label="ouvrir le menu principal">
+								<ButtonComponent
+									appearance="quaternary"
+									icon={<Icon name="burger-menu"/>}
+									iconPosition="top"
+									onClick={toggleModal}
+									label="Menu"
+									className={styles.headerBodyBurgerMenu}
+								/>
+							</nav>
+						}
+					</div>
+					<Link
+						className={styles.headerBodyTitle}
+			      href="/"
+						title="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
+						aria-label="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
+					>
+						1jeune1solution
+					</Link>
 				</div>
-				<div className={styles.headerBodyTitle}>1jeune1solution</div>
 				{isLargeScreen && displayBanner &&
 					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
 						<div>

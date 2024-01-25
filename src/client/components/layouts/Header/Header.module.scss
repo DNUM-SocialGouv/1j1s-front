@@ -45,6 +45,33 @@
         gap: 4rem;
       }
 
+      & .headerBodyLien {
+        position: relative;
+
+        @include utilities-deprecated.media(large) {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 4rem;
+        }
+
+        & .headerBodyBurgerMenu {
+          position: relative;
+          z-index: 2;
+        }
+
+        a:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: rgba(0,0,0,0);
+          z-index: 1;
+        }
+      }
+
       & .headerBodyLogoWrapper {
         border-bottom: 2px solid utilities-deprecated.$color-separator;
         display: flex;
