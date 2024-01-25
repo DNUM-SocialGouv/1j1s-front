@@ -272,8 +272,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
 				codeLangueDeLOffre: 'fr',
 				description: 'Je suis la description',
-				experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				id: '3',
+				laPlusLongueExperienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				langueDeTravail: ['français', 'anglais'],
 				listePermis: ['B', 'C'],
 				niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
@@ -860,8 +860,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
-				expect(result.experienceNecessaire?.duree).toBe(6);
-				expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
+				expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(6);
+				expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
 			});
 
 			it('lorsque l‘unité n‘est pas fournie, renvoie uniquement la durée', () => {
@@ -887,8 +887,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
-				expect(result.experienceNecessaire?.duree).toBe(6);
-				expect(result.experienceNecessaire?.unite).toBe(undefined);
+				expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(6);
+				expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(undefined);
 			});
 
 			describe('lorsque plusieurs expériences sont mentionnées', () => {
@@ -925,8 +925,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 						// THEN
-						expect(result.experienceNecessaire?.duree).toBe(2);
-						expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(2);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
 					});
 				});
 				describe('et que la durée requise est identique d’une expérience à l’autre', function () {
@@ -957,8 +957,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 						// THEN
-						expect(result.experienceNecessaire?.duree).toBe(1);
-						expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.MONTH);
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(1);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.MONTH);
 					});
 				});
 				describe('et que la durée requise est inconnue sur toutes les expériences', function () {
@@ -983,7 +983,40 @@ describe('apiEuresEmploiEuropeMapper', () => {
 						const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 						// THEN
-						expect(result.experienceNecessaire).toBe(undefined);
+						expect(result.laPlusLongueExperienceNecessaire).toBe(undefined);
+					});
+				});
+				describe('et que l‘unité d’une durée n’est pas une unité du référentiel connue', function () {
+					it('cette durée est réduite à 0', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 4,
+											// @ts-expect-error
+											unite: 'hour',
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(2);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.DAY);
 					});
 				});
 			});

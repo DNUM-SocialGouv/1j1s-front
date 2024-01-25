@@ -83,9 +83,9 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 						<dt>Type de permis requis</dt>
 						<dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
 					</div>}
-					{annonceEmploiEurope.experienceNecessaire !== undefined && <div className={styles.caracteristique}>
+					{annonceEmploiEurope.laPlusLongueExperienceNecessaire !== undefined && <div className={styles.caracteristique}>
 						<dt>Expérience</dt>
-						<dd>{getExperienceRequired(annonceEmploiEurope.experienceNecessaire)}</dd>
+						<dd>{getExperienceRequired(annonceEmploiEurope.laPlusLongueExperienceNecessaire)}</dd>
 					</div>}
 					{annonceEmploiEurope.langueDeTravail.length > 0 && <div className={styles.caracteristique}>
 						<dt>Langue de travail</dt>

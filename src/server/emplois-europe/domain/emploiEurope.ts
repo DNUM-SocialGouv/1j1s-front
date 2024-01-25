@@ -21,7 +21,7 @@ export interface EmploiEurope {
 	listePermis: Array<string>;
 	langueDeTravail: Array<string>;
 	competencesLinguistiques: Array<CompetenceLinguistique>
-	experienceNecessaire?: ExperienceNecessaire
+	laPlusLongueExperienceNecessaire?: ExperienceNecessaire
 	codeLangueDeLOffre?: string
 }
 

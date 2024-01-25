@@ -82,8 +82,8 @@ export class ApiEuresEmploiEuropeMapper {
 			codeLangueDeLOffre,
 			competencesLinguistiques,
 			description: descriptionDeLOffre,
-			experienceNecessaire: experienceNecessaire,
 			id: handle,
+			laPlusLongueExperienceNecessaire: experienceNecessaire,
 			langueDeTravail,
 			listePermis: listePermisDeConduire,
 			niveauEtudes,
@@ -301,8 +301,10 @@ export class ApiEuresEmploiEuropeMapper {
 					return experience.duree * NUMBER_OF_DAYS_IN_MONTH;
 				case UNITE_EXPERIENCE_NECESSAIRE.WEEK:
 					return experience.duree * NUMBER_OF_DAYS_IN_WEEK;
-				default:
+				case UNITE_EXPERIENCE_NECESSAIRE.DAY:
 					return experience.duree;
+				default:
+					return 0;
 			}
 		}
 

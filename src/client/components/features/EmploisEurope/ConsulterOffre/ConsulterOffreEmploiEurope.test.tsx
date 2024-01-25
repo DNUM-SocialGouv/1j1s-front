@@ -330,7 +330,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 	describe('niveau d‘expérience', () => {
 		it('lorsque le niveau d‘expérience n‘est pas fourni, n‘affiche pas de message', () => {
-			const offreEmploiEurope = anEmploiEurope({ experienceNecessaire: undefined });
+			const offreEmploiEurope = anEmploiEurope({ laPlusLongueExperienceNecessaire: undefined });
 
 			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
@@ -340,7 +340,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 		it('lorsque qu‘aucune expérience est requise', () => {
 			const offreEmploiEurope = anEmploiEurope({
-				experienceNecessaire: {
+				laPlusLongueExperienceNecessaire: {
 					duree: 0,
 				},
 			});
@@ -354,7 +354,7 @@ describe('DetailOffreEmploiEurope', () => {
 		describe('lorsque l‘unité est en mois', () => {
 			it('lorsque qu‘un mois est demandé', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 1, unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
 					},
 				});
@@ -367,7 +367,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 			it('lorsque plusieurs mois sont demandés', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 5, unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
 					},
 				});
@@ -382,7 +382,7 @@ describe('DetailOffreEmploiEurope', () => {
 		describe('lorsque l‘unité est en années', () => {
 			it('lorsque qu‘un an est demandé', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 1,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 					},
@@ -396,7 +396,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 			it('lorsque plusieurs mois sont demandées', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 5,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 					},
@@ -412,7 +412,7 @@ describe('DetailOffreEmploiEurope', () => {
 		describe('lorsque l‘unité est en semaine', () => {
 			it('lorsque qu‘une semaine est demandée', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 1,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
 					},
@@ -426,7 +426,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 			it('lorsque plusieurs semaines sont demandées', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 5,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
 					},
@@ -442,7 +442,7 @@ describe('DetailOffreEmploiEurope', () => {
 		describe('lorsque l‘unité est en jour', () => {
 			it('lorsque qu‘un jour est demandée', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 1,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
 					},
@@ -456,7 +456,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 			it('lorsque plusieurs jours sont demandées', () => {
 				const offreEmploiEurope = anEmploiEurope({
-					experienceNecessaire: {
+					laPlusLongueExperienceNecessaire: {
 						duree: 5,
 						unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
 					},
