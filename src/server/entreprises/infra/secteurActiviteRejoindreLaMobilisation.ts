@@ -1,30 +1,6 @@
-// Enum
-export enum SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM {
-	ACCOMMODATION_CATERING = 'accommodation-catering',
-	ADMINISTRATIVE_SUPPORT = 'administrative-support',
-	AGRICULTURE = 'agriculture',
-	CAR_BIKE = 'car-bike',
-	CONSTRUCTION = 'construction',
-	ENTERTAINMENT = 'entertainment',
-	EXTRA_TERRITORIAL = 'extra-territorial',
-	FINANCIAL_INSURANCE = 'financial-insurance',
-	HEALTH_SOCIAL = 'health-social',
-	HOUSEHOLDS_EMPLOYERS = 'households-employers',
-	INDUSTRY_EXTRACTION = 'industry-extraction',
-	INDUSTRY_MANUFACTURING = 'industry-manufacturing',
-	INFORMATION_COMMUNICATION = 'information-communication',
-	OTHER = 'other',
-	OTHER_SERVICES = 'other-services',
-	PRODUCTION_DISTRIBUTION_POWER = 'production-distribution-power',
-	PRODUCTION_DISTRIBUTION_WATER = 'production-distribution-water',
-	PUBLIC_ADMINISTRATION = 'public-administration',
-	PUBLIC_HOSPITAL = 'public-hospistal',
-	PUBLIC_TERRITORIAL = 'public-territorial',
-	REAL_ESTATE = 'real-estate',
-	SCIENTIFIC_TECHNICAL = 'scientific-technical',
-	TEACHING = 'teaching',
-	TRANSPORT_STORAGE = 'transport-storage',
-}
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 
 export const secteurActiviteRejoindreLaMobilisation: Array<{libellé: string, valeur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM }> = [
 	{

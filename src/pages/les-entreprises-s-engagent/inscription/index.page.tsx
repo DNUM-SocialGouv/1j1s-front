@@ -21,15 +21,13 @@ import {
 import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import {
-	EntrepriseSouhaitantSEngager,
+	EntrepriseSouhaitantSEngager, SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 	TailleDEntreprise,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import {
-	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 	secteurActiviteRejoindreLaMobilisation,
 } from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
-import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { emailRegex } from '~/shared/emailRegex';
 
 enum Etape {

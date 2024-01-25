@@ -17,7 +17,7 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import {
 	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
-} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
