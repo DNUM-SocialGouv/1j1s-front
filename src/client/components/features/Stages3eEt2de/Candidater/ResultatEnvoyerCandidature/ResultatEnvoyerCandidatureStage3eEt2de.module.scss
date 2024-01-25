@@ -8,22 +8,13 @@ $color-title-error: utilities.$color-warning;
   padding: 0 1rem;
 }
 
-%titre {
+.titre {
   @extend %headline;
   @extend %bold;
 
   margin: 4rem auto 1rem auto;
   max-width: 47.25rem;
   text-align: center;
-}
-
-.titreSucces {
-  @extend %titre;
-}
-
-.titreErreur {
-  @extend %titre;
-  color: $color-title-error;
 }
 
 .texte {

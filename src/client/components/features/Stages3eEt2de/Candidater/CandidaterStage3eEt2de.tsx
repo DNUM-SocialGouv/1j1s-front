@@ -22,21 +22,23 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	const [etatSoumission, setEtatSoumission] =
 		useState<'initial' | 'succes' | 'echec'>('initial');
 
-	if (etatSoumission === 'initial') {
-		return <FormulaireCandidaterStage3eEt2de
+	return <>
+		{etatSoumission === 'initial' && <FormulaireCandidaterStage3eEt2de
 			nomEntreprise={nomEntreprise}
 			metiersStage3eEt2de={appellations}
 			siret={siret}
 			modeDeContact={modeDeContact}
 			onSuccess={() => setEtatSoumission('succes')}
 			onFailure={() => setEtatSoumission('echec')}
-		/>;
-	}
+		/>}
 
-	if (etatSoumission === 'succes') {
-		return <SuccesEnvoyerCandidatureStage3eEt2de />;
-	}
+		<div role={'status'}>
+			{etatSoumission === 'succes' && <SuccesEnvoyerCandidatureStage3eEt2de />}
+		</div>
 
-	return <EchecEnvoyerCandidatureStage3eEt2de retourFormulaire={() => setEtatSoumission('initial')} />;
+		<div role={'alert'}>
+			{etatSoumission === 'echec' && <EchecEnvoyerCandidatureStage3eEt2de retourFormulaire={() => setEtatSoumission('initial')} />}
+		</div>
+	</>;
 }
 

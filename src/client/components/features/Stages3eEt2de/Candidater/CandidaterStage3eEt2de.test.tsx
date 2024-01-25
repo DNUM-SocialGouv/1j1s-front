@@ -429,7 +429,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				await user.click(envoyerBouton);
 
 				// THEN
-				const titre = screen.getByRole('heading', { level: 1 });
+				const contenuStatus = screen.getByRole('status');
+				const titre = within(contenuStatus).getByRole('heading', { level: 1 });
 				expect(titre).toBeVisible();
 				expect(titre).toHaveTextContent('Félicitations, vos informations ont bien été envoyées');
 				const texte = screen.getByText('L’entreprise a choisi d’être contactée par e-mail. Elle recevra donc vos informations et vous recontactera par la suite.');
@@ -562,7 +563,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				await user.click(envoyerBouton);
 
 				// THEN
-				const title = screen.getByRole('heading', { level: 1, name: 'Une erreur est survenue' });
+				const contenuAlert = screen.getByRole('alert');
+				const title = within(contenuAlert).getByRole('heading', { level: 1, name: 'Une erreur est survenue' });
 				expect(title).toBeVisible();
 				const text = screen.getByText('Nous n’avons pas pu envoyer vos informations à l’entreprise. Veuillez réessayer plus tard');
 				expect(text).toBeVisible();

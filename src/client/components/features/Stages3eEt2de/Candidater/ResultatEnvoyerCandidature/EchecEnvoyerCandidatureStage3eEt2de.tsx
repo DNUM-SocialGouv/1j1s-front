@@ -9,7 +9,7 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 	retourFormulaire: () => void,
 }) {
 	return <Container className={styles.container}>
-		<h1 className={styles.titreErreur}>Une erreur est survenue</h1>
+		<h1 className={styles.titre}>Une erreur est survenue</h1>
 		<p className={styles.texte}>Nous n’avons pas pu envoyer vos informations à l’entreprise. Veuillez réessayer plus tard</p>
 		<div className={styles.boutonsCTA}>
 			<ButtonComponent
@@ -21,6 +21,7 @@ export function EchecEnvoyerCandidatureStage3eEt2de(props: {
 			<BackButton
 				label="Retour à la recherche"
 				aria-label="Retour à la recherche"
+				icon={undefined}
 				className={styles.boutonRetourRecherche}
 				appearance="secondary"
 			/>
