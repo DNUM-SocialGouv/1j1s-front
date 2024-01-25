@@ -107,12 +107,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		return 'Veuillez sélectionner une option dans la liste';
 	}, [findMatchingOption, requireValidOption, required, value]);
 
-	useEffect(function checkValidity() {
-		if (touched) {
-			inputRef.current?.checkValidity();
-		}
-	}, [inputRef, touched, value, children]);
-
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
 			document.getElementById(activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
