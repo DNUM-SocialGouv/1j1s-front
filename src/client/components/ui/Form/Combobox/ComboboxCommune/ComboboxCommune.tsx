@@ -125,6 +125,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 						onChangeProps(event, newValue);
 					}}
 					aria-describedby={`${ariaDescribedby} ${errorId}`}
+					aria-invalid={fieldError !== null && fieldError !== ''}
 					onInvalid={(event) => {
 						onInvalidProps(event);
 						setFieldError(event.currentTarget.validationMessage);
