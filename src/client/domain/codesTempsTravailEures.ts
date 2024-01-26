@@ -3,7 +3,7 @@ export enum EURES_POSITION_SCHEDULE_TYPE {
 	PartTime = 'PartTime',
 	FlexTime = 'FlexTime',
 	NonSpecified = 'ns',
-	Any = 'Any', // en vérifiant sur l'API Eures, Any ne renvoit jamais rien, toujours d'actualité ?
+	Any = 'Any',
 }
 
 export const tempsDeTravailEures = [

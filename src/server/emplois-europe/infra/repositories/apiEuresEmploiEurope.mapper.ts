@@ -146,7 +146,7 @@ export class ApiEuresEmploiEuropeMapper {
 	private getNiveauEtude(positionQualifications?: PositionQualifications) {
 		function mapNiveauEtudes(educationLevelCode?: number) {
 			return niveauEtudesEures.find(
-				(niveauEtudes) => niveauEtudes.valeur === educationLevelCode)?.libellé;
+				(niveauEtudes) => niveauEtudes.valeur === educationLevelCode?.toString())?.libellé;
 		}
 
 		const educationRequirement = this.getElementOrFirstElementInArray(positionQualifications?.EducationRequirement);
