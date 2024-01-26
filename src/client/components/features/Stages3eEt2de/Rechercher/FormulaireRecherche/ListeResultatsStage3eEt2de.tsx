@@ -72,6 +72,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
 				intituléLienOffre={intituléLienOffre}
+				className={styles.carteResultat}
 			/>
 		</li>
 	);
