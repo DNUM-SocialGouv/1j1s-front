@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 @mixin underline {
   text-decoration: underline;
@@ -7,8 +8,8 @@
 }
 
 .header {
-  border-bottom: 1px solid utilities-deprecated.$color-separator;
-  background-color: utilities-deprecated.$color-surface;
+  border-bottom: 1px solid utilities.$color-background-disabled;
+  background-color: utilities.$color-background-primary;
 
   a {
     text-decoration: none;
@@ -16,8 +17,8 @@
   }
 
   & .headerBannerMobile {
-    background-color: utilities-deprecated.$color-primary;
-    color: utilities-deprecated.$color-surface;
+    background-color: utilities.$color-cta-background-primary;
+    color: utilities.$color-cta-texte-primary;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,20 +40,47 @@
     padding: 1rem;
 
     & .headerBody {
-      @include utilities-deprecated.media(large) {
+      @include utilities.media(large) {
         display: flex;
         align-items: center;
         gap: 4rem;
       }
 
+      & .headerBodyLien {
+        position: relative;
+
+        @include utilities.media(large) {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 4rem;
+        }
+
+        & .headerBodyBurgerMenu {
+          position: relative;
+          z-index: 2;
+        }
+
+        a:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: rgba(0,0,0,0);
+          z-index: 1;
+        }
+      }
+
       & .headerBodyLogoWrapper {
-        border-bottom: 2px solid utilities-deprecated.$color-separator;
+        border-bottom: 2px solid utilities.$color-background-disabled;
         display: flex;
         justify-content: space-between;
         padding-bottom: 1rem;
         margin-bottom: 1rem;
 
-        @include utilities-deprecated.media(large) {
+        @include utilities.media(large) {
           border-bottom: none;
           padding-bottom: 0;
         }
@@ -67,13 +95,13 @@
 
       & .headerBodyBanner {
         padding: 0.5rem 1rem;
-        border: 1px solid utilities-deprecated.$color-primary;
-        box-shadow: 1px 1px 0 utilities-deprecated.$color-primary,
-        2px 2px 0 utilities-deprecated.$color-primary,
-        3px 3px 0 utilities-deprecated.$color-primary,
-        4px 4px 0 utilities-deprecated.$color-primary,
-        5px 5px 0 utilities-deprecated.$color-primary,
-        6px 6px 0 utilities-deprecated.$color-primary;
+        border: 1px solid utilities.$color-primary;
+        box-shadow: 1px 1px 0 utilities.$color-primary,
+        2px 2px 0 utilities.$color-primary,
+        3px 3px 0 utilities.$color-primary,
+        4px 4px 0 utilities.$color-primary,
+        5px 5px 0 utilities.$color-primary,
+        6px 6px 0 utilities.$color-primary;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -83,7 +111,7 @@
         @extend %text-small;
 
         &:hover {
-          border: 1px solid utilities-deprecated.$color-header-on-hover;
+          border: 1px solid utilities-deprecated.$color-header-on-hover; // FIXME (DORO: 26-01-2024): Couleur non présente dans l'UI kit
           box-shadow: 1px 1px 0 utilities-deprecated.$color-header-on-hover,
           2px 2px 0 utilities-deprecated.$color-header-on-hover,
           3px 3px 0 utilities-deprecated.$color-header-on-hover,
@@ -97,20 +125,20 @@
         }
 
         & .headerBodyBannerTitle {
-          color: utilities-deprecated.$color-primary;
+          color: utilities.$color-primary;
           text-decoration: underline;
           text-underline-offset: 2px;
           @extend %bold;
         }
 
         & .headerBodyBannerContent {
-          @include utilities-deprecated.media(large) {
+          @include utilities.media(large) {
             font-size: .825rem;
           }
         }
 
         & .headerBodyBannerIcon {
-          color: utilities-deprecated.$color-primary;
+          color: utilities.$color-primary;
           height: 1.25rem;
           width: 1.25rem;
         }
@@ -131,15 +159,15 @@
     display: flex;
 
     .navItem {
-      color: utilities-deprecated.$color-on-secondary;
-      background-color: utilities-deprecated.$color-secondary;
+      color: utilities.$color-cta-texte-primary;
+      background-color: utilities.$color-title-primary-contrast;
 
       &:hover {
-        background-color: color.adjust(utilities-deprecated.$color-secondary, utilities-deprecated.$alpha:-0.15);
+        background-color: color.adjust(utilities.$color-title-primary-contrast, utilities.$alpha:-0.15);
       }
 
       & .subNavItemList {
-        color: utilities-deprecated.$color-on-surface;
+        color: utilities.$color-text-primary;
       }
     }
   }
@@ -148,8 +176,8 @@
   &Navigation {
     padding-inline: 1rem;
 
-    @include utilities-deprecated.media(large) {
-      border-top: 1px solid utilities-deprecated.$color-separator;
+    @include utilities.media(large) {
+      border-top: 1px solid utilities.$color-background-disabled;
       padding-inline: 0;
     }
   }
@@ -157,13 +185,13 @@
 
 
 .subNavItemList {
-  color: utilities-deprecated.$color-on-surface;
+  color: utilities.$color-text-primary;
   z-index: 5;
   position: absolute;
   width: 100%;
   min-width: 12.5rem;
-  background-color: utilities-deprecated.$color-surface;
-  border: 1px solid utilities-deprecated.$color-separator;
+  background-color: utilities.$color-background-primary;
+  border: 1px solid utilities.$color-background-disabled;
   border-radius: 0 0 20px 20px;
   overflow: hidden;
   margin-bottom: 1rem;
@@ -187,11 +215,11 @@
     @extend %text-regular;
     display: block;
     padding: 0.8rem 1rem;
-    color: utilities-deprecated.$color-on-background;
+    color: utilities.$color-text-primary;
   }
 
   &:not(:last-child) {
-    color: utilities-deprecated.$color-on-background;
+    color: utilities.$color-text-primary;
   }
 }
 
@@ -201,7 +229,7 @@
 }
 
 .subNavItem {
-  color: utilities-deprecated.$color-on-surface;
+  color: utilities.$color-text-primary;
 
   &:hover > a.navItemLabel {
       @include underline;
@@ -212,7 +240,7 @@
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid utilities-deprecated.$color-separator;
+    border-bottom: 1px solid utilities.$color-background-disabled;
   }
 
   &:last-child a {
@@ -263,23 +291,23 @@
   }
 
   & > .navItem:last-child {
-    color: utilities-deprecated.$color-on-secondary;
-    background-color: utilities-deprecated.$color-secondary;
+    color: utilities.$color-text-secondary;
+    background-color: utilities.$color-title-primary-contrast;
 
     &:hover {
-      background-color: color.adjust(utilities-deprecated.$color-secondary, utilities-deprecated.$alpha:-0.15);
+      background-color: color.adjust(utilities.$color-title-primary-contrast, utilities.$alpha:-0.15);
     }
 
     & .subNavItemList {
-      color: utilities-deprecated.$color-on-surface;
+      color: utilities.$color-text-primary;
     }
   }
 
   .navItem {
-    border-top: 1px solid utilities-deprecated.$color-separator;
+    border-top: 1px solid utilities.$color-background-disabled;
 
     &:last-child {
-      border-bottom: 1px solid utilities-deprecated.$color-separator;
+      border-bottom: 1px solid utilities.$color-background-disabled;
     }
   }
 
@@ -296,7 +324,7 @@
   }
 
   .subNavItem {
-    border-top: 1px solid utilities-deprecated.$color-separator;
+    border-top: 1px solid utilities.$color-background-disabled;
 
     &:not(:last-child) {
       border-bottom: 0;

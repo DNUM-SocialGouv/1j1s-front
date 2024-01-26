@@ -23,7 +23,7 @@ describe('Header', () => {
 			render(<Header/>);
 
 			const header = screen.getByRole('banner');
-			expect(header).toBeInTheDocument();
+			expect(header).toBeVisible();
 		});
 
 		it('affiche le logo de la République Française', () => {
@@ -31,7 +31,15 @@ describe('Header', () => {
 			render(<Header/>);
 
 			const logo = screen.getByAltText('République Française, Liberté, Egalité, Fraternité');
-			expect(logo).toBeInTheDocument();
+			expect(logo).toBeVisible();
+		});
+
+		it('affiche un lien vers l’accueil', () => {
+			mockUseRouter({ pathname: '/' });
+			render(<Header/>);
+
+			const accueilLink = screen.getByRole('link', { name: '1jeune1solution (retour à l\'accueil) - République française, Liberté, Égalité, Fraternité' });
+			expect(accueilLink).toBeVisible();
 		});
 
 		describe('quand on ouvre la navigation', () => {
@@ -44,7 +52,7 @@ describe('Header', () => {
 				fireEvent.click(openNavButton);
 				const navigation = screen.getByRole('navigation');
 
-				expect(navigation).toBeInTheDocument();
+				expect(navigation).toBeVisible();
 			});
 
 			it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" dans le menu des formations et orientations', async () => {
@@ -300,8 +308,8 @@ describe('Header', () => {
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
-				expect(menu).toBeInTheDocument();
-				expect(screen.getByText('Découvrir les métiers')).toBeInTheDocument();
+				expect(menu).toBeVisible();
+				expect(screen.getByText('Découvrir les métiers')).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 2', () => {
@@ -310,8 +318,8 @@ describe('Header', () => {
 				const button = screen.getByRole('button');
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
-				expect(menu).toBeInTheDocument();
-				expect(screen.getByText('Je deviens mentor')).toBeInTheDocument();
+				expect(menu).toBeVisible();
+				expect(screen.getByText('Je deviens mentor')).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', async () => {
