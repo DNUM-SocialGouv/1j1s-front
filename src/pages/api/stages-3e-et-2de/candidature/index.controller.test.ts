@@ -27,6 +27,9 @@ describe('candidature stage 3e et 2de', () => {
 			test: async ({ fetch }) => {
 				const response = await fetch({
 					body: JSON.stringify(candidature),
+					headers: {
+						'content-type': 'application/json',
+					},
 					method: 'POST',
 				});
 
@@ -51,6 +54,9 @@ describe('candidature stage 3e et 2de', () => {
 			test: async ({ fetch }) => {
 				const response = await fetch({
 					body: JSON.stringify(candidature),
+					headers: {
+						'content-type': 'application/json',
+					},
 					method: 'POST',
 				});
 
@@ -81,7 +87,10 @@ describe('candidature stage 3e et 2de', () => {
 			params: { ...aCandidatureStage3eEt2de(candidature) },
 			test: async ({ fetch }) => {
 				const response = await fetch({
-					body: JSON.stringify(candidature),
+					body: JSON.stringify({ ...aCandidatureStage3eEt2de(candidature) }),
+					headers: {
+						'content-type': 'application/json',
+					},
 					method: 'POST',
 				});
 

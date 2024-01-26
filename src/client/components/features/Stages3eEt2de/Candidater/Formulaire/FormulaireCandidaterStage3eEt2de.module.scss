@@ -1,0 +1,94 @@
+@use "@styles/utilities";
+
+$color-message-champs-obligatoires: utilities.$color-primary;
+
+.header {
+  background-color: utilities.$color-background-primary-alternative;
+  padding: 2rem 0;
+
+
+  @include utilities.media(medium) {
+    padding: 4rem 0 4rem;
+  }
+
+  & .headerTextContainer {
+    @extend %max-container;
+    display: flex;
+    flex-direction: column;
+    gap: utilities.pixel-to-rem(12);
+    padding: 0 1rem;
+  }
+
+  & .titre {
+    @include utilities.title-medium;
+    color: utilities.$color-primary;
+    @extend %bold;
+
+    @include utilities.media(medium) {
+      @include utilities.title-large;
+    }
+
+    & em {
+      font-weight: normal;
+    }
+  }
+
+  & .sousTitre {
+    @include utilities.text-large;
+    color: utilities.$color-text-primary-alternative;
+  }
+}
+
+.formulaireContainer {
+  padding: 0 1rem;
+
+  & .boutonRetour {
+    margin: 1.25rem 0 1.25rem 0;
+  }
+
+  .mentionChampsObligatoires {
+    color: $color-message-champs-obligatoires;
+    @include utilities.text-large;
+    margin-block: 2rem;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 1rem;
+
+    @include utilities.media(medium) {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    & .elementDesactive {
+      color: utilities.$color-text-disabled;
+    }
+
+    .boutonSoumission {
+      grid-column: 1;
+      margin-top: utilities.pixel-to-rem(4);
+
+      @include utilities.media(medium) {
+        grid-column: 1 / span 2;
+        width: fit-content;
+        justify-self: center;
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
+.decharge {
+  background-color: utilities.$color-background-primary-alternative;
+  border-radius: 1.25rem;
+  margin: 1.5rem auto 1.5rem auto;
+  max-width: 60.75rem;
+
+  p {
+    color: utilities.$color-text-placeholder;
+    font-size: 0.875rem;
+    padding: 1rem;
+  }
+}
