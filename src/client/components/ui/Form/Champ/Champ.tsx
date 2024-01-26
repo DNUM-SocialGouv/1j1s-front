@@ -92,6 +92,7 @@ export const InputChamp: <
 		onTouch={onTouch}
 		ref={inputRef}
 		aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
+		aria-invalid={errorMessage !== ''}
 		id={inputId}
 		onInvalid={onInvalid}
 		onChange={onChange}

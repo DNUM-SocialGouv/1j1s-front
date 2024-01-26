@@ -27,7 +27,7 @@ export function anEntrepriseSouhaitantSEngager(overrides?: Partial<EntrepriseSou
 		ville: 'Paris (15e arrondissement)',
 		...overrides,
 	};
-};
+}
 
 export const anEntrepriseMember = () => ({
 	companyName: 'Bidule co.',

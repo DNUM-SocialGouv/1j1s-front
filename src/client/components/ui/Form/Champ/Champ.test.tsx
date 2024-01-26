@@ -154,6 +154,43 @@ describe('<Champ/>', () => {
 			expect(onInvalid).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }));
 		});
 
+		describe('aria-invalid', () => {
+			it('lorsque je suis en erreur, aria-invalid est à true', async () => {
+				const user = userEvent.setup();
+				render(
+					<Champ>
+						<Champ.Input render={Input} required/>
+						<Champ.Error/>
+					</Champ>,
+				);
+
+				const input = screen.getByRole('textbox');
+				await user.type(input, 'a');
+				await user.tab();
+
+				await user.clear(input);
+
+				expect(input).toHaveAttribute('aria-invalid', 'true');
+			});
+
+			it('lorsque je fournis une valeur valide, aria-invalid est à false', async () => {
+				const user = userEvent.setup();
+				render(
+					<Champ>
+						<Champ.Input render={Input} required/>
+						<Champ.Error/>
+					</Champ>,
+				);
+
+				const input = screen.getByRole('textbox');
+				await user.type(input, 'a');
+				await user.tab();
+
+				expect(input).toHaveAttribute('aria-invalid', 'false');
+			});
+
+		});
+
 		it('accepte un onTouch', async () => {
 			const onTouch = jest.fn();
 			render(
