@@ -72,6 +72,7 @@ export namespace ComboboxAction {
 			this.newValue = value.toString();
 		}
 		execute(previousState: ComboboxState): ComboboxState {
+			console.log('inside setvalue', previousState.suggestionList.current?.querySelectorAll('[role="option"]').length);
 			return {
 				...previousState,
 				open: true,
