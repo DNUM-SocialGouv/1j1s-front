@@ -467,7 +467,7 @@ describe('RechercherEmploisEurope', () => {
 				niveauEtude: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_MAITRISE_OU_EQUIVALENT.toString(),
 				page: '1',
 				secteurActivite: SecteurActiviteCode.AGRICULTURE,
-				tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
+				tempsDeTravail: `${EURES_POSITION_SCHEDULE_TYPE.FullTime},${EURES_POSITION_SCHEDULE_TYPE.NonSpecified}`,
 				typeContrat: `${EURES_CONTRACT_TYPE.Contract},${EURES_CONTRACT_TYPE.Apprenticeship}`,
 			};
 			mockSmallScreen();
@@ -488,13 +488,14 @@ describe('RechercherEmploisEurope', () => {
 			const etiquettesRecherche = await screen.findByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquettesRecherche).toBeVisible();
 			const etiquettes = within(etiquettesRecherche).getAllByRole('listitem');
-			expect(etiquettes).toHaveLength(6);
+			expect(etiquettes).toHaveLength(7);
 			expect(etiquettes[0]).toHaveTextContent('Espagne');
 			expect(etiquettes[1]).toHaveTextContent('Contrat');
 			expect(etiquettes[2]).toHaveTextContent('Apprentissage');
 			expect(etiquettes[3]).toHaveTextContent('Temps plein');
-			expect(etiquettes[4]).toHaveTextContent('Niveau maîtrise (Master) ou équivalent');
-			expect(etiquettes[5]).toHaveTextContent('Agriculture');
+			expect(etiquettes[4]).toHaveTextContent('Temps de travail non spécifié');
+			expect(etiquettes[5]).toHaveTextContent('Niveau maîtrise (Master) ou équivalent');
+			expect(etiquettes[6]).toHaveTextContent('Agriculture');
 		});
 		it('quand il n‘y a pas d‘étiquette, n‘affiche pas la liste d‘étiquette', async () => {
 			const emploiEuropeServiceMock = anEmploiEuropeService();
