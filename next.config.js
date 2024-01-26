@@ -60,7 +60,7 @@ const moduleExports = {
 			},
 			{
 				hostname: STRAPI_MEDIA_URL,
-				protocol: 'https',
+				protocol: process.env.STRAPI_MEDIA_PROTOCOL ?? 'https',
 			},
 			{
 				hostname: CMS_HOST,
