@@ -9,6 +9,7 @@ import {
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import InputAutocomplétionPays
 	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -111,11 +112,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	function BoutonValidation() {
 		return isLoading
-			? <ButtonComponent
-				disabled
-				icon={<SpinnerIcon/>}
-				iconPosition="left"
-				label="Envoi en cours"/>
+			? <LoadingButton label="Envoi en cours"/>
 			: <ButtonComponent
 				icon={<Icon name="angle-right"/>}
 				iconPosition="right"
