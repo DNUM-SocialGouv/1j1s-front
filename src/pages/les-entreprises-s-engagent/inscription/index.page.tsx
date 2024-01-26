@@ -202,6 +202,7 @@ export default function LesEntreprisesSEngagentInscription() {
 												<Combobox.Option key={secteurActivite.valeur} value={secteurActivite.valeur}>
 													{secteurActivite.libellé}
 												</Combobox.Option>))}
+											<Combobox.SyncMessage/>
 										</Champ.Input>
 										<Champ.Error/>
 									</Champ>
