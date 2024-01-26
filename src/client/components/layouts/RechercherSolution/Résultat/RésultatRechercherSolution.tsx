@@ -15,7 +15,7 @@ type RésultatRechercherSolutionProps = {
 	intituléLienOffre?: string;
 	sousTitreOffre?: string | ReactNode;
 	étiquetteOffreList: Array<string | undefined>;
-} & Partial<HTMLElement> & LogoProps;
+} & React.HTMLAttributes<HTMLElement> & LogoProps;
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt= '', className } = props;
