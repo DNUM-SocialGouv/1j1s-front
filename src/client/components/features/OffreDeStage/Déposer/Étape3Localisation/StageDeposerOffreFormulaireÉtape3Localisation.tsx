@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
+import styles
+	from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/FormulaireContactCEJ.module.scss';
 import {
 	StageDeposerOffreFormulaireLayout,
 } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
@@ -12,6 +14,7 @@ import InputAutocomplétionPays
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
@@ -39,7 +42,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
@@ -107,13 +110,19 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	}
 
 	function BoutonValidation() {
-		return <ButtonComponent
-			icon={<Icon name="angle-right"/>}
-			iconPosition="right"
-			label="Envoyer ma demande de dépôt d’offre"
-			type="submit"
-			disabled={submitButtonDisabled}
-		/>;
+		return isLoading
+			? <ButtonComponent
+				disabled
+				icon={<SpinnerIcon/>}
+				iconPosition="left"
+				label="Envoi en cours"/>
+			: <ButtonComponent
+				icon={<Icon name="angle-right"/>}
+				iconPosition="right"
+				label="Envoyer ma demande de dépôt d’offre"
+				type="submit"
+				disabled={isLoading}
+			/>;
 	}
 
 	function FormulaireLocalisation() {
@@ -127,7 +136,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	}
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
-		setSubmitButtonDisabled(true);
+		setIsLoading(true);
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
@@ -141,7 +150,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
 			setIsModalErrorSubmitOpen(true);
-			setSubmitButtonDisabled(false);
+			setIsLoading(false);
 		}
 	}
 
