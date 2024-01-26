@@ -3,6 +3,7 @@ import nock from 'nock';
 
 import { rechercherStage3eEt2deHandler } from '~/pages/api/stages-3e-et-2de/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 import { aResultatRechercheStage3eEt2de, aStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 import {
@@ -30,7 +31,7 @@ describe('rechercher stage 3e et 2de', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
-					modeDeContact: 'Candidature en personne',
+					modeDeContact: ModeDeContact.IN_PERSON,
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
 				}),
@@ -42,7 +43,7 @@ describe('rechercher stage 3e et 2de', () => {
 						ville: 'Paris',
 					},
 					domaine: 'Boulangerie',
-					modeDeContact: 'Candidature en personne',
+					modeDeContact: ModeDeContact.IN_PERSON,
 					nomEntreprise: 'La Boulangerie',
 					nombreDeSalaries: '1-9',
 				}),
@@ -50,7 +51,7 @@ describe('rechercher stage 3e et 2de', () => {
 		});
 
 		nock('https://staging.immersion-facile.beta.gouv.fr/api/v2').get(
-			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier',
+			'/search?latitude=48.8535&longitude=2.34839&distanceKm=10&voluntaryToImmersion=true&appellationCodes[]=codeMetier&sortedBy=date',
 		).reply(200, searchResult);
 
 		await testApiHandler<ResultatRechercheStage3eEt2de | ErrorHttpResponse>({
@@ -63,7 +64,7 @@ describe('rechercher stage 3e et 2de', () => {
 				const jsonResultatsStages3eEt2de = await resultatsStages3eEt2de.json();
 				expect(jsonResultatsStages3eEt2de).toEqual(expected);
 			},
-			url: '/stages-3e-et-2de?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839',
+			url: '/stages-3e-et-2de?codeMetier=codeMetier&distanceCommune=10&latitudeCommune=48.8535&longitudeCommune=2.34839&sortedBy=date',
 		});
 	});
 });

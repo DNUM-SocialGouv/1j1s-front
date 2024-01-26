@@ -1,8 +1,9 @@
-import { createFailure, Success } from '~/server/errors/either';
+import { createFailure, createSuccess, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
+import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 import {
 	ResultatRechercheStage3eEt2de,
 	Stage3eEt2deFiltre,
@@ -13,7 +14,7 @@ import {
 	aStage3eEt2deFiltre,
 } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 import {
-	anApiImmersionFacileStage3eEt2de,
+	anApiImmersionFacileStage3eEt2de, anApiImmersionFacileStage3eEt2deCandidature,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.fixture';
 import {
 	ApiImmersionFacileStage3eEt2deRepository,
@@ -48,7 +49,24 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 			repository.search(filtre);
 
 			// Then
-			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('latitude=2&longitude=3&distanceKm=10'));
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&latitude=2&longitude=3&distanceKm=10'));
+		});
+
+		it('appelle l‘api Immersion Facile avec l’option pour trier les offres par date', () => {
+			// Given
+			const filtre: Stage3eEt2deFiltre = aStage3eEt2deFiltre({
+				distanceCommune: '10',
+				latitudeCommune: '2',
+				longitudeCommune: '3',
+			});
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
+
+			// When
+			repository.search(filtre);
+
+			// Then
+			expect(httpClientService.get).toHaveBeenCalledWith(expect.stringContaining('&sortedBy=date'));
 		});
 
 		it('appelle l‘api Immersion Facile avec le filtre qui ne remonte que les entreprise volontaires', () => {
@@ -160,6 +178,61 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 					apiSource: 'API Immersion Facile Stage 3e et 2de',
 					contexte: 'search stage 3e et 2de',
 					message: 'impossible d’effectuer une recherche de stage 3e et 2de',
+				});
+			});
+		});
+	});
+
+	describe('sendCandidatureStage3eEt2de', () => {
+		it('appelle le bon endpoint de l’api Immersion Facile avec les bonnes données', () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+			const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
+			const candidature = aCandidatureStage3eEt2de();
+
+			// When
+			repository.sendCandidatureStage3eEt2de(candidature);
+
+			// Then
+			expect(httpClientService.post).toHaveBeenCalledWith('/contact-establishment', anApiImmersionFacileStage3eEt2deCandidature());
+		});
+
+		describe('quand la candidature est correctement envoyée', () => {
+			it('retourne un succès', async () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
+				const candidature = aCandidatureStage3eEt2de();
+
+				// When
+				const result = await repository.sendCandidatureStage3eEt2de(candidature);
+
+				// Then
+				expect(result).toEqual(createSuccess(undefined));
+			});
+		});
+
+		describe('quand l’api répond avec une erreur', () => {
+			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
+				// GIVEN
+				const httpError = anHttpError(500);
+				const httpClientService = aPublicHttpClientService();
+				const errorManagementService = anErrorManagementService();
+				jest.spyOn(httpClientService, 'post').mockRejectedValue(httpError);
+				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, errorManagementService);
+				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
+				const candidature = aCandidatureStage3eEt2de();
+
+				// WHEN
+				const result = await repository.sendCandidatureStage3eEt2de(candidature);
+
+				// THEN
+				expect(result).toEqual(createFailure(errorReturnedByErrorManagementService));
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
+					apiSource: 'API Immersion Facile Stage 3e et 2de',
+					contexte: 'candidature stage 3e et 2de',
+					message: 'impossible d’envoyer la candidature de stage 3e et 2de',
 				});
 			});
 		});

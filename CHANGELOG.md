@@ -1,5 +1,41 @@
 # Changelog
 
+## [3.221.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.220.1...v3.221.0) (2024-01-25)
+
+
+### Features
+
+* **stage3eme:** recherche triee par date ([#2591](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2591)) ([7eecb87](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7eecb8756ff1db8caf8bd058bb08a6f89ab6a08b))
+
+## [3.220.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.220.0...v3.220.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.95.0 ([#2586](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2586)) ([8f9dde9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8f9dde91ba1653eaa434effab8a14ab23ed1bdf7))
+
+## [3.220.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.219.1...v3.220.0) (2024-01-24)
+
+
+### Features
+
+* **stage3e2de:** formulaire de candidature (backend) ([#2573](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2573)) ([f109b9a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f109b9a8c0e05a5abdeaa75fb35594d4f35f0914))
+
+## [3.219.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.219.0...v3.219.1) (2024-01-24)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2576](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2576)) ([7a2bb76](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7a2bb760325fba0112b70002b6602611b4514661))
+* **emplois europe:** renvoyer une erreur quand l‘offre n‘est pas trouvée ([#2574](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2574)) ([010cf66](https://github.com/DNUM-SocialGouv/1j1s-front/commit/010cf667514bf57a7ff0212ed1b8099c3abc6f44))
+
+## [3.219.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.5...v3.219.0) (2024-01-23)
+
+
+### Features
+
+* modifie le mailTo de dépôt d'offre de stage de 3e et 2d ([#2583](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2583)) ([b796ec6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b796ec6166f179fb58f412d5ad7d1f3114a4bedb))
+
 ## [3.218.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.218.4...v3.218.5) (2024-01-23)
 
 

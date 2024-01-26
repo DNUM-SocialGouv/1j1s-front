@@ -1,9 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
+	getModeDeContactWording,
+} from '~/client/components/features/Stages3eEt2de/Rechercher/FormulaireRecherche/getModeDeContactWording';
+import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import {
+	RésultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 interface ListeResultatsStage3eEt2deProps {
@@ -30,12 +35,24 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 	if (stage3eEt2de.nombreDeSalaries) {
 		étiquetteOffreList.push(`${stage3eEt2de.nombreDeSalaries} salariés`);
 	}
+
 	if (stage3eEt2de.modeDeContact) {
-		étiquetteOffreList.push(stage3eEt2de.modeDeContact);
+		const modeDeContactWording = getModeDeContactWording(stage3eEt2de.modeDeContact);
+		modeDeContactWording && étiquetteOffreList.push(modeDeContactWording);
 	}
 	if (stage3eEt2de.accessiblePersonnesEnSituationDeHandicap) {
 		étiquetteOffreList.push('Handi-accessible');
 	}
+
+	const paramsLienOffre = {
+		appellationCodes: stage3eEt2de.appellationCodes.toString(),
+		modeDeContact: stage3eEt2de.modeDeContact ? stage3eEt2de.modeDeContact.toString() : '',
+		nomEntreprise: stage3eEt2de.nomEntreprise,
+		siret: stage3eEt2de.siret,
+	};
+
+	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(paramsLienOffre).toString()}` : undefined;
+	const intituléLienOffre = stage3eEt2de.modeDeContact ? 'Candidater' : undefined;
 
 	return (
 		<li key={uuidv4()}>
@@ -46,6 +63,8 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 					<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
+				lienOffre={lienOffre}
+				intituléLienOffre={intituléLienOffre}
 			/>
 		</li>
 	);

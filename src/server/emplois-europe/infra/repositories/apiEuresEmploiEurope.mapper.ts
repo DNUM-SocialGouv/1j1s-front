@@ -14,6 +14,7 @@ import {
 	niveauLangage,
 } from '~/server/emplois-europe/infra/langageEures';
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeDetailXML,
 	ApiEuresEmploiEuropeRechercheResponse,
@@ -33,21 +34,25 @@ export class ApiEuresEmploiEuropeMapper {
 	) {
 	}
 
+	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
+		return items.find((detail) => detail.jobVacancy.header.handle === handle);
+	}
+
 	public mapRechercheEmploiEurope(reponseRecherche: ApiEuresEmploiEuropeRechercheResponse, reponseDetailRecherche: ApiEuresEmploiEuropeDetailResponse): ResultatRechercheEmploiEurope {
 		return {
 			nombreResultats: reponseRecherche.data.dataSetInfo.totalMatchingCount,
 			offreList: reponseRecherche.data.items.map((item): EmploiEurope => {
 				const handle = item.header.handle;
-				return this.mapDetailOffre(handle, reponseDetailRecherche);
+
+				const itemDetail = this.findItemByHandle(reponseDetailRecherche.data.items, handle);
+				return this.mapDetailOffre(handle, itemDetail);
 			}),
 		};
 	}
 
-	public mapDetailOffre = (handle: string, responseDetail: ApiEuresEmploiEuropeDetailResponse): EmploiEurope => {
-		const itemDetail = responseDetail.data.items
-			.find((detail) => detail.jobVacancy.header.handle === handle);
 
-		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(itemDetail?.jobVacancy.hrxml);
+	public mapDetailOffre = (handle: string, item?: ApiEuresEmploiEuropeDetailItem): EmploiEurope => {
+		const itemDetailParsed = this.xmlService.parse<ApiEuresEmploiEuropeDetailXML>(item?.jobVacancy.hrxml);
 
 		const positionOpening = this.getElementOrFirstElementInArray(itemDetailParsed?.PositionOpening);
 		const positionProfile = this.getElementOrFirstElementInArray(positionOpening?.PositionProfile);
@@ -84,7 +89,7 @@ export class ApiEuresEmploiEuropeMapper {
 			tempsDeTravail,
 			titre,
 			typeContrat,
-			urlCandidature: itemDetail?.related.urls[0].urlValue,
+			urlCandidature: item?.related.urls[0].urlValue,
 			ville,
 		};
 	};

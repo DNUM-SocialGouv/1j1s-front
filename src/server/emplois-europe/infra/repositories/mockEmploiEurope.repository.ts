@@ -3,6 +3,7 @@ import { EmploiEurope, ResultatRechercheEmploiEurope } from '~/server/emplois-eu
 import { EmploiEuropeRepository } from '~/server/emplois-europe/domain/emploiEurope.repository';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
+	ApiEuresEmploiEuropeDetailItem,
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
@@ -11,12 +12,17 @@ import {
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 	constructor(
 		private readonly apiEuresEmploiEuropeMapper: ApiEuresEmploiEuropeMapper,
 	) {
+	}
+
+	private findItemByHandle(items: Array<ApiEuresEmploiEuropeDetailItem>, handle: string) {
+		return items.find((detail) => detail.jobVacancy.header.handle === handle);
 	}
 
 	async search(): Promise<Either<ResultatRechercheEmploiEurope>> {
@@ -27,7 +33,11 @@ export class MockEmploiEuropeRepository implements EmploiEuropeRepository {
 
 	async get(handle: string): Promise<Either<EmploiEurope>> {
 		const response = mockResultatRechercheDetailApiEuresEmploiEurope();
-		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, response));
+
+		const itemDetail = this.findItemByHandle(response.data.items, handle);
+		if(!itemDetail) return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+
+		return createSuccess(this.apiEuresEmploiEuropeMapper.mapDetailOffre(handle, itemDetail));
 	}
 }
 

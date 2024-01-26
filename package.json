@@ -4,7 +4,7 @@
     "node": "18",
     "npm": "10"
   },
-  "version": "3.218.5",
+  "version": "3.221.0",
   "private": true,
   "scripts": {
     "prepare": "npm dedupe && ./setup.sh",
@@ -25,9 +25,9 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
-    "@meilisearch/instant-meilisearch": "0.14.0",
+    "@meilisearch/instant-meilisearch": "0.15.0",
     "@next/bundle-analyzer": "14.1.0",
-    "@sentry/nextjs": "7.93.0",
+    "@sentry/nextjs": "7.95.0",
     "axios": "1.6.5",
     "axios-cache-interceptor": "1.5.1",
     "classnames": "2.5.1",
@@ -64,7 +64,7 @@
     "@storybook/nextjs": "7.6.10",
     "@storybook/react": "7.6.10",
     "@testing-library/cypress": "^10.0.0",
-    "@testing-library/jest-dom": "6.2.1",
+    "@testing-library/jest-dom": "6.3.0",
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.2",
     "@types/dompurify": "3.0.5",
@@ -76,7 +76,7 @@
     "@types/react": "18.2.48",
     "@types/react-autosuggest": "10.1.11",
     "@types/react-dom": "18.2.18",
-    "@types/uuid": "9.0.7",
+    "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "cypress": "13.6.3",
     "eslint": "8.56.0",

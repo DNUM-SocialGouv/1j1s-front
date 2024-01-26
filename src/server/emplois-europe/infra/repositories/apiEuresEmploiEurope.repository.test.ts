@@ -1,6 +1,8 @@
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
+import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
-	anApiEuresEmploiEuropeDetailItem, anApiEuresEmploiEuropeDetailJobVacancy,
+	anApiEuresEmploiEuropeDetailItem,
+	anApiEuresEmploiEuropeDetailJobVacancy,
 	anApiEuresEmploiEuropeDetailResponse,
 	anApiEuresRechercheBody,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
@@ -300,6 +302,26 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 				handle: ['1'],
 				view: 'FULL_NO_ATTACHMENT',
 			});
+		});
+
+		it('lorsqu‘aucun résultat n‘est trouvé renvoie une failure contenu indisponible', async () => {
+			// Given
+			const httpClientService = aPublicHttpClientService();
+
+			const apiEuresEmploiEuropeDetailResponse: ApiEuresEmploiEuropeDetailResponse = {
+				data: {
+					items: [],
+				},
+			};
+
+			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse(apiEuresEmploiEuropeDetailResponse));
+			const repository = new ApiEuresEmploiEuropeRepository(httpClientService, anErrorManagementService(), apiEuresEmploiEuropeMapper);
+
+			// When
+			const detail = await repository.get('id');
+
+			// Then
+			expect(detail).toEqual(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
 		});
 
 		it('retourne le détail de l\'emploi en Europe demandé', async () => {
