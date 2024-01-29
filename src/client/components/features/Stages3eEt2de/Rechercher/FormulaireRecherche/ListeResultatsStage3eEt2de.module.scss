@@ -1,7 +1,9 @@
 @use "@styles/utilities";
 
 .carteResultat {
-  padding: 1.5rem;
+  @include utilities.media(medium) {
+    padding: 1.5rem;
+  }
 }
 
 .listeMetiers {
