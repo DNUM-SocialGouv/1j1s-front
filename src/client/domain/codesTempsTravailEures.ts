@@ -2,6 +2,7 @@ export enum EURES_POSITION_SCHEDULE_TYPE {
 	FullTime = 'FullTime',
 	PartTime = 'PartTime',
 	FlexTime = 'FlexTime',
+	NonSpecified = 'ns',
 	Any = 'Any',
 }
 
@@ -22,6 +23,9 @@ export const tempsDeTravailEures = [
 		libellé: 'Tous les types d’horaires',
 		valeur: EURES_POSITION_SCHEDULE_TYPE.Any,
 	},
-
+	{
+		libellé: 'Temps de travail non spécifié',
+		valeur: EURES_POSITION_SCHEDULE_TYPE.NonSpecified,
+	},
 ];
 

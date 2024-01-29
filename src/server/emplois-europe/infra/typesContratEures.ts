@@ -27,6 +27,6 @@ export const typesContratEures = [
 	{ libellé: 'Stage', valeur: EURES_CONTRACT_TYPE.Internship },
 	{ libellé: 'Temporaire', valeur: EURES_CONTRACT_TYPE.Temporary },
 	{ libellé: 'Temporaire pour permanent', valeur: EURES_CONTRACT_TYPE.TemporaryToHire },
-	{ libellé: 'Non spécifié', valeur: EURES_CONTRACT_TYPE.NS },
+	{ libellé: 'Type de contrat non spécifié', valeur: EURES_CONTRACT_TYPE.NS },
 ];
 
