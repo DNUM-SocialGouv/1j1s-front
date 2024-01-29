@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.226.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.225.0...v3.226.0) (2024-01-29)
+
+
+### Features
+
+* **logement:** rendre toute la carte cliquable ([#2601](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2601)) ([133c7d2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/133c7d252903cc6bc8bc285549fe02d6b257db69))
+
 ## [3.225.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.224.1...v3.225.0) (2024-01-29)
 
 
