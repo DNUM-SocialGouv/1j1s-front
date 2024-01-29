@@ -8,6 +8,7 @@ import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResu
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
+import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherSolutionLayoutWithTabsProps {
@@ -25,6 +26,7 @@ interface RechercherSolutionLayoutWithTabsProps {
 		messageNoResult?: React.ReactElement
 		nombreDeSolutions: number
 	}>
+	currentTabKey: string
 }
 
 export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayoutWithTabsProps) {
@@ -37,16 +39,22 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		maxPage,
 		isLoading,
 		listeSolutionElementTab,
+		currentTabKey,
 	} = props;
 
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
-	const [currentTab, setCurrentTab] = useState<number>(0);
+	const sessionStorageCurrentTab = useSessionStorage<number>(currentTabKey);
+	const [currentTab, setCurrentTab] = useState<number>(sessionStorageCurrentTab.get() ?? 0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
 	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
 	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
 	const hasSolutionsInCurrentTab = listeSolutionElementTab[currentTab].nombreDeSolutions > 0;
 
+	function onTabChange(index: number) {
+		setCurrentTab(index);
+		sessionStorageCurrentTab.set(index);
+	}
 
 	return (
 		<>
@@ -74,7 +82,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<div>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
-            						<Tabs onTabChange={setCurrentTab} currentIndex={currentTab}>
+            						<Tabs onTabChange={onTabChange} currentIndex={currentTab}>
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab

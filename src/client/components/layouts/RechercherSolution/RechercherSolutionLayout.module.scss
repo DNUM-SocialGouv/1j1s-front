@@ -15,12 +15,12 @@
 
 .informationRésultat {
   padding: 2rem 1rem;
-  ul {
+  & > ul:first-child {
     padding-bottom: 1rem;
   }
 
   @include utilities.media(large) {
-    ul {
+    & > ul:first-child {
       padding-bottom: 2rem;
     }
   }

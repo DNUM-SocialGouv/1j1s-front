@@ -123,6 +123,7 @@ export default function RechercherAlternance() {
 					messageResultatRecherche: getMessageResultatRecherche(alternanceList.entrepriseList.length),
 					nombreDeSolutions: alternanceList.entrepriseList.length,
 				}]}
+				currentTabKey="alternanceTab"
 			/>
 			<EnTete heading="Consultez nos articles"/>
 			<ArticleCardList>
