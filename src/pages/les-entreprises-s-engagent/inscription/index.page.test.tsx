@@ -256,7 +256,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		});
 
 		describe('quand l’utilisateur a rempli tous les champs et clique sur Envoyer le formulaire', () => {
-			it('le bouton est désactivé', async () => {
+			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 				const aLesEntreprisesSEngagementServiceMock = aLesEntreprisesSEngagentService();
 				jest.spyOn(aLesEntreprisesSEngagementServiceMock, 'envoyerFormulaireEngagement').mockImplementation(() => new Promise(() => {
 				}));
@@ -277,8 +277,9 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				await remplirFormulaireEtape2();
 				await clickOnEnvoyerLeFormulaire();
 
-				const button = screen.getByRole('button', { name: 'Envoyer le formulaire' });
-				expect(button).toBeDisabled();
+				const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
+				expect(loadingSubmitButton).toBeVisible();
+				expect(loadingSubmitButton).toBeDisabled();
 			});
 			it('appelle l’api avec les valeurs du formulaire de l’étape 1 et 2 et affiche un message de succès à l’utilisateur', async () => {
 				renderComponent();
