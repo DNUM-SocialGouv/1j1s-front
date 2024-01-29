@@ -234,7 +234,7 @@ export default function LesEntreprisesSEngagentInscription() {
 								</div>
 								<div className={styles.validationEtape2}>
 									{isLoading
-										? <LoadingButton label="Envoi en cours" className={styles.loadingSubmit}/>
+										? <LoadingButton className={styles.loadingSubmit}/>
 										: <ButtonComponent
 											icon={<Icon name="angle-right"/>}
 											iconPosition="right"

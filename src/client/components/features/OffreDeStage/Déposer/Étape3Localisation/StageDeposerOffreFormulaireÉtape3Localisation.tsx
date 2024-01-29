@@ -109,7 +109,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	function BoutonValidation() {
 		return isLoading
-			? <LoadingButton label="Envoi en cours"/>
+			? <LoadingButton/>
 			: <ButtonComponent
 				icon={<Icon name="angle-right"/>}
 				iconPosition="right"

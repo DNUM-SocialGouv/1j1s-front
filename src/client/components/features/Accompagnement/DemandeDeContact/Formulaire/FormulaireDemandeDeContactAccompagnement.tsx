@@ -99,7 +99,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 				className={styles.commentaireDemandeDeContact}
 			/>
 			{isLoading
-				? <LoadingButton label="Envoi en cours" className={styles.formulaireValidateButton}/>
+				? <LoadingButton className={styles.formulaireValidateButton}/>
 				: <ButtonComponent
 					type="submit"
 					className={styles.formulaireValidateButton}

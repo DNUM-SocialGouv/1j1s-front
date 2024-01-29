@@ -95,7 +95,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				name="commune"
 			/>
 			{isLoading
-				? <LoadingButton label="Envoi en cours" className={styles.formulaireButton}/>
+				? <LoadingButton className={styles.formulaireButton}/>
 				: <ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>
 			}
 
