@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.224.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.223.0...v3.224.0) (2024-01-29)
+
+
+### Features
+
+* **emploi-europe:** permettre la gestion des multi experiences minimum requises ([#2596](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2596)) ([fc6d14b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fc6d14b7c6b2d6a5db0c9b2292d8b7e2bdad8eb0))
+
 ## [3.223.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.222.0...v3.223.0) (2024-01-29)
 
 
