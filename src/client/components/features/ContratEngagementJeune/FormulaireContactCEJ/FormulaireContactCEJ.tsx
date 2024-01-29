@@ -5,7 +5,6 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';

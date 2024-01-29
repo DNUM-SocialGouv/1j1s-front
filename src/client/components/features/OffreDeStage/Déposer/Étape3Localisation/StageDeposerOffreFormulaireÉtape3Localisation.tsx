@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
-import styles
-	from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/FormulaireContactCEJ.module.scss';
 import {
 	StageDeposerOffreFormulaireLayout,
 } from '~/client/components/features/OffreDeStage/Déposer/FormulaireLayout/StageDeposerOffreFormulaireLayout';
@@ -15,7 +13,6 @@ import InputAutocomplétionPays
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';

@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Icon } from '../Icon/Icon';
-import { ButtonComponent } from './ButtonComponent';
 import { LoadingButton } from './LoadingButton';
 
 const meta: Meta<typeof LoadingButton> = {
