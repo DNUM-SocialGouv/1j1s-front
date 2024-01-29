@@ -1,6 +1,17 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .Card {
+  position: relative;
+
+  a:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
   &ImageWrapper {
     max-width: 22.5rem;
     height: 180px;
@@ -18,10 +29,10 @@
       justify-content: space-between;
       &Type {
         text-transform: uppercase;
-        @extend %text-small;
+        @include utilities.text-small;
       }
       &Date {
-        @extend %text-small;
+        @include utilities.text-small;
         text-transform: uppercase;
       }
     }
@@ -46,7 +57,7 @@
     column-gap: 2rem;
     padding-top: .5rem;
     padding-bottom: 1.5rem;
-    @extend %text-medium;
+    @include utilities.text-medium;
     dd {
       > sup {
         font-size: 0.75rem;
@@ -65,30 +76,33 @@
     justify-content: space-between;
     padding: 0 0.75rem 1rem 0.75rem;
     gap: .5rem;
-    @extend %text-small;
+    @include utilities.text-small;
 
     .localisation {
       $lineHeight: 1.5;
       line-height: $lineHeight;
       white-space: unset;
       span {
-        @include utilities-deprecated.line-clamp(1, $lineHeight);
+        @include utilities.line-clamp(1, $lineHeight);
       }
     }
 
     &CallToAction {
-      color: utilities-deprecated.$color-primary;
-      :hover {
-        text-decoration: underline;
-      }
+      color: utilities.$color-primary;
       > span {
         white-space: nowrap;
+      }
+
+      &:hover {
+        > span {
+          text-decoration: underline;
+        }
       }
     }
   }
 }
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
   .Card {
     &Contenu {
       & h3 {

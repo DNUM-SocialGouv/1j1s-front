@@ -18,7 +18,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
 
 	return (
-		<Card layout="vertical">
+		<Card layout="vertical" className={styles.Card}>
 			<CardImage imageSrcList={annonce.imagesUrl}/>
 
 			<Card.Content className={styles.CardContenu}>
