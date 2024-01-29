@@ -1,15 +1,16 @@
 import { SpinnerIcon } from '../Icon/spinner.icon';
-import { ButtonComponent, ButtonComponentProps } from './ButtonComponent';
+import { ButtonComponent } from './ButtonComponent';
 
-interface LoadingButtonProps extends ButtonComponentProps {
+interface LoadingButtonProps {
 	label: string
+	className: string
 }
-export const LoadingButton = ({ label, ...rest } : LoadingButtonProps) => {
+export const LoadingButton = ({ label, className } : LoadingButtonProps) => {
 	return <ButtonComponent
 		disabled
 		icon={<SpinnerIcon/>}
 		iconPosition="left"
 		label={label}
-		{...rest}
+		className={className}
 	/>;
 };

@@ -20,7 +20,7 @@ const meta: Meta<typeof ButtonComponent> = {
 		label: 'Cliquez ici',
 	},
 	component: ButtonComponent,
-	title: 'Components/ButtonComponent',
+	title: 'Components/Button/ButtonComponent',
 };
 
 export default meta;
