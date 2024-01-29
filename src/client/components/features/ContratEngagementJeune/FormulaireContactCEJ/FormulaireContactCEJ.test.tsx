@@ -71,6 +71,27 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 	describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
 		describe('et que le formulaire est valide', () => {
+			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
+				// Given
+				const { demandeDeContactServiceMock } = renderComponent();
+				jest.spyOn(demandeDeContactServiceMock, 'envoyerPourLeCEJ').mockResolvedValueOnce(new Promise(() => {
+				}));
+
+				// When
+				await remplirFormulaireDeContactEtEnvoyer({
+					age: '19 ans',
+					email: 'toto@msn.fr',
+					nom: 'Mc Totface',
+					prénom: 'Toto',
+					téléphone: '0123456789',
+					ville: 'Paris',
+				});
+
+				// Then
+				const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
+				expect(loadingSubmitButton).toBeVisible();
+				expect(loadingSubmitButton).toBeDisabled();
+			});
 			it('appelle l’api avec les paramètres saisis dans le formulaire', async () => {
 				// Given
 				const { demandeDeContactServiceMock } = renderComponent();
@@ -114,31 +135,31 @@ describe('<FormulaireDeContactCEJ />', () => {
 				expect(onSuccess).toHaveBeenCalledTimes(1);
 			});
 		});
-	});
-	describe('quand on clique sur politique de confidentialité', () => {
-		it('ça te renvoie vers la page confidentialite', () => {
-			// Given
-			const politiqueConfidentialité = 'politique de confidentialité';
+		describe('quand on clique sur politique de confidentialité', () => {
+			it('ça te renvoie vers la page confidentialite', () => {
+				// Given
+				const politiqueConfidentialité = 'politique de confidentialité';
 
-			renderComponent();
+				renderComponent();
 
-			// Then
-			const link = screen.getByRole('link', { name: politiqueConfidentialité });
-			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('/confidentialite'));
+				// Then
+				const link = screen.getByRole('link', { name: politiqueConfidentialité });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', expect.stringContaining('/confidentialite'));
+			});
 		});
-	});
-	describe('quand on clique sur CGU', () => {
-		it('ça te renvoie vers la page cgu', () => {
-			// Given
-			const cgu = 'CGU';
+		describe('quand on clique sur CGU', () => {
+			it('ça te renvoie vers la page cgu', () => {
+				// Given
+				const cgu = 'CGU';
 
-			renderComponent();
+				renderComponent();
 
-			// Then
-			const link = screen.getByRole('link', { name: cgu });
-			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('/cgu'));
+				// Then
+				const link = screen.getByRole('link', { name: cgu });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', expect.stringContaining('/cgu'));
+			});
 		});
 	});
 });

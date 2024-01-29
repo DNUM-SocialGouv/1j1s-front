@@ -57,7 +57,7 @@ $color-background-decharge: utilities.$color-background-primary-alternative;
     }
 
     p {
-      font-size: 0.7rem;
+      @include utilities.text-small();
       padding: 0.5rem 1rem;
     }
   }

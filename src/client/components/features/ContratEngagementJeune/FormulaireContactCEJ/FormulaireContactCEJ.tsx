@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { SpinnerIcon } from '~/client/components/ui/Icon/spinner.icon';
@@ -95,13 +96,8 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				name="commune"
 			/>
 			{isLoading
-				? (<ButtonComponent
-					className={styles.formulaireButton}
-					disabled
-					icon={<SpinnerIcon/>}
-					iconPosition="left"
-					label="Envoi en cours"/>)
-				: (<ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>)
+				? <LoadingButton label="Envoi en cours" className={styles.formulaireButton}/>
+				: <ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>
 			}
 
 			<div className={styles.formulaireDécharge}>
