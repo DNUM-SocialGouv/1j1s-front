@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.225.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.224.1...v3.225.0) (2024-01-29)
+
+
+### Features
+
+* **emploi-europe:** ajouter non specifie aux criteres de recherche doffre ([#2600](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2600)) ([19c88c1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/19c88c1b9876987eb593f8bb923f219051a118ed))
+
 ## [3.224.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.224.0...v3.224.1) (2024-01-29)
 
 
