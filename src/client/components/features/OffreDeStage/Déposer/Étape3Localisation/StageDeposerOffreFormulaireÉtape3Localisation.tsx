@@ -7,6 +7,7 @@ import {
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import InputAutocomplétionPays
 	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
@@ -39,7 +40,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
 	const informationsEntreprise = localStorageEntreprise.get();
@@ -107,13 +108,15 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	}
 
 	function BoutonValidation() {
-		return <ButtonComponent
-			icon={<Icon name="angle-right"/>}
-			iconPosition="right"
-			label="Envoyer ma demande de dépôt d’offre"
-			type="submit"
-			disabled={submitButtonDisabled}
-		/>;
+		return isLoading
+			? <LoadingButton/>
+			: <ButtonComponent
+				icon={<Icon name="angle-right"/>}
+				iconPosition="right"
+				label="Envoyer ma demande de dépôt d’offre"
+				type="submit"
+				disabled={isLoading}
+			/>;
 	}
 
 	function FormulaireLocalisation() {
@@ -127,7 +130,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	}
 
 	async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
-		setSubmitButtonDisabled(true);
+		setIsLoading(true);
 		event.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
@@ -141,7 +144,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
 			setIsModalErrorSubmitOpen(true);
-			setSubmitButtonDisabled(false);
+			setIsLoading(false);
 		}
 	}
 

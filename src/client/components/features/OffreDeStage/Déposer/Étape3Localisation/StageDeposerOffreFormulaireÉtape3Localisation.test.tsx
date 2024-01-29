@@ -127,6 +127,31 @@ describe('<Localisation />', () => {
 			expect(screen.getByLabelText(labelDepartement)).toBeValid();
 		});
 
+		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
+			// GIVEN
+			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+
+			const user = userEvent.setup();
+			const stageService = aStageService();
+			jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {})),
+
+			render(
+				<DependenciesProvider stageService={stageService}>
+					<Localisation/>
+				</DependenciesProvider>,
+			);
+
+			await remplirFormulaireEtape3();
+
+			// WHEN
+			await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
+
+			// THEN
+			const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
+			expect(loadingSubmitButton).toBeVisible();
+			expect(loadingSubmitButton).toBeDisabled();
+		});
 
 		describe('modale d‘erreur', () => {
 			it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
@@ -143,12 +168,7 @@ describe('<Localisation />', () => {
 					</DependenciesProvider>,
 				);
 
-				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
-				await user.click(screen.getByRole('option', { name: 'France' }));
-				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
-				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
-				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
-				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+				await remplirFormulaireEtape3();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
 
@@ -169,12 +189,7 @@ describe('<Localisation />', () => {
 					</DependenciesProvider>,
 				);
 
-				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
-				await user.click(screen.getByRole('option', { name: 'France' }));
-				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
-				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
-				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
-				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+				await remplirFormulaireEtape3();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
 
@@ -199,12 +214,7 @@ describe('<Localisation />', () => {
 					</DependenciesProvider>,
 				);
 
-				await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
-				await user.click(screen.getByRole('option', { name: 'France' }));
-				expect(screen.getByRole('textbox', { name: 'Pays' })).toBeValid();
-				await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
-				await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
-				await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+				await remplirFormulaireEtape3();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' }));
 
@@ -217,3 +227,12 @@ describe('<Localisation />', () => {
 		});
 	});
 });
+
+async function remplirFormulaireEtape3() {
+	const user = userEvent.setup();
+	await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+	await user.click(screen.getByRole('option', { name: 'France' }));
+	await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
+	await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
+	await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+}

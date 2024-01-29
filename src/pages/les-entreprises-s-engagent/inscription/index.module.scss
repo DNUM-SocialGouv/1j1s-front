@@ -59,7 +59,7 @@ $color-contact-link: utilities.$color-title-primary-alternative;
     }
   }
 
-  & button[type=submit] {
+  & button[type=submit], .loadingSubmit{
     margin-top: 20px;
     width: 100%;
   }

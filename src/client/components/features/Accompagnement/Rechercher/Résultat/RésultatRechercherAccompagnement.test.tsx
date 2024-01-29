@@ -62,6 +62,45 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			expect(screen.getByRole('dialog', { name: 'Je souhaite être contacté(e) par la Mission Locale' })).toBeVisible();
 		});
 
+		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
+			// GIVEN
+			const user = userEvent.setup();
+			const établissement: ÉtablissementAccompagnement = {
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.MISSION_LOCALE,
+			};
+			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const localisationService = aLocalisationService();
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
+			}));
+			render(
+				<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
+					localisationService={localisationService}>
+					<RésultatRechercherAccompagnement établissement={établissement}/>
+				</DependenciesProvider>);
+
+			const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+			await user.click(buttonDemandeContact);
+
+			// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
+			await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
+
+			await remplirFormulaire();
+
+			// WHEN
+			await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
+
+			// THEN
+			const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
+			expect(loadingSubmitButton).toBeVisible();
+			expect(loadingSubmitButton).toBeDisabled();
+		});
+
 		it('lorsque la demande de contact est un succès, affiche la modale de succès', async () => {
 			const user = userEvent.setup();
 			const établissement: ÉtablissementAccompagnement = {
