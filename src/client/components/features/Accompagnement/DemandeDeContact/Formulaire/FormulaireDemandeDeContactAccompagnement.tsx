@@ -1,8 +1,9 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import styles
 	from 'src/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement.module.scss';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
@@ -26,15 +27,22 @@ interface FormulaireDemandeDeContactAccompagnementProps {
 	onFailure: () => void;
 }
 
-export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissementAccompagnement, onSuccess, onFailure }: FormulaireDemandeDeContactAccompagnementProps) {
+export function FormulaireDemandeDeContactAccompagnement({
+																													 contactÉtablissementAccompagnement,
+																													 onSuccess,
+																													 onFailure,
+																												 }: FormulaireDemandeDeContactAccompagnementProps) {
 	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
+	const [isLoading, setIsLoading] = useState(false);
 
 	async function envoyerFormulaire(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+		setIsLoading(true);
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const demandeDeContactAccompagnement = mapDemandeDeContactAccompagnement(data, contactÉtablissementAccompagnement);
 		const result = await établissementAccompagnementService.envoyerDemandeContact(demandeDeContactAccompagnement);
+		setIsLoading(false);
 		if (isSuccess(result)) {
 			onSuccess();
 		} else {
@@ -90,11 +98,14 @@ export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissement
 				rows={5}
 				className={styles.commentaireDemandeDeContact}
 			/>
-			<ButtonComponent
-				type="submit"
-				className={styles.formulaireValidateButton}
-				label="Envoyer mes informations afin d‘être rappelé(e)"
-			/>
+			{isLoading
+				? <LoadingButton label="Envoi en cours" className={styles.formulaireValidateButton}/>
+				: <ButtonComponent
+					type="submit"
+					className={styles.formulaireValidateButton}
+					label="Envoyer mes informations afin d‘être rappelé(e)"
+				/>
+			}
 			<div className={styles.formulaireDécharge}>
 				<p>
 					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre
@@ -106,6 +117,7 @@ export function FormulaireDemandeDeContactAccompagnement({ contactÉtablissement
 			</div>
 		</form>
 	);
+
 }
 
 function mapDemandeDeContactAccompagnement(formData: FormData, contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement): DemandeDeContactAccompagnement {
