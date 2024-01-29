@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.223.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.222.0...v3.223.0) (2024-01-29)
+
+
+### Features
+
+* **header:** logo et texte 1j1s dans le header &gt; lien vers accueil ([#2597](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2597)) ([9fe5472](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9fe547272f4b747febaa4901451a1f282a64ebbc))
+
 ## [3.222.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.221.0...v3.222.0) (2024-01-26)
 
 
