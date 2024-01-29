@@ -245,7 +245,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							codeLangueDeLOffre: 'fr',
 							description: 'Je suis la description',
 							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-							experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
+							experiencesNecessaires: [{ duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR }],
 							listeLangueDeTravail: ['FR', 'EN'],
 							listePermis: ['B', 'C'],
 							nomEntreprise: 'La Boulangerie',
@@ -272,8 +272,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			expect(resultatRechercheEmploiEurope).toEqual(anEmploiEurope({
 				codeLangueDeLOffre: 'fr',
 				description: 'Je suis la description',
-				experienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				id: '3',
+				laPlusLongueExperienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				langueDeTravail: ['français', 'anglais'],
 				listePermis: ['B', 'C'],
 				niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
@@ -846,10 +846,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								handle,
 							},
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-								experienceNecessaire: {
+								experiencesNecessaires: [{
 									duree: 6,
 									unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-								},
+								}],
 							}),
 						}),
 					},
@@ -860,8 +860,8 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
-				expect(result.experienceNecessaire?.duree).toBe(6);
-				expect(result.experienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
+				expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(6);
+				expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
 			});
 
 			it('lorsque l‘unité n‘est pas fournie, renvoie uniquement la durée', () => {
@@ -873,10 +873,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								handle,
 							},
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-								experienceNecessaire: {
+								experiencesNecessaires: [{
 									duree: 6,
 									unite: undefined,
-								},
+								}],
 							}),
 						}),
 					},
@@ -887,8 +887,138 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				const result = mapper.mapDetailOffre(handle, aDetailItem);
 
 				// THEN
-				expect(result.experienceNecessaire?.duree).toBe(6);
-				expect(result.experienceNecessaire?.unite).toBe(undefined);
+				expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(6);
+				expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(undefined);
+			});
+
+			describe('lorsque plusieurs expériences sont mentionnées', () => {
+				describe('et que la durée requise est différente d’une expérience à l’autre', function () {
+					it('renvoie la durée la plus longue de toutes les expériences', () => {
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 12,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}, {
+											duree: 5,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.WEEK,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(2);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.YEAR);
+					});
+				});
+				describe('et que la durée requise est identique d’une expérience à l’autre', function () {
+					it('renvoie cette durée', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 1,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}, {
+											duree: 1,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(1);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.MONTH);
+					});
+				});
+				describe('et que la durée requise est inconnue sur toutes les expériences', function () {
+					it('renvoie une experience requise undefined', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [undefined, undefined],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.laPlusLongueExperienceNecessaire).toBe(undefined);
+					});
+				});
+				describe('et que l‘unité d’une durée n’est pas une unité du référentiel connue', function () {
+					it('cette durée est réduite à 0', () => {
+						// WHEN
+						const handle = 'eures-offer-id';
+						const aDetailItem = anApiEuresEmploiEuropeDetailItem(
+							{
+								jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+									header: {
+										handle,
+									},
+									hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+										experiencesNecessaires: [{
+											duree: 4,
+											// @ts-expect-error
+											unite: 'hour',
+										}, {
+											duree: 2,
+											unite: UNITE_EXPERIENCE_NECESSAIRE.DAY,
+										}],
+									}),
+								}),
+							},
+						);
+						const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+						// WHEN
+						const result = mapper.mapDetailOffre(handle, aDetailItem);
+
+						// THEN
+						expect(result.laPlusLongueExperienceNecessaire?.duree).toBe(2);
+						expect(result.laPlusLongueExperienceNecessaire?.unite).toBe(UNITE_EXPERIENCE_NECESSAIRE.DAY);
+					});
+				});
 			});
 		});
 	});

@@ -4,6 +4,7 @@ import { paysEuropeList } from '~/client/domain/pays';
 import {
 	CompetenceLinguistique,
 	EmploiEurope,
+	ExperienceNecessaire,
 	LanguageSpecificationCompetence,
 	ResultatRechercheEmploiEurope,
 } from '~/server/emplois-europe/domain/emploiEurope';
@@ -20,12 +21,14 @@ import {
 	ApiEuresEmploiEuropeRechercheResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { EURES_CONTRACT_TYPE, typesContratEures } from '~/server/emplois-europe/infra/typesContratEures';
+import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 import { XmlService } from '~/server/services/xml/xml.service';
-import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension;
-import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode;
-import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile;
-import PositionQualifications = ApiEuresEmploiEuropeDetailXML.PositionQualifications;
-import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization;
+import CompetencyDimension = ApiEuresEmploiEuropeDetailXML.CompetencyDimension
+import WorkingLanguageCode = ApiEuresEmploiEuropeDetailXML.WorkingLanguageCode
+import PositionProfile = ApiEuresEmploiEuropeDetailXML.PositionProfile
+import PositionQualifications = ApiEuresEmploiEuropeDetailXML.PositionQualifications
+import PositionOrganization = ApiEuresEmploiEuropeDetailXML.PositionOrganization
+import ExperienceCategory = ApiEuresEmploiEuropeDetailXML.ExperienceCategory
 
 
 export class ApiEuresEmploiEuropeMapper {
@@ -79,8 +82,8 @@ export class ApiEuresEmploiEuropeMapper {
 			codeLangueDeLOffre,
 			competencesLinguistiques,
 			description: descriptionDeLOffre,
-			experienceNecessaire: experienceNecessaire,
 			id: handle,
+			laPlusLongueExperienceNecessaire: experienceNecessaire,
 			langueDeTravail,
 			listePermis: listePermisDeConduire,
 			niveauEtudes,
@@ -253,18 +256,62 @@ export class ApiEuresEmploiEuropeMapper {
 	private getExperienceNecessaire(positionQualifications?: PositionQualifications) {
 		const experienceSummary = this.getElementOrFirstElementInArray(positionQualifications?.ExperienceSummary);
 
-		const experienceCategory = this.getElementOrFirstElementInArray(experienceSummary?.ExperienceCategory);
-		const experienceNecessaire = this.getElementOrFirstElementInArray(experienceCategory?.Measure);
-		if (!experienceNecessaire)
+		if (!Array.isArray(experienceSummary?.ExperienceCategory)) {
+			const experienceCategory = experienceSummary?.ExperienceCategory;
+			return this.extractExperienceNecessaireWithinCategory(experienceCategory?.Measure);
+		}
+
+		const allDureesExperienceNecessaires = experienceSummary?.ExperienceCategory
+			.map((experienceCategory) => {
+				return this.extractExperienceNecessaireWithinCategory(experienceCategory.Measure);
+			})
+			.filter((dureeExperienceNecessaire): dureeExperienceNecessaire is ExperienceNecessaire => !!dureeExperienceNecessaire);
+
+		const sortedDureesExperiencesNecessaires = allDureesExperienceNecessaires.sort(this.sortByNumberOfDays);
+
+		if (sortedDureesExperiencesNecessaires.length === 0) {
+			return undefined;
+		}
+		return sortedDureesExperiencesNecessaires[sortedDureesExperiencesNecessaires.length-1];
+	}
+
+	private extractExperienceNecessaireWithinCategory(experienceCategoryMeasure: ExperienceCategory['Measure'] | undefined): ExperienceNecessaire | undefined {
+		const measureOfExperienceCategory = this.getElementOrFirstElementInArray(experienceCategoryMeasure);
+		if (!measureOfExperienceCategory)
 			return undefined;
 
-		const duree = this.xmlService.getTextValue(experienceNecessaire);
-		const unitCode = experienceNecessaire.attributs?.unitCode;
+		const duree = this.xmlService.getTextValue(measureOfExperienceCategory);
+		const unitCode = measureOfExperienceCategory.attributs?.unitCode;
 
 		return {
 			duree,
 			unite: unitCode,
 		};
+	}
+
+	private sortByNumberOfDays(experience1: ExperienceNecessaire, experience2: ExperienceNecessaire) {
+		function calculateNumberOfDays(experience: ExperienceNecessaire) {
+			const NUMBER_OF_DAYS_IN_YEAR = 365;
+			const NUMBER_OF_DAYS_IN_MONTH = 30;
+			const NUMBER_OF_DAYS_IN_WEEK = 7;
+			switch (experience.unite) {
+				case UNITE_EXPERIENCE_NECESSAIRE.YEAR:
+					return experience.duree * NUMBER_OF_DAYS_IN_YEAR;
+				case UNITE_EXPERIENCE_NECESSAIRE.MONTH:
+					return experience.duree * NUMBER_OF_DAYS_IN_MONTH;
+				case UNITE_EXPERIENCE_NECESSAIRE.WEEK:
+					return experience.duree * NUMBER_OF_DAYS_IN_WEEK;
+				case UNITE_EXPERIENCE_NECESSAIRE.DAY:
+					return experience.duree;
+				default:
+					return 0;
+			}
+		}
+
+		const durationInDays1 = calculateNumberOfDays(experience1);
+		const durationInDays2 = calculateNumberOfDays(experience2);
+
+		return durationInDays1 - durationInDays2;
 	}
 
 	private getListePermisDeConduire(positionQualifications?: PositionQualifications) {

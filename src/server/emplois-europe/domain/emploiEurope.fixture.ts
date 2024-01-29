@@ -41,11 +41,11 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 			nomDuNiveauDeLangue: LEVEL_NAME.INTERMEDIAIRE,
 		}],
 		description: '<p><strong>Fonction:</strong></p><ul><li>En tant que Co&#233;quipier cuisine, tu es un ambassadeur/une ambassadrice de la marque et tu portes nos valeurs dans ta boulangerie-restaurant.</li> <li>Tu pr&#233;pares nos plats dans ta cuisine et tu es un soutien au service en salle si n&#233;cessaire. La pr&#233;paration (mise en place) est &#233;galement sous ta responsabilit&#233;.</li> </ul>',
-		experienceNecessaire: {
+		id: '1',
+		laPlusLongueExperienceNecessaire: {
 			duree: 3,
 			unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 		},
-		id: '1',
 		langueDeTravail: ['néerlandais'],
 		listePermis: ['B'],
 		niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',

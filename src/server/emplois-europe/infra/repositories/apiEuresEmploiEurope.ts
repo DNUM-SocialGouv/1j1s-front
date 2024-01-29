@@ -133,11 +133,11 @@ export namespace ApiEuresEmploiEuropeDetailXML {
 		ExperienceCategory?: ExperienceCategory | Array<ExperienceCategory>
 	}
 
-	interface ExperienceCategory {
+	export interface ExperienceCategory {
 		Measure: Measure | Array<Measure>
 	}
 
-	interface Measure {
+	export interface Measure {
 		'textContent': number
 		attributs?: {
 			unitCode?: UNITE_EXPERIENCE_NECESSAIRE
