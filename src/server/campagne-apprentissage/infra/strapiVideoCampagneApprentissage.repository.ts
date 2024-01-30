@@ -9,6 +9,10 @@ import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 
+import {
+	mapToVideoCampagneApprentissage,
+} from './strapiVideoCampagneApprentissage.mapper';
+
 export class StrapiVideoCampagneApprentissageRepository implements VideoCampagneApprentissageRepository {
 	private RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
 	constructor(private strapiService: CmsRepository, private errorManagementService: ErrorManagementService) {}
@@ -21,7 +25,8 @@ export class StrapiVideoCampagneApprentissageRepository implements VideoCampagne
 		}
 
 		try{
-			return createSuccess(strapiVideosCampagne.result.map((strapiVideo) => this.mapToVideoCampagneApprentissage(strapiVideo)));
+			const videosCampagneApprentissage = strapiVideosCampagne.result.map((strapiVideo) => mapToVideoCampagneApprentissage(strapiVideo));
+			return createSuccess(videosCampagneApprentissage);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'Strapi - vidéo campagne apprentissage',
@@ -30,14 +35,4 @@ export class StrapiVideoCampagneApprentissageRepository implements VideoCampagne
 			});
 		}
 	}
-
-	private mapToVideoCampagneApprentissage(strapiVideoCampagneApprentissage: StrapiVideoCampagneApprentissage): VideoCampagneApprentissage {
-		const videoIdWithPotentialParams = strapiVideoCampagneApprentissage.Url.split('v=')[1];
-		const videoId = videoIdWithPotentialParams.split('&')[0];
-		return {
-			titre: strapiVideoCampagneApprentissage.Titre,
-			transcription: strapiVideoCampagneApprentissage.Transcription,
-			videoId: videoId,
-		};
-	};
 }
