@@ -50,7 +50,7 @@ export function FormulaireRechercheAlternance() {
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
-		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { shallow: true });
+		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { scroll: false });
 	}
 
 	return (
@@ -67,7 +67,6 @@ export function FormulaireRechercheAlternance() {
 							<ComboboxMetiers
 								defaultValue={domaineDefaultValue}
 								required
-								autoFocus
 								placeholder={'Exemples : enseignement, recherche...'}
 								valueName={'codeRomes'}
 							/>

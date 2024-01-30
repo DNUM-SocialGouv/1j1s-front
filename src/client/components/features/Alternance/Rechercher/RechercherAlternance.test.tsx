@@ -9,8 +9,6 @@ import RechercherAlternance from '~/client/components/features/Alternance/Recher
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
@@ -21,6 +19,7 @@ import {
 	anAlternanceEntrepriseSansCandidature,
 	anAlternanceMatcha,
 	anAlternancePEJobs,
+	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 
 describe('RechercherAlternance', () => {
@@ -35,7 +34,6 @@ describe('RechercherAlternance', () => {
 	describe('quand le composant est affiché sans recherche', () => {
 		it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', async () => {
 			// GIVEN
-			const alternanceServiceMock = anAlternanceService();
 			const métierServiceMock = aMetierService();
 			const localisationServiceMock = aLocalisationService();
 			mockUseRouter({});
@@ -43,7 +41,6 @@ describe('RechercherAlternance', () => {
 			// WHEN
 			render(
 				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
 					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
@@ -55,13 +52,11 @@ describe('RechercherAlternance', () => {
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
 			expect(screen.queryByText(/^[0-9]+ résulat(s)? $/)).not.toBeInTheDocument();
-			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledTimes(0);
 			expect(screen.queryByText('Paris (75001)')).not.toBeInTheDocument();
 		});
 	});
 
 	describe('quand une recherche est effectuée', () => {
-		let alternanceServiceMock: AlternanceService;
 		let métierServiceMock: MetierService;
 		let localisationServiceMock: LocalisationService;
 		const alternanceFixture: Array<Alternance> = [
@@ -104,8 +99,12 @@ describe('RechercherAlternance', () => {
 			},
 		];
 
+		const resultatFixture: ResultatRechercheAlternance = {
+			entrepriseList: entrepriseFixture,
+			offreList: alternanceFixture,
+		};
+
 		beforeEach(() => {
-			alternanceServiceMock = anAlternanceService(alternanceFixture, entrepriseFixture);
 			métierServiceMock = aMetierService();
 			localisationServiceMock = aLocalisationService();
 			mockUseRouter({
@@ -122,31 +121,20 @@ describe('RechercherAlternance', () => {
 		});
 		it('uniquement les offres d’alternances sont affichées', async () => {
 			// GIVEN
-			const expectedQuery = {
-				codeCommune: '75056',
-				codeRomes: ['D1102', 'D1104'],
-				distanceCommune: '10',
-				latitudeCommune: '48.859',
-				libelleCommune: 'Paris (75001)',
-				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-				longitudeCommune: '2.347',
-			};
 
 			// WHEN
 			render(
 				<DependenciesProvider
-					alternanceService={alternanceServiceMock}
 					metierLbaService={métierServiceMock}
 					localisationService={localisationServiceMock}
 				>
-					<RechercherAlternance/>
+					<RechercherAlternance resultats={resultatFixture}/>
 				</DependenciesProvider>,
 			);
 			const formulaireRechercheAlternance = screen.getByRole('form');
 
 			// THEN
 			expect(formulaireRechercheAlternance).toBeInTheDocument();
-			expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expectedQuery);
 
 			const filtresRecherche = await screen.findAllByText('Paris (75001)');
 			expect(filtresRecherche.length >= 1).toBe(true);
@@ -166,11 +154,10 @@ describe('RechercherAlternance', () => {
 			it('je vois uniquement les entreprises', async () => {
 				render(
 					<DependenciesProvider
-						alternanceService={alternanceServiceMock}
 						metierLbaService={métierServiceMock}
 						localisationService={localisationServiceMock}
 					>
-						<RechercherAlternance/>
+						<RechercherAlternance resultats={resultatFixture}/>
 					</DependenciesProvider>,
 				);
 				const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
@@ -193,15 +180,17 @@ describe('RechercherAlternance', () => {
 				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
 					const user = userEvent.setup();
 					const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
-					const alternanceServiceMock = anAlternanceService(offresAlternance, []);
+					const resultats: ResultatRechercheAlternance = {
+						entrepriseList: [],
+						offreList: offresAlternance,
+					};
 
 					render(
 						<DependenciesProvider
-							alternanceService={alternanceServiceMock}
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance/>
+							<RechercherAlternance resultats={resultats}/>
 						</DependenciesProvider>,
 					);
 
@@ -213,15 +202,17 @@ describe('RechercherAlternance', () => {
 
 				it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
 					const user = userEvent.setup();
-					const alternanceServiceMock = anAlternanceService([], []);
+					const resultats: ResultatRechercheAlternance = {
+						entrepriseList: [],
+						offreList: [],
+					};
 
 					render(
 						<DependenciesProvider
-							alternanceService={alternanceServiceMock}
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance/>
+							<RechercherAlternance resultats={resultats}/>
 						</DependenciesProvider>,
 					);
 
@@ -237,15 +228,17 @@ describe('RechercherAlternance', () => {
 				it('lorsqu‘il y a des résultats, affiche le nombre d’entreprises', async () => {
 					const user = userEvent.setup();
 					const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
-					const alternanceServiceMock = anAlternanceService([], entrepriseList);
+					const resultats: ResultatRechercheAlternance = {
+						entrepriseList,
+						offreList: [],
+					};
 
 					render(
 						<DependenciesProvider
-							alternanceService={alternanceServiceMock}
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance/>
+							<RechercherAlternance resultats={resultats}/>
 						</DependenciesProvider>,
 					);
 
@@ -257,15 +250,17 @@ describe('RechercherAlternance', () => {
 
 				it('lorsqu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux entreprises', async () => {
 					const user = userEvent.setup();
-					const alternanceServiceMock = anAlternanceService([anAlternanceMatcha()], []);
+					const resultats: ResultatRechercheAlternance = {
+						entrepriseList: [],
+						offreList: [],
+					};
 
 					render(
 						<DependenciesProvider
-							alternanceService={alternanceServiceMock}
 							metierLbaService={aMetierService()}
 							localisationService={aLocalisationService()}
 						>
-							<RechercherAlternance/>
+							<RechercherAlternance resultats={resultats}/>
 						</DependenciesProvider>,
 					);
 
@@ -285,11 +280,10 @@ describe('RechercherAlternance', () => {
 
 		render(
 			<DependenciesProvider
-				alternanceService={anAlternanceService()}
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance/>
+				<RechercherAlternance resultats={aResultatRechercherMultipleAlternance()}/>
 			</DependenciesProvider>,
 		);
 
@@ -305,11 +299,10 @@ describe('RechercherAlternance', () => {
 
 		render(
 			<DependenciesProvider
-				alternanceService={anAlternanceService()}
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance/>
+				<RechercherAlternance resultats={aResultatRechercherMultipleAlternance()}/>
 			</DependenciesProvider>,
 		);
 
@@ -322,40 +315,5 @@ describe('RechercherAlternance', () => {
 		expect(cardCampagneApprentissage).toBeVisible();
 		expect(cardPass).toBeVisible();
 		expect(cardONISEP).toBeVisible();
-	});
-
-	it('n’appelle pas le service avec les query params inconnus', async () => {
-		// GIVEN
-		const alternanceServiceMock = anAlternanceService();
-		mockUseRouter({
-			query: {
-				codeCommune: '75056',
-				codeRomes: ['D1102', 'D1104'],
-				distanceCommune: '10',
-				latitudeCommune: '48.859',
-				libelleCommune: 'Paris (75001)',
-				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-				longitudeCommune: '2.347',
-				test: 'test',
-			},
-		});
-
-		// WHEN
-		render(
-			<DependenciesProvider
-				alternanceService={alternanceServiceMock}
-				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<RechercherAlternance/>
-			</DependenciesProvider>,
-		);
-
-		await screen.findByRole('heading', { name: /Découvrez des services faits pour vous/i });
-
-		// THEN
-		expect(alternanceServiceMock.rechercherAlternance).toHaveBeenCalledWith(expect.not.objectContaining({
-			test: 'test',
-		}));
 	});
 });
