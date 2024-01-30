@@ -13,7 +13,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
-import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
+import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
@@ -24,8 +24,8 @@ jest.mock('next/head', () => HeadMock);
 
 jest.mock('~/server/start', () => ({
 	dependencies: {
-		cmsDependencies: {
-			recupererVideosCampagneApprentissage: {
+		campagneApprentissageDependencies: {
+			recupererVideosCampagneApprentissageUseCase: {
 				handle: jest.fn(),
 			},
 		},
@@ -47,7 +47,7 @@ describe('Page Apprentissage Jeunes', () => {
 	describe('getServerSideProps', () => {
 		describe('quand les vidéos ne sont pas récupérées', () => {
 			it('renvoie une liste vide pour les vidéos', async () => {
-				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				const result = await getServerSideProps();
 
@@ -59,12 +59,20 @@ describe('Page Apprentissage Jeunes', () => {
 
 		describe('quand les vidéos sont récupérées', () => {
 			it('renvoie les props', async () => {
-				(dependencies.cmsDependencies.recupererVideosCampagneApprentissage.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
+				const videos = [
+					aVideoCampagneApprentissage(),
+					aVideoCampagneApprentissage({
+						titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+						transcription: '[transcription]',
+						videoId: '7zD4PCOiUvw',
+					}),
+				];
+				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(videos));
 
 				const result = await getServerSideProps();
 
 				expect(result).toMatchObject({ props: {
-					videos: aVideoCampagneApprentissageList(),
+					videos: videos,
 				} });
 			});
 		});
@@ -73,26 +81,42 @@ describe('Page Apprentissage Jeunes', () => {
 	describe('<ApprentissageJeunes />', () => {
 		it('doit rendre du HTML respectant la specification', async () => {
 			mockSmallScreen();
+			const videos = [
+				aVideoCampagneApprentissage(),
+				aVideoCampagneApprentissage({
+					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					transcription: '[transcription]',
+					videoId: '7zD4PCOiUvw',
+				}),
+			];
 
 			const { container } = render(
 				<DependenciesProvider analyticsService={aManualAnalyticsService()} youtubeService={aVideoService()}>
-					<ApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+					<ApprentissageJeunes videos={videos}/>
 				</DependenciesProvider> );
 
 			await screen.findByText('Avec l’apprentissage, vous apprenez directement');
 
 			expect(container.outerHTML).toHTMLValidate();
 		});
-			
+
 		it('n‘a pas de défaut d‘accessibilité', async () => {
 			mockSmallScreen();
+			const videos = [
+				aVideoCampagneApprentissage(),
+				aVideoCampagneApprentissage({
+					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					transcription: '[transcription]',
+					videoId: '7zD4PCOiUvw',
+				}),
+			];
 
 			const { container } = render(
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					youtubeService={aVideoService()}
 				>
-					<ApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+					<ApprentissageJeunes videos={videos}/>
 				</DependenciesProvider>,
 			);
 

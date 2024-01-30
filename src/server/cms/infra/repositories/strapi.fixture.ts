@@ -254,12 +254,3 @@ export function aStrapiLesMesuresJeunesSingleType(): Strapi.SingleType<Strapi.Si
 		})],
 	});
 }
-
-export function aStrapiVideosCampagneApprentissage(): Strapi.CollectionType<Strapi.CollectionType.VideoCampagneApprentissage> {
-	return aStrapiCollectionType([{
-		Titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
-		Transcription: '[transcription]',
-		Url: 'https://www.youtube.com/watch?v=V3cxW3ZRV-I',
-	}]);
-}
-

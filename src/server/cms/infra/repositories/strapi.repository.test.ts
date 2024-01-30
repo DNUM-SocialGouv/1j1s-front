@@ -7,7 +7,6 @@ import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	anActualiteFixture,
 	aStrapiArticleCollectionType,
@@ -15,7 +14,6 @@ import {
 	aStrapiLesMesuresEmployeurs,
 	aStrapiLesMesuresJeunesSingleType,
 	aStrapiSingleType,
-	aStrapiVideosCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
@@ -243,26 +241,6 @@ describe('strapi cms repository', () => {
 				expect(result.result).toEqual(expectedMesuresEmployeurs);
 				expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate=deep');
 			});
-		});
-	});
-
-
-	describe('getAllVideosCampagneApprentissage', () => {
-		it('retourne la liste de videos', async () => {
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-			httpClientService.get = jest.fn().mockResolvedValue(anAxiosResponse(aStrapiVideosCampagneApprentissage()));
-
-			const { result } = await strapiCmsRepository.getAllVideosCampagneApprentissage() as Success<Array<VideoCampagneApprentissage>>;
-			expect(result).toEqual([
-				{
-					titre: "Contrat d'engagement Jeune | Jade aimerait trouver un emploi stable qui lui plaise…",
-					transcription: '[transcription]',
-					videoId: 'V3cxW3ZRV-I',
-				},
-			]);
-			expect(httpClientService.get).toHaveBeenCalledWith('videos-campagne-apprentissages?sort[0]=Index&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 });

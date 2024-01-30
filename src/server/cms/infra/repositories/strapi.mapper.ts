@@ -3,7 +3,6 @@ import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
@@ -113,15 +112,5 @@ function flatMapSingleImage(response: Strapi.SingleRelation<Strapi.Image> | unde
 	return {
 		alt: response.data.attributes.alternativeText || '',
 		src: response.data.attributes.url,
-	};
-}
-
-export function mapVideoCampagneApprentissage(video: Strapi.CollectionType.VideoCampagneApprentissage): VideoCampagneApprentissage {
-	const videoIdWithPotentialParams = video.Url.split('v=')[1];
-	const videoId = videoIdWithPotentialParams.split('&')[0];
-	return {
-		titre: video.Titre,
-		transcription: video.Transcription,
-		videoId: videoId,
 	};
 }

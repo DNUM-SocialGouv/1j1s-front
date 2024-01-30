@@ -11,6 +11,13 @@ import {
 import {
 	ApiLaBonneAlternanceErrorManagementServiceGet, ApiLaBonneAlternanceErrorManagementServiceSearch,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
+import {
+	CampagneApprentissageDependencies,
+	campagneApprentissageDependenciesContainer,
+} from '~/server/campagne-apprentissage/configuration/dependencies.container';
+import {
+	StrapiVideoCampagneApprentissageRepository,
+} from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage.repository';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -222,6 +229,7 @@ export type Dependencies = {
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
 	stage3eEt2deDependencies: Stage3eEt2deDependencies;
+	campagneApprentissageDependencies: CampagneApprentissageDependencies;
 }
 
 export function dependenciesContainer(): Dependencies {
@@ -353,6 +361,9 @@ export function dependenciesContainer(): Dependencies {
 	const stagesRepository = new StrapiStagesRepository(cmsRepository, defaultErrorManagementService);
 	const stagesDependencies = stagesDependenciesContainer(stagesRepository);
 
+	const videoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(cmsRepository, defaultErrorManagementService);
+	const campagneApprentissageDependencies = campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
@@ -377,6 +388,7 @@ export function dependenciesContainer(): Dependencies {
 	return {
 		alternanceDependencies,
 		annonceDeLogementDependencies,
+		campagneApprentissageDependencies,
 		cmsDependencies,
 		demandeDeContactDependencies,
 		emploiEuropeDependencies,

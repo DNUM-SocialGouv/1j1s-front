@@ -10,7 +10,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { VideoService } from '~/client/services/video/video.service';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
+import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
 const YOUTUBE_THUMBNAIL_URL = 'https://img.youtube.com/vi/';
 

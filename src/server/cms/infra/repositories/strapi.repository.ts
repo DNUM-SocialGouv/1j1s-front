@@ -4,13 +4,11 @@ import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import {
 	mapArticle,
 	mapMesuresEmployeurs,
 	mapServiceJeuneList,
 	mapStrapiListeActualités,
-	mapVideoCampagneApprentissage,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
@@ -24,7 +22,6 @@ const RESOURCE_ARTICLE = 'articles';
 const RESOURCE_ACTUALITE = 'actualite';
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
-const RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -191,10 +188,5 @@ export class StrapiRepository implements CmsRepository {
 				severity: Severity.FATAL,
 			});
 		}
-	}
-
-	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
-		const query = 'sort[0]=Index';
-		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.VideoCampagneApprentissage, VideoCampagneApprentissage>(RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE, query, mapVideoCampagneApprentissage);
 	}
 }

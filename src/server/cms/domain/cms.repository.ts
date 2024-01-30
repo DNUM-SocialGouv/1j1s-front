@@ -3,7 +3,6 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
-import { VideoCampagneApprentissage } from '~/server/cms/domain/videoCampagneApprentissage.type';
 import { Either } from '~/server/errors/either';
 
 export interface CmsRepository {
@@ -16,8 +15,6 @@ export interface CmsRepository {
 	getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
 
 	getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>>
-
-	getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>>
 
 	listAllArticleSlug(): Promise<Either<Array<string>>>
 

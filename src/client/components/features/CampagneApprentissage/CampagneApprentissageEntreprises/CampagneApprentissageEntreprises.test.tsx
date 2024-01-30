@@ -11,7 +11,7 @@ import {
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
-import { aVideoCampagneApprentissageList } from '~/server/cms/domain/videoCampagneApprentissage.fixture';
+import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageEntreprises', () => {
 	beforeEach(() => {
@@ -198,7 +198,14 @@ describe('CampagneApprentissageEntreprises', () => {
 	});
 
 	describe('VideosCampagneApprentissage', () => {
-		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
+		const aVideoCampagneApprentissagesList = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
 				render(
