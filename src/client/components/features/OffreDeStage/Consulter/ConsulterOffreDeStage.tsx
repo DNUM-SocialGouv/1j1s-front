@@ -21,11 +21,14 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 				.filter((domaine) => domaine !== DomainesStage.NON_RENSEIGNE)
 			: [];
 
-		const tags = [
+		const localisation = offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region;
+		const tags: Array<string> = [
 			...domainesWithoutNonRenseigne,
-			offreDeStage.localisation?.ville || offreDeStage.localisation?.departement || offreDeStage.localisation?.region,
-			dureeCategorisee(offreDeStage.dureeEnJour || 0),
 		];
+		if (localisation) {
+			tags.push(localisation);
+		}
+		tags.push(dureeCategorisee(offreDeStage.dureeEnJour || 0));
 		if (offreDeStage.dateDeDebutMin) {
 			tags.push(
 				offreDeStage.dateDeDebutMax && offreDeStage.dateDeDebutMin !== offreDeStage.dateDeDebutMax

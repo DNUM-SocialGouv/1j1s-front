@@ -5,7 +5,7 @@ import { Tag } from '~/client/components/ui/Tag/Tag';
 import styles from '~/client/components/ui/Tag/TagList.module.scss';
 
 interface TagListProps extends React.ComponentPropsWithoutRef<'ul'> {
-  list: Array<string | undefined>
+  list: Array<string>
 }
 
 export function TagList({ className, list, ...rest }: TagListProps) {
@@ -15,7 +15,6 @@ export function TagList({ className, list, ...rest }: TagListProps) {
 		<ul className={_classNames} {...rest}>
 			{
 				list
-					.filter((tag) => !!tag)
 					.map((tag, index) => (
 						<li key={`${tag}-${index}`}>
 							<Tag>{tag}</Tag>
