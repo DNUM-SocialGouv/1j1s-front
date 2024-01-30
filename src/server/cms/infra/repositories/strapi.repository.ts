@@ -3,11 +3,9 @@ import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import {
 	mapArticle,
 	mapMesuresEmployeurs,
-	mapServiceJeuneList,
 	mapStrapiListeActualités,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
@@ -16,11 +14,12 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { mapServiceJeuneList } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
 const RESOURCE_ACTUALITE = 'actualite';
-const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 
 export class StrapiRepository implements CmsRepository {
@@ -31,7 +30,7 @@ export class StrapiRepository implements CmsRepository {
 	) {
 	}
 
-	private async getSingleType<Single, Response>(resource: string, query: string, mapper: (data: Single) => Response): Promise<Either<Response>> {
+	private async getSingleTypeDeprecated<Single, Response>(resource: string, query: string, mapper: (data: Single) => Response): Promise<Either<Response>> {
 		try {
 			const endpoint = `${resource}?${query}`;
 			const { data } = await this.httpClientService.get<Strapi.SingleType<Single>>(endpoint);
@@ -45,6 +44,7 @@ export class StrapiRepository implements CmsRepository {
 			});
 		}
 	}
+
 	// NOTE (SULI 23-10-2023): methode dépréciée au profit de GetCollectionType qui ne prend pas de mapper en paramètre
 	// doit disparaitre après avoir scindé complètement le CMS repository
 	async getCollectionTypeDeprecated<Collection, Response>(resource: string, query: string, mapper: (data: Collection) => Response): Promise<Either<Response[]>> {
@@ -70,6 +70,20 @@ export class StrapiRepository implements CmsRepository {
 			return this.errorManagementService.handleFailureError(error, {
 				apiSource: 'API Strapi',
 				contexte: 'get collection type strapi',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
+			});
+		}
+	}
+
+	async getSingleType<Response>(resource: string, query: string): Promise<Either<Response>> {
+		try {
+			const endpoint = `${resource}?${query}`;
+			const { data } = await this.httpClientService.get<Strapi.SingleType<Response>>(endpoint);
+			return createSuccess(data.data.attributes);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'get single type strapi',
 				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
 			});
 		}
@@ -130,7 +144,7 @@ export class StrapiRepository implements CmsRepository {
 
 	async getActualitéList(): Promise<Either<Array<Actualité>>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
+		return this.getSingleTypeDeprecated<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
@@ -148,7 +162,7 @@ export class StrapiRepository implements CmsRepository {
 
 	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.CollectionType.Article, Article>(this.getResourceMentionObligatoire(type), query, mapArticle);
+		return this.getSingleTypeDeprecated<Strapi.CollectionType.Article, Article>(this.getResourceMentionObligatoire(type), query, mapArticle);
 	}
 
 	private getResourceMentionObligatoire(type: MentionsObligatoires): string {
@@ -164,14 +178,9 @@ export class StrapiRepository implements CmsRepository {
 		}
 	}
 
-	async getServiceJeuneList(): Promise<Either<Array<ServiceJeune>>> {
-		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.LesMesuresJeunes, Array<ServiceJeune>>(RESOURCE_MESURE_JEUNE, query, mapServiceJeuneList);
-	}
-
 	async getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>> {
 		const query = 'populate=deep';
-		return this.getSingleType<Strapi.SingleType.LesMesuresEmployeurs, MesureEmployeur[]>(RESOURCE_MESURES_EMPLOYEURS, query, mapMesuresEmployeurs);
+		return this.getSingleTypeDeprecated<Strapi.SingleType.LesMesuresEmployeurs, MesureEmployeur[]>(RESOURCE_MESURES_EMPLOYEURS, query, mapMesuresEmployeurs);
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

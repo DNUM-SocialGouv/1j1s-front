@@ -12,7 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
 import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
-import { aServiceJeune, aServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
+import { aServiceJeune, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 
 describe('Page Espace Jeune', () => {
 	beforeEach(() => {

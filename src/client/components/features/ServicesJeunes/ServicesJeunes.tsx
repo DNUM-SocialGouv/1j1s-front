@@ -5,7 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useSanitize from '~/client/hooks/useSanitize';
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 
 interface ServicesJeunesProps {
 	cardList: Array<ServiceJeune>

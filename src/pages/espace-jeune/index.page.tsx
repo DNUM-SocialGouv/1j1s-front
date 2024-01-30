@@ -13,7 +13,7 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import styles from '~/pages/espace-jeune/index.module.scss';
 import { Actualité } from '~/server/cms/domain/actualité';
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
 
 interface EspaceJeunePageProps {
@@ -91,7 +91,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
-	const serviceJeuneList = await dependencies.cmsDependencies.listerServicesJeunes.handle();
+	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
 	const cartesActualitesResponse = await dependencies.cmsDependencies.récupérerActualités.handle();
 
 	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {

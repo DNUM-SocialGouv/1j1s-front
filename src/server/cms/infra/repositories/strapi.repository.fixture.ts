@@ -12,6 +12,7 @@ export function aStrapiCmsRepository(override?: Partial<StrapiRepository>): CmsR
 		getMentionObligatoire: jest.fn(),
 		getMesuresEmployeurs: jest.fn(),
 		getServiceJeuneList: jest.fn(),
+		getSingleType: jest.fn(),
 		listAllArticleSlug: jest.fn(),
 		save: jest.fn(),
 		...override,
