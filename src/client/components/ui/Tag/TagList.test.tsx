@@ -15,4 +15,12 @@ describe('TagList', () => {
 		expect(tags[0]).toHaveTextContent('element 1');
 		expect(tags[1]).toHaveTextContent('element 2');
 	});
+	it('filtre les tags vides', () => {
+		render(<TagList list={['element 1', '', 'element 2']}/>);
+
+		const tags = screen.getAllByRole('listitem');
+		expect(tags).toHaveLength(2);
+		expect(tags[0]).toHaveTextContent('element 1');
+		expect(tags[1]).toHaveTextContent('element 2');
+	});
 });
