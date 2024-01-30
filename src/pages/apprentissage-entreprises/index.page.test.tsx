@@ -10,9 +10,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
-import {
-	aVideoCampagneApprentissageList,
-} from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
+import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
@@ -32,7 +30,14 @@ jest.mock('~/server/start', () => ({
 describe('<ApprentissageEntreprises />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		mockSmallScreen();
-		const videos = aVideoCampagneApprentissageList();
+		const videos = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 
 		const { container } = render(
 			<DependenciesProvider
@@ -47,7 +52,14 @@ describe('<ApprentissageEntreprises />', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockSmallScreen();
-		const videos = aVideoCampagneApprentissageList();
+		const videos = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 
 		const { container } = render(
 			<DependenciesProvider
@@ -78,12 +90,20 @@ describe('<ApprentissageEntreprises />', () => {
 
 		describe('quand les vidéos sont récupérées', () => {
 			it('renvoie les props', async () => {
-				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(aVideoCampagneApprentissageList()));
+				const videos = [
+					aVideoCampagneApprentissage(),
+					aVideoCampagneApprentissage({
+						titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+						transcription: '[transcription]',
+						videoId: '7zD4PCOiUvw',
+					}),
+				];
+				(dependencies.campagneApprentissageDependencies.recupererVideosCampagneApprentissageUseCase.handle as jest.Mock).mockReturnValue(createSuccess(videos));
 
 				const result = await getServerSideProps();
 
 				expect(result).toMatchObject({ props: {
-					videos: aVideoCampagneApprentissageList(),
+					videos: videos,
 				} });
 			});
 		});

@@ -12,9 +12,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aVideoService } from '~/client/services/video/video.service.fixture';
-import {
-	aVideoCampagneApprentissageList,
-} from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
+import { aVideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage.fixture';
 
 describe('CampagneApprentissageJeunes', () => {
 	beforeEach(() => {
@@ -28,9 +26,17 @@ describe('CampagneApprentissageJeunes', () => {
 
 	it('affiche le titre de la page', () => {
 		// WHEN
+		const videos = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 		render(
 			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				<CampagneApprentissageJeunes videos={videos}/>
 			</DependenciesProvider>,
 		);
 
@@ -45,11 +51,19 @@ describe('CampagneApprentissageJeunes', () => {
 	it('affiche un lien vers la simulation pour les alternants', () => {
 		// GIVEN
 		mockLargeScreen();
+		const videos = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 
 		// WHEN
 		render(
 			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				<CampagneApprentissageJeunes videos={videos}/>
 			</DependenciesProvider>,
 		);
 
@@ -62,11 +76,19 @@ describe('CampagneApprentissageJeunes', () => {
 	it('raccourci l’intitulé du lien en mobile', () => {
 		// GIVEN
 		mockSmallScreen();
+		const videos = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 
 		// WHEN
 		render(
 			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+				<CampagneApprentissageJeunes videos={videos}/>
 			</DependenciesProvider>,
 		);
 
@@ -152,9 +174,17 @@ describe('CampagneApprentissageJeunes', () => {
 
 	describe('EnSavoirPlusApprentissageJeunes', () => {
 		it('je vois les informations pour accéder à la FAQ parents-enfants', () => {
+			const videos = [
+				aVideoCampagneApprentissage(),
+				aVideoCampagneApprentissage({
+					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					transcription: '[transcription]',
+					videoId: '7zD4PCOiUvw',
+				}),
+			];
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+					<CampagneApprentissageJeunes videos={videos}/>
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -164,9 +194,17 @@ describe('CampagneApprentissageJeunes', () => {
 			expect(screen.getByRole('link', { name: 'Consulter la FAQ' })).toHaveAttribute('href', '/faq/apprentissage-parents-enfants');
 		});
 		it('je vois les informations pour accéder à la page d‘apprentissage pour les employeurs', () => {
+			const videos = [
+				aVideoCampagneApprentissage(),
+				aVideoCampagneApprentissage({
+					titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+					transcription: '[transcription]',
+					videoId: '7zD4PCOiUvw',
+				}),
+			];
 			render(
 				<DependenciesProvider youtubeService={aVideoService()}>
-					<CampagneApprentissageJeunes videos={aVideoCampagneApprentissageList()}/>
+					<CampagneApprentissageJeunes videos={videos}/>
 				</DependenciesProvider>,
 			);
 			expect(screen.getByRole('heading', {
@@ -178,7 +216,14 @@ describe('CampagneApprentissageJeunes', () => {
 	});
 
 	describe('VideosCampagneApprentissage', () => {
-		const aVideoCampagneApprentissagesList = aVideoCampagneApprentissageList();
+		const aVideoCampagneApprentissagesList = [
+			aVideoCampagneApprentissage(),
+			aVideoCampagneApprentissage({
+				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
+				transcription: '[transcription]',
+				videoId: '7zD4PCOiUvw',
+			}),
+		];
 		describe('si aucune video n’est trouvée', () => {
 			it('n’affiche pas la section', () => {
 				render(

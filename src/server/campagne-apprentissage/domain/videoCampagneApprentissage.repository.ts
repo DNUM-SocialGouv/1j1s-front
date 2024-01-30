@@ -1,4 +1,5 @@
-import { Either } from '../../errors/either';
+import { Either } from '~/server/errors/either';
+
 import { VideoCampagneApprentissage } from './videoCampagneApprentissage';
 
 export interface VideoCampagneApprentissageRepository {
