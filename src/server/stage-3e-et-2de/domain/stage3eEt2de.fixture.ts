@@ -41,6 +41,7 @@ export function aStage3eEt2de(override?: Partial<Stage3eEt2de>): Stage3eEt2de {
 			ville: 'Paris',
 		},
 		appellationCodes: ['11573', '11574'],
+		appellationLibelle: ['Boulangerie', 'Pâtisserie'],
 		domaine: 'Boulangerie',
 		modeDeContact: ModeDeContact.IN_PERSON,
 		nomEntreprise: 'La Boulangerie',

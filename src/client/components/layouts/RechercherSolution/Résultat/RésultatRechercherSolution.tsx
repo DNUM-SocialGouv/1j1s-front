@@ -15,10 +15,10 @@ type RésultatRechercherSolutionProps = {
 	intituléLienOffre?: string;
 	sousTitreOffre?: string | ReactNode;
 	étiquetteOffreList: Array<string | undefined>;
-} & LogoProps
+} & React.HTMLAttributes<HTMLElement> & LogoProps;
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
-	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt='' } = props;
+	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt= '', className } = props;
 	const { isSmallScreen } = useBreakpoint();
 	const idLink = useId();
 	const idIntitulé = useId();
@@ -51,7 +51,7 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 
 	return (
 		<div
-			className={styles.card}
+			className={classNames(styles.card, className)}
 			data-testid="RésultatRechercherSolution">
 			<div className={classNames(styles.cardLead, logo && styles.logoCardLead)}>
 				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}

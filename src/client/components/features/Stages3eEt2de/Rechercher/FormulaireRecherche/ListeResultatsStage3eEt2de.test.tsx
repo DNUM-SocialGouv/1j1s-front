@@ -68,6 +68,32 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			expect(resultats[0]).toHaveTextContent('Informatique');
 			expect(resultats[1]).toHaveTextContent('Mécanique');
 		});
+		it('des metiers proposés', () => {
+			// GIVEN
+			const resultatRecherche = aResultatRechercheStage3eEt2de({
+				nombreDeResultats: 3,
+				resultats: [
+					aStage3eEt2de({
+						appellationLibelle: ['Métier 1', 'Métier 2', 'Métier 3'],
+					}),
+				],
+			});
+
+			// WHEN
+			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
+
+			// THEN
+			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
+			expect(resultatsUl).toBeInTheDocument();
+			const resultatsLis = within(resultatsUl).getAllByRole('listitem');
+			const metiersPremiereOffreUl = within(resultatsLis[0]).getByRole('list', { name: 'Métiers proposés' });
+			expect(metiersPremiereOffreUl).toBeVisible();
+			const metiersPremiereOffre = within(metiersPremiereOffreUl).getAllByRole('listitem');
+			expect(metiersPremiereOffre).toHaveLength(3);
+			expect(metiersPremiereOffre[0]).toHaveTextContent('Métier 1');
+			expect(metiersPremiereOffre[1]).toHaveTextContent('Métier 2');
+			expect(metiersPremiereOffre[2]).toHaveTextContent('Métier 3');
+		});
 		it('de l’adresse', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({

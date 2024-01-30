@@ -11,6 +11,8 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
+import styles from './ListeResultatsStage3eEt2de.module.scss';
+
 interface ListeResultatsStage3eEt2deProps {
 	resultatList: ResultatRechercheStage3eEt2de | undefined;
 }
@@ -61,10 +63,16 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				sousTitreOffre={<>
 					<p>{stage3eEt2de.domaine}</p>
 					<p>{stage3eEt2de.adresse.rueEtNumero}, {stage3eEt2de.adresse.codePostal} {stage3eEt2de.adresse.ville}</p>
+					<ul className={styles.listeMetiers} aria-label="Métiers proposés">
+						{stage3eEt2de.appellationLibelle.map((appellationLibelle) =>
+							<li key={appellationLibelle}><p>{appellationLibelle}</p></li>,
+						)}
+					</ul>
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
 				intituléLienOffre={intituléLienOffre}
+				className={styles.carteResultat}
 			/>
 		</li>
 	);

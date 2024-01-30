@@ -25,9 +25,11 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 					appellations: [
 						{
 							appellationCode: '11573',
+							appellationLabel: 'Boulangerie',
 						},
 						{
 							appellationCode: '11574',
+							appellationLabel: 'Pâtisserie',
 						},
 					],
 					contactMode: ModeDeContact.IN_PERSON,
@@ -72,6 +74,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 							ville: 'Paris',
 						},
 						appellationCodes: ['11573', '11574'],
+						appellationLibelle: ['Boulangerie', 'Pâtisserie'],
 						domaine: 'Boulangerie',
 						modeDeContact: ModeDeContact.IN_PERSON,
 						nomEntreprise: 'La Boulangerie',
@@ -87,6 +90,7 @@ describe('map ApiImmersionFacileStage3eEt2de', () => {
 							ville: 'Paris',
 						},
 						appellationCodes: [],
+						appellationLibelle: [],
 						domaine: 'Boulangerie',
 						modeDeContact: undefined,
 						nomEntreprise: 'La Boulangerie 2',
