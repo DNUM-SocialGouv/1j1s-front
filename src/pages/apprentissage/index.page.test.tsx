@@ -9,7 +9,6 @@ import { GetServerSidePropsContext } from 'next';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { anAlternanceService } from '~/client/services/alternance/alternance.service.fixture';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
@@ -84,7 +83,6 @@ describe('Page rechercher une alternance', () => {
 		});
 
 		it('affiche le titre propre à la bonne alternance', async () => {
-			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMetierService();
 			mockUseRouter({ query: { page: '1' } });
@@ -92,7 +90,6 @@ describe('Page rechercher une alternance', () => {
 				<DependenciesProvider
 					analyticsService={aManualAnalyticsService()}
 					localisationService={localisationServiceMock}
-					alternanceService={alternanceServiceMock}
 					metierLbaService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
@@ -104,7 +101,6 @@ describe('Page rechercher une alternance', () => {
 		});
 
 		it('envoie les analytics de la page à son affichage', async () => {
-			const alternanceServiceMock = anAlternanceService();
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMetierService();
 			const analyticsService = aManualAnalyticsService();
@@ -114,7 +110,6 @@ describe('Page rechercher une alternance', () => {
 				<DependenciesProvider
 					analyticsService={analyticsService}
 					localisationService={localisationServiceMock}
-					alternanceService={alternanceServiceMock}
 					metierLbaService={métiersServiceMock}
 				>
 					<RechercherAlternancePage/>
