@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.228.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.227.1...v3.228.0) (2024-01-30)
+
+
+### Features
+
+* **stage3eme:** ajout metier proposé resultats recherche ([#2592](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2592)) ([481ccc6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/481ccc646cea26510fd0e878ab89ac33f10c9bb8))
+
 ## [3.227.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.227.0...v3.227.1) (2024-01-30)
 
 
