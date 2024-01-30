@@ -62,10 +62,6 @@ $color-message-champs-obligatoires: utilities.$color-primary;
       gap: 1.5rem;
     }
 
-    & .elementDesactive {
-      color: utilities.$color-text-disabled;
-    }
-
     .boutonSoumission {
       grid-column: 1;
       margin-top: utilities.pixel-to-rem(4);

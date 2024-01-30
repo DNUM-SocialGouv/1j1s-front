@@ -5,6 +5,10 @@
   overflow-wrap: anywhere;
   @include utilities.text-medium;
 
+  &:has(+input[readonly], +input[disabled]) {
+    color: utilities.$color-text-disabled;;
+  }
+
   @include utilities.media(small) {
     @include utilities.text-large;
   }

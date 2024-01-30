@@ -128,7 +128,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					:
 					<Champ>
 						{ /* FIXME (DORO 22-01-2024): Embarquer dans Champ la gestion de l'état readonly (voir UI kit) */}
-						<Champ.Label className={styles.elementDesactive}>
+						<Champ.Label>
 							Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
 								l’entreprise</Champ.Label.Complement>
@@ -138,7 +138,6 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 						             required
 						             value={metiersStage3eEt2de[0].label}
 						             readOnly
-						             className={styles.elementDesactive}
 						             type="text"
 						/>
 						<Champ.Error/>
