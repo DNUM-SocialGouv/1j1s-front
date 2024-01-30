@@ -1,12 +1,12 @@
 import { Strapi } from '../../cms/infra/repositories/strapi.response';
 
 
-export namespace MesuresJeunes {
-	export interface MesuresJeunes {
-		vieProfessionnelle: Array<MesuresJeunes.MesureJeune>
-		orienterFormer: Array<MesuresJeunes.MesureJeune>
-		accompagnement: Array<MesuresJeunes.MesureJeune>
-		aidesFinancieres: Array<MesuresJeunes.MesureJeune>
+export namespace StrapiMesuresJeunes {
+	export interface MesuresJeunesParCategorie {
+		vieProfessionnelle: Array<StrapiMesuresJeunes.MesureJeune>
+		orienterFormer: Array<StrapiMesuresJeunes.MesureJeune>
+		accompagnement: Array<StrapiMesuresJeunes.MesureJeune>
+		aidesFinancieres: Array<StrapiMesuresJeunes.MesureJeune>
 	}
 	export interface MesureJeune {
 		titre: string
@@ -16,4 +16,6 @@ export namespace MesuresJeunes {
 		article: Strapi.SingleRelation<Strapi.CollectionType.Article>
 		pourQui: string
 	}
+
+	export type Categorie = 'accompagnement' | 'orienterFormer' | 'vieProfessionnelle' | 'aidesFinancieres'
 }

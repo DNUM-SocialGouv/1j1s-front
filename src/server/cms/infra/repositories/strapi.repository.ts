@@ -14,8 +14,6 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
-import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
-import { mapServiceJeuneList } from '~/server/services-jeunes/infra/strapiServicesJeunes.mapper';
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';

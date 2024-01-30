@@ -5,19 +5,23 @@ import {
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
-import { MesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
+import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
 
-export function mapServiceJeuneList(response:  MesuresJeunes.MesuresJeunes): Array<ServiceJeune> {
-	const { vieProfessionnelle, aidesFinancieres, accompagnement, orienterFormer } = response;
-	const filteredMesuresJeunes = { accompagnement, aidesFinancieres, orienterFormer, vieProfessionnelle };
-	return Object.entries(filteredMesuresJeunes).flatMap(([strapiMesureJeuneCategory, strapiMesureJeuneListByCatégorie]) => {
-		return strapiMesureJeuneListByCatégorie.map((strapiMesureJeune: MesuresJeunes.MesureJeune) => {
-			return mapServiceJeune(strapiMesureJeune, strapiMesureJeuneCategory as keyof MesuresJeunes.MesuresJeunes);
+export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.MesuresJeunesParCategorie): Array<ServiceJeune> {
+	const mesuresJeunesParCategorie = {
+		accompagnement: strapiMesuresJeunes.accompagnement,
+		aidesFinancieres: strapiMesuresJeunes.aidesFinancieres,
+		orienterFormer: strapiMesuresJeunes.orienterFormer,
+		vieProfessionnelle: strapiMesuresJeunes.vieProfessionnelle,
+	};
+	return Object.entries(mesuresJeunesParCategorie).flatMap(([categorie, mesuresJeunes]) => {
+		return mesuresJeunes.map((strapiMesureJeune: StrapiMesuresJeunes.MesureJeune) => {
+			return mapServiceJeune(strapiMesureJeune, categorie as StrapiMesuresJeunes.Categorie);
 		});
 	});
 }
 
-function mapServiceJeune(response: MesuresJeunes.MesureJeune, catégorie: keyof MesuresJeunes.MesuresJeunes): ServiceJeune {
+function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
 	const article = flatMapSingleRelation<Strapi.CollectionType.Article>(response.article);
 	const banniere = flatMapSingleRelation<Strapi.Image>(response.banniere);
 
@@ -27,7 +31,7 @@ function mapServiceJeune(response: MesuresJeunes.MesureJeune, catégorie: keyof 
 			alt: banniere.alternativeText || '',
 			src: banniere.url,
 		},
-		categorie: mapServiceJeuneCategorie(catégorie),
+		categorie: mapServiceJeuneCategorie(categorie),
 		concerne: response.pourQui,
 		contenu: response.contenu,
 		extraitContenu: getExtraitContenu(response.contenu, 110),
@@ -37,7 +41,7 @@ function mapServiceJeune(response: MesuresJeunes.MesureJeune, catégorie: keyof 
 	};
 }
 
-function mapServiceJeuneCategorie(mesureJeuneKey: keyof MesuresJeunes.MesuresJeunes): ServiceJeune.Categorie {
+function mapServiceJeuneCategorie(mesureJeuneKey: keyof StrapiMesuresJeunes.MesuresJeunesParCategorie): ServiceJeune.Categorie {
 	switch (mesureJeuneKey) {
 		case 'accompagnement':
 			return ServiceJeune.Categorie.ACCOMPAGNEMENT;
