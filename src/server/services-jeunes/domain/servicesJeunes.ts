@@ -6,7 +6,7 @@ export interface ServiceJeune {
 	categorie?: string
 	contenu: string
 	banniere?: Image
-	url: string
+	url: string // FIXME ne sert à rien ?
 	article?: Article
 	concerne: string
 	link: string

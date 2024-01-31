@@ -34,7 +34,7 @@ export namespace Strapi {
 
 	export interface Image {
 		name: string;
-		alternativeText: string;
+		alternativeText?: string;
 		caption: string;
 		width: number;
 		height: number;

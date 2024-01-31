@@ -81,12 +81,13 @@ export function aStrapiImage(override?: Strapi.Image): Strapi.Image {
 	};
 }
 
-export function aStrapiArticle(): Strapi.CollectionType.Article {
+export function aStrapiArticle(overrides?: Partial<Strapi.CollectionType.Article>): Strapi.CollectionType.Article {
 	return {
 		banniere: aStrapiSingleRelation(aStrapiImage()),
 		contenu: 'Avec le Parcours Emploi Compétences (PEC), vous permettez à des personnes éloignées de l’emploi de s’insérer professionnellement et vous bénéficiez d’une aide de l’État.',
 		slug: 'aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
 		titre: 'Aide à l’embauche d’un jeune en Parcours Emploi Compétences (PEC Jeunes) dans le secteur non marchand',
+		...overrides,
 	};
 }
 

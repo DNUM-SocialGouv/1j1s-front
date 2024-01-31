@@ -20,6 +20,16 @@ export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesur
 	};
 }
 
+export function aStrapiMesuresJeunesParCategorieSansResultat(overrides?: Partial<StrapiMesuresJeunes.MesuresJeunesParCategorie>): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+	return {
+		accompagnement: [],
+		aidesFinancieres: [],
+		orienterFormer: [],
+		vieProfessionnelle: [],
+		...overrides,
+	};
+}
+
 export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
 	return {
 		accompagnement: [aStrapiMesureJeune({
