@@ -19,6 +19,27 @@ export function aStrapiMesuresJeunes(): StrapiMesuresJeunes.MesuresJeunesParCate
 	};
 }
 
+export function aStrapiUnorderedMesuresJeunes(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+	return {
+		accompagnement: [aStrapiMesureJeune({
+			titre: 'Une formation en centre EPIDE',
+		}),
+		aStrapiMesureJeune({
+			titre: 'A une belle formation',
+		})],
+		aidesFinancieres: [aStrapiMesureJeune({
+			article: undefined,
+			titre: 'Des aides pour financer son permis de conduire',
+		})],
+		orienterFormer: [aStrapiMesureJeune({
+			titre: 'Les Junior Entreprises',
+		})],
+		vieProfessionnelle: [aStrapiMesureJeune({
+			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
+		})],
+	};
+}
+
 export function aStrapiMesureJeune(override?: Partial<StrapiMesuresJeunes.MesureJeune>): StrapiMesuresJeunes.MesureJeune {
 	return {
 		article: aStrapiSingleRelation(aStrapiArticle()),

@@ -22,7 +22,7 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 }
 
 function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
-	const article = flatMapSingleRelation<Strapi.CollectionType.Article>(response.article);
+	const article = response.article && flatMapSingleRelation<Strapi.CollectionType.Article>(response.article);
 	const banniere = flatMapSingleRelation<Strapi.Image>(response.banniere);
 
 	return {
