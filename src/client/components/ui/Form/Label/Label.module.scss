@@ -1,12 +1,14 @@
 @use "@styles/utilities";
 
+$color-text-disabled: utilities.$color-text-secondary;
+
 .label {
   display: block;
   overflow-wrap: anywhere;
   @include utilities.text-medium;
 
   &:has(+input[readonly], +input[disabled]) {
-    color: utilities.$color-text-disabled;;
+    color: $color-text-disabled;
   }
 
   @include utilities.media(small) {

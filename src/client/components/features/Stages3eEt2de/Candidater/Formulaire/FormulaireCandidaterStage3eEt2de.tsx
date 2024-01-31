@@ -127,7 +127,6 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					/>
 					:
 					<Champ>
-						{ /* FIXME (DORO 22-01-2024): Embarquer dans Champ la gestion de l'état readonly (voir UI kit) */}
 						<Champ.Label>
 							Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par

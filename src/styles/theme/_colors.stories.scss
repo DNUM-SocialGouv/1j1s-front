@@ -77,12 +77,16 @@
       background-color: variables.$color-text-primary-alternative;
     }
 
-    & .color-text-secondary {
-      background-color: variables.$color-text-secondary;
+    & .color-text-secondary-inverse {
+      background-color: variables.$color-text-secondary-inverse;
     }
 
     & .color-text-placeholder {
       background-color: variables.$color-text-placeholder;
+    }
+
+    & .color-text-secondary {
+      background-color: variables.$color-text-secondary;
     }
   }
 
