@@ -2,10 +2,12 @@ import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.rep
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { anUnorderedServiceJeuneList, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
+import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
-	aStrapiMesuresJeunes,
-	aStrapiUnorderedMesuresJeunes,
+	aStrapiMesureJeune,
+	aStrapiMesuresJeunesParCategorie,
+	aStrapiUnorderedMesuresJeunesParCategorie,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
 import { StrapiServicesJeunesRepository } from '~/server/services-jeunes/infra/strapiServicesJeunes.repository';
 
@@ -15,7 +17,7 @@ describe('strapiMesuresJeunesRepository', () => {
 	describe('getMesuresJeunesList', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const strapiService = aStrapiCmsRepository();
-			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresJeunes()));
+			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresJeunesParCategorie()));
 			const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 			const query = 'populate=deep';
 
@@ -24,28 +26,47 @@ describe('strapiMesuresJeunesRepository', () => {
 			expect(strapiService.getSingleType).toHaveBeenCalledWith(RESOURCE_MESURE_JEUNE, query);
 		});
 
-		describe('quand les mesures jeunes sont trouvés', () => {
-			it('retourne la liste des services jeunes triée alphabétiquement dans le titre', async () => {
+		describe('quand les mesures jeunes sont trouvées', () => {
+			it('retourne la liste des services jeunes triée alphabétiquement par titre', async () => {
 				const strapiService = aStrapiCmsRepository();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunes()));
+				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunesParCategorie()));
 				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiMesuresJeunes.getServicesJeunesList();
 
-				expect(result).toEqual(createSuccess(aServiceJeuneList()));
+				const orderedServicesJeunes = [
+					aServiceJeune({
+						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,
+						titre: 'A une belle formation',
+					}),
+					aServiceJeune({
+						categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE,
+						titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
+					}),
+					aServiceJeune({
+						categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION,
+						titre: 'Les Junior Entreprises',
+					}),
+					aServiceJeune({
+						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,
+						titre: 'Une formation en centre EPIDE',
+					}),
+				];
+				expect(result).toEqual(createSuccess(orderedServicesJeunes));
 			});
 
-			it('retourne la liste des services jeunes sans aides financières', async () => {
+			it('retourne la liste des services jeunes sans la catégorie aides financières', async () => {
 				const strapiService = aStrapiCmsRepository();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess([aServiceJeune({ categorie: ServiceJeune.Categorie.AIDES_FINANCIERES })]));
+				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorie({
+					accompagnement: [],
+					aidesFinancieres: [aStrapiMesureJeune()],
+					orienterFormer: [],
+					vieProfessionnelle: [],
+				});
+				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(strapiMesuresJeunesParCategorie));
 				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 
-
-
-				cmsRepository.getServiceJeuneList = jest.fn().mockResolvedValue(createSuccess());
-				const listerServicesJeunesUseCase = new ListerServicesJeunesUseCase(cmsRepository);
-
-				const result = await listerServicesJeunesUseCase.handle();
+				const result = await strapiMesuresJeunes.getServicesJeunesList();
 
 				expect(result).toEqual(createSuccess([]));
 			});
@@ -85,5 +106,5 @@ describe('strapiMesuresJeunesRepository', () => {
 			expect(result).toStrictEqual(expectedStrapiFailure);
 		});
 	});
-})
-;
+});
+

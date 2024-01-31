@@ -1,7 +1,7 @@
 import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '../../cms/infra/repositories/strapi.fixture';
 import { StrapiMesuresJeunes } from './strapiMesuresJeunes';
 
-export function aStrapiMesuresJeunes(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesuresJeunes.MesuresJeunesParCategorie>): StrapiMesuresJeunes.MesuresJeunesParCategorie {
 	return {
 		accompagnement: [aStrapiMesureJeune({
 			titre: 'Une formation en centre EPIDE',
@@ -16,10 +16,11 @@ export function aStrapiMesuresJeunes(): StrapiMesuresJeunes.MesuresJeunesParCate
 		vieProfessionnelle: [aStrapiMesureJeune({
 			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 		})],
+		...overrides,
 	};
 }
 
-export function aStrapiUnorderedMesuresJeunes(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
+export function aStrapiUnorderedMesuresJeunesParCategorie(): StrapiMesuresJeunes.MesuresJeunesParCategorie {
 	return {
 		accompagnement: [aStrapiMesureJeune({
 			titre: 'Une formation en centre EPIDE',
