@@ -47,7 +47,7 @@ export function aStrapiCollectionType<T>(data: T[], meta?: Partial<Strapi.Meta>)
 	};
 }
 
-export function aStrapiImage(override?: Strapi.Image): Strapi.Image {
+export function aStrapiImage(override?: Partial<Strapi.Image>): Strapi.Image {
 	return {
 		alternativeText: 'text',
 		caption: 'string',

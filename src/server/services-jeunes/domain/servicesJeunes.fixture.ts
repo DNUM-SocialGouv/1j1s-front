@@ -1,6 +1,5 @@
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
-import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 
 export function aServiceJeune(override?: Partial<ServiceJeune>): ServiceJeune {

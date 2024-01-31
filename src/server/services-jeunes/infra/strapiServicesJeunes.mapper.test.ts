@@ -1,10 +1,10 @@
 // TODO (BRUJ 30/01/2024): rajouter les tests sur le mapper
 
 import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anImage } from '~/server/cms/domain/image.fixture';
 import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import {
 	anUnorderedAndNotFilterServiceJeuneList, aServiceJeune,
-	aServiceJeuneList,
 } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
 	aStrapiMesureJeune,
@@ -81,6 +81,20 @@ describe('mapToServicesJeunes', () => {
 	});
 
 	it('lorsque je ne fourni pas d‘alternative texte à la bannière, renvoie une string vide', () => {
+		const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorieSansResultat({
+			accompagnement: [aStrapiMesureJeune({
+				banniere: aStrapiSingleRelation(aStrapiImage({
+					alternativeText: undefined,
+				})),
+			})],
+		});
 
+		const result = mapToServicesJeunes(strapiMesuresJeunesParCategorie);
+
+		expect(result).toStrictEqual([aServiceJeune({
+			banniere: anImage({
+				alt: '',
+			}),
+		})]);
 	});
 });
