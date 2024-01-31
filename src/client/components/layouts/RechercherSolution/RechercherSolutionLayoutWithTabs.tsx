@@ -8,7 +8,7 @@ import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResu
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
-import useSessionStorage from '~/client/hooks/useSessionStorage';
+import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherSolutionLayoutWithTabsProps {
@@ -26,7 +26,6 @@ interface RechercherSolutionLayoutWithTabsProps {
 		messageNoResult?: React.ReactElement
 		nombreDeSolutions: number
 	}>
-	currentTabKey: string
 }
 
 export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayoutWithTabsProps) {
@@ -39,13 +38,12 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 		maxPage,
 		isLoading,
 		listeSolutionElementTab,
-		currentTabKey,
 	} = props;
 
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
-	const sessionStorageCurrentTab = useSessionStorage<number>(currentTabKey);
-	const [currentTab, setCurrentTab] = useState<number>(sessionStorageCurrentTab.get() ?? 0);
+	const currentTabQuery = getSingleQueryParam(router.query.onglet);
+	const [currentTab, setCurrentTab] = useState<number>(currentTabQuery ? parseInt(currentTabQuery, 10) : 0);
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
 	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
 	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
@@ -53,7 +51,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 
 	function onTabChange(index: number) {
 		setCurrentTab(index);
-		sessionStorageCurrentTab.set(index);
+		router.push({ query: { ...router.query, onglet: index } }, undefined, { shallow: true });
 	}
 
 	return (
