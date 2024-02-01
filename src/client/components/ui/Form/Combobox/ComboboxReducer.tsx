@@ -116,11 +116,9 @@ export namespace ComboboxAction {
 
 		execute(previousState: ComboboxState): ComboboxState {
 			const previousVisibleOptions = previousState.visibleOptions;
-			const indexOfOptionVisible = previousVisibleOptions.indexOf(this.option.id);
-			if (indexOfOptionVisible === -1) return previousState;
 			return {
 				...previousState,
-				visibleOptions: previousVisibleOptions.toSpliced(indexOfOptionVisible, 1),
+				visibleOptions: previousVisibleOptions.filter((optionId) => optionId !== this.option.id),
 			};
 		}
 	}

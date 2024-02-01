@@ -4,11 +4,10 @@ import React, { FormEvent, useCallback, useMemo, useRef, useState } from 'react'
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Combobox } from '~/client/components/ui/Form/Combobox';
-import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import { SyncMessagePasDeResultat } from '~/client/components/ui/Form/Combobox/SyncMessagePasDeResultat';
 import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
