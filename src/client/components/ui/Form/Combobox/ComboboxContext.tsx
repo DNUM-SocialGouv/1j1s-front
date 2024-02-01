@@ -1,4 +1,4 @@
-import React, { Dispatch, ReducerState, useContext } from 'react';
+import React, { Dispatch, ReducerState, SetStateAction,useContext } from 'react';
 
 import NoProviderError from '~/client/Errors/NoProviderError';
 
@@ -9,6 +9,8 @@ type ContextContent = {
 	dispatch: Dispatch<ComboboxAction>,
 	onOptionSelection: (option: Element) => void,
 	filter: (element: Element, value: string) => boolean,
+	setVisibleOptions: Dispatch<SetStateAction<Array<string>>>
+	visibleOptions: Array<string>
 }
 
 const Context = React.createContext<ContextContent | undefined>(undefined);

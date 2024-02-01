@@ -69,6 +69,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	...inputProps
 }, inputOuterRef) {
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
+	const [visibleOptions, setVisibleOptions] = useState<Array<string>>([]);
 
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const inputRef = useSynchronizedRef(inputOuterRef);
@@ -197,7 +198,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			dispatch,
 			filter,
 			onOptionSelection,
+			setVisibleOptions,
 			state: { ...state, value },
+			visibleOptions,
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<Input

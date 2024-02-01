@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect,useId, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo } from 'react';
 
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
@@ -8,25 +8,48 @@ type OptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
 	value?: { toString: () => string },
 };
 export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
-	id: idProps,
-	onClick: onClickProps,
-	value,
-	...optionProps
-}, outerRef) {
+																																										 id: idProps,
+																																										 onClick: onClickProps,
+																																										 value,
+																																										 ...optionProps
+																																									 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
 	const localId = useId();
 	const id = idProps ?? localId;
 	const {
-		state: { activeDescendant, value: inputValue },
+		state: { activeDescendant, value: inputValue  },
+		visibleOptions,
 		onOptionSelection,
 		filter,
+		setVisibleOptions,
 	} = useCombobox();
 	const selected = activeDescendant === id;
-	const [ hidden, setHidden ] = useState(false);
 
+	const isHidden = useMemo(() => {
+		return !visibleOptions.includes(id);
+	}, [id, visibleOptions]);
+
+	console.log(visibleOptions, 'visibleoptions inside option');
 	useEffect(function checkIfHidden() {
-		setHidden(ref.current != null && !filter(ref.current, inputValue));
-	}, [filter, inputValue, ref]);
+		const shouldBeVisible = ref.current === null || filter(ref.current, inputValue);
+		console.log(shouldBeVisible, 'shouldBeVisible');
+		setVisibleOptions((previous)=> {
+			const newState = updateVisibleOptions(previous);
+			console.log('should change visible options with', newState);
+			return newState;
+		});
+
+		function updateVisibleOptions(previousVisibleOptions: Array<string>) {
+			const optionWasVisible = previousVisibleOptions.includes(id);
+			if (optionWasVisible && !shouldBeVisible) {
+				const indexOfOptionVisible = previousVisibleOptions.indexOf(id);
+				return previousVisibleOptions.toSpliced(indexOfOptionVisible, 1);
+			} else if (!optionWasVisible && shouldBeVisible) {
+				return previousVisibleOptions.concat(id);
+			}
+			return previousVisibleOptions;
+		}
+	}, [filter, id, inputValue, ref, setVisibleOptions]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);
@@ -38,11 +61,12 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
 		event.preventDefault();
 	}, []);
+
 	return (
 		<li
 			role="option"
 			aria-selected={selected}
-			hidden={hidden}
+			hidden={isHidden}
 			id={id}
 			onClick={onClick}
 			onMouseDown={onMouseDown}

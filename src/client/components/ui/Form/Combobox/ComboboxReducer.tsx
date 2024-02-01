@@ -4,7 +4,7 @@ export type ComboboxState = {
 	open: boolean,
 	activeDescendant: string | undefined,
 	value: string,
-	suggestionList: RefObject<HTMLUListElement>,
+	suggestionList: RefObject<HTMLUListElement>
 }
 
 function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
@@ -72,7 +72,6 @@ export namespace ComboboxAction {
 			this.newValue = value.toString();
 		}
 		execute(previousState: ComboboxState): ComboboxState {
-			console.log('inside setvalue', previousState.suggestionList.current?.querySelectorAll('[role="option"]').length);
 			return {
 				...previousState,
 				open: true,
