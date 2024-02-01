@@ -45,11 +45,10 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 								duree: 3,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 							}],
+							localisations: [{ pays: 'FR', ville: 'Paris' }],
 							nomEntreprise: 'La Pâtisserie',
-							pays: 'FR',
 							tempsDeTravail: 'FullTime',
 							titre: 'Pâtissier (H/F)',
-							ville: 'Paris',
 						}),
 					}),
 					related: anApiEuresEmploiEuropeDetailRelated({
@@ -84,11 +83,10 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 					duree: 3,
 					unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 				}],
+				localisations: [{ pays: 'FR', ville: 'Paris' }],
 				nomEntreprise: 'La Boulangerie',
-				pays: 'FR',
 				tempsDeTravail: 'FullTime',
 				titre: 'Boulanger (H/F)',
-				ville: 'Paris',
 			}),
 		...override,
 	};
@@ -141,8 +139,7 @@ ${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
 interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	titre?: string,
 	nomEntreprise?: string,
-	pays?: string,
-	ville?: string,
+	localisations?: Array<{pays?: string, ville?: string}>
 	typeContrat?: string,
 	description?: string,
 	listePermis?: Array<string>,
@@ -172,7 +169,7 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 }
 
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, localisations, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -230,16 +227,18 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
             </ApplicationMethod>
         </PostingInstruction>
         ${titre ? `<PositionTitle>${titre}</PositionTitle>` : ''}
-        <PositionLocation>
-            <Address currentAddressIndicator="true">
-                ${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
-                <ns2:CountrySubDivisionCode>
-                    75011
-                </ns2:CountrySubDivisionCode>
-                ${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
-                <ns2:PostalCode>75001</ns2:PostalCode>
-            </Address>
-        </PositionLocation>
+        ${localisations?.map(({ pays, ville }) => {
+		return `<PositionLocation>
+									<Address currentAddressIndicator="true">
+									${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
+									<ns2:CountrySubDivisionCode>
+					75011
+					</ns2:CountrySubDivisionCode>
+					${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
+					<ns2:PostalCode>75001</ns2:PostalCode>
+					</Address>
+					</PositionLocation>`;
+	})}						
         <PositionOrganization>
             <OrganizationIdentifiers>
                 ${nomEntreprise ? `<OrganizationName>${nomEntreprise}</OrganizationName>` : ''}

@@ -11,8 +11,7 @@ export interface EmploiEurope {
 	id: string;
 	titre?: string;
 	nomEntreprise?: string;
-	pays?: string;
-	ville?: string;
+	localisations: Array<{ pays?: string; ville?: string; }>
 	typeContrat?: string;
 	urlCandidature?: string;
 	tempsDeTravail?: string;
