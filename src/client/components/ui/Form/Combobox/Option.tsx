@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useId, useMemo } from 'react';
 
+import { ComboboxAction as Actions } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { useCombobox } from './ComboboxContext';
@@ -17,9 +18,10 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	const localId = useId();
 	const id = idProps ?? localId;
 	const {
-		state: { activeDescendant, visibleOptions  },
+		state: { activeDescendant, visibleOptions, value: inputValue },
 		onOptionSelection,
-		onUpdateVisibleOptions,
+		dispatch,
+		filter,
 	} = useCombobox();
 	const selected = activeDescendant === id;
 
@@ -28,8 +30,14 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	}, [id, visibleOptions]);
 
 	useEffect(function checkIfHidden() {
-		ref.current && onUpdateVisibleOptions(ref.current);
-	}, [id, onUpdateVisibleOptions, ref]);
+		const option = ref.current;
+		if (option) {
+			const shouldBeVisible = filter(option, inputValue);
+			if (!shouldBeVisible) dispatch(new Actions.HideOption(option));
+			if (shouldBeVisible) dispatch(new Actions.ShowOption(option));
+		}
+
+	}, [dispatch, filter, id, ref, inputValue]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);

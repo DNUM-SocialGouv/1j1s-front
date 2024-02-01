@@ -1,4 +1,4 @@
-import { SyncMessage } from '~/client/components/ui/Form/Combobox/SyncMessage';
+import { SyncMessagePasDeResultat } from '~/client/components/ui/Form/Combobox/SyncMessagePasDeResultat';
 
 import { AsyncMessage } from './AsyncMessage';
 import { Category } from './Category';
@@ -11,7 +11,7 @@ export const Combobox = Object.assign(BaseComponent, {
 	AsyncMessage,
 	Category,
 	Option,
-	SyncMessage,
+	SyncMessagePasDeResultat,
 	filterValueOrLabelStartsWith,
 	noFilter,
 });

@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction } from 'react';
+import { RefObject  } from 'react';
 
 export type ComboboxState = {
 	open: boolean,
