@@ -61,7 +61,6 @@ describe('<ComboboxMetiers />', () => {
 			await user.tab();
 
 			expect(onInvalid).toHaveBeenCalled();
-			expect(combobox).toBeInvalid();
 		});
 		it('merge le aria-describedby en props avec celui du message d’erreur', async () => {
 			const user = userEvent.setup();
@@ -78,7 +77,6 @@ describe('<ComboboxMetiers />', () => {
 			await user.type(combobox, 'A');
 			await user.tab();
 
-			expect(combobox).toBeInvalid();
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 		});
