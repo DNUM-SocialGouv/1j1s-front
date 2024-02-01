@@ -69,7 +69,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	...inputProps
 }, inputOuterRef) {
 	const { touched, saveValueOnFocus, setTouchedOnBlur } = useTouchedInput();
-	const [visibleOptions, setVisibleOptions] = useState<Array<string>>([]);
 
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const inputRef = useSynchronizedRef(inputOuterRef);
@@ -81,6 +80,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			value: valueProps?.toString()
 				?? defaultValue?.toString()
 				?? '',
+			visibleOptions : [],
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
@@ -130,22 +130,10 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 	const onUpdateVisibleOptions = useCallback(function onUpdateVisibleOptions(option: Element){
 		const shouldBeVisible = filter(option, value);
-
-		setVisibleOptions((previous) => {
-			return updateVisibleOptions(previous, option.id);
-		});
-
-		function updateVisibleOptions(previousVisibleOptions: Array<string>, id: string) {
-			const optionWasVisible = previousVisibleOptions.includes(id);
-			if (optionWasVisible && !shouldBeVisible) {
-				const indexOfOptionVisible = previousVisibleOptions.indexOf(id);
-				return previousVisibleOptions.toSpliced(indexOfOptionVisible, 1);
-			} else if (!optionWasVisible && shouldBeVisible) {
-				return previousVisibleOptions.concat(id);
-			}
-			return previousVisibleOptions;
-		}
+		if(!shouldBeVisible) dispatch(new Actions.HideOption(option));
+		if(shouldBeVisible) dispatch(new Actions.ShowOption(option));
 	}, [filter, value]);
+
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
@@ -215,11 +203,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	return (
 		<ComboboxProvider value={{
 			dispatch,
-			filter,
 			onOptionSelection,
 			onUpdateVisibleOptions,
 			state: { ...state, value },
-			visibleOptions,
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
 				<Input
