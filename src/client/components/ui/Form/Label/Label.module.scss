@@ -1,6 +1,6 @@
 @use "@styles/utilities";
 
-$color-text-disabled: utilities.$color-text-secondary;
+$color-text-disabled-or-readonly: utilities.$color-text-secondary;
 
 .label {
   display: block;
@@ -8,7 +8,7 @@ $color-text-disabled: utilities.$color-text-secondary;
   @include utilities.text-medium;
 
   &:has(+input[readonly], +input[disabled]) {
-    color: $color-text-disabled;
+    color: $color-text-disabled-or-readonly;
   }
 
   @include utilities.media(small) {
