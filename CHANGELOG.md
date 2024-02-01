@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.229.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.228.0...v3.229.0) (2024-02-01)
+
+
+### Features
+
+* **champ:** embarquer dans champ la gestion de l'etat readonly et disabled ([#2625](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2625)) ([fa352b0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fa352b0304bcbb10040ad135d4f25cdc95f5bcb7))
+
+
+### Bug Fixes
+
+* **doc:** lien cassé doc adr ([#2620](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2620)) ([1398e46](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1398e46df907a75b7ae4b4c973925832213a3701))
+* fix la configuration minio pour l'env local ([#2599](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2599)) ([13c766c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13c766c2eb9804b77d08b402d531ded596acd529))
+
 ## [3.228.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.227.1...v3.228.0) (2024-01-30)
 
 
