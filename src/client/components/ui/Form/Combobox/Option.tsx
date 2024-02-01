@@ -17,11 +17,10 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	const localId = useId();
 	const id = idProps ?? localId;
 	const {
-		state: { activeDescendant, value: inputValue  },
+		state: { activeDescendant  },
 		visibleOptions,
 		onOptionSelection,
-		filter,
-		setVisibleOptions,
+		onUpdateVisibleOptions,
 	} = useCombobox();
 	const selected = activeDescendant === id;
 
@@ -29,27 +28,9 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 		return !visibleOptions.includes(id);
 	}, [id, visibleOptions]);
 
-	console.log(visibleOptions, 'visibleoptions inside option');
 	useEffect(function checkIfHidden() {
-		const shouldBeVisible = ref.current === null || filter(ref.current, inputValue);
-		console.log(shouldBeVisible, 'shouldBeVisible');
-		setVisibleOptions((previous)=> {
-			const newState = updateVisibleOptions(previous);
-			console.log('should change visible options with', newState);
-			return newState;
-		});
-
-		function updateVisibleOptions(previousVisibleOptions: Array<string>) {
-			const optionWasVisible = previousVisibleOptions.includes(id);
-			if (optionWasVisible && !shouldBeVisible) {
-				const indexOfOptionVisible = previousVisibleOptions.indexOf(id);
-				return previousVisibleOptions.toSpliced(indexOfOptionVisible, 1);
-			} else if (!optionWasVisible && shouldBeVisible) {
-				return previousVisibleOptions.concat(id);
-			}
-			return previousVisibleOptions;
-		}
-	}, [filter, id, inputValue, ref, setVisibleOptions]);
+		ref.current && onUpdateVisibleOptions(ref.current);
+	}, [id, onUpdateVisibleOptions, ref]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);

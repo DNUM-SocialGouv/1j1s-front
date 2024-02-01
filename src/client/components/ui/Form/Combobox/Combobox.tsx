@@ -128,6 +128,25 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		inputRef.current?.focus();
 	}, [inputRef, triggerChangeEvent]);
 
+	const onUpdateVisibleOptions = useCallback(function onUpdateVisibleOptions(option: Element){
+		const shouldBeVisible = filter(option, value);
+
+		setVisibleOptions((previous) => {
+			return updateVisibleOptions(previous, option.id);
+		});
+
+		function updateVisibleOptions(previousVisibleOptions: Array<string>, id: string) {
+			const optionWasVisible = previousVisibleOptions.includes(id);
+			if (optionWasVisible && !shouldBeVisible) {
+				const indexOfOptionVisible = previousVisibleOptions.indexOf(id);
+				return previousVisibleOptions.toSpliced(indexOfOptionVisible, 1);
+			} else if (!optionWasVisible && shouldBeVisible) {
+				return previousVisibleOptions.concat(id);
+			}
+			return previousVisibleOptions;
+		}
+	}, [filter, value]);
+
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
@@ -198,7 +217,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			dispatch,
 			filter,
 			onOptionSelection,
-			setVisibleOptions,
+			onUpdateVisibleOptions,
 			state: { ...state, value },
 			visibleOptions,
 		}}>
