@@ -128,13 +128,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		inputRef.current?.focus();
 	}, [inputRef, triggerChangeEvent]);
 
-	const onUpdateVisibleOptions = useCallback(function onUpdateVisibleOptions(option: Element){
-		const shouldBeVisible = filter(option, value);
-		if(!shouldBeVisible) dispatch(new Actions.HideOption(option));
-		if(shouldBeVisible) dispatch(new Actions.ShowOption(option));
-	}, [filter, value]);
-
-
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
@@ -203,8 +196,8 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	return (
 		<ComboboxProvider value={{
 			dispatch,
+			filter,
 			onOptionSelection,
-			onUpdateVisibleOptions,
 			state: { ...state, value },
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>

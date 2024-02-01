@@ -8,6 +8,7 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
+import { SyncMessagePasDeResultat } from '~/client/components/ui/Form/Combobox/SyncMessagePasDeResultat';
 import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -38,6 +39,9 @@ enum Etape {
 export const TITLE_ÉTAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 1 sur 2 | 1jeune1solution';
 export const TITLE_ÉTAPE_2 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 2 sur 2 | 1jeune1solution';
 export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Formulaire envoyé | 1jeune1solution';
+
+const MESSAGE_PAS_DE_RESULTAT_SECTEUR_ACTIVITE
+	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un secteur d‘activité. Exemples : Administration publique, …';
 
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
@@ -202,7 +206,7 @@ export default function LesEntreprisesSEngagentInscription() {
 												<Combobox.Option key={secteurActivite.valeur} value={secteurActivite.valeur}>
 													{secteurActivite.libellé}
 												</Combobox.Option>))}
-											<Combobox.SyncMessage/>
+											<Combobox.SyncMessagePasDeResultat>{MESSAGE_PAS_DE_RESULTAT_SECTEUR_ACTIVITE}</Combobox.SyncMessagePasDeResultat>
 										</Champ.Input>
 										<Champ.Error/>
 									</Champ>
