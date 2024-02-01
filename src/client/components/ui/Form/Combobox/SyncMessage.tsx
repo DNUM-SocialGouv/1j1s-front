@@ -5,7 +5,7 @@ import { useCombobox } from './ComboboxContext';
 type SyncMessageProps = React.ComponentPropsWithoutRef<'li'>;
 
 export const SyncMessage = React.forwardRef<HTMLLIElement, SyncMessageProps>(function SyncMessage({ ...liProps }, ref) {
-	const { visibleOptions } = useCombobox();
+	const { state: { visibleOptions } } = useCombobox();
 	const [nbreElement, setNbreElement] = useState(0);
 	useEffect(() => {
 		console.log('update nbre element', visibleOptions.length);
