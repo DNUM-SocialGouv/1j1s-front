@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.230.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.2...v3.230.0) (2024-02-02)
+
+
+### Features
+
+* **stage3e2de:** formulaire de contact en personne ([#2626](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2626)) ([c5dbc53](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5dbc5364e68a7bfe6833bf79773545363e26c20))
+
 ## [3.229.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.1...v3.229.2) (2024-02-01)
 
 
