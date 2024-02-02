@@ -3,12 +3,10 @@
 
 import { stringify } from 'querystring';
 
-import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
 import {
-	searchAlternanceRepositoryMockResults,
+	mockedRepositoryReturnsASuccessWhenCodeCommuneIs11,
 } from '~/server/alternances/infra/repositories/mockAlternance.repository';
-import { Success } from '~/server/errors/either';
 import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
 
 import { interceptGet } from '../interceptGet';
@@ -73,18 +71,19 @@ describe('Parcours alternance LBA', () => {
 				longitudeCommune: '2.347',
 				ville: 'Paris',
 			};
-			const expectedResult = searchAlternanceRepositoryMockResults(filtre) as Success<ResultatRechercheAlternance>;
+			const expectedResult = mockedRepositoryReturnsASuccessWhenCodeCommuneIs11(filtre);
 
 			cy.visit(`/apprentissage?${stringify(query)}`);
 
 			cy.findByRole('list', { name: /Offres d’alternances/i })
 				.children()
-				.should('have.length', expectedResult.result.offreList.length);
+				.should('have.length', expectedResult?.result.offreList.length);
 		});
 	});
 
 	describe('quand la recherche retourne une erreur', () => {
 		it('affiche l’erreur', () => {
+			// NOTE (DORO 02-02-2024): Query qui génère une erreur dans le repository mocké
 			const query = {
 				...aQuery,
 				codeCommune: '12345',

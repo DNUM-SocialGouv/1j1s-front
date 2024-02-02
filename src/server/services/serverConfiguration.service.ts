@@ -13,7 +13,7 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_IMMERSION_FACILE_STAGE_3EME_API_KEY: ServerConfigurationService.getOrThrowError('API_IMMERSION_FACILE_STAGE_3EME_API_KEY'),
 			API_IMMERSION_FACILE_STAGE_3EME_URL: ServerConfigurationService.getOrThrowError('API_IMMERSION_FACILE_STAGE_3EME_URL'),
 			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
-			API_LA_BONNE_ALTERNANCE_IS_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_LA_BONNE_ALTERNANCE_IS_MOCK_ACTIVE', '0'))),
+			API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE', '0'))),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
 			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
 			API_ONISEP_ACCOUNT_EMAIL: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_EMAIL'),
@@ -104,7 +104,7 @@ export interface EnvironmentVariables {
 	readonly API_IMMERSION_FACILE_STAGE_3EME_API_KEY: string
 	readonly API_IMMERSION_FACILE_STAGE_3EME_URL: string
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
-	readonly API_LA_BONNE_ALTERNANCE_IS_MOCK_ACTIVE: boolean
+	readonly API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: boolean
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
 	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
 	readonly API_ONISEP_BASE_URL: string

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useState } from 'react';
 
 import { BanniereApprentissage } from '~/client/components/features/Alternance/Rechercher/BanniereApprentissage';
 import {
@@ -29,15 +30,19 @@ import { Erreur } from '~/server/errors/erreur.types';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
-interface RechercherAlternanceProps {
+export type RechercherAlternanceProps = {
 	erreurRecherche?: Erreur
 	resultats?: ResultatRechercheAlternance
 }
 
+// TODO : le message de nombre de resultat ne marche pas quand il y a 0 résultat
 export default function RechercherAlternance(props: RechercherAlternanceProps) {
 	const alternanceQuery = useAlternanceQuery();
+	const router = useRouter();
 
-	const nombreResultats = (props.resultats?.entrepriseList?.length || 0) + (props.resultats?.offreList?.length || 0);
+	const nombreResultatsEntreprises = props.resultats?.entrepriseList?.length || 0;
+	const nombreResultatsOffres = props.resultats?.offreList?.length || 0;
+	const nombreResultats = nombreResultatsEntreprises + nombreResultatsOffres;
 	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${nombreResultats === 0 ? ' - Aucun résultat' : ''}`);
 	const alternanceList = {
 		entrepriseList: props.resultats?.entrepriseList || [],
@@ -68,6 +73,16 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 		}
 	}, [alternanceQuery.libelleCommune]);
 
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, [router]);
+
+	function onSubmit() {
+		setIsLoading(true);
+	}
+
 	return <>
 		<Head
 			title={title}
@@ -79,8 +94,8 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 				bannière={<BanniereApprentissage/>}
 				erreurRecherche={erreurRecherche}
 				étiquettesRecherche={étiquettesRecherche}
-				formulaireRecherche={<FormulaireRechercheAlternance/>}
-				isLoading={false}
+				formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit}/>}
+				isLoading={isLoading}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',
 					listeSolutionElement: <ListeSolutionAlternance alternanceList={alternanceList.offreList}/>,

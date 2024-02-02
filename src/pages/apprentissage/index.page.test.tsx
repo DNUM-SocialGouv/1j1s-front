@@ -156,8 +156,8 @@ describe('Page rechercher une alternance', () => {
 					NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: '1',
 				};
 			});
-			describe('lorsque la page est affiché sans query params', () => {
-				it('retourne des props vide', async () => {
+			describe('lorsque la page est affichée sans query params', () => {
+				it('retourne des props vide pour que le composant front n’affiche pas de résultat', async () => {
 					// GIVEN
 					const context = {
 						query: {},
@@ -173,8 +173,8 @@ describe('Page rechercher une alternance', () => {
 				});
 			});
 
-			describe('lorsque la page est affiché avec des query params', () => {
-				describe('lorsque les query params sont invalide', () => {
+			describe('lorsque la page est affichée avec des query params', () => {
+				describe('lorsque les query params sont invalides', () => {
 					it('retourne une erreur et ne fait pas de recherche', async () => {
 						// GIVEN
 						const context = {
@@ -196,9 +196,9 @@ describe('Page rechercher une alternance', () => {
 					});
 				});
 
-				describe('lorsque les query params sont valide', () => {
+				describe('lorsque les query params sont valides', () => {
 					describe('lorsque la recherche retourne une erreur', () => {
-						it('retourne l’erreur recu', async () => {
+						it('retourne l’erreur reçue', async () => {
 							// GIVEN
 							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 

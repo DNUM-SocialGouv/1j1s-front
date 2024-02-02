@@ -1,26 +1,25 @@
 import Joi from 'joi';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
-import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
+import RechercherAlternance, {
+	RechercherAlternanceProps,
+} from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/apprentissage/index.analytics';
-import { AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
-import { Erreur } from '~/server/errors/erreur.types';
+import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
 
-interface RechercherAlternancePageProps {
-	erreurRecherche?: Erreur
-	resultats?: ResultatRechercheAlternance
-}
+type RechercherAlternancePageProps = RechercherAlternanceProps;
 
 export default function RechercherAlternancePage(props: RechercherAlternancePageProps) {
 	useAnalytics(analytics);
 
-	return <RechercherAlternance resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
+	return <RechercherAlternance {...props} />;
 }
 
 export const alternancesQuerySchema = Joi.object({
@@ -31,9 +30,7 @@ export const alternancesQuerySchema = Joi.object({
 	longitudeCommune: Joi.string().required(),
 }).options({ allowUnknown: true });
 
-type RequestQuery = Partial<{[p: string]: string | string[]}>;
-
-export function alternanceFiltreMapper(query: RequestQuery): AlternanceFiltre {
+export function alternanceFiltreMapper(query: ParsedUrlQuery): AlternanceFiltre {
 	return {
 		codeCommune: query.codeCommune ? String(query.codeCommune) : '',
 		codeRomes: query.codeRomes ? queryToArray(query.codeRomes) : [],
@@ -43,7 +40,6 @@ export function alternanceFiltreMapper(query: RequestQuery): AlternanceFiltre {
 	};
 }
 
-// NOTE (GAFI 08-08-2023): Rend le composant server-side
 export async function getServerSideProps(context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<RechercherAlternancePageProps>> {
 	const isFeatureActive = process.env.NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE === '1';
 	if (!isFeatureActive) {
@@ -54,7 +50,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
 	if (empty(query)) {
 		return {
-			props: {},
+			props: JSON.parse(JSON.stringify({
+				resultats: {
+					entrepriseList: [],
+					offreList: [],
+				},
+			})),
 		};
 	}
 

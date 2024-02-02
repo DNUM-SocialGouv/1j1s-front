@@ -16,7 +16,16 @@ import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { getFormAsQuery } from '~/client/utils/form.util';
 
-export function FormulaireRechercheAlternance() {
+function doNothing() {
+	return;
+}
+
+interface FormulaireRechercheAlternanceProps {
+	onSubmit?: () => void;
+}
+
+export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternanceProps) {
+	const onSubmit = props.onSubmit || doNothing;
 	const queryParams = useAlternanceQuery();
 	const {
 		libelleMetier,
@@ -49,6 +58,7 @@ export function FormulaireRechercheAlternance() {
 
 	async function updateRechercherAlternanceQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+		onSubmit();
 		const formEntries = getFormAsQuery(event.currentTarget, queryParams, false);
 		return router.push({ query: new URLSearchParams(formEntries).toString() }, undefined, { scroll: false });
 	}

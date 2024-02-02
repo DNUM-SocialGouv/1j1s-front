@@ -260,4 +260,8 @@ describe('FormulaireRechercheAlternance', () => {
 			libelleMetier: expect.anything(),
 		});
 	});
+
+	describe('lorsqu‘on effectue une recherche', () => {
+		it.todo('appelle la fonction onSubmit');
+	});
 });
