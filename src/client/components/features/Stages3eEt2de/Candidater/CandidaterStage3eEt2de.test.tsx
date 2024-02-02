@@ -52,35 +52,70 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(titre).toHaveTextContent('Je candidate à l’offre de stage de 3e ou de 2de de l’entreprise Carrefour');
 	});
 
-	it('affiche un texte explicatif du process de candidature', () => {
-		// GIVEN
-		const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-			{
-				appellations: [
-					{
-						code: 'code',
-						label: 'label',
-					},
-				],
-				modeDeContact: ModeDeContact.IN_PERSON,
-				nomEntreprise: 'Carrefour',
-				siret: '37000000000000',
-			});
+	describe('lorsque le mode de contact est par téléphone', () => {
+		it('affiche un texte explicatif du process de candidature', () => {
+			// GIVEN
+			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+				{
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.PHONE,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				});
 
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
-			</DependenciesProvider>,
-		);
+			// WHEN
+			render(
+				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<CandidaterStage3eEt2de
+						donneesEntreprise={donneesEntreprise}
+					/>
+				</DependenciesProvider>,
+			);
 
-		// THEN
-		const explicationPart1 = screen.getByText('Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.');
-		const explicationPart2 = screen.getByText('Nous allons vous transmettre par e-mail le nom de la personne à contacter, son numéro de téléphone ainsi que des conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne peuvent pas être communiquées à d’autres personnes.');
-		expect(explicationPart1).toBeVisible();
-		expect(explicationPart2).toBeVisible();
+			// THEN
+			const explicationPart1 = screen.getByText('Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer vos coordonnées.');
+			const explicationPart2 = screen.getByText('Nous allons vous transmettre par e-mail le nom de la personne à contacter, son numéro de téléphone ainsi que des conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne peuvent pas être communiquées à d’autres personnes.');
+			expect(explicationPart1).toBeVisible();
+			expect(explicationPart2).toBeVisible();
+		});
+	});
+
+	describe('lorsque le mode de contact est en personne', () => {
+		it('affiche un texte explicatif du process de candidature', () => {
+			// GIVEN
+			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+				{
+					appellations: [
+						{
+							code: 'code',
+							label: 'label',
+						},
+					],
+					modeDeContact: ModeDeContact.IN_PERSON,
+					nomEntreprise: 'Carrefour',
+					siret: '37000000000000',
+				});
+
+			// WHEN
+			render(
+				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<CandidaterStage3eEt2de
+						donneesEntreprise={donneesEntreprise}
+					/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const explicationPart1 = screen.getByText('Cette entreprise souhaite que vous vous présentiez directement pour candidater. Merci de nous indiquer vos coordonnées.');
+			const explicationPart2 = screen.getByText('Vous recevrez par e-mail le nom de la personne à contacter ainsi que des conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles. Elles ne peuvent pas être communiquées à d’autres personnes.');
+			expect(explicationPart1).toBeVisible();
+			expect(explicationPart2).toBeVisible();
+		});
 	});
 
 	it('affiche un bouton de retour à la recherche', async () => {

@@ -14,6 +14,25 @@ import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './FormulaireCandidaterStage3eEt2de.module.scss';
 
+const INSTRUCTION_CANDIDATURE_TELEPHONE = <>
+	<p className={styles.sousTitre}>Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer
+		vos coordonnées.</p>
+	<p className={styles.sousTitre}>Nous allons vous transmettre par e-mail le nom de la personne à contacter, son
+		numéro de téléphone ainsi que des
+		conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles.
+		Elles ne peuvent pas être communiquées à d’autres personnes.
+	</p>
+</>;
+
+const INSTRUCTION_CANDIDATURE_EN_PERSONNE = <>
+	<p className={styles.sousTitre}>Cette entreprise souhaite que vous vous présentiez directement pour candidater.
+		Merci de nous indiquer vos coordonnées.</p>
+	<p className={styles.sousTitre}>Vous recevrez par e-mail le nom de la personne à contacter ainsi que des
+		conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles.
+		Elles ne peuvent pas être communiquées à d’autres personnes.
+	</p>
+</>;
+
 export function FormulaireCandidaterStage3eEt2de(props: {
 	modeDeContact: ModeDeContact,
 	nomEntreprise: string,
@@ -62,14 +81,8 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 			<div className={styles.headerTextContainer}>
 				<h1 className={styles.titre}>Je candidate à l’offre de stage de 3e ou de 2de de
 					l’entreprise <em>{nomEntreprise}</em></h1>
-				<p className={styles.sousTitre}>Cette entreprise souhaite être contactée par téléphone. Merci de nous indiquer
-					vos coordonnées.</p>
-				<p className={styles.sousTitre}>Nous allons vous transmettre par e-mail le nom de la personne à contacter, son
-					numéro de téléphone ainsi que des
-					conseils pour présenter votre demande d’immersion. Ces informations sont personnelles et confidentielles.
-					Elles ne
-					peuvent pas être communiquées à d’autres personnes.
-				</p>
+				{modeDeContact === ModeDeContact.PHONE && INSTRUCTION_CANDIDATURE_TELEPHONE}
+				{modeDeContact === ModeDeContact.IN_PERSON && INSTRUCTION_CANDIDATURE_EN_PERSONNE}
 			</div>
 		</div>
 
