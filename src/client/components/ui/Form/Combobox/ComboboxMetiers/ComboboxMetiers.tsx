@@ -19,11 +19,12 @@ type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
+const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
   = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …';
 const MESSAGE_CHARGEMENT = 'Chargement…';
-const MESSAGE_CHAMP_VIDE = 'Commencez à taper pour rechercher un métier';
+const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères';
 const DEFAULT_LABEL = 'Domaine';
 
 function MetiersTrouves({ quantity }: { quantity: number }) {
@@ -51,6 +52,9 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	} = props;
 
 	const metierRechercheService = useMetierDependency('metierService');
+	function isInputValueLengthValid(inputValue: string) {
+		return inputValue.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+	}
 
 	const [fieldError, setFieldError] = useState<string | null>(null);
 	const [metiers, setMetiers] =
@@ -86,7 +90,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	}, [handleRechercherWithDebounce]);
 
 	const getMetiersDebounced = useCallback(async function getMetiers(motCle: string) {
-		if (!motCle) {
+		if (!isInputValueLengthValid(motCle)) {
 			setMetiers([]);
 			return;
 		}
@@ -95,8 +99,6 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 	}, [handleRechercherWithDebounce]);
 
-	const isEmpty = value === '';
-	console.log(metiers);
 	return (
 		<div>
 			<label className={styles.label} htmlFor={inputId}>
@@ -132,7 +134,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				}
 				<Combobox.AsyncMessage>
 					{
-						isEmpty && MESSAGE_CHAMP_VIDE
+						!isInputValueLengthValid(value) && MESSAGE_CHAMP_VIDE
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| metiers.length === 0 && MESSAGE_PAS_DE_RESULTAT

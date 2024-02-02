@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, {
+	ComponentPropsWithoutRef,
 	FocusEvent,
 	KeyboardEvent,
 	SyntheticEvent,
@@ -48,7 +49,7 @@ type ComboboxProps = Omit<
 	valueName?: string;
 } & Labelled;
 
-
+type InputValue = ComponentPropsWithoutRef<'input'>['value']
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	value: valueProps,
@@ -101,16 +102,16 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
-	const validation = useCallback(function validation() {
+	const validation = useCallback(function validation(newValue: InputValue){
 		if (!requireValidOption) return '';
 
 		const isOptionValid = !!findMatchingOption();
-		if (isOptionValid || (value === '' && !required)) {
+		if (isOptionValid || (newValue === '' && !required)) {
 			return '';
 		}
 
 		return 'Veuillez sélectionner une option dans la liste';
-	}, [findMatchingOption, requireValidOption, required, value]);
+	}, [findMatchingOption, requireValidOption, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
