@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -243,6 +243,56 @@ describe('<ComboboxMetiers />', () => {
 		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(1);
 	});
 
+	it('la recherche n’est pas lancée si le nombre de caractère est inférieure ou égale à 3', async() => {
+		// GIVEN
+		const user = userEvent.setup();
+		const metierServiceMock= aMetierService();
+		render(
+			<MetierDependenciesProvider metierService={metierServiceMock}>
+				<ComboboxMetiers
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</MetierDependenciesProvider>,
+		);
+
+		// WHEN
+		const inputMetier = screen.getByRole('combobox');
+		await user.type(inputMetier, 'i');
+		await user.type(inputMetier, 'n');
+		await user.type(inputMetier, 'f');
+
+		// THEN
+		await waitFor(() => {
+			const options = screen.queryByRole('option');
+			expect(options).not.toBeInTheDocument();
+		});
+		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(0);
+	});
+
+	it('la recherche est lancée s’il y au moins 4 caractères', async () => {
+		// GIVEN
+		const user = userEvent.setup();
+		const metierServiceMock= aMetierService();
+		render(
+			<MetierDependenciesProvider metierService={metierServiceMock}>
+				<ComboboxMetiers
+					name='métier'
+					label='Rechercher un métier'
+				/>
+			</MetierDependenciesProvider>,
+		);
+
+		// WHEN
+		const inputMetier = screen.getByRole('combobox');
+		await user.type(inputMetier, 'info');
+
+		// THEN
+		await screen.findAllByRole('option');
+		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(1);
+		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledWith('info');
+	});
+
 	it('accepte une valeur par défaut', () => {
 		const metierServiceMock = aMetierService([]);
 
@@ -332,7 +382,7 @@ describe('<ComboboxMetiers />', () => {
 		expect(combobox).toHaveAccessibleDescription('Veuillez sélectionner une option dans la liste');
 	});
 
-	it('affiche un message dans les suggestions quand le champ est vide et que l’utilisateur déplie les suggestions', async () => {
+	it('affiche un message invitant à saisir quand le champ est vide et que l’utilisateur déplie les suggestions', async () => {
 		const user = userEvent.setup();
 		const metierServiceMock = aMetierService();
 		render(
@@ -350,11 +400,11 @@ describe('<ComboboxMetiers />', () => {
 
 		const message = screen.getByRole('status');
 		expect(message).toBeVisible();
-		expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+		expect(message).toHaveTextContent('Commencez à saisir au moins 3 caractères');
 	});
 
 	describe('quand le champ est vidé', () => {
-		it('affiche un message dans les suggestions', async () => {
+		it('affiche un message invitant à saisir dans les suggestions', async () => {
 			const user = userEvent.setup();
 			const metierServiceMock = aMetierService([aMetier(
 				{ code: 'H1209,H1504', label: 'Génie électrique' },
@@ -375,7 +425,7 @@ describe('<ComboboxMetiers />', () => {
 
 			const message = screen.getByRole('status');
 			expect(message).toBeVisible();
-			expect(message).toHaveTextContent('Commencez à taper pour rechercher un métier');
+			expect(message).toHaveTextContent('Commencez à saisir au moins 3 caractères');
 		});
 
 		it('n’affiche aucune suggestion', async () => {
