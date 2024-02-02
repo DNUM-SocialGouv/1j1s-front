@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.230.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.0...v3.230.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* fix la pagination meilisearch ([#2633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2633)) ([456e45a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/456e45aee545d4998e64821ea70ba893bb3626f5))
+
 ## [3.230.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.2...v3.230.0) (2024-02-02)
 
 
