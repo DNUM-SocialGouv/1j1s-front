@@ -88,20 +88,24 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const findMatchingOption = useCallback(function findMatchingOption(list: Element | null) {
-		return Array.from(list?.querySelectorAll('[role="option"]') ?? [])
-			.find((element) => element.textContent === value);
-	}, [value]);
+	const findMatchingOption = useCallback(function findMatchingOption(): HTMLElement | undefined | null {
+		const matchingOptionId =  state.visibleOptions.find((optionId) => {
+			const option = document.getElementById(optionId);
+			return option?.textContent === value;
+		});
+		return matchingOptionId ? document.getElementById(matchingOptionId): undefined;
+	}, [state.visibleOptions, value]);
 
 	useEffect(function setValue() {
-		const matchingOption = findMatchingOption(listboxRef.current);
+		const matchingOption = findMatchingOption();
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
 	const validation = useCallback(function validation() {
 		if (!requireValidOption) return '';
 
-		if (findMatchingOption(listboxRef.current) || value === '' && !required) {
+		const isOptionValid = !!findMatchingOption();
+		if (isOptionValid || (value === '' && !required)) {
 			return '';
 		}
 
