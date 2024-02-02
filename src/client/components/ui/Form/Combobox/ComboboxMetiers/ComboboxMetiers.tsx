@@ -96,7 +96,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 	}, [handleRechercherWithDebounce]);
 
 	const isEmpty = value === '';
-
+	console.log(metiers);
 	return (
 		<div>
 			<label className={styles.label} htmlFor={inputId}>

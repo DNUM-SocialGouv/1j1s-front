@@ -36,8 +36,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			if (!shouldBeVisible) dispatch(new Actions.HideOption(option));
 			if (shouldBeVisible) dispatch(new Actions.ShowOption(option));
 		}
-
-	}, [dispatch, filter, id, ref, inputValue]);
+	}, [dispatch, filter, inputValue, ref]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);

@@ -71,7 +71,6 @@ export default function Accompagnement() {
 					</article>
 				</div>
 			</section>
-			x
 
 			<ModalePoleEmploi
 				open={isPôleEmploiModalOpen}
