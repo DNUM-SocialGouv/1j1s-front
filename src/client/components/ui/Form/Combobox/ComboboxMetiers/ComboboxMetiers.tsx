@@ -72,6 +72,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 			if (response && isSuccess(response)) {
 				setStatus('success');
+				console.log('réponse des métiers en success');
 				setMetiers(response.result);
 			} else {
 				setStatus('failure');
@@ -91,6 +92,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 
 	const getMetiersDebounced = useCallback(async function getMetiers(motCle: string) {
 		if (!isInputValueLengthValid(motCle)) {
+			handleRechercherWithDebounce.cancel();
 			setMetiers([]);
 			return;
 		}
