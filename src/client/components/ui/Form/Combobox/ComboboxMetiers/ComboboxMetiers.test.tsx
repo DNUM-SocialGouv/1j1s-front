@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -291,6 +291,35 @@ describe('<ComboboxMetiers />', () => {
 		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledWith('inf');
 	});
 
+	it('annule la requête quand l‘utilisateur invalide sa saisie en diminuant le nombre de caractère (< 3)', async () => {
+		// GIVEN
+		const user = userEvent.setup();
+		const metierServiceMock= aMetierService();
+		const debounceTimeout = 200;
+		render(
+			<MetierDependenciesProvider metierService={metierServiceMock}>
+				<ComboboxMetiers
+					name='métier'
+					label='Rechercher un métier'
+					debounceTimeout={debounceTimeout}
+				/>
+			</MetierDependenciesProvider>,
+		);
+
+		// WHEN
+		const inputMetier = screen.getByRole('combobox');
+		await user.type(inputMetier, 'inf');
+		await user.type(inputMetier, KeyBoard.BACKSPACE);
+
+		// NOTE (SULI 02-02-2024):  garantie la fin du debounce de la requête initiale
+		await act(() => delay(debounceTimeout));
+
+		// THEN
+		const options = screen.queryByRole('option');
+		expect(options).not.toBeInTheDocument();
+		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(0);
+	});
+
 	it('accepte une valeur par défaut', () => {
 		const metierServiceMock = aMetierService([]);
 
@@ -474,3 +503,7 @@ describe('<ComboboxMetiers />', () => {
 		});
 	});
 });
+
+function delay(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
