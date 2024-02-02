@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -243,7 +243,7 @@ describe('<ComboboxMetiers />', () => {
 		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(1);
 	});
 
-	it('la recherche n’est pas lancée si le nombre de caractère est inférieure ou égale à 3', async() => {
+	it('la recherche n’est pas lancée si le nombre de caractère est inférieure stricte à 3', async() => {
 		// GIVEN
 		const user = userEvent.setup();
 		const metierServiceMock= aMetierService();
@@ -252,6 +252,7 @@ describe('<ComboboxMetiers />', () => {
 				<ComboboxMetiers
 					name='métier'
 					label='Rechercher un métier'
+					debounceTimeout={0}
 				/>
 			</MetierDependenciesProvider>,
 		);
@@ -260,17 +261,14 @@ describe('<ComboboxMetiers />', () => {
 		const inputMetier = screen.getByRole('combobox');
 		await user.type(inputMetier, 'i');
 		await user.type(inputMetier, 'n');
-		await user.type(inputMetier, 'f');
 
 		// THEN
-		await waitFor(() => {
-			const options = screen.queryByRole('option');
-			expect(options).not.toBeInTheDocument();
-		});
+		const options = screen.queryByRole('option');
+		expect(options).not.toBeInTheDocument();
 		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(0);
 	});
 
-	it('la recherche est lancée s’il y au moins 4 caractères', async () => {
+	it('la recherche est lancée s’il y au moins 3 caractères', async () => {
 		// GIVEN
 		const user = userEvent.setup();
 		const metierServiceMock= aMetierService();
@@ -285,12 +283,12 @@ describe('<ComboboxMetiers />', () => {
 
 		// WHEN
 		const inputMetier = screen.getByRole('combobox');
-		await user.type(inputMetier, 'info');
+		await user.type(inputMetier, 'inf');
 
 		// THEN
 		await screen.findAllByRole('option');
 		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledTimes(1);
-		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledWith('info');
+		expect(metierServiceMock.rechercherMetier).toHaveBeenCalledWith('inf');
 	});
 
 	it('accepte une valeur par défaut', () => {
