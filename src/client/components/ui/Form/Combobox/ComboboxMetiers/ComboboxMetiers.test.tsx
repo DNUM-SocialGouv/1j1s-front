@@ -400,5 +400,29 @@ describe('<ComboboxMetiers />', () => {
 			const option = screen.queryByRole('option');
 			expect(option).not.toBeInTheDocument();
 		});
+
+		it('n‘affiche pas de message d‘erreur',  async () => {
+			const user = userEvent.setup();
+			const metierServiceMock = aMetierService([aMetier(
+				{ code: 'H1209,H1504', label: 'Génie électrique' },
+			)]);
+			render(
+				<MetierDependenciesProvider metierService={metierServiceMock}>
+					<ComboboxMetiers
+						name='métier'
+						label='Rechercher un métier'
+						debounceTimeout={0}
+					/>
+				</MetierDependenciesProvider>,
+			);
+
+			const combobox = screen.getByRole('combobox');
+			await user.type(combobox, 'Test');
+			await user.tab();
+			await user.clear(combobox);
+			await user.tab();
+
+			expect(screen.queryByText('Veuillez sélectionner une option dans la liste')).not.toBeInTheDocument();
+		});
 	});
 });
