@@ -25,6 +25,7 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 	};
 }
 
+//TODO enelever des undefined pour remettre des valeurs identiques dans l'objet métier / objet infra
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
 		codeLangueDeLOffre: 'nl',
@@ -47,10 +48,10 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		langueDeTravail: ['néerlandais'],
 		listePermis: ['B'],
 		localisations: [{ pays: 'France', 		ville: 'Paris' }],
-		niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
-		nomEntreprise: 'La Boulangerie',
-		tempsDeTravail: 'Temps plein',
-		titre: 'Boulanger (H/F)',
+		niveauEtudes: undefined,
+		nomEntreprise: undefined,
+		tempsDeTravail: undefined,
+		titre: undefined,
 		typeContrat: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
 		...override,

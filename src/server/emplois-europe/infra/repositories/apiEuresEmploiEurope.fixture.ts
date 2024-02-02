@@ -33,7 +33,13 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 	return {
 		data: {
 			items: [
-				anApiEuresEmploiEuropeDetailItem(),
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle: '3',
+						},
+					}),
+				}),
 				anApiEuresEmploiEuropeDetailItem({
 					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
@@ -78,15 +84,15 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		},
 		hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 			{
-				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+				educationLevelCode: undefined,
 				experiencesNecessaires: [{
 					duree: 3,
 					unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 				}],
 				localisations: [{ pays: 'FR', ville: 'Paris' }],
-				nomEntreprise: 'La Boulangerie',
-				tempsDeTravail: 'FullTime',
-				titre: 'Boulanger (H/F)',
+				nomEntreprise: undefined,
+				tempsDeTravail: undefined,
+				titre: undefined,
 			}),
 		...override,
 	};

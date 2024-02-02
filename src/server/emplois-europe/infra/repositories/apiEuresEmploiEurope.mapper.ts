@@ -109,17 +109,22 @@ export class ApiEuresEmploiEuropeMapper {
 	}
 
 	private getLocalisations(positionProfile?: PositionProfile) {
-		//TODO transformer en parsing de plusieurs valeurs
-		const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
-		const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
 
-		const countryCode = address?.CountryCode && this.xmlService.getTextValue(address.CountryCode);
-		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
+		const positionLocations = this.transformElementToArray(positionProfile?.PositionLocation);
 
-		const cityName = address?.CityName;
-		const city = cityName && this.xmlService.getTextValue(cityName);
+		const localisations = positionLocations.map((location) => {
+			const address = this.getElementOrFirstElementInArray(location?.Address);
 
-		return [{ pays: country, ville: city }];
+			const countryCode = address?.CountryCode && this.xmlService.getTextValue(address.CountryCode);
+			const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
+
+			const cityName = address?.CityName;
+			const city = cityName && this.xmlService.getTextValue(cityName);
+
+			return { pays: country, ville: city };
+		});
+
+		return localisations;
 	}
 
 	private getTypeDeContrat(positionProfile?: PositionProfile) {

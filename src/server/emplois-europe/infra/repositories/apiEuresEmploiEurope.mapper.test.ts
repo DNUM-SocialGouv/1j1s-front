@@ -5,6 +5,7 @@ import {
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
+import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
@@ -41,7 +42,28 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				},
 			};
 
-			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
+			//const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
+
+			const apiEuresEmploiEuropeDetailResponse: ApiEuresEmploiEuropeDetailResponse = {
+				data: {
+					items: [
+						anApiEuresEmploiEuropeDetailItem({
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle: '1',
+								},
+							}),
+						}),
+						anApiEuresEmploiEuropeDetailItem({
+							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+								header: {
+									handle: '2',
+								},
+							}),
+						}),
+					],
+				},
+			};
 
 			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
@@ -58,8 +80,6 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							pays: 'France',
 							ville: 'Paris',
 						}],
-						nomEntreprise: 'La Boulangerie',
-						titre: 'Boulanger (H/F)',
 					}),
 					anEmploiEurope({
 						id: '2',
@@ -67,9 +87,6 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							pays: 'France',
 							ville: 'Paris',
 						}],
-						nomEntreprise: 'La Pâtisserie',
-						titre: 'Pâtissier (H/F)',
-						urlCandidature: 'https://urlDeCandidature2.com',
 					}),
 				],
 			}));
@@ -122,8 +139,6 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								pays: 'France',
 								ville: 'Paris',
 							}],
-							nomEntreprise: 'La Boulangerie',
-							titre: 'Boulanger (H/F)',
 						}),
 					],
 				}));
@@ -162,6 +177,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							}),
 						}),
 					]);
+
 
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
@@ -297,8 +313,6 @@ describe('apiEuresEmploiEuropeMapper', () => {
 								pays: 'France',
 								ville: 'Paris',
 							}],
-							nomEntreprise: 'La Boulangerie',
-							titre: 'Boulanger (H/F)',
 						}),
 					],
 				}));
