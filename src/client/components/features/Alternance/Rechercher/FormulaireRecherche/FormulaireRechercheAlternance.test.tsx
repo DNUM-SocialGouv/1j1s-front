@@ -262,6 +262,38 @@ describe('FormulaireRechercheAlternance', () => {
 	});
 
 	describe('lorsqu‘on effectue une recherche', () => {
-		it.todo('appelle la fonction onSubmit');
+		it('appelle la fonction onSubmit', async () => {
+			// Given
+			const localisationService = aLocalisationService();
+			mockUseRouter({});
+			const onSubmit = jest.fn();
+
+			// When
+			render(
+				<DependenciesProvider
+					localisationService={localisationService}
+					metierLbaService={aMetierService()}
+				>
+					<FormulaireRechercheAlternance onSubmit={onSubmit}/>
+				</DependenciesProvider>,
+			);
+
+			const user = userEvent.setup();
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			await user.type(inputMetiers, 'boulang');
+			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
+			await user.click(firstMetierOption);
+
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			await user.type(comboboxCommune, 'Pari');
+			const localisationOptions = await screen.findAllByRole('option');
+			await user.click(localisationOptions[0]);
+
+			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
+			await user.click(submitButton);
+
+			// Then
+			expect(onSubmit).toHaveBeenCalled();
+		});
 	});
 });

@@ -35,7 +35,6 @@ export type RechercherAlternanceProps = {
 	resultats?: ResultatRechercheAlternance
 }
 
-// TODO : le message de nombre de resultat ne marche pas quand il y a 0 résultat
 export default function RechercherAlternance(props: RechercherAlternanceProps) {
 	const alternanceQuery = useAlternanceQuery();
 	const router = useRouter();
