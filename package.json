@@ -42,7 +42,7 @@
     "next": "13.4.16",
     "next-joi": "2.2.1",
     "phone": "3.1.42",
-    "pino": "8.17.2",
+    "pino": "8.18.0",
     "pino-sentry": "0.14.0",
     "react": "18.2.0",
     "react-autosuggest": "10.1.0",
