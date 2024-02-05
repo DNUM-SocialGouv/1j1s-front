@@ -79,14 +79,7 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 						<dt>Description du poste</dt>
 						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre}/>
 					</div>}
-					{annonceEmploiEurope.listePermis?.length > 0 && <div className={styles.caracteristique}>
-						<dt>Type de permis requis</dt>
-						<dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
-					</div>}
-					{annonceEmploiEurope.laPlusLongueExperienceNecessaire !== undefined && <div className={styles.caracteristique}>
-						<dt>Expérience</dt>
-						<dd>{getExperienceRequired(annonceEmploiEurope.laPlusLongueExperienceNecessaire)}</dd>
-					</div>}
+					{/* localisation */}
 					{annonceEmploiEurope.langueDeTravail.length > 0 && <div className={styles.caracteristique}>
 						<dt>Langue de travail</dt>
 						<dd className={styles.langueDeTravailDescription}>{annonceEmploiEurope.langueDeTravail.join(', ')}</dd>
@@ -94,6 +87,14 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 					{competencesLinguistiques?.length > 0 && <div className={styles.caracteristique}>
 						<dt>Compétences linguistiques requises</dt>
 						<dd>{getCompetencesLinguistiquesRequises()}</dd>
+					</div>}
+					{annonceEmploiEurope.laPlusLongueExperienceNecessaire !== undefined && <div className={styles.caracteristique}>
+						<dt>Expérience</dt>
+						<dd>{getExperienceRequired(annonceEmploiEurope.laPlusLongueExperienceNecessaire)}</dd>
+					</div>}
+					{annonceEmploiEurope.listePermis?.length > 0 && <div className={styles.caracteristique}>
+						<dt>Type de permis requis</dt>
+						<dd>{annonceEmploiEurope.listePermis.join(', ')}</dd>
 					</div>}
 				</dl>
 			</section>
