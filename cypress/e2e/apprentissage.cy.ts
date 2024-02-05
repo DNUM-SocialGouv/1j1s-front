@@ -4,11 +4,11 @@
 import { stringify } from 'querystring';
 
 import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
-import {
-	mockedRepositoryReturnsASuccessWhenCodeCommuneIs11,
-} from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
 
+import {
+	mockedRepositoryReturnsASuccessWhenCodeCommuneIsNot12345,
+} from '../../src/server/alternances/infra/repositories/mockAlternance.repository';
 import { interceptGet } from '../interceptGet';
 
 const aQuery = {
@@ -71,7 +71,7 @@ describe('Parcours alternance LBA', () => {
 				longitudeCommune: '2.347',
 				ville: 'Paris',
 			};
-			const expectedResult = mockedRepositoryReturnsASuccessWhenCodeCommuneIs11(filtre);
+			const expectedResult = mockedRepositoryReturnsASuccessWhenCodeCommuneIsNot12345(filtre);
 
 			cy.visit(`/apprentissage?${stringify(query)}`);
 
