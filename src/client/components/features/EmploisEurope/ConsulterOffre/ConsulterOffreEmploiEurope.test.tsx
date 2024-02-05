@@ -286,6 +286,76 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 	});
 
+	describe('localisations', () => {
+		
+		describe('si il y a une seule localisation', () => {
+			it('affiche la ville et le pays si ils sont présents', () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: 'La Rochelle' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France, La Rochelle');
+			});
+
+			it('affiche la ville seulement si le pays n‘est pas renseigné' , () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ ville: 'La Rochelle' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('La Rochelle');
+			});
+
+			it('affiche le pays seulement si la ville n‘est pas renseignée' , () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France');
+			});
+
+		});
+
+		describe('si il y a plusieurs localisations', () => {
+			it('affiche les localisations dans une liste', () => {
+				// Given
+				const offreEmploiEurope = anEmploiEurope({ localisations: [
+					{ pays: 'France', ville: 'La Rochelle' },
+					{ pays: 'Belgique', ville: 'Charleroi' },
+				],
+				});
+
+				// When
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+
+				// Then
+				const localisations = getByDescriptionTerm('Localisations');
+				const listeLocalisation = within(localisations).getByRole('list');
+
+				const LaRochelle = within(listeLocalisation).getByText('France, La Rochelle');
+				const Charleroi = within(listeLocalisation).getByText('Belgique, Charleroi');
+
+				expect(LaRochelle).toBeVisible();
+				expect(Charleroi).toBeVisible();
+			});
+		});
+		
+
+		it('n‘affiche pas la localisation si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ localisations: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Localisation')).not.toBeInTheDocument();
+			expect(queryByDescriptionTerm('Localisations')).not.toBeInTheDocument();
+		});
+	});
+
 	describe('langue de travail', () => {
 		it('affiche les langues si elles sont disponibles', () => {
 			const offreEmploiEurope = anEmploiEurope({ langueDeTravail: ['Anglais', 'Français'] });

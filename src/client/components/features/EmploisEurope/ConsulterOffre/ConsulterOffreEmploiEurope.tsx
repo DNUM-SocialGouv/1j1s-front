@@ -42,6 +42,27 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 		});
 	}
 
+	function getLibelléLocalisation(localisation: { pays?: string, ville?: string}) {
+		if (localisation.pays && localisation.ville) {
+			return `${localisation.pays}, ${localisation.ville}`;
+		} else {
+			return localisation.ville || localisation.pays;
+		}
+	}
+
+	function getLocalisations() {
+		if (annonceEmploiEurope.localisations.length > 1) {
+			return <ul>
+				{annonceEmploiEurope.localisations.map((localisation) =>
+					<li key={`${localisation.pays}-${localisation.ville}`}>
+						{getLibelléLocalisation(localisation)}
+					</li>)}
+			</ul>;
+		} else {
+			return getLibelléLocalisation(annonceEmploiEurope.localisations[0]);
+		}
+	}
+
 	function getExperienceRequired(experienceNecessaire: ExperienceNecessaire) {
 		if (experienceNecessaire.duree === 0) return 'Aucune expérience requise';
 		const isPlural = experienceNecessaire.duree > 1;
@@ -79,7 +100,10 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 						<dt>Description du poste</dt>
 						<dd dangerouslySetInnerHTML={{ __html: descriptionSanitized }} lang={codeLangueDeLOffre}/>
 					</div>}
-					{/* localisation */}
+					{annonceEmploiEurope.localisations.length > 0 && <div className={styles.caracteristique}>
+						<dt>{annonceEmploiEurope.localisations.length > 1 ? 'Localisations' : 'Localisation'}</dt>
+						<dd>{getLocalisations()}</dd>
+					</div>}
 					{annonceEmploiEurope.langueDeTravail.length > 0 && <div className={styles.caracteristique}>
 						<dt>Langue de travail</dt>
 						<dd className={styles.langueDeTravailDescription}>{annonceEmploiEurope.langueDeTravail.join(', ')}</dd>
