@@ -1087,11 +1087,11 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 								language: 'nl',
 								levelCode: LEVEL_CODE.C2,
 							}],
+							localisations: [{ pays: 'FR', ville: 'Paris' }, { pays: 'BE', ville: 'Bruxelles' }],
 							nomEntreprise: 'Nom Entreprise',
-							pays: 'FR',
 							titre: 'Nom Offre aaaaa',
 							typeContrat: undefined,
-							ville: 'Paris',
+							
 						}),
 					},
 					related: {
@@ -1120,9 +1120,8 @@ export function mockResultatRechercheDetailApiEuresEmploiEurope(override?: Parti
 								duree: 1,
 								unite: UNITE_EXPERIENCE_NECESSAIRE.MONTH,
 							}],
-							pays: 'FR',
+							localisations: [{ pays: 'FR', ville: 'Paris' }],
 							titre: 'Nom Entreprise',
-							ville: 'Paris',
 						}),
 					},
 					related: {
