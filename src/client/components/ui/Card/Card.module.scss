@@ -1,7 +1,7 @@
 @use "@styles/utilities-deprecated";
 
 .cardComponent {
-  display: flex;
+  display: grid;
   background-color: utilities-deprecated.$color-surface;
   box-shadow: utilities-deprecated.$box-shadow;
   border-radius: 20px;
@@ -13,11 +13,11 @@
   }
 
   &Horizontal {
-    flex-direction: row;
+    grid-auto-flow: column;
   }
 
   &Vertical {
-    flex-direction: column;
+
   }
 }
 
