@@ -1,7 +1,17 @@
 @use "@styles/utilities";
 
+.cardTextContent {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
 .Card {
   position: relative;
+  grid-template-areas:
+      "imagesDuLogement"
+      "typeLogementEtDateDeLAnnonce"
+      "titreDeLAnnonce"
+      "autresInfosDeLAnnonce";
 
   a:before {
     content: '';
@@ -12,7 +22,19 @@
     bottom: 0;
   }
 
+  & h3 {
+    grid-area: titreDeLAnnonce;
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    min-height: 3.125rem;
+  }
+
   &ImageWrapper {
+    grid-area: imagesDuLogement;
     max-width: 22.5rem;
     height: 180px;
     overflow: hidden;
@@ -22,39 +44,25 @@
     }
   }
 
-  &Contenu {
-    padding: 0.75rem 1rem 0 0.75rem ;
-    display: grid;
-    grid-template-areas:
-      "typeLogementEtDateDeLAnnonce"
-      "titreDeLAnnonce"
-      "autresInfosDeLAnnonce";
-    &EnTete {
-      display: flex;
-      justify-content: space-between;
-      grid-area: typeLogementEtDateDeLAnnonce;
-      &Type {
-        text-transform: uppercase;
-        @include utilities.text-small;
-      }
-      &Date {
-        @include utilities.text-small;
-        text-transform: uppercase;
-      }
-    }
-    & div {
-      margin-bottom: 0.25rem;
+  &EnTete {
+    grid-area: typeLogementEtDateDeLAnnonce;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    &Type {
+      text-transform: uppercase;
+      @include utilities.text-small;
     }
 
-    & h3 {
-      grid-area: titreDeLAnnonce;
-      font-size: 1rem;
-      min-height: 3.125rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+    &Date {
+      @include utilities.text-small;
+      text-transform: uppercase;
     }
+  }
+
+  &Contenu {
+    grid-area: autresInfosDeLAnnonce;
   }
 
   &Description {
@@ -62,9 +70,10 @@
     grid-template-columns: auto 1fr;
     grid-auto-rows: auto auto;
     column-gap: 2rem;
-    padding-top: .5rem;
-    padding-bottom: 1.5rem;
     @include utilities.text-medium;
+    margin-bottom: 1.5rem;
+
+
     dd {
       > sup {
         font-size: 0.75rem;
@@ -81,8 +90,8 @@
   &Footer {
     display: flex;
     justify-content: space-between;
-    padding: 0 0.75rem 1rem 0.75rem;
     gap: .5rem;
+    margin-bottom: 1rem;
     @include utilities.text-small;
 
     .localisation {
