@@ -50,12 +50,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
 	if (empty(query)) {
 		return {
-			props: JSON.parse(JSON.stringify({
-				resultats: {
-					entrepriseList: [],
-					offreList: [],
-				},
-			})),
+			props: {},
 		};
 	}
 
