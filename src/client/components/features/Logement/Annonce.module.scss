@@ -24,9 +24,15 @@
 
   &Contenu {
     padding: 0.75rem 1rem 0 0.75rem ;
+    display: grid;
+    grid-template-areas:
+      "typeLogementEtDateDeLAnnonce"
+      "titreDeLAnnonce"
+      "autresInfosDeLAnnonce";
     &EnTete {
       display: flex;
       justify-content: space-between;
+      grid-area: typeLogementEtDateDeLAnnonce;
       &Type {
         text-transform: uppercase;
         @include utilities.text-small;
@@ -41,6 +47,7 @@
     }
 
     & h3 {
+      grid-area: titreDeLAnnonce;
       font-size: 1rem;
       min-height: 3.125rem;
       display: -webkit-box;
