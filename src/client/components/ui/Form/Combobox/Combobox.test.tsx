@@ -1627,7 +1627,24 @@ describe('<Combobox />', () => {
 	});
 
 	describe('<Combobox.SyncMessagePasDeResultat />', () => {
-		it('quand il n‘y a pas d‘option, affiche pas de résultat', async () => {
+		it('quand il n‘y a pas d‘option, affiche le message par défaut', async () => {
+			render(
+				<Combobox aria-label="Test">
+					<Combobox.Option>test</Combobox.Option>
+					<Combobox.Option>Abc</Combobox.Option>
+					<Combobox.Option>def</Combobox.Option>
+					<Combobox.SyncMessagePasDeResultat/>
+				</Combobox>,
+			);
+			const user = userEvent.setup();
+			const input = screen.getByRole('combobox');
+			await user.type(input, 'testet');
+
+			const messagePasDeResultat = screen.getByRole('status');
+			expect(messagePasDeResultat).toHaveTextContent('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie est valide');
+		});
+
+		it('quand il n‘y a pas d‘option et qu‘un message customisé est donné, affiche le message', async () => {
 			render(
 				<Combobox aria-label="Test">
 					<Combobox.Option>test</Combobox.Option>

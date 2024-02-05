@@ -98,15 +98,14 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 		const inputRechercheMetier = screen.getByRole('combobox', { name: 'Métier (facultatif)' });
 		await user.type(inputRechercheMetier, 'boulanger');
 		const boulangerOption = await screen.findByRole('option', { name: 'boulanger' });
-		expect(boulangerOption).toBeVisible();
 		await user.click(boulangerOption);
 		const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 		await user.click(buttonRechercher);
 
+		// THEN
 		expect(inputRechercheMetier).toHaveValue('boulanger');
 		expect(inputRechercheMetier).toBeValid();
 		expect(screen.getByRole('search', { name: 'Rechercher un stage de 3e et 2de' })).toBeValid();
-		// THEN
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=boulanger&codeMetier=codeMetier') }, undefined, { shallow: true });
 	});
 

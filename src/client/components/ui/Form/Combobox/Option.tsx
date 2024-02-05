@@ -25,11 +25,11 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 	} = useCombobox();
 	const selected = activeDescendant === id;
 
-	const isHidden = useMemo(() => {
-		return !visibleOptions.includes(id);
+	const isVisible = useMemo(() => {
+		return visibleOptions.includes(id);
 	}, [id, visibleOptions]);
 
-	useEffect(function checkIfHidden() {
+	useEffect(function dispatchShouldBeVisible() {
 		const option = ref.current;
 		if (option) {
 			const shouldBeVisible = filter(option, inputValue);
@@ -54,7 +54,7 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 		<li
 			role="option"
 			aria-selected={selected}
-			hidden={isHidden}
+			hidden={!isVisible}
 			id={id}
 			onClick={onClick}
 			onMouseDown={onMouseDown}

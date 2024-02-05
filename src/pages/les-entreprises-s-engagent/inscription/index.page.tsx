@@ -54,7 +54,7 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
-	function sortWithAutreInTheEnd(secteurActiviteA: SecteurActivite, secteurActiviteB: SecteurActivite) {
+	function sortWithAutreAtTheEnd(secteurActiviteA: SecteurActivite, secteurActiviteB: SecteurActivite) {
 		function isOtherOrOtherServicies(secteurValeur: string) {
 			return secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES || secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER;
 		}
@@ -69,7 +69,7 @@ export default function LesEntreprisesSEngagentInscription() {
 
 
 	const formStep1Ref = useRef<HTMLFormElement>(null);
-	const secteurActiviteOrdreAlphabetique = secteurActiviteRejoindreLaMobilisation.sort(sortWithAutreInTheEnd);
+	const secteurActiviteOrdreAlphabetique = secteurActiviteRejoindreLaMobilisation.sort(sortWithAutreAtTheEnd);
 	const formStep2Ref = useRef<HTMLFormElement>(null);
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);

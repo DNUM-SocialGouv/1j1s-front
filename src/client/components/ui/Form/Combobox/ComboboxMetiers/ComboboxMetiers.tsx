@@ -19,12 +19,13 @@ type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby'
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
+// NOTE (BRUJ 05/02/2024): 3 caractère min pour éviter d'avoir 9 000 métiers et des soucis de performance
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des métiers. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT
   = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …';
 const MESSAGE_CHARGEMENT = 'Chargement…';
-const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères';
+const MESSAGE_CHAMP_CARACTERE_MIN = 'Commencez à saisir au moins 3 caractères';
 const DEFAULT_LABEL = 'Domaine';
 
 function MetiersTrouves({ quantity }: { quantity: number }) {
@@ -135,7 +136,7 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 				}
 				<Combobox.AsyncMessage>
 					{
-						!isInputValueLengthValid(value) && MESSAGE_CHAMP_VIDE
+						!isInputValueLengthValid(value) && MESSAGE_CHAMP_CARACTERE_MIN
 						|| status === 'failure' && MESSAGE_ERREUR_FETCH
 						|| status === 'pending' && MESSAGE_CHARGEMENT
 						|| metiers.length === 0 && MESSAGE_PAS_DE_RESULTAT
