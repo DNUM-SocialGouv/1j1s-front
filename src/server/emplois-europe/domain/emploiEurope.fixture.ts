@@ -48,11 +48,8 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		langueDeTravail: ['néerlandais'],
 		listePermis: ['B'],
 		localisations: [{ pays: 'France', 		ville: 'Paris' }],
-		niveauEtudes: undefined,
 		nomEntreprise: undefined,
-		tempsDeTravail: undefined,
 		titre: undefined,
-		typeContrat: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
 		...override,
 	};

@@ -10,7 +10,7 @@ import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
 	anApiEuresEmploiEuropeDetailRelated,
-	anApiEuresEmploiEuropeDetailResponse,
+	anApiEuresEmploiEuropeDetailResponseWithItemsToAdd,
 	anApiEuresEmploiEuropeDetailXMLResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
@@ -110,7 +110,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd([
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
@@ -163,7 +163,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(
 					[
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
@@ -219,7 +219,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(
 					[
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
@@ -275,7 +275,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd([
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({

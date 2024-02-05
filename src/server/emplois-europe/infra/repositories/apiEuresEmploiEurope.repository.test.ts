@@ -3,7 +3,7 @@ import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infr
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
-	anApiEuresEmploiEuropeDetailResponse,
+	anApiEuresEmploiEuropeDetailResponseWithItemsToAdd,
 	anApiEuresRechercheBody,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
@@ -329,7 +329,7 @@ describe('ApiEuresEmploiEuropeRepository', () => {
 			const httpClientService = aPublicHttpClientService();
 
 			const handle = 'test';
-			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
+			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd([
 				anApiEuresEmploiEuropeDetailItem({
 					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {

@@ -29,7 +29,8 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 	};
 }
 
-export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
+// TODO supprimer le fonctionnement de "itemsToAdd" qui rajoute des items, au profit d'une valeur par défaut qui est override
+export function anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
 			items: [
@@ -64,6 +65,54 @@ export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresE
 					}),
 				}),
 				...itemsToAdd,
+			],
+		},
+	};
+}
+
+export function anApiEuresEmploiEuropeDetailResponse(): ApiEuresEmploiEuropeDetailResponse {
+	return {
+		data: {
+			items: [
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle: '1',
+						},
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+							{
+								experiencesNecessaires: [{
+									duree: 3,
+									unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+								}],
+								listeLangueDeTravail: ['nl'],
+								localisations: [{ pays: 'FR', ville: 'Paris' }],
+								nomEntreprise: 'La Boulangerie',
+								titre: 'Boulanger (H/F)',
+							}),
+					}),
+				}),
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle: '2',
+						},
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+							experiencesNecessaires:[{
+								duree: 3,
+								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
+							}],
+							localisations: [{ pays: 'FR', ville: 'Paris' }],
+							nomEntreprise: 'La Pâtisserie',
+							titre: 'Pâtissier (H/F)',
+						}),
+					}),
+					related: anApiEuresEmploiEuropeDetailRelated({
+						urls: [{
+							urlValue: 'https://urlDeCandidature2.com',
+						}],
+					}),
+				}),
 			],
 		},
 	};
