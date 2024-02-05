@@ -22,12 +22,13 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 			<CardImage imageSrcList={annonce.imagesUrl}/>
 
 			<Card.Content className={styles.CardContenu}>
-				<span className={styles.CardContenuEnTete}>
-					<span className={styles.CardContenuEnTeteType}>{typeDeLogement}</span>
-					<span className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</span>
-				</span>
 
 				<Card.Title titleAs="h3">{annonce.titre}</Card.Title>
+
+				<span className={styles.CardContenuEnTete}>
+					<span className={styles.CardContenuEnTeteType}>{typeDeLogement}</span>
+					<span className={styles.CardContenuEnTeteDate}>&nbsp;postée le {dateDeLAnnonce}</span>
+				</span>
 
 				<dl className={styles.CardDescription}>
 					<dt>Surface</dt>
