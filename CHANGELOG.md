@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.230.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.1...v3.230.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino to v8.18.0 ([#2631](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2631)) ([011cfb7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/011cfb728b0038fb0022997cde096d0192e0fbe6))
+* **tarteaucitron:** non fonctionnel sur safari ([#2629](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2629)) ([ae66981](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae6698128546a29170d0f83f74bd05f13546cea1))
+
 ## [3.230.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.0...v3.230.1) (2024-02-02)
 
 
