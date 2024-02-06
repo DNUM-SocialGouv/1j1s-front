@@ -89,23 +89,23 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const findMatchingOption = useCallback(function findMatchingOption(): HTMLElement | undefined | null {
+	const findMatchingOption = useCallback(function findMatchingOption(inputValue: InputValue): HTMLElement | undefined | null {
 		const matchingOptionId =  state.visibleOptions.find((optionId) => {
 			const option = document.getElementById(optionId);
-			return option?.textContent === value;
+			return option?.textContent === inputValue;
 		});
 		return matchingOptionId ? document.getElementById(matchingOptionId): undefined;
-	}, [state.visibleOptions, value]);
+	}, [state.visibleOptions]);
 
 	useEffect(function setValue() {
-		const matchingOption = findMatchingOption();
+		const matchingOption = findMatchingOption(value);
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
 	const validation = useCallback(function validation(newValue: InputValue){
 		if (!requireValidOption) return '';
 
-		const isOptionValid = !!findMatchingOption();
+		const isOptionValid = !!findMatchingOption(newValue);
 		if (isOptionValid || (newValue === '' && !required)) {
 			return '';
 		}
@@ -128,6 +128,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
+		inputRef.current?.setCustomValidity('');
 		dispatch(new Actions.SelectOption(option));
 		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();

@@ -1502,6 +1502,7 @@ describe('<Combobox />', () => {
 				await user.type(input, 'Option 1');
 
 				expect(input).toBeValid();
+				expect(screen.queryByText('Veuillez sélectionner une option dans la liste')).not.toBeInTheDocument();
 			});
 			describe('lorsque l’option required est true', () => {
 				it('est invalide quand l’entrée est vide', async () => {

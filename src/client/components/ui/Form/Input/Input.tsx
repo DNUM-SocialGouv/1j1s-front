@@ -32,13 +32,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
 	useEffect(() => {
 		const error = validation(inputRef.current?.value);
 		inputRef.current?.setCustomValidity(error);
-	}, [inputRef, validation]);
-
-	useEffect(() => {
 		if (touched) {
 			inputRef.current?.checkValidity();
 		}
-	}, [inputRef, touched]);
+	}, [inputRef, touched, validation]);
 
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		const error = validation(event.currentTarget.value);
