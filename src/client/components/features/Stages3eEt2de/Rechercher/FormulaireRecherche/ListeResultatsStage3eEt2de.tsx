@@ -59,7 +59,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 	}
 
 	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(paramsLienOffre).toString()}` : undefined;
-	const intituléLienOffre = stage3eEt2de.modeDeContact ? getLinkLabel(stage3eEt2de.modeDeContact) : undefined;
+	const intituleLienOffre = stage3eEt2de.modeDeContact ? getLinkLabel(stage3eEt2de.modeDeContact) : undefined;
 
 	return (
 		<li key={uuidv4()}>
@@ -76,7 +76,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
-				intituléLienOffre={intituléLienOffre}
+				intituléLienOffre={intituleLienOffre}
 				className={styles.carteResultat}
 			/>
 		</li>

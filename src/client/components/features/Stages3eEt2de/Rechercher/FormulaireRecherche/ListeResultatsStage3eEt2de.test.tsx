@@ -174,7 +174,7 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			it('le lien pour candidater n’est pas affiché', () => {
 				// GIVEN
 				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 2,
+					nombreDeResultats: 1,
 					resultats: [
 						aStage3eEt2de({
 							modeDeContact: undefined,
