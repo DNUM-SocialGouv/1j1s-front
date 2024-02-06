@@ -49,7 +49,7 @@
     "react-dom": "18.2.0",
     "react-instantsearch": "7.5.0",
     "react-instantsearch-router-nextjs": "7.5.0",
-    "redis": "4.6.12",
+    "redis": "4.6.13",
     "reflect-metadata": "0.2.1",
     "sharp": "0.33.2",
     "uuid": "9.0.1"
