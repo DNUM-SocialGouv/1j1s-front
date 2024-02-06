@@ -16,7 +16,10 @@ import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2d
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
-import { aCandidatureTelephoneStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
+import {
+	aCandidatureEnPersonneStage3eEt2de,
+	aCandidatureTelephoneStage3eEt2de,
+} from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
 describe('Candidater à un stage de 3e et 2de', () => {
 	beforeEach(() => {
@@ -330,99 +333,199 @@ describe('Candidater à un stage de 3e et 2de', () => {
 	});
 
 	describe('soumission du formulaire', () => {
-		describe('lorsque plusieurs métiers sont proposés', () => {
-			it('envoie les données de la candidature', async () => {
-				// GIVEN
-				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-					{
-						appellations: [
-							{
-								code: '12345',
-								label: 'Chargé / Chargée de relations entreprises',
-							},
-							{
-								code: '67890',
-								label: 'Boulanger / Boulangère',
-							}],
+		describe('lorsque la candidature est par telephone', () => {
+			describe('lorsque plusieurs métiers sont proposés', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								}],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						metierLabel: 'Chargé / Chargée de relations entreprises',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
 						modeDeContact: ModeDeContact.PHONE,
-						nomEntreprise: 'Carrefour',
+						nom: 'Dupont',
+						prenom: 'Alexis',
 						siret: '12345678912345',
-					},
-				);
-				const user = userEvent.setup();
-				const stage3eEt2deService = aStage3eEt2deService();
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
-				</DependenciesProvider>);
-				await remplirLeFormulaire({
-					email: 'alexis.dupont@example.com',
-					metierLabel: 'Chargé / Chargée de relations entreprises',
-					nom: 'Dupont',
-					prenom: 'Alexis',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 				});
+			});
 
-				// WHEN
-				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
-				await user.click(envoyerBouton);
+			describe('lorsque un seul métier est proposé', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.PHONE,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
 
-				// THEN
-				const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
-					appellationCode: '12345',
-					email: 'alexis.dupont@example.com',
-					modeDeContact: ModeDeContact.PHONE,
-					nom: 'Dupont',
-					prenom: 'Alexis',
-					siret: '12345678912345',
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
+						modeDeContact: ModeDeContact.PHONE,
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						siret: '12345678912345',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 				});
-				expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 			});
 		});
 
-		describe('lorsque un seul métier est proposé', () => {
-			it('envoie les données de la candidature', async () => {
-				// GIVEN
-				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-					{
-						appellations: [
-							{
-								code: '12345',
-								label: 'Boulanger / Boulangère',
-							},
-						],
-						modeDeContact: ModeDeContact.PHONE,
-						nomEntreprise: 'Carrefour',
+		describe('lorsque la candidature est en personne', () => {
+			describe('lorsque plusieurs métiers sont proposés', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								}],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						metierLabel: 'Chargé / Chargée de relations entreprises',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureEnPersonneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nom: 'Dupont',
+						prenom: 'Alexis',
 						siret: '12345678912345',
-					},
-				);
-				const user = userEvent.setup();
-				const stage3eEt2deService = aStage3eEt2deService();
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
-				</DependenciesProvider>);
-				await remplirLeFormulaire({
-					email: 'alexis.dupont@example.com',
-					nom: 'Dupont',
-					prenom: 'Alexis',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 				});
+			});
 
-				// WHEN
-				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
-				await user.click(envoyerBouton);
+			describe('lorsque un seul métier est proposé', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
 
-				// THEN
-				const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
-					appellationCode: '12345',
-					email: 'alexis.dupont@example.com',
-					modeDeContact: ModeDeContact.PHONE,
-					nom: 'Dupont',
-					prenom: 'Alexis',
-					siret: '12345678912345',
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureEnPersonneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						siret: '12345678912345',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 				});
-				expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 			});
 		});
 
