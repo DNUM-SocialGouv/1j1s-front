@@ -1,30 +1,3 @@
-export const SecteurDActivité = {
-	'accommodation-catering': 'Hébergement et restauration',
-	'administrative-support': 'Activités de services administratifs et de soutien',
-	agriculture: 'Agriculture, sylviculture et pêche',
-	'car-bike': 'Commerce, réparation d‘automobiles et de motocycles',
-	construction: 'Construction',
-	entertainment: 'Arts, spectacles et activités récréatives',
-	'extra-territorial': 'Activités extra-territoriales',
-	'financial-insurance': 'Activités financières et d‘assurance',
-	'health-social': 'Santé humaine et action sociale',
-	'households-employers': 'Activités des ménages en tant qu‘employeurs, activités indifférenciées des ménages en tant que producteurs de biens et services pour usage propre',
-	'industry-extraction': 'Industries extractives',
-	'industry-manufacturing': 'Industrie manufacturière',
-	'information-communication': 'Information et communication',
-	other: 'Autre',
-	'other-services': 'Autres activités de services',
-	'production-distribution-power': 'Production et distribution d‘électricité, de gaz, de vapeur et d‘air conditionné',
-	'production-distribution-water': 'Production et distribution d‘eau, assainissement, gestion des déchets et dépollution',
-	'public-administration': 'Administration publique / Fonction publique d‘Etat',
-	'public-hospistal': 'Fonction publique hospitalière',
-	'public-territorial': 'Fonction publique territoriale',
-	'real-estate': 'Activités immobilières',
-	'scientific-technical': 'Activités spécialisées, scientifiques et techniques',
-	teaching: 'Enseignement',
-	'transport-storage': 'Transports et entreposage',
-};
-
 // s‘ordre des valeurs de cet objet est plus important que s‘ordre de ses clés.
 /* eslint-disable sort-keys-fix/sort-keys-fix */
 export const TailleDEntreprise = {
@@ -38,12 +11,39 @@ export const TailleDEntreprise = {
 	huge: 'Plus de 5000 salariés',
 };
 
+export enum SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM {
+	ACCOMMODATION_CATERING = 'accommodation-catering',
+	ADMINISTRATIVE_SUPPORT = 'administrative-support',
+	AGRICULTURE = 'agriculture',
+	CAR_BIKE = 'car-bike',
+	CONSTRUCTION = 'construction',
+	ENTERTAINMENT = 'entertainment',
+	EXTRA_TERRITORIAL = 'extra-territorial',
+	FINANCIAL_INSURANCE = 'financial-insurance',
+	HEALTH_SOCIAL = 'health-social',
+	HOUSEHOLDS_EMPLOYERS = 'households-employers',
+	INDUSTRY_EXTRACTION = 'industry-extraction',
+	INDUSTRY_MANUFACTURING = 'industry-manufacturing',
+	INFORMATION_COMMUNICATION = 'information-communication',
+	OTHER = 'other',
+	OTHER_SERVICES = 'other-services',
+	PRODUCTION_DISTRIBUTION_POWER = 'production-distribution-power',
+	PRODUCTION_DISTRIBUTION_WATER = 'production-distribution-water',
+	PUBLIC_ADMINISTRATION = 'public-administration',
+	PUBLIC_HOSPITAL = 'public-hospistal',
+	PUBLIC_TERRITORIAL = 'public-territorial',
+	REAL_ESTATE = 'real-estate',
+	SCIENTIFIC_TECHNICAL = 'scientific-technical',
+	TEACHING = 'teaching',
+	TRANSPORT_STORAGE = 'transport-storage',
+}
+
 export interface EntrepriseSouhaitantSEngager {
   nomSociété: string;
   codePostal: string;
   ville: string;
   siret: string;
-  secteur: keyof typeof SecteurDActivité;
+  secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM;
   taille: keyof typeof TailleDEntreprise;
   prénom: string;
   nom: string;

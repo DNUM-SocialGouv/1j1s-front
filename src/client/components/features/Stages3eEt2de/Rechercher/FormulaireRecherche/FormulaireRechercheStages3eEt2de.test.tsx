@@ -104,6 +104,9 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 		await user.click(buttonRechercher);
 
 		// THEN
+		expect(inputRechercheMetier).toHaveValue('boulanger');
+		expect(inputRechercheMetier).toBeValid();
+		expect(screen.getByRole('search', { name: 'Rechercher un stage de 3e et 2de' })).toBeValid();
 		expect(routerPush).toHaveBeenCalledWith({ query: expect.stringContaining('libelleMetier=boulanger&codeMetier=codeMetier') }, undefined, { shallow: true });
 	});
 

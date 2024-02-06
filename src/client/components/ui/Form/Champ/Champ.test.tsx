@@ -12,6 +12,27 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Champ } from './Champ';
 
 describe('<Champ/>', () => {
+	it('lorsqu‘on séléctionne un élément valide, le message d‘erreur se met bien à jour', async () => {
+		const user = userEvent.setup();
+		render(
+			<Champ>
+				<Champ.Input render={Combobox} requireValidOption aria-label={'foo'}>
+					<Combobox.Option>Option 1</Combobox.Option>
+					<Combobox.Option>Option 2</Combobox.Option>
+					<Combobox.Option>Option 3</Combobox.Option>
+					<Champ.Error/>
+				</Champ.Input>
+			</Champ>,
+		);
+
+		const input = screen.getByRole('combobox');
+		await user.type(input, 'O');
+		await user.click(screen.getByRole('option', { name: 'Option 1' }));
+		await user.tab();
+
+		expect(input).toHaveAccessibleDescription('');
+	});
+
 	it('accepte un className en plus du style "champ" déjà en place', () => {
 		const { container } = render(
 			<Champ className={'someStyle'}>
@@ -111,6 +132,63 @@ describe('<Champ/>', () => {
 
 			expect(onChange).toHaveBeenCalledTimes(1);
 			expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }));
+		});
+
+		it('accepte un onInvalid et l‘appelle quand l‘input est invalid', async () => {
+			const onInvalid = jest.fn();
+			render(
+				<Champ>
+					<Champ.Input render={Input} onInvalid={onInvalid} required/>
+				</Champ>,
+			);
+
+			const user = userEvent.setup();
+			const input = screen.getByRole('textbox');
+
+			await touchChamp();
+
+			await user.clear(input);
+			await user.tab();
+
+			expect(onInvalid).toHaveBeenCalledTimes(1);
+			expect(onInvalid).toHaveBeenLastCalledWith(expect.objectContaining({ target: input }));
+		});
+
+		describe('aria-invalid', () => {
+			it('lorsque je suis en erreur, aria-invalid est à true', async () => {
+				const user = userEvent.setup();
+				render(
+					<Champ>
+						<Champ.Input render={Input} required/>
+						<Champ.Error/>
+					</Champ>,
+				);
+
+				const input = screen.getByRole('textbox');
+				await user.type(input, 'a');
+				await user.tab();
+
+				await user.clear(input);
+
+				expect(input).toHaveAttribute('aria-invalid', 'true');
+			});
+
+			it('lorsque je fournis une valeur valide, aria-invalid est à false', async () => {
+				const user = userEvent.setup();
+				render(
+					<Champ>
+						<Champ.Input render={Input} required/>
+						<Champ.Error/>
+					</Champ>,
+				);
+
+				const input = screen.getByRole('textbox');
+				await user.type(input, 'a');
+				await user.tab();
+
+				expect(input).toHaveAttribute('aria-invalid', 'false');
+			});
+
 		});
 
 		it('accepte un onTouch', async () => {
@@ -240,7 +318,9 @@ describe('<Champ/>', () => {
 			const input = screen.getByRole('textbox');
 			await user.type(input, 'a');
 			await user.tab();
+
 			await user.clear(input);
+
 			const erreur = screen.getByText('Constraints not satisfied');
 
 			expect(erreur).toBeVisible();

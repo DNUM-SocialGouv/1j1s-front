@@ -1,10 +1,11 @@
-import { RefObject } from 'react';
+import { RefObject  } from 'react';
 
 export type ComboboxState = {
 	open: boolean,
 	activeDescendant: string | undefined,
 	value: string,
-	suggestionList: RefObject<HTMLUListElement>,
+	suggestionList: RefObject<HTMLUListElement>
+	visibleOptions: Array<string>
 }
 
 function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
@@ -14,6 +15,7 @@ function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
 export interface ComboboxAction {
 	execute: (previousState: ComboboxState) => ComboboxState;
 }
+
 export namespace ComboboxAction {
 	export class OpenList implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
@@ -23,6 +25,7 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
 	export class CloseList implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
@@ -32,6 +35,7 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
 	export class ToggleList implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { open } = previousState;
@@ -40,6 +44,7 @@ export namespace ComboboxAction {
 				: new OpenList().execute(previousState);
 		}
 	}
+
 	export class NextOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList } = previousState;
@@ -53,6 +58,7 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
 	export class PreviousOption implements ComboboxAction {
 		execute(previousState: ComboboxState): ComboboxState {
 			const { activeDescendant, suggestionList } = previousState;
@@ -66,11 +72,14 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
 	export class SetValue implements ComboboxAction {
 		private readonly newValue: string;
+
 		constructor(value: { toString: () => string }) {
 			this.newValue = value.toString();
 		}
+
 		execute(previousState: ComboboxState): ComboboxState {
 			return {
 				...previousState,
@@ -79,8 +88,10 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
 	export class SelectOption implements ComboboxAction {
 		private readonly option: Element | null;
+
 		constructor(option: Element | string) {
 			this.option = option instanceof Element
 				? option
@@ -95,7 +106,43 @@ export namespace ComboboxAction {
 			};
 		}
 	}
+
+	export class HideOption implements ComboboxAction {
+		private readonly option: Element;
+
+		constructor(option: Element) {
+			this.option = option;
+		}
+
+		execute(previousState: ComboboxState): ComboboxState {
+			const previousVisibleOptions = previousState.visibleOptions;
+			return {
+				...previousState,
+				visibleOptions: previousVisibleOptions.filter((optionId) => optionId !== this.option.id),
+			};
+		}
+	}
+
+	export class ShowOption implements ComboboxAction {
+		private readonly option: Element;
+
+		constructor(option: Element) {
+			this.option = option;
+		}
+
+		execute(previousState: ComboboxState): ComboboxState {
+			const optionId = this.option.id;
+			const previousVisibleOptions = previousState.visibleOptions;
+			const indexOfOptionVisible = previousVisibleOptions.indexOf(optionId);
+			if (indexOfOptionVisible > -1 ) return previousState;
+			return {
+				...previousState,
+				visibleOptions: previousVisibleOptions.concat(optionId),
+			};
+		}
+	}
 }
+
 export function ComboboxReducer(state: ComboboxState, action: ComboboxAction): ComboboxState {
 	return action.execute(state);
 }

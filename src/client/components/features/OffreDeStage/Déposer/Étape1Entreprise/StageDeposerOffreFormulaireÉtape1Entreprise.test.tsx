@@ -9,7 +9,8 @@ import {
 } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import Entreprise from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
+import Entreprise
+	from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 
 describe('<Entreprise />', () => {
@@ -19,7 +20,7 @@ describe('<Entreprise />', () => {
 
 	describe('quand l’utilisateur arrive sur la page Entreprise', () => {
 		it('affiche la première étape de formulaire', () => {
-			render(<Entreprise />);
+			render(<Entreprise/>);
 
 			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeInTheDocument();
@@ -32,7 +33,7 @@ describe('<Entreprise />', () => {
 
 		describe('champ adresse mail', () => {
 			it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
-				render(<Entreprise />);
+				render(<Entreprise/>);
 
 				const emailInput = screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' });
 
@@ -42,8 +43,8 @@ describe('<Entreprise />', () => {
 			it('lorsque je remplis le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
 				const user = userEvent.setup();
 
-				render(<Entreprise />);
-				const mailInput = screen.getByRole('textbox', { name : /Adresse mail/ });
+				render(<Entreprise/>);
+				const mailInput = screen.getByRole('textbox', { name: /Adresse mail/ });
 
 				await user.type(mailInput, '     mail@avecespaces.com    ');
 				expect(mailInput).toHaveValue('mail@avecespaces.com');
@@ -55,9 +56,9 @@ describe('<Entreprise />', () => {
 			const labelLogo = 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…';
 			const labelSite = 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr';
 			// Given
-			render(<Entreprise />);
+			render(<Entreprise/>);
 			const logoEntrepriseInput = screen.getByRole('textbox', { name: labelLogo });
-			const siteEntrepriseInput = screen.getByRole('textbox', { name : labelSite });
+			const siteEntrepriseInput = screen.getByRole('textbox', { name: labelSite });
 
 			// When
 			await userEvent.type(logoEntrepriseInput, 's{backspace}');
@@ -71,7 +72,7 @@ describe('<Entreprise />', () => {
 
 	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 1', () => {
 		it('il voit une erreur native sur le premier champ obligatoire mais non rempli', async () => {
-			render(<Entreprise />);
+			render(<Entreprise/>);
 
 			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
@@ -87,11 +88,12 @@ describe('<Entreprise />', () => {
 		describe('et qu’il ne s’agit pas d’une URL', () => {
 			it('je vois un message d’erreur', async () => {
 				// Given
-				render(<Entreprise />);
+				render(<Entreprise/>);
 
 				// When
 				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
 				await userEvent.type(logoUrlInputText, 'some random text');
+				await userEvent.tab();
 
 				// Then
 				expect(logoUrlInputText).toBeInvalid();
@@ -101,7 +103,7 @@ describe('<Entreprise />', () => {
 		describe('et qu’il s’agit bien d’une URL', () => {
 			it('je ne vois rien d’autre que mon url saisie', async () => {
 				// Given
-				render(<Entreprise />);
+				render(<Entreprise/>);
 
 				// When
 				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
@@ -117,13 +119,13 @@ describe('<Entreprise />', () => {
 		describe('et qu’il ne s’agit pas d’une URL', () => {
 			it('je vois un message d’erreur', async () => {
 				// Given
-				render(<Entreprise />);
+				render(<Entreprise/>);
 
 				// When
 				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
 				await userEvent.type(websiteUrlInputText, 'some random text');
+				await userEvent.tab();
 
-				// Then
 				expect(websiteUrlInputText).toBeInvalid();
 			});
 		});
@@ -131,12 +133,12 @@ describe('<Entreprise />', () => {
 		describe('et qu’il s’agit bien d’une URL', () => {
 			it('je ne vois rien d’autre que mon url saisie', async () => {
 				// Given
-				render(<Entreprise />);
+				render(<Entreprise/>);
 
 				// When
 				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
 				await userEvent.type(websiteUrlInputText, 'http://some.random.url.com');
-
+				await userEvent.tab();
 				// Then
 				expect(websiteUrlInputText).toBeValid();
 			});

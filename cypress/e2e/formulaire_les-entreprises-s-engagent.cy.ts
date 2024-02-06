@@ -24,8 +24,7 @@ function remplirFormulaireEtape1() {
 	cy.wait('@recherche-communes');
 	cy.findByRole('option', { name: /Paris \(75006\)/i }).click();
 	cy.findByRole('textbox', { name: /SIRET/i }).type('41816609600069');
-	// FIXME (GAFI 06-11-2023): Devrait être role combobox
-	cy.findByRole('textbox', { name: /Secteur d’activité de l’entreprise/i }).type('santé');
+	cy.findByRole('combobox', { name: /Secteur d’activité de l’entreprise/i }).type('santé');
 	cy.findByRole('option', { name: /Santé humaine et action sociale/i }).click();
 	// FIXME (GAFI 06-11-2023): Devrait être role combobox
 	cy.findByRole('button', { name: /Taille de l’entreprise/i }).click();
@@ -54,13 +53,15 @@ describe('Inscription', () => {
 		it('repasse à l’étape 1 avec les champs toujours remplis', () => {
 			remplirFormulaireEtape1();
 			cy.findByRole('button', { name: /Suivant/i }).click();
+
 			// FIXME (GAFI 06-11-2023): Devrait être un lien ?
 			cy.findByRole('button', { name: /Retour/i }).click();
 			cy.contains('Étape 1 sur 2').should('exist');
+
 			cy.findByRole('textbox', { name: /Nom de l’entreprise/i }).should('have.value', 'OCTO Technology');
 			cy.findByRole('textbox', { name: /SIRET/i }).should('have.value', '41816609600069');
-			// FIXME (GAFI 06-11-2023): Devrait être role combobox
-			cy.findByRole('textbox', { name: /Secteur d’activité de l’entreprise/i }).should('have.value', 'Santé humaine et action sociale');
+			cy.findByRole('combobox', { name: /Secteur d’activité de l’entreprise/i }).should('have.value', 'Santé humaine et action sociale');
+
 			// FIXME (GAFI 06-11-2023): devrait être role combobox
 			cy.findByRole('button', { name: /Taille de l’entreprise/i }).should('have.text', '20 à 49 salariés');
 			// FIXME (GAFI 06-11-2023): Certains champs ne sont pas testés ...

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, {
+	ComponentPropsWithoutRef,
 	FocusEvent,
 	KeyboardEvent,
 	SyntheticEvent,
@@ -13,6 +14,7 @@ import React, {
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
@@ -47,8 +49,7 @@ type ComboboxProps = Omit<
 	valueName?: string;
 } & Labelled;
 
-
-
+type InputValue = ComponentPropsWithoutRef<'input'>['value']
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
 	children,
 	value: valueProps,
@@ -60,9 +61,9 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
 	onBlur: onBlurProps = doNothing,
-	onFocus: onFocusProps= doNothing,
-	onInput: onInputProps= doNothing,
-	onTouch: onTouchProps= doNothing,
+	onFocus: onFocusProps = doNothing,
+	onInput: onInputProps = doNothing,
+	onTouch: onTouchProps = doNothing,
 	requireValidOption = false,
 	required = false,
 	filter = filterValueOrLabelStartsWith,
@@ -78,40 +79,39 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			open: false,
 			suggestionList: listboxRef,
 			value: valueProps?.toString()
-						?? defaultValue?.toString()
-						?? '',
+				?? defaultValue?.toString()
+				?? '',
+			visibleOptions : [],
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
-	const [ matchingOptionValue, setMatchingOptionValue ] = useState<string>('');
+	const [matchingOptionValue, setMatchingOptionValue] = useState<string>('');
 	const value = valueProps?.toString() ?? valueState;
 	const listboxId = useId();
 
-	const findMatchingOption = useCallback(function findMatchingOption(list: Element | null) {
-		return Array.from(list?.querySelectorAll('[role="option"]') ?? [])
-			.find((element) => element.textContent === value);
-	}, [value]);
+	const findMatchingOption = useCallback(function findMatchingOption(inputValue: InputValue): HTMLElement | undefined | null {
+		const matchingOptionId =  state.visibleOptions.find((optionId) => {
+			const option = document.getElementById(optionId);
+			return option?.textContent === inputValue;
+		});
+		return matchingOptionId ? document.getElementById(matchingOptionId): undefined;
+	}, [state.visibleOptions]);
 
 	useEffect(function setValue() {
-		const matchingOption = findMatchingOption(listboxRef.current);
+		const matchingOption = findMatchingOption(value);
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
-	useEffect(function validateAgainstSuggestionList() {
-		if (requireValidOption) {
-			if (findMatchingOption(listboxRef.current) || value === '' && !required) {
-				inputRef.current?.setCustomValidity('');
-			} else {
-				inputRef.current?.setCustomValidity('Veuillez sélectionner une option dans la liste');
-			}
-		}
-	}, [findMatchingOption, inputRef, matchingOptionValue, requireValidOption, required, value]);
+	const validation = useCallback(function validation(newValue: InputValue){
+		if (!requireValidOption) return '';
 
-	useEffect(function checkValidity() {
-		if (touched) {
-			inputRef.current?.checkValidity();
+		const isOptionValid = !!findMatchingOption(newValue);
+		if (isOptionValid || (newValue === '' && !required)) {
+			return '';
 		}
-	}, [inputRef, touched, value, children]);
+
+		return 'Veuillez sélectionner une option dans la liste';
+	}, [findMatchingOption, requireValidOption, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (activeDescendant) {
@@ -128,6 +128,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
+		inputRef.current?.setCustomValidity('');
 		dispatch(new Actions.SelectOption(option));
 		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();
@@ -168,10 +169,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		}
 		onKeyDownProps(event);
 	}, [onKeyDownProps, triggerChangeEvent]);
+
 	const onChange = useCallback(function onChange(event: ChangeEvent<HTMLInputElement>) {
 		dispatch(new Actions.SetValue(event.currentTarget.value));
 		onChangeProps(event, event.currentTarget.value);
 	}, [onChangeProps]);
+
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
 		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
 		if (newFocusStillInCombobox) {
@@ -181,9 +184,12 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 		dispatch(new Actions.CloseList());
 		const touched = setTouchedOnBlur(value);
-		if (touched) { onTouchProps(touched); }
+		if (touched) {
+			onTouchProps(touched);
+		}
 		onBlurProps(event);
 	}, [setTouchedOnBlur, value, onBlurProps, onTouchProps]);
+
 	const onFocus = useCallback(function onFocus(event: FocusEvent<HTMLDivElement>) {
 		saveValueOnFocus(value);
 		onFocusProps(event);
@@ -201,14 +207,15 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			state: { ...state, value },
 		}}>
 			<div className={classNames(styles.combobox, className)} onBlur={onBlur} onFocus={onFocus}>
-				<input
+				<Input
 					type="text"
 					role="combobox"
-				 	aria-expanded={open}
+					aria-expanded={open}
 					aria-autocomplete="list"
 					aria-activedescendant={activeDescendant}
 					aria-controls={`${listboxId} ${ariaControls ?? ''}`}
 					ref={inputRef}
+					validation={validation}
 					value={value}
 					name={(valueName && name) || (name && `${name}.label`)}
 					data-touched={touched}
@@ -217,7 +224,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					onInput={(event) => onInputProps(event, event.currentTarget.value)}
 					required={required}
 					{...inputProps} />
-				<input
+				<Input
 					type="hidden"
 					name={valueName ?? (name && `${name}.value`)}
 					value={matchingOptionValue}
@@ -234,7 +241,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					aria-expanded={open}
 					aria-labelledby={ariaLabelledby}
 					aria-label={ariaLabel}>
-					<Icon name={'angle-down'} />
+					<Icon name={'angle-down'}/>
 				</button>
 				<ul
 					role="listbox"

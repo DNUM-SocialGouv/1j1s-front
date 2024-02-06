@@ -554,7 +554,7 @@ describe('<ComboboxCommune/>', () => {
 				await user.type(combobox, 'ABCE');
 				await user.tab();
 
-				expect(combobox).toBeInvalid();
+				expect(combobox).toHaveAttribute('aria-invalid', 'true');
 				expect(screen.getByText(messageErreur)).toBeVisible();
 			});
 		});
@@ -575,7 +575,7 @@ describe('<ComboboxCommune/>', () => {
 		await user.type(combobox, 'ABCE');
 		await user.tab();
 
-		expect(combobox).toBeInvalid();
+		expect(combobox).toHaveAttribute('aria-invalid', 'true');
 		expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
 		expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 	});
