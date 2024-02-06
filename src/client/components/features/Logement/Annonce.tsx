@@ -19,16 +19,16 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 
 	return (
 		<Card layout="vertical" className={styles.Card}>
+			<Card.Title titleAs="h3" className={styles.cardTextContent}>{annonce.titre}</Card.Title>
+
 			<CardImage imageSrcList={annonce.imagesUrl}/>
 
-			<Card.Content className={styles.CardContenu}>
-				<span className={styles.CardContenuEnTete}>
-					<span className={styles.CardContenuEnTeteType}>{typeDeLogement}</span>
-					<span className={styles.CardContenuEnTeteDate}>postée le {dateDeLAnnonce}</span>
-				</span>
+			<span className={classNames(styles.CardEnTete, styles.cardTextContent)}>
+				<span className={styles.CardEnTeteType}>{typeDeLogement}</span>
+				<span className={styles.CardEnTeteDate}>&nbsp;postée le {dateDeLAnnonce}</span>
+			</span>
 
-				<Card.Title titleAs="h3">{annonce.titre}</Card.Title>
-
+			<Card.Content className={classNames(styles.CardContenu, styles.cardTextContent)}>
 				<dl className={styles.CardDescription}>
 					<dt>Surface</dt>
 					<dd>{annonce.surfaceAAfficher}</dd>
@@ -37,7 +37,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 				</dl>
 			</Card.Content>
 
-			<span className={styles.CardFooter}>
+			<span className={classNames(styles.CardFooter, styles.cardTextContent)}>
 				<TextIcon
 					icon="map-pin"
 					iconPosition="left"

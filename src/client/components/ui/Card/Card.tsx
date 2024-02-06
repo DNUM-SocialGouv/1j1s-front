@@ -14,11 +14,8 @@ interface CardProps {
 
 export function Card({ children, className, layout, ...rest }: CardProps & React.ComponentPropsWithoutRef<'div'>) {
 	const layoutClass = useMemo(() => {
-		switch (layout) {
-			case 'horizontal':
-				return styles.cardComponentHorizontal;
-			case 'vertical':
-				return styles.cardComponentVertical;
+		if (layout === 'horizontal') {
+			return styles.cardComponentHorizontal;
 		}
 	}, [layout]);
 
