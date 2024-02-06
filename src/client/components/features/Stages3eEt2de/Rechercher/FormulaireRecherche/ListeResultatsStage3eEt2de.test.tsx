@@ -174,11 +174,8 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			it('le lien pour candidater n’est pas affiché', () => {
 				// GIVEN
 				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
+					nombreDeResultats: 2,
 					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.IN_PERSON,
-						}),
 						aStage3eEt2de({
 							modeDeContact: undefined,
 						}),
@@ -190,8 +187,8 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 
 				// THEN
 				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const lienCandidature = within(resultatsUl).queryAllByRole('link', { name: 'Candidater' });
-				expect(lienCandidature).toHaveLength(1);
+				const lienCandidature = within(resultatsUl).queryByRole('link', { name: /Candidater/ });
+				expect(lienCandidature).not.toBeInTheDocument();
 			});
 		});
 	});
@@ -215,93 +212,6 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
 			const tagNombreDeSalariés = within(tagsList).getByText('42 salariés');
 			expect(tagNombreDeSalariés).toBeVisible();
-		});
-
-		describe('ajoute un tag correspondant au mode de contact', () => {
-			it('si la candidature se fait en personne ajoute "Candidature en personne"', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.IN_PERSON,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature en personne');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si la candidature se fait par e-mail ajoute "Candidature par e-mail', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.EMAIL,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature par e-mail');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si la candidature se fait par téléphone ajoute "Candidature par téléphone"', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.PHONE,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature par téléphone');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si l’information n’est pas connue n’ajoute pas de tag', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: undefined,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsUl = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContactTel = within(tagsUl).queryByText('Candidature par téléphone');
-				const tagModeDeContactEmail = within(tagsUl).queryByText('Candidature par e-mail');
-				const tagModeDeContactEnPersonne = within(tagsUl).queryByText('Candidature en personne');
-				expect(tagModeDeContactTel).not.toBeInTheDocument();
-				expect(tagModeDeContactEmail).not.toBeInTheDocument();
-				expect(tagModeDeContactEnPersonne).not.toBeInTheDocument();
-			});
 		});
 
 		it('ajoute un tag correspond si l’offre est accessible aux personnes en situation de handicap', () => {

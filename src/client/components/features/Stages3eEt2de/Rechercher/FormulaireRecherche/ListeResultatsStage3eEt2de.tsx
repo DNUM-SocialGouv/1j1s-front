@@ -1,9 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-	getModeDeContactWording,
-} from '~/client/components/features/Stages3eEt2de/Rechercher/FormulaireRecherche/getModeDeContactWording';
-import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
@@ -39,10 +36,6 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		étiquetteOffreList.push(`${stage3eEt2de.nombreDeSalaries} salariés`);
 	}
 
-	if (stage3eEt2de.modeDeContact) {
-		const modeDeContactWording = getModeDeContactWording(stage3eEt2de.modeDeContact);
-		modeDeContactWording && étiquetteOffreList.push(modeDeContactWording);
-	}
 	if (stage3eEt2de.accessiblePersonnesEnSituationDeHandicap) {
 		étiquetteOffreList.push('Handi-accessible');
 	}
