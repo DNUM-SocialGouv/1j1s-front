@@ -1,4 +1,8 @@
-import { CandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+import {
+	CandidatureEmailStage3eEt2de,
+	CandidatureStage3eEt2de,
+	CandidatureTelephoneStage3eEt2de,
+} from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 import {
@@ -28,7 +32,38 @@ export function mapRechercheStage3eEt2de(apiResponse: Array<ApiImmersionFacileSt
 	};
 }
 
-export function mapToApiImmersionFacileStage3eEt2deCandidature(candidature: CandidatureStage3eEt2de): ApiImmersionFacileStage3eEt2deCandidature {
+function isCandidatureTelephone(candidature: CandidatureStage3eEt2de): candidature is CandidatureTelephoneStage3eEt2de {
+	return candidature.modeDeContact === 'PHONE';
+}
+
+function isCandidatureEmail(candidature: CandidatureStage3eEt2de): candidature is CandidatureEmailStage3eEt2de {
+	return candidature.modeDeContact === 'EMAIL';
+}
+
+export function mapToApiImmersionFacileStage3eEt2deCandidature(candidature: CandidatureTelephoneStage3eEt2de | CandidatureEmailStage3eEt2de | CandidatureStage3eEt2de): ApiImmersionFacileStage3eEt2deCandidature {
+	if (isCandidatureTelephone(candidature)) {
+		return {
+			appellationCode: candidature.appellationCode,
+			contactMode: candidature.modeDeContact,
+			potentialBeneficiaryEmail: candidature.email,
+			potentialBeneficiaryFirstName: candidature.prenom,
+			potentialBeneficiaryLastName: candidature.nom,
+			siret: candidature.siret,
+		};
+	}
+	if (isCandidatureEmail(candidature)) {
+		return {
+			appellationCode: candidature.appellationCode,
+			contactMode: candidature.modeDeContact,
+			immersionObjective: candidature.objectif,
+			message: candidature.message,
+			potentialBeneficiaryEmail: candidature.email,
+			potentialBeneficiaryFirstName: candidature.prenom,
+			potentialBeneficiaryLastName: candidature.nom,
+			potentialBeneficiaryPhone: candidature.telephone,
+			siret: candidature.siret,
+		};
+	}
 	return {
 		appellationCode: candidature.appellationCode,
 		contactMode: candidature.modeDeContact,

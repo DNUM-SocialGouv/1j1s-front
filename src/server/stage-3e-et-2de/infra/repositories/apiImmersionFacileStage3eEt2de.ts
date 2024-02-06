@@ -37,7 +37,30 @@ export const apiImmersionFacileStage3eEt2deSchemas = {
 	})).options({ allowUnknown: true }),
 };
 
-export interface ApiImmersionFacileStage3eEt2deCandidature {
+export type ApiImmersionFacileStage3eEt2deCandidature = ApiImmersionFacileStage3eEt2deCandidatureTelephone | ApiImmersionFacileStage3eEt2deCandidatureEmail | ApiImmersionFacileStage3eEt2deCandidatureEnPersonne
+
+export type ApiImmersionFacileStage3eEt2deCandidatureTelephone = {
+	potentialBeneficiaryFirstName: string
+	potentialBeneficiaryLastName: string
+	potentialBeneficiaryEmail: string
+	appellationCode: string
+	siret: string
+	contactMode: string
+}
+
+export type ApiImmersionFacileStage3eEt2deCandidatureEmail = {
+	potentialBeneficiaryFirstName: string
+	potentialBeneficiaryLastName: string
+	potentialBeneficiaryEmail: string
+	appellationCode: string
+	siret: string
+	contactMode: string
+	message: string
+	potentialBeneficiaryPhone: string
+	immersionObjective: string
+}
+
+export type ApiImmersionFacileStage3eEt2deCandidatureEnPersonne = {
 	potentialBeneficiaryFirstName: string
 	potentialBeneficiaryLastName: string
 	potentialBeneficiaryEmail: string

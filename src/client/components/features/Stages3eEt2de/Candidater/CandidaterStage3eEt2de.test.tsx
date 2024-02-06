@@ -16,7 +16,7 @@ import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2d
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
-import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
+import { aCandidatureTelephoneStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
 describe('Candidater à un stage de 3e et 2de', () => {
 	beforeEach(() => {
@@ -368,7 +368,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				await user.click(envoyerBouton);
 
 				// THEN
-				const expectedCandidature3eEt2de = aCandidatureStage3eEt2de({
+				const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
 					appellationCode: '12345',
 					email: 'alexis.dupont@example.com',
 					modeDeContact: ModeDeContact.PHONE,
@@ -414,7 +414,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				await user.click(envoyerBouton);
 
 				// THEN
-				const expectedCandidature3eEt2de = aCandidatureStage3eEt2de({
+				const expectedCandidature3eEt2de = aCandidatureTelephoneStage3eEt2de({
 					appellationCode: '12345',
 					email: 'alexis.dupont@example.com',
 					modeDeContact: ModeDeContact.PHONE,
