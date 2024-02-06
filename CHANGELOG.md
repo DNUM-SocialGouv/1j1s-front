@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.230.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.3...v3.230.4) (2024-02-06)
+
+
+### Bug Fixes
+
+* **stage3e2de:** ajoute la distance depuis les query params ([#2646](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2646)) ([db8a8ec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db8a8eceb319177612b5c47e382a059f0b13b3e1))
+
 ## [3.230.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.2...v3.230.3) (2024-02-06)
 
 
