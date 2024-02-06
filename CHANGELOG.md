@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.233.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.232.0...v3.233.0) (2024-02-06)
+
+
+### Features
+
+* **emplois-europe:** gestion des localisations multiples ([#2642](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2642)) ([7c88602](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c88602de8701c8b71e95a640e9ad15477895807))
+
 ## [3.232.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.231.0...v3.232.0) (2024-02-06)
 
 
