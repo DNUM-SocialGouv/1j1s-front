@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.231.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.4...v3.231.0) (2024-02-06)
+
+
+### Features
+
+* **lee:** ajout d'un combobox synchrone secteur d'activite ([#2594](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2594)) ([d9c9854](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9c985495a22179b5ddb1f47ca77576cd6adfc02))
+
+
+### Bug Fixes
+
+* **logement-rgaa:** card annonces recherche logements ordre des informations presentees ko quand css desactivee criteres 10 3 rgaa  ([#2644](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2644)) ([7c04dd1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c04dd1c55822da9f3650cdb11034a09ce22b085))
+
 ## [3.230.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.3...v3.230.4) (2024-02-06)
 
 
