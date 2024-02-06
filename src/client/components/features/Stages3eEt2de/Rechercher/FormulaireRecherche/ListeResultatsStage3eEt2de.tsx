@@ -1,14 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-	getModeDeContactWording,
-} from '~/client/components/features/Stages3eEt2de/Rechercher/FormulaireRecherche/getModeDeContactWording';
-import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	RésultatRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 import styles from './ListeResultatsStage3eEt2de.module.scss';
@@ -38,10 +36,6 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		étiquetteOffreList.push(`${stage3eEt2de.nombreDeSalaries} salariés`);
 	}
 
-	if (stage3eEt2de.modeDeContact) {
-		const modeDeContactWording = getModeDeContactWording(stage3eEt2de.modeDeContact);
-		modeDeContactWording && étiquetteOffreList.push(modeDeContactWording);
-	}
 	if (stage3eEt2de.accessiblePersonnesEnSituationDeHandicap) {
 		étiquetteOffreList.push('Handi-accessible');
 	}
@@ -53,8 +47,19 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 		siret: stage3eEt2de.siret,
 	};
 
+	function getLinkLabel(modeDeContact: ModeDeContact): string {
+		switch (modeDeContact){
+			case ModeDeContact.EMAIL:
+				return 'Candidater par email';
+			case ModeDeContact.PHONE:
+				return 'Candidater par téléphone';
+			case ModeDeContact.IN_PERSON:
+				return 'Candidater en personne';
+		}
+	}
+
 	const lienOffre = stage3eEt2de.modeDeContact ? `/stages-3e-et-2de/candidater?${new URLSearchParams(paramsLienOffre).toString()}` : undefined;
-	const intituléLienOffre = stage3eEt2de.modeDeContact ? 'Candidater' : undefined;
+	const intituleLienOffre = stage3eEt2de.modeDeContact ? getLinkLabel(stage3eEt2de.modeDeContact) : undefined;
 
 	return (
 		<li key={uuidv4()}>
@@ -71,7 +76,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 				</>}
 				étiquetteOffreList={étiquetteOffreList}
 				lienOffre={lienOffre}
-				intituléLienOffre={intituléLienOffre}
+				intituléLienOffre={intituleLienOffre}
 				className={styles.carteResultat}
 			/>
 		</li>
