@@ -169,8 +169,24 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 	return `${listeLangueDeTravail.map((langueDeTravail)=> (`<WorkingLanguageCode>${langueDeTravail}</WorkingLanguageCode>`) )}`;
 }
 
+function anXMLPositionLocation(localisations: ApiEuresEmploiEuropeDetailXMLResponseFixture['localisations']) {
+	return localisations?.map(({ pays, ville }) => {
+		return `<PositionLocation>
+									<Address currentAddressIndicator="true">
+									${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
+									<ns2:CountrySubDivisionCode>
+					75011
+					</ns2:CountrySubDivisionCode>
+					${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
+					<ns2:PostalCode>75001</ns2:PostalCode>
+					</Address>
+					</PositionLocation>`;
+	});
+}
+
 
 export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, localisations, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -228,18 +244,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
             </ApplicationMethod>
         </PostingInstruction>
         ${titre ? `<PositionTitle>${titre}</PositionTitle>` : ''}
-        ${localisations?.map(({ pays, ville }) => {
-		return `<PositionLocation>
-									<Address currentAddressIndicator="true">
-									${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
-									<ns2:CountrySubDivisionCode>
-					75011
-					</ns2:CountrySubDivisionCode>
-					${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
-					<ns2:PostalCode>75001</ns2:PostalCode>
-					</Address>
-					</PositionLocation>`;
-	})}						
+        ${(anXMLPositionLocation(localisations))}						
         <PositionOrganization>
             <OrganizationIdentifiers>
                 ${nomEntreprise ? `<OrganizationName>${nomEntreprise}</OrganizationName>` : ''}
