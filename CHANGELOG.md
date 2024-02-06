@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.232.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.231.0...v3.232.0) (2024-02-06)
+
+
+### Features
+
+* **stage3e2de:** modifier le cta de candidature en fonction du type de candidature et suppression du tag correspondant ([#2655](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2655)) ([fd4baef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd4baefc272a3aab68eb0209f2995a10e9518ae2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency marked to v12 ([#2640](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2640)) ([a19e39b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a19e39bd546debe43b58ba9f94fae96de186ee75))
+
 ## [3.231.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.4...v3.231.0) (2024-02-06)
 
 
