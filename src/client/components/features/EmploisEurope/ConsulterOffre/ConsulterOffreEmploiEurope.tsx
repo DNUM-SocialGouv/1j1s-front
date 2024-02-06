@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/utils';
+import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/tags.utils';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -42,7 +42,7 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 		});
 	}
 
-	function getLibelléLocalisation(localisation: { pays?: string, ville?: string}) {
+	function getLibelleLocalisation(localisation: { pays?: string, ville?: string}) {
 		if (localisation.pays && localisation.ville) {
 			return `${localisation.pays}, ${localisation.ville}`;
 		} else {
@@ -55,11 +55,11 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 			return <ul>
 				{annonceEmploiEurope.localisations.map((localisation) =>
 					<li key={`${localisation.pays}-${localisation.ville}`}>
-						{getLibelléLocalisation(localisation)}
+						{getLibelleLocalisation(localisation)}
 					</li>)}
 			</ul>;
 		} else {
-			return getLibelléLocalisation(annonceEmploiEurope.localisations[0]);
+			return getLibelleLocalisation(annonceEmploiEurope.localisations[0]);
 		}
 	}
 

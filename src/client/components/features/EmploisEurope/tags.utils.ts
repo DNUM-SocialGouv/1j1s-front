@@ -1,9 +1,10 @@
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 
+export const LIBELLE_TAG_MULTI_LOCALISATIONS = 'Multi-localisations';
 
 const getTagLocalisation = (emploiEurope: EmploiEurope): (string | undefined) => {
 	if (emploiEurope.localisations.length > 1) {
-		return 'Multi-localisations';
+		return LIBELLE_TAG_MULTI_LOCALISATIONS;
 	} else if (emploiEurope.localisations.length === 1) {
 		const localisation = emploiEurope.localisations[0];
 		return localisation.pays && localisation.ville ? `${localisation.pays}/${localisation.ville}` : localisation.pays ?? localisation.ville;
@@ -14,9 +15,9 @@ export const getTagsFromAnnonce = (emploiEurope: EmploiEurope): string[] => {
 
 	const tags = [];
 
-	const libelléLocalisation = getTagLocalisation(emploiEurope);
-	if (libelléLocalisation) {
-		tags.push(libelléLocalisation);
+	const libelleLocalisation = getTagLocalisation(emploiEurope);
+	if (libelleLocalisation) {
+		tags.push(libelleLocalisation);
 	}
 
 	const typeContract = emploiEurope.typeContrat;

@@ -1,4 +1,4 @@
-import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/utils';
+import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/tags.utils';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
