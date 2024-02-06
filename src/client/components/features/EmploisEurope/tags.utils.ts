@@ -1,6 +1,6 @@
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 
-export const LIBELLE_TAG_MULTI_LOCALISATIONS = 'Multi-localisations';
+export const LIBELLE_TAG_MULTI_LOCALISATIONS = 'Multi-localisation';
 
 const getTagLocalisation = (emploiEurope: EmploiEurope): (string | undefined) => {
 	if (emploiEurope.localisations.length > 1) {

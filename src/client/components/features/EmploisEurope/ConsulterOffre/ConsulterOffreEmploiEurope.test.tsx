@@ -204,7 +204,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient plusieurs localisations', () => {
-			it('affiche un tag indiquant la multi-localisations', () => {
+			it('affiche un tag indiquant la multi-localisation', () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ localisations: [
 					{ pays: 'Suède', ville: undefined },
@@ -217,7 +217,7 @@ describe('DetailOffreEmploiEurope', () => {
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-				const tagLocalisation = within(listTags).getByText('Multi-localisations');
+				const tagLocalisation = within(listTags).getByText('Multi-localisation');
 				expect(tagLocalisation).toBeVisible();
 			});
 		});

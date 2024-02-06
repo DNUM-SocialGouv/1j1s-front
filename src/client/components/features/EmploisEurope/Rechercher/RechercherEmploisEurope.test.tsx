@@ -247,7 +247,7 @@ describe('RechercherEmploisEurope', () => {
 			});
 
 			describe('quand un résultat contient plusieurs localisations', () => {
-				it('affiche un tag Multi-localisations', async () => {
+				it('affiche un tag Multi-localisation', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
 					const resultatsService = aResultatRechercheEmploiEuropeList({
@@ -292,7 +292,7 @@ describe('RechercherEmploisEurope', () => {
 					expect(resultats).toHaveLength(resultatsService.offreList.length);
 					expect(await screen.findByText('Entreprise 1')).toBeVisible();
 					expect(await screen.findByText('Titre 1')).toBeVisible();
-					expect(await screen.findByText('Multi-localisations')).toBeVisible();
+					expect(await screen.findByText('Multi-localisation')).toBeVisible();
 				});
 			});
 
