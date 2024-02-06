@@ -1,5 +1,61 @@
 # Changelog
 
+## [3.230.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.2...v3.230.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* **deps:** dependencies marked gfm heading id et marked mangle et redis ([#2647](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2647)) ([04c8ef6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04c8ef696d5236b9283c0b23bb427f88a2d1c4a8))
+
+## [3.230.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.1...v3.230.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino to v8.18.0 ([#2631](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2631)) ([011cfb7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/011cfb728b0038fb0022997cde096d0192e0fbe6))
+* **tarteaucitron:** non fonctionnel sur safari ([#2629](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2629)) ([ae66981](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae6698128546a29170d0f83f74bd05f13546cea1))
+
+## [3.230.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.0...v3.230.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* fix la pagination meilisearch ([#2633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2633)) ([456e45a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/456e45aee545d4998e64821ea70ba893bb3626f5))
+
+## [3.230.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.2...v3.230.0) (2024-02-02)
+
+
+### Features
+
+* **stage3e2de:** formulaire de contact en personne ([#2626](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2626)) ([c5dbc53](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5dbc5364e68a7bfe6833bf79773545363e26c20))
+
+## [3.229.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.1...v3.229.2) (2024-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2617](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2617)) ([cde0d5d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cde0d5d62beb2fe359675d04704c4c2511a7fc4c))
+
+## [3.229.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.0...v3.229.1) (2024-02-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.99.0 ([#2623](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2623)) ([f5f913a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f5f913a447623ef394904d31f18ac8da08a4c520))
+
+## [3.229.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.228.0...v3.229.0) (2024-02-01)
+
+
+### Features
+
+* **champ:** embarquer dans champ la gestion de l'etat readonly et disabled ([#2625](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2625)) ([fa352b0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fa352b0304bcbb10040ad135d4f25cdc95f5bcb7))
+
+
+### Bug Fixes
+
+* **doc:** lien cassé doc adr ([#2620](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2620)) ([1398e46](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1398e46df907a75b7ae4b4c973925832213a3701))
+* fix la configuration minio pour l'env local ([#2599](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2599)) ([13c766c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13c766c2eb9804b77d08b402d531ded596acd529))
+
 ## [3.228.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.227.1...v3.228.0) (2024-01-30)
 
 

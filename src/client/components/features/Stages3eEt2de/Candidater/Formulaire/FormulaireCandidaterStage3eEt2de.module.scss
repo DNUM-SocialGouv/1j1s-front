@@ -62,10 +62,6 @@ $color-message-champs-obligatoires: utilities.$color-primary;
       gap: 1.5rem;
     }
 
-    & .elementDesactive {
-      color: utilities.$color-text-disabled;
-    }
-
     .boutonSoumission {
       grid-column: 1;
       margin-top: utilities.pixel-to-rem(4);
@@ -83,8 +79,13 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 .decharge {
   background-color: utilities.$color-background-primary-alternative;
   border-radius: 1.25rem;
-  margin: 1.5rem auto 1.5rem auto;
+  margin: 1.5rem 1rem 1.5rem 1rem;
+
   max-width: 60.75rem;
+
+  @include utilities.media(large) {
+    margin: 1.5rem auto 1.5rem auto;
+  }
 
   p {
     color: utilities.$color-text-placeholder;

@@ -2,7 +2,7 @@
 
 $color-text: utilities.$color-text-primary;
 $color-border: utilities.$color-background-border;
-$color-text-disabled: inherit;
+$color-text-disabled: utilities.$color-text-secondary;
 $color-background-disabled: utilities.$color-background-primary-alternative;
 $color-error: utilities.$color-error;
 $error-border-width: 2px;

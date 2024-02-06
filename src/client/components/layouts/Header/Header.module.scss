@@ -291,7 +291,7 @@
   }
 
   & > .navItem:last-child {
-    color: utilities.$color-text-secondary;
+    color: utilities.$color-text-primary-inverse;
     background-color: utilities.$color-title-primary-contrast;
 
     &:hover {
