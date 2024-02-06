@@ -204,7 +204,7 @@ describe('DetailOffreEmploiEurope', () => {
 		});
 
 		describe('quand un résultat contient plusieurs localisations', () => {
-			it('affiche un tag correspondant', () => {
+			it('affiche un tag indiquant la multi-localisations', () => {
 				// GIVEN
 				const offreEmploiEurope = anEmploiEurope({ localisations: [
 					{ pays: 'Suède', ville: undefined },
