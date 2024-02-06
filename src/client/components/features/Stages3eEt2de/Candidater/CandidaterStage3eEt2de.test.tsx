@@ -530,49 +530,99 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		});
 
 		describe('lorsque la candidature est envoyée avec succès', () => {
-			it('affiche une page de succès', async () => {
-				// GIVEN
-				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
-					appellations: [
-						{
-							code: '12345',
-							label: 'Chargé / Chargée de relations entreprises',
-						},
-						{
-							code: '67890',
-							label: 'Boulanger / Boulangère',
-						}],
-					modeDeContact: ModeDeContact.IN_PERSON,
-					nomEntreprise: 'Carrefour',
-					siret: '12345678912345',
+			describe('lorsque la candidature est par téléphone', () => {
+				it('affiche une page de succès', async () => {
+					// GIVEN
+					mockUseRouter({ query: { modeDeContact: ModeDeContact.PHONE } });
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
+						appellations: [
+							{
+								code: '12345',
+								label: 'Chargé / Chargée de relations entreprises',
+							},
+							{
+								code: '67890',
+								label: 'Boulanger / Boulangère',
+							}],
+						modeDeContact: ModeDeContact.PHONE,
+						nomEntreprise: 'Carrefour',
+						siret: '12345678912345',
+					});
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+
+					// WHEN
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						metierLabel: 'Chargé / Chargée de relations entreprises',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const contenuStatus = screen.getByRole('status');
+					const titre = within(contenuStatus).getByRole('heading', { level: 1 });
+					expect(titre).toBeVisible();
+					expect(titre).toHaveTextContent('Félicitations, vos informations ont bien été envoyées');
+					const texte = screen.getByText('L’entreprise a choisi d’être contactée par télephone. Elle recevra donc vos informations et vous recontactera par la suite.');
+					expect(texte).toBeVisible();
 				});
-				const user = userEvent.setup();
-				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
+			});
 
-				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
-				</DependenciesProvider>);
+			describe('lorsque la candidature est en personne', () => {
+				it('affiche une page de succès', async () => {
+					// GIVEN
+					mockUseRouter({ query: { modeDeContact: ModeDeContact.IN_PERSON } });
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de({
+						appellations: [
+							{
+								code: '12345',
+								label: 'Chargé / Chargée de relations entreprises',
+							},
+							{
+								code: '67890',
+								label: 'Boulanger / Boulangère',
+							}],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '12345678912345',
+					});
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
-				await remplirLeFormulaire({
-					email: 'alexis.dupont@example.com',
-					metierLabel: 'Chargé / Chargée de relations entreprises',
-					nom: 'Dupont',
-					prenom: 'Alexis',
+					// WHEN
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						metierLabel: 'Chargé / Chargée de relations entreprises',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const contenuStatus = screen.getByRole('status');
+					const titre = within(contenuStatus).getByRole('heading', { level: 1 });
+					expect(titre).toBeVisible();
+					expect(titre).toHaveTextContent('Félicitations, vos informations ont bien été envoyées');
+					const texte = screen.getByText('L’entreprise a choisi que vous vous présentiez directement pour candidater. Elle recevra donc vos informations et vous recontactera par la suite.');
+					expect(texte).toBeVisible();
 				});
-				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
-				await user.click(envoyerBouton);
-
-				// THEN
-				const contenuStatus = screen.getByRole('status');
-				const titre = within(contenuStatus).getByRole('heading', { level: 1 });
-				expect(titre).toBeVisible();
-				expect(titre).toHaveTextContent('Félicitations, vos informations ont bien été envoyées');
-				const texte = screen.getByText('L’entreprise a choisi d’être contactée par e-mail. Elle recevra donc vos informations et vous recontactera par la suite.');
-				expect(texte).toBeVisible();
 			});
 
 			it('affiche un lien de retour à l’accueil', async () => {
