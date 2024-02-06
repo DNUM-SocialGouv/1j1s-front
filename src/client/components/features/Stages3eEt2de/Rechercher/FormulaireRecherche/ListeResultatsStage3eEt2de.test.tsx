@@ -135,18 +135,24 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 		it('un lien pour candidater', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({
-				nombreDeResultats: 2,
+				nombreDeResultats: 3,
 				resultats: [
 					aStage3eEt2de({
-						appellationCodes: ['1234', '5678'],
+						appellationCodes: ['1234', '5679'],
 						modeDeContact: ModeDeContact.IN_PERSON,
 						nomEntreprise: 'Entreprise 1',
-						siret: '12345678912345',
+						siret: '12345678912999',
 					}),
 					aStage3eEt2de({
 						appellationCodes: ['1236', '5679'],
 						modeDeContact: ModeDeContact.EMAIL,
 						nomEntreprise: 'Entreprise 2',
+						siret: '12345678912346',
+					}),
+					aStage3eEt2de({
+						appellationCodes: ['1235', '5679'],
+						modeDeContact: ModeDeContact.PHONE,
+						nomEntreprise: 'Entreprise 3',
 						siret: '12345678912346',
 					}),
 				],
@@ -156,11 +162,12 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
 
 			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const lienCandidature = within(resultatsUl).getAllByRole('link', { name: 'Candidater' });
-			expect(lienCandidature).toHaveLength(resultatRecherche.nombreDeResultats);
-			expect(lienCandidature[0]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1234%2C5678&modeDeContact=IN_PERSON&nomEntreprise=Entreprise+1&siret=12345678912345');
-			expect(lienCandidature[1]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1236%2C5679&modeDeContact=EMAIL&nomEntreprise=Entreprise+2&siret=12345678912346');
+			const lienCandidatureEnPersonne = screen.getByRole('link', { name: 'Candidater en personne' });
+			const lienCandidatureEmail = screen.getByRole('link', { name: 'Candidater par email' });
+			const lienCandidatureTelephone = screen.getByRole('link', { name: 'Candidater par téléphone' });
+			expect(lienCandidatureEnPersonne).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1234%2C5679&modeDeContact=IN_PERSON&nomEntreprise=Entreprise+1&siret=12345678912999');
+			expect(lienCandidatureEmail).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1236%2C5679&modeDeContact=EMAIL&nomEntreprise=Entreprise+2&siret=12345678912346');
+			expect(lienCandidatureTelephone).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1235%2C5679&modeDeContact=PHONE&nomEntreprise=Entreprise+3&siret=12345678912346');
 		});
 
 		describe('lorsque le mode de contact est inconnu', () => {
