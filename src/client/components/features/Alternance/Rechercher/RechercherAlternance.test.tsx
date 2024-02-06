@@ -5,17 +5,13 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import {
-	FormulaireRechercheAlternance,
-} from '~/client/components/features/Alternance/Rechercher/FormulaireRecherche/FormulaireRechercheAlternance';
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
-import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMetier, aMetierService } from '~/client/services/metiers/metier.fixture';
+import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
@@ -25,8 +21,6 @@ import {
 	anAlternancePEJobs,
 	aResultatRechercherMultipleAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
-import { createSuccess } from '~/server/errors/either';
-import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('RechercherAlternance', () => {
 	beforeEach(() => {
