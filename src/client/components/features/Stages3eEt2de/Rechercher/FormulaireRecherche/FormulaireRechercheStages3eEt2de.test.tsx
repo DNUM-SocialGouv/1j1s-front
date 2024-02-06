@@ -39,7 +39,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 					longitudeCommune: '2.347',
 					ville: 'Paris',
 				}),
-				distanceCommune: '10',
+				distanceCommune: '100',
 			},
 		});
 		render(
@@ -58,6 +58,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 		expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
 		expect(screen.getByDisplayValue('48.859')).toBeInTheDocument();
 		expect(screen.getByDisplayValue('75056')).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Rayon' })).toHaveTextContent('100 km');
 	});
 
 	it('quand on recherche par métier, ajoute le métier recherché aux query params', async () => {
