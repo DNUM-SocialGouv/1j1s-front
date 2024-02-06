@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.230.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.2...v3.230.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* **deps:** dependencies marked gfm heading id et marked mangle et redis ([#2647](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2647)) ([04c8ef6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04c8ef696d5236b9283c0b23bb427f88a2d1c4a8))
+
 ## [3.230.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.1...v3.230.2) (2024-02-05)
 
 
