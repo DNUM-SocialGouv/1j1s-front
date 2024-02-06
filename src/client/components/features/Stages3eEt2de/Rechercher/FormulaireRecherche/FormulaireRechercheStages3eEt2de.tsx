@@ -25,6 +25,7 @@ export function FormulaireRechercheStages3eEt2de() {
 		libelleCommune,
 		longitudeCommune,
 		ville,
+		distanceCommune,
 	} = queryParams;
 
 	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
@@ -64,7 +65,7 @@ export function FormulaireRechercheStages3eEt2de() {
 							valueName={'codeMetier'}
 						/>
 					</MetierDependenciesProvider>
-					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue}/>
+					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
 				</div>
 			</div>
 			<div className={styles.buttonRechercher}>
