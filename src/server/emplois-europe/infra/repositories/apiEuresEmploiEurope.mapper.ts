@@ -67,7 +67,7 @@ export class ApiEuresEmploiEuropeMapper {
 		const nomEntreprise = this.getNomEntreprise(positionOrganization);
 		const titre = positionProfile?.PositionTitle && this.xmlService.getTextValue(positionProfile.PositionTitle);
 		const descriptionDeLOffre = this.getDescription(positionProfile);
-		const { ville, pays } = this.getLocalisation(positionProfile);
+		const localisations = this.getLocalisations(positionProfile);
 
 		const typeContrat = this.getTypeDeContrat(positionProfile);
 		const tempsDeTravail = this.getTempsDeTravail(positionProfile);
@@ -86,14 +86,13 @@ export class ApiEuresEmploiEuropeMapper {
 			laPlusLongueExperienceNecessaire: experienceNecessaire,
 			langueDeTravail,
 			listePermis: listePermisDeConduire,
+			localisations,
 			niveauEtudes,
 			nomEntreprise,
-			pays,
 			tempsDeTravail,
 			titre,
 			typeContrat,
 			urlCandidature: item?.related.urls[0].urlValue,
-			ville,
 		};
 	};
 
@@ -109,17 +108,23 @@ export class ApiEuresEmploiEuropeMapper {
 		return descriptionOffer && this.xmlService.getTextValue(descriptionOffer);
 	}
 
-	private getLocalisation(positionProfile?: PositionProfile) {
-		const positionLocation = this.getElementOrFirstElementInArray(positionProfile?.PositionLocation);
-		const address = this.getElementOrFirstElementInArray(positionLocation?.Address);
+	private getLocalisations(positionProfile?: PositionProfile) {
 
-		const countryCode = address?.CountryCode && this.xmlService.getTextValue(address.CountryCode);
-		const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
+		const positionLocations = this.transformElementToArray(positionProfile?.PositionLocation);
 
-		const cityName = address?.CityName;
-		const city = cityName && this.xmlService.getTextValue(cityName);
+		const localisations = positionLocations.map((location) => {
+			const address = this.getElementOrFirstElementInArray(location?.Address);
 
-		return { pays: country, ville: city };
+			const countryCode = address?.CountryCode && this.xmlService.getTextValue(address.CountryCode);
+			const country = countryCode ? paysEuropeList.find((pays) => pays.code === countryCode)?.libellé : undefined;
+
+			const cityName = address?.CityName;
+			const city = cityName && this.xmlService.getTextValue(cityName);
+
+			return { pays: country, ville: city };
+		});
+
+		return localisations;
 	}
 
 	private getTypeDeContrat(positionProfile?: PositionProfile) {

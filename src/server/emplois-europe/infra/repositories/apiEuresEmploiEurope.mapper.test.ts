@@ -5,6 +5,7 @@ import {
 	aResultatRechercheEmploiEuropeList,
 } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { LEVEL_CODE, LEVEL_NAME } from '~/server/emplois-europe/infra/langageEures';
+import { ApiEuresEmploiEuropeDetailResponse } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
@@ -41,7 +42,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				},
 			};
 
-			const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
+			const apiEuresEmploiEuropeDetailResponse: ApiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
 
 			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
@@ -49,30 +50,11 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			const resultatRechercheEmploiEurope = mapper.mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse, apiEuresEmploiEuropeDetailResponse);
 
 			// Then
-			expect(resultatRechercheEmploiEurope).toEqual(aResultatRechercheEmploiEuropeList({
-				nombreResultats: 2,
-				offreList: [
-					anEmploiEurope({
-						id: '1',
-						nomEntreprise: 'La Boulangerie',
-						pays: 'France',
-						titre: 'Boulanger (H/F)',
-						ville: 'Paris',
-					}),
-					anEmploiEurope({
-						id: '2',
-						nomEntreprise: 'La Pâtisserie',
-						pays: 'France',
-						titre: 'Pâtissier (H/F)',
-						urlCandidature: 'https://urlDeCandidature2.com',
-						ville: 'Paris',
-					}),
-				],
-			}));
+			expect(resultatRechercheEmploiEurope).toEqual(aResultatRechercheEmploiEuropeList());
 		});
 
-		describe('lorsqu’un pays et une ville sont renseignés', () => {
-			it('retourne un ResultatRechercheEmploiEurope contenant la ville et le pays', () => {
+		describe('lorsque des pays et une ville sont renseignés', () => {
+			it('retourne un ResultatRechercheEmploiEurope contenant les localisations avec ville et pays', () => {
 				// Given
 				const apiEuresEmploiEuropeRechercheResponse = {
 					data: {
@@ -93,8 +75,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-								pays: 'FR',
-								ville: 'Paris',
+								localisations: [{
+									pays: 'FR',
+									ville: 'Paris',
+								}],
 							},
 							),
 						}),
@@ -112,10 +96,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
-							nomEntreprise: 'La Boulangerie',
-							pays: 'France',
-							titre: 'Boulanger (H/F)',
-							ville: 'Paris',
+							localisations: [{
+								pays: 'France',
+								ville: 'Paris',
+							}],
 						}),
 					],
 				}));
@@ -146,15 +130,15 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 								hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 									{
+										localisations: [{ pays: 'FR', ville: undefined }],
 										nomEntreprise: 'La Boulangerie',
-										pays: 'FR',
 										titre: 'Boulanger (H/F)',
-										ville: undefined,
 									},
 								),
 							}),
 						}),
 					]);
+
 
 				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
@@ -167,8 +151,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{
+								pays: 'France',
+							}],
 							nomEntreprise: 'La Boulangerie',
-							pays: 'France',
 							titre: 'Boulanger (H/F)',
 						}),
 					],
@@ -200,10 +186,9 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 								hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 									{
+										localisations: [{ pays: undefined, ville: 'Paris' }],
 										nomEntreprise: 'La Boulangerie',
-										pays: undefined,
 										titre: 'Boulanger (H/F)',
-										ville: 'Paris',
 									},
 								),
 							}),
@@ -221,9 +206,74 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{
+								ville: 'Paris',
+							}],
 							nomEntreprise: 'La Boulangerie',
 							titre: 'Boulanger (H/F)',
-							ville: 'Paris',
+						}),
+					],
+				}));
+			});
+		});
+		
+		describe('lorsque plusieurs pays et/ou villes sont renseignées', () => {
+			it('liste les différents pays / villes' , () =>
+			{
+				// Given
+				const apiEuresEmploiEuropeRechercheResponse = {
+					data: {
+						dataSetInfo: {
+							totalMatchingCount: 1,
+						},
+						items: [
+							{
+								header: {
+									handle: '1',
+								},
+							},
+						],
+					},
+				};
+
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
+					anApiEuresEmploiEuropeDetailItem({
+						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
+								localisations: [{
+									pays: 'BE',
+									ville: 'Bruxelles',
+								},
+								{
+									pays: 'FR',
+									ville: 'Paris',
+								},
+								],
+							},
+							),
+						}),
+					}),
+				]);
+
+				const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
+
+				// When
+				const resultatRechercheEmploiEurope = mapper.mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse, apiEuresEmploiEuropeDetailResponse);
+
+				// Then
+				expect(resultatRechercheEmploiEurope).toEqual(aResultatRechercheEmploiEuropeList({
+					nombreResultats: 1,
+					offreList: [
+						anEmploiEurope({
+							id: '1',
+							localisations: [{
+								pays: 'Belgique',
+								ville: 'Bruxelles',
+							},
+							{
+								pays: 'France',
+								ville: 'Paris',
+							}],
 						}),
 					],
 				}));
@@ -248,11 +298,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 							experiencesNecessaires: [{ duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR }],
 							listeLangueDeTravail: ['FR', 'EN'],
 							listePermis: ['B', 'C'],
+							localisations: [{ pays: 'FR', ville: 'Paris' }],
 							nomEntreprise: 'La Boulangerie',
-							pays: 'FR',
 							tempsDeTravail: EURES_POSITION_SCHEDULE_TYPE.FullTime,
 							titre: 'Boulanger (H/F)',
-							ville: 'Paris',
 						},
 					),
 				}),
@@ -276,14 +325,16 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				laPlusLongueExperienceNecessaire: { duree: 3, unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR },
 				langueDeTravail: ['français', 'anglais'],
 				listePermis: ['B', 'C'],
+				localisations: [{
+					pays: 'France',
+					ville: 'Paris',
+				}],
 				niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
 				nomEntreprise: 'La Boulangerie',
-				pays: 'France',
 				tempsDeTravail: 'Temps plein',
 				titre: 'Boulanger (H/F)',
 				typeContrat: undefined,
 				urlCandidature: 'https://urlDeCandidature.com',
-				ville: 'Paris',
 			}));
 		});
 
@@ -294,11 +345,10 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					const apprenticeshipContractType = EURES_CONTRACT_TYPE.Apprenticeship;
 					const handle = 'eures-offer-id';
 					const hrxml = anApiEuresEmploiEuropeDetailXMLResponse({
+						localisations: [],
 						nomEntreprise: undefined,
-						pays: undefined,
 						titre: undefined,
 						typeContrat: apprenticeshipContractType,
-						ville: undefined,
 					});
 					const aDetailItemWithContractTypeApprenticeship = anApiEuresEmploiEuropeDetailItem(
 						{

@@ -161,45 +161,64 @@ describe('DetailOffreEmploiEurope', () => {
 		describe('quand un résultat contient un pays et une ville', () => {
 			it('affiche le résultat avec le pays et la ville', () => {
 				// GIVEN
-				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: 'Paris' });
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: 'Paris' }] });
 
 				// WHEN
 				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-				const tagTypeContrat = within(listTags).getByText('France/Paris');
-				expect(tagTypeContrat).toBeVisible();
+				const tagLocalisation = within(listTags).getByText('France/Paris');
+				expect(tagLocalisation).toBeVisible();
 			});
 		});
 
 		describe('quand un résultat contient un pays mais pas de ville', () => {
 			it('affiche le résultat avec le pays', () => {
 				// GIVEN
-				const offreEmploiEurope = anEmploiEurope({ pays: 'France', ville: undefined });
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: undefined }] });
 
 				// WHEN
 				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-				const tagTypeContrat = within(listTags).getByText('France');
-				expect(tagTypeContrat).toBeVisible();
+				const tagLocalisation = within(listTags).getByText('France');
+				expect(tagLocalisation).toBeVisible();
 			});
 		});
 
 		describe('quand un résultat contient une ville mais pas de pays', () => {
 			it('affiche le résultat avec la ville', () => {
 				// GIVEN
-				const offreEmploiEurope = anEmploiEurope({ pays: undefined, ville: 'Paris' });
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: undefined, ville: 'Paris' }] });
 
 				// WHEN
 				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 				// THEN
 				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
-				const tagTypeContrat = within(listTags).getByText('Paris');
-				expect(tagTypeContrat).toBeVisible();
+				const tagLocalisation = within(listTags).getByText('Paris');
+				expect(tagLocalisation).toBeVisible();
+			});
+		});
+
+		describe('quand un résultat contient plusieurs localisations', () => {
+			it('affiche un tag indiquant la multi-localisation', () => {
+				// GIVEN
+				const offreEmploiEurope = anEmploiEurope({ localisations: [
+					{ pays: 'Suède', ville: undefined },
+					{ pays: 'Allemagne', ville: undefined },
+				],
+				});
+
+				// WHEN
+				render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
+
+				// THEN
+				const listTags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre d‘emploi' });
+				const tagLocalisation = within(listTags).getByText('Multi-localisation');
+				expect(tagLocalisation).toBeVisible();
 			});
 		});
 	});
@@ -264,6 +283,76 @@ describe('DetailOffreEmploiEurope', () => {
 				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
 
 			expect(queryByDescriptionTerm('Type de permis requis')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('localisations', () => {
+		
+		describe('si il y a une seule localisation', () => {
+			it('affiche la ville et le pays si ils sont présents', () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France', ville: 'La Rochelle' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France, La Rochelle');
+			});
+
+			it('affiche seulement la ville si le pays n‘est pas renseigné' , () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ ville: 'La Rochelle' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('La Rochelle');
+			});
+
+			it('affiche seulement le pays si la ville n‘est pas renseignée' , () => {
+				const offreEmploiEurope = anEmploiEurope({ localisations: [{ pays: 'France' }] });
+
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France');
+			});
+
+		});
+
+		describe('si il y a plusieurs localisations', () => {
+			it('affiche les localisations dans une liste', () => {
+				// Given
+				const offreEmploiEurope = anEmploiEurope({ localisations: [
+					{ pays: 'France', ville: 'La Rochelle' },
+					{ pays: 'Belgique', ville: 'Charleroi' },
+				],
+				});
+
+				// When
+				const { getByDescriptionTerm } = render(<DetailEmploiEurope
+					annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+
+				// Then
+				const localisations = getByDescriptionTerm('Localisations');
+				const listeLocalisation = within(localisations).getByRole('list');
+
+				const LaRochelle = within(listeLocalisation).getByText('France, La Rochelle');
+				const Charleroi = within(listeLocalisation).getByText('Belgique, Charleroi');
+
+				expect(LaRochelle).toBeVisible();
+				expect(Charleroi).toBeVisible();
+			});
+		});
+		
+
+		it('n‘affiche pas la localisation si elle n‘est pas disponible', () => {
+			const offreEmploiEurope = anEmploiEurope({ localisations: [] });
+
+			const { queryByDescriptionTerm } = render(<DetailEmploiEurope
+				annonceEmploiEurope={offreEmploiEurope}/>, { queries });
+
+			expect(queryByDescriptionTerm('Localisation')).not.toBeInTheDocument();
+			expect(queryByDescriptionTerm('Localisations')).not.toBeInTheDocument();
 		});
 	});
 

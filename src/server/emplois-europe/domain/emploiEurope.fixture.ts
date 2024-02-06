@@ -8,25 +8,24 @@ export function aResultatRechercheEmploiEuropeList(override?: Partial<ResultatRe
 		offreList: [
 			anEmploiEurope({
 				id: '1',
+				localisations: [{ pays: 'France', ville: 'Paris' }],
 				nomEntreprise: 'La Boulangerie',
-				pays: 'France',
 				titre: 'Boulanger (H/F)',
 				urlCandidature: 'https://urlDeCandidature.com',
-				ville: 'Paris',
 			}),
 			anEmploiEurope({
 				id: '2',
+				localisations: [{ pays: 'France', ville: 'Paris' }],
 				nomEntreprise: 'La Pâtisserie',
-				pays: 'France',
 				titre: 'Pâtissier (H/F)',
 				urlCandidature: 'https://urlDeCandidature2.com',
-				ville: 'Paris',
 			}),
 		],
 		...override,
 	};
 }
 
+//TODO enelever des undefined pour remettre des valeurs identiques dans l'objet métier / objet infra
 export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 	return {
 		codeLangueDeLOffre: 'nl',
@@ -48,14 +47,10 @@ export function anEmploiEurope(override?: Partial<EmploiEurope>): EmploiEurope {
 		},
 		langueDeTravail: ['néerlandais'],
 		listePermis: ['B'],
-		niveauEtudes: 'Niveau licence (Bachelor) ou équivalent',
-		nomEntreprise: 'La Boulangerie',
-		pays: 'France',
-		tempsDeTravail: 'Temps plein',
-		titre: 'Boulanger (H/F)',
-		typeContrat: undefined,
+		localisations: [{ pays: 'France', ville: 'Paris' }],
+		nomEntreprise: undefined,
+		titre: undefined,
 		urlCandidature: 'https://urlDeCandidature.com',
-		ville: 'Paris',
 		...override,
 	};
 }
