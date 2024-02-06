@@ -1,4 +1,3 @@
-import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
@@ -29,51 +28,10 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 	};
 }
 
-// TODO supprimer le fonctionnement de "itemsToAdd" qui rajoute des items, au profit d'une valeur par défaut qui est override
-export function anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
+export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd?: Array<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
-			items: [
-				anApiEuresEmploiEuropeDetailItem({
-					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-						header: {
-							handle: '3',
-						},
-					}),
-				}),
-				anApiEuresEmploiEuropeDetailItem({
-					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-						header: {
-							handle: '2',
-						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-							experiencesNecessaires:[{
-								duree: 3,
-								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-							}],
-							localisations: [{ pays: 'FR', ville: 'Paris' }],
-							nomEntreprise: 'La Pâtisserie',
-							tempsDeTravail: 'FullTime',
-							titre: 'Pâtissier (H/F)',
-						}),
-					}),
-					related: anApiEuresEmploiEuropeDetailRelated({
-						urls: [{
-							urlValue: 'https://urlDeCandidature2.com',
-						}],
-					}),
-				}),
-				...itemsToAdd,
-			],
-		},
-	};
-}
-
-export function anApiEuresEmploiEuropeDetailResponse(): ApiEuresEmploiEuropeDetailResponse {
-	return {
-		data: {
-			items: [
+			items: itemsToAdd ? itemsToAdd : [
 				anApiEuresEmploiEuropeDetailItem({
 					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
@@ -81,11 +39,6 @@ export function anApiEuresEmploiEuropeDetailResponse(): ApiEuresEmploiEuropeDeta
 						},
 						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 							{
-								experiencesNecessaires: [{
-									duree: 3,
-									unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-								}],
-								listeLangueDeTravail: ['nl'],
 								localisations: [{ pays: 'FR', ville: 'Paris' }],
 								nomEntreprise: 'La Boulangerie',
 								titre: 'Boulanger (H/F)',
@@ -97,21 +50,14 @@ export function anApiEuresEmploiEuropeDetailResponse(): ApiEuresEmploiEuropeDeta
 						header: {
 							handle: '2',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-							experiencesNecessaires:[{
-								duree: 3,
-								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-							}],
-							localisations: [{ pays: 'FR', ville: 'Paris' }],
-							nomEntreprise: 'La Pâtisserie',
-							titre: 'Pâtissier (H/F)',
-						}),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+							{
+								localisations: [{ pays: 'FR', ville: 'Paris' }],
+								nomEntreprise: 'La Pâtisserie',
+								titre: 'Pâtissier (H/F)',
+							}),
 					}),
-					related: anApiEuresEmploiEuropeDetailRelated({
-						urls: [{
-							urlValue: 'https://urlDeCandidature2.com',
-						}],
-					}),
+					related: anApiEuresEmploiEuropeDetailRelated({ urls: [ { urlValue: 'https://urlDeCandidature2.com' } ] }),
 				}),
 			],
 		},

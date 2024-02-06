@@ -246,8 +246,8 @@ describe('RechercherEmploisEurope', () => {
 				});
 			});
 
-			describe('quand un résultat contient plusieurs localisation', () => {
-				it('affiche le résultat avec la ville', async () => {
+			describe('quand un résultat contient plusieurs localisations', () => {
+				it('affiche un tag Multi-localisations', async () => {
 					// GIVEN
 					const emploiEuropeServiceMock = anEmploiEuropeService();
 					const resultatsService = aResultatRechercheEmploiEuropeList({

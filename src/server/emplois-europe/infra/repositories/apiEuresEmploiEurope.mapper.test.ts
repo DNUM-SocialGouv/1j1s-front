@@ -10,7 +10,7 @@ import {
 	anApiEuresEmploiEuropeDetailItem,
 	anApiEuresEmploiEuropeDetailJobVacancy,
 	anApiEuresEmploiEuropeDetailRelated,
-	anApiEuresEmploiEuropeDetailResponseWithItemsToAdd,
+	anApiEuresEmploiEuropeDetailResponse,
 	anApiEuresEmploiEuropeDetailXMLResponse,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.fixture';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
@@ -42,28 +42,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 				},
 			};
 
-			//const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
-
-			const apiEuresEmploiEuropeDetailResponse: ApiEuresEmploiEuropeDetailResponse = {
-				data: {
-					items: [
-						anApiEuresEmploiEuropeDetailItem({
-							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-								header: {
-									handle: '1',
-								},
-							}),
-						}),
-						anApiEuresEmploiEuropeDetailItem({
-							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
-								header: {
-									handle: '2',
-								},
-							}),
-						}),
-					],
-				},
-			};
+			const apiEuresEmploiEuropeDetailResponse: ApiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse();
 
 			const mapper = new ApiEuresEmploiEuropeMapper(new FastXmlParserService());
 
@@ -71,25 +50,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 			const resultatRechercheEmploiEurope = mapper.mapRechercheEmploiEurope(apiEuresEmploiEuropeRechercheResponse, apiEuresEmploiEuropeDetailResponse);
 
 			// Then
-			expect(resultatRechercheEmploiEurope).toEqual(aResultatRechercheEmploiEuropeList({
-				nombreResultats: 2,
-				offreList: [
-					anEmploiEurope({
-						id: '1',
-						localisations: [{
-							pays: 'France',
-							ville: 'Paris',
-						}],
-					}),
-					anEmploiEurope({
-						id: '2',
-						localisations: [{
-							pays: 'France',
-							ville: 'Paris',
-						}],
-					}),
-				],
-			}));
+			expect(resultatRechercheEmploiEurope).toEqual(aResultatRechercheEmploiEuropeList());
 		});
 
 		describe('lorsque des pays et une ville sont renseignés', () => {
@@ -110,7 +71,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd([
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
@@ -163,7 +124,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
 					[
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
@@ -219,7 +180,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd(
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse(
 					[
 						anApiEuresEmploiEuropeDetailItem({
 							jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
@@ -275,7 +236,7 @@ describe('apiEuresEmploiEuropeMapper', () => {
 					},
 				};
 
-				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponseWithItemsToAdd([
+				const apiEuresEmploiEuropeDetailResponse = anApiEuresEmploiEuropeDetailResponse([
 					anApiEuresEmploiEuropeDetailItem({
 						jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 							hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
