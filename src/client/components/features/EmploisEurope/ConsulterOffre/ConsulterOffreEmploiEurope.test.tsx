@@ -298,7 +298,7 @@ describe('DetailOffreEmploiEurope', () => {
 				expect(getByDescriptionTerm('Localisation')).toHaveTextContent('France, La Rochelle');
 			});
 
-			it('affiche la ville seulement si le pays n‘est pas renseigné' , () => {
+			it('affiche seulement la ville si le pays n‘est pas renseigné' , () => {
 				const offreEmploiEurope = anEmploiEurope({ localisations: [{ ville: 'La Rochelle' }] });
 
 				const { getByDescriptionTerm } = render(<DetailEmploiEurope
