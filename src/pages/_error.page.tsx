@@ -3,6 +3,8 @@ import { NextPageContext } from 'next';
 import NextErrorComponent, { ErrorProps } from 'next/error';
 import React from 'react';
 
+import ErrorUnavailableService from '../client/components/layouts/Error/ErrorUnavailableService';
+
 interface ErrorPageProps {
   err: Error;
   statusCode: number;
@@ -14,7 +16,6 @@ interface CustomErrorProps extends ErrorProps {
 }
 
 const MyError = ({
-	statusCode,
 	hasGetInitialPropsRun,
 	err,
 }: ErrorPageProps) => {
@@ -26,7 +27,7 @@ const MyError = ({
 		// Flushing is not required in this case as it only happens on the client
 	}
 
-	return <NextErrorComponent statusCode={statusCode} />;
+	return <ErrorUnavailableService />;
 };
 
 MyError.getInitialProps = async (
