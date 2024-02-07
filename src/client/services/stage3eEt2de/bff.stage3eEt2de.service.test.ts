@@ -5,7 +5,7 @@
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
-import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
+import { aCandidatureTelephoneStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
 describe('BffStage3eEt2deService', () => {
 	describe('rechercherStage3eEt2de', () => {
@@ -63,7 +63,7 @@ describe('BffStage3eEt2deService', () => {
 			// Given
 			const httpClientService = anHttpClientService();
 			const bffStage3eEt2deService = new BffStage3eEt2deService(httpClientService);
-			const candidatureStage3eEt2de = aCandidatureStage3eEt2de();
+			const candidatureStage3eEt2de = aCandidatureTelephoneStage3eEt2de();
 
 			// When
 			await bffStage3eEt2deService.candidaterStage3eEt2de(candidatureStage3eEt2de);
