@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.234.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.233.0...v3.234.0) (2024-02-07)
+
+
+### Features
+
+* **alternance:** passage recherche en ssr ([#2621](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2621)) ([6d41b12](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6d41b124816502a1de2e7fd41d12e1168a23c0a1))
+
 ## [3.233.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.232.0...v3.233.0) (2024-02-06)
 
 
