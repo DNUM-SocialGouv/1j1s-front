@@ -346,8 +346,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					);
 
 					// THEN
-					const explicationPart = screen.getByText('Étape 1 sur 2 : Informations personnelles');
-					expect(explicationPart).toBeVisible();
+					const etapeCourante = screen.getByText('Étape 1 sur 2 : Informations personnelles');
+					expect(etapeCourante).toBeVisible();
 				});
 				it('affiche une étape de formulaire concernant les données personnelles qui peuvent être remplis automatiquement', () => {
 					// GIVEN
@@ -385,7 +385,47 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
 					expect(boutonEtapeSuivante).toBeVisible();
 				});
-				it.todo('on peut passer à l’étape 2, une fois les champs remplis');
+				it('on peut passer à l’étape 2, une fois les champs remplis', () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							modeDeContact: ModeDeContact.EMAIL,
+							nomEntreprise: 'Carrefour',
+						});
+					const user = userEvent.setup();
+
+					// WHEN
+					render(
+						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+							<CandidaterStage3eEt2de
+								donneesEntreprise={donneesEntreprise}
+							/>
+						</DependenciesProvider>,
+					);
+
+					// THEN
+					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
+					expect(boutonEtapeSuivante).toBeDisabled();
+
+					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+					user.type(inputPrenom, 'Alexis');
+
+					const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+					user.type(inputNom, 'Dupont');
+
+					const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+					user.type(inputEmail, 'alexis.dupont@example.com');
+
+					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
+					user.type(inputTelephone, '0601020304');
+					user.tab();
+
+					expect(boutonEtapeSuivante).not.toBeDisabled();
+					user.click(boutonEtapeSuivante);
+
+					const etapeCourante = screen.getByText('Étape 2 sur 2 : Objet de votre demande');
+					expect(etapeCourante).toBeVisible();
+				});
 			});
 			describe('Etape 2', () => {
 				it.todo('le focus est replacé sur l’élément indiquant l’étape du formulaire');

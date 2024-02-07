@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { Container } from '~/client/components/layouts/Container/Container';
@@ -15,6 +15,7 @@ import {
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
+import { frTelRegex } from '~/shared/telRegex';
 
 import styles from './FormulaireCandidaterStage3eEt2de.module.scss';
 
@@ -222,16 +223,23 @@ function FormulaireContactParEmail(props: {
 	isLoading: boolean,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>
 }) {
-	//const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
+	const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
 
-	//TODO checkValidity pour passer à étape 2 ?
+	const [isFormValid, setIsFormValid] = useState<boolean>(false);
+	const formRef = useRef<HTMLFormElement>(null);
+
+	const onInputChange = () => setIsFormValid(formRef.current?.checkValidity() || false);
+
 	return <>
-		<p className={styles.etape}>Étape 1 sur 2 : Informations personnelles</p>
+		<p className={styles.etape}>{etape === 'ETAPE_1' ? 'Étape 1 sur 2 : Informations personnelles'  : 'Étape 2 sur 2 : Objet de votre demande'}</p>
+
 		<BackButton className={styles.boutonRetour}/>
+
 		<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 		<form
 			aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
 			onSubmit={props.envoyerCandidature}
+			ref={formRef}
 		>
 			<Champ>
 				<Champ.Label>Prénom
@@ -242,6 +250,7 @@ function FormulaireContactParEmail(props: {
 										 required
 										 type="text"
 										 autoComplete="given-name"
+										 onChange={onInputChange}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -254,6 +263,7 @@ function FormulaireContactParEmail(props: {
 										 required
 										 type="text"
 										 autoComplete="family-name"
+										 onChange={onInputChange}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -267,6 +277,7 @@ function FormulaireContactParEmail(props: {
 										 type="email"
 										 autoComplete="email"
 										 pattern={emailRegex}
+										 onChange={onInputChange}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -278,18 +289,22 @@ function FormulaireContactParEmail(props: {
 					</Champ.Label.Complement>
 				</Champ.Label>
 				<Champ.Input render={Input}
-										 name="email"
+										 name="telephone"
 										 required
 										 type="tel"
 										 autoComplete="tel"
-										 pattern={emailRegex}
+										 pattern={frTelRegex}
+										 onChange={onInputChange}
 				/>
+				{ /* TODO extraire pattern telephone dans utils */}
+				<Champ.Error/>
 			</Champ>
 			<ButtonComponent
 				className={styles.boutonSoumission}
 				label="Étape suivante"
 				type="button"
-				disabled={props.isLoading}
+				disabled={!isFormValid}
+				onClick={() => setEtape('ETAPE_2' )}
 			/>
 		</form>
 	</>;
