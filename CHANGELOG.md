@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.236.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.235.1...v3.236.0) (2024-02-07)
+
+
+### Features
+
+* **transverse:** utilisation du composant générique d'erreur ([#2652](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2652)) ([3b91e61](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3b91e6198667912a72717505222248c846045266))
+
 ## [3.235.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.235.0...v3.235.1) (2024-02-07)
 
 
