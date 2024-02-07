@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.237.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.236.0...v3.237.0) (2024-02-07)
+
+
+### Features
+
+* **alternance:** sauvegarde tab v2 ([#2659](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2659)) ([294217a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/294217a8673abd2a687e364ca7ed211e74ae0005))
+
 ## [3.236.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.235.1...v3.236.0) (2024-02-07)
 
 
