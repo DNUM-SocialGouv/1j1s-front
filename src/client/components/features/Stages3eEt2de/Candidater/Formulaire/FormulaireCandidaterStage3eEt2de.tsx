@@ -94,81 +94,24 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		</div>
 
 		<Container className={styles.formulaireContainer}>
-			<BackButton className={styles.boutonRetour}/>
-
-			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
-
-			<form
-				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${nomEntreprise}`}
-				onSubmit={envoyerCandidature}
-			>
-				<Champ>
-					<Champ.Label>Prénom
-						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-					             name="prenom"
-					             required
-					             type="text"
-					/>
-					<Champ.Error/>
-				</Champ>
-				<Champ>
-					<Champ.Label>Nom
-						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-					             name="nom"
-					             required
-					             type="text"
-					/>
-					<Champ.Error/>
-				</Champ>
-				<Champ>
-					<Champ.Label>E-mail
-						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-					             name="email"
-					             required
-					             type="email"
-					             pattern={emailRegex}
-					/>
-					<Champ.Error/>
-				</Champ>
-				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
-				{isMoreThanOneMetier ?
-					<Select
-						optionList={metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
-						label="Métier sur lequel porte la demande d’immersion"
-						name="metierCode"
-						required
-						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
-					/>
-					:
-					<Champ>
-						<Champ.Label>
-							Métier sur lequel porte la demande d’immersion
-							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
-								l’entreprise</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input render={Input}
-						             name="metierCode"
-						             required
-						             value={metiersStage3eEt2de[0].label}
-						             readOnly
-						             type="text"
-						/>
-						<Champ.Error/>
-					</Champ>
-				}
-				<ButtonComponent
-					className={styles.boutonSoumission}
-					label="Envoyer les informations"
-					type="submit"
-					disabled={isLoading}
-				/>
-			</form>
+			{modeDeContact === ModeDeContact.PHONE && <FormulaireContactParTelephone
+				nomEntreprise={nomEntreprise}
+				envoyerCandidature={envoyerCandidature}
+				metiersStage3eEt2de={metiersStage3eEt2de}
+				isMoreThanOneMetier={isMoreThanOneMetier}
+				isLoading={isLoading}/>}
+			{modeDeContact === ModeDeContact.IN_PERSON && <FormulaireContactEnPersonne
+				nomEntreprise={nomEntreprise}
+				envoyerCandidature={envoyerCandidature}
+				metiersStage3eEt2de={metiersStage3eEt2de}
+				isMoreThanOneMetier={isMoreThanOneMetier}
+				isLoading={isLoading}/>}
+			{modeDeContact === ModeDeContact.EMAIL && <FormulaireContactParEmail
+				nomEntreprise={nomEntreprise}
+				envoyerCandidature={envoyerCandidature}
+				metiersStage3eEt2de={metiersStage3eEt2de}
+				isMoreThanOneMetier={isMoreThanOneMetier}
+				isLoading={isLoading}/>}
 		</Container>
 		<div className={styles.decharge}>
 			<p>
@@ -181,3 +124,173 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		</div>
 	</>;
 }
+
+const FormulaireContactEnPersonne = FormulaireContactParTelephone;
+function FormulaireContactParTelephone(props: {
+	nomEntreprise: string,
+	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
+	isMoreThanOneMetier: boolean,
+	isLoading: boolean,
+	metiersStage3eEt2de: Array<MetierStage3eEt2de>
+}) {
+	return <>
+		<BackButton className={styles.boutonRetour}/>
+
+		<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
+
+		<form
+			aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
+			onSubmit={props.envoyerCandidature}
+		>
+			<Champ>
+				<Champ.Label>Prénom
+					<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+									 name="prenom"
+									 required
+									 type="text"
+									 autoComplete="given-name"
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>Nom
+					<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+									 name="nom"
+									 required
+									 type="text"
+									 autoComplete="family-name"
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>E-mail
+					<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+									 name="email"
+									 required
+									 type="email"
+										 autoComplete="email"
+										 pattern={emailRegex}
+				/>
+				<Champ.Error/>
+			</Champ>
+			{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
+			{props.isMoreThanOneMetier ?
+				<Select
+					optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
+					label="Métier sur lequel porte la demande d’immersion"
+					name="metierCode"
+					required
+					labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+				/>
+				:
+				<Champ>
+					<Champ.Label>
+					Métier sur lequel porte la demande d’immersion
+						<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
+						l’entreprise</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+										 name="metierCode"
+										 required
+										 value={props.metiersStage3eEt2de[0].label}
+										 readOnly
+										 type="text"
+					/>
+					<Champ.Error/>
+				</Champ>
+			}
+			<ButtonComponent
+				className={styles.boutonSoumission}
+				label="Envoyer les informations"
+				type="submit"
+				disabled={props.isLoading}
+			/>
+		</form>
+	</>;
+};
+
+function FormulaireContactParEmail(props: {
+	nomEntreprise: string,
+	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
+	isMoreThanOneMetier: boolean,
+	isLoading: boolean,
+	metiersStage3eEt2de: Array<MetierStage3eEt2de>
+}) {
+	//const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
+
+	//TODO checkValidity pour passer à étape 2 ?
+	return <>
+		<p className={styles.etape}>Étape 1 sur 2 : Informations personnelles</p>
+		<BackButton className={styles.boutonRetour}/>
+		<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
+		<form
+			aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
+			onSubmit={props.envoyerCandidature}
+		>
+			<Champ>
+				<Champ.Label>Prénom
+					<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name="prenom"
+										 required
+										 type="text"
+										 autoComplete="given-name"
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>Nom
+					<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name="nom"
+										 required
+										 type="text"
+										 autoComplete="family-name"
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>E-mail
+					<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name="email"
+										 required
+										 type="email"
+										 autoComplete="email"
+										 pattern={emailRegex}
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>
+					Téléphone
+					<Champ.Label.Complement>
+						Exemples : 0601020304 ou +33601020304
+					</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input render={Input}
+										 name="email"
+										 required
+										 type="tel"
+										 autoComplete="tel"
+										 pattern={emailRegex}
+				/>
+			</Champ>
+			<ButtonComponent
+				className={styles.boutonSoumission}
+				label="Étape suivante"
+				type="button"
+				disabled={props.isLoading}
+			/>
+		</form>
+	</>;
+};

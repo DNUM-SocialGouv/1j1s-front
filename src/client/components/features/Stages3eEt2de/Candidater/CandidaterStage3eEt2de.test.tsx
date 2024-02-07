@@ -144,73 +144,73 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		});
 	});
 
-	it('affiche un bouton de retour à la recherche', async () => {
-		// GIVEN
-		const routerBack = jest.fn();
-		mockUseRouter({ back: routerBack });
-		mockSessionStorage({
-			getItem: jest.fn().mockReturnValue('/page-1'),
-		});
-		const user = userEvent.setup();
-		const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-			{
-				appellations: [
-					{
-						code: 'code',
-						label: 'label',
-					},
-				],
-				modeDeContact: ModeDeContact.IN_PERSON,
-				nomEntreprise: 'Carrefour',
-				siret: '37000000000000',
-			});
-
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
-			</DependenciesProvider>,
-		);
-		const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
-		await user.click(boutonRetour);
-
-		// THEN
-		expect(boutonRetour).toBeVisible();
-		expect(routerBack).toHaveBeenCalled();
-	});
-
-	it('affiche un message indiquant que tous les champs sont obligatoires', () => {
-		// GIVEN
-		const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-			{
-				appellations: [
-					{
-						code: 'code',
-						label: 'label',
-					},
-				],
-				modeDeContact: ModeDeContact.IN_PERSON,
-				nomEntreprise: 'Carrefour',
-				siret: '37000000000000',
-			});
-
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
-			</DependenciesProvider>,
-		);
-		// THEN
-		const message = screen.getByText('Tous les champs sont obligatoires (sauf mention contraire)');
-		expect(message).toBeVisible();
-	});
 
 	describe('formulaire de candidature', () => {
 		describe('lorsque que le mode de contact est par téléphone ou en personne', () => {
+			it('affiche un bouton de retour à la recherche', async () => {
+				// GIVEN
+				const routerBack = jest.fn();
+				mockUseRouter({ back: routerBack });
+				mockSessionStorage({
+					getItem: jest.fn().mockReturnValue('/page-1'),
+				});
+				const user = userEvent.setup();
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						appellations: [
+							{
+								code: 'code',
+								label: 'label',
+							},
+						],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '37000000000000',
+					});
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+				const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
+				await user.click(boutonRetour);
+
+				// THEN
+				expect(boutonRetour).toBeVisible();
+				expect(routerBack).toHaveBeenCalled();
+			});
+
+			it('affiche un message indiquant que tous les champs sont obligatoires', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						appellations: [
+							{
+								code: 'code',
+								label: 'label',
+							},
+						],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '37000000000000',
+					});
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+				// THEN
+				const message = screen.getByText('Tous les champs sont obligatoires (sauf mention contraire)');
+				expect(message).toBeVisible();
+			});
 			it('affiche un formulaire de candidature en une étape', () => {
 				// GIVEN
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
@@ -235,20 +235,99 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					</DependenciesProvider>,
 				);
 				// THEN
-				const formulaire = screen.getByRole('form');
+				const formulaire = screen.getByRole('form', { name: 'Candidater à l’offre de stage de 3e et 2de de l’entreprise Carrefour' });
 				expect(formulaire).toBeVisible();
 				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-				//todo autocomplete
+				expect(inputPrenom).toHaveAttribute('autocomplete', 'given-name');
 				expect(inputPrenom).toBeVisible();
 				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+				expect(inputNom).toHaveAttribute('autocomplete', 'family-name');
 				expect(inputNom).toBeVisible();
 				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+				expect(inputEmail).toHaveAttribute('autocomplete', 'email');
 				expect(inputEmail).toBeVisible();
 				const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
 				expect(boutonEnvoyer).toBeVisible();
 			});
+			it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						appellations: [
+							{
+								code: 'code',
+								label: 'label',
+							},
+						],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '37000000000000',
+					},
+				);
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const message = screen.getByText('Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP. En cliquant sur "Envoyer mes informations", vos données seront transmises à la mission locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous');
+				expect(message).toBeVisible();
+			});
 		});
 		describe('lorsque que le mode de contact est par mail', () => {
+			it('affiche un bouton de retour à la recherche', async () => {
+				// GIVEN
+				const routerBack = jest.fn();
+				mockUseRouter({ back: routerBack });
+				mockSessionStorage({
+					getItem: jest.fn().mockReturnValue('/page-1'),
+				});
+				const user = userEvent.setup();
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						modeDeContact: ModeDeContact.EMAIL,
+					});
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+				const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
+				await user.click(boutonRetour);
+
+				// THEN
+				expect(boutonRetour).toBeVisible();
+				expect(routerBack).toHaveBeenCalled();
+			});
+			it('affiche un message indiquant que tous les champs sont obligatoires', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						modeDeContact: ModeDeContact.EMAIL,
+					});
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+				// THEN
+				const message = screen.getByText('Tous les champs sont obligatoires (sauf mention contraire)');
+				expect(message).toBeVisible();
+			});
+
 			describe('Etape 1', () => {
 				it('affiche l’étape courante du formulaire', () => {
 					// GIVEN
@@ -267,16 +346,53 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					);
 
 					// THEN
-					const explicationPart = screen.getByText('Étape 1 sur 2 : Objet de votre demande');
+					const explicationPart = screen.getByText('Étape 1 sur 2 : Informations personnelles');
 					expect(explicationPart).toBeVisible();
 				});
-				it.todo('la situation / objectif n’est pas modifiable');
-				it.todo('le champ du message pour l’entreprise est limité à 500 caractères');
-				it.todo('le champ du message pour l’entreprise est pré-rempli');
+				it('affiche une étape de formulaire concernant les données personnelles qui peuvent être remplis automatiquement', () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							modeDeContact: ModeDeContact.EMAIL,
+							nomEntreprise: 'Carrefour',
+						});
+
+					// WHEN
+					render(
+						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+							<CandidaterStage3eEt2de
+								donneesEntreprise={donneesEntreprise}
+							/>
+						</DependenciesProvider>,
+					);
+
+					// THEN
+					const formulaire = screen.getByRole('form', { name: 'Candidater à l’offre de stage de 3e et 2de de l’entreprise Carrefour' });
+					expect(formulaire).toBeVisible();
+					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+					expect(inputPrenom).toHaveAttribute('autocomplete', 'given-name');
+					expect(inputPrenom).toBeVisible();
+					const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+					expect(inputNom).toHaveAttribute('autocomplete', 'family-name');
+					expect(inputNom).toBeVisible();
+					const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+					expect(inputEmail).toHaveAttribute('autocomplete', 'email');
+					expect(inputEmail).toBeVisible();
+					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
+					expect(inputTelephone).toHaveAttribute('autocomplete', 'tel');
+					expect(inputTelephone).toBeVisible();
+
+					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
+					expect(boutonEtapeSuivante).toBeVisible();
+				});
 				it.todo('on peut passer à l’étape 2, une fois les champs remplis');
 			});
 			describe('Etape 2', () => {
-				it.todo('le focus est replacé sur le premier champ du formulaire');
+				it.todo('le focus est replacé sur l’élément indiquant l’étape du formulaire');
+				it.todo('je peux retourner a l’étape précédente');
+				it.todo('le champ du message pour l’entreprise est limité à 500 caractères');
+				it.todo('le champ du message pour l’entreprise est pré-rempli');
+				it.todo('affiche un message indiquant que les données sont collectées et traitées par la DGEFP');
 			});
 		});
 	});
@@ -360,36 +476,6 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				expect(metierOptions[1]).toHaveTextContent('label2');
 			});
 		});
-	});
-
-	it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {
-		// GIVEN
-		const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-			{
-				appellations: [
-					{
-						code: 'code',
-						label: 'label',
-					},
-				],
-				modeDeContact: ModeDeContact.IN_PERSON,
-				nomEntreprise: 'Carrefour',
-				siret: '37000000000000',
-			},
-		);
-
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
-			</DependenciesProvider>,
-		);
-
-		// THEN
-		const message = screen.getByText('Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP. En cliquant sur "Envoyer mes informations", vos données seront transmises à la mission locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous');
-		expect(message).toBeVisible();
 	});
 
 	describe('soumission du formulaire', () => {

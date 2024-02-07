@@ -140,10 +140,10 @@ export default function LesEntreprisesSEngagentInscription() {
 						<h1 className={styles.titre}>JE REJOINS &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
 					</div>
 					<div className={styles.content}>
-						<div className={styles.etape}>{étape}</div>
-						<div className={styles.mandatoryFields}>Tous les champs du formulaire sont
+						<p className={styles.etape}>{étape}</p>
+						<p className={styles.mandatoryFields}>Tous les champs du formulaire sont
 							obligatoires
-						</div>
+						</p>
 						<div hidden={isPremièreÉtape ? undefined : true}>
 							<LinkStyledAsButtonWithIcon
 								href="/les-entreprises-s-engagent"

@@ -1,6 +1,9 @@
 @use "@styles/utilities";
 
 $color-message-champs-obligatoires: utilities.$color-primary;
+$color-background-etape:  utilities.$color-background-secondary;
+$color-text-etape:  utilities.$color-text-primary-inverse;
+
 
 .header {
   background-color: utilities.$color-background-primary-alternative;
@@ -37,6 +40,14 @@ $color-message-champs-obligatoires: utilities.$color-primary;
     @include utilities.text-large;
     color: utilities.$color-text-primary-alternative;
   }
+}
+
+// TODO voir (avec Joy?) si mutualisation avec formulaire les entreprises s'engagent
+.etape {
+  background-color: $color-background-etape;
+  color: $color-text-etape;
+  text-align: center;
+  padding: 8px;
 }
 
 .formulaireContainer {

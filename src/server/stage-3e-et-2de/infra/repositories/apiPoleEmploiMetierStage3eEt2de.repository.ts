@@ -19,7 +19,7 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 	private NOMBRE_HEURES_EXPIRATION_CACHE = 24;
 
 	private async getApiPoleEmploiMetiers() {
-		let response = await this.cacheService.get<Array<ApiPoleEmploiMetierStage3eEt2de>>(this.CACHE_KEY);
+		let response: any = false;
 		if (!response) {
 			response = (await this.httpClientServiceWithAuthentification.get<Array<ApiPoleEmploiMetierStage3eEt2de>>('/appellations')).data;
 			this.cacheService.set(this.CACHE_KEY, response, this.NOMBRE_HEURES_EXPIRATION_CACHE);
