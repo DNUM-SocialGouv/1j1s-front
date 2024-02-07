@@ -44,7 +44,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 	const hasRouterQuery = Object.keys(router.query).length > 0;
 
 	const getCurrentTabFromQuery = useCallback(() => {
-		return parseInt(getSingleQueryParam(router.query.tab) ?? '0', 10);
+		return Number(getSingleQueryParam(router.query.tab) ?? '0');
 	}, [router.query.tab]);
 
 	const [currentTab, setCurrentTab] = useState<number>(getCurrentTabFromQuery());
