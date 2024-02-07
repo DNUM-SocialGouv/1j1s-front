@@ -10,6 +10,9 @@ import {
 	SuccesEnvoyerCandidatureStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/ResultatEnvoyerCandidature/SuccesEnvoyerCandidatureStage3eEt2de';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { Erreur } from '~/server/errors/erreur.types';
+
+export type EtatSoumission = 'initial' | 'succes' | Erreur;
 
 export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPageProps) {
 	const {
@@ -20,7 +23,11 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 	} = props.donneesEntreprise;
 
 	const [etatSoumission, setEtatSoumission] =
-		useState<'initial' | 'succes' | 'echec'>('initial');
+		useState<EtatSoumission>('initial');
+
+	function isErreur(etatSoumission: EtatSoumission): etatSoumission is Erreur {
+		return etatSoumission !== 'initial' && etatSoumission !== 'succes';
+	}
 
 	return <>
 		{etatSoumission === 'initial' && <FormulaireCandidaterStage3eEt2de
@@ -29,7 +36,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 			siret={siret}
 			modeDeContact={modeDeContact}
 			onSuccess={() => setEtatSoumission('succes')}
-			onFailure={() => setEtatSoumission('echec')}
+			onFailure={(erreur: Erreur) => setEtatSoumission(erreur)}
 		/>}
 
 		<div role={'status'}>
@@ -37,7 +44,7 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 		</div>
 
 		<div role={'alert'}>
-			{etatSoumission === 'echec' && <EchecEnvoyerCandidatureStage3eEt2de retourFormulaire={() => setEtatSoumission('initial')} />}
+			{isErreur(etatSoumission) && <EchecEnvoyerCandidatureStage3eEt2de etatSoumission={etatSoumission} retourFormulaire={() => setEtatSoumission('initial')} />}
 		</div>
 	</>;
 }

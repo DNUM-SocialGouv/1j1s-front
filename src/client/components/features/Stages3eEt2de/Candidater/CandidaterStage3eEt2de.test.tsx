@@ -717,47 +717,90 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		});
 
 		describe('lorsque l’envoi de la candidature échoue', () => {
-			it('affiche une page d’erreur', async () => {
-				// GIVEN
-				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-					{
-						appellations: [
-							{
-								code: 'code',
-								label: 'label',
-							},
-						],
-						modeDeContact: ModeDeContact.IN_PERSON,
-						nomEntreprise: 'Carrefour',
-						siret: '37000000000000',
-					},
-				);
-				const user = userEvent.setup();
-				const stage3eEt2deService = aStage3eEt2deService();
-				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+			describe('lorsque l’erreur est un conflit d’identifiant', () => {
+				it('affiche une page d’erreur', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: 'code',
+									label: 'label',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT));
 
-				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
-					<CandidaterStage3eEt2de
-						donneesEntreprise={donneesEntreprise}
-					/>
-				</DependenciesProvider>);
-				await remplirLeFormulaire({
-					email: 'alexis.dupont@example.com',
-					nom: 'Dupont',
-					prenom: 'Alexis',
+					// WHEN
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const contenuAlert = screen.getByRole('alert');
+					const title = within(contenuAlert).getByRole('heading', { level: 1, name: 'Une erreur est survenue' });
+					expect(title).toBeVisible();
+					const text = screen.getByText('Une candidature pour cette offre avec cette adresse email existe déjà.');
+					expect(text).toBeVisible();
 				});
-				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
-				await user.click(envoyerBouton);
-
-				// THEN
-				const contenuAlert = screen.getByRole('alert');
-				const title = within(contenuAlert).getByRole('heading', { level: 1, name: 'Une erreur est survenue' });
-				expect(title).toBeVisible();
-				const text = screen.getByText('Nous n’avons pas pu envoyer vos informations à l’entreprise. Veuillez réessayer plus tard');
-				expect(text).toBeVisible();
 			});
+			describe('lorque l’erreur est un autre type d’erreur', () => {
+				it('affiche une page d’erreur', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: 'code',
+									label: 'label',
+								},
+							],
+							modeDeContact: ModeDeContact.IN_PERSON,
+							nomEntreprise: 'Carrefour',
+							siret: '37000000000000',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
+					// WHEN
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+					});
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const contenuAlert = screen.getByRole('alert');
+					const title = within(contenuAlert).getByRole('heading', { level: 1, name: 'Une erreur est survenue' });
+					expect(title).toBeVisible();
+					const text = screen.getByText('Nous n’avons pas pu envoyer vos informations à l’entreprise. Veuillez réessayer plus tard');
+					expect(text).toBeVisible();
+				});
+			});
 			it('affiche un bouton de retour au formulaire', async () => {
 				// GIVEN
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(

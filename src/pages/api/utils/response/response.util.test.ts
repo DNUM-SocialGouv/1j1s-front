@@ -56,4 +56,28 @@ describe('handleResponse', () => {
 
 		expect(res.status).toHaveBeenCalledWith(404);
 	});
+
+	it('retourne une 409 quand l erreur est CONFLIT_D_IDENTIFIANT', () => {
+		const res = {
+			json: jest.fn(),
+			status: jest.fn(),
+		} as unknown as NextApiResponse;
+		jest.spyOn(res, 'status').mockReturnValue(res);
+
+		handleResponse(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT), res);
+
+		expect(res.status).toHaveBeenCalledWith(409);
+	});
+
+	it('retourne une 500 quand l erreur est inconnue', () => {
+		const res = {
+			json: jest.fn(),
+			status: jest.fn(),
+		} as unknown as NextApiResponse;
+		jest.spyOn(res, 'status').mockReturnValue(res);
+
+		handleResponse(createFailure('erreur inconnue' as ErreurMetier), res);
+
+		expect(res.status).toHaveBeenCalledWith(500);
+	});
 });
