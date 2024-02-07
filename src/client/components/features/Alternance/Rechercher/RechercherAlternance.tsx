@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { BanniereApprentissage } from '~/client/components/features/Alternance/Rechercher/BanniereApprentissage';
 import {
@@ -23,50 +23,31 @@ import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Articl
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
-import { AlternanceService } from '~/client/services/alternance/alternance.service';
-import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
-export default function RechercherAlternance() {
+export type RechercherAlternanceProps = {
+	erreurRecherche?: Erreur
+	resultats?: ResultatRechercheAlternance
+}
+
+export default function RechercherAlternance(props: RechercherAlternanceProps) {
+	const alternanceQuery = useAlternanceQuery();
 	const router = useRouter();
 
-	const alternanceQuery = useAlternanceQuery();
-
-	const alternanceService = useDependency<AlternanceService>('alternanceService');
-	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
-	const [alternanceList, setAlternanceList] = useState<ResultatRechercheAlternance>({
-		entrepriseList: [],
-		offreList: [],
-	});
-	const [isLoading, setIsLoading] = useState(false);
-	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
-
-	useEffect(() => {
-		if (!empty(alternanceQuery)) {
-			setIsLoading(true);
-			setErreurRecherche(undefined);
-
-			alternanceService.rechercherAlternance(alternanceQuery)
-				.then((response) => {
-					if (response.instance === 'success') {
-						const numberResult = response.result.offreList.length + response.result.entrepriseList.length;
-						setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${numberResult === 0 ? ' - Aucun résultat' : ''}`));
-						setAlternanceList(response.result);
-					} else {
-						setTitle(formatRechercherSolutionDocumentTitle(PREFIX_TITRE_PAGE, response.errorType));
-						setErreurRecherche(response.errorType);
-					}
-					setIsLoading(false);
-				});
-		}
-	}, [alternanceQuery, alternanceService]);
-
+	const nombreResultatsEntreprises = props.resultats?.entrepriseList?.length || 0;
+	const nombreResultatsOffres = props.resultats?.offreList?.length || 0;
+	const nombreResultats = nombreResultatsEntreprises + nombreResultatsOffres;
+	const title = formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${nombreResultats === 0 ? ' - Aucun résultat' : ''}`);
+	const alternanceList = {
+		entrepriseList: props.resultats?.entrepriseList || [],
+		offreList: props.resultats?.offreList || [],
+	};
+	const erreurRecherche = props.erreurRecherche;
 
 	function getMessageResultatRecherche(nombreResultats: number) {
 		const messageResultatRechercheSplit: string[] = [`${nombreResultats}`];
@@ -77,19 +58,29 @@ export default function RechercherAlternance() {
 		} else {
 			return '';
 		}
-		if (router.query.libelleMetier) {
-			messageResultatRechercheSplit.push(`pour ${router.query.libelleMetier}`);
+		if (alternanceQuery.libelleMetier) {
+			messageResultatRechercheSplit.push(`pour ${alternanceQuery.libelleMetier}`);
 		}
 		return messageResultatRechercheSplit.join(' ');
 	}
 
 	const étiquettesRecherche = useMemo(() => {
-		if (router.query.libelleCommune) {
-			return <TagList list={[router.query.libelleCommune as string]} aria-label="Filtres de la recherche"/>;
+		if (alternanceQuery.libelleCommune) {
+			return <TagList list={[alternanceQuery.libelleCommune as string]} aria-label="Filtres de la recherche"/>;
 		} else {
 			return undefined;
 		}
-	}, [router.query.libelleCommune]);
+	}, [alternanceQuery.libelleCommune]);
+
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, [router]);
+
+	function onSubmit() {
+		setIsLoading(true);
+	}
 
 	return <>
 		<Head
@@ -102,7 +93,7 @@ export default function RechercherAlternance() {
 				bannière={<BanniereApprentissage/>}
 				erreurRecherche={erreurRecherche}
 				étiquettesRecherche={étiquettesRecherche}
-				formulaireRecherche={<FormulaireRechercheAlternance/>}
+				formulaireRecherche={<FormulaireRechercheAlternance onSubmit={onSubmit}/>}
 				isLoading={isLoading}
 				listeSolutionElementTab={[{
 					label: 'Contrats d‘alternance',

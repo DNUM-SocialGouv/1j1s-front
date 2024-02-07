@@ -11,6 +11,7 @@ import {
 import {
 	ApiLaBonneAlternanceErrorManagementServiceGet, ApiLaBonneAlternanceErrorManagementServiceSearch,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
+import { MockAlternanceRepository } from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import {
 	CampagneApprentissageDependencies,
 	campagneApprentissageDependenciesContainer,
@@ -292,7 +293,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
-	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
+	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE
+	  ? alternancesDependenciesContainer(new MockAlternanceRepository())
+		: alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
 	const trajectoiresProHttpClientService = new AuthenticatedHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService), loggerService);
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
