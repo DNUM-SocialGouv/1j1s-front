@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.235.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.234.0...v3.235.0) (2024-02-07)
+
+
+### Features
+
+* **stage3e2de:** prendre en compte la partie api dans les formulaires de contact ([#2654](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2654)) ([1e21e4a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e21e4aeef17f5d38df30cb82e84365171f8970a))
+
 ## [3.234.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.233.0...v3.234.0) (2024-02-07)
 
 
