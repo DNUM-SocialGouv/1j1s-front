@@ -15,7 +15,7 @@ import {
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
-import { frTelRegex } from '~/shared/telRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 import styles from './FormulaireCandidaterStage3eEt2de.module.scss';
 
@@ -293,7 +293,7 @@ function FormulaireContactParEmail(props: {
 										 required
 										 type="tel"
 										 autoComplete="tel"
-										 pattern={frTelRegex}
+										 pattern={telFrRegex}
 										 onChange={onInputChange}
 				/>
 				{ /* TODO extraire pattern telephone dans utils */}

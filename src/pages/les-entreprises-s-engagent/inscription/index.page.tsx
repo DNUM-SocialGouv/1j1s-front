@@ -29,6 +29,7 @@ import {
 } from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 enum Etape {
 	ETAPE_1 = 'Étape 1 sur 2',
@@ -304,7 +305,7 @@ export default function LesEntreprisesSEngagentInscription() {
 											</Champ.Label.Complement>
 										</Champ.Label>
 										<Champ.Input
-											pattern="^(\+33|0|0033)[1-9]\d{8}$"
+											pattern={telFrRegex}
 											type="tel"
 											render={Input}
 											name={'phone'}
