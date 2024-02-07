@@ -1,8 +1,8 @@
 import styles from '~/client/components/features/Contenu/ConsulterContenu.module.scss';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import Marked from '~/client/components/ui/Marked/Marked';
-import markedStyles from '~/client/components/ui/Marked/Marked.module.scss';
+import MarkdownToHtml from '~/client/components/ui/Markdown-it/MarkdownToHtml';
+import markedStyles from '~/client/components/ui/Markdown-it/MarkdownToHtml.module.scss';
 
 export interface ConsulterContenuProps {
   titre: string
@@ -18,7 +18,7 @@ export function ConsulterContenu({ titre, contenu }: ConsulterContenuProps) {
 						title={`${titre} | 1jeune1solution`}
 						robots="index,follow"
 					/>
-					<Marked markdown={contenu} className={markedStyles.normalize}/>
+					<MarkdownToHtml markdown={contenu} className={markedStyles.normalize}/>
 				</article>
 			</Container>
 		</main>
