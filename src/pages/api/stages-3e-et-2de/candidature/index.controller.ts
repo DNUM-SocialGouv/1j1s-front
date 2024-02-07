@@ -11,10 +11,11 @@ import {
 	ModeDeContact,
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { dependencies } from '~/server/start';
+import { emailRegex } from '~/shared/emailRegex';
 
 const envoyerCandidatureTelephoneStage3eEt2deQuerySchema = Joi.object({
 	appellationCode: Joi.string().required(),
-	email: Joi.string().email().required(),
+	email: Joi.string().email().pattern(new RegExp(emailRegex)).required(),
 	modeDeContact: Joi.string().valid(ModeDeContact.PHONE).required(),
 	nom: Joi.string().required(),
 	prenom: Joi.string().required(),
@@ -23,7 +24,7 @@ const envoyerCandidatureTelephoneStage3eEt2deQuerySchema = Joi.object({
 
 const envoyerCandidatureEmailStage3eEt2deQuerySchema = Joi.object({
 	appellationCode: Joi.string().required(),
-	email: Joi.string().email().required(),
+	email: Joi.string().email().pattern(new RegExp(emailRegex)).required(),
 	message: Joi.string().required(),
 	modeDeContact: Joi.string().valid(ModeDeContact.EMAIL).required(),
 	nom: Joi.string().required(),
@@ -35,7 +36,7 @@ const envoyerCandidatureEmailStage3eEt2deQuerySchema = Joi.object({
 
 const envoyerCandidatureEnPersonneStage3eEt2deQuerySchema = Joi.object({
 	appellationCode: Joi.string().required(),
-	email: Joi.string().email().required(),
+	email: Joi.string().email().pattern(new RegExp(emailRegex)).required(),
 	modeDeContact: Joi.string().valid(ModeDeContact.IN_PERSON).required(),
 	nom: Joi.string().required(),
 	prenom: Joi.string().required(),
