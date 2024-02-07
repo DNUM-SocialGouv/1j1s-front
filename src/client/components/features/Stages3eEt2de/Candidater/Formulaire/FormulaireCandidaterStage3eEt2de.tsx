@@ -37,6 +37,8 @@ const INSTRUCTION_CANDIDATURE_EN_PERSONNE = <>
 	</p>
 </>;
 
+const INSTRUCTION_CANDIDATURE_MAIL = <p className={styles.sousTitre}>Cette entreprise a choisi d’être contactée par e-mail. Veuillez compléter ce formulaire qui sera transmis à l’entreprise.</p>;
+
 export function FormulaireCandidaterStage3eEt2de(props: {
 	modeDeContact: ModeDeContact,
 	nomEntreprise: string,
@@ -87,6 +89,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					l’entreprise <em>{nomEntreprise}</em></h1>
 				{modeDeContact === ModeDeContact.PHONE && INSTRUCTION_CANDIDATURE_TELEPHONE}
 				{modeDeContact === ModeDeContact.IN_PERSON && INSTRUCTION_CANDIDATURE_EN_PERSONNE}
+				{modeDeContact === ModeDeContact.EMAIL && INSTRUCTION_CANDIDATURE_MAIL}
 			</div>
 		</div>
 

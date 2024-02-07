@@ -121,6 +121,29 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		});
 	});
 
+	describe('lorsque le mode de contact est par email', () => {
+		it('affiche un texte explicatif du process de candidature', () => {
+			// GIVEN
+			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+				{
+					modeDeContact: ModeDeContact.EMAIL,
+				});
+
+			// WHEN
+			render(
+				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<CandidaterStage3eEt2de
+						donneesEntreprise={donneesEntreprise}
+					/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const explicationPart = screen.getByText('Cette entreprise a choisi d’être contactée par e-mail. Veuillez compléter ce formulaire qui sera transmis à l’entreprise.');
+			expect(explicationPart).toBeVisible();
+		});
+	});
+
 	it('affiche un bouton de retour à la recherche', async () => {
 		// GIVEN
 		const routerBack = jest.fn();
@@ -186,41 +209,78 @@ describe('Candidater à un stage de 3e et 2de', () => {
 		expect(message).toBeVisible();
 	});
 
-	it('affiche un formulaire de candidature', () => {
-		// GIVEN
-		const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-			{
-				appellations: [
+	describe('formulaire de candidature', () => {
+		describe('lorsque que le mode de contact est par téléphone ou en personne', () => {
+			it('affiche un formulaire de candidature en une étape', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
 					{
-						code: 'code',
-						label: 'label',
-					},
-				],
-				modeDeContact: ModeDeContact.IN_PERSON,
-				nomEntreprise: 'Carrefour',
-				siret: '37000000000000',
-			});
+						appellations: [
+							{
+								code: 'code',
+								label: 'label',
+							},
+						],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '37000000000000',
+					});
 
-		// WHEN
-		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-				<CandidaterStage3eEt2de
-					donneesEntreprise={donneesEntreprise}
-				/>
-			</DependenciesProvider>,
-		);
-		// THEN
-		const formulaire = screen.getByRole('form');
-		expect(formulaire).toBeVisible();
-		const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-		expect(inputPrenom).toBeVisible();
-		const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-		expect(inputNom).toBeVisible();
-		const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-		expect(inputEmail).toBeVisible();
-		const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
-		expect(boutonEnvoyer).toBeVisible();
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+				// THEN
+				const formulaire = screen.getByRole('form');
+				expect(formulaire).toBeVisible();
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+				//todo autocomplete
+				expect(inputPrenom).toBeVisible();
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+				expect(inputNom).toBeVisible();
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+				expect(inputEmail).toBeVisible();
+				const boutonEnvoyer = screen.getByRole('button', { name: 'Envoyer les informations' });
+				expect(boutonEnvoyer).toBeVisible();
+			});
+		});
+		describe('lorsque que le mode de contact est par mail', () => {
+			describe('Etape 1', () => {
+				it('affiche l’étape courante du formulaire', () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							modeDeContact: ModeDeContact.EMAIL,
+						});
+
+					// WHEN
+					render(
+						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+							<CandidaterStage3eEt2de
+								donneesEntreprise={donneesEntreprise}
+							/>
+						</DependenciesProvider>,
+					);
+
+					// THEN
+					const explicationPart = screen.getByText('Étape 1 sur 2 : Objet de votre demande');
+					expect(explicationPart).toBeVisible();
+				});
+				it.todo('la situation / objectif n’est pas modifiable');
+				it.todo('le champ du message pour l’entreprise est limité à 500 caractères');
+				it.todo('le champ du message pour l’entreprise est pré-rempli');
+				it.todo('on peut passer à l’étape 2, une fois les champs remplis');
+			});
+			describe('Etape 2', () => {
+				it.todo('le focus est replacé sur le premier champ du formulaire');
+			});
+		});
 	});
+
 
 	describe('affiche les métiers de l’entreprise dans le formulaire', () => {
 		describe('lorsque l’entreprise ne propose qu’un seul métier', () => {
