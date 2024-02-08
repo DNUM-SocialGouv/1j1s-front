@@ -4,7 +4,7 @@ describe('getHtmlFromMd', () => {
 	it('transforme le markdown en HMTL', () => {
 		const markdown = '# je suis le titre\n **Je suis le paragraphe en gras**';
 		const result = getHtmlFromMd(markdown);
-		expect(result).toBe('<h1>je suis le titre</h1>\n<p><strong>Je suis le paragraphe en gras</strong></p>\n');
+		expect(result).toBe('<h1 id="je-suis-le-titre">je suis le titre</h1>\n<p><strong>Je suis le paragraphe en gras</strong></p>\n');
 	});
 
 	it('transforme les liens en liens s‘ouvrant dans un nouvel onglet', () => {
@@ -17,5 +17,11 @@ describe('getHtmlFromMd', () => {
 		const markdown = 'email@example.com';
 		const result = getHtmlFromMd(markdown);
 		expect(result).toBe('<p><a href="mailto:email@example.com" target="_blank">email@example.com</a></p>\n');
+	});
+
+	it('ajoute un id sur les titres, pour être utiliser en ancre', () => {
+		const markdown = '# 1. Avantages du travail';
+		const result = getHtmlFromMd(markdown);
+		expect(result).toBe('<h1 id="1.-avantages-du-travail">1. Avantages du travail</h1>\n');
 	});
 });

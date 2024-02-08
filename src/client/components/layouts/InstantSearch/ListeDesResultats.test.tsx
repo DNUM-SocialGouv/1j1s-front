@@ -180,7 +180,7 @@ describe('ListeDesResultats Component', () => {
 			const mention = screen.getByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
 			expect(mention).toBeVisible();
 			const lienCGU = within(mention).getByRole('link', { name: 'liste disponible dans les CGU' });
-			expect(lienCGU).toHaveAttribute('href', '/cgu#3-services');
+			expect(lienCGU).toHaveAttribute('href', '/cgu#3.-services');
 		});
 		it('ajoute une abréviation sur les CGU', async () => {
 			render(
