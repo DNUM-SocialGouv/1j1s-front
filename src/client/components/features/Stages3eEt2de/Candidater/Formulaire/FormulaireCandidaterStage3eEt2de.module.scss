@@ -42,12 +42,12 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
   }
 }
 
-// TODO voir (avec Joy?) si mutualisation avec formulaire les entreprises s'engagent
 .etape {
   background-color: $color-background-etape;
   color: $color-text-etape;
   text-align: center;
   padding: 8px;
+  width: fit-content;
 }
 
 .formulaireContainer {
@@ -63,14 +63,30 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
     margin-block: 2rem;
   }
 
-  form {
+  form > .etape1 {
     display: grid;
     grid-template-columns: 100%;
     gap: 1rem;
 
+    &hidden {
+      display: none;
+    }
+
     @include utilities.media(medium) {
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
+    }
+
+    .boutonEtapeSuivante {
+      grid-column: 1;
+      margin: utilities.pixel-to-rem(16);
+
+      @include utilities.media(medium) {
+        grid-column: 1 / span 2;
+        width: fit-content;
+        justify-self: center;
+        margin: 2rem;
+      }
     }
 
     .boutonSoumission {

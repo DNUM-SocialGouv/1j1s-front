@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FormEvent, useRef, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
@@ -5,6 +6,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
@@ -237,10 +239,9 @@ function FormulaireContactParEmail(props: {
 
 	return <>
 		<Container className={styles.formulaireContainer}>
-			<p
-				className={styles.etape}>{etape === 'ETAPE_1' ? 'Étape 1 sur 2 : Informations personnelles' : 'Étape 2 sur 2 : Objet de votre demande'}</p>
+			<p className={styles.etape}>{etape === 'ETAPE_1' ? 'Étape 1 sur 2 : Informations personnelles' : 'Étape 2 sur 2 : Objet de votre demande'}</p>
 
-			<BackButton className={styles.boutonRetour}/>
+			<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
 
 			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 			<form
@@ -248,71 +249,74 @@ function FormulaireContactParEmail(props: {
 				onSubmit={props.envoyerCandidature}
 				ref={formRef}
 			>
-				<Champ>
-					<Champ.Label>Prénom
-						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-										 name="prenom"
-										 required
-										 type="text"
-										 autoComplete="given-name"
-										 onChange={onInputChange}
+				<div className={classNames(styles.etape1, etape !== 'ETAPE_1' && styles.etape1hidden)}>
+					<Champ>
+						<Champ.Label>Prénom
+							<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="prenom"
+												 required
+												 type="text"
+												 autoComplete="given-name"
+												 onChange={onInputChange}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>Nom
+							<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="nom"
+												 required
+												 type="text"
+												 autoComplete="family-name"
+												 onChange={onInputChange}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>E-mail
+							<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="email"
+												 required
+												 type="email"
+												 autoComplete="email"
+												 pattern={emailRegex}
+												 onChange={onInputChange}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>
+							Téléphone
+							<Champ.Label.Complement>
+								Exemples : 0601020304 ou +33601020304
+							</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="telephone"
+												 required
+												 type="tel"
+												 autoComplete="tel"
+												 pattern={telFrRegex}
+												 onChange={onInputChange}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<ButtonComponent
+						className={styles.boutonEtapeSuivante}
+						label="Étape suivante"
+						type="button"
+						disabled={!isFormValid}
+						onClick={() => setEtape('ETAPE_2')}
+						icon={<Icon name={'angle-right'}/>}
+						iconPosition="right"
 					/>
-					<Champ.Error/>
-				</Champ>
-				<Champ>
-					<Champ.Label>Nom
-						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-										 name="nom"
-										 required
-										 type="text"
-										 autoComplete="family-name"
-										 onChange={onInputChange}
-					/>
-					<Champ.Error/>
-				</Champ>
-				<Champ>
-					<Champ.Label>E-mail
-						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-										 name="email"
-										 required
-										 type="email"
-										 autoComplete="email"
-										 pattern={emailRegex}
-										 onChange={onInputChange}
-					/>
-					<Champ.Error/>
-				</Champ>
-				<Champ>
-					<Champ.Label>
-					Téléphone
-						<Champ.Label.Complement>
-						Exemples : 0601020304 ou +33601020304
-						</Champ.Label.Complement>
-					</Champ.Label>
-					<Champ.Input render={Input}
-										 name="telephone"
-										 required
-										 type="tel"
-										 autoComplete="tel"
-										 pattern={telFrRegex}
-										 onChange={onInputChange}
-					/>
-					{ /* TODO extraire pattern telephone dans utils */}
-					<Champ.Error/>
-				</Champ>
-				<ButtonComponent
-					className={styles.boutonSoumission}
-					label="Étape suivante"
-					type="button"
-					disabled={!isFormValid}
-					onClick={() => setEtape('ETAPE_2')}
-				/>
+				</div>
 			</form>
 		</Container>
 	</>;

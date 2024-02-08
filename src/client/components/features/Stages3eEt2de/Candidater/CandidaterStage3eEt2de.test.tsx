@@ -385,7 +385,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
 					expect(boutonEtapeSuivante).toBeVisible();
 				});
-				it('on peut passer à l’étape 2, une fois les champs remplis', () => {
+				it('on peut passer à l’étape 2, une fois les champs remplis', async () => {
 					// GIVEN
 					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
 						{
@@ -408,20 +408,19 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					expect(boutonEtapeSuivante).toBeDisabled();
 
 					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-					user.type(inputPrenom, 'Alexis');
+					await user.type(inputPrenom, 'Alexis');
 
 					const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-					user.type(inputNom, 'Dupont');
+					await user.type(inputNom, 'Dupont');
 
 					const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-					user.type(inputEmail, 'alexis.dupont@example.com');
+					await user.type(inputEmail, 'alexis.dupont@example.com');
 
 					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
-					user.type(inputTelephone, '0601020304');
-					user.tab();
+					await user.type(inputTelephone, '0601020304');
 
 					expect(boutonEtapeSuivante).not.toBeDisabled();
-					user.click(boutonEtapeSuivante);
+					await user.click(boutonEtapeSuivante);
 
 					const etapeCourante = screen.getByText('Étape 2 sur 2 : Objet de votre demande');
 					expect(etapeCourante).toBeVisible();
