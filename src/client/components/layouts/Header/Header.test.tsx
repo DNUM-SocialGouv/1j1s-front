@@ -367,7 +367,7 @@ describe('Header', () => {
 				await userEvent.click(screen.getByRole('button'));
 				const sectionEmployeur = screen.getByText('Je suis employeur');
 				await userEvent.click(sectionEmployeur);
-				const subItem = within(screen.getByRole('menu')).getByText('Recruter et agir pour les jeunes');
+				const subItem = screen.getByText('Recruter et agir pour les jeunes');
 				await userEvent.click(subItem);
 				// Then
 				expect(screen.queryByText('Je suis employeur')).not.toBeInTheDocument();

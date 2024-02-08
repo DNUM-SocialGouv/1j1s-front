@@ -45,6 +45,12 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 		}
 	}, [reset]);
 
+	const closeOptionsOnSpaceOutside = useCallback((event: KeyboardEvent) => {
+		if (!optionsRef.current?.contains(event.target as Node) && event.key === KeyBoard.SPACE) {
+			reset();
+		}
+	}, [reset]);
+
 	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
 		if (event.key === KeyBoard.ESCAPE) {
 			reset();
@@ -73,20 +79,22 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 	}
 
 	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mousedown', closeOptionsOnClickOutside);
+		document.addEventListener('mouseup', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeMenuOnEscape);
+		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
 
 		return () => {
-			document.removeEventListener('mousedown', closeOptionsOnClickOutside);
+			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
 			document.removeEventListener('keyup', closeMenuOnEscape);
+			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
 		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside]);
+	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = currentItem.children.map((item, index) => {
 		if (isNavigationItem(item)) {
 			return (
 				<NavItem className={styles.subNavItem}
-					key={index}
+					key={item.label}
 					label={item.label}
 					link={item.link}
 					isActive={router.pathname === item.link}
@@ -118,7 +126,7 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 				<Icon className={isExpanded ? styles.subNavItemIconExpanded : styles.subNavItemIcon} name="angle-down"/>
 			</button>
 			{isExpanded &&
-        <ul className={styles.subNavItemList} role="menu">
+        <ul className={styles.subNavItemList}>
         	{subNav}
         </ul>
 			}
