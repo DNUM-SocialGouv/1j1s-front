@@ -1,5 +1,3 @@
-// TODO (BRUJ 30/01/2024): rajouter les tests sur le mapper
-
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
 import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
