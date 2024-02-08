@@ -1,4 +1,4 @@
-import { getHtmlFromMd } from '~/client/components/ui/Markdown-it/getHtmlFromMd';
+import { getHtmlFromMd } from '~/client/components/ui/MarkdownToHtml/getHtmlFromMd';
 
 describe('getHtmlFromMd', () => {
 	it('transforme le markdown en HMTL', () => {

@@ -13,7 +13,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import styles from '~/client/components/ui/Card/Flipping/FlippingCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
-import MarkdownToHtml from '~/client/components/ui/Markdown-it/MarkdownToHtml';
+import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface FlippingCardProps {
