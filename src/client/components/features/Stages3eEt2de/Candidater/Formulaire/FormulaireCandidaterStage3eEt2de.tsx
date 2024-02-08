@@ -8,6 +8,7 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
+import { Erreur } from '~/server/errors/erreur.types';
 import {
 	CandidatureEnPersonneStage3eEt2de,
 	CandidatureTelephoneStage3eEt2de,
@@ -43,7 +44,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 	siret: string,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>,
 	onSuccess: () => void,
-	onFailure: () => void,
+	onFailure: (erreur: Erreur) => void,
 }) {
 	const {
 		modeDeContact,
@@ -77,7 +78,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
 		setIsLoading(false);
 		if (resultat.instance === 'success') onSuccess();
-		if (resultat.instance === 'failure') onFailure();
+		if (resultat.instance === 'failure') onFailure(resultat.errorType);
 	}
 
 	return <>

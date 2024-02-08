@@ -17,8 +17,12 @@ export function handleResponse<R>(résultats: Either<R>, res: NextApiResponse<R 
 					return res.status(400).json({ error: résultats.errorType });
 				case ErreurMetier.CONTENU_INDISPONIBLE:
 					return res.status(404).json({ error: résultats.errorType });
+				case ErreurMetier.CONFLIT_D_IDENTIFIANT:
+					return res.status(409).json({ error: résultats.errorType });
 				case ErreurTechnique.TOO_MANY_REQUESTS:
 					return res.status(429).json({ error: résultats.errorType });
+				default:
+					return res.status(500).json({ error: résultats.errorType });
 			}
 	}
 }
