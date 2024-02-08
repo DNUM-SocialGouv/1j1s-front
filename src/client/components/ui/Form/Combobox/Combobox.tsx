@@ -121,6 +121,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 
 	const triggerChangeEvent = useCallback(function triggerChangeEvents(newValue: string) {
 		if (inputRef.current) {
+			inputRef.current?.setCustomValidity('');
 			const changeEvent = new ChangeEvent<HTMLInputElement>(inputRef.current);
 			onChangeProps(changeEvent, newValue);
 			onInputProps(changeEvent, newValue);
@@ -128,7 +129,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	}, [inputRef, onChangeProps, onInputProps]);
 
 	const onOptionSelection = useCallback(function onOptionSelection(option: Element) {
-		inputRef.current?.setCustomValidity('');
 		dispatch(new Actions.SelectOption(option));
 		triggerChangeEvent(option.textContent ?? '');
 		inputRef.current?.focus();
