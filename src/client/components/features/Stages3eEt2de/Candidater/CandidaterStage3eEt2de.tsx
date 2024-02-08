@@ -10,7 +10,7 @@ import {
 	SuccesEnvoyerCandidatureStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/ResultatEnvoyerCandidature/SuccesEnvoyerCandidatureStage3eEt2de';
 import { Stage3eEt2deCandidaterPageProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
-import { Erreur } from '~/server/errors/erreur.types';
+import { Erreur, isErreur } from '~/server/errors/erreur.types';
 
 export type EtatSoumission = 'initial' | 'succes' | Erreur;
 
@@ -24,10 +24,6 @@ export default function CandidaterStage3eEt2de(props: Stage3eEt2deCandidaterPage
 
 	const [etatSoumission, setEtatSoumission] =
 		useState<EtatSoumission>('initial');
-
-	function isErreur(etatSoumission: EtatSoumission): etatSoumission is Erreur {
-		return etatSoumission !== 'initial' && etatSoumission !== 'succes';
-	}
 
 	return <>
 		{etatSoumission === 'initial' && <FormulaireCandidaterStage3eEt2de
