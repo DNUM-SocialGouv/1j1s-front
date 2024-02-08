@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.238.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.237.0...v3.238.0) (2024-02-08)
+
+
+### Features
+
+* **stage3e2de:** prendre en compte des candidature sur email existante ([#2663](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2663)) ([e90670e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e90670ef9a7fd80f2733e1d61b933655eba342a9))
+
+
+### Bug Fixes
+
+* **combobox:** Entrer sélectionne l'option ([#2670](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2670)) ([933c516](https://github.com/DNUM-SocialGouv/1j1s-front/commit/933c516a5e5d9d0dfa22ca58310055165f79c625))
+
 ## [3.237.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.236.0...v3.237.0) (2024-02-07)
 
 
