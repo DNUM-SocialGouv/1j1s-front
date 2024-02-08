@@ -140,7 +140,7 @@ function FormulaireContactParTelephone(props: {
 	return <>
 		<Container className={styles.formulaireContainer}>
 
-			<BackButton className={styles.boutonRetour}/>
+			<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
 
 			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 

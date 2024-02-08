@@ -176,7 +176,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						/>
 					</DependenciesProvider>,
 				);
-				const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
+				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
@@ -301,7 +301,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						/>
 					</DependenciesProvider>,
 				);
-				const boutonRetour = screen.getByRole('button', { name: 'Retour vers la page précédente' });
+				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
