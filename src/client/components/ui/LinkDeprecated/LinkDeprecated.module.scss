@@ -1,0 +1,7 @@
+@use "@styles/utilities-deprecated";
+
+.link {
+  & > svg {
+    vertical-align: middle;
+  }
+}

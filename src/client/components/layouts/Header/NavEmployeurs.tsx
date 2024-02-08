@@ -4,7 +4,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { useExitModal } from '~/client/hooks/useExitModal';
 
 import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from './NavigationStructure';
@@ -70,9 +70,9 @@ function listsFromChildren(path: string, item: NavigationItemWithChildren | Navi
 		return (
 			<li key={item.link} className={styles.navLeaf}>
 				<span aria-current={isActive} onClick={onItemChosen} className={styles.employeursLien}>
-					<Link href={item.link}>
+					<LinkDeprecated href={item.link}>
 						{item.label}
-					</Link>
+					</LinkDeprecated>
 				</span>
 			</li>
 		);

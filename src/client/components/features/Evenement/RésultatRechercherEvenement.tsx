@@ -5,7 +5,7 @@ import styles from '~/client/components/features/Evenement/RésultatRechercherEv
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { formatEventDateTime } from '~/client/utils/formatEventDateTime.util';
 
@@ -13,7 +13,7 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 	const { titreEvenement, organismeOrganisateur, dateDebut, dateFin, lieuEvenement, slug } = props.hit;
 
 	return (
-		<Link href={`evenements/${slug}`} className={'underline-none'}>
+		<LinkDeprecated href={`evenements/${slug}`} className={'underline-none'}>
 			<Card className={styles.resultatCard} layout={'vertical'}>
 				<Card.Content className={styles.content}>
 					<div className={styles.event}>
@@ -32,6 +32,6 @@ export function RésultatRechercherEvenement(props: HitProps<Evenement>) {
 					/>
 				</div>
 			</Card>
-		</Link>
+		</LinkDeprecated>
 	);
 }

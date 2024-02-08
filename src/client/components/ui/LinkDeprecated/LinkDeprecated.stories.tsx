@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Link } from './Link';
+import { LinkDeprecated } from './LinkDeprecated';
 
-const meta: Meta<typeof Link> = {
-	component: Link,
+const meta: Meta<typeof LinkDeprecated> = {
+	component: LinkDeprecated,
 	title: 'Components/Link',
 };
 export default meta;
 
-type Story = StoryObj<typeof Link>;
+type Story = StoryObj<typeof LinkDeprecated>;
 export const Example: Story = {
 	args: {
 		children: 'Cliquez ici ',

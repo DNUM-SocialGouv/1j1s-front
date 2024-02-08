@@ -1,6 +1,6 @@
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 export function ModaleDispositifsReferences(props: { open: boolean, close: () => void }) {
@@ -14,30 +14,30 @@ export function ModaleDispositifsReferences(props: { open: boolean, close: () =>
 					1jeune1solution</h1>
 				<ul className={styles.accompagnementDispositifsPosition}>
 					<li>
-						<Link href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
+						<LinkDeprecated href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
 							<Icon name="brief-case" className={styles.accompagnementDispositifsPositionIconOffre}/>
 							<p>Découvrez nos offres</p>
-						</Link>
+						</LinkDeprecated>
 					</li>
 					<li>
-						<Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
+						<LinkDeprecated href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
 							<Icon name={'book'} className={styles.accompagnementDispositifsPositionIconFormation}/>
 							<p>Formation et orientation</p>
-						</Link>
+						</LinkDeprecated>
 					</li>
 					<li>
-						<Link
+						<LinkDeprecated
 							href={'/#aides-orientation-accompagnement'}
 							className={styles.accompagnementDispositifsPositionIcon}>
 							<Icon name={'compass'} className={styles.accompagnementDispositifsPositionIconAide}/>
 							<p>Aides et accompagnement</p>
-						</Link>
+						</LinkDeprecated>
 					</li>
 					<li>
-						<Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
+						<LinkDeprecated href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
 							<Icon name="trophy" className={styles.accompagnementDispositifsPositionIconBenevolat}/>
 							<p>Engagement</p>
-						</Link>
+						</LinkDeprecated>
 					</li>
 				</ul>
 			</div>

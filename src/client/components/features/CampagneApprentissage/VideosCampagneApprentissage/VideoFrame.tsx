@@ -6,7 +6,7 @@ import styles
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideoFrame.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { VideoService } from '~/client/services/video/video.service';
@@ -68,7 +68,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 				<div className={styles.placeholderContainer}>
 					<div className={styles.placeholderContent}>
 						<p>
-                            Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms">
+                            Cette vidéo est hébergée par <LinkDeprecated href="https://www.youtube.com/t/terms">
 								<TextIcon
 									icon="external-redirection"
 									iconPosition="right"
@@ -76,7 +76,7 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 								>
 									youtube.com
 								</TextIcon>
-							</Link>
+							</LinkDeprecated>
 						</p>
 						<p>
                             En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés

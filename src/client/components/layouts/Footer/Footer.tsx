@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 interface FooterLink {
@@ -59,36 +59,36 @@ export default function Footer() {
 							<Image src="/images/logos/france-relance.svg" alt="Logo France relance" width={65} height={65} />
 						</div>
 					</div>
-					<Link href="/faq" className={styles.footerFaq}>
+					<LinkDeprecated href="/faq" className={styles.footerFaq}>
 						<div>Besoin d’aide ?</div>
 						<div>Accéder à la FAQ de 1jeune1solution</div>
-					</Link>
+					</LinkDeprecated>
 					<div className={styles.footerMessageWrapper}>
 						<ul aria-label="Liens externes" className={styles.footerLienExterne}>
 							{linkList.map((link) => (
 								<li key={link.title}>
-									<Link href={link.url} className={styles.footerLienExterneItem} prefetch={false}>
+									<LinkDeprecated href={link.url} className={styles.footerLienExterneItem} prefetch={false}>
 										<TextIcon icon="external-redirection">{link.title}</TextIcon>
-									</Link>
+									</LinkDeprecated>
 								</li>))}
 						</ul>
 					</div>
 				</div>
 				<ul aria-label="Liens utiles" className={styles.footerLienUtile}>
-					<li><Link href="/plan-du-site" className={styles.footerLienUtileItem} prefetch={false}>Plan du site</Link></li>
-					<li><Link href="/cgu" className={styles.footerLienUtileItem} prefetch={false}>Conditions générales d‘utilisations</Link></li>
-					<li><Link href="/accessibilite" className={styles.footerLienUtileItem} prefetch={false}>Accessibilité : Partiellement conforme</Link></li>
-					<li><Link href="/mentions-legales" className={styles.footerLienUtileItem} prefetch={false}>Mentions légales</Link></li>
-					<li><Link href="/confidentialite" className={styles.footerLienUtileItem} prefetch={false}>Politique de confidentialité</Link></li>
+					<li><LinkDeprecated href="/plan-du-site" className={styles.footerLienUtileItem} prefetch={false}>Plan du site</LinkDeprecated></li>
+					<li><LinkDeprecated href="/cgu" className={styles.footerLienUtileItem} prefetch={false}>Conditions générales d‘utilisations</LinkDeprecated></li>
+					<li><LinkDeprecated href="/accessibilite" className={styles.footerLienUtileItem} prefetch={false}>Accessibilité : Partiellement conforme</LinkDeprecated></li>
+					<li><LinkDeprecated href="/mentions-legales" className={styles.footerLienUtileItem} prefetch={false}>Mentions légales</LinkDeprecated></li>
+					<li><LinkDeprecated href="/confidentialite" className={styles.footerLienUtileItem} prefetch={false}>Politique de confidentialité</LinkDeprecated></li>
 				</ul>
 				<p className={styles.footerCopyRight}>
           Sauf mention contraire, tous les contenus de ce site sont sous licence&nbsp;
-					<Link
+					<LinkDeprecated
 						className={styles.linkEtalab}
 						href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
 					>
 						<TextIcon icon="external-redirection">etalab-2.0</TextIcon>
-					</Link>
+					</LinkDeprecated>
 				</p>
 			</Container>
 		</footer>

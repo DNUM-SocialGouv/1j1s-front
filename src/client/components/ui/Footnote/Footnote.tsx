@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 
 import styles from './Footnote.module.scss';
 
@@ -19,7 +19,7 @@ const FootnoteComponent = forwardRef<HTMLParagraphElement, FootnoteProps>(functi
 }, ref) {
 	return (
 		<p {...pProps} className={classNames(className, styles.footnote)} ref={ref}>
-			<abbr title="note de pied de page">*</abbr> {children} <Link href={`#${htmlFor}`} title="Retour à la référence" className={styles.backlink}><Icon name="arrow-up" /></Link>
+			<abbr title="note de pied de page">*</abbr> {children} <LinkDeprecated href={`#${htmlFor}`} title="Retour à la référence" className={styles.backlink}><Icon name="arrow-up" /></LinkDeprecated>
 		</p>
 	);
 });

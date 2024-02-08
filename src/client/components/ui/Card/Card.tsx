@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { ButtonComponent, ButtonComponentProps } from '~/client/components/ui/Button/ButtonComponent';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 
 import styles from './Card.module.scss';
 
@@ -73,9 +73,9 @@ interface CardLinkProps {
 	label?: string
 }
 
-function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof Link>) {
+function CardLink(props: CardLinkProps & React.ComponentPropsWithoutRef<typeof LinkDeprecated>) {
 	const { className, href, label, ...rest } = props;
-	return <Link className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</Link>;
+	return <LinkDeprecated className={classNames(className, styles.cardLink)} href={href} {...rest}>{label}</LinkDeprecated>;
 }
 
 interface CardImageProps {
