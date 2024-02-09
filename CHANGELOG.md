@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.239.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.238.0...v3.239.0) (2024-02-09)
+
+
+### Features
+
+* **marked:** remplacer Marked par Markdown-it ([#2667](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2667)) ([e333856](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e333856a4d210c0ed65643b1a07e1aa5411d60d8))
+
 ## [3.238.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.237.0...v3.238.0) (2024-02-08)
 
 
