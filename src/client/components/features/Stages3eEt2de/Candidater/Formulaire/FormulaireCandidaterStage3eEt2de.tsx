@@ -74,7 +74,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	const isMoreThanOneMetier = metiersStage3eEt2de.length > 1 && metiersStage3eEt2de.length !== 0;
+	const isMoreThanOneMetier = metiersStage3eEt2de.length > 1;
 
 	async function envoyerCandidature(event: FormEvent<HTMLFormElement>) {
 		setIsLoading(true);
@@ -111,19 +111,16 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isMoreThanOneMetier={isMoreThanOneMetier}
 			isLoading={isLoading}/>}
 		{modeDeContact === ModeDeContact.IN_PERSON && <FormulaireContactEnPersonne
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isMoreThanOneMetier={isMoreThanOneMetier}
 			isLoading={isLoading}/>}
 		{modeDeContact === ModeDeContact.EMAIL && <FormulaireContactParEmail
 			nomEntreprise={nomEntreprise}
 			envoyerCandidature={envoyerCandidature}
 			metiersStage3eEt2de={metiersStage3eEt2de}
-			isMoreThanOneMetier={isMoreThanOneMetier}
 			isLoading={isLoading}/>}
 	</>;
 }
@@ -133,10 +130,11 @@ const FormulaireContactEnPersonne = FormulaireContactParTelephone;
 function FormulaireContactParTelephone(props: {
 	nomEntreprise: string,
 	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
-	isMoreThanOneMetier: boolean,
 	isLoading: boolean,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>
 }) {
+	const isMoreThanOneMetier = props.metiersStage3eEt2de.length > 1;
+
 	return <>
 		<Container className={styles.formulaireContainer}>
 
@@ -186,7 +184,7 @@ function FormulaireContactParTelephone(props: {
 					<Champ.Error/>
 				</Champ>
 				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
-				{props.isMoreThanOneMetier ?
+				{isMoreThanOneMetier ?
 					<Select
 						optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
 						label="Métier sur lequel porte la demande d’immersion"
@@ -226,16 +224,19 @@ function FormulaireContactParTelephone(props: {
 function FormulaireContactParEmail(props: {
 	nomEntreprise: string,
 	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
-	isMoreThanOneMetier: boolean,
 	isLoading: boolean,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>
 }) {
 	const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
 
-	const [isFormValid, setIsFormValid] = useState<boolean>(false);
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const onInputChange = () => setIsFormValid(formRef.current?.checkValidity() || false);
+	const passerALEtape2 = () => {
+		const isFormValid = formRef.current?.checkValidity();
+		if (isFormValid) {
+			setEtape('ETAPE_2');
+		}
+	};
 
 	return <>
 		<Container className={styles.formulaireContainer}>
@@ -259,7 +260,6 @@ function FormulaireContactParEmail(props: {
 												 required
 												 type="text"
 												 autoComplete="given-name"
-												 onChange={onInputChange}
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -272,7 +272,6 @@ function FormulaireContactParEmail(props: {
 												 required
 												 type="text"
 												 autoComplete="family-name"
-												 onChange={onInputChange}
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -286,7 +285,6 @@ function FormulaireContactParEmail(props: {
 												 type="email"
 												 autoComplete="email"
 												 pattern={emailRegex}
-												 onChange={onInputChange}
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -303,7 +301,6 @@ function FormulaireContactParEmail(props: {
 												 type="tel"
 												 autoComplete="tel"
 												 pattern={telFrRegex}
-												 onChange={onInputChange}
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -311,8 +308,7 @@ function FormulaireContactParEmail(props: {
 						className={styles.boutonEtapeSuivante}
 						label="Étape suivante"
 						type="button"
-						disabled={!isFormValid}
-						onClick={() => setEtape('ETAPE_2')}
+						onClick={passerALEtape2}
 						icon={<Icon name={'angle-right'}/>}
 						iconPosition="right"
 					/>

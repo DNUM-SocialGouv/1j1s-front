@@ -405,7 +405,9 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 					// THEN
 					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
-					expect(boutonEtapeSuivante).toBeDisabled();
+					user.click(boutonEtapeSuivante);
+					let etapeCourante = screen.getByText('Étape 1 sur 2 : Informations personnelles');
+					expect(etapeCourante).toBeVisible();
 
 					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
 					await user.type(inputPrenom, 'Alexis');
@@ -419,10 +421,9 @@ describe('Candidater à un stage de 3e et 2de', () => {
 					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
 					await user.type(inputTelephone, '0601020304');
 
-					expect(boutonEtapeSuivante).not.toBeDisabled();
 					await user.click(boutonEtapeSuivante);
 
-					const etapeCourante = screen.getByText('Étape 2 sur 2 : Objet de votre demande');
+					etapeCourante = screen.getByText('Étape 2 sur 2 : Objet de votre demande');
 					expect(etapeCourante).toBeVisible();
 				});
 			});
