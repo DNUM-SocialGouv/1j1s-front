@@ -38,11 +38,12 @@
   }
 
   & .linkToYoutubeTerms {
-    text-decoration: underline;
+    margin-left: 0.25em;
     @extend %bold;
   }
 
   p {
+    display: flex;
     @include utilities.text-small;
     @include utilities-deprecated.media(small) {
       font-size: 1rem;

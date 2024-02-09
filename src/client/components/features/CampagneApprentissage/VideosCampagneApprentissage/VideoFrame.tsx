@@ -6,8 +6,7 @@ import styles
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideoFrame.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { VideoService } from '~/client/services/video/video.service';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
@@ -68,19 +67,14 @@ export function VideoFrame({ videoToDisplay, className }: VideoFrameProps) {
 				<div className={styles.placeholderContainer}>
 					<div className={styles.placeholderContent}>
 						<p>
-                            Cette vidéo est hébergée par <LinkDeprecated href="https://www.youtube.com/t/terms">
-								<TextIcon
-									icon="external-redirection"
-									iconPosition="right"
-									className={styles.linkToYoutubeTerms}
-								>
-									youtube.com
-								</TextIcon>
-							</LinkDeprecated>
+							Cette vidéo est hébergée par <Link href="https://www.youtube.com/t/terms" className={styles.linkToYoutubeTerms}>
+							youtube.com
+								<Link.Icon/>
+							</Link>
 						</p>
 						<p>
-                            En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés
-                            par ce site.
+							En l’affichant, vous acceptez ses conditions d’utilisation et les potentiels cookies déposés
+							par ce site.
 						</p>
 						<ButtonComponent
 							label={'Accepter les cookies'}
