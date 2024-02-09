@@ -124,7 +124,9 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const routingService = new RoutingService(createInstantSearchRouterNext({ singletonRouter }));
+	const routingService = new RoutingService(createInstantSearchRouterNext({ routerOptions: {
+		cleanUrlOnDispose: false,
+	}, singletonRouter }));
 
 	return {
 		analyticsService,
