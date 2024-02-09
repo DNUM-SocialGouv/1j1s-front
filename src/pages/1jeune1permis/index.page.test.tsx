@@ -17,7 +17,7 @@ import UnJeuneUnPermis, { getStaticProps } from './index.page';
 jest.mock('next/head', () => HeadMock);
 
 describe('1jeune1permis', () => {
-	const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr';
+	const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.francetravail.fr';
 
 	beforeEach(() => {
 		mockSmallScreen();
@@ -100,7 +100,7 @@ describe('1jeune1permis', () => {
 		expect(document.title).toContain('1jeune1permis');
 	});
 
-	it('affiche l\'iframe 1jeune1permis issue du site mes aides de Pôle emploi', () => {
+	it('affiche l\'iframe 1jeune1permis issue du site mes aides de France Travail', () => {
 		// When
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
@@ -110,7 +110,7 @@ describe('1jeune1permis', () => {
 		// Then
 		const iframe = screen.getByTitle('Informations sur le dispositif 1 jeune 1 permis');
 		expect(iframe).toBeVisible();
-		expect(iframe).toHaveAttribute('src', 'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis');
+		expect(iframe).toHaveAttribute('src', 'https://mes-aides.francetravail.fr/export/1-jeune-1-permis');
 	});
 	
 	
