@@ -33,7 +33,7 @@ export const ListeDesResultats = React.forwardRef<HTMLElement | null, ListeDesRe
 						{resultats}
 						{pagination}
 						<Footnote htmlFor="partenaires-reference" id="partenaires" className={styles.footnote}>
-							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
+							les annonces listées ci-dessus nous sont fournies par nos partenaires (<a href="/cgu#3.-services">liste disponible dans les <abbr title="Conditions Générales d'Utilisation">CGU</abbr></a>)
 						</Footnote>
 					</>
 				</Skeleton>

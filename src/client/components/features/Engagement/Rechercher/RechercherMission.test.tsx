@@ -300,7 +300,7 @@ describe('RechercherMission', () => {
 			// THEN
 			const footnote = await screen.findByText(/les annonces listées ci-dessus nous sont fournies par nos partenaires/);
 			const redirectionVersCGU = within(footnote).getByRole('link', { name: /liste disponible dans les CGU/i });
-			expect(redirectionVersCGU).toHaveAttribute('href', '/cgu#3-services');
+			expect(redirectionVersCGU).toHaveAttribute('href', '/cgu#3.-services');
 		});
 		it('la note de pied de page permet de revenir sur la bonne référence', async () => {
 			// GIVEN

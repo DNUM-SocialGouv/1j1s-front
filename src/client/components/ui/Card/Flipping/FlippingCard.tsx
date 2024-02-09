@@ -13,7 +13,7 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import styles from '~/client/components/ui/Card/Flipping/FlippingCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
-import Marked from '~/client/components/ui/Marked/Marked';
+import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 interface FlippingCardProps {
@@ -111,7 +111,7 @@ export function FlippingCard(props: FlippingCardProps) {
 						<Icon name="angle-left" aria-hidden="true"/>
 					</button>
 					<div className={styles.cardFlipBackTitle}>Pour qui ?</div>
-					<div className={styles.cardFlipBackContent}><Marked markdown={flippingCardContent}/></div>
+					<div className={styles.cardFlipBackContent}><MarkdownToHtml markdown={flippingCardContent}/></div>
 				</div>)
 			}
 		</div>
