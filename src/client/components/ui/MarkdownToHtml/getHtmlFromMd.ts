@@ -3,6 +3,7 @@ import markdownItAnchor from 'markdown-it-anchor';
 
 export function getHtmlFromMd(markdown: string): string {
 	const md = markdownit({
+		html: true,
 		linkify: true,
 	});
 	md.use(markdownItAnchor, { tabIndex: false });

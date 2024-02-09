@@ -24,4 +24,10 @@ describe('getHtmlFromMd', () => {
 		const result = getHtmlFromMd(markdown);
 		expect(result).toBe('<h1 id="1.-avantages-du-travail">1. Avantages du travail</h1>\n');
 	});
+
+	it('accepte le html', () => {
+		const markdown = '# 1. Avantages du travail\n <p>je suis le paragraphe</p>';
+		const result = getHtmlFromMd(markdown);
+		expect(result).toBe('<h1 id="1.-avantages-du-travail">1. Avantages du travail</h1>\n <p>je suis le paragraphe</p>');
+	});
 });
