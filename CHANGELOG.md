@@ -1,5 +1,119 @@
 # Changelog
 
+## [3.239.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.238.0...v3.239.0) (2024-02-09)
+
+
+### Features
+
+* **marked:** remplacer Marked par Markdown-it ([#2667](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2667)) ([e333856](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e333856a4d210c0ed65643b1a07e1aa5411d60d8))
+
+## [3.238.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.237.0...v3.238.0) (2024-02-08)
+
+
+### Features
+
+* **stage3e2de:** prendre en compte des candidature sur email existante ([#2663](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2663)) ([e90670e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e90670ef9a7fd80f2733e1d61b933655eba342a9))
+
+
+### Bug Fixes
+
+* **combobox:** Entrer sélectionne l'option ([#2670](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2670)) ([933c516](https://github.com/DNUM-SocialGouv/1j1s-front/commit/933c516a5e5d9d0dfa22ca58310055165f79c625))
+
+## [3.237.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.236.0...v3.237.0) (2024-02-07)
+
+
+### Features
+
+* **alternance:** sauvegarde tab v2 ([#2659](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2659)) ([294217a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/294217a8673abd2a687e364ca7ed211e74ae0005))
+
+## [3.236.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.235.1...v3.236.0) (2024-02-07)
+
+
+### Features
+
+* **transverse:** utilisation du composant générique d'erreur ([#2652](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2652)) ([3b91e61](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3b91e6198667912a72717505222248c846045266))
+
+## [3.235.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.235.0...v3.235.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.100.0 ([#2656](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2656)) ([c5cc5e1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c5cc5e1e56a3e86cf5bc70b682a148a49ef3ef10))
+
+## [3.235.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.234.0...v3.235.0) (2024-02-07)
+
+
+### Features
+
+* **stage3e2de:** prendre en compte la partie api dans les formulaires de contact ([#2654](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2654)) ([1e21e4a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e21e4aeef17f5d38df30cb82e84365171f8970a))
+
+## [3.234.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.233.0...v3.234.0) (2024-02-07)
+
+
+### Features
+
+* **alternance:** passage recherche en ssr ([#2621](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2621)) ([6d41b12](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6d41b124816502a1de2e7fd41d12e1168a23c0a1))
+
+## [3.233.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.232.0...v3.233.0) (2024-02-06)
+
+
+### Features
+
+* **emplois-europe:** gestion des localisations multiples ([#2642](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2642)) ([7c88602](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c88602de8701c8b71e95a640e9ad15477895807))
+
+## [3.232.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.231.0...v3.232.0) (2024-02-06)
+
+
+### Features
+
+* **stage3e2de:** modifier le cta de candidature en fonction du type de candidature et suppression du tag correspondant ([#2655](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2655)) ([fd4baef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd4baefc272a3aab68eb0209f2995a10e9518ae2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency marked to v12 ([#2640](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2640)) ([a19e39b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a19e39bd546debe43b58ba9f94fae96de186ee75))
+
+## [3.231.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.4...v3.231.0) (2024-02-06)
+
+
+### Features
+
+* **lee:** ajout d'un combobox synchrone secteur d'activite ([#2594](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2594)) ([d9c9854](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d9c985495a22179b5ddb1f47ca77576cd6adfc02))
+
+
+### Bug Fixes
+
+* **logement-rgaa:** card annonces recherche logements ordre des informations presentees ko quand css desactivee criteres 10 3 rgaa  ([#2644](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2644)) ([7c04dd1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7c04dd1c55822da9f3650cdb11034a09ce22b085))
+
+## [3.230.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.3...v3.230.4) (2024-02-06)
+
+
+### Bug Fixes
+
+* **stage3e2de:** ajoute la distance depuis les query params ([#2646](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2646)) ([db8a8ec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db8a8eceb319177612b5c47e382a059f0b13b3e1))
+
+## [3.230.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.2...v3.230.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* **deps:** dependencies marked gfm heading id et marked mangle et redis ([#2647](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2647)) ([04c8ef6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/04c8ef696d5236b9283c0b23bb427f88a2d1c4a8))
+
+## [3.230.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.1...v3.230.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino to v8.18.0 ([#2631](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2631)) ([011cfb7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/011cfb728b0038fb0022997cde096d0192e0fbe6))
+* **tarteaucitron:** non fonctionnel sur safari ([#2629](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2629)) ([ae66981](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ae6698128546a29170d0f83f74bd05f13546cea1))
+
+## [3.230.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.230.0...v3.230.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* fix la pagination meilisearch ([#2633](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2633)) ([456e45a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/456e45aee545d4998e64821ea70ba893bb3626f5))
+
 ## [3.230.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.229.2...v3.230.0) (2024-02-02)
 
 

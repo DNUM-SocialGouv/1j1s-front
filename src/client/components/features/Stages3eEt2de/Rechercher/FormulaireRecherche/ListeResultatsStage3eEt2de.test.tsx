@@ -135,18 +135,24 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 		it('un lien pour candidater', () => {
 			// GIVEN
 			const resultatRecherche = aResultatRechercheStage3eEt2de({
-				nombreDeResultats: 2,
+				nombreDeResultats: 3,
 				resultats: [
 					aStage3eEt2de({
-						appellationCodes: ['1234', '5678'],
+						appellationCodes: ['1234', '5679'],
 						modeDeContact: ModeDeContact.IN_PERSON,
 						nomEntreprise: 'Entreprise 1',
-						siret: '12345678912345',
+						siret: '12345678912999',
 					}),
 					aStage3eEt2de({
 						appellationCodes: ['1236', '5679'],
 						modeDeContact: ModeDeContact.EMAIL,
 						nomEntreprise: 'Entreprise 2',
+						siret: '12345678912346',
+					}),
+					aStage3eEt2de({
+						appellationCodes: ['1235', '5679'],
+						modeDeContact: ModeDeContact.PHONE,
+						nomEntreprise: 'Entreprise 3',
 						siret: '12345678912346',
 					}),
 				],
@@ -156,11 +162,12 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
 
 			// THEN
-			const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-			const lienCandidature = within(resultatsUl).getAllByRole('link', { name: 'Candidater' });
-			expect(lienCandidature).toHaveLength(resultatRecherche.nombreDeResultats);
-			expect(lienCandidature[0]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1234%2C5678&modeDeContact=IN_PERSON&nomEntreprise=Entreprise+1&siret=12345678912345');
-			expect(lienCandidature[1]).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1236%2C5679&modeDeContact=EMAIL&nomEntreprise=Entreprise+2&siret=12345678912346');
+			const lienCandidatureEnPersonne = screen.getByRole('link', { name: 'Candidater en personne' });
+			const lienCandidatureEmail = screen.getByRole('link', { name: 'Candidater par email' });
+			const lienCandidatureTelephone = screen.getByRole('link', { name: 'Candidater par téléphone' });
+			expect(lienCandidatureEnPersonne).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1234%2C5679&modeDeContact=IN_PERSON&nomEntreprise=Entreprise+1&siret=12345678912999');
+			expect(lienCandidatureEmail).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1236%2C5679&modeDeContact=EMAIL&nomEntreprise=Entreprise+2&siret=12345678912346');
+			expect(lienCandidatureTelephone).toHaveAttribute('href', '/stages-3e-et-2de/candidater?appellationCodes=1235%2C5679&modeDeContact=PHONE&nomEntreprise=Entreprise+3&siret=12345678912346');
 		});
 
 		describe('lorsque le mode de contact est inconnu', () => {
@@ -169,9 +176,6 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 				const resultatRecherche = aResultatRechercheStage3eEt2de({
 					nombreDeResultats: 1,
 					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.IN_PERSON,
-						}),
 						aStage3eEt2de({
 							modeDeContact: undefined,
 						}),
@@ -183,8 +187,8 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 
 				// THEN
 				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const lienCandidature = within(resultatsUl).queryAllByRole('link', { name: 'Candidater' });
-				expect(lienCandidature).toHaveLength(1);
+				const lienCandidature = within(resultatsUl).queryByRole('link', { name: /Candidater/ });
+				expect(lienCandidature).not.toBeInTheDocument();
 			});
 		});
 	});
@@ -208,93 +212,6 @@ describe('<ListeResultatsStage3eEt2de />', () => {
 			const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
 			const tagNombreDeSalariés = within(tagsList).getByText('42 salariés');
 			expect(tagNombreDeSalariés).toBeVisible();
-		});
-
-		describe('ajoute un tag correspondant au mode de contact', () => {
-			it('si la candidature se fait en personne ajoute "Candidature en personne"', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.IN_PERSON,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature en personne');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si la candidature se fait par e-mail ajoute "Candidature par e-mail', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.EMAIL,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature par e-mail');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si la candidature se fait par téléphone ajoute "Candidature par téléphone"', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: ModeDeContact.PHONE,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsList = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContact = within(tagsList).getByText('Candidature par téléphone');
-				expect(tagModeDeContact).toBeVisible();
-			});
-			it('si l’information n’est pas connue n’ajoute pas de tag', () => {
-				// GIVEN
-				const resultatRecherche = aResultatRechercheStage3eEt2de({
-					nombreDeResultats: 1,
-					resultats: [
-						aStage3eEt2de({
-							modeDeContact: undefined,
-						}),
-					],
-				});
-
-				// WHEN
-				render(<ListeResultatsStage3eEt2de resultatList={resultatRecherche} />);
-
-				// THEN
-				const resultatsUl = screen.getByRole('list', { name: 'Stages de 3e et 2de' });
-				const tagsUl = within(resultatsUl).getByRole('list', { name: 'Caractéristiques de l‘offre' });
-				const tagModeDeContactTel = within(tagsUl).queryByText('Candidature par téléphone');
-				const tagModeDeContactEmail = within(tagsUl).queryByText('Candidature par e-mail');
-				const tagModeDeContactEnPersonne = within(tagsUl).queryByText('Candidature en personne');
-				expect(tagModeDeContactTel).not.toBeInTheDocument();
-				expect(tagModeDeContactEmail).not.toBeInTheDocument();
-				expect(tagModeDeContactEnPersonne).not.toBeInTheDocument();
-			});
 		});
 
 		it('ajoute un tag correspond si l’offre est accessible aux personnes en situation de handicap', () => {

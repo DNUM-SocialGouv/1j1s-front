@@ -5,11 +5,10 @@ import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngag
 import { Head } from '~/client/components/head/Head';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { Combobox } from '~/client/components/ui/Form/Combobox';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import InputAutocomplétionSecteurActivité, {
-	SecteurActivité,
-} from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionSecteurActivité';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
@@ -22,10 +21,12 @@ import {
 import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import {
-	EntrepriseSouhaitantSEngager,
-	SecteurDActivité,
+	EntrepriseSouhaitantSEngager, SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 	TailleDEntreprise,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import {
+	secteurActiviteRejoindreLaMobilisation,
+} from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
 
@@ -38,8 +39,12 @@ export const TITLE_ÉTAPE_1 = 'Les entreprises s‘engagent - Rejoignez la mobil
 export const TITLE_ÉTAPE_2 = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Étape 2 sur 2 | 1jeune1solution';
 export const TITLE_VALIDÉE = 'Les entreprises s‘engagent - Rejoignez la mobilisation ! - Formulaire envoyé | 1jeune1solution';
 
+const MESSAGE_PAS_DE_RESULTAT_SECTEUR_ACTIVITE
+	= 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un secteur d‘activité. Exemples : Administration publique, …';
+
 const taillesEntreprises = Object.entries(TailleDEntreprise).map(([valeur, libellé]) => ({ libellé, valeur }));
 
+type SecteurActivite = { libellé: string, valeur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM }
 export default function LesEntreprisesSEngagentInscription() {
 	useAnalytics(analytics);
 	const lesEntreprisesSEngagentService = useDependency<LesEntreprisesSEngagentService>('lesEntreprisesSEngagentService');
@@ -47,10 +52,24 @@ export default function LesEntreprisesSEngagentInscription() {
 	const [étape, setÉtape] = useState<Etape>(Etape.ETAPE_1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [isFormSuccessfullySent, setIsFormSuccessfullySent] = useState<boolean>(false);
-	const [secteurActiviteChoisie, setSecteurActiviteChoisie] = useState<SecteurActivité>();
 	const [isErreurModalOpen, setIsErreurModalOpen] = useState(false);
 
+	function sortWithAutreAtTheEnd(secteurActiviteA: SecteurActivite, secteurActiviteB: SecteurActivite) {
+		function isOtherOrOtherServicies(secteurValeur: string) {
+			return secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES || secteurValeur === SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER;
+		}
+
+		if (isOtherOrOtherServicies(secteurActiviteA.valeur)) {
+			return 1;
+		} else if (isOtherOrOtherServicies(secteurActiviteB.valeur)) {
+			return -1;
+		}
+		return secteurActiviteA.libellé.localeCompare(secteurActiviteB.libellé);
+	}
+
+
 	const formStep1Ref = useRef<HTMLFormElement>(null);
+	const secteurActiviteOrdreAlphabetique = secteurActiviteRejoindreLaMobilisation.sort(sortWithAutreAtTheEnd);
 	const formStep2Ref = useRef<HTMLFormElement>(null);
 
 	const isPremièreÉtape = useMemo(() => étape === Etape.ETAPE_1, [étape]);
@@ -78,14 +97,14 @@ export default function LesEntreprisesSEngagentInscription() {
 			nom: String(formStep2Data.get('lastName')),
 			nomSociété: String(formStep1Data.get('companyName')),
 			prénom: String(formStep2Data.get('firstName')),
-			secteur: secteurActiviteChoisie!.valeur as (keyof typeof SecteurDActivité), // FIXME (SULI 08-12-2023): à homogénéiser quand InputAutocomplétionSecteurActivité sera reworked
+			secteur: String(formStep1Data.get('companySector')) as SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 			siret: String(formStep1Data.get('companySiret')),
 			taille: String(formStep1Data.get('companySize')) as (keyof typeof TailleDEntreprise),
 			travail: String(formStep2Data.get('job')),
 			téléphone: String(formStep2Data.get('phone')),
 			ville: String(formStep1Data.get('ville')),
 		};
-	}, [secteurActiviteChoisie]);
+	}, []);
 
 	const submitFormulaire = useCallback(async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -134,38 +153,62 @@ export default function LesEntreprisesSEngagentInscription() {
 								className={styles.boutonRetour}>
 								Retour
 							</LinkStyledAsButtonWithIcon>
-							<form className={styles.formulaire} ref={formStep1Ref} onSubmit={goToStep2}
-								aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}>
+							<form
+								className={styles.formulaire}
+								ref={formStep1Ref}
+								onSubmit={goToStep2}
+								aria-label={'Formulaire Les entreprise s’engagent - Étape 1'}
+							>
 								<div className={styles.bodyFormulaire}>
-									<InputText
-										label="Nom de l’entreprise"
-										name="companyName"
-										placeholder="Exemples : Crédit Agricole, SNCF…"
-										required
-									/>
+									<Champ>
+										<Champ.Label>
+											Nom de l’entreprise
+											<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'companyName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
 									<ComboboxCommune
 										required
 										label="Ville du siège social de l’entreprise"
 										name="companyCommuneLibelle"
 									/>
-									<InputText
-										label="Numéro de SIRET"
-										name="companySiret"
-										placeholder="Exemple : 12345678901112"
-										required
-										pattern={'^[0-9]{14}$'}
-									/>
-									<InputAutocomplétionSecteurActivité
-										required
-										id="autocomplete-secteur-activité"
-										label="Secteur d’activité de l’entreprise"
-										name="companySector"
-										placeholder="Exemples : Administration publique, Fonction publique d’Etat …"
-										valeurInitiale={secteurActiviteChoisie}
-										onSuggestionSelected={(event, suggestion) => {
-											setSecteurActiviteChoisie(suggestion);
-										}}
-									/>
+									<Champ>
+										<Champ.Label>
+											Numéro de SIRET
+											<Champ.Label.Complement>Exemple : 12345678901112</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											pattern={'^[0-9]{14}$'}
+											name={'companySiret'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+									<Champ>
+										<Champ.Label>
+											Secteur d’activité de l’entreprise
+											<Champ.Label.Complement>Exemples : Administration publique, Fonction publique d’Etat
+												…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Combobox}
+											aria-label={'Secteur d’activité de l’entreprise'}
+											valueName={'companySector'}
+											required
+											requireValidOption
+											autoComplete="off">
+											{secteurActiviteOrdreAlphabetique.map((secteurActivite) => (
+												<Combobox.Option key={secteurActivite.valeur} value={secteurActivite.valeur}>
+													{secteurActivite.libellé}
+												</Combobox.Option>))}
+											<Combobox.SyncMessagePasDeResultat>{MESSAGE_PAS_DE_RESULTAT_SECTEUR_ACTIVITE}</Combobox.SyncMessagePasDeResultat>
+										</Champ.Input>
+										<Champ.Error/>
+									</Champ>
 									<Select
 										required
 										label="Taille de l’entreprise"
@@ -193,44 +236,83 @@ export default function LesEntreprisesSEngagentInscription() {
 								icon={<Icon name="angle-left"/>}
 								iconPosition="left"
 								onClick={returnToStep1}
-								label="Retour"/>
+								label="Retour"
+							/>
 							<form className={styles.formulaire} ref={formStep2Ref} onSubmit={submitFormulaire}>
 								<div className={styles.bodyFormulaire}>
-									<InputText
-										label="Prénom"
-										name="firstName"
-										placeholder="Exemples : Marc, Sonia…"
-										required
-									/>
-									<InputText
-										label="Nom"
-										name="lastName"
-										placeholder="Exemples : Ducourt, Dupont…"
-										required
-									/>
-									<InputText
-										label="Fonction au sein de l’entreprise"
-										name="job"
-										placeholder="Exemples : RH, Chargé de communications"
-										required
-									/>
-									<InputText
-										label="Adresse e-mail de contact"
-										pattern={emailRegex}
-										name="email"
-										type="email"
-										placeholder="Exemple : mail@exemple.com"
-										hint="Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les informations suivies."
-										required
-									/>
-									<InputText
-										label="Numéro de téléphone de contact"
-										name="phone"
-										placeholder="Exemple : 0199999999"
-										pattern="^(\+33|0|0033)[1-9]\d{8}$"
-										hint="Ce numéro nous permettra de communiquer avec vous afin de gérer les informations suivies."
-										required
-									/>
+									<Champ>
+										<Champ.Label>
+											Prénom
+											<Champ.Label.Complement>Exemples : Marc, Sonia…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'firstName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Nom
+											<Champ.Label.Complement>Exemples : Ducourt, Dupont…</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'lastName'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Fonction au sein de l’entreprise
+											<Champ.Label.Complement>
+												Exemples : RH, Chargé de communications
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											render={Input}
+											name={'job'}
+											required/>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Adresse e-mail de contact
+											<Champ.Label.Complement>
+												Exemple : mail@exemple.com
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											pattern={emailRegex}
+											type="email"
+											render={Input}
+											name={'email'}
+											required/>
+										<Champ.Hint>Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les
+											informations suivies.</Champ.Hint>
+										<Champ.Error/>
+									</Champ>
+
+									<Champ>
+										<Champ.Label>
+											Numéro de téléphone de contact
+											<Champ.Label.Complement>
+												Exemple : 0199999999
+											</Champ.Label.Complement>
+										</Champ.Label>
+										<Champ.Input
+											pattern="^(\+33|0|0033)[1-9]\d{8}$"
+											type="tel"
+											render={Input}
+											name={'phone'}
+											required/>
+										<Champ.Hint>Ce numéro nous permettra de communiquer avec vous afin de gérer les informations
+											suivies.</Champ.Hint>
+										<Champ.Error/>
+									</Champ>
 								</div>
 								<div className={styles.validationEtape2}>
 									{isLoading

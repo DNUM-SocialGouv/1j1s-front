@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect,useId, useState } from 'react';
+import React, { useCallback, useEffect, useId, useMemo } from 'react';
 
+import { ComboboxAction as Actions } from '~/client/components/ui/Form/Combobox/ComboboxReducer';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import { useCombobox } from './ComboboxContext';
@@ -8,25 +9,34 @@ type OptionProps = Omit<React.ComponentPropsWithoutRef<'li'>, 'value'> & {
 	value?: { toString: () => string },
 };
 export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Option({
-	id: idProps,
-	onClick: onClickProps,
-	value,
-	...optionProps
-}, outerRef) {
+																																										 id: idProps,
+																																										 onClick: onClickProps,
+																																										 value,
+																																										 ...optionProps
+																																									 }, outerRef) {
 	const ref = useSynchronizedRef(outerRef);
 	const localId = useId();
 	const id = idProps ?? localId;
 	const {
-		state: { activeDescendant, value: inputValue },
+		state: { activeDescendant, visibleOptions, value: inputValue },
 		onOptionSelection,
+		dispatch,
 		filter,
 	} = useCombobox();
 	const selected = activeDescendant === id;
-	const [ hidden, setHidden ] = useState(false);
 
-	useEffect(function checkIfHidden() {
-		setHidden(ref.current != null && !filter(ref.current, inputValue));
-	}, [filter, inputValue, ref]);
+	const isVisible = useMemo(() => {
+		return visibleOptions.includes(id);
+	}, [id, visibleOptions]);
+
+	useEffect(function dispatchShouldBeVisible() {
+		const option = ref.current;
+		if (option) {
+			const shouldBeVisible = filter(option, inputValue);
+			if (!shouldBeVisible) dispatch(new Actions.HideOption(option));
+			if (shouldBeVisible) dispatch(new Actions.ShowOption(option));
+		}
+	}, [dispatch, filter, inputValue, ref]);
 
 	const onClick = useCallback((event: React.MouseEvent<HTMLLIElement>) => {
 		onOptionSelection(event.currentTarget);
@@ -34,15 +44,17 @@ export const Option = React.forwardRef<HTMLLIElement, OptionProps>(function Opti
 			onClickProps(event);
 		}
 	}, [onClickProps, onOptionSelection]);
+
 	// NOTE (GAFI 13-07-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
 		event.preventDefault();
 	}, []);
+
 	return (
 		<li
 			role="option"
 			aria-selected={selected}
-			hidden={hidden}
+			hidden={!isVisible}
 			id={id}
 			onClick={onClick}
 			onMouseDown={onMouseDown}

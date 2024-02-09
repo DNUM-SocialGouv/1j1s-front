@@ -181,4 +181,52 @@ describe('<Input/>', () => {
 			expect(onTouch).toHaveBeenCalledTimes(1);
 		});
 	});
+
+	it('lorsque l‘input est en erreur et que l‘input est touched, onInvalid est appelé', async () => {
+		const onInvalid = jest.fn();
+		const user = userEvent.setup();
+		render(<Input onInvalid={onInvalid} required/>);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'a');
+		await user.tab();
+		await user.clear(input);
+
+		expect(onInvalid).toHaveBeenCalledTimes(1);
+	});
+
+	it('lorsque l‘input n‘est pas en erreur, onInvalid n‘est pas appelé', async () => {
+		const onInvalid = jest.fn();
+		const user = userEvent.setup();
+		render(<Input onInvalid={onInvalid} required/>);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'a');
+
+		expect(onInvalid).toHaveBeenCalledTimes(0);
+	});
+
+	it('lorsque l‘input est déjà en erreur et que l‘input est touched, onInvalid est appelé', async () => {
+		const onInvalid = jest.fn();
+		const user = userEvent.setup();
+		render(<Input onInvalid={onInvalid} required defaultValue={'toto'}/>);
+
+		const input = screen.getByRole('textbox');
+		await user.clear(input);
+		await user.tab();
+
+		expect(onInvalid).toHaveBeenCalledTimes(1);
+	});
+
+	it('lorsque l‘input est en erreur et que l‘input n‘est pas touched, onInvalid n‘est pas appelé', async () => {
+		const onInvalid = jest.fn();
+		const user = userEvent.setup();
+		render(<Input onInvalid={onInvalid} required/>);
+
+		const input = screen.getByRole('textbox');
+		await user.type(input, 'a');
+		await user.clear(input);
+
+		expect(onInvalid).toHaveBeenCalledTimes(0);
+	});
 });

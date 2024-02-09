@@ -11,6 +11,7 @@ import {
 import {
 	ApiLaBonneAlternanceErrorManagementServiceGet, ApiLaBonneAlternanceErrorManagementServiceSearch,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
+import { MockAlternanceRepository } from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import {
 	CampagneApprentissageDependencies,
 	campagneApprentissageDependenciesContainer,
@@ -200,6 +201,9 @@ import {
 	ApiImmersionFacileStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.repository';
 import {
+	ApiImmersionFacileStage3eEt2deErrorManagementService,
+} from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2deErrorManagement.service';
+import {
 	ApiPoleEmploiMetierStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
 import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
@@ -292,7 +296,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
-	const alternanceDependencies = alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
+	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE
+	  ? alternancesDependenciesContainer(new MockAlternanceRepository())
+		: alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
 	const trajectoiresProHttpClientService = new AuthenticatedHttpClientService(getApiTrajectoiresProConfig(serverConfigurationService), loggerService);
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
@@ -378,9 +384,10 @@ export function dependenciesContainer(): Dependencies {
 		: emploiEuropeDependenciesContainer(apiEuresEmploiEuropeRepository);
 
 	const stage3eEt2deHttpClientService = new PublicHttpClientService(getApiImmersionFacileStage3eEt2deConfig(serverConfigurationService));
+	const apiImmersionFacileStage3eEt2deErrorManagementService = new ApiImmersionFacileStage3eEt2deErrorManagementService(loggerService);
 	const apiImmersionFacileStage3eEt2deRepository = new ApiImmersionFacileStage3eEt2deRepository(
 		stage3eEt2deHttpClientService,
-		defaultErrorManagementService,
+		apiImmersionFacileStage3eEt2deErrorManagementService,
 	);
 	const apiPoleEmploiMetierStage3eEt2deRepository = new ApiPoleEmploiMetierStage3eEt2deRepository(poleEmploiRéférentielsHttpClientService, cacheService, defaultErrorManagementService);
 	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiPoleEmploiMetierStage3eEt2deRepository);

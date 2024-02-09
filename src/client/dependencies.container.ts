@@ -3,7 +3,6 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import singletonRouter from 'next/router';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
-import { AlternanceService } from '~/client/services/alternance/alternance.service';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
@@ -41,16 +40,13 @@ import { RoutingService } from '~/client/services/routing/routing.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
-import {
-	BffStage3eEt2deMetierService,
-} from '~/client/services/stage3eEt2de/metier/bff.stage3eEt2deMetier.service';
+import { BffStage3eEt2deMetierService } from '~/client/services/stage3eEt2de/metier/bff.stage3eEt2deMetier.service';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
-	alternanceService: AlternanceService
 	cookiesService: CookiesService
 	analyticsService: ManualAnalyticsService
 	demandeDeContactService: DemandeDeContactService
@@ -81,7 +77,6 @@ class DependencyInitException extends Error {
 export default function dependenciesContainer(sessionId: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
-	const alternanceService = new AlternanceService(httpClientService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
 	const metierStage3eEt2deService = new BffStage3eEt2deMetierService(httpClientService);
 	const formationService = new FormationService(httpClientService);
@@ -132,7 +127,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const routingService = new RoutingService(createInstantSearchRouterNext({ singletonRouter }));
 
 	return {
-		alternanceService,
 		analyticsService,
 		cookiesService,
 		dateService,

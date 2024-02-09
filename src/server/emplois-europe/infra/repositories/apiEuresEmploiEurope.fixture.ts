@@ -1,4 +1,3 @@
-import { EURES_EDUCATION_LEVEL_CODES_TYPE } from '~/client/domain/niveauEtudesEures';
 import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import {
 	ApiEuresEmploiEuropeDetailItem,
@@ -29,36 +28,37 @@ export function anApiEuresRechercheBody(motCle = 'boulanger'): ApiEuresEmploiEur
 	};
 }
 
-export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd: Array<ApiEuresEmploiEuropeDetailItem> = []): ApiEuresEmploiEuropeDetailResponse {
+export function anApiEuresEmploiEuropeDetailResponse(itemsToAdd?: Array<ApiEuresEmploiEuropeDetailItem>): ApiEuresEmploiEuropeDetailResponse {
 	return {
 		data: {
-			items: [
-				anApiEuresEmploiEuropeDetailItem(),
+			items: itemsToAdd ? itemsToAdd : [
+				anApiEuresEmploiEuropeDetailItem({
+					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
+						header: {
+							handle: '1',
+						},
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+							{
+								localisations: [{ pays: 'FR', ville: 'Paris' }],
+								nomEntreprise: 'La Boulangerie',
+								titre: 'Boulanger (H/F)',
+							}),
+					}),
+				}),
 				anApiEuresEmploiEuropeDetailItem({
 					jobVacancy: anApiEuresEmploiEuropeDetailJobVacancy({
 						header: {
 							handle: '2',
 						},
-						hrxml: anApiEuresEmploiEuropeDetailXMLResponse({
-							educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
-							experiencesNecessaires:[{
-								duree: 3,
-								unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
-							}],
-							nomEntreprise: 'La Pâtisserie',
-							pays: 'FR',
-							tempsDeTravail: 'FullTime',
-							titre: 'Pâtissier (H/F)',
-							ville: 'Paris',
-						}),
+						hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
+							{
+								localisations: [{ pays: 'FR', ville: 'Paris' }],
+								nomEntreprise: 'La Pâtisserie',
+								titre: 'Pâtissier (H/F)',
+							}),
 					}),
-					related: anApiEuresEmploiEuropeDetailRelated({
-						urls: [{
-							urlValue: 'https://urlDeCandidature2.com',
-						}],
-					}),
+					related: anApiEuresEmploiEuropeDetailRelated({ urls: [ { urlValue: 'https://urlDeCandidature2.com' } ] }),
 				}),
-				...itemsToAdd,
 			],
 		},
 	};
@@ -79,16 +79,15 @@ export function anApiEuresEmploiEuropeDetailJobVacancy(override?: Partial<ApiEur
 		},
 		hrxml: anApiEuresEmploiEuropeDetailXMLResponse(
 			{
-				educationLevelCode: EURES_EDUCATION_LEVEL_CODES_TYPE.NIVEAU_LICENCE_OU_EQUIVALENT,
+				educationLevelCode: undefined,
 				experiencesNecessaires: [{
 					duree: 3,
 					unite: UNITE_EXPERIENCE_NECESSAIRE.YEAR,
 				}],
-				nomEntreprise: 'La Boulangerie',
-				pays: 'FR',
-				tempsDeTravail: 'FullTime',
-				titre: 'Boulanger (H/F)',
-				ville: 'Paris',
+				localisations: [{ pays: 'FR', ville: 'Paris' }],
+				nomEntreprise: undefined,
+				tempsDeTravail: undefined,
+				titre: undefined,
 			}),
 		...override,
 	};
@@ -141,8 +140,7 @@ ${competenceInfo.competenciesDimensions?.map((competencyInfo) =>
 interface ApiEuresEmploiEuropeDetailXMLResponseFixture {
 	titre?: string,
 	nomEntreprise?: string,
-	pays?: string,
-	ville?: string,
+	localisations?: Array<{pays?: string, ville?: string}>
 	typeContrat?: string,
 	description?: string,
 	listePermis?: Array<string>,
@@ -171,8 +169,24 @@ function anXMLWorkingLanguage(listeLangueDeTravail?: Array<string>){
 	return `${listeLangueDeTravail.map((langueDeTravail)=> (`<WorkingLanguageCode>${langueDeTravail}</WorkingLanguageCode>`) )}`;
 }
 
+function anXMLPositionLocation(localisations: ApiEuresEmploiEuropeDetailXMLResponseFixture['localisations']) {
+	return localisations?.map(({ pays, ville }) => {
+		return `<PositionLocation>
+									<Address currentAddressIndicator="true">
+									${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
+									<ns2:CountrySubDivisionCode>
+					75011
+					</ns2:CountrySubDivisionCode>
+					${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
+					<ns2:PostalCode>75001</ns2:PostalCode>
+					</Address>
+					</PositionLocation>`;
+	});
+}
 
-export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, pays, ville, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+
+export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise, localisations, typeContrat, description, listePermis, listeCompetencesLinguistiques, listeLangueDeTravail, tempsDeTravail, educationLevelCode, experiencesNecessaires, codeLangueDeLOffre }: ApiEuresEmploiEuropeDetailXMLResponseFixture): string {
+
 	return ` 
         <PositionOpening xmlns="http://www.hr-xml.org/3" xmlns:ns2="http://www.url.com" majorVersionID="3" minorVersionID="2">
     <DocumentID
@@ -230,16 +244,7 @@ export function anApiEuresEmploiEuropeDetailXMLResponse({ titre , nomEntreprise,
             </ApplicationMethod>
         </PostingInstruction>
         ${titre ? `<PositionTitle>${titre}</PositionTitle>` : ''}
-        <PositionLocation>
-            <Address currentAddressIndicator="true">
-                ${ville ? `<ns2:CityName>${ville}</ns2:CityName>` : ''}
-                <ns2:CountrySubDivisionCode>
-                    75011
-                </ns2:CountrySubDivisionCode>
-                ${pays ? `<CountryCode>${pays}</CountryCode>` : ''}
-                <ns2:PostalCode>75001</ns2:PostalCode>
-            </Address>
-        </PositionLocation>
+        ${(anXMLPositionLocation(localisations))}						
         <PositionOrganization>
             <OrganizationIdentifiers>
                 ${nomEntreprise ? `<OrganizationName>${nomEntreprise}</OrganizationName>` : ''}

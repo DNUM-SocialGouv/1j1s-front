@@ -20,6 +20,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			API_IMMERSION_FACILE_STAGE_3EME_API_KEY: 'API_IMMERSION_FACILE_STAGE_3EME_API_KEY',
 			API_IMMERSION_FACILE_STAGE_3EME_URL: 'https://api.immersion-facile.beta.gouv.fr/v1/',
 			API_LA_BONNE_ALTERNANCE_CALLER: '1jeune-1solution-test',
+			API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: false,
 			API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.beta.gouv.fr/api/',
 			API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
 			API_ONISEP_ACCOUNT_EMAIL: 'email@example.com',

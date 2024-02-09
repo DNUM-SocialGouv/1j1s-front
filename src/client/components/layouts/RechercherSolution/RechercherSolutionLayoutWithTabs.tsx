@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
@@ -8,6 +8,7 @@ import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResu
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Tab, TabPanel, Tabs, TabsLabel } from '~/client/components/ui/Tab/Tab';
+import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherSolutionLayoutWithTabsProps {
@@ -41,7 +42,22 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
 
 	const router = useRouter();
 	const hasRouterQuery = Object.keys(router.query).length > 0;
-	const [currentTab, setCurrentTab] = useState<number>(0);
+
+	const getCurrentTabFromQuery = useCallback(() => {
+		return Number(getSingleQueryParam(router.query.tab) ?? '0');
+	}, [router.query.tab]);
+
+	const [currentTab, setCurrentTab] = useState<number>(getCurrentTabFromQuery());
+
+	useEffect(() => {
+		setCurrentTab(getCurrentTabFromQuery());
+	}, [getCurrentTabFromQuery, router.query]);
+
+	function onTabChange(index: number) {
+		setCurrentTab(index);
+		router.push({ query: { ...router.query, tab: index } }, undefined, { shallow: true });
+	}
+
 	const messageResultatRechercheCurrentTab = listeSolutionElementTab[currentTab].messageResultatRecherche;
 	const messageNoResult = listeSolutionElementTab[currentTab].messageNoResult ?? <NoResultErrorMessage/>;
 	const shouldDisplayPagination = paginationOffset && listeSolutionElementTab[currentTab].nombreDeSolutions > paginationOffset;
@@ -74,7 +90,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             			<div>
             				<Skeleton type="card" isLoading={isLoading} repeat={2} className={styles.listeSolutions}>
             					<>
-            						<Tabs onTabChange={setCurrentTab} currentIndex={currentTab}>
+            						<Tabs onTabChange={onTabChange} currentIndex={currentTab}>
             							<TabsLabel>
             								{listeSolutionElementTab.map((solutionElement) => (
             									<Tab

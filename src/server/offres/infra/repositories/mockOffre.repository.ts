@@ -29,11 +29,11 @@ export function getOffreRepositoryMockResults(): Either<Offre> {
 export class MockOffreRepository implements OffreRepository {
 	paramètreParDéfaut: string | undefined;
 
-	get(): Promise<Either<Offre>> {
-		return Promise.resolve(getOffreRepositoryMockResults());
+	async get(): Promise<Either<Offre>> {
+		return getOffreRepositoryMockResults();
 	}
 
-	search(filtre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
-		return Promise.resolve(searchOffreRepositoryMockResults(filtre));
+	async search(filtre: OffreFiltre): Promise<Either<RésultatsRechercheOffre>> {
+		return searchOffreRepositoryMockResults(filtre);
 	}
 }

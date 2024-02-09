@@ -55,9 +55,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
 								titre: 'Titre 1',
-								ville: 'Paris',
 							}),
 							anEmploiEurope({
 								id: '2',
@@ -114,10 +114,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ pays: 'France', ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
-								pays: 'France',
 								titre: 'Titre 1',
-								ville: 'Paris',
 							}),
 						],
 					});
@@ -162,10 +161,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ pays: 'France' }],
 								nomEntreprise: 'Entreprise 1',
-								pays: 'France',
 								titre: 'Titre 1',
-								ville: undefined,
 							}),
 						],
 					});
@@ -210,10 +208,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
-								pays: undefined,
 								titre: 'Titre 1',
-								ville: 'Paris',
 							}),
 						],
 					});
@@ -249,6 +246,56 @@ describe('RechercherEmploisEurope', () => {
 				});
 			});
 
+			describe('quand un résultat contient plusieurs localisations', () => {
+				it('affiche un tag Multi-localisation', async () => {
+					// GIVEN
+					const emploiEuropeServiceMock = anEmploiEuropeService();
+					const resultatsService = aResultatRechercheEmploiEuropeList({
+						nombreResultats: 1,
+						offreList: [
+							anEmploiEurope({
+								id: '1',
+								localisations: [
+									{ pays: 'France', ville: 'Paris' },
+									{ pays: 'Belgique', ville: 'Bruxelles' },
+								],
+								nomEntreprise: 'Entreprise 1',
+								titre: 'Titre 1',
+							}),
+						],
+					});
+					jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+
+					mockSmallScreen();
+
+					mockUseRouter({
+						query: {
+							motCle: 'Développeur',
+							page: '1',
+						},
+					});
+
+					// WHEN
+					render(
+						<DependenciesProvider
+							emploiEuropeService={emploiEuropeServiceMock}
+						>
+							<RechercherEmploisEurope/>
+						</DependenciesProvider>,
+					);
+
+					const resultatsUl = await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
+					// eslint-disable-next-line testing-library/no-node-access
+					const resultats = resultatsUl[0].children;
+
+					// THEN
+					expect(resultats).toHaveLength(resultatsService.offreList.length);
+					expect(await screen.findByText('Entreprise 1')).toBeVisible();
+					expect(await screen.findByText('Titre 1')).toBeVisible();
+					expect(await screen.findByText('Multi-localisation')).toBeVisible();
+				});
+			});
+
 			describe('quand la recherche contient plusieurs résultats', () => {
 				it('affiche le nombre de résultats de la recherche avec des espaces tous les 3 caractères', async () => {
 					// GIVEN
@@ -258,9 +305,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
 								titre: 'Titre 1',
-								ville: 'Paris',
 							}),
 							anEmploiEurope({
 								id: '2',
@@ -306,9 +353,9 @@ describe('RechercherEmploisEurope', () => {
 						offreList: [
 							anEmploiEurope({
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
 								titre: 'Titre 1',
-								ville: 'Paris',
 							}),
 						],
 					});
@@ -350,9 +397,9 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{ ville: 'Paris' }],
 							nomEntreprise: 'Entreprise 1',
 							titre: 'Titre 1',
-							ville: 'Paris',
 						}),
 						anEmploiEurope({
 							id: '2',
@@ -403,9 +450,9 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{ ville: 'Paris' }],
 							nomEntreprise: 'Entreprise 1',
 							titre: 'Titre 1',
-							ville: 'Paris',
 						}),
 						anEmploiEurope({
 							id: '2',
@@ -448,9 +495,9 @@ describe('RechercherEmploisEurope', () => {
 				offreList: [
 					anEmploiEurope({
 						id: '1',
+						localisations: [{ ville: 'Paris' }],
 						nomEntreprise: 'Entreprise 1',
 						titre: 'Titre 1',
-						ville: 'Paris',
 					}),
 					anEmploiEurope({
 						id: '2',
@@ -504,9 +551,9 @@ describe('RechercherEmploisEurope', () => {
 				offreList: [
 					anEmploiEurope({
 						id: '1',
+						localisations: [{ ville: 'Paris' }],
 						nomEntreprise: 'Entreprise 1',
 						titre: 'Titre 1',
-						ville: 'Paris',
 					}),
 					anEmploiEurope({
 						id: '2',
@@ -548,9 +595,9 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{ ville: 'Paris' }],
 							nomEntreprise: 'Entreprise 1',
 							titre: undefined,
-							ville: 'Paris',
 						}),
 					],
 				});
@@ -586,9 +633,9 @@ describe('RechercherEmploisEurope', () => {
 							anEmploiEurope({
 								codeLangueDeLOffre: 'lb',
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
 								titre: 'je suis le titre',
-								ville: 'Paris',
 							}),
 						],
 					});
@@ -624,9 +671,9 @@ describe('RechercherEmploisEurope', () => {
 							anEmploiEurope({
 								codeLangueDeLOffre: undefined,
 								id: '1',
+								localisations: [{ ville: 'Paris' }],
 								nomEntreprise: 'Entreprise 1',
 								titre: 'je suis le titre',
-								ville: 'Paris',
 							}),
 						],
 					});
@@ -663,10 +710,10 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{ ville: 'Paris' }],
 							nomEntreprise: 'Entreprise 1',
 							titre: undefined,
 							typeContrat: 'Embauche directe',
-							ville: 'Paris',
 						}),
 					],
 				});
@@ -703,10 +750,10 @@ describe('RechercherEmploisEurope', () => {
 					offreList: [
 						anEmploiEurope({
 							id: '1',
+							localisations: [{ ville: 'Paris' }],
 							nomEntreprise: 'Entreprise 1',
 							titre: undefined,
 							typeContrat: '',
-							ville: 'Paris',
 						}),
 					],
 				});

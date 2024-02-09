@@ -3,23 +3,24 @@
 
 import { stringify } from 'querystring';
 
-import {
-	anAlternanceMatcha,
-	anAlternanceMatchaBoulanger,
-	anAlternancePEJobs,
-} from '~/server/alternances/domain/alternance.fixture';
+import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
+import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
 
-import { aMetier } from '../../src/server/metiers/domain/metierAlternance.fixture';
+import {
+	mockedRepositoryReturnsASuccessWhenCodeCommuneIsNot12345,
+} from '../../src/server/alternances/infra/repositories/mockAlternance.repository';
 import { interceptGet } from '../interceptGet';
 
 const aQuery = {
-	codeCommune: '13043',
-	codeRomes: 'D1102, D1104',
-	distanceCommune: 10,
-	latitudeCommune: 48.859,
-	libelleCommune: 'Gignac-la-Nerthe (13180)',
+	codeCommune: '75056',
+	codePostal: '75001',
+	codeRomes: 'D1102,D1104',
+	distanceCommune: '10',
+	latitudeCommune: '48.859',
+	libelleCommune: 'Paris (75001)',
 	libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
-	longitudeCommune: 2.347,
+	longitudeCommune: '2.347',
+	ville: 'Paris',
 };
 
 describe('Parcours alternance LBA', () => {
@@ -30,11 +31,6 @@ describe('Parcours alternance LBA', () => {
 	it('ne fait pas de recherche par défaut', () => {
 		cy.visit('/apprentissage');
 		cy.findByRole('list', { name: /Offres d’alternances/i }).should('not.exist');
-	});
-
-	it('place le focus sur le premier input du formulaire de recherche', () => {
-		cy.visit('/apprentissage');
-		cy.findByRole('combobox', { name: 'Domaine' }).should('have.focus');
 	});
 
 	describe('Quand l’utilisateur cherche un métier', () => {
@@ -57,39 +53,46 @@ describe('Parcours alternance LBA', () => {
 
 	describe('Quand l’utilisateur effectue une recherche', () => {
 		it('affiche les résultats', () => {
-			const alternances = {
-				entrepriseList: [],
-				offreList: [anAlternanceMatcha(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],
-			};
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.visit(`/apprentissage?${stringify(aQuery)}`),
-				alias: 'recherche-metiers',
-				path: '/api/alternances?*',
-				response: JSON.stringify(alternances),
+			const filtre = anAlternanceFiltre({
+				codeCommune: '75056',
+				codeRomes: ['D1102', 'D1104'],
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				longitudeCommune: '2.347',
 			});
+			const query = {
+				codeCommune: '75056',
+				codePostal: '75001',
+				codeRomes: 'D1102,D1104',
+				distanceCommune: '10',
+				latitudeCommune: '48.859',
+				libelleCommune: 'Paris (75001)',
+				libelleMetier: 'Boulangerie, pâtisserie, chocolaterie',
+				longitudeCommune: '2.347',
+				ville: 'Paris',
+			};
+			const expectedResult = mockedRepositoryReturnsASuccessWhenCodeCommuneIsNot12345(filtre);
+
+			cy.visit(`/apprentissage?${stringify(query)}`);
 
 			cy.findByRole('list', { name: /Offres d’alternances/i })
 				.children()
-				.should('have.length', 3);
+				.should('have.length', expectedResult?.result.offreList.length);
+		});
+	});
+
+	describe('quand la recherche retourne une erreur', () => {
+		it('affiche l’erreur', () => {
+			// NOTE (DORO 02-02-2024): Query qui génère une erreur dans le repository mocké
+			const query = {
+				...aQuery,
+				codeCommune: '12345',
+			};
+
+			cy.visit(`/apprentissage?${stringify(query)}`);
+
+			cy.findByText(/Service Indisponible/i).should('be.visible');
 		});
 	});
 });
 
-describe("quand les paramètres de l'url ne respectent pas le schema de validation du controller", () => {
-	it('retourne une erreur de demande incorrecte', () => {
-		cy.viewport('iphone-x');
-		const query = {
-			...aQuery,
-			'unwanted-query': 'not-allowed',
-		};
-
-		interceptGet({
-			actionBeforeWaitTheCall: () => cy.visit(`/apprentissage?${stringify(query)}`),
-			alias: 'recherche-alternances-failed',
-			path:'/api/alternances?*',
-			response: JSON.stringify({ error: "les paramètres dans l'url ne respectent pas le schema de validation" }),
-			statusCode: 400,
-		});
-		cy.findByText(/Erreur - Demande incorrecte/i).should('be.visible');
-	});
-});

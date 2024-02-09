@@ -99,7 +99,7 @@ describe('Page Emploi', () => {
 		describe('lorsque la recherche est lancée avec des query params', () => {
 			it('filtre les offres et retourne le résultat', async () => {
 				// GIVEN
-				(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle as jest.Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
+				jest.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createSuccess(aRésultatsRechercheOffre()));
 
 				const context = {
 					query: {
@@ -124,7 +124,7 @@ describe('Page Emploi', () => {
 			describe('lorsque la recherche retourne une erreur', () => {
 				it('retourne une erreur de service indisponible', async () => {
 					// GIVEN
-					(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					jest.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 					const context = {
 						query: {
 							page: 1,

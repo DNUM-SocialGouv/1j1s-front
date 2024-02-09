@@ -8,7 +8,12 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
-import { CandidatureStage3eEt2de, ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
+import { Erreur } from '~/server/errors/erreur.types';
+import {
+	CandidatureEnPersonneStage3eEt2de,
+	CandidatureTelephoneStage3eEt2de,
+	ModeDeContact,
+} from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
 
@@ -39,7 +44,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 	siret: string,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>,
 	onSuccess: () => void,
-	onFailure: () => void,
+	onFailure: (erreur: Erreur) => void,
 }) {
 	const {
 		modeDeContact,
@@ -61,11 +66,11 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		event?.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const candidature: CandidatureStage3eEt2de = {
+		const candidature: CandidatureTelephoneStage3eEt2de | CandidatureEnPersonneStage3eEt2de = {
 			// NOTE (SULI 25-01-2024): Deux façon de récupérer appellationCode car pour la présence d'un seul métier, on utilise le composant Select et il fournit seulement le label et pas le code
 			appellationCode: isMoreThanOneMetier ? String(data.get('metierCode')) : metiersStage3eEt2de[0].code,
 			email: String(data.get('email')),
-			modeDeContact: modeDeContact,
+			modeDeContact: modeDeContact === ModeDeContact.PHONE ? ModeDeContact.PHONE : ModeDeContact.IN_PERSON,
 			nom: String(data.get('nom')),
 			prenom: String(data.get('prenom')),
 			siret: siret,
@@ -73,7 +78,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
 		setIsLoading(false);
 		if (resultat.instance === 'success') onSuccess();
-		if (resultat.instance === 'failure') onFailure();
+		if (resultat.instance === 'failure') onFailure(resultat.errorType);
 	}
 
 	return <>

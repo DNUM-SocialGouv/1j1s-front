@@ -1,4 +1,4 @@
-import { Alternance, ResultatRechercheAlternance } from './alternance';
+import { Alternance, AlternanceFiltre, ResultatRechercheAlternance } from './alternance';
 
 export const anAlternanceMatcha = (override?: Partial<Alternance>): Alternance => {
 	return {
@@ -91,9 +91,21 @@ export const anAlternanceEntrepriseSansCandidature = (): ResultatRechercheAltern
 	};
 };
 
-export const aResultatRechercherMultipleAlternance = (): ResultatRechercheAlternance => {
+export const aResultatRechercherMultipleAlternance = (override?: Partial<ResultatRechercheAlternance>): ResultatRechercheAlternance => {
 	return {
 		entrepriseList: [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()],
 		offreList: [anAlternanceMatcha(), anAlternanceMatchaBoucher(), anAlternanceMatchaBoulanger(), anAlternancePEJobs()],
+		...override,
 	};
 };
+
+export function anAlternanceFiltre(override?: Partial<AlternanceFiltre>): AlternanceFiltre {
+	return {
+		codeCommune: '12345',
+		codeRomes: ['A1234', 'B1234'],
+		distanceCommune: '10',
+		latitudeCommune: '1.234',
+		longitudeCommune: '2.345',
+		...override,
+	};
+}

@@ -55,14 +55,17 @@ export class HttpClientService {
 
 	private handleError(e: unknown) {
 		if (axios.isAxiosError(e)) {
-			if(e.response?.status.toString().startsWith('50')) {
+			if (e.response?.status.toString().startsWith('50')) {
 				return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			}
-			if(e.response?.status === 400) {
+			if (e.response?.status === 400) {
 				return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
 			}
-			if(e.response?.status === 404) {
+			if (e.response?.status === 404) {
 				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			}
+			if (e.response?.status === 409) {
+				return createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT);
 			}
 		}
 		return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);

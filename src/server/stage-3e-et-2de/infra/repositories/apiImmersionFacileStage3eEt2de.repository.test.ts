@@ -3,7 +3,7 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
-import { aCandidatureStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
+import { aCandidatureTelephoneStage3eEt2de } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 import {
 	ResultatRechercheStage3eEt2de,
 	Stage3eEt2deFiltre,
@@ -14,7 +14,7 @@ import {
 	aStage3eEt2deFiltre,
 } from '~/server/stage-3e-et-2de/domain/stage3eEt2de.fixture';
 import {
-	anApiImmersionFacileStage3eEt2de, anApiImmersionFacileStage3eEt2deCandidature,
+	anApiImmersionFacileStage3eEt2de, anApiImmersionFacileStage3eEt2deCandidatureTelephone,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.fixture';
 import {
 	ApiImmersionFacileStage3eEt2deRepository,
@@ -188,13 +188,13 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
 			const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
-			const candidature = aCandidatureStage3eEt2de();
+			const candidature = aCandidatureTelephoneStage3eEt2de();
 
 			// When
 			repository.sendCandidatureStage3eEt2de(candidature);
 
 			// Then
-			expect(httpClientService.post).toHaveBeenCalledWith('/contact-establishment', anApiImmersionFacileStage3eEt2deCandidature());
+			expect(httpClientService.post).toHaveBeenCalledWith('/contact-establishment', anApiImmersionFacileStage3eEt2deCandidatureTelephone());
 		});
 
 		describe('quand la candidature est correctement envoyée', () => {
@@ -202,7 +202,7 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 				// Given
 				const httpClientService = aPublicHttpClientService();
 				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, anErrorManagementService());
-				const candidature = aCandidatureStage3eEt2de();
+				const candidature = aCandidatureTelephoneStage3eEt2de();
 
 				// When
 				const result = await repository.sendCandidatureStage3eEt2de(candidature);
@@ -222,7 +222,7 @@ describe('ApiImmersionFacileStage3eEt2deRepository', () => {
 				const repository = new ApiImmersionFacileStage3eEt2deRepository(httpClientService, errorManagementService);
 				const errorReturnedByErrorManagementService = ErreurMetier.SERVICE_INDISPONIBLE;
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(errorReturnedByErrorManagementService));
-				const candidature = aCandidatureStage3eEt2de();
+				const candidature = aCandidatureTelephoneStage3eEt2de();
 
 				// WHEN
 				const result = await repository.sendCandidatureStage3eEt2de(candidature);

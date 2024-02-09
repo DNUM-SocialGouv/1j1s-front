@@ -51,7 +51,6 @@ export function FormulaireRechercheJobÉtudiant() {
 						label="Métier, mot-clé"
 						value={inputMotCle}
 						name="motCle"
-						autoFocus
 						placeholder="Exemples : serveur, tourisme..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 					/>

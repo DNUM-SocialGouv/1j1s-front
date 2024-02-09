@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Marked from './Marked';
+import MarkdownToHtml from './MarkdownToHtml';
 
-const meta: Meta<typeof Marked> = {
-	component: Marked,
+const meta: Meta<typeof MarkdownToHtml> = {
+	component: MarkdownToHtml,
 	title: 'Components/Marked',
 };
 
 export default meta;
-type Story = StoryObj<typeof Marked>;
+type Story = StoryObj<typeof MarkdownToHtml>;
 
 export const Example: Story = {
 	args: {
