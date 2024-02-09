@@ -101,13 +101,13 @@ export const InputChamp: <
 });
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {
-	const { errorId, setErrorId, touched, errorMessage } = useChampContext();
+	const { errorId, setErrorId, errorMessage } = useChampContext();
 
 	useEffect(() => {
 		id && setErrorId(id);
 	}, [id, setErrorId]);
 
-	return (touched && errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
+	return (errorMessage && <Error id={id ?? errorId} {...rest} >{errorMessage}</Error>);
 }
 
 function HintChamp({ id, ...rest }: ComponentPropsWithoutRef<typeof Hint>) {
