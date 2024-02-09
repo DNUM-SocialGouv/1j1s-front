@@ -1,8 +1,17 @@
 import classNames from 'classnames';
 import LinkNext from 'next/link';
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, {
+	createContext,
+	Dispatch,
+	PropsWithChildren,
+	SetStateAction,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
 
-import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Icon, IconName } from '~/client/components/ui/Icon/Icon';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 import { getTextFromChildren } from '~/client/utils/getTextFromChildren.util';
 
@@ -12,24 +21,31 @@ type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryBut
 
 type IconPosition = 'top' | 'left' | 'right';
 
-type IconProps = {
-	icon: React.ReactNode;
-	iconPosition: IconPosition;
-} | {
-	icon?: never;
-	iconPosition?: never;
-}
 
-interface LinkStyledAsButtonProps extends React.ComponentPropsWithoutRef<'a'> {
+interface Link extends React.ComponentPropsWithoutRef<'a'> {
 	href: string
 	appearance?: ButtonAppearance
 	prefetch?: boolean
 }
 
-type LinkStyledAsButtonWithIconProps = LinkStyledAsButtonProps & IconProps
+interface LinkContext {
+	setIconPosition: Dispatch<SetStateAction<IconPosition | undefined>>,
+	href: string
+}
 
+const LinkContext = createContext<LinkContext | null>(null);
 
-export function Link(props: PropsWithChildren<LinkStyledAsButtonProps>) {
+const useLinkContext = () => {
+	const linkContext = useContext(LinkContext);
+	if (!linkContext) {
+		throw new Error(
+			'linkContext has to be used within <CurrentUserContext.Provider>',
+		);
+	}
+	return linkContext;
+};
+
+export function Link(props: PropsWithChildren<Link>) {
 	const {
 		className,
 		appearance,
@@ -39,54 +55,25 @@ export function Link(props: PropsWithChildren<LinkStyledAsButtonProps>) {
 		title,
 		...rest
 	} = props;
+	const [iconPosition, setIconPosition] = useState<IconPosition | undefined>(undefined);
+	const isInternalLink = useIsInternalLink(href);
 
 	const appearanceClass = useMemo(() => {
 		switch (appearance) {
 			case 'asPrimaryButton':
-				return styles.primaryButton;
+				return styles.primary;
 			case 'asSecondaryButton':
-				return styles.secondaryButton;
+				return styles.secondary;
 			case 'asTertiaryButton':
-				return styles.tertiaryButton;
+				return styles.tertiary;
 			case 'asQuaternaryButton':
-				return styles.quaternaryButton;
+				return styles.quaternary;
 			default:
-				return ;
+				return;
 		}
 	}, [appearance]);
 
-	const isInternalLink = useIsInternalLink(href);
-
-	function getTitle() {
-		if (isInternalLink) {
-			return title;
-		}
-		return title ?? `${getTextFromChildren(children)} - nouvelle fenêtre`;
-	}
-
-	return isInternalLink ? (
-		<LinkNext href={href} title={getTitle()} prefetch={prefetch} className={classNames(className, appearanceClass)} {...rest}>
-			{children}
-		</LinkNext>
-	) : (
-		<a href={href} title={getTitle()} target="_blank" rel="noreferrer" className={classNames(className, appearanceClass)} {...rest}>
-			{children}
-		</a>
-	);
-}
-
-export function LinkIcon(props: PropsWithChildren<LinkStyledAsButtonWithIconProps> ) {
-	const {
-		children,
-		className,
-		iconPosition,
-		icon,
-		href,
-		...rest
-	} = props;
-	const isInternalLink = useIsInternalLink(href);
-
-	const iconClass = useMemo(() => {
+	const linkWithIconClass = useMemo(() => {
 		switch (iconPosition) {
 			case 'top':
 				return styles.linkWithTopIcon;
@@ -97,26 +84,69 @@ export function LinkIcon(props: PropsWithChildren<LinkStyledAsButtonWithIconProp
 		}
 	}, [iconPosition]);
 
-	const iconBody = useMemo(() => {
-		switch (iconPosition) {
-			case 'top':
-			case 'left':
-				return <>{icon}<span className={styles.linkLabel}>{children}</span></>;
-			case 'right':
-				return <><span className={styles.linkLabel}>{children}</span>{icon}</>;
-			default:
-				return <>
-					<span className={styles.linkLabel}>{children}</span>
-					{	isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}
-				</>;
+	function getTitle() {
+		if (isInternalLink) {
+			return title;
 		}
-	}, [icon, iconPosition, children, isInternalLink]);
+		return title ?? `${getTextFromChildren(children)} - nouvelle fenêtre`;
+	}
 
-	return (<span className={classNames(className, iconClass)} {...rest}>
-		{iconBody}
+	return isInternalLink ? (
+		<LinkContext.Provider value={{ href, setIconPosition }}>
+			<LinkNext
+				href={href}
+				title={getTitle()}
+				prefetch={prefetch}
+				className={classNames(className, appearanceClass, linkWithIconClass)} {...rest}>
+				{children}
+			</LinkNext>
+		</LinkContext.Provider>
+	) : (
+		<LinkContext.Provider value={{ href, setIconPosition }}>
+			<a href={href} title={getTitle()} target="_blank" rel="noreferrer"
+				 className={classNames(className, appearanceClass, linkWithIconClass)} {...rest}>
+				{children}
+			</a>
+		</LinkContext.Provider>
+	);
+}
+
+type IconComponentProps = typeof Icon
+
+interface IconProps extends Omit<IconComponentProps, 'name'> {
+	position?: IconPosition;
+	name?: IconName
+	className?: string
+}
+
+export function LinkIcon(props: IconProps) {
+	const {
+		name,
+		className,
+		position = 'right',
+		...rest
+	} = props;
+	const { setIconPosition, href } = useLinkContext();
+	const isInternalLink = useIsInternalLink(href);
+
+	useEffect(() => {
+		setIconPosition(position);
+	}, [position, setIconPosition]);
+
+	return (<span className={classNames(className, styles.icon)}>
+		{name ? <Icon name={name} {...rest}/> : <DefaultIcon isInternalLink={isInternalLink}/>}
 	</span>
 	);
 }
 
+type DefaultIconProps = {
+	isInternalLink: boolean
+}
+
+function DefaultIcon({ isInternalLink }: DefaultIconProps) {
+	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}</>;
+}
+
 Link.Icon = LinkIcon;
+
 

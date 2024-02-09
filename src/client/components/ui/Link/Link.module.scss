@@ -1,6 +1,8 @@
 @use "@styles/utilities-deprecated";
 
-.primaryButton, .secondaryButton, .tertiaryButton{
+
+.primary, .secondary, .tertiary {
+  @extend %button;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8,20 +10,17 @@
   border-radius: 50px;
   text-decoration: none;
   outline-offset: 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 
   & > svg {
     vertical-align: middle;
   }
 }
 
-.primaryButton, .secondaryButton, .tertiaryButton {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow-x: hidden;
-}
 
-.primaryButton {
-  @extend %button;
+.primary {
   border: 1px solid utilities-deprecated.$color-primary;
   background-color: utilities-deprecated.$color-primary;
   color: utilities-deprecated.$color-on-primary;
@@ -32,8 +31,7 @@
   }
 }
 
-.secondaryButton {
-  @extend %button;
+.secondary {
   border: 1px solid utilities-deprecated.$color-primary;
   color: utilities-deprecated.$color-primary;
   background-color: utilities-deprecated.$white;
@@ -45,8 +43,7 @@
   }
 }
 
-.tertiaryButton {
-  @extend %button;
+.tertiary {
   border: 1px solid utilities-deprecated.$color-primary;
   color: utilities-deprecated.$color-primary;
   background-color: utilities-deprecated.$color-background-white-titan;
@@ -58,7 +55,7 @@
   }
 }
 
-.quaternaryButton {
+.quaternary {
   display: flex;
   color: utilities-deprecated.$color-primary;
   text-decoration: none;
@@ -73,20 +70,32 @@
 }
 
 .linkWithRightIcon, .linkWithLeftIcon, .linkWithTopIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  width: fit-content;
+  gap: 0;
+  grid-template-columns: auto auto;
 }
 
 .linkWithLeftIcon {
-  & .linkLabel {
+  & .icon {
+    grid-area: 1;
+    margin-right: 0.5rem;
+  }
+}
+
+.linkWithRightIcon {
+  .icon {
     margin-left: 0.5rem;
   }
 }
 
 .linkWithTopIcon {
-  & .linkLabel {
-    margin-top: 0.5rem;
+  justify-items: center;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+
+  & .icon {
+    grid-area: 1;
     display: block;
   }
 }
