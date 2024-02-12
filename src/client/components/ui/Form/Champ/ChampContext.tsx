@@ -5,8 +5,6 @@ type ChampContextType = {
 	setErrorId: Dispatch<SetStateAction<string>>
 	hintId: string
 	setHintId: Dispatch<SetStateAction<string>>
-	setTouched: Dispatch<SetStateAction<boolean>>
-	touched: boolean
 	inputId: string
 	setInputId: Dispatch<SetStateAction<string>>
 	errorMessage: string
