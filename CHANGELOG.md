@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.242.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.241.0...v3.242.0) (2024-02-12)
+
+
+### Features
+
+* **stages-3e:** formulaire de contact par email (etape 1) ([#2669](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2669)) ([716f1cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/716f1cf14065d8976708d6bd161b96a5d56bdb80))
+
 ## [3.241.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.240.0...v3.241.0) (2024-02-12)
 
 
