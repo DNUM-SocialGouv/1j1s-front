@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.241.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.240.0...v3.241.0) (2024-02-12)
+
+
+### Features
+
+* **accueil:** modifier le logo du ministere du travail ([#2671](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2671)) ([63ba4e6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/63ba4e643af1a4368412b7024bd774a7df73fdf7))
+
+
+### Bug Fixes
+
+* affiche le message d'erreur du champ a la soumission si required… ([#2678](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2678)) ([324266c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/324266c6fb345d37dce90c316d9eeaf24cc05daa))
+* **header:** bug ouverture fermeture menu a la souris et au clavier ([#2673](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2673)) ([27a57c2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/27a57c2ff53c2dbf93be3a52f8ff34a40ee45126))
+* **stage:** retour recette etape validation depot stage ([#2676](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2676)) ([7f0d427](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7f0d427a6c97bc4dae1b9ede632b6f0e927cf34c))
+
 ## [3.240.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.239.1...v3.240.0) (2024-02-12)
 
 
