@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.239.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.239.0...v3.239.1) (2024-02-12)
+
+
+### Bug Fixes
+
+* **1jeune1permis:** met à jour le nom de domaine 1jeune1permis (franc… ([#2674](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2674)) ([f868a73](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f868a73af2a7042a116f04e5b586b8af3a784160))
+
 ## [3.239.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.238.0...v3.239.0) (2024-02-09)
 
 
