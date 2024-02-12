@@ -29,6 +29,7 @@ import {
 } from '~/server/entreprises/infra/secteurActiviteRejoindreLaMobilisation';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 enum Etape {
 	ETAPE_1 = 'Étape 1 sur 2',
@@ -140,10 +141,10 @@ export default function LesEntreprisesSEngagentInscription() {
 						<h1 className={styles.titre}>JE REJOINS &ldquo;LES ENTREPRISES S‘ENGAGENT&rdquo;</h1>
 					</div>
 					<div className={styles.content}>
-						<div className={styles.etape}>{étape}</div>
-						<div className={styles.mandatoryFields}>Tous les champs du formulaire sont
+						<p className={styles.etape}>{étape}</p>
+						<p className={styles.mandatoryFields}>Tous les champs du formulaire sont
 							obligatoires
-						</div>
+						</p>
 						<div hidden={isPremièreÉtape ? undefined : true}>
 							<LinkStyledAsButtonWithIcon
 								href="/les-entreprises-s-engagent"
@@ -304,7 +305,7 @@ export default function LesEntreprisesSEngagentInscription() {
 											</Champ.Label.Complement>
 										</Champ.Label>
 										<Champ.Input
-											pattern="^(\+33|0|0033)[1-9]\d{8}$"
+											pattern={telFrRegex}
 											type="tel"
 											render={Input}
 											name={'phone'}

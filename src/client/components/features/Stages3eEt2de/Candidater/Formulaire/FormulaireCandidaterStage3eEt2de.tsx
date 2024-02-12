@@ -1,10 +1,12 @@
-import React, { FormEvent, useState } from 'react';
+import classNames from 'classnames';
+import React, { FormEvent, useRef, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
@@ -16,6 +18,7 @@ import {
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { emailRegex } from '~/shared/emailRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 import styles from './FormulaireCandidaterStage3eEt2de.module.scss';
 
@@ -38,6 +41,19 @@ const INSTRUCTION_CANDIDATURE_EN_PERSONNE = <>
 	</p>
 </>;
 
+const DECHARGE = <div className={styles.decharge}>
+	<p>
+		Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour
+		répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les
+		CGU de la DGEFP. En cliquant sur &quot;Envoyer mes informations&quot;, vos données seront transmises à la
+		mission
+		locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous
+	</p>
+</div>;
+
+const INSTRUCTION_CANDIDATURE_MAIL = <p className={styles.sousTitre}>Cette entreprise a choisi d’être contactée par
+	e-mail. Veuillez compléter ce formulaire qui sera transmis à l’entreprise.</p>;
+
 export function FormulaireCandidaterStage3eEt2de(props: {
 	modeDeContact: ModeDeContact,
 	nomEntreprise: string,
@@ -59,7 +75,7 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	const isMoreThanOneMetier = metiersStage3eEt2de.length > 1 && metiersStage3eEt2de.length !== 0;
+	const isMoreThanOneMetier = metiersStage3eEt2de.length > 1;
 
 	async function envoyerCandidature(event: FormEvent<HTMLFormElement>) {
 		setIsLoading(true);
@@ -88,26 +104,59 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					l’entreprise <em>{nomEntreprise}</em></h1>
 				{modeDeContact === ModeDeContact.PHONE && INSTRUCTION_CANDIDATURE_TELEPHONE}
 				{modeDeContact === ModeDeContact.IN_PERSON && INSTRUCTION_CANDIDATURE_EN_PERSONNE}
+				{modeDeContact === ModeDeContact.EMAIL && INSTRUCTION_CANDIDATURE_MAIL}
 			</div>
 		</div>
 
+		{modeDeContact === ModeDeContact.PHONE && <FormulaireContactParTelephone
+			nomEntreprise={nomEntreprise}
+			envoyerCandidature={envoyerCandidature}
+			metiersStage3eEt2de={metiersStage3eEt2de}
+			isLoading={isLoading}/>}
+		{modeDeContact === ModeDeContact.IN_PERSON && <FormulaireContactEnPersonne
+			nomEntreprise={nomEntreprise}
+			envoyerCandidature={envoyerCandidature}
+			metiersStage3eEt2de={metiersStage3eEt2de}
+			isLoading={isLoading}/>}
+		{modeDeContact === ModeDeContact.EMAIL && <FormulaireContactParEmail
+			nomEntreprise={nomEntreprise}
+			envoyerCandidature={envoyerCandidature}
+			metiersStage3eEt2de={metiersStage3eEt2de}
+			isLoading={isLoading}/>}
+	</>;
+}
+
+const FormulaireContactEnPersonne = FormulaireContactParTelephone;
+
+function FormulaireContactParTelephone(props: {
+	nomEntreprise: string,
+	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
+	isLoading: boolean,
+	metiersStage3eEt2de: Array<MetierStage3eEt2de>
+}) {
+	const isMoreThanOneMetier = props.metiersStage3eEt2de.length > 1;
+
+	return <>
 		<Container className={styles.formulaireContainer}>
-			<BackButton className={styles.boutonRetour}/>
+
+			<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
 
 			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
 
 			<form
-				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${nomEntreprise}`}
-				onSubmit={envoyerCandidature}
+				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
+				onSubmit={props.envoyerCandidature}
+				className={styles.formulaireEtapeUnique}
 			>
 				<Champ>
 					<Champ.Label>Prénom
 						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-					             name="prenom"
-					             required
-					             type="text"
+										 name="prenom"
+										 required
+										 type="text"
+										 autoComplete="given-name"
 					/>
 					<Champ.Error/>
 				</Champ>
@@ -116,9 +165,10 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-					             name="nom"
-					             required
-					             type="text"
+										 name="nom"
+										 required
+										 type="text"
+										 autoComplete="family-name"
 					/>
 					<Champ.Error/>
 				</Champ>
@@ -127,17 +177,18 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-					             name="email"
-					             required
-					             type="email"
-					             pattern={emailRegex}
+										 name="email"
+										 required
+										 type="email"
+										 autoComplete="email"
+										 pattern={emailRegex}
 					/>
 					<Champ.Error/>
 				</Champ>
 				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
 				{isMoreThanOneMetier ?
 					<Select
-						optionList={metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
+						optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
 						label="Métier sur lequel porte la demande d’immersion"
 						name="metierCode"
 						required
@@ -146,16 +197,16 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					:
 					<Champ>
 						<Champ.Label>
-							Métier sur lequel porte la demande d’immersion
+						Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
-								l’entreprise</Champ.Label.Complement>
+							l’entreprise</Champ.Label.Complement>
 						</Champ.Label>
 						<Champ.Input render={Input}
-						             name="metierCode"
-						             required
-						             value={metiersStage3eEt2de[0].label}
-						             readOnly
-						             type="text"
+											 name="metierCode"
+											 required
+											 value={props.metiersStage3eEt2de[0].label}
+											 readOnly
+											 type="text"
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -164,18 +215,107 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 					className={styles.boutonSoumission}
 					label="Envoyer les informations"
 					type="submit"
-					disabled={isLoading}
+					disabled={props.isLoading}
 				/>
 			</form>
 		</Container>
-		<div className={styles.decharge}>
-			<p>
-				Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour
-				répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les
-				CGU de la DGEFP. En cliquant sur &quot;Envoyer mes informations&quot;, vos données seront transmises à la
-				mission
-				locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous
-			</p>
-		</div>
+		{DECHARGE}
 	</>;
-}
+};
+
+function FormulaireContactParEmail(props: {
+	nomEntreprise: string,
+	envoyerCandidature: (event: FormEvent<HTMLFormElement>) => void
+	isLoading: boolean,
+	metiersStage3eEt2de: Array<MetierStage3eEt2de>
+}) {
+	const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
+
+	const formRef = useRef<HTMLFormElement>(null);
+
+	const passerALEtape2 = () => {
+		const isFormValid = formRef.current?.checkValidity();
+		if (isFormValid) {
+			setEtape('ETAPE_2');
+		}
+	};
+
+	return <>
+		<Container className={styles.formulaireContainer}>
+			<p className={styles.etape}>{etape === 'ETAPE_1' ? 'Étape 1 sur 2 : Informations personnelles' : 'Étape 2 sur 2 : Objet de votre demande'}</p>
+
+			<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
+
+			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
+			<form
+				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
+				onSubmit={props.envoyerCandidature}
+				ref={formRef}
+			>
+				<div className={classNames(styles.etape1, etape !== 'ETAPE_1' && styles.etape1hidden)}>
+					<Champ>
+						<Champ.Label>Prénom
+							<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="prenom"
+												 required
+												 type="text"
+												 autoComplete="given-name"
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>Nom
+							<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="nom"
+												 required
+												 type="text"
+												 autoComplete="family-name"
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>E-mail
+							<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="email"
+												 required
+												 type="email"
+												 autoComplete="email"
+												 pattern={emailRegex}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<Champ>
+						<Champ.Label>
+							Téléphone
+							<Champ.Label.Complement>
+								Exemples : 0601020304 ou +33601020304
+							</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input render={Input}
+												 name="telephone"
+												 required
+												 type="tel"
+												 autoComplete="tel"
+												 pattern={telFrRegex}
+						/>
+						<Champ.Error/>
+					</Champ>
+					<ButtonComponent
+						className={styles.boutonEtapeSuivante}
+						label="Étape suivante"
+						type="button"
+						onClick={passerALEtape2}
+						icon={<Icon name={'angle-right'}/>}
+						iconPosition="right"
+					/>
+				</div>
+			</form>
+		</Container>
+	</>;
+};

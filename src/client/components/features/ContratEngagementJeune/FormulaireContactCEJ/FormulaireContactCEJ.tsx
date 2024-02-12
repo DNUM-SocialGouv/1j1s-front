@@ -11,6 +11,7 @@ import { ageOptions } from '~/client/domain/selectAgeData';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 import styles from './FormulaireContactCEJ.module.scss';
 
@@ -75,7 +76,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 			/>
 			<InputText
 				type="tel"
-				pattern="^(\+33|0|0033)[1-9]\d{8}$"
+				pattern={telFrRegex}
 				label="Téléphone"
 				name="phone"
 				placeholder="Exemple : 0606060606"

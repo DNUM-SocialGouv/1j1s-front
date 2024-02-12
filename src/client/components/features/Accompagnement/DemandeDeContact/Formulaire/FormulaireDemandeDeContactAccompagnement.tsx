@@ -20,6 +20,7 @@ import {
 	ContactÉtablissementAccompagnement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import { emailRegex } from '~/shared/emailRegex';
+import { telFrRegex } from '~/shared/telRegex';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
 	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
@@ -77,7 +78,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 			/>
 			<InputText
 				type="tel"
-				pattern="^(\+33|0|0033)[1-9]\d{8}$"
+				pattern={telFrRegex}
 				label="Téléphone"
 				name="phone"
 				placeholder="Exemple : 0606060606"
