@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.240.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.239.1...v3.240.0) (2024-02-12)
+
+
+### Features
+
+* **cms:** scinder cms service jeune ([#2622](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2622)) ([a688375](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a68837533e508431e628b5371aefc31f6243b485))
+
 ## [3.239.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.239.0...v3.239.1) (2024-02-12)
 
 
