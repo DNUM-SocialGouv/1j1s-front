@@ -336,6 +336,24 @@ describe('Header', () => {
 				expect(screen.getByText('Je suis employeur')).toBeVisible();
 			});
 		});
+		describe('Au clic sur une catégorie', () => {
+			it('ferme les autres catégories', async () => {
+				const user = userEvent.setup();
+				mockUseRouter({ pathname: '/' });
+				render(<Header/>);
+				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
+				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
+				await user.click(button);
+				const categorie1 = screen.getByRole('button', { name: 'Formations et orientation' });
+				await user.click(categorie1);
+				const categorie2 = screen.getByRole('button', { name: 'Engagement' });
+				expect(categorie1).toHaveAttribute('aria-expanded', 'true');
+				expect(categorie2).not.toHaveAttribute('aria-expanded', 'true');
+				await user.click(categorie2);
+				expect(categorie1).not.toHaveAttribute('aria-expanded', 'true');
+				expect(categorie2).toHaveAttribute('aria-expanded', 'true');
+			});
+		});
 		describe('Au clic sur un item du menu', () => {
 			it('ferme le menu de navigation', () => {
 				mockUseRouter({ pathname: '/' });
@@ -367,7 +385,7 @@ describe('Header', () => {
 				await userEvent.click(screen.getByRole('button'));
 				const sectionEmployeur = screen.getByText('Je suis employeur');
 				await userEvent.click(sectionEmployeur);
-				const subItem = within(screen.getByRole('menu')).getByText('Recruter et agir pour les jeunes');
+				const subItem = screen.getByText('Recruter et agir pour les jeunes');
 				await userEvent.click(subItem);
 				// Then
 				expect(screen.queryByText('Je suis employeur')).not.toBeInTheDocument();
