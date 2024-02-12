@@ -27,7 +27,7 @@ export function ListeMissions({ resultatList, isServiceCivique }: ListeMissionsP
 						intituléOffre={mission.titre}
 						sousTitreOffre={mission.nomEntreprise}
 						lienOffre={isServiceCivique ? `/service-civique/${mission.id}` : `/benevolat/${mission.id}`}
-						logo={isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
+						logo={mission.logo ? mission.logo : isServiceCivique ? '/images/logos/service-civique.svg' : '/images/logos/je-veux-aider.svg'}
 						étiquetteOffreList={mission.étiquetteList}
 					/>
 				</li>
