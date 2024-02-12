@@ -47,7 +47,7 @@ export function aStrapiCollectionType<T>(data: T[], meta?: Partial<Strapi.Meta>)
 	};
 }
 
-export function aStrapiImage(override?: Strapi.Image): Strapi.Image {
+export function aStrapiImage(override?: Partial<Strapi.Image>): Strapi.Image {
 	return {
 		alternativeText: 'text',
 		caption: 'string',
@@ -81,12 +81,13 @@ export function aStrapiImage(override?: Strapi.Image): Strapi.Image {
 	};
 }
 
-export function aStrapiArticle(): Strapi.CollectionType.Article {
+export function aStrapiArticle(overrides?: Partial<Strapi.CollectionType.Article>): Strapi.CollectionType.Article {
 	return {
 		banniere: aStrapiSingleRelation(aStrapiImage()),
 		contenu: 'Avec le Parcours Emploi Compétences (PEC), vous permettez à des personnes éloignées de l’emploi de s’insérer professionnellement et vous bénéficiez d’une aide de l’État.',
 		slug: 'aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
 		titre: 'Aide à l’embauche d’un jeune en Parcours Emploi Compétences (PEC Jeunes) dans le secteur non marchand',
+		...overrides,
 	};
 }
 
@@ -225,32 +226,4 @@ export function anActualiteFixture(): Strapi.SingleType<Strapi.SingleType.ListeA
 	});
 }
 
-export function aStrapiMesureJeune(override?: Partial<Strapi.SingleType.LesMesuresJeunes.MesureJeune>): Strapi.SingleType.LesMesuresJeunes.MesureJeune {
-	return {
-		article: aStrapiSingleRelation(aStrapiArticle()),
-		banniere: aStrapiSingleRelation(aStrapiImage()),
-		contenu: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-		pourQui: 'pour les 12 à 18mois',
-		titre: 'Un titre de carte',
-		url: 'Une belle url de carte',
-		...override,
-	};
-}
 
-export function aStrapiLesMesuresJeunesSingleType(): Strapi.SingleType<Strapi.SingleType.LesMesuresJeunes> {
-	return aStrapiSingleType({
-		accompagnement: [aStrapiMesureJeune({
-			titre: 'Une formation en centre EPIDE',
-		})],
-		aidesFinancieres: [aStrapiMesureJeune({
-			article: undefined,
-			titre: 'Des aides pour financer son permis de conduire',
-		})],
-		orienterFormer: [aStrapiMesureJeune({
-			titre: 'Les Junior Entreprises',
-		})],
-		vieProfessionnelle: [aStrapiMesureJeune({
-			titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
-		})],
-	});
-}

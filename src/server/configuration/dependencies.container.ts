@@ -187,6 +187,11 @@ import { PinoLoggerService } from '~/server/services/pinoLogger.service';
 import ServerConfigurationService from '~/server/services/serverConfiguration.service';
 import { FastXmlParserService } from '~/server/services/xml/fastXmlParser.service';
 import {
+	ServicesJeunesDependencies,
+	servicesJeunesDependenciesContainer,
+} from '~/server/services-jeunes/configuration/dependencies.container';
+import { StrapiServicesJeunesRepository } from '~/server/services-jeunes/infra/strapiServicesJeunes.repository';
+import {
 	SitemapDependencies,
 	sitemapDependenciesContainer,
 } from '~/server/sitemap/configuration/dependencies.container';
@@ -230,6 +235,7 @@ export type Dependencies = {
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
+	servicesJeunesDependencies: ServicesJeunesDependencies;
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
 	stage3eEt2deDependencies: Stage3eEt2deDependencies;
@@ -370,6 +376,9 @@ export function dependenciesContainer(): Dependencies {
 	const videoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(cmsRepository, defaultErrorManagementService);
 	const campagneApprentissageDependencies = campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository);
 
+	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsRepository, defaultErrorManagementService);
+	const servicesJeunesDependencies = servicesJeunesDependenciesContainer(servicesJeunesRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
@@ -413,6 +422,7 @@ export function dependenciesContainer(): Dependencies {
 		offreJobEteDependencies,
 		offreJobÉtudiantDependencies,
 		robotsDependencies,
+		servicesJeunesDependencies,
 		sitemapDependencies,
 		stage3eEt2deDependencies,
 		stagesDependencies,

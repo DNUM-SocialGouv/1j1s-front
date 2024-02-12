@@ -34,7 +34,7 @@ export namespace Strapi {
 
 	export interface Image {
 		name: string;
-		alternativeText: string;
+		alternativeText?: string;
 		caption: string;
 		width: number;
 		height: number;
@@ -75,24 +75,6 @@ export namespace Strapi {
 	}
 
 	export namespace SingleType {
-		export interface LesMesuresJeunes {
-			vieProfessionnelle: LesMesuresJeunes.MesureJeune[]
-			orienterFormer: LesMesuresJeunes.MesureJeune[]
-			accompagnement: LesMesuresJeunes.MesureJeune[]
-			aidesFinancieres: LesMesuresJeunes.MesureJeune[]
-		}
-
-		export namespace LesMesuresJeunes {
-			export interface MesureJeune {
-				titre: string
-				contenu: string
-				url: string
-				banniere: Strapi.SingleRelation<Strapi.Image>
-				article: Strapi.SingleRelation<Strapi.CollectionType.Article>
-				pourQui: string
-			}
-		}
-
 		export interface LesMesuresEmployeurs {
 			dispositifs: LesMesuresEmployeurs.Dispositif[];
 		}

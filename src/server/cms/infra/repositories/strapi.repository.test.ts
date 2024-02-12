@@ -2,17 +2,14 @@ import { Actualité } from '~/server/cms/domain/actualité';
 import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
-import { anUnorderedServiceJeuneList } from '~/server/cms/domain/espaceJeune.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
-import { ServiceJeune } from '~/server/cms/domain/serviceJeune';
 import {
 	anActualiteFixture,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiLesMesuresEmployeurs,
-	aStrapiLesMesuresJeunesSingleType,
 	aStrapiSingleType,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
@@ -37,7 +34,7 @@ describe('strapi cms repository', () => {
 	let authenticatedHttpClientService: AuthenticatedHttpClientService;
 	let strapiCmsRepository: StrapiRepository;
 
-	describe('getSingleType', () => {
+	describe('getSingleTypeDeprecated', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
 			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
@@ -209,21 +206,6 @@ describe('strapi cms repository', () => {
 				titre: 'Politique de confidentialité',
 			});
 			expect(httpClientService.get).toHaveBeenCalledWith('politique-de-confidentialite?populate=deep');
-		});
-	});
-
-	describe('getServiceJeuneList', () => {
-		it('récupère les services jeunes', async () => {
-			httpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-			);
-
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiLesMesuresJeunesSingleType()));
-			const expected = anUnorderedServiceJeuneList();
-			const response = await strapiCmsRepository.getServiceJeuneList() as Success<Array<ServiceJeune>>;
-
-			expect(response.result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('mesure-jeune?populate=deep');
 		});
 	});
 
