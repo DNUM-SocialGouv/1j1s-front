@@ -305,6 +305,8 @@ describe('<Champ/>', () => {
 			const erreur = screen.queryByText('Je suis l‘erreur');
 			expect(erreur).not.toBeInTheDocument();
 		});
+		
+		
 
 		it('lorsque le champ est touched et qu’il y a une erreur, affiche l‘erreur', async () => {
 			const user = userEvent.setup();
@@ -320,6 +322,26 @@ describe('<Champ/>', () => {
 			await user.tab();
 
 			await user.clear(input);
+
+			const erreur = screen.getByText('Constraints not satisfied');
+
+			expect(erreur).toBeVisible();
+		});
+
+		it('lorsque le champ est required, que je le laisse vide et que je tente de soumettre le formulaire qui le contient, affiche l‘erreur', async () => {
+			const user = userEvent.setup();
+			render(
+				<form>
+					<Champ>
+						<Champ.Input render={Input} required/>
+						<Champ.Error/>
+					</Champ>
+					<button>Soumettre</button>
+				</form>,
+			);
+
+			const boutonSoumissionFormulaire = screen.getByRole('button', { name: 'Soumettre' });
+			await user.click(boutonSoumissionFormulaire);
 
 			const erreur = screen.getByText('Constraints not satisfied');
 
