@@ -145,6 +145,7 @@ function FormulaireContactParTelephone(props: {
 			<form
 				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
 				onSubmit={props.envoyerCandidature}
+				className={styles.formulaireEtapeUnique}
 			>
 				<Champ>
 					<Champ.Label>Prénom

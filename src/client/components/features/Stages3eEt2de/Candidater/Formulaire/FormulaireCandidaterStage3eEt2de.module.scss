@@ -63,7 +63,7 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
     margin-block: 2rem;
   }
 
-  form > .etape1 {
+  form > .etape1, form.formulaireEtapeUnique {
     display: grid;
     grid-template-columns: 100%;
     gap: 1rem;
