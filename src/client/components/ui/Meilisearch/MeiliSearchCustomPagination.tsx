@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { usePagination } from 'react-instantsearch';
 import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connectors/usePagination';
@@ -19,7 +18,9 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
 		isLastPage,
 		refine,
 		createURL,
-	} = usePagination(props);
+	} = usePagination(props, {
+		$$widgetType: 'ais.pagination',
+	});
 	const numberOfResult = nbHits;
 
 	const numberOfPageList = useMemo(() => {
@@ -30,15 +31,13 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
 	}, [nbHits, numberOfResultPerPage]);
 	const lastPage = Math.max((Math.ceil(numberOfResult / numberOfResultPerPage) - 1), 0);
 
-
-
 	const onPageClick = (pageNumber: number) => {
 		refine(pageNumber);
 		onPageChange();
 	};
 
 	return (
-		<div className={classNames(className)}>
+		<div className={className}>
 			<CommonPagination
 				currentPage={currentRefinement}
 				onPageClick={onPageClick}
