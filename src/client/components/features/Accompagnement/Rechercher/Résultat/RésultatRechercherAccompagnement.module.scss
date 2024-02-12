@@ -57,17 +57,31 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
 
 .tags {
   list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
 
   @include utilities.media(large) {
     margin-block: 1rem;
   }
+
+  & .telephone {
+    text-decoration: none;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
+    & svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
 }
 
 .contactMailÉtablissement {
-  color: $color-contact-mail;
   margin-top: 1.25rem;
   font-weight: bold;
-  text-decoration: none;
 
   @include utilities.media(large) {
     align-self: flex-start;
@@ -76,7 +90,6 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
 
 .contactFormulaireÉtablissement {
   margin-top: 1.25rem;
-  font-weight: bold;
   align-self: start;
   font-size: 1rem;
   width: 100%;

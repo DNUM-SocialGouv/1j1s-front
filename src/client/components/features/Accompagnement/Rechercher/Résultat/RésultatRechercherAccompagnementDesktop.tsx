@@ -6,14 +6,15 @@ import {
 import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import {
+	RésultatRechercherAccompagnementTagsList,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementTagsList';
+import {
 	useAccompagnementLogo,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
-import { TagList } from '~/client/components/ui/Tag/TagList';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
@@ -24,6 +25,8 @@ interface RésultatRechercherAccompagnementDesktopProps {
 
 	onContactClick(): void
 }
+
+
 
 export function RésultatRechercherAccompagnementDesktop(props: RésultatRechercherAccompagnementDesktopProps) {
 	const {
@@ -45,39 +48,42 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 								{établissement.nom}
 							</Card.Title>
 							{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
-							<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']}
-											 className={styles.tags}/>
+							<RésultatRechercherAccompagnementTagsList etablissement={établissement} />
 						</div>
 						{
 							établissement.email && !isMissionLocale &&
-                <Link href={`mailto:${établissement.email}`} className={styles.contactMailÉtablissement} title="Contacter l‘agence - adresse mail">
-                	<TextIcon icon={'mail'} iconPosition={'right'}>Contacter l‘agence</TextIcon>
-                </Link>
+							<LinkStyledAsButtonWithIcon
+								appearance={'asQuaternaryButton'}
+								icon={<Icon name={'mail'}/>}
+								iconPosition={'right'}
+								href={`mailto:${établissement.email}`}
+								className={styles.contactMailÉtablissement}
+								title="Contacter l‘agence - adresse mail">
+								Contacter l‘agence
+							</LinkStyledAsButtonWithIcon>
 						}
 						{
 							établissement.email && isMissionLocale &&
-                <ButtonComponent
-                	className={styles.contactFormulaireÉtablissement}
-                	label={'Je souhaite être contacté(e)'}
-                	appearance={'quaternary'}
-                	iconPosition={'right'}
-                	icon={<Icon name="mail" className={styles.buttonIcon}/>}
-                	onClick={onContactClick}/>
+							<ButtonComponent
+								className={styles.contactFormulaireÉtablissement}
+								label={'Je souhaite être contacté(e)'}
+								appearance={'quaternary'}
+								onClick={onContactClick}/>
 						}
 					</div>
 					{établissement.horaires && établissement.horaires.length > 0 &&
-              <details className={styles.details}>
-              	<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
-              	<div className={styles.horaireBackground}>
-              		<ol className={styles.listeHoraire}>
-              			{établissement.horaires.map((horaire) => (
-              				<li key={horaire.jour} className={styles.horaireElement}>
-              					<HorairesRésultatRechercherAccompagnement horaire={horaire}/>
-              				</li>
-              			))}
-              		</ol>
-              	</div>
-              </details>
+						<details className={styles.details}>
+							<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
+							<div className={styles.horaireBackground}>
+								<ol className={styles.listeHoraire}>
+									{établissement.horaires.map((horaire) => (
+										<li key={horaire.jour} className={styles.horaireElement}>
+											<HorairesRésultatRechercherAccompagnement horaire={horaire}/>
+										</li>
+									))}
+								</ol>
+							</div>
+						</details>
 					}
 				</Card.Content>
 			</Card>
