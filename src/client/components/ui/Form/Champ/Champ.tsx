@@ -35,27 +35,29 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	);
 }
 
-type InputChampProps<Props extends ComponentChildrenPropsNecessary> = Props extends {render: unknown} ? never: Props & {
+type InputChampProps<Props extends ComponentChildrenPropsNecessary<T>, T extends HTMLInputElement | HTMLTextAreaElement> = Props extends {render: unknown} ? never: Props & {
 	render: React.ComponentType<Props>
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ChangeFunction = (event: React.ChangeEvent<HTMLInputElement>, ...args: any[]) => void;
+type ChangeFunction<T extends HTMLInputElement | HTMLTextAreaElement> = (event: React.ChangeEvent<T>, ...args: any[]) => void;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TouchFunction = (touched: boolean, ...args: any[]) => void;
-type ComponentChildrenPropsNecessary = {
-	onChange?: ChangeFunction
-	onInvalid?: ChangeFunction
+type ComponentChildrenPropsNecessary<T extends HTMLInputElement | HTMLTextAreaElement> = {
+	onChange?: ChangeFunction<T>
+	onInvalid?: ChangeFunction<T>
 	onTouch?: TouchFunction
-	ref?: React.Ref<HTMLInputElement>
+	ref?: React.Ref<T>
 	'aria-describedby'?: string
 	id?: string
 }
 
 export const InputChamp: <
-	Props extends ComponentChildrenPropsNecessary
->(props: InputChampProps<Props>) => React.ReactNode = React.forwardRef(function InputChamp<
-	Props extends ComponentChildrenPropsNecessary,
+	Props extends ComponentChildrenPropsNecessary<T>,
+	T extends HTMLInputElement | HTMLTextAreaElement
+>(props: InputChampProps<Props, T>) => React.ReactNode = React.forwardRef(function InputChamp<
+	Props extends ComponentChildrenPropsNecessary<T>,
+	T extends HTMLInputElement | HTMLTextAreaElement
 >(
 	{
 		'aria-describedby': ariaDescribedby = '',
@@ -65,7 +67,7 @@ export const InputChamp: <
 		onTouch: onTouchProps = doNothing,
 		render: Render,
 		...rest
-	}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
+	}: InputChampProps<Props, T>, outerRef: React.ForwardedRef<T>) {
 	const { errorId, hintId, setTouched, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
 	const inputRef = useSynchronizedRef(outerRef);
 
@@ -73,7 +75,7 @@ export const InputChamp: <
 		id && setInputId(id);
 	}, [id, setInputId]);
 
-	const onChange = useCallback<ChangeFunction>((event, ...args) => {
+	const onChange = useCallback<ChangeFunction<T>>((event, ...args) => {
 		setErrorMessage('');
 		onChangeProps(event, ...args);
 	}, [onChangeProps, setErrorMessage]);
@@ -83,7 +85,7 @@ export const InputChamp: <
 		setTouched(touched);
 	}, [onTouchProps, setTouched]);
 
-	const onInvalid = useCallback<ChangeFunction>((event, ...args) => {
+	const onInvalid = useCallback<ChangeFunction<T>>((event, ...args) => {
 		setErrorMessage(event.currentTarget.validationMessage);
 		onInvalidProps(event, ...args);
 	}, [onInvalidProps, setErrorMessage]);
