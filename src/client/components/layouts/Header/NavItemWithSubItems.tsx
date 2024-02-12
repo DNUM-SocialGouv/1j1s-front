@@ -73,11 +73,11 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 	}
 
 	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mouseup', closeOptionsOnClickOutside);
+		document.addEventListener('mousedown', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeMenuOnEscape);
 
 		return () => {
-			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
+			document.removeEventListener('mousedown', closeOptionsOnClickOutside);
 			document.removeEventListener('keyup', closeMenuOnEscape);
 		};
 	}, [closeMenuOnEscape, closeOptionsOnClickOutside]);
