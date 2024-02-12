@@ -8,8 +8,8 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import analyticsPageConfig from './index.analytics';
 import styles from './index.module.scss';
 
-const URL_IFRAME_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr/export/1-jeune-1-permis';
-const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.pole-emploi.fr';
+const URL_IFRAME_1JEUNE_1PERMIS = 'https://mes-aides.francetravail.fr/export/1-jeune-1-permis';
+const DOMAINE_1JEUNE_1PERMIS = 'https://mes-aides.francetravail.fr';
 
 export async function getStaticProps(): Promise<GetServerSidePropsResult<Record<never, never>>> {
 	const isFeatureActive = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
