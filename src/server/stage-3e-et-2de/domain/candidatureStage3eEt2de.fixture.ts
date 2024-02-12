@@ -36,7 +36,7 @@ export function aCandidatureEmailStage3eEt2de(overrides?: Partial<CandidatureEma
 		message: 'Bonjour, je suis intéressé par une immersion dans votre boulangerie',
 		modeDeContact: ModeDeContact.EMAIL,
 		nom: 'Doe',
-		objectif: 'Je veux apprendre à faire des croissants',
+		objectif: 'Découvrir un métier ou un secteur d\'activité',
 		prenom: 'John',
 		siret: '12345678912345',
 		telephone: '0123456789',
