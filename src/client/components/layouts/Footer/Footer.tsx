@@ -45,12 +45,12 @@ export default function Footer() {
 					<div className={styles.footerSlogan}>
 						<div className={styles.footerLogo}>
 							<Image src="/images/logos/mariane.svg" alt="" width={55} height={20} style={{ height: 20 }} />
-							<div className={styles.footerPropriétaire}>
+							<p className={styles.footerPropriétaire}>
 								<span>Ministère</span>
-								<span>du travail,</span>
-								<span>du plein emploi</span>
-								<span>et de l‘insertion</span>
-							</div>
+								<span>du travail</span>
+								<span>de la santé</span>
+								<span>et des solidarités</span>
+							</p>
 							<div className={styles.footerDevise}>
 								<Image src="/images/logos/devise.svg" alt="Liberté Égalité Fraternité" width={52} height={37} />
 							</div>

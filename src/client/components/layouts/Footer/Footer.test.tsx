@@ -16,6 +16,21 @@ describe('Footer', () => {
 		expect(footer).toBeVisible();
 	});
 
+	it('rends le composant avec le logo du ministère du travail', () => {
+		render(<Footer />);
+
+
+		const logo1 = screen.getByText('Ministère');
+		const logo2 = screen.getByText('du travail');
+		const logo3 = screen.getByText('de la santé');
+		const logo4 = screen.getByText('et des solidarités');
+
+		expect(logo1).toBeVisible();
+		expect(logo2).toBeVisible();
+		expect(logo3).toBeVisible();
+		expect(logo4).toBeVisible();
+	});
+
 	it('renders Footer component with a link to legifrance.gouv.fr', () => {
 		// When
 		render(<Footer />);
