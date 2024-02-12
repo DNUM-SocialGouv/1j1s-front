@@ -133,8 +133,8 @@ export function LinkIcon(props: IconProps) {
 		setIconPosition(position);
 	}, [position, setIconPosition]);
 
-	return (<span className={classNames(className, styles.icon)}>
-		{name ? <Icon name={name} {...rest}/> : <DefaultIcon isInternalLink={isInternalLink}/>}
+	return (<span className={styles.icon}>
+		{name ? <Icon className={className} name={name} {...rest}/> : <DefaultIcon isInternalLink={isInternalLink}/>}
 	</span>
 	);
 }
