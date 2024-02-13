@@ -74,6 +74,10 @@ const moduleExports = {
 				hostname: 'jedonnemonavis.numerique.gouv.fr',
 				protocol: 'https',
 			},
+			{
+				hostname: 'jeveuxaider.fra1.digitaloceanspaces.com',
+				protocol: 'https',
+			},
 		],
 	},
 	pageExtensions: ['page.tsx','controller.ts'],

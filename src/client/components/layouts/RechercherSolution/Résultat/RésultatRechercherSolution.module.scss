@@ -40,6 +40,8 @@ $border-card-lead: 4px solid $color-card-lead-border;
       margin-bottom: auto;
       width: 56px;
       height: 56px;
+      object-fit: contain;
+      flex-shrink: 0;
 
       @include utilities.media(medium) {
         width: 120px;

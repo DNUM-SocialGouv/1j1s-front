@@ -43,6 +43,7 @@ export interface Mission {
   débutContrat?: string
   duréeContrat?: number
   openToMinors?: string
+	logoUrl?: string
 }
 
 export const NOMBRE_RÉSULTATS_MISSION_PAR_PAGE = 15;

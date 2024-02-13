@@ -17,6 +17,7 @@ export interface MissionEngagementResponse {
   title: string
   openToMinors?: string
   id?: string
+	organizationLogo?: string
 }
 
 export interface ConsulterMissionEngagementResponse extends MissionEngagementResponse {
