@@ -95,7 +95,7 @@ export function mapMissionList(missionList: Array<MissionEngagementResponse>): A
 			description: mission.description,
 			débutContrat: mapDateDébutContrat(mission.startAt),
 			id: mission.id || mission.clientId,
-			logo: mission.organizationLogo,
+			logoUrl: mission.organizationLogo,
 			nomEntreprise: mission.associationName || mission.organizationName,
 			titre: mission.title,
 			étiquetteList,

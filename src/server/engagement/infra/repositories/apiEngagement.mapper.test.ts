@@ -1,4 +1,7 @@
 import {
+	aResultatsRechercheMissionEngagementResponse,
+} from '~/server/engagement/infra/repositories/apiEngagement.fixture';
+import {
 	mapFullLocalisation,
 	mapRésultatsRechercheMission,
 } from '~/server/engagement/infra/repositories/apiEngagement.mapper';
@@ -55,7 +58,7 @@ describe('mapEngagement', () => {
 	describe('mapRésultatsRechercheMission', () => {
 		it('map les résultats de recherche de mission', () => {
 			// Given
-			const resultatsRechercheApiEngagement: RésultatsRechercheMissionEngagementResponse = {
+			const resultatsRechercheApiEngagement: RésultatsRechercheMissionEngagementResponse = aResultatsRechercheMissionEngagementResponse({
 				hits: [
 					{
 						associationName: 'associationName',
@@ -89,7 +92,7 @@ describe('mapEngagement', () => {
 					},
 				],
 				total: 2,
-			};
+			});
 
 			// When
 			const result = mapRésultatsRechercheMission(resultatsRechercheApiEngagement);
