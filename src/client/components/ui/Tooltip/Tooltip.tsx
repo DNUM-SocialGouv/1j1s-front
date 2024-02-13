@@ -11,6 +11,13 @@ interface TooltipProps {
 	tooltipId: string
 }
 
+/* NOTE : Ce "Tooltip" n'a plus le role tooltip car le composant ne correspond pas à ce qui est décrit par :
+	https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
+	Notamment :
+	"The tooltip is not the appropriate role for the more information "i" icon, ⓘ. A tooltip is directly associated with the owning element. The ⓘ isn't 'described by' detailed information; the tool or control is."
+	 ou
+	 "Because the tooltip itself never receives focus and is not in the tabbing order, a tooltip can not contain interactive elements like links, inputs, or buttons."
+ */
 export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 	const { children, icon, ariaLabel, tooltipId } = props;
 	const tooltipRef = useRef<HTMLButtonElement>(null);
@@ -56,17 +63,13 @@ export function Tooltip(props: React.PropsWithChildren<TooltipProps>) {
 				ref={tooltipRef}
 				className={styles.tooltipContainer}
 				aria-label={ariaLabel}
-				aria-describedby={tooltipId}
-				/*
-				GMO 01-06-2023 - TODO déplacer / supprimer ce aria-describedby qui doit être sur l'élément explicité
-				par le tooltip et pas sur le bouton qui permet de l'afficher (voir https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role)
-				*/
 				aria-expanded={isOpen}
+				aria-controls={isOpen ? tooltipId : undefined}
 				type="button"
 				onClick={() => setIsOpen(!isOpen)}>
 				<Icon name={icon} className={styles.icon}/>
 			</button>
-			<span className={classNames(styles.tooltip)} role="tooltip" id={tooltipId} hidden={!isOpen}>
+			<span className={classNames(styles.tooltip)} id={tooltipId} hidden={!isOpen}>
 				<button className={styles.buttonClose} type="button" aria-label='fermer' onClick={() => setIsOpen(!isOpen)}>
 					<Icon name="close" />
 				</button>
