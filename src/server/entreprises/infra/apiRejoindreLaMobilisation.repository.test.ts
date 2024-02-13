@@ -1,4 +1,12 @@
-import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import {
+	anEntrepriseSouhaitantSEngager,
+} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import {
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+} from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import {
+	anApiLesEntreprisesSEngagentCompany,
+} from '~/server/entreprises/infra/apiLesEntreprisesSEngagentCompany.fixture';
 import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -28,14 +36,42 @@ describe('ApiRejoindreLaMobilisationRepository', () => {
 
 		it('envoie un POST vers l‘API des entreprise s‘engagent', async () => {
 			// Given
-			const entreprise = anEntrepriseSouhaitantSEngager();
+			const entreprise = anEntrepriseSouhaitantSEngager({
+				codePostal: '75015',
+				email: 'machin.chose@bidule.com',
+				nom: 'Chose',
+				nomSociété: 'Bidule co.',
+				prénom: 'Machin',
+				secteur: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES,
+				siret: '12345678901114',
+				taille: 'medium',
+				travail: 'Chef',
+				téléphone: '+33123456789',
+				ville: 'Paris (15e arrondissement)',
+			});
 			jest.spyOn(httpClientService, 'post').mockResolvedValue(anAxiosResponse({}, 201));
+
 			// When
 			const result = await repository.save(entreprise);
 
 			// Then
 			expect(result).toEqual(createSuccess(undefined));
 			expect(httpClientService.post).toHaveBeenCalledTimes(1);
+			expect(httpClientService.post).toHaveBeenCalledWith('/api/members', anApiLesEntreprisesSEngagentCompany({
+				companyName: 'Bidule co.',
+				companyPostalCode: '75015',
+				companySector: SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM.OTHER_SERVICES,
+				companySiret: '12345678901114',
+				companySize: 'medium',
+				email: 'machin.chose@bidule.com',
+				firstname: 'Machin',
+				from1j1s: true,
+				hasAgreedToCGU: false,
+				job: 'Chef',
+				lastname: 'Chose',
+				phone: '+33123456789',
+				whereDidYouKnowUs: 'service-public',
+			}));
 		});
 
 		it('résout une erreur quand le service est indisponible', async () => {
