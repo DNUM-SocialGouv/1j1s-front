@@ -107,24 +107,22 @@ export function LinkIcon(props: LinkIconProps) {
 		className,
 		...rest
 	} = props;
-	const { setIsLinkIcon, href } = useLinkContext();
-	const isInternalLink = useIsInternalLink(href);
+	const { setIsLinkIcon } = useLinkContext();
 
 	useEffect(() => {
 		setIsLinkIcon(true);
 	}, [setIsLinkIcon]);
 
 	return (<span className={styles.icon}>
-		{name ? <Icon className={className} name={name} {...rest}/> : <DefaultLinkIcon isInternalLink={isInternalLink}/>}
+		{name ? <Icon className={className} name={name} {...rest}/> : <DefaultLinkIcon/>}
 	</span>
 	);
 }
 
-type DefaultLinkIconProps = {
-	isInternalLink: boolean
-}
+function DefaultLinkIcon() {
+	const {  href } = useLinkContext();
+	const isInternalLink = useIsInternalLink(href);
 
-function DefaultLinkIcon({ isInternalLink }: DefaultLinkIconProps) {
 	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}</>;
 }
 
