@@ -32,8 +32,8 @@ export default function MonEspaceEntreprise() {
 						appearance={'asQuaternaryButton'}
 						className={styles.monEspaceInscription}
 						href="/les-entreprises-s-engagent">
+						<Link.Icon name="information"/>
 						Pas encore inscrit ? Rejoignez la mobilisation
-						<Link.Icon name="information" position={'left'}/>
 					</Link>
 				</div>
 			</Container>
