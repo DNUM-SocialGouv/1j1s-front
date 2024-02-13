@@ -172,12 +172,12 @@ describe('<TextArea />', () => {
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
-		it('ne masque pas l’aide à la saisie si un message d’erreur apparait', async () => {
+		it('ne masque pas l’aide à la saisie si un message d’erreur apparait',  () => {
 			render(<TextArea required defaultValue="" hint="Salut"/>);
 
-			const hint = screen.queryByText('Salut');
+			const hint = screen.getByText('Salut');
 
-			expect(hint).toBeInTheDocument();
+			expect(hint).toBeVisible();
 		});
 		it('lie l’erreur avec le champ', async () => {
 			render(<TextArea required defaultValue=""/>);
