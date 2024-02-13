@@ -105,7 +105,7 @@ describe('mapEngagement', () => {
 						description: 'description',
 						débutContrat: '01/12/2021',
 						id: 'id',
-						logo: 'http://organizationLogo.com/image.png',
+						logoUrl: 'http://organizationLogo.com/image.png',
 						nomEntreprise: 'associationName',
 						titre: 'title',
 						étiquetteList: ['Dès 16 ans', 'Nantes (44000)', '01/12/2021'],
