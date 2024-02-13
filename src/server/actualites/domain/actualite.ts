@@ -1,5 +1,5 @@
-import { Article } from './article';
-import { Image } from './image';
+import { Article } from '~/server/cms/domain/article';
+import { Image } from '~/server/cms/domain/image';
 
 export interface Actualité {
 	article?: Article

@@ -1,12 +1,9 @@
-import { Actualité } from '~/server/cms/domain/actualité';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { Either } from '~/server/errors/either';
 
 export interface CmsRepository {
-	getActualitéList(): Promise<Either<Actualité[]>>
-
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
 
 	getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>

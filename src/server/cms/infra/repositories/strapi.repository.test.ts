@@ -1,12 +1,9 @@
-import { Actualité } from '~/server/cms/domain/actualité';
-import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import {
-	anActualiteFixture,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiLesMesuresEmployeurs,
@@ -128,22 +125,6 @@ describe('strapi cms repository', () => {
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
-		});
-	});
-
-	describe('getActualites', () => {
-		describe('Si les actualités sont trouvées', () => {
-			it('récupère les actualités', async () => {
-				httpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
-				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
-				const result = await strapiCmsRepository.getActualitéList() as Success<Actualité[]>;
-
-				expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate=deep');
-				expect(result.result).toEqual(expectedCartesActualite);
-			});
 		});
 	});
 

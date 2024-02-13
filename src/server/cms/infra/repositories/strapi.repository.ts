@@ -1,13 +1,8 @@
-import { Actualité } from '~/server/cms/domain/actualité';
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import {
-	mapArticle,
-	mapMesuresEmployeurs,
-	mapStrapiListeActualités,
-} from '~/server/cms/infra/repositories/strapi.mapper';
+import { mapArticle, mapMesuresEmployeurs } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -17,7 +12,6 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
-const RESOURCE_ACTUALITE = 'actualite';
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 
 export class StrapiRepository implements CmsRepository {
@@ -138,11 +132,6 @@ export class StrapiRepository implements CmsRepository {
 	async getFirstFromCollectionType<Collection>(resource: string, query: string): Promise<Either<Collection>> {
 		const collectionType = await this.getCollectionType<Collection>(resource, query);
 		return this.getFirstFromCollection(collectionType);
-	}
-
-	async getActualitéList(): Promise<Either<Array<Actualité>>> {
-		const query = 'populate=deep';
-		return this.getSingleTypeDeprecated<Strapi.SingleType.ListeActualités, Array<Actualité>>(RESOURCE_ACTUALITE, query, mapStrapiListeActualités);
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {

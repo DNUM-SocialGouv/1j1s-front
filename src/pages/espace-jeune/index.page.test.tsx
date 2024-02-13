@@ -11,7 +11,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
-import { anActualite, anActualiteList } from '~/server/cms/domain/actualite.fixture';
+import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
 import { aServiceJeune, aServiceJeuneList } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 
 describe('Page Espace Jeune', () => {
