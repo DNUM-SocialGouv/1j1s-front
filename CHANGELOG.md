@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.244.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.243.0...v3.244.0) (2024-02-13)
+
+
+### Features
+
+* **engagement:** afficher le logo des entreprises ([#2688](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2688)) ([8c0f60a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8c0f60a347a8d46549533b05d740d8ba0480c91e))
+
 ## [3.243.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.242.1...v3.243.0) (2024-02-13)
 
 
