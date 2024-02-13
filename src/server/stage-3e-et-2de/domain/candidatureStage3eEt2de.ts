@@ -16,6 +16,8 @@ export type CandidatureEnPersonneStage3eEt2de = {
 	appellationCode: string
 	siret: string
 	modeDeContact: ModeDeContact.IN_PERSON
+	telephone?: string
+	message?: string
 }
 
 export type CandidatureEmailStage3eEt2de = {

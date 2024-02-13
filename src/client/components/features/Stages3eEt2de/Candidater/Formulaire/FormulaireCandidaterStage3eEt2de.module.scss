@@ -63,7 +63,7 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
     margin-block: 2rem;
   }
 
-  form > .etape1, form.formulaireEtapeUnique {
+  form {
     display: grid;
     grid-template-columns: 100%;
     gap: 1rem;
@@ -77,18 +77,6 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
       gap: 1.5rem;
     }
 
-    .boutonEtapeSuivante {
-      grid-column: 1;
-      margin: utilities.pixel-to-rem(16);
-
-      @include utilities.media(medium) {
-        grid-column: 1 / span 2;
-        width: fit-content;
-        justify-self: center;
-        margin: 2rem;
-      }
-    }
-
     .boutonSoumission {
       grid-column: 1;
       margin-top: utilities.pixel-to-rem(4);
@@ -98,6 +86,13 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
         width: fit-content;
         justify-self: center;
         margin-top: 2rem;
+      }
+    }
+
+    .champMessage {
+      grid-column: 1 / -1;
+      textarea {
+        height: 25ch;
       }
     }
   }

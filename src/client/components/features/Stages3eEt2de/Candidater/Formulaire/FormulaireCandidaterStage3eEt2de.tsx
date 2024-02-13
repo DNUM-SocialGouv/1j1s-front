@@ -1,19 +1,17 @@
-import classNames from 'classnames';
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Icon } from '~/client/components/ui/Icon/Icon';
+import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
-	CandidatureEnPersonneStage3eEt2de,
-	CandidatureTelephoneStage3eEt2de,
+	CandidatureStage3eEt2de,
 	ModeDeContact,
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
@@ -54,6 +52,17 @@ const DECHARGE = <div className={styles.decharge}>
 const INSTRUCTION_CANDIDATURE_MAIL = <p className={styles.sousTitre}>Cette entreprise a choisi d’être contactée par
 	e-mail. Veuillez compléter ce formulaire qui sera transmis à l’entreprise.</p>;
 
+const messageContactParDefaut =
+`Bonjour,
+ 
+J’ai trouvé votre entreprise sur le site https://www.1jeune1solution.gouv.fr/
+[Rédigez ici votre email de motivation.]
+
+Pourriez-vous me contacter par mail ou par téléphone pour me proposer un rendez-vous ?
+
+En vous remerciant,
+`;
+
 export function FormulaireCandidaterStage3eEt2de(props: {
 	modeDeContact: ModeDeContact,
 	nomEntreprise: string,
@@ -82,15 +91,31 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		event?.preventDefault();
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
-		const candidature: CandidatureTelephoneStage3eEt2de | CandidatureEnPersonneStage3eEt2de = {
-			// NOTE (SULI 25-01-2024): Deux façon de récupérer appellationCode car pour la présence d'un seul métier, on utilise le composant Select et il fournit seulement le label et pas le code
-			appellationCode: isMoreThanOneMetier ? String(data.get('metierCode')) : metiersStage3eEt2de[0].code,
-			email: String(data.get('email')),
-			modeDeContact: modeDeContact === ModeDeContact.PHONE ? ModeDeContact.PHONE : ModeDeContact.IN_PERSON,
-			nom: String(data.get('nom')),
-			prenom: String(data.get('prenom')),
-			siret: siret,
-		};
+		let candidature: CandidatureStage3eEt2de;
+
+		if (modeDeContact === ModeDeContact.IN_PERSON || modeDeContact === ModeDeContact.PHONE) {
+			candidature = {
+				// NOTE (SULI 25-01-2024): Deux façon de récupérer appellationCode car pour la présence d'un seul métier, on utilise le composant Select et il fournit seulement le label et pas le code
+				appellationCode: isMoreThanOneMetier ? String(data.get('metierCode')) : metiersStage3eEt2de[0].code,
+				email: String(data.get('email')),
+				modeDeContact: modeDeContact,
+				nom: String(data.get('nom')),
+				prenom: String(data.get('prenom')),
+				siret: siret,
+			};
+		} else {
+			candidature = {
+				appellationCode: isMoreThanOneMetier ? String(data.get('metierCode')) : metiersStage3eEt2de[0].code,
+				email: String(data.get('email')),
+				message: String(data.get('message')),
+				modeDeContact: modeDeContact,
+				nom: String(data.get('nom')),
+				objectif: 'Découvrir un métier ou un secteur d\'activité',
+				prenom: String(data.get('prenom')),
+				siret: siret,
+				telephone: String(data.get('telephone')),
+			};
+		}
 		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
 		setIsLoading(false);
 		if (resultat.instance === 'success') onSuccess();
@@ -229,93 +254,117 @@ function FormulaireContactParEmail(props: {
 	isLoading: boolean,
 	metiersStage3eEt2de: Array<MetierStage3eEt2de>
 }) {
-	const [etape, setEtape] = useState<'ETAPE_1' | 'ETAPE_2'>('ETAPE_1');
-
-	const formRef = useRef<HTMLFormElement>(null);
-
-	const passerALEtape2 = () => {
-		const isFormValid = formRef.current?.checkValidity();
-		if (isFormValid) {
-			setEtape('ETAPE_2');
-		}
-	};
+	const isMoreThanOneMetier = props.metiersStage3eEt2de.length > 1;
 
 	return <>
 		<Container className={styles.formulaireContainer}>
-			<p className={styles.etape}>{etape === 'ETAPE_1' ? 'Étape 1 sur 2 : Informations personnelles' : 'Étape 2 sur 2 : Objet de votre demande'}</p>
 
 			<BackButton label="Retour à la recherche" aria-label="Retour à la recherche" className={styles.boutonRetour}/>
 
 			<p className={styles.mentionChampsObligatoires}>Tous les champs sont obligatoires (sauf mention contraire)</p>
+
 			<form
 				aria-label={`Candidater à l’offre de stage de 3e et 2de de l’entreprise ${props.nomEntreprise}`}
 				onSubmit={props.envoyerCandidature}
-				ref={formRef}
+				className={styles.formulaireEtapeUnique}
 			>
-				<div className={classNames(styles.etape1, etape !== 'ETAPE_1' && styles.etape1hidden)}>
-					<Champ>
-						<Champ.Label>Prénom
-							<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input render={Input}
-												 name="prenom"
-												 required
-												 type="text"
-												 autoComplete="given-name"
-						/>
-						<Champ.Error/>
-					</Champ>
-					<Champ>
-						<Champ.Label>Nom
-							<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input render={Input}
-												 name="nom"
-												 required
-												 type="text"
-												 autoComplete="family-name"
-						/>
-						<Champ.Error/>
-					</Champ>
-					<Champ>
-						<Champ.Label>E-mail
-							<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input render={Input}
-												 name="email"
-												 required
-												 type="email"
-												 autoComplete="email"
-												 pattern={emailRegex}
-						/>
-						<Champ.Error/>
-					</Champ>
+				<Champ>
+					<Champ.Label>Prénom
+						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="prenom"
+											 required
+											 type="text"
+											 autoComplete="given-name"
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>Nom
+						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="nom"
+											 required
+											 type="text"
+											 autoComplete="family-name"
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>E-mail
+						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="email"
+											 required
+											 type="email"
+											 autoComplete="email"
+											 pattern={emailRegex}
+					/>
+					<Champ.Error/>
+				</Champ>
+				<Champ>
+					<Champ.Label>
+						Téléphone
+						<Champ.Label.Complement>
+							Exemples : 0601020304 ou +33601020304
+						</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Input}
+											 name="telephone"
+											 required
+											 type="tel"
+											 autoComplete="tel"
+											 pattern={telFrRegex}
+					/>
+					<Champ.Error/>
+				</Champ>
+				{ /* FIXME (DORO 22-01-2024: Ajouter la gestion de readonly dans Select */}
+				{isMoreThanOneMetier ?
+					<Select
+						optionList={props.metiersStage3eEt2de.map((metier) => ({ libellé: metier.label, valeur: metier.code }))}
+						label="Métier sur lequel porte la demande d’immersion"
+						name="metierCode"
+						required
+						labelComplement="Un ou plusieurs métiers ont été renseignés par l’entreprise"
+					/>
+					:
 					<Champ>
 						<Champ.Label>
-							Téléphone
-							<Champ.Label.Complement>
-								Exemples : 0601020304 ou +33601020304
-							</Champ.Label.Complement>
+							Métier sur lequel porte la demande d’immersion
+							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
+								l’entreprise</Champ.Label.Complement>
 						</Champ.Label>
 						<Champ.Input render={Input}
-												 name="telephone"
+												 name="metierCode"
 												 required
-												 type="tel"
-												 autoComplete="tel"
-												 pattern={telFrRegex}
+												 value={props.metiersStage3eEt2de[0].label}
+												 readOnly
+												 type="text"
 						/>
 						<Champ.Error/>
 					</Champ>
-					<ButtonComponent
-						className={styles.boutonEtapeSuivante}
-						label="Étape suivante"
-						type="button"
-						onClick={passerALEtape2}
-						icon={<Icon name={'angle-right'}/>}
-						iconPosition="right"
-					/>
-				</div>
+				}
+				<Champ className={styles.champMessage}>
+					<Champ.Label htmlFor="message">
+						Votre message à l’entreprise
+						<Champ.Label.Complement>
+							Partagez vos motivations, vos attentes ou toute information que vous jugeriez utiles (500 charactères maximum)
+						</Champ.Label.Complement>
+					</Champ.Label>
+					<TextArea id="message" name="message" maxLength={500} required defaultValue={messageContactParDefaut}/>
+					<Champ.Error/>
+				</Champ>
+				<ButtonComponent
+					className={styles.boutonSoumission}
+					label="Envoyer les informations"
+					type="submit"
+					disabled={props.isLoading}
+				/>
 			</form>
 		</Container>
+		{DECHARGE}
 	</>;
 };

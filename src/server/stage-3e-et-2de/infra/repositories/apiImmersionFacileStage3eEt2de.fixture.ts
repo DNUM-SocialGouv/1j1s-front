@@ -51,7 +51,7 @@ export function anApiImmersionFacileStage3eEt2deCandidatureEmail(override?: Part
 	return {
 		appellationCode: '11573',
 		contactMode: 'EMAIL',
-		immersionObjective: 'Je veux apprendre à faire des croissants',
+		immersionObjective: 'Découvrir un métier ou un secteur d\'activité',
 		message: 'Bonjour, je suis intéressé par une immersion dans votre boulangerie',
 		potentialBeneficiaryEmail: 'email@example.com',
 		potentialBeneficiaryFirstName: 'John',
