@@ -17,15 +17,15 @@ export function RésultatRechercherAccompagnementTagsList({ etablissement }: tag
 
 	return <ul className={styles.tags}>
 		{etablissement.telephone &&
-			<li key={'téléphone'} aria-label={'téléphone de l‘établissement'}>
+			<li key="téléphone" aria-label="téléphone de l‘établissement">
 				<Tag>
 					<Link href={`tel:${etablissement.telephone}`} className={styles.telephone}>
-						<Icon name={'phone'}/>{etablissement.telephone}
+						<Icon name="phone"/>{etablissement.telephone}
 					</Link>
 				</Tag>
 			</li>}
 		{!isMissionLocale && etablissement.email &&
-			<li key={'mail'} aria-label={'email de l‘établissement'}>
+			<li key="mail" aria-label="email de l‘établissement">
 				<Tag>{etablissement.email}</Tag>
 			</li>}
 	</ul>;
