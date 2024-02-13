@@ -11,16 +11,6 @@ const meta: Meta<typeof Link> = {
 export default meta;
 type Story = StoryObj<typeof Link>;
 type IconStory = StoryObj<typeof Link.Icon>;
-export const exemple: Story = {
-	args: {
-		href: 'https://example.com',
-	},
-	render: (args) => (
-		<Link {...args}>
-			Cliquez ici
-		</Link>
-	),
-};
 export const LinkWithDefaultIcon: Story = {
 	args: {
 		href: 'https://example.com',
@@ -34,7 +24,7 @@ export const LinkWithDefaultIcon: Story = {
 	},
 };
 
-export const LinkWithCustomizedIcon: IconStory = {
+export const QuaternaryLinkWithCustomizedIcon: IconStory = {
 	args: {
 		name: 'account',
 	},
@@ -50,13 +40,12 @@ export const LinkWithCustomizedIcon: IconStory = {
 export const LinkPrimaryWithLeftIcon: IconStory = {
 	args: {
 		name: 'account',
-		position: 'left',
 	},
 	render: (args) => {
 		return (
 			<Link href="#emplois" appearance={'asPrimaryButton'}>
-				Cliquez ici
 				<Link.Icon {...args}/>
+				Cliquez ici
 			</Link>);
 	},
 };
@@ -64,13 +53,12 @@ export const LinkPrimaryWithLeftIcon: IconStory = {
 export const LinkWithLeftIcon: IconStory = {
 	args: {
 		name: 'account',
-		position: 'left',
 	},
 	render: (args) => {
 		return (
 			<Link href="#emplois">
-				Cliquez ici
 				<Link.Icon {...args}/>
+				Cliquez ici
 			</Link>);
 	},
 };

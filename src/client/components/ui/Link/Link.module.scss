@@ -1,67 +1,54 @@
-@use "@styles/utilities-deprecated";
-// TODO (BRUJ 12/02/2024): enlever deprecated
+@use "@styles/utilities";
 
 .primary, .secondary, .tertiary {
   @extend %button;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
   border-radius: 50px;
   text-decoration: none;
   outline-offset: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
-
-  & svg {
-    vertical-align: middle;
-  }
 }
 
-
 .primary {
-  border: 1px solid utilities-deprecated.$color-primary;
-  background-color: utilities-deprecated.$color-primary;
-  color: utilities-deprecated.$color-on-primary;
+  border: 1px solid utilities.$color-cta-background-primary;
+  background-color: utilities.$color-cta-background-primary;
+  color: utilities.$color-text-primary-inverse;
 
   &:hover {
-    background-color: utilities-deprecated.$color-primary-on-hover;
-    border-color: utilities-deprecated.$color-primary-on-hover;
+    background-color: utilities.$color-cta-background-primary-hover;
+    border-color: utilities.$color-cta-background-primary-hover;
   }
 }
 
 .secondary {
-  border: 1px solid utilities-deprecated.$color-primary;
-  color: utilities-deprecated.$color-primary;
-  background-color: utilities-deprecated.$white;
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-cta-texte-secondary;
+  background-color: utilities.$color-cta-background-secondary;
 
   &:hover {
-    background-color: utilities-deprecated.$color-background-white-titan;
-    border-color: utilities-deprecated.$color-primary;
-    color: utilities-deprecated.$color-primary;
+    background-color: utilities.$color-cta-background-secondary-hover;
+    color: utilities.$color-cta-texte-secondary-hover;
   }
 }
 
 .tertiary {
-  border: 1px solid utilities-deprecated.$color-primary;
-  color: utilities-deprecated.$color-primary;
-  background-color: utilities-deprecated.$color-background-white-titan;
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-text-primary-alternative;
+  background-color: utilities.$color-cta-background-tertiary;
 
   &:hover {
-    background-color: utilities-deprecated.$color-tertiary-on-hover;
-    border-color: utilities-deprecated.$color-tertiary-on-hover;
-    color: utilities-deprecated.$white;
+    background-color: utilities.$color-cta-background-tertiary-hover;
+    border-color: utilities.$color-cta-background-tertiary-hover;
+    color: utilities.$color-cta-texte-tertiary-hover;
   }
 }
 
 .quaternary {
-  display: flex;
-  color: utilities-deprecated.$color-primary;
+  color: utilities.$color-primary;
   text-decoration: none;
   border-radius: 0;
   padding: 0;
-  gap: .5rem;
 
   &:hover {
     text-decoration: underline;
@@ -69,36 +56,14 @@
   }
 }
 
-.linkWithRightIcon, .linkWithLeftIcon, .linkWithTopIcon {
+.linkWithIcon {
   display: grid;
-  width: fit-content;
-  gap: 0;
   grid-template-columns: auto auto;
+  gap: 0.5rem;
+  width: fit-content;
 
   & .icon {
     display: inline-flex;
-  }
-}
-
-.linkWithLeftIcon {
-  gap: 0.5rem;
-
-  & .icon {
-    grid-area: 1;
-  }
-}
-
-.linkWithRightIcon {
-  gap: 0.5rem;
-}
-
-.linkWithTopIcon {
-  justify-items: center;
-  grid-template-columns: auto;
-  grid-template-rows: auto auto;
-
-  & .icon {
-    grid-area: 1;
-    display: block;
+    align-items: center;
   }
 }

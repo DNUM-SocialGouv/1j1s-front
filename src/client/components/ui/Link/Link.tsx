@@ -19,8 +19,6 @@ import styles from './Link.module.scss';
 
 type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
 
-type IconPosition = 'top' | 'left' | 'right';
-
 
 interface Link extends React.ComponentPropsWithoutRef<'a'> {
 	href: string
@@ -29,7 +27,7 @@ interface Link extends React.ComponentPropsWithoutRef<'a'> {
 }
 
 interface LinkContext {
-	setIconPosition: Dispatch<SetStateAction<IconPosition | undefined>>,
+	setIsLinkIcon: Dispatch<SetStateAction<boolean>>,
 	href: string
 }
 
@@ -53,7 +51,7 @@ export function Link(props: PropsWithChildren<Link>) {
 		title,
 		...rest
 	} = props;
-	const [iconPosition, setIconPosition] = useState<IconPosition | undefined>(undefined);
+	const [isLinkIcon, setIsLinkIcon] = useState<boolean>(false);
 	const isInternalLink = useIsInternalLink(href);
 
 	const appearanceClass = () => {
@@ -71,17 +69,6 @@ export function Link(props: PropsWithChildren<Link>) {
 		}
 	};
 
-	const linkWithIconClass = () => {
-		switch (iconPosition) {
-			case 'top':
-				return styles.linkWithTopIcon;
-			case 'left':
-				return styles.linkWithLeftIcon;
-			case 'right':
-				return styles.linkWithRightIcon;
-		}
-	};
-
 	function getTitle() {
 		if (isInternalLink) {
 			return title;
@@ -90,19 +77,19 @@ export function Link(props: PropsWithChildren<Link>) {
 	}
 
 	return isInternalLink ? (
-		<LinkContext.Provider value={{ href, setIconPosition }}>
+		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
 			<LinkNext
 				href={href}
 				title={getTitle()}
 				prefetch={prefetch}
-				className={classNames(className, appearanceClass(), linkWithIconClass())} {...rest}>
+				className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
 				{children}
 			</LinkNext>
 		</LinkContext.Provider>
 	) : (
-		<LinkContext.Provider value={{ href, setIconPosition }}>
+		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
 			<a href={href} title={getTitle()} target="_blank" rel="noreferrer"
-				 className={classNames(className, appearanceClass(), linkWithIconClass())} {...rest}>
+				 className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
 				{children}
 			</a>
 		</LinkContext.Provider>
@@ -110,7 +97,6 @@ export function Link(props: PropsWithChildren<Link>) {
 }
 
 interface LinkIconProps extends Omit<IconProps, 'name'> {
-	position?: IconPosition;
 	name?: IconName
 	className?: string
 }
@@ -119,15 +105,14 @@ export function LinkIcon(props: LinkIconProps) {
 	const {
 		name,
 		className,
-		position = 'right',
 		...rest
 	} = props;
-	const { setIconPosition, href } = useLinkContext();
+	const { setIsLinkIcon, href } = useLinkContext();
 	const isInternalLink = useIsInternalLink(href);
 
 	useEffect(() => {
-		setIconPosition(position);
-	}, [position, setIconPosition]);
+		setIsLinkIcon(true);
+	}, [setIsLinkIcon]);
 
 	return (<span className={styles.icon}>
 		{name ? <Icon className={className} name={name} {...rest}/> : <DefaultLinkIcon isInternalLink={isInternalLink}/>}
