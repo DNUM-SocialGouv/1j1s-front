@@ -19,6 +19,10 @@
     padding-bottom: 1rem;
   }
 
+  h2 {
+    @extend %bold;
+  }
+
   @include utilities.media(large) {
     ul {
       padding-bottom: 2rem;
