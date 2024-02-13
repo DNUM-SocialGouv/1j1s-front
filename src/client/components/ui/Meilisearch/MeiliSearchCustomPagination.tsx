@@ -19,6 +19,11 @@ export function MeiliSearchCustomPagination(props: MeiliSearchCustomPaginationPr
 		refine,
 		createURL,
 	} = usePagination(props, {
+		/*  NOTE (SULI 13-02-2024):
+		* Suite à une montée de version d'instantsearch en patch, la pagination ne permet plus de bouger en dehors de la page 1
+		* pour la rétablir, il semble que cette option soit nécessaire $$widgetType: 'ais.pagination', d'après le code source de la librairie
+		* (Cf. https://github.com/algolia/instantsearch/blob/77f0c48d6458aa2d2ab4af804fbaf45f0839d88b/packages/react-instantsearch/src/widgets/Pagination.tsx#L45)
+		* */
 		$$widgetType: 'ais.pagination',
 	});
 	const numberOfResult = nbHits;
