@@ -55,7 +55,7 @@ export function mapToApiImmersionFacileStage3eEt2deCandidature(candidature: Cand
 		return {
 			appellationCode: candidature.appellationCode,
 			contactMode: candidature.modeDeContact,
-			immersionObjective: candidature.objectif,
+			immersionObjective: candidature.objectif, //TODO set objectif par défaut
 			message: candidature.message,
 			potentialBeneficiaryEmail: candidature.email,
 			potentialBeneficiaryFirstName: candidature.prenom,

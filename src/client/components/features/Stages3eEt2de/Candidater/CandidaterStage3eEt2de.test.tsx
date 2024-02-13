@@ -328,111 +328,70 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				expect(message).toBeVisible();
 			});
 
-			describe('Etape 1', () => {
-				it('affiche l’étape courante du formulaire', () => {
-					// GIVEN
-					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-						{
-							modeDeContact: ModeDeContact.EMAIL,
-						});
 
-					// WHEN
-					render(
-						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-							<CandidaterStage3eEt2de
-								donneesEntreprise={donneesEntreprise}
-							/>
-						</DependenciesProvider>,
-					);
+			it('affiche une étape de formulaire concernant les données personnelles qui peuvent être remplis automatiquement', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						modeDeContact: ModeDeContact.EMAIL,
+						nomEntreprise: 'Carrefour',
+					});
 
-					// THEN
-					const etapeCourante = screen.getByText('Étape 1 sur 2 : Informations personnelles');
-					expect(etapeCourante).toBeVisible();
-				});
-				it('affiche une étape de formulaire concernant les données personnelles qui peuvent être remplis automatiquement', () => {
-					// GIVEN
-					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-						{
-							modeDeContact: ModeDeContact.EMAIL,
-							nomEntreprise: 'Carrefour',
-						});
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
 
-					// WHEN
-					render(
-						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-							<CandidaterStage3eEt2de
-								donneesEntreprise={donneesEntreprise}
-							/>
-						</DependenciesProvider>,
-					);
-
-					// THEN
-					const formulaire = screen.getByRole('form', { name: 'Candidater à l’offre de stage de 3e et 2de de l’entreprise Carrefour' });
-					expect(formulaire).toBeVisible();
-					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-					expect(inputPrenom).toHaveAttribute('autocomplete', 'given-name');
-					expect(inputPrenom).toBeVisible();
-					const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-					expect(inputNom).toHaveAttribute('autocomplete', 'family-name');
-					expect(inputNom).toBeVisible();
-					const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-					expect(inputEmail).toHaveAttribute('autocomplete', 'email');
-					expect(inputEmail).toBeVisible();
-					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
-					expect(inputTelephone).toHaveAttribute('autocomplete', 'tel');
-					expect(inputTelephone).toBeVisible();
-
-					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
-					expect(boutonEtapeSuivante).toBeVisible();
-				});
-				it('on peut passer à l’étape 2, une fois les champs remplis', async () => {
-					// GIVEN
-					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
-						{
-							modeDeContact: ModeDeContact.EMAIL,
-							nomEntreprise: 'Carrefour',
-						});
-					const user = userEvent.setup();
-
-					// WHEN
-					render(
-						<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
-							<CandidaterStage3eEt2de
-								donneesEntreprise={donneesEntreprise}
-							/>
-						</DependenciesProvider>,
-					);
-
-					// THEN
-					const boutonEtapeSuivante = screen.getByRole('button', { name: 'Étape suivante' });
-					user.click(boutonEtapeSuivante);
-					let etapeCourante = screen.getByText('Étape 1 sur 2 : Informations personnelles');
-					expect(etapeCourante).toBeVisible();
-
-					const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
-					await user.type(inputPrenom, 'Alexis');
-
-					const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
-					await user.type(inputNom, 'Dupont');
-
-					const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
-					await user.type(inputEmail, 'alexis.dupont@example.com');
-
-					const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
-					await user.type(inputTelephone, '0601020304');
-
-					await user.click(boutonEtapeSuivante);
-
-					etapeCourante = screen.getByText('Étape 2 sur 2 : Objet de votre demande');
-					expect(etapeCourante).toBeVisible();
-				});
+				// THEN
+				const formulaire = screen.getByRole('form', { name: 'Candidater à l’offre de stage de 3e et 2de de l’entreprise Carrefour' });
+				expect(formulaire).toBeVisible();
+				const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Alexis' });
+				expect(inputPrenom).toHaveAttribute('autocomplete', 'given-name');
+				expect(inputPrenom).toBeVisible();
+				const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
+				expect(inputNom).toHaveAttribute('autocomplete', 'family-name');
+				expect(inputNom).toBeVisible();
+				const inputEmail = screen.getByRole('textbox', { name: 'E-mail Exemple : alexis.dupont@example.com' });
+				expect(inputEmail).toHaveAttribute('autocomplete', 'email');
+				expect(inputEmail).toBeVisible();
+				const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
+				expect(inputTelephone).toHaveAttribute('autocomplete', 'tel');
+				expect(inputTelephone).toBeVisible();
 			});
-			describe('Etape 2', () => {
-				it.todo('le focus est replacé sur l’élément indiquant l’étape du formulaire');
-				it.todo('je peux retourner a l’étape précédente');
-				it.todo('le champ du message pour l’entreprise est limité à 500 caractères');
-				it.todo('le champ du message pour l’entreprise est pré-rempli');
-				it.todo('affiche un message indiquant que les données sont collectées et traitées par la DGEFP');
+			it.todo('le champ du message pour l’entreprise est limité à 500 caractères');
+			it.todo('le champ du message pour l’entreprise est pré-rempli');
+			it('affiche un message indiquant que les données sont collectées et traitées par la DGEFP', () => {
+				// GIVEN
+				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+					{
+						appellations: [
+							{
+								code: 'code',
+								label: 'label',
+							},
+						],
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nomEntreprise: 'Carrefour',
+						siret: '37000000000000',
+					},
+				);
+
+				// WHEN
+				render(
+					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const message = screen.getByText('Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre à votre demande. Pour en savoir plus vous pouvez consulter la politique de confidentialité et les CGU de la DGEFP. En cliquant sur "Envoyer mes informations", vos données seront transmises à la mission locale de la zone géographique dans laquelle vous résidez pour que celle-ci prenne contact avec vous');
+				expect(message).toBeVisible();
 			});
 		});
 	});
@@ -709,6 +668,110 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						nom: 'Dupont',
 						prenom: 'Alexis',
 						siret: '12345678912345',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
+				});
+			});
+		});
+
+		describe('lorsque la candidature est par mail', () => {
+			describe('lorsque plusieurs métiers sont proposés', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Chargé / Chargée de relations entreprises',
+								},
+								{
+									code: '67890',
+									label: 'Boulanger / Boulangère',
+								}],
+							modeDeContact: ModeDeContact.EMAIL,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						metierLabel: 'Chargé / Chargée de relations entreprises',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						telephone: '0600110011',
+					});
+					// TODO ajouter message
+
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureEnPersonneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						siret: '12345678912345',
+						telephone: '0600110011',
+					});
+					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
+				});
+			});
+
+			describe('lorsque un seul métier est proposé', () => {
+				it('envoie les données de la candidature', async () => {
+					// GIVEN
+					const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
+						{
+							appellations: [
+								{
+									code: '12345',
+									label: 'Boulanger / Boulangère',
+								},
+							],
+							modeDeContact: ModeDeContact.EMAIL,
+							nomEntreprise: 'Carrefour',
+							siret: '12345678912345',
+						},
+					);
+					const user = userEvent.setup();
+					const stage3eEt2deService = aStage3eEt2deService();
+					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+						<CandidaterStage3eEt2de
+							donneesEntreprise={donneesEntreprise}
+						/>
+					</DependenciesProvider>);
+					await remplirLeFormulaire({
+						email: 'alexis.dupont@example.com',
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						telephone: '0600110011',
+					});
+					// TODO ajouter message
+
+					// WHEN
+					const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
+					await user.click(envoyerBouton);
+
+					// THEN
+					const expectedCandidature3eEt2de = aCandidatureEnPersonneStage3eEt2de({
+						appellationCode: '12345',
+						email: 'alexis.dupont@example.com',
+						modeDeContact: ModeDeContact.IN_PERSON,
+						nom: 'Dupont',
+						prenom: 'Alexis',
+						siret: '12345678912345',
+						telephone: '0600110011',
 					});
 					expect(stage3eEt2deService.candidaterStage3eEt2de).toHaveBeenCalledWith(expectedCandidature3eEt2de);
 				});
@@ -1088,6 +1151,7 @@ type DonneesFormulaires = {
 	nom: string
 	email: string
 	metierLabel?: string
+	telephone?: string
 }
 async function remplirLeFormulaire(donneesFormulaire: DonneesFormulaires) {
 	const user = userEvent.setup();
@@ -1100,6 +1164,10 @@ async function remplirLeFormulaire(donneesFormulaire: DonneesFormulaires) {
 	await user.type(inputEmail, donneesFormulaire.email);
 	if (donneesFormulaire.metierLabel) {
 		await selectionnerUnMetier(donneesFormulaire.metierLabel);
+	}
+	if (donneesFormulaire.telephone) {
+		const inputTelephone = screen.getByRole('textbox', { name: 'Téléphone Exemples : 0601020304 ou +33601020304' });
+		user.type(inputTelephone, donneesFormulaire.telephone);
 	}
 }
 
