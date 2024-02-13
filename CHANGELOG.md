@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.243.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.242.1...v3.243.0) (2024-02-13)
+
+
+### Features
+
+* formulaire de contact stages 3e 2nd par email ([#2691](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2691)) ([83eb6f9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/83eb6f9429b2704651fdff145d47eb004e5ea96b))
+
+
+### Bug Fixes
+
+* **multiple:** mise en avant message resultat recherches ([#2684](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2684)) ([2073442](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2073442d13122701b37127432e4a63b0c739b4ee))
+
 ## [3.242.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.242.0...v3.242.1) (2024-02-12)
 
 
