@@ -34,13 +34,13 @@ export const LinkWithDefaultIcon: Story = {
 	},
 };
 
-export const LinkWithCustomizeIcon: IconStory = {
+export const LinkWithCustomizedIcon: IconStory = {
 	args: {
-		name:'account',
+		name: 'account',
 	},
 	render: (args) => {
 		return (
-			<Link href="#emplois" appearance={'asPrimaryButton'}>
+			<Link href="#emplois" appearance={'asQuaternaryButton'}>
 				Cliquez ici
 				<Link.Icon {...args}/>
 			</Link>);
@@ -49,7 +49,7 @@ export const LinkWithCustomizeIcon: IconStory = {
 
 export const LinkPrimaryWithLeftIcon: IconStory = {
 	args: {
-		name:'account',
+		name: 'account',
 		position: 'left',
 	},
 	render: (args) => {
@@ -61,14 +61,14 @@ export const LinkPrimaryWithLeftIcon: IconStory = {
 	},
 };
 
-export const LinkWithoutStyleWithLeftIcon: IconStory = {
+export const LinkWithLeftIcon: IconStory = {
 	args: {
-		name:'account',
+		name: 'account',
 		position: 'left',
 	},
 	render: (args) => {
 		return (
-			<Link href="#emplois" >
+			<Link href="#emplois">
 				Cliquez ici
 				<Link.Icon {...args}/>
 			</Link>);

@@ -1,5 +1,5 @@
 @use "@styles/utilities-deprecated";
-
+// TODO (BRUJ 12/02/2024): enlever deprecated
 
 .primary, .secondary, .tertiary {
   @extend %button;
@@ -14,7 +14,7 @@
   text-overflow: ellipsis;
   overflow-x: hidden;
 
-  & > svg {
+  & svg {
     vertical-align: middle;
   }
 }
@@ -74,19 +74,22 @@
   width: fit-content;
   gap: 0;
   grid-template-columns: auto auto;
+
+  & .icon {
+    display: inline-flex;
+  }
 }
 
 .linkWithLeftIcon {
+  gap: 0.5rem;
+
   & .icon {
     grid-area: 1;
-    margin-right: 0.5rem;
   }
 }
 
 .linkWithRightIcon {
-  .icon {
-    margin-left: 0.5rem;
-  }
+  gap: 0.5rem;
 }
 
 .linkWithTopIcon {

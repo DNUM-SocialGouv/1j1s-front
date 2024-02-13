@@ -22,7 +22,7 @@ describe('Link', () => {
 		expect(linkComponent).toHaveAttribute('rel');
 	});
 
-	describe('lien interne', () => {
+	describe('quand le lien est un lien interne', () => {
 		it('avec href relatif, retourne le composant Link sans les propriétés de la redirection externe', () => {
 			const lienInterne = '/emplois';
 
