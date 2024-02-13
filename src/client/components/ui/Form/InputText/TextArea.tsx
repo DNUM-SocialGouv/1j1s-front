@@ -104,13 +104,15 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 		? `${describedByProps} ${hintId}`
 		: describedByProps;
 
+	const shouldDisplayError = error && touched;
+
 	return (
 		<div className={classNames(styles.textInput, className)}>
 			<Label htmlFor={id}>{label}</Label>
 			<textarea
 				className={classNames(styles.textInputField, touched && styles.textInputFieldTouched)}
 				id={id}
-				aria-errormessage={errorId} // TODO GMO 17-10-2023 conditionner la présence de cette attribut à l'existence d'une erreur
+				aria-errormessage={shouldDisplayError ? errorId : undefined } // TODO GMO 17-10-2023 conditionner la présence de cette attribut à l'existence d'une erreur
 				aria-invalid={!!error}
 				aria-describedby={ariaDescribedby}
 				onChange={onChange}
@@ -118,8 +120,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 				data-touched={touched}
 				{...textareaProps}
 				ref={ref}/>
-			{touched && <Error id={errorId}>{error}</Error>  /* TODO GMO 17-10-2023 conditionner la présence de ce composant à l'existence d'une erreur */ }
-			{!error && <Hint id={hintId}>{hint}</Hint>}
+			{shouldDisplayError && <Error id={errorId}>{error}</Error>  /* TODO GMO 17-10-2023 conditionner la présence de ce composant à l'existence d'une erreur */ }
+			<Hint id={hintId}>{hint}</Hint>
 		</div>
 	);
 });
