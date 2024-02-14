@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.245.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.244.0...v3.245.0) (2024-02-14)
+
+
+### Features
+
+* **accompagnement:** ajoute l‘icone téléphone et rend cliquable de numéro de téléphone ([#2685](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2685)) ([9c57f9c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9c57f9c98744605913ce36577aa9b851dbc1d3f9))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.101.0 ([#2696](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2696)) ([a808113](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a80811389fa109271b4c3e7e6c99805befed9771))
+
 ## [3.244.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.243.0...v3.244.0) (2024-02-13)
 
 
