@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.245.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.245.0...v3.245.1) (2024-02-14)
+
+
+### Bug Fixes
+
+* **LEE:** ajout des deux champs requis pour envoyer vers Les entreprises s'engagent ([#2692](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2692)) ([5bed2e0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5bed2e080cf21178a20a5a693fe3e58b36b018a7))
+
 ## [3.245.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.244.0...v3.245.0) (2024-02-14)
 
 
