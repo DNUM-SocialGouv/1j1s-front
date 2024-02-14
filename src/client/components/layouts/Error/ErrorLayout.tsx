@@ -6,6 +6,7 @@ import { BackButton } from '~/client/components/features/ButtonRetour/BackButton
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Error/ErrorLayout.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
+import { Link } from '~/client/components/ui/Link/Link';
 import {
 	LinkStyledAsButton,
 } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
@@ -26,7 +27,7 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 				{children}
 				<div className={styles.buttonWrapper}>
 					<BackButton aria-label="Retourner à la page précédente" label="Retourner à la page précédente" appearance="primary" className={styles.backButton}/>
-					<LinkStyledAsButton href="/" appearance="asSecondaryButton" className={styles.homeLink}>Aller à l‘accueil</LinkStyledAsButton>
+					<Link href="/" appearance="asSecondaryButton" className={styles.homeLink}>Aller à l‘accueil</Link>
 				</div>
 			</div>
 
