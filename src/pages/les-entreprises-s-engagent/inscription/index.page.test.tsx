@@ -11,13 +11,13 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import {
 	aLesEntreprisesSEngagentService,
-	anEntrepriseSouhaitantSEngager,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import LesEntreprisesSEngagentInscription from '~/pages/les-entreprises-s-engagent/inscription/index.page';
 import {
 	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import { anEntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager.fixture';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 

@@ -1,21 +1,21 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import {
-	anEntrepriseMember,
-	anEntrepriseSouhaitantSEngager,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
 import entreprisesHandler, { enregistrerEntreprisesHandler } from '~/pages/api/entreprises/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { anEntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager.fixture';
+import {
+	anApiLesEntreprisesSEngagentCompany,
+} from '~/server/entreprises/infra/apiLesEntreprisesSEngagentCompany.fixture';
 
 describe('enregistrerEntreprisesHandler', () => {
 	afterEach(() => nock.cleanAll());
 
 	it('répond une 200 quand tout s’est bien passé', async () => {
-		let strapiReceivedBody: Record<string, string>;
+		let bodySendToLEE: Record<string, string>;
 		const leeApi = nock('https://staging.lesentreprises-sengagent.local')
 			.post('/api/members', (body) => {
-				strapiReceivedBody = body;
+				bodySendToLEE = body;
 				return true;
 			})
 			.reply(201);
@@ -31,7 +31,7 @@ describe('enregistrerEntreprisesHandler', () => {
 					method: 'POST',
 				});
 				expect(res.status).toEqual(200);
-				expect(strapiReceivedBody).toEqual(anEntrepriseMember());
+				expect(bodySendToLEE).toEqual(anApiLesEntreprisesSEngagentCompany());
 				leeApi.done();
 			},
 			url: '/entreprises',

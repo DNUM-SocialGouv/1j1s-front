@@ -1,4 +1,4 @@
-import { anEntrepriseSouhaitantSEngager } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
+import { anEntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager.fixture';
 import { RejoindreLaMobilisationRepository } from '~/server/entreprises/domain/RejoindreLaMobilisation.repository';
 import { LesEntreprisesSEngagentUseCase } from '~/server/entreprises/usecase/lesEntreprisesSEngagentUseCase';
 import { createFailure, createSuccess } from '~/server/errors/either';

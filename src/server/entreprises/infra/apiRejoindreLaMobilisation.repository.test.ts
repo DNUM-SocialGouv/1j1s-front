@@ -1,9 +1,7 @@
 import {
-	anEntrepriseSouhaitantSEngager,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
-import {
 	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import { anEntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager.fixture';
 import {
 	anApiLesEntreprisesSEngagentCompany,
 } from '~/server/entreprises/infra/apiLesEntreprisesSEngagentCompany.fixture';
