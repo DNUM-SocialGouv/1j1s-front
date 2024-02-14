@@ -44,6 +44,7 @@
 
   p {
     display: flex;
+    flex-wrap: wrap;
     @include utilities.text-small;
     @include utilities-deprecated.media(small) {
       font-size: 1rem;
