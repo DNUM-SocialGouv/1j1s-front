@@ -26,8 +26,6 @@ interface RésultatRechercherAccompagnementDesktopProps {
 	onContactClick(): void
 }
 
-
-
 export function RésultatRechercherAccompagnementDesktop(props: RésultatRechercherAccompagnementDesktopProps) {
 	const {
 		établissement,

@@ -5,7 +5,7 @@ import logoGoogle from 'public/images/logos/google-play.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Application/Application.module.scss';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 
 export default function Application() {
 	return (
@@ -20,7 +20,7 @@ export default function Application() {
 				</div>
 
 				<div className={styles.applicationTelecharger}>
-					<Link
+					<LinkDeprecated
 						href="https://play.google.com/store/apps/details?id=fr.fabrique.social.gouv.passemploi&gl=FR"
 						className={styles.applicationTelechargerLien}
 					>
@@ -31,8 +31,8 @@ export default function Application() {
               Télécharger sur<br/>
 							<span className={styles.applicationTelechargerLienStore}>Google Play</span>
 						</div>
-					</Link>
-					<Link
+					</LinkDeprecated>
+					<LinkDeprecated
 						href="https://apps.apple.com/fr/app/contrat-dengagement-jeune/id1581603519"
 						className={styles.applicationTelechargerLien}
 					>
@@ -43,7 +43,7 @@ export default function Application() {
               Télécharger sur<br/>
 							<span className={styles.applicationTelechargerLienStore}>APP Store</span>
 						</div>
-					</Link>
+					</LinkDeprecated>
 				</div>
 			</div>
 		</div>

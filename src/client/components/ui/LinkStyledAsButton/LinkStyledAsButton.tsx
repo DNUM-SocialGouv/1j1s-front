@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { PropsWithChildren, useMemo } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import styles from './LinkStyledAsButton.module.scss';
@@ -53,9 +53,9 @@ export function LinkStyledAsButton(props: PropsWithChildren<LinkStyledAsButtonPr
 
 
 	return (
-		<Link href={href} prefetch={prefetch} className={classNames(className, appearanceClass)} {...rest}>
+		<LinkDeprecated href={href} prefetch={prefetch} className={classNames(className, appearanceClass)} {...rest}>
 			{children}
-		</Link>
+		</LinkDeprecated>
 	);
 }
 

@@ -5,7 +5,7 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const bulletList = '%E2%80%A2';
@@ -38,10 +38,10 @@ export function Header() {
 			className={styles.header}
 			role="banner">
 			{!isLargeScreen && displayCampagneEnCoursBanner &&
-		<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile}>
+		<LinkDeprecated href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile}>
 		  <div className={styles.headerBannerMobileTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?</div>
 		  <Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
-		</Link>
+		</LinkDeprecated>
 			}
 			<HeaderBody/>
 			{isLargeScreen && <HeaderNavDesktop/>}

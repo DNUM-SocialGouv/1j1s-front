@@ -7,7 +7,7 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
@@ -42,24 +42,24 @@ export function HeaderBody() {
 							</nav>
 						}
 					</div>
-					<Link
+					<LinkDeprecated
 						className={styles.headerBodyTitle}
 			      href="/"
 						title="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
 						aria-label="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
 					>
 						1jeune1solution
-					</Link>
+					</LinkDeprecated>
 				</div>
 				{isLargeScreen && displayBanner &&
-					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
+					<LinkDeprecated href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
 						<div>
 							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
 							</div>
 							<div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
 						</div>
 						<Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
-					</Link>
+					</LinkDeprecated>
 				}
 			</div>
 			{!isLargeScreen &&

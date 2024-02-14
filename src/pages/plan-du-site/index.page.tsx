@@ -8,7 +8,7 @@ import {
 	navigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/NavigationStructure';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/plan-du-site/index.analytics';
 import styles from '~/pages/plan-du-site/index.module.scss';
@@ -19,7 +19,7 @@ export default function PlanDuSite() {
 	function displayNavigationTree(item: NavigationItem | NavigationItemWithChildren) {
 		if (isNavigationItem(item)) {
 			return (
-				<li key={item.link}><Link href={item.link}>{item.label}</Link></li>
+				<li key={item.link}><LinkDeprecated href={item.link}>{item.label}</LinkDeprecated></li>
 			);
 		} else {
 			return (
@@ -44,7 +44,7 @@ export default function PlanDuSite() {
 					<h1 id="planDuSite" className={styles.planDuSiteTitre}>Plan du site</h1>
 					<ul aria-labelledby="planDuSite">
 						<li>
-							<Link href={navigationItemList().accueil.link}>{navigationItemList().accueil.label}</Link>
+							<LinkDeprecated href={navigationItemList().accueil.link}>{navigationItemList().accueil.label}</LinkDeprecated>
 						</li>
 
 						{displayNavigationTree(navigationItemList().offresNav)}
@@ -55,12 +55,12 @@ export default function PlanDuSite() {
 						{displayNavigationTree(navigationItemList().aidesEtOutilsNav)}
 						{displayNavigationTree(navigationItemList().employeurNav)}
 
-						<li><Link href="/espace-jeune">Espace Jeune</Link></li>
-						<li><Link href="/faq">Foire aux questions</Link></li>
-						<li><Link href="/cgu">Conditions Générales d’utilisation</Link></li>
-						<li><Link href="/accessibilite">Accessibilité : Partiellement conforme</Link></li>
-						<li><Link href="/mentions-legales">Mentions légales</Link></li>
-						<li><Link href="/confidentialite">Politique de confidentialité</Link></li>
+						<li><LinkDeprecated href="/espace-jeune">Espace Jeune</LinkDeprecated></li>
+						<li><LinkDeprecated href="/faq">Foire aux questions</LinkDeprecated></li>
+						<li><LinkDeprecated href="/cgu">Conditions Générales d’utilisation</LinkDeprecated></li>
+						<li><LinkDeprecated href="/accessibilite">Accessibilité : Partiellement conforme</LinkDeprecated></li>
+						<li><LinkDeprecated href="/mentions-legales">Mentions légales</LinkDeprecated></li>
+						<li><LinkDeprecated href="/confidentialite">Politique de confidentialité</LinkDeprecated></li>
 					</ul>
 				</main>
 			</Container>

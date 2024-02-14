@@ -5,7 +5,7 @@ import React from 'react';
 import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/Link/LinkCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
+import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
 
 interface LinkCardProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
 	imageUrl: string
@@ -22,7 +22,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 	}
 
 	return (
-		<Link href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
+		<LinkDeprecated href={link} className={classNames(styles.card, 'underline-none')} prefetch={false}>
 			<article className={classNames(styles.cardArticle, className)}>
 				<div className={styles.cardImageWrapper}>
 					<Image src={imageUrl} alt="" width={328} height={180} />
@@ -40,7 +40,7 @@ export function LinkCard({ children, className, imageUrl, link, linkLabel, title
 					<div className={styles.cardDescription}>{children}</div>
 				</div>
 			</article>
-		</Link>
+		</LinkDeprecated>
 	);
 };
 

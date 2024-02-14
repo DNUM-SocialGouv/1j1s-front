@@ -115,7 +115,7 @@ export type IconName =
     | 'washing-machine'
     | 'wifi'
 
-interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
+export interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
     name: IconName;
 }
 

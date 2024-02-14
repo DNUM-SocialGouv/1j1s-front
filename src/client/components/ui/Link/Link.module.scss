@@ -1,7 +1,69 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
-.link {
-  & > svg {
-    vertical-align: middle;
+.primary, .secondary, .tertiary {
+  @extend %button;
+  border-radius: 50px;
+  text-decoration: none;
+  outline-offset: 4px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.primary {
+  border: 1px solid utilities.$color-cta-background-primary;
+  background-color: utilities.$color-cta-background-primary;
+  color: utilities.$color-text-primary-inverse;
+
+  &:hover {
+    background-color: utilities.$color-cta-background-primary-hover;
+    border-color: utilities.$color-cta-background-primary-hover;
+  }
+}
+
+.secondary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-cta-texte-secondary;
+  background-color: utilities.$color-cta-background-secondary;
+
+  &:hover {
+    background-color: utilities.$color-cta-background-secondary-hover;
+    color: utilities.$color-cta-texte-secondary-hover;
+  }
+}
+
+.tertiary {
+  border: 1px solid utilities.$color-primary;
+  color: utilities.$color-text-primary-alternative;
+  background-color: utilities.$color-cta-background-tertiary;
+
+  &:hover {
+    background-color: utilities.$color-cta-background-tertiary-hover;
+    border-color: utilities.$color-cta-background-tertiary-hover;
+    color: utilities.$color-cta-texte-tertiary-hover;
+  }
+}
+
+.quaternary {
+  color: utilities.$color-primary;
+  text-decoration: none;
+  border-radius: 0;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.linkWithIcon {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5rem;
+  width: fit-content;
+
+  & .icon {
+    display: inline-flex;
+    align-items: center;
   }
 }
