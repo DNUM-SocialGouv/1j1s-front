@@ -5,19 +5,25 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement';
 import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
-import { useAccompagnementLogo } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
+import {
+	RésultatRechercherAccompagnementTagsList,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementTagsList';
+import {
+	useAccompagnementLogo,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
-import { TagList } from '~/client/components/ui/Tag/TagList';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 
 interface RésultatRechercherAccompagnementMobileProps {
-  établissement: ÉtablissementAccompagnement
-  onContactClick(): void
+	établissement: ÉtablissementAccompagnement
+
+	onContactClick(): void
 }
 
 export function RésultatRechercherAccompagnementMobile(props: RésultatRechercherAccompagnementMobileProps) {
@@ -40,31 +46,39 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 					{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
 				</div>
 			</Card.Content>
-			<TagList list={[établissement.telephone, !isMissionLocale ? établissement.email : '']} className={styles.tags}/>
+			<RésultatRechercherAccompagnementTagsList etablissement={établissement} />
 			{
 				établissement.email && !isMissionLocale &&
-					<LinkStyledAsButtonWithIcon className={styles.contactFormulaireÉtablissement} href={`mailto:${établissement.email}`} appearance={'asPrimaryButton'} title="Contacter l‘agence - adresse mail">Contacter l‘agence</LinkStyledAsButtonWithIcon>
+				<LinkStyledAsButtonWithIcon
+					className={styles.contactFormulaireÉtablissement}
+					icon={<Icon name={'mail'}/>}
+					iconPosition={'right'}
+					href={`mailto:${établissement.email}`}
+					appearance={'asPrimaryButton'}
+					title="Contacter l‘agence - adresse mail">
+					Contacter l‘agence
+				</LinkStyledAsButtonWithIcon>
 			}
 			{
 				établissement.horaires && établissement.horaires.length > 0 &&
-					<details className={styles.details}>
-						<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
-						<ol className={styles.listeHoraire}>
-							{établissement.horaires?.map((horaire) => (
-								<li key={horaire.jour} className={styles.horaireElement}>
-									<HorairesRésultatRechercherAccompagnement horaire={horaire} />
-								</li>
-							))}
-						</ol>
-					</details>
+				<details className={styles.details}>
+					<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
+					<ol className={styles.listeHoraire}>
+						{établissement.horaires?.map((horaire) => (
+							<li key={horaire.jour} className={styles.horaireElement}>
+								<HorairesRésultatRechercherAccompagnement horaire={horaire}/>
+							</li>
+						))}
+					</ol>
+				</details>
 			}
 			{
 				établissement.email && isMissionLocale &&
-					<ButtonComponent
-						label={'Je souhaite être contacté(e)'}
-						className={styles.contactFormulaireÉtablissement}
-						onClick={onContactClick}
-					/>
+				<ButtonComponent
+					label={'Je souhaite être contacté(e)'}
+					className={styles.contactFormulaireÉtablissement}
+					onClick={onContactClick}
+				/>
 			}
 		</Card>
 	);
