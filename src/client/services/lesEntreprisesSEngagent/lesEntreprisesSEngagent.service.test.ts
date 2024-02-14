@@ -3,11 +3,9 @@ import {
 	LesEntreprisesSEngagentService,
 } from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import {
-	anEntrepriseSouhaitantSEngager,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagentService.fixture';
-import {
 	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
+import { anEntrepriseSouhaitantSEngager } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 

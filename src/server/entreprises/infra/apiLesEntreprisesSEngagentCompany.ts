@@ -1,0 +1,15 @@
+export interface ApiLesEntreprisesSEngagentCompany {
+	companyName: string,
+	companyPostalCode: string,
+	companySector: string,
+	companySiret: string,
+	companySize: string,
+	email: string,
+	firstname: string,
+	from1j1s: true,
+	job: string,
+	lastname: string,
+	phone: string,
+	hasAgreedToCGU: false,
+	whereDidYouKnowUs: 'service-public',
+}
