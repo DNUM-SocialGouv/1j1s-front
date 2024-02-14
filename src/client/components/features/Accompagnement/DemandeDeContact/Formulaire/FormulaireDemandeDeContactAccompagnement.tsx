@@ -7,7 +7,7 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
@@ -110,8 +110,8 @@ export function FormulaireDemandeDeContactAccompagnement({
 			<div className={styles.formulaireDécharge}>
 				<p>
 					Vous êtes informé que vos données à caractère personnel sont collectées et traitées par la DGEFP pour répondre
-					à votre demande. Pour en savoir plus vous pouvez consulter la <LinkDeprecated href="/confidentialite">politique de
-					confidentialité</LinkDeprecated> et les <LinkDeprecated href="/cgu">CGU</LinkDeprecated> de la DGEFP. En cliquant sur “Envoyer mes
+					à votre demande. Pour en savoir plus vous pouvez consulter la <Link href="/confidentialite">politique de
+					confidentialité</Link> et les <Link href="/cgu">CGU</Link> de la DGEFP. En cliquant sur “Envoyer mes
 					informations“ vos données seront transmises à la mission locale de la zone géographique dans laquelle vous
 					résidez pour que celle-ci prenne contact avec vous.
 				</p>

@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .accompagnement {
   @extend %background-primary;
@@ -64,15 +65,18 @@
       margin: 15rem 1rem 8rem 1rem;
       border-radius: 20px;
     }
+
     &Content {
       text-align: center;
       color: utilities-deprecated.$color-primary;
       padding: 3rem 2rem 2rem 2rem;
+
       h1 {
         @extend %text-large;
         @extend %bold;
         margin: 1rem 2rem;
       }
+
       p {
         @extend %text-small, %background-surface;
         margin: 2rem;
@@ -89,7 +93,7 @@
   }
 
   &ModalSubTitle {
-    display:block;
+    display: block;
     font-size: 1rem;
     margin-top: 1rem;
     color: utilities-deprecated.$color-primary;
@@ -108,6 +112,7 @@
 
     &__Content {
       display: flex;
+
       > div {
         margin: auto;
       }
@@ -125,10 +130,7 @@
         display: grid;
         place-items: center;
         margin-top: 10px;
-
-        p {
-          font-size: smaller;
-        }
+        @include utilities.text-small;
 
         &Offre {
           color: utilities-deprecated.$color-blue-navy;
@@ -181,6 +183,7 @@
     background-color: utilities-deprecated.$color-primary;
     color: utilities-deprecated.$color-on-primary;
   }
+
   &Desactive {
     display: grid;
     gap: 1rem;
@@ -248,12 +251,15 @@
         margin: auto;
         border-radius: 20px;
       }
+
       &__Title {
         margin: 2.5rem;
       }
+
       &__Content {
         padding: 1rem;
       }
+
       &Position {
         display: flex;
         flex-wrap: wrap;

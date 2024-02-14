@@ -17,23 +17,17 @@
   }
 
   & .headerBannerMobile {
+    width: 100%;
     background-color: utilities.$color-cta-background-primary;
     color: utilities.$color-cta-texte-primary;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding-block: 0.5rem;
     padding-inline: 0.5rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-align: center;
+    @extend %bold;
     @extend %text-small;
-
-    & .headerBannerMobileTitle {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      margin-right: 0.5rem;
-      line-height: 2;
-      text-align: center;
-      @extend %bold;
-    }
+    line-height: 2;
   }
 
   & .headerBodyContainer {
@@ -118,10 +112,6 @@
           4px 4px 0 utilities-deprecated.$color-header-on-hover,
           5px 5px 0 utilities-deprecated.$color-header-on-hover,
           6px 6px 0 utilities-deprecated.$color-header-on-hover;
-
-          & .headerBodyBannerTitle, .headerBodyBannerIcon {
-            color: utilities-deprecated.$color-header-on-hover;
-          }
         }
 
         & .headerBodyBannerTitle {

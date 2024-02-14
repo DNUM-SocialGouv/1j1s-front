@@ -3,8 +3,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/faq/index.analytics';
@@ -33,10 +32,10 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
 					{listeDeQuestionRéponse?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
 						{listeDeQuestionRéponse?.map((question) => <li key={question.slug}>
-							<LinkDeprecated href={`/faq/${question.slug}`}>
+							<Link href={`/faq/${question.slug}`}>
 								<h3>{question.problématique}</h3>
-								<Icon name='angle-right'/>
-							</LinkDeprecated>
+								<Link.Icon name='angle-right'/>
+							</Link>
 						</li>) }
 					</ul>
 					}

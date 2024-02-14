@@ -38,6 +38,7 @@
     max-width: 22.5rem;
     height: 180px;
     overflow: hidden;
+
     img {
       object-fit: cover;
       object-position: center;
@@ -79,9 +80,11 @@
         font-size: 0.75rem;
       }
     }
+
     dt {
       align-self: end;
     }
+
     dt::after {
       content: "\00a0: ";
     }
@@ -98,22 +101,14 @@
       $lineHeight: 1.5;
       line-height: $lineHeight;
       white-space: unset;
+
       span {
         @include utilities.line-clamp(1, $lineHeight);
       }
     }
 
     &CallToAction {
-      color: utilities.$color-primary;
-      > span {
-        white-space: nowrap;
-      }
-
-      &:hover {
-        > span {
-          text-decoration: underline;
-        }
-      }
+      white-space: nowrap;
     }
   }
 }

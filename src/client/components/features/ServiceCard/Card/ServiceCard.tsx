@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
@@ -49,7 +49,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : undefined;
 
 	return (
-		<LinkDeprecated href={link} title={linkTitle} className={classNames(styles.cardContainer, className, 'underline-none')}>
+		<Link href={link} title={linkTitle} className={classNames(styles.cardContainer, className, 'underline-none')}>
 			<Card
 				layout={isLargeScreen ? 'horizontal' : 'vertical'}
 				className={classNames(
@@ -66,6 +66,6 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 					</span>
 				</Card.Content>
 			</Card>
-		</LinkDeprecated>
+		</Link>
 	);
 }
