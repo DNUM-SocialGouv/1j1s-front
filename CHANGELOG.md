@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.246.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.245.1...v3.246.0) (2024-02-15)
+
+
+### Features
+
+* **UI:** création d'un nouveau composant Link ([#2679](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2679)) ([396f956](https://github.com/DNUM-SocialGouv/1j1s-front/commit/396f9561c1b0788efa538a8f00750034701a830f))
+
+
+### Bug Fixes
+
+* corrige gestion erreur TextArea ([#2693](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2693)) ([c8025d3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c8025d3586cfc185f1538ace3e2fa49d63f95eaa))
+
 ## [3.245.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.245.0...v3.245.1) (2024-02-14)
 
 
