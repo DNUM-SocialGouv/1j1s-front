@@ -172,12 +172,12 @@ describe('<TextArea />', () => {
 			message = screen.getByText('Constraints not satisfied');
 			expect(message).toBeVisible();
 		});
-		it('masque l’aide à la saisie si un message d’erreur apparait', async () => {
+		it('ne masque pas l’aide à la saisie si un message d’erreur apparait',  () => {
 			render(<TextArea required defaultValue="" hint="Salut"/>);
 
-			const hint = screen.queryByText('Salut');
+			const hint = screen.getByText('Salut');
 
-			expect(hint).not.toBeInTheDocument();
+			expect(hint).toBeVisible();
 		});
 		it('lie l’erreur avec le champ', async () => {
 			render(<TextArea required defaultValue=""/>);
@@ -187,6 +187,13 @@ describe('<TextArea />', () => {
 			await userEvent.tab();
 
 			expect(input).toHaveAccessibleErrorMessage('Constraints not satisfied');
+		});
+		it('n’ajoute pas d’attribut aria-errormessage, si il n’y a pas d’erreur', () => {
+			render(<TextArea required defaultValue=""/>);
+
+			const input = screen.getByRole('textbox');
+
+			expect(input).not.toHaveAttribute('aria-errormessage');
 		});
 	});
 
