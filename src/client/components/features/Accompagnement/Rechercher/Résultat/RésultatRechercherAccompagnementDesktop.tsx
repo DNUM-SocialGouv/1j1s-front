@@ -13,9 +13,7 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/useAccompagnementLogo';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import {
 	ÉtablissementAccompagnement,
 	TypeÉtablissement,

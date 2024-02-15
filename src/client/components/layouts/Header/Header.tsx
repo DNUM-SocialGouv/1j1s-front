@@ -4,7 +4,6 @@ import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Ba
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 

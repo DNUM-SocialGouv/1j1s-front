@@ -1,5 +1,4 @@
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
 

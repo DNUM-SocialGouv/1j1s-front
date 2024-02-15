@@ -4,7 +4,6 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';

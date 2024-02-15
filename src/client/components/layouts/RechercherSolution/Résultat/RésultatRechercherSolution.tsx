@@ -3,9 +3,7 @@ import Image from 'next/image';
 import React, { PropsWithChildren, ReactNode, useId } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 

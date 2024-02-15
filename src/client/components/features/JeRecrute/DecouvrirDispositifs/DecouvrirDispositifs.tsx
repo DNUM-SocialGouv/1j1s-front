@@ -3,7 +3,6 @@ import React from 'react';
 import styles from '~/client/components/features/JeRecrute/DecouvrirDispositifs/DecouvrirDispositifs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export function DécouvrirDispositifs () {
 	const bulletList = '%E2%80%A2';

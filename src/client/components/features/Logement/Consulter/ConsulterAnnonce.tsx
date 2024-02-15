@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, {
-	useMemo,
-} from 'react';
+import React, { useMemo } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
@@ -13,7 +11,6 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 

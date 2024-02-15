@@ -4,7 +4,6 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';

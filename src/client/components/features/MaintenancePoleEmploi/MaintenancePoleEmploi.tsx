@@ -3,7 +3,6 @@ import React from 'react';
 
 import styles from '~/client/components/features/MaintenancePoleEmploi/MaintenancePoleEmploi.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export default function MaintenancePoleEmploi() {

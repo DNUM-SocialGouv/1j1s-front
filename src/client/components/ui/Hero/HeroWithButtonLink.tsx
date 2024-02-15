@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import { Link } from '../Link/Link';

@@ -2,9 +2,6 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
-import {
-	LinkStyledAsButton,
-} from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
 import styles from './StageDeposerOffreFormulaireEnvoye.module.scss';

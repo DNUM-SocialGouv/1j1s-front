@@ -5,7 +5,6 @@ import styles from '~/client/components/features/LesEntreprisesSEngagent/Rejoign
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function RejoignezMobilisation() {
 	return <div className={styles.content}>

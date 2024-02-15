@@ -3,7 +3,6 @@ import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from './PreparationApprentissage.module.scss';
 

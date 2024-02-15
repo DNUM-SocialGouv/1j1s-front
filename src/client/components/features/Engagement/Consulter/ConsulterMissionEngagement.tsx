@@ -3,7 +3,6 @@ import React from 'react';
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';

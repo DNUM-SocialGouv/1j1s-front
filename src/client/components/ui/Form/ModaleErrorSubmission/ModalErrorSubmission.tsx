@@ -2,7 +2,6 @@ import React from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import { ModalComponent } from '../../Modal/ModalComponent';
 import styles from './ModalErrorSubmission.module.scss';

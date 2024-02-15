@@ -4,7 +4,6 @@ import styles from '~/client/components/features/JeDeviensMentor/PourQui/PourQui
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export function PourQui() {
 	return (

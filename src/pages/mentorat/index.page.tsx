@@ -5,7 +5,6 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import useBreakpoint from '~/client/hooks/useBreakpoint';

@@ -1,6 +1,5 @@
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 export function ModaleInscriptionPoleEmploi(props: { open: boolean, close: () => void, href: string }) {

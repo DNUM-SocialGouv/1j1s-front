@@ -3,7 +3,6 @@ import React from 'react';
 import styles from '~/client/components/features/Immersions/ReferencesEntreprises/RéférencerEntreprises.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export function RéférencerEntreprises() {
 	return (

@@ -2,9 +2,7 @@ import Image from 'next/image';
 import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Banniere.module.scss';

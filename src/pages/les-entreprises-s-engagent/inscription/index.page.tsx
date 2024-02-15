@@ -12,7 +12,6 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -22,7 +21,8 @@ import {
 import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import {
-	EntrepriseSouhaitantSEngager, SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+	EntrepriseSouhaitantSEngager,
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 	TailleDEntreprise,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import {

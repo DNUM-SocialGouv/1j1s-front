@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from '~/client/components/features/Entreprendre/OutilADisposition/EntreprendreOutilADisposition.module.scss';
+import styles
+	from '~/client/components/features/Entreprendre/OutilADisposition/EntreprendreOutilADisposition.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 interface EntreprendreOutilADispositionProps {
   link: string
