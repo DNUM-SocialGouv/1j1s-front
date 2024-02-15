@@ -1,5 +1,6 @@
-import styles from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation.module.scss';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import styles
+	from '~/client/components/ui/Baniere/BanniereRejoindreLaMobilisation/BanniereRejoindreLaMobilisation.module.scss';
+import { Link } from '~/client/components/ui/Link/Link';
 
 export default function BanniereRejoindreLaMobilisation() {
 
@@ -9,7 +10,7 @@ export default function BanniereRejoindreLaMobilisation() {
 				<h2 className={styles.aidesContainerTitre}>Les entreprises s’engagent,
 					<span className={styles.aidesContainerTitreAccroche}> une mobilisation des entreprises pour l’emploi des jeunes</span>
 				</h2>
-				<LinkStyledAsButtonWithIcon href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>Rejoindre la mobilisation</LinkStyledAsButtonWithIcon>
+				<Link href="/les-entreprises-s-engagent" appearance='asSecondaryButton'>Rejoindre la mobilisation<Link.Icon/></Link>
 			</div>
 		</section>
 	);

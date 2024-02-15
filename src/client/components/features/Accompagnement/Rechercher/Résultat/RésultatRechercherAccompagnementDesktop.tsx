@@ -14,6 +14,7 @@ import {
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import {
 	ÉtablissementAccompagnement,
@@ -50,15 +51,14 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 						</div>
 						{
 							établissement.email && !isMissionLocale &&
-							<LinkStyledAsButtonWithIcon
+							<Link
 								appearance={'asQuaternaryButton'}
-								icon={<Icon name={'mail'}/>}
-								iconPosition={'right'}
 								href={`mailto:${établissement.email}`}
 								className={styles.contactMailÉtablissement}
 								title="Contacter l‘agence - adresse mail">
 								Contacter l‘agence
-							</LinkStyledAsButtonWithIcon>
+								<Link.Icon name="mail"/>
+							</Link>
 						}
 						{
 							établissement.email && isMissionLocale &&

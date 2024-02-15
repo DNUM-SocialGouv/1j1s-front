@@ -41,9 +41,10 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 					}
 					<div className={styles.contact}>
 						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
-						<LinkStyledAsButtonWithIcon appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
+						<Link appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false}>
 							Nous contacter
-						</LinkStyledAsButtonWithIcon>
+							<Link.Icon/>
+						</Link>
 					</div>
 				</Container>
 			</main>

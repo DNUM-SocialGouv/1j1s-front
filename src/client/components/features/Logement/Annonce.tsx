@@ -72,9 +72,10 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 	</div>;
 
 	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
+		<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
 	</div>;
 
-	return;
+	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
 }
 
 const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {

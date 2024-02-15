@@ -18,6 +18,7 @@
 
   & .headerBannerMobile {
     width: 100%;
+    justify-content: center;
     background-color: utilities.$color-cta-background-primary;
     color: utilities.$color-cta-texte-primary;
     padding-block: 0.5rem;

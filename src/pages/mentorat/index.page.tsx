@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -44,9 +45,10 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<LinkStyledAsButtonWithIcon href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
+									<Link href="https://www.1jeune1mentor.fr/formulaire?1jeune1solution" appearance="asPrimaryButton">
 										Trouver mon mentor
-									</LinkStyledAsButtonWithIcon>
+										<Link.Icon/>
+									</Link>
 								</div>
 							</div>
 							<div className={styles.headingContainer__TextContent}>
@@ -58,7 +60,7 @@ export default function MentoratPage() {
 									</p>
 								</div>
 								<div className={styles.linkAsButtonWrapper}>
-									<LinkStyledAsButtonWithIcon href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor</LinkStyledAsButtonWithIcon>
+									<Link href="/je-deviens-mentor" appearance="asPrimaryButton">Devenir mentor<Link.Icon/></Link>
 								</div>
 							</div>
 						</div>

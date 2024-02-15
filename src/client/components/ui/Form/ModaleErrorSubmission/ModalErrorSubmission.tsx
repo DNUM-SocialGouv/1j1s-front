@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import { ModalComponent } from '../../Modal/ModalComponent';
@@ -26,9 +27,10 @@ export function ModalErrorSubmission({ isOpen, onClose, description, onBackToFor
 			}
 			<span className={styles.redirections}>
 				<ButtonComponent appearance={'primary'} onClick={onBackToForm} label={'Retour au formulaire'}/>
-				<LinkStyledAsButtonWithIcon appearance={'asSecondaryButton'} href="/">
+				<Link appearance={'asSecondaryButton'} href="/">
 					Aller à l‘accueil
-				</LinkStyledAsButtonWithIcon>
+					<Link.Icon/>
+				</Link>
 			</span>
 		</ModalComponent.Content>
 	</ModalComponent>;

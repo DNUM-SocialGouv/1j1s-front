@@ -14,6 +14,7 @@ import {
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import {
 	ÉtablissementAccompagnement,
@@ -49,15 +50,14 @@ export function RésultatRechercherAccompagnementMobile(props: RésultatRecherch
 			<RésultatRechercherAccompagnementTagsList etablissement={établissement} />
 			{
 				établissement.email && !isMissionLocale &&
-				<LinkStyledAsButtonWithIcon
+				<Link
 					className={styles.contactFormulaireÉtablissement}
-					icon={<Icon name={'mail'}/>}
-					iconPosition={'right'}
 					href={`mailto:${établissement.email}`}
 					appearance={'asPrimaryButton'}
 					title="Contacter l‘agence - adresse mail">
 					Contacter l‘agence
-				</LinkStyledAsButtonWithIcon>
+					<Link.Icon name="mail"/>
+				</Link>
 			}
 			{
 				établissement.horaires && établissement.horaires.length > 0 &&

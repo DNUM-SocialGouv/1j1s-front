@@ -1,3 +1,4 @@
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
@@ -8,19 +9,24 @@ export function LiensUtiles() {
 			<h2>Découvrez d’autres services destinés à vous aider à trouver l’expérience en Europe faite pour vous :</h2>
 			<ul aria-label="liens utiles">
 				<li>
-					<LinkStyledAsButtonWithIcon appearance='asQuaternaryButton' href="https://www.euroappmobility.eu/fr/">
+					<Link appearance="asQuaternaryButton" href="https://www.euroappmobility.eu/fr/">
 						Vous souhaitez faire une partie de votre apprentissage en Europe
-					</LinkStyledAsButtonWithIcon>
+						<Link.Icon/>
+					</Link>
 				</li>
 				<li>
-					<LinkStyledAsButtonWithIcon appearance='asQuaternaryButton' href="https://mon-vie-via.businessfrance.fr/">
-						Vous cherchez un Volontariat International (<abbr title="Volontariat International en Entreprise">V.I.E</abbr> / <abbr title="Volontariat International en Administration">V.I.A</abbr>)
-					</LinkStyledAsButtonWithIcon>
+					<Link appearance="asQuaternaryButton" href="https://mon-vie-via.businessfrance.fr/">
+						<span>Vous cherchez un Volontariat International (<abbr
+							title="Volontariat International en Entreprise">V.I.E</abbr> / <abbr
+							title="Volontariat International en Administration">V.I.A</abbr>)</span>
+						<Link.Icon/>
+					</Link>
 				</li>
 				<li>
-					<LinkStyledAsButtonWithIcon appearance='asQuaternaryButton' href="https://europa.eu/youth/solidarity/young-people/volunteering_fr">
+					<Link appearance="asQuaternaryButton" href="https://europa.eu/youth/solidarity/young-people/volunteering_fr">
 						Vous souhaitez vous engager dans une mission de solidarité en Europe
-					</LinkStyledAsButtonWithIcon>
+						<Link.Icon/>
+					</Link>
 				</li>
 			</ul>
 		</section>

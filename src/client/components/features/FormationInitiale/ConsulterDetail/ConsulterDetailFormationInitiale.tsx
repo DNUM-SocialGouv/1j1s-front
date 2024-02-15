@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
@@ -33,9 +34,10 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
 			</header>
 
-			<LinkStyledAsButtonWithIcon href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
+			<Link href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
 				Consulter les établissements
-			</LinkStyledAsButtonWithIcon>
+				<Link.Icon/>
+			</Link>
 
 			{isFormationInitialeWithCMSDetails && <section>
 				<dl className={styles.contenu}>

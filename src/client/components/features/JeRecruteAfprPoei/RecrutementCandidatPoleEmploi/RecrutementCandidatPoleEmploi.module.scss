@@ -18,11 +18,16 @@ $color-title: utilities.$color-title-primary;
     text-align: left;
   }
 
-  & .links{
+  & .links {
     display: grid;
     grid-template-columns: max-content;
     margin: auto;
     row-gap: 0.5rem;
+
+    & a {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }
 

@@ -54,9 +54,11 @@
   padding: 0.5rem;
 
   a {
+    justify-content: center;
     width: 100%;
   }
 }
+
 .entête {
   width: 100%;
   padding: 1rem;
@@ -73,6 +75,7 @@
           "type date"
           "titre titre";
   }
+
   & .type {
     grid-area: type;
     font-size: .875rem;
@@ -109,76 +112,84 @@
   }
 }
 
-  .card {
-    padding: 1rem;
+.card {
+  padding: 1rem;
 
-    & h2 {
-      margin-bottom: 1.25rem;
-      &:not(:first-child) {
-        margin-top: 2.5rem;
-      }
-      color: utilities-deprecated.$color-primary;
-      font-size: 1.25rem;
-      line-height: 2rem;
-      @include utilities-deprecated.media(medium) {
-        font-size: 1.5rem;
-      }
+  & h2 {
+    margin-bottom: 1.25rem;
+
+    &:not(:first-child) {
+      margin-top: 2.5rem;
     }
 
-    & button.readMore {
-      width: 100%;
-      margin-top: 1.25rem;
-    }
-
-    &:nth-child(2n + 1) {
-      border-width: 1px 0;
-      border-style: solid;
-      border-color: utilities-deprecated.$color-primary;
-      background-color: utilities-deprecated.$color-background-white-lilac;
-      @include utilities-deprecated.media(medium) {
-        border: 1px solid utilities-deprecated.$neutral-grey;
-        border-radius: 1.25rem;
-        background-color: utilities-deprecated.$color-background;
-      }
-    }
-
+    color: utilities-deprecated.$color-primary;
+    font-size: 1.25rem;
+    line-height: 2rem;
     @include utilities-deprecated.media(medium) {
-      border: 1px solid utilities-deprecated.$neutral-grey;
-      border-radius: 1.25rem;
-      padding: 2.5rem;
-      margin: 2.5rem;
-      & h2 {
-        margin-bottom: 2.5rem;
-      }
-      & button.readMore {
-        width: fit-content;
-      }
-    }
-    &Candidater {
-      position: sticky;
-      top: 2rem;
-      grid-area: candidater;
-      height: fit-content;
-      border: 1px solid utilities-deprecated.$neutral-grey;
-      border-radius: 1.25rem;
-      padding: 2.5rem;
-      margin: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      row-gap: 0.5rem;
+      font-size: 1.5rem;
     }
   }
 
-  .annonceBody {
-    grid-area: annonceBody;
+  & button.readMore {
+    width: 100%;
+    margin-top: 1.25rem;
+  }
+
+  &:nth-child(2n + 1) {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: utilities-deprecated.$color-primary;
+    background-color: utilities-deprecated.$color-background-white-lilac;
     @include utilities-deprecated.media(medium) {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      grid-template-areas:
+      border: 1px solid utilities-deprecated.$neutral-grey;
+      border-radius: 1.25rem;
+      background-color: utilities-deprecated.$color-background;
+    }
+  }
+
+  @include utilities-deprecated.media(medium) {
+    border: 1px solid utilities-deprecated.$neutral-grey;
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    margin: 2.5rem;
+    & h2 {
+      margin-bottom: 2.5rem;
+    }
+    & button.readMore {
+      width: fit-content;
+    }
+  }
+
+  &Candidater {
+    position: sticky;
+    top: 2rem;
+    grid-area: candidater;
+    height: fit-content;
+    border: 1px solid utilities-deprecated.$neutral-grey;
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    margin: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+
+    a {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+.annonceBody {
+  grid-area: annonceBody;
+  @include utilities-deprecated.media(medium) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
       "informationsGenerales candidater"
       "descriptionDuLogement candidater";
-    }
   }
+}
 
 .descriptionDuLogement {
   grid-area: descriptionDuLogement;
@@ -186,10 +197,12 @@
 
 .informationsGenerales {
   grid-area: informationsGenerales;
+
   & table.localisation tbody,
   & table.disponibilite tbody {
     column-count: 1;
   }
+
   & table {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -240,10 +253,12 @@
 
 .carouselWrapper {
   grid-area: carousel;
+
   > img {
     display: flex;
     margin: auto;
   }
+
   @include utilities-deprecated.media(medium) {
     background-color: utilities-deprecated.$white-lilac;
     border-bottom: 1px solid utilities-deprecated.$color-primary;
@@ -275,6 +290,7 @@
       width: 2.5rem;
       height: 2.5rem;
       border: 1px solid utilities-deprecated.$color-primary;
+
       > svg {
         width: 2.5rem;
         height: 2.5rem;
@@ -303,12 +319,14 @@
       }
     }
   }
+
   ul {
     column-count: 2;
     gap: 1.25rem;
     @include utilities-deprecated.media(medium) {
       gap: 1.875rem;
     }
+
     &:empty {
       display: none;
     }

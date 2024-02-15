@@ -22,12 +22,13 @@ export default function MonEspaceEntreprise() {
 					</div>
 				</div>
 				<div className={styles.containerBoutons}>
-					<LinkStyledAsButtonWithIcon
+					<Link
 						className={styles.monEspaceConnexion}
 						href="https://www.lesentreprises-sengagent.gouv.fr/login"
 						appearance="asPrimaryButton">
 						Se connecter
-					</LinkStyledAsButtonWithIcon>
+						<Link.Icon/>
+					</Link>
 					<Link
 						appearance={'asQuaternaryButton'}
 						className={styles.monEspaceInscription}

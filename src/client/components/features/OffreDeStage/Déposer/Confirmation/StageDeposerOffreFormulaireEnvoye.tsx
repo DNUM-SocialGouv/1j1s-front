@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Link } from '~/client/components/ui/Link/Link';
 import {
 	LinkStyledAsButton,
 } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
@@ -14,18 +15,20 @@ export default function StageDeposerOffreFormulaireEnvoye() {
 			<div className={styles.texteValidation}>Cette offre est soumise à une validation avant sa mise en ligne.
 			</div>
 			<div className={styles.boutonsConfirmationEnvoi}>
-				<LinkStyledAsButton
+				<Link
 					href={URL_DEPOSER_OFFRE}
 					appearance={'asPrimaryButton'}
 				>
-                    Déposer une offre de stage
-				</LinkStyledAsButton>
-				<LinkStyledAsButton
+					Déposer une offre de stage
+					<Link.Icon/>
+				</Link>
+				<Link
 					href={'/'}
 					appearance={'asSecondaryButton'}
 				>
-                    Retourner à l’accueil
-				</LinkStyledAsButton>
+					Retourner à l’accueil
+					<Link.Icon/>
+				</Link>
 			</div>
 		</Container>
 	);

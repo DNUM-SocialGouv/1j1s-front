@@ -5,6 +5,7 @@ import { VideoFrame } from '~/client/components/features/CampagneApprentissage/V
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
@@ -68,14 +69,13 @@ export default function VideosCampagneApprentissage({
 						}
 					</ul>
 					<div className={styles.lienPlaylistContainer}>
-						<LinkStyledAsButtonWithIcon
-							iconPosition={'right'}
-							icon={<Icon name="external-redirection"/>}
+						<Link
 							appearance={'asQuaternaryButton'}
 							href={'https://www.youtube.com/playlist?list=PL380KraUhZWX2ZY_qMbydLn5lqIXpUvw1'}
 							className={styles.lienPlaylist}>
 							Découvrir tous les témoignages
-						</LinkStyledAsButtonWithIcon>
+							<Link.Icon/>
+						</Link>
 					</div>
 				</section>
 			</Container>

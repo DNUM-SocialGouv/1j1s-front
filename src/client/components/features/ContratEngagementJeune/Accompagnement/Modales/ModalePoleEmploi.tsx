@@ -1,4 +1,5 @@
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
@@ -11,9 +12,10 @@ export function ModalePoleEmploi(props: { open: boolean, close: () => void, href
 			<div>
 				<h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller
 					Pôle emploi</h1>
-				<LinkStyledAsButtonWithIcon href={props.href} appearance="asPrimaryButton">
+				<Link href={props.href} appearance="asPrimaryButton">
 					Contacter mon conseiller
-				</LinkStyledAsButtonWithIcon>
+					<Link.Icon/>
+				</Link>
 			</div>
 		</ModalComponent.Content>
 	</ModalComponent>;

@@ -4,6 +4,7 @@ import React, { PropsWithChildren, ReactNode, useId } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
@@ -32,17 +33,16 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				{lienOffre &&
 					// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
 					<div className={styles.cardLinkContainer}>
-						<LinkStyledAsButtonWithIcon
+						<Link
 							id={idLink}
 							className={classNames(styles.cardLink)}
 							href={lienOffre}
-							icon={<Icon name={'angle-right'}/>}
-							iconPosition={'right'}
 							appearance={'asQuaternaryButton'}
 							aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
 						>
 							{intituléLienOffre || 'En savoir plus'}
-						</LinkStyledAsButtonWithIcon>
+							<Link.Icon name="angle-right"/>
+						</Link>
 					</div>
 				}
 			</section>

@@ -43,6 +43,7 @@
   .link {
     max-width: 60ch;
     width: 100%;
+    justify-content: center;
     align-self: center;
 
     @include utilities-deprecated.media(large) {

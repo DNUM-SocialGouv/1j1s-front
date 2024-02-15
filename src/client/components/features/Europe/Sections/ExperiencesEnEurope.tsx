@@ -1,5 +1,6 @@
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
@@ -23,9 +24,10 @@ export function ExperiencesEnEurope() {
 						Si vous êtes accompagné·e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
 				</p>
 			</div>
-			<LinkStyledAsButtonWithIcon href="https://ec.europa.eu/eures/portal/jv-se/home" appearance="asPrimaryButton">
+			<Link href="https://ec.europa.eu/eures/portal/jv-se/home" appearance="asPrimaryButton">
 					Trouver une offre d’emploi en Europe
-			</LinkStyledAsButtonWithIcon>
+				<Link.Icon/>
+			</Link>
 		</section>
 	);
 }

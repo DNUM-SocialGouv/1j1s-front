@@ -6,6 +6,8 @@ import styles from '~/client/components/ui/Hero/Hero.module.scss';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
+import { Link } from '../Link/Link';
+
 interface HeroWithButtonLinkProps {
   titlePrimaryText: React.ReactNode
   titleSecondaryText?: React.ReactNode
@@ -35,8 +37,8 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 						{content}
 					</p>
 					<div className={styles.linkAsButtonContainer}>
-						<LinkStyledAsButtonWithIcon className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}</LinkStyledAsButtonWithIcon>
-						{(buttonLabelSecondary && buttonHrefSecondary) && <LinkStyledAsButtonWithIcon className={classNames(styles.linkAsButton, styles.linkAsButtonSecondary)} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}</LinkStyledAsButtonWithIcon>}
+						<Link className={styles.linkAsButton} href={buttonHref} appearance='asPrimaryButton'>{buttonLabel}<Link.Icon/></Link>
+						{(buttonLabelSecondary && buttonHrefSecondary) && <Link className={classNames(styles.linkAsButton, styles.linkAsButtonSecondary)} href={buttonHrefSecondary} appearance='asPrimaryButton'>{buttonLabelSecondary}<Link.Icon/></Link>}
 					</div>
 					{additionalInformation}
 				</div>

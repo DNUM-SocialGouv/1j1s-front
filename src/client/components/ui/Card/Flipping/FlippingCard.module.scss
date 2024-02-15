@@ -62,16 +62,6 @@
     color: utilities-deprecated.$color-on-primary;
     padding: 1rem;
 
-    &Action {
-      background-color: utilities-deprecated.$color-on-primary;
-      border-radius: 50%;
-      padding: 0.25rem;
-      line-height: 1.4;
-      font-size: 1rem;
-      color: utilities-deprecated.$color-primary;
-      width: 2rem;
-      height: 2rem;
-    }
 
     &Title {
       $lineHeight: 1.2;
@@ -120,18 +110,6 @@
     &Button {
       font-size: 0.875rem;
     }
-  }
-
-  &Action {
-    @extend %background-primary;
-    border-radius: 20px;
-    height: 2.5rem;
-    display: inline-flex;
-    align-items: center;
-    align-self: flex-end;
-    font-size: 0.875rem;
-    padding: 0 1.5rem;
-    text-decoration: none;
   }
 }
 

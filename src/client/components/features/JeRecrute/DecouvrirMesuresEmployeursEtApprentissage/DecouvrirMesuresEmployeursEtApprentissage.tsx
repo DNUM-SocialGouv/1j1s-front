@@ -3,6 +3,7 @@ import React from 'react';
 import styles from '~/client/components/features/JeRecrute/DecouvrirMesuresEmployeursEtApprentissage/DecouvrirMesuresEmployeursEtApprentissage.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
 
 export default function DecouvrirMesuresEmployeursEtApprentissage() {
@@ -15,7 +16,7 @@ export default function DecouvrirMesuresEmployeursEtApprentissage() {
 						<h2 className={styles.sectionBoxContainerTextTitre}>Découvrez les mesures du plan 1jeune1solution pour
 							<span className={styles.sectionBoxContainerTextTitreAccroche}> vous aider à recruter plus facilement</span>
 						</h2>
-						<LinkStyledAsButtonWithIcon href="/mesures-employeurs" appearance="asSecondaryButton">Découvrir les mesures employeurs</LinkStyledAsButtonWithIcon>
+						<Link href="/mesures-employeurs" appearance="asSecondaryButton">Découvrir les mesures employeurs<Link.Icon/></Link>
 					</div>
 				</div>
 				<div className={styles.sectionBoxContainer}>
@@ -25,7 +26,7 @@ export default function DecouvrirMesuresEmployeursEtApprentissage() {
 							<span className={styles.sectionBoxContainerTextTitreAccroche}> le bon choix pour votre entreprise</span>
 						</h2>
 						<p className={styles.sectionBoxContainerTextDescription}>Les avantages, les coûts, des témoignages de jeunes ayant fait l’expérience de l’apprentissage, des conseils pratiques...</p>
-						<LinkStyledAsButtonWithIcon href="/apprentissage-entreprises" appearance="asSecondaryButton">Découvrir l’apprentissage</LinkStyledAsButtonWithIcon>
+						<Link href="/apprentissage-entreprises" appearance="asSecondaryButton">Découvrir l’apprentissage<Link.Icon/></Link>
 					</div>
 				</div>
 			</Container>
