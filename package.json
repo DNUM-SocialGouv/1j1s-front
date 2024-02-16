@@ -89,7 +89,7 @@
     "jest-environment-jsdom": "29.7.0",
     "next-test-api-route-handler": "4.0.3",
     "nock": "13.5.1",
-    "sass": "1.70.0",
+    "sass": "1.71.0",
     "storybook": "7.6.14",
     "ts-node": "10.9.2",
     "tsconfig-paths-webpack-plugin": "4.1.0",
