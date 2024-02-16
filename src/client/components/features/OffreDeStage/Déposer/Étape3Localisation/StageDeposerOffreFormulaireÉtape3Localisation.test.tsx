@@ -98,7 +98,7 @@ describe('<Localisation />', () => {
 			);
 
 			expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Pays')).toBeInTheDocument();
+			expect(screen.getByRole('combobox', { name: 'Pays' })).toBeInTheDocument();
 			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
 			expect(screen.getByLabelText('Adresse')).toBeInTheDocument();
 			expect(screen.getByLabelText('Code postal')).toBeInTheDocument();
@@ -230,7 +230,7 @@ describe('<Localisation />', () => {
 
 async function remplirFormulaireEtape3() {
 	const user = userEvent.setup();
-	await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+	await user.type(screen.getByRole('combobox', { name: 'Pays' }), 'France');
 	await user.click(screen.getByRole('option', { name: 'France' }));
 	await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
 	await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');

@@ -8,12 +8,14 @@ import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/D
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
+import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
 import InputAutocomplétionPays
 	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { paysList } from '~/client/domain/pays';
 import useLocalStorage from '~/client/hooks/useLocalStorage';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
@@ -50,6 +52,11 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const localStorageLocalisation = useLocalStorage<OffreDeStageDeposee.Localisation>(ETAPE_LOCALISATION);
 	const informationsLocalisation = localStorageLocalisation.get();
+	const paysDefaultValueLabel = paysList.find((pays) => pays.code === informationsLocalisation?.pays)?.libellé;
+	const paysDefaultValue = informationsLocalisation?.pays && paysDefaultValueLabel ? {
+		code: informationsLocalisation.pays,
+		label: paysDefaultValueLabel,
+	} : undefined;
 
 	useEffect(() => {
 		if (!informationsEntreprise || !informationsStage) {
@@ -59,12 +66,12 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	function ChampsObligatoires() {
 		return <>
-			<InputAutocomplétionPays
-				codePays={informationsLocalisation?.pays}
-				label="Pays"
+			<ComboboxPays
+				paysList={paysList}
+				defaultValue={paysDefaultValue}
 				name={Localisation.PAYS}
-				placeholder="Exemple : France"
-				required
+				placeholder={'Exemple : France'}
+				label={'Pays'}
 			/>
 			<InputText
 				label="Ville"
