@@ -17,14 +17,12 @@ export default function StageDeposerOffreFormulaireEnvoye() {
 					appearance={'asPrimaryButton'}
 				>
 					Déposer une offre de stage
-					<Link.Icon/>
 				</Link>
 				<Link
 					href={'/'}
 					appearance={'asSecondaryButton'}
 				>
 					Retourner à l’accueil
-					<Link.Icon/>
 				</Link>
 			</div>
 		</Container>

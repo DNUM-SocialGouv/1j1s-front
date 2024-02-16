@@ -7,12 +7,10 @@
     text-align: end;
   }
 
-  & .backlink {
-    & svg {
-      color: utilities-deprecated.$color-primary;
-      height: 1em;
-      width: 1em;
-    }
+  & .icon {
+    color: utilities-deprecated.$color-primary;
+    height: 1em;
+    width: 1em;
   }
 }
 
