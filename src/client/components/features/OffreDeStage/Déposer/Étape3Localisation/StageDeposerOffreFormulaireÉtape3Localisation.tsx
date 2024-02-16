@@ -9,8 +9,6 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
-import InputAutocomplétionPays
-	from '~/client/components/ui/Form/InputAutocomplétion/InputAutocomplétionPays/InputAutocomplétionPays';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -69,9 +67,9 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			<ComboboxPays
 				paysList={paysList}
 				defaultValue={paysDefaultValue}
-				name={Localisation.PAYS}
 				placeholder={'Exemple : France'}
 				label={'Pays'}
+				valueName={Localisation.PAYS}
 			/>
 			<InputText
 				label="Ville"
