@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
@@ -28,7 +28,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList className={styles.tags} list={annonce.tags}/>
 				{isPoleEmploi(annonce.source) && annonce.lienPostuler &&
-            <LinkStyledAsButtonWithIcon appearance={'asPrimaryButton'} type={'external'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur Pôle emploi</LinkStyledAsButtonWithIcon>
+            <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur Pôle emploi<Link.Icon/></Link>
 				}
 				{isMatcha(annonce.source) && annonce.id &&
             <ButtonComponent

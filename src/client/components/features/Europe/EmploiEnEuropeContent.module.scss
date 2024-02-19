@@ -49,7 +49,8 @@
     }
 
     > a {
-      display: flex;
+      width: 100%;
+      justify-content: center;
       @include utilities.media(large) {
         width: fit-content;
       }

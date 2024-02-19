@@ -1,4 +1,4 @@
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from '../EmploiEnEuropeContent.module.scss';
 
@@ -22,7 +22,8 @@ function EuresCardContent() {
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
 				<dd>Il vous aide à trouver un emploi, une formation ou un apprentissage dans un autre État membre de l’Union
-				européenne.</dd>
+					européenne.
+				</dd>
 				<dt>Pour qui ?</dt>
 				<dd>Tout demandeur d’emploi de plus de 18 ans ; indépendamment de ses qualifications.</dd>
 				<dt>Pour quelle durée ?</dt>
@@ -31,16 +32,17 @@ function EuresCardContent() {
 				<dt>Quelles aides ?</dt>
 				<dd>Aide dans la recherche d’emploi.</dd>
 				<dd>Soutien financier pour passer un entretien à l’étranger, pour la prise en charge de frais tels que des cours
-				de langue, la reconnaissance de leurs qualifications ou leur déménagement.
+					de langue, la reconnaissance de leurs qualifications ou leur déménagement.
 				</dd>
 			</dl>
-			<LinkStyledAsButtonWithIcon
+			<Link
 				appearance="asPrimaryButton"
 				href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
 				aria-label="En savoir plus sur EURES"
 			>
-			En savoir plus
-			</LinkStyledAsButtonWithIcon>
+				En savoir plus
+				<Link.Icon/>
+			</Link>
 		</>
 	);
 }
@@ -52,7 +54,9 @@ function ErasmusCardContent() {
 			<p>Entre 200 et 600 euros par mois selon le pays où vous effectuez votre mobilité d’études.</p>
 			<dl>
 				<dt>Comment cela fonctionne ?</dt>
-				<dd>Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître votre employabilité.</dd>
+				<dd>Il vous donne la possibilité de séjourner à l’étranger pour renforcer vos compétences et accroître votre
+					employabilité.
+				</dd>
 				<dt>Pour qui ?</dt>
 				<dd>Tout public</dd>
 				<dt>Pour quelle durée ?</dt>
@@ -61,21 +65,25 @@ function ErasmusCardContent() {
 				<dd>Formation professionnelle : de 1 à 360 jours.</dd>
 				<dt>Quelles aides ?</dt>
 				<dd>
-					Aides financières cumulables avec les bourses d’études, l’aide à la mobilité internationale (AMI) et les aides régionales/départementales et qui varient selon le type de mobilité et la destination :
+					Aides financières cumulables avec les bourses d’études, l’aide à la mobilité internationale (AMI) et les aides
+					régionales/départementales et qui varient selon le type de mobilité et la destination :
 					<ul>
 						<li>Étudiants : entre 200 et 600 €/mois.</li>
 						<li>Stage : entre 300 et 450 €/mois.</li>
-						<li>Formation professionnelle : 32 à 43 €/jour selon le pays de mobilité pendant 2 semaines puis 22 à 30 €/jour selon le pays de mobilité pour le reste de la mobilité.</li>
+						<li>Formation professionnelle : 32 à 43 €/jour selon le pays de mobilité pendant 2 semaines puis 22 à 30
+							€/jour selon le pays de mobilité pour le reste de la mobilité.
+						</li>
 					</ul>
 				</dd>
 			</dl>
-			<LinkStyledAsButtonWithIcon
+			<Link
 				appearance="asPrimaryButton"
 				href="https://info.erasmusplus.fr/"
 				aria-label="En savoir plus sur ERASMUS+"
 			>
 				En savoir plus
-			</LinkStyledAsButtonWithIcon>
+				<Link.Icon/>
+			</Link>
 		</>
 	);
 }
@@ -85,9 +93,10 @@ function AidesFinancieresCardContent() {
 		<>
 			<h3 id="aides-financieres">Vous cherchez une aide financière pour vivre une expérience en Europe ?</h3>
 			<p>Découvrez le simulateur d’aides financières sur 1jeune1solution</p>
-			<LinkStyledAsButtonWithIcon appearance="asPrimaryButton" href="/mes-aides">
+			<Link appearance="asPrimaryButton" href="/mes-aides">
 				Faire une simulation d’aides
-			</LinkStyledAsButtonWithIcon>
+				<Link.Icon/>
+			</Link>
 		</>
 	);
 }

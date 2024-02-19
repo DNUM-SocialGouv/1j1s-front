@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/tags.utils';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import {
@@ -91,9 +91,10 @@ export function DetailEmploiEurope({ annonceEmploiEurope }: ConsulterOffreEmploi
 								 aria-label="Caractéristiques de l‘offre d‘emploi"/>
 			</header>
 			{annonceEmploiEurope.urlCandidature &&
-				<LinkStyledAsButtonWithIcon href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
+				<Link href={annonceEmploiEurope.urlCandidature} appearance="asPrimaryButton">
 					Je postule sur Eures
-				</LinkStyledAsButtonWithIcon>}
+					<Link.Icon/>
+				</Link>}
 			<section className={styles.contenu}>
 				<dl>
 					{annonceEmploiEurope.description && <div className={styles.caracteristique}>

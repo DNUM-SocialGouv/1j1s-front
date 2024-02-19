@@ -23,13 +23,13 @@
 
 .titreSection {
   @extend %text-large;
-  @extend %bold;    
+  @extend %bold;
   margin-bottom: 1.5rem;
-  
+
   & span {
     display: inline-block;
   }
-  
+
   @include utilities-deprecated.media(large) {
     grid-area: titre;
   }

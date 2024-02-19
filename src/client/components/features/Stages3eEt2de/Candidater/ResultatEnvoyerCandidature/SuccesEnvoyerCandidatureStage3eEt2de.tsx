@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LinkStyledAsButton } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { getSingleQueryParam } from '~/client/utils/queryParams.utils';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 
@@ -31,13 +31,13 @@ export function SuccesEnvoyerCandidatureStage3eEt2de() {
 				className={styles.boutonContinuerRecherche}
 				appearance="primary"
 			/>
-			<LinkStyledAsButton
+			<Link
 				href={'/'}
 				appearance="asSecondaryButton"
 				className={styles.boutonRetourAccueil}
 			>
 				Retour à l’accueil
-			</LinkStyledAsButton>
+			</Link>
 		</div>
 	</Container>;
 }

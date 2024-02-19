@@ -3,9 +3,7 @@ import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/faq/index.analytics';
 import styles from '~/pages/faq/index.module.scss';
@@ -33,18 +31,19 @@ export default function FaqPage({ listeDeQuestionRéponse }: FaqPageProps) {
 					<h2 className={styles.sousTitre}>Que pouvons-nous faire pour vous ?</h2>
 					{listeDeQuestionRéponse?.length > 0 && <ul aria-label="Foire aux questions" className={styles.liste}>
 						{listeDeQuestionRéponse?.map((question) => <li key={question.slug}>
-							<LinkDeprecated href={`/faq/${question.slug}`}>
+							<Link href={`/faq/${question.slug}`}>
 								<h3>{question.problématique}</h3>
-								<Icon name='angle-right'/>
-							</LinkDeprecated>
+								<Link.Icon name='angle-right'/>
+							</Link>
 						</li>) }
 					</ul>
 					}
 					<div className={styles.contact}>
 						<h3>Vous ne trouvez pas de réponse à votre question ?</h3>
-						<LinkStyledAsButtonWithIcon appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false} className={styles.linkContact}>
+						<Link appearance={'asSecondaryButton'} href={`mailto:${MAIL_TO}`} prefetch={false}>
 							Nous contacter
-						</LinkStyledAsButtonWithIcon>
+							<Link.Icon/>
+						</Link>
 					</div>
 				</Container>
 			</main>

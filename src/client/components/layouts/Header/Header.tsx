@@ -4,8 +4,7 @@ import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Ba
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const bulletList = '%E2%80%A2';
@@ -38,15 +37,15 @@ export function Header() {
 			className={styles.header}
 			role="banner">
 			{!isLargeScreen && displayCampagneEnCoursBanner &&
-		<LinkDeprecated href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile}>
-		  <div className={styles.headerBannerMobileTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?</div>
-		  <Icon className={styles.headerBannerMobileIcon} name="angle-right"/>
-		</LinkDeprecated>
+				<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile}>
+					Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
+					<Link.Icon name="angle-right"/>
+				</Link>
 			}
 			<HeaderBody/>
 			{isLargeScreen && <HeaderNavDesktop/>}
 			{displayEnqueteSatisfactionBanner &&
-		<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl}/>
+				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl}/>
 			}
 		</header>
 	);

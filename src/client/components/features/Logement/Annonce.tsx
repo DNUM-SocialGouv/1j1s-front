@@ -7,7 +7,7 @@ import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
 const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
@@ -45,14 +45,16 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 				>
 					<span>{annonce.localisationAAfficher}</span>
 				</TextIcon>
-				<LinkDeprecated
+				<Link
 					href={`/logements/annonces/${annonce.slug}`}
 					key={annonce.slug}
-					className={classNames('underline-none', styles.CardFooterCallToAction)}
+					className={styles.CardFooterCallToAction}
 					prefetch={false}
+					appearance={'asQuaternaryButton'}
 				>
-					<TextIcon icon="arrow-right">Lire l‘annonce</TextIcon>
-				</LinkDeprecated>
+					Lire l‘annonce
+					<Link.Icon/>
+				</Link>
 			</span>
 		</Card>
 	);

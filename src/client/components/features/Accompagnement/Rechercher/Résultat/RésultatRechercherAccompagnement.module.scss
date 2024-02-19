@@ -89,14 +89,13 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
 }
 
 .contactFormulaireÉtablissement {
+  justify-content: center;
   margin-top: 1.25rem;
-  align-self: start;
   font-size: 1rem;
   width: 100%;
 
   @include utilities.media(large) {
-    align-self: flex-start;
-    width: auto;
+    width: fit-content;
   }
 }
 

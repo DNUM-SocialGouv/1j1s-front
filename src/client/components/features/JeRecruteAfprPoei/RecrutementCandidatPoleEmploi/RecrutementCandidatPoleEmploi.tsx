@@ -4,7 +4,7 @@ import styles
 	from '~/client/components/features/JeRecruteAfprPoei/RecrutementCandidatPoleEmploi/RecrutementCandidatPoleEmploi.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 
 export default function RecrutementCandidatPoleEmploi() {
 	return (
@@ -23,16 +23,18 @@ export default function RecrutementCandidatPoleEmploi() {
 					Opérationnelle à l’Emploi ; AFPR : Action de Formation Préalable au Recrutement
 				</Footnote>
 				<div className={styles.links}>
-					<LinkStyledAsButtonWithIcon
+					<Link
 						href="https://entreprise.pole-emploi.fr/accueil/description/afpr"
 						appearance="asPrimaryButton">
 						M‘engager à recruter
-					</LinkStyledAsButtonWithIcon>
-					<LinkStyledAsButtonWithIcon
+						<Link.Icon/>
+					</Link>
+					<Link
 						href="https://entreprise.pole-emploi.fr/accueil/choixauthentification?goto=https://entreprise.pole-emploi.fr/accueil/description/afpr"
 						appearance="asSecondaryButton">
 						Compléter une demande
-					</LinkStyledAsButtonWithIcon>
+						<Link.Icon/>
+					</Link>
 				</div>
 			</Container>
 		</section>

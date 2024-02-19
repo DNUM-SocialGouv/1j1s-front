@@ -2,8 +2,7 @@ import Image from 'next/image';
 import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Banniere.module.scss';
@@ -19,15 +18,14 @@ export default function Banniere() {
 				<div className={styles.banniereTextContent}>
 					<h1 className={styles.titre}>{titre}</h1>
 					<p className={styles.banniereAccroche}>{accroche}</p>
-					<LinkStyledAsButtonWithIcon
+					<Link
 						className={styles.cta}
 						href="#accompagnement"
 						appearance={'asSecondaryButton'}
-						icon={<Icon name="angle-right"/>}
-						iconPosition={'right'}
 					>
-						{'Découvrir le CEJ'}
-					</LinkStyledAsButtonWithIcon>
+						Découvrir le CEJ
+						<Link.Icon name="angle-right"/>
+					</Link>
 				</div>
 			</div>
 			{isLargeScreen && (

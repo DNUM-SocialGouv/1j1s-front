@@ -11,7 +11,7 @@ import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCo
 import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useAnalytics from '~/client/hooks/useAnalytics';
@@ -21,7 +21,8 @@ import {
 import analytics from '~/pages/les-entreprises-s-engagent/inscription/index.analytics';
 import styles from '~/pages/les-entreprises-s-engagent/inscription/index.module.scss';
 import {
-	EntrepriseSouhaitantSEngager, SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
+	EntrepriseSouhaitantSEngager,
+	SECTEUR_ACTIVITE_REJOINDRE_MOBILISATION_VALEUR_ENUM,
 	TailleDEntreprise,
 } from '~/server/entreprises/domain/EntrepriseSouhaitantSEngager';
 import {
@@ -146,14 +147,13 @@ export default function LesEntreprisesSEngagentInscription() {
 							obligatoires
 						</p>
 						<div hidden={isPremièreÉtape ? undefined : true}>
-							<LinkStyledAsButtonWithIcon
+							<Link
 								href="/les-entreprises-s-engagent"
 								appearance="asSecondaryButton"
-								iconPosition={'left'}
-								icon={<Icon name="angle-left"/>}
 								className={styles.boutonRetour}>
+								<Link.Icon name="angle-left"/>
 								Retour
-							</LinkStyledAsButtonWithIcon>
+							</Link>
 							<form
 								className={styles.formulaire}
 								ref={formStep1Ref}
@@ -332,13 +332,14 @@ export default function LesEntreprisesSEngagentInscription() {
 						<p className={styles.footer}>
 							Vous avez déposé une demande ? Vous avez une question ou souhaitez apporter une
 							modification,{' '}
-							<LinkStyledAsButtonWithIcon
+							<Link
 								appearance={'asQuaternaryButton'}
 								href="mailto:contact@lesentreprises-sengagent.org"
 								prefetch={false}
 								className={styles.contactLink}>
 								nous contacter
-							</LinkStyledAsButtonWithIcon>
+								<Link.Icon/>
+							</Link>
 						</p>
 					</div>
 				</>

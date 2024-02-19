@@ -41,6 +41,7 @@
         > a {
           margin-top: auto;
           width: 100%;
+          justify-content: center;
           @include utilities-deprecated.media(medium) {
             width: auto;
           }

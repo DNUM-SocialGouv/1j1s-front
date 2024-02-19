@@ -4,6 +4,7 @@
   p {
     min-height: 5rem;
   }
+
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -11,4 +12,9 @@
   text-align: center;
   border: 1px utilities-deprecated.$color-primary solid;
   border-radius: 20px;
+
+  a {
+    width: 100%;
+    justify-content: center;
+  }
 }

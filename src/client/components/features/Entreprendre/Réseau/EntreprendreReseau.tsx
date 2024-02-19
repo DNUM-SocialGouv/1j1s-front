@@ -5,7 +5,7 @@ import React from 'react';
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau.module.scss';
 import { EntreprendreRéseauPhasesProjet } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface Entreprise {
@@ -33,7 +33,7 @@ function EntreprendreReseau(props: EntreprendreRéseauProps) {
 	const { isSmallScreen } = useBreakpoint();
 
 	return (
-		<LinkDeprecated href={entreprise.lien} className={classNames(styles.card, 'underline-none')} prefetch={false}>
+		<Link href={entreprise.lien} className={classNames(styles.card, 'underline-none')} prefetch={false}>
 			{
 				isSmallScreen && <>
 					<header className={styles.cardHeader}>
@@ -67,7 +67,7 @@ function EntreprendreReseau(props: EntreprendreRéseauProps) {
 					</section>
 				</>
 			}
-		</LinkDeprecated>
+		</Link>
 	);
 }
 

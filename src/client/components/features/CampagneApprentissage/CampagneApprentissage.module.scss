@@ -16,6 +16,7 @@
     & .cta {
       width: 100%;
       margin-top: 1rem;
+      justify-content: center;
       @include utilities-deprecated.media(small) {
         width: fit-content;
       }

@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, {
-	useMemo,
-} from 'react';
+import React, { useMemo } from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
@@ -12,7 +10,7 @@ import { Services } from '~/client/components/features/Logement/Consulter/Servic
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
-import { LinkStyledAsButtonWithIcon } from '~/client/components/ui/LinkStyledAsButton/LinkStyledAsButton';
+import { Link } from '~/client/components/ui/Link/Link';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
@@ -75,12 +73,13 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 			</Container>
 			{isSmallScreen && (
 				<div className={styles.lienDeCandidatureMobile}>
-					<LinkStyledAsButtonWithIcon
+					<Link
 						appearance="asPrimaryButton"
 						href={urlDeCandidature}
 					>
             Voir l‘annonce
-					</LinkStyledAsButtonWithIcon>
+						<Link.Icon/>
+					</Link>
 				</div>
 			)}
 		</main>
@@ -130,12 +129,13 @@ function CandidaterDesktop({
 	return (
 		<div className={classNames(styles.cardCandidater)}>
 			<AnnonceSource source={source}/>
-			<LinkStyledAsButtonWithIcon
+			<Link
 				appearance="asPrimaryButton"
 				href={urlDeCandidature}
 			>
 				Voir l‘annonce
-			</LinkStyledAsButtonWithIcon>
+				<Link.Icon/>
+			</Link>
 		</div>
 	);
 }

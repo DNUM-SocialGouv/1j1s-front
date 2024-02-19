@@ -3,7 +3,7 @@ import React from 'react';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Hero, HeroPrimaryText, HeroSecondaryText } from '~/client/components/ui/Hero/Hero';
-import { LinkDeprecated } from '~/client/components/ui/LinkDeprecated/LinkDeprecated';
+import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/deposer-offre/index.analytics';
 import styles from '~/pages/apprentissage/deposer-offre/index.module.scss';
@@ -35,8 +35,8 @@ export default function DeposerOffrePage() {
 			</Hero>
 			<Container className={styles.formulaire}>
 				<p className={styles.cadreInformation}>
-					<span>Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <LinkDeprecated href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</LinkDeprecated> pour y accéder.</span>
-					<span>A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la <LinkDeprecated href={AUTHENTIFICATION_LBA_URL}>page d’authentification</LinkDeprecated>. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.</span>
+					<span>Si le formulaire de dépôt d’offre n’est pas visible ci-dessous, cliquez <Link href={FORMULAIRE_DEPOT_OFFRE_LBA_URL} aria-label="ici - Formulaire de dépôt d'offre sur La bonne alternance">ici</Link> pour y accéder.</span>
+					<span>A noter : si le message suivant apparaît <q>L’adresse email est déjà associée à un compte</q>, nous vous invitons à saisir directement votre email sur la <Link href={AUTHENTIFICATION_LBA_URL}>page d’authentification</Link>. Vous recevrez alors un message avec le lien de connexion pour déposer votre offre.</span>
 				</p>
 				<iframe
 					className={styles.iframe}
@@ -45,10 +45,10 @@ export default function DeposerOffrePage() {
 				/>
 				<p className={styles.cadreInformation}>
 					Vous êtes informé que vos données sont collectées et traitées par La bonne alternance pour traiter votre
-					demande de dépôt d‘offre d’alternace. Pour en savoir plus sur vos droits, consultez la <LinkDeprecated
-						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</LinkDeprecated> de La bonne alternance.
-					En cliquant sur «&nbsp;envoyer ma demande&nbsp;» vous reconnaissez avoir pris connaissance et accepter les <LinkDeprecated
-						href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</LinkDeprecated> de La bonne alternance.
+					demande de dépôt d‘offre d’alternace. Pour en savoir plus sur vos droits, consultez la <Link
+						href={POLITIQUE_CONFIDENTIALITÉ_URL}>Politique de Confidentialité</Link> de La bonne alternance.
+					En cliquant sur «&nbsp;envoyer ma demande&nbsp;» vous reconnaissez avoir pris connaissance et accepter les <Link
+						href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</Link> de La bonne alternance.
 				</p>
 			</Container>
 		</main>
