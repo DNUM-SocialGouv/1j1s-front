@@ -30,7 +30,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 		<button 
 			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
 			hidden={ !isDown }
-			onClick={ () => toSurface() }
+			onClick={ toSurface }
 			title="Remonter en haut de la page"
 		>
 			<Icon name={'angle-up'} />

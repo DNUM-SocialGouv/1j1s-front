@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/nextjs';
 
 export class LoggerService {
-	constructor(sessionId: string) {
+	constructor(sessionId?: string) {
 		Sentry.configureScope((scope: Sentry.Scope) => {
 			scope.setTag('session_id', sessionId);
 		});
