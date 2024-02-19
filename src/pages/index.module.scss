@@ -11,6 +11,20 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
     @include utilities-deprecated.media(medium) {
       width: fit-content;
     }
+
+    &LargeScreenText {
+      display: none;
+
+      @include utilities.media(large) {
+        display: unset;
+      }
+    }
+
+    &SmallMediumScreenText {
+      @include utilities.media(large) {
+        display: none;
+      }
+    }
   }
 
   &Title {

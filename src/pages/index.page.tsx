@@ -236,7 +236,8 @@ export default function Accueil() {
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
-						{ isLargeScreen ? 'Découvrir les actualités et services jeunes' : 'Actualités et services jeunes'}
+						<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
+						<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
 						<Link.Icon/>
 					</Link>
 				</HeroWithIllustration>

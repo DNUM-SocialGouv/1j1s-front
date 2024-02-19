@@ -14,7 +14,6 @@ interface HeroComponentProps extends Pick<React.HTMLAttributes<unknown>, 'classN
 
 export function HeroComponent(props: HeroComponentProps) {
 	const { titlePrimaryText, titleSecondaryText, imgSrc, className, children } = props;
-	const { isLargeScreen } = useBreakpoint();
 
 	return (
 		<div className={classNames(styles.heading, className)}>
@@ -27,11 +26,9 @@ export function HeroComponent(props: HeroComponentProps) {
 					{children}
 				</div>
 			</div>
-			{isLargeScreen &&
-        <div className={styles.imageWrapper}>
+			<div className={styles.imageWrapper}>
         	<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
-        </div>
-			}
+			</div>
 		</div>
 	);
 }

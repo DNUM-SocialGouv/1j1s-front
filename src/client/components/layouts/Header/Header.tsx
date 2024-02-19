@@ -5,7 +5,6 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 const bulletList = '%E2%80%A2';
 const lineBreak = '%0D%0A';
@@ -26,7 +25,6 @@ Nous vous recontacterons au plus vite.`;
 export const MAILTO_STAGE_3E_2DE = `mailto:contact-1J1S@sg.social.gouv.fr?subject=[Déposer une offre de stage de 3e ou 2de]&body=${body}`;
 
 export function Header() {
-	const { isLargeScreen } = useBreakpoint();
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
 
 	const enqueteSatisfactionUrl = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL ?? '';
@@ -36,14 +34,12 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			{!isLargeScreen && displayCampagneEnCoursBanner &&
-				<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile}>
-					Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
-					<Link.Icon name="angle-right"/>
-				</Link>
-			}
+			<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner}>
+				Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
+				<Link.Icon  name="angle-right"/>
+			</Link>
 			<HeaderBody/>
-			{isLargeScreen && <HeaderNavDesktop/>}
+			<HeaderNavDesktop/>
 			{displayEnqueteSatisfactionBanner &&
 				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl}/>
 			}

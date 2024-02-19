@@ -10,6 +10,10 @@ enum BREAKPOINT {
 }
 
 function getScreenSize() {
+	if (typeof window === 'undefined') {
+		return BREAKPOINT.SM;
+	}
+
 	if (window && window.matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
 		return BREAKPOINT.LG;
 	}
@@ -21,12 +25,14 @@ function getScreenSize() {
 
 // TODO supprimer la plupart des utilisations pour se reposer sur du CSS + display:none à la place
 export default function useBreakpoint() {
-	const [screenSize, setScreenSize] = useState(BREAKPOINT.SM);
+	const [screenSize, setScreenSize] = useState(getScreenSize());
 
 	useLayoutEffect(() => {
 		function handleDevice(): void {
 			setScreenSize(getScreenSize());
-		};
+		}
+
+		setScreenSize(getScreenSize());
 
 		window.addEventListener('resize', handleDevice);
 		return () => window.removeEventListener('resize', handleDevice);

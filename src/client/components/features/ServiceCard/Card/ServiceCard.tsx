@@ -48,6 +48,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	}, [isInternalLink]);
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : undefined;
 
+	// TODO remplacer link sur toute la card par un lien avec un ::before pour rendre toute la card cliquable
 	return (
 		<Link href={link} title={linkTitle} className={classNames(styles.cardContainer, className, 'underline-none')}>
 			<Card

@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .hero {
   background: utilities-deprecated.$color-primary;
@@ -35,6 +36,12 @@
   }
 
   &Illustration {
+    display: none;
+
+    @include utilities.media(large) {
+      display: unset;
+    }
+
     position: relative;
     img {
       object-fit: cover;
