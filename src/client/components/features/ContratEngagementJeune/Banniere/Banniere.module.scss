@@ -22,6 +22,14 @@ $color-cej-background: #ea711b;
   @include utilities.media(large) {
     padding: 42px 42px 42px 1.5rem;
   }
+
+  .banniereContentImage {
+    display: none;
+
+    @include utilities.media(large) {
+      display: unset;
+    }
+  }
 }
 
 .banniereTextContent {

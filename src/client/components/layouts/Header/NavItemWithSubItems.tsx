@@ -28,11 +28,12 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 		createPathToCurrentPageSubmenu(root, (element) => element.link === router.pathname) ?? [root],
 	);
 
-	const { isLargeScreen } = useBreakpoint();
+	//	const { isLargeScreen } = useBreakpoint(); //TODO fait planter le render?
 	const isActive = useMemo(() => {
 		return isItemActive(root, router.pathname);
 	}, [router.pathname, root]);
-	const [isExpanded, setIsExpanded] = useState(isActive && !isLargeScreen);
+	const [isExpanded, setIsExpanded] = useState(false);
+	// TODO doit s'ouvrir par défaut sur mobile -> Passer une props supplémentaire pour y arriver?
 
 	const reset = useCallback(() => {
 		setIsExpanded(false);

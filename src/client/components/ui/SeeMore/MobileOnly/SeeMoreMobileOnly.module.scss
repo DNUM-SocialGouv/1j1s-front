@@ -1,0 +1,15 @@
+@use "@styles/utilities";
+
+.smallScreenOnly {
+  @include utilities.media(large) {
+    display: none;
+  }
+}
+
+.largeScreenOnly {
+  display: none;
+
+  @include utilities.media(large) {
+    display: unset;
+  }
+}

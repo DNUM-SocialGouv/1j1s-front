@@ -47,7 +47,7 @@ export function ArticleCard({
 	const imageClassName = classNames(styles.illustration, imageFit === 'contain' && styles.illustrationContain);
 	const { isLargeScreen } = useBreakpoint();
 
-	// FIXME utiliser un LinkCard?
+	// TODO FIXME utiliser un LinkCard?
 	return (
 		<Link href={link} className={classNames('underline-none', !vertical && styles.notOnlyVertical, styles.link)}>
 			<Card className={className} layout={vertical || !isLargeScreen ? 'vertical' : 'horizontal'}>
