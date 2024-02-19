@@ -5,6 +5,7 @@
 $cards-list-background-color: utilities.$color-background-primary-alternative;
 $card-border-color: utilities.$color-background-border;
 
+
 .services {
   background-color: $cards-list-background-color;
 
@@ -36,6 +37,20 @@ $card-border-color: utilities.$color-background-border;
 
   & .card {
     display: grid;
+
+    &.smallScreen {
+      @include utilities.media(large) {
+        display: none;
+      }
+    }
+
+    &.largeScreen {
+      display: none;
+
+      @include utilities.media(large) {
+        display: grid;
+      }
+    }
 
     &Horizontal {
       grid-template-columns: 18.875rem 1fr;
