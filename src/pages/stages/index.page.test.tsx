@@ -11,7 +11,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import { aRoutingService } from '~/client/services/routing/routing.service.fixture';
 import RechercherOffreStagePage from '~/pages/stages/index.page';
 
 jest.mock('react-instantsearch', () => ({
@@ -28,7 +27,6 @@ describe('<RechercherOffreStagePage />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				rechercheClientService={aRechercheClientService()}
-				routingService={aRoutingService()}
 			>
 				<RechercherOffreStagePage />
 			</DependenciesProvider>,
@@ -44,7 +42,6 @@ describe('<RechercherOffreStagePage />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 				rechercheClientService={aRechercheClientService()}
-				routingService={aRoutingService()}
 			>
 				<RechercherOffreStagePage />
 			</DependenciesProvider>,
