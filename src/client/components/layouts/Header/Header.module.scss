@@ -113,6 +113,10 @@
           4px 4px 0 utilities-deprecated.$color-header-on-hover,
           5px 5px 0 utilities-deprecated.$color-header-on-hover,
           6px 6px 0 utilities-deprecated.$color-header-on-hover;
+
+          &  .headerBodyBannerTitle {
+            color: utilities-deprecated.$color-header-on-hover;
+          }
         }
 
         & .headerBodyBannerTitle {
