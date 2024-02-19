@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.247.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.246.0...v3.247.0) (2024-02-19)
+
+
+### Features
+
+* **UI:** utilisation du nouveau composant link ([#2705](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2705)) ([b76d0ff](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b76d0ff31f2b5189b13e1dd5433afa3dece6241a))
+
 ## [3.246.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.245.1...v3.246.0) (2024-02-15)
 
 
