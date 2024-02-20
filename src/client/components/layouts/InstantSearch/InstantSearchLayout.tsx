@@ -72,7 +72,7 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 			<InstantSearch
 				searchClient={searchClient}
 				indexName={meilisearchIndex}
-				routing={true} /* NOTE (SULI 19-02-2024): Cf PR https://github.com/DNUM-SocialGouv/1j1s-front/pull/2711 pour réutiliser createInstantSearchRouterNext*/
+				routing /* NOTE (SULI 19-02-2024): Cf PR https://github.com/DNUM-SocialGouv/1j1s-front/pull/2711 pour réutiliser createInstantSearchRouterNext*/
 				future={{ preserveSharedStateOnUnmount: true }}
 			>
 				<InstantSearchErrorBoundary>
