@@ -17,7 +17,7 @@ export namespace ResultatRechercheEtablissementPublicResponse {
 		pivot: string
 	}
 
-	export interface PivotLocal {
+	export interface Pivot {
 		type_service_local: string
 	}
 

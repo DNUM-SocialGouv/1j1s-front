@@ -9,7 +9,7 @@ import {
 	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
-	aRésultatRechercheÉtablissementPublicResponse,
+	anEtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -18,7 +18,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 		it('retourne la liste des établissements d‘accompagnement', async () => {
 			nock('https://etablissements-publics.api.gouv.fr/v3')
 				.get('/communes/46100/cij')
-				.reply(200, aRésultatRechercheÉtablissementPublicResponse());
+				.reply(200, anEtablissementPublicResponse());
 
 			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
 				pagesHandler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),

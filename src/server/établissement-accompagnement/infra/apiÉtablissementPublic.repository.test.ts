@@ -4,7 +4,7 @@ import {
 	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
-	aRésultatRechercheÉtablissementPublicResponse,
+	anEtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import {
 	ApiEtablissementPublicRepository,
@@ -31,7 +31,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const httpClient = aPublicHttpClientService();
 				jest
 					.spyOn(httpClient, 'get')
-					.mockResolvedValue(anAxiosResponse(aRésultatRechercheÉtablissementPublicResponse()));
+					.mockResolvedValue(anAxiosResponse(anEtablissementPublicResponse()));
 				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
 				const expected = createSuccess(anÉtablissementAccompagnementList());
 				const commune = '46100';
@@ -72,7 +72,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
+			const searchResponse = anEtablissementPublicResponse();
 			const errorManagementServiceSearch = anErrorManagementService();
 			const idWithInvalidFormat = 0 as unknown as string;
 			searchResponse.features[0].properties.id = idWithInvalidFormat;
@@ -115,7 +115,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
+			const searchResponse = anEtablissementPublicResponse();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const errorManagementServiceSearch = anErrorManagementService();
 			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
