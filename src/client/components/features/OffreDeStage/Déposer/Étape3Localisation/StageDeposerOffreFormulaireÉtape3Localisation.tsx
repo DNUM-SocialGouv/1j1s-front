@@ -24,7 +24,7 @@ import {
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
-enum Localisation {
+enum LocalisationInputName {
 	PAYS = 'pays',
 	VILLE = 'ville',
 	ADRESSE = 'adresse',
@@ -50,11 +50,18 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const localStorageLocalisation = useLocalStorage<OffreDeStageDeposee.Localisation>(ETAPE_LOCALISATION);
 	const informationsLocalisation = localStorageLocalisation.get();
-	const paysDefaultValueLabel = paysList.find((pays) => pays.code === informationsLocalisation?.pays)?.libellé;
-	const paysDefaultValue = informationsLocalisation?.pays && paysDefaultValueLabel ? {
-		code: informationsLocalisation.pays,
-		label: paysDefaultValueLabel,
-	} : undefined;
+
+	function getPaysDefaultValue() {
+		const paysCodeStored = informationsLocalisation?.pays;
+		if (!paysCodeStored) return undefined;
+
+		const paysLabel = paysList.find((pays) => pays.code === paysCodeStored)?.libellé;
+		if (!paysLabel) return undefined;
+
+		return { code: paysCodeStored, label: paysLabel };
+	}
+
+	const paysDefaultValue = getPaysDefaultValue();
 
 	useEffect(() => {
 		if (!informationsEntreprise || !informationsStage) {
@@ -67,27 +74,29 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			<ComboboxPays
 				paysList={paysList}
 				defaultValue={paysDefaultValue}
+				// FIXME (DORO: 20-02-2024) : Le placeholder devrait être un complément de label
 				placeholder={'Exemple : France'}
 				label={'Pays'}
-				valueName={Localisation.PAYS}
+				valueName={LocalisationInputName.PAYS}
+				required
 			/>
 			<InputText
 				label="Ville"
-				name={Localisation.VILLE}
+				name={LocalisationInputName.VILLE}
 				placeholder="Exemple : Paris"
 				required
 				value={informationsLocalisation?.ville}
 			/>
 			<InputText
 				label="Adresse"
-				name={Localisation.ADRESSE}
+				name={LocalisationInputName.ADRESSE}
 				placeholder="Exemple : 127 rue de Grenelle"
 				required
 				value={informationsLocalisation?.adresse}
 			/>
 			<InputText
 				label="Code postal"
-				name={Localisation.CODE_POSTAL}
+				name={LocalisationInputName.CODE_POSTAL}
 				placeholder="Exemple : 75007"
 				required
 				value={informationsLocalisation?.codePostal}
@@ -99,13 +108,13 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 		return <>
 			<InputText
 				label="Région"
-				name={Localisation.REGION}
+				name={LocalisationInputName.REGION}
 				placeholder="Exemple : Île-De-France"
 				value={informationsLocalisation?.region}
 			/>
 			<InputText
 				label="Département"
-				name={Localisation.DEPARTEMENT}
+				name={LocalisationInputName.DEPARTEMENT}
 				placeholder="Exemple : Yvelines"
 				value={informationsLocalisation?.departement}
 			/>
@@ -171,11 +180,11 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 function parseDonnéesLocalisation(formData: FormData): OffreDeStageDeposee.Localisation {
 	return {
-		adresse: String(formData.get(Localisation.ADRESSE)),
-		codePostal: String(formData.get(Localisation.CODE_POSTAL)),
-		departement: String(formData.get(Localisation.DEPARTEMENT)),
-		pays: String(formData.get(Localisation.PAYS)),
-		region: String(formData.get(Localisation.REGION)),
-		ville: String(formData.get(Localisation.VILLE)),
+		adresse: String(formData.get(LocalisationInputName.ADRESSE)),
+		codePostal: String(formData.get(LocalisationInputName.CODE_POSTAL)),
+		departement: String(formData.get(LocalisationInputName.DEPARTEMENT)),
+		pays: String(formData.get(LocalisationInputName.PAYS)),
+		region: String(formData.get(LocalisationInputName.REGION)),
+		ville: String(formData.get(LocalisationInputName.VILLE)),
 	};
 }
