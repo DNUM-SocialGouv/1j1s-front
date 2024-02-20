@@ -1,15 +1,15 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aResultatRechercheEtablissementPublicListResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import {
 	ApiEtablissementPublicRepository,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.repository';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.repository';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import {
 	aLogInformation,

@@ -15,12 +15,12 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 interface RésultatRechercherAccompagnementMobileProps {
-	établissement: ÉtablissementAccompagnement
+	établissement: EtablissementAccompagnement
 
 	onContactClick(): void
 }

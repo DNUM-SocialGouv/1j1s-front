@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { JourSemaine } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { JourSemaine } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 export namespace ResultatRechercheEtablissementPublicResponse {
 	export interface EtablissementsPublicList {

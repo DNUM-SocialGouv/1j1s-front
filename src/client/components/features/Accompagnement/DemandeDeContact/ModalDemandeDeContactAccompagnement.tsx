@@ -9,11 +9,11 @@ import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSub
 import { ModaleSuccessSubmission } from '~/client/components/ui/Form/ModaleSuccessSubmission/ModaleSuccessSubmission';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import {
-	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+	ContactEtablissementAccompagnement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 interface ModalDemandeDeContactAccompagnementProps {
-	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
+	contactÉtablissementAccompagnement: ContactEtablissementAccompagnement
 	isOpen: boolean
 	setIsOpen: (value: boolean) => void
 }

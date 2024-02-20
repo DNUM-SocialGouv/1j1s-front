@@ -8,10 +8,10 @@ import { render, screen } from '@testing-library/react';
 import {
 	RésultatRechercherAccompagnementTagsList,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementTagsList';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('<RésultatRechercherAccompagnementTagsList/>', () => {
 	it('je vois la liste des tags', () => {

@@ -1,18 +1,16 @@
-import { Alternance } from '~/server/alternances/domain/alternance';
-
-export interface ÉtablissementAccompagnement {
+export interface EtablissementAccompagnement {
 	nom: string
 	adresse?: string
 	id: string
 	telephone?: string
 	email?: string
-	horaires?: Array<ÉtablissementAccompagnement.Horaire>
+	horaires?: Array<EtablissementAccompagnement.Horaire>
 	type: TypeÉtablissement
 }
 
-export type ContactÉtablissementAccompagnement = Required<Pick<ÉtablissementAccompagnement, 'nom' | 'email' | 'type'>>
+export type ContactEtablissementAccompagnement = Required<Pick<EtablissementAccompagnement, 'nom' | 'email' | 'type'>>
 
-export namespace ÉtablissementAccompagnement {
+export namespace EtablissementAccompagnement {
 	export interface Horaire {
 		jour: JourSemaine
 		heures: Array<Horaire.Heure>
@@ -26,7 +24,7 @@ export namespace ÉtablissementAccompagnement {
 	}
 }
 
-export interface ParamètresRechercheÉtablissementAccompagnement {
+export interface ParametresRechercheEtablissementAccompagnement {
 	codePostal: string
 	typeAccompagnement: string
 }

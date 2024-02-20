@@ -7,9 +7,9 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import {
-	ContactÉtablissementAccompagnement,
+	ContactEtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import { dependencies } from '~/server/start';
 import { emailRegex } from '~/shared/emailRegex';
 
@@ -50,9 +50,9 @@ function mapDemandeContactAccompagnement(body: Record<string, unknown>): Demande
 		prénom: body.prénom as string,
 		téléphone: body.téléphone as string,
 		établissement: {
-			email: (body.établissement as ContactÉtablissementAccompagnement).email as string,
-			nom: (body.établissement as ContactÉtablissementAccompagnement).nom as string,
-			type: (body.établissement as ContactÉtablissementAccompagnement).type as TypeÉtablissement,
+			email: (body.établissement as ContactEtablissementAccompagnement).email as string,
+			nom: (body.établissement as ContactEtablissementAccompagnement).nom as string,
+			type: (body.établissement as ContactEtablissementAccompagnement).type as TypeÉtablissement,
 		},
 	};
 }

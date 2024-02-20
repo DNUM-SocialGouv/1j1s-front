@@ -9,7 +9,7 @@ import {
 	RésultatRechercherAccompagnementMobile,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementMobile';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand le type d‘accompagnement est une mission locale', () => {

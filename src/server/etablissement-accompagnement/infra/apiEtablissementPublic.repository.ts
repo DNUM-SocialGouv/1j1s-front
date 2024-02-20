@@ -1,26 +1,27 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import {
-	ÉtablissementAccompagnement,
-	ParamètresRechercheÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
-import {
-	ÉtablissementAccompagnementRepository,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.repository';
-import {
 	mapEtablissementPublicAccompagnement,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.mapper';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.mapper';
 import {
 	apiEtablissementPublicSearchSchemas, ResultatRechercheEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.response';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
-export class ApiEtablissementPublicRepository implements ÉtablissementAccompagnementRepository {
+import {
+	EtablissementAccompagnement,
+	ParametresRechercheEtablissementAccompagnement,
+} from '../domain/etablissementAccompagnement';
+import {
+	EtablissementAccompagnementRepository,
+} from '../domain/etablissementAccompagnement.repository';
+
+export class ApiEtablissementPublicRepository implements EtablissementAccompagnementRepository {
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagement: ErrorManagementService) {
 	}
 
-	async search(params: ParamètresRechercheÉtablissementAccompagnement): Promise<Either<Array<ÉtablissementAccompagnement>>> {
+	async search(params: ParametresRechercheEtablissementAccompagnement): Promise<Either<Array<EtablissementAccompagnement>>> {
 		const { codePostal, typeAccompagnement } = params;
 		try {
 			const select = 'select=adresse,telephone,adresse_courriel,nom,id,pivot,plage_ouverture';

@@ -72,13 +72,13 @@ import {
 import {
 	ÉtablissementAccompagnementDependencies,
 	établissementAccompagnementDependenciesContainer,
-} from '~/server/établissement-accompagnement/configuration/dependencies.container';
+} from '~/server/etablissement-accompagnement/configuration/dependencies.container';
 import {
 	getApiEtablissementPublicConfig,
-} from '~/server/établissement-accompagnement/configuration/etablissementPublic/etablissementPublicHttpClient.config';
+} from '~/server/etablissement-accompagnement/configuration/etablissementPublic/etablissementPublicHttpClient.config';
 import {
 	ApiEtablissementPublicRepository,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.repository';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.repository';
 import { FAQDependencies, FAQDependenciesContainer } from '~/server/faq/configuration/dependencies.container';
 import { StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 import {

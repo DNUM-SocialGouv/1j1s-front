@@ -1,21 +1,21 @@
 import {
 	JourSemaine,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anEtablissementAccompagnement,
 	anÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	anAdresseEtablissementPublicResponse,
 	anEtablissementPublicResponse,
 	aPivotEtablissementPublicResponse,
 	aPlageOuvertureEtablissementPublicResponse,
 	aTelephoneEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import {
 	mapEtablissementPublicAccompagnement,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.mapper';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.mapper';
 
 describe('mapÉtablissementAccompagnement', () => {
 	it('retourne la liste des établissements publics', () => {

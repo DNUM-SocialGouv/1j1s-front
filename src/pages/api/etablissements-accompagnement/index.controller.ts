@@ -6,9 +6,9 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import { dependencies } from '~/server/start';
 
 export const querySchema = Joi.object({
@@ -18,7 +18,7 @@ export const querySchema = Joi.object({
 
 export async function rechercherÉtablissementAccompagnementHandler(
 	req: NextApiRequest,
-	res: NextApiResponse<ÉtablissementAccompagnement[] | ErrorHttpResponse>) {
+	res: NextApiResponse<EtablissementAccompagnement[] | ErrorHttpResponse>) {
 	const { query } = req;
 	const résultatsRechercheÉtablissementAccompagnement = await dependencies
 		.établissementAccompagnementDependencies

@@ -1,23 +1,23 @@
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	isTypeEtablissement,
 	JourSemaine,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	ResultatRechercheEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.response';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
 import Adresse = ResultatRechercheEtablissementPublicResponse.Adresse;
 import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuverture;
 import PivotLocal = ResultatRechercheEtablissementPublicResponse.Pivot;
 import Telephone = ResultatRechercheEtablissementPublicResponse.Telephone;
-import Horaire = ÉtablissementAccompagnement.Horaire;
+import Horaire = EtablissementAccompagnement.Horaire;
 
 const JOURS_DE_LA_SEMAINE_NOM = [JourSemaine.LUNDI, JourSemaine.MARDI, JourSemaine.MERCREDI, JourSemaine.JEUDI, JourSemaine.VENDREDI, JourSemaine.SAMEDI, JourSemaine.DIMANCHE];
 
-export function mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublic: Array<EtablissementPublic>): Array<ÉtablissementAccompagnement> {
-	const etablissementsAccompagnement: Array<ÉtablissementAccompagnement> = [];
+export function mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublic: Array<EtablissementPublic>): Array<EtablissementAccompagnement> {
+	const etablissementsAccompagnement: Array<EtablissementAccompagnement> = [];
 	resultatRechercheEtablissementPublic.map((etablissementPublic) => {
 		const { adresse, adresse_courriel, plage_ouverture, id, nom, pivot, telephone } = etablissementPublic;
 

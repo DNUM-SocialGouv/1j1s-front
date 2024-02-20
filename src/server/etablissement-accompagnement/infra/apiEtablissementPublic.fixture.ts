@@ -1,6 +1,6 @@
 import {
 	ResultatRechercheEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.response';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
 import Pivot = ResultatRechercheEtablissementPublicResponse.Pivot;
 import Adresse = ResultatRechercheEtablissementPublicResponse.Adresse;

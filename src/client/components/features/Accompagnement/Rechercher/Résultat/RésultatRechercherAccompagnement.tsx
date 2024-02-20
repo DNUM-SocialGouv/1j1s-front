@@ -11,12 +11,12 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementMobile';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 export interface RésultatRechercherAccompagnementProps {
-	établissement: ÉtablissementAccompagnement
+	établissement: EtablissementAccompagnement
 }
 
 export function RésultatRechercherAccompagnement({ établissement }: RésultatRechercherAccompagnementProps) {

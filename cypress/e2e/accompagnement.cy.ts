@@ -4,7 +4,7 @@
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
 	anÉtablissementAccompagnementList,
-} from '../../src/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '../../src/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
 import { interceptGet } from '../interceptGet';
 

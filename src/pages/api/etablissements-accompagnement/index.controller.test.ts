@@ -4,13 +4,13 @@ import nock from 'nock';
 import { rechercherÉtablissementAccompagnementHandler } from '~/pages/api/etablissements-accompagnement/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { EtablissementAccompagnement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anÉtablissementAccompagnementList,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	anEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {
@@ -20,7 +20,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				.get('/communes/46100/cij')
 				.reply(200, anEtablissementPublicResponse());
 
-			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
+			await testApiHandler<EtablissementAccompagnement[] | ErrorHttpResponse>({
 				pagesHandler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
@@ -37,7 +37,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				.get('/communes/46100/cij')
 				.reply(404, anAxiosError({ response: anAxiosResponse({}, 404) }));
 
-			await testApiHandler<ÉtablissementAccompagnement[] | ErrorHttpResponse>({
+			await testApiHandler<EtablissementAccompagnement[] | ErrorHttpResponse>({
 				pagesHandler: (req, res) => rechercherÉtablissementAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });

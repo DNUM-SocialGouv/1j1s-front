@@ -1,16 +1,16 @@
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	JourSemaine,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-export function anÉtablissementAccompagnementList(): Array<ÉtablissementAccompagnement> {
+export function anÉtablissementAccompagnementList(): Array<EtablissementAccompagnement> {
 	return [
 		anEtablissementAccompagnement(),
 	];
 }
 
-export function anEtablissementAccompagnement(overrides?: Partial<ÉtablissementAccompagnement>): ÉtablissementAccompagnement {
+export function anEtablissementAccompagnement(overrides?: Partial<EtablissementAccompagnement>): EtablissementAccompagnement {
 	return {
 		adresse: '29-31 rue des Boulets, 75011 Paris',
 		email: 'email@missionlocaledeparis.fr',

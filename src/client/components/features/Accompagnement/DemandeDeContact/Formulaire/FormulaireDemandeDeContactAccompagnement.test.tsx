@@ -23,7 +23,7 @@ import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	aContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
 	let localisationService: LocalisationService;

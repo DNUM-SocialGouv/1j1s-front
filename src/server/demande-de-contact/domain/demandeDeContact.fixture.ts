@@ -1,5 +1,5 @@
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 export function aDemandeDeContactAccompagnement(): DemandeDeContactAccompagnement {
 	return {
