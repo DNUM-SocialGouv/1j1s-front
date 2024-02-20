@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.247.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.247.0...v3.247.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **pagination:** mise à jour de react-instantsearch et suppression du routing pour réparer la pagination des pages utilisant InstantSearchLayout ([#2711](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2711)) ([ace76c4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ace76c407b1e4cd83711566a34715edb5362b2b3))
+
 ## [3.247.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.246.0...v3.247.0) (2024-02-19)
 
 
