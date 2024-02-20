@@ -3,7 +3,7 @@
 
 import {
 	aMissionLocaleÉtablissementAccompagnementList,
-	anOrderedÉtablissementAccompagnementList,
+	anÉtablissementAccompagnementList,
 } from '../../src/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
 import { interceptGet } from '../interceptGet';
@@ -38,7 +38,7 @@ describe('Parcours Accompagnement', () => {
 					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: 'Rechercher' }).click(),
 					alias: 'recherche-accompagnement',
 					path: '/api/etablissements-accompagnement*',
-					response: JSON.stringify(anOrderedÉtablissementAccompagnementList()),
+					response: JSON.stringify(anÉtablissementAccompagnementList()),
 				});
 
 				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })

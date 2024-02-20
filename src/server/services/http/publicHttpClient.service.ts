@@ -22,6 +22,7 @@ export class PublicHttpClientService {
 		config?: AxiosRequestConfig,
 	): Promise<AxiosResponse<Response>> {
 		try {
+			console.log(endpoint);
 			return await this.client.get<Response>(endpoint, config);
 		} catch (e) {
 			if (axios.isAxiosError(e) && e.response) {

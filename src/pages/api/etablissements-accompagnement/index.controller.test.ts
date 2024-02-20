@@ -6,7 +6,7 @@ import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import {
-	anOrderedÉtablissementAccompagnementList,
+	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aRésultatRechercheÉtablissementPublicResponse,
@@ -25,7 +25,7 @@ describe('rechercher un établissement d‘accompagnement', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					const json = await res.json();
-					expect(json).toEqual(anOrderedÉtablissementAccompagnementList());
+					expect(json).toEqual(anÉtablissementAccompagnementList());
 				},
 				url: '/etablissements-accompagnement?codeCommune=46100&typeAccompagnement=cij',
 			});

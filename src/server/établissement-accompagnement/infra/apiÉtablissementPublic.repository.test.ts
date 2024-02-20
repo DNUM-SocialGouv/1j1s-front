@@ -1,14 +1,14 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
-	anOrderedÉtablissementAccompagnementList,
+	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aRésultatRechercheÉtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
 import {
-	ApiÉtablissementPublicRepository,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+	ApiEtablissementPublicRepository,
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.repository';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
 import {
 	aLogInformation,
@@ -32,13 +32,13 @@ describe('ApiÉtablissementPublicRepository', () => {
 				jest
 					.spyOn(httpClient, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatRechercheÉtablissementPublicResponse()));
-				const repository = new ApiÉtablissementPublicRepository(httpClient, anErrorManagementService());
-				const expected = createSuccess(anOrderedÉtablissementAccompagnementList());
+				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
+				const expected = createSuccess(anÉtablissementAccompagnementList());
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
 
 				// when
-				const result = await repository.search({ commune, typeAccompagnement });
+				const result = await repository.search({ codePostal: commune, typeAccompagnement });
 
 				// then
 				expect(httpClient.get).toHaveBeenCalledWith('communes/46100/cij');
@@ -57,10 +57,10 @@ describe('ApiÉtablissementPublicRepository', () => {
 				});
 				const commune = '46100';
 				const typeAccompagnement = 'cij';
-				const repository = new ApiÉtablissementPublicRepository(httpClient, errorManagementService);
+				const repository = new ApiEtablissementPublicRepository(httpClient, errorManagementService);
 
 				// when
-				const result = await repository.search({ commune, typeAccompagnement });
+				const result = await repository.search({ codePostal: commune, typeAccompagnement });
 
 				// then
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, logInformation);
@@ -77,10 +77,10 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const idWithInvalidFormat = 0 as unknown as string;
 			searchResponse.features[0].properties.id = idWithInvalidFormat;
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
-			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 			// When
-			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
+			const result = await repository.search({ codePostal: '46100', typeAccompagnement: 'cij' });
 
 			// Then
 			expect(result.instance).toEqual('success');
@@ -118,10 +118,10 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const searchResponse = aRésultatRechercheÉtablissementPublicResponse();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const errorManagementServiceSearch = anErrorManagementService();
-			const repository = new ApiÉtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 			// When
-			const result = await repository.search({ commune: '46100', typeAccompagnement: 'cij' });
+			const result = await repository.search({ codePostal: '46100', typeAccompagnement: 'cij' });
 
 			// Then
 			expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();

@@ -6,14 +6,14 @@ import { anHttpClientService } from '~/client/services/httpClientService.fixture
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import { createSuccess } from '~/server/errors/either';
 import {
-	anOrderedÉtablissementAccompagnementList,
+	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('établissementAccompagnementService', () => {
 	describe('rechercher', () => {
 		it('retourne la liste des établissement d‘accompagnement', async () => {
 			const httpClient = anHttpClientService();
-			jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anOrderedÉtablissementAccompagnementList()));
+			jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anÉtablissementAccompagnementList()));
 			const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClient);
 			const accompagnementQueryParams = {
 				typeAccompagnement: 'cij',
@@ -29,7 +29,7 @@ describe('établissementAccompagnementService', () => {
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('codeCommune=41600'));
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('libelleCommune=Lamotte-Beuvron'));
 			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('typeAccompagnement=cij'));
-			expect(actual).toEqual(createSuccess(anOrderedÉtablissementAccompagnementList()));
+			expect(actual).toEqual(createSuccess(anÉtablissementAccompagnementList()));
 		});
 	});
 

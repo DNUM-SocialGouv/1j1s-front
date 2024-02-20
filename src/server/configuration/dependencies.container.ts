@@ -74,11 +74,11 @@ import {
 	établissementAccompagnementDependenciesContainer,
 } from '~/server/établissement-accompagnement/configuration/dependencies.container';
 import {
-	getApiÉtablissementsPublicsConfig,
-} from '~/server/établissement-accompagnement/configuration/établissements-publics/établissementPublicHttpClient.config';
+	getApiEtablissementPublicConfig,
+} from '~/server/établissement-accompagnement/configuration/etablissementPublic/etablissementPublicHttpClient.config';
 import {
-	ApiÉtablissementPublicRepository,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+	ApiEtablissementPublicRepository,
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.repository';
 import { FAQDependencies, FAQDependenciesContainer } from '~/server/faq/configuration/dependencies.container';
 import { StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 import {
@@ -357,8 +357,8 @@ export function dependenciesContainer(): Dependencies {
 	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
 	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository);
 
-	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
-	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
+	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiEtablissementPublicConfig(serverConfigurationService));
+	const apiEtablissementPublicRepository = new ApiEtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
