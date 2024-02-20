@@ -4,7 +4,7 @@ import {
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anEtablissementAccompagnement,
-	anÉtablissementAccompagnementList,
+	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	anAdresseEtablissementPublicResponse,
@@ -22,7 +22,7 @@ describe('mapÉtablissementAccompagnement', () => {
 		const anEtablissement = anEtablissementPublicResponse();
 
 		const result = mapEtablissementPublicAccompagnement([anEtablissement]);
-		const expected = anÉtablissementAccompagnementList();
+		const expected = anEtablissementAccompagnementList();
 
 		expect(result).toEqual(expected);
 	});
@@ -35,7 +35,7 @@ describe('mapÉtablissementAccompagnement', () => {
 			}), anEtablissementPublicResponse()];
 			const result = mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublicResponse);
 
-			expect(result).toEqual(anÉtablissementAccompagnementList());
+			expect(result).toEqual(anEtablissementAccompagnementList());
 		});
 
 		it('lorsque le type d‘établissement est correcte, renvoie l‘établissement', () => {
@@ -53,7 +53,7 @@ describe('mapÉtablissementAccompagnement', () => {
 
 			expect(result).toEqual([anEtablissementAccompagnement({ nom: 'CIJ', type: TypeÉtablissement.INFO_JEUNE }),
 				anEtablissementAccompagnement({ nom: 'Mission locale', type: TypeÉtablissement.MISSION_LOCALE }),
-				anEtablissementAccompagnement({ nom: 'France travail', type: TypeÉtablissement.AGENCE_POLE_EMPLOI })]);
+				anEtablissementAccompagnement({ nom: 'France travail', type: TypeÉtablissement.FRANCE_TRAVAIL })]);
 		});
 	});
 

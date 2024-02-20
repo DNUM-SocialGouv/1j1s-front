@@ -78,7 +78,7 @@ export function RechercherAccompagnement() {
 		}
 
 		switch (accompagnementQuery.typeAccompagnement) {
-			case TypeÉtablissement.AGENCE_POLE_EMPLOI:
+			case TypeÉtablissement.FRANCE_TRAVAIL:
 				messageRésultatRechercheSplit.push('d‘accompagnement pour les Agences Pôle Emploi');
 				break;
 			case TypeÉtablissement.INFO_JEUNE:

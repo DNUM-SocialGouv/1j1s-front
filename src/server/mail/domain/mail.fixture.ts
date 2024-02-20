@@ -16,8 +16,8 @@ export function aMail(): Mail {
 		},
 		to: [
 			{
-				address: 'email@email.com',
-				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
+				address: 'email@missionlocaledeparis.fr',
+				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 1er 2e 3e 4e 9e 10e et 11e',
 			},
 		],
 	};
@@ -35,8 +35,8 @@ export function aMailWithoutEmailAddress(): Mail {
 		},
 		to: [
 			{
-				address: 'email@email.com',
-				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
+				address: 'email@missionlocaledeparis.fr',
+				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 1er 2e 3e 4e 9e 10e et 11e',
 			},
 		],
 	};
@@ -58,8 +58,8 @@ export function aMailWithoutCommentaire(): Mail {
 		},
 		to: [
 			{
-				address: 'email@email.com',
-				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
+				address: 'email@missionlocaledeparis.fr',
+				personalName: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 1er 2e 3e 4e 9e 10e et 11e',
 			},
 		],
 	};

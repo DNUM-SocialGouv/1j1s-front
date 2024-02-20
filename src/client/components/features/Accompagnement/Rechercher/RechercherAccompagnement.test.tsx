@@ -12,11 +12,15 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anÉtablissementAccompagnementService,
-	anÉtablissementMissionLocaleService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	anEtablissementAccompagnement,
+	anEtablissementAccompagnementList,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('RechercherAccompagnement', () => {
 	beforeEach(() => {
@@ -37,7 +41,7 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement />
+					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
 
@@ -64,12 +68,12 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
+				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}>
-						<RechercherAccompagnement />
+						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
 
@@ -84,17 +88,17 @@ describe('RechercherAccompagnement', () => {
 		});
 
 		describe('quand le service nous retourne une erreur', () => {
-			it('affiche un message d‘erreur',  async () => {
+			it('affiche un message d‘erreur', async () => {
 				const établissementAccompagnementService = anÉtablissementAccompagnementService();
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)' } });
+				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
 						établissementAccompagnementService={établissementAccompagnementService}>
-						<RechercherAccompagnement />
+						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
 
@@ -110,15 +114,20 @@ describe('RechercherAccompagnement', () => {
 
 		describe('quand on filtre par localisation et type d‘accompagnement', () => {
 			it('retourne des établissements liés à la localisation et type d‘accompagnement', async () => {
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const etablissementAccompagnementService = anÉtablissementAccompagnementService();
+				jest.spyOn(etablissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess([
+					anEtablissementAccompagnement({ id: '1', nom: 'Point information jeunesse - Saint-Céré' }),
+					anEtablissementAccompagnement({ id: '2', nom: 'Point information jeunesse - Figeac' }),
+					anEtablissementAccompagnement({ id: '3', nom: 'Point information jeunesse - Saint-Céré' }),
+				]));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
+				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
-						établissementAccompagnementService={établissementAccompagnementService}>
-						<RechercherAccompagnement />
+						établissementAccompagnementService={etablissementAccompagnementService}>
+						<RechercherAccompagnement/>
 					</DependenciesProvider>,
 				);
 
@@ -146,12 +155,12 @@ describe('RechercherAccompagnement', () => {
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}>
-					<RechercherAccompagnement />
+					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
 
 			// When
-			const partenaireList = screen.getByRole('list', { name : 'Liste des partenaires et des services' });
+			const partenaireList = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
 			const partenaireListItemList = within(partenaireList).getAllByRole('listitem');
 			// Then
 			expect(partenaireList).toBeInTheDocument();
@@ -161,17 +170,18 @@ describe('RechercherAccompagnement', () => {
 			});
 		});
 	});
+
 	describe('quand la localisation ou le type d‘accompagnement est manquant', () => {
 		it('n‘effectue pas la recherche', async () => {
 			const établissementAccompagnementService = anÉtablissementAccompagnementService();
 			const localisationServiceMock = aLocalisationService();
 
-			mockUseRouter({ query: { codeCommune: '75056' } });
+			mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement />
+					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
 
@@ -187,15 +197,17 @@ describe('RechercherAccompagnement', () => {
 
 	describe('quand le type d‘accompagnement est Mission Locale', () => {
 		it('affiche le bouton "Je souhaite être rappelé"', async () => {
-			const établissementAccompagnementService = anÉtablissementMissionLocaleService();
+			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const anEtablissementMissionLocalList = anEtablissementAccompagnementList({ type: TypeÉtablissement.MISSION_LOCALE });
+			jest.spyOn(établissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess(anEtablissementMissionLocalList));
 			const localisationServiceMock = aLocalisationService();
 
-			mockUseRouter({ query: { codeCommune: '75056', libelleCommune: 'Paris (75006)', typeAccompagnement: 'mission_locale' } });
+			mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'mission_locale' } });
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 					établissementAccompagnementService={établissementAccompagnementService}>
-					<RechercherAccompagnement />
+					<RechercherAccompagnement/>
 				</DependenciesProvider>,
 			);
 

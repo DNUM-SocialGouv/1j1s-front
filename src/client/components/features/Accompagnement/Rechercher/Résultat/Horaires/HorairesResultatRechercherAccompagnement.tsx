@@ -5,11 +5,11 @@ import { EtablissementAccompagnement } from '~/server/etablissement-accompagneme
 
 import styles from './HorairesRésultatRechercherAccompagnement.module.scss';
 
-interface HorairesRésultatRechercherAccompagnementProps {
-  horaire: ÉtablissementAccompagnement.Horaire
+interface HorairesResultatRechercherAccompagnementProps {
+  horaire: EtablissementAccompagnement.Horaire
 }
 
-export function HorairesRésultatRechercherAccompagnement(props: HorairesRésultatRechercherAccompagnementProps) {
+export function HorairesResultatRechercherAccompagnement(props: HorairesResultatRechercherAccompagnementProps) {
 	const { horaire } = props;
 	const { heures, jour } = horaire;
 

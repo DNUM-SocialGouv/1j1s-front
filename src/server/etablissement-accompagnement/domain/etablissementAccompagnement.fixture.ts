@@ -1,12 +1,13 @@
 import {
+	ContactEtablissementAccompagnement,
 	EtablissementAccompagnement,
 	JourSemaine,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-export function anÉtablissementAccompagnementList(): Array<EtablissementAccompagnement> {
+export function anEtablissementAccompagnementList(overrides?: Partial<EtablissementAccompagnement>): Array<EtablissementAccompagnement> {
 	return [
-		anEtablissementAccompagnement(),
+		anEtablissementAccompagnement(overrides),
 	];
 }
 
@@ -96,4 +97,16 @@ export function anEtablissementAccompagnement(overrides?: Partial<EtablissementA
 		...overrides,
 	};
 }
+
+export function aContactÉtablissementAccompagnement(): ContactEtablissementAccompagnement {
+	const missionLocale = anEtablissementAccompagnement({
+		type: TypeÉtablissement.MISSION_LOCALE,
+	});
+	return {
+		email: missionLocale.email || '',
+		nom: missionLocale.nom,
+		type: missionLocale.type,
+	};
+}
+
 

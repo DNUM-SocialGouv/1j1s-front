@@ -66,7 +66,7 @@ function mapAdresse(adresseList: Array<Adresse>): string | undefined {
 	}
 }
 
-function mapHoraire(horaireList: Array<PlageOuverture>): Array<ÉtablissementAccompagnement.Horaire> {
+function mapHoraire(horaireList: Array<PlageOuverture>): Array<EtablissementAccompagnement.Horaire> {
 	const horaires: Array<Horaire> = [];
 	const indexJourOuvert: Array<number> = [];
 	horaireList.map((plageOuverture) => {
@@ -99,8 +99,8 @@ function sortParJourSemaine(horaireA: Horaire, horaireB: Horaire) {
 	return -1;
 }
 
-function addJoursFermes(indexJourOuvert: Array<number>): Array<ÉtablissementAccompagnement.Horaire> {
-	const horaires: Array<ÉtablissementAccompagnement.Horaire> = [];
+function addJoursFermes(indexJourOuvert: Array<number>): Array<EtablissementAccompagnement.Horaire> {
+	const horaires: Array<EtablissementAccompagnement.Horaire> = [];
 	const indexJoursSemaine = Array.from({ length: 7 }, (_, index) => index);
 	indexJoursSemaine.map((indexJour) => {
 		!indexJourOuvert.includes(indexJour) && horaires.push({
@@ -112,7 +112,7 @@ function addJoursFermes(indexJourOuvert: Array<number>): Array<ÉtablissementAcc
 	return horaires;
 }
 
-function mapHeures(plageOuverture: PlageOuverture): Array<ÉtablissementAccompagnement.Horaire.Heure> {
+function mapHeures(plageOuverture: PlageOuverture): Array<EtablissementAccompagnement.Horaire.Heure> {
 	const { valeur_heure_debut_1, valeur_heure_debut_2, valeur_heure_fin_1, valeur_heure_fin_2 } = plageOuverture;
 	const heures = [];
 

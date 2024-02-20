@@ -34,7 +34,7 @@ export function isTypeEtablissement(type: string): type is TypeÉtablissement {
 }
 
 export enum TypeÉtablissement {
-	AGENCE_POLE_EMPLOI = 'france_travail',
+	FRANCE_TRAVAIL = 'france_travail',
 	MISSION_LOCALE = 'mission_locale',
 	INFO_JEUNE = 'cij',
 }

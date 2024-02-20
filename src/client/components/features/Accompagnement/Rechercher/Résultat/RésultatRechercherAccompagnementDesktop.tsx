@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-	HorairesRésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement';
+	HorairesResultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesResultatRechercherAccompagnement';
 import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import {
@@ -74,7 +74,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 								<ol className={styles.listeHoraire}>
 									{établissement.horaires.map((horaire) => (
 										<li key={horaire.jour} className={styles.horaireElement}>
-											<HorairesRésultatRechercherAccompagnement horaire={horaire}/>
+											<HorairesResultatRechercherAccompagnement horaire={horaire}/>
 										</li>
 									))}
 								</ol>

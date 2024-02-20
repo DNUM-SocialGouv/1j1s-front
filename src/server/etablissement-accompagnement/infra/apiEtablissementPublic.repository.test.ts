@@ -2,7 +2,7 @@ import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
-	anÉtablissementAccompagnementList,
+	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	aResultatRechercheEtablissementPublicListResponse,
@@ -33,7 +33,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 					.spyOn(httpClient, 'get')
 					.mockResolvedValue(anAxiosResponse(aResultatRechercheEtablissementPublicListResponse()));
 				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
-				const expected = createSuccess(anÉtablissementAccompagnementList());
+				const expected = createSuccess(anEtablissementAccompagnementList());
 				const codePostal = '46100';
 				const typeAccompagnement =  TypeÉtablissement.INFO_JEUNE;
 

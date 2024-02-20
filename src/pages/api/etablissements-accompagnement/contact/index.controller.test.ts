@@ -6,6 +6,7 @@ import {
 	envoyerDemandeContactAccompagnementHandler,
 } from '~/pages/api/etablissements-accompagnement/contact/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
+import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import { Mail } from '~/server/mail/domain/mail';
 import { aTipimailRequest } from '~/server/mail/infra/repositories/tipimail.fixture';
 
@@ -22,20 +23,7 @@ describe('envoyer une demande de contact', () => {
 				pagesHandler: (req, res) => envoyerDemandeContactAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({
-						body: JSON.stringify({
-							age: '23',
-							commentaire: 'Merci de me recontacter',
-							commune: 'Paris (75006)',
-							email: 'john.doe@email.com',
-							nom: 'Doe',
-							prénom: 'John',
-							téléphone: '0606060606',
-							établissement: {
-								email: 'email@email.com',
-								nom: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
-								type: 'mission_locale',
-							},
-						}),
+						body: JSON.stringify(aDemandeDeContactAccompagnement()),
 						headers: {
 							'content-type': 'application/json',
 						},
@@ -52,21 +40,12 @@ describe('envoyer une demande de contact', () => {
 
 	describe('lorsque le body est invalide', () => {
 		it('retourne un status 400', async () => {
-			const body = {
-				age: '23',
-				commentaire: 'Merci de me recontacter',
-				commune: 'Paris (75006)',
-				email: 'john.doe@email.com',
-				nom: 'Doe',
-				prénom: 'John',
-				téléphone: '0606060606',
-				établissement: {
-					email: 'email@email.com',
-					nom: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
-					type: 'mairie',
-				},
-			};
-			const result = demandeContactAccompagnementBodySchema.validate(body);
+			const result = demandeContactAccompagnementBodySchema.validate(aDemandeDeContactAccompagnement({ établissement:{
+				email: 'email@example.com',
+				nom:'nom de l‘établissement',
+				// @ts-expect-error
+				type: 'mauvais nom',
+			} }));
 
 			expect(result.error?.name).toEqual('ValidationError');
 			expect(result.error?.message).toEqual('"établissement.type" must be one of [cij, mission_locale, pole_emploi]');
