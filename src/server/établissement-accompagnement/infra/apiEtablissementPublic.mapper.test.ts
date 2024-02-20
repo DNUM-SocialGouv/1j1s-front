@@ -12,10 +12,10 @@ import {
 	aPivotEtablissementPublicResponse,
 	aPlageOuvertureEtablissementPublicResponse,
 	aTelephoneEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import {
 	mapEtablissementPublicAccompagnement,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.mapper';
 
 describe('mapÉtablissementAccompagnement', () => {
 	it('retourne la liste des établissements publics', () => {

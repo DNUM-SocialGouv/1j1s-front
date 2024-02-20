@@ -10,7 +10,7 @@ import {
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
 	anEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import { anAxiosError, anAxiosResponse } from '~/server/services/http/publicHttpClient.service.fixture';
 
 describe('rechercher un établissement d‘accompagnement', () => {

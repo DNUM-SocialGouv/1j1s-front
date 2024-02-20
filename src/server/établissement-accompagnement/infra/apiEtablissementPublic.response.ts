@@ -44,29 +44,12 @@ export namespace ResultatRechercheEtablissementPublicResponse {
 
 export const apiEtablissementPublicSearchSchemas = Joi.array().items(
 	Joi.object({
-		adresse: Joi.array().items(
-			Joi.object({
-				code_postal: Joi.string().required(),
-				lignes: Joi.string().required(),
-				nom_commune: Joi.string().required(),
-			}),
-		).required(),
+		adresse: Joi.string().required(),
 		adresse_courriel: Joi.string(),
 		id: Joi.string().required(),
 		nom: Joi.string().required(),
-		pivot: Joi.array().items(Joi.object({
-			type_service_local: Joi.string().required(),
-		})).required(),
-		plage_ouverture: Joi.array().items(
-			Joi.object({
-				nom_jour_debut: Joi.string().required(),
-				nom_jour_fin: Joi.string().required(),
-				valeur_heure_debut_1: Joi.string().required(),
-				valeur_heure_debut_2: Joi.string().required(),
-				valeur_heure_fin_1: Joi.string().required(),
-				valeur_heure_fin_2: Joi.string().required(),
-			}),
-		),
+		pivot: Joi.string().required(),
+		plage_ouverture: Joi.string(),
 		telephone: Joi.string(),
 	}).options({ allowUnknown: true }),
 );

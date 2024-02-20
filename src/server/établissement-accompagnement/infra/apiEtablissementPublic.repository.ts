@@ -8,7 +8,7 @@ import {
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.repository';
 import {
 	mapEtablissementPublicAccompagnement,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.mapper';
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.mapper';
 import {
 	apiEtablissementPublicSearchSchemas, ResultatRechercheEtablissementPublicResponse,
 } from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.response';
@@ -32,14 +32,14 @@ export class ApiEtablissementPublicRepository implements ÉtablissementAccompagn
 			if (errorApiSchemaValidation) {
 				this.errorManagement.logValidationError(errorApiSchemaValidation, {
 					apiSource: 'API administration et sevice public',
-					contexte: 'search administration et sevice public',
+					contexte: 'search établissement public',
 					message: 'erreur de validation du schéma de l‘api',
 				});
 			}
 			return createSuccess(mapEtablissementPublicAccompagnement(data.results));
 		} catch (error) {
 			return this.errorManagement.handleFailureError(error, {
-				apiSource: 'API Établissement Public',
+				apiSource: 'API administration et sevice public',
 				contexte: 'search établissement public',
 				message: 'impossible d‘effectuer une recherche d‘établissement public',
 			});

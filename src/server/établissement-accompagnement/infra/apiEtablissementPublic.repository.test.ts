@@ -1,11 +1,12 @@
 import { createFailure, createSuccess, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anÉtablissementAccompagnementList,
 } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
-	anEtablissementPublicResponse,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.fixture';
+	aResultatRechercheEtablissementPublicListResponse,
+} from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.fixture';
 import {
 	ApiEtablissementPublicRepository,
 } from '~/server/établissement-accompagnement/infra/apiEtablissementPublic.repository';
@@ -18,33 +19,35 @@ import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
 const logInformation = aLogInformation({
-	apiSource: 'API Établissement Public',
+	apiSource: 'API administration et sevice public',
 	contexte: 'search établissement public',
 	message: 'impossible d‘effectuer une recherche d‘établissement public',
 });
 describe('ApiÉtablissementPublicRepository', () => {
 	describe('search', () => {
-
 		describe('lorsque la recherche retourne une 200', () => {
 			it('retourne la liste des établissements d‘accompagnement', async () => {
 				// given
 				const httpClient = aPublicHttpClientService();
 				jest
 					.spyOn(httpClient, 'get')
-					.mockResolvedValue(anAxiosResponse(anEtablissementPublicResponse()));
+					.mockResolvedValue(anAxiosResponse(aResultatRechercheEtablissementPublicListResponse()));
 				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
 				const expected = createSuccess(anÉtablissementAccompagnementList());
-				const commune = '46100';
-				const typeAccompagnement = 'cij';
+				const codePostal = '46100';
+				const typeAccompagnement =  TypeÉtablissement.INFO_JEUNE;
 
 				// when
-				const result = await repository.search({ codePostal: commune, typeAccompagnement });
+				const result = await repository.search({ codePostal, typeAccompagnement });
 
 				// then
-				expect(httpClient.get).toHaveBeenCalledWith('communes/46100/cij');
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('catalog/datasets/api-lannuaire-administration/records?'));
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('where=suggest(adresse,%22code_postal%2046100%22)and%20pivot%20LIKE%20%22cij%22'));
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('&limit=100&select=adresse,telephone,adresse_courriel,nom,id,pivot,plage_ouverture'));
 				expect(result).toEqual(expected);
 			});
 		});
+
 		describe('lorsqu‘il y a une erreur lors de la recherche des établissements public', () => {
 			it('log les informations de l’erreur et retourne une erreur métier associée', async () => {
 				// given
@@ -55,12 +58,12 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const errorManagementService = anErrorManagementService({
 					handleFailureError: jest.fn(() => createFailure(expectedError)),
 				});
-				const commune = '46100';
+				const codePostal = '46100';
 				const typeAccompagnement = 'cij';
 				const repository = new ApiEtablissementPublicRepository(httpClient, errorManagementService);
 
 				// when
-				const result = await repository.search({ codePostal: commune, typeAccompagnement });
+				const result = await repository.search({ codePostal, typeAccompagnement });
 
 				// then
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, logInformation);
@@ -72,10 +75,11 @@ describe('ApiÉtablissementPublicRepository', () => {
 		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			const searchResponse = anEtablissementPublicResponse();
+			const searchResponse = aResultatRechercheEtablissementPublicListResponse({
+				// @ts-expect-error
+				id: 0,
+			});
 			const errorManagementServiceSearch = anErrorManagementService();
-			const idWithInvalidFormat = 0 as unknown as string;
-			searchResponse.features[0].properties.id = idWithInvalidFormat;
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
@@ -90,22 +94,21 @@ describe('ApiÉtablissementPublicRepository', () => {
 						{
 							context: {
 								key: 'id',
-								label: '[0].properties.id',
+								label: '[0].id',
 								value: 0,
 							},
-							message: '"[0].properties.id" must be a string',
+							message: '"[0].id" must be a string',
 							path: [
 								0,
-								'properties',
 								'id',
 							],
 							type: 'string.base',
 						},
 					],
-					searchResponse.features,
+					searchResponse.results,
 				),
 				aLogInformation({
-					apiSource: 'API Établissement Public',
+					apiSource: 'API administration et sevice public',
 					contexte: 'search établissement public',
 					message: 'erreur de validation du schéma de l‘api',
 				}),
@@ -115,7 +118,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
 			// Given
 			const httpClientService = aPublicHttpClientService();
-			const searchResponse = anEtablissementPublicResponse();
+			const searchResponse = aResultatRechercheEtablissementPublicListResponse();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
 			const errorManagementServiceSearch = anErrorManagementService();
 			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
