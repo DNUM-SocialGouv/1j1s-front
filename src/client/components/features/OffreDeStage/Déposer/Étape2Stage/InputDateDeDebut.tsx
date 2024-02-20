@@ -27,6 +27,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 				min={disableBeforeToday}
 				max={'9999-12-31'}
 				onChange={(event) => setDateDeDebutMin(event.target.value)}
+				pattern="^\d{4}-\d{2}-\d{2}$"
 			/>
 			:
 			<div className={styles.contenuDateDeDebutInputDate}>
