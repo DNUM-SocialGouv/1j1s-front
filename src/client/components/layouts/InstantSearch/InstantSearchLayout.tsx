@@ -13,7 +13,6 @@ import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
-import { RoutingService } from '~/client/services/routing/routing.service';
 
 export interface HitProps<THit extends BaseHit> {
     hit: THit;
@@ -55,7 +54,6 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 	} = props;
 
 	const searchClient = useDependency<SearchClient>('rechercheClientService');
-	const routing = useDependency<RoutingService>('routingService');
 
 	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
@@ -74,7 +72,8 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 			<InstantSearch
 				searchClient={searchClient}
 				indexName={meilisearchIndex}
-				routing={routing}
+				routing /* NOTE (SULI 19-02-2024): Cf PR https://github.com/DNUM-SocialGouv/1j1s-front/pull/2711 pour réutiliser createInstantSearchRouterNext*/
+				future={{ preserveSharedStateOnUnmount: true }}
 			>
 				<InstantSearchErrorBoundary>
 					<>

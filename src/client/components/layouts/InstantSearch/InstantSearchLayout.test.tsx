@@ -9,7 +9,6 @@ import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/I
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { aRoutingService } from '~/client/services/routing/routing.service.fixture';
 
 jest.mock('react-instantsearch', () => ({
 	...jest.requireActual('react-instantsearch'),
@@ -25,7 +24,6 @@ describe('<InstantSearchLayout />', () => {
 		render(
 			<DependenciesProvider
 				rechercheClientService={aRechercheClientService()}
-				routingService={aRoutingService()}
 			>
 				<InstantSearchLayout
 					meilisearchIndex="fake"
@@ -47,7 +45,7 @@ describe('<InstantSearchLayout />', () => {
 
 		const pageSuivant = screen.getByRole('link', { name: /Page suivante/i });
 		await user.click(pageSuivant);
-		
+
 		expect(résultats.scrollIntoView).toHaveBeenCalledTimes(1);
 		expect(résultats.scrollIntoView).toHaveBeenCalledWith(true);
 	});

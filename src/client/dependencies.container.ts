@@ -1,7 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
-import singletonRouter from 'next/router';
-import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
@@ -36,7 +34,6 @@ import { NullMarketingService } from '~/client/services/marketing/null/null.mark
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { RoutingService } from '~/client/services/routing/routing.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
@@ -58,7 +55,6 @@ export type Dependencies = {
 	metierStage3eEt2deService: MetierService
 	missionEngagementService: MissionEngagementService
 	rechercheClientService: SearchClient
-	routingService: RoutingService
 	stageService: StageService
 	youtubeService: VideoService
 	établissementAccompagnementService: ÉtablissementAccompagnementService
@@ -124,8 +120,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const routingService = new RoutingService(createInstantSearchRouterNext({ singletonRouter }));
-
 	return {
 		analyticsService,
 		cookiesService,
@@ -141,7 +135,6 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
-		routingService,
 		stage3eEt2deService,
 		stageService,
 		youtubeService,
