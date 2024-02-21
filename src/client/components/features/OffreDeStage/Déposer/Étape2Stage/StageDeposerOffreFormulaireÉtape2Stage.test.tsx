@@ -156,6 +156,19 @@ describe('<Stage />', () => {
 			});
 		});
 	});
+
+	describe('quand je saisis une date sans utiliser le calendrier', () => {
+		it('autorise les dates au format AAAA-MM-JJ', async () => {
+			// When
+			render(<Stage />);
+			const inputDateDebutMin = screen.getByLabelText('Date précise du début de stage');
+			await userEvent.type(inputDateDebutMin, '2021-12-31');
+
+			// Then
+			expect(inputDateDebutMin).toHaveDisplayValue('2021-12-31');
+			expect(inputDateDebutMin).toHaveAttribute('aria-invalid', 'false');
+		});
+	});
 });
 
 async function BoutonSuivant() {

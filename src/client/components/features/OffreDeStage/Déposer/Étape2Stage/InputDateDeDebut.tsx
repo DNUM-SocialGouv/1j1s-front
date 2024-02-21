@@ -28,6 +28,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 				max={'9999-12-31'}
 				onChange={(event) => setDateDeDebutMin(event.target.value)}
 				pattern="^\d{4}-\d{2}-\d{2}$"
+				placeholder="AAAA-MM-JJ"
 			/>
 			:
 			<div className={styles.contenuDateDeDebutInputDate}>
@@ -40,6 +41,8 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 					min={disableBeforeToday}
 					max={'9999-12-31'}
 					onChange={(event) => setDateDeDebutMin(event.target.value)}
+					pattern="^\d{4}-\d{2}-\d{2}$"
+					placeholder="AAAA-MM-JJ"
 				/>
 				<InputText
 					label="Date de début du stage au plus tard"
@@ -50,6 +53,8 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 					min={dateDeDebutMin}
 					max={'9999-12-31'}
 					onChange={(event) => setDateDeDebutMax(event.target.value)}
+					pattern="^\d{4}-\d{2}-\d{2}$"
+					placeholder="AAAA-MM-JJ"
 				/>
 			</div>
 		}
