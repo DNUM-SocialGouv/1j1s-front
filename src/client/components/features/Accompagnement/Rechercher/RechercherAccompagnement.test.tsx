@@ -11,7 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	anÉtablissementAccompagnementService,
+	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -33,7 +33,7 @@ describe('RechercherAccompagnement', () => {
 
 	describe('quand aucune recherche n‘est lancée', () => {
 		it('affiche un formulaire de recherche, sans résultat ou message d‘erreur', () => {
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationServiceMock = aLocalisationService();
 
 			mockUseRouter({});
@@ -64,7 +64,7 @@ describe('RechercherAccompagnement', () => {
 	describe('quand on recherche un établissement d‘accompagnement', () => {
 		describe('quand aucun résultat ne correspond à la recherche', () => {
 			it('affiche un message aucun résultat', async () => {
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
 				const localisationServiceMock = aLocalisationService();
 
@@ -89,7 +89,7 @@ describe('RechercherAccompagnement', () => {
 
 		describe('quand le service nous retourne une erreur', () => {
 			it('affiche un message d‘erreur', async () => {
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
@@ -114,7 +114,7 @@ describe('RechercherAccompagnement', () => {
 
 		describe('quand on filtre par localisation et type d‘accompagnement', () => {
 			it('retourne des établissements liés à la localisation et type d‘accompagnement', async () => {
-				const etablissementAccompagnementService = anÉtablissementAccompagnementService();
+				const etablissementAccompagnementService = anEtablissementAccompagnementService();
 				jest.spyOn(etablissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess([
 					anEtablissementAccompagnement({ id: '1', nom: 'Point information jeunesse - Saint-Céré' }),
 					anEtablissementAccompagnement({ id: '2', nom: 'Point information jeunesse - Figeac' }),
@@ -149,7 +149,7 @@ describe('RechercherAccompagnement', () => {
 		it('affiche les informations des cards', () => {
 			// Given
 			mockUseRouter({});
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationService = aLocalisationService();
 			render(
 				<DependenciesProvider
@@ -173,7 +173,7 @@ describe('RechercherAccompagnement', () => {
 
 	describe('quand la localisation ou le type d‘accompagnement est manquant', () => {
 		it('n‘effectue pas la recherche', async () => {
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationServiceMock = aLocalisationService();
 
 			mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006' } });
@@ -197,7 +197,7 @@ describe('RechercherAccompagnement', () => {
 
 	describe('quand le type d‘accompagnement est Mission Locale', () => {
 		it('affiche le bouton "Je souhaite être rappelé"', async () => {
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const anEtablissementMissionLocalList = anEtablissementAccompagnementList({ type: TypeÉtablissement.MISSION_LOCALE });
 			jest.spyOn(établissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess(anEtablissementMissionLocalList));
 			const localisationServiceMock = aLocalisationService();

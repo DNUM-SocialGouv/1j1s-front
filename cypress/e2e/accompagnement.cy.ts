@@ -3,6 +3,7 @@
 
 import { TypeÉtablissement } from '../../src/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
+	anEtablissementAccompagnement,
 	anEtablissementAccompagnementList,
 } from '../../src/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
@@ -38,12 +39,12 @@ describe('Parcours Accompagnement', () => {
 					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: 'Rechercher' }).click(),
 					alias: 'recherche-accompagnement',
 					path: '/api/etablissements-accompagnement*',
-					response: JSON.stringify(anEtablissementAccompagnementList()),
+					response: JSON.stringify([anEtablissementAccompagnement({ id: '1' }), anEtablissementAccompagnement({ id: '2' })]),
 				});
 
 				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
 					.children('li')
-					.should('have.length', 1);
+					.should('have.length', 2);
 			});
 		});
 

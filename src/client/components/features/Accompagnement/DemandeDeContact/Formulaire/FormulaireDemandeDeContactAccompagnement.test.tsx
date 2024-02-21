@@ -11,7 +11,7 @@ import {
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	anÉtablissementAccompagnementService,
+	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import {
 	ÉtablissementAccompagnementService,
@@ -36,7 +36,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		localisationService = aLocalisationService();
-		établissementAccompagnementService = anÉtablissementAccompagnementService();
+		établissementAccompagnementService = anEtablissementAccompagnementService();
 		onSuccess = jest.fn();
 		onFailure = jest.fn();
 	});

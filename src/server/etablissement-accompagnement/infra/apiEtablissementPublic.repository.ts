@@ -20,6 +20,7 @@ import {
 const CODE_COMMUNE_MARSEILLE = '13055';
 const CODE_COMMUNE_LYON = '69123';
 const CODE_COMMUNE_PARIS = '75056';
+const NOMBRE_RESULTAT_MAX = '100';
 
 export class ApiEtablissementPublicRepository implements EtablissementAccompagnementRepository {
 	constructor(private readonly httpClient: PublicHttpClientService, private readonly errorManagement: ErrorManagementService) {
@@ -29,7 +30,7 @@ export class ApiEtablissementPublicRepository implements EtablissementAccompagne
 		const { codePostal, typeAccompagnement, codeCommune } = params;
 		try {
 			const select = 'select=adresse,telephone,adresse_courriel,nom,id,pivot,plage_ouverture';
-			const limit = 'limit=100';
+			const limit = `limit=${NOMBRE_RESULTAT_MAX}`;
 			const queryLocalisation = this.getQueryLocalisation(codeCommune, codePostal);
 			const queryTypeEtablissement = `pivot%20LIKE%20%22${typeAccompagnement}%22`;
 

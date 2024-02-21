@@ -123,63 +123,65 @@ describe('ApiÉtablissementPublicRepository', () => {
 			});
 		});
 
-		it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
-			// Given
-			const httpClientService = aPublicHttpClientService();
-			const searchResponse = aResultatRechercheEtablissementPublicListResponse({
-				// @ts-expect-error
-				id: 0,
-			});
-			const errorManagementServiceSearch = anErrorManagementService();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
-			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+		describe('erreur de validation', () => {
+			it('appelle le management d’erreur de validation du schéma de l’api quand il y a une erreur de validation et continue l’execution', async () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const searchResponse = aResultatRechercheEtablissementPublicListResponse({
+					// @ts-expect-error
+					id: 0,
+				});
+				const errorManagementServiceSearch = anErrorManagementService();
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+				const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
-			// When
-			const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
+				// When
+				const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
 
-			// Then
-			expect(result.instance).toEqual('success');
-			expect(errorManagementServiceSearch.logValidationError).toHaveBeenCalledWith(
-				new ApiValidationError(
-					[
-						{
-							context: {
-								key: 'id',
-								label: '[0].id',
-								value: 0,
+				// Then
+				expect(result.instance).toEqual('success');
+				expect(errorManagementServiceSearch.logValidationError).toHaveBeenCalledWith(
+					new ApiValidationError(
+						[
+							{
+								context: {
+									key: 'id',
+									label: '[0].id',
+									value: 0,
+								},
+								message: '"[0].id" must be a string',
+								path: [
+									0,
+									'id',
+								],
+								type: 'string.base',
 							},
-							message: '"[0].id" must be a string',
-							path: [
-								0,
-								'id',
-							],
-							type: 'string.base',
-						},
-					],
-					searchResponse.results,
-				),
-				aLogInformation({
-					apiSource: 'API administration et sevice public',
-					contexte: 'search établissement public',
-					message: 'erreur de validation du schéma de l‘api',
-				}),
-			);
-		});
+						],
+						searchResponse.results,
+					),
+					aLogInformation({
+						apiSource: 'API administration et sevice public',
+						contexte: 'search établissement public',
+						message: 'erreur de validation du schéma de l‘api',
+					}),
+				);
+			});
 
-		it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
-			// Given
-			const httpClientService = aPublicHttpClientService();
-			const searchResponse = aResultatRechercheEtablissementPublicListResponse();
-			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
-			const errorManagementServiceSearch = anErrorManagementService();
-			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
+			it('n’appelle pas le management d’erreur de validation du schéma de l’api quand il n’y a pas d’erreur de validation et continue l’execution', async () => {
+				// Given
+				const httpClientService = aPublicHttpClientService();
+				const searchResponse = aResultatRechercheEtablissementPublicListResponse();
+				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(searchResponse));
+				const errorManagementServiceSearch = anErrorManagementService();
+				const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
-			// When
-			const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
+				// When
+				const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
 
-			// Then
-			expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();
-			expect(result.instance).toEqual('success');
+				// Then
+				expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();
+				expect(result.instance).toEqual('success');
+			});
 		});
 	});
 });

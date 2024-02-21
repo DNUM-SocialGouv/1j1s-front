@@ -28,14 +28,17 @@ describe('mapÉtablissementAccompagnement', () => {
 	});
 
 	describe('type accompagnement', () => {
-		it('lorsque le type d‘établissement n‘est pas correcte, ne renvoie pas l‘établissement', () => {
+		it('lorsque le type d‘établissement ne fait pas partie des types d‘établissement acceptés (CIJ, France travail...), ne renvoie pas l‘établissement', () => {
 			const resultatRechercheEtablissementPublicResponse = [anEtablissementPublicResponse({
 				nom: 'un établissement avec un type incorrect',
 				pivot: aPivotEtablissementPublicResponse([{ type_service_local: 'mairie' }, { type_service_local: 'tribunale' }]),
-			}), anEtablissementPublicResponse()];
+			}), anEtablissementPublicResponse({
+				nom: 'un établissement avec un type correct',
+				pivot: aPivotEtablissementPublicResponse([{ type_service_local: 'cij' }]),
+			})];
 			const result = mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublicResponse);
 
-			expect(result).toEqual(anEtablissementAccompagnementList());
+			expect(result).toEqual([anEtablissementAccompagnement({ nom: 'un établissement avec un type correct', type: TypeÉtablissement.INFO_JEUNE })]);
 		});
 
 		it('lorsque le type d‘établissement est correcte, renvoie l‘établissement', () => {

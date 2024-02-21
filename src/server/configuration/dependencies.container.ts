@@ -70,8 +70,8 @@ import {
 	ApiRejoindreLaMobilisationErrorManagementService,
 } from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
 import {
-	ÉtablissementAccompagnementDependencies,
-	établissementAccompagnementDependenciesContainer,
+	EtablissementAccompagnementDependencies,
+	etablissementAccompagnementDependenciesContainer,
 } from '~/server/etablissement-accompagnement/configuration/dependencies.container';
 import {
 	getApiEtablissementPublicConfig,
@@ -234,7 +234,7 @@ export type Dependencies = {
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
-	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
+	établissementAccompagnementDependencies: EtablissementAccompagnementDependencies;
 	servicesJeunesDependencies: ServicesJeunesDependencies;
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
@@ -359,7 +359,7 @@ export function dependenciesContainer(): Dependencies {
 
 	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiEtablissementPublicConfig(serverConfigurationService));
 	const apiEtablissementPublicRepository = new ApiEtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
-	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
+	const établissementAccompagnementDependencies = etablissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
 	const ficheMetierDependencies = ficheMetierDependenciesContainer(ficheMetierRepository);

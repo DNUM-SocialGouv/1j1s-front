@@ -23,7 +23,7 @@ export async function rechercherÉtablissementAccompagnementHandler(
 	const { query } = req;
 	const résultatsRechercheÉtablissementAccompagnement = await dependencies
 		.établissementAccompagnementDependencies
-		.rechercherÉtablissementAccompagnementUseCase
+		.rechercherEtablissementAccompagnementUseCase
 		.handle({ codeCommune: String(query.codeCommune), codePostal: String(query.codePostal), typeAccompagnement: String(query.typeAccompagnement) });
 	return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
 }

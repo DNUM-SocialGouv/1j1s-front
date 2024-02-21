@@ -5,12 +5,12 @@ import {
 	RechercherEtablissementAccompagnementUseCase,
 } from '~/server/etablissement-accompagnement/useCase/rechercherEtablissementAccompagnement.useCase';
 
-export interface ÉtablissementAccompagnementDependencies {
-	rechercherÉtablissementAccompagnementUseCase: RechercherEtablissementAccompagnementUseCase
+export interface EtablissementAccompagnementDependencies {
+	rechercherEtablissementAccompagnementUseCase: RechercherEtablissementAccompagnementUseCase
 }
 
-export function établissementAccompagnementDependenciesContainer(établissementAccompagnementRepository: EtablissementAccompagnementRepository): ÉtablissementAccompagnementDependencies {
+export function etablissementAccompagnementDependenciesContainer(etablissementAccompagnementRepository: EtablissementAccompagnementRepository): EtablissementAccompagnementDependencies {
 	return {
-		rechercherÉtablissementAccompagnementUseCase: new RechercherEtablissementAccompagnementUseCase(établissementAccompagnementRepository),
+		rechercherEtablissementAccompagnementUseCase: new RechercherEtablissementAccompagnementUseCase(etablissementAccompagnementRepository),
 	};
 }

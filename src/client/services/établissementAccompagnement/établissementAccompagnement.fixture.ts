@@ -6,7 +6,7 @@ import {
 	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
-export function anÉtablissementAccompagnementService(): ÉtablissementAccompagnementService {
+export function anEtablissementAccompagnementService(): ÉtablissementAccompagnementService {
 	return {
 		envoyerDemandeContact: jest.fn().mockResolvedValue(createSuccess(undefined)),
 		rechercher: jest.fn().mockResolvedValue(createSuccess(anEtablissementAccompagnementList())),

@@ -2,10 +2,10 @@ import {
 	ResultatRechercheEtablissementPublicResponse,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
-import Pivot = ResultatRechercheEtablissementPublicResponse.Pivot;
-import Adresse = ResultatRechercheEtablissementPublicResponse.Adresse;
-import Telephone = ResultatRechercheEtablissementPublicResponse.Telephone;
-import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuverture;
+import Pivot = ResultatRechercheEtablissementPublicResponse.PivotParsed;
+import Adresse = ResultatRechercheEtablissementPublicResponse.AdresseParsed;
+import Telephone = ResultatRechercheEtablissementPublicResponse.TelephoneParsed;
+import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuvertureParsed;
 import EtablissementsPublicList = ResultatRechercheEtablissementPublicResponse.EtablissementsPublicList;
 
 

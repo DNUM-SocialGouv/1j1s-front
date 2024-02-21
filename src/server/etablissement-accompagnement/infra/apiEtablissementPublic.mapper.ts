@@ -8,11 +8,12 @@ import {
 	ResultatRechercheEtablissementPublicResponse,
 } from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.response';
 import EtablissementPublic = ResultatRechercheEtablissementPublicResponse.EtablissementPublic;
-import Adresse = ResultatRechercheEtablissementPublicResponse.Adresse;
-import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuverture;
-import PivotLocal = ResultatRechercheEtablissementPublicResponse.Pivot;
-import Telephone = ResultatRechercheEtablissementPublicResponse.Telephone;
+import Adresse = ResultatRechercheEtablissementPublicResponse.AdresseParsed;
+import PlageOuverture = ResultatRechercheEtablissementPublicResponse.PlageOuvertureParsed;
+import PivotLocal = ResultatRechercheEtablissementPublicResponse.PivotParsed;
+import Telephone = ResultatRechercheEtablissementPublicResponse.TelephoneParsed;
 import Horaire = EtablissementAccompagnement.Horaire;
+import Heure = EtablissementAccompagnement.Horaire.Heure;
 
 const JOURS_DE_LA_SEMAINE_NOM = [JourSemaine.LUNDI, JourSemaine.MARDI, JourSemaine.MERCREDI, JourSemaine.JEUDI, JourSemaine.VENDREDI, JourSemaine.SAMEDI, JourSemaine.DIMANCHE];
 
@@ -43,17 +44,8 @@ export function mapEtablissementPublicAccompagnement(resultatRechercheEtablissem
 }
 
 function mapTypeEtablissement(pivotLocal: Array<PivotLocal>): TypeÉtablissement | undefined {
-	let typeEtablissementtypeEtablissement: TypeÉtablissement | undefined;
-
-	pivotLocal.find((pivotLocal) => {
-		if (isTypeEtablissement(pivotLocal.type_service_local)) {
-			typeEtablissementtypeEtablissement = pivotLocal.type_service_local;
-			return true;
-		}
-		return false;
-	});
-
-	return typeEtablissementtypeEtablissement;
+	const pivotLocalWithValidEtablissementType = pivotLocal.find((pivotLocal) => isTypeEtablissement(pivotLocal.type_service_local));
+	return pivotLocalWithValidEtablissementType?.type_service_local as TypeÉtablissement;
 }
 
 function mapAdresse(adresseList: Array<Adresse>): string | undefined {
@@ -61,58 +53,39 @@ function mapAdresse(adresseList: Array<Adresse>): string | undefined {
 	const adresse = adresseList.find((adresse) => adresse.type_adresse === 'Adresse');
 	if (!adresse) {
 		return undefined;
-	} else {
-		return `${adresse.numero_voie}, ${adresse.code_postal} ${adresse.nom_commune}`;
 	}
+	return `${adresse.numero_voie}, ${adresse.code_postal} ${adresse.nom_commune}`;
 }
 
-function mapHoraire(horaireList: Array<PlageOuverture>): Array<EtablissementAccompagnement.Horaire> {
-	const horaires: Array<Horaire> = [];
-	const indexJourOuvert: Array<number> = [];
-	horaireList.map((plageOuverture) => {
-		const indexDebutJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuverture.nom_jour_debut);
-		const indexFinJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuverture.nom_jour_fin);
+function isValidPlageOuverture(plageOuverture: PlageOuverture): boolean {
+	const indexDebutJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuverture.nom_jour_debut);
+	const indexFinJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuverture.nom_jour_fin);
+	return indexDebutJour !== -1 && indexFinJour !== -1;
+}
 
-		if (indexDebutJour === indexFinJour && indexDebutJour !== -1) {
-			horaires.push({ heures: mapHeures(plageOuverture), jour: plageOuverture.nom_jour_debut });
-			indexJourOuvert.push(indexDebutJour);
-		}
+function isCurrentJourInPlageOuverture(jour: JourSemaine, plageOuvertureEtablissement: PlageOuverture): boolean {
+	const indexDebutJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuvertureEtablissement.nom_jour_debut);
+	const indexFinJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(plageOuvertureEtablissement.nom_jour_fin);
+	const indexJour = JOURS_DE_LA_SEMAINE_NOM.indexOf(jour);
+	return indexDebutJour <= indexJour && indexJour <= indexFinJour;
+}
 
-		if (-1 < indexDebutJour && indexDebutJour < indexFinJour) {
-			const allIndexJourPlage = generateIndexListBetweenTwoIndex(indexDebutJour, indexFinJour);
-			allIndexJourPlage.map((indexJourPlage) => horaires.push({
-				heures: mapHeures(plageOuverture),
-				jour: JOURS_DE_LA_SEMAINE_NOM[indexJourPlage],
-			}));
-			indexJourOuvert.push(...allIndexJourPlage);
-		}
+function mapHoraire(horaireListEtablissement: Array<PlageOuverture>): Array<Horaire> {
+	horaireListEtablissement = horaireListEtablissement.filter((plageOuvertureEtablissement) => isValidPlageOuverture(plageOuvertureEtablissement));
+
+	return JOURS_DE_LA_SEMAINE_NOM.map((jour) => {
+		const plageOuverture = horaireListEtablissement.find((plageOuverture) => isCurrentJourInPlageOuverture(jour, plageOuverture));
+
+		if (!plageOuverture) return { heures: [], jour };
+
+		return {
+			heures: mapHeures(plageOuverture),
+			jour,
+		};
 	});
-	horaires.push(...addJoursFermes(indexJourOuvert));
-	horaires.sort(sortParJourSemaine);
-	return horaires;
 }
 
-function sortParJourSemaine(horaireA: Horaire, horaireB: Horaire) {
-	if (JOURS_DE_LA_SEMAINE_NOM.indexOf(horaireA.jour) > JOURS_DE_LA_SEMAINE_NOM.indexOf(horaireB.jour)) {
-		return 1;
-	}
-	return -1;
-}
-
-function addJoursFermes(indexJourOuvert: Array<number>): Array<EtablissementAccompagnement.Horaire> {
-	const horaires: Array<EtablissementAccompagnement.Horaire> = [];
-	const indexJoursSemaine = Array.from({ length: 7 }, (_, index) => index);
-	indexJoursSemaine.map((indexJour) => {
-		!indexJourOuvert.includes(indexJour) && horaires.push({
-			heures: [],
-			jour: JOURS_DE_LA_SEMAINE_NOM[indexJour],
-		});
-	});
-
-	return horaires;
-}
-
-function mapHeures(plageOuverture: PlageOuverture): Array<EtablissementAccompagnement.Horaire.Heure> {
+function mapHeures(plageOuverture: PlageOuverture): Array<Heure> {
 	const { valeur_heure_debut_1, valeur_heure_debut_2, valeur_heure_fin_1, valeur_heure_fin_2 } = plageOuverture;
 	const heures = [];
 
@@ -131,8 +104,4 @@ function mapHeures(plageOuverture: PlageOuverture): Array<EtablissementAccompagn
 	}
 
 	return heures;
-}
-
-function generateIndexListBetweenTwoIndex(index1: number, index2: number) {
-	return Array.from({ length: index2 - index1 + 1 }, (_, index) => index + index1);
 }

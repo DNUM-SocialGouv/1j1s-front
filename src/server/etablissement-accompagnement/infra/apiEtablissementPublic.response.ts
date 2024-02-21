@@ -17,22 +17,22 @@ export namespace ResultatRechercheEtablissementPublicResponse {
 		pivot: string
 	}
 
-	export interface Pivot {
+	export interface PivotParsed {
 		type_service_local: string
 	}
 
-	export interface Telephone {
+	export interface TelephoneParsed {
 		valeur: string
 	}
 
-	export interface Adresse {
+	export interface AdresseParsed {
 		numero_voie: string
 		code_postal: string
 		nom_commune: string
 		type_adresse: string
 	}
 
-	export interface PlageOuverture {
+	export interface PlageOuvertureParsed {
 		nom_jour_debut: JourSemaine
 		nom_jour_fin: JourSemaine
 		valeur_heure_debut_1: string
