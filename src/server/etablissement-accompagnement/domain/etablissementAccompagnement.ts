@@ -27,6 +27,7 @@ export namespace EtablissementAccompagnement {
 export interface ParametresRechercheEtablissementAccompagnement {
 	codePostal: string
 	typeAccompagnement: string
+	codeCommune: string
 }
 
 export function isTypeEtablissement(type: string): type is TypeÉtablissement {

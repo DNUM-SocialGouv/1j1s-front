@@ -12,7 +12,8 @@ import {
 import { dependencies } from '~/server/start';
 
 export const querySchema = Joi.object({
-	codePostal: Joi.string().alphanum().max(5),
+	codeCommune: Joi.string().alphanum().max(5).required(),
+	codePostal: Joi.string().alphanum().max(5).required(),
 	typeAccompagnement: Joi.string().valid(...Object.values(TypeÉtablissement)).required(),
 }).options({ allowUnknown: true });
 
@@ -23,7 +24,7 @@ export async function rechercherÉtablissementAccompagnementHandler(
 	const résultatsRechercheÉtablissementAccompagnement = await dependencies
 		.établissementAccompagnementDependencies
 		.rechercherÉtablissementAccompagnementUseCase
-		.handle({ codePostal: String(query.codePostal), typeAccompagnement: String(query.typeAccompagnement) });
+		.handle({ codeCommune: String(query.codeCommune), codePostal: String(query.codePostal), typeAccompagnement: String(query.typeAccompagnement) });
 	return handleResponse(résultatsRechercheÉtablissementAccompagnement, res);
 }
 

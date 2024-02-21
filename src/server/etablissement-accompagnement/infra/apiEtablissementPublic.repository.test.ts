@@ -25,6 +25,55 @@ const logInformation = aLogInformation({
 });
 describe('ApiÉtablissementPublicRepository', () => {
 	describe('search', () => {
+		describe('ville à arrondissement', () => {
+			it('lorsque je fais une recherche avec la ville de Marseille, appelle l‘api avec l‘ensemble des arrondissement de Marseille', async () => {
+				const httpClient = aPublicHttpClientService();
+				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
+				const codePostal = '13013';
+				const codeCommune = '13055';
+				const typeAccompagnement = TypeÉtablissement.INFO_JEUNE;
+
+				await repository.search({ codeCommune, codePostal, typeAccompagnement });
+
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('suggest(adresse,%22code_postal%20130*%22)'));
+			});
+
+			it('lorsque je fais une recherche avec la ville de Lyon, appelle l‘api avec l‘ensemble des arrondissement de Lyon', async () => {
+				const httpClient = aPublicHttpClientService();
+				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
+				const codePostal = '69002';
+				const codeCommune = '69123';
+				const typeAccompagnement = TypeÉtablissement.INFO_JEUNE;
+
+				await repository.search({ codeCommune, codePostal, typeAccompagnement });
+
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('suggest(adresse,%22code_postal%206900*%22)'));
+			});
+
+			it('lorsque je fais une recherche avec la ville de Paris, appelle l‘api avec l‘ensemble des arrondissement de Paris', async () => {
+				const httpClient = aPublicHttpClientService();
+				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
+				const codePostal = '75002';
+				const codeCommune = '75056';
+				const typeAccompagnement = TypeÉtablissement.INFO_JEUNE;
+
+				await repository.search({ codeCommune, codePostal, typeAccompagnement });
+
+				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('suggest(adresse,%22code_postal%20750*%22)'));
+			});
+		});
+
+		it('lorsque l‘utilisateur recherche une ville sans arrondissement, fait la recherche avec le code postal', async () => {
+			const httpClient = aPublicHttpClientService();
+			const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
+			const codePostal = '83400';
+			const codeCommune = '83000';
+			const typeAccompagnement = TypeÉtablissement.INFO_JEUNE;
+
+			await repository.search({ codeCommune, codePostal, typeAccompagnement });
+
+			expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining(`suggest(adresse,%22code_postal%20${codePostal}%22)`));
+		});
 		describe('lorsque la recherche retourne une 200', () => {
 			it('retourne la liste des établissements d‘accompagnement', async () => {
 				// given
@@ -35,10 +84,11 @@ describe('ApiÉtablissementPublicRepository', () => {
 				const repository = new ApiEtablissementPublicRepository(httpClient, anErrorManagementService());
 				const expected = createSuccess(anEtablissementAccompagnementList());
 				const codePostal = '46100';
-				const typeAccompagnement =  TypeÉtablissement.INFO_JEUNE;
+				const codeCommune = '46000';
+				const typeAccompagnement = TypeÉtablissement.INFO_JEUNE;
 
 				// when
-				const result = await repository.search({ codePostal, typeAccompagnement });
+				const result = await repository.search({ codeCommune, codePostal, typeAccompagnement });
 
 				// then
 				expect(httpClient.get).toHaveBeenCalledWith(expect.stringContaining('catalog/datasets/api-lannuaire-administration/records?'));
@@ -59,11 +109,12 @@ describe('ApiÉtablissementPublicRepository', () => {
 					handleFailureError: jest.fn(() => createFailure(expectedError)),
 				});
 				const codePostal = '46100';
+				const codeCommune = '46000';
 				const typeAccompagnement = 'cij';
 				const repository = new ApiEtablissementPublicRepository(httpClient, errorManagementService);
 
 				// when
-				const result = await repository.search({ codePostal, typeAccompagnement });
+				const result = await repository.search({ codeCommune, codePostal, typeAccompagnement });
 
 				// then
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, logInformation);
@@ -84,7 +135,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 			// When
-			const result = await repository.search({ codePostal: '46100', typeAccompagnement: 'cij' });
+			const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
 
 			// Then
 			expect(result.instance).toEqual('success');
@@ -124,7 +175,7 @@ describe('ApiÉtablissementPublicRepository', () => {
 			const repository = new ApiEtablissementPublicRepository(httpClientService, errorManagementServiceSearch);
 
 			// When
-			const result = await repository.search({ codePostal: '46100', typeAccompagnement: 'cij' });
+			const result = await repository.search({ codeCommune: '46000', codePostal: '46100', typeAccompagnement: 'cij' });
 
 			// Then
 			expect(errorManagementServiceSearch.logValidationError).not.toHaveBeenCalled();
