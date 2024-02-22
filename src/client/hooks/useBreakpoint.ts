@@ -27,7 +27,7 @@ function getScreenSize() {
 export default function useBreakpoint() {
 	const [screenSize, setScreenSize] = useState(getScreenSize());
 
-	//TODO voir si on repasse en useEffect après avoir tué les utilisations / vérfiier impact du passage en useEffect
+	//TODO voir si on repasse en useLayoutEffect après avoir tué les utilisations / vérfiier impact du passage en useEffect
 	useEffect(() => {
 		function handleDevice(): void {
 			setScreenSize(getScreenSize());
