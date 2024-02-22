@@ -16,6 +16,9 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	const [dateDeDebutMin, setDateDeDebutMin] = useState<string | undefined>(props.informationsStage?.dateDeDebutMin ?? undefined);
 	const [dateDeDebutMax, setDateDeDebutMax] = useState<string | undefined>(props.informationsStage?.dateDeDebutMax ?? undefined);
 
+	const currentDate = new Date();
+	const placeholderDate = `Exemple : ${currentDate.toISOString().slice(0, 10)}`;
+
 	return <>
 		{props.displayDateDeDebutPrecise ?
 			<InputText
@@ -28,7 +31,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 				max={'9999-12-31'}
 				onChange={(event) => setDateDeDebutMin(event.target.value)}
 				pattern="^\d{4}-\d{2}-\d{2}$"
-				placeholder="AAAA-MM-JJ"
+				placeholder={placeholderDate}
 			/>
 			:
 			<div className={styles.contenuDateDeDebutInputDate}>
@@ -42,7 +45,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 					max={'9999-12-31'}
 					onChange={(event) => setDateDeDebutMin(event.target.value)}
 					pattern="^\d{4}-\d{2}-\d{2}$"
-					placeholder="AAAA-MM-JJ"
+					placeholder={placeholderDate}
 				/>
 				<InputText
 					label="Date de début du stage au plus tard"
@@ -54,7 +57,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 					max={'9999-12-31'}
 					onChange={(event) => setDateDeDebutMax(event.target.value)}
 					pattern="^\d{4}-\d{2}-\d{2}$"
-					placeholder="AAAA-MM-JJ"
+					placeholder={placeholderDate}
 				/>
 			</div>
 		}
