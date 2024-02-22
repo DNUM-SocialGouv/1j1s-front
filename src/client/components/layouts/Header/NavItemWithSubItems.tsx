@@ -11,16 +11,16 @@ import {
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { NavItem } from '~/client/components/layouts/Header/NavItem';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import { EmbeddedNavItem } from './EmbeddedNavItem';
 
 interface NavItemWithSubItemsProps {
   onClick?: () => void;
   item: NavigationItemWithChildren;
+	isMobile?: boolean
 }
 
-export function NavItemWithSubItems({ className, onClick, item: root }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
+export function NavItemWithSubItems({ className, onClick, item: root, isMobile = false }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
 	const optionsRef = useRef<HTMLLIElement>(null);
 
 	const router = useRouter();
@@ -28,12 +28,14 @@ export function NavItemWithSubItems({ className, onClick, item: root }: NavItemW
 		createPathToCurrentPageSubmenu(root, (element) => element.link === router.pathname) ?? [root],
 	);
 
-	//	const { isLargeScreen } = useBreakpoint(); //TODO fait planter le render?
 	const isActive = useMemo(() => {
 		return isItemActive(root, router.pathname);
 	}, [router.pathname, root]);
 	const [isExpanded, setIsExpanded] = useState(false);
-	// TODO doit s'ouvrir par défaut sur mobile -> Passer une props supplémentaire pour y arriver?
+
+	useEffect(() => { // initialisation de l'état côté client, une fois le router dispo
+		setIsExpanded(isActive && isMobile);
+	}, [isActive, isMobile]);
 
 	const reset = useCallback(() => {
 		setIsExpanded(false);

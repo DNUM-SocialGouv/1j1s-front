@@ -7,7 +7,7 @@ export function mockSmallScreen() {
 			addEventListener: jest.fn(),
 			addListener: jest.fn(),
 			dispatchEvent: jest.fn(),
-			matches: false,
+			matches: false, //TODO mettre à jour pour moins dépendre de l'implémentation de getScreenSize
 			media: query,
 			onchange: null,
 			removeEventListener: jest.fn(),
@@ -23,7 +23,7 @@ export function mockLargeScreen() {
 			addEventListener: jest.fn(),
 			addListener: jest.fn(),
 			dispatchEvent: jest.fn(),
-			matches: true,
+			matches: true, //TODO mettre à jour pour moins dépendre de l'implémentation de getScreenSize
 			media: query,
 			onchange: null,
 			removeEventListener: jest.fn(),

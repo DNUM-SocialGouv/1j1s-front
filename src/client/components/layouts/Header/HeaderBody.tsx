@@ -48,7 +48,7 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
+					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner} data-testid="desktop-mailto-stages">
 						<div>
 							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
 							</div>

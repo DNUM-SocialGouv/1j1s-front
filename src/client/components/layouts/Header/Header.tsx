@@ -34,7 +34,7 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner}>
+			<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-mailto-stages">
 				Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
 				<Link.Icon  name="angle-right"/>
 			</Link>

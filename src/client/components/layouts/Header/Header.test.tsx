@@ -43,23 +43,25 @@ describe('Header', () => {
 		});
 
 		describe('quand on ouvre la navigation', () => {
-			it('affiche la navigation', async () => {
+			it('affiche la navigation avec le role correspondant', async () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
 
 				const header = screen.getByRole('banner');
 				const openNavButton = within(header).getByRole('button', { name: 'Offres' });
 				fireEvent.click(openNavButton);
-				const navigation = screen.getByRole('navigation');
+				const navigationDesktop = screen.getByTestId('navigation-desktop');
 
-				expect(navigation).toBeVisible();
+				expect(navigationDesktop).toHaveRole('navigation');
+				expect(navigationDesktop).toBeVisible();
 			});
 
 			it('affiche le lien "Découvrir et trouver sa voie avec l’apprentissage" dans le menu des formations et orientations', async () => {
 				// GIVEN
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
-				const formationsEtOrientationNavItem = screen.getByRole('button', { name: /^formations et orientation$/i });
+				const navigationDesktop = screen.getByTestId('navigation-desktop');
+				const formationsEtOrientationNavItem = within(navigationDesktop).getByRole('button', { name: /^formations et orientation$/i });
 				const user = userEvent.setup();
 
 				// WHEN
@@ -76,9 +78,9 @@ describe('Header', () => {
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
 
-				const navigation = screen.getByRole('navigation');
-				const accueilNavItem = within(navigation).getByText('Accueil');
-				const offresNavItem = within(navigation).getByText('Offres');
+				const navigationDesktop = screen.getByTestId('navigation-desktop');
+				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
+				const offresNavItem = within(navigationDesktop).getByText('Offres');
 
 
 				expect(accueilNavItem).toHaveAttribute('aria-current', 'true');
@@ -91,13 +93,13 @@ describe('Header', () => {
 				mockUseRouter({ pathname: '/emplois' });
 				render(<Header/>);
 
-				const navigation = screen.getByRole('navigation');
-				const accueilNavItem = within(navigation).getByText('Accueil');
-				const offresNavItem = within(navigation).getByText('Offres');
+				const navigationDesktop = screen.getByTestId('navigation-desktop');
+				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
+				const offresNavItem = within(navigationDesktop).getByText('Offres');
 
 				fireEvent.click(offresNavItem);
 
-				const emploisNavItem = within(navigation).getByText('Emplois');
+				const emploisNavItem = within(navigationDesktop).getByText('Emplois');
 
 				expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
 				expect(emploisNavItem).toHaveAttribute('aria-current', 'true');
@@ -109,13 +111,13 @@ describe('Header', () => {
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
 				render(<Header/>);
 
-				const navigation = screen.getByRole('navigation');
-				const accueilNavItem = within(navigation).getByText('Accueil');
-				const lesNavItem = within(navigation).getAllByText('Je suis employeur').at(0) as HTMLElement;
+				const navigationDesktop = screen.getByTestId('navigation-desktop');
+				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
+				const lesNavItem = within(navigationDesktop).getAllByText('Je suis employeur').at(0) as HTMLElement;
 
 				fireEvent.click(lesNavItem);
 
-				const jeDeviensMentorNavItem = within(navigation).getByText('Je deviens mentor');
+				const jeDeviensMentorNavItem = within(navigationDesktop).getByText('Je deviens mentor');
 
 				expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
 				// eslint-disable-next-line testing-library/no-node-access
@@ -136,7 +138,9 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3e et 2de ?/ });
+				const encartLien = screen.getByTestId('desktop-mailto-stages');
+				expect(encartLien).toHaveRole('link');
+				expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
 				expect(encartLien).toBeVisible();
 				expect(encartLien).toHaveTextContent(/Envoyez nous un e-mail !/i);
 				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
@@ -267,7 +271,9 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByRole('link', { name: /Vous voulez accueillir des stagiaires de 3e et 2de ?/ });
+					const encartLien = screen.getByTestId('mobile-mailto-stages');
+					expect(encartLien).toHaveRole('link');
+					expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
 					expect(encartLien).toBeVisible();
 					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
 					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
@@ -305,21 +311,25 @@ describe('Header', () => {
 			it('positionne le menu dans le bon sous menu de niveau 1', () => {
 				mockUseRouter({ pathname: '/decouvrir-les-metiers' });
 				render(<Header/>);
-				const button = screen.getByRole('button');
+				const button = screen.getByRole('button', { name : 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
-				expect(screen.getByText('Découvrir les métiers')).toBeVisible();
+
+				const modaleNavigation =  screen.getByRole('dialog');
+				expect(within(modaleNavigation).getByText('Découvrir les métiers')).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 2', () => {
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
 				render(<Header/>);
-				const button = screen.getByRole('button');
+				const button = screen.getByRole('button', { name : 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
-				expect(screen.getByText('Je deviens mentor')).toBeVisible();
+
+				const modaleNavigation =  screen.getByRole('dialog');
+				expect(within(modaleNavigation).getByText('Je deviens mentor')).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 2 et permet de retourner en arrière', async () => {
@@ -330,10 +340,12 @@ describe('Header', () => {
 				await user.click(burger);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
-				expect(screen.getByText('Je deviens mentor')).toBeVisible();
-				const retourEnArrière = screen.getByRole('button', { name: 'Recruter et agir pour les jeunes' });
+
+				const modaleNavigation =  screen.getByRole('dialog');
+				expect(within(modaleNavigation).getByText('Je deviens mentor')).toBeVisible();
+				const retourEnArrière = within(modaleNavigation).getByRole('button', { name: 'Recruter et agir pour les jeunes' });
 				await user.click(retourEnArrière);
-				expect(screen.getByText('Je suis employeur')).toBeVisible();
+				expect(within(modaleNavigation).getByText('Je suis employeur')).toBeVisible();
 			});
 		});
 		describe('Au clic sur une catégorie', () => {
@@ -344,9 +356,11 @@ describe('Header', () => {
 				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
 				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
 				await user.click(button);
-				const categorie1 = screen.getByRole('button', { name: 'Formations et orientation' });
+				const navigationMobile = screen.getByTestId('navigation-mobile');
+
+				const categorie1 = within(navigationMobile).getByRole('button', { name: 'Formations et orientation' });
 				await user.click(categorie1);
-				const categorie2 = screen.getByRole('button', { name: 'Engagement' });
+				const categorie2 = within(navigationMobile).getByRole('button', { name: 'Engagement' });
 				expect(categorie1).toHaveAttribute('aria-expanded', 'true');
 				expect(categorie2).not.toHaveAttribute('aria-expanded', 'true');
 				await user.click(categorie2);
@@ -363,10 +377,12 @@ describe('Header', () => {
 						<Header/>
 					</RouterContext.Provider>,
 				);
-				const button = screen.getByRole('button');
+				const button = screen.getByRole('button', { name: 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
-				const item = within(menu).getByRole('link');
+				const navigationMobile = screen.getByTestId('navigation-mobile');
+
+				const item = within(navigationMobile).getByRole('link');
 				fireEvent.click(item);
 				expect(menu).not.toBeInTheDocument();
 			});
@@ -381,14 +397,15 @@ describe('Header', () => {
 						<Header/>
 					</RouterContext.Provider>,
 				);
-				// When
-				await userEvent.click(screen.getByRole('button'));
-				const sectionEmployeur = screen.getByText('Je suis employeur');
+				await userEvent.click(screen.getByRole('button', { name : 'Menu' }));
+
+				const navigationMobile = screen.getByTestId('navigation-mobile');
+				const sectionEmployeur = within(navigationMobile).getByText('Je suis employeur');
 				await userEvent.click(sectionEmployeur);
-				const subItem = screen.getByText('Recruter et agir pour les jeunes');
+				const subItem = within(navigationMobile).getByText('Recruter et agir pour les jeunes');
 				await userEvent.click(subItem);
 				// Then
-				expect(screen.queryByText('Je suis employeur')).not.toBeInTheDocument();
+				expect(within(navigationMobile).queryByText('Je suis employeur')).not.toBeInTheDocument();
 				expect(sectionEmployeur).toHaveTextContent('Recruter et agir pour les jeunes');
 			});
 		});
