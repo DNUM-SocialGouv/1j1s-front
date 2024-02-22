@@ -21,20 +21,6 @@ export function NavEmployeurs({ item: root }: NavEmployeursProps) {
 	const router = useRouter();
 	const isActive = useMemo(() => isItemActive(root, router.pathname), [router.pathname, root]);
 
-	/*useLayoutEffect(() => {
-		function onResize() {
-			if (content.current && wrapper.current) {
-				const height = content.current.offsetHeight;
-				wrapper.current.style.setProperty('--contentHeight', `${height}px`);
-			}
-		}
-
-		onResize();
-		window.addEventListener('resize', onResize);
-		return () => window.removeEventListener('resize', onResize);
-	}, [wrapper, content]);*/
-
-
 	useExitModal(wrapper, isExpanded, () => isExpanded && setIsExpanded(false));
 
 

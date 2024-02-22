@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/HeroComponent.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroComponentProps extends Pick<React.HTMLAttributes<unknown>, 'className' | 'children'> {
   titlePrimaryText: React.ReactNode

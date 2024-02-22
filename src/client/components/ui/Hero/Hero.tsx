@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroIllustrationProps extends React.ComponentPropsWithoutRef<'div'> {
 	image: string
