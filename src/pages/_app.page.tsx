@@ -22,8 +22,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
-	// TODO vérifier le fonctionnement du dependenciesContainer pour ce qui a besoin du client / window (ex: cookies)
-	const dependenciesContainerInstance = useMemo(() => dependenciesContainer(sessionId), [sessionId]);
+	const dependenciesContainerInstance = useMemo(() => sessionId && dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
 
 	useDisplayBackButton();
