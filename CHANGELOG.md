@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.249.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.248.0...v3.249.0) (2024-02-23)
+
+
+### Features
+
+* **stage:** utiliser le combobox pays dans depot stage ([#2708](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2708)) ([4efc6d9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4efc6d9c3c50d41d52bd66e2a522a2e5e7e258ea))
+
 ## [3.248.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.247.3...v3.248.0) (2024-02-23)
 
 
