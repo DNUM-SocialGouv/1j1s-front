@@ -70,15 +70,15 @@ import {
 	ApiRejoindreLaMobilisationErrorManagementService,
 } from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
 import {
-	ÉtablissementAccompagnementDependencies,
-	établissementAccompagnementDependenciesContainer,
-} from '~/server/établissement-accompagnement/configuration/dependencies.container';
+	EtablissementAccompagnementDependencies,
+	etablissementAccompagnementDependenciesContainer,
+} from '~/server/etablissement-accompagnement/configuration/dependencies.container';
 import {
-	getApiÉtablissementsPublicsConfig,
-} from '~/server/établissement-accompagnement/configuration/établissements-publics/établissementPublicHttpClient.config';
+	getApiEtablissementPublicConfig,
+} from '~/server/etablissement-accompagnement/configuration/etablissementPublic/etablissementPublicHttpClient.config';
 import {
-	ApiÉtablissementPublicRepository,
-} from '~/server/établissement-accompagnement/infra/apiÉtablissementPublic.repository';
+	ApiEtablissementPublicRepository,
+} from '~/server/etablissement-accompagnement/infra/apiEtablissementPublic.repository';
 import { FAQDependencies, FAQDependenciesContainer } from '~/server/faq/configuration/dependencies.container';
 import { StrapiFAQRepository } from '~/server/faq/infra/strapiFAQ.repository';
 import {
@@ -234,7 +234,7 @@ export type Dependencies = {
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
 	robotsDependencies: RobotsDependencies;
 	sitemapDependencies: SitemapDependencies;
-	établissementAccompagnementDependencies: ÉtablissementAccompagnementDependencies;
+	établissementAccompagnementDependencies: EtablissementAccompagnementDependencies;
 	servicesJeunesDependencies: ServicesJeunesDependencies;
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
@@ -357,9 +357,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
 	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository);
 
-	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiÉtablissementsPublicsConfig(serverConfigurationService));
-	const apiEtablissementPublicRepository = new ApiÉtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
-	const établissementAccompagnementDependencies = établissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
+	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiEtablissementPublicConfig(serverConfigurationService));
+	const apiEtablissementPublicRepository = new ApiEtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
+	const établissementAccompagnementDependencies = etablissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
 	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
 	const ficheMetierDependencies = ficheMetierDependenciesContainer(ficheMetierRepository);

@@ -348,7 +348,7 @@ describe('<Accompagnement />', () => {
 		});
 	});
 
-	describe('quand on clique sur Oui je suis accompagné par Pôle emploi', () => {
+	describe('quand l‘utilisateur clique sur Oui il est accompagné par Pôle emploi', () => {
 		it('ça te renvoie chez Pôle emploi', async () => {
 			// Given
 			const user = userEvent.setup();

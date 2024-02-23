@@ -17,13 +17,13 @@ import {
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { isSuccess } from '~/server/errors/either';
 import {
-	ContactÉtablissementAccompagnement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+	ContactEtablissementAccompagnement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import { emailRegex } from '~/shared/emailRegex';
 import { telFrRegex } from '~/shared/telRegex';
 
 interface FormulaireDemandeDeContactAccompagnementProps {
-	contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement
+	contactÉtablissementAccompagnement: ContactEtablissementAccompagnement
 	onSuccess: () => void;
 	onFailure: () => void;
 }
@@ -121,7 +121,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 
 }
 
-function mapDemandeDeContactAccompagnement(formData: FormData, contactÉtablissementAccompagnement: ContactÉtablissementAccompagnement): DemandeDeContactAccompagnement {
+function mapDemandeDeContactAccompagnement(formData: FormData, contactÉtablissementAccompagnement: ContactEtablissementAccompagnement): DemandeDeContactAccompagnement {
 	return {
 		age: Number(formData.get('age')) as Age,
 		commentaire: String(formData.get('commentaire')),

@@ -4,12 +4,12 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Tag } from '~/client/components/ui/Tag/Tag';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 interface tagsListProps {
-	etablissement: ÉtablissementAccompagnement
+	etablissement: EtablissementAccompagnement
 }
 
 export function RésultatRechercherAccompagnementTagsList({ etablissement }: tagsListProps) {

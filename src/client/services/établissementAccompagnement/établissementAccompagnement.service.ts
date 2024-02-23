@@ -4,14 +4,14 @@ import { AccompagnementQueryParams } from '~/client/hooks/useAccompagnementQuery
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { Either } from '~/server/errors/either';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { EtablissementAccompagnement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 export class ÉtablissementAccompagnementService {
 	constructor(private httpClientService: HttpClientService) {
 	}
 
-	async rechercher(queryParams: AccompagnementQueryParams): Promise<Either<ÉtablissementAccompagnement[]>> {
-		return this.httpClientService.get<ÉtablissementAccompagnement[]>(`etablissements-accompagnement?${stringify(<Record<string, string | undefined>>queryParams)}`);
+	async rechercher(queryParams: AccompagnementQueryParams): Promise<Either<EtablissementAccompagnement[]>> {
+		return this.httpClientService.get<EtablissementAccompagnement[]>(`etablissements-accompagnement?${stringify(<Record<string, string | undefined>>queryParams)}`);
 	}
 
 	async envoyerDemandeContact(demandeDeContactAccompagnement: DemandeDeContactAccompagnement): Promise<Either<void>> {

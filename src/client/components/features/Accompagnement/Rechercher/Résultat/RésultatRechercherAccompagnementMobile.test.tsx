@@ -9,7 +9,13 @@ import {
 	RésultatRechercherAccompagnementMobile,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementMobile';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	JourSemaine,
+	TypeÉtablissement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	anEtablissementAccompagnement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand le type d‘accompagnement est une mission locale', () => {
@@ -132,7 +138,7 @@ describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand des horaires sont disponibles', () => {
 		it('affiche "Voir les horaires d’ouverture" et les horaires', async () => {
 			// GIVEN
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: 'email',
 				horaires: [
@@ -143,18 +149,18 @@ describe('RésultatRechercherAccompagnement', () => {
 								fin: '12:00',
 							},
 						],
-						jour: 'Lundi',
+						jour: JourSemaine.LUNDI,
 					},
 				],
 				id: 'id',
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementMobile établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementMobile établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));

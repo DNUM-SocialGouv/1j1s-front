@@ -11,7 +11,7 @@ import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import {
-	anÉtablissementAccompagnementService,
+	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import Accompagnement from '~/pages/accompagnement/index.page';
@@ -24,7 +24,7 @@ describe('<Accompagnement />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
-				établissementAccompagnementService={anÉtablissementAccompagnementService()}
+				établissementAccompagnementService={anEtablissementAccompagnementService()}
 				localisationService={aLocalisationService()}
 			>
 				<Accompagnement />

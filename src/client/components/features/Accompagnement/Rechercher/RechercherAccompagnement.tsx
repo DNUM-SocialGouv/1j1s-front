@@ -31,15 +31,15 @@ import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRech
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 export function RechercherAccompagnement() {
 	const accompagnementQuery = useAccompagnementQuery();
 	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
 
-	const [établissementAccompagnementList, setÉtablissementAccompagnementList] = useState<ÉtablissementAccompagnement[]>([]);
+	const [établissementAccompagnementList, setÉtablissementAccompagnementList] = useState<EtablissementAccompagnement[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string | undefined>();
@@ -78,7 +78,7 @@ export function RechercherAccompagnement() {
 		}
 
 		switch (accompagnementQuery.typeAccompagnement) {
-			case TypeÉtablissement.AGENCE_POLE_EMPLOI:
+			case TypeÉtablissement.FRANCE_TRAVAIL:
 				messageRésultatRechercheSplit.push('d‘accompagnement pour les Agences Pôle Emploi');
 				break;
 			case TypeÉtablissement.INFO_JEUNE:
@@ -143,7 +143,7 @@ function BannièreAccompagnement() {
 }
 
 interface ListeRésultatProps {
-  résultatList: ÉtablissementAccompagnement[]
+  résultatList: EtablissementAccompagnement[]
 }
 
 function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProps) {
@@ -153,7 +153,7 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 
 	return (
 		<ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
-			{résultatList.map((établissementAccompagnement: ÉtablissementAccompagnement) => (
+			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
 				<li key={établissementAccompagnement.id}>
 					<RésultatRechercherAccompagnement établissement={établissementAccompagnement}/>
 				</li>

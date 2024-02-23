@@ -9,15 +9,15 @@ import { MODAL_ANIMATION_TIME_IN_MS } from '~/client/components/ui/Modal/ModalCo
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	anÉtablissementAccompagnementService,
+	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
 
@@ -38,7 +38,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 		it('je vois la modale de formulaire s‘afficher', async () => {
 			const user = userEvent.setup();
-			const établissement: ÉtablissementAccompagnement = {
+			const établissement: EtablissementAccompagnement = {
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -47,7 +47,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
 			};
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationService = aLocalisationService();
 
 			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
@@ -65,7 +65,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 			// GIVEN
 			const user = userEvent.setup();
-			const établissement: ÉtablissementAccompagnement = {
+			const établissement: EtablissementAccompagnement = {
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -74,7 +74,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
 			};
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationService = aLocalisationService();
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
 			}));
@@ -103,7 +103,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 		it('lorsque la demande de contact est un succès, affiche la modale de succès', async () => {
 			const user = userEvent.setup();
-			const établissement: ÉtablissementAccompagnement = {
+			const établissement: EtablissementAccompagnement = {
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -112,7 +112,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
 			};
-			const établissementAccompagnementService = anÉtablissementAccompagnementService();
+			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationService = aLocalisationService();
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
 			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
@@ -138,7 +138,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		describe('modale d‘erreur', () => {
 			it('lorsque l‘envoi de la demande de contact est en echec, affiche la modale d‘echec et ferme la modale de formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: ÉtablissementAccompagnement = {
+				const établissement: EtablissementAccompagnement = {
 					adresse: 'address',
 					email: 'email',
 					horaires: [],
@@ -147,7 +147,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					telephone: 'telephone',
 					type: TypeÉtablissement.MISSION_LOCALE,
 				};
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
 				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
@@ -175,7 +175,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire, ouvre la modale de formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: ÉtablissementAccompagnement = {
+				const établissement: EtablissementAccompagnement = {
 					adresse: 'address',
 					email: 'email',
 					horaires: [],
@@ -184,7 +184,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					telephone: 'telephone',
 					type: TypeÉtablissement.MISSION_LOCALE,
 				};
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
 				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
@@ -216,7 +216,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer, ferme la modale et ne re ouvre pas le formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: ÉtablissementAccompagnement = {
+				const établissement: EtablissementAccompagnement = {
 					adresse: 'address',
 					email: 'email',
 					horaires: [],
@@ -225,7 +225,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					telephone: 'telephone',
 					type: TypeÉtablissement.MISSION_LOCALE,
 				};
-				const établissementAccompagnementService = anÉtablissementAccompagnementService();
+				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
 				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));

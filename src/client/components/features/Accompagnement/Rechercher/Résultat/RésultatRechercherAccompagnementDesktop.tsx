@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-	HorairesRésultatRechercherAccompagnement,
-} from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesRésultatRechercherAccompagnement';
+	HorairesResultatRechercherAccompagnement,
+} from '~/client/components/features/Accompagnement/Rechercher/Résultat/Horaires/HorairesResultatRechercherAccompagnement';
 import styles
 	from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement.module.scss';
 import {
@@ -15,12 +15,12 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Link } from '~/client/components/ui/Link/Link';
 import {
-	ÉtablissementAccompagnement,
+	EtablissementAccompagnement,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 interface RésultatRechercherAccompagnementDesktopProps {
-	établissement: ÉtablissementAccompagnement
+	établissement: EtablissementAccompagnement
 
 	onContactClick(): void
 }
@@ -74,7 +74,7 @@ export function RésultatRechercherAccompagnementDesktop(props: RésultatRecherc
 								<ol className={styles.listeHoraire}>
 									{établissement.horaires.map((horaire) => (
 										<li key={horaire.jour} className={styles.horaireElement}>
-											<HorairesRésultatRechercherAccompagnement horaire={horaire}/>
+											<HorairesResultatRechercherAccompagnement horaire={horaire}/>
 										</li>
 									))}
 								</ol>

@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react';
 
 import { TimeRange } from '~/client/components/ui/TimeRange/TimeRange';
-import { ÉtablissementAccompagnement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { EtablissementAccompagnement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 import styles from './HorairesRésultatRechercherAccompagnement.module.scss';
 
-interface HorairesRésultatRechercherAccompagnementProps {
-  horaire: ÉtablissementAccompagnement.Horaire
+interface HorairesResultatRechercherAccompagnementProps {
+  horaire: EtablissementAccompagnement.Horaire
 }
 
-export function HorairesRésultatRechercherAccompagnement(props: HorairesRésultatRechercherAccompagnementProps) {
+export function HorairesResultatRechercherAccompagnement(props: HorairesResultatRechercherAccompagnementProps) {
 	const { horaire } = props;
 	const { heures, jour } = horaire;
 

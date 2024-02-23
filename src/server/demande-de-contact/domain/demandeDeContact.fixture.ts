@@ -1,7 +1,7 @@
 import { DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-export function aDemandeDeContactAccompagnement(): DemandeDeContactAccompagnement {
+export function aDemandeDeContactAccompagnement(overrides?: Partial<DemandeDeContactAccompagnement>): DemandeDeContactAccompagnement {
 	return {
 		age: 23,
 		commentaire: 'Merci de me recontacter',
@@ -11,9 +11,10 @@ export function aDemandeDeContactAccompagnement(): DemandeDeContactAccompagnemen
 		prénom: 'John',
 		téléphone: '0606060606',
 		établissement: {
-			email: 'email@email.com',
-			nom: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 5e 12e et 13e arrondissements',
+			email: 'email@missionlocaledeparis.fr',
+			nom: 'Mission locale pour l‘insertion professionnelle et sociale des jeunes (16-25 ans) - Paris - 1er 2e 3e 4e 9e 10e et 11e',
 			type: TypeÉtablissement.MISSION_LOCALE,
 		},
+		...overrides,
 	};
 }

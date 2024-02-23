@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import {
+	JourSemaine,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
 
@@ -19,7 +20,7 @@ const meta: Meta<typeof RésultatRechercherAccompagnement> = {
 							fin: '12h',
 						},
 					],
-					jour: 'Lundi',
+					jour: JourSemaine.LUNDI,
 				},
 			],
 			id: '1',

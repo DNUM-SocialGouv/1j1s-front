@@ -10,10 +10,10 @@ import { Option, Select } from '~/client/components/ui/Select/Select';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import { TypeÉtablissement } from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 const typeAccompagnementListe: Option[] = [
-	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.AGENCE_POLE_EMPLOI },
+	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.FRANCE_TRAVAIL },
 	{ libellé: 'Missions locales', valeur: TypeÉtablissement.MISSION_LOCALE },
 	{ libellé: 'Info jeunes', valeur: TypeÉtablissement.INFO_JEUNE },
 ];

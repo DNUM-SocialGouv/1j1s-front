@@ -10,15 +10,19 @@ import {
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnementDesktop';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
+	JourSemaine,
 	TypeÉtablissement,
-} from '~/server/établissement-accompagnement/domain/etablissementAccompagnement';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	anEtablissementAccompagnement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand le type d‘accompagnement est une mission locale', () => {
 		it('n‘affiche pas l‘email', () => {
 			// GIVEN
 			const email = 'email';
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: email,
 				horaires: [],
@@ -26,11 +30,11 @@ describe('RésultatRechercherAccompagnement', () => {
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -39,7 +43,7 @@ describe('RésultatRechercherAccompagnement', () => {
 
 		it('affiche le bouton "Je souhaite être contacté(e)"', () => {
 			// GIVEN
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -47,11 +51,11 @@ describe('RésultatRechercherAccompagnement', () => {
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -64,7 +68,7 @@ describe('RésultatRechercherAccompagnement', () => {
 		it('affiche l‘email', () => {
 			// GIVEN
 			const email = 'email';
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: email,
 				horaires: [],
@@ -72,11 +76,11 @@ describe('RésultatRechercherAccompagnement', () => {
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -88,7 +92,7 @@ describe('RésultatRechercherAccompagnement', () => {
 
 		it('n‘affiche pas le bouton "Je souhaite être contacté(e)"', () => {
 			// GIVEN
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -96,11 +100,11 @@ describe('RésultatRechercherAccompagnement', () => {
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -111,7 +115,7 @@ describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand aucune horaire n’est disponible', () => {
 		it('n‘affiche pas "Voir les horaires d’ouverture"', () => {
 			// GIVEN
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: 'email',
 				horaires: [],
@@ -119,11 +123,11 @@ describe('RésultatRechercherAccompagnement', () => {
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -134,7 +138,7 @@ describe('RésultatRechercherAccompagnement', () => {
 	describe('Quand des horaires sont disponibles', () => {
 		it('affiche "Voir les horaires d’ouverture" et les horaires', async () => {
 			// GIVEN
-			const établissement = {
+			const etablissement = anEtablissementAccompagnement({
 				adresse: 'address',
 				email: 'email',
 				horaires: [
@@ -145,18 +149,18 @@ describe('RésultatRechercherAccompagnement', () => {
 								fin: '12:00',
 							},
 						],
-						jour: 'Lundi',
+						jour: JourSemaine.LUNDI,
 					},
 				],
 				id: 'id',
 				nom: 'nom',
 				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
-			};
+			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnementDesktop établissement={établissement} onContactClick={() => ({})}/>
+				<RésultatRechercherAccompagnementDesktop établissement={etablissement} onContactClick={() => ({})}/>
 			</DependenciesProvider>);
 
 			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));
