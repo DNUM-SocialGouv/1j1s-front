@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.248.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.247.3...v3.248.0) (2024-02-23)
+
+
+### Features
+
+* **accompagnement:** branchement à la nouvelle api annuaire etablissement public ([#2715](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2715)) ([0873123](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0873123551961934a17c0391d38cff58fc0d2f34))
+
 ## [3.247.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.247.2...v3.247.3) (2024-02-23)
 
 
