@@ -107,10 +107,9 @@ describe('Dépôt de Stage', () => {
 					},
 				});
 
-				// FIXME (GAFI 06-11-2023): Devrait être combobox
 				// NOTE (BRUJ 22/11/2023):  test flaky obligé de rajouter un click en amont
-				cy.findByRole('textbox', { name: /Pays/ }).click();
-				cy.findByRole('textbox', { name: /Pays/i }).type('France');
+				cy.findByRole('combobox', { name: /Pays/ }).click();
+				cy.findByRole('combobox', { name: /Pays/i }).type('France');
 				cy.findAllByRole('option').first().click();
 				cy.findByRole('textbox', { name: /Ville/i }).type(aFormulaireEtapeLocalisation().ville);
 				cy.findByRole('textbox', { name: /Adresse/i }).type(aFormulaireEtapeLocalisation().adresse);

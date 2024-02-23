@@ -9,7 +9,7 @@ import { userEvent } from '@testing-library/user-event';
 import Localisation
 	from '~/client/components/features/OffreDeStage/Déposer/Étape3Localisation/StageDeposerOffreFormulaireÉtape3Localisation';
 import {
-	aFormulaireEtapeEntreprise,
+	aFormulaireEtapeEntreprise, aFormulaireEtapeLocalisation,
 	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -98,7 +98,7 @@ describe('<Localisation />', () => {
 			);
 
 			expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
-			expect(screen.getByLabelText('Pays')).toBeInTheDocument();
+			expect(screen.getByRole('combobox', { name: 'Pays' })).toBeInTheDocument();
 			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
 			expect(screen.getByLabelText('Adresse')).toBeInTheDocument();
 			expect(screen.getByLabelText('Code postal')).toBeInTheDocument();
@@ -151,6 +151,31 @@ describe('<Localisation />', () => {
 			const loadingSubmitButton = screen.getByRole('button', { name: 'Envoi en cours' });
 			expect(loadingSubmitButton).toBeVisible();
 			expect(loadingSubmitButton).toBeDisabled();
+		});
+
+		describe('quand l’étape 3 a déjà été remplie', () => {
+			it('pré-remplit les champs avec les données déjà saisies', () => {
+				// GIVEN
+				mockSessionStorageGetItem.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeStage()));
+				mockLocalStorageGetItem
+					.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeEntreprise()))
+					.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeLocalisation()));
+
+				// WHEN
+				render(
+					<DependenciesProvider stageService={aStageService()}>
+						<Localisation/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				expect(screen.getByRole('combobox', { name: 'Pays' })).toHaveValue('France');
+				expect(screen.getByLabelText('Ville')).toHaveValue('Paris');
+				expect(screen.getByLabelText('Adresse')).toHaveValue('34 avenue de l’Opéra');
+				expect(screen.getByLabelText('Code postal')).toHaveValue('75000');
+				expect(screen.getByLabelText('Région')).toHaveValue('Ile-de-France');
+				expect(screen.getByLabelText('Département')).toHaveValue('Paris');
+			});
 		});
 
 		describe('modale d‘erreur', () => {
@@ -230,7 +255,7 @@ describe('<Localisation />', () => {
 
 async function remplirFormulaireEtape3() {
 	const user = userEvent.setup();
-	await user.type(screen.getByRole('textbox', { name: 'Pays' }), 'France');
+	await user.type(screen.getByRole('combobox', { name: 'Pays' }), 'France');
 	await user.click(screen.getByRole('option', { name: 'France' }));
 	await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
 	await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
