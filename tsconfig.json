@@ -30,8 +30,6 @@
   "exclude": [
     "node_modules",
     "public/scripts/tarteaucitron/tarteaucitron.js",
-    "public/scripts/eulerian.yssn.recette.1jeune1solution.gouv.fr.js",
-    "public/scripts/eulerian.yssn.1jeune1solution.gouv.fr.js",
     "public/scripts/tarteaucitron/tarteaucitron.service.js",
     "public/scripts/tarteaucitron/lang/*"
   ]

@@ -7,6 +7,8 @@ import { aCookiesService } from '~/client/services/cookies/cookies.service.fixtu
 import { PageTags } from '../analytics';
 import { EulerianAnalyticsService } from './eulerian.analytics.service';
 
+const EULERIAN_ANALYTICS_SERVICE = 'eulerian';
+
 describe('EulerianAnalyticsService', () => {
 	const eulerianAnalyticsPushSpy = jest.fn();
 	beforeEach(() => {
@@ -16,6 +18,17 @@ describe('EulerianAnalyticsService', () => {
 
 	afterEach(() => {
 		eulerianAnalyticsPushSpy.mockRestore();
+	});
+
+	it('initialise le cookie service lorsque la feature est activée', () => {
+		process.env.NEXT_PUBLIC_ANALYTICS_EULERIAN_FEATURE= '1';
+		process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN = 'domaine';
+		const cookiesService = aCookiesService();
+
+		new EulerianAnalyticsService(cookiesService);
+
+		expect(cookiesService.addService).toHaveBeenCalledWith(EULERIAN_ANALYTICS_SERVICE);
+		expect(cookiesService.addUser).toHaveBeenCalledWith('eulerianHost', 'domaine');
 	});
 
 	describe('envoyerAnalyticsPageVue', () => {
