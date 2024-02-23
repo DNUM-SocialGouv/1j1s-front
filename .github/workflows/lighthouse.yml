@@ -1,7 +1,6 @@
 name: Lighthouse
-on:
-  push:
-    branches: [ main ]
+on: workflow_dispatch
+
 jobs:
   lhci:
     name: Lighthouse
