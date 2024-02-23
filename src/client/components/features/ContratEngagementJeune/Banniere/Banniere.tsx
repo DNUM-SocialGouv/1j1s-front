@@ -3,7 +3,6 @@ import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Banniere.module.scss';
 

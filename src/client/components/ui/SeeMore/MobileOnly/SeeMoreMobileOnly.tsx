@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import SeeMoreItemList, { SeeMoreProps } from '~/client/components/ui/SeeMore/SeeMoreItemList';
@@ -5,12 +6,12 @@ import SeeMoreItemList, { SeeMoreProps } from '~/client/components/ui/SeeMore/Se
 import styles from './SeeMoreMobileOnly.module.scss';
 
 export default function SeeMoreMobileOnly(props: SeeMoreProps) {
-	const { children, ...rest } = props;
+	const { children, className, ...rest } = props;
 
 	return (
 		<>
-			<SeeMoreItemList {...rest} className={styles.smallScreenOnly}/>
-			<div className={styles.largeScreenOnly}>{children}</div>
+			<SeeMoreItemList {...rest} className={classNames(styles.smallScreenOnly, className)}/>
+			<div className={classNames(styles.largeScreenOnly, className)}>{children}</div>
 		</>
 	);
 }

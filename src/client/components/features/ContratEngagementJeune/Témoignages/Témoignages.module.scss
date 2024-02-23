@@ -125,8 +125,11 @@
         box-shadow: 16px 16px 0 utilities-deprecated.$color-primary;
       }
 
-      .programme {
+      .programmeSeeMore {
         grid-area: programme;
+      }
+
+      .programme { // TODO fixer ici pour éviter une double application de la border -> c'est surtout la gridarea qu'il faut reprendre pour programmeSeeMore
         border-radius: 1.25rem;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         line-height: 1.5;

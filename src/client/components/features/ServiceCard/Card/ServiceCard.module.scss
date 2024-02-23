@@ -38,7 +38,7 @@ $card-border-color: utilities.$color-background-border;
   & .card {
     display: grid;
 
-    &.smallScreen {
+    &.smallMediumScreen {
       @include utilities.media(large) {
         display: none;
       }
