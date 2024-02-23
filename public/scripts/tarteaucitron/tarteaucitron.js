@@ -858,14 +858,13 @@ var tarteaucitron = {
             html += '          <span class="tacCurrentStatus" id="tacCurrentStatus' + service.key + '">'+currentStatus+'</span>';
             html += '          <span class="tarteaucitronReadmoreSeparator"> - </span>';
             html += '          <span id="tacCL' + service.key + '" class="tarteaucitronListCookies"></span>';
+            html += '       </div>';
 
             /** DEBUT - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
             var additionalDescription = tarteaucitron.lang[service.key]
             if (additionalDescription) {
-                html += '<span class="tarteaucitronListCookies" style="display: block; padding: 1rem 0;">' + additionalDescription +  '</span>';
+                html += '          <span class="tarteaucitronListCookies" style="display: block; padding: 1rem 0;">' + additionalDescription +  '</span>';
             }
-
-            html += '       </div>';
             /** FIN - A REPORTER SI MAJ DU FICHIER TARTEAUCITRON.JS **/
 
             if (tarteaucitron.parameters.moreInfoLink == true) {
