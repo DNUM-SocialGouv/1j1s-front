@@ -157,17 +157,22 @@ describe('<Stage />', () => {
 		});
 	});
 
-	describe('quand je saisis une date sans utiliser le calendrier', () => {
-		it('autorise les dates au format AAAA-MM-JJ', async () => {
-			// When
-			render(<Stage />);
-			const inputDateDebutMin = screen.getByLabelText('Date précise du début de stage');
-			await userEvent.type(inputDateDebutMin, '2021-12-31');
+	it('les champs date possèdent un pattern de validation', async () => {
+		// Given
+		const user = userEvent;
 
-			// Then
-			expect(inputDateDebutMin).toHaveDisplayValue('2021-12-31');
-			expect(inputDateDebutMin).toHaveAttribute('aria-invalid', 'false');
-		});
+		// When
+		render(<Stage />);
+		const inputDateDeDebutMin = screen.getByLabelText('Date précise du début de stage');
+		await user.click(screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' }));
+
+		const inputDateDeDebutMax = screen.getByLabelText('Date de début du stage au plus tôt');
+		const inputDateDeDebutMax2 = screen.getByLabelText('Date de début du stage au plus tard');
+
+		// Then
+		expect(inputDateDeDebutMin).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
+		expect(inputDateDeDebutMax).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
+		expect(inputDateDeDebutMax2).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
 	});
 });
 
