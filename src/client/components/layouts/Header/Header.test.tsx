@@ -434,8 +434,8 @@ describe('Header', () => {
 				await userEvent.tab();
 
 				// Then
-				const premierElementDuDernierItem = within(navigationMobile).getByRole('link', { name: 'Rejoindre la mobilisation' });
-				expect(premierElementDuDernierItem).toHaveFocus();
+				const premierElementEnfantDuDernierItem = within(navigationMobile).getByRole('link', { name: 'Rejoindre la mobilisation' });
+				expect(premierElementEnfantDuDernierItem).toHaveFocus();
 		  });
 		});
 	});

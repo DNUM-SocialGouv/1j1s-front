@@ -50,7 +50,7 @@ export function ModalComponent(props: ModalProps) {
 		};
 	}, []);
 
-	useEffect(() => {
+	useEffect(function gestionSortieModale()  {
 		document.addEventListener('mousedown', closeModalOnClickOutside);
 		document.addEventListener('keydown', closeModalOnClickEscape);
 
@@ -61,32 +61,39 @@ export function ModalComponent(props: ModalProps) {
 	}, [closeModalOnClickOutside, closeModalOnClickEscape]);
 
 	function trapModalFocus() {
-		if (modalRef.current !== null) {
-			const focusableElements = modalRef.current.querySelectorAll('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])');
+		if (modalRef.current) {
+			const focusableElements = getFocusableElementsOf(modalRef.current);
+			const firstFocusableElement = focusableElements[0] as HTMLElement;
+			firstFocusableElement.focus();
+		}
+
+		window.addEventListener('keydown', function gestionTabulation(e) {
+			if (!modalRef.current) return;
+			if (e.key !== KeyBoard.TAB) return;
+
+			const focusableElements = getFocusableElementsOf(modalRef.current);
 			const firstFocusableElement = focusableElements[0] as HTMLElement;
 			const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-			// si focus sur dernier élément et qu'il est expand avec enfant alors compute de nouveau
-			// autre piste : laisser le focus de façon natif, et intervenir seulement si le focus est sur un élément externe à la modale qu'on ne veut pas
+			const tabOnLastFocusableElement = !e.shiftKey && document.activeElement === lastFocusableElement;
+			if (tabOnLastFocusableElement) {
+				firstFocusableElement.focus();
+				return e.preventDefault();
+			}
 
-			window.addEventListener('keydown', (e) => {
-				if (!modalRef.current) return;
-				if (e.key !== KeyBoard.TAB) return;
+			const backtabOnFirstFocusableElement = e.shiftKey && document.activeElement === firstFocusableElement;
+			if (backtabOnFirstFocusableElement) {
+				lastFocusableElement.focus();
+				return e.preventDefault();
+			}
+		});
 
-				if (!e.shiftKey && document.activeElement === lastFocusableElement && firstFocusableElement) {
-					firstFocusableElement.focus();
-					return e.preventDefault();
-				}
-
-				if (e.shiftKey && document.activeElement === firstFocusableElement) {
-					lastFocusableElement.focus();
-					return e.preventDefault();
-				}
-			});
+		function getFocusableElementsOf(htmlElement: HTMLDialogElement) {
+			return htmlElement.querySelectorAll('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])');
 		}
 	}
 
-	useEffect(() => {
+	useEffect(function sauvegardeEtRestorationFocus(){
 		if (isOpen) {
 			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
 		} else {
@@ -96,7 +103,7 @@ export function ModalComponent(props: ModalProps) {
 
 	useEffect(() => {
 		disableDocumentBodyScroll(isOpen);
-		// trapModalFocus();
+		trapModalFocus();
 	}, [isOpen]);
 
 	return (
