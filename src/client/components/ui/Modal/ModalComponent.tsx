@@ -16,8 +16,6 @@ interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
 	keepModalMounted?: boolean
 }
 
-export const MODAL_ANIMATION_TIME_IN_MS = 300;
-
 export function ModalComponent(props: ModalProps) {
 	const {
 		children,
@@ -66,12 +64,15 @@ export function ModalComponent(props: ModalProps) {
 		if (modalRef.current !== null) {
 			const focusableElements = modalRef.current.querySelectorAll('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])');
 			const firstFocusableElement = focusableElements[0] as HTMLElement;
-			const firstFocusableElementAtOpen = focusableElements[1] as HTMLElement;
 			const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-			if (firstFocusableElementAtOpen) setTimeout(() => firstFocusableElementAtOpen.focus(), MODAL_ANIMATION_TIME_IN_MS);
+
+			// si focus sur dernier élément et qu'il est expand avec enfant alors compute de nouveau
+			// autre piste : laisser le focus de façon natif, et intervenir seulement si le focus est sur un élément externe à la modale qu'on ne veut pas
 
 			window.addEventListener('keydown', (e) => {
+				if (!modalRef.current) return;
 				if (e.key !== KeyBoard.TAB) return;
+
 				if (!e.shiftKey && document.activeElement === lastFocusableElement && firstFocusableElement) {
 					firstFocusableElement.focus();
 					return e.preventDefault();
@@ -89,13 +90,13 @@ export function ModalComponent(props: ModalProps) {
 		if (isOpen) {
 			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
 		} else {
-			setTimeout(() => lastFocusBeforeOpen?.focus(), MODAL_ANIMATION_TIME_IN_MS);
+			lastFocusBeforeOpen?.focus();
 		}
 	}, [isOpen, lastFocusBeforeOpen]);
 
 	useEffect(() => {
 		disableDocumentBodyScroll(isOpen);
-		trapModalFocus();
+		// trapModalFocus();
 	}, [isOpen]);
 
 	return (

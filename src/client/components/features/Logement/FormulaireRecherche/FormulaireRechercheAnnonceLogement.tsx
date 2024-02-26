@@ -89,7 +89,7 @@ export function FormulaireRechercheAnnonceLogement() {
         		close={() => setIsFiltresAvancésMobileOpen(false)}
         		closeTitle="Fermer les filtres"
         		isOpen={isFiltresAvancésMobileOpen}
-        		keepModalMounted
+        		keepModalMounted={false}
         		aria-labelledby="dialog_label">
         		<ModalComponent.Title>
         			<Icon name="menu"/>

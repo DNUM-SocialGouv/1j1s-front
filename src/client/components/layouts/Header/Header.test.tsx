@@ -397,17 +397,46 @@ describe('Header', () => {
 						<Header/>
 					</RouterContext.Provider>,
 				);
-				await userEvent.click(screen.getByRole('button', { name : 'Menu' }));
+
+				// When
+				const burgerMenu = screen.getByRole('button', { name: 'Menu' });
+				await userEvent.click(burgerMenu);
 
 				const navigationMobile = screen.getByTestId('navigation-mobile');
-				const sectionEmployeur = within(navigationMobile).getByText('Je suis employeur');
+				const sectionEmployeur = within(navigationMobile).getByRole('button', { name: 'Je suis employeur' });
 				await userEvent.click(sectionEmployeur);
-				const subItem = within(navigationMobile).getByText('Recruter et agir pour les jeunes');
-				await userEvent.click(subItem);
+				const sousItemSectionEmployeurAyantEncoreUnNiveauPlusProfond = within(navigationMobile).getByRole('button', { name: 'Recruter et agir pour les jeunes' });
+				await userEvent.click(sousItemSectionEmployeurAyantEncoreUnNiveauPlusProfond);
+
 				// Then
 				expect(within(navigationMobile).queryByText('Je suis employeur')).not.toBeInTheDocument();
 				expect(sectionEmployeur).toHaveTextContent('Recruter et agir pour les jeunes');
 			});
+		});
+		describe('navigation au clavier', () => {
+		  it('l’utilisateur peut naviguer en profondeur dans le dernier item du menu', async () => {
+				// Given
+				mockUseRouter({ pathname: '/' });
+				const router = createMockRouter({ pathname: '/' });
+				render(
+					<RouterContext.Provider value={router}>
+						<Header/>
+					</RouterContext.Provider>,
+				);
+				const burgerMenu = screen.getByRole('button', { name: 'Menu' });
+				await userEvent.click(burgerMenu);
+
+				const navigationMobile = screen.getByTestId('navigation-mobile');
+				const dernierItemDuMenu = within(navigationMobile).getByRole('button', { name: 'Je suis employeur' });
+				await userEvent.click(dernierItemDuMenu);
+
+				// When
+				await userEvent.tab();
+
+				// Then
+				const premierElementDuDernierItem = within(navigationMobile).getByRole('link', { name: 'Rejoindre la mobilisation' });
+				expect(premierElementDuDernierItem).toHaveFocus();
+		  });
 		});
 	});
 });
