@@ -16,6 +16,14 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	const [dateDeDebutMin, setDateDeDebutMin] = useState<string | undefined>(props.informationsStage?.dateDeDebutMin ?? undefined);
 	const [dateDeDebutMax, setDateDeDebutMax] = useState<string | undefined>(props.informationsStage?.dateDeDebutMax ?? undefined);
 
+	function setDateIfValid(date: string | undefined, dateMin: string | undefined, dateMax: string, setDate: (date: string | undefined) => void) {
+		if (!date) return setDate(undefined);
+		if (!dateMin) return setDate(undefined);
+		if (Date.parse(dateMin) && date < dateMin) return setDate(undefined);
+		if (dateMax && date > dateMax) return setDate(undefined);
+		return setDate(date);
+	}
+
 	const patternDate = '^\\d{4}-\\d{2}-\\d{2}$';
 	const currentDate = new Date();
 	const placeholderDate = `Exemple : ${currentDate.toISOString().slice(0, 10)}`;
@@ -24,13 +32,13 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 		{props.displayDateDeDebutPrecise ?
 			<InputText
 				label="Date précise du début de stage"
-				type="date"
+				// type="date"
 				name={StageEnum.DATE_DE_DEBUT_MIN}
 				value={dateDeDebutMin}
 				required
 				min={disableBeforeToday}
 				max={'9999-12-31'}
-				onChange={(event) => setDateDeDebutMin(event.target.value)}
+				onChange={(event) => setDateIfValid(event.target.value, disableBeforeToday, '9999-12-31', setDateDeDebutMin)}
 				pattern={patternDate}
 				placeholder={placeholderDate}
 			/>
@@ -38,25 +46,25 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 			<div className={styles.contenuDateDeDebutInputDate}>
 				<InputText
 					label="Date de début du stage au plus tôt"
-					type="date"
+					// type="date"
 					name={StageEnum.DATE_DE_DEBUT_MIN}
 					value={dateDeDebutMin}
 					required
 					min={disableBeforeToday}
 					max={'9999-12-31'}
-					onChange={(event) => setDateDeDebutMin(event.target.value)}
+					onChange={(event) => setDateIfValid(event.target.value, disableBeforeToday, dateDeDebutMax ?? '9999-12-31', setDateDeDebutMin)}
 					pattern={patternDate}
 					placeholder={placeholderDate}
 				/>
 				<InputText
 					label="Date de début du stage au plus tard"
-					type="date"
+					// type="date"
 					name={StageEnum.DATE_DE_DEBUT_MAX}
 					value={dateDeDebutMax}
 					required
 					min={dateDeDebutMin}
 					max={'9999-12-31'}
-					onChange={(event) => setDateDeDebutMax(event.target.value)}
+					onChange={(event) => setDateIfValid(event.target.value, dateDeDebutMin, '9999-12-31', setDateDeDebutMax)}
 					pattern={patternDate}
 					placeholder={placeholderDate}
 				/>
