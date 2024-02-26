@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
 
+import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
@@ -47,7 +48,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 			{
 				dependenciesContainerInstance && (
 					<DependenciesProvider {...dependenciesContainerInstance}>
-						{getLayout(<Component {...pageProps} />)}
+						{getLayout(
+							pageProps.error ?
+								<>
+									<ErrorUnavailableService />
+								</>
+								: <Component {...pageProps} />,
+						)}
 					</DependenciesProvider>
 				)
 			}
