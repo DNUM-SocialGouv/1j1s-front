@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.250.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.249.0...v3.250.0) (2024-02-26)
+
+
+### Features
+
+* **ui-colors:** update couleurs UI kit et complement de label ([#2722](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2722)) ([ee39784](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ee39784a6938de4e7fac4fe32f1ea8566bec1264))
+
 ## [3.249.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.248.0...v3.249.0) (2024-02-23)
 
 
