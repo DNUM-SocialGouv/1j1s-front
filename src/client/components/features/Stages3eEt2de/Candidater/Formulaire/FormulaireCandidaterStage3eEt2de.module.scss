@@ -3,6 +3,7 @@
 $color-message-champs-obligatoires: utilities.$color-primary;
 $color-background-etape:  utilities.$color-background-secondary;
 $color-text-etape:  utilities.$color-text-primary-inverse;
+$color-text-decharge: utilities.$color-text-secondary;
 
 
 .header {
@@ -110,7 +111,7 @@ $color-text-etape:  utilities.$color-text-primary-inverse;
   }
 
   p {
-    color: utilities.$color-text-placeholder;
+    color: $color-text-decharge;
     font-size: 0.875rem;
     padding: 1rem;
   }
