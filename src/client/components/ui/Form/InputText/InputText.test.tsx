@@ -4,6 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { useState } from 'react';
 
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 
@@ -126,6 +127,53 @@ describe('TextInput', () => {
 
 				const input = screen.getByRole('textbox', { name: 'Mon champ texte' });
 				expect(input).toBeInvalid();
+			});
+		});
+
+		describe('quand la règle est dépendante de la valeur d‘un autre champ qui redevient invalide', () => {
+			it('passe le champ invalide', () => {
+				// Given
+				function MyComponent() {
+					const [firstInputValue, setFirstInputValue] = useState('1');
+					const [secondInputValue, setSecondInputValue] = useState('2');
+
+					function validateIfFirstValueIsGreaterThanSecond(value: string | ReadonlyArray<string> | number | undefined) {
+						if (typeof value === 'string') {
+							return parseInt(firstInputValue, 10) > parseInt(value, 10) ? null : 'La valeur doit être supérieure';
+						} else {
+							return 'valeur invalide';
+						}
+					}
+
+					return (
+						<>
+							<InputText
+								label="Premier champ"
+								name="firstInputName"
+								value={firstInputValue}
+								onChange={(event) => setFirstInputValue(event.target.value)}
+							/>
+							<InputText
+								label="Second champ"
+								name="secondInputName"
+								value={secondInputValue}
+								onChange={(event) => setSecondInputValue(event.target.value)}
+								validation={validateIfFirstValueIsGreaterThanSecond}
+							/>
+						</>
+					);
+				}
+				const user = userEvent.setup();
+
+				// When
+				render(
+					<MyComponent />,
+				);
+				user.type(screen.getByRole('textbox', { name: 'Premier champ' }), '3');
+
+				// Then
+				expect(screen.getByRole('textbox', { name: 'Second champ' })).toBeInvalid();
+				expect(screen.getByText('La valeur doit être supérieure')).toBeInTheDocument();
 			});
 		});
 	});

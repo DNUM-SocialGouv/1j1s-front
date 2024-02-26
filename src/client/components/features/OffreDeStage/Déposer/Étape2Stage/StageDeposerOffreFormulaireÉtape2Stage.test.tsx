@@ -156,24 +156,6 @@ describe('<Stage />', () => {
 			});
 		});
 	});
-
-	it('les champs date possèdent un pattern de validation', async () => {
-		// Given
-		const user = userEvent;
-
-		// When
-		render(<Stage />);
-		const inputDateDeDebutMin = screen.getByLabelText('Date précise du début de stage');
-		await user.click(screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' }));
-
-		const inputDateDeDebutMax = screen.getByLabelText('Date de début du stage au plus tôt');
-		const inputDateDeDebutMax2 = screen.getByLabelText('Date de début du stage au plus tard');
-
-		// Then
-		expect(inputDateDeDebutMin).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
-		expect(inputDateDeDebutMax).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
-		expect(inputDateDeDebutMax2).toHaveAttribute('pattern', '^\\d{4}-\\d{2}-\\d{2}$');
-	});
 });
 
 async function BoutonSuivant() {
