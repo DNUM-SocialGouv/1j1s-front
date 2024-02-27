@@ -63,6 +63,7 @@ export function FormulaireRechercheAccompagnement() {
 						name={'typeAccompagnement'}
 						optionList={typeAccompagnementListe}
 						value={inputTypeAccompagnement}
+						labelComplement='Exemple : Missions locales'
 						onChange={setInputTypeAccompagnement}/>
 				</div>
 				<ButtonComponent
