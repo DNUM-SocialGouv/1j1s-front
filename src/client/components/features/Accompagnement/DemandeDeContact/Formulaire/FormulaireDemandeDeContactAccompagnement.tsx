@@ -66,6 +66,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={Input}
 					name="firstname"
 					required/>
+				<Champ.Error/>
 			</Champ>
 
 			<Champ>
@@ -77,6 +78,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					render={Input}
 					name="lastname"
 					required/>
+				<Champ.Error/>
 			</Champ>
 
 			<Champ>
@@ -90,6 +92,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					name="mail"
 					type="email"
 					required/>
+				<Champ.Error/>
 			</Champ>
 
 			<Champ>
@@ -103,6 +106,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 					name="phone"
 					type="tel"
 					required/>
+				<Champ.Error/>
 			</Champ>
 
 			<Select
