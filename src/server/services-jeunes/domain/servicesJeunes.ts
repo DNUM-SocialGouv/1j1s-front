@@ -1,16 +1,12 @@
-import { Article } from '~/server/articles/domain/article';
 import { Image } from '~/server/cms/domain/image';
 
 export interface ServiceJeune {
 	titre: string
 	categorie?: string
-	contenu: string
+	contenu: string //todo à supprimer aussi ?
 	banniere?: Image
-	url: string // FIXME ne sert à rien ?
-	article?: Article
 	concerne: string
 	link: string
-	extraitContenu: string
 }
 
 export namespace ServiceJeune {

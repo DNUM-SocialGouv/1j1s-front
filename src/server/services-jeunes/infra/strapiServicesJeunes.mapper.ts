@@ -1,9 +1,5 @@
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
-import { mapArticle } from '~/server/articles/infra/strapiArticle.mapper';
-import {
-	flatMapSingleRelation,
-	getExtraitContenu,
-} from '~/server/cms/infra/repositories/strapi.mapper';
+import { flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
@@ -27,7 +23,6 @@ function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: S
 	const banniere = flatMapSingleRelation<Strapi.Image>(response.banniere);
 
 	return {
-		article: article && mapArticle(article),
 		banniere: banniere && {
 			alt: banniere.alternativeText || '',
 			src: banniere.url,
@@ -35,10 +30,8 @@ function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: S
 		categorie: mapServiceJeuneCategorie(categorie),
 		concerne: response.pourQui,
 		contenu: response.contenu,
-		extraitContenu: getExtraitContenu(response.contenu, 110),
 		link: article ? `/articles/${article.slug}` : response.url,
 		titre: response.titre,
-		url: response.url,
 	};
 }
 
