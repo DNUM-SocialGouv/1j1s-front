@@ -1,6 +1,5 @@
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { mapArticle } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
@@ -143,24 +142,6 @@ export class StrapiRepository implements CmsRepository {
 		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
 		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
-	}
-
-	async getMentionObligatoire(type: MentionsObligatoires): Promise<Either<Article>> {
-		const query = 'populate=deep';
-		return this.getSingleTypeDeprecated<Strapi.CollectionType.Article, Article>(this.getResourceMentionObligatoire(type), query, mapArticle);
-	}
-
-	private getResourceMentionObligatoire(type: MentionsObligatoires): string {
-		switch (type) {
-			case MentionsObligatoires.ACCESSIBILITE:
-				return 'accessibilite';
-			case MentionsObligatoires.CONDITIONS_GENERALES_UTILISATIONS:
-				return 'conditions-generales-d-utilisation';
-			case MentionsObligatoires.MENTIONS_LEGALES:
-				return 'mention-legale';
-			case MentionsObligatoires.POLITIQUES_CONFIDENTIALITES:
-				return 'politique-de-confidentialite';
-		}
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

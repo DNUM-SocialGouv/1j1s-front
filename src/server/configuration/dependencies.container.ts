@@ -167,6 +167,13 @@ import {
 	StrapiMesuresEmployeursRepository,
 } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
 import {
+	MentionObligatoireDependencies,
+	mentionObligatoireDependenciesContainer,
+} from '~/server/mentions-obligatoires/configuration/dependencies.container';
+import {
+	StrapiMentionObligatoireRepository,
+} from '~/server/mentions-obligatoires/infra/strapiMentionObligatoire.repository';
+import {
 	MétierDependencies,
 	métiersDependenciesContainer,
 } from '~/server/metiers/configuration/dependencies.container';
@@ -251,6 +258,7 @@ export type Dependencies = {
 	établissementAccompagnementDependencies: EtablissementAccompagnementDependencies;
 	servicesJeunesDependencies: ServicesJeunesDependencies;
 	mesuresEmployeursDependencies: MesuresEmployeursDependencies
+	mentionObligatoireDependencies: MentionObligatoireDependencies;
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
 	stage3eEt2deDependencies: Stage3eEt2deDependencies;
@@ -399,7 +407,10 @@ export function dependenciesContainer(): Dependencies {
 
 	const mesuresEmployeursRepository= new StrapiMesuresEmployeursRepository(cmsRepository, defaultErrorManagementService);
 	const mesuresEmployeursDependencies = mesuresEmployeursDependenciesContainer(mesuresEmployeursRepository);
-	
+
+	const mentionObligatoireRepository = new StrapiMentionObligatoireRepository(cmsRepository);
+	const mentionObligatoireDependencies = mentionObligatoireDependenciesContainer(mentionObligatoireRepository);
+
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
@@ -440,6 +451,7 @@ export function dependenciesContainer(): Dependencies {
 		localisationDependencies,
 		loggerService,
 		mesuresEmployeursDependencies,
+		mentionObligatoireDependencies,
 		métierDependencies,
 		offreEmploiDependencies,
 		offreJobEteDependencies,

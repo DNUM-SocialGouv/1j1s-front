@@ -1,11 +1,9 @@
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { ConsulterArticleUseCase } from '~/server/cms/useCases/consulterArticle.useCase';
-import { ConsulterMentionObligatoireUseCase } from '~/server/cms/useCases/consulterMentionObligatoire.useCase';
 import { ConfigurationService } from '~/server/services/configuration.service';
 
 export interface CmsDependencies {
 	consulterArticle: ConsulterArticleUseCase
-	consulterMentionObligatoire: ConsulterMentionObligatoireUseCase
 	duréeDeValiditéEnSecondes: () => number
 }
 
@@ -17,7 +15,6 @@ export function cmsDependenciesContainer(cmsRepository: CmsRepository, configura
 
 	return {
 		consulterArticle: new ConsulterArticleUseCase(cmsRepository),
-		consulterMentionObligatoire: new ConsulterMentionObligatoireUseCase(cmsRepository),
 		duréeDeValiditéEnSecondes: () => duréeDeValiditéEnSecondes,
 	};
 }

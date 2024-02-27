@@ -1,11 +1,8 @@
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
-import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { Either } from '~/server/errors/either';
 
 export interface CmsRepository {
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
-
-	getMentionObligatoire(mentionsObligatoires: MentionsObligatoires): Promise<Either<Article>>
 
 	listAllArticleSlug(): Promise<Either<Array<string>>>
 
