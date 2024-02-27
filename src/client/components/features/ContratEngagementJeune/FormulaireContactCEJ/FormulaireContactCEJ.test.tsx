@@ -38,12 +38,12 @@ describe('<FormulaireDeContactCEJ />', () => {
 		renderComponent();
 		// When
 		// Then
-		expect(screen.getByLabelText('Prénom')).toBeVisible();
-		expect(screen.getByLabelText('Nom')).toBeVisible();
-		expect(screen.getByLabelText('Adresse email')).toBeVisible();
-		expect(screen.getByLabelText('Téléphone')).toBeVisible();
+		expect(screen.getByRole('textbox',{ name: 'Prénom Exemple : Jean' })).toBeVisible();
+		expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
+		expect(screen.getByRole('textbox', { name: 'Adresse email Exemple : jean.dupont@gmail.com' })).toBeVisible();
+		expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
 		expect(screen.getByText('Age', { exact: true })).toBeVisible();
-		expect(screen.getByRole('combobox', { name: 'Ville' })).toBeVisible();
+		expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers...' })).toBeVisible();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
@@ -51,7 +51,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 		const user = userEvent.setup();
 
 		renderComponent();
-		const mailInput = screen.getByRole('textbox', { name : 'Adresse email' });
+		const mailInput = screen.getByRole('textbox', { name : 'Adresse email Exemple : jean.dupont@gmail.com' });
 
 		await user.type(mailInput, '     mail@avecespaces.com    ');
 		expect(mailInput).toHaveValue('mail@avecespaces.com');
@@ -62,7 +62,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 		renderComponent();
 		// When
 		await userEvent.click(screen.getByText('Age'));
-		await userEvent.click(screen.getByLabelText('Nom'));
+		await userEvent.click(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }));
 		// When
 		const input = await screen.findByTestId('Select-InputHidden');
 
@@ -168,16 +168,16 @@ type ContactInputs = Record<'prénom' | 'nom' | 'téléphone' | 'email' | 'age' 
 
 async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	const user = userEvent.setup();
-	await user.type(screen.getByLabelText('Prénom'), data.prénom);
-	await user.type(screen.getByLabelText('Nom'), data.nom);
-	await user.type(screen.getByLabelText('Téléphone'), data.téléphone);
-	await user.type(screen.getByLabelText('Adresse email'), data.email);
+	await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), data.prénom);
+	await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), data.nom);
+	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), data.téléphone);
+	await user.type(screen.getByRole('textbox', { name: 'Adresse email Exemple : jean.dupont@gmail.com' }), data.email);
 
-	await user.type(screen.getByRole('combobox', { name: 'Ville' }), data.ville);
+	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers...' }), data.ville);
 	const paris15eOption = await screen.findByText('Paris 15e Arrondissement (75015)');
 	await user.click(paris15eOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age' }));
+	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
 	await user.click(screen.getByText(data.age));
 
 	await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
