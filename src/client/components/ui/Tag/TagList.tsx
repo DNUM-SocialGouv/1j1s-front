@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Tag } from '~/client/components/ui/Tag/Tag';
 import styles from '~/client/components/ui/Tag/TagList.module.scss';
 
 interface TagListProps extends React.ComponentPropsWithoutRef<'ul'> {
-  list: Array<string | undefined>
+  list: Array<ReactNode>
 }
 
 export function TagList({ className, list, ...rest }: TagListProps) {
