@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.252.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.251.0...v3.252.0) (2024-02-27)
+
+
+### Features
+
+* **cms:** scinder la partie actualités du cms ([#2699](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2699)) ([788690f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/788690fe6b822a7cd73bf22e3e91fb18c6f6aff6))
+* **cms:** scinder la partie mesures employeurs du cms ([#2694](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2694)) ([03db6ce](https://github.com/DNUM-SocialGouv/1j1s-front/commit/03db6cedf2fdf97723c8a80efa32f294ee1fe1d1))
+
 ## [3.251.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.250.1...v3.251.0) (2024-02-27)
 
 
