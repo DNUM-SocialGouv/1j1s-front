@@ -59,7 +59,6 @@ export function FormulaireDemandeDeContactAccompagnement({
 			<InputText
 				label="Prénom"
 				name="firstname"
-				autoFocus
 				placeholder="Exemple : Jean"
 				required
 			/>
