@@ -177,7 +177,7 @@ describe('RechercherAccompagnement', () => {
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationServiceMock = aLocalisationService();
 
-			mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006' } });
+			mockUseRouter({});
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
