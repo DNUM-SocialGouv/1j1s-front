@@ -44,6 +44,7 @@ export const InputText = React.forwardRef<HTMLInputElement | null, TextInputProp
 		if (validation) {
 			const error = validation(valueState);
 			ref.current?.setCustomValidity(error ?? '');
+			setError(error ?? undefined);
 		}
 	}, [validation, valueState, ref]);
 
