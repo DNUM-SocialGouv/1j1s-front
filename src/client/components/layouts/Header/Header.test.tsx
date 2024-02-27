@@ -271,7 +271,7 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByTestId('mobile-mailto-stages');
+					const encartLien = screen.getByTestId('mobile-mailto-campagne');
 					expect(encartLien).toHaveRole('link');
 					expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
 					expect(encartLien).toBeVisible();

@@ -55,7 +55,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 				className={classNames(
 					styles.card,
 					className,
-					styles.cardHorizontal,
+					styles.serviceCard,
 					imageFit === 'cover' && styles.cardCover)}
 			>
 				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
