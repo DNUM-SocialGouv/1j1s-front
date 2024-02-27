@@ -1,12 +1,9 @@
-import { Actualité } from '~/server/cms/domain/actualité';
-import { anActualite } from '~/server/cms/domain/actualite.fixture';
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import {
-	anActualiteFixture,
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
 	aStrapiLesMesuresEmployeurs,
@@ -15,7 +12,7 @@ import {
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
+import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -33,30 +30,6 @@ describe('strapi cms repository', () => {
 	let httpClientService: PublicHttpClientService;
 	let authenticatedHttpClientService: AuthenticatedHttpClientService;
 	let strapiCmsRepository: StrapiRepository;
-
-	describe('getSingleTypeDeprecated', () => {
-		it('retourne une erreur lorsque il y a une erreur', async () => {
-			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
-			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
-			const httpClientService = aPublicHttpClientService({
-				get: jest.fn(async () => {
-					throw httpError;
-				}),
-			});
-			const httpError = anAxiosResponse(anHttpError(404));
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
-
-			const result = await strapiCmsRepository.getActualitéList();
-
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
-				apiSource: 'API Strapi',
-				contexte: 'get single type strapi',
-				message: 'Erreur inconnue - Impossible de récupérer la ressource actualite',
-			}));
-			expect(result.instance).toEqual('failure');
-			expect((result as Failure).errorType).toEqual(expectedFailure);
-		});
-	});
 
 	describe('getCollectionTypeDeprecated', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
@@ -128,22 +101,6 @@ describe('strapi cms repository', () => {
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
-		});
-	});
-
-	describe('getActualites', () => {
-		describe('Si les actualités sont trouvées', () => {
-			it('récupère les actualités', async () => {
-				httpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService());
-
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(anActualiteFixture()));
-				const expectedCartesActualite = [anActualite({ titre: 'Actualité 1' })];
-				const result = await strapiCmsRepository.getActualitéList() as Success<Actualité[]>;
-
-				expect(httpClientService.get).toHaveBeenCalledWith('actualite?populate=deep');
-				expect(result.result).toEqual(expectedCartesActualite);
-			});
 		});
 	});
 

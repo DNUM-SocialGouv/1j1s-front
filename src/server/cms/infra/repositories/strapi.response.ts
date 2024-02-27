@@ -89,20 +89,6 @@ export namespace Strapi {
 				pourQui: string
 			}
 		}
-
-		export interface ListeActualités {
-			listeActualites: ListeActualités.Actualité[];
-		}
-
-		export namespace ListeActualités {
-			export interface Actualité {
-				titre: string;
-				contenu: string;
-				url: string;
-				banniere: Strapi.SingleRelation<Strapi.Image>;
-				article: Strapi.SingleRelation<Strapi.CollectionType.Article>;
-			}
-		}
 	}
 
 	export namespace CollectionType {

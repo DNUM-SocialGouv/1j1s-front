@@ -12,7 +12,7 @@ import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/espace-jeune/index.analytics';
 import styles from '~/pages/espace-jeune/index.module.scss';
-import { Actualité } from '~/server/cms/domain/actualité';
+import { Actualité } from '~/server/actualites/domain/actualite';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
 
@@ -92,7 +92,7 @@ export default function EspaceJeunePage({ cartesActualites, serviceJeuneList }: 
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<EspaceJeunePageProps>> {
 	const serviceJeuneList = await dependencies.servicesJeunesDependencies.consulterLesServicesJeunesUseCase.handle();
-	const cartesActualitesResponse = await dependencies.cmsDependencies.récupérerActualités.handle();
+	const cartesActualitesResponse = await dependencies.actualitesDependencies.consulterActualitesUseCase.handle();
 
 	if (serviceJeuneList.instance === 'failure' || cartesActualitesResponse.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

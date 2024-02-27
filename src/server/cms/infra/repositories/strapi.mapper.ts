@@ -1,4 +1,3 @@
-import { Actualité } from '~/server/cms/domain/actualité';
 import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
@@ -48,22 +47,6 @@ function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: St
 		pourQui: strapiLesMesuresEmployeursDispositif.pourQui,
 		titre: strapiLesMesuresEmployeursDispositif.titre,
 		url: strapiLesMesuresEmployeursDispositif.url,
-	};
-}
-
-export function mapStrapiListeActualités(strapiListeActualités: Strapi.SingleType.ListeActualités): Actualité[] {
-	return strapiListeActualités.listeActualites.map(mapStrapiActualité);
-}
-
-function mapStrapiActualité(strapiActualité: Strapi.SingleType.ListeActualités.Actualité): Actualité {
-	const article = flatMapSingleRelationDeprecated(strapiActualité.article, mapArticle);
-	return {
-		article,
-		bannière: flatMapSingleImage(strapiActualité.banniere),
-		contenu: strapiActualité.contenu,
-		extraitContenu: getExtraitContenu(strapiActualité.contenu, 110),
-		link: article ? `/articles/${article.slug}` : strapiActualité.url,
-		titre: strapiActualité.titre,
 	};
 }
 

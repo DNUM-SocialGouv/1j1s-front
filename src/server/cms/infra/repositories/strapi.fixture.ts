@@ -214,16 +214,5 @@ export function aStrapiArticleCollectionType(): Strapi.CollectionType<Strapi.Col
 	return aStrapiCollectionType([aStrapiArticle()]);
 }
 
-export function anActualiteFixture(): Strapi.SingleType<Strapi.SingleType.ListeActualités> {
-	return aStrapiSingleType({
-		listeActualites: [{
-			article: aStrapiSingleRelation(aStrapiArticle()),
-			banniere: aStrapiSingleRelation(aStrapiImage()),
-			contenu: 'Contenu',
-			titre: 'Actualité 1',
-			url: 'https://www.google.com',
-		}],
-	});
-}
 
 

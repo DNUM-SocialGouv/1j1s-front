@@ -1,4 +1,9 @@
 import {
+	ActualitesDependencies,
+	actualitesDependenciesContainer,
+} from '~/server/actualites/configuration/dependencies.container';
+import { StrapiActualitesRepository } from '~/server/actualites/infra/strapiActualites.repository';
+import {
 	AlternanceDependencies,
 	alternancesDependenciesContainer,
 } from '~/server/alternances/configuration/dependencies.container';
@@ -9,7 +14,8 @@ import {
 	ApiLaBonneAlternanceRepository,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.repository';
 import {
-	ApiLaBonneAlternanceErrorManagementServiceGet, ApiLaBonneAlternanceErrorManagementServiceSearch,
+	ApiLaBonneAlternanceErrorManagementServiceGet,
+	ApiLaBonneAlternanceErrorManagementServiceSearch,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
 import { MockAlternanceRepository } from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import {
@@ -215,6 +221,7 @@ import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 
 export type Dependencies = {
+	actualitesDependencies: ActualitesDependencies
 	ficheMetierDependencies: FicheMetierDependencies;
 	faqDependencies: FAQDependencies;
 	stagesDependencies: StagesDependencies;
@@ -376,6 +383,9 @@ export function dependenciesContainer(): Dependencies {
 	const videoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(cmsRepository, defaultErrorManagementService);
 	const campagneApprentissageDependencies = campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository);
 
+	const actualitesRepository = new StrapiActualitesRepository(cmsRepository, defaultErrorManagementService);
+	const actualitesDependencies = actualitesDependenciesContainer(actualitesRepository);
+
 	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsRepository, defaultErrorManagementService);
 	const servicesJeunesDependencies = servicesJeunesDependenciesContainer(servicesJeunesRepository);
 
@@ -402,6 +412,7 @@ export function dependenciesContainer(): Dependencies {
 	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiPoleEmploiMetierStage3eEt2deRepository);
 
 	return {
+		actualitesDependencies,
 		alternanceDependencies,
 		annonceDeLogementDependencies,
 		campagneApprentissageDependencies,
