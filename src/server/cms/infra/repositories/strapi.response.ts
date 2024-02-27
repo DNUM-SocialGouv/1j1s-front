@@ -75,20 +75,6 @@ export namespace Strapi {
 	}
 
 	export namespace SingleType {
-		export interface LesMesuresEmployeurs {
-			dispositifs: LesMesuresEmployeurs.Dispositif[];
-		}
-
-		export namespace LesMesuresEmployeurs {
-			export interface Dispositif {
-				titre: string
-				contenu: string
-				url: string
-				banniere: Strapi.SingleRelation<Strapi.Image>
-				article: Strapi.SingleRelation<Strapi.CollectionType.Article>
-				pourQui: string
-			}
-		}
 	}
 
 	export namespace CollectionType {

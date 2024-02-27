@@ -91,20 +91,6 @@ export function aStrapiArticle(overrides?: Partial<Strapi.CollectionType.Article
 	};
 }
 
-export function aStrapiLesMesuresEmployeurs(): Strapi.SingleType.LesMesuresEmployeurs {
-	return {
-		dispositifs: [{
-			article: aStrapiSingleRelation(aStrapiArticle()),
-			banniere: aStrapiSingleRelation(aStrapiImage()),
-			contenu: 'Un beau contenu de carte',
-			pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
-			titre: 'Un titre de carte',
-			url: 'https://some.example.com/1',
-		}],
-	};
-}
-
-
 export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.CollectionType.Article, 'slug'>> {
 	return {
 		data: [
@@ -213,6 +199,3 @@ export function anEntrepriseRejoindreLaMobilisationStrapi(): Strapi.CollectionTy
 export function aStrapiArticleCollectionType(): Strapi.CollectionType<Strapi.CollectionType.Article> {
 	return aStrapiCollectionType([aStrapiArticle()]);
 }
-
-
-
