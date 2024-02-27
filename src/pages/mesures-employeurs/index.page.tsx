@@ -18,7 +18,7 @@ export default function MesuresEmployeursPage(props: MesuresEmployeursProps) {
 }
 
 export async function getStaticProps(): Promise<GetStaticPropsResult<MesuresEmployeursProps>> {
-	const response = await dependencies.cmsDependencies.récupérerMesuresEmployeurs.handle();
+	const response = await dependencies.mesuresEmployeursDependencies.consulterMesuresEmployeursUseCase.handle();
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

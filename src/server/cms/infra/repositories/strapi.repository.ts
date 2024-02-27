@@ -1,8 +1,7 @@
 import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { mapArticle, mapMesuresEmployeurs } from '~/server/cms/infra/repositories/strapi.mapper';
+import { mapArticle } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -12,7 +11,6 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 
 const MAX_PAGINATION_SIZE = '100';
 const RESOURCE_ARTICLE = 'articles';
-const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -163,11 +161,6 @@ export class StrapiRepository implements CmsRepository {
 			case MentionsObligatoires.POLITIQUES_CONFIDENTIALITES:
 				return 'politique-de-confidentialite';
 		}
-	}
-
-	async getMesuresEmployeurs(): Promise<Either<MesureEmployeur[]>> {
-		const query = 'populate=deep';
-		return this.getSingleTypeDeprecated<Strapi.SingleType.LesMesuresEmployeurs, MesureEmployeur[]>(RESOURCE_MESURES_EMPLOYEURS, query, mapMesuresEmployeurs);
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

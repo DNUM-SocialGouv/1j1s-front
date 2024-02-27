@@ -160,6 +160,13 @@ import { StrapiAnnonceDeLogementRepository } from '~/server/logements/infra/stra
 import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
+	MesuresEmployeursDependencies,
+	mesuresEmployeursDependenciesContainer,
+} from '~/server/mesures-employeurs/configuration/dependencies.container';
+import {
+	StrapiMesuresEmployeursRepository,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
+import {
 	MétierDependencies,
 	métiersDependenciesContainer,
 } from '~/server/metiers/configuration/dependencies.container';
@@ -243,6 +250,7 @@ export type Dependencies = {
 	sitemapDependencies: SitemapDependencies;
 	établissementAccompagnementDependencies: EtablissementAccompagnementDependencies;
 	servicesJeunesDependencies: ServicesJeunesDependencies;
+	mesuresEmployeursDependencies: MesuresEmployeursDependencies
 	loggerService: LoggerService
 	emploiEuropeDependencies: EmploiEuropeDependencies;
 	stage3eEt2deDependencies: Stage3eEt2deDependencies;
@@ -389,6 +397,9 @@ export function dependenciesContainer(): Dependencies {
 	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsRepository, defaultErrorManagementService);
 	const servicesJeunesDependencies = servicesJeunesDependenciesContainer(servicesJeunesRepository);
 
+	const mesuresEmployeursRepository= new StrapiMesuresEmployeursRepository(cmsRepository, defaultErrorManagementService);
+	const mesuresEmployeursDependencies = mesuresEmployeursDependenciesContainer(mesuresEmployeursRepository);
+	
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
@@ -428,6 +439,7 @@ export function dependenciesContainer(): Dependencies {
 		formationInitialeDetailDependencies,
 		localisationDependencies,
 		loggerService,
+		mesuresEmployeursDependencies,
 		métierDependencies,
 		offreEmploiDependencies,
 		offreJobEteDependencies,

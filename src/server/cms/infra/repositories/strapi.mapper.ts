@@ -1,6 +1,5 @@
 import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
@@ -31,24 +30,6 @@ export function flatMapSingleRelation<ReturnType>(relation: Strapi.SingleRelatio
 	return data;
 }
 
-
-export function mapMesuresEmployeurs(strapiLesMesuresEmployeurs: Strapi.SingleType.LesMesuresEmployeurs): MesureEmployeur[] {
-	return strapiLesMesuresEmployeurs.dispositifs.map(mapCartesMesuresEmployeursList);
-}
-
-function mapCartesMesuresEmployeursList(strapiLesMesuresEmployeursDispositif: Strapi.SingleType.LesMesuresEmployeurs.Dispositif): MesureEmployeur {
-	const article = flatMapSingleRelationDeprecated(strapiLesMesuresEmployeursDispositif.article, mapArticle);
-	return {
-		article,
-		banniere: flatMapSingleImage(strapiLesMesuresEmployeursDispositif.banniere),
-		contenu: strapiLesMesuresEmployeursDispositif.contenu,
-		extraitContenu: getExtraitContenu(strapiLesMesuresEmployeursDispositif.contenu, 110),
-		link: article ? `/articles/${article.slug}` : strapiLesMesuresEmployeursDispositif.url,
-		pourQui: strapiLesMesuresEmployeursDispositif.pourQui,
-		titre: strapiLesMesuresEmployeursDispositif.titre,
-		url: strapiLesMesuresEmployeursDispositif.url,
-	};
-}
 
 export function getExtraitContenu(contenu: string, size = 120): string {
 	if (contenu.length < size) return contenu;

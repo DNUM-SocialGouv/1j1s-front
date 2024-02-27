@@ -1,6 +1,5 @@
+import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
-
-import { Article } from './article';
 
 export interface MesureEmployeur {
   titre: string
@@ -8,7 +7,7 @@ export interface MesureEmployeur {
   banniere?: Image
   url?: string
   article?: Article
-  pourQui : string
+  pourQui: string
   link: string
   extraitContenu: string
 }

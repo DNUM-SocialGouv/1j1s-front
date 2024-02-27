@@ -1,13 +1,9 @@
 import { Article } from '~/server/cms/domain/article';
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { MentionsObligatoires } from '~/server/cms/domain/mentionsObligatoires';
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
-import { aMesureEmployeurList } from '~/server/cms/domain/mesureEmployeur.fixture';
 import {
 	aStrapiArticleCollectionType,
 	aStrapiArticleSlugList,
-	aStrapiLesMesuresEmployeurs,
-	aStrapiSingleType,
 } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
 import { createFailure, Failure, Success } from '~/server/errors/either';
@@ -163,23 +159,6 @@ describe('strapi cms repository', () => {
 				titre: 'Politique de confidentialité',
 			});
 			expect(httpClientService.get).toHaveBeenCalledWith('politique-de-confidentialite?populate=deep');
-		});
-	});
-
-	describe('getMesuresEmployeurs()', () => {
-		describe('quand les cartes sont trouvées', () => {
-			it('récupère les cartes jeunes', async () => {
-				httpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiSingleType(aStrapiLesMesuresEmployeurs())));
-				const expectedMesuresEmployeurs = aMesureEmployeurList();
-				const result = await strapiCmsRepository.getMesuresEmployeurs() as Success<MesureEmployeur[]>;
-
-				expect(result.result).toEqual(expectedMesuresEmployeurs);
-				expect(httpClientService.get).toHaveBeenCalledWith('les-mesures-employeurs?populate=deep');
-			});
 		});
 	});
 });

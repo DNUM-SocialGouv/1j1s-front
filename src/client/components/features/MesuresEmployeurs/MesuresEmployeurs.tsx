@@ -7,10 +7,10 @@ import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
+import { MesureEmployeur } from '~/server/mesures-employeurs/domain/mesureEmployeur';
 
 export interface MesuresEmployeursProps {
-	mesureEmployeurList: MesureEmployeur[];
+	mesureEmployeurList: Array<MesureEmployeur>;
 }
 
 export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmployeursProps) {

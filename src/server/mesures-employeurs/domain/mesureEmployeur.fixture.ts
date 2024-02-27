@@ -1,14 +1,13 @@
 import { anArticle } from '~/server/cms/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
-import { MesureEmployeur } from '~/server/cms/domain/mesureEmployeur';
 
-export function aMesureEmployeurList(): MesureEmployeur[] {
-	return [aMesureEmployeur()];
-}
+import { MesureEmployeur } from './mesureEmployeur';
 
 export function aMesureEmployeur(override?: Partial<MesureEmployeur>): MesureEmployeur {
 	return {
-		article: anArticle(),
+		article: anArticle({
+			slug: 'aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
+		}),
 		banniere: anImage(),
 		contenu: 'Un beau contenu de carte',
 		extraitContenu: 'Un beau contenu de carte',
@@ -20,11 +19,11 @@ export function aMesureEmployeur(override?: Partial<MesureEmployeur>): MesureEmp
 	};
 }
 
-export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
+export function aMesuresEmployeursList(): Array<MesureEmployeur> {
 	return [
 		aMesureEmployeur(),
-		{
-			article: anArticle(),
+		aMesureEmployeur({
+			article: anArticle({ slug: 'slug-article' }),
 			banniere: anImage(),
 			contenu: 'Un deuxième beau contenu de carte',
 			extraitContenu: 'Un deuxième beau contenu de carte',
@@ -32,8 +31,9 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 			pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
 			titre: 'Un deuxième titre de carte',
 			url: 'https://some.example.com/2',
-		}, {
-			article: anArticle(),
+		}),
+		aMesureEmployeur({
+			article: anArticle({ slug: 'titre' }),
 			banniere: anImage(),
 			contenu: 'Un troisième beau contenu de carte',
 			extraitContenu: 'Un troisième beau contenu de carte',
@@ -41,8 +41,9 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 			pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
 			titre: 'Un troisième titre de carte',
 			url: 'https://some.example.com/3',
-		}, {
-			article: anArticle(),
+		}),
+		aMesureEmployeur({
+			article: anArticle({ slug: 'titre' }),
 			banniere: anImage(),
 			contenu: 'Un quatrième beau contenu de carte',
 			extraitContenu: 'Un quatrième beau contenu de carte',
@@ -50,6 +51,6 @@ export function aCartesMesuresEmployeursList(): MesureEmployeur[] {
 			pourQui: 'Ceci est pour tous ceux à qui ça s‘adresse',
 			titre: 'Un quatrième titre de carte',
 			url: 'https://some.example.com/4',
-		},
+		}),
 	];
 }
