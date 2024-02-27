@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.251.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.250.1...v3.251.0) (2024-02-27)
+
+
+### Features
+
+* **stage:** gerer les navigateurs qui ne supportent pas input date ([#2716](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2716)) ([6c042b4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6c042b49fbddb4c2e7034e42c56064afd0b88358))
+
 ## [3.250.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.250.0...v3.250.1) (2024-02-27)
 
 
