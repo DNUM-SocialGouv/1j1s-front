@@ -17,16 +17,11 @@ export interface FormationInitialeApiResponse {
 	sigle_type_formation: string,
 	libelle_type_formation: string,
 	libelle_formation_principal: string,
-	sigle_formation: string,
 	duree: string,
 	niveau_de_sortie_indicatif: string,
-	code_rncp: string,
 	niveau_de_certification: string,
-	libelle_niveau_de_certification: string,
-	tutelle: string,
 	url_et_id_onisep: string,
-	'domainesous-domaine': string
-} // TODO fin dev formation-initiale : supprimer les champs dont on a pas besoin
+}
 
 export interface ResultatRechercheFormationInitialeApiResponse {
 	total: number
