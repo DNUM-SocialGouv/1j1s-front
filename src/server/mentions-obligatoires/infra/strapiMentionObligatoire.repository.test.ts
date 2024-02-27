@@ -1,17 +1,13 @@
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { aMentionObligatoire } from '~/server/mentions-obligatoires/domain/mentionObligatoire.fixture';
-import { aStrapiMentionObligatoire } from '~/server/mentions-obligatoires/infra/strapiMentionObligatoire.fixture';
 
+import { aMentionObligatoire } from '../domain/mentionObligatoire.fixture';
 import { TypeDeMentionObligatoire } from '../domain/typeDeMentionObligatoire';
-import {
-	StrapiMentionObligatoireRepository,
-} from './strapiMentionObligatoire.repository';
+import { aStrapiMentionObligatoire } from './strapiMentionObligatoire.fixture';
+import { StrapiMentionObligatoireRepository } from './strapiMentionObligatoire.repository';
 
-
-// todo: ajouter le comportement de relayer la failure retournée par le CMS service sur en erreur
 describe('StrapiMentionObligatoireRepository', () => {
-	it('appelle le service cms avec les bon paramètres', () => {
+	it('appelle le service CMS avec les bon paramètres', () => {
 		// GIVEN
 		const cmsService = aStrapiCmsRepository();
 		const cmsServiceResponse = aStrapiMentionObligatoire({
