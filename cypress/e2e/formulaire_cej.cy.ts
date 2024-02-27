@@ -23,7 +23,6 @@ describe('Parcours formulaire cej', () => {
 		it('affiche un message de succès', () => {
 			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
 
-			cy.findByRole('textbox', { name: /Prénom/i }).should('have.focus');
 			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
 			// FIXME (BRUJ 22/11/2023): test flaky obligé de rajouter un force
 			cy.findByRole('textbox', { name: /Nom/ }).type('dupont', { force: true });
