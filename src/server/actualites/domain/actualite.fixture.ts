@@ -15,5 +15,14 @@ export function anActualite(override?: Partial<Actualité>) {
 }
 
 export function anActualiteList() {
-	return [anActualite()];
+	return [
+		anActualite(),
+		anActualite({
+			article: anArticle(),
+			bannière: anImage(),
+			contenu: 'Contenu 2',
+			extraitContenu: 'Contenu 2',
+			link: '/articles/aide-a-l-embauche-d-un-jeune-en-parcours-emploi-competences-pec-jeunes-dans-le-secteur-non-marchand',
+			titre: 'Titre 2',
+		})];
 }

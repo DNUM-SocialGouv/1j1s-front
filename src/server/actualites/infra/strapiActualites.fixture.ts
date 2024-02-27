@@ -5,9 +5,17 @@ import {
 } from '../../cms/infra/repositories/strapi.fixture';
 import { StrapiListeActualites } from './strapiActualites';
 
-export function aStrapiListeActualites(override?: Partial<StrapiListeActualites.ListeActualites >): StrapiListeActualites.ListeActualites {
+export function aStrapiListeActualites(override?: Partial<StrapiListeActualites.ListeActualites>): StrapiListeActualites.ListeActualites {
 	return {
-		listeActualites: [aStrapiActualite()],
+		listeActualites: [
+			aStrapiActualite(),
+			aStrapiActualite({
+				article: aStrapiSingleRelation(aStrapiArticle()),
+				banniere: aStrapiSingleRelation(aStrapiImage()),
+				contenu: 'Contenu 2',
+				titre: 'Titre 2',
+				url: 'https://www.google.com',
+			})],
 		...override,
 	};
 }
