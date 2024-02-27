@@ -28,7 +28,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 				</DependenciesProvider>,
 			);
 			const user = userEvent.setup();
-			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' }), 'Pari');
+			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
@@ -60,7 +60,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 				</DependenciesProvider>,
 			);
 			const user = userEvent.setup();
-			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' }), 'Pari');
+			await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
@@ -90,7 +90,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 			);
 
 			const user = userEvent.setup();
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 
 			const localisationOptions = await screen.findAllByRole('option');
@@ -124,7 +124,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 				);
 
 				const user = userEvent.setup();
-				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' });
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
 
 				const localisationOptions = await screen.findAllByRole('option');
@@ -153,7 +153,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 				);
 
 				const user = userEvent.setup();
-				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' });
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
 
 				const localisationOptions = await screen.findAllByRole('option');

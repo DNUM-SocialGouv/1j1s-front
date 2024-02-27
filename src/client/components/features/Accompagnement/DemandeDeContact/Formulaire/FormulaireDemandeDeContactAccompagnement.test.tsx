@@ -149,7 +149,7 @@ async function envoyerDemandeContact() {
 	const listbox = screen.getByRole('listbox');
 	const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
 	await userEvent.click(input);
-	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers...' });
+	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 	await userEvent.type(comboboxCommune, 'Paris');
 	const resultatCommuneList = await screen.findAllByRole('option');
 	await userEvent.click(resultatCommuneList[0]);

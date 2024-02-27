@@ -52,7 +52,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 			</DependenciesProvider>,
 		);
 
-		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
+		const combobox = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(combobox).toBeVisible();
 		expect(combobox).toHaveValue('Paris (75006)');
 		expect(screen.getByDisplayValue('2.347')).toBeInTheDocument();
@@ -132,7 +132,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 		);
 
 		// WHEN
-		const comboboxLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
+		const comboboxLocalisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		await user.type(comboboxLocalisation, 'Paris');
 
 		const boulangerOption = await screen.findByRole('option', { name: 'Paris (75006)' });
@@ -165,7 +165,7 @@ describe('FormulaireRechercheStages3eEt2de', () => {
 
 		const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 		await user.click(buttonRechercher);
-		
+
 		expect(stage3eEt2deService.rechercherStage3eEt2de).not.toHaveBeenCalled();
 	});
 });

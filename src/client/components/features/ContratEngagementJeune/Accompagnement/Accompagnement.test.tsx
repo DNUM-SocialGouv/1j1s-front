@@ -177,12 +177,12 @@ describe('<Accompagnement />', () => {
 			const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 			await user.click(boutonFormulaireMissionLocale);
 
-			expect(screen.getByRole('textbox', { name: 'Prénom' })).toBeVisible();
-			expect(screen.getByRole('textbox', { name: 'Nom' })).toBeVisible();
-			expect(screen.getByRole('textbox', { name: 'Adresse email' })).toBeVisible();
-			expect(screen.getByRole('textbox', { name: 'Téléphone' })).toBeVisible();
-			expect(screen.getByRole('combobox', { name: 'Ville' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Age' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Age Exemple : 16 ans' })).toBeVisible();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 		});
@@ -382,21 +382,21 @@ describe('<Accompagnement />', () => {
 
 async function remplirFormulaire() {
 	const user = userEvent.setup();
-	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom' });
+	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' });
 	await user.type(inputPrenom, formulaireContact.prenom);
 
-	const inputNom = screen.getByRole('textbox', { name: 'Nom' });
+	const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 	await user.type(inputNom, formulaireContact.nom);
 
-	const inputMail = screen.getByRole('textbox', { name: 'Adresse email' });
+	const inputMail = screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' });
 	await user.type(inputMail, formulaireContact.adresseMail);
 
-	await user.type(screen.getByRole('textbox', { name: 'Téléphone' }), formulaireContact.telephone);
+	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), formulaireContact.telephone);
 
-	await user.type(screen.getByRole('combobox', { name: 'Ville' }), formulaireContact.ville);
+	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), formulaireContact.ville);
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age' }));
+	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
 	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
 }

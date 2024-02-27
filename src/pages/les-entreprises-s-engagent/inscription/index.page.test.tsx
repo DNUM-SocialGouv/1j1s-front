@@ -332,7 +332,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				const inputNomSociété = screen.getByRole('textbox', { name: /Nom de l’entreprise/ });
 				expect(inputNomSociété).toHaveValue('Octo');
 
-				const inputVille = screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise' });
+				const inputVille = screen.getByRole('combobox', { name: 'Ville du siège social de l’entreprise Exemples : Paris, Béziers…' });
 				expect(inputVille).toHaveValue('Paris 15e Arrondissement (75015)');
 
 				const inputSiret = screen.getByRole('textbox', { name: /Numéro de SIRET/ });

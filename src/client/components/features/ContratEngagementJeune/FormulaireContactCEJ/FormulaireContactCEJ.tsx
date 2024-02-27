@@ -74,7 +74,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 
 			<Champ>
 				<Champ.Label>
-					Adresse email
+					Adresse e-mail
 					<Champ.Label.Complement>Exemple : jean.dupont@gmail.com</Champ.Label.Complement>
 				</Champ.Label>
 				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email"/>

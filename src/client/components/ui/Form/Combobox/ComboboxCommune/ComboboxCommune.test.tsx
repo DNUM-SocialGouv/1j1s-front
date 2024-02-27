@@ -39,7 +39,7 @@ describe('<ComboboxCommune/>', () => {
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'} onChange={onChange}/>
 			</DependenciesProvider>);
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 			await user.type(combobox, 'a');
 
@@ -152,7 +152,7 @@ describe('<ComboboxCommune/>', () => {
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'comboboxLabel'}/>
 		</DependenciesProvider>);
-		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 		await user.type(combobox, 'ab');
 
@@ -167,7 +167,7 @@ describe('<ComboboxCommune/>', () => {
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'commune'}/>
 		</DependenciesProvider>);
-		const comboboxCommune = screen.getByRole('combobox', { name: 'commune Exemples : Paris, Béziers...' });
+		const comboboxCommune = screen.getByRole('combobox', { name: 'commune Exemples : Paris, Béziers…' });
 
 		// WHEN
 		await user.type(comboboxCommune, 'Paris (750');
@@ -187,7 +187,7 @@ describe('<ComboboxCommune/>', () => {
 		render(<DependenciesProvider localisationService={localisationService}>
 			<ComboboxCommune label={'comboboxLabel'}/>
 		</DependenciesProvider>);
-		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 		await user.type(combobox, 'ab');
 
@@ -214,7 +214,7 @@ describe('<ComboboxCommune/>', () => {
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'}/>
 			</DependenciesProvider>);
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 			await user.type(combobox, 'abc');
 
@@ -236,7 +236,7 @@ describe('<ComboboxCommune/>', () => {
 			render(<DependenciesProvider localisationService={localisationService}>
 				<ComboboxCommune label={'comboboxLabel'}/>
 			</DependenciesProvider>);
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 			await user.type(combobox, 'abc');
 
@@ -262,7 +262,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				const parisOption = await screen.findByText('Paris');
@@ -284,7 +284,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				await user.click(await screen.findByText('Paris'));
@@ -305,7 +305,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				await user.click(await screen.findByText('Paris'));
@@ -326,7 +326,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				await user.click(await screen.findByText('Paris'));
@@ -345,7 +345,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				await user.click(await screen.findByText('Paris (75019)'));
@@ -364,7 +364,7 @@ describe('<ComboboxCommune/>', () => {
 				render(<DependenciesProvider localisationService={localisationService}>
 					<ComboboxCommune label={'comboboxLabel'}/>
 				</DependenciesProvider>);
-				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+				const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 				await user.type(combobox, 'abc');
 				await user.click(await screen.findByText('Paris'));
@@ -386,7 +386,7 @@ describe('<ComboboxCommune/>', () => {
 					render(<DependenciesProvider localisationService={localisationService}>
 						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
 					</DependenciesProvider>);
-					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
@@ -408,7 +408,7 @@ describe('<ComboboxCommune/>', () => {
 					render(<DependenciesProvider localisationService={localisationService}>
 						<ComboboxCommune label={'comboboxLabel'} showRadiusInput/>
 					</DependenciesProvider>);
-					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+					const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
@@ -500,7 +500,7 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune label={'comboboxLabel'}/>
 			</DependenciesProvider>);
 
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 			await user.type(combobox, 'ab');
 
 			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_CHAMP_VIDE);
@@ -519,7 +519,7 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune label={'comboboxLabel'}/>
 			</DependenciesProvider>);
 
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 			await user.type(combobox, 'abc');
 
 			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_CHARGEMENT);
@@ -537,7 +537,7 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 			await user.type(combobox, 'abc');
 
 			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_ERREUR_FETCH);
@@ -556,7 +556,7 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 			await user.type(combobox, 'abc');
 
 			expect(screen.getByRole('status')).toHaveTextContent(MESSAGE_PAS_DE_RESULTAT);
@@ -575,7 +575,7 @@ describe('<ComboboxCommune/>', () => {
 				<ComboboxCommune label={'comboboxLabel'} debounceTimeout={0}/>
 			</DependenciesProvider>);
 
-			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers...' });
+			const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 			await user.type(combobox, 'abc');
 
 			expect(screen.getByRole('status')).toHaveTextContent(/^$/);

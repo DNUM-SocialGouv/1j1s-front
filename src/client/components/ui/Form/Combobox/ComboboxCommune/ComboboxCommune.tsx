@@ -102,7 +102,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				<Champ>
 					<Champ.Label>
 						{label}
-						<Champ.Label.Complement>Exemples : Paris, Béziers...</Champ.Label.Complement>
+						<Champ.Label.Complement>Exemples : Paris, Béziers…</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Combobox}
 											 ref={ref}

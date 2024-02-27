@@ -40,10 +40,10 @@ describe('<FormulaireDeContactCEJ />', () => {
 		// Then
 		expect(screen.getByRole('textbox',{ name: 'Prénom Exemple : Jean' })).toBeVisible();
 		expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
-		expect(screen.getByRole('textbox', { name: 'Adresse email Exemple : jean.dupont@gmail.com' })).toBeVisible();
+		expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
 		expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
 		expect(screen.getByText('Age', { exact: true })).toBeVisible();
-		expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers...' })).toBeVisible();
+		expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
@@ -51,7 +51,7 @@ describe('<FormulaireDeContactCEJ />', () => {
 		const user = userEvent.setup();
 
 		renderComponent();
-		const mailInput = screen.getByRole('textbox', { name : 'Adresse email Exemple : jean.dupont@gmail.com' });
+		const mailInput = screen.getByRole('textbox', { name : 'Adresse e-mail Exemple : jean.dupont@gmail.com' });
 
 		await user.type(mailInput, '     mail@avecespaces.com    ');
 		expect(mailInput).toHaveValue('mail@avecespaces.com');
@@ -171,9 +171,9 @@ async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	await user.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), data.prénom);
 	await user.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), data.nom);
 	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), data.téléphone);
-	await user.type(screen.getByRole('textbox', { name: 'Adresse email Exemple : jean.dupont@gmail.com' }), data.email);
+	await user.type(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' }), data.email);
 
-	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers...' }), data.ville);
+	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), data.ville);
 	const paris15eOption = await screen.findByText('Paris 15e Arrondissement (75015)');
 	await user.click(paris15eOption);
 

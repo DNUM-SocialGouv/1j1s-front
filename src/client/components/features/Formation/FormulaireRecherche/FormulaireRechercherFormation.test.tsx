@@ -81,7 +81,7 @@ describe('FormulaireRechercherFormation', () => {
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
@@ -170,7 +170,7 @@ describe('FormulaireRechercherFormation', () => {
 
 			const user = userEvent.setup();
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationsOptions = await screen.findAllByRole('option');
 			await user.click(localisationsOptions[0]);
@@ -215,7 +215,7 @@ describe('FormulaireRechercherFormation', () => {
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
@@ -270,7 +270,7 @@ describe('FormulaireRechercherFormation', () => {
 
 		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
-		const localisation = await screen.findByRole('combobox', { name: /Localisation/i });
+		const localisation = await screen.findByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByRole('button', { hidden: true, name: /Rayon/i });
 		expect(rayon).toHaveTextContent('10');
