@@ -4,7 +4,7 @@ import React from 'react';
 import styles from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement.module.scss';
 import cardStyles from '~/client/components/features/Logement/Consulter/ConsulterAnnonce.module.scss';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
-import { Tooltip } from '~/client/components/ui/Tooltip/Tooltip';
+import { TipDisclosure } from '~/client/components/ui/TipDisclosure/TipDisclosure';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 const LessOrEqual = () => <>{'\u{02A7D}'}</>;
@@ -47,9 +47,9 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 			<figcaption>
 				Classe énergie
 			</figcaption>
-			<Tooltip icon='information' ariaLabel='informations supplémentaires' tooltipId='informations-supplementaires-classe-energie'>
+			<TipDisclosure icon='information' ariaLabel='informations supplémentaires' tipId='informations-supplementaires-classe-energie'>
 				{consommationTexte}
-			</Tooltip>
+			</TipDisclosure>
 			<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
 				 aria-describedby={consommationEnergetique && 'consommation-energetique'}
 				className={styles.tag}
@@ -64,9 +64,9 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 		</figure>
 		<figure>
 			<figcaption>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></figcaption>
-			<Tooltip icon='information' ariaLabel='informations supplémentaires' tooltipId='informations-supplementaires-gaz-effet-serre'>
+			<TipDisclosure icon='information' ariaLabel='informations supplémentaires' tipId='informations-supplementaires-gaz-effet-serre'>
 				{emissionTexte}
-			</Tooltip>
+			</TipDisclosure>
 			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby={emissionDeGaz && 'emission-de-gaz'}
 				className={styles.tag}
 				style={{

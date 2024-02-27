@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Tooltip } from './Tooltip';
+import { TipDisclosure } from './TipDisclosure';
 
-const meta: Meta<typeof Tooltip> = {
+const meta: Meta<typeof TipDisclosure> = {
 	argTypes: {
 		children: { control: 'text' },
 	},
-	component: Tooltip,
+	component: TipDisclosure,
 	title: 'Components/Tooltip',
 };
 
 export default meta;
-type Story = StoryObj<typeof Tooltip>;
+type Story = StoryObj<typeof TipDisclosure>;
 
 export const Example: Story = {
 	args: {

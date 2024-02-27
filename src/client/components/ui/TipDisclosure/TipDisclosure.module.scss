@@ -4,7 +4,7 @@
   display: inline;
 }
 
-.tooltipContainer {
+.tipDisclosure {
   display: inline-flex;
   padding-left: 0.25rem;
   vertical-align: top;
@@ -15,7 +15,7 @@
   width: 1.25rem;
 }
 
-.tooltip {
+.tip {
   position: absolute;
   z-index: 15;
   font-size: 0.75rem;
