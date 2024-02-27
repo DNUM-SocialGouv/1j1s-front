@@ -47,7 +47,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 			<figcaption>
 				Classe énergie
 			</figcaption>
-			<TipDisclosure icon='information' ariaLabel='informations supplémentaires' tipId='informations-supplementaires-classe-energie'>
+			<TipDisclosure icon='information' disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-classe-energie'>
 				{consommationTexte}
 			</TipDisclosure>
 			<div role="img" aria-label={consommationEnergetique ?? 'Non renseigné'}
@@ -64,7 +64,7 @@ export function BilanEnergetiqueLogement(props: BilanEnergetiqueLogementProps) {
 		</figure>
 		<figure>
 			<figcaption>Émissions de <abbr title="Gaz à Effet de Serre">GES</abbr></figcaption>
-			<TipDisclosure icon='information' ariaLabel='informations supplémentaires' tipId='informations-supplementaires-gaz-effet-serre'>
+			<TipDisclosure icon='information' disclosureAriaLabel='informations supplémentaires' tipId='informations-supplementaires-gaz-effet-serre'>
 				{emissionTexte}
 			</TipDisclosure>
 			<div role="img" aria-label={emissionDeGaz ?? 'Non renseigné'} aria-describedby={emissionDeGaz && 'emission-de-gaz'}

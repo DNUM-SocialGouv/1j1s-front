@@ -15,7 +15,7 @@ describe('TipDisclosure', () => {
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<TipDisclosure icon="information" ariaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+			<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 		);
 		await user.tab();
 
@@ -46,7 +46,7 @@ describe('TipDisclosure', () => {
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<TipDisclosure icon="information" ariaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+			<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 		);
 
 		// When
@@ -77,7 +77,7 @@ describe('TipDisclosure', () => {
 				const user = userEvent.setup();
 				const ariaLabel = 'buttonLabel';
 				render(
-					<TipDisclosure icon="information" ariaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+					<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 				);
 				const boutonDisclosure = screen.getByRole('button', { name: 'buttonLabel (Ouvrir)' });
 				await user.click(boutonDisclosure);
@@ -96,7 +96,7 @@ describe('TipDisclosure', () => {
 				const user = userEvent.setup();
 				const ariaLabel = 'buttonLabel';
 				render(
-					<TipDisclosure icon="information" ariaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+					<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 				);
 				const boutonDisclosure = screen.getByRole('button', { name: 'buttonLabel (Ouvrir)' });
 				await user.click(boutonDisclosure);

@@ -7,19 +7,12 @@ import styles from './TipDisclosure.module.scss';
 
 interface TipDisclosureProps {
 	icon: IconName  //GMO 01-06-2023 Voir si ça doit être une prop ou être `information` tout le temps
-	ariaLabel: string //GMO 01-06-2023 TODO renommer car ariaLabel du bouton et pas du tooltip?
+	disclosureAriaLabel: string
 	tipId: string
 }
 
-/* NOTE : Ce "Tooltip" n'a plus le role tooltip car le composant ne correspond pas à ce qui est décrit par :
-	https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
-	Notamment :
-	"The tooltip is not the appropriate role for the more information "i" icon, ⓘ. A tooltip is directly associated with the owning element. The ⓘ isn't 'described by' detailed information; the tool or control is."
-	 ou
-	 "Because the tooltip itself never receives focus and is not in the tabbing order, a tooltip can not contain interactive elements like links, inputs, or buttons."
- */
 export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>) {
-	const { children, icon, ariaLabel, tipId } = props;
+	const { children, icon, disclosureAriaLabel, tipId } = props;
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -28,7 +21,7 @@ export function TipDisclosure(props: React.PropsWithChildren<TipDisclosureProps>
 		>
 			<button
 				className={styles.tipDisclosure}
-				aria-label={`${ariaLabel} (${isOpen ? 'Fermer' : 'Ouvrir'})`}
+				aria-label={`${disclosureAriaLabel} (${isOpen ? 'Fermer' : 'Ouvrir'})`}
 				aria-expanded={isOpen}
 				aria-controls={isOpen ? tipId : undefined}
 				type="button"
