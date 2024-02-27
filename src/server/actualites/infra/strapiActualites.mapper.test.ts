@@ -1,8 +1,9 @@
 import { anActualite, anActualiteList } from '~/server/actualites/domain/actualite.fixture';
 import { aStrapiActualite, aStrapiListeActualites } from '~/server/actualites/infra/strapiActualites.fixture';
 import { mapStrapiListeActualites } from '~/server/actualites/infra/strapiActualites.mapper';
-import { anArticle } from '~/server/cms/domain/article.fixture';
-import { aStrapiArticle, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
+import { anArticle } from '~/server/articles/domain/article.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticles.fixture';
+import { aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 
 describe('mapStrapiListeActualites', () => {
 	it('renvoie la liste des actualités', () => {

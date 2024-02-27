@@ -1,4 +1,5 @@
-import { Strapi } from '../../cms/infra/repositories/strapi.response';
+import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
+import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 
 export namespace StrapiMesuresJeunes {
@@ -13,7 +14,7 @@ export namespace StrapiMesuresJeunes {
 		contenu: string
 		url: string
 		banniere: Strapi.SingleRelation<Strapi.Image>
-		article: Strapi.SingleRelation<Strapi.CollectionType.Article>
+		article: Strapi.SingleRelation<StrapiArticle>
 		pourQui: string
 	}
 

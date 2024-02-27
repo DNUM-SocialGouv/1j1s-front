@@ -1,8 +1,8 @@
+import { mapArticle } from '~/server/articles/infra/strapiArticles.mapper';
 import {
 	flatMapSingleImage,
 	flatMapSingleRelation,
 	getExtraitContenu,
-	mapArticle,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { MesureEmployeur } from '~/server/mesures-employeurs/domain/mesureEmployeur';
 import { StrapiMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';

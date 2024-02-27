@@ -5,7 +5,7 @@ import { BackButton } from '~/client/components/features/ButtonRetour/BackButton
 import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml';
 import MarkdownToHtmlStyles from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml.module.scss';
 import useSanitize from '~/client/hooks/useSanitize';
-import { Article } from '~/server/cms/domain/article';
+import { Article } from '~/server/articles/domain/article';
 
 interface ConsulterArticleProps {
   article: Article

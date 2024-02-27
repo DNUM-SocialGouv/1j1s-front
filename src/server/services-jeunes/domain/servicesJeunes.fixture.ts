@@ -1,4 +1,4 @@
-import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anArticle } from '~/server/articles/domain/article.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 

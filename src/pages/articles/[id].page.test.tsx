@@ -11,7 +11,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterArticlePage from '~/pages/articles/[id].page';
-import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anArticle } from '~/server/articles/domain/article.fixture';
 
 describe('<ConsulterArticlePage />', () => {
 	beforeEach(() => {

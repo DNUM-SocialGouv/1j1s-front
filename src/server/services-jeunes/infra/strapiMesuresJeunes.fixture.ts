@@ -1,4 +1,6 @@
-import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '../../cms/infra/repositories/strapi.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticles.fixture';
+import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
+
 import { StrapiMesuresJeunes } from './strapiMesuresJeunes';
 
 export function aStrapiMesuresJeunesParCategorie(overrides?: Partial<StrapiMesuresJeunes.MesuresJeunesParCategorie>): StrapiMesuresJeunes.MesuresJeunesParCategorie {

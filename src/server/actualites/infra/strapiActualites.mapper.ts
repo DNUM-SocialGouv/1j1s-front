@@ -1,10 +1,10 @@
 import { Actualité } from '~/server/actualites/domain/actualite';
 import { StrapiListeActualites } from '~/server/actualites/infra/strapiActualites';
+import { mapArticle } from '~/server/articles/infra/strapiArticles.mapper';
 import {
 	flatMapSingleImage,
 	flatMapSingleRelation,
 	getExtraitContenu,
-	mapArticle,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 
 export function mapStrapiListeActualites(strapiListeActualités: StrapiListeActualites.ListeActualites): Array<Actualité> {

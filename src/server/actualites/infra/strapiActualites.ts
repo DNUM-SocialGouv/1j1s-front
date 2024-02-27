@@ -1,3 +1,4 @@
+import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 
 
@@ -10,6 +11,6 @@ export namespace StrapiListeActualites {
 		contenu: string;
 		url: string;
 		banniere: Strapi.SingleRelation<Strapi.Image>;
-		article: Strapi.SingleRelation<Strapi.CollectionType.Article>;
+		article: Strapi.SingleRelation<StrapiArticle>;
 	}
 }

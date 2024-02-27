@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { Head } from '~/client/components/head/Head';
-import { Article } from '~/server/cms/domain/article';
+import { Article } from '~/server/articles/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import {
 	FAQ,

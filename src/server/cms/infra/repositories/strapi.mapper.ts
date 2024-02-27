@@ -1,26 +1,5 @@
-import { Article } from '~/server/cms/domain/article';
 import { Image } from '~/server/cms/domain/image';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-
-export function mapArticle(articleResponse: Strapi.CollectionType.Article): Article {
-	return {
-		bannière: flatMapSingleImage(articleResponse.banniere),
-		contenu: articleResponse.contenu,
-		slug: articleResponse.slug,
-		titre: articleResponse.titre,
-	};
-}
-
-export function flatMapSingleRelationDeprecated<StrapiType, ReturnType>(relation: Strapi.SingleRelation<StrapiType> | undefined, mapper: (data: NonNullable<StrapiType>) => ReturnType): ReturnType | undefined {
-	if (!relation) {
-		return undefined;
-	}
-	const strapiType = relation.data?.attributes;
-	if (!strapiType) {
-		return undefined;
-	}
-	return mapper(strapiType);
-}
 
 export function flatMapSingleRelation<ReturnType>(relation: Strapi.SingleRelation<ReturnType>): ReturnType | undefined {
 	const data = relation.data?.attributes;

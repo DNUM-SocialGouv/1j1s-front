@@ -1,7 +1,8 @@
+import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
+import { mapArticle } from '~/server/articles/infra/strapiArticles.mapper';
 import {
 	flatMapSingleRelation,
 	getExtraitContenu,
-	mapArticle,
 } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
@@ -22,7 +23,7 @@ export function mapToServicesJeunes(strapiMesuresJeunes: StrapiMesuresJeunes.Mes
 }
 
 function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: StrapiMesuresJeunes.Categorie): ServiceJeune {
-	const article = response.article && flatMapSingleRelation<Strapi.CollectionType.Article>(response.article);
+	const article = response.article && flatMapSingleRelation<StrapiArticle>(response.article);
 	const banniere = flatMapSingleRelation<Strapi.Image>(response.banniere);
 
 	return {
