@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.250.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.250.0...v3.250.1) (2024-02-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-xml-parser to v4.3.5 ([#2726](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2726)) ([55980a3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/55980a3184d88dee19a7a58584a8c981f45fbb90))
+
 ## [3.250.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.249.0...v3.250.0) (2024-02-26)
 
 
