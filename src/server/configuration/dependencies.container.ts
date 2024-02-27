@@ -160,19 +160,19 @@ import { StrapiAnnonceDeLogementRepository } from '~/server/logements/infra/stra
 import { getApiTipimailConfig } from '~/server/mail/configuration/tipimail/tipimailHttpClient.config';
 import { TipimailRepository } from '~/server/mail/infra/repositories/tipimail.repository';
 import {
-	MesuresEmployeursDependencies,
-	mesuresEmployeursDependenciesContainer,
-} from '~/server/mesures-employeurs/configuration/dependencies.container';
-import {
-	StrapiMesuresEmployeursRepository,
-} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
-import {
 	MentionObligatoireDependencies,
 	mentionObligatoireDependenciesContainer,
 } from '~/server/mentions-obligatoires/configuration/dependencies.container';
 import {
 	StrapiMentionObligatoireRepository,
 } from '~/server/mentions-obligatoires/infra/strapiMentionObligatoire.repository';
+import {
+	MesuresEmployeursDependencies,
+	mesuresEmployeursDependenciesContainer,
+} from '~/server/mesures-employeurs/configuration/dependencies.container';
+import {
+	StrapiMesuresEmployeursRepository,
+} from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs.repository';
 import {
 	MétierDependencies,
 	métiersDependenciesContainer,
@@ -450,8 +450,8 @@ export function dependenciesContainer(): Dependencies {
 		formationInitialeDetailDependencies,
 		localisationDependencies,
 		loggerService,
-		mesuresEmployeursDependencies,
 		mentionObligatoireDependencies,
+		mesuresEmployeursDependencies,
 		métierDependencies,
 		offreEmploiDependencies,
 		offreJobEteDependencies,
