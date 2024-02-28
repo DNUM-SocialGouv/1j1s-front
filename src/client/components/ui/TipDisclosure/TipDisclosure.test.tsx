@@ -10,12 +10,12 @@ import { TipDisclosure } from '~/client/components/ui/TipDisclosure/TipDisclosur
 
 describe('TipDisclosure', () => {
 	it.each([KeyBoard.ENTER, KeyBoard.SPACE])
-	('il est possible d’ouvrir et fermer l’infobulle avec la touche Enter et Space', async (touche: KeyBoard) => {
+	('avec la touche Enter et Space, il est possible d’ouvrir et fermer l’infobulle', async (touche: KeyBoard) => {
 		// Given
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+			<TipDisclosure disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 		);
 		await user.tab();
 
@@ -41,12 +41,12 @@ describe('TipDisclosure', () => {
 		expect(boutonDisclosure).toHaveAttribute('aria-expanded', 'false');
 		expect(boutonDisclosure).not.toHaveAttribute('aria-controls');
 	});
-	it('il est possible d’ouvrir et fermer l’infobulle au clic de la souris sur le bouton disclosure', async () => {
+	it('au clic de la souris sur le bouton disclosure, il est possible d’ouvrir et fermer l’infobulle', async () => {
 		// Given
 		const user = userEvent.setup();
 		const ariaLabel = 'buttonLabel';
 		render(
-			<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+			<TipDisclosure disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 		);
 
 		// When
@@ -72,12 +72,12 @@ describe('TipDisclosure', () => {
 	});
 	describe('quand l’infobulle est ouverte', () => {
 		describe('le bouton de fermeture de l’infobulle', () => {
-			it('il est possible et fermer l’infobulle au clic de la souris', async () => {
+			it('lorsque l’utilisateur clique sur le bouton de fermeture présent dans l’infobulle, l’infobulle se ferme', async () => {
 				// Given
 				const user = userEvent.setup();
 				const ariaLabel = 'buttonLabel';
 				render(
-					<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+					<TipDisclosure disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 				);
 				const boutonDisclosure = screen.getByRole('button', { name: 'buttonLabel (Ouvrir)' });
 				await user.click(boutonDisclosure);
@@ -91,12 +91,12 @@ describe('TipDisclosure', () => {
 				expect(information).not.toBeVisible();
 			});
 			it.each([KeyBoard.ENTER, KeyBoard.SPACE])
-			('il est possible de fermer l’infobulle avec la touche Enter et Space', async (touche: KeyBoard) => {
+			('avec la touche Enter et Space, il est possible de fermer l’infobulle', async (touche: KeyBoard) => {
 				// Given
 				const user = userEvent.setup();
 				const ariaLabel = 'buttonLabel';
 				render(
-					<TipDisclosure icon="information" disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
+					<TipDisclosure disclosureAriaLabel={ariaLabel} tipId='test'>ceci est un texte informatif</TipDisclosure>,
 				);
 				const boutonDisclosure = screen.getByRole('button', { name: 'buttonLabel (Ouvrir)' });
 				await user.click(boutonDisclosure);
