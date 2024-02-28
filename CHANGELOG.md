@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.253.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.252.0...v3.253.0) (2024-02-28)
+
+
+### Features
+
+* **mention-oblig:** scinder CMS extraction de la partie mention obligatoire ([#2735](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2735)) ([10b226b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/10b226b0c660ad396d02ae058bb1e98bba964483))
+
 ## [3.252.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.251.0...v3.252.0) (2024-02-27)
 
 
