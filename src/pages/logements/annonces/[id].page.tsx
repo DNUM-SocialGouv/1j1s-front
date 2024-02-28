@@ -1,6 +1,5 @@
 import {
 	GetServerSidePropsContext,
-	GetServerSidePropsResult,
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
@@ -11,6 +10,7 @@ import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnav
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import analytics from '~/pages/logements/annonces/[id].analytics';
+import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 import { dependencies } from '~/server/start';
@@ -59,7 +59,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Loge
 
 	const annonceDeLogement = await dependencies.annonceDeLogementDependencies.consulterAnnonceLogementUseCase.handle(slug);
 	if (annonceDeLogement.instance === 'failure') {
-		return { notFound: true };
+		return setStatusCode(context, annonceDeLogement.errorType);
 	}
 
 	return {

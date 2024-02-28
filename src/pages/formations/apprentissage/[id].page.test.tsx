@@ -52,12 +52,12 @@ describe('getServerSideProps', () => {
 		});
 
 		describe('lorsque les query params sont incorrects', () => {
-			it('retourne une page 404', async () => {
+			it('retourne en props une erreur Demande Incorrecte', async () => {
 				const queryParam = {} as ParsedUrlQuery;
 
-				const value = await getServerSideProps({ params: { id: '1' }, query: queryParam } as GetServerSidePropsContext<{ id: string }>);
+				const value = await getServerSideProps({ params: { id: '1' }, query: queryParam, res: { statusCode: 0 } } as GetServerSidePropsContext<{ id: string }>);
 
-				expect(value).toEqual({ notFound: true });
+				expect(value).toEqual({ props: { error: ErreurMetier.DEMANDE_INCORRECTE } });
 				expect(dependencies.formationDependencies.consulterFormation.handle).not.toHaveBeenCalled();
 			});
 		});
@@ -92,7 +92,7 @@ describe('getServerSideProps', () => {
 
 		describe('lorsque les query params sont remplis', () => {
 			describe('lorsque le détail de la formation n‘existe pas', () => {
-				it('retourne une page 404', async () => {
+				it('retourne en props une erreur Service Indisponible', async () => {
 					const queryParam = {
 						codeCommune: '13180',
 						codeRomes: 'F1603',
@@ -107,9 +107,10 @@ describe('getServerSideProps', () => {
 					const value = await getServerSideProps({
 						params: { id: '1' },
 						query: queryParam,
+						res: { statusCode: 0 },
 					} as GetServerSidePropsContext<{ id: string }>);
 
-					expect(value).toEqual({ notFound: true });
+					expect(value).toEqual({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 				});
 			});
 

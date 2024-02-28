@@ -82,21 +82,21 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '1';
 			});
 			describe('lorsque la query est vide', () => {
-				it('retourne une page 404', async () => {
+				it('retourne en props une erreur Demande Incorrecte', async () => {
 					// Given
 					const query = {};
-					const context = { query } as GetServerSidePropsContext;
+					const context = { query, res: { statusCode: 0 } } as GetServerSidePropsContext;
 
 					// When
 					const result = await getServerSideProps(context);
 
 					// Then
-					expect(result).toMatchObject({ notFound: true });
+					expect(result).toMatchObject({ props: { error: ErreurMetier.DEMANDE_INCORRECTE } });
 					expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).not.toHaveBeenCalled();
 				});
 			});
 			describe('lorsque la query ne contient pas toutes les données nécessaires', () => {
-				it('retourne une page 404', async () => {
+				it('retourne en props une erreur Demande Incorrecte', async () => {
 					// Given
 					const queryWithInvalidSiretType = {
 						appellationCodes: 'appellationCodes',
@@ -104,19 +104,19 @@ describe('Page Candidater Stages 3e et 2de', () => {
 						nomEntreprise: 'nomEntreprise',
 						siret: 1,
 					};
-					const context = { query: queryWithInvalidSiretType } as unknown as GetServerSidePropsContext;
+					const context = { query: queryWithInvalidSiretType, res: { statusCode: 0 } } as unknown as GetServerSidePropsContext;
 
 					// When
 					const result = await getServerSideProps(context);
 
 					// Then
-					expect(result).toMatchObject({ notFound: true });
+					expect(result).toMatchObject({ props: { error: ErreurMetier.DEMANDE_INCORRECTE } });
 					expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).not.toHaveBeenCalled();
 				});
 			});
 			describe('lorsque la query est contient toutes les données nécessaires', () => {
 				describe('lorsque la récupération des appellations échoue', () => {
-					it('retourne une page 404', async () => {
+					it('retourne en props une erreur Service Indisponible', async () => {
 						// Given
 						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 						const query = {
@@ -125,18 +125,18 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
-						const context = { query } as unknown as GetServerSidePropsContext;
+						const context = { query, res: { statusCode: 0 } } as unknown as GetServerSidePropsContext;
 
 						// When
 						const result = await getServerSideProps(context);
 
 						// Then
-						expect(result).toMatchObject({ notFound: true });
+						expect(result).toMatchObject({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 						expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).toHaveBeenCalledWith(['appellationCodes']);
 					});
 				});
 				describe('lorsque la récupération des appellations retourne un tableau vide', () => {
-					it('retourne une page 404', async () => {
+					it('retourne en props une erreur Service Indisponible', async () => {
 						// Given
 						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createSuccess([]));
 						const query = {
@@ -145,13 +145,13 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
-						const context = { query } as unknown as GetServerSidePropsContext;
+						const context = { query, res: { statusCode: 0 } } as unknown as GetServerSidePropsContext;
 
 						// When
 						const result = await getServerSideProps(context);
 
 						// Then
-						expect(result).toMatchObject({ notFound: true });
+						expect(result).toMatchObject({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 						expect(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase.handle).toHaveBeenCalledWith(['appellationCodes']);
 					});
 				});

@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
 import {
@@ -7,6 +7,7 @@ import {
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
+import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
@@ -30,7 +31,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	const emploiEuropeResponse = await dependencies.emploiEuropeDependencies.consulterEmploiEuropeUseCase.handle(id);
 
 	if (emploiEuropeResponse.instance === 'failure') {
-		return { notFound: true };
+		return setStatusCode(context, emploiEuropeResponse.errorType);
 	}
 	return {
 		props: {

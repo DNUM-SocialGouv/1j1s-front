@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
 import {
@@ -13,6 +13,7 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { DateService } from '~/client/services/date/date.service';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import styles from '~/pages/formations-initiales/[id].module.scss';
+import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import {
 	FormationInitialeDetailComplete,
@@ -42,7 +43,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id);
 
 	if (formationInitialeDetailComplete.instance === 'failure') {
-		return { notFound: true };
+		return setStatusCode(context, formationInitialeDetailComplete.errorType);
 	}
 
 	return {
