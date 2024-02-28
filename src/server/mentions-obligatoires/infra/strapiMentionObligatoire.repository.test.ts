@@ -27,10 +27,10 @@ describe('StrapiMentionObligatoireRepository', () => {
 	it('retourne la mention obligatoire', async () => {
 		// GIVEN
 		const cmsService = aStrapiCmsRepository();
-		jest.spyOn(cmsService, 'getSingleType').mockResolvedValueOnce(createSuccess({
+		jest.spyOn(cmsService, 'getSingleType').mockResolvedValueOnce(createSuccess(aStrapiMentionObligatoire({
 			contenu: 'Ceci est une politique de confidentialité',
 			titre: 'Politique de confidentialité',
-		}));
+		})));
 		const mentionObligatoireRepository = new StrapiMentionObligatoireRepository(cmsService);
 
 		// WHEN
