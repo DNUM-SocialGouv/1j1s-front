@@ -11,6 +11,9 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterEmploiEurope, { getServerSideProps } from '~/pages/emplois-europe/[id].page';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
@@ -59,7 +62,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const analyticsService = aManualAnalyticsService();
-		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
@@ -67,7 +70,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
-		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
+		const { container } = render(<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 		</DependenciesProvider>);
 
@@ -79,7 +82,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' }); 
 			
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -92,7 +95,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: undefined });
 
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -105,7 +108,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		emploiEurope = anEmploiEurope({ titre: 'Bäcker' });
 
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);
@@ -117,7 +120,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
 			</DependenciesProvider>,
 		);

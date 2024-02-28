@@ -4,6 +4,10 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
+import { BackButtonPersistenceService } from '~/client/services/backButtonPersistence/backButtonPersistence.service';
+import {
+	SessionStorageBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/sessionStorage.backButtonPersistence.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
@@ -62,6 +66,7 @@ export type Dependencies = {
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
 	stage3eEt2deService: Stage3eEt2deService
+	backButtonPersistenceService: BackButtonPersistenceService
 }
 
 class DependencyInitException extends Error {
@@ -123,9 +128,12 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const rechercheClientService = instantMeiliSearchObject.searchClient;
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
+	
+	const backButtonPersistenceService = new SessionStorageBackButtonPersistenceService();
 
 	return {
 		analyticsService,
+		backButtonPersistenceService,
 		cookiesService,
 		dateService,
 		demandeDeContactService,

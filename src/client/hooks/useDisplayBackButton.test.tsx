@@ -5,7 +5,11 @@
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import useDisplayBackButton from '~/client/hooks/useDisplayBackButton';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 
 function TestComponent() {
 	useDisplayBackButton();
@@ -23,14 +27,13 @@ describe('useDisplayBackButton', () => {
 			mockUseRouter({
 				pathname: '/',
 			});
-			const setItem = jest.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
-			jest.spyOn(Object.getPrototypeOf(sessionStorage), 'getItem').mockReturnValue(null);
+			const backButtonPersistenceService = aBackButtonPersistenceService();
 
 			// When
-			render(<TestComponent />);
+			render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
 
 			// Then
-			expect(setItem).toHaveBeenCalledWith('current-page', '/');
+			expect(backButtonPersistenceService.setCurrentPath).toHaveBeenCalledWith('/');
 		});
 	});
 
@@ -40,15 +43,16 @@ describe('useDisplayBackButton', () => {
 			mockUseRouter({
 				pathname: '/other-page',
 			});
-			const setItem = jest.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
-			jest.spyOn(Object.getPrototypeOf(sessionStorage), 'getItem').mockReturnValue('/');
+			const backButtonPersistenceService = aBackButtonPersistenceService({
+				getPreviousPath: jest.fn().mockReturnValue('/'),
+			});
 
 			// When
-			render(<TestComponent />);
+			render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
 
 			// Then
-			expect(setItem).toHaveBeenCalledWith('previous-page', '/');
-			expect(setItem).toHaveBeenLastCalledWith('current-page', '/other-page');
+			expect(backButtonPersistenceService.setPreviousPath).toHaveBeenCalledWith('/');
+			expect(backButtonPersistenceService.setCurrentPath).toHaveBeenLastCalledWith('/other-page');
 		});
 	});
 });

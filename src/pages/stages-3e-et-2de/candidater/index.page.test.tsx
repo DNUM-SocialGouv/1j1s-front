@@ -12,6 +12,9 @@ import {
 } from '~/client/components/features/Stages3eEt2de/Candidater/donneesEntreprise.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -37,7 +40,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 		it('doit rendre du HTML respectant la specification', async () => {
 			const donneesEntreprise = aDonneesEntrepriseStage3eEt2de();
 			const { container } = render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 					<Stages3eEt2deCandidaterPage
 						donneesEntreprise={donneesEntreprise}
 					/>,
@@ -51,6 +54,7 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			const { container } = render(
 				<DependenciesProvider
 					stage3eEt2deService={aStage3eEt2deService()}
+					backButtonPersistenceService={aBackButtonPersistenceService()}
 				>
 					<Stages3eEt2deCandidaterPage
 						donneesEntreprise={donneesEntreprise}

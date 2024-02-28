@@ -11,6 +11,9 @@ import { ParsedUrlQuery } from 'querystring';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -209,7 +212,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		const formation = aFormation();
 		mockUseRouter({});
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterFormationPage formation={formation}/>
 		</DependenciesProvider> );
 
@@ -224,6 +227,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
@@ -240,6 +244,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
@@ -257,6 +262,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFormationPage formation={formation} />
 			</DependenciesProvider>,
