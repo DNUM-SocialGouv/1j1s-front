@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import { Link } from '../Link/Link';
 
@@ -21,8 +20,6 @@ interface HeroWithButtonLinkProps {
 
 export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 	const { titlePrimaryText, titleSecondaryText, content, buttonLabel, buttonLabelSecondary, buttonHref, buttonHrefSecondary, imgSrc, additionalInformation } = props;
-
-	const { isLargeScreen } = useBreakpoint();
 
 	return (
 		<div className={styles.heading}>
@@ -42,11 +39,9 @@ export function HeroWithButtonLink(props: HeroWithButtonLinkProps) {
 					{additionalInformation}
 				</div>
 			</div>
-			{isLargeScreen &&
-        <div className={styles.imageWrapper}>
-        	<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
-        </div>
-			}
+			<div className={styles.imageWrapper}>
+				<Image src={imgSrc} alt="" fill sizes="{(min-width:992px) 50vw}" priority />
+			</div>
 		</div>
 	);
 }

@@ -70,7 +70,13 @@ class DependencyInitException extends Error {
 	}
 }
 
-export default function dependenciesContainer(sessionId: string): Dependencies {
+const getCookieService = () => {
+	return process.env.NODE_ENV === 'production' && typeof window !== 'undefined' && window.tarteaucitron != undefined
+		? new TarteAuCitronCookiesService(window.tarteaucitron)
+		: new NullCookiesService();
+};
+
+export default function dependenciesContainer(sessionId?: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
 	const httpClientService = new HttpClientService(sessionId, loggerService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
@@ -84,9 +90,7 @@ export default function dependenciesContainer(sessionId: string): Dependencies {
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
-	const cookiesService = process.env.NODE_ENV === 'production' && window?.tarteaucitron != undefined
-		? new TarteAuCitronCookiesService(window.tarteaucitron)
-		: new NullCookiesService();
+	const cookiesService = getCookieService();
 	const marketingService = process.env.NEXT_PUBLIC_CAMPAGNE_ADFORM_FEATURE === '1'
 		? new AdformMarketingService(cookiesService)
 		: new NullMarketingService();

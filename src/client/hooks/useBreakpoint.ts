@@ -1,5 +1,5 @@
 import {
-	useLayoutEffect,
+	useEffect,
 	useState,
 } from 'react';
 
@@ -10,22 +10,30 @@ enum BREAKPOINT {
 }
 
 function getScreenSize() {
-	if (window.matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
+	if (typeof window === 'undefined') {
+		return BREAKPOINT.SM;
+	}
+
+	if (window && window.matchMedia(`(min-width: ${BREAKPOINT.LG})`).matches) {
 		return BREAKPOINT.LG;
 	}
-	if (window.matchMedia(`(min-width: ${BREAKPOINT.MD})`).matches) {
+	if (window && window.matchMedia(`(min-width: ${BREAKPOINT.MD})`).matches) {
 		return BREAKPOINT.MD;
 	}
 	return BREAKPOINT.SM;
 }
 
+// TODO supprimer la plupart des utilisations pour se reposer sur du CSS + display:none à la place
 export default function useBreakpoint() {
 	const [screenSize, setScreenSize] = useState(getScreenSize());
 
-	useLayoutEffect(() => {
+	//TODO voir si on repasse en useLayoutEffect après avoir tué les utilisations / vérfiier impact du passage en useEffect
+	useEffect(() => {
 		function handleDevice(): void {
 			setScreenSize(getScreenSize());
-		};
+		}
+
+		setScreenSize(getScreenSize());
 
 		window.addEventListener('resize', handleDevice);
 		return () => window.removeEventListener('resize', handleDevice);

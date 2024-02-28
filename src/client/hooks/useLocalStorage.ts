@@ -8,7 +8,7 @@ function useLocalStorage<T>(key: string): { get: () => T | null, set: (value: T)
 		return item ? JSON.parse(item) : null;
 	};
 
-	if (window && window.localStorage) {
+	if (typeof window !== 'undefined' && window.localStorage) {
 		return {
 			get,
 			remove: (): void => localStorage.removeItem(key),

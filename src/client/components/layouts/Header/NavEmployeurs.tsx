@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -20,20 +20,6 @@ export function NavEmployeurs({ item: root }: NavEmployeursProps) {
 	const content = useRef<HTMLUListElement>(null);
 	const router = useRouter();
 	const isActive = useMemo(() => isItemActive(root, router.pathname), [router.pathname, root]);
-
-	useLayoutEffect(() => {
-		function onResize() {
-			if (content.current && wrapper.current) {
-				const height = content.current.offsetHeight;
-				wrapper.current.style.setProperty('--contentHeight', `${height}px`);
-			}
-		}
-
-		onResize();
-		window.addEventListener('resize', onResize);
-		return () => window.removeEventListener('resize', onResize);
-	}, [wrapper, content]);
-
 
 	useExitModal(wrapper, isExpanded, () => isExpanded && setIsExpanded(false));
 

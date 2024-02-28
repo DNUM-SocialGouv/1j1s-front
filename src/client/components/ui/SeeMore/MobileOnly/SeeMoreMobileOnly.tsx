@@ -1,17 +1,17 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import SeeMoreItemList, { SeeMoreProps } from '~/client/components/ui/SeeMore/SeeMoreItemList';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
+
+import styles from './SeeMoreMobileOnly.module.scss';
 
 export default function SeeMoreMobileOnly(props: SeeMoreProps) {
-	const { children, ...rest } = props;
-	const { isSmallScreen, isMediumScreen } = useBreakpoint();
+	const { children, className, ...rest } = props;
 
-	if (isSmallScreen || isMediumScreen) {
-		return (
-			<SeeMoreItemList {...rest}/>
-		);
-	} else {
-		return <>{children}</>;
-	}
+	return (
+		<>
+			<SeeMoreItemList {...rest} className={classNames(styles.smallScreenOnly, className)}/>
+			<div className={classNames(styles.largeScreenOnly, className)}>{children}</div>
+		</>
+	);
 }

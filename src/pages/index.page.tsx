@@ -9,7 +9,6 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import analytics from '~/pages/index.analytics';
 import styles from '~/pages/index.module.scss';
 
@@ -24,8 +23,6 @@ interface CardContent {
 
 export default function Accueil() {
 	useAnalytics(analytics);
-
-	const { isLargeScreen } = useBreakpoint();
 
 	const isJobEteCardVisible = process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1';
 	const isFormationsInitalesVisible = process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1';
@@ -236,7 +233,8 @@ export default function Accueil() {
 						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
-						{ isLargeScreen ? 'Découvrir les actualités et services jeunes' : 'Actualités et services jeunes'}
+						<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
+						<span className={styles.heroButtonSmallMediumScreenText}>Actualités et services jeunes</span>
 						<Link.Icon/>
 					</Link>
 				</HeroWithIllustration>

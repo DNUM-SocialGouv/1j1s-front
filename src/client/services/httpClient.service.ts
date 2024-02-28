@@ -8,7 +8,7 @@ import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 export class HttpClientService {
 	readonly client: AxiosInstance;
 
-	constructor(sessionId: string, private logger: LoggerService) {
+	constructor(sessionId: string | undefined, private logger: LoggerService) {
 		this.client = axios.create({
 			baseURL: '/api',
 			headers: {

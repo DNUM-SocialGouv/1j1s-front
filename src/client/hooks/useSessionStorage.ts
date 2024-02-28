@@ -8,7 +8,7 @@ function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T
 		return item ? JSON.parse(item) : null;
 	};
 
-	if (window && window.sessionStorage) {
+	if (typeof window !== 'undefined' && window.sessionStorage) {
 		return {
 			get,
 			remove: (): void => sessionStorage.removeItem(key),

@@ -9,11 +9,9 @@ import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function HeaderBody() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const { isLargeScreen } = useBreakpoint();
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
@@ -29,18 +27,16 @@ export function HeaderBody() {
 							width="88"
 							height="80"
 						/>
-						{!isLargeScreen &&
-							<nav role={'navigation'} aria-label="ouvrir le menu principal">
-								<ButtonComponent
-									appearance="quaternary"
-									icon={<Icon name="burger-menu"/>}
-									iconPosition="top"
-									onClick={toggleModal}
-									label="Menu"
-									className={styles.headerBodyBurgerMenu}
-								/>
-							</nav>
-						}
+						<nav role={'navigation'} aria-label="ouvrir le menu principal" className={styles.headerBodyNavigationMobile}>
+							<ButtonComponent
+								appearance="quaternary"
+								icon={<Icon name="burger-menu"/>}
+								iconPosition="top"
+								onClick={toggleModal}
+								label="Menu"
+								className={styles.headerBodyBurgerMenu}
+							/>
+						</nav>
 					</div>
 					<Link
 						className={styles.headerBodyTitle}
@@ -51,8 +47,8 @@ export function HeaderBody() {
 						1jeune1solution
 					</Link>
 				</div>
-				{isLargeScreen && displayBanner &&
-					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner}>
+				{displayBanner &&
+					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner} data-testid="desktop-mailto-stages">
 						<div>
 							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
 							</div>
@@ -62,17 +58,15 @@ export function HeaderBody() {
 					</Link>
 				}
 			</div>
-			{!isLargeScreen &&
-				<ModalComponent close={toggleModal} isOpen={isModalOpen}>
-					<ModalComponent.Title>
-						<Icon name="menu"/>
-						<span>Menu</span>
-					</ModalComponent.Title>
-					<ModalComponent.Content>
-						<HeaderNavMobile toggleModal={toggleModal}/>
-					</ModalComponent.Content>
-				</ModalComponent>
-			}
+			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
+				<ModalComponent.Title>
+					<Icon name="menu"/>
+					<span>Menu</span>
+				</ModalComponent.Title>
+				<ModalComponent.Content>
+					<HeaderNavMobile toggleModal={toggleModal}/>
+				</ModalComponent.Content>
+			</ModalComponent>
 		</Container>
 	);
 }

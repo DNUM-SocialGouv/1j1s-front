@@ -28,6 +28,7 @@ export function HeaderNavDesktop() {
 				<nav id="header-navigation"
 					className={styles.headerNavigationList}
 					role="navigation"
+					data-testid="navigation-desktop"
 					aria-label="Menu principal">
 					<ul className={styles.headerNavigationListLeft}>
 						<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} />

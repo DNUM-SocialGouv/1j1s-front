@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface HeroIllustrationProps extends React.ComponentPropsWithoutRef<'div'> {
 	image: string
@@ -18,20 +17,16 @@ export function Hero({ children, className, ...rest }: React.ComponentPropsWitho
 }
 
 export function HeroWithIllustration({ children, className, image, ...rest }: HeroIllustrationProps) {
-	const { isLargeScreen } = useBreakpoint();
-	if (isLargeScreen) {
-		return (
-			<div className={classNames(styles.hero, className)} {...rest}>
-				<div className={styles.heroTextWrapper}>
-					{children}
-				</div>
-				<div className={styles.heroIllustration}>
-					<Image src={image} alt="" fill sizes="(min-width: 992px) 50vw" />
-				</div>
+	return (
+		<div className={classNames(styles.hero, className)} {...rest}>
+			<div className={styles.heroTextWrapper}>
+				{children}
 			</div>
-		);
-	}
-	return Hero({ children, className, ...rest });
+			<div className={styles.heroIllustration}>
+				<Image src={image} alt="" fill sizes="(min-width: 992px) 50vw" />
+			</div>
+		</div>
+	);
 }
 
 export function HeroPrimaryText({ children, className, ...rest }: React.ComponentPropsWithoutRef<'span'>) {

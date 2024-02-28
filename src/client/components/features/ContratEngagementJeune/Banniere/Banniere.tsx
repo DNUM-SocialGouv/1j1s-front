@@ -3,12 +3,10 @@ import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 import styles from './Banniere.module.scss';
 
 export default function Banniere() {
-	const { isLargeScreen } = useBreakpoint();
 	const titre = <>Le Contrat d’Engagement Jeune, la solution pour vous&nbsp;!</>;
 	const accroche = 'Découvrez le CEJ, un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi';
 
@@ -28,15 +26,14 @@ export default function Banniere() {
 					</Link>
 				</div>
 			</div>
-			{isLargeScreen && (
-				<Image
-					priority
-					src={banniereImage}
-					alt={'Contrat d‘engagement jeune, finie la galère, trouvez un métier qui va vous plaire.'}
-					width={800}
-					height={400}
-				/>
-			)}
+			<Image
+				className={styles.banniereContentImage}
+				priority
+				src={banniereImage}
+				alt={'Contrat d‘engagement jeune, finie la galère, trouvez un métier qui va vous plaire.'}
+				width={800}
+				height={400}
+			/>
 		</div>
 	);
 }

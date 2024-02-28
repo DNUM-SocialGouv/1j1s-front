@@ -22,16 +22,16 @@ export function HeaderNavMobile({ toggleModal }: { toggleModal: () => void }) {
 
 	return (
 		<Container className={styles.headerModalContainer}>
-			<nav role="navigation" aria-label="menu principal">
+			<nav role="navigation" aria-label="menu principal" data-testid="navigation-mobile">
 				<ul className={styles.headerModalNavigationList}>
 					<NavItem className={styles.navItem} label={accueil.label} link={accueil.link} isActive={router.pathname === accueil.link} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={offresNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={orientationNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={engagementNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={logementsNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav} onClick={toggleModal}/>
-					<NavItemWithSubItems className={styles.navItem} item={employeurNav} onClick={toggleModal}/>
+					<NavItemWithSubItems className={styles.navItem} item={offresNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={orientationNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={engagementNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={logementsNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={accompagnementNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={aidesEtOutilsNav} onClick={toggleModal} isMobile/>
+					<NavItemWithSubItems className={styles.navItem} item={employeurNav} onClick={toggleModal} isMobile/>
 				</ul>
 			</nav>
 		</Container>
