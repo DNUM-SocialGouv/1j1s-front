@@ -10,6 +10,9 @@ import { HeadMock } from '~/client/components/head.mock';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
@@ -23,7 +26,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const jobEte = aBarmanOffre();
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} analyticsService={aManualAnalyticsService()}>
 			<ConsulterJobEtePage jobEte={jobEte}/>
 		</DependenciesProvider> );
 
@@ -33,7 +36,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const jobEte = aBarmanOffre();
 		const { container } = render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
 			</DependenciesProvider>,
 		);
@@ -44,7 +47,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('ajoute le nom de l’annonce au titre du document', async () => {
 		const jobEte = aBarmanOffre();
 		render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
 			</DependenciesProvider>,
 		);
@@ -54,7 +57,7 @@ describe('<ConsulterJobEtePage />', () => {
 
 	it('affiche le détail de l’annonce', async () => {
 		render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>
 			</DependenciesProvider>,
 		);
@@ -66,7 +69,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} analyticsService={analyticsService}>
 				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>
 			</DependenciesProvider>,
 		);

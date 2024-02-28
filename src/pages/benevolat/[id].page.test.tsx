@@ -10,6 +10,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterMissionEngagementPage from '~/pages/benevolat/[id].page';
 import { anAmbassadeurDuDonDeVêtementMission } from '~/server/engagement/domain/missionEngagement.fixture';
 
@@ -20,7 +23,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterMissionEngagementPage missionEngagement={mission}/>
 		</DependenciesProvider> );
 
@@ -36,6 +39,7 @@ describe('<ConsulterMissionEngagementPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterMissionEngagementPage missionEngagement={mission} />);
 			</DependenciesProvider>);

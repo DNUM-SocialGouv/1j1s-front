@@ -10,8 +10,10 @@ import {
 	aDonneesEntrepriseStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/donneesEntreprise.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -43,7 +45,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 		// WHEN
 		render(
-			<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+			<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 				<CandidaterStage3eEt2de
 					donneesEntreprise={donneesEntreprise}
 				/>
@@ -74,7 +76,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -107,7 +109,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -132,7 +134,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+				<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -152,8 +154,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// GIVEN
 				const routerBack = jest.fn();
 				mockUseRouter({ back: routerBack });
-				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
@@ -171,7 +173,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -202,7 +204,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -229,7 +231,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -268,7 +270,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -285,8 +287,8 @@ describe('Candidater à un stage de 3e et 2de', () => {
 				// GIVEN
 				const routerBack = jest.fn();
 				mockUseRouter({ back: routerBack });
-				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const donneesEntreprise = aDonneesEntrepriseStage3eEt2de(
@@ -296,7 +298,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -318,7 +320,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -340,7 +342,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -372,7 +374,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -393,7 +395,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -431,7 +433,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -466,7 +468,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -504,7 +506,7 @@ En vous remerciant,
 
 				// WHEN
 				render(
-					<DependenciesProvider stage3eEt2deService={aStage3eEt2deService()}>
+					<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={aStage3eEt2deService()}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -549,7 +551,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -596,7 +598,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -647,7 +649,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -694,7 +696,7 @@ En vous remerciant,
 					);
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -746,7 +748,7 @@ En vous remerciant,
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -799,7 +801,7 @@ En vous remerciant,
 					const user = userEvent.setup();
 					const stage3eEt2deService = aStage3eEt2deService();
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -857,7 +859,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -905,7 +907,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -950,7 +952,7 @@ En vous remerciant,
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -990,15 +992,15 @@ En vous remerciant,
 					});
 				const routerBack = jest.fn();
 				mockUseRouter({ back: routerBack });
-				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createSuccess(undefined));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1042,7 +1044,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.CONFLIT_D_IDENTIFIANT));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -1084,7 +1086,7 @@ En vous remerciant,
 					jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 					// WHEN
-					render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 						<CandidaterStage3eEt2de
 							donneesEntreprise={donneesEntreprise}
 						/>
@@ -1125,7 +1127,7 @@ En vous remerciant,
 				jest.spyOn(stage3eEt2deService, 'candidaterStage3eEt2de').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1157,8 +1159,8 @@ En vous remerciant,
 				// GIVEN
 				const routerBack = jest.fn();
 				mockUseRouter({ back: routerBack });
-				mockSessionStorage({
-					getItem: jest.fn().mockReturnValue('/page-1'),
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/page-1'),
 				});
 				const user = userEvent.setup();
 				const stage3eEt2deService = aStage3eEt2deService();
@@ -1176,7 +1178,7 @@ En vous remerciant,
 				});
 
 				// WHEN
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>
@@ -1220,7 +1222,7 @@ En vous remerciant,
 					siret: '12345678912345',
 				});
 
-				render(<DependenciesProvider stage3eEt2deService={stage3eEt2deService}>
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()} stage3eEt2deService={stage3eEt2deService}>
 					<CandidaterStage3eEt2de
 						donneesEntreprise={donneesEntreprise}
 					/>

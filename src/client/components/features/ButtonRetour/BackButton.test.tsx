@@ -6,38 +6,49 @@ import { render, screen } from '@testing-library/react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 
 describe('BackButton', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
 	});
 
-	describe('Lorsque la variable PREVIOUS_PAGE est définie dans le sessionStorage', () => {
+	describe('Lorsque le chemin précedent est définie dans le service de persistence', () => {
 		it('affiche le bouton de retour', () => {
 			// Given
 			mockUseRouter({});
-			mockSessionStorage({
-				getItem: jest.fn().mockReturnValue('/page-1'),
+			const backButtonPersistenceService = aBackButtonPersistenceService({
+				getPreviousPath: jest.fn().mockReturnValue('/previous-page'),
 			});
 
 			// When
-			render(<BackButton />);
+			render(
+				<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}>
+					<BackButton />
+				</DependenciesProvider>,
+			);
 
 			// Then
 			expect(screen.getByRole('button', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
 		});
 	});
-	describe('Lorsque la variable PREVIOUS_PAGE n’est pas définie dans le sessionStorage', () => {
+	describe('Lorsque le chemin précedent n’est pas définie dans le service de persistence', () => {
 		it('n’affiche pas le bouton de retour', () => {
 			// Given
 			mockUseRouter({});
-			mockSessionStorage({
-				getItem: jest.fn().mockReturnValue(null),
+			const backButtonPersistenceService = aBackButtonPersistenceService({
+				getPreviousPath: jest.fn().mockReturnValue(null),
 			});
 
 			// When
-			render(<BackButton />);
+			render(
+				<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}>
+					<BackButton />
+				</DependenciesProvider>,
+			);
 
 			// Then
 			expect(screen.queryByRole('button', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();

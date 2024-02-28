@@ -7,6 +7,10 @@ import { userEvent } from '@testing-library/user-event';
 
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 
 describe('ConsulterOffreLayout', () => {
 	describe('quand l’utilisateur clique sur le bouton retour', () => {
@@ -14,7 +18,9 @@ describe('ConsulterOffreLayout', () => {
 			it('doit retourner sur la page emploi sans paramètres', async () => {
 				const routerBack = jest.fn();
 				const user = userEvent.setup();
-				jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/emplois'),
+				});
 				mockUseRouter({
 					back: routerBack,
 					query: {
@@ -22,7 +28,7 @@ describe('ConsulterOffreLayout', () => {
 						params: '',
 					},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><ConsulterOffreLayout><></></ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
 
@@ -35,7 +41,9 @@ describe('ConsulterOffreLayout', () => {
 				const routerBack = jest.fn();
 				const user = userEvent.setup();
 
-				jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('emplois');
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getPreviousPath: jest.fn().mockReturnValue('/emplois'),
+				});
 				mockUseRouter({
 					back: routerBack,
 					query: {
@@ -43,7 +51,7 @@ describe('ConsulterOffreLayout', () => {
 						params: 'typeDeContrats=CDD&tempsDeTravail=tempsPlein&experienceExigence=D&page=1',
 					},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><ConsulterOffreLayout><></></ConsulterOffreLayout></DependenciesProvider>);
 
 				await user.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
 
@@ -59,7 +67,7 @@ describe('ConsulterOffreLayout', () => {
 					back: routerBack,
 					query: {},
 				});
-				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreLayout><></></ConsulterOffreLayout></DependenciesProvider>);
 
 				expect(screen.queryByRole('button', { name: 'Retour vers la page' })).not.toBeInTheDocument();
 			});

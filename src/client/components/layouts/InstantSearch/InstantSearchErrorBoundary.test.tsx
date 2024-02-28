@@ -7,6 +7,10 @@ import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantS
 import { mockUseInstantSearch } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyOnInstantSearch = jest.spyOn(require('react-instantsearch'), 'useInstantSearch');
 
@@ -23,10 +27,11 @@ describe('InstantSearchErrorBoundary', () => {
 	describe('Quant instantsearch n‘est pas en erreur', () => {
 		it('retourne le composant enfant', () => {
 	  spyOnInstantSearch.mockImplementation(() => mockUseInstantSearch({ error: undefined }));
-	  render(
-	    <InstantSearchErrorBoundary>
-		  <ChildrenComponent/>
-	    </InstantSearchErrorBoundary>,
+	  render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}>
+		    <InstantSearchErrorBoundary>
+			    <ChildrenComponent/>
+		    </InstantSearchErrorBoundary>
+			</DependenciesProvider>,
 	  );
 	  const childrenComponentContent = screen.getByLabelText('composant enfant');
 	  expect(childrenComponentContent).toBeInTheDocument();
