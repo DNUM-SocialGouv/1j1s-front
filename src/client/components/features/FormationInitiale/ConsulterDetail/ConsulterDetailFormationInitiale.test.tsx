@@ -9,6 +9,10 @@ import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aFormationInitialeDetailComplete,
@@ -22,9 +26,9 @@ describe('ConsulterDetailFormationInitiale', () => {
 
 	it('je vois le titre', () => {
 		const formationInitialeDetail = aFormationInitialeDetailComplete({ libelle: 'Je suis le titre' });
-		render(<ConsulterDetailFormationInitiale
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
 			formationInitialeDetail={formationInitialeDetail}
-		/>);
+		/></DependenciesProvider>);
 
 		expect(screen.getByRole('heading', { level: 1, name: 'Je suis le titre' })).toBeVisible();
 	});
@@ -32,9 +36,9 @@ describe('ConsulterDetailFormationInitiale', () => {
 	it('je vois les tags', () => {
 		const formationInitialeDetail = aFormationInitialeDetailComplete({ tags: ['Certifiante', 'Bac + 2', '2 ans'] });
 
-		render(<ConsulterDetailFormationInitiale
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
 			formationInitialeDetail={formationInitialeDetail}
-		/>);
+		/></DependenciesProvider>);
 
 		const tagsList = within(screen.getByRole('list')).getAllByRole('listitem');
 		expect(tagsList.length).toBe(3);
@@ -48,9 +52,9 @@ describe('ConsulterDetailFormationInitiale', () => {
 		const formationInitialeDetail = aFormationInitialeDetailComplete({ url_formation: 'https://www.onisep.fr/fiche-formation' });
 
 		// When
-		render(<ConsulterDetailFormationInitiale
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
 			formationInitialeDetail={formationInitialeDetail}
-		/>);
+		/></DependenciesProvider>);
 
 		// Then
 		const lienVersSitePartenaire = screen.getByRole('link', { name: /Consulter les établissements/ });
@@ -64,8 +68,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si la description est disponible, je la vois', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ description: descriptionText });
 
-			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description');
 			expect(description).toBeVisible();
@@ -75,8 +79,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si la description n‘est pas disponible, je ne la vois pas', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ description: undefined });
 
-			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { queryByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			expect(queryByDescriptionTerm('Description')).not.toBeInTheDocument();
 		});
@@ -87,8 +91,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si les attendus Parcoursup sont disponibles, je les vois', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ attendusParcoursup: attendusParcoursup });
 
-			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Attendus Parcoursup');
 			expect(description).toBeVisible();
@@ -98,8 +102,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si les attendus Parcoursup ne sont pas disponibles, je ne les vois pas', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ attendusParcoursup: undefined });
 
-			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { queryByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			expect(queryByDescriptionTerm('Attendus Parcoursup')).not.toBeInTheDocument();
 		});
@@ -110,8 +114,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si les conditions d‘accès sont disponibles, je les vois', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ conditionsAcces: conditionsAcces });
 
-			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Conditions d‘accès');
 			expect(description).toBeVisible();
@@ -121,8 +125,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si les attendus Parcoursup ne sont pas disponibles, je ne les vois pas', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ conditionsAcces: undefined });
 
-			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { queryByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			expect(queryByDescriptionTerm('Conditions d‘accès')).not.toBeInTheDocument();
 		});
@@ -133,8 +137,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si la poursuite d‘étude est disponible, je la vois', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ poursuiteEtudes: poursuiteEtudes });
 
-			const { getByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Poursuite d‘études');
 			expect(description).toBeVisible();
@@ -144,8 +148,8 @@ describe('ConsulterDetailFormationInitiale', () => {
 		it('si la poursuite d‘étude n‘est pas disponible, je ne la vois pas', () => {
 			const formationInitialeDetail = aFormationInitialeDetailComplete({ poursuiteEtudes: undefined });
 
-			const { queryByDescriptionTerm } = render(<ConsulterDetailFormationInitiale
-				formationInitialeDetail={formationInitialeDetail}/>, { queries });
+			const { queryByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale
+				formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>, { queries });
 
 			expect(queryByDescriptionTerm('Poursuite d‘études')).not.toBeInTheDocument();
 		});
@@ -156,7 +160,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 			it('affiche la mention explicative', () => {
 				const formationInitialeDetail = aFormationInitiale();
 
-				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>);
 
 				expect(screen.getByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).toBeVisible();
 			});
@@ -165,7 +169,7 @@ describe('ConsulterDetailFormationInitiale', () => {
 		describe('lorsque les informations sont récupérées du CMS', () => {
 			it('n‘affiche pas la mention explicative', () => {
 				const formationInitialeDetail = aFormationInitialeDetailComplete();
-				render(<ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/>);
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterDetailFormationInitiale formationInitialeDetail={formationInitialeDetail}/></DependenciesProvider>);
 
 				expect(screen.queryByText('L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.')).not.toBeInTheDocument();
 			});

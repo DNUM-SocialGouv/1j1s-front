@@ -7,6 +7,10 @@ import { Router } from 'next/router';
 import React from 'react';
 
 import { createMockRouter, mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 
 import App from './_app.page';
 
@@ -22,7 +26,7 @@ describe('<App />', () => {
 			{ getLayout: (page: React.ReactElement) => <>{page}</> },
 		);
 
-		render(<App pageProps={{}} Component={Component} router={router}/>);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><App pageProps={{}} Component={Component} router={router}/></DependenciesProvider>);
 
 		const cible = screen.getByText('Cible');
 		await waitFor(() => expect(cible).toHaveFocus());

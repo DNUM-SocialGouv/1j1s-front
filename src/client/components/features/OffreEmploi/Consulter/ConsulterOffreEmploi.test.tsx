@@ -6,6 +6,10 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { aBarmanOffre, aMaçonOffre, aValetOffre } from '~/server/offres/domain/offre.fixture';
 
 jest.mock('dompurify', () => {
@@ -22,7 +26,7 @@ describe('ConsulterOffreEmploi', () => {
 	it('affiche l‘offre d‘emploi', () => {
 		const offreEmploi = aMaçonOffre();
 
-		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreEmploi offreEmploi={offreEmploi} /></DependenciesProvider>);
 
 		const nomEntreprise = screen.getByText('RAS 1040');
 		const intituléOffreEmploi = screen.getByText('Maçon / Maçonne');
@@ -37,7 +41,7 @@ describe('ConsulterOffreEmploi', () => {
 	it('permet de postuler à l‘offre d‘emploi', () => {
 		const offreEmploi = aValetOffre();
 
-		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreEmploi offreEmploi={offreEmploi} /></DependenciesProvider>);
 
 		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Je postule sur France Travail - nouvelle fenêtre' });
 
@@ -48,7 +52,7 @@ describe('ConsulterOffreEmploi', () => {
 	it('affiche la formation requise dans un paragraphe', () => {
 		const offreEmploi = aMaçonOffre();
 
-		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreEmploi offreEmploi={offreEmploi} /></DependenciesProvider>);
 
 		const formationParagraph = screen.getByTestId('FormationParagraph');
 		const formationList = screen.queryByTestId('FormationList');
@@ -60,7 +64,7 @@ describe('ConsulterOffreEmploi', () => {
 	it('affiche les formations requises dans une liste', () => {
 		const offreEmploi = aBarmanOffre();
 
-		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreEmploi offreEmploi={offreEmploi} /></DependenciesProvider>);
 
 		const formationParagraph = screen.queryByTestId('FormationParagraph');
 		const formationList = screen.getByTestId('FormationList');
