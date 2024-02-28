@@ -10,13 +10,11 @@ export type PaysOption = {
 	label: string,
 	code: string,
 };
-type ComboboxPaysProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
+type ComboboxPaysProps = Omit<ComboboxProps, 'defaultValue' | 'optionsAriaLabel'> & {
 	paysList: Pays[],
   label?: string,
 	defaultValue?: PaysOption,
   debounceTimeout?: number,
-	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
-	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
 }
 
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des pays. Veuillez réessayer plus tard.';
@@ -87,11 +85,11 @@ export const ComboboxPays = React.forwardRef<ComboboxRef, ComboboxPaysProps>(fun
 			</label>
 			<Combobox
 				ref={ref}
+				optionsAriaLabel="pays"
 				autoComplete="off"
 				id={inputId}
 				valueName={'codePays'}
 				name={'libellePays'}
-				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
 					getPays(newValue);

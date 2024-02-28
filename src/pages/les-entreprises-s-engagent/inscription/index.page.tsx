@@ -192,12 +192,13 @@ export default function LesEntreprisesSEngagentInscription() {
 									<Champ>
 										<Champ.Label>
 											Secteur d’activité de l’entreprise
-											<Champ.Label.Complement>Exemples : Administration publique, Fonction publique d’Etat
-												…</Champ.Label.Complement>
+											<Champ.Label.Complement>
+												Exemples : Administration publique, Fonction publique d’Etat …
+											</Champ.Label.Complement>
 										</Champ.Label>
 										<Champ.Input
 											render={Combobox}
-											aria-label={'Secteur d’activité de l’entreprise'}
+											optionsAriaLabel="secteurs d’activités"
 											valueName={'companySector'}
 											required
 											requireValidOption

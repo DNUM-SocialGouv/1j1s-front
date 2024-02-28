@@ -143,7 +143,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-				
+
 				expect(routerPush).toHaveBeenCalledWith({ query: 'niveauEtude=7&page=1' }, undefined, { shallow: true });
 			});
 		});
@@ -280,7 +280,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		});
 
 		describe('quand on recherche par secteur d‘activité', () => {
-			it('ajoute les secteurs d‘activités aux query params', async () => {
+			it('ajoute les secteurs d’activités aux query params', async () => {
 				// GIVEN
 				const routerPush = jest.fn();
 				const user = userEvent.setup();

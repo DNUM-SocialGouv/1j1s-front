@@ -33,13 +33,11 @@ const DEFAULT_LABEL = 'Localisation';
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
 
-type ComboboxPropsWithOmit = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue' | 'label'>
+type ComboboxPropsWithOmit = Omit<ComboboxProps, 'defaultValue' | 'optionsAriaLabel'>
 type ComboboxLocalisationProps = ComboboxPropsWithOmit & {
 	label?: string,
 	defaultValue?: DefaultLocalisation | undefined,
 	debounceTimeout?: number,
-	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
-	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
 }
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 
@@ -51,7 +49,6 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		debounceTimeout = 300,
 		id: idProps,
 		onInvalid: onInvalidProps = () => null,
-		'aria-labelledby': ariaLabelledby = '',
 		'aria-describedby': ariaDescribedby = '',
 		...rest
 	} = props;
@@ -125,7 +122,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 			<Combobox
 				ref={ref}
 				autoComplete="off"
-				aria-labelledby={`${labelId} ${ariaLabelledby}`}
+				optionsAriaLabel="localisations"
 				aria-describedby={`${ariaDescribedby} ${errorId}`}
 				id={inputId}
 				value={userInput}

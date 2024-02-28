@@ -91,13 +91,13 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		});
 
 		describe('champ secteur d‘activité', () => {
-			it('les secteurs d‘activités sont triés par ordre alphabétique avec "autres" et "autres activités" à la fin', async () => {
+			it('les secteurs d’activités sont triés par ordre alphabétique avec "autres" et "autres activités" à la fin', async () => {
 				const user = userEvent.setup();
 				renderComponent();
 
-				await user.click(screen.getByRole('button', { name: /Secteur d’activité de l’entreprise/ }));
+				await user.click(screen.getByRole('button', { name: 'secteurs d’activités' }));
 
-				const listbox = screen.getByRole('listbox', { name: /Secteur d’activité de l’entreprise/ });
+				const listbox = screen.getByRole('listbox', { name: 'secteurs d’activités' });
 				const listOptions = within(listbox).getAllByRole('option');
 				const numberOfOptions = listOptions.length;
 				expect(listOptions[0]).toHaveTextContent('Activités de services administratifs et de soutien');
@@ -159,7 +159,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			expect(screen.getByRole('textbox', { name: /Nom de l’entreprise/ })).toBeValid();
 			expect(screen.getByRole('combobox', { name: /Ville du siège social de l’entreprise/ })).toBeInvalid();
 			expect(screen.getByRole('textbox', { name: /Numéro de SIRET/ })).toBeInvalid();
-			expect(screen.getByRole('combobox', { name: /Secteur d’activité de l’entreprise/ })).toBeInvalid();
+			expect(screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise Exemples : Administration publique, Fonction publique d’Etat …' })).toBeInvalid();
 		});
 	});
 
@@ -338,7 +338,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 				const inputSiret = screen.getByRole('textbox', { name: /Numéro de SIRET/ });
 				expect(inputSiret).toHaveValue('41816609600069');
 
-				const inputSecteur = screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise' });
+				const inputSecteur = screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise Exemples : Administration publique, Fonction publique d’Etat …' });
 				expect(inputSecteur).toHaveValue('Santé humaine et action sociale');
 
 				const tailleEntreprise = screen.getByRole('button', { name: 'Taille de l’entreprise' });
@@ -382,7 +382,7 @@ async function remplirFormulaireEtape1() {
 	const inputSiret = screen.getByRole('textbox', { name: /Numéro de SIRET/ });
 	await user.type(inputSiret, '41816609600069');
 
-	const inputSecteur = screen.getByRole('combobox', { name: /Secteur d’activité de l’entreprise/ });
+	const inputSecteur = screen.getByRole('combobox', { name: 'Secteur d’activité de l’entreprise Exemples : Administration publique, Fonction publique d’Etat …' });
 	await user.type(inputSecteur, 'Santé humaine');
 	user.click(screen.getByRole('option', { name: /Santé humaine et action sociale/ }));
 

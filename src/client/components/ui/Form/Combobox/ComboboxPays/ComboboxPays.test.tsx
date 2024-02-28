@@ -83,11 +83,11 @@ describe('<ComboboxPays />', () => {
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 		});
-		it('utilise le label "Pays" par défaut', () => {
+		it('lorsqu‘il n‘y a pas de label, utilise le label par défaut', () => {
 			const id = 'id';
 
 			render(
-				<ComboboxPays paysList={[]} name='pays' id={id} />,
+				<ComboboxPays paysList={[]} id={id} />,
 			);
 
 			const combobox = screen.getByRole('combobox');
@@ -274,7 +274,7 @@ describe('<ComboboxPays />', () => {
 			/>,
 		);
 
-		const deplierSuggestions = screen.getByRole('button', { name: 'Rechercher un pays' });
+		const deplierSuggestions = screen.getByRole('button', { name: 'pays' });
 		await user.click(deplierSuggestions);
 
 		const message = screen.getByRole('status');

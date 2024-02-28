@@ -16,7 +16,7 @@ describe('<Champ/>', () => {
 		const user = userEvent.setup();
 		render(
 			<Champ>
-				<Champ.Input render={Combobox} requireValidOption aria-label={'foo'}>
+				<Champ.Input render={Combobox} requireValidOption optionsAriaLabel={'foo'}>
 					<Combobox.Option>Option 1</Combobox.Option>
 					<Combobox.Option>Option 2</Combobox.Option>
 					<Combobox.Option>Option 3</Combobox.Option>
@@ -84,7 +84,7 @@ describe('<Champ/>', () => {
 		it('accepte un composant a afficher', () => {
 			render(
 				<Champ>
-					<Champ.Input render={Combobox} disabled aria-label={'foo'}/>
+					<Champ.Input render={Combobox} disabled optionsAriaLabel={'foo'}/>
 				</Champ>,
 			);
 
@@ -305,8 +305,8 @@ describe('<Champ/>', () => {
 			const erreur = screen.queryByText('Je suis l‘erreur');
 			expect(erreur).not.toBeInTheDocument();
 		});
-		
-		
+
+
 
 		it('lorsque le champ est touched et qu’il y a une erreur, affiche l‘erreur', async () => {
 			const user = userEvent.setup();

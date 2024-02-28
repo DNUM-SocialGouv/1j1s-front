@@ -14,7 +14,7 @@ import { Combobox } from '../index';
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
 
-type ComboboxPropsWithOmit = Omit<ComboboxProps, 'label' | 'defaultValue'>
+type ComboboxPropsWithOmit = Omit<ComboboxProps, 'label' | 'defaultValue' | 'optionsAriaLabel'>
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 
 type ComboboxCommuneProps = {
@@ -110,6 +110,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 											 valueName="libelleCommune"
 											 autoComplete="off"
 											 value={userInput}
+											 optionsAriaLabel="communes"
 											 onChange={(event, newValue) => {
 												 rechercherCommunes(newValue);
 												 setUserInput(newValue);

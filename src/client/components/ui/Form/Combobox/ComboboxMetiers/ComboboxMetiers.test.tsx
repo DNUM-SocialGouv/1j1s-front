@@ -422,7 +422,7 @@ describe('<ComboboxMetiers />', () => {
 			</MetierDependenciesProvider>,
 		);
 
-		const deplierSuggestions = screen.getByRole('button', { name: 'Rechercher un métier' });
+		const deplierSuggestions = screen.getByRole('button', { name: 'métiers' });
 		await user.click(deplierSuggestions);
 
 		const message = screen.getByRole('status');

@@ -29,6 +29,7 @@ import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLa
 type ComboboxProps = Omit<
 	React.ComponentPropsWithoutRef<'input'>, 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
 > & {
+	optionsAriaLabel: string;
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
@@ -48,6 +49,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	name,
 	valueName,
 	'aria-controls': ariaControls,
+	optionsAriaLabel,
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
 	onBlur: onBlurProps = doNothing,
@@ -225,7 +227,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}
-					aria-label="Expandre les options">
+					aria-label={optionsAriaLabel}>
 					<Icon name={'angle-down'}/>
 				</button>
 				<ul
@@ -233,7 +235,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					id={listboxId}
 					hidden={!open}
 					ref={listboxRef}
-					aria-label={'options'}>
+					aria-label={optionsAriaLabel}>
 					{children}
 				</ul>
 			</div>
