@@ -179,23 +179,6 @@ export function aStrapiArticleSlugList(): Strapi.CollectionType<Pick<Strapi.Coll
 	};
 }
 
-export function anEntrepriseRejoindreLaMobilisationStrapi(): Strapi.CollectionType.Entreprise {
-	return {
-		code_postal: '75015',
-		email: 'machin.chose@bidule.com',
-		erreur: 'annotation',
-		nom: 'Chose',
-		nom_societe: 'Bidule co.',
-		prenom: 'Machin',
-		secteur: 'other-services',
-		siret: '12345678901114',
-		taille: 'medium',
-		telephone: '+33123456789',
-		travail: 'Chef',
-		ville: 'Paris (15e arrondissement)',
-	};
-}
-
 export function aStrapiArticleCollectionType(): Strapi.CollectionType<Strapi.CollectionType.Article> {
 	return aStrapiCollectionType([aStrapiArticle()]);
 }

@@ -8,7 +8,6 @@ export function aStrapiCmsRepository(override?: Partial<StrapiRepository>): CmsR
 		getCollectionType: jest.fn(),
 		getCollectionTypeDeprecated: jest.fn(),
 		getFirstFromCollectionType: jest.fn(),
-		getMentionObligatoire: jest.fn(),
 		getSingleType: jest.fn(),
 		listAllArticleSlug: jest.fn(),
 		save: jest.fn(),
