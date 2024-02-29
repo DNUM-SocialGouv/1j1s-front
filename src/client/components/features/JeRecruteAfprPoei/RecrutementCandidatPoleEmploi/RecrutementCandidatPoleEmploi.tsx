@@ -11,7 +11,7 @@ export default function RecrutementCandidatPoleEmploi() {
 		<section>
 			<Container className={styles.recrutementCandidatPoleEmploi}>
 				<h1>
-					Je m’engage à recruter des candidats formés avec l’aide de Pôle emploi
+					Je m’engage à recruter des candidats formés avec l’aide de France travail
 					(POE, AFPR)
 					<Footnote.Reference to={'abreviation-reference'} id={'abreviation'}/>
 				</h1>

@@ -40,9 +40,9 @@ export default function DéposerUneOffreDEmploi() {
 					title="Formulaire de dépôt d‘offre d‘emploi ou d‘alternance en partenariat avec Pôle Emploi"
 				/>
 				<p className={styles.rgpd}>
-					Vous êtes informé que vos données sont collectées et traitées par Pôle emploi pour traiter votre demande de
+					Vous êtes informé que vos données sont collectées et traitées par France travail pour traiter votre demande de
 					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
-					de Confidentialité</a> de Pôle emploi. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris
+					de Confidentialité</a> de France travail. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris
 					connaissance
 					et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de Pôle
 					Emploi.

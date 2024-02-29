@@ -28,7 +28,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList className={styles.tags} list={annonce.tags}/>
 				{isPoleEmploi(annonce.source) && annonce.lienPostuler &&
-            <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur Pôle emploi<Link.Icon/></Link>
+            <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur France travail<Link.Icon/></Link>
 				}
 				{isMatcha(annonce.source) && annonce.id &&
             <ButtonComponent

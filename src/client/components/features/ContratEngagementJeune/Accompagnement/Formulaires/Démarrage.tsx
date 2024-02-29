@@ -17,7 +17,7 @@ export default function Démarrage({ setTypeFormulaireAffiché, setIsPôleEmploi
 				Oui, je suis accompagné(e) par la Mission Locale
 			</button>
 			<button className={styles.optionBouton} onClick={() => setIsPôleEmploiModalOpen(true)}>
-				Oui, je suis accompagné(e) par Pôle emploi
+				Oui, je suis accompagné(e) par France travail
 			</button>
 			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('PasDAccompagnement')}>
 				Non, je ne bénéficie d‘aucun accompagnement

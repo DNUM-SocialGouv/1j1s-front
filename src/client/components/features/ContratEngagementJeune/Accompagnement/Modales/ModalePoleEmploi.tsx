@@ -10,7 +10,7 @@ export function ModalePoleEmploi(props: { open: boolean, close: () => void, href
 		<ModalComponent.Content className={styles.accompagnementModalContent}>
 			<div>
 				<h1>Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller
-					Pôle emploi</h1>
+					France travail</h1>
 				<Link href={props.href} appearance="asPrimaryButton">
 					Contacter mon conseiller
 					<Link.Icon/>

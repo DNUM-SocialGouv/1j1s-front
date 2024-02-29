@@ -72,7 +72,7 @@ function TémoignageLatifa() {
 					<h4>Son programme :</h4>
 					<ul aria-label="Programme de Latifa">
 						<li>
-							Un parcours de 9 mois construit avec son conseiller Pôle emploi, dont 6 mois d‘accompagnement intensif
+							Un parcours de 9 mois construit avec son conseiller France travail, dont 6 mois d‘accompagnement intensif
 							avec des séances individuelles, des ateliers collectifs et des immersions en entreprise pour découvrir des
 							métiers.
 						</li>
