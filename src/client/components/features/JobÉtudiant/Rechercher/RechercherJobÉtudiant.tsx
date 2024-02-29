@@ -40,7 +40,7 @@ import {
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
-const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
+const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
 
 interface RechercherJobEtudiantProps {
 	erreurRecherche?: Erreur

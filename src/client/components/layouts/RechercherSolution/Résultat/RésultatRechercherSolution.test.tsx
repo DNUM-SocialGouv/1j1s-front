@@ -20,13 +20,12 @@ describe('RésultatRechercherSolution', () => {
 
 	it('affiche une carte emploi avec un résumé de l‘offre', () => {
 		const offreEmploi = aBarmanOffre();
-		const defaultLogo = '/images/logos/pole-emploi.svg';
 
 		render(
 			<RésultatRechercherSolution
 				intituléOffre={offreEmploi.intitulé}
 				lienOffre={`/emplois/${offreEmploi.id}`}
-				logo={offreEmploi.entreprise.logo || defaultLogo}
+				logo={offreEmploi.entreprise.logo}
 				sousTitreOffre={offreEmploi.entreprise.nom}
 				étiquetteOffreList={offreEmploi.étiquetteList}
 			/>,
@@ -45,12 +44,11 @@ describe('RésultatRechercherSolution', () => {
 	describe('lorsque le lien d‘offre n‘existe pas', () => {
 		it('je ne peux pas clicker sur la carte', () => {
 			const offreEmploi = aBarmanOffre();
-			const defaultLogo = '/images/logos/pole-emploi.svg';
 
 			render(
 				<RésultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
-					logo={offreEmploi.entreprise.logo || defaultLogo}
+					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
 				/>,
@@ -65,12 +63,11 @@ describe('RésultatRechercherSolution', () => {
 	describe('lorsqu‘une description est fournise', () => {
 		it('je vois la description', () => {
 			const offreEmploi = aBarmanOffre();
-			const defaultLogo = '/images/logos/pole-emploi.svg';
 
 			render(
 				<RésultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
-					logo={offreEmploi.entreprise.logo || defaultLogo}
+					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
 				>
@@ -87,13 +84,12 @@ describe('RésultatRechercherSolution', () => {
 	describe('lorsqu‘un intitulé de lien est fournis', () => {
 		it('je vois l‘intitulé', () => {
 			const offreEmploi = aBarmanOffre();
-			const defaultLogo = '/images/logos/pole-emploi.svg';
 
 			render(
 				<RésultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					intituléLienOffre="Candidater"
-					logo={offreEmploi.entreprise.logo || defaultLogo}
+					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
 					lienOffre={`/emplois/${offreEmploi.id}`}
@@ -107,13 +103,12 @@ describe('RésultatRechercherSolution', () => {
 		});
 		it('n‘a pas d‘attribut aria-labelledby', () => {
 			const offreEmploi = aBarmanOffre();
-			const defaultLogo = '/images/logos/pole-emploi.svg';
 
 			render(
 				<RésultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					intituléLienOffre="Candidater"
-					logo={offreEmploi.entreprise.logo || defaultLogo}
+					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
 					lienOffre={`/emplois/${offreEmploi.id}`}
@@ -131,12 +126,11 @@ describe('RésultatRechercherSolution', () => {
 	describe('lorsqu‘un intitulé de lien n‘est pas fournis', () => {
 		it('le nom du lien par défaut est complété par l‘intitulé de l‘offre', () => {
 			const offreEmploi = aBarmanOffre();
-			const defaultLogo = '/images/logos/pole-emploi.svg';
 
 			render(
 				<RésultatRechercherSolution
 					intituléOffre={'Barman'}
-					logo={offreEmploi.entreprise.logo || defaultLogo}
+					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
 					étiquetteOffreList={offreEmploi.étiquetteList}
 					lienOffre={`/emplois/${offreEmploi.id}`}
