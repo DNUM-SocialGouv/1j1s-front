@@ -5,7 +5,7 @@ import { ServiceCard } from './Card/ServiceCard';
 export function PoleEmploiPartner() {
 	return (
 		<ServiceCard
-			title="France travail propose un accompagnement individualisé pour les jeunes de 16 à 30 ans"
+			title="France Travail propose un accompagnement individualisé pour les jeunes de 16 à 30 ans"
 			logo="/images/logos/france-travail.svg"
 			link="/articles/pole-emploi" // todo changer slug de l'article ?
 			linkLabel="En savoir plus"

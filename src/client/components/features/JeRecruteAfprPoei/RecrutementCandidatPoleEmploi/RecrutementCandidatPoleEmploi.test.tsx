@@ -12,7 +12,7 @@ describe('<RecrutementCandidatPoleEmploi/>', () => {
 		render(<RecrutementCandidatPoleEmploi/>);
 
 		const titre = screen.getByRole('heading', { level: 1 });
-		expect(titre).toHaveTextContent('Je m’engage à recruter des candidats formés avec l’aide de France travail');
+		expect(titre).toHaveTextContent('Je m’engage à recruter des candidats formés avec l’aide de France Travail');
 	});
 
 	it('je vois la footnote', () => {

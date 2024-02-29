@@ -19,7 +19,7 @@ Le front interagit majoritairement avec les services suivants :
 
 ## Services externes
 
-* [France travail](https://francetravail.io/data/api) : recherche d'emplois, jobs étudiants, jobs d'été
+* [France Travail](https://francetravail.io/data/api) : recherche d'emplois, jobs étudiants, jobs d'été
 * [La Bonne Alternance](https://api.gouv.fr/documentation/api-la-bonne-alternance) : recherche d'alternance et de formations en apprentissage
 * [API Engagement](https://api.gouv.fr/les-api/api-engagement) : recherche de missions de bénévolat et service civique
 * [API Adresse](https://adresse.data.gouv.fr/api-doc/adresse) : recherche de localisation (communes)

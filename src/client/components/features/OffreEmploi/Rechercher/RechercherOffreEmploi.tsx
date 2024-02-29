@@ -127,7 +127,7 @@ function BannièreOffreEmploi() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>Des milliers d‘offres d‘emplois</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnées pour vous par France travail</LightHeroSecondaryText>
+				<LightHeroSecondaryText>sélectionnées pour vous par France Travail</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);

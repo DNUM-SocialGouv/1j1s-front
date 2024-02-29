@@ -9,10 +9,10 @@ export function ModaleInscriptionPoleEmploi(props: { open: boolean, close: () =>
 		className={styles.accompagnementModal}>
 		<ModalComponent.Content className={styles.accompagnementModalContent}>
 			<div>
-				<h1>Vous pouvez bénéficier des services de France travail</h1>
-				<p>Inscrivez-vous à France travail pour bénéficier d‘un accompagnement répondant à vos besoins </p>
+				<h1>Vous pouvez bénéficier des services de France Travail</h1>
+				<p>Inscrivez-vous à France Travail pour bénéficier d‘un accompagnement répondant à vos besoins </p>
 				<Link href={props.href} appearance="asPrimaryButton">
-					S‘inscrire à France travail
+					S‘inscrire à France Travail
 					<Link.Icon/>
 				</Link>
 			</div>

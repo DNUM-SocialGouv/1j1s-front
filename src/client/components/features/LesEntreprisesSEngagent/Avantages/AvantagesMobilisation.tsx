@@ -16,7 +16,7 @@ export default function AvantagesMobilisation() {
 				<ul>
 					<li>Mettez en avant tous vos engagements pour les jeunes en créant votre page dédiée</li>
 					<li>Publiez vos offres d’emploi sur la plateforme</li>
-					<li>Bénéficiez d’un accompagnement par un Conseiller France travail (rappel sous 72h)</li>
+					<li>Bénéficiez d’un accompagnement par un Conseiller France Travail (rappel sous 72h)</li>
 					<li>Relayez vos engagements par intermédiaire d’un kit de communication #1jeune1solution</li>
 				</ul>
 			</section>

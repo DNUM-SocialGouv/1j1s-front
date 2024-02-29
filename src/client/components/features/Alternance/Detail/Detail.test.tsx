@@ -34,24 +34,24 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	describe('pour une offre France travail', () => {
+	describe('pour une offre France Travail', () => {
 		it('affiche le lien pour postuler', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.POLE_EMPLOI });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.getByRole('link', { name: 'Postuler sur France travail' });
+			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).toBeVisible();
 			expect(lien).toHaveAttribute('href', 'url');
-			expect(lien).toHaveAttribute('title', 'Postuler sur France travail - nouvelle fenêtre');
+			expect(lien).toHaveAttribute('title', 'Postuler sur France Travail - nouvelle fenêtre');
 		});
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.POLE_EMPLOI });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France travail' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).not.toBeInTheDocument();
 		});
@@ -67,12 +67,12 @@ describe('<Detail />', () => {
 		});
 	});
 	describe('pour une offre Matcha', () => {
-		it('n’affiche pas le lien pour postuler a une offre France travail', () => {
+		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France travail' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).not.toBeInTheDocument();
 		});

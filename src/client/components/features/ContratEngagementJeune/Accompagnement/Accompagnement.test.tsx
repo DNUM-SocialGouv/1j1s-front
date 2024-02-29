@@ -57,7 +57,7 @@ describe('<Accompagnement />', () => {
 			// Given
 			renderComponent();
 			const premierBouton = screen.getByText('Oui, je suis accompagné(e) par la Mission Locale');
-			const deuxiemeBouton = screen.getByText('Oui, je suis accompagné(e) par France travail');
+			const deuxiemeBouton = screen.getByText('Oui, je suis accompagné(e) par France Travail');
 			const troisiemeBouton = screen.getByText('Non, je ne bénéficie d‘aucun accompagnement');
 			// Then
 			expect(premierBouton).toBeVisible();
@@ -140,11 +140,11 @@ describe('<Accompagnement />', () => {
 			// Then
 			expect(screen.getByText(contenuModal)).toBeVisible();
 		});
-		it('ça te renvoie chez France travail sur la page Inscription', async () => {
+		it('ça te renvoie chez France Travail sur la page Inscription', async () => {
 			// Given
 			const user = userEvent.setup();
-			const contenuModal = 'Vous pouvez bénéficier des services de France travail';
-			const inscriptionPoleEmploi = 'S‘inscrire à France travail';
+			const contenuModal = 'Vous pouvez bénéficier des services de France Travail';
+			const inscriptionPoleEmploi = 'S‘inscrire à France Travail';
 
 			renderComponent();
 			// When
@@ -339,11 +339,11 @@ describe('<Accompagnement />', () => {
 		});
 	});
 
-	describe('quand l‘utilisateur clique sur Oui il est accompagné par France travail', () => {
-		it('ça te renvoie chez France travail', async () => {
+	describe('quand l‘utilisateur clique sur Oui il est accompagné par France Travail', () => {
+		it('ça te renvoie chez France Travail', async () => {
 			// Given
 			const user = userEvent.setup();
-			const poleEmploi = 'Oui, je suis accompagné(e) par France travail';
+			const poleEmploi = 'Oui, je suis accompagné(e) par France Travail';
 			const jeContacteMonConseiller = 'Contacter mon conseiller';
 			renderComponent();
 

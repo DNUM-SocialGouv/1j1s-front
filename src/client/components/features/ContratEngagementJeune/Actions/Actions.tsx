@@ -30,7 +30,7 @@ function ListeActions() {
 	return (
 		<div>
 			<p>
-				Accueilli au sein de France travail ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de
+				Accueilli au sein de France Travail ou de ma Mission Locale, en fonction de mon profil, de mes compétences et de
 				mes envies, je pourrai avoir accès à :
 			</p>
 			<ul>

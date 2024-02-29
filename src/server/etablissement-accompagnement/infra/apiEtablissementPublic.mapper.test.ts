@@ -28,7 +28,7 @@ describe('mapÉtablissementAccompagnement', () => {
 	});
 
 	describe('type accompagnement', () => {
-		it('lorsque le type d‘établissement ne fait pas partie des types d‘établissement acceptés (CIJ, France travail...), ne renvoie pas l‘établissement', () => {
+		it('lorsque le type d‘établissement ne fait pas partie des types d‘établissement acceptés (CIJ, France Travail...), ne renvoie pas l‘établissement', () => {
 			const resultatRechercheEtablissementPublicResponse = [anEtablissementPublicResponse({
 				nom: 'un établissement avec un type incorrect',
 				pivot: aPivotEtablissementPublicResponse([{ type_service_local: 'mairie' }, { type_service_local: 'tribunale' }]),
@@ -49,14 +49,14 @@ describe('mapÉtablissementAccompagnement', () => {
 				nom: 'Mission locale',
 				pivot: aPivotEtablissementPublicResponse([{ type_service_local: 'mission_locale' }]),
 			}), anEtablissementPublicResponse({
-				nom: 'France travail',
+				nom: 'France Travail',
 				pivot: aPivotEtablissementPublicResponse([{ type_service_local: 'france_travail' }]),
 			})];
 			const result = mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublicResponse);
 
 			expect(result).toEqual([anEtablissementAccompagnement({ nom: 'CIJ', type: TypeÉtablissement.INFO_JEUNE }),
 				anEtablissementAccompagnement({ nom: 'Mission locale', type: TypeÉtablissement.MISSION_LOCALE }),
-				anEtablissementAccompagnement({ nom: 'France travail', type: TypeÉtablissement.FRANCE_TRAVAIL })]);
+				anEtablissementAccompagnement({ nom: 'France Travail', type: TypeÉtablissement.FRANCE_TRAVAIL })]);
 		});
 	});
 

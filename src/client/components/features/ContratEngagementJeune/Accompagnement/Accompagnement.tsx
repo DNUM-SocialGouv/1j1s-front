@@ -62,7 +62,7 @@ export default function Accompagnement() {
 						<h2 id="accompagnement">Contrat d‘Engagement Jeune, je me lance !</h2>
 						<div className={styles.accompagnementExplication}>
 							Pour entrer en Contrat d‘Engagement Jeune, vous devez vous rapprocher d‘un professionnel de
-							l‘accompagnement chez France travail ou en Mission Locale. Pour vous aider à
+							l‘accompagnement chez France Travail ou en Mission Locale. Pour vous aider à
 							identifier l‘interlocuteur à contacter, répondez à ces quelques questions.
 						</div>
 					</div>

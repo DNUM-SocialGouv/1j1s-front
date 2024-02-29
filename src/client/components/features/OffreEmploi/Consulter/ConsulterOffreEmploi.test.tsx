@@ -39,11 +39,11 @@ describe('ConsulterOffreEmploi', () => {
 
 		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 
-		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Je postule sur France travail' });
+		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Je postule sur France Travail' });
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreEmploi.urlOffreOrigine);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
-		expect(linkPostulerOffreEmploi).toHaveAttribute('title', 'Je postule sur France travail - nouvelle fenêtre');
+		expect(linkPostulerOffreEmploi).toHaveAttribute('title', 'Je postule sur France Travail - nouvelle fenêtre');
 	});
 
 	it('affiche la formation requise dans un paragraphe', () => {
