@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.254.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.253.0...v3.254.0) (2024-02-29)
+
+
+### Features
+
+* **tarteaucitron:** mise à jour des scripts ([#2719](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2719)) ([5805495](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5805495c978ab0371384327324f2db06ba125898))
+
+
+### Bug Fixes
+
+* supprime les hooks causant des différences entre rendu serveur et client (partie 1) ([#2712](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2712)) ([70f18d4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/70f18d4094672d4326f67e859c6a553f4aa79fc1))
+* transforme le Tooltip en TipDisclosure ([#2697](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2697)) ([6794910](https://github.com/DNUM-SocialGouv/1j1s-front/commit/67949109f9347f547beaa4f2a7b4ad3ed8075ea7))
+
 ## [3.253.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.252.0...v3.253.0) (2024-02-28)
 
 
