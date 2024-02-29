@@ -6,7 +6,6 @@ import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/C
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/emplois/[id].analytics';
-import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { Offre, OffreId } from '~/server/offres/domain/offre';
