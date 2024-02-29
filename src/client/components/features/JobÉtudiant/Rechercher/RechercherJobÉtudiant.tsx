@@ -29,6 +29,7 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
@@ -89,13 +90,14 @@ export function RechercherJobÉtudiant(props: RechercherJobEtudiantProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={<BannièreJobÉtudiant/>}
+					banniere={<BannièreJobÉtudiant/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={étiquettesRecherche}
+					etiquettesRecherche={étiquettesRecherche}
 					formulaireRecherche={<FormulaireRechercheJobÉtudiant/>}
-					isLoading={false}
-					messageRésultatRecherche={messageRésultatRecherche}
-					nombreSolutions={nombreRésultats}
+					isChargement={false}
+					isEtatInitial={empty(offreEmploiQuery)}
+					messageResultatRecherche={messageRésultatRecherche}
+					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
 					listeSolutionElement={<ListeOffreJobÉtudiant résultatList={jobÉtudiantList}/>}
@@ -117,7 +119,7 @@ interface ListeRésultatProps {
 
 function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
 	if (!résultatList.length) {
-		return null;
+		return undefined;
 	}
 
 	return (

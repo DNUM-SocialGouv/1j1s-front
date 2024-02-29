@@ -89,6 +89,7 @@ export function FormulaireRechercheOffreEmploi() {
 			aria-label="Rechercher une offre d'emploi"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherOffreEmploiQueryParams}
+			role="search"
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>

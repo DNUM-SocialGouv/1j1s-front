@@ -1,22 +1,23 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import React, { ReactElement } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout.module.scss';
 import { ErrorComponent } from '~/client/components/ui/ErrorMessage/ErrorComponent';
+import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { Skeleton } from '~/client/components/ui/Loader/Skeleton/Skeleton';
 import { Pagination } from '~/client/components/ui/Pagination/Pagination';
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherSolutionLayoutProps {
-	bannière: React.ReactElement;
+	banniere: React.ReactElement;
 	erreurRecherche?: Erreur;
-	étiquettesRecherche?: React.ReactElement;
+	etiquettesRecherche?: React.ReactElement;
 	formulaireRecherche: React.ReactElement;
-	isLoading: boolean;
-	messageRésultatRecherche: string | ReactElement;
-	nombreSolutions: number;
+	isChargement: boolean;
+	isEtatInitial: boolean;
+	messageResultatRecherche: string | ReactElement;
+	nombreTotalSolutions: number;
 	paginationOffset?: number;
 	maxPage?: number;
 	listeSolutionElement: React.ReactElement;
@@ -25,68 +26,87 @@ interface RechercherSolutionLayoutProps {
 
 export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 	const {
-		bannière,
+		banniere,
 		erreurRecherche,
-		étiquettesRecherche,
+		etiquettesRecherche,
 		formulaireRecherche,
-		messageRésultatRecherche,
-		nombreSolutions,
+		messageResultatRecherche,
+		nombreTotalSolutions,
 		paginationOffset,
 		maxPage,
-		isLoading,
+		isChargement,
+		isEtatInitial,
 		listeSolutionElement,
 		footnote,
 	} = props;
 
-	const router = useRouter();
-	const hasRouterQuery = Object.keys(router.query).length > 0;
+	function getResultatsDeRecherche() {
+		if (isEtatInitial) {
+			return null;
+		}
+		if (erreurRecherche) {
+			return <ErrorComponent errorType={erreurRecherche}/>;
+		}
+		if (isChargement) {
+			return <>
+				<div className={'separator'}>
+					<Container className={styles.informationResultat}>
+						<Skeleton type="line" isLoading={true} className={styles.nombreResultats}>
+						</Skeleton>
+					</Container>
+				</div>
+
+				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+					<Container>
+						<Skeleton type="card" isLoading={true} repeat={2}
+						          className={styles.listeSolutions}>
+						</Skeleton>
+					</Container>
+				</div>
+			</>;
+		}
+		if (nombreTotalSolutions === 0) {
+			return <NoResultErrorMessage />;
+		}
+		const isRechercheEnCoursOuPlusieursResultats = nombreTotalSolutions !== undefined && nombreTotalSolutions > 0;
+		if (isRechercheEnCoursOuPlusieursResultats) {
+			return <>
+				<div className={'separator'}>
+					<Container className={styles.informationResultat}>
+						{etiquettesRecherche}
+						<h2>{messageResultatRecherche}</h2>
+					</Container>
+				</div>
+
+				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
+					<Container>
+						{listeSolutionElement}
+						{footnote && <div className={styles.footnote}>{footnote}</div>}
+						{paginationOffset && nombreTotalSolutions && nombreTotalSolutions > paginationOffset &&
+							<div className={styles.pagination}>
+								<Pagination
+									numberOfResult={nombreTotalSolutions}
+									numberOfResultPerPage={paginationOffset}
+									maxPage={maxPage}
+								/>
+							</div>
+						}
+					</Container>
+				</div>
+			</>;
+		}
+	}
 
 	return (
 		<>
-			{bannière}
-			<div className={styles.rechercheSolution} aria-busy={isLoading} aria-live="polite">
+			{banniere}
+			<div className={styles.rechercheSolution} aria-busy={isChargement} aria-live="polite">
 				<div className={'separator'}>
 					<Container className={styles.rechercheSolutionFormWrapper}>
 						{formulaireRecherche}
 					</Container>
 				</div>
-				{/*FIXME (SULI 03/08/23) : ça ne doit pas être le layout qui décide d'afficher ou non en fonction de la présence de la query*/}
-				{hasRouterQuery &&
-					<>
-						{erreurRecherche || nombreSolutions === 0 && !isLoading
-							? <ErrorComponent errorType={erreurRecherche}/>
-							: <>
-								<div className={'separator'}>
-									<Container className={styles.informationRésultat}>
-										{étiquettesRecherche}
-										<Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>
-											<h2>{messageRésultatRecherche}</h2>
-										</Skeleton>
-									</Container>
-								</div>
-
-								<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
-									<Container>
-										<Skeleton type="card" isLoading={isLoading} repeat={2}
-												  className={styles.listeSolutions}>
-											{listeSolutionElement}
-										</Skeleton>
-										{footnote && <div className={styles.footnote}>{footnote}</div>}
-										{paginationOffset && nombreSolutions > paginationOffset &&
-											<div className={styles.pagination}>
-												<Pagination
-													numberOfResult={nombreSolutions}
-													numberOfResultPerPage={paginationOffset}
-													maxPage={maxPage}
-												/>
-											</div>
-										}
-									</Container>
-								</div>
-							</>
-						}
-					</>
-				}
+				{getResultatsDeRecherche()}
 			</div>
 		</>
 	);

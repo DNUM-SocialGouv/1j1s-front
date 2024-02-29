@@ -82,14 +82,15 @@ export default function RechercherStages3eEt2de() {
 		/>
 		<main id="contenu">
 			<RechercherSolutionLayout
-				bannière={<BaniereStages3eEt2de/>}
+				banniere={<BaniereStages3eEt2de/>}
 				erreurRecherche={erreurRecherche}
-				étiquettesRecherche={etiquettesRecherche}
+				etiquettesRecherche={etiquettesRecherche}
 				formulaireRecherche={<FormulaireRechercheStages3eEt2de/>}
-				isLoading={isLoading}
+				isChargement={isLoading}
+				isEtatInitial={empty(stage3eEt2deQuery)}
 				listeSolutionElement={<ListeResultatsStage3eEt2de resultatList={stage3eEt2deList}/>}
-				messageRésultatRecherche={messageResultatsRecherche}
-				nombreSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
+				messageResultatRecherche={messageResultatsRecherche}
+				nombreTotalSolutions={stage3eEt2deList?.nombreDeResultats ?? 0}
 			/>
 		</main>
 	</>;

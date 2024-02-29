@@ -80,12 +80,13 @@ export function RechercherFormationInitiale() {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={banniere()}
+					banniere={banniere()}
 					erreurRecherche={erreurRecherche}
 					formulaireRecherche={<FormulaireRechercheFormationInitiale/>}
-					isLoading={isLoading}
-					messageRésultatRecherche={messageResultatRecherche}
-					nombreSolutions={nombreDeResultat}
+					isChargement={isLoading}
+					isEtatInitial={empty(formationInitialeQuery)}
+					messageResultatRecherche={messageResultatRecherche}
+					nombreTotalSolutions={nombreDeResultat}
 					paginationOffset={NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE}
 					listeSolutionElement={<ListeFormationInitiale resultatList={resultatList}/>}
 				/>
@@ -112,7 +113,7 @@ interface ListResultatProps {
 
 function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 	if (!resultatList) {
-		return null;
+		return undefined;
 	}
 
 	function getLienOffre(identifiant?: string){
