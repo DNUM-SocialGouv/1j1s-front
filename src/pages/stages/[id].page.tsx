@@ -8,7 +8,7 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import analytics from '~/pages/stages/[id].analytics';
-import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
+import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { dependencies } from '~/server/start';
@@ -47,7 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Stag
 	const offreDeStage = await dependencies.stagesDependencies.consulterOffreStage.handle(slug);
 
 	if (offreDeStage.instance === 'failure') {
-		return setStatusCode(context, offreDeStage.errorType);
+		return setErrorResult(context, offreDeStage.errorType);
 	}
 
 	return {

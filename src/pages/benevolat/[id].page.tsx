@@ -9,7 +9,7 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/benevolat/[id].analytics';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
-import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
+import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -45,7 +45,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Miss
 	const missionEngagement = await dependencies.engagementDependencies.consulterMissionEngagement.handle(id);
 
 	if (missionEngagement.instance === 'failure') {
-		return setStatusCode(context, missionEngagement.errorType);
+		return setErrorResult(context, missionEngagement.errorType);
 	}
 
 	return {

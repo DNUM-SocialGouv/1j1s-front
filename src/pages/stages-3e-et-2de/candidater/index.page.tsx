@@ -6,7 +6,7 @@ import { Head } from '~/client/components/head/Head';
 import empty from '~/client/utils/empty';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
+import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { dependencies } from '~/server/start';
@@ -53,11 +53,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	const { query } = context;
 
 	if (empty(query)) {
-		return setStatusCode(context, ErreurMetier.DEMANDE_INCORRECTE);
+		return setErrorResult(context, ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	if (stage3eEt2deCandidaterQuerySchema.validate(query).error) {
-		return setStatusCode(context, ErreurMetier.DEMANDE_INCORRECTE);
+		return setErrorResult(context, ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	const appellationCodes = queryToArray(query.appellationCodes!);
@@ -66,7 +66,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 
 	const isAppellationsInvalid = appellations.instance === 'failure' || appellations.result.length === 0;
 	if (isAppellationsInvalid) {
-		return setStatusCode(context, ErreurMetier.SERVICE_INDISPONIBLE);
+		return setErrorResult(context, ErreurMetier.SERVICE_INDISPONIBLE);
 	}
 
 	const props: Stage3eEt2deCandidaterPageProps = {

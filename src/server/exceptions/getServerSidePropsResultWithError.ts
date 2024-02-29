@@ -10,7 +10,7 @@ type ResultWithError<T> = T | {
 
 export type GetServerSidePropsResult<T> = NextGetServerSidePropsResult<ResultWithError<T>>
 
-export function setStatusCode(context: GetServerSidePropsContext, erreur: Erreur): GetServerSidePropsResult<never> {
+export function setErrorResult(context: GetServerSidePropsContext, erreur: Erreur): GetServerSidePropsResult<never> {
 	switch (erreur) {
 		case ErreurMetier.DEMANDE_INCORRECTE:
 			context.res.statusCode = 400;
@@ -24,7 +24,7 @@ export function setStatusCode(context: GetServerSidePropsContext, erreur: Erreur
 		case ErreurTechnique.TOO_MANY_REQUESTS:
 			context.res.statusCode = 429;
 			break;
-		case ErreurMetier.SERVICE_INDISPONIBLE:
+		default:
 			context.res.statusCode = 500;
 			break;
 	}

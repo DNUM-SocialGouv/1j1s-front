@@ -8,7 +8,7 @@ import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/formations/apprentissage/[id].analytics';
 import { isFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { GetServerSidePropsResult, setStatusCode } from '~/server/exceptions/getServerSidePropsResultWithError';
+import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
 import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
@@ -54,7 +54,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 
 
 	if (formationQuerySchema.validate(context.query).error) {
-		return setStatusCode(context, ErreurMetier.DEMANDE_INCORRECTE);
+		return setErrorResult(context, ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	const id = context.params?.id as string;
@@ -71,7 +71,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	const { formation, statistiques } = await dependencies.formationDependencies.consulterFormation.handle(id, filtre);
 
 	if (isFailure(formation)) {
-		return setStatusCode(context, formation.errorType);
+		return setErrorResult(context, formation.errorType);
 	}
 
 	if (!statistiques || isFailure(statistiques)) {
