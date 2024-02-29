@@ -44,7 +44,7 @@ describe('useDisplayBackButton', () => {
 				pathname: '/other-page',
 			});
 			const backButtonPersistenceService = aBackButtonPersistenceService({
-				getPreviousPath: jest.fn().mockReturnValue('/'),
+				getCurrentPath: jest.fn().mockReturnValue('/'),
 			});
 
 			// When
