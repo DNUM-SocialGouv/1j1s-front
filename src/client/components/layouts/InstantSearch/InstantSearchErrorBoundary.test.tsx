@@ -42,9 +42,11 @@ describe('InstantSearchErrorBoundary', () => {
 		it('retourne le composant service indisponible', () => {
 	  spyOnInstantSearch.mockImplementation(() => mockUseInstantSearch({ error: { message: 'MeilisearchCommunicationError', name: 'Error' } }));
 	  render(
-				<InstantSearchErrorBoundary>
-		  <ChildrenComponent/>
-				</InstantSearchErrorBoundary>,
+		  <DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}>
+			  <InstantSearchErrorBoundary>
+				  <ChildrenComponent/>
+					</InstantSearchErrorBoundary>
+		  </DependenciesProvider>,
 	  );
 
 	  const errorContent = screen.getByRole('heading', { level: 2 });

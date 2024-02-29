@@ -9,7 +9,7 @@ import {
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage, mockSmallScreen } from '~/client/components/window.mock';
+import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { LocaleProvider } from '~/client/context/locale.context';
 import {
