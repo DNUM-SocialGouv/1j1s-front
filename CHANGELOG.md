@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.254.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.254.0...v3.254.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **modale:** les items du menu je suis employeur ne sont pas accessibles au clavier en mobile ([#2729](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2729)) ([ee67dc4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ee67dc43c00ffa9c7e59a923cbfdc4a76335e786))
+
 ## [3.254.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.253.0...v3.254.0) (2024-02-29)
 
 
