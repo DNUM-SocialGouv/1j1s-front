@@ -2,10 +2,9 @@
  * @jest-environment jsdom
  */
 
-import { act, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { MODAL_ANIMATION_TIME_IN_MS } from '~/client/components/ui/Modal/ModalComponent';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
@@ -87,8 +86,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
 			await user.click(buttonDemandeContact);
 
-			// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-			await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 
 			await remplirFormulaire();
 
@@ -125,9 +122,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			expect(buttonDemandeContact).toBeVisible();
 			await user.click(buttonDemandeContact);
 
-			// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-			await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
-
 			await remplirFormulaire();
 
 			await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
@@ -162,9 +156,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
-
 				await remplirFormulaire();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
@@ -198,9 +189,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
-
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 
 				await remplirFormulaire();
 
@@ -240,9 +228,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
-
 				await remplirFormulaire();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' }));
@@ -257,11 +242,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		});
 	});
 });
-
-
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 async function remplirFormulaire() {
 	const user = userEvent.setup();

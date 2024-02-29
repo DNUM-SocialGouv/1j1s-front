@@ -3,10 +3,9 @@
  */
 
 
-import { act, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { MODAL_ANIMATION_TIME_IN_MS } from '~/client/components/ui/Modal/ModalComponent';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
@@ -218,8 +217,6 @@ describe('<Accompagnement />', () => {
 				const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 				await user.click(boutonFormulaireMissionLocale);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 				await remplirFormulaire();
 
 				expect(screen.getByRole('form')).toHaveFormValues({
@@ -261,8 +258,6 @@ describe('<Accompagnement />', () => {
 					const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 					await user.click(boutonFormulaireMissionLocale);
 
-					// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-					await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 					await remplirFormulaire();
 
 					await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -295,8 +290,6 @@ describe('<Accompagnement />', () => {
 					const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 					await user.click(boutonFormulaireMissionLocale);
 
-					// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-					await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 					await remplirFormulaire();
 
 					await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -332,8 +325,6 @@ describe('<Accompagnement />', () => {
 					const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 					await user.click(boutonFormulaireMissionLocale);
 
-					// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-					await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 					await remplirFormulaire();
 
 					await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -388,10 +379,6 @@ describe('<Accompagnement />', () => {
 		});
 	});
 });
-
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 async function remplirFormulaire() {
 	const user = userEvent.setup();

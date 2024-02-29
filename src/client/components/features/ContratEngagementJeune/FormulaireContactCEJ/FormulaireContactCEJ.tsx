@@ -56,7 +56,6 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 			<InputText
 				label="Prénom"
 				name="firstname"
-				autoFocus
 				placeholder="Exemple : Jean"
 				required
 			/>

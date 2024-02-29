@@ -45,11 +45,11 @@ export namespace ResultatRechercheEtablissementPublicResponse {
 export const apiEtablissementPublicSearchSchemas = Joi.array().items(
 	Joi.object({
 		adresse: Joi.string().required(),
-		adresse_courriel: Joi.string(),
+		adresse_courriel: Joi.string().allow(null),
 		id: Joi.string().required(),
 		nom: Joi.string().required(),
 		pivot: Joi.string().required(),
-		plage_ouverture: Joi.string(),
-		telephone: Joi.string(),
+		plage_ouverture: Joi.string().allow(null),
+		telephone: Joi.string().allow(null),
 	}).options({ allowUnknown: true }),
 );
