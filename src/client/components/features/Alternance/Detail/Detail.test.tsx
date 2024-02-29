@@ -34,7 +34,7 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	describe('pour une offre Pôle Emploi', () => {
+	describe('pour une offre France travail', () => {
 		it('affiche le lien pour postuler', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.POLE_EMPLOI });
 

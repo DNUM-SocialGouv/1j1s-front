@@ -23,7 +23,7 @@ describe('MaintenancePoleEmploi', () => {
 
 	}
 
-	describe('quand on arrive sur la page de maintenance Pôle Emploi', () => {
+	describe('quand on arrive sur la page de maintenance France travail', () => {
 		it('affiche le titre de la page',  () => {
 			renderComponent();
 

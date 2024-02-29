@@ -30,14 +30,14 @@ export default function DéposerUneOffreDEmploi() {
 					</HeroPrimaryText>
 				</h1>
 				<HeroSecondaryText className={styles.heroSubtitle}>
-					En partenariat avec Pôle Emploi
+					En partenariat avec France travail
 				</HeroSecondaryText>
 			</Hero>
 			<Container>
 				<iframe
 					className={styles.iframe}
 					src="https://deposer-offre.www.1jeune1solution.gouv.fr/#/deposer-offre"
-					title="Formulaire de dépôt d‘offre d‘emploi ou d‘alternance en partenariat avec Pôle Emploi"
+					title="Formulaire de dépôt d‘offre d‘emploi ou d‘alternance en partenariat avec France travail"
 				/>
 				<p className={styles.rgpd}>
 					Vous êtes informé que vos données sont collectées et traitées par France travail pour traiter votre demande de

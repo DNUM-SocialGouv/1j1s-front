@@ -20,7 +20,7 @@ export default function Avantages() {
 					<h3 className={styles.sousTitre}>Faites monter en compétences votre candidat</h3>
 					<ul className={styles.listeAvantages}>
 						<li><Icon name="arrow-right"/><p>Formez votre candidat selon vos besoins</p></li>
-						<li><Icon name="arrow-right"/><p>Jusqu’à 400 heures de formation prises en charge par Pôle Emploi</p></li>
+						<li><Icon name="arrow-right"/><p>Jusqu’à 400 heures de formation prises en charge par France travail</p></li>
 						<li><Icon name="arrow-right"/><p>Faites votre demande en ligne et gérez vos demandes en cours</p></li>
 						<li><Icon name="arrow-right"/><p>Votre conseiller peut vous accompagner tout au long du montage de la demande d’aide</p></li>
 						<li><Icon name="arrow-right"/><p>Plus de 80% des entreprises sont satisfaites et recommandent ce dispositif</p></li>

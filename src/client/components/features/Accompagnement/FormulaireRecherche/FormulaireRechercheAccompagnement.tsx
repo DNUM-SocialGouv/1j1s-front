@@ -13,7 +13,7 @@ import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
 const typeAccompagnementListe: Option[] = [
-	{ libellé: 'Agences Pôle Emploi', valeur: TypeÉtablissement.FRANCE_TRAVAIL },
+	{ libellé: 'Agences France travail', valeur: TypeÉtablissement.FRANCE_TRAVAIL },
 	{ libellé: 'Missions locales', valeur: TypeÉtablissement.MISSION_LOCALE },
 	{ libellé: 'Info jeunes', valeur: TypeÉtablissement.INFO_JEUNE },
 ];

@@ -133,7 +133,7 @@ function BanniereJobEte() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>Des milliers de jobs d’été</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnés pour vous par Pôle Emploi</LightHeroSecondaryText>
+				<LightHeroSecondaryText>sélectionnés pour vous par France travail</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);
