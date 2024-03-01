@@ -59,7 +59,7 @@ describe('FormulaireRechercheAlternance', () => {
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
-			expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
 		});
 	});
 

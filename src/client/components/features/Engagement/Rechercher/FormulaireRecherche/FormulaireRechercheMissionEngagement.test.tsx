@@ -159,7 +159,7 @@ describe('FormulaireRechercheMissionEngagement', () => {
 				const localisationOptions = await screen.findAllByRole('option');
 				await user.click(localisationOptions[0]);
 
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
+				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
 				await user.click(selectButtonRadius);
 
 				const rayon30kmOption = screen.getByRole('radio', { name: '30 km' });

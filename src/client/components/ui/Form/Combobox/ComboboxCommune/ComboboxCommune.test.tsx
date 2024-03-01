@@ -202,7 +202,7 @@ describe('<ComboboxCommune/>', () => {
 			<ComboboxCommune label={'comboboxLabel'}/>
 		</DependenciesProvider>);
 
-		expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Rayon Exemple : 30 km' })).not.toBeInTheDocument();
 		expect(screen.queryByDisplayValue(DEFAULT_RADIUS_VALUE)).not.toBeInTheDocument();
 	});
 
@@ -391,7 +391,7 @@ describe('<ComboboxCommune/>', () => {
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
 
-					expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
 					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeVisible();
 				});
 
@@ -413,7 +413,7 @@ describe('<ComboboxCommune/>', () => {
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
 
-					const rayonSelect = screen.getByRole('button', { name: 'Rayon' });
+					const rayonSelect = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
 					await user.click(rayonSelect);
 					await user.click(screen.getByRole('option', { name: radiusToSelect.libellé }));
 
@@ -442,7 +442,7 @@ describe('<ComboboxCommune/>', () => {
 
 				await user.clear(combobox);
 
-				expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'Rayon Exemple : 30 km' })).not.toBeInTheDocument();
 			});
 
 			it('lorsque le combobox est vide et optionel, n‘affiche pas le bouton rayon', async () => {
@@ -462,7 +462,7 @@ describe('<ComboboxCommune/>', () => {
 				await user.type(combobox, 'abc');
 				await user.clear(combobox);
 
-				expect(screen.queryByRole('button', { name: 'Rayon' })).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: 'Rayon Exemple : 30 km' })).not.toBeInTheDocument();
 			});
 		});
 
