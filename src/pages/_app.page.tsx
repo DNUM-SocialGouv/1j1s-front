@@ -22,7 +22,9 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
-	const dependenciesContainerInstance = useMemo(() => sessionId && dependenciesContainer(sessionId), [sessionId]);
+	const isClientSide = typeof window === 'undefined'; // A supprimer pour générer les pages server-side
+
+	const dependenciesContainerInstance = useMemo(() => isClientSide && dependenciesContainer(sessionId), [isClientSide, sessionId]);
 	const router = useRouter();
 
 	useDisplayBackButton();
