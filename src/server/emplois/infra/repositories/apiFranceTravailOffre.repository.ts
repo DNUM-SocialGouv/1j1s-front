@@ -42,14 +42,14 @@ export class ApiFranceTravailOffreRepository implements OffreRepository {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
 			if (this.apiFranceTravailOffreErrorManagementGet.isError(response)) {
 				return this.apiFranceTravailOffreErrorManagementGet.handleFailureError(response, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiFranceTravailOffreErrorManagementGet.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 			});
 		}
@@ -88,7 +88,7 @@ export class ApiFranceTravailOffreRepository implements OffreRepository {
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
 		} catch (error) {
 			return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'recherche offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 			});
 		}
@@ -107,7 +107,7 @@ export class ApiFranceTravailOffreRepository implements OffreRepository {
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (error) {
 				return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'échantillon offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 			}

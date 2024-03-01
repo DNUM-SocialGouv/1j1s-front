@@ -36,7 +36,7 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 			return createSuccess(mapMetierStage3eEt2de(metiers));
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'search appellation metiers stage 3e et 2de',
 				message: 'impossible d’effectuer une recherche d’appellation metiers stage 3e et 2de',
 			});
@@ -53,7 +53,7 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 			return createSuccess(mapMetierStage3eEt2de(metiers));
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'get appellations métiers à partir des appellationCodes stage 3e et 2de',
 				message: 'impossible de récupérer les appellations métiers à partir des appellationCodes stage 3e et 2de',
 			});

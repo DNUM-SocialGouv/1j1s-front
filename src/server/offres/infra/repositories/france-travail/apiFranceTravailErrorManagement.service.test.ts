@@ -10,11 +10,11 @@ import { anAxiosResponse } from '~/server/services/http/publicHttpClient.service
 import { aLoggerService } from '~/server/services/logger.service.fixture';
 
 const aLogInformationGet = aLogInformation({
-	apiSource: 'API Pole Emploi',
+	apiSource: 'API France Travail',
 	contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d‘une offre d’emploi',
 });
 const aLogInformationSearch = aLogInformation({
-	apiSource: 'API Pole Emploi',
+	apiSource: 'API France Travail',
 	contexte: 'recherche offre emploi', message: 'impossible d‘effectuer une recherche d’offre d’emploi',
 });
 describe('handleFailureError', () => {

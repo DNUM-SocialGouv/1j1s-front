@@ -82,7 +82,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				const result = await apiFranceTravailJobEtudiantRepository.get(aBarmanOffre().id);
 
 				expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
@@ -100,7 +100,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				const result = await apiFranceTravailJobEtudiantRepository.get(aBarmanOffre().id);
 
 				expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail job étudiant', message: 'impossible de récupérer le détail d‘un job étudiant',
 				});
 				expect(result.instance).toEqual('failure');
@@ -180,7 +180,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 		});
 
 		describe('quand nombre de résultat est présent dans la réponse', () => {
-			it('recherche les jobs étudiants de pole emploi', async () => {
+			it('recherche les jobs étudiants de France Travail', async () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
@@ -222,7 +222,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				const result = await apiFranceTravailJobEtudiantRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
 
 				expect(apiFranceTravailOffreErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'recherche job étudiant',
 					message: 'impossible d’effectuer une recherche de job étudiant',
 				});
@@ -246,7 +246,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				const result = await apiFranceTravailJobEtudiantRepository.search(offreFiltre);
 
 				expect(apiFranceTravailOffreErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'échantillon job étudiant',
 					message: 'impossible d’effectuer une recherche de job étudiant',
 				});

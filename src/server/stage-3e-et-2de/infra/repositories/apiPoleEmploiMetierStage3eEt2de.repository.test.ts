@@ -40,7 +40,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 		});
 
 		describe('quand le cache des appellations métier n’est pas disponible', () => {
-			it('appelle l’api Pole Emploi avec les bon paramètres', async () => {
+			it('appelle l’api France Travail avec les bon paramètres', async () => {
 				// Given
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
@@ -117,7 +117,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				// Then
 				expect(httpClientService.get).toHaveBeenCalled();
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'search appellation metiers stage 3e et 2de',
 					message: 'impossible d’effectuer une recherche d’appellation metiers stage 3e et 2de',
 				}));
@@ -149,7 +149,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 		});
 
 		describe('quand le cache des appellations métier n’est pas disponible', () => {
-			it('appelle l’api Pole Emploi avec les bon paramètres', async () => {
+			it('appelle l’api France Travail avec les bon paramètres', async () => {
 				// Given
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
@@ -275,7 +275,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				// Then
 				expect(httpClientService.get).toHaveBeenCalled();
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, aLogInformation({
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'get appellations métiers à partir des appellationCodes stage 3e et 2de',
 					message: 'impossible de récupérer les appellations métiers à partir des appellationCodes stage 3e et 2de',
 				}));

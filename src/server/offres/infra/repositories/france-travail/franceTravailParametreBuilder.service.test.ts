@@ -10,7 +10,7 @@ describe('franceTravailParametreBuilder.service', () => {
 	const apiFranceTravailReferentielRepository = aApiFranceTravailReferentielRepository();
 
 	describe('buildCommonParamètresRecherche', () => {
-		it('retourne les paramètres communs au recherche de l’api pole emploi', async () => {
+		it('retourne les paramètres communs au recherche de l’api France Travail', async () => {
 			jest
 				.spyOn(apiFranceTravailReferentielRepository, 'findCodeInseeInRéférentielCommune')
 				.mockResolvedValue('75101');

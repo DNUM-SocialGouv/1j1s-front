@@ -82,7 +82,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
@@ -100,7 +100,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
 
 				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
@@ -182,7 +182,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 		});
 
 		describe('quand nombre de résultat est présent dans la réponse', () => {
-			it('recherche les offres d’emploi de pole emploi', async () => {
+			it('recherche les offres d’emploi de France Travail', async () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
@@ -224,7 +224,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const result = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
 
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'recherche offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');
@@ -247,7 +247,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const result = await apiPoleEmploiOffreRepository.search(offreFiltre);
 
 				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'échantillon offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
 				expect(result.instance).toEqual('failure');

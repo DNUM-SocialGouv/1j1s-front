@@ -5,7 +5,7 @@ import { FranceTravailTokenAgent } from './franceTravailTokenAgent';
 
 export function getApiFranceTravailOffresConfig(configurationService: ConfigurationService): AuthenticatedHttpClientConfig {
 	return ({
-		apiName: 'API_POLE_EMPLOI',
+		apiName: 'API_FRANCE_TRAVAIL',
 		apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_OFFRES_URL,
 		tokenAgent: new FranceTravailTokenAgent({
 			clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,
@@ -18,7 +18,7 @@ export function getApiFranceTravailOffresConfig(configurationService: Configurat
 
 export function getApiFranceTravailReferentielsConfig(configurationService: ConfigurationService): AuthenticatedHttpClientConfig {
 	return ({
-		apiName: 'API_POLE_EMPLOI',
+		apiName: 'API_FRANCE_TRAVAIL',
 		apiUrl: configurationService.getConfiguration().API_POLE_EMPLOI_REFERENTIEL_URL,
 		tokenAgent: new FranceTravailTokenAgent({
 			clientId: configurationService.getConfiguration().POLE_EMPLOI_CONNECT_CLIENT_ID,

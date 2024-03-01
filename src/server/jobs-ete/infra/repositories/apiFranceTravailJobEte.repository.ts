@@ -41,14 +41,14 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 			const response = await this.httpClientServiceWithAuthentification.get<OffreResponse>(`/${id}`);
 			if (this.apiFranceTravailOffreErrorManagementGet.isError(response)) {
 				return this.apiFranceTravailOffreErrorManagementGet.handleFailureError(response, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 				});
 			}
 			return createSuccess(mapOffre(response.data));
 		} catch (error) {
 			return this.apiFranceTravailOffreErrorManagementGet.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'détail job d‘été', message: 'impossible de récupérer le détail d‘un job d‘été',
 			});
 		}
@@ -84,7 +84,7 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 			return createSuccess(mapRésultatsRechercheOffre(response.data));
 		} catch (error) {
 			return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {
-				apiSource: 'API Pole Emploi',
+				apiSource: 'API France Travail',
 				contexte: 'recherche job d‘été', message: 'impossible d’effectuer une recherche de job d‘été',
 			});
 		}
@@ -105,7 +105,7 @@ export class ApiFranceTravailJobEteRepository implements OffreRepository {
 				return createSuccess(mapRésultatsRechercheOffre(response.data));
 			} catch (error) {
 				return this.apiFranceTravailOffreErrorManagementSearch.handleFailureError(error, {
-					apiSource: 'API Pole Emploi',
+					apiSource: 'API France Travail',
 					contexte: 'échantillon job d‘été',
 					message: 'impossible d’effectuer une recherche de job d‘été',
 				});
