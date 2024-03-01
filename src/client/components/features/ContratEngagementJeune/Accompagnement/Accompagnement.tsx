@@ -16,14 +16,14 @@ import {
 	ModaleDispositifsReferences,
 } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModaleDispositifsReferences';
 import {
-	ModaleInscriptionPoleEmploi,
-} from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModaleInscriptionPoleEmploi';
+	ModaleFranceTravail,
+} from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModaleFranceTravail';
+import {
+	ModaleInscriptionFranceTravail,
+} from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModaleInscriptionFranceTravail';
 import {
 	ModaleMissionLocale,
 } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModaleMissionLocale';
-import {
-	ModalePoleEmploi,
-} from '~/client/components/features/ContratEngagementJeune/Accompagnement/Modales/ModalePoleEmploi';
 
 
 export type Formulaires =
@@ -72,12 +72,12 @@ export default function Accompagnement() {
 				</div>
 			</section>
 
-			<ModalePoleEmploi
+			<ModaleFranceTravail
 				open={isPôleEmploiModalOpen}
 				close={() => setIsPôleEmploiModalOpen(false)}
 				href={lienPôleEmploi}/>
 
-			<ModaleInscriptionPoleEmploi
+			<ModaleInscriptionFranceTravail
 				open={isInscriptionPôleEmploiModalOpen}
 				close={() => setIsInscriptionPôleEmploiModalOpen(false)}
 				href={deuxièmeLienPôleEmploi}/>

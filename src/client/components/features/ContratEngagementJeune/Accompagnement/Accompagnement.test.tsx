@@ -144,7 +144,7 @@ describe('<Accompagnement />', () => {
 			// Given
 			const user = userEvent.setup();
 			const contenuModal = 'Vous pouvez bénéficier des services de France Travail';
-			const inscriptionPoleEmploi = 'S‘inscrire à France Travail';
+			const inscriptionFranceTravail = 'S‘inscrire à France Travail';
 
 			renderComponent();
 			// When
@@ -155,11 +155,11 @@ describe('<Accompagnement />', () => {
 
 			// Then
 			expect(screen.getByText(contenuModal)).toBeVisible();
-			const link = screen.getByRole('link', { name: inscriptionPoleEmploi });
+			const link = screen.getByRole('link', { name: inscriptionFranceTravail });
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
 			expect(link).toHaveAttribute('target', '_blank');
-			expect(link).toHaveAttribute('title', `${inscriptionPoleEmploi} - nouvelle fenêtre`);
+			expect(link).toHaveAttribute('title', `${inscriptionFranceTravail} - nouvelle fenêtre`);
 		});
 	});
 
