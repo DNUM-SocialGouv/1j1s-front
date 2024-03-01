@@ -95,7 +95,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	}
 
 	const isCommuneValid = matchingOption?.code;
-	// TODO (BRUJ 26/02/2024): Discuter du label dans les combobox
 	return (
 		<>
 			<div>
@@ -145,6 +144,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 			</div>
 			{showRadiusInput && isCommuneValid && userInput && <Select
 				label="Rayon"
+				labelComplement="Exemple : 30 km"
 				name="distanceCommune"
 				optionList={radiusList}
 				onChange={setDistanceCommune}
