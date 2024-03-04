@@ -80,6 +80,34 @@ describe('<Stage />', () => {
 			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeVisible();
 		});
 
+		it('l’utilisateur peut sélectionner la date du jour comme date de début de stage', async () => {
+			// Given
+			const currentDate = new Date().toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			await user.type(screen.getByLabelText('Date précise du début de stage'), currentDate);
+
+			// Then
+			expect(screen.getByLabelText('Date précise du début de stage')).toHaveValue(currentDate);
+			expect(screen.getByLabelText('Date précise du début de stage')).toBeValid();
+		});
+
+		it('l’utilisateur ne peut pas sélectionner une date antérieure à la date du jour comme date de début de stage', async () => {
+			// Given
+			const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			await user.type(screen.getByLabelText('Date précise du début de stage'), yesterday);
+
+			// Then
+			expect(screen.getByLabelText('Date précise du début de stage')).toHaveValue(yesterday);
+			expect(screen.getByLabelText('Date précise du début de stage')).toBeInvalid();
+		});
+
 		it('vérifie que le radio bouton de télétravail soit bien sélectionné', () => {
 			render(<Stage />);
 

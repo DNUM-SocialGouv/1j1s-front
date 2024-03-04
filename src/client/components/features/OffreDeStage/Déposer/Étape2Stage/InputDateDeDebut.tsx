@@ -19,15 +19,21 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	const [dateDeDebutMax, setDateDeDebutMax] = useState<string | undefined>(props.informationsStage?.dateDeDebutMax ?? undefined);
 
 	function validationDateDeDebutMin(value: string | undefined) {
-		if (value && !Date.parse(value)) return 'La date doit être au format YYYY-MM-DD';
-		if (value && Date.parse(value) < Date.now()) return 'La date doit être supérieure ou égale à la date du jour';
-		if (value && dateDeDebutMax && Date.parse(value) > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
+		if (value && !Date.parse(value)) return 'La date doit être au format AAAA-MM-JJ';
+
+		const dateToValidate = new Date(value ?? '').setHours(0, 0, 0, 0);
+		const dateNow = new Date().setHours(0, 0, 0, 0);
+
+		if (value && dateToValidate < dateNow) return 'La date doit être supérieure ou égale à la date du jour';
+		if (value && dateDeDebutMax && dateToValidate > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
 	}
 
 	function validationDateDeDebutMax(value: string | undefined) {
-		if (value && !Date.parse(value)) return 'La date doit être au format YYYY-MM-DD';
-		if (value && dateDeDebutMin && Date.parse(value) < Date.parse(dateDeDebutMin)) return 'La date doit être supérieure ou égale à la date de début minimale';
-		if (value && Date.parse(value) > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
+		if (value && !Date.parse(value)) return 'La date doit être au format AAAA-MM-JJ';
+
+		const dateToValidate = new Date(value ?? '').setHours(0, 0, 0, 0);
+		if (value && dateDeDebutMin && dateToValidate <= Date.parse(dateDeDebutMin)) return 'La date doit être supérieure ou égale à la date de début minimale';
+		if (value && dateToValidate > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
 	}
 
 	const patternDate = '^[0-9]{4}-[0-9]{2}-[0-9]{2}$';
