@@ -18,8 +18,9 @@ export function getHtmlFromMd(markdown: string): string {
 	};
 
 	md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
-		if (!isAnchor(tokens[idx].attrGet('href')))
+		if (!isAnchor(tokens[idx].attrGet('href'))) {
 			tokens[idx].attrSet('target', '_blank');
+		}
 		return defaultRender(tokens, idx, options, env, self);
 	};
 

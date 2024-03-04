@@ -16,7 +16,7 @@ describe('getHtmlFromMd', () => {
 	});
 
 	describe('quand les liens sont des ancres', () => {
-		it('ne transforme pas les liens en liens s‘ouvrant dans un nouvel onglet', () => {
+		it('transforme les liens en liens de redirection interne n’ouvrant pas dans un nouvel onglet', () => {
 			const markdown = '[exemple de lien](#exemple)';
 			const result = getHtmlFromMd(markdown);
 			expect(result).toBe('<p><a href="#exemple">exemple de lien</a></p>\n');
