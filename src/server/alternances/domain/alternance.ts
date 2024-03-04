@@ -12,6 +12,7 @@ export interface Alternance {
 	titre: string
 	entreprise: Alternance.Entreprise
 	description?: string
+	descriptionEmployeur?: string
 	localisation?: string
 	niveauRequis?: string
 	natureDuContrat?: string
