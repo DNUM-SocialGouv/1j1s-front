@@ -18,7 +18,7 @@ describe('envoyer une demande de contact', () => {
 			nock('https://api.tipimail.com/v1')
 				.post('/messages/send', (body) => { tipimailDemandeDeContact = body; return true; })
 				.reply(200);
-      
+
 			await testApiHandler<void | ErrorHttpResponse>({
 				pagesHandler: (req, res) => envoyerDemandeContactAccompagnementHandler(req, res),
 				test: async ({ fetch }) => {
@@ -48,7 +48,7 @@ describe('envoyer une demande de contact', () => {
 			} }));
 
 			expect(result.error?.name).toEqual('ValidationError');
-			expect(result.error?.message).toEqual('"établissement.type" must be one of [cij, mission_locale, pole_emploi]');
+			expect(result.error?.message).toEqual('"établissement.type" must be [mission_locale]');
 		});
 	});
 });

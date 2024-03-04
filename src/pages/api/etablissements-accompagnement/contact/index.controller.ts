@@ -24,7 +24,7 @@ export const demandeContactAccompagnementBodySchema = Joi.object({
 	établissement: Joi.object({
 		email: Joi.string().pattern(new RegExp(emailRegex)).required(),
 		nom: Joi.string().required(),
-		type: Joi.string().valid('cij','mission_locale','pole_emploi').required(),
+		type: Joi.string().valid(TypeÉtablissement.MISSION_LOCALE).required(), // TODO (SULI 04-03-2024):  enlever la validation sur le type étant donné c'est 100% du mission locale
 	}).required(),
 });
 
