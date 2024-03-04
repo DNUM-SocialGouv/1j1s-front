@@ -56,7 +56,6 @@ export function FormulaireDemandeDeContactAccompagnement({
 		<form
 			className={styles.formulaire}
 			onSubmit={envoyerFormulaire}
-			aria-label={'formulaire'}
 		>
 			<Champ>
 				<Champ.Label>

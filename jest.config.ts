@@ -14,7 +14,6 @@ const customJestConfig = {
 		uuid: require.resolve('uuid'),
 	},
 	setupFilesAfterEnv: ['./react-testing-library.setup.ts'],
-	silent: true,
 };
 
 module.exports = createJestConfig(customJestConfig);
