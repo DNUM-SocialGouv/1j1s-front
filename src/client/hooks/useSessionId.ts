@@ -6,12 +6,17 @@ function useSessionId (): string | undefined {
 	const [value, setValue] = useState<string>();
 
 	useEffect(() => {
-		let sessionId = sessionStorage ? sessionStorage.getItem(SESSION_ID) : undefined;
-		if (!sessionId) {
-			sessionId = uuidv4();
-			sessionStorage.setItem(SESSION_ID, sessionId);
+		try {
+			let sessionId = sessionStorage ? sessionStorage.getItem(SESSION_ID) : undefined;
+			if (!sessionId) {
+				sessionId = uuidv4();
+				sessionStorage.setItem(SESSION_ID, sessionId);
+			}
+			setValue(sessionId);
+		} catch {
+			setValue(undefined);
 		}
-		setValue(sessionId);
+
 	}, []);
 
 	return value;
