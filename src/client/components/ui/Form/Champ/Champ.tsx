@@ -44,7 +44,6 @@ type ComponentChildrenPropsNecessary = {
 	onChange?: ChangeFunction
 	onInvalid?: ChangeFunction
 	onTouch?: TouchFunction
-	ref?: React.Ref<HTMLInputElement>
 	'aria-describedby'?: string
 	id?: string
 }
