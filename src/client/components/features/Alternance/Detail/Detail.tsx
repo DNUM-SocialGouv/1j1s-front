@@ -7,7 +7,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
-import { Alternance, isMatcha, isPoleEmploi } from '~/server/alternances/domain/alternance';
+import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
 
@@ -27,7 +27,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList className={styles.tags} list={annonce.tags}/>
-				{isPoleEmploi(annonce.source) && annonce.lienPostuler &&
+				{isFranceTravail(annonce.source) && annonce.lienPostuler &&
             <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur France Travail<Link.Icon/></Link>
 				}
 				{isMatcha(annonce.source) && annonce.id &&

@@ -13,7 +13,7 @@ import analytics from '~/pages/jobs-ete/index.analytics';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { JobEteFiltre } from '~/server/jobs-ete/domain/jobEte';
-import { DomaineCode, MAX_PAGE_ALLOWED_BY_POLE_EMPLOI, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
+import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
 
@@ -40,7 +40,7 @@ const jobsEteQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
 	motCle: Joi.string(),
-	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_POLE_EMPLOI).required(),
+	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL).required(),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 }).options({ allowUnknown: true });
 
@@ -62,7 +62,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 			notFound: true,
 		};
 	}
-	
+
 	const { query } = context;
 
 	if (empty(query)) {
@@ -70,7 +70,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 			props: {},
 		};
 	}
-	
+
 	if (jobsEteQuerySchema.validate(query).error) {
 		return {
 			props: {
@@ -79,7 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 		};
 	}
 	const filtres = jobEteFiltreMapper(context.query);
-	
+
 	const resultatsRecherche = await dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle(filtres);
 	if (resultatsRecherche.instance === 'failure') {
 		return {
@@ -88,7 +88,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 			},
 		};
 	}
-	
+
 	return {
 		props: {
 			resultats: JSON.parse(JSON.stringify(resultatsRecherche.result)),

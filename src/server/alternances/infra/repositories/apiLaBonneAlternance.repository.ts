@@ -18,7 +18,7 @@ import { PublicHttpClientService } from '~/server/services/http/publicHttpClient
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
 
-const POLE_EMPLOI_ID_LENGTH = 7;
+const FRANCE_TRAVAIL_ID_LENGTH = 7;
 
 export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 	constructor(private readonly httpClientService: PublicHttpClientService, private readonly caller: string, private readonly errorManagementServiceSearch: ErrorManagementService, private readonly errorManagementServiceGet: ErrorManagementService) {
@@ -51,14 +51,14 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		return await this.httpClientService.get<AlternanceApiJobsResponse>(endpoint);
 	}
 
-	// Les offres Pole Emploi ont un identifiant de 7 caractères (https://pole-emploi.io/data/api/offres-emploi?tabgroup-api=documentation&doc-section=api-doc-section-consulter-une-offre)
-	private static isPoleEmploiId(id: string): boolean {
-		return id.length === POLE_EMPLOI_ID_LENGTH;
+	// Les offres France Travail ont un identifiant de 7 caractères (https://pole-emploi.io/data/api/offres-emploi?tabgroup-api=documentation&doc-section=api-doc-section-consulter-une-offre)
+	private static isFranceTravailId(id: string): boolean {
+		return id.length === FRANCE_TRAVAIL_ID_LENGTH;
 	}
 
 	async get(id: string): Promise<Either<Alternance>> {
 		try {
-			if (ApiLaBonneAlternanceRepository.isPoleEmploiId(id)) {
+			if (ApiLaBonneAlternanceRepository.isFranceTravailId(id)) {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);

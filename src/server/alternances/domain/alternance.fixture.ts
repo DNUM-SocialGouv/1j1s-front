@@ -62,7 +62,7 @@ export const anAlternancePEJobs = (): Alternance => {
 		id: 'alternance-pejob',
 		localisation: 'paris',
 		natureDuContrat: 'Contrat d‘alternance',
-		source: Alternance.Source.POLE_EMPLOI,
+		source: Alternance.Source.FRANCE_TRAVAIL,
 		tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 		titre: 'un titre',
 		typeDeContrat: ['CDD'],

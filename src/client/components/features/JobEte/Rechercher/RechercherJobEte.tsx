@@ -28,7 +28,7 @@ import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
-	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
+	MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
 	Offre,
 	RésultatsRechercheOffre,
@@ -94,7 +94,7 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
-					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
+					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList}/>}
 				/>
 			</main>
