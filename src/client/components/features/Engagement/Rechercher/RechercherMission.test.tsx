@@ -115,11 +115,11 @@ describe('RechercherMission', () => {
 					</DependenciesProvider>,
 				);
 				const user = userEvent.setup();
-				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
+				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
 				await user.click(selectButtonRadius);
 
 				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
@@ -195,11 +195,11 @@ describe('RechercherMission', () => {
 				);
 
 				const user = userEvent.setup();
-				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+				const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon' });
+				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
 				await user.click(selectButtonRadius);
 
 				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();

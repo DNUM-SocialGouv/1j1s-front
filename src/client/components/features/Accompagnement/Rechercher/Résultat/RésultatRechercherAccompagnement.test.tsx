@@ -245,18 +245,18 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 async function remplirFormulaire() {
 	const user = userEvent.setup();
-	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom' });
+	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' });
 	await user.type(inputPrenom, formulaireContact.prenom);
 
-	const inputNom = screen.getByRole('textbox', { name: 'Nom' });
+	const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 	await user.type(inputNom, formulaireContact.nom);
 
-	await user.type(screen.getByRole('textbox', { name: 'Téléphone' }), formulaireContact.telephone);
+	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), formulaireContact.telephone);
 
-	await user.type(screen.getByRole('combobox', { name: 'Localisation' }), formulaireContact.ville);
+	await user.type(screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }), formulaireContact.ville);
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age' }));
+	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
 	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
 }

@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
-import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import styles from '~/client/components/ui/Form/Input.module.scss';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
@@ -14,7 +14,7 @@ import { Combobox } from '../index';
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
 
-type ComboboxPropsWithOmit = Omit<ComboboxProps, 'label' | 'defaultValue'>
+type ComboboxPropsWithOmit = Omit<ComboboxProps, 'label' | 'defaultValue' | 'optionsAriaLabel'>
 type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 
 type ComboboxCommuneProps = {
@@ -37,13 +37,10 @@ const DEFAULT_DEBOUNCE_TIMEOUT = 200;
 export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProps>(function ComboboxCommune(props, ref) {
 	const {
 		label = 'Localisation',
-		id: idProps,
 		onChange: onChangeProps = doNothing,
 		defaultCommune: defaultCommuneProps,
 		defaultDistance: defaultDistanceProps,
 		debounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
-		'aria-describedby': ariaDescribedby = '',
-		onInvalid: onInvalidProps = doNothing,
 		showRadiusInput = false,
 		...rest
 	} = props;
@@ -54,13 +51,8 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 
 	const [status, setStatus] = useState<FetchStatus>('init');
 	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
-	const [fieldError, setFieldError] = useState<string | null>(null);
 
 	const matchingOption = findMatchingOptionFromUserInput(userInput, communeOptions);
-
-	const errorId = useId();
-	const id = useId();
-	const inputId = idProps ?? id;
 
 	function isUserInputValid(userInput: string) {
 		return userInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
@@ -102,60 +94,57 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 		return communeList.find((commune) => userInput === commune.libelle);
 	}
 
+	const isCommuneValid = matchingOption?.code;
 	return (
 		<>
 			<div>
-				<label htmlFor={inputId} className={styles.label}>
-					{label}
-				</label>
-				<Combobox
-					valueName="libelleCommune"
-					ref={ref}
-					autoComplete="off"
-					filter={Combobox.noFilter}
-					aria-label={label}
-					placeholder={'Exemples : Paris, Béziers...'}
-					id={inputId}
-					value={userInput}
-					requireValidOption
-					onChange={(event, newValue) => {
-						setFieldError(null);
-						rechercherCommunes(newValue);
-						setUserInput(newValue);
-						onChangeProps(event, newValue);
-					}}
-					aria-describedby={`${ariaDescribedby} ${errorId}`}
-					aria-invalid={fieldError !== null && fieldError !== ''}
-					onInvalid={(event) => {
-						onInvalidProps(event);
-						setFieldError(event.currentTarget.validationMessage);
-					}}
-					{...rest}
-				>
-					{
-						(communeOptions.map((commune: Commune) => (
-							<Combobox.Option key={commune.libelle}>
-								{commune.libelle}
-							</Combobox.Option>
-						)))
-					}
-					<Combobox.AsyncMessage>{
-						!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
-						|| status === 'failure' && MESSAGE_ERREUR_FETCH
-						|| status === 'pending' && MESSAGE_CHARGEMENT
-						|| isListeDeResultatEmpty() && MESSAGE_PAS_DE_RESULTAT
-						|| ''
-					}</Combobox.AsyncMessage>
-				</Combobox>
-				<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
+				<Champ>
+					<Champ.Label>
+						{label}
+						<Champ.Label.Complement>Exemples : Paris, Béziers…</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input render={Combobox}
+											 ref={ref}
+											 filter={Combobox.noFilter}
+											 valueName="libelleCommune"
+											 autoComplete="off"
+											 value={userInput}
+											 optionsAriaLabel="communes"
+											 onChange={(event, newValue) => {
+												 rechercherCommunes(newValue);
+												 setUserInput(newValue);
+												 onChangeProps(event, newValue);
+											 }}
+											 requireValidOption
+											 {...rest}>
+						{
+							(communeOptions.map((commune: Commune) => (
+								<Combobox.Option key={commune.libelle}>
+									{commune.libelle}
+								</Combobox.Option>
+							)))
+						}
+						<Combobox.AsyncMessage>
+							{
+								!isUserInputValid(userInput) && MESSAGE_CHAMP_VIDE
+								|| status === 'failure' && MESSAGE_ERREUR_FETCH
+								|| status === 'pending' && MESSAGE_CHARGEMENT
+								|| isListeDeResultatEmpty() && MESSAGE_PAS_DE_RESULTAT
+								|| ''
+							}
+						</Combobox.AsyncMessage>
+					</Champ.Input>
+					<Champ.Error/>
+				</Champ>
 				<input type="hidden" name="codeCommune" value={matchingOption?.code ?? ''}/>
 				<input type="hidden" name="latitudeCommune" value={matchingOption?.coordonnées.latitude ?? ''}/>
 				<input type="hidden" name="longitudeCommune" value={matchingOption?.coordonnées.longitude ?? ''}/>
 				<input type="hidden" name="codePostal" value={matchingOption?.codePostal ?? ''}/>
 				<input type="hidden" name="ville" value={matchingOption?.ville ?? ''}/>
 			</div>
-			{showRadiusInput && !fieldError && matchingOption?.code && userInput && <Select
+			{showRadiusInput && isCommuneValid && userInput && <Select
 				label="Rayon"
+				labelComplement="Exemple : 30 km"
 				name="distanceCommune"
 				optionList={radiusList}
 				onChange={setDistanceCommune}

@@ -59,18 +59,17 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 	describe('champ email', () => {
 		it('a un champ Adresse e-mail facultatif', async () => {
-			const label = 'Adresse e-mail (facultatif)';
-			// Given
+			const label = 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com';
 			renderComponent();
+			const inputEmail = screen.getByRole('textbox', { name: label });
 
-			//When
-			await userEvent.type(screen.getByLabelText(label), 's{backspace}');
+			await userEvent.type(inputEmail, 's{backspace}');
 
-			// Then
-			expect(screen.getByLabelText(label)).toBeValid();
+			expect(inputEmail).toHaveAttribute('aria-invalid', 'false');
 		});
+
 		it('ne prend pas en compte les espaces avant et après', async () => {
-			const label = 'Adresse e-mail (facultatif)';
+			const label = 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com';
 			// Given
 			renderComponent();
 
@@ -101,7 +100,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		renderComponent();
 		// When
 		await userEvent.click(screen.getByText('Age'));
-		await userEvent.click(screen.getByLabelText('Nom'));
+		await userEvent.click(screen.getByLabelText(/Nom/));
 		// When
 		const input = await screen.findByTestId('Select-InputHidden');
 
@@ -140,17 +139,17 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 async function envoyerDemandeContact() {
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 
-	await userEvent.type(screen.getByLabelText('Adresse e-mail (facultatif)'), demandeDeContactAccompagnement.email || '');
-	await userEvent.type(screen.getByLabelText('Nom'), demandeDeContactAccompagnement.nom);
-	await userEvent.type(screen.getByLabelText('Prénom'), demandeDeContactAccompagnement.prénom);
-	await userEvent.type(screen.getByLabelText('Téléphone'), demandeDeContactAccompagnement.téléphone);
+	await userEvent.type(screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' }), demandeDeContactAccompagnement.email || '');
+	await userEvent.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), demandeDeContactAccompagnement.nom);
+	await userEvent.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), demandeDeContactAccompagnement.prénom);
+	await userEvent.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), demandeDeContactAccompagnement.téléphone);
 	await userEvent.type(screen.getByLabelText('Commentaires ou autres informations utiles (facultatif)'), demandeDeContactAccompagnement.commentaire || '');
-	const button = screen.getByRole('button', { name: 'Age' });
+	const button = screen.getByRole('button', { name: 'Age Exemple : 16 ans' });
 	await userEvent.click(button);
 	const listbox = screen.getByRole('listbox');
 	const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
 	await userEvent.click(input);
-	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 	await userEvent.type(comboboxCommune, 'Paris');
 	const resultatCommuneList = await screen.findAllByRole('option');
 	await userEvent.click(resultatCommuneList[0]);
