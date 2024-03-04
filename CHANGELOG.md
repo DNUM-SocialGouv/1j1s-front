@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.255.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.254.4...v3.255.0) (2024-03-04)
+
+
+### Features
+
+* **combobox:** ajout de champ sur combobox commune ([#2741](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2741)) ([7d56f50](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7d56f5043e7b4a5b7d0fb38e924c0fd83ee27b44))
+
 ## [3.254.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.254.3...v3.254.4) (2024-03-04)
 
 
