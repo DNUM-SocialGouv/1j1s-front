@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.254.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.254.3...v3.254.4) (2024-03-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @next/bundle-analyzer to v14.1.1 ([#2750](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2750)) ([6605b69](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6605b695068695b7f43e2f90cb1bdeaa1fc4ebff))
+
 ## [3.254.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.254.2...v3.254.3) (2024-03-01)
 
 
