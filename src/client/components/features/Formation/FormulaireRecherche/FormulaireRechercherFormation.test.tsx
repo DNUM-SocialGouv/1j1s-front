@@ -76,7 +76,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
+			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMétiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
@@ -129,7 +129,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
+			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMétiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
@@ -210,7 +210,7 @@ describe('FormulaireRechercherFormation', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMétiers = screen.getByRole('combobox', { name: /Domaine/i });
+			const inputMétiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMétiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
@@ -268,7 +268,7 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		const domaine = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = await screen.findByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
@@ -294,7 +294,7 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		const domaine = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 		expect(domaine).toHaveValue('');
 		const form = screen.getByRole('form');
 		expect(form).not.toHaveFormValues({
@@ -317,7 +317,7 @@ describe('FormulaireRechercherFormation', () => {
 			</DependenciesProvider>,
 		);
 
-		const domaine = screen.getByRole('combobox', { name: /Domaine/i });
+		const domaine = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 		expect(domaine).toHaveValue('');
 		const form = screen.getByRole('form');
 		expect(form).not.toHaveFormValues({

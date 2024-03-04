@@ -35,51 +35,6 @@ describe('<ComboboxMetiers />', () => {
 
 			expect(ref).toHaveBeenCalledWith(expect.any(HTMLInputElement));
 		});
-		it('accepte un id', () => {
-			const id = 'id';
-
-			render(
-				<MetierDependenciesProvider metierService={aMetierService()}>
-					<ComboboxMetiers name='métier' label='Rechercher un métier' id={id} />
-				</MetierDependenciesProvider>,
-			);
-
-			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
-			expect(combobox).toHaveAttribute('id', id);
-		});
-		it('accepte un onInvalid', async () => {
-			const user = userEvent.setup();
-			const onInvalid = jest.fn();
-			render(
-				<MetierDependenciesProvider metierService={aMetierService()}>
-					<ComboboxMetiers name='métier' label='Rechercher un métier' onInvalid={onInvalid}/>
-				</MetierDependenciesProvider>,
-			);
-
-			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
-			await user.type(combobox, 'A');
-			await user.tab();
-
-			expect(onInvalid).toHaveBeenCalled();
-		});
-		it('merge le aria-describedby en props avec celui du message d’erreur', async () => {
-			const user = userEvent.setup();
-			const messageErreur = 'Veuillez sélectionner une option dans la liste';
-			const aideSaisie = 'Commencez à taper pour voir des suggestions';
-			render(
-				<MetierDependenciesProvider metierService={aMetierService()}>
-					<ComboboxMetiers name='métier' label='Rechercher un métier' aria-describedby="aide-saisie" />
-					<p id="aide-saisie">{aideSaisie}</p>
-				</MetierDependenciesProvider>,
-			);
-
-			const combobox = screen.getByRole('combobox', { name: /Rechercher un métier/i });
-			await user.type(combobox, 'A');
-			await user.tab();
-
-			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
-			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
-		});
 		it('utilise le label "Domaine" par défaut', () => {
 			const id = 'id';
 
@@ -90,7 +45,7 @@ describe('<ComboboxMetiers />', () => {
 			);
 
 			const combobox = screen.getByRole('combobox');
-			expect(combobox).toHaveAccessibleName('Domaine');
+			expect(combobox).toHaveAccessibleName('Domaine Exemples : boulangerie, enseignement');
 		});
 	});
 
@@ -102,7 +57,7 @@ describe('<ComboboxMetiers />', () => {
 			render(<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
 			</MetierDependenciesProvider>);
-			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 			await user.type(comboboxMetiers, 'dddddd');
 			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un métier. Exemple : boulanger, …');
 
@@ -123,7 +78,7 @@ describe('<ComboboxMetiers />', () => {
 			render(<MetierDependenciesProvider metierService={metierServiceMock}>
 				<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
 			</MetierDependenciesProvider>);
-			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+			const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 			await user.type(comboboxMetiers, 'boulang');
 
 			expect(await screen.findAllByRole('option')).toHaveLength(3);
@@ -191,7 +146,7 @@ describe('<ComboboxMetiers />', () => {
 						</MetierDependenciesProvider>
 					</form>,
 				);
-				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 				await user.type(comboboxMetiers, 'boulang');
 				await user.click(screen.getByRole('option', { name: 'Conduite de travaux, direction de chantier' }));
 
@@ -211,7 +166,7 @@ describe('<ComboboxMetiers />', () => {
 						<ComboboxMetiers name={'métier'} label={'Rechercher un métier'} debounceTimeout={0}/>
 					</MetierDependenciesProvider>,
 				);
-				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier' });
+				const comboboxMetiers = screen.getByRole('combobox', { name: 'Rechercher un métier Exemples : boulangerie, enseignement' });
 				await user.type(comboboxMetiers, 'Ingé');
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);

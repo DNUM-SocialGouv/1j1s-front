@@ -87,7 +87,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMetiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
@@ -138,7 +138,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMetiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
@@ -210,7 +210,7 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
@@ -231,7 +231,7 @@ describe('FormulaireRechercheAlternance', () => {
 			</DependenciesProvider>,
 		);
 
-		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 		expect(inputMetiers).toHaveValue('');
 		const form = screen.getByRole('form');
 		expect(form).not.toHaveFormValues({
@@ -279,7 +279,7 @@ describe('FormulaireRechercheAlternance', () => {
 			);
 
 			const user = userEvent.setup();
-			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
+			const inputMetiers = screen.getByRole('combobox', { name: 'Domaine Exemples : boulangerie, enseignement' });
 			await user.type(inputMetiers, 'boulang');
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);

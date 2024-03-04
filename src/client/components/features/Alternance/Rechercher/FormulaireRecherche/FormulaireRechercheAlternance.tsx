@@ -77,7 +77,6 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 							<ComboboxMetiers
 								defaultValue={domaineDefaultValue}
 								required
-								placeholder={'Exemples : enseignement, recherche...'}
 								valueName={'codeRomes'}
 							/>
 						</MetierDependenciesProvider>
