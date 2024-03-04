@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -22,7 +22,11 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const sessionId = useSessionId();
-	const isClientSide = typeof window === 'undefined'; // A supprimer pour générer les pages server-side
+
+	const [isClientSide, setIsClientSide] = useState(false); // supprimer pour permettre rendu SSR / SSG complet
+	useEffect(() => {
+		setIsClientSide(true);
+	}, []);
 
 	const dependenciesContainerInstance = useMemo(() => isClientSide && dependenciesContainer(sessionId), [isClientSide, sessionId]);
 	const router = useRouter();
