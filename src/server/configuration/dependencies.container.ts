@@ -303,17 +303,17 @@ export function dependenciesContainer(): Dependencies {
 	const apiFranceTravailOffreErrorManagementServiceSearch = new ApiFranceTravailOffreErrorManagementServiceSearch(loggerService);
 	const apiFranceTravailOffreErrorManagementServiceGet = new ApiFranceTravailOffreErrorManagementServiceGet(loggerService);
 	const apiFranceTravailOffreRepository = new ApiFranceTravailOffreRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
-	const offreEmploiDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const offreEmploiDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? offresEmploiDependenciesContainer(new MockOffreRepository())
 		: offresEmploiDependenciesContainer(apiFranceTravailOffreRepository);
 
 	const apiFranceTravailJobEtudiantRepository = new ApiFranceTravailJobEtudiantRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
-	const offreJobÉtudiantDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const offreJobÉtudiantDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? jobsÉtudiantsDependenciesContainer(new MockOffreRepository())
 		: jobsÉtudiantsDependenciesContainer(apiFranceTravailJobEtudiantRepository);
 
 	const apiFranceTravailJobEteRepository = new ApiFranceTravailJobEteRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
-	const offreJobEteDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const offreJobEteDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? jobsEteDependenciesContainer(new MockOffreRepository())
 		: jobsEteDependenciesContainer(apiFranceTravailJobEteRepository);
 
@@ -325,7 +325,7 @@ export function dependenciesContainer(): Dependencies {
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
-	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE
+	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE // todo devrait se baser sur si c'est environnement de test non ?
 	  ? alternancesDependenciesContainer(new MockAlternanceRepository())
 		: alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
