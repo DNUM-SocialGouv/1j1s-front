@@ -62,7 +62,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				const apiResponse = await this.httpClientService.get<{
 					peJobs: AlternanceApiJobsResponse.PEJobs[]
 				}>(`/v1/jobs/job/${id}`);
-				const apiValidationError = validateApiResponse(apiResponse.data, apiLaBonneAlternanceSchemas.getPoleEmploi);
+				const apiValidationError = validateApiResponse(apiResponse.data, apiLaBonneAlternanceSchemas.getFranceTravail);
 				if (apiValidationError) {
 					this.errorManagementServiceGet.logValidationError(apiValidationError, {
 						apiSource: 'API LaBonneAlternance',

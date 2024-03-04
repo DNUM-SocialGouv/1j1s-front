@@ -10,25 +10,25 @@ import {
 import { MetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de';
 import { aMetierStage3eEt2de } from '~/server/stage-3e-et-2de/domain/metierStage3eEt2de.fixture';
 import {
-	anApiPoleEmploiMetierStage3eEt2de,
-} from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.fixture';
+	anApiFranceTravailMetierStage3eEt2de,
+} from '~/server/stage-3e-et-2de/infra/repositories/apiFranceTravailMetierStage3eEt2de.fixture';
 import {
-	ApiPoleEmploiMetierStage3eEt2deRepository,
-} from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
+	ApiFranceTravailMetierStage3eEt2deRepository,
+} from '~/server/stage-3e-et-2de/infra/repositories/apiFranceTravailMetierStage3eEt2de.repository';
 
-describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
+describe('ApiFranceTravailMetierStage3eEt2deRepository', () => {
 	describe('search', () => {
 		describe('quand le cache des appellations métier est disponible', () => {
 			it('utilise le cache pour récupérer les appellations métiers', async () => {
 				// Given
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValueOnce([
-					anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-					anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+					anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+					anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
 				]);
 				const httpClientService = anAuthenticatedHttpClientService();
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.search('boulanger');
@@ -47,7 +47,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const httpClientService = anAuthenticatedHttpClientService();
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.search('boulanger');
@@ -61,10 +61,10 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
-				const apiResponse = [anApiPoleEmploiMetierStage3eEt2de()];
+				const apiResponse = [anApiFranceTravailMetierStage3eEt2de()];
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.search('boulanger');
@@ -78,11 +78,11 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '17564', libelle: 'Apprenti boulanger' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '17564', libelle: 'Apprenti boulanger' }),
 			]));
-			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
 			const resultsMetiersStage3eEt2de = await repository.search('boulanger');
@@ -109,7 +109,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const httpClientService = anAuthenticatedHttpClientService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
 				const errorManagementService = anErrorManagementService();
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
 
 				// When
 				await repository.search('boulanger');
@@ -131,13 +131,13 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				// Given
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValueOnce([
-					anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-					anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
-					anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+					anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+					anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+					anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 				]);
 				const httpClientService = anAuthenticatedHttpClientService();
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.getMetiersByAppellationCodes(['11573', '11564']);
@@ -156,7 +156,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const httpClientService = anAuthenticatedHttpClientService();
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse([]));
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.getMetiersByAppellationCodes(['11573', '11564']);
@@ -170,10 +170,10 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const cacheService = aCacheService();
 				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
 				const httpClientService = anAuthenticatedHttpClientService();
-				const apiResponse = [anApiPoleEmploiMetierStage3eEt2de()];
+				const apiResponse = [anApiFranceTravailMetierStage3eEt2de()];
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
 
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, cacheService, anErrorManagementService());
 
 				// When
 				await repository.getMetiersByAppellationCodes(['11573', '11564']);
@@ -187,12 +187,12 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
 			const apiResponse = [
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
-			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
 			const resultsMetiersStage3eEt2de =
@@ -217,12 +217,12 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
 			const apiResponse = [
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
-			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
 			const resultsMetiersStage3eEt2de =
@@ -238,12 +238,12 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 			// Given
 			const httpClientService = anAuthenticatedHttpClientService();
 			const apiResponse = [
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
-				anApiPoleEmploiMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11573', libelle: 'Boulanger/Boulangère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11564', libelle: 'Boucher/Bouchère' }),
+				anApiFranceTravailMetierStage3eEt2de({ code: '11565', libelle: 'Styliste' }),
 			];
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(apiResponse));
-			const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
+			const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, new NullCacheService(), anErrorManagementService());
 
 			// When
 			const resultsMetiersStage3eEt2de =
@@ -267,7 +267,7 @@ describe('ApiPoleEmploiMetierStage3eEt2deRepository', () => {
 				const httpClientService = anAuthenticatedHttpClientService();
 				jest.spyOn(httpClientService, 'get').mockRejectedValueOnce(httpError);
 				const errorManagementService = anErrorManagementService();
-				const repository = new ApiPoleEmploiMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
+				const repository = new ApiFranceTravailMetierStage3eEt2deRepository(httpClientService, aCacheService(), errorManagementService);
 
 				// When
 				await repository.getMetiersByAppellationCodes([]);

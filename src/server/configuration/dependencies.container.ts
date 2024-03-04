@@ -223,14 +223,14 @@ import {
 	getApiImmersionFacileStage3eEt2deConfig,
 } from '~/server/stage-3e-et-2de/configuration/stage-3e-et-2de/stage3eEt2deHttpClient.config';
 import {
+	ApiFranceTravailMetierStage3eEt2deRepository,
+} from '~/server/stage-3e-et-2de/infra/repositories/apiFranceTravailMetierStage3eEt2de.repository';
+import {
 	ApiImmersionFacileStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.repository';
 import {
 	ApiImmersionFacileStage3eEt2deErrorManagementService,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2deErrorManagement.service';
-import {
-	ApiPoleEmploiMetierStage3eEt2deRepository,
-} from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
 import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 
@@ -430,8 +430,8 @@ export function dependenciesContainer(): Dependencies {
 		stage3eEt2deHttpClientService,
 		apiImmersionFacileStage3eEt2deErrorManagementService,
 	);
-	const apiPoleEmploiMetierStage3eEt2deRepository = new ApiPoleEmploiMetierStage3eEt2deRepository(franceTravailReferentielsHttpClientService, cacheService, defaultErrorManagementService);
-	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiPoleEmploiMetierStage3eEt2deRepository);
+	const apiFranceTravailMetierStage3eEt2deRepository = new ApiFranceTravailMetierStage3eEt2deRepository(franceTravailReferentielsHttpClientService, cacheService, defaultErrorManagementService);
+	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiFranceTravailMetierStage3eEt2deRepository);
 
 	return {
 		actualitesDependencies,

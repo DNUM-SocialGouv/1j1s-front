@@ -18,15 +18,15 @@ jest.mock('axios', () => {
 	};
 });
 
-describe('ApiPoleEmploiRéférentielRepository', () => {
+describe('ApiFranceTravailRéférentielRepository', () => {
 	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
 	let cacheService: CacheService;
-	let apiPoleEmploiRéférentielRepository: ApiFranceTravailReferentielRepository;
+	let apiFranceTravailRéférentielRepository: ApiFranceTravailReferentielRepository;
 
 	beforeEach(() => {
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
 		cacheService = new NullCacheService();
-		apiPoleEmploiRéférentielRepository = new ApiFranceTravailReferentielRepository(httpClientServiceWithAuthentification, cacheService);
+		apiFranceTravailRéférentielRepository = new ApiFranceTravailReferentielRepository(httpClientServiceWithAuthentification, cacheService);
 	});
 
 	describe('findCodeInseeInRéférentielCommune', () => {
@@ -37,7 +37,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '55000';
 
-				const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('55000');
+				const result = await apiFranceTravailRéférentielRepository.findCodeInseeInRéférentielCommune('55000');
 
 				expect(result).toEqual(expected);
 			});
@@ -50,7 +50,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '75999';
 
-				const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75999');
+				const result = await apiFranceTravailRéférentielRepository.findCodeInseeInRéférentielCommune('75999');
 
 				expect(result).toEqual(expected);
 			});
@@ -62,7 +62,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '75101';
 
-				const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('75056');
+				const result = await apiFranceTravailRéférentielRepository.findCodeInseeInRéférentielCommune('75056');
 
 				expect(result).toEqual(expected);
 			});
@@ -75,7 +75,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '13201';
 
-				const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('13055');
+				const result = await apiFranceTravailRéférentielRepository.findCodeInseeInRéférentielCommune('13055');
 
 				expect(result).toEqual(expected);
 			});
@@ -88,7 +88,7 @@ describe('ApiPoleEmploiRéférentielRepository', () => {
 					.mockResolvedValue(anAxiosResponse(aRésultatsRéférentielCommunesResponseList()));
 				const expected = '69381';
 
-				const result = await apiPoleEmploiRéférentielRepository.findCodeInseeInRéférentielCommune('69123');
+				const result = await apiFranceTravailRéférentielRepository.findCodeInseeInRéférentielCommune('69123');
 
 				expect(result).toEqual(expected);
 			});

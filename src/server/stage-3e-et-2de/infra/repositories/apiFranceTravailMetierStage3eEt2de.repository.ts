@@ -5,10 +5,10 @@ import { AuthenticatedHttpClientService } from '~/server/services/http/authentic
 
 import { MetierStage3eEt2de } from '../../domain/metierStage3eEt2de';
 import { MetierStage3eEt2deRepository } from '../../domain/metierStage3eEt2de.repository';
-import { ApiPoleEmploiMetierStage3eEt2de } from './apiPoleEmploiMetierStage3eEt2de';
-import { mapMetierStage3eEt2de } from './apiPoleEmploiMetierStage3eEt2de.mapper';
+import { ApiFranceTravailMetierStage3eEt2de } from './apiFranceTravailMetierStage3eEt2de';
+import { mapMetierStage3eEt2de } from './apiFranceTravailMetierStage3eEt2de.mapper';
 
-export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eEt2deRepository {
+export class ApiFranceTravailMetierStage3eEt2deRepository implements MetierStage3eEt2deRepository {
 	constructor(
 		private readonly httpClientServiceWithAuthentification: AuthenticatedHttpClientService,
 		private readonly cacheService: CacheService,
@@ -18,10 +18,10 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 	private CACHE_KEY = 'REFERENTIEL_METIER_STAGE_3EME';
 	private NOMBRE_HEURES_EXPIRATION_CACHE = 24;
 
-	private async getApiPoleEmploiMetiers() {
-		let response = await this.cacheService.get<Array<ApiPoleEmploiMetierStage3eEt2de>>(this.CACHE_KEY);;
+	private async getApiFranceTravailMetiers() {
+		let response = await this.cacheService.get<Array<ApiFranceTravailMetierStage3eEt2de>>(this.CACHE_KEY);;
 		if (!response) {
-			response = (await this.httpClientServiceWithAuthentification.get<Array<ApiPoleEmploiMetierStage3eEt2de>>('/appellations')).data;
+			response = (await this.httpClientServiceWithAuthentification.get<Array<ApiFranceTravailMetierStage3eEt2de>>('/appellations')).data;
 			this.cacheService.set(this.CACHE_KEY, response, this.NOMBRE_HEURES_EXPIRATION_CACHE);
 		}
 		return response;
@@ -29,7 +29,7 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 
 	async search(motCle: string): Promise<Either<MetierStage3eEt2de[]>> {
 		try {
-			const response = await this.getApiPoleEmploiMetiers();
+			const response = await this.getApiFranceTravailMetiers();
 
 			const metiers = response.filter((metier) => metier.libelle.toLowerCase().includes(motCle.toLowerCase()));
 
@@ -46,7 +46,7 @@ export class ApiPoleEmploiMetierStage3eEt2deRepository implements MetierStage3eE
 
 	async getMetiersByAppellationCodes(appellationCodes: string[]): Promise<Either<MetierStage3eEt2de[]>> {
 		try {
-			const response = await this.getApiPoleEmploiMetiers();
+			const response = await this.getApiFranceTravailMetiers();
 
 			const metiers = response.filter((metier) => appellationCodes.includes(metier.code));
 

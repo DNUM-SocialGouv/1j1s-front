@@ -343,12 +343,12 @@ describe('<Accompagnement />', () => {
 		it('ça te renvoie chez France Travail', async () => {
 			// Given
 			const user = userEvent.setup();
-			const poleEmploi = 'Oui, je suis accompagné(e) par France Travail';
+			const franceTravail = 'Oui, je suis accompagné(e) par France Travail';
 			const jeContacteMonConseiller = 'Contacter mon conseiller';
 			renderComponent();
 
 			// When
-			await user.click(screen.getByText(poleEmploi));
+			await user.click(screen.getByText(franceTravail));
 
 			// Then
 			const link = screen.getByRole('link', { name: jeContacteMonConseiller });

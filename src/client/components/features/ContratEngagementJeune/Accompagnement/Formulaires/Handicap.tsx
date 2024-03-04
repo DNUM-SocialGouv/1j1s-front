@@ -4,8 +4,8 @@ import { FormulairesProps } from '~/client/components/features/ContratEngagement
 import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-type HandicapProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsInscriptionPôleEmploiModalOpen'>
-export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionPôleEmploiModalOpen }: HandicapProps) {
+type HandicapProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsInscriptionFranceTravailModalOpen'>
+export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionFranceTravailModalOpen }: HandicapProps) {
 	return <>
 		<button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('BesoinAide26ans')}>
 			<TextIcon icon="angle-left" iconPosition="left">Retour</TextIcon>
@@ -14,7 +14,7 @@ export default function Handicap({ setTypeFormulaireAffiché, setIsInscriptionP�
 		<div>
 			<button className={styles.optionBouton} onClick={() => setTypeFormulaireAffiché('AutresBesoins26ans')}>Oui
 			</button>
-			<button className={styles.optionBouton} onClick={() => setIsInscriptionPôleEmploiModalOpen(true)}>Non</button>
+			<button className={styles.optionBouton} onClick={() => setIsInscriptionFranceTravailModalOpen(true)}>Non</button>
 		</div>
 	</>;
 }

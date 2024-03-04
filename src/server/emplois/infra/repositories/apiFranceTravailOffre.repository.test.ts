@@ -36,21 +36,21 @@ import {
 	anAxiosResponse,
 } from '~/server/services/http/publicHttpClient.service.fixture';
 
-describe('ApiPoleEmploiOffreRepository', () => {
+describe('ApiFranceTravailOffreRepository', () => {
 	let httpClientServiceWithAuthentification: AuthenticatedHttpClientService;
-	let apiPoleEmploiOffreRepository: ApiFranceTravailOffreRepository;
-	let poleEmploiParamètreBuilderService: FranceTravailParametreBuilderService;
+	let apiFranceTravailOffreRepository: ApiFranceTravailOffreRepository;
+	let franceTravailParametreBuilderService: FranceTravailParametreBuilderService;
 	let cacheService: CacheService;
-	let apiPoleEmploiErrorManagementSearch: ErrorManagementService;
-	let apiPoleEmploiErrorManagementGet: ErrorManagementWithErrorCheckingService;
+	let apiFranceTravailErrorManagementSearch: ErrorManagementService;
+	let apiFranceTravailErrorManagementGet: ErrorManagementWithErrorCheckingService;
 
 	beforeEach(() => {
 		cacheService = new NullCacheService();
 		httpClientServiceWithAuthentification = anAuthenticatedHttpClientService();
-		poleEmploiParamètreBuilderService = aFranceTravailParametreBuilderService();
-		apiPoleEmploiErrorManagementSearch = anErrorManagementService();
-		apiPoleEmploiErrorManagementGet = anErrorManagementWithErrorCheckingService();
-		apiPoleEmploiOffreRepository = new ApiFranceTravailOffreRepository(httpClientServiceWithAuthentification, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiErrorManagementSearch, apiPoleEmploiErrorManagementGet);
+		franceTravailParametreBuilderService = aFranceTravailParametreBuilderService();
+		apiFranceTravailErrorManagementSearch = anErrorManagementService();
+		apiFranceTravailErrorManagementGet = anErrorManagementWithErrorCheckingService();
+		apiFranceTravailOffreRepository = new ApiFranceTravailOffreRepository(httpClientServiceWithAuthentification, franceTravailParametreBuilderService, cacheService, apiFranceTravailErrorManagementSearch, apiFranceTravailErrorManagementGet);
 	});
 
 	describe('getOffreEmploi', () => {
@@ -62,7 +62,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const expected = aBarmanOffre();
 				const offreEmploiId = expected.id;
 
-				const { result } = await apiPoleEmploiOffreRepository.get(offreEmploiId) as Success<Offre>;
+				const { result } = await apiFranceTravailOffreRepository.get(offreEmploiId) as Success<Offre>;
 
 				expect(result).toEqual(expected);
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
@@ -77,11 +77,11 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockRejectedValue(httpError);
-				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailOffreRepository.get(aBarmanOffre().id);
 
-				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(apiFranceTravailErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API France Travail',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
@@ -94,12 +94,12 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const apiResponse = anAxiosResponse(aBarmanOffreEmploiApiResponse(), 204);
 				jest.spyOn(httpClientServiceWithAuthentification, 'get').mockResolvedValue(apiResponse);
-				jest.spyOn(apiPoleEmploiErrorManagementGet, 'isError').mockReturnValue(true);
-				jest.spyOn(apiPoleEmploiErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				jest.spyOn(apiFranceTravailErrorManagementGet, 'isError').mockReturnValue(true);
+				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiPoleEmploiOffreRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailOffreRepository.get(aBarmanOffre().id);
 
-				expect(apiPoleEmploiErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
+				expect(apiFranceTravailErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API France Travail',
 					contexte: 'détail offre emploi', message: 'impossible de récupérer le détail d’une offre d’emploi',
 				});
@@ -118,7 +118,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 						.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 
 					jest
-						.spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
+						.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
 						.mockResolvedValue('range=0-14');
 
 					jest.spyOn(cacheService, 'get').mockResolvedValue(null);
@@ -126,7 +126,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
-					const { result } = await apiPoleEmploiOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+					const { result } = await apiFranceTravailOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
 
 					expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY');
 
@@ -146,7 +146,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 					const offreFiltre = anOffreÉchantillonFiltre();
 
-					const { result } = await apiPoleEmploiOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+					const { result } = await apiFranceTravailOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
 
 					expect(cacheService.get).toHaveBeenCalledWith('ECHANTILLON_OFFRE_EMPLOI_KEY');
 
@@ -170,7 +170,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 				const offreFiltre = anOffreEmploiFiltre();
 
-				const { result } = await apiPoleEmploiOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailOffreRepository.search(offreFiltre) as Success<RésultatsRechercheOffre>;
 
 				expect(cacheService.get).not.toHaveBeenCalled();
 
@@ -187,11 +187,11 @@ describe('ApiPoleEmploiOffreRepository', () => {
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aRésultatsRechercheOffreEmploiApiResponse()));
 				jest
-					.spyOn(poleEmploiParamètreBuilderService, 'buildCommonParamètresRecherche')
+					.spyOn(franceTravailParametreBuilderService, 'buildCommonParamètresRecherche')
 					.mockResolvedValue('region=34&motsCles=boulanger&range=0-14');
 				const offreEmploiFiltre = anOffreEmploiFiltre();
 
-				const { result } = await apiPoleEmploiOffreRepository.search(offreEmploiFiltre) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailOffreRepository.search(offreEmploiFiltre) as Success<RésultatsRechercheOffre>;
 
 				expect(result).toEqual(aRésultatsRechercheOffre());
 				expect(httpClientServiceWithAuthentification.get).toHaveBeenCalledWith(
@@ -206,7 +206,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse({}, 204));
 
-				const { result } = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
+				const { result } = await apiFranceTravailOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre()) as Success<RésultatsRechercheOffre>;
 
 				expect(result).toEqual({ nombreRésultats: 0, résultats: [] });
 			});
@@ -219,11 +219,11 @@ describe('ApiPoleEmploiOffreRepository', () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockRejectedValue(httpError);
-				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				jest.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiPoleEmploiOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
+				const result = await apiFranceTravailOffreRepository.search(anOffreÉchantillonAvecLocalisationEtMotCléFiltre());
 
-				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(apiFranceTravailErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API France Travail',
 					contexte: 'recherche offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
@@ -236,7 +236,7 @@ describe('ApiPoleEmploiOffreRepository', () => {
 			it('retourne une erreur', async () => {
 				const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 				const httpError = anAxiosResponse(anHttpError(404));
-				jest.spyOn(apiPoleEmploiErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
+				jest.spyOn(apiFranceTravailErrorManagementSearch, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 				jest.spyOn(cacheService, 'get').mockResolvedValue(null);
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
@@ -244,9 +244,9 @@ describe('ApiPoleEmploiOffreRepository', () => {
 
 				const offreFiltre = anOffreÉchantillonFiltre();
 
-				const result = await apiPoleEmploiOffreRepository.search(offreFiltre);
+				const result = await apiFranceTravailOffreRepository.search(offreFiltre);
 
-				expect(apiPoleEmploiErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
+				expect(apiFranceTravailErrorManagementSearch.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API France Travail',
 					contexte: 'échantillon offre emploi', message: 'impossible d’effectuer une recherche d’offre d’emploi',
 				});
