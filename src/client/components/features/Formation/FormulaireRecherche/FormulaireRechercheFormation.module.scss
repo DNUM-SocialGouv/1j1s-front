@@ -56,7 +56,8 @@ $color-message-champs-obligatoires: utilities.$color-primary;
   }
 
   .buttonRechercher {
-    margin-top: utilities.pixel-to-rem(28);
+    // TODO (BRUJ 04/03/2024): à modifier lors de la refonte des boutons de recherche cf maquette 
+    margin-top: utilities.pixel-to-rem(41);
   }
 
   .inputButtonWrapper > div {
