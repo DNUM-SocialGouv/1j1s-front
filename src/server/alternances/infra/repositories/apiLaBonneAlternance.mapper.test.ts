@@ -276,7 +276,7 @@ describe('mapAlternance', () => {
 						contractType: 'CDD',
 						description: 'description de l’offre',
 						dureeContrat: 1,
-						employeurDescription: 'description de l’employeur',
+						employeurDescription: 'description de l’employeur avec des <p>p</p>',
 						id: 'id',
 						jobStartDate: '2020-01-01',
 						rythmeAlternance: 'alternance',
@@ -293,7 +293,7 @@ describe('mapAlternance', () => {
 				expect(result).toEqual({
 					dateDébut: new Date('2020-01-01'),
 					description: 'description de l’offre',
-					descriptionEmployeur: 'description de l’employeur',
+					descriptionEmployeur: 'description de l’employeur avec des <p>p</p>',
 					durée: '1 mois',
 					entreprise: {
 						adresse: 'full address',

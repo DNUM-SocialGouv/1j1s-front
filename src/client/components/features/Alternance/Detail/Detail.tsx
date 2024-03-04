@@ -7,6 +7,7 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useLocale } from '~/client/context/locale.context';
+import useSanitize from '~/client/hooks/useSanitize';
 import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
@@ -20,6 +21,9 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+	const description = useSanitize(annonce.description);
+	const descriptionEmployeur = useSanitize(annonce.descriptionEmployeur);
 
 	return (
 		<ConsulterOffreLayout>
@@ -46,7 +50,12 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 					{annonce.description && (
 						<div className={styles.description}>
 							<dt>Description du poste</dt>
-							<dd>{annonce.description}</dd>
+							<dd dangerouslySetInnerHTML={{ __html: description }}/>
+						</div>)}
+					{annonce.descriptionEmployeur && (
+						<div className={styles.descriptionEmployeur}>
+							<dt>Description de l’entreprise</dt>
+							<dd dangerouslySetInnerHTML={{ __html: descriptionEmployeur }}/>
 						</div>)}
 					{annonce.compétences && annonce.compétences.length > 0 && (
 						<div className={styles.competences}>

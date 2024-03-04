@@ -62,7 +62,7 @@ export function mapMatcha(alternance: Matcha): Alternance {
 	if (isMatchaPass(alternance)) {
 		return {
 			...mapCommonMatchaFields(alternance),
-			description: sanitizeEscapeSequences(alternance.job.description),
+			description: alternance.job.description,
 			descriptionEmployeur: alternance.job.employeurDescription,
 		};
 	}
