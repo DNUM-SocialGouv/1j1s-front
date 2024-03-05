@@ -2,7 +2,7 @@ import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixtur
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { PeriodeSalaire } from '~/server/stages/repository/periodeSalaire';
+import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
@@ -135,10 +135,10 @@ describe('strapiStage mapper', () => {
 					region: 'Provence-Alpes-Côte d\'Azure',
 					ville: 'Paris',
 				},
-				periodeSalaire: PeriodeSalaire.MONTHLY,
-				remunerationBase: 560, 
-				salaireMax: 560,
-				salaireMin: 560,
+				remunerationBase: 560,
+				remunerationMax: 560, 
+				remunerationMin: 560,
+				remunerationPeriode: RemunerationPeriode.MONTHLY,
 				teletravailPossible: true,
 				titre: 'Assistant conducteur train',
 				urlDeCandidature: 'mailto:admin@example.com',
@@ -147,7 +147,7 @@ describe('strapiStage mapper', () => {
 			expect(offreDeStageMapped).toEqual(expectedResult);
 		});
 
-		it('lorsque la rémunération n‘est pas présente, ne soumet pas de période de salaire', () => {
+		it('lorsque la rémunération n‘est pas présente, ne soumet pas de période de rémunération', () => {
 			const offreDeStageToSave = anOffreDeStageDepot({
 				remunerationBase: undefined,
 			});
@@ -155,10 +155,10 @@ describe('strapiStage mapper', () => {
 			const offreDeStageMapped = mapToStrapiDepotOffreDeStage(offreDeStageToSave);
 
 			const expectedResult = aStrapiOffreDeStageDepot({
-				periodeSalaire: undefined,
 				remunerationBase: undefined,
-				salaireMax: undefined,
-				salaireMin: undefined,
+				remunerationMax: undefined,
+				remunerationMin: undefined,
+				remunerationPeriode: undefined,
 			});
 
 			expect(offreDeStageMapped).toEqual(expectedResult);

@@ -1,5 +1,5 @@
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { PeriodeSalaire } from '~/server/stages/repository/periodeSalaire';
+import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 
@@ -25,9 +25,9 @@ export namespace OffreStageResponseStrapi {
 		localisation?: OffreStageResponseStrapi.Localisation
 		employeur?: OffreStageResponseStrapi.Employeur
 		remunerationBase: number | null
-		salaireMin?: number
-		salaireMax?: number
-		periodeSalaire?: PeriodeSalaire
+		remunerationMin?: number
+		remunerationMax?: number
+		remunerationPeriode?: RemunerationPeriode
 		source: SourceDesDonnées | null
 		teletravailPossible: boolean | null
 	}
@@ -56,7 +56,7 @@ export namespace OffreStageResponseStrapi {
 }
 
 export type OffreStageDepotStrapi =
-	Pick<OffreStageResponseStrapi.OffreStage, 'dateDeDebutMin' | 'dateDeDebutMax' | 'description' | 'domaines' | 'dureeEnJour' | 'remunerationBase' | 'teletravailPossible' | 'titre' | 'salaireMin' | 'salaireMax' | 'periodeSalaire'>
+	Pick<OffreStageResponseStrapi.OffreStage, 'dateDeDebutMin' | 'dateDeDebutMax' | 'description' | 'domaines' | 'dureeEnJour' | 'remunerationBase' | 'teletravailPossible' | 'titre' | 'remunerationMin' | 'remunerationMax' | 'remunerationPeriode'>
 	& {
 	identifiantSource: string;
 	publishedAt: null;

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
-import { PeriodeSalaire } from '~/server/stages/repository/periodeSalaire';
+import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
@@ -61,12 +61,13 @@ export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageD
 			region: body.localisation.region || null,
 			ville: body.localisation.ville,
 		},
-		periodeSalaire: body.remunerationBase ? PeriodeSalaire.MONTHLY : undefined,
 		// NOTE (BRUJ 02/01/2024): 'publishedAt' à null rajoute l'offre en draft dans le cms
 		publishedAt: null,
+		
 		remunerationBase: body.remunerationBase,
-		salaireMax: body.remunerationBase,
-		salaireMin: body.remunerationBase,
+		remunerationMax: body.remunerationBase,
+		remunerationMin: body.remunerationBase,
+		remunerationPeriode: body.remunerationBase ? RemunerationPeriode.MONTHLY : undefined,
 		source: SourceDesDonnées.INTERNE,
 		teletravailPossible: body.teletravailPossible,
 		titre: body.titre,
