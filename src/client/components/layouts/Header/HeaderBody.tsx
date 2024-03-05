@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { MAILTO_STAGE_3E_2DE } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -15,6 +14,7 @@ export function HeaderBody() {
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
+	const urlDepotOffreStage2de = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 
 	return (
 		<Container className={styles.headerBodyContainer}>
@@ -48,11 +48,11 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner} data-testid="desktop-mailto-stages">
+					<Link href={urlDepotOffreStage2de} className={styles.headerBodyBanner} data-testid="desktop-banner-stages">
 						<div>
-							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
+							<div className={styles.headerBodyBannerTitle}>Vous souhaitez accueillir des stagiaires de 2de&nbsp;?
 							</div>
-							<div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
+							<div className={styles.headerBodyBannerContent}>Déposer une offre&nbsp;!</div>
 						</div>
 						<Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
 					</Link>

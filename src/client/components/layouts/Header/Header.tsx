@@ -6,37 +6,20 @@ import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
 import { Link } from '~/client/components/ui/Link/Link';
 
-const bulletList = '%E2%80%A2';
-const lineBreak = '%0D%0A';
-
-const body = `Afin de recevoir des candidatures correspondant au besoin de la mission proposée, nous vous conseillons de bien détailler votre offre, en n'oubliant pas de préciser : 
-${lineBreak}
-${bulletList}    Un titre pour votre offre de stage ;${lineBreak}
-${bulletList}    La description des activités (n'hésitez pas à faire une liste) ;${lineBreak}
-${bulletList}    L'adresse du lieu du stage (ville, code postal, département, région, pays) - obligatoire ;${lineBreak}
-${bulletList}    Votre secteur d'activité ;${lineBreak}
-${bulletList}    Les dates de début et de fin du stage (entre le 17 et 28 juin 2024) ;${lineBreak}
-${bulletList}    Les coordonnées et le SIRET de votre entreprise ;${lineBreak}
-${bulletList}    Votre identité et coordonnées de la personne à contacter ;${lineBreak}
-${bulletList}    L'URL ou le mail pour envoyer sa candidature.${lineBreak}
-${lineBreak}
-Nous vous recontacterons au plus vite.`;
-
-export const MAILTO_STAGE_3E_2DE = `mailto:contact-1J1S@sg.social.gouv.fr?subject=[Déposer une offre de stage de 3e ou 2de]&body=${body}`;
-
 export function Header() {
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
 
 	const enqueteSatisfactionUrl = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL ?? '';
 	const displayEnqueteSatisfactionBanner = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE === '1' && !!enqueteSatisfactionUrl;
+	const urlDepotOffreStage2de = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 
 	return (
 		<header
 			className={styles.header}
 			role="banner">
-			<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-mailto-campagne">
-				Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
-				<Link.Icon  name="angle-right"/>
+			<Link href={urlDepotOffreStage2de} className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-mailto-campagne">
+				Vous souhaitez accueillir des stagiaires de 2de&nbsp;?
+				<Link.Icon name="angle-right"/>
 			</Link>
 			<HeaderBody/>
 			<HeaderNavDesktop/>

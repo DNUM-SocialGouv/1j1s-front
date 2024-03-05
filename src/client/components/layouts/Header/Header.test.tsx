@@ -131,6 +131,7 @@ describe('Header', () => {
 				process.env = {
 					...process.env,
 					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
+					NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL: 'https://url-de-candidature.com',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -138,13 +139,12 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByTestId('desktop-mailto-stages');
+				const encartLien = screen.getByTestId('desktop-banner-stages');
 				expect(encartLien).toHaveRole('link');
-				expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
+				expect(encartLien).toHaveAccessibleName(/Vous souhaitez accueillir des stagiaires de 2de ?/);
+				expect(encartLien).toHaveTextContent(/Déposer une offre !/);
 				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveTextContent(/Envoyez nous un e-mail !/i);
-				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
-				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
+				expect(encartLien).toHaveAttribute('href', 'https://url-de-candidature.com');
 			});
 		});
 
@@ -264,6 +264,7 @@ describe('Header', () => {
 					process.env = {
 						...process.env,
 						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
+						NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL: 'https://url-de-candidature.com',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -273,10 +274,9 @@ describe('Header', () => {
 					// Then
 					const encartLien = screen.getByTestId('mobile-mailto-campagne');
 					expect(encartLien).toHaveRole('link');
-					expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
+					expect(encartLien).toHaveAccessibleName(/Vous souhaitez accueillir des stagiaires de 2de ?/);
 					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
-					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
+					expect(encartLien).toHaveAttribute('href', 'https://url-de-candidature.com');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
