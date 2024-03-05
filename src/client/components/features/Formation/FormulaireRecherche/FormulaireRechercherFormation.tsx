@@ -75,7 +75,6 @@ export function FormulaireRechercherFormation() {
 								defaultValue={domaineDefaultValue}
 								required
 								autoFocus
-								placeholder="Exemples : ingénierie, agronomie..."
 								valueName={'codeRomes'}
 							/>
 						</MetierDependenciesProvider>
