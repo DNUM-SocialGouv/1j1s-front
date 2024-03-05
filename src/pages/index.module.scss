@@ -2,6 +2,7 @@
 @use "@styles/utilities";
 
 $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
+$gap-between-sections: 1.5rem;
 
 .hero {
   &Button {
@@ -32,6 +33,21 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
   }
 }
 
+.stageSecondeBanner {
+  background-color: #51BCB3;
+  margin-top: $gap-between-sections;
+
+  img {
+    object-fit: cover;
+    object-position: 90% 0%;
+    display: none;
+
+    @include utilities.media(xlarge) {
+      display: unset;
+    }
+  }
+}
+
 .card {
   max-width: 22.5rem;
   width: 100%;
@@ -43,10 +59,10 @@ $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 
 .section {
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: $gap-between-sections;
 
   &:first-of-type {
-    margin-top: 1.5rem;
+    margin-top: $gap-between-sections;
   }
 
   &Header {
