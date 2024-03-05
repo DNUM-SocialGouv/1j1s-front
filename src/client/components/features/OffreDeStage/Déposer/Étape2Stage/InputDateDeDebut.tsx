@@ -18,22 +18,36 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 	const [dateDeDebutMin, setDateDeDebutMin] = useState<string | undefined>(props.informationsStage?.dateDeDebutMin ?? undefined);
 	const [dateDeDebutMax, setDateDeDebutMax] = useState<string | undefined>(props.informationsStage?.dateDeDebutMax ?? undefined);
 
+	// NOTE (DORO - 05-03-2024): Duplication de l'implémentation de input=date pour les navigateurs qui ne le supportent pas
 	function validationDateDeDebutMin(value: string | undefined) {
-		if (value && !Date.parse(value)) return 'La date doit être au format AAAA-MM-JJ';
+		if (!value) return 'La date est obligatoire';
 
-		const dateToValidate = new Date(value ?? '').setHours(0, 0, 0, 0);
+		const isFormatDeDateInvalide = !Date.parse(value);
+		if (isFormatDeDateInvalide) return 'La date doit être au format AAAA-MM-JJ';
+
 		const dateNow = new Date().setHours(0, 0, 0, 0);
 
-		if (value && dateToValidate < dateNow) return 'La date doit être supérieure ou égale à la date du jour';
-		if (value && dateDeDebutMax && dateToValidate > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
+		const isDateAnterieurAujourdhui = Date.parse(value) < dateNow;
+		if (isDateAnterieurAujourdhui) return 'La date doit être supérieure ou égale à la date du jour';
+
+		const isDateDepasseDateMaxCms = !!dateDeDebutMax && Date.parse(value) > Date.parse(dateDeDebutMax);
+		if (isDateDepasseDateMaxCms) return 'La date doit être valide';
 	}
 
+	// NOTE (DORO - 05-03-2024): Duplication de l'implémentation de input=date pour les navigateurs qui ne le supportent pas
 	function validationDateDeDebutMax(value: string | undefined) {
-		if (value && !Date.parse(value)) return 'La date doit être au format AAAA-MM-JJ';
+		if (!value) return 'La date est obligatoire';
 
-		const dateToValidate = new Date(value ?? '').setHours(0, 0, 0, 0);
-		if (value && dateDeDebutMin && dateToValidate <= Date.parse(dateDeDebutMin)) return 'La date doit être supérieure ou égale à la date de début minimale';
-		if (value && dateToValidate > Date.parse(MAX_CMS_DATE)) return 'La date doit être valide';
+		const isFormatDeDateInvalide = !Date.parse(value);
+		if (isFormatDeDateInvalide) return 'La date doit être au format AAAA-MM-JJ';
+
+		const dateToValidate = Date.parse(value);
+
+		const isDateDebutMaxAnterieurDateDebutMin = !!dateDeDebutMin && dateToValidate < Date.parse(dateDeDebutMin);
+		if (isDateDebutMaxAnterieurDateDebutMin) return 'La date doit être supérieure ou égale à la date de début minimale';
+
+		const isDateDepasseDateMaxCms = dateToValidate > Date.parse(MAX_CMS_DATE);
+		if (isDateDepasseDateMaxCms) return 'La date doit être valide';
 	}
 
 	const patternDate = '^[0-9]{4}-[0-9]{2}-[0-9]{2}$';
