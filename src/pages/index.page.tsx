@@ -249,7 +249,7 @@ export default function Accueil() {
 						Inspirez, transmettez, faites découvrir vos métiers.
 						</HeroSecondaryText>
 						<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-							<span>Déposer votre offre de stage</span>
+							Déposer votre offre de stage
 							<Link.Icon/>
 						</Link>
 					</HeroWithIllustration>

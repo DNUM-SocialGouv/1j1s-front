@@ -3,6 +3,7 @@
 
 $colorHeroButtonOutline: utilities.$color-cta-background-secondary;
 $gap-between-sections: 1.5rem;
+$color-background-stages-seconde: #51BCB3;
 
 .hero {
   &Button {
@@ -34,12 +35,12 @@ $gap-between-sections: 1.5rem;
 }
 
 .stageSecondeBanner {
-  background-color: #51BCB3;
+  background-color: $color-background-stages-seconde;
   margin-top: $gap-between-sections;
 
   img {
     object-fit: cover;
-    object-position: 90% 0%;
+    object-position: 90% 0;
     display: none;
 
     @include utilities.media(xlarge) {
