@@ -7,6 +7,7 @@ import {
 } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { PREVIOUS_PAGE } from '~/client/hooks/useDisplayBackButton';
+import { isSessionStorageAvailable } from '~/client/hooks/useSessionId';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
 	label: string
@@ -20,7 +21,7 @@ export function BackButton({ className, label= 'Retour', ...rest }: BackButtonPr
 
 	const [displayBackButton, setDisplayBackButton] = useState(false);
 	useEffect(() => {
-		const previousPage = sessionStorage.getItem(PREVIOUS_PAGE);
+		const previousPage = isSessionStorageAvailable() ? sessionStorage.getItem(PREVIOUS_PAGE) : null;
 		setDisplayBackButton(!!previousPage);
 	}, []);
 
