@@ -37,7 +37,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 			);
 
 			const user = userEvent.setup();
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const resultListCommune = await screen.findAllByRole('option');
 			await user.click(resultListCommune[0]);
@@ -71,7 +71,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 				</DependenciesProvider>,
 			);
 
-			const selectTypeAccompagnement = screen.getByRole('button', { name:'Type d‘accompagnement' });
+			const selectTypeAccompagnement = screen.getByRole('button', { name:'Type d‘accompagnement Exemple : Missions locales' });
 			expect(selectTypeAccompagnement).toBeVisible();
 		});
 	});

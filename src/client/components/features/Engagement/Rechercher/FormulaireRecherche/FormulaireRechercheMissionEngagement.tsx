@@ -66,6 +66,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 					<Select
 						label="Domaine"
 						name="domain"
+						labelComplement="Exemple : Culture et loisirs"
 						optionList={domainList}
 						onChange={(value) => setDomainValue(value)}
 						value={domainValue}

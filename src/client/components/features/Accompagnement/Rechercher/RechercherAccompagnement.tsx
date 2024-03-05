@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import {
 	FormulaireRechercheAccompagnement,
@@ -16,20 +16,16 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
-import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {
 	ÉtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
-import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	EtablissementAccompagnement,
 	TypeÉtablissement,
@@ -44,13 +40,8 @@ export function RechercherAccompagnement() {
 	const [erreurRecherche, setErreurRecherche] = useState<Erreur | undefined>(undefined);
 	const [title, setTitle] = useState<string | undefined>();
 
-	const isEachQueryParamPresent = useCallback(() => {
-		const { codeCommune, libelleCommune, typeAccompagnement } = accompagnementQuery;
-		return codeCommune && libelleCommune && typeAccompagnement;
-	}, [accompagnementQuery]);
-
 	useEffect(function rechercherÉtablissementAccompagnement() {
-		if (isEachQueryParamPresent()) {
+		if (!empty(accompagnementQuery)) {
 			setIsLoading(true);
 			setErreurRecherche(undefined);
 			établissementAccompagnementService.rechercher(accompagnementQuery)
@@ -64,10 +55,8 @@ export function RechercherAccompagnement() {
 					}
 					setIsLoading(false);
 				});
-		} else {
-			setErreurRecherche(ErreurMetier.DEMANDE_INCORRECTE);
 		}
-	}, [accompagnementQuery, isEachQueryParamPresent, établissementAccompagnementService]);
+	}, [accompagnementQuery, établissementAccompagnementService]);
 
 	const messageRésultatRecherche: string = useMemo(() => {
 		const messageRésultatRechercheSplit: string[] = [`${établissementAccompagnementList.length}`];
@@ -109,13 +98,14 @@ export function RechercherAccompagnement() {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={<BannièreAccompagnement/>}
+					banniere={<BannièreAccompagnement/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={étiquettesRecherche}
+					etiquettesRecherche={étiquettesRecherche}
 					formulaireRecherche={<FormulaireRechercheAccompagnement/>}
-					isLoading={isLoading}
-					messageRésultatRecherche={messageRésultatRecherche}
-					nombreSolutions={établissementAccompagnementList.length}
+					isChargement={isLoading}
+					isEtatInitial={empty(accompagnementQuery)}
+					messageResultatRecherche={messageRésultatRecherche}
+					nombreTotalSolutions={établissementAccompagnementList?.length || 0}
 					listeSolutionElement={<ListeÉtablissementAccompagnement résultatList={établissementAccompagnementList}/>}
 				/>
 				<EnTete heading="Découvrez d’autres services faits pour vous"/>
@@ -148,7 +138,7 @@ interface ListeRésultatProps {
 
 function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProps) {
 	if (!résultatList.length) {
-		return null;
+		return undefined;
 	}
 
 	return (

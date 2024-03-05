@@ -3,8 +3,9 @@ import React, { FormEvent, useState } from 'react';
 import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
@@ -53,35 +54,42 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 			onSubmit={envoyerFormulaireDeContact}
 			aria-label="formulaire cej"
 		>
-			<InputText
-				label="Prénom"
-				name="firstname"
-				autoFocus
-				placeholder="Exemple : Jean"
-				required
-			/>
-			<InputText
-				label="Nom"
-				name="lastname"
-				placeholder="Exemple : Dupont"
-				required
-			/>
-			<InputText
-				label="Adresse email"
-				pattern={emailRegex}
-				name="mail"
-				placeholder="Exemple : jean.dupont@gmail.com"
-				required
-				type="email"
-			/>
-			<InputText
-				type="tel"
-				pattern={telFrRegex}
-				label="Téléphone"
-				name="phone"
-				placeholder="Exemple : 0606060606"
-				required
-			/>
+			<Champ>
+				<Champ.Label>
+					Prénom
+					<Champ.Label.Complement>Exemple : Jean</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input name="firstname" render={Input} required/>
+				<Champ.Error/>
+			</Champ>
+
+			<Champ>
+				<Champ.Label>
+					Nom
+					<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input name="lastname" render={Input} required/>
+				<Champ.Error/>
+			</Champ>
+
+			<Champ>
+				<Champ.Label>
+					Adresse e-mail
+					<Champ.Label.Complement>Exemple : jean.dupont@gmail.com</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email"/>
+				<Champ.Error/>
+			</Champ>
+
+			<Champ>
+				<Champ.Label>
+					Téléphone
+					<Champ.Label.Complement>Exemple : 0606060606</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input name="phone" render={Input} required pattern={telFrRegex} type="tel"/>
+				<Champ.Error/>
+			</Champ>
+
 			<Select
 				required
 				label="Age"
@@ -89,12 +97,15 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				optionList={ageOptions}
 				onChange={setInputAge}
 				value={inputAge}
+				labelComplement="Exemple : 16 ans"
 			/>
+
 			<ComboboxCommune
 				required
 				label="Ville"
 				name="commune"
 			/>
+
 			{isLoading
 				? <LoadingButton className={styles.formulaireButton}/>
 				: <ButtonComponent className={styles.formulaireButton} label="Envoyer la demande" type="submit"/>

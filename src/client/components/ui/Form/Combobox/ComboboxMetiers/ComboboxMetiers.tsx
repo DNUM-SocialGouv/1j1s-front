@@ -9,12 +9,10 @@ import { Combobox } from '..';
 import styles from './ComboboxMetiers.module.scss';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
-type ComboboxMetiersProps = Omit<ComboboxProps, 'aria-label' | 'aria-labelledby' | 'defaultValue'> & {
+type ComboboxMetiersProps = Omit<ComboboxProps, 'defaultValue' | 'optionsAriaLabel'> & {
   label?: string,
 	defaultValue?: Metier,
   debounceTimeout?: number,
-	'aria-label'?: React.HTMLProps<'input'>['aria-label'],
-	'aria-labelledby'?: React.HTMLProps<'input'>['aria-labelledby'],
 }
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
@@ -108,11 +106,11 @@ export const ComboboxMetiers = React.forwardRef<ComboboxRef, ComboboxMetiersProp
 			</label>
 			<Combobox
 				ref={ref}
+				optionsAriaLabel="métiers"
 				autoComplete="off"
 				id={inputId}
 				valueName={comboboxProps.valueName || 'codeMetier'}
 				name={comboboxProps.name || 'libelleMetier'}
-				aria-label={label}
 				onChange={(event, newValue) => {
 					setFieldError(null);
 					getMetiersDebounced(newValue);

@@ -89,6 +89,7 @@ export function FormulaireRechercheOffreEmploi() {
 			aria-label="Rechercher une offre d'emploi"
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherOffreEmploiQueryParams}
+			role="search"
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
@@ -101,7 +102,7 @@ export function FormulaireRechercheOffreEmploi() {
 					/>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
-						placeholder="Exemples : Paris, Béziers..."
+						placeholder="Exemples : Paris, Béziers…"
 					/>
 
 					{isSmallScreen &&

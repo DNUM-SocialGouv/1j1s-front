@@ -54,12 +54,12 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const user = userEvent.setup();
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
-			expect(screen.getByRole('button', { name: 'Rayon' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
 		});
 	});
 
@@ -93,7 +93,7 @@ describe('FormulaireRechercheAlternance', () => {
 			await user.click(firstMetierOption);
 
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
@@ -176,7 +176,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 			const user = userEvent.setup();
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationsOptions = await screen.findAllByRole('option');
 			await user.click(localisationsOptions[0]);
@@ -212,7 +212,7 @@ describe('FormulaireRechercheAlternance', () => {
 
 		const inputMetiers = screen.getByRole('combobox', { name: 'Domaine' });
 		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
-		const localisation = screen.getByRole('combobox', { name: 'Localisation' });
+		const localisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const rayon = screen.getByTestId('Select-InputHidden');
 		expect(rayon).toHaveValue('10');
@@ -284,7 +284,7 @@ describe('FormulaireRechercheAlternance', () => {
 			const firstMetierOption = await screen.findByRole('option', { name: aListeDeMetierLaBonneAlternance()[0].label });
 			await user.click(firstMetierOption);
 
-			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation' });
+			const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 			await user.type(comboboxCommune, 'Pari');
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);

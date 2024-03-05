@@ -23,11 +23,10 @@ describe('Parcours formulaire cej', () => {
 		it('affiche un message de succès', () => {
 			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
 
-			cy.findByRole('textbox', { name: /Prénom/i }).should('have.focus');
 			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
 			// FIXME (BRUJ 22/11/2023): test flaky obligé de rajouter un force
 			cy.findByRole('textbox', { name: /Nom/ }).type('dupont', { force: true });
-			cy.findByRole('textbox', { name: /Adresse email/i }).type('jean.dupont@mail.com');
+			cy.findByRole('textbox', { name: /Adresse e-mail/i }).type('jean.dupont@mail.com');
 			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
 			// FIXME (GAFI 23-10-2023): Manque un circonflèxe par ici ...
 			cy.findByRole('button', { name: /^Age/i }).click();

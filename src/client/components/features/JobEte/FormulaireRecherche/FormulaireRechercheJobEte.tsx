@@ -55,7 +55,7 @@ export function FormulaireRechercheJobEte() {
 					/>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
-						placeholder="Exemples : Paris, Béziers..."
+						placeholder="Exemples : Paris, Béziers…"
 					/>
 
 					<Select

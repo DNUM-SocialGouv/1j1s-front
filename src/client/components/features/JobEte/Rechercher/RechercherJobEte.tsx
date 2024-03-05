@@ -24,6 +24,7 @@ import {
 } from '~/client/components/ui/Hero/LightHero';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
+import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
@@ -84,13 +85,14 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 			/>
 			<main id="contenu">
 				<RechercherSolutionLayout
-					bannière={<BanniereJobEte/>}
+					banniere={<BanniereJobEte/>}
 					erreurRecherche={erreurRecherche}
-					étiquettesRecherche={etiquettesRecherche}
+					etiquettesRecherche={etiquettesRecherche}
 					formulaireRecherche={<FormulaireRechercheJobEte/>}
-					isLoading={false}
-					messageRésultatRecherche={messageResultatRecherche}
-					nombreSolutions={nombreResultats}
+					isChargement={false}
+					isEtatInitial={empty(offreEmploiQuery)}
+					messageResultatRecherche={messageResultatRecherche}
+					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
 					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
 					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList}/>}
@@ -106,7 +108,7 @@ interface ListeResultatProps {
 
 function ListeOffreJobEte({ resultatList }: ListeResultatProps) {
 	if (!resultatList) {
-		return null;
+		return undefined;
 	}
 
 	return (

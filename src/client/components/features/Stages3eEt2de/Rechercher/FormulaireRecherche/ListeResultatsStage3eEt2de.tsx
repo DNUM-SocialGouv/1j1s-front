@@ -17,7 +17,7 @@ interface ListeResultatsStage3eEt2deProps {
 
 export function ListeResultatsStage3eEt2de({ resultatList }: ListeResultatsStage3eEt2deProps) {
 	if (!resultatList || resultatList.resultats.length === 0) {
-		return null;
+		return undefined;
 	}
 
 	return (

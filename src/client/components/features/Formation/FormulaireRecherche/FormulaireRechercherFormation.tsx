@@ -84,7 +84,7 @@ export function FormulaireRechercherFormation() {
 							showRadiusInput
 							defaultDistance={distanceCommune}
 							required
-							placeholder={'Exemples : Toulouse, Paris...'}/>
+						/>
 					</div>
 					<Select
 						name="niveauEtudes"

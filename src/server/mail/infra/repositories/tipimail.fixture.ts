@@ -16,7 +16,17 @@ export function aTipimailRequest(): TipimailRequest {
 				personalName: 'John Doe',
 			},
 			subject: 'Demande de contact 1jeune1solution',
-			text: 'Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :\n    • Prénom : John \n    • Nom : Doe \n    • Adresse email : john.doe@email.com\n    • Téléphone : 0606060606\n    • Age : 23\n    • Ville : Paris (75006)\n    • Commentaire : Merci de me recontacter',
+			text: `Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :
+			
+Afin d'apporter une réponse à cette demande, veiller à utiliser l'adresse mail ou le numéro de téléphone du demandeur renseignés dans ce mail. Merci de ne pas répondre à ce message directement.
+
+    • Prénom : John
+    • Nom : Doe
+    • Adresse email : john.doe@email.com
+    • Téléphone : 0606060606
+    • Age : 23
+    • Ville : Paris (75006)
+    • Commentaire : Merci de me recontacter`,
 		},
 		to: [
 			{
@@ -43,7 +53,17 @@ export function aTipimailRequestWithRedirection(): TipimailRequest {
 				personalName: 'John Doe',
 			},
 			subject: 'Demande de contact 1jeune1solution',
-			text: 'Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :\n    • Prénom : John \n    • Nom : Doe \n    • Adresse email : john.doe@email.com\n    • Téléphone : 0606060606\n    • Age : 23\n    • Ville : Paris (75006)\n    • Commentaire : Merci de me recontacter',
+			text: `Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :
+			
+Afin d'apporter une réponse à cette demande, veiller à utiliser l'adresse mail ou le numéro de téléphone du demandeur renseignés dans ce mail. Merci de ne pas répondre à ce message directement.
+
+    • Prénom : John
+    • Nom : Doe
+    • Adresse email : john.doe@email.com
+    • Téléphone : 0606060606
+    • Age : 23
+    • Ville : Paris (75006)
+    • Commentaire : Merci de me recontacter`,
 		},
 		to: [
 			{

@@ -87,7 +87,7 @@ export function FormulaireRechercheAlternance(props: FormulaireRechercheAlternan
 							showRadiusInput
 							defaultDistance={distanceCommune}
 							required
-							placeholder={'Exemples : Toulouse, Paris...'}/>
+						/>
 					</div>
 				</div>
 				<div className={styles.buttonRechercher}>

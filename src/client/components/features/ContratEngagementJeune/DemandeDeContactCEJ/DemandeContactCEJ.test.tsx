@@ -3,11 +3,11 @@
  */
 import '@testing-library/jest-dom';
 
-import { act,render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import DemandeContactCEJ from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
-import { MODAL_ANIMATION_TIME_IN_MS } from '~/client/components/ui/Modal/ModalComponent';
+import DemandeContactCEJ
+	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
@@ -62,12 +62,12 @@ describe('<DemandeContactCEJ />', () => {
 			// When
 			await userEvent.click(screen.getByText('Demander à être contacté.e'));
 			// Then
-			expect(screen.getByLabelText('Prénom')).toBeVisible();
-			expect(screen.getByLabelText('Nom')).toBeVisible();
-			expect(screen.getByLabelText('Adresse email')).toBeVisible();
-			expect(screen.getByLabelText('Téléphone')).toBeVisible();
-			expect(screen.getByText('Age', { exact: true })).toBeVisible();
-			expect(screen.getByRole('combobox', { name: 'Ville' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Age Exemple : 16 ans' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 		});
@@ -101,8 +101,6 @@ describe('<DemandeContactCEJ />', () => {
 			const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
 			await user.click(boutonFormulaireModale);
 
-			// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-			await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 			await remplirFormulaire();
 
 			expect(screen.getByRole('form')).toHaveFormValues({
@@ -144,8 +142,6 @@ describe('<DemandeContactCEJ />', () => {
 				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
 				await user.click(boutonFormulaireModale);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 				await remplirFormulaire();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -178,8 +174,6 @@ describe('<DemandeContactCEJ />', () => {
 				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
 				await user.click(boutonFormulaireModale);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 				await remplirFormulaire();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -215,8 +209,6 @@ describe('<DemandeContactCEJ />', () => {
 				const boutonFormulaireModale= screen.getByRole('button', { name: 'Demander à être contacté.e' });
 				await user.click(boutonFormulaireModale);
 
-				// NOTE (BRUJ 03/01/2024): rajout d'un delais pour gérer le setTimeout de la modale qui focus sur le premier élément
-				await act(() => delay(MODAL_ANIMATION_TIME_IN_MS));
 				await remplirFormulaire();
 
 				await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
@@ -231,28 +223,23 @@ describe('<DemandeContactCEJ />', () => {
 	});
 });
 
-
-function delay(ms: number): Promise<void> {
-	return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function remplirFormulaire() {
 	const user = userEvent.setup();
-	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom' });
+	const inputPrenom = screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' });
 	await user.type(inputPrenom, formulaireContact.prenom);
 
-	const inputNom = screen.getByRole('textbox', { name: 'Nom' });
+	const inputNom = screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' });
 	await user.type(inputNom, formulaireContact.nom);
 
-	const inputMail = screen.getByRole('textbox', { name: 'Adresse email' });
+	const inputMail = screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' });
 	await user.type(inputMail, formulaireContact.adresseMail);
 
-	await user.type(screen.getByRole('textbox', { name: 'Téléphone' }), formulaireContact.telephone);
+	await user.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), formulaireContact.telephone);
 
-	await user.type(screen.getByRole('combobox', { name: 'Ville' }), formulaireContact.ville);
+	await user.type(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' }), formulaireContact.ville);
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age' }));
+	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
 	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
 }

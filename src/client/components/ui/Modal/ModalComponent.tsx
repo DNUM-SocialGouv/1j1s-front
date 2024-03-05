@@ -16,8 +16,6 @@ interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
 	keepModalMounted?: boolean
 }
 
-export const MODAL_ANIMATION_TIME_IN_MS = 300;
-
 export function ModalComponent(props: ModalProps) {
 	const {
 		children,
@@ -52,7 +50,7 @@ export function ModalComponent(props: ModalProps) {
 		};
 	}, []);
 
-	useEffect(() => {
+	useEffect(function gestionSortieModale()  {
 		document.addEventListener('mousedown', closeModalOnClickOutside);
 		document.addEventListener('keydown', closeModalOnClickEscape);
 
@@ -63,33 +61,43 @@ export function ModalComponent(props: ModalProps) {
 	}, [closeModalOnClickOutside, closeModalOnClickEscape]);
 
 	function trapModalFocus() {
-		if (modalRef.current !== null) {
-			const focusableElements = modalRef.current.querySelectorAll('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])');
+		if (modalRef.current) {
+			const focusableElements = getFocusableElementsOf(modalRef.current);
 			const firstFocusableElement = focusableElements[0] as HTMLElement;
-			const firstFocusableElementAtOpen = focusableElements[1] as HTMLElement;
+			firstFocusableElement.focus();
+		}
+
+		window.addEventListener('keydown', function gestionTabulation(e) {
+			if (!modalRef.current) return;
+			if (e.key !== KeyBoard.TAB) return;
+
+			const focusableElements = getFocusableElementsOf(modalRef.current);
+			const firstFocusableElement = focusableElements[0] as HTMLElement;
 			const lastFocusableElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-			if (firstFocusableElementAtOpen) setTimeout(() => firstFocusableElementAtOpen.focus(), MODAL_ANIMATION_TIME_IN_MS);
 
-			window.addEventListener('keydown', (e) => {
-				if (e.key !== KeyBoard.TAB) return;
-				if (!e.shiftKey && document.activeElement === lastFocusableElement && firstFocusableElement) {
-					firstFocusableElement.focus();
-					return e.preventDefault();
-				}
+			const tabOnLastFocusableElement = !e.shiftKey && document.activeElement === lastFocusableElement;
+			if (tabOnLastFocusableElement) {
+				firstFocusableElement.focus();
+				return e.preventDefault();
+			}
 
-				if (e.shiftKey && document.activeElement === firstFocusableElement) {
-					lastFocusableElement.focus();
-					return e.preventDefault();
-				}
-			});
+			const backtabOnFirstFocusableElement = e.shiftKey && document.activeElement === firstFocusableElement;
+			if (backtabOnFirstFocusableElement) {
+				lastFocusableElement.focus();
+				return e.preventDefault();
+			}
+		});
+
+		function getFocusableElementsOf(htmlElement: HTMLDialogElement) {
+			return htmlElement.querySelectorAll('button, [href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])');
 		}
 	}
 
-	useEffect(() => {
+	useEffect(function sauvegardeEtRestorationFocus(){
 		if (isOpen) {
 			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
 		} else {
-			setTimeout(() => lastFocusBeforeOpen?.focus(), MODAL_ANIMATION_TIME_IN_MS);
+			lastFocusBeforeOpen?.focus();
 		}
 	}, [isOpen, lastFocusBeforeOpen]);
 

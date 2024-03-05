@@ -15,7 +15,7 @@ interface ListeMissionsProps {
 
 export function ListeMissions({ resultatList, isServiceCivique }: ListeMissionsProps) {
 	if (!resultatList.length) {
-		return null;
+		return undefined;
 	}
 
 	function getLogo(mission: Mission) {

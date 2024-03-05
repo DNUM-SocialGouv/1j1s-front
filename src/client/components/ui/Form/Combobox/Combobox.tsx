@@ -25,20 +25,11 @@ import { ComboboxProvider } from './ComboboxContext';
 import { ComboboxAction as Actions, ComboboxReducer } from './ComboboxReducer';
 import { filterValueOrLabelStartsWith } from './filterStrategies/filterValueOrLabelStartsWith';
 
-// FIXME (GAFI 27-11-2023): Temporary fix concerning https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67428
-type Labelled = {
-	'aria-label': string,
-} | {
-	'aria-labelledby': string,
-} | {
-	'aria-label': string,
-	'aria-labelledby': string,
-};
 
 type ComboboxProps = Omit<
-	React.ComponentPropsWithoutRef<'input'>,
-	'aria-label' | 'aria-labelledby' | 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
+	React.ComponentPropsWithoutRef<'input'>, 'onBlur' | 'onFocus' | 'onChange' | 'onInput'
 > & {
+	optionsAriaLabel: string;
 	onBlur?: React.ComponentPropsWithoutRef<'div'>['onBlur'],
 	onFocus?: React.ComponentPropsWithoutRef<'div'>['onFocus'],
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>, newValue: string) => void,
@@ -47,7 +38,7 @@ type ComboboxProps = Omit<
 	requireValidOption?: boolean,
 	filter?: (element: Element, currentValue: string) => boolean,
 	valueName?: string;
-} & Labelled;
+};
 
 type InputValue = ComponentPropsWithoutRef<'input'>['value']
 export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(function Combobox({
@@ -58,6 +49,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	name,
 	valueName,
 	'aria-controls': ariaControls,
+	optionsAriaLabel,
 	onKeyDown: onKeyDownProps = doNothing,
 	onChange: onChangeProps = doNothing,
 	onBlur: onBlurProps = doNothing,
@@ -81,7 +73,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 			value: valueProps?.toString()
 				?? defaultValue?.toString()
 				?? '',
-			visibleOptions : [],
+			visibleOptions: [],
 		},
 	);
 	const { open, activeDescendant, value: valueState } = state;
@@ -90,11 +82,11 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 	const listboxId = useId();
 
 	const findMatchingOption = useCallback(function findMatchingOption(inputValue: InputValue): HTMLElement | undefined | null {
-		const matchingOptionId =  state.visibleOptions.find((optionId) => {
+		const matchingOptionId = state.visibleOptions.find((optionId) => {
 			const option = document.getElementById(optionId);
 			return option?.textContent === inputValue;
 		});
-		return matchingOptionId ? document.getElementById(matchingOptionId): undefined;
+		return matchingOptionId ? document.getElementById(matchingOptionId) : undefined;
 	}, [state.visibleOptions]);
 
 	useEffect(function setValue() {
@@ -102,7 +94,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		setMatchingOptionValue(matchingOption?.getAttribute('data-value') ?? matchingOption?.textContent ?? '');
 	}, [value, listboxRef, children, findMatchingOption]);
 
-	const validation = useCallback(function validation(newValue: InputValue){
+	const validation = useCallback(function validation(newValue: InputValue) {
 		if (!requireValidOption) return '';
 
 		const isOptionValid = !!findMatchingOption(newValue);
@@ -195,10 +187,6 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 		onFocusProps(event);
 	}, [onFocusProps, saveValueOnFocus, value]);
 
-	// FIXME (GAFI 27-11-2023): Temporary fix concerning https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67428
-	const ariaLabelledby = 'aria-labelledby' in inputProps ? inputProps['aria-labelledby'] : undefined;
-	const ariaLabel = 'aria-label' in inputProps ? inputProps['aria-label'] : undefined;
-
 	return (
 		<ComboboxProvider value={{
 			dispatch,
@@ -239,8 +227,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					tabIndex={-1}
 					aria-controls={listboxId}
 					aria-expanded={open}
-					aria-labelledby={ariaLabelledby}
-					aria-label={ariaLabel}>
+					aria-label={optionsAriaLabel}>
 					<Icon name={'angle-down'}/>
 				</button>
 				<ul
@@ -248,8 +235,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(functi
 					id={listboxId}
 					hidden={!open}
 					ref={listboxRef}
-					aria-labelledby={ariaLabelledby}
-					aria-label={ariaLabel}>
+					aria-label={optionsAriaLabel}>
 					{children}
 				</ul>
 			</div>

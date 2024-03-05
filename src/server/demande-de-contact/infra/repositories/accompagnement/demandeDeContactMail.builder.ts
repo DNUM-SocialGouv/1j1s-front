@@ -13,8 +13,11 @@ export function buildDemandeDeContactMail(demandeDeContactAccompagnement: Demand
 			},
 			subject: 'Demande de contact 1jeune1solution',
 			text: `Cette demande de contact a été renseignée depuis le site 1jeune1solution https://www.1jeune1solution.gouv.fr/accompagnement :
-    • Prénom : ${demandeDeContactAccompagnement.prénom} 
-    • Nom : ${demandeDeContactAccompagnement.nom} 
+			
+Afin d'apporter une réponse à cette demande, veiller à utiliser l'adresse mail ou le numéro de téléphone du demandeur renseignés dans ce mail. Merci de ne pas répondre à ce message directement.
+
+    • Prénom : ${demandeDeContactAccompagnement.prénom}
+    • Nom : ${demandeDeContactAccompagnement.nom}
     • Adresse email : ${demandeDeContactAccompagnement.email || AUCUN_EMAIL}
     • Téléphone : ${demandeDeContactAccompagnement.téléphone}
     • Age : ${demandeDeContactAccompagnement.age}
