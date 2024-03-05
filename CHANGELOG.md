@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.255.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.255.1...v3.255.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* les liens ancres markdown ne fonctionne pas ([#2749](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2749)) ([589d266](https://github.com/DNUM-SocialGouv/1j1s-front/commit/589d2669d437ce41ffce62bfc89876acc8d64117))
+
 ## [3.255.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.255.0...v3.255.1) (2024-03-04)
 
 
