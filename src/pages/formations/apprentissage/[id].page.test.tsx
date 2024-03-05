@@ -55,7 +55,8 @@ describe('getServerSideProps', () => {
 			it('retourne en props une erreur Demande Incorrecte', async () => {
 				const queryParam = {} as ParsedUrlQuery;
 
-				const value = await getServerSideProps({ params: { id: '1' }, query: queryParam, res: { statusCode: 0 } } as GetServerSidePropsContext<{ id: string }>);
+				const statusCodeToBeOverridden = 0;
+				const value = await getServerSideProps({ params: { id: '1' }, query: queryParam, res: { statusCode: statusCodeToBeOverridden } } as GetServerSidePropsContext<{ id: string }>);
 
 				expect(value).toEqual({ props: { error: ErreurMetier.DEMANDE_INCORRECTE } });
 				expect(dependencies.formationDependencies.consulterFormation.handle).not.toHaveBeenCalled();
@@ -92,7 +93,7 @@ describe('getServerSideProps', () => {
 
 		describe('lorsque les query params sont remplis', () => {
 			describe('lorsque le détail de la formation n‘existe pas', () => {
-				it('retourne en props une erreur Service Indisponible', async () => {
+				it('retourne en props une erreur en fonction de la réponse du serveur', async () => {
 					const queryParam = {
 						codeCommune: '13180',
 						codeRomes: 'F1603',
@@ -104,10 +105,11 @@ describe('getServerSideProps', () => {
 					} as ParsedUrlQuery;
 					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
+					const statusCodeToBeOverridden = 0;
 					const value = await getServerSideProps({
 						params: { id: '1' },
 						query: queryParam,
-						res: { statusCode: 0 },
+						res: { statusCode: statusCodeToBeOverridden },
 					} as GetServerSidePropsContext<{ id: string }>);
 
 					expect(value).toEqual({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
