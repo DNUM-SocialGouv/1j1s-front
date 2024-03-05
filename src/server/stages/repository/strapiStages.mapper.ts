@@ -37,6 +37,7 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 }
 
 export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageDepot): OffreStageDepotStrapi {
+	const valeurPublishedAtPourAjouterOffreEnDraftStrapi = null;
 	return {
 		dateDeDebutMax: body.dateDeDebutMax,
 		dateDeDebutMin: body.dateDeDebutMin,
@@ -61,9 +62,8 @@ export function mapToStrapiDepotOffreDeStage(body: OffreStageDepot.OffreDeStageD
 			region: body.localisation.region || null,
 			ville: body.localisation.ville,
 		},
-		// NOTE (BRUJ 02/01/2024): 'publishedAt' à null rajoute l'offre en draft dans le cms
-		publishedAt: null,
-		
+		publishedAt: valeurPublishedAtPourAjouterOffreEnDraftStrapi,
+
 		remunerationBase: body.remunerationBase,
 		remunerationMax: body.remunerationBase,
 		remunerationMin: body.remunerationBase,
