@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.257.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.256.1...v3.257.0) (2024-03-05)
+
+
+### Features
+
+* **combobox:** utilisation de champ dans le combobox metier ([#2757](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2757)) ([a23572f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a23572f0229990c04705dbc5b4c0f9e0bd583cc5))
+
 ## [3.256.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.256.0...v3.256.1) (2024-03-05)
 
 
