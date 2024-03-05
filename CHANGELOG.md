@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.256.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.255.2...v3.256.0) (2024-03-05)
+
+
+### Features
+
+* **accompagnement:** mise à jour du mail to de contact missions locales ([#2758](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2758)) ([9b741ac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b741acb50d7d31d103187e97decac0c56db1dc4))
+
 ## [3.255.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.255.1...v3.255.2) (2024-03-05)
 
 
