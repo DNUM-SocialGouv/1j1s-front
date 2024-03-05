@@ -131,7 +131,6 @@ describe('Header', () => {
 				process.env = {
 					...process.env,
 					NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
-					NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL: 'https://url-de-candidature.com',
 				};
 				mockUseRouter({ pathname: '/' });
 
@@ -139,12 +138,9 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByTestId('desktop-banner-stages');
-				expect(encartLien).toHaveRole('link');
-				expect(encartLien).toHaveAccessibleName(/Vous souhaitez accueillir des stagiaires de 2de ?/);
-				expect(encartLien).toHaveTextContent(/Déposer une offre !/);
-				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveAttribute('href', 'https://url-de-candidature.com');
+				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
+				expect(encartCampagne).toBeVisible();
+				expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ?L’ouverture du service de recherche se fera le 25 mars');
 			});
 		});
 
@@ -264,7 +260,6 @@ describe('Header', () => {
 					process.env = {
 						...process.env,
 						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
-						NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL: 'https://url-de-candidature.com',
 					};
 					mockUseRouter({ pathname: '/' });
 
@@ -272,11 +267,9 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByTestId('mobile-mailto-campagne');
-					expect(encartLien).toHaveRole('link');
-					expect(encartLien).toHaveAccessibleName(/Vous souhaitez accueillir des stagiaires de 2de ?/);
-					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', 'https://url-de-candidature.com');
+					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
+					expect(encartCampagne).toBeVisible();
+					expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ? L’ouverture du service de recherche se fera le 25 mars');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {

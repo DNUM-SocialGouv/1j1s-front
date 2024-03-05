@@ -14,7 +14,6 @@ export function HeaderBody() {
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
 	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
-	const urlDepotOffreStage2de = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
 
 	return (
 		<Container className={styles.headerBodyContainer}>
@@ -48,14 +47,12 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<Link href={urlDepotOffreStage2de} className={styles.headerBodyBanner} data-testid="desktop-banner-stages">
+					<div className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 						<div>
-							<div className={styles.headerBodyBannerTitle}>Vous souhaitez accueillir des stagiaires de 2de&nbsp;?
-							</div>
-							<div className={styles.headerBodyBannerContent}>Déposer une offre&nbsp;!</div>
+							<div className={styles.headerBodyBannerTitle}>Vous souhaitez rechercher des stages de 3e et 2de&nbsp;?</div>
+							<div className={styles.headerBodyBannerContent}>L’ouverture du service de recherche se fera le 25 mars</div>
 						</div>
-						<Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
-					</Link>
+					</div>
 				}
 			</div>
 			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
