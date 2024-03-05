@@ -27,8 +27,6 @@
     color: utilities.$color-cta-texte-primary;
     padding-block: 0.5rem;
     padding-inline: 0.5rem;
-    text-decoration: underline;
-    text-underline-offset: 3px;
     text-align: center;
     @extend %bold;
     @extend %text-small;
@@ -118,21 +116,8 @@
           margin-right: 4rem;
           @include utilities.text-small;
 
-          &:hover {
-            border: 1px solid utilities-deprecated.$color-header-on-hover; // FIXME (DORO: 26-01-2024): Couleur non présente dans l'UI kit
-            box-shadow: 1px 1px 0 utilities-deprecated.$color-header-on-hover,
-            2px 2px 0 utilities-deprecated.$color-header-on-hover,
-            3px 3px 0 utilities-deprecated.$color-header-on-hover,
-            4px 4px 0 utilities-deprecated.$color-header-on-hover,
-            5px 5px 0 utilities-deprecated.$color-header-on-hover,
-            6px 6px 0 utilities-deprecated.$color-header-on-hover;
-
-            &  .headerBodyBannerTitle {
-              color: utilities-deprecated.$color-header-on-hover;
-            }
-          }
-
           & .headerBodyBannerTitle {
+            margin-bottom: 0.25rem;
             color: utilities.$color-primary;
             text-decoration: underline;
             text-underline-offset: 2px;

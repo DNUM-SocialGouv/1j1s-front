@@ -29,6 +29,9 @@ export default function Accueil() {
 	const isStages3eEt2deVisible = process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1';
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
+	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
+	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
+
 	const offreCardListContent: CardContent[] = [
 		{
 			children: <p>Plus de 300 000 offres d’emplois sélectionnées spécialement pour vous</p>,
@@ -238,6 +241,20 @@ export default function Accueil() {
 						<Link.Icon/>
 					</Link>
 				</HeroWithIllustration>
+
+				{ isBanniereStagesSecondeVisible
+					&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp" className={styles.stageSecondeBanner}>
+						<h1><HeroPrimaryText className={styles.heroTitle}>Accueillez des élèves en stages de seconde générale et technologique. </HeroPrimaryText></h1>
+						<HeroSecondaryText>
+						Inspirez, transmettez, faites découvrir vos métiers.
+						</HeroSecondaryText>
+						<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
+							Déposer votre offre de stage
+							<Link.Icon/>
+						</Link>
+					</HeroWithIllustration>
+				}
+
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
 						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon}/>

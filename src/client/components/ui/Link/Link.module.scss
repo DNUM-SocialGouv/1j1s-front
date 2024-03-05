@@ -57,10 +57,11 @@
 }
 
 .linkWithIcon {
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
+  flex-direction: row;
   gap: 0.5rem;
   width: fit-content;
+  justify-content: center;
 
   & .icon {
     display: inline-flex;

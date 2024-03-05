@@ -138,13 +138,9 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.getByTestId('desktop-mailto-stages');
-				expect(encartLien).toHaveRole('link');
-				expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
-				expect(encartLien).toBeVisible();
-				expect(encartLien).toHaveTextContent(/Envoyez nous un e-mail !/i);
-				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
-				expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
+				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
+				expect(encartCampagne).toBeVisible();
+				expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ?L’ouverture du service de recherche se fera le 25 mars');
 			});
 		});
 
@@ -271,12 +267,9 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.getByTestId('mobile-mailto-campagne');
-					expect(encartLien).toHaveRole('link');
-					expect(encartLien).toHaveAccessibleName(/Vous voulez accueillir des stagiaires de 3e et 2de ?/);
-					expect(encartLien).toBeVisible();
-					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/mailto:/));
-					expect(encartLien).toHaveAttribute('href', expect.stringMatching(/contact-1J1S@sg.social.gouv.fr/));
+					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
+					expect(encartCampagne).toBeVisible();
+					expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ? L’ouverture du service de recherche se fera le 25 mars');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {

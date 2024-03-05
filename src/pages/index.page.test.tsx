@@ -169,7 +169,7 @@ describe('Page d‘accueil', () => {
 				expect(screen.queryByText('Aides au permis de conduire')).not.toBeInTheDocument();
 			});
 		});
-		describe('quand le feature flip des formations initales est actif', () => {
+		describe('quand le feature flip 1jeune1permis est actif', () => {
 			it('je vois la carte de redirection vers les aides au permis de conduire',  () => {
 				process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 
@@ -183,6 +183,64 @@ describe('Page d‘accueil', () => {
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', '/1jeune1permis');
 			});
+		});
+	});
+	describe('stages de seconde', () => {
+		describe('quand le feature flip stages seconde n‘est pas actif', () => {
+			it('l’utilisateur ne voit pas la bannière des stages de seconde', () => {
+				// GIVEN
+				process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '0';
+
+				// WHEN
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				expect(screen.queryByText('Accueillez des élèves en stages de seconde générale et technologique.')).not.toBeInTheDocument();
+			});
+		});
+		describe('quand le feature flip des stages seconde est actif', () => {
+			it('l’utilisateur voit la bannière des stages de seconde avec un CTA',  () => {
+				// GIVEN
+				const fakeUrl = 'https://url-pour-depot-stages-seconde.fr';
+				process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+				process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL= fakeUrl;
+
+				// WHEN
+				render(
+					<DependenciesProvider analyticsService={analyticsService}>
+						<Accueil/>
+					</DependenciesProvider>,
+				);
+
+				// THEN
+				const titreBanniere = screen.getByText('Accueillez des élèves en stages de seconde générale et technologique.');
+				const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
+				expect(titreBanniere).toBeVisible();
+				expect(depotOffreButton).toBeVisible();
+				expect(depotOffreButton).toHaveAttribute('href', fakeUrl);
+			});
+		});
+
+		it('si le lien du dépôt de stages de seconde n’est pas défini alors aucune redirection n’est mise en place',  () => {
+			// GIVEN
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+			delete process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL;
+
+			// WHEN
+			render(
+				<DependenciesProvider analyticsService={analyticsService}>
+					<Accueil/>
+				</DependenciesProvider>,
+			);
+
+			// THEN
+			const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
+			expect(depotOffreButton).toBeVisible();
+			expect(depotOffreButton).toHaveAttribute('href', '');
 		});
 	});
 });

@@ -2,7 +2,6 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { MAILTO_STAGE_3E_2DE } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -48,14 +47,12 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<Link href={MAILTO_STAGE_3E_2DE} className={styles.headerBodyBanner} data-testid="desktop-mailto-stages">
+					<div className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 						<div>
-							<div className={styles.headerBodyBannerTitle}>Vous voulez accueillir des stagiaires de 3e et 2de&nbsp;?
-							</div>
-							<div className={styles.headerBodyBannerContent}>Envoyez nous un e-mail&nbsp;!</div>
+							<div className={styles.headerBodyBannerTitle}>Vous souhaitez rechercher des stages de 3e et 2de&nbsp;?</div>
+							<div className={styles.headerBodyBannerContent}>L’ouverture du service de recherche se fera le 25 mars</div>
 						</div>
-						<Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
-					</Link>
+					</div>
 				}
 			</div>
 			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
