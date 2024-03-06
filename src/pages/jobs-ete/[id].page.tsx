@@ -6,7 +6,8 @@ import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/C
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/jobs-ete/[id].analytics';
-import { GetServerSidePropsResult, setErrorResult } from '~/server/exceptions/getServerSidePropsResultWithError';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { Offre, OffreId } from '~/server/offres/domain/offre';
 import { dependencies } from '~/server/start';
@@ -43,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Empl
 	const offreEmploi = await dependencies.offreEmploiDependencies.consulterOffreEmploi.handle(id);
 
 	if (offreEmploi.instance === 'failure') {
-		return setErrorResult(context, offreEmploi.errorType);
+		return handleGetServerSidePropsError(context, offreEmploi.errorType);
 	}
 
 	return {

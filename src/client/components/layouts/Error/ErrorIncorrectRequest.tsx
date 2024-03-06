@@ -9,6 +9,9 @@ export default function ErrorIncorrectRequest() {
 			<ErrorLayout.SubTitle>
 				Votre navigateur a envoyé une demande que ce serveur n’a pas pu comprendre.
 			</ErrorLayout.SubTitle>
+			<ErrorLayout.Content>
+				Si le problème persiste, merci de nous contacter pour obtenir de l’aide.
+			</ErrorLayout.Content>
 		</ErrorLayout>
 	);
 }
