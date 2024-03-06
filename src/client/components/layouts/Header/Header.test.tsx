@@ -140,7 +140,7 @@ describe('Header', () => {
 				// Then
 				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
 				expect(encartCampagne).toBeVisible();
-				expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ?L’ouverture du service de recherche se fera le 25 mars');
+				expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ?L’ouverture du service est prévue le 25 mars');
 			});
 		});
 
@@ -269,7 +269,7 @@ describe('Header', () => {
 					// Then
 					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
 					expect(encartCampagne).toBeVisible();
-					expect(encartCampagne).toHaveTextContent('Vous souhaitez rechercher des stages de 3e et 2de ? L’ouverture du service de recherche se fera le 25 mars');
+					expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ? L’ouverture du service est prévue le 25 mars');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {

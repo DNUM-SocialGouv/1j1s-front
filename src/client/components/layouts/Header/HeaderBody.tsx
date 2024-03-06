@@ -49,8 +49,8 @@ export function HeaderBody() {
 				{displayBanner &&
 					<div className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 						<div>
-							<div className={styles.headerBodyBannerTitle}>Vous souhaitez rechercher des stages de 3e et 2de&nbsp;?</div>
-							<div className={styles.headerBodyBannerContent}>L’ouverture du service de recherche se fera le 25 mars</div>
+							<div className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</div>
+							<div className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</div>
 						</div>
 					</div>
 				}
