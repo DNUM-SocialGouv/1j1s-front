@@ -47,12 +47,12 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<div className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
-						<div>
-							<div className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</div>
-							<div className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</div>
-						</div>
-					</div>
+					<p className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
+						<span>
+							<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
+							<span className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</span>
+						</span>
+					</p>
 				}
 			</div>
 			<ModalComponent close={toggleModal} isOpen={isModalOpen}>

@@ -15,9 +15,9 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			<div className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-encart-campagne">
+			<p className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-encart-campagne">
 				Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;? L’ouverture du service est prévue le 25 mars
-			</div>
+			</p>
 			<HeaderBody/>
 			<HeaderNavDesktop/>
 			{displayEnqueteSatisfactionBanner &&
