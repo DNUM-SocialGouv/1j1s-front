@@ -1,4 +1,4 @@
-export const isStorageAvailable = (storageType: 'sessionStorage' | 'localStorage') => { //TODO is storageAvailable ?
+export const isStorageAvailable = (storageType: 'sessionStorage' | 'localStorage') => {
 	let storage;
 	try {
 		storage = window[storageType];
