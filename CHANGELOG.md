@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.258.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.257.0...v3.258.0) (2024-03-05)
+
+
+### Features
+
+* **stages-seconde:** ajout de la bannière feature flippée sur l'accueil ([#2766](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2766)) ([5e081b9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5e081b927e5812a4ac1d005a9970ab0816b6ae13))
+
 ## [3.257.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.256.1...v3.257.0) (2024-03-05)
 
 
