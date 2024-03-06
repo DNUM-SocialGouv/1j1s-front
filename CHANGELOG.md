@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.259.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.258.0...v3.259.0) (2024-03-06)
+
+
+### Features
+
+* update wording stage de seconde ([#2772](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2772)) ([c8b9f5c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c8b9f5c31bde83b83136896834409474b2495d81))
+
 ## [3.258.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.257.0...v3.258.0) (2024-03-05)
 
 
