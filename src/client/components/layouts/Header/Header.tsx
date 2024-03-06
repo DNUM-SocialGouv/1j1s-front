@@ -16,7 +16,7 @@ export function Header() {
 			className={styles.header}
 			role="banner">
 			<div className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-encart-campagne">
-				Vous souhaitez rechercher des stages de 3e et 2de&nbsp;? L’ouverture du service de recherche se fera le 25 mars
+				Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;? L’ouverture du service est prévue le 25 mars
 			</div>
 			<HeaderBody/>
 			<HeaderNavDesktop/>
