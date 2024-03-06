@@ -20,7 +20,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 
 	// NOTE (DORO - 05-03-2024): Duplication de l'implémentation de input=date pour les navigateurs qui ne le supportent pas
 	function validationDateDeDebutMin(value: string | undefined) {
-		if (!value) return 'La date est obligatoire';
+		if (!value) return undefined;
 
 		const isFormatDeDateInvalide = !Date.parse(value);
 		if (isFormatDeDateInvalide) return 'La date doit être au format AAAA-MM-JJ';
@@ -36,7 +36,7 @@ export function InputDateDeDebut(props: { displayDateDeDebutPrecise: boolean, in
 
 	// NOTE (DORO - 05-03-2024): Duplication de l'implémentation de input=date pour les navigateurs qui ne le supportent pas
 	function validationDateDeDebutMax(value: string | undefined) {
-		if (!value) return 'La date est obligatoire';
+		if (!value) return undefined;
 
 		const isFormatDeDateInvalide = !Date.parse(value);
 		if (isFormatDeDateInvalide) return 'La date doit être au format AAAA-MM-JJ';
