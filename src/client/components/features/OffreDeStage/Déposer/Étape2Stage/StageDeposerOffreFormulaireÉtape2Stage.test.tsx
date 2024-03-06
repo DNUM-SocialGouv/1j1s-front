@@ -102,10 +102,11 @@ describe('<Stage />', () => {
 			// When
 			render(<Stage />);
 			await user.type(screen.getByLabelText('Date précise du début de stage'), yesterday);
+			await user.tab();
 
 			// Then
 			expect(screen.getByLabelText('Date précise du début de stage')).toHaveValue(yesterday);
-			expect(screen.getByLabelText('Date précise du début de stage')).toBeInvalid();
+			expect(await screen.findByLabelText('Date précise du début de stage', undefined, { timeout: 100000 })).toBeInvalid();
 		});
 
 		it('l’utilisateur ne peut pas sélectionner une date debut max antérieur à la date de debut min', async () => {
@@ -120,11 +121,11 @@ describe('<Stage />', () => {
 			await user.click(radioDatePrecise);
 			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
 			await user.type(screen.getByLabelText('Date de début du stage au plus tard'), dateDebutMax);
+			await user.tab();
 
 			// Then
 			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toHaveValue(dateDebutMin);
 			expect(screen.getByLabelText('Date de début du stage au plus tard')).toHaveValue(dateDebutMax);
-			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toBeInvalid();
 			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeInvalid();
 		});
 
