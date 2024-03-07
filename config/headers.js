@@ -11,7 +11,6 @@ const contentSecurityPolicy = `
   frame-ancestors 'none';
   frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr;
   form-action 'self';
-  base-uri 'none';
 `;
 
 const SECURITY_MODE_HEADERS = [{
