@@ -2,6 +2,7 @@ import { LEVEL_CODE } from '~/server/emplois-europe/infra/langageEures';
 import { UNITE_EXPERIENCE_NECESSAIRE } from '~/server/emplois-europe/infra/uniteExperienceNecessaire';
 
 export const NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE = 15;
+export const RESULTATS_EMPLOIS_EUROPE_MAX_PAGE = Math.floor(10_000 / NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE);
 
 export interface ApiEuresEmploiEuropeRechercheResponse {
 	data: {

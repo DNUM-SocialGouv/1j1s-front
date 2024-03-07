@@ -20,6 +20,7 @@ import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
 	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
+	RESULTATS_EMPLOIS_EUROPE_MAX_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { Erreur } from '~/server/errors/erreur.types';
 
@@ -82,6 +83,7 @@ export default function RechercherEmploisEurope() {
 				paginationOffset={NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}
 				listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
 				messageResultatRecherche={messageResultatRecherche}
+				maxPage={RESULTATS_EMPLOIS_EUROPE_MAX_PAGE - 1}
 			/>
 		</main>
 	</>;

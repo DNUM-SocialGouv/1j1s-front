@@ -1,7 +1,7 @@
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
-import { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.controller';
+import handler, { rechercherEmploiEuropeHandler } from '~/pages/api/emplois-europe/index.controller';
 import { ErrorHttpResponse } from '~/pages/api/utils/response/response.type';
 import { ResultatRechercheEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
@@ -75,6 +75,23 @@ describe('rechercher emplois en Europe', () => {
 				expect(json).toEqual(expected);
 			},
 			url: '/emplois-europe',
+		});
+	});
+
+	describe('lorsque la page demandée est supérieure au nombre de pages maximum', () => {
+		it('retourne une erreur demande incorrecte', async () => {
+			// When
+			await testApiHandler<Array<ResultatRechercheEmploiEurope> | ErrorHttpResponse>({
+				pagesHandler: (req, res) => handler(req, res),
+				params: {
+					page: 667,
+				},
+				test: async ({ fetch }) => {
+					const res = await fetch({ method: 'GET' });
+					expect(res.status).toBe(400);
+				},
+				url: '/emplois-europe',
+			});
 		});
 	});
 });
