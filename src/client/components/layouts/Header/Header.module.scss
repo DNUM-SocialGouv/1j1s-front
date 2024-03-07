@@ -117,6 +117,7 @@
           @include utilities.text-small;
 
           & .headerBodyBannerTitle {
+            display: block;
             margin-bottom: 0.25rem;
             color: utilities.$color-primary;
             text-decoration: underline;
@@ -125,6 +126,7 @@
           }
 
           & .headerBodyBannerContent {
+            display: block;
             @include utilities.media(large) {
               font-size: .825rem;
             }
