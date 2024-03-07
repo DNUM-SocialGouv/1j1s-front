@@ -80,6 +80,94 @@ describe('<Stage />', () => {
 			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeVisible();
 		});
 
+		it('l’utilisateur peut sélectionner la date du jour comme date de début de stage', async () => {
+			// Given
+			const currentDate = new Date().toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			await user.type(screen.getByLabelText('Date précise du début de stage'), currentDate);
+
+			// Then
+			expect(screen.getByLabelText('Date précise du début de stage')).toHaveValue(currentDate);
+			expect(screen.getByLabelText('Date précise du début de stage')).toBeValid();
+		});
+
+		it('l’utilisateur ne peut pas sélectionner une date antérieure à la date du jour comme date de début de stage', async () => {
+			// Given
+			const yesterday = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			await user.type(screen.getByLabelText('Date précise du début de stage'), yesterday);
+			await user.tab();
+
+			// Then
+			expect(screen.getByLabelText('Date précise du début de stage')).toHaveValue(yesterday);
+			expect(await screen.findByLabelText('Date précise du début de stage', undefined, { timeout: 100000 })).toBeInvalid();
+		});
+
+		it('l’utilisateur ne peut pas sélectionner une date debut max antérieur à la date de debut min', async () => {
+			// Given
+			const dateDebutMin = new Date().toISOString().split('T')[0];
+			const dateDebutMax = new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
+			await user.click(radioDatePrecise);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tard'), dateDebutMax);
+			await user.tab();
+
+			// Then
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toHaveValue(dateDebutMin);
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toHaveValue(dateDebutMax);
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeInvalid();
+		});
+
+		it('l’utilisateur peut sélectionner une date de début max égale à la date de début min', async () => {
+			// Given
+			const dateDebutMin = new Date().toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
+			await user.click(radioDatePrecise);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tard'), dateDebutMin);
+
+			// Then
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toHaveValue(dateDebutMin);
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toHaveValue(dateDebutMin);
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toBeValid();
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeValid();
+		});
+
+		it('l’utilisateur peut sélectionner une date de début max ultérieur à la date de début min', async () => {
+			// Given
+			const dateDebutMin = new Date().toISOString().split('T')[0];
+			const dateDebutMax = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
+			const user = userEvent.setup();
+
+			// When
+			render(<Stage />);
+			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
+			await user.click(radioDatePrecise);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
+			await user.type(screen.getByLabelText('Date de début du stage au plus tard'), dateDebutMax);
+
+			// Then
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toHaveValue(dateDebutMin);
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toHaveValue(dateDebutMax);
+			expect(screen.getByLabelText('Date de début du stage au plus tôt')).toBeValid();
+			expect(screen.getByLabelText('Date de début du stage au plus tard')).toBeValid();
+		});
+
 		it('vérifie que le radio bouton de télétravail soit bien sélectionné', () => {
 			render(<Stage />);
 
