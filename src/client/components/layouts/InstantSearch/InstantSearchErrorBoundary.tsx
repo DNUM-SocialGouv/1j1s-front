@@ -11,7 +11,7 @@ export const InstantSearchErrorBoundary = (props: React.PropsWithChildren<ErrorB
 	const { error } = useInstantSearch({ catchError: true });
 	const { children } = props;
 
-	if (error) return <ErrorUnavailableService />;
+	if (error) return <ErrorUnavailableService titleHeadingLevel="h2" />;
 
 	return <>{ children }</>;
 };

@@ -25,7 +25,8 @@ describe('handleGetServerSidePropsError', () => {
 			[ErreurMetier.SERVICE_INDISPONIBLE, 500],
 		])('pour %s, modifie le code statut de la réponse à %d', (erreur, codeStatutAttendu) => {
 			// Given
-			const context = { res: { statusCode: 0 } } as unknown as GetServerSidePropsContext;
+			const statusCodeInitial = 0;
+			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
 
 			// When
 			handleGetServerSidePropsError(context, erreur);
@@ -40,7 +41,8 @@ describe('handleGetServerSidePropsError', () => {
 			[ErreurMetier.SERVICE_INDISPONIBLE],
 		])('retourne un objet avec la propriété error égale à %s', (erreur) => {
 			// Given
-			const context = {} as GetServerSidePropsContext;
+			const statusCodeInitial = 0;
+			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
 
 			// When
 			const result = handleGetServerSidePropsError(context, erreur);

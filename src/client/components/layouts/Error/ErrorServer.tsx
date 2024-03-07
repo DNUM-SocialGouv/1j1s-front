@@ -1,8 +1,8 @@
 import { Head } from '~/client/components/head/Head';
-import ErrorIdentifierConflict from '~/client/components/layouts/Error/ErrorIdentifierConflict';
-import ErrorNotFound from '~/client/components/layouts/Error/ErrorNotFound';
-import ErrorTooManyRequests from '~/client/components/layouts/Error/ErrorTooManyRequests';
-import BadRequest from '~/pages/400.page';
+import Error400Page from '~/client/components/layouts/ErrorPage/Error400Page';
+import Error404Page from '~/client/components/layouts/ErrorPage/Error404Page';
+import Error409Page from '~/client/components/layouts/ErrorPage/Error409Page';
+import Error429Page from '~/client/components/layouts/ErrorPage/Error429Page';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
@@ -16,31 +16,13 @@ interface ErrorServerProps {
 export default function ErrorServer({ error }: ErrorServerProps) {
 	switch (error) {
 		case ErreurMetier.CONTENU_INDISPONIBLE:
-			return <>
-				<Head
-					robots="noindex"
-					title="Contenu indisponible | 1jeune1solution"
-				/>
-				<ErrorNotFound />
-			</>;
+			return <Error404Page />;
 		case ErreurMetier.DEMANDE_INCORRECTE:
-			return <BadRequest />;
+			return <Error400Page />;
 		case ErreurMetier.CONFLIT_D_IDENTIFIANT:
-			return <>
-				<Head
-					robots="noindex"
-					title="Conflit d'identifiant | 1jeune1solution"
-				/>
-				<ErrorIdentifierConflict />
-			</>;
+			return <Error409Page />;
 		case ErreurTechnique.TOO_MANY_REQUESTS:
-			return <>
-				<Head
-					robots="noindex"
-					title="Trop de requêtes | 1jeune1solution"
-				/>
-				<ErrorTooManyRequests />
-			</>;
+			return <Error429Page />;
 		default:
 			return <>
 				<Head
