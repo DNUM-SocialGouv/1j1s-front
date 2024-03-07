@@ -44,8 +44,7 @@ export default function DéposerUneOffreDEmploi() {
 					dépôt d‘offre. Pour en savoir plus sur vos droits, consultez la <a href={POLITIQUE_DE_CONFIDENTIALITÉ_URL}>Politique
 					de Confidentialité</a> de France Travail. En cliquant sur «&nbsp;confirmer&nbsp;» vous reconnaissez avoir pris
 					connaissance
-					et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de Pôle
-					Emploi.
+					et accepter les <a href={CONDITIONS_GÉNÉRALES_UTILISATION_URL}>Conditions Générales d‘Utilisation</a> de France Travail.
 				</p>
 			</Container>
 		</main>
