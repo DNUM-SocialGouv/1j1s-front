@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
+
 function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T) => void, remove: () => void} {
 	const [defaultValue, setDefaultValue] = useState<T | null>(null);
 
@@ -8,7 +10,7 @@ function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T
 		return item ? JSON.parse(item) : null;
 	};
 
-	if (typeof window !== 'undefined' && window.sessionStorage) {
+	if (typeof window !== 'undefined' && isStorageAvailable('sessionStorage')) {
 		return {
 			get,
 			remove: (): void => sessionStorage.removeItem(key),
