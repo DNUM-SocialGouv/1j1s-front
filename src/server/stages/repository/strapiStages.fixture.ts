@@ -1,4 +1,5 @@
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
@@ -70,6 +71,9 @@ export function aStrapiOffreDeStageDepot(overrides?: Partial<OffreStageDepotStra
 		},
 		publishedAt: null,
 		remunerationBase: 560,
+		remunerationMax: 560,
+		remunerationMin: 560,
+		remunerationPeriode: RemunerationPeriode.MONTHLY,
 		source: SourceDesDonnées.INTERNE,
 		teletravailPossible: true,
 		titre: 'Assistant conducteur train',

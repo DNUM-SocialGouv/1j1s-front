@@ -2,6 +2,7 @@ import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixtur
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
@@ -78,71 +79,91 @@ describe('strapiStage mapper', () => {
 			});
 			expect(result).toEqual(expectedResult);
 		});
-
-		describe('mapToStrapiDepotOffreDeStage', () => {
-			it('map vers une offre de stage à enregistrer', () => {
-				const offreDeStageToSave = anOffreDeStageDepot({
-					dateDeDebutMax: '2023-02-03',
-					dateDeDebutMin: '2023-02-03',
-					description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
-					domaine: DomainesStage.ACHAT,
-					duree: '30',
-					employeur: {
-						description: 'description entreprise',
-						email: 'example@example.com',
-						logoUrl: 'https://fake-url.com',
-						nom: 'SNCF',
-						siteUrl: 'https://fake-url.com',
-					},
-					localisation: {
-						adresse: 'Vieux port Marseille',
-						codePostal: '13000',
-						departement: 'Var',
-						pays: 'FR',
-						region: 'Provence-Alpes-Côte d\'Azure',
-						ville: 'Paris',
-					},
-					remunerationBase: 560,
-					teletravailPossible: true,
-					titre: 'Assistant conducteur train',
-					urlDeCandidature: 'mailto:admin@example.com',
-				});
-
-				const offreDeStageMapped = mapToStrapiDepotOffreDeStage(offreDeStageToSave);
-
-				const expectedResult = aStrapiOffreDeStageDepot({
-					dateDeDebutMax: '2023-02-03',
-					dateDeDebutMin: '2023-02-03',
-					description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
-					domaines: [
-						{ nom: DomainesStage.ACHAT },
-					],
-					dureeEnJour: 30,
-					employeur: {
-						description: 'description entreprise',
-						email: 'example@example.com',
-						logoUrl: 'https://fake-url.com',
-						nom: 'SNCF',
-						siteUrl: 'https://fake-url.com',
-					},
-					identifiantSource: uuidMocked,
-					localisation: {
-						adresse: 'Vieux port Marseille',
-						codePostal: '13000',
-						departement: 'Var',
-						pays: 'FR',
-						region: 'Provence-Alpes-Côte d\'Azure',
-						ville: 'Paris',
-					},
-					remunerationBase: 560,
-					teletravailPossible: true,
-					titre: 'Assistant conducteur train',
-					urlDeCandidature: 'mailto:admin@example.com',
-				});
-
-				expect(offreDeStageMapped).toEqual(expectedResult);
+	});
+	describe('mapToStrapiDepotOffreDeStage', () => {
+		it('map vers une offre de stage à enregistrer', () => {
+			const offreDeStageToSave = anOffreDeStageDepot({
+				dateDeDebutMax: '2023-02-03',
+				dateDeDebutMin: '2023-02-03',
+				description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
+				domaine: DomainesStage.ACHAT,
+				duree: '30',
+				employeur: {
+					description: 'description entreprise',
+					email: 'example@example.com',
+					logoUrl: 'https://fake-url.com',
+					nom: 'SNCF',
+					siteUrl: 'https://fake-url.com',
+				},
+				localisation: {
+					adresse: 'Vieux port Marseille',
+					codePostal: '13000',
+					departement: 'Var',
+					pays: 'FR',
+					region: 'Provence-Alpes-Côte d\'Azure',
+					ville: 'Paris',
+				},
+				remunerationBase: 560,
+				teletravailPossible: true,
+				titre: 'Assistant conducteur train',
+				urlDeCandidature: 'mailto:admin@example.com',
 			});
+
+			const offreDeStageMapped = mapToStrapiDepotOffreDeStage(offreDeStageToSave);
+
+			const expectedResult = aStrapiOffreDeStageDepot({
+				dateDeDebutMax: '2023-02-03',
+				dateDeDebutMin: '2023-02-03',
+				description: 'Vous assurez la préparation des commandes clients en prélevant les produits dans les emplacements via le système informatique Vous prenez en charge la réception, le déchargement, le réapprovisionnement des produit Vous gérez la réception des commandes par les clients Vous veillez au rangement et à la propreté de la zone de travail',
+				domaines: [
+					{ nom: DomainesStage.ACHAT },
+				],
+				dureeEnJour: 30,
+				employeur: {
+					description: 'description entreprise',
+					email: 'example@example.com',
+					logoUrl: 'https://fake-url.com',
+					nom: 'SNCF',
+					siteUrl: 'https://fake-url.com',
+				},
+				identifiantSource: uuidMocked,
+				localisation: {
+					adresse: 'Vieux port Marseille',
+					codePostal: '13000',
+					departement: 'Var',
+					pays: 'FR',
+					region: 'Provence-Alpes-Côte d\'Azure',
+					ville: 'Paris',
+				},
+				remunerationBase: 560,
+				remunerationMax: 560, 
+				remunerationMin: 560,
+				remunerationPeriode: RemunerationPeriode.MONTHLY,
+				teletravailPossible: true,
+				titre: 'Assistant conducteur train',
+				urlDeCandidature: 'mailto:admin@example.com',
+			});
+
+			expect(offreDeStageMapped).toEqual(expectedResult);
+		});
+
+		it('lorsque la rémunération n‘est pas présente, ne soumet pas de période de rémunération', () => {
+			const offreDeStageToSave = anOffreDeStageDepot({
+				remunerationBase: undefined,
+			});
+
+			const offreDeStageMapped = mapToStrapiDepotOffreDeStage(offreDeStageToSave);
+
+			const expectedResult = aStrapiOffreDeStageDepot({
+				remunerationBase: undefined,
+				remunerationMax: undefined,
+				remunerationMin: undefined,
+				remunerationPeriode: undefined,
+			});
+
+			expect(offreDeStageMapped).toEqual(expectedResult);
 		});
 	});
+
 });
 
