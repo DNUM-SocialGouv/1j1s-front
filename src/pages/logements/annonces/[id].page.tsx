@@ -1,6 +1,5 @@
 import {
 	GetServerSidePropsContext,
-	GetServerSidePropsResult,
 } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
@@ -14,6 +13,9 @@ import analytics from '~/pages/logements/annonces/[id].analytics';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 import { dependencies } from '~/server/start';
+
+import { GetServerSidePropsResult } from '../../../server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '../../../server/errors/handleGetServerSidePropsError';
 
 export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
 	useAnalytics(analytics);
@@ -59,7 +61,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Loge
 
 	const annonceDeLogement = await dependencies.annonceDeLogementDependencies.consulterAnnonceLogementUseCase.handle(slug);
 	if (annonceDeLogement.instance === 'failure') {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, annonceDeLogement.errorType);
 	}
 
 	return {

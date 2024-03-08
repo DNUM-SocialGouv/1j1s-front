@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -9,6 +9,8 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/service-civique/[id].analytics';
 import { Mission, MissionId } from '~/server/engagement/domain/engagement';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -44,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Miss
 	const missionEngagement = await dependencies.engagementDependencies.consulterMissionEngagement.handle(id);
 
 	if (missionEngagement.instance === 'failure') {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, missionEngagement.errorType);
 	}
 
 	return {

@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
 
+import ErrorServer from '~/client/components/layouts/Error/ErrorServer';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
@@ -57,7 +58,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 			{
 				dependenciesContainerInstance && (
 					<DependenciesProvider {...dependenciesContainerInstance}>
-						{getLayout(<Component {...pageProps} />)}
+						{getLayout(
+							pageProps.error
+								? <ErrorServer error={pageProps.error} />
+								: <Component {...pageProps} />,
+						)}
 					</DependenciesProvider>
 				)
 			}

@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -8,6 +8,8 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import analytics from '~/pages/stages/[id].analytics';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { dependencies } from '~/server/start';
@@ -46,7 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<Stag
 	const offreDeStage = await dependencies.stagesDependencies.consulterOffreStage.handle(slug);
 
 	if (offreDeStage.instance === 'failure') {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, offreDeStage.errorType);
 	}
 
 	return {

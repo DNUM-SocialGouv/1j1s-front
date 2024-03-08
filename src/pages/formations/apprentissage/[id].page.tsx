@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 import { ConsulterFormation } from '~/client/components/features/Formation/Consulter/ConsulterFormation';
 import { Head } from '~/client/components/head/Head';
@@ -7,6 +7,9 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/formations/apprentissage/[id].analytics';
 import { isFailure } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { Formation, FormationFiltre } from '~/server/formations/domain/formation';
 import { Statistique } from '~/server/formations/domain/statistique';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
@@ -52,7 +55,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 
 
 	if (formationQuerySchema.validate(context.query).error) {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, ErreurMetier.DEMANDE_INCORRECTE);
 	}
 
 	const id = context.params?.id as string;
@@ -69,7 +72,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	const { formation, statistiques } = await dependencies.formationDependencies.consulterFormation.handle(id, filtre);
 
 	if (isFailure(formation)) {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, formation.errorType);
 	}
 
 	if (!statistiques || isFailure(statistiques)) {

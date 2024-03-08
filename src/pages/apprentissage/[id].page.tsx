@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
@@ -6,6 +6,8 @@ import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/[id].analytics';
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 import { dependencies } from '~/server/start';
@@ -29,7 +31,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{ id
 	const annonce = await dependencies.alternanceDependencies.consulterAlternance.handle(id);
 
 	if (annonce.instance === 'failure') {
-		return { notFound: true };
+		return handleGetServerSidePropsError(context, annonce.errorType);
 	}
 	const alternance: AlternanceSerialized = {
 		...annonce.result,

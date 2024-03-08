@@ -48,11 +48,12 @@ describe('<ConsulterEmploiEurope />', () => {
 	});
 
 	describe('lorsque la recherche est en erreur', () => {
-		it('retourne une page 404', async () => {
+		it('retourne en props une erreur en fonction de la réponse du serveur', async () => {
 			jest.spyOn(dependencies.emploiEuropeDependencies.consulterEmploiEuropeUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-			const result = await getServerSideProps({ params: { id: '1' } } as GetServerSidePropsContext<{ id: string }>);
-			expect(result).toMatchObject({ notFound: true });
+			const statusCodeToBeOverridden = 0;
+			const result = await getServerSideProps({ params: { id: '1' }, res: { statusCode: statusCodeToBeOverridden } } as GetServerSidePropsContext<{ id: string }>);
+			expect(result).toMatchObject({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 		});
 	});
 
