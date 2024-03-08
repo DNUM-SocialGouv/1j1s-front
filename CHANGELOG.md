@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.260.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.259.0...v3.260.0) (2024-03-07)
+
+
+### Features
+
+* **stage:** ajout des champs salaireMin salaireMax et periodeSalaire ([#2759](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2759)) ([bb373c7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb373c768e9e691656d150b7f335784e007ab930))
+
+
+### Bug Fixes
+
+* corrige semantique texte de l'encart campagne du header ([#2774](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2774)) ([5cb3c1b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5cb3c1be3552682af498faa1ab4cf38200b4ba8b))
+* fonctionnement sur site sans sessionStorage ([#2746](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2746)) ([12fb5e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/12fb5e22ad8990413e3324c23a92a81ad34004de))
+* **stage:** depot offre de stage date du jour non valide ([#2761](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2761)) ([fea9d3b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fea9d3bbbc64324029c3748667310a0f16c79bb6))
+
 ## [3.259.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.258.0...v3.259.0) (2024-03-06)
 
 
