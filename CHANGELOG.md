@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.261.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.260.0...v3.261.0) (2024-03-08)
+
+
+### Features
+
+* **multiple:** ajout gestion erreur ssr ([#2730](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2730)) ([c9eb7c5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c9eb7c52360f57beec525985ab00b8855ffdde7f))
+
 ## [3.260.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.259.0...v3.260.0) (2024-03-07)
 
 
