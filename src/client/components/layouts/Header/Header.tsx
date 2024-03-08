@@ -4,6 +4,9 @@ import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Ba
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
+import { Link } from '~/client/components/ui/Link/Link';
+
+export const ENCART_CAMPAGNE_URL = 'https://forms.sbc33.com/62553f47462f0e1887f81bfe/VQ35E9J0QhCSCxvF8H-mVA/form.html';
 
 export function Header() {
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
@@ -15,9 +18,11 @@ export function Header() {
 		<header
 			className={styles.header}
 			role="banner">
-			<p className={styles.headerBannerMobile} hidden={!displayCampagneEnCoursBanner} data-testid="mobile-encart-campagne">
-				Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;? L’ouverture du service est prévue le 25 mars
-			</p>
+			{ displayCampagneEnCoursBanner &&
+				<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBannerMobile} data-testid="mobile-encart-campagne">
+					Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;? L’ouverture du service est prévue le 25 mars
+					<Link.Icon name="angle-right"/>
+				</Link> }
 			<HeaderBody/>
 			<HeaderNavDesktop/>
 			{displayEnqueteSatisfactionBanner &&

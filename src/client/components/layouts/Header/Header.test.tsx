@@ -140,6 +140,8 @@ describe('Header', () => {
 				// Then
 				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
 				expect(encartCampagne).toBeVisible();
+				expect(encartCampagne).toHaveRole('link');
+				expect(encartCampagne).toHaveAttribute('href', 'https://forms.sbc33.com/62553f47462f0e1887f81bfe/VQ35E9J0QhCSCxvF8H-mVA/form.html');
 				expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ?L’ouverture du service est prévue le 25 mars');
 			});
 		});
@@ -157,8 +159,8 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// Then
-				const encartLien = screen.queryByRole('link', { name: /Découvrez le Contrat Engagement Jeune, la solution pour vous/i });
-				expect(encartLien).not.toBeInTheDocument();
+				const encartCampagne = screen.queryByTestId('desktop-encart-campagne');
+				expect(encartCampagne).not.toBeInTheDocument();
 			});
 		});
 
@@ -269,6 +271,8 @@ describe('Header', () => {
 					// Then
 					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
 					expect(encartCampagne).toBeVisible();
+					expect(encartCampagne).toHaveRole('link');
+					expect(encartCampagne).toHaveAttribute('href', 'https://forms.sbc33.com/62553f47462f0e1887f81bfe/VQ35E9J0QhCSCxvF8H-mVA/form.html');
 					expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ? L’ouverture du service est prévue le 25 mars');
 				});
 			});
@@ -285,8 +289,8 @@ describe('Header', () => {
 					render(<Header/>);
 
 					// Then
-					const encartLien = screen.queryByRole('link', { name: /Un parcours personnalisé pour vous aider à définir votre projet professionnel et trouver un emploi/i });
-					expect(encartLien).not.toBeInTheDocument();
+					const encartCampagne = screen.queryByTestId('mobile-encart-campagne');
+					expect(encartCampagne).not.toBeInTheDocument();
 				});
 			});
 		});
