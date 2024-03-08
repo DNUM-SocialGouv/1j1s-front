@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.262.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.261.0...v3.262.0) (2024-03-08)
+
+
+### Features
+
+* **encart-campagne:** ajout du lien de redirection vers le formulaie de notification stage seconde sur l'encart ([#2782](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2782)) ([38bbd5e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/38bbd5e6001d421e24a7598006c7506a0c8b340d))
+
 ## [3.261.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.260.0...v3.261.0) (2024-03-08)
 
 
