@@ -21,7 +21,7 @@ export function CampagneBannerMobile() {
 export function CampagneBannerDesktop() {
 	const displayCampagneEnCoursBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
 	return (displayCampagneEnCoursBanner &&
-		<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBannerDektop} data-testid="desktop-encart-campagne">
+		<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBannerDektop} data-testid="desktop-encart-campagne" id={'encart-campagne'}>
 			<p>
 				<span className={styles.title}>{TITRE}</span>
 				<span className={styles.content}>{SOUS_TITRE}</span>
