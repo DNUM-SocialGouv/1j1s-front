@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import { ENCART_CAMPAGNE_URL } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -47,12 +48,13 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-					<p className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
-						<span>
-							<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
-							<span className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</span>
-						</span>
-					</p>
+						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
+							<p>
+								<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
+								<span className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</span>
+							</p>
+							<Link.Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
+						</Link>
 				}
 			</div>
 			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
