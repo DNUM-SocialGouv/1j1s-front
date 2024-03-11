@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.263.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.262.1...v3.263.0) (2024-03-11)
+
+
+### Features
+
+* **france-travail:** modifier l'appellation pole emploi ([#2747](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2747)) ([8e511d1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8e511d1be3609399fb1a49e997cfb6879cfd29f7))
+
 ## [3.262.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.262.0...v3.262.1) (2024-03-08)
 
 
