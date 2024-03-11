@@ -145,7 +145,7 @@ describe('<Detail />', () => {
 		expect(description).toHaveTextContent("C'est une super entreprise !");
 	});
 	describe('lorsque la description de l’entreprise est sous forme html', () => {
-		it('affiche la description du contrat', () => {
+		it('affiche la description de l’entreprise', () => {
 			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
 
 			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });

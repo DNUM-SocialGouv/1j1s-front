@@ -203,8 +203,8 @@ describe('mapAlternance', () => {
 	});
 
 	describe('mapMatcha', () => {
-		describe('quand la reponse Matcha n’est pas une offre PASS', () => {
-			it('converti une response Matcha en alternance', () => {
+		describe('quand la response Matcha n’est pas une offre PASS', () => {
+			it('converti une response Matcha en alternance en utilisant les champs definition et competencesDeBase de romeDetails', () => {
 				const input: AlternanceApiJobsResponse.Matcha = {
 					company: {
 						name: 'ECOLE DE TRAVAIL ORT',
@@ -259,8 +259,8 @@ describe('mapAlternance', () => {
 			});
 		});
 
-		describe('quand la reponse Matcha est une offre PASS', () => {
-			it('converti une response Matcha en alternance', () => {
+		describe('quand la response Matcha est une offre PASS', () => {
+			it('converti une response Matcha en alternance en utilisant les champs description et employeurDescription de job', () => {
 				const input: AlternanceApiJobsResponse.Matcha = {
 					company: {
 						name: 'ECOLE DE TRAVAIL ORT',
