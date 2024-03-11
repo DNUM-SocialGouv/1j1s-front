@@ -238,6 +238,7 @@ import {
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2deErrorManagement.service';
 import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
+import { dependencies } from '~/server/start';
 
 export type Dependencies = {
 	actualitesDependencies: ActualitesDependencies;
@@ -422,7 +423,8 @@ export function dependenciesContainer(): Dependencies {
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository);
+	const baseUrl = `https://${serverConfigurationService.getConfiguration().NEXT_PUBLIC_1J1S_DOMAIN}`;
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository, baseUrl);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();

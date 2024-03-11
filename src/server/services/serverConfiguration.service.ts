@@ -35,7 +35,7 @@ export default class ServerConfigurationService implements ConfigurationService 
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
-
+			NEXT_PUBLIC_1J1S_DOMAIN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_1J1S_DOMAIN'),
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
@@ -89,6 +89,7 @@ export interface EnvironmentVariables {
 	readonly API_ADRESSE_BASE_URL: string
 	readonly NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: number
 	readonly NEXT_PUBLIC_SENTRY_LOG_LEVEL: string
+	readonly NEXT_PUBLIC_1J1S_DOMAIN: string
 	readonly NEXT_PUBLIC_SENTRY_DSN: string
 	readonly NEXT_PUBLIC_SENTRY_ENVIRONMENT: string
 	readonly NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: string
