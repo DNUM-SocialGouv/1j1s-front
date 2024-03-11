@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.264.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.263.0...v3.264.0) (2024-03-11)
+
+
+### Features
+
+* **alternance:** integrer offre pass ([#2762](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2762)) ([f4cd864](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f4cd86488e00e0d3f95d15a91d3cd718775cb41c))
+* **europe:** limite nombre de page pour 10 000 resultats max ([#2780](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2780)) ([43708f6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/43708f63cb42cdf509454a27f76cd2504e008da9))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2784](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2784)) ([8f3a67c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8f3a67c8972cb0b1802f0911ec20f0fd9730ab5b))
+
 ## [3.263.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.262.1...v3.263.0) (2024-03-11)
 
 
