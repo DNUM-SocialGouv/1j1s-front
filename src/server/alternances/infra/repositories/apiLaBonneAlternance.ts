@@ -96,30 +96,7 @@ export interface AlternanceApiJobsResponse {
 }
 
 export const apiLaBonneAlternanceSchemas = {
-	getMatcha: Joi.object({
-		matchas: Joi.array().items(Joi.object({
-			company: Joi.object({
-				name: Joi.string(),
-				place: Joi.object({
-					city: Joi.string(),
-				}),
-			}),
-			contact: Joi.object({
-				phone: Joi.string(),
-			}),
-			diplomaLevel: Joi.string(),
-			job: Joi.object({
-				dureeContrat: Joi.number(),
-				rythmeAlternance: Joi.string(),
-			}).required(),
-			place: Joi.object({
-				city: Joi.string().allow(null),
-				fullAddress: Joi.string(),
-			}),
-			title: Joi.string().required(),
-		})),
-	}).options({ allowUnknown: true }),
-	getPoleEmploi:Joi.object({
+	getFranceTravail:Joi.object({
 		peJobs: Joi.array().items(Joi.object({
 			company: Joi.object({
 				name: Joi.string(),
@@ -141,6 +118,29 @@ export const apiLaBonneAlternanceSchemas = {
 			}),
 			title: Joi.string().required(),
 			url: Joi.string(),
+		})),
+	}).options({ allowUnknown: true }),
+	getMatcha: Joi.object({
+		matchas: Joi.array().items(Joi.object({
+			company: Joi.object({
+				name: Joi.string(),
+				place: Joi.object({
+					city: Joi.string(),
+				}),
+			}),
+			contact: Joi.object({
+				phone: Joi.string(),
+			}),
+			diplomaLevel: Joi.string(),
+			job: Joi.object({
+				dureeContrat: Joi.number(),
+				rythmeAlternance: Joi.string(),
+			}).required(),
+			place: Joi.object({
+				city: Joi.string().allow(null),
+				fullAddress: Joi.string(),
+			}),
+			title: Joi.string().required(),
 		})),
 	}).options({ allowUnknown: true }),
 	search: Joi.object({

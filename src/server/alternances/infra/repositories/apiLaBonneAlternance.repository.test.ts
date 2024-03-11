@@ -240,7 +240,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 						path: ['matchas', 0, 'title'],
 						type: 'string.base',
 					},
-				], 
+				],
 				matchaResponseWithAnAttributeWithANumberInsteadOfAString);
 
 			// When
@@ -262,7 +262,7 @@ describe('ApiLaBonneAlternanceRepository', () => {
 			expect(result.instance).toEqual('success');
 		});
 
-		describe('lorsque l’id fournit correspond à une offre Pole Emploi', () => {
+		describe('lorsque l’id fournit correspond à une offre France Travail', () => {
 			it('appelle l’api laBonneAlternance avec l’endpoint /jobs/job', async () => {
 				// Given
 				const caller = '1jeune1solution-test';

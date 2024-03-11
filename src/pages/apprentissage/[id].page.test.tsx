@@ -27,7 +27,7 @@ const alternanceSerialized: AlternanceSerialized = {
 	localisation: 'paris',
 	natureDuContrat: 'CDI',
 	niveauRequis: 'débutant',
-	source: Alternance.Source.POLE_EMPLOI,
+	source: Alternance.Source.FRANCE_TRAVAIL,
 	tags: [],
 	titre: 'Ma super alternance',
 	typeDeContrat: ['Apprentissage'],

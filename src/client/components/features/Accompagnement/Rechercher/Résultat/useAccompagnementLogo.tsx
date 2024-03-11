@@ -10,7 +10,7 @@ export function useAccompagnementLogo(typeÉtablissement: TypeÉtablissement) {
 			case 'mission_locale':
 				return '/images/logos/union-mission-locale.svg';
 			case TypeÉtablissement.FRANCE_TRAVAIL:
-				return '/images/logos/pole-emploi.svg';
+				return '/images/logos/france-travail.svg';
 			default:
 				return '';
 		}

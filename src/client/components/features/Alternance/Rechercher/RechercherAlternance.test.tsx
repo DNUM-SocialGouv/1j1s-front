@@ -73,7 +73,7 @@ describe('RechercherAlternance', () => {
 				entreprise: { nom: 'une entreprise' },
 				id: 'an-id-pe',
 				localisation: 'paris',
-				source: Alternance.Source.POLE_EMPLOI,
+				source: Alternance.Source.FRANCE_TRAVAIL,
 				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 				titre: 'un titre',
 				typeDeContrat: ['CDD'],

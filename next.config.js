@@ -30,7 +30,7 @@ function getImagesRemotePattern() {
 }
 
 const CMS_HOST = getHostName(process.env.STRAPI_URL_API);
-const API_POLE_EMPLOI_HOST = getHostName(process.env.POLE_EMPLOI_CONNECT_URL);
+const API_FRANCE_TRAVAIL_HOST = getHostName(process.env.FRANCE_TRAVAIL_CONNECT_URL);
 const STRAPI_MEDIA_URL = getHostName(process.env.STRAPI_MEDIA_URL);
 
 
@@ -55,7 +55,7 @@ const moduleExports = {
 		remotePatterns: [
 			...getImagesRemotePattern(),
 			{
-				hostname: API_POLE_EMPLOI_HOST,
+				hostname: API_FRANCE_TRAVAIL_HOST,
 				protocol: 'https',
 			},
 			{

@@ -45,7 +45,7 @@ export namespace ResultatRechercheAlternance {
 export namespace Alternance {
 	export enum Source {
 		MATCHA,
-		POLE_EMPLOI,
+		FRANCE_TRAVAIL,
 	}
 
 	export enum Contrat {
@@ -65,6 +65,6 @@ export function isMatcha(source: Alternance.Source): source is Alternance.Source
 	return source === Alternance.Source.MATCHA;
 }
 
-export function isPoleEmploi(source: Alternance.Source): source is Alternance.Source.POLE_EMPLOI {
-	return source === Alternance.Source.POLE_EMPLOI;
+export function isFranceTravail(source: Alternance.Source): source is Alternance.Source.FRANCE_TRAVAIL {
+	return source === Alternance.Source.FRANCE_TRAVAIL;
 }

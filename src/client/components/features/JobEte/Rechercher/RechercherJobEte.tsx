@@ -28,14 +28,14 @@ import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
-	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
+	MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job d’été';
-const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
+const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
 
 interface RechercherJobEteProps {
 	erreurRecherche?: Erreur
@@ -94,7 +94,7 @@ export function RechercherJobEte(props: RechercherJobEteProps) {
 					messageResultatRecherche={messageResultatRecherche}
 					nombreTotalSolutions={nombreResultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
-					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
+					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreJobEte resultatList={jobEteList}/>}
 				/>
 			</main>
@@ -133,7 +133,7 @@ function BanniereJobEte() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>Des milliers de jobs d’été</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnés pour vous par Pôle Emploi</LightHeroSecondaryText>
+				<LightHeroSecondaryText>sélectionnés pour vous par France Travail</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);

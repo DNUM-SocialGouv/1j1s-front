@@ -28,7 +28,7 @@ $border-card-lead: 4px solid $color-card-lead-border;
     }
 
     &:has(img) {
-      gap: 2rem;
+      gap: 1.5rem;
 
       @include utilities.media(medium) {
         gap: 2.5rem;
@@ -38,13 +38,13 @@ $border-card-lead: 4px solid $color-card-lead-border;
     > img {
       margin-top: auto;
       margin-bottom: auto;
-      width: 56px;
+      width: 96px;
       height: 56px;
       object-fit: contain;
       flex-shrink: 0;
 
       @include utilities.media(medium) {
-        width: 120px;
+        width: 190px;
         height: 120px;
       }
     }

@@ -5,9 +5,9 @@ import styles from '~/client/components/features/ContratEngagementJeune/Accompag
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 
-type AutresBesoinsProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen' | 'setIsInscriptionPôleEmploiModalOpen'>
+type AutresBesoinsProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen' | 'setIsInscriptionFranceTravailModalOpen'>
 
-export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsInscriptionPôleEmploiModalOpen }: AutresBesoinsProps) {
+export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsInscriptionFranceTravailModalOpen }: AutresBesoinsProps) {
 	const [activeCounter, setActiveCounter] = useState(0);
 
 
@@ -43,7 +43,7 @@ export default function AutresBesoins({ setTypeFormulaireAffiché, setIsMissionL
 		<div className={styles.accompagnementValider}>
 			{activeCounter > 0
 				? <ButtonComponent label="Valider" onClick={() => setIsMissionLocaleModalOpen(true)}/>
-				: <ButtonComponent label="Valider" onClick={() => setIsInscriptionPôleEmploiModalOpen(true)}/>
+				: <ButtonComponent label="Valider" onClick={() => setIsInscriptionFranceTravailModalOpen(true)}/>
 			}
 		</div>
 	</>;

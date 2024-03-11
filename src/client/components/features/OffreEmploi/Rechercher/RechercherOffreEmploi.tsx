@@ -29,14 +29,14 @@ import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
-	MAX_PAGE_ALLOWED_BY_POLE_EMPLOI,
+	MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL,
 	NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE,
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
-const LOGO_OFFRE_EMPLOI = '/images/logos/pole-emploi.svg';
+const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
 
 interface RechercherOffreEmploiProps {
 	erreurRecherche?: Erreur
@@ -82,7 +82,7 @@ export function RechercherOffreEmploi(props: RechercherOffreEmploiProps) {
 					messageResultatRecherche={messageRésultatRecherche}
 					nombreTotalSolutions={nombreRésultats}
 					paginationOffset={NOMBRE_RÉSULTATS_OFFRE_PAR_PAGE}
-					maxPage={MAX_PAGE_ALLOWED_BY_POLE_EMPLOI - 1}
+					maxPage={MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL - 1}
 					listeSolutionElement={<ListeOffreEmploi résultatList={offreEmploiList}/>}
 				/>
 				<EnTete heading="Découvrez des services faits pour vous"/>
@@ -127,7 +127,7 @@ function BannièreOffreEmploi() {
 		<LightHero>
 			<h1>
 				<LightHeroPrimaryText>Des milliers d‘offres d‘emplois</LightHeroPrimaryText>
-				<LightHeroSecondaryText>sélectionnées pour vous par Pôle Emploi</LightHeroSecondaryText>
+				<LightHeroSecondaryText>sélectionnées pour vous par France Travail</LightHeroSecondaryText>
 			</h1>
 		</LightHero>
 	);

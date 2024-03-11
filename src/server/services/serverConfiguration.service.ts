@@ -9,6 +9,9 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_ETABLISSEMENTS_PUBLICS: ServerConfigurationService.getOrThrowError('API_ETABLISSEMENTS_PUBLICS'),
 			API_EURES_BASE_URL: ServerConfigurationService.getOrThrowError('API_EURES_BASE_URL'),
 			API_EURES_IS_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_EURES_IS_MOCK_ACTIVE', '0'))),
+			API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE', '0'))),
+			API_FRANCE_TRAVAIL_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_FRANCE_TRAVAIL_OFFRES_URL'),
+			API_FRANCE_TRAVAIL_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_FRANCE_TRAVAIL_REFERENTIEL_URL'),
 			API_GEO_BASE_URL: ServerConfigurationService.getOrThrowError('API_GEO_BASE_URL'),
 			API_IMMERSION_FACILE_STAGE_3EME_API_KEY: ServerConfigurationService.getOrThrowError('API_IMMERSION_FACILE_STAGE_3EME_API_KEY'),
 			API_IMMERSION_FACILE_STAGE_3EME_URL: ServerConfigurationService.getOrThrowError('API_IMMERSION_FACILE_STAGE_3EME_URL'),
@@ -20,31 +23,28 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_ONISEP_ACCOUNT_PASSWORD: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_PASSWORD'),
 			API_ONISEP_APPLICATION_ID: ServerConfigurationService.getOrThrowError('API_ONISEP_APPLICATION_ID'),
 			API_ONISEP_BASE_URL: ServerConfigurationService.getOrThrowError('API_ONISEP_BASE_URL'),
-			API_POLE_EMPLOI_IS_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_POLE_EMPLOI_IS_MOCK_ACTIVE', '0'))),
-			API_POLE_EMPLOI_OFFRES_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_OFFRES_URL'),
-			API_POLE_EMPLOI_REFERENTIEL_URL: ServerConfigurationService.getOrThrowError('API_POLE_EMPLOI_REFERENTIEL_URL'),
 			API_TRAJECTOIRES_PRO_PASSWORD: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_PASSWORD'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
 			API_TRAJECTOIRES_PRO_USERNAME: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_USERNAME'),
 			ENVIRONMENT: ServerConfigurationService.getOrDefault('ENVIRONMENT', 'local'),
+			FRANCE_TRAVAIL_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_ID'),
+			FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET'),
+			FRANCE_TRAVAIL_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_SCOPE').replace(/,/g, ' '),
+			FRANCE_TRAVAIL_CONNECT_URL: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_URL'),
 			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', '').toLowerCase() === 'true',
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
+
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
+
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: Boolean(Number(ServerConfigurationService.getOrDefault('NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE', '0'))),
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH')),
 			NEXT_PUBLIC_SENTRY_DSN: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_DSN'),
-
 			NEXT_PUBLIC_SENTRY_ENVIRONMENT: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_ENVIRONMENT'),
-
 			NEXT_PUBLIC_SENTRY_LOG_LEVEL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_LOG_LEVEL'),
 			NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: Number(ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST')),
 			NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_SENTRY_USER_AGENT_BLACKLIST'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY'),
 			NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: ServerConfigurationService.getOrThrowError('NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL'),
-			POLE_EMPLOI_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_ID'),
-			POLE_EMPLOI_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_CLIENT_SECRET'),
-			POLE_EMPLOI_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_SCOPE').replace(/,/g, ' '),
-			POLE_EMPLOI_CONNECT_URL: ServerConfigurationService.getOrThrowError('POLE_EMPLOI_CONNECT_URL'),
 			REDIS_URL: ServerConfigurationService.getOrDefault('REDIS_URL', ''),
 			STRAPI_AUTH: ServerConfigurationService.matchOrThrowError('STRAPI_AUTH', /^(.+):(.+)$/),
 			STRAPI_URL_API: ServerConfigurationService.getOrThrowError('STRAPI_URL_API'),
@@ -79,8 +79,6 @@ export default class ServerConfigurationService implements ConfigurationService 
 	}
 }
 
-// export default const environmentConfig = new ServerConfigurationService().getConfiguration();
-
 class EnvironmentVariablesException extends Error {
 	constructor(readonly message: string) {
 		super(message);
@@ -111,9 +109,9 @@ export interface EnvironmentVariables {
 	readonly API_ONISEP_ACCOUNT_EMAIL: string
 	readonly API_ONISEP_ACCOUNT_PASSWORD: string
 	readonly API_ONISEP_APPLICATION_ID: string
-	readonly API_POLE_EMPLOI_IS_MOCK_ACTIVE: boolean
-	readonly API_POLE_EMPLOI_OFFRES_URL: string
-	readonly API_POLE_EMPLOI_REFERENTIEL_URL: string
+	readonly API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE: boolean
+	readonly API_FRANCE_TRAVAIL_OFFRES_URL: string
+	readonly API_FRANCE_TRAVAIL_REFERENTIEL_URL: string
 	readonly API_TRAJECTOIRES_PRO_URL: string
 	readonly API_TRAJECTOIRES_PRO_USERNAME: string
 	readonly API_TRAJECTOIRES_PRO_PASSWORD: string
@@ -124,10 +122,10 @@ export interface EnvironmentVariables {
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_API_KEY: string
 	readonly NEXT_PUBLIC_STAGE_SEARCH_ENGINE_BASE_URL: string
-	readonly POLE_EMPLOI_CONNECT_CLIENT_ID: string
-	readonly POLE_EMPLOI_CONNECT_CLIENT_SECRET: string
-	readonly POLE_EMPLOI_CONNECT_SCOPE: string
-	readonly POLE_EMPLOI_CONNECT_URL: string
+	readonly FRANCE_TRAVAIL_CONNECT_CLIENT_ID: string
+	readonly FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: string
+	readonly FRANCE_TRAVAIL_CONNECT_SCOPE: string
+	readonly FRANCE_TRAVAIL_CONNECT_URL: string
 	readonly REDIS_URL: string
 	readonly STRAPI_AUTH: string
 	readonly STRAPI_URL_API: string

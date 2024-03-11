@@ -26,7 +26,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 			const routerPush = jest.fn();
 
 			mockUseRouter({ push: routerPush, query: {
-				typeAccompagnement: 'pole_emploi',
+				typeAccompagnement: 'mission_locale',
 			} });
 			const localisationServiceMock = aLocalisationService();
 
@@ -78,7 +78,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 
 	it('rempli les champs du formulaire avec les query params', async () => {
 		mockUseRouter({ query: {
-			typeAccompagnement: 'pole_emploi',
+			typeAccompagnement: 'mission_locale',
 			...aCommuneQuery({
 				codeCommune: '75001',
 				libelleCommune: 'Paris (75001)',
@@ -94,6 +94,6 @@ describe('FormulaireRechercheAccompagnement', () => {
 		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
 		const typeAccompagnement = screen.getByTestId('Select-InputHidden');
-		expect(typeAccompagnement).toHaveValue('pole_emploi');
+		expect(typeAccompagnement).toHaveValue('mission_locale');
 	});
 });

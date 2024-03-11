@@ -70,7 +70,7 @@ export function mapPEJob(alternance: PEJobs): Alternance {
 		natureDuContrat: Alternance.Contrat.ALTERNANCE,
 		niveauRequis: undefined,
 		rythmeAlternance: alternance.job.duration,
-		source: Alternance.Source.POLE_EMPLOI,
+		source: Alternance.Source.FRANCE_TRAVAIL,
 		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
 		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
@@ -83,7 +83,7 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRech
 			nom: alternance.company?.name,
 		},
 		id: alternance.job.id,
-		source: Alternance.Source.POLE_EMPLOI,
+		source: Alternance.Source.FRANCE_TRAVAIL,
 		tags: [alternance.place?.city, Alternance.Contrat.ALTERNANCE, alternance.job.contractType].filter((tag) => !!tag) as string[],
 		titre: alternance.title,
 	};

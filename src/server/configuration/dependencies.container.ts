@@ -43,7 +43,7 @@ import {
 	OffresEmploiDependencies,
 	offresEmploiDependenciesContainer,
 } from '~/server/emplois/configuration/dependencies.container';
-import { ApiPoleEmploiOffreRepository } from '~/server/emplois/infra/repositories/apiPoleEmploiOffre.repository';
+import { ApiFranceTravailOffreRepository } from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
 import {
 	getApiEuresPublicHttpClientConfig,
 } from '~/server/emplois-europe/configuration/apiEures/apiEuresPublicHttpClient.config';
@@ -132,14 +132,14 @@ import {
 	jobsEteDependenciesContainer,
 	OffresJobEteDependencies,
 } from '~/server/jobs-ete/configuration/dependencies.container';
-import { ApiPoleEmploiJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiPoleEmploiJobEte.repository';
+import { ApiFranceTravailJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiFranceTravailJobEte.repository';
 import {
 	jobsÉtudiantsDependenciesContainer,
 	OffresJobÉtudiantDependencies,
 } from '~/server/jobs-étudiants/configuration/dependencies.container';
 import {
-	ApiPoleEmploiJobÉtudiantRepository,
-} from '~/server/jobs-étudiants/infra/repositories/apiPoleEmploiJobÉtudiant.repository';
+	ApiFranceTravailJobEtudiantRepository,
+} from '~/server/jobs-étudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
 import { getApiAdresseConfig } from '~/server/localisations/configuration/adresse/adresseHttpClient.config';
 import {
 	LocalisationDependencies,
@@ -179,20 +179,20 @@ import {
 } from '~/server/metiers/configuration/dependencies.container';
 import { ApiLaBonneAlternanceMétierRepository } from '~/server/metiers/infra/apiLaBonneAlternanceMétier.repository';
 import {
-	getApiPoleEmploiOffresConfig,
-	getApiPoleEmploiReferentielsConfig,
-} from '~/server/offres/configuration/pole-emploi/poleEmploiHttpClient.config';
+	getApiFranceTravailOffresConfig,
+	getApiFranceTravailReferentielsConfig,
+} from '~/server/offres/configuration/france-travail/franceTravailHttpClient.config';
+import {
+	ApiFranceTravailOffreErrorManagementServiceGet,
+	ApiFranceTravailOffreErrorManagementServiceSearch,
+} from '~/server/offres/infra/repositories/france-travail/apiFranceTravailErrorManagement.service';
+import {
+	ApiFranceTravailReferentielRepository,
+} from '~/server/offres/infra/repositories/france-travail/apiFranceTravailReferentiel.repository';
+import {
+	FranceTravailParametreBuilderService,
+} from '~/server/offres/infra/repositories/france-travail/franceTravailParametreBuilder.service';
 import { MockOffreRepository } from '~/server/offres/infra/repositories/mockOffre.repository';
-import {
-	ApiPoleEmploiOffreErrorManagementServiceGet,
-	ApiPoleEmploiOffreErrorManagementServiceSearch,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiErrorManagement.service';
-import {
-	ApiPoleEmploiRéférentielRepository,
-} from '~/server/offres/infra/repositories/pole-emploi/apiPoleEmploiRéférentiel.repository';
-import {
-	PoleEmploiParamètreBuilderService,
-} from '~/server/offres/infra/repositories/pole-emploi/poleEmploiParamètreBuilder.service';
 import { RobotsDependencies, robotsDependenciesContainer } from '~/server/robots/configuration/dependencies.container';
 import { CacheService } from '~/server/services/cache/cache.service';
 import { NullCacheService } from '~/server/services/cache/nullCache.service';
@@ -223,14 +223,14 @@ import {
 	getApiImmersionFacileStage3eEt2deConfig,
 } from '~/server/stage-3e-et-2de/configuration/stage-3e-et-2de/stage3eEt2deHttpClient.config';
 import {
+	ApiFranceTravailMetierStage3eEt2deRepository,
+} from '~/server/stage-3e-et-2de/infra/repositories/apiFranceTravailMetierStage3eEt2de.repository';
+import {
 	ApiImmersionFacileStage3eEt2deRepository,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2de.repository';
 import {
 	ApiImmersionFacileStage3eEt2deErrorManagementService,
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2deErrorManagement.service';
-import {
-	ApiPoleEmploiMetierStage3eEt2deRepository,
-} from '~/server/stage-3e-et-2de/infra/repositories/apiPoleEmploiMetierStage3eEt2de.repository';
 import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 
@@ -296,26 +296,26 @@ export function dependenciesContainer(): Dependencies {
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 
-	const poleEmploiRéférentielsHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiReferentielsConfig(serverConfigurationService), loggerService);
-	const poleEmploiOffresHttpClientService = new AuthenticatedHttpClientService(getApiPoleEmploiOffresConfig(serverConfigurationService), loggerService);
-	const apiPoleEmploiRéférentielRepository = new ApiPoleEmploiRéférentielRepository(poleEmploiRéférentielsHttpClientService, cacheService);
-	const poleEmploiParamètreBuilderService = new PoleEmploiParamètreBuilderService(apiPoleEmploiRéférentielRepository);
-	const apiPoleEmploiOffreErreurManagementServiceSearch = new ApiPoleEmploiOffreErrorManagementServiceSearch(loggerService);
-	const apiPoleEmploiOffreErreurManagementServiceGet = new ApiPoleEmploiOffreErrorManagementServiceGet(loggerService);
-	const apiPoleEmploiOffreRepository = new ApiPoleEmploiOffreRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreEmploiDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const franceTravailReferentielsHttpClientService = new AuthenticatedHttpClientService(getApiFranceTravailReferentielsConfig(serverConfigurationService), loggerService);
+	const franceTravailOffresHttpClientService = new AuthenticatedHttpClientService(getApiFranceTravailOffresConfig(serverConfigurationService), loggerService);
+	const apiFranceTravailReferentielRepository = new ApiFranceTravailReferentielRepository(franceTravailReferentielsHttpClientService, cacheService);
+	const franceTravailParametreBuilderService = new FranceTravailParametreBuilderService(apiFranceTravailReferentielRepository);
+	const apiFranceTravailOffreErrorManagementServiceSearch = new ApiFranceTravailOffreErrorManagementServiceSearch(loggerService);
+	const apiFranceTravailOffreErrorManagementServiceGet = new ApiFranceTravailOffreErrorManagementServiceGet(loggerService);
+	const apiFranceTravailOffreRepository = new ApiFranceTravailOffreRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
+	const offreEmploiDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? offresEmploiDependenciesContainer(new MockOffreRepository())
-		: offresEmploiDependenciesContainer(apiPoleEmploiOffreRepository);
+		: offresEmploiDependenciesContainer(apiFranceTravailOffreRepository);
 
-	const apiPoleEmploiJobÉtudiantOffreRepository = new ApiPoleEmploiJobÉtudiantRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreJobÉtudiantDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const apiFranceTravailJobEtudiantRepository = new ApiFranceTravailJobEtudiantRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
+	const offreJobÉtudiantDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? jobsÉtudiantsDependenciesContainer(new MockOffreRepository())
-		: jobsÉtudiantsDependenciesContainer(apiPoleEmploiJobÉtudiantOffreRepository);
+		: jobsÉtudiantsDependenciesContainer(apiFranceTravailJobEtudiantRepository);
 
-	const apiPoleEmploiJobEteOffreRepository = new ApiPoleEmploiJobEteRepository(poleEmploiOffresHttpClientService, poleEmploiParamètreBuilderService, cacheService, apiPoleEmploiOffreErreurManagementServiceSearch, apiPoleEmploiOffreErreurManagementServiceGet);
-	const offreJobEteDependencies = serverConfigurationService.getConfiguration().API_POLE_EMPLOI_IS_MOCK_ACTIVE
+	const apiFranceTravailJobEteRepository = new ApiFranceTravailJobEteRepository(franceTravailOffresHttpClientService, franceTravailParametreBuilderService, cacheService, apiFranceTravailOffreErrorManagementServiceSearch, apiFranceTravailOffreErrorManagementServiceGet);
+	const offreJobEteDependencies = serverConfigurationService.getConfiguration().API_FRANCE_TRAVAIL_IS_MOCK_ACTIVE
 		? jobsEteDependenciesContainer(new MockOffreRepository())
-		: jobsEteDependenciesContainer(apiPoleEmploiJobEteOffreRepository);
+		: jobsEteDependenciesContainer(apiFranceTravailJobEteRepository);
 
 	const laBonneAlternanceClientService = new PublicHttpClientService(getApiLaBonneAlternanceConfig(serverConfigurationService));
 	const apiLaBonneAlternanceCaller = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_CALLER;
@@ -325,7 +325,7 @@ export function dependenciesContainer(): Dependencies {
 	const apiLaBonneAlternanceFormationRepository = new ApiLaBonneAlternanceFormationRepository(laBonneAlternanceClientService, apiLaBonneAlternanceCaller, defaultErrorManagementService);
 	const apiLaBonneAlternanceMétierRepository = new ApiLaBonneAlternanceMétierRepository(laBonneAlternanceClientService, defaultErrorManagementService);
 
-	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE
+	const alternanceDependencies = serverConfigurationService.getConfiguration().API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE // todo devrait se baser sur si c'est environnement de test non ?
 	  ? alternancesDependenciesContainer(new MockAlternanceRepository())
 		: alternancesDependenciesContainer(apiLaBonneAlternanceRepository);
 
@@ -430,8 +430,8 @@ export function dependenciesContainer(): Dependencies {
 		stage3eEt2deHttpClientService,
 		apiImmersionFacileStage3eEt2deErrorManagementService,
 	);
-	const apiPoleEmploiMetierStage3eEt2deRepository = new ApiPoleEmploiMetierStage3eEt2deRepository(poleEmploiRéférentielsHttpClientService, cacheService, defaultErrorManagementService);
-	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiPoleEmploiMetierStage3eEt2deRepository);
+	const apiFranceTravailMetierStage3eEt2deRepository = new ApiFranceTravailMetierStage3eEt2deRepository(franceTravailReferentielsHttpClientService, cacheService, defaultErrorManagementService);
+	const stage3eEt2deDependencies = stage3eEt2deDependenciesContainer(apiImmersionFacileStage3eEt2deRepository, apiFranceTravailMetierStage3eEt2deRepository);
 
 	return {
 		actualitesDependencies,

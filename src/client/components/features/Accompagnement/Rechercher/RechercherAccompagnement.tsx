@@ -7,9 +7,9 @@ import {
 	RésultatRechercherAccompagnement,
 } from '~/client/components/features/Accompagnement/Rechercher/Résultat/RésultatRechercherAccompagnement';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { FranceTravailPartner } from '~/client/components/features/ServiceCard/FranceTravailPartner';
 import { InfoJeunesPartner } from '~/client/components/features/ServiceCard/InfoJeunesPartner';
 import { MissionsLocalesPartner } from '~/client/components/features/ServiceCard/MissionsLocalesPartner';
-import { PoleEmploiPartner } from '~/client/components/features/ServiceCard/PoleEmploiPartner';
 import { Head } from '~/client/components/head/Head';
 import {
 	ListeRésultatsRechercherSolution,
@@ -68,7 +68,7 @@ export function RechercherAccompagnement() {
 
 		switch (accompagnementQuery.typeAccompagnement) {
 			case TypeÉtablissement.FRANCE_TRAVAIL:
-				messageRésultatRechercheSplit.push('d‘accompagnement pour les Agences Pôle Emploi');
+				messageRésultatRechercheSplit.push('d‘accompagnement pour les Agences France Travail');
 				break;
 			case TypeÉtablissement.INFO_JEUNE:
 				messageRésultatRechercheSplit.push('d‘accompagnement pour les structures Infos Jeunes');
@@ -112,7 +112,7 @@ export function RechercherAccompagnement() {
 				<ServiceCardList>
 					<MissionsLocalesPartner />
 					<InfoJeunesPartner />
-					<PoleEmploiPartner />
+					<FranceTravailPartner />
 				</ServiceCardList>
 			</main>
 		</>

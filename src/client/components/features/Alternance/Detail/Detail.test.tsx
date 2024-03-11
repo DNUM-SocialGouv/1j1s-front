@@ -34,30 +34,30 @@ describe('<Detail />', () => {
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
 	});
-	describe('pour une offre Pôle Emploi', () => {
+	describe('pour une offre France Travail', () => {
 		it('affiche le lien pour postuler', () => {
-			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.POLE_EMPLOI });
+			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.getByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).toBeVisible();
 			expect(lien).toHaveAttribute('href', 'url');
-			expect(lien).toHaveAttribute('title', 'Postuler sur Pôle emploi - nouvelle fenêtre');
+			expect(lien).toHaveAttribute('title', 'Postuler sur France Travail - nouvelle fenêtre');
 		});
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
-			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.POLE_EMPLOI });
+			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).not.toBeInTheDocument();
 		});
 		it('n’affiche pas un bouton pour postuler a une offre Matcha', () => {
 			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
-			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.POLE_EMPLOI });
+			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<Detail annonce={annonce}/>);
 
@@ -67,12 +67,12 @@ describe('<Detail />', () => {
 		});
 	});
 	describe('pour une offre Matcha', () => {
-		it('n’affiche pas le lien pour postuler a une offre Pôle emploi', () => {
+		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur Pôle emploi' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
 
 			expect(lien).not.toBeInTheDocument();
 		});

@@ -15,14 +15,14 @@ export function ListeSolutionAlternance({ alternanceList }: {
 		if (alternance.source === Alternance.Source.MATCHA) {
 			return '/images/logos/la-bonne-alternance.svg';
 		}
-		return '/images/logos/pole-emploi.svg';
+		return '/images/logos/france-travail.svg';
 	};
 
 	const getAlternativeTextuelle = (alternance: Alternance) => {
 		if (isMatcha(alternance.source)) {
 			return 'la bonne alternance';
 		}
-		return 'pôle emploi';
+		return 'france travail';
 	};
 
 	return (
