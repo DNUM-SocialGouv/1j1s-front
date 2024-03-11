@@ -23,7 +23,7 @@ import {
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { removeUndefinedValueInQueryParameterList } from '~/server/services/utils/urlParams.util';
 
-export const MINIMUM_MOT_CLE_LENGTH_REQUIRED_BY_TRANCE_TRAVAIL = 2;
+export const LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL = 2;
 
 export class ApiFranceTravailOffreRepository implements OffreRepository {
 	constructor(

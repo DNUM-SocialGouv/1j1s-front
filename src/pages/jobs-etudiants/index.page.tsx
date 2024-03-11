@@ -11,7 +11,7 @@ import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/jobs-etudiants/index.analytics';
 import {
-	MINIMUM_MOT_CLE_LENGTH_REQUIRED_BY_TRANCE_TRAVAIL,
+	LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL,
 } from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -43,7 +43,7 @@ export default function RechercherJobÉtudiantPage(props: RechercherJobEtudiantP
 const jobsEtudiantsQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
-	motCle: Joi.string().min(MINIMUM_MOT_CLE_LENGTH_REQUIRED_BY_TRANCE_TRAVAIL),
+	motCle: Joi.string().min(LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL),
 	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL).required(),
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 }).options({ allowUnknown: true });
