@@ -37,7 +37,7 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé' });
+				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères)' });
 				fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 

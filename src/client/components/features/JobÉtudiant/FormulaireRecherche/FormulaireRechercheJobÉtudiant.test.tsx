@@ -38,7 +38,7 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé' });
+				const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères)' });
 				await user.type(inputRechercheMotCle,'boulanger');
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 

@@ -10,7 +10,7 @@ import {
 	searchOffreRepositoryMockResults,
 } from '~/server/offres/infra/repositories/mockOffre.repository';
 
-describe.only('Page de recherche d’emplois', () => {
+describe('Page de recherche d’emplois', () => {
 	beforeEach(() => {
 		cy.viewport('iphone-x');
 	});
