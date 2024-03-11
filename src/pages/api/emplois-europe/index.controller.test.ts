@@ -91,6 +91,8 @@ describe('rechercher emplois en Europe', () => {
 				test: async ({ fetch }) => {
 					const res = await fetch({ method: 'GET' });
 					expect(res.status).toBe(statusCodeDemandeIncorrecte);
+					const json = await res.json();
+					expect(json).toEqual({ error: 'les paramètres dans l‘url ne respectent pas le schema de validation' });
 				},
 				url: '/emplois-europe',
 			});
