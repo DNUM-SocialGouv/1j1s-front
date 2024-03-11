@@ -11,7 +11,6 @@ const contentSecurityPolicy = `
   frame-ancestors 'none';
   frame-src 'self' *.apprentissage.beta.gouv.fr immersion-facile.beta.gouv.fr deposer-offre.www.1jeune1solution.gouv.fr *.youtube-nocookie.com simulateur-alternance.1jeune1solution.gouv.fr https://*.adform.net mes-aides.francetravail.fr;
   form-action 'self';
-  base-uri 'none';
 `;
 
 const SECURITY_MODE_HEADERS = [{
@@ -21,9 +20,6 @@ const SECURITY_MODE_HEADERS = [{
 	}, {
 		key: 'Strict-Transport-Security',
 		value: 'max-age=63072000; includeSubDomains; preload',
-	}, {
-		key: 'X-Content-Type-Options',
-		value: 'nosniff',
 	}, {
 		key: 'Referrer-Policy',
 		value: 'no-referrer, strict-origin-when-cross-origin',
