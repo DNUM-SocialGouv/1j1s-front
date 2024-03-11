@@ -23,6 +23,8 @@ export namespace AlternanceApiJobsResponse {
 	export interface JobMatcha extends Job {
 		dureeContrat?: number
 		rythmeAlternance?: string
+		description?: string
+		employeurDescription?: string
 	}
 
 	export interface JobPE extends Job {

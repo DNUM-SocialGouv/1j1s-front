@@ -23,7 +23,11 @@ function parseContractTypeMatcha(alternance: Matcha): string[] {
 	return alternance.job.contractType.split(', ');
 }
 
-export function mapMatcha(alternance: Matcha): Alternance {
+function isMatchaPass(alternance: Matcha): boolean {
+	return alternance.job.employeurDescription !== null && alternance.job.employeurDescription !== undefined;
+}
+
+function mapCommonMatchaFields(alternance: Matcha): Alternance {
 	const getTagList = () => {
 		let tagList;
 		if (alternance.job.contractType) {
@@ -33,10 +37,9 @@ export function mapMatcha(alternance: Matcha): Alternance {
 		}
 		return tagList.filter((tag) => !!tag) as string[];
 	};
+
 	return {
-		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
 		dateDébut: alternance.job.jobStartDate != null ? new Date(alternance.job.jobStartDate) : undefined,
-		description: sanitizeEscapeSequences(alternance.job.romeDetails?.definition),
 		durée: parseDurée(alternance.job.dureeContrat),
 		entreprise: {
 			adresse: alternance.place?.fullAddress,
@@ -52,6 +55,22 @@ export function mapMatcha(alternance: Matcha): Alternance {
 		tags: getTagList(),
 		titre: alternance.title,
 		typeDeContrat: parseContractTypeMatcha(alternance),
+	};
+}
+
+export function mapMatcha(alternance: Matcha): Alternance {
+	if (isMatchaPass(alternance)) {
+		return {
+			...mapCommonMatchaFields(alternance),
+			description: alternance.job.description,
+			descriptionEmployeur: alternance.job.employeurDescription,
+		};
+	}
+
+	return {
+		...mapCommonMatchaFields(alternance),
+		compétences: alternance.job.romeDetails?.competencesDeBase?.map((compétence) => compétence.libelle),
+		description: sanitizeEscapeSequences(alternance.job.romeDetails?.definition),
 	};
 }
 

@@ -115,12 +115,53 @@ describe('<Detail />', () => {
 		expect(description).toBeVisible();
 		expect(description).toHaveTextContent("C'est une super alternance !");
 	});
+	describe('lorsque la description du contrat est sous forme html', () => {
+		it('affiche la description du contrat', () => {
+			const annonce = aDetailAlternance({ description: "<p>C'est une super alternance !</p>" });
+
+			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+
+			const description = getByDescriptionTerm('Description du poste');
+			expect(description).toBeVisible();
+			expect(description).toHaveTextContent("C'est une super alternance !");
+			expect(description).toContainHTML("<p>C'est une super alternance !</p>");
+		});
+	});
 	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ description: undefined });
 
 		render(<Detail annonce={annonce}/>);
 
 		const term = screen.queryByText('Description du contrat');
+		expect(term).not.toBeInTheDocument();
+	});
+	it('affiche la description de l’entreprise', () => {
+		const annonce = aDetailAlternance({ descriptionEmployeur: "C'est une super entreprise !" });
+
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+
+		const description = getByDescriptionTerm('Description de l’entreprise');
+		expect(description).toBeVisible();
+		expect(description).toHaveTextContent("C'est une super entreprise !");
+	});
+	describe('lorsque la description de l’entreprise est sous forme html', () => {
+		it('affiche la description de l’entreprise', () => {
+			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
+
+			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+
+			const description = getByDescriptionTerm('Description de l’entreprise');
+			expect(description).toBeVisible();
+			expect(description).toHaveTextContent("C'est une super entreprise !");
+			expect(description).toContainHTML("<p>C'est une super entreprise !</p>");
+		});
+	});
+	it('n’affiche pas le bloc de description de l’entreprise lorsque non-renseignée', () => {
+		const annonce = aDetailAlternance({ descriptionEmployeur: undefined });
+
+		render(<Detail annonce={annonce}/>);
+
+		const term = screen.queryByText('Description de l’entreprise');
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche les compétences requises', () => {
