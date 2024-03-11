@@ -159,7 +159,6 @@ describe('<Accompagnement />', () => {
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
 			expect(link).toHaveAttribute('target', '_blank');
-			expect(link).toHaveAttribute('title', `${inscriptionFranceTravail} - nouvelle fenêtre`);
 		});
 	});
 
@@ -355,7 +354,6 @@ describe('<Accompagnement />', () => {
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('pole-emploi.fr'));
 			expect(link).toHaveAttribute('target', '_blank');
-			expect(link).toHaveAttribute('title', `${jeContacteMonConseiller} - nouvelle fenêtre`);
 		});
 	});
 

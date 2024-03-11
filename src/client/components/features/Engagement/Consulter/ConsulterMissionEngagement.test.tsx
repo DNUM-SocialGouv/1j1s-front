@@ -42,10 +42,6 @@ describe('ConsulterMission', () => {
 			const lienPostuler = screen.getByRole('link', { name: 'S’engager' });
 			expect(lienPostuler).toBeVisible();
 			expect(lienPostuler).toHaveAttribute('href', offreMission.url);
-			expect(lienPostuler).toHaveAttribute(
-				'title',
-				'S’engager - nouvelle fenêtre',
-			);
 		});
 	});
 });

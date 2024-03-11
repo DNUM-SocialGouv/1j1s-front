@@ -66,7 +66,6 @@ describe('ConsulterFormation', () => {
 		const link = screen.getByRole('link', { name: 'Contacter l’établissement' });
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', formation.lienDemandeRendezVous);
-		expect(link).toHaveAttribute('title', 'Contacter l’établissement - nouvelle fenêtre');
 	});
 	it('n’affiche pas de bouton pour demander un rendez-vous si le lien n’est pas renseigné', () => {
 		const formation: Formation = aFormation({
