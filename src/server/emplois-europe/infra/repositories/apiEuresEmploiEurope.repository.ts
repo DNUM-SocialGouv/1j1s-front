@@ -9,7 +9,7 @@ import {
 	ApiEuresEmploiEuropeDetailResponse,
 	ApiEuresEmploiEuropeRechercheRequestBody,
 	ApiEuresEmploiEuropeRechercheResponse,
-	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
+	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { ApiEuresEmploiEuropeMapper } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope.mapper';
 import { createFailure, createSuccess, Either } from '~/server/errors/either';
@@ -46,7 +46,7 @@ export class ApiEuresEmploiEuropeRepository implements EmploiEuropeRepository {
 			dataSetRequest: {
 				excludedDataSources:  [ { dataSourceId : 29 }, { dataSourceId : 81 }, { dataSourceId : 781 } ],
 				pageNumber: `${filtre.page}`,
-				resultsPerPage: `${NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}`,
+				resultsPerPage: `${EMPLOIS_EUROPE_ITEMS_PER_PAGE}`,
 				sortBy: 'BEST_MATCH',
 			},
 			searchCriteria: {

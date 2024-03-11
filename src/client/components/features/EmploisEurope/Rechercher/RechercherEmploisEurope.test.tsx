@@ -3,6 +3,7 @@
  */
 
 import { render, screen, within } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 
 import RechercherEmploisEurope from '~/client/components/features/EmploisEurope/Rechercher/RechercherEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
@@ -483,6 +484,45 @@ describe('RechercherEmploisEurope', () => {
 				// THEN
 				expect(nombreResultats).toBeVisible();
 			});
+		});
+
+		it('permet d’accéder uniquement au nombre page défini par l’api eures', async () => {
+			// GIVEN
+			const maxPage = Math.floor(10_000 / 15);
+			const routerPush = jest.fn();
+			const emploiEuropeServiceMock = anEmploiEuropeService();
+			const resultatsService = aResultatRechercheEmploiEuropeList(
+				{
+					nombreResultats: 2_000_000,
+					offreList: [
+						anEmploiEurope(),
+					],
+				});
+			jest.spyOn(emploiEuropeServiceMock, 'rechercherEmploiEurope').mockResolvedValue(createSuccess(resultatsService));
+			mockSmallScreen();
+			mockUseRouter({
+				push: routerPush,
+				query: {
+					page: '1',
+				},
+			});
+			const user = userEvent.setup();
+
+			// WHEN
+			render(
+				<DependenciesProvider
+					emploiEuropeService={emploiEuropeServiceMock}
+				>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>,
+			);
+
+			const pagination = within(await screen.findByRole('navigation', { name: 'pagination' })).getAllByRole('link');
+			const dernierePage = pagination[pagination.length - 1];
+			await user.click(dernierePage);
+
+			// THEN
+			expect(routerPush).toHaveBeenCalledWith({ query: { page: maxPage } });
 		});
 	});
 

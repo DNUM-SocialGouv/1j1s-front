@@ -6,13 +6,14 @@ import { withValidation } from '~/pages/api/middlewares/validation/validation.mi
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import { handleResponse } from '~/pages/api/utils/response/response.util';
 import { EmploiEuropeFiltre } from '~/server/emplois-europe/domain/emploiEurope';
+import { EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { dependencies } from '~/server/start';
 
 export const emploiEuropeRechercheQuerySchema = Joi.object({
 	codePays: Joi.string(),
 	motCle: Joi.string(),
 	niveauEtude: Joi.string(),
-	page: Joi.number().min(1).required(),
+	page: Joi.number().min(1).max(EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED).required(),
 	secteurActivite: Joi.string(),
 	tempsDeTravail: Joi.string(),
 	typeContrat: Joi.string(),
