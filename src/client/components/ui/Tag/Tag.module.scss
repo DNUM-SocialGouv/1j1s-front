@@ -10,6 +10,10 @@ $color-tag: #EEEEEE;
   border: 0.5px solid utilities.$color-background-border;
   background-color: utilities.$color-background-tag;
 
+  @include  utilities.media(small) {
+    white-space: nowrap;
+  }
+
   &::first-letter {
     text-transform: capitalize;
   }
