@@ -19,8 +19,8 @@ import empty from '~/client/utils/empty';
 import { formatNumberWithSpace } from '~/client/utils/formatNumberWithSpace';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import {
-	NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE,
-	RESULTATS_EMPLOIS_EUROPE_MAX_PAGE,
+	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
+	EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
 import { Erreur } from '~/server/errors/erreur.types';
 
@@ -80,10 +80,10 @@ export default function RechercherEmploisEurope() {
 				isChargement={isLoading}
 				isEtatInitial={empty(emploiEuropeQuery)}
 				nombreTotalSolutions={nombreResultats}
-				paginationOffset={NOMBRE_RESULTATS_EMPLOIS_EUROPE_PAR_PAGE}
+				paginationOffset={EMPLOIS_EUROPE_ITEMS_PER_PAGE}
 				listeSolutionElement={<ListeResultatsEmploiEurope resultatList={emploiEuropeList}/>}
 				messageResultatRecherche={messageResultatRecherche}
-				maxPage={RESULTATS_EMPLOIS_EUROPE_MAX_PAGE - 1}
+				maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1}
 			/>
 		</main>
 	</>;
