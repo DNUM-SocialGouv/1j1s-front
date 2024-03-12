@@ -6,7 +6,7 @@ import { ConsulterArticle } from '~/client/components/features/Article/Consulter
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/articles/[id].analytics';
-import { Article, ArticleSlug } from '~/server/cms/domain/article';
+import { Article, ArticleSlug } from '~/server/articles/domain/article';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { dependencies } from '~/server/start';
 
@@ -40,7 +40,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
 	}
 
 	const { id } = context.params;
-	const response = await dependencies.cmsDependencies.consulterArticle.handle(id);
+	const response = await dependencies.articleDependencies.consulterArticle.handle(id);
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

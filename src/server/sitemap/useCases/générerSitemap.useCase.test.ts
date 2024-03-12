@@ -1,5 +1,6 @@
+import { ArticleRepository } from '~/server/articles/domain/articles.repository';
+import { anArticleRepository } from '~/server/articles/infra/stapiArticle.repository.fixture';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aListeFAQSlug } from '~/server/faq/domain/FAQ.fixture';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
@@ -25,24 +26,25 @@ describe('GénérerSitemapUseCase', () => {
 	let annonceDeLogementRepository: AnnonceDeLogementRepository;
 	let cmsRepository: CmsRepository;
 	let stagesRepository: StagesRepository;
+	let articlesRepository: ArticleRepository;
 	beforeEach(() => {
 		ficheMetierRepository= aFicheMetierRepository();
-		ficheMetierRepository.getAllNomsMetiers = jest.fn().mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+		articlesRepository = anArticleRepository();
 		faqRepository = aFAQRepository();
 		annonceDeLogementRepository = anAnnonceDeLogementRepository();
-
-		cmsRepository = aStrapiCmsRepository();
-		cmsRepository.listAllArticleSlug = jest.fn().mockResolvedValue(createSuccess(anArticlePathList()));
-		faqRepository.listAllFAQSlug = jest.fn().mockResolvedValue(createSuccess(aListeFAQSlug()));
 		stagesRepository = aStagesRepository();
-		stagesRepository.listAllOffreDeStageSlug = jest.fn().mockResolvedValue(createSuccess(anOffreDeStageSlugsList()));
-		annonceDeLogementRepository.listAllAnnonceDeLogementSlug = jest.fn().mockResolvedValue(createSuccess(anAnnonceDeLogementSlugList()));
+
+		jest.spyOn(articlesRepository, 'listAllArticleSlug').mockResolvedValue(createSuccess(anArticlePathList()));
+		jest.spyOn(ficheMetierRepository, 'getAllNomsMetiers').mockResolvedValue(createSuccess(aFicheMetierNomMetierList()));
+		jest.spyOn(faqRepository, 'listAllFAQSlug').mockResolvedValue(createSuccess(aListeFAQSlug()));
+		jest.spyOn(stagesRepository, 'listAllOffreDeStageSlug').mockResolvedValue(createSuccess(anOffreDeStageSlugsList()));
+		jest.spyOn(annonceDeLogementRepository, 'listAllAnnonceDeLogementSlug').mockResolvedValue(createSuccess(anAnnonceDeLogementSlugList()));
 	});
 	describe('feature flip Formation en apprentissage', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
 			it('génère le xml contenant le sitemap',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const expected = aSitemap();
@@ -56,7 +58,7 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formation en apprentissage est activée', () => {
 			it('génère le sitamp avec la Formation en apprentissage',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -69,7 +71,7 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formations initiales n‘est pas activée', () => {
 			it('génère le sitmap sans la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -82,7 +84,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -96,7 +98,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap sans les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);
@@ -109,7 +111,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
 
 				const result = await générerSitemapUseCase.handle(baseUrl);

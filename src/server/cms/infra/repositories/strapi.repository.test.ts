@@ -1,11 +1,5 @@
-import { Article } from '~/server/cms/domain/article';
-import { anArticle } from '~/server/cms/domain/article.fixture';
-import {
-	aStrapiArticleCollectionType,
-	aStrapiArticleSlugList,
-} from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { createFailure, Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
@@ -17,7 +11,6 @@ import {
 	anAxiosResponse,
 	aPublicHttpClientService,
 } from '~/server/services/http/publicHttpClient.service.fixture';
-import { anArticlePathList } from '~/server/sitemap/domain/sitemap.fixture';
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
@@ -26,33 +19,11 @@ describe('strapi cms repository', () => {
 	let authenticatedHttpClientService: AuthenticatedHttpClientService;
 	let strapiCmsRepository: StrapiRepository;
 
-	describe('getCollectionTypeDeprecated', () => {
-		it('retourne une erreur lorsque il y a une erreur', async () => {
-			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
-			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
-			const httpClientService = aPublicHttpClientService({
-				get: jest.fn(async () => {
-					throw httpError;
-				}),
-			});
-			const httpError = anAxiosResponse(anHttpError(404));
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
-
-			const result = await strapiCmsRepository.getArticleBySlug('bad slug');
-
-			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
-				apiSource: 'API Strapi',
-				contexte: 'get collection type strapi',
-				message: 'Erreur inconnue - Impossible de récupérer la ressource articles',
-			});
-			expect(result.instance).toEqual('failure');
-			expect((result as Failure).errorType).toEqual(expectedFailure);
-		});
-	});
 
 	// TODO (SULI 23-10-2023): écrire le test complet de getCollectionType
 	describe('getCollectionType', () => {
 		it('retourne une erreur lorsque il y a une erreur', async () => {
+			const ressource = 'ressource';
 			const expectedFailure = ErreurMetier.CONTENU_INDISPONIBLE;
 			const errorManagementService = anErrorManagementService(({ handleFailureError: jest.fn(() => createFailure(expectedFailure)) }));
 			const httpClientService = aPublicHttpClientService({
@@ -63,12 +34,12 @@ describe('strapi cms repository', () => {
 			const httpError = anAxiosResponse(anHttpError(404));
 			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
 
-			const result = await strapiCmsRepository.getArticleBySlug('bad slug');
+			const result = await strapiCmsRepository.getCollectionType(ressource, 'query');
 
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
 				apiSource: 'API Strapi',
 				contexte: 'get collection type strapi',
-				message: 'Erreur inconnue - Impossible de récupérer la ressource articles',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${ressource}`,
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
@@ -96,43 +67,6 @@ describe('strapi cms repository', () => {
 			});
 			expect(result.instance).toEqual('failure');
 			expect((result as Failure).errorType).toEqual(expectedFailure);
-		});
-	});
-
-	describe('getArticleBySlug', () => {
-		describe('Si un article est trouvé', () => {
-			it('récupère l‘article selon le slug', async () => {
-				httpClientService = aPublicHttpClientService();
-				authenticatedHttpClientService = anAuthenticatedHttpClientService();
-				strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-				);
-
-				(httpClientService.get as jest.Mock).mockResolvedValue(anAxiosResponse(aStrapiArticleCollectionType()));
-				const expectedArticle = anArticle();
-				const slug = 'mon-article';
-
-				const result = await strapiCmsRepository.getArticleBySlug(slug) as Success<Article>;
-
-				expect(result.result).toEqual(expectedArticle);
-				expect(httpClientService.get).toHaveBeenCalledWith(`articles?filters[slug][$eq]=${slug}&populate=deep&pagination[pageSize]=100&pagination[page]=1`);
-			});
-		});
-	});
-
-	describe('listAllArticleSlug', () => {
-		it('liste tous les identifiants d’article publiés sauf celles des faq', async () => {
-			httpClientService = aPublicHttpClientService();
-			authenticatedHttpClientService = anAuthenticatedHttpClientService();
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, anErrorManagementService(),
-			);
-			(httpClientService.get as jest.Mock)
-				.mockResolvedValueOnce(anAxiosResponse(aStrapiArticleSlugList()));
-			const expected = anArticlePathList();
-
-			const { result } = await strapiCmsRepository.listAllArticleSlug() as Success<Array<string>>;
-
-			expect(result).toEqual(expected);
-			expect(httpClientService.get).toHaveBeenCalledWith('articles?fields[0]=slug&pagination[pageSize]=100&pagination[page]=1');
 		});
 	});
 });

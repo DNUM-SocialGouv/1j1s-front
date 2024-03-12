@@ -1,6 +1,4 @@
-import { Article, ArticleSlug } from '~/server/cms/domain/article';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
-import { mapArticle } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
 import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -9,7 +7,6 @@ import { AuthenticatedHttpClientService } from '~/server/services/http/authentic
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const MAX_PAGINATION_SIZE = '100';
-const RESOURCE_ARTICLE = 'articles';
 
 export class StrapiRepository implements CmsRepository {
 	constructor(
@@ -129,19 +126,6 @@ export class StrapiRepository implements CmsRepository {
 	async getFirstFromCollectionType<Collection>(resource: string, query: string): Promise<Either<Collection>> {
 		const collectionType = await this.getCollectionType<Collection>(resource, query);
 		return this.getFirstFromCollection(collectionType);
-	}
-
-	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {
-		const query = `filters[slug][$eq]=${slug}&populate=deep`;
-		const articleList = await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, Article>(RESOURCE_ARTICLE, query, mapArticle);
-		return this.getFirstFromCollection(articleList);
-	}
-
-	async listAllArticleSlug(): Promise<Either<Array<string>>> {
-		const ARTICLE_SLUG_FIELD_NAME = 'slug';
-		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
-		const flatMapSlug = (strapiArticle: Strapi.CollectionType.Article): string => strapiArticle.slug;
-		return await this.getCollectionTypeDeprecated<Strapi.CollectionType.Article, string>(RESOURCE_ARTICLE, query, flatMapSlug);
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {

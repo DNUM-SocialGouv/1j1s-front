@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 
 import { ConsulterArticle } from '~/client/components/features/Article/ConsulterArticle';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anArticle } from '~/server/articles/domain/article.fixture';
 
 const article = anArticle({
 	contenu: '## Hic devia socero Latiaeque habe foedabis genetricis\n' +

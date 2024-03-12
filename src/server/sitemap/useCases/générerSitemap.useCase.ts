@@ -4,6 +4,7 @@ import {
 	navigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/NavigationStructure';
+import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either, isSuccess } from '~/server/errors/either';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
@@ -42,7 +43,8 @@ export class GénérerSitemapUseCase {
 							private ficheMetierRepository: FicheMetierRepository,
 							private faqRepository: FAQRepository,
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,
-							private stagesRepository: StagesRepository) {
+							private stagesRepository: StagesRepository,
+							private articlesRepository: ArticleRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {
@@ -52,7 +54,7 @@ export class GénérerSitemapUseCase {
 
 		const [ficheMetierNomMetierListResult, articleSlugListResult, faqSlugListResult, offreDeStageSlugListResult, annonceDeLogementSlugListResult] = await Promise.all([
 			this.ficheMetierRepository.getAllNomsMetiers(),
-			this.cmsRepository.listAllArticleSlug(),
+			this.articlesRepository.listAllArticleSlug(),
 			this.faqRepository.listAllFAQSlug(),
 			this.stagesRepository.listAllOffreDeStageSlug(),
 			this.annonceDeLogementRepository.listAllAnnonceDeLogementSlug(),

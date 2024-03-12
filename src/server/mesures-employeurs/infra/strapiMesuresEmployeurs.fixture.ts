@@ -1,4 +1,5 @@
-import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
+import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import { StrapiMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
 
 export function aStrapiMesuresEmployeursList(overrides?: Partial<StrapiMesuresEmployeurs.MesuresEmployeurs>): StrapiMesuresEmployeurs.MesuresEmployeurs {

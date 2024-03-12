@@ -19,6 +19,11 @@ import {
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternanceErrorManagement.service';
 import { MockAlternanceRepository } from '~/server/alternances/infra/repositories/mockAlternance.repository';
 import {
+	ArticleDependencies,
+	articleDependenciesContainer,
+} from '~/server/articles/configuration/dependencies.container';
+import { StrapiArticleRepository } from '~/server/articles/infra/strapiArticle.repository';
+import {
 	CampagneApprentissageDependencies,
 	campagneApprentissageDependenciesContainer,
 } from '~/server/campagne-apprentissage/configuration/dependencies.container';
@@ -235,7 +240,8 @@ import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
 
 export type Dependencies = {
-	actualitesDependencies: ActualitesDependencies
+	actualitesDependencies: ActualitesDependencies;
+	articleDependencies: ArticleDependencies;
 	ficheMetierDependencies: FicheMetierDependencies;
 	faqDependencies: FAQDependencies;
 	stagesDependencies: StagesDependencies;
@@ -402,6 +408,9 @@ export function dependenciesContainer(): Dependencies {
 	const actualitesRepository = new StrapiActualitesRepository(cmsRepository, defaultErrorManagementService);
 	const actualitesDependencies = actualitesDependenciesContainer(actualitesRepository);
 
+	const articleRepository = new StrapiArticleRepository(cmsRepository, defaultErrorManagementService);
+	const articleDependencies = articleDependenciesContainer(articleRepository);
+
 	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsRepository, defaultErrorManagementService);
 	const servicesJeunesDependencies = servicesJeunesDependenciesContainer(servicesJeunesRepository);
 
@@ -413,7 +422,7 @@ export function dependenciesContainer(): Dependencies {
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository);
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();
@@ -437,6 +446,7 @@ export function dependenciesContainer(): Dependencies {
 		actualitesDependencies,
 		alternanceDependencies,
 		annonceDeLogementDependencies,
+		articleDependencies,
 		campagneApprentissageDependencies,
 		cmsDependencies,
 		demandeDeContactDependencies,

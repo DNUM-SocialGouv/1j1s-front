@@ -1,6 +1,7 @@
-import { anArticle } from '~/server/cms/domain/article.fixture';
+import { anArticle } from '~/server/articles/domain/article.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { anImage } from '~/server/cms/domain/image.fixture';
-import { aStrapiArticle, aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
+import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 import {
 	anUnorderedAndNotFilterServiceJeuneList, aServiceJeune,
 } from '~/server/services-jeunes/domain/servicesJeunes.fixture';

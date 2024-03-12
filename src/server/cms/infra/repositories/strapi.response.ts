@@ -76,28 +76,4 @@ export namespace Strapi {
 
 	export namespace SingleType {
 	}
-
-	export namespace CollectionType {
-		export interface Article {
-			titre: string;
-			banniere: Strapi.SingleRelation<Strapi.Image>;
-			slug: string;
-			contenu: string;
-		}
-
-		export interface Entreprise {
-			nom_societe: string
-			code_postal: string
-			ville: string
-			siret: string
-			taille: string
-			secteur: string
-			prenom: string
-			telephone: string
-			email: string
-			nom: string
-			travail: string
-			erreur: string
-		}
-	}
 }

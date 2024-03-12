@@ -1,4 +1,4 @@
-import { Article } from '~/server/cms/domain/article';
+import { Article } from '~/server/articles/domain/article';
 import { Image } from '~/server/cms/domain/image';
 
 export interface Actualité {

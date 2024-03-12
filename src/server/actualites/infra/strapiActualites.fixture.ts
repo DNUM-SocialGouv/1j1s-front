@@ -1,5 +1,6 @@
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
+
 import {
-	aStrapiArticle,
 	aStrapiImage,
 	aStrapiSingleRelation,
 } from '../../cms/infra/repositories/strapi.fixture';
