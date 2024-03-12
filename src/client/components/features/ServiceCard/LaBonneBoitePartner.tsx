@@ -7,6 +7,7 @@ export function LaBonneBoitePartner() {
 		<ServiceCard
 			linkLabel="Accéder au site web"
 			logo="/images/logos/la-bonne-boite.svg"
+			logoAlt="La Bonne Boite, Pôle Emploi"
 			link="https://labonneboite.pole-emploi.fr/"
 			title="Et si vous contactiez directement les entreprises ?"
 			titleAs={'h3'}
