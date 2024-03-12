@@ -48,11 +48,12 @@ export function FormulaireRechercheJobÉtudiant() {
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
 					<InputText
-						label="Métier, mot-clé"
+						label="Métier, mot-clé (minimum 2 caractères)"
 						value={inputMotCle}
 						name="motCle"
 						placeholder="Exemples : serveur, tourisme..."
 						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+						minLength={2}
 					/>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}

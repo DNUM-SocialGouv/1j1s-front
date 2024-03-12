@@ -11,6 +11,9 @@ import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/emplois/index.analytics';
 import { EmploiFiltre } from '~/server/emplois/domain/emploi';
+import {
+	LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL,
+} from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
@@ -40,7 +43,7 @@ const emploisQuerySchema = Joi.object({
 	codeLocalisation: Joi.string().alphanum().max(5),
 	experienceExigence: Joi.string().valid('D', 'S', 'E'),
 	grandDomaine: transformQueryToArray.array().items(Joi.string().valid(...Object.values(DomaineCode as unknown as Record<string, string>))),
-	motCle: Joi.string(),
+	motCle: Joi.string().min(LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL),
 	page: Joi.number().min(1).max(MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL).required(),
 	tempsDeTravail: Joi.string().valid('tempsPlein', 'tempsPartiel', 'indifférent'),
 	typeDeContrats: transformQueryToArray.array().items(Joi.string().valid('CDD', 'CDI', 'SAI', 'MIS')),
