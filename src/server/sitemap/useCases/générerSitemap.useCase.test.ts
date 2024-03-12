@@ -44,12 +44,12 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
 			it('génère le xml contenant le sitemap',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const expected = aSitemap();
+				const expected = aSitemap(baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).toEqual(expected);
 			});
@@ -58,10 +58,10 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formation en apprentissage est activée', () => {
 			it('génère le sitamp avec la Formation en apprentissage',  async() => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).toContain('<loc>http://localhost:3000/formations/apprentissage</loc>');
 			});
@@ -71,10 +71,10 @@ describe('GénérerSitemapUseCase', () => {
 		describe('quand la feature Formations initiales n‘est pas activée', () => {
 			it('génère le sitmap sans la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).not.toContain('<loc>http://localhost:3000/formations-initiales</loc>');
 			});
@@ -84,10 +84,10 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec la formations initiales',  async() => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).toContain('<loc>http://localhost:3000/formations-initiales</loc>');
 			});
@@ -98,10 +98,10 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap sans les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).not.toContain('<loc>http://localhost:3000/emplois-europe</loc>');
 			});
@@ -111,10 +111,10 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap avec les emplois en Europe',  async() => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 
-				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository);
 				const baseUrl = 'http://localhost:3000';
+				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const result = await générerSitemapUseCase.handle(baseUrl);
+				const result = await générerSitemapUseCase.handle();
 
 				expect(result).toContain('<loc>http://localhost:3000/emplois-europe</loc>');
 			});

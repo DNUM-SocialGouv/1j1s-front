@@ -422,7 +422,8 @@ export function dependenciesContainer(): Dependencies {
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository);
+	const baseUrl = `https://${serverConfigurationService.getConfiguration().NEXT_PUBLIC_1J1S_DOMAIN}`;
+	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository, baseUrl);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();

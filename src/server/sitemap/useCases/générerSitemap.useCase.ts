@@ -44,10 +44,11 @@ export class GénérerSitemapUseCase {
 							private faqRepository: FAQRepository,
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,
 							private stagesRepository: StagesRepository,
-							private articlesRepository: ArticleRepository) {
+							private articlesRepository: ArticleRepository,
+							private baseUrl: string) {
 	}
 
-	async handle(baseUrl: string): Promise<string> {
+	async handle(): Promise<string> {
 		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
 		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
 		staticPathList.push(...OTHER_STATIC_PATH_LIST);
@@ -68,7 +69,7 @@ export class GénérerSitemapUseCase {
 
 		];
 		const pathList = [...staticPathList, ...dynamicPathList];
-		return this.generateSiteMap(pathList, baseUrl);
+		return this.generateSiteMap(pathList, this.baseUrl);
 	}
 
 	private flattenNavigationItemList(navigationItemList: Array<NavigationItem | NavigationItemWithChildren>): Array<string> {

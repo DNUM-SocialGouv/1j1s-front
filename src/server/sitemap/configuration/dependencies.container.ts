@@ -15,8 +15,10 @@ export function sitemapDependenciesContainer(cmsRepository: CmsRepository,
 																						 faqRepository: FAQRepository,
 																						 annonceDeLogementRepository: AnnonceDeLogementRepository,
 																						 stageRepository: StagesRepository,
-																						 articlesRepository: ArticleRepository) {
+																						 articlesRepository: ArticleRepository,
+																						 baseUrl: string) {
+
 	return {
-		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stageRepository, articlesRepository),
+		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stageRepository, articlesRepository, baseUrl),
 	};
 }

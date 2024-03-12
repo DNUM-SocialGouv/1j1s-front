@@ -41,6 +41,7 @@ export class ConfigurationServiceFixture implements ConfigurationService {
 			IS_REVIEW_APP: false,
 			MAILER_SERVICE_ACTIVE: '',
 			MAILER_SERVICE_REDIRECT_TO: '',
+			NEXT_PUBLIC_1J1S_DOMAIN: '1jeune1solution.gouv.fr',
 			NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: true,
 			NEXT_PUBLIC_API_ADRESSE_MINIMUM_QUERY_LENGTH: 3,
 			NEXT_PUBLIC_SENTRY_DSN: 'https://12345@sentry.fabrique.social.gouv.fr/79',
