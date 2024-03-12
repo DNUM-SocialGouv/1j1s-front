@@ -1,4 +1,4 @@
-import { aStrapiArticle } from '~/server/articles/infra/strapiArticles.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 
 import { StrapiMesuresJeunes } from './strapiMesuresJeunes';

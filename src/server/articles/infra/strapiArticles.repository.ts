@@ -29,14 +29,14 @@ export class StrapiArticlesRepository implements ArticlesRepository {
 		}
 	}
 
-	async listAllArticleSlug(): Promise<Either<Array<string>>> {
+	async listAllArticleSlug(): Promise<Either<Array<Pick<Article, 'slug'>>>> {
 		const ARTICLE_SLUG_FIELD_NAME = 'slug';
 		const query = `fields[0]=${ARTICLE_SLUG_FIELD_NAME}`;
 		const strapiSlugs = await this.strapiService.getCollectionType<StrapiArticle>(RESOURCE_ARTICLE, query);
 		if (isFailure(strapiSlugs)) return strapiSlugs;
 
 		try {
-			const flatMapSlug = (strapiArticle: StrapiArticle): string => strapiArticle.slug;
+			const flatMapSlug = (strapiArticle: StrapiArticle) => strapiArticle.slug as Pick<Article, 'slug'>;
 
 			return createSuccess(strapiSlugs.result.map(flatMapSlug));
 		} catch (error) {

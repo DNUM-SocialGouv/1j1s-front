@@ -4,5 +4,5 @@ import { Either } from '~/server/errors/either';
 
 export interface ArticlesRepository {
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
-	listAllArticleSlug(): Promise<Either<Array<string>>>
+	listAllArticleSlug(): Promise<Either<Array<Pick<Article, 'slug'>>>>
 }

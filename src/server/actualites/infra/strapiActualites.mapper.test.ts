@@ -2,7 +2,7 @@ import { anActualite, anActualiteList } from '~/server/actualites/domain/actuali
 import { aStrapiActualite, aStrapiListeActualites } from '~/server/actualites/infra/strapiActualites.fixture';
 import { mapStrapiListeActualites } from '~/server/actualites/infra/strapiActualites.mapper';
 import { anArticle } from '~/server/articles/domain/article.fixture';
-import { aStrapiArticle } from '~/server/articles/infra/strapiArticles.fixture';
+import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
 import { aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 
 describe('mapStrapiListeActualites', () => {

@@ -1,15 +1,15 @@
 import { anArticle, anArticleSlugList } from '~/server/articles/domain/article.fixture';
-import { aStrapiArticle, aStrapiArticleSlugList } from '~/server/articles/infra/strapiArticles.fixture';
+import { aStrapiArticle, aStrapiArticleSlugList } from '~/server/articles/infra/strapiArticle.fixture';
 import { StrapiArticlesRepository } from '~/server/articles/infra/strapiArticles.repository';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 
-const RESOURCE_ARTICLE = 'articles';
 describe('strapiArticles', () => {
 	describe('getArticleBySlug', () => {
 		it('appelle le service avec les bons paramètres', async () => {
+			const RESOURCE_ARTICLE = 'articles';
 			const slug = 'slug-article';
 			const strapiService = aStrapiCmsRepository();
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(aStrapiArticle()));
@@ -71,6 +71,7 @@ describe('strapiArticles', () => {
 	});
 	describe('listAllArticleSlug', () => {
 		it('appelle le service avec les bons paramètres', async () => {
+			const RESOURCE_ARTICLE = 'articles';
 			const strapiService = aStrapiCmsRepository();
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess(aStrapiArticleSlugList()));
 			const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
