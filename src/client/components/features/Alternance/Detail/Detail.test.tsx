@@ -122,7 +122,7 @@ describe('<Detail />', () => {
 		it('affiche la description du contrat', () => {
 			const annonce = aDetailAlternance({ description: "<p>C'est une super alternance !</p>" });
 
-			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><Detail annonce={annonce}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description du poste');
 			expect(description).toBeVisible();
@@ -141,7 +141,7 @@ describe('<Detail />', () => {
 	it('affiche la description de l’entreprise', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: "C'est une super entreprise !" });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><Detail annonce={annonce}/></DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Description de l’entreprise');
 		expect(description).toBeVisible();
@@ -151,7 +151,7 @@ describe('<Detail />', () => {
 		it('affiche la description de l’entreprise', () => {
 			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
 
-			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><Detail annonce={annonce}/></DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description de l’entreprise');
 			expect(description).toBeVisible();
@@ -162,7 +162,7 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de description de l’entreprise lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><Detail annonce={annonce}/></DependenciesProvider>);
 
 		const term = screen.queryByText('Description de l’entreprise');
 		expect(term).not.toBeInTheDocument();
