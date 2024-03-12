@@ -32,6 +32,21 @@ export function aStrapiSingleType<T>(data: T): Strapi.SingleType<T> {
 	};
 }
 
+export function aStrapiCollectionType<T>(data: T[], pagination?: Partial<Strapi.Pagination>): Strapi.CollectionType<T> {
+	return {
+		...aStrapiCollectionRelation(data),
+		meta: {
+			pagination: {
+				page: 1,
+				pageCount: 1,
+				pageSize: 25,
+				total: 1,
+				...pagination,
+			},
+		},
+	};
+}
+
 export function aStrapiImage(override?: Partial<Strapi.Image>): Strapi.Image {
 	return {
 		alternativeText: 'text',

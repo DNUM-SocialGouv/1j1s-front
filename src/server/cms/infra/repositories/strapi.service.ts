@@ -1,6 +1,6 @@
 import { CmsService } from '~/server/cms/domain/cmsService';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
@@ -60,8 +60,21 @@ export class StrapiService implements CmsService {
 	}
 
 	async getFirstFromCollectionType<Collection>(resource: string, query: string): Promise<Either<Collection>> {
-		const collectionType = await this.getCollectionType<Collection>(resource, query);
-		return this.getFirstFromCollection(collectionType);
+		try {
+			const firstPage = 1;
+			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
+			const data = result.data;
+			if (!data[0]) {
+				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			}
+			return createSuccess(data[0].attributes);
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error, {
+				apiSource: 'API Strapi',
+				contexte: 'get first from collection type strapi',
+				message: `Erreur inconnue - Impossible de récupérer la ressource ${resource}`,
+			});
+		}
 	}
 
 	async save<Body, Response = undefined>(resource: string, body: Body): Promise<Either<Response>> {
@@ -86,16 +99,5 @@ export class StrapiService implements CmsService {
 		const endpoint = `${resource}?${queryWithPagination}`;
 		const { data } = await this.httpClientService.get<Strapi.CollectionType<Collection>>(endpoint);
 		return data;
-	}
-
-	private getFirstFromCollection<Response>(responseList: Either<Array<Response>>): Either<Response> {
-		if (isSuccess(responseList)) {
-			if (!responseList.result[0]) {
-				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			}
-			return createSuccess(responseList.result[0]);
-		} else {
-			return responseList;
-		}
 	}
 }
