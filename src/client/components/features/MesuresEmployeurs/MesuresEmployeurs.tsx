@@ -28,7 +28,7 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 				<section className={styles.dispositifs}>
 					<ul className={styles.cartes} aria-labelledby="dispositifs">
 						{mesureEmployeurList.map((carte) => (
-							<li key={carte.url}>
+							<li key={carte.titre}>
 								<CarteMesureEmployeur carte={carte} isMobile={isMobile}/>
 							</li>
 						))}

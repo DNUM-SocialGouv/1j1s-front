@@ -38,7 +38,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 
 			it('quand le mapping vers les mesures employeurs est en échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
 				const strapiService = aStrapiCmsRepository();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ dispositifs: [{}] }));
+				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 
 				const errorManagementService = anErrorManagementService();
 				const failureFromErrorManagement = createFailure(ErreurMetier.DEMANDE_INCORRECTE);
