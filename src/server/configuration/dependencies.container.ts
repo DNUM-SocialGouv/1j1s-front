@@ -299,7 +299,7 @@ export function dependenciesContainer(): Dependencies {
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
 	const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
 	const cmsRepository = new StrapiService(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
-	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
+	const cmsDependencies = cmsDependenciesContainer(serverConfigurationService);
 
 
 	const franceTravailReferentielsHttpClientService = new AuthenticatedHttpClientService(getApiFranceTravailReferentielsConfig(serverConfigurationService), loggerService);
