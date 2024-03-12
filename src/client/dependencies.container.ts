@@ -6,6 +6,9 @@ import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/e
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
 import { BackButtonPersistenceService } from '~/client/services/backButtonPersistence/backButtonPersistence.service';
 import {
+	NullBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/nullBackButtonPersistence.service';
+import {
 	SessionStorageBackButtonPersistenceService,
 } from '~/client/services/backButtonPersistence/sessionStorage.backButtonPersistence.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
@@ -45,6 +48,7 @@ import { BffStage3eEt2deMetierService } from '~/client/services/stage3eEt2de/met
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
+import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -129,7 +133,9 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 	
-	const backButtonPersistenceService = new SessionStorageBackButtonPersistenceService();
+	const backButtonPersistenceService = isStorageAvailable('sessionStorage')
+		? new SessionStorageBackButtonPersistenceService()
+		: new NullBackButtonPersistenceService();
 
 	return {
 		analyticsService,
