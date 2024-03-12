@@ -1,4 +1,4 @@
-import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { StrapiService } from '~/server/cms/infra/repositories/strapi.service';
 import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -14,10 +14,10 @@ import {
 
 jest.mock('uuid', () => ({ v4: () => '123456789' }));
 
-describe('strapi cms repository', () => {
+describe('strapiService', () => {
 	let httpClientService: PublicHttpClientService;
 	let authenticatedHttpClientService: AuthenticatedHttpClientService;
-	let strapiCmsRepository: StrapiRepository;
+	let strapiCmsRepository: StrapiService;
 
 
 	// TODO (SULI 23-10-2023): écrire le test complet de getCollectionType
@@ -32,7 +32,7 @@ describe('strapi cms repository', () => {
 				}),
 			});
 			const httpError = anAxiosResponse(anHttpError(404));
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
+			strapiCmsRepository = new StrapiService(httpClientService, authenticatedHttpClientService, errorManagementService);
 
 			const result = await strapiCmsRepository.getCollectionType(ressource, 'query');
 
@@ -56,7 +56,7 @@ describe('strapi cms repository', () => {
 				}),
 			});
 			const httpError = anAxiosResponse(anHttpError(404));
-			strapiCmsRepository = new StrapiRepository(httpClientService, authenticatedHttpClientService, errorManagementService);
+			strapiCmsRepository = new StrapiService(httpClientService, authenticatedHttpClientService, errorManagementService);
 			const result = await strapiCmsRepository.save('url', 'body erreur');
 
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {

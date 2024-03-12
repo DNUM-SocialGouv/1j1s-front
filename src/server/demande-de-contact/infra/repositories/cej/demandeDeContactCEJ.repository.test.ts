@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/demandeDeContact';
 import {
 	DemandeDeContactCEJRepository,
@@ -20,7 +20,7 @@ describe('DemandeDeContactCEJRepository', () => {
 
 		it('envoie la demande au CMS', async () => {
 			// Given
-			const strapiCmsRepository = aStrapiCmsRepository();
+			const strapiCmsRepository = aStrapiService();
 			jest.spyOn(strapiCmsRepository, 'save').mockResolvedValueOnce(createSuccess(undefined));
 			const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
 			const expectedBody = {
@@ -42,7 +42,7 @@ describe('DemandeDeContactCEJRepository', () => {
 		describe('Quand la requête HTTP échoue', () => {
 			it('Résout une Failure', async () => {
 				// Given
-				const strapiCmsRepository = aStrapiCmsRepository();
+				const strapiCmsRepository = aStrapiService();
 				const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
 				jest.spyOn(strapiCmsRepository, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				// When

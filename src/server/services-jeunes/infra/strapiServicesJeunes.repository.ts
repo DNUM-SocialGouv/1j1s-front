@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
@@ -9,7 +9,7 @@ import { mapToServicesJeunes } from '~/server/services-jeunes/infra/strapiServic
 const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 
 export class StrapiServicesJeunesRepository implements ServicesJeunesRepository {
-	constructor(private readonly strapiService: CmsRepository, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async getServicesJeunesList(): Promise<Either<Array<ServiceJeune>>> {

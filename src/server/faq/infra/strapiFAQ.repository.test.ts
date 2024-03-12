@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aQuestion, aQuestionEtReponse } from '~/server/faq/domain/FAQ.fixture';
@@ -10,7 +10,7 @@ const RESOURCE_FAQ = 'faqs';
 describe('Strapi FAQ Repository', () => {
 	describe('getAllFAQ', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess([aStrapiQuestion()]));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const query= 'fields[0]=problematique&fields[1]=slug';
@@ -22,7 +22,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand la liste des questions est trouvée', () => {
 			it('renvoie la liste de questions', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const strapiQuestions = [
 					aStrapiQuestion(),
@@ -44,7 +44,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand la récupération de la liste des questions est en échec', () => {
 			it('relais l’échec du strapi service', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectedStrapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(expectedStrapiFailure);
@@ -58,7 +58,7 @@ describe('Strapi FAQ Repository', () => {
 
 	describe('getFAQBySlug', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const slug = 'slugName';
@@ -71,7 +71,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand la question est trouvée', () => {
 			it('renvoie la question', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiQuestionEtReponse()));
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectedQuestionEtReponse = aQuestionEtReponse();
@@ -84,7 +84,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand la récupération est en échec', () => {
 			it('relais l’échec du strapi service', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(expectedFailure);
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
@@ -98,7 +98,7 @@ describe('Strapi FAQ Repository', () => {
 
 	describe('listAllFAQSlug', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([aStrapiQuestionSlug()]));
 			const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 			const query = 'fields[0]=slug';
@@ -110,7 +110,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand les slugs sont trouvés', () => {
 			it('renvoie les slugs', async () => {
-				const strapiCmsRepository = aStrapiCmsRepository();
+				const strapiCmsRepository = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
 				jest.spyOn(strapiCmsRepository, 'getCollectionType').mockResolvedValue(createSuccess([
 					aStrapiQuestionSlug(),
@@ -126,7 +126,7 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand la récupération des slugs est en échec', () => {
 			it('relais l’échec du strapi service', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiFAQRepository = new StrapiFAQRepository(strapiService);
 				const expectFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue( expectFailure);

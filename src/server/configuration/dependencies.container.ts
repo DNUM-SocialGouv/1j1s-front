@@ -32,7 +32,7 @@ import {
 } from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage.repository';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
-import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { StrapiService } from '~/server/cms/infra/repositories/strapi.service';
 import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import {
 	DemandeDeContactDependencies,
@@ -298,7 +298,7 @@ export function dependenciesContainer(): Dependencies {
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
 	const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
-	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
+	const cmsRepository = new StrapiService(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
 	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
 
 

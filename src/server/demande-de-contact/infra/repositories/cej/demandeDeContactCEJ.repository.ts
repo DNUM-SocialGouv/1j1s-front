@@ -1,10 +1,10 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { DemandeDeContactCEJ } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/demandeDeContact.repository';
 import { Either } from '~/server/errors/either';
 
 export class DemandeDeContactCEJRepository implements DemandeDeContactRepository {
-	constructor(private cmsRepository: CmsRepository) {
+	constructor(private cmsRepository: CmsService) {
 	}
 
 	async envoyer(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {

@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
@@ -12,7 +12,7 @@ describe('Strapi annonces de logements', () => {
 	describe('getAnnonceDeLogementBySlug', () => {
 		it('appelle le service Strapi avec les bons paramètres', async () => {
 			// GIVEN
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
 			const slug = aStrapiAnnonceDeLogement().slug;
@@ -28,7 +28,7 @@ describe('Strapi annonces de logements', () => {
 		describe('si un logement est trouvé', () => {
 			it('récupère l‘annonce de logement selon le slug', async () => {
 				// GIVEN
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement()));
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 				const slug = aStrapiAnnonceDeLogement().slug;
@@ -44,7 +44,7 @@ describe('Strapi annonces de logements', () => {
 			describe('si le mapping vers annonce de logement est en erreur', () => {
 				it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
 					// GIVEN
-					const strapiService = aStrapiCmsRepository();
+					const strapiService = aStrapiService();
 					const errorManagementService = anErrorManagementService();
 					// @ts-expect-error
 					jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiAnnonceDeLogement({ servicesInclus: 'n’est pas un array' })));
@@ -61,7 +61,7 @@ describe('Strapi annonces de logements', () => {
 				});
 				it('relaye l’erreur du service de gestion d’erreur', async () => {
 					// GIVEN
-					const strapiService = aStrapiCmsRepository();
+					const strapiService = aStrapiService();
 					const errorManagementService = anErrorManagementService();
 					const errorReturnedByService = ErreurMetier.CONTENU_INDISPONIBLE;
 					// @ts-expect-error
@@ -82,7 +82,7 @@ describe('Strapi annonces de logements', () => {
 
 		describe('si la récupération est en échec', () => {
 			it('relais l’échec du service strapi', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(strapiFailure);
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
@@ -98,7 +98,7 @@ describe('Strapi annonces de logements', () => {
 	describe('listAllAnnonceDeLogementSlug', () => {
 		it('appelle le service Strapi avec les bon paramètres', async () => {
 			// GIVEN
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValueOnce(createSuccess([]));
 			const logementCollectionName = 'annonces-de-logement';
@@ -113,7 +113,7 @@ describe('Strapi annonces de logements', () => {
 		describe('si la liste des logements est trouvée', () => {
 			it('retourne la liste des slugs', async () => {
 				// GIVEN
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiAnnoncesDeLogements = [
 					aStrapiAnnonceDeLogement({ slug: 'slug-logement-1' }),
 					aStrapiAnnonceDeLogement({ slug: 'slug-logement-2' }),
@@ -132,7 +132,7 @@ describe('Strapi annonces de logements', () => {
 
 		describe('si la récupération est en échec', () => {
 			it('relais l’échec du service strapi', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(strapiFailure);
 				const strapiAnnonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(strapiService, anErrorManagementService());

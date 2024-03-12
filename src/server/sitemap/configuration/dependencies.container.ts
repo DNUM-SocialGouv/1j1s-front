@@ -1,5 +1,5 @@
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import { AnnonceDeLogementRepository } from '~/server/logements/domain/annonceDeLogement.repository';
@@ -10,7 +10,7 @@ export interface SitemapDependencies {
 	générerSitemapUseCase: GénérerSitemapUseCase
 }
 
-export function sitemapDependenciesContainer(cmsRepository: CmsRepository,
+export function sitemapDependenciesContainer(cmsRepository: CmsService,
 																						 ficheMetierRepository: FicheMetierRepository,
 																						 faqRepository: FAQRepository,
 																						 annonceDeLogementRepository: AnnonceDeLogementRepository,

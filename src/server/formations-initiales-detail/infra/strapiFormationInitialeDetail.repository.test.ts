@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormationInitialeDetailCMS } from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
@@ -11,7 +11,7 @@ import { StrapiFormationInitialeDetailRepository } from './strapiFormationInitia
 describe('StrapiFormationInitialeDetailRepository', () => {
 	it('appelle le service Strapi avec les bons paramètres', async () => {
 		// GIVEN
-		const strapiService = aStrapiCmsRepository();
+		const strapiService = aStrapiService();
 		jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
 		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);
 		const identifiant = 'FOR.1234';
@@ -27,7 +27,7 @@ describe('StrapiFormationInitialeDetailRepository', () => {
 
 	it('quand le service répond en succès, retourne le détail de la formation initiale', async () => {
 		// GIVEN
-		const strapiService = aStrapiCmsRepository();
+		const strapiService = aStrapiService();
 		jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(createSuccess(aStrapiFormationInitialeDetail()));
 		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);
 		const identifiant = 'FOR.1234';
@@ -42,7 +42,7 @@ describe('StrapiFormationInitialeDetailRepository', () => {
 
 	it('quand le service répond en échec, relais l’erreur du service', async () => {
 		// GIVEN
-		const strapiService = aStrapiCmsRepository();
+		const strapiService = aStrapiService();
 		const failureStrapi = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 		jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValueOnce(failureStrapi);
 		const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(strapiService);

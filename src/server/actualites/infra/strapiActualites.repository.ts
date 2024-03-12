@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 
@@ -10,7 +10,7 @@ import { mapStrapiListeActualites } from './strapiActualites.mapper';
 const RESOURCE_ACTUALITE = 'actualite';
 
 export class StrapiActualitesRepository implements ActualitesRepository {
-	constructor(private readonly strapiService: CmsRepository, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async getActualitesList(): Promise<Either<Array<Actualité>>> {

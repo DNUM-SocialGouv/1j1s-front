@@ -5,7 +5,7 @@ import {
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/NavigationStructure';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { Either, isSuccess } from '~/server/errors/either';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
@@ -39,7 +39,7 @@ const OTHER_STATIC_PATH_LIST = [
 ];
 
 export class GénérerSitemapUseCase {
-	constructor(private cmsRepository: CmsRepository,
+	constructor(private cmsRepository: CmsService,
 							private ficheMetierRepository: FicheMetierRepository,
 							private faqRepository: FAQRepository,
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,

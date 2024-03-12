@@ -1,6 +1,6 @@
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { anArticleRepository } from '~/server/articles/infra/stapiArticle.repository.fixture';
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess } from '~/server/errors/either';
 import { aListeFAQSlug } from '~/server/faq/domain/FAQ.fixture';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
@@ -24,7 +24,7 @@ describe('GénérerSitemapUseCase', () => {
 	let ficheMetierRepository: FicheMetierRepository;
 	let faqRepository: FAQRepository;
 	let annonceDeLogementRepository: AnnonceDeLogementRepository;
-	let cmsRepository: CmsRepository;
+	let cmsRepository: CmsService;
 	let stagesRepository: StagesRepository;
 	let articlesRepository: ArticleRepository;
 	beforeEach(() => {

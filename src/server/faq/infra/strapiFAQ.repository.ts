@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { FAQ } from '~/server/faq/domain/FAQ';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
@@ -8,7 +8,7 @@ import { mapQuestion, mapQuestionReponse } from '~/server/faq/infra/strapiFAQ.ma
 const RESOURCE_FAQ = 'faqs';
 
 export class StrapiFAQRepository implements FAQRepository {
-	constructor(private readonly strapiService: CmsRepository) {
+	constructor(private readonly strapiService: CmsService) {
 	}
 
 	async getFAQBySlug(slug: string): Promise<Either<FAQ.QuestionEtReponse>> {

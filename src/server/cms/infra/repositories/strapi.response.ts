@@ -1,4 +1,8 @@
 export namespace Strapi {
+	export type SingleType<T> = { [Key in keyof SingleRelation<T>]: NonNullable<SingleRelation<T>[Key]> } & Response;
+
+	export type CollectionType<T> = CollectionRelation<T> & Response;
+
 	export interface SingleRelation<T> {
 		data: Data<T> | null;
 	}
@@ -7,28 +11,19 @@ export namespace Strapi {
 		data: Data<T>[];
 	}
 
-	interface Response {
-		meta: Meta;
-	}
-
-	export type SingleType<T> = { [Key in keyof SingleRelation<T>]: NonNullable<SingleRelation<T>[Key]> } & Response;
-	export type CollectionType<T> = CollectionRelation<T> & Response;
-
 	export interface Data<T> {
 		attributes: T;
 		id: number;
 	}
 
-	export interface Meta {
-		pagination: Meta.Pagination;
-	}
-
-	namespace Meta {
-		export interface Pagination {
-			page: number;
-			pageSize: number;
-			pageCount: number;
-			total: number;
+	interface Response {
+		meta: {
+			pagination: {
+				page: number;
+				pageSize: number;
+				pageCount: number;
+				total: number;
+			}
 		}
 	}
 
@@ -72,8 +67,5 @@ export namespace Strapi {
 				height: number;
 			}
 		}
-	}
-
-	export namespace SingleType {
 	}
 }
