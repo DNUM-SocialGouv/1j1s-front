@@ -10,6 +10,9 @@ import ReactDOM from 'react-dom';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import AnnonceAlternanceEntreprisePage from '~/pages/apprentissage/entreprise/[id].page';
 
 const siret = '123';
@@ -26,7 +29,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<AnnonceAlternanceEntreprisePage id={siret}/>
 		</DependenciesProvider> );
 
@@ -36,7 +39,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
 			</DependenciesProvider>,
 		);
@@ -47,7 +50,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	it('le titre du document est correct', async () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
 			</DependenciesProvider>,
 		);
@@ -58,7 +61,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	it('affiche l‘iframe', async () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
 			</DependenciesProvider>,
 		);
@@ -70,7 +73,7 @@ describe('<AnnonceAlternanceEntreprisePage />', () => {
 	it('envoie les analytics de la page à son affichage', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService}>
+			<DependenciesProvider analyticsService={analyticsService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<AnnonceAlternanceEntreprisePage id={siret}/>
 			</DependenciesProvider>,
 		);

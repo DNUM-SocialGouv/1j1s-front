@@ -10,6 +10,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
 import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
 
@@ -19,7 +22,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 		mockSmallScreen();
 		const offre = aBarmanOffre();
 
-		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterOffreEmploiPage offreEmploi={offre}/>
 		</DependenciesProvider> );
 
@@ -34,6 +37,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterOffreEmploiPage offreEmploi={offre} />);
 			</DependenciesProvider>);

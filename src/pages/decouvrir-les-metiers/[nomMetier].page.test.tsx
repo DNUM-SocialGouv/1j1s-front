@@ -9,6 +9,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import ConsulterFicheMetierPage from '~/pages/decouvrir-les-metiers/[nomMetier].page';
 import { aFicheMetier } from '~/server/fiche-metier/domain/ficheMetier.fixture';
 
@@ -23,7 +26,7 @@ describe('Page consulter fiche métier', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 			<ConsulterFicheMetierPage ficheMetier={aFicheMetier()}/>
 		</DependenciesProvider> );
 		
@@ -36,6 +39,7 @@ describe('Page consulter fiche métier', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,
@@ -49,6 +53,7 @@ describe('Page consulter fiche métier', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,
@@ -67,6 +72,7 @@ describe('Page consulter fiche métier', () => {
 		render(
 			<DependenciesProvider
 				analyticsService={analyticsService}
+				backButtonPersistenceService={aBackButtonPersistenceService()}
 			>
 				<ConsulterFicheMetierPage ficheMetier={ficheMetier}/>
 			</DependenciesProvider>,

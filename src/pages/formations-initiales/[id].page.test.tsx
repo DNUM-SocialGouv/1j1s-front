@@ -11,6 +11,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
@@ -29,7 +32,7 @@ describe('quand le feature flip est actif', () => {
 	it('envoie les analytics de la page', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
-			<DependenciesProvider analyticsService={analyticsService} dateService={aDateService()}>
+			<DependenciesProvider analyticsService={analyticsService} dateService={aDateService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -44,7 +47,7 @@ describe('quand le feature flip est actif', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider> );
 
@@ -53,7 +56,7 @@ describe('quand le feature flip est actif', () => {
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const { container } = render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);
@@ -69,7 +72,7 @@ describe('quand le feature flip est actif', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 				</DependenciesProvider>,
 			);
@@ -89,7 +92,7 @@ describe('quand le feature flip est actif', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete({ dateDeMiseAJour: updateDateFromFormationInitiale })}/>
 				</DependenciesProvider>,
 			);
@@ -112,7 +115,7 @@ describe('quand le feature flip est actif', () => {
 
 			// WHEN
 			render(
-				<DependenciesProvider analyticsService={analyticsService} dateService={dateService}>
+				<DependenciesProvider analyticsService={analyticsService} dateService={dateService} backButtonPersistenceService={aBackButtonPersistenceService()}>
 					<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitiale()}/>
 				</DependenciesProvider>,
 			);
@@ -133,7 +136,7 @@ describe('quand le feature flip n‘est pas actif', () => {
 	it('la page n‘est pas disponible', async () => {
 		process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 		render(
-			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()}>
+			<DependenciesProvider analyticsService={aManualAnalyticsService()} dateService={aDateService()} backButtonPersistenceService={aBackButtonPersistenceService()}>
 				<ConsulterFormationInitialePage formationInitialeDetail={aFormationInitialeDetailComplete()}/>
 			</DependenciesProvider>,
 		);

@@ -6,6 +6,10 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aBackButtonPersistenceService,
+} from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
@@ -46,7 +50,7 @@ describe('ConsulterOffreDeStage', () => {
 
 	describe('affiche l’offre de stage avec les bonnes informations', () => {
 		it('affiche le nom du stage', () => {
-			render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre:'stage en graphisme' })}/>);
+			render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({ titre:'stage en graphisme' })}/></DependenciesProvider>);
 
 			const intituléOffreDeStage = screen.getByText('stage en graphisme');
 
@@ -54,7 +58,7 @@ describe('ConsulterOffreDeStage', () => {
 		});
 
 		it('affiche le nom de l‘employeur', () => {
-			render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })}/>);
+			render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({ employeur: { nom: 'Je suis le nom de l‘employeur' } })}/></DependenciesProvider>);
 
 			const nomEntreprise = screen.getByText('Je suis le nom de l‘employeur');
 
@@ -63,9 +67,9 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('description du poste', () => {
 			it('quand elle est fournie, affiche la description du poste', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					description: 'Je suis une description du poste',
-				})}/>, { queries });
+				})}/></DependenciesProvider>, { queries });
 
 				const descriptionPoste = getByDescriptionTerm('Description du poste :');
 
@@ -74,9 +78,9 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('quand elle n‘est pas fournie, n‘affiche pas la description du poste', () => {
-				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					description: '',
-				})}/>);
+				})}/></DependenciesProvider>);
 
 				const descriptionPoste = screen.queryByText('Description du poste :');
 
@@ -86,12 +90,12 @@ describe('ConsulterOffreDeStage', () => {
 		
 		describe('description de l‘employeur', () => {
 			it('lorsqu‘elle est fournie, affiche la description de l‘employeur', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					employeur: {
 						description: 'Je suis une description de l‘employeur',
 						nom: 'nom',
 					},
-				})}/>, { queries });
+				})}/></DependenciesProvider>, { queries });
 
 				const descriptionEmployeur = getByDescriptionTerm('Description de l‘employeur :');
 
@@ -100,12 +104,12 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('quand elle n‘est pas fournie, n‘affiche pas la description de l‘employeur', () => {
-				render(<ConsulterOffreDeStage offreDeStage={anOffreDeStage({
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={anOffreDeStage({
 					employeur: {
 						description: '',
 						nom: 'nom',
 					},
-				})}/>);
+				})}/></DependenciesProvider>);
 
 				const descriptionPoste = screen.queryByText('Description de l‘employeur :');
 
@@ -116,8 +120,8 @@ describe('ConsulterOffreDeStage', () => {
 
 		describe('la rémunération du stage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/></DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -126,8 +130,8 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
 			it('lorsque la rémunération est à 0, affiche "Aucune"', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/></DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -136,8 +140,8 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remunération).toHaveTextContent('Aucune');
 			});
 			it('lorsque la rémunération est proposée affiche la somme de la rémunération', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/></DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -151,7 +155,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('concernant les domaines du stage', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.CONSEIL] });
 
-				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -162,7 +166,7 @@ describe('ConsulterOffreDeStage', () => {
 			it('n‘affiche pas le domaine non renseigné', () => {
 				const offreDeStage = anOffreDeStage({ domaines: [DomainesStage.ACHAT, DomainesStage.NON_RENSEIGNE] });
 
-				render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+				render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 				const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 				const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -175,7 +179,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ ville: 'Paris' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -186,7 +190,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ departement: 'Val de marne' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -197,7 +201,7 @@ describe('ConsulterOffreDeStage', () => {
 					const localisation = anOffreDeStageLocalisation({ region: 'Ile de France' });
 					const offreDeStage = anOffreDeStage({ localisation: localisation });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -208,7 +212,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche une durée catégorisée quand elle est supérieure à 0', () => {
 					const offreDeStage = anOffreDeStage({ dureeEnJour: 60 });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const displayedTagsTextContents = within(displayedTagsList).getAllByRole('listitem').map((listItem) => listItem.textContent);
@@ -219,7 +223,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche la date de début précise quand il y a une date précise', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-01', dateDeDebutMin: '2024-09-01' });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const tagDateDebut = within(tags).getAllByRole('listitem')
@@ -229,7 +233,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMax: '2024-09-30', dateDeDebutMin: '2024-09-01' });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const tagDateDebut = within(tags).getAllByRole('listitem')
@@ -239,7 +243,7 @@ describe('ConsulterOffreDeStage', () => {
 				it('n’affiche pas le tag de date de début quand il n‘y a pas de date de début', () => {
 					const offreDeStage = anOffreDeStage({ dateDeDebutMin: undefined });
 
-					render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+					render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const tagDateDebut = within(tags).getAllByRole('listitem')
@@ -251,7 +255,7 @@ describe('ConsulterOffreDeStage', () => {
 	});
 
 	it('permet de postuler à l‘offre de stage', () => {
-		render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
+		render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage offreDeStage={offreDeStage}/></DependenciesProvider>);
 
 		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler' });
 
