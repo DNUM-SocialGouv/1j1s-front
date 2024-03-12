@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.264.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.0...v3.264.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **emploi:** recherche lie a pole emploi avec un seul caractere erreur 400 ([#2790](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2790)) ([501b197](https://github.com/DNUM-SocialGouv/1j1s-front/commit/501b197ce07bd661b2660c02675371eadcd2f0b3))
+
 ## [3.264.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.263.0...v3.264.0) (2024-03-11)
 
 
