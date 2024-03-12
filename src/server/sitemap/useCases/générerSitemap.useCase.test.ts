@@ -47,7 +47,7 @@ describe('GénérerSitemapUseCase', () => {
 				const baseUrl = 'http://localhost:3000';
 				const générerSitemapUseCase = new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
-				const expected = aSitemap();
+				const expected = aSitemap(baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 
