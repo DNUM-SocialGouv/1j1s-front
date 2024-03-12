@@ -13,7 +13,6 @@ import React, {
 import { Icon, IconName, IconProps } from '~/client/components/ui/Icon/Icon';
 import NoProviderError from '~/client/Errors/NoProviderError';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
-import { getTextFromChildren } from '~/client/utils/getTextFromChildren.util';
 
 import styles from './Link.module.scss';
 
@@ -48,7 +47,6 @@ export function Link(props: PropsWithChildren<Link>) {
 		children,
 		href,
 		prefetch = false,
-		title,
 		...rest
 	} = props;
 	const [isLinkIcon, setIsLinkIcon] = useState<boolean>(false);
@@ -69,18 +67,10 @@ export function Link(props: PropsWithChildren<Link>) {
 		}
 	};
 
-	function getTitle() {
-		if (isInternalLink) {
-			return title;
-		}
-		return title ?? `${getTextFromChildren(children)} - nouvelle fenêtre`;
-	}
-
 	return isInternalLink ? (
 		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
 			<LinkNext
 				href={href}
-				title={getTitle()}
 				prefetch={prefetch}
 				className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
 				{children}
@@ -88,7 +78,9 @@ export function Link(props: PropsWithChildren<Link>) {
 		</LinkContext.Provider>
 	) : (
 		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
-			<a href={href} title={getTitle()} target="_blank" rel="noreferrer"
+			<a href={href}
+				 target="_blank"
+				 rel="noreferrer"
 				 className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
 				{children}
 			</a>
@@ -119,13 +111,13 @@ export function LinkIcon(props: LinkIconProps) {
 	);
 }
 
+// NOTE (BRUJ 11/03/2024): le defaultLinkIcon est deprecié pour des raisons d'accessibilité cf ticket n°2013
 function DefaultLinkIcon() {
-	const {  href } = useLinkContext();
+	const { href } = useLinkContext();
 	const isInternalLink = useIsInternalLink(href);
 
 	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}</>;
 }
 
 Link.Icon = LinkIcon;
-
 

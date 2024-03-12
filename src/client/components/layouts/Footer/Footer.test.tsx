@@ -40,7 +40,6 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.legifrance.gouv.fr/');
-		expect(link).toHaveAttribute('title', 'legifrance.gouv.fr - nouvelle fenêtre');
 	});
 
 	it('renders Footer component with a link to gouvernement.fr', () => {
@@ -52,7 +51,6 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.gouvernement.fr/');
-		expect(link).toHaveAttribute('title', 'gouvernement.fr - nouvelle fenêtre');
 	});
 
 	it('renders Footer component with a link to service-public.fr', () => {
@@ -64,7 +62,6 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.service-public.fr/');
-		expect(link).toHaveAttribute('title', 'service-public.fr - nouvelle fenêtre');
 	});
 
 	it('renders Footer component with a link to data.gouv.fr', () => {
@@ -76,7 +73,6 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.data.gouv.fr/');
-		expect(link).toHaveAttribute('title', 'data.gouv.fr - nouvelle fenêtre');
 	});
 
 	it('renders Footer component with a link to france.fr', () => {
@@ -88,7 +84,6 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.france.fr/');
-		expect(link).toHaveAttribute('title', 'france.fr - nouvelle fenêtre');
 	});
 
 	it('renders Footer component with a link to etalab.gouv.fr', () => {
@@ -100,6 +95,5 @@ describe('Footer', () => {
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf');
-		expect(link).toHaveAttribute('title', 'etalab-2.0 - nouvelle fenêtre');
 	});
 });

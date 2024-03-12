@@ -44,7 +44,6 @@ describe('<Detail />', () => {
 
 			expect(lien).toBeVisible();
 			expect(lien).toHaveAttribute('href', 'url');
-			expect(lien).toHaveAttribute('title', 'Postuler sur France Travail - nouvelle fenêtre');
 		});
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });

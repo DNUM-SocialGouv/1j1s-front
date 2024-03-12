@@ -19,7 +19,6 @@ describe('<Application />', () => {
 		// Then
 		const link = screen.getByRole('link', { name });
 		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('title', `${name} - nouvelle fenêtre`);
 	});
 
 	it('affiche de téléchargement de l‘application sur l‘App Store', () => {
@@ -32,6 +31,5 @@ describe('<Application />', () => {
 		// Then
 		const link = screen.getByRole('link', { name });
 		expect(link).toBeVisible();
-		expect(link).toHaveAttribute('title', `${name} - nouvelle fenêtre`);
 	});
 });

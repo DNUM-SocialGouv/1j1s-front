@@ -43,7 +43,6 @@ describe('ConsulterOffreEmploi', () => {
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreEmploi.urlOffreOrigine);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
-		expect(linkPostulerOffreEmploi).toHaveAttribute('title', 'Je postule sur France Travail - nouvelle fenêtre');
 	});
 
 	it('affiche la formation requise dans un paragraphe', () => {

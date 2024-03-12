@@ -73,6 +73,5 @@ describe('MentoratPage', () => {
 
 		expect(linkAsButton).toBeVisible();
 		expect(linkAsButton).toHaveAttribute('href', 'https://www.1jeune1mentor.fr/formulaire?1jeune1solution');
-		expect(linkAsButton).toHaveAttribute('title', 'Trouver mon mentor - nouvelle fenêtre');
 	});
 });
