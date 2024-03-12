@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.264.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.1...v3.264.2) (2024-03-12)
+
+
+### Bug Fixes
+
+* **tags-firefox:** permettre de passer à la ligne dans un tags seulement en dessous d'un écran small ([#2791](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2791)) ([fcf9c1f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fcf9c1f3426d39678ac102594626173826645656))
+
 ## [3.264.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.0...v3.264.1) (2024-03-12)
 
 
