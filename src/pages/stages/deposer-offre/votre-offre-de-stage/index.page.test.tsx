@@ -13,6 +13,9 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import {
+	aStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service.fixture';
 import DeposerOffreStageEtape2Page from '~/pages/stages/deposer-offre/votre-offre-de-stage/index.page';
 
 describe('<DeposerOffreStageEtape2Page />', () => {
@@ -34,6 +37,7 @@ describe('<DeposerOffreStageEtape2Page />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
 			>
 				<DeposerOffreStageEtape2Page />
 			</DependenciesProvider>,

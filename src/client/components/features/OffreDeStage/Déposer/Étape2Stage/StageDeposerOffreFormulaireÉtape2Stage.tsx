@@ -15,9 +15,12 @@ import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
-import useLocalStorage from '~/client/hooks/useLocalStorage';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSessionStorage from '~/client/hooks/useSessionStorage';
-import { ETAPE_ENTREPRISE, ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
+import {
+	StageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
+import { ETAPE_OFFRE_DE_STAGE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
@@ -159,8 +162,8 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 	const router = useRouter();
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
-	const informationsEntreprise = localStorageEntreprise.get();
+	const persistenceEntreprise = useDependency<StageDeposerOffreEtape1PersistenceService>('stageDeposerOffreEtape1PersistenceService');
+	const informationsEntreprise = persistenceEntreprise.getInformationsEtape1();
 
 	const sessionStorageStage = useSessionStorage<OffreDeStageDeposee.Stage>(ETAPE_OFFRE_DE_STAGE);
 	const informationsStage = sessionStorageStage.get();

@@ -39,8 +39,18 @@ import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
 import { BffStage3eEt2deMetierService } from '~/client/services/stage3eEt2de/metier/bff.stage3eEt2deMetier.service';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
+import {
+	LocalStorageStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/localStorageStageDeposerOffreEtape1Persistence.service';
+import {
+	NullStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/nullStageDeposerOffreEtape1Persistence.service';
+import {
+	StageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
+import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -62,6 +72,7 @@ export type Dependencies = {
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
 	stage3eEt2deService: Stage3eEt2deService
+	stageDeposerOffreEtape1PersistenceService: StageDeposerOffreEtape1PersistenceService
 }
 
 class DependencyInitException extends Error {
@@ -124,6 +135,10 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
+	const stageDeposerOffreEtape1PersistenceService = isStorageAvailable('sessionStorage')
+		? new LocalStorageStageDeposerOffreEtape1PersistenceService()
+		: new NullStageDeposerOffreEtape1PersistenceService();
+
 	return {
 		analyticsService,
 		cookiesService,
@@ -140,6 +155,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		missionEngagementService,
 		rechercheClientService,
 		stage3eEt2deService,
+		stageDeposerOffreEtape1PersistenceService,
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,
