@@ -13,21 +13,24 @@ import {
 	aFormulaireEtapeStage,
 } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStageService } from '~/client/services/stage/stageService.fixture';
+import {
+	aStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service.fixture';
+import {
+	aStageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/stageDeposerOffreEtape2Persistence.service.fixture';
+import {
+	aStageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service.fixture';
 import { createFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 describe('<Localisation />', () => {
-	const mockLocalStorageGetItem = jest.fn();
-	const mockSessionStorageGetItem = jest.fn();
-
 	beforeEach(() => {
 		jest.clearAllMocks();
 		mockUseRouter({});
-		mockLocalStorage({ getItem: mockLocalStorageGetItem });
-		mockSessionStorage({ getItem: mockSessionStorageGetItem });
 	});
 
 
@@ -36,10 +39,17 @@ describe('<Localisation />', () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
 			const stageService = aStageService();
-			mockLocalStorageGetItem.mockReturnValue(null);
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(null),
+			});
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -53,11 +63,20 @@ describe('<Localisation />', () => {
 			const routerPush = jest.fn();
 			mockUseRouter({ push: routerPush });
 			const stageService = aStageService();
-			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
-			mockSessionStorageGetItem.mockReturnValue(null);
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			});
+			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+				getInformationsEtape2: jest.fn().mockReturnValue(null),
+			});
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={persistenceStage}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -72,11 +91,20 @@ describe('<Localisation />', () => {
 
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 2', async () => {
 			const stageService = aStageService();
-			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
-			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			});
+			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			});
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={persistenceStage}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -88,11 +116,20 @@ describe('<Localisation />', () => {
 
 		it('affiche la troisième étape de formulaire', () => {
 			const stageService = aStageService();
-			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
-			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			});
+			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			});
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={persistenceStage}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -111,11 +148,20 @@ describe('<Localisation />', () => {
 			const labelRegion = 'Région';
 			const labelDepartement = 'Département';
 			const stageService = aStageService();
-			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
-			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			});
+			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			});
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={persistenceStage}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -129,15 +175,24 @@ describe('<Localisation />', () => {
 
 		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 			// GIVEN
-			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+			const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+				getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+			});
+			const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+				getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+			});
 
 			const user = userEvent.setup();
 			const stageService = aStageService();
 			jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(new Promise(() => {})),
 
 			render(
-				<DependenciesProvider stageService={stageService}>
+				<DependenciesProvider
+					stageService={stageService}
+					stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+					stageDeposerOffreEtape2PersistenceService={persistenceStage}
+					stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				>
 					<Localisation/>
 				</DependenciesProvider>,
 			);
@@ -156,14 +211,24 @@ describe('<Localisation />', () => {
 		describe('quand l’étape 3 a déjà été remplie', () => {
 			it('pré-remplit les champs avec les données déjà saisies', () => {
 				// GIVEN
-				mockSessionStorageGetItem.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeStage()));
-				mockLocalStorageGetItem
-					.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeEntreprise()))
-					.mockReturnValueOnce(JSON.stringify(aFormulaireEtapeLocalisation()));
+				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				});
+				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				});
+				const persistenceLocalisation = aStageDeposerOffreEtape3PersistenceService({
+					getInformationsEtape3: jest.fn().mockReturnValue(aFormulaireEtapeLocalisation()),
+				});
 
 				// WHEN
 				render(
-					<DependenciesProvider stageService={aStageService()}>
+					<DependenciesProvider
+						stageService={aStageService()}
+						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+						stageDeposerOffreEtape2PersistenceService={persistenceStage}
+						stageDeposerOffreEtape3PersistenceService={persistenceLocalisation}
+					>
 						<Localisation/>
 					</DependenciesProvider>,
 				);
@@ -180,15 +245,24 @@ describe('<Localisation />', () => {
 
 		describe('modale d‘erreur', () => {
 			it('lorsque la soumission est en erreur, ouvre la modale d‘erreur', async () => {
-				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				});
+				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				});
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
 				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
 
 				render(
-					<DependenciesProvider stageService={stageService}>
+					<DependenciesProvider
+						stageService={stageService}
+						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+						stageDeposerOffreEtape2PersistenceService={persistenceStage}
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+					>
 						<Localisation/>
 					</DependenciesProvider>,
 				);
@@ -201,15 +275,24 @@ describe('<Localisation />', () => {
 			});
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer', async () => {
-				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				});
+				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				});
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
 				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
 
 				render(
-					<DependenciesProvider stageService={stageService}>
+					<DependenciesProvider
+						stageService={stageService}
+						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+						stageDeposerOffreEtape2PersistenceService={persistenceStage}
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+					>
 						<Localisation/>
 					</DependenciesProvider>,
 				);
@@ -226,15 +309,24 @@ describe('<Localisation />', () => {
 			});
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire', async () => {
-				mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
-				mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
+				const persistenceEntreprise = aStageDeposerOffreEtape1PersistenceService({
+					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+				});
+				const persistenceStage = aStageDeposerOffreEtape2PersistenceService({
+					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+				});
 
 				const user = userEvent.setup();
 				const stageService = aStageService({ enregistrerOffreDeStage: jest.fn() });
 				jest.spyOn(stageService, 'enregistrerOffreDeStage').mockResolvedValue(createFailure(ErreurMetier.CONTENU_INDISPONIBLE)),
 
 				render(
-					<DependenciesProvider stageService={stageService}>
+					<DependenciesProvider
+						stageService={stageService}
+						stageDeposerOffreEtape1PersistenceService={persistenceEntreprise}
+						stageDeposerOffreEtape2PersistenceService={persistenceStage}
+						stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+					>
 						<Localisation/>
 					</DependenciesProvider>,
 				);

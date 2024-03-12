@@ -48,6 +48,24 @@ import {
 import {
 	StageDeposerOffreEtape1PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
+import {
+	NullStageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/nullStageDeposerOffreEtape2Persistence.service';
+import {
+	SessionStorageStageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/sessionStorageStageDeposerOffreEtape2Persistence.service';
+import {
+	StageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/stageDeposerOffreEtape2Persistence.service';
+import {
+	LocalStorageStageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/localStorageStageDeposerOffreEtape3Persistence.service';
+import {
+	NullStageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/nullStageDeposerOffreEtape3Persistence.service';
+import {
+	StageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
@@ -73,6 +91,8 @@ export type Dependencies = {
 	emploiEuropeService: EmploiEuropeService
 	stage3eEt2deService: Stage3eEt2deService
 	stageDeposerOffreEtape1PersistenceService: StageDeposerOffreEtape1PersistenceService
+	stageDeposerOffreEtape2PersistenceService: StageDeposerOffreEtape2PersistenceService
+	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
 }
 
 class DependencyInitException extends Error {
@@ -135,9 +155,17 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const stageDeposerOffreEtape1PersistenceService = isStorageAvailable('sessionStorage')
+	const stageDeposerOffreEtape1PersistenceService = isStorageAvailable('localStorage')
 		? new LocalStorageStageDeposerOffreEtape1PersistenceService()
 		: new NullStageDeposerOffreEtape1PersistenceService();
+
+	const stageDeposerOffreEtape2PersistenceService = isStorageAvailable('sessionStorage')
+		? new SessionStorageStageDeposerOffreEtape2PersistenceService()
+		: new NullStageDeposerOffreEtape2PersistenceService();
+
+	const stageDeposerOffreEtape3PersistenceService = isStorageAvailable('localStorage')
+		? new LocalStorageStageDeposerOffreEtape3PersistenceService()
+		: new NullStageDeposerOffreEtape3PersistenceService();
 
 	return {
 		analyticsService,
@@ -156,6 +184,8 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		rechercheClientService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,
+		stageDeposerOffreEtape2PersistenceService,
+		stageDeposerOffreEtape3PersistenceService,
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,

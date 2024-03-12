@@ -3,7 +3,7 @@
  */
 
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { mockSessionStorage } from '~/client/components/window.mock';
+import { mockLocalStorage } from '~/client/components/window.mock';
 
 import { LocalStorageStageDeposerOffreEtape1PersistenceService } from './localStorageStageDeposerOffreEtape1Persistence.service';
 
@@ -12,9 +12,9 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 		jest.resetAllMocks();
 	});
 	describe('setInformationsEtape1', () => {
-		it('envoie les informations dans le sessionStorage', () => {
+		it('envoie les informations dans le localStorage', () => {
 			// Given
-			mockSessionStorage({
+			mockLocalStorage({
 				setItem: jest.fn(),
 			});
 			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService();
@@ -30,14 +30,14 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 			service.setInformationsEtape1(informations);
 
 			// Then
-			expect(sessionStorage.setItem).toHaveBeenCalledWith('formulaireEtape1', JSON.stringify(informations));
+			expect(localStorage.setItem).toHaveBeenCalledWith('formulaireEtape1', JSON.stringify(informations));
 		});
 	});
 
 	describe('getInformationsEtape1', () => {
-		it('récupère les informations du sessionStorage', () => {
+		it('récupère les informations du localStorage', () => {
 			// Given
-			mockSessionStorage({
+			mockLocalStorage({
 				getItem: jest.fn(),
 			});
 			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService();
@@ -46,7 +46,7 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 			service.getInformationsEtape1();
 
 			// Then
-			expect(sessionStorage.getItem).toHaveBeenCalledWith('formulaireEtape1');
+			expect(localStorage.getItem).toHaveBeenCalledWith('formulaireEtape1');
 		});
 	});
 });

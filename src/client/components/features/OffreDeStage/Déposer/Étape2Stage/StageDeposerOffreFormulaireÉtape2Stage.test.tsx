@@ -13,6 +13,9 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import {
 	aStageDeposerOffreEtape1PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service.fixture';
+import {
+	aStageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/stageDeposerOffreEtape2Persistence.service.fixture';
 
 describe('<Stage />', () => {
 	beforeEach(() => {
@@ -20,7 +23,7 @@ describe('<Stage />', () => {
 	});
 	describe('quand l’utilisateur arrive sur la page Stage', () => {
 		it('il peut cliquer sur le bouton Retour pour retourner vers l’étape 1' , async () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			const retourLink = screen.getByRole('link', { name: 'Retour à l’étape précédente' });
 
@@ -28,7 +31,7 @@ describe('<Stage />', () => {
 		});
 
 		it('affiche la deuxième étape de formulaire', () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			expect(screen.getByText('Étape 2 sur 3 : Votre offre de stage')).toBeVisible();
 			expect(screen.getByLabelText('Nom de l’offre de stage (200 caractères maximum)')).toBeVisible();
@@ -43,13 +46,13 @@ describe('<Stage />', () => {
 		});
 
 		it('affiche par défaut le champ date précise de début de stage', () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			expect(screen.getByLabelText('Date précise du début de stage')).toBeVisible();
 		});
 
 		it('le champ date de début de début de stage a par défaut la valeur "Je connais la date précise du début de stage"', async () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			expect(screen.getByRole('radio', { name: 'Je connais la date précise du début de stage' })).toBeChecked();
 		});
@@ -59,7 +62,7 @@ describe('<Stage />', () => {
 			const rémunération = 'Rémunération par mois';
 			const télétravailPossible = 'Télétravail possible';
 			// Given
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			//When
 			await userEvent.type(screen.getByText(labelDomaineOffreStage), 's{backspace}');
@@ -74,7 +77,7 @@ describe('<Stage />', () => {
 
 
 		it('affiche les champs date minimum et maximum de début de stage lorsque l’option "Je ne connais pas la date précise du début de stage" est sélectionnée', () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 
@@ -90,7 +93,7 @@ describe('<Stage />', () => {
 			const user = userEvent.setup();
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 			await user.type(screen.getByLabelText('Date précise du début de stage'), currentDate);
 
 			// Then
@@ -104,7 +107,7 @@ describe('<Stage />', () => {
 			const user = userEvent.setup();
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 			await user.type(screen.getByLabelText('Date précise du début de stage'), yesterday);
 			await user.tab();
 
@@ -120,7 +123,7 @@ describe('<Stage />', () => {
 			const user = userEvent.setup();
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 			await user.click(radioDatePrecise);
 			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -139,7 +142,7 @@ describe('<Stage />', () => {
 			const user = userEvent.setup();
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 			await user.click(radioDatePrecise);
 			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -159,7 +162,7 @@ describe('<Stage />', () => {
 			const user = userEvent.setup();
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 			const radioDatePrecise = screen.getByRole('radio', { name: 'Je ne connais pas la date précise du début de stage' });
 			await user.click(radioDatePrecise);
 			await user.type(screen.getByLabelText('Date de début du stage au plus tôt'), dateDebutMin);
@@ -173,7 +176,7 @@ describe('<Stage />', () => {
 		});
 
 		it('vérifie que le radio bouton de télétravail soit bien sélectionné', () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			const radioOui = screen.getByRole('radio', { name: 'Oui' });
 			const radioNon = screen.getByRole('radio', { name: 'Non' });
@@ -191,7 +194,7 @@ describe('<Stage />', () => {
 			const minLengthValue = '200';
 
 			// When
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			// Then
 			expect(screen.getByText(label)).toBeVisible();
@@ -201,7 +204,7 @@ describe('<Stage />', () => {
 
 	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 2', () => {
 		it('il voit des messages d’erreur', async () => {
-			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 
 			const inputNomOffreStage = screen.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 			await userEvent.type(inputNomOffreStage, 'Chef de projet');
@@ -221,7 +224,7 @@ describe('<Stage />', () => {
 				const longTextToType = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
 
 				// When
-				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 				const inputTextTitreOffreDeStage = screen
 					.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 				await userEvent.type(inputTextTitreOffreDeStage, longTextToType);
@@ -238,7 +241,7 @@ describe('<Stage />', () => {
 					.slice(0, 200);
 
 				// When
-				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Stage /></DependenciesProvider>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()} stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}><Stage /></DependenciesProvider>);
 				const inputTextTitreOffreDeStage = screen
 					.getByRole('textbox', { name: 'Nom de l’offre de stage (200 caractères maximum)' });
 				await userEvent.type(inputTextTitreOffreDeStage, shortTextToType);
