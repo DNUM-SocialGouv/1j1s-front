@@ -17,42 +17,40 @@ function TestComponent() {
 }
 
 describe('useDisplayBackButton', () => {
-	beforeEach(() => {
-		sessionStorage.clear();
-		jest.resetAllMocks();
-	});
-	describe('quand la page actuel est la première sur laquelle on navigue', () => {
-		it('stocke le pathname de la page dans sessionStorage', () => {
-			// Given
-			mockUseRouter({
-				pathname: '/',
+	describe('quand le stockage dans le sessionStorage est disponible', () => {
+		describe('quand la page actuel est la première sur laquelle on navigue', () => {
+			it('stocke le pathname de la page dans sessionStorage', () => {
+				// Given
+				mockUseRouter({
+					pathname: '/',
+				});
+				const backButtonPersistenceService = aBackButtonPersistenceService();
+
+				// When
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
+
+				// Then
+				expect(backButtonPersistenceService.setCurrentPath).toHaveBeenCalledWith('/');
 			});
-			const backButtonPersistenceService = aBackButtonPersistenceService();
-
-			// When
-			render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
-
-			// Then
-			expect(backButtonPersistenceService.setCurrentPath).toHaveBeenCalledWith('/');
 		});
-	});
 
-	describe('quand la page actuel n’est pas la première sur laquelle on navigue', () => {
-		it('stocke le pathname de la page dans sessionStorage', () => {
-			// Given
-			mockUseRouter({
-				pathname: '/other-page',
+		describe('quand la page actuel n’est pas la première sur laquelle on navigue', () => {
+			it('stocke le pathname de la page dans sessionStorage', () => {
+				// Given
+				mockUseRouter({
+					pathname: '/other-page',
+				});
+				const backButtonPersistenceService = aBackButtonPersistenceService({
+					getCurrentPath: jest.fn().mockReturnValue('/'),
+				});
+
+				// When
+				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
+
+				// Then
+				expect(backButtonPersistenceService.setPreviousPath).toHaveBeenCalledWith('/');
+				expect(backButtonPersistenceService.setCurrentPath).toHaveBeenLastCalledWith('/other-page');
 			});
-			const backButtonPersistenceService = aBackButtonPersistenceService({
-				getCurrentPath: jest.fn().mockReturnValue('/'),
-			});
-
-			// When
-			render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
-
-			// Then
-			expect(backButtonPersistenceService.setPreviousPath).toHaveBeenCalledWith('/');
-			expect(backButtonPersistenceService.setCurrentPath).toHaveBeenLastCalledWith('/other-page');
 		});
 	});
 });
