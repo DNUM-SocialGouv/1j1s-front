@@ -3,7 +3,6 @@ import { Image } from '~/server/cms/domain/image';
 export interface ServiceJeune {
 	titre: string
 	categorie?: string
-	contenu: string //todo à supprimer aussi ?
 	banniere?: Image
 	concerne: string
 	link: string

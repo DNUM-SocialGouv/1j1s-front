@@ -29,7 +29,6 @@ function mapServiceJeune(response: StrapiMesuresJeunes.MesureJeune, categorie: S
 		},
 		categorie: mapServiceJeuneCategorie(categorie),
 		concerne: response.pourQui,
-		contenu: response.contenu,
 		link: article ? `/articles/${article.slug}` : response.url,
 		titre: response.titre,
 	};
