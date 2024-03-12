@@ -1,6 +1,6 @@
 import { anArticle } from '~/server/articles/domain/article.fixture';
 import { aStrapiArticle } from '~/server/articles/infra/strapiArticle.fixture';
-import { mapArticle } from '~/server/articles/infra/strapiArticles.mapper';
+import { mapArticle } from '~/server/articles/infra/strapiArticle.mapper';
 import { anImage } from '~/server/cms/domain/image.fixture';
 import { aStrapiImage, aStrapiSingleRelation } from '~/server/cms/infra/repositories/strapi.fixture';
 

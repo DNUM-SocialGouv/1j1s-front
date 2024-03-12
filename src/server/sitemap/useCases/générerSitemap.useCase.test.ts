@@ -1,5 +1,5 @@
-import { ArticlesRepository } from '~/server/articles/domain/articles.repository';
-import { anArticlesRepository } from '~/server/articles/infra/stapiArticles.repository.fixture';
+import { ArticleRepository } from '~/server/articles/domain/articles.repository';
+import { anArticleRepository } from '~/server/articles/infra/stapiArticle.repository.fixture';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { createSuccess } from '~/server/errors/either';
 import { aListeFAQSlug } from '~/server/faq/domain/FAQ.fixture';
@@ -26,10 +26,10 @@ describe('GénérerSitemapUseCase', () => {
 	let annonceDeLogementRepository: AnnonceDeLogementRepository;
 	let cmsRepository: CmsRepository;
 	let stagesRepository: StagesRepository;
-	let articlesRepository: ArticlesRepository;
+	let articlesRepository: ArticleRepository;
 	beforeEach(() => {
 		ficheMetierRepository= aFicheMetierRepository();
-		articlesRepository = anArticlesRepository();
+		articlesRepository = anArticleRepository();
 		faqRepository = aFAQRepository();
 		annonceDeLogementRepository = anAnnonceDeLogementRepository();
 		stagesRepository = aStagesRepository();

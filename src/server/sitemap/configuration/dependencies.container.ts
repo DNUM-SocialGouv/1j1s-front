@@ -1,4 +1,4 @@
-import { ArticlesRepository } from '~/server/articles/domain/articles.repository';
+import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
@@ -15,7 +15,7 @@ export function sitemapDependenciesContainer(cmsRepository: CmsRepository,
 																						 faqRepository: FAQRepository,
 																						 annonceDeLogementRepository: AnnonceDeLogementRepository,
 																						 stageRepository: StagesRepository,
-																						 articlesRepository: ArticlesRepository) {
+																						 articlesRepository: ArticleRepository) {
 	return {
 		générerSitemapUseCase: new GénérerSitemapUseCase(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stageRepository, articlesRepository),
 	};

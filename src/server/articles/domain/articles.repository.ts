@@ -2,7 +2,7 @@
 import { Article, ArticleSlug } from '~/server/articles/domain/article';
 import { Either } from '~/server/errors/either';
 
-export interface ArticlesRepository {
+export interface ArticleRepository {
 	getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>>
-	listAllArticleSlug(): Promise<Either<Array<Pick<Article, 'slug'>>>>
+	listAllArticleSlug(): Promise<Either<Array<string>>>
 }

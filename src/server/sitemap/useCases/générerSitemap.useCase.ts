@@ -4,7 +4,7 @@ import {
 	navigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/NavigationStructure';
-import { ArticlesRepository } from '~/server/articles/domain/articles.repository';
+import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { CmsRepository } from '~/server/cms/domain/cms.repository';
 import { Either, isSuccess } from '~/server/errors/either';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
@@ -44,7 +44,7 @@ export class GénérerSitemapUseCase {
 							private faqRepository: FAQRepository,
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,
 							private stagesRepository: StagesRepository,
-							private articlesRepository: ArticlesRepository) {
+							private articlesRepository: ArticleRepository) {
 	}
 
 	async handle(baseUrl: string): Promise<string> {

@@ -1,12 +1,12 @@
-import { StrapiArticlesRepository } from '../infra/strapiArticles.repository';
+import { StrapiArticleRepository } from '../infra/strapiArticle.repository';
 import { ConsulterArticleUseCase } from '../useCases/consulterArticle.useCase';
 
-export interface ArticlesDependencies {
+export interface ArticleDependencies {
 	consulterArticle: ConsulterArticleUseCase
 }
 
-export function articlesDependenciesContainer(articlesRepository: StrapiArticlesRepository): ArticlesDependencies {
+export function articleDependenciesContainer(articleRepository: StrapiArticleRepository): ArticleDependencies {
 	return {
-		consulterArticle: new ConsulterArticleUseCase(articlesRepository),
+		consulterArticle: new ConsulterArticleUseCase(articleRepository),
 	};
 }

@@ -40,7 +40,7 @@ export async function getStaticProps(context: GetStaticPropsContext<ArticleConte
 	}
 
 	const { id } = context.params;
-	const response = await dependencies.articlesDependencies.consulterArticle.handle(id);
+	const response = await dependencies.articleDependencies.consulterArticle.handle(id);
 
 	if (response.instance === 'failure') {
 		return { notFound: true, revalidate: 1 };

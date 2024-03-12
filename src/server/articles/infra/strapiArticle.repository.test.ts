@@ -1,6 +1,6 @@
 import { anArticle, anArticleSlugList } from '~/server/articles/domain/article.fixture';
 import { aStrapiArticle, aStrapiArticleSlugList } from '~/server/articles/infra/strapiArticle.fixture';
-import { StrapiArticlesRepository } from '~/server/articles/infra/strapiArticles.repository';
+import { StrapiArticleRepository } from '~/server/articles/infra/strapiArticle.repository';
 import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -13,7 +13,7 @@ describe('strapiArticles', () => {
 			const slug = 'slug-article';
 			const strapiService = aStrapiCmsRepository();
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(aStrapiArticle()));
-			const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+			const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 			const query = `filters[slug][$eq]=${slug}&populate=deep`;
 
 			await strapiArticles.getArticleBySlug(slug);
@@ -26,7 +26,7 @@ describe('strapiArticles', () => {
 				const slug = 'slug-article';
 				const strapiService = aStrapiCmsRepository();
 				jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(aStrapiArticle()));
-				const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+				const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiArticles.getArticleBySlug(slug);
 				expect(result).toStrictEqual(createSuccess(anArticle()));
@@ -41,7 +41,7 @@ describe('strapiArticles', () => {
 				const failureFromErrorManagementService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(failureFromErrorManagementService);
 
-				const strapiArticles = new StrapiArticlesRepository(strapiService, errorManagementService);
+				const strapiArticles = new StrapiArticleRepository(strapiService, errorManagementService);
 
 				const result = await strapiArticles.getArticleBySlug(slug);
 
@@ -63,7 +63,7 @@ describe('strapiArticles', () => {
 			const failureFromStrapiService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(failureFromStrapiService);
 
-			const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+			const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 
 			const result = await strapiArticles.getArticleBySlug(slug);
 			expect(result).toStrictEqual(failureFromStrapiService);
@@ -74,7 +74,7 @@ describe('strapiArticles', () => {
 			const RESOURCE_ARTICLE = 'articles';
 			const strapiService = aStrapiCmsRepository();
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess(aStrapiArticleSlugList()));
-			const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+			const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 			const query = 'fields[0]=slug';
 
 			await strapiArticles.listAllArticleSlug();
@@ -86,7 +86,7 @@ describe('strapiArticles', () => {
 			it('lorsque le mapping est en succès, renvoie l‘article', async () => {
 				const strapiService = aStrapiCmsRepository();
 				jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(createSuccess(aStrapiArticleSlugList()));
-				const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+				const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 
 				const result = await strapiArticles.listAllArticleSlug();
 				expect(result).toStrictEqual(createSuccess(anArticleSlugList()));
@@ -101,7 +101,7 @@ describe('strapiArticles', () => {
 				const failureFromErrorManagementService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(failureFromErrorManagementService);
 
-				const strapiArticles = new StrapiArticlesRepository(strapiService, errorManagementService);
+				const strapiArticles = new StrapiArticleRepository(strapiService, errorManagementService);
 
 				const result = await strapiArticles.listAllArticleSlug();
 
@@ -122,7 +122,7 @@ describe('strapiArticles', () => {
 			const failureFromStrapiService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			jest.spyOn(strapiService, 'getCollectionType').mockResolvedValue(failureFromStrapiService);
 
-			const strapiArticles = new StrapiArticlesRepository(strapiService, anErrorManagementService());
+			const strapiArticles = new StrapiArticleRepository(strapiService, anErrorManagementService());
 
 			const result = await strapiArticles.listAllArticleSlug();
 			expect(result).toStrictEqual(failureFromStrapiService);

@@ -1,6 +1,6 @@
 import { Actualité } from '~/server/actualites/domain/actualite';
 import { StrapiListeActualites } from '~/server/actualites/infra/strapiActualites';
-import { mapArticle } from '~/server/articles/infra/strapiArticles.mapper';
+import { mapArticle } from '~/server/articles/infra/strapiArticle.mapper';
 import {
 	flatMapSingleImage,
 	flatMapSingleRelation,

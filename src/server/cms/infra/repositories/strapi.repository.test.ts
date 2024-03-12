@@ -1,5 +1,5 @@
 import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
-import { createFailure, Failure, Success } from '~/server/errors/either';
+import { createFailure, Failure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
