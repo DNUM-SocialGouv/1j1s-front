@@ -238,7 +238,6 @@ import {
 } from '~/server/stage-3e-et-2de/infra/repositories/apiImmersionFacileStage3eEt2deErrorManagement.service';
 import { StagesDependencies, stagesDependenciesContainer } from '~/server/stages/configuration/dependencies.container';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
-import { dependencies } from '~/server/start';
 
 export type Dependencies = {
 	actualitesDependencies: ActualitesDependencies;
