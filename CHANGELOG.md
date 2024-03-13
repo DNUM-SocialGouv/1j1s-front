@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.266.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.266.0...v3.266.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **mesure-employeur:** suppression des champs non utilisés ([#2801](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2801)) ([30a3923](https://github.com/DNUM-SocialGouv/1j1s-front/commit/30a392364ac23e96bfe57a3b2b78673650aeb4d5))
+
 ## [3.266.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.265.0...v3.266.0) (2024-03-13)
 
 
