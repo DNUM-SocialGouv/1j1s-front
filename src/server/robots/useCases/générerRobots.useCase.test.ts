@@ -7,11 +7,11 @@ describe('GénérerRobotsUseCase', () => {
 			const générerRobotsUseCase = new GénérerRobotsUseCase(environment);
 			const expected = 'User-agent: *\n' +
 				'Allow: /\n' +
+				'Allow: /emplois/\n' +
 				'\n' +
 				'User-agent: *\n' +
 				'Disallow: /apprentissage/\n' +
 				'Disallow: /benevolat/\n' +
-				'Disallow: /emplois/\n' +
 				'Disallow: /emplois-europe/\n' +
 				'Disallow: /jobs-etudiants/\n' +
 				'Disallow: /logements/annonces/\n' +
