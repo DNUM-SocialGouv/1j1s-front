@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.265.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.2...v3.265.0) (2024-03-12)
+
+
+### Features
+
+* **accessibilite:** supprimer l'information nouvelle fenetre sur les liens ([#2793](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2793)) ([e1c0264](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e1c02648aba91b62b662d1ce10cef76605ce9a9a))
+* **article:** scinder la partie article ([#2738](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2738)) ([7ea0b5f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7ea0b5f0761867da0ab2bbfb404aa5591d8b8321))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.106.1 ([#2795](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2795)) ([c9aab63](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c9aab634906281b22bbef293192fee8cc4dcffd9))
+* generation sitemap avec variable d'env pour le domain ([#2789](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2789)) ([0ff2bc2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0ff2bc2721a42275b0b400a4fbec943972e601b4))
+
 ## [3.264.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.1...v3.264.2) (2024-03-12)
 
 
