@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.266.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.265.0...v3.266.0) (2024-03-13)
+
+
+### Features
+
+* **emplois:** referencer les pages detail ([#2792](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2792)) ([1a53c45](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1a53c4528ac3b64c9cefeaaba07db187d882c63e))
+
 ## [3.265.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.264.2...v3.265.0) (2024-03-12)
 
 
