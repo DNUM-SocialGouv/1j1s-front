@@ -107,35 +107,40 @@ export function RechercherMission(props: RechercherMissionProps) {
 					}
 				/>
 				<EnTete heading="Consultez nos articles et découvrez des services faits pour vous" />
-				<ServiceCardList>
-					<ServiceCard
-						linkLabel="Lire l'article"
-						logo="/images/logos/service-civique.svg"
-						link="/articles/faire-un-service-civique"
-						title="Pourquoi faire un service civique ?"
-						titleAs={'h3'}
-					>
-						Un Service Civique est un engagement volontaire au service de l’intérêt général ouvert à tous les jeunes âgés de 16 à 25 ans
-					</ServiceCard>
-					<ServiceCard
-						linkLabel="Lire l'article"
-						logo="/images/logos/service-civique.svg"
-						link="/articles/service-civique"
-						title="Choisissez le service civique pour acquérir de l'expérience !"
-						titleAs={'h3'}
-					>
-						Découvrez tout sur le service civique et les avantages d’y participer
-					</ServiceCard>
-					<ServiceCard
-						linkLabel="Lire l'article"
-						logo="https://cos-njord-dgefp-1j1s-prod.storage-eb4.cegedim.cloud/strapi-media/card_thumbnail_default_c23f3ada3f.jpg"
-						link="/articles/des-missions-de-benevolat-toujours-disponibles"
-						title="Des missions de bénévolat toujours disponibles"
-						titleAs={'h3'}
-					>
-						Trouver des centaines d’offres sur la plateforme.
-					</ServiceCard>
-				</ServiceCardList>
+				{isServiceCivique ? (
+					<ServiceCardList>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="/images/logos/service-civique.svg"
+							link="/articles/faire-un-service-civique"
+							title="Pourquoi faire un service civique ?"
+							titleAs={'h3'}
+						>
+							Un Service Civique est un engagement volontaire au service de l’intérêt général ouvert à tous les jeunes âgés de 16 à 25 ans
+						</ServiceCard>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="/images/logos/service-civique.svg"
+							link="/articles/service-civique"
+							title="Choisissez le service civique pour acquérir de l'expérience !"
+							titleAs={'h3'}
+						>
+							Découvrez tout sur le service civique et les avantages d’y participer
+						</ServiceCard>
+					</ServiceCardList>
+				) : (
+					<ServiceCardList>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="https://cos-njord-dgefp-1j1s-prod.storage-eb4.cegedim.cloud/strapi-media/card_thumbnail_default_c23f3ada3f.jpg"
+							link="/articles/des-missions-de-benevolat-toujours-disponibles"
+							title="Des missions de bénévolat toujours disponibles"
+							titleAs={'h3'}
+						>
+							Trouver des centaines d’offres sur la plateforme.
+						</ServiceCard>
+					</ServiceCardList>
+				)}
 			</main>
 		</>
 	);
