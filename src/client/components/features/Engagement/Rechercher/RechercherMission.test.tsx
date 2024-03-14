@@ -324,4 +324,22 @@ describe('RechercherMission', () => {
 			expect(retourALaReference).toHaveAttribute('href', '#partenaires-reference');
 		});
 	});
+
+	it('affiche 3 cartes de services', async () => {
+		render(
+			<DependenciesProvider missionEngagementService={aMissionEngagementService()} localisationService={aLocalisationService()}>
+				<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+			</DependenciesProvider>,
+		);
+
+		const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
+		const serviceCards = within(serviceCardsUl).getAllByRole('link');
+		expect(serviceCards).toHaveLength(3);
+		expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: "Choisissez le service civique pour acquérir de l'expérience !" })).toBeVisible();
+		expect(serviceCards[0]).toHaveAttribute('href', '/articles/service-civique');
+		expect(within(serviceCards[1]).getByRole('heading', { level: 3, name: 'Pourquoi faire un service civique ?' })).toBeVisible();
+		expect(serviceCards[1]).toHaveAttribute('href', '/articles/faire-un-service-civique');
+		expect(within(serviceCards[2]).getByRole('heading', { level: 3, name: 'Des missions de bénévolat toujours disponibles' })).toBeVisible();
+		expect(serviceCards[2]).toHaveAttribute('href', '/articles/des-missions-de-benevolat-toujours-disponibles');
+	});
 });
