@@ -27,4 +27,18 @@ export class ApiAdresseRepository implements LocalisationAvecCoordonnéesReposit
 			});
 		}
 	}
+
+	async getCommuneListByLongitudeLatitude(longitude: number, latitude: number): Promise<Either<RésultatsRechercheCommune>> {
+		try {
+			const response = await this.httpClientService.get<ApiAdresseResponse>(
+				`reverse/?lon=${longitude}&lat=${latitude}`,
+			);
+			return createSuccess(mapRésultatsRechercheCommune(response.data));
+		} catch (error) {
+			return this.errorManagementService.handleFailureError(error,{
+				apiSource: 'API Adresse',
+				contexte: 'get commune', message: 'impossible de récupérer les communes associées à une position géographique',
+			});
+		}
+	}
 }
