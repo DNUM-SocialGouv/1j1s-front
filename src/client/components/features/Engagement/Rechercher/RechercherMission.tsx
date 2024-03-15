@@ -132,7 +132,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 					<ServiceCardList>
 						<ServiceCard
 							linkLabel="Lire l'article"
-							logo="https://cos-njord-dgefp-1j1s-prod.storage-eb4.cegedim.cloud/strapi-media/card_thumbnail_default_c23f3ada3f.jpg"
+							logo="/images/bénévolat-disponible-article.webp"
 							link="/articles/des-missions-de-benevolat-toujours-disponibles"
 							title="Des missions de bénévolat toujours disponibles"
 							titleAs={'h3'}
