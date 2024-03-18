@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Select } from '~/client/components/ui/Select/Select';
@@ -186,14 +187,20 @@ export function FormulaireRechercheEmploisEurope() {
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
-					<InputText
-						label="Métier, mot-clé ou entreprise"
-						value={inputMotCle}
-						name="motCle"
-						autoFocus
-						placeholder="Exemples : boulanger, marketing, Google"
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-					/>
+					<Champ>
+						<Champ.Label>
+							Métier, mot-clé ou entreprise
+							<Champ.Label.Complement>Exemple : boulanger, marketing, Google</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={Input}
+							autoFocus
+							value={inputMotCle}
+							name="motCle"
+							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+						/>
+						<Champ.Error/>
+					</Champ>
 					<ComboboxPays
 						paysList={paysEuropeList}
 						defaultValue={localisationDefaultValue}
@@ -238,6 +245,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Type de contrat"
 							value={inputTypeContrat}
 							name="typeContrat"
+							labelComplement="Exemple : Alternance, Contrat déterminé…"
 						/>
 						<Select
 							multiple
@@ -246,6 +254,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Temps de travail"
 							value={inputTempsDeTravail}
 							name="tempsDeTravail"
+							labelComplement="Exemple : Temps plein, temps partiel…"
 						/>
 
 						<Select
@@ -255,6 +264,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Niveau d‘études demandé"
 							value={inputNiveauEtude}
 							name="niveauEtude"
+							labelComplement="Exemple : Master, Bachelor…"
 						/>
 						<Select
 							multiple
@@ -263,6 +273,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Domaines"
 							value={inputSecteurActivite}
 							name="secteurActivite"
+							labelComplement="Exemple : Agriculture, Communication…"
 						/>
 					</div>
 				)}

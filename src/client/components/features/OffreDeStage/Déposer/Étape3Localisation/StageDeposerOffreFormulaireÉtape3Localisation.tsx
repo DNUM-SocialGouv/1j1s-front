@@ -8,8 +8,9 @@ import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/D
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -74,50 +75,78 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 			<ComboboxPays
 				paysList={paysList}
 				defaultValue={paysDefaultValue}
-				// FIXME (DORO: 20-02-2024) : Le placeholder devrait être un complément de label
-				placeholder={'Exemple : France'}
 				label={'Pays'}
 				valueName={LocalisationInputName.PAYS}
 				required
 			/>
-			<InputText
-				label="Ville"
-				name={LocalisationInputName.VILLE}
-				placeholder="Exemple : Paris"
-				required
-				value={informationsLocalisation?.ville}
-			/>
-			<InputText
-				label="Adresse"
-				name={LocalisationInputName.ADRESSE}
-				placeholder="Exemple : 127 rue de Grenelle"
-				required
-				value={informationsLocalisation?.adresse}
-			/>
-			<InputText
-				label="Code postal"
-				name={LocalisationInputName.CODE_POSTAL}
-				placeholder="Exemple : 75007"
-				required
-				value={informationsLocalisation?.codePostal}
-			/>
+			<Champ>
+				<Champ.Label>
+					Ville
+					<Champ.Label.Complement>Exemple : Paris</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={LocalisationInputName.VILLE}
+					required
+					value={informationsLocalisation?.ville}
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>
+					Adresse
+					<Champ.Label.Complement>Exemple : 127 rue de Grenelle</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={LocalisationInputName.ADRESSE}
+					required
+					value={informationsLocalisation?.adresse}
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>
+					Code postal
+					<Champ.Label.Complement>Exemple : 75007</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={LocalisationInputName.CODE_POSTAL}
+					required
+					value={informationsLocalisation?.codePostal}
+				/>
+				<Champ.Error/>
+			</Champ>
 		</>;
 	}
 
 	function ChampsFacultatifs() {
 		return <>
-			<InputText
-				label="Région"
-				name={LocalisationInputName.REGION}
-				placeholder="Exemple : Île-De-France"
-				value={informationsLocalisation?.region}
-			/>
-			<InputText
-				label="Département"
-				name={LocalisationInputName.DEPARTEMENT}
-				placeholder="Exemple : Yvelines"
-				value={informationsLocalisation?.departement}
-			/>
+			<Champ>
+				<Champ.Label>
+					Région
+					<Champ.Label.Complement>Exemple : Île-De-France</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={LocalisationInputName.REGION}
+					value={informationsLocalisation?.region}
+				/>
+				<Champ.Error/>
+			</Champ>
+			<Champ>
+				<Champ.Label>
+					Département
+					<Champ.Label.Complement>Exemple : Yvelines</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={Input}
+					name={LocalisationInputName.DEPARTEMENT}
+					value={informationsLocalisation?.departement}
+				/>
+				<Champ.Error/>
+			</Champ>
 		</>;
 	}
 
