@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -203,6 +203,7 @@ export function FormulaireRechercheEmploisEurope() {
 					</Champ>
 					<ComboboxPays
 						paysList={paysEuropeList}
+						labelComplement="Exemple : Belgique, Allemagne"
 						defaultValue={localisationDefaultValue}
 						placeholder="Sélectionnez vos choix"
 					/>
@@ -245,7 +246,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Type de contrat"
 							value={inputTypeContrat}
 							name="typeContrat"
-							labelComplement="Exemple : Alternance, Contrat déterminé…"
+							labelComplement="Exemple : Alternance, Contrat déterminé"
 						/>
 						<Select
 							multiple
@@ -254,7 +255,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Temps de travail"
 							value={inputTempsDeTravail}
 							name="tempsDeTravail"
-							labelComplement="Exemple : Temps plein, temps partiel…"
+							labelComplement="Exemple : Temps plein, temps partiel"
 						/>
 
 						<Select
@@ -264,7 +265,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Niveau d‘études demandé"
 							value={inputNiveauEtude}
 							name="niveauEtude"
-							labelComplement="Exemple : Master, Bachelor…"
+							labelComplement="Exemple : Master, Bachelor"
 						/>
 						<Select
 							multiple
@@ -273,7 +274,7 @@ export function FormulaireRechercheEmploisEurope() {
 							label="Domaines"
 							value={inputSecteurActivite}
 							name="secteurActivite"
-							labelComplement="Exemple : Agriculture, Communication…"
+							labelComplement="Exemple : Agriculture, Communication"
 						/>
 					</div>
 				)}

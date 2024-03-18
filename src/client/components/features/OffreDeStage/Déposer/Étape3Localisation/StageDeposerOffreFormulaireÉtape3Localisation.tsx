@@ -76,6 +76,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				paysList={paysList}
 				defaultValue={paysDefaultValue}
 				label={'Pays'}
+				labelComplement={'Exemple : France'}
 				valueName={LocalisationInputName.PAYS}
 				required
 			/>
@@ -88,7 +89,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					render={Input}
 					name={LocalisationInputName.VILLE}
 					required
-					value={informationsLocalisation?.ville}
+					defaultValue={informationsLocalisation?.ville}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -101,7 +102,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					render={Input}
 					name={LocalisationInputName.ADRESSE}
 					required
-					value={informationsLocalisation?.adresse}
+					defaultValue={informationsLocalisation?.adresse}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -114,7 +115,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 					render={Input}
 					name={LocalisationInputName.CODE_POSTAL}
 					required
-					value={informationsLocalisation?.codePostal}
+					defaultValue={informationsLocalisation?.codePostal}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -131,7 +132,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				<Champ.Input
 					render={Input}
 					name={LocalisationInputName.REGION}
-					value={informationsLocalisation?.region}
+					defaultValue={informationsLocalisation?.region}
 				/>
 				<Champ.Error/>
 			</Champ>
@@ -143,7 +144,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 				<Champ.Input
 					render={Input}
 					name={LocalisationInputName.DEPARTEMENT}
-					value={informationsLocalisation?.departement}
+					defaultValue={informationsLocalisation?.departement}
 				/>
 				<Champ.Error/>
 			</Champ>
