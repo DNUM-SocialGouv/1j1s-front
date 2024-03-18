@@ -338,8 +338,8 @@ describe('RechercherMission', () => {
 			expect(serviceCards).toHaveLength(2);
 			expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: 'Pourquoi faire un service civique ?' })).toBeVisible();
 			expect(serviceCards[0]).toHaveAttribute('href', '/articles/faire-un-service-civique');
-			expect(within(serviceCards[1]).getByRole('heading', { level: 3, name: "Choisissez le service civique pour acquérir de l'expérience !" })).toBeVisible();
-			expect(serviceCards[1]).toHaveAttribute('href', '/articles/service-civique');
+			expect(within(serviceCards[1]).getByRole('heading', { level: 3, name: "L'impact du service civique sur les jeunes" })).toBeVisible();
+			expect(serviceCards[1]).toHaveAttribute('href', '/articles/service-civique-jeunes');
 		});
 	});
 	describe('lorsque le page est celle du bénévolat', () => {
