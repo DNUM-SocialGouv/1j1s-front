@@ -324,4 +324,37 @@ describe('RechercherMission', () => {
 			expect(retourALaReference).toHaveAttribute('href', '#partenaires-reference');
 		});
 	});
+
+	describe('lorsque le page est celle du service civique', () => {
+		it('affiche 2 cartes de services', async () => {
+			render(
+				<DependenciesProvider missionEngagementService={aMissionEngagementService()} localisationService={aLocalisationService()}>
+					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
+				</DependenciesProvider>,
+			);
+
+			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
+			const serviceCards = within(serviceCardsUl).getAllByRole('link');
+			expect(serviceCards).toHaveLength(2);
+			expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: 'Pourquoi faire un service civique ?' })).toBeVisible();
+			expect(serviceCards[0]).toHaveAttribute('href', '/articles/faire-un-service-civique');
+			expect(within(serviceCards[1]).getByRole('heading', { level: 3, name: "L'impact du service civique sur les jeunes" })).toBeVisible();
+			expect(serviceCards[1]).toHaveAttribute('href', '/articles/service-civique-jeunes');
+		});
+	});
+	describe('lorsque le page est celle du bénévolat', () => {
+		it('affiche 1 carte de service', async () => {
+			render(
+				<DependenciesProvider missionEngagementService={aMissionEngagementService()} localisationService={aLocalisationService()}>
+					<RechercherMission category={EngagementCategory.BENEVOLAT}/>
+				</DependenciesProvider>,
+			);
+
+			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
+			const serviceCards = within(serviceCardsUl).getAllByRole('link');
+			expect(serviceCards).toHaveLength(1);
+			expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: 'Des missions de bénévolat toujours disponibles' })).toBeVisible();
+			expect(serviceCards[0]).toHaveAttribute('href', '/articles/des-missions-de-benevolat-toujours-disponibles');
+		});
+	});
 });

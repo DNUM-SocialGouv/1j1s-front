@@ -8,8 +8,10 @@ import {
 	EtiquettesFiltreMission,
 } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/EtiquettesFiltreMission';
 import { ListeMissions } from '~/client/components/features/Engagement/Rechercher/ResultatsRecherche/ListeMissions';
+import { ServiceCard, ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
@@ -104,6 +106,41 @@ export function RechercherMission(props: RechercherMissionProps) {
 						</Footnote>
 					}
 				/>
+				<EnTete heading="Consultez nos articles et découvrez des services faits pour vous" />
+				{isServiceCivique ? (
+					<ServiceCardList>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="/images/logos/service-civique.svg"
+							link="/articles/faire-un-service-civique"
+							title="Pourquoi faire un service civique ?"
+							titleAs={'h3'}
+						>
+							Découvrez l’univers du service civique : ses missions, sa rémunération et les perspectives d’avenir qu’offre cet engagement enrichissant !
+						</ServiceCard>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="/images/logos/service-civique.svg"
+							link="/articles/service-civique-jeunes"
+							title="L'impact du service civique sur les jeunes"
+							titleAs={'h3'}
+						>
+							Découvrez comment le service civique favorise le développement personnel et professionnel des jeunes engagés !
+						</ServiceCard>
+					</ServiceCardList>
+				) : (
+					<ServiceCardList>
+						<ServiceCard
+							linkLabel="Lire l'article"
+							logo="/images/bénévolat-disponible-article.webp"
+							link="/articles/des-missions-de-benevolat-toujours-disponibles"
+							title="Des missions de bénévolat toujours disponibles"
+							titleAs={'h3'}
+						>
+							Trouver des centaines d’offres sur la plateforme.
+						</ServiceCard>
+					</ServiceCardList>
+				)}
 			</main>
 		</>
 	);
