@@ -441,16 +441,16 @@ describe('ApiGeoLocalisationRepository', () => {
 		});
 	});
 
-	describe('getCodeRegionByCodePostal', () => {
+	describe('getCodeRegionByLongitudeLatitude', () => {
 		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
-			const codePostal = '92370';
+			const longitude = 2;
+			const latitude = 1;
 			const httpClientService = aCachedHttpClientService();
 			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 
-			await apiGeoLocalisationRepository.getCodeRegionByCodePostal(codePostal);
+			await apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(longitude, latitude);
 
-			expect(httpClientService.get).toHaveBeenCalledWith(`communes?codePostal=${codePostal}`);
-
+			expect(httpClientService.get).toHaveBeenCalledWith(`communes?lon=${longitude}&lat=${latitude}`);
 		});
 
 		it('retourne le code Région du premier élément remonté par l‘api decoupage administratif quand le code région est défini', async () => {
@@ -472,7 +472,7 @@ describe('ApiGeoLocalisationRepository', () => {
 			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
 			const expected = createSuccess('11');
 
-			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+			const result = await apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(1, 2);
 
 			expect(result).toEqual(expected);
 		});
@@ -487,7 +487,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
-			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+			const result = await apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(1, 2);
 
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(noAssociatedCodeRegionError,
 				aLogInformation({ apiSource: 'API Geo', contexte: 'get communes', message: 'impossible de récupérer une ressource de type communes' }),
@@ -518,7 +518,7 @@ describe('ApiGeoLocalisationRepository', () => {
 
 			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
-			const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+			const result = await apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(1, 2);
 
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(noAssociatedCodeRegionError,
 				aLogInformation({ apiSource: 'API Geo', contexte: 'get communes', message: 'impossible de récupérer une ressource de type communes' }),
@@ -535,7 +535,7 @@ describe('ApiGeoLocalisationRepository', () => {
 				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, errorManagementService);
 
-				const result = await apiGeoLocalisationRepository.getCodeRegionByCodePostal('92370');
+				const result = await apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(1, 2);
 
 				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(errorHttp, aLogInformationApiGeo('communes'));
 				expect(result.instance).toEqual('failure');

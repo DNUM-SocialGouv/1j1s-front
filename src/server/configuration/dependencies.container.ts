@@ -339,13 +339,8 @@ export function dependenciesContainer(): Dependencies {
 	const geoHttpClientService = new CachedHttpClientService(getApiGeoGouvConfig(serverConfigurationService));
 	const apiGeoErrorManagementService = new ApiGeoErrorManagementService(loggerService);
 	const apiGeoLocalisationRepository = new ApiGeoRepository(geoHttpClientService, apiGeoErrorManagementService);
-
-	const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
-	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
-	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService, apiAdresseErrorManagementService);
-
 	const apiTrajectoiresProStatistiqueErrorManagementService = new ApiTrajectoiresProStatistiqueErrorManagementService(loggerService);
-	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository, apiAdresseRepository, apiTrajectoiresProStatistiqueErrorManagementService);
+	const apiTrajectoiresProStatistiqueRepository = new ApiTrajectoiresProStatistiqueRepository(trajectoiresProHttpClientService, apiGeoLocalisationRepository, apiTrajectoiresProStatistiqueErrorManagementService);
 
 	const formationDependencies = formationsDependenciesContainer(apiLaBonneAlternanceFormationRepository, apiTrajectoiresProStatistiqueRepository);
 
@@ -366,6 +361,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
 	const engagementDependencies = engagementDependenciesContainer(apiEngagementRepository);
 
+	const apiAdresseErrorManagementService = new ApiAdresseErrorManagementService(loggerService);
+	const adresseHttpClientService = new CachedHttpClientService(getApiAdresseConfig(serverConfigurationService));
+	const apiAdresseRepository = new ApiAdresseRepository(adresseHttpClientService, apiAdresseErrorManagementService);
 	const localisationDependencies = localisationDependenciesContainer(apiGeoLocalisationRepository, apiAdresseRepository, serverConfigurationService);
 
 	const mailClientService = new PublicHttpClientService(getApiTipimailConfig(serverConfigurationService));

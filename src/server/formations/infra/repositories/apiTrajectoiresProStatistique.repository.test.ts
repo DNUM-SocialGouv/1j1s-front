@@ -11,9 +11,6 @@ import {
 	ApiTrajectoiresProStatistiqueRepository,
 } from '~/server/formations/infra/repositories/apiTrajectoiresProStatistique.repository';
 import { aLocalisationRepository } from '~/server/localisations/domain/localisation.fixture';
-import {
-	aLocalisationAvecCoordonnéesRepository, aRésultatsRechercheCommune,
-} from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { Severity } from '~/server/services/error/errorManagement.service';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
@@ -24,169 +21,52 @@ import {
 
 describe('apiTrajectoiresProCertification.repository', () => {
 	let codeCertification: string;
-	let codePostal: string;
+	let longitude: number;
+	let latitude: number;
 
 	beforeEach(() => {
 		codeCertification = '123';
-		codePostal = '75000';
+		longitude = 2.3522;
+		latitude = 48.8566;
 	});
 
 	describe('get', () => {
-		it('appelle l’api geoLocalisation avec les bons paramètres pour récupérer le code région', async () => {
+		it('appelle l’api geoLocalisation avec les bons paramètres', async () => {
 			const httpService = anAuthenticatedHttpClientService();
 			const localisationRepository = aLocalisationRepository();
-			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), anErrorManagementService());
+			const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
-			await repository.get(codeCertification, codePostal);
+			await repository.get(codeCertification, longitude, latitude);
 
-			expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(codePostal);
+			expect(localisationRepository.getCodeRegionByLongitudeLatitude).toHaveBeenCalledWith(longitude, latitude);
+
 		});
 
-		describe('lorsque l’appel de récupération du code région à l’api geoLocalisation échoue', () => {
-			it('appelle l’api adresse avec le code postal pour récupérer la commune correspondante', async () => {
+		describe('lorsque l’appel à l’api geoLocalisation échoue', () => {
+			it('retourne l’erreur renvoyée par l’api geoLocalisation', async () => {
 				const httpService = anAuthenticatedHttpClientService();
 				const localisationRepository = aLocalisationRepository();
-				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-				const localisationAvecCoordonnéesRepository = aLocalisationAvecCoordonnéesRepository();
-				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, localisationAvecCoordonnéesRepository, anErrorManagementService());
+				const failure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
+				jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValueOnce(failure);
+				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
-				await repository.get(codeCertification, codePostal);
+				const returnValue = await repository.get(codeCertification, longitude, latitude);
 
-				expect(localisationAvecCoordonnéesRepository.getCommuneList).toHaveBeenCalledWith(codePostal);
-				expect(localisationAvecCoordonnéesRepository.getCommuneList).toHaveBeenCalledTimes(1);
-				expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).not.toHaveBeenCalled();
-			});
-
-			describe('lorsque l’appel de récupération de la commune à l’api adresse échoue', () => {
-				it('retourne l’erreur renvoyée par l’api adresse', async () => {
-					const httpService = anAuthenticatedHttpClientService();
-					const localisationRepository = aLocalisationRepository();
-					const localisationAvecCoordonnéesRepository = aLocalisationAvecCoordonnéesRepository();
-					const failure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
-					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(failure);
-					jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValueOnce(failure);
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, localisationAvecCoordonnéesRepository, anErrorManagementService());
-
-					const returnValue = await repository.get(codeCertification, codePostal);
-
-					expect(localisationAvecCoordonnéesRepository.getCommuneList).toHaveBeenCalledWith(codePostal);
-					expect(localisationAvecCoordonnéesRepository.getCommuneList).toHaveBeenCalledTimes(1);
-					expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).not.toHaveBeenCalled();
-					expect(returnValue).toEqual(failure);
-				});
-			});
-
-			describe('lorsque l’appel de récupération de la commune à l’api adresse réussit', () => {
-				it('appelle l’api adresse avec les coordonnées de la commune pour récupérer le code postal', async () => {
-					const httpService = anAuthenticatedHttpClientService();
-					const localisationRepository = aLocalisationRepository();
-					const localisationAvecCoordonnéesRepository = aLocalisationAvecCoordonnéesRepository();
-					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-					jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([
-						{
-							code: '75115',
-							codePostal: '75015',
-							coordonnées: {
-								latitude: 48.863367,
-								longitude: 2.397152,
-							},
-							libelle: 'Paris 15e Arrondissement (75015)',
-							ville: 'Paris 15e Arrondissement',
-						},
-					])));
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, localisationAvecCoordonnéesRepository, anErrorManagementService());
-
-					await repository.get(codeCertification, codePostal);
-
-					expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).toHaveBeenCalledWith(2.397152, 48.863367);
-					expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).toHaveBeenCalledTimes(1);
-				});
-
-				describe('lorsque l’appel de récupération du code postal à l’api adresse échoue', () => {
-					it('retourne l’erreur renvoyée par l’api adresse', async () => {
-						const httpService = anAuthenticatedHttpClientService();
-						const localisationRepository = aLocalisationRepository();
-						const localisationAvecCoordonnéesRepository = aLocalisationAvecCoordonnéesRepository();
-						const failure = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-						jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([
-							{
-								code: '75115',
-								codePostal: '75015',
-								coordonnées: {
-									latitude: 48.863367,
-									longitude: 2.397152,
-								},
-								libelle: 'Paris 15e Arrondissement (75015)',
-								ville: 'Paris 15e Arrondissement',
-							},
-						])));
-						jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneListByLongitudeLatitude').mockResolvedValue(failure);
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, localisationAvecCoordonnéesRepository, anErrorManagementService());
-
-						const returnValue = await repository.get(codeCertification, codePostal);
-
-						expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).toHaveBeenCalledWith(2.397152, 48.863367);
-						expect(localisationAvecCoordonnéesRepository.getCommuneListByLongitudeLatitude).toHaveBeenCalledTimes(1);
-						expect(returnValue).toEqual(failure);
-						expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledTimes(1);
-					});
-				});
-
-				describe('lorsque l’appel de récupération du code postal à l’api adresse réussit', () => {
-					it('appelle l’api geoLocalisation avec le code postal pour récupérer le code région', async () => {
-						const httpService = anAuthenticatedHttpClientService();
-						const localisationRepository = aLocalisationRepository();
-						const localisationAvecCoordonnéesRepository = aLocalisationAvecCoordonnéesRepository();
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValueOnce(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-						jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([
-							{
-								code: '75115',
-								codePostal: '75015',
-								coordonnées: {
-									latitude: 48.863367,
-									longitude: 2.397152,
-								},
-								libelle: 'Paris 15e Arrondissement (75015)',
-								ville: 'Paris 15e Arrondissement',
-							},
-						])));
-
-						const newCodePostal = 'new code postal';
-
-						jest.spyOn(localisationAvecCoordonnéesRepository, 'getCommuneListByLongitudeLatitude').mockResolvedValue(createSuccess(aRésultatsRechercheCommune([
-							{
-								code: '75115',
-								codePostal: newCodePostal,
-								coordonnées: {
-									latitude: 48.863367,
-									longitude: 2.397152,
-								},
-								libelle: 'Paris 15e Arrondissement (75015)',
-								ville: 'Paris 15e Arrondissement',
-							},
-						])));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, localisationAvecCoordonnéesRepository, anErrorManagementService());
-
-						await repository.get(codeCertification, codePostal);
-
-						expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(codePostal);
-						expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledWith(newCodePostal);
-						expect(localisationRepository.getCodeRegionByCodePostal).toHaveBeenCalledTimes(2);
-					});
-				});
+				expect(localisationRepository.getCodeRegionByLongitudeLatitude).toHaveBeenCalledWith(longitude, latitude);
+				expect(httpService.get).toHaveBeenCalledTimes(0);
+				expect(returnValue).toEqual(failure);
 			});
 		});
 
-		describe('lorsque l’appel de récupération du code postal à l’api geoLocalisation réussit', () => {
+		describe('lorsque l’appel à l’api geoLocalisation réussit', () => {
 			it('appelle l’api trajectoiresProCertification avec les bons paramètres', async () => {
 				const httpService = anAuthenticatedHttpClientService();
 				const localisationRepository = aLocalisationRepository();
 				const codeRegion = createSuccess('11');
-				jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(codeRegion);
-				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), anErrorManagementService());
+				jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(codeRegion);
+				const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
-				await repository.get(codeCertification, codePostal);
+				await repository.get(codeCertification, longitude, latitude);
 
 				// Then
 				expect(httpService.get).toHaveBeenCalledTimes(1);
@@ -201,13 +81,13 @@ describe('apiTrajectoiresProCertification.repository', () => {
 					const httpError = anHttpError(404);
 					const expectedFailureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 
-					jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+					jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 					jest.spyOn(httpService, 'get').mockRejectedValue(httpError);
 					jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(expectedFailureReturnedByErrorManagement);
 
-					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), errorManagementService);
+					const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-					const returnValue = await repository.get(codeCertification, codePostal);
+					const returnValue = await repository.get(codeCertification, longitude, latitude);
 
 					expect(returnValue).toEqual(expectedFailureReturnedByErrorManagement);
 					expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(httpError, {
@@ -228,11 +108,11 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						});
 						const error = Error(JSON.stringify(aStatistiquesMappedFromApi({ region: undefined })));
 						const errorManagementService = anErrorManagementService();
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), errorManagementService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-						await repository.get(codeCertification, codePostal);
+						await repository.get(codeCertification, longitude, latitude);
 
 						expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(error, aLogInformation({
 							apiSource: 'API Trajectoires Pro',
@@ -249,12 +129,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						});
 						const errorManagementService = anErrorManagementService();
 						const failureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), errorManagementService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-						const returnValue = await repository.get(codeCertification, codePostal);
+						const returnValue = await repository.get(codeCertification, longitude, latitude);
 
 						expect(returnValue).toEqual(failureReturnedByErrorManagement);
 					});
@@ -274,12 +154,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							taux_en_formation: undefined,
 						});
 						const error = Error(JSON.stringify(aStatistiquesMappedFromApi()));
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), errorManagementService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-						await repository.get(codeCertification, codePostal);
+						await repository.get(codeCertification, longitude, latitude);
 
 						expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(error, aLogInformation({
 							apiSource: 'API Trajectoires Pro',
@@ -294,13 +174,13 @@ describe('apiTrajectoiresProCertification.repository', () => {
 						const errorManagementService = anErrorManagementService();
 						const statistiquesFormation: ApiTrajectoiresProStatistiqueResponse = anApiTrajectoiresProStatistiqueResponse();
 						const failureReturnedByErrorManagement = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
 						jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValueOnce(failureReturnedByErrorManagement);
 
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), errorManagementService);
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, errorManagementService);
 
-						const returnValue = await repository.get(codeCertification, codePostal);
+						const returnValue = await repository.get(codeCertification, longitude, latitude);
 
 						expect(returnValue).toEqual(failureReturnedByErrorManagement);
 					});
@@ -318,12 +198,12 @@ describe('apiTrajectoiresProCertification.repository', () => {
 							taux_en_emploi_6_mois: '77',
 						});
 						const localisationRepository = aLocalisationRepository();
-						jest.spyOn(localisationRepository, 'getCodeRegionByCodePostal').mockResolvedValue(createSuccess('11'));
+						jest.spyOn(localisationRepository, 'getCodeRegionByLongitudeLatitude').mockResolvedValue(createSuccess('11'));
 						jest.spyOn(httpService, 'get').mockResolvedValue(anAxiosResponse(statistiquesFormation));
-						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, aLocalisationAvecCoordonnéesRepository(), anErrorManagementService());
+						const repository = new ApiTrajectoiresProStatistiqueRepository(httpService, localisationRepository, anErrorManagementService());
 
 						// When
-						const returnValue = await repository.get(codeCertification, codePostal);
+						const returnValue = await repository.get(codeCertification, longitude, latitude);
 
 						// Then
 						expect(httpService.get).toHaveBeenCalledTimes(1);

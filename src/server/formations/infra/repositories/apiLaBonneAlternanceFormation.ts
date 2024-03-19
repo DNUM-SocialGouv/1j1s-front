@@ -6,6 +6,8 @@ export namespace ApiLaBonneAlternanceFormationRechercheResponse {
 	export interface Place {
 		city?: string;
 		fullAddress?: string;
+		latitude?: number;
+		longitude?: number;
 		zipCode?: string;
 	}
 
@@ -33,6 +35,8 @@ export interface ApiLaBonneAlternanceFormation {
 	place?: {
 		fullAddress?: string,
 		city?: string,
+		latitude?: number
+		longitude?: number,
 		zipCode?: string,
 	},
 	company?: {
