@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.267.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.1...v3.267.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency markdown-it to v14.1.0 ([#2821](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2821)) ([c0fb64c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c0fb64cd88e23b332255939e37718bbd8ee2ed8a))
+
 ## [3.267.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.0...v3.267.1) (2024-03-19)
 
 
