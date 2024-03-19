@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.267.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.266.3...v3.267.0) (2024-03-19)
+
+
+### Features
+
+* **engagement:** afficher la section consulter nos articles ([#2809](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2809)) ([9b82a3f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9b82a3fe900d486ba254a78a4cf6ab5aa0c5db7b))
+
 ## [3.266.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.266.2...v3.266.3) (2024-03-18)
 
 
