@@ -1,7 +1,6 @@
 import { CmsService } from '~/server/cms/domain/cmsService';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { ErrorManagementService, Severity } from '~/server/services/error/errorManagement.service';
 import { AuthenticatedHttpClientService } from '~/server/services/http/authenticatedHttpClient.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
@@ -64,8 +63,12 @@ export class StrapiService implements CmsService {
 			const firstPage = 1;
 			const result = await this.getPaginatedCollectionType<Collection>(resource, query, firstPage);
 			const data = result.data;
-			if (!data[0]) {
-				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			if (data.length === 0) {
+				return this.errorManagementService.handleFailureError(new Error('pas de résultat'), {
+					apiSource: 'API Strapi',
+					contexte: 'get first from collection type strapi',
+					message: `Erreur inconnue - Aucune donnée dans le résultat associé à la ressource ${resource}`,
+				});			
 			}
 			return createSuccess(data[0].attributes);
 		} catch (error) {

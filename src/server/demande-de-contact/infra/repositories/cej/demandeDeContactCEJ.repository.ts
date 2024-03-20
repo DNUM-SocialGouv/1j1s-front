@@ -4,11 +4,11 @@ import { DemandeDeContactRepository } from '~/server/demande-de-contact/domain/d
 import { Either } from '~/server/errors/either';
 
 export class DemandeDeContactCEJRepository implements DemandeDeContactRepository {
-	constructor(private cmsRepository: CmsService) {
+	constructor(private cmsService: CmsService) {
 	}
 
 	async envoyer(demandeDeContactCEJ: DemandeDeContactCEJ): Promise<Either<void>> {
-		return this.cmsRepository.save('contact-cejs', {
+		return this.cmsService.save('contact-cejs', {
 			age: demandeDeContactCEJ.age,
 			code_postal: demandeDeContactCEJ.codePostal,
 			email: demandeDeContactCEJ.email,

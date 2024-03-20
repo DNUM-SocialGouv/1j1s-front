@@ -110,9 +110,9 @@ describe('Strapi FAQ Repository', () => {
 
 		describe('quand les slugs sont trouvés', () => {
 			it('renvoie les slugs', async () => {
-				const strapiCmsRepository = aStrapiService();
-				const strapiFAQRepository = new StrapiFAQRepository(strapiCmsRepository);
-				jest.spyOn(strapiCmsRepository, 'getCollectionType').mockResolvedValue(createSuccess([
+				const strapicmsService = aStrapiService();
+				const strapiFAQRepository = new StrapiFAQRepository(strapicmsService);
+				jest.spyOn(strapicmsService, 'getCollectionType').mockResolvedValue(createSuccess([
 					aStrapiQuestionSlug(),
 					aStrapiQuestionSlug({ slug: 'comment-constituer-un-dossier-locatif-jeune' }),
 				]));

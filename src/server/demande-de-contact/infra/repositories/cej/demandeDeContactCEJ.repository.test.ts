@@ -20,9 +20,9 @@ describe('DemandeDeContactCEJRepository', () => {
 
 		it('envoie la demande au CMS', async () => {
 			// Given
-			const strapiCmsRepository = aStrapiService();
-			jest.spyOn(strapiCmsRepository, 'save').mockResolvedValueOnce(createSuccess(undefined));
-			const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
+			const cmsService = aStrapiService();
+			jest.spyOn(cmsService, 'save').mockResolvedValueOnce(createSuccess(undefined));
+			const repository = new DemandeDeContactCEJRepository(cmsService);
 			const expectedBody = {
 				age: 18,
 				code_postal: '75001',
@@ -36,15 +36,15 @@ describe('DemandeDeContactCEJRepository', () => {
 			const result = await repository.envoyer(demandeDeContactCEJ);
 			// Then
 			expect(result).toEqual(createSuccess(undefined));
-			expect(strapiCmsRepository.save).toHaveBeenCalledWith('contact-cejs', expectedBody);
+			expect(cmsService.save).toHaveBeenCalledWith('contact-cejs', expectedBody);
 		});
 
 		describe('Quand la requête HTTP échoue', () => {
 			it('Résout une Failure', async () => {
 				// Given
-				const strapiCmsRepository = aStrapiService();
-				const repository = new DemandeDeContactCEJRepository(strapiCmsRepository);
-				jest.spyOn(strapiCmsRepository, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+				const cmsService = aStrapiService();
+				const repository = new DemandeDeContactCEJRepository(cmsService);
+				jest.spyOn(cmsService, 'save').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 				// When
 				const result = await repository.envoyer(demandeDeContactCEJ);
 				// Then

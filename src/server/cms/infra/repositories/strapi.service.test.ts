@@ -116,10 +116,10 @@ describe('strapiService', () => {
 				const result = await strapiService.getCollectionType('ressource', 'query');
 
 				expect(httpClientService.get).toHaveBeenCalledTimes(4);
-				expect(httpClientService.get).toHaveBeenCalledWith(`ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=1`);
-				expect(httpClientService.get).toHaveBeenCalledWith(`ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=2`);
-				expect(httpClientService.get).toHaveBeenCalledWith(`ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=3`);
-				expect(httpClientService.get).toHaveBeenCalledWith(`ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=4`);
+				expect(httpClientService.get).toHaveBeenNthCalledWith(1, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=1`);
+				expect(httpClientService.get).toHaveBeenNthCalledWith(2, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=2`);
+				expect(httpClientService.get).toHaveBeenNthCalledWith(3, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=3`);
+				expect(httpClientService.get).toHaveBeenNthCalledWith(4, `ressource?query&pagination[pageSize]=${MAX_PAGINATION_SIZE}&pagination[page]=4`);
 				expect(result).toEqual(createSuccess([...dataPremierePage, ...dataDeuxiemePage, ...dataTroisiemePage, ...dataQuatriemePage]));
 			});
 		});
@@ -160,14 +160,24 @@ describe('strapiService', () => {
 		});
 
 		describe('lorsque l‘appel à Strapi est en succès', () => {
-			it('lorsqu‘il n‘y a pas de résultat, renvoie une failure de contenu indisponible', async () => {
+			it('lorsqu‘il n‘y a pas de résultat, appelle le service et gestion d‘erreur et relais la failure associée', async () => {
+				const ressource = 'ressource';
+				const expectedFailureFromErrorManagementService = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 				const httpClientService = aPublicHttpClientService();
+				const errorManagementService = anErrorManagementService();
 				jest.spyOn(httpClientService, 'get').mockResolvedValue(anAxiosResponse(aStrapiCollectionType([])));
-				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), anErrorManagementService());
+				jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailureFromErrorManagementService);
+				const strapiService = new StrapiService(httpClientService, anAuthenticatedHttpClientService(), errorManagementService);
 
-				const result = await strapiService.getFirstFromCollectionType('ressource', 'query');
+				const result = await strapiService.getFirstFromCollectionType(ressource, 'query');
 
-				expect(result).toEqual(createFailure(ErreurMetier.CONTENU_INDISPONIBLE));
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledTimes(1);
+				expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(new Error('pas de résultat'), aLogInformation({
+					apiSource: 'API Strapi',
+					contexte: 'get first from collection type strapi',
+					message: `Erreur inconnue - Aucune donnée dans le résultat associé à la ressource ${ressource}`,
+				}));
+				expect(result).toEqual(expectedFailureFromErrorManagementService);
 			});
 
 			it('lorsqu‘il y a plusieurs résultats, renvoie un succès avec le premier résultat de la liste', async () => {
