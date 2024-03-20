@@ -93,7 +93,7 @@
     "storybook": "7.6.17",
     "ts-node": "10.9.2",
     "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.4.2"
+    "typescript": "5.4.3"
   },
   "overrides": {
     "@socialgouv/eslint-config-recommended": {
