@@ -1,4 +1,4 @@
-import { flatMapSingleImage, flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.mapper';
+import { flatMapSingleImage, flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.utils';
 import { MesureEmployeur } from '~/server/mesures-employeurs/domain/mesureEmployeur';
 import { StrapiMesuresEmployeurs } from '~/server/mesures-employeurs/infra/strapiMesuresEmployeurs';
 

@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
@@ -16,7 +16,7 @@ const RESOURCE_MESURE_JEUNE = 'mesure-jeune';
 describe('strapiMesuresJeunesRepository', () => {
 	describe('getMesuresJeunesList', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresJeunesParCategorie()));
 			const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 			const query = 'populate=deep';
@@ -28,7 +28,7 @@ describe('strapiMesuresJeunesRepository', () => {
 
 		describe('quand les mesures jeunes sont trouvées', () => {
 			it('retourne la liste des services jeunes triée alphabétiquement par titre', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunesParCategorie()));
 				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 
@@ -56,7 +56,7 @@ describe('strapiMesuresJeunesRepository', () => {
 			});
 
 			it('retourne la liste des services jeunes sans la catégorie aides financières', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorie({
 					accompagnement: [],
 					aidesFinancieres: [aStrapiMesureJeune()],
@@ -74,7 +74,7 @@ describe('strapiMesuresJeunesRepository', () => {
 
 		describe('si le mapping vers les services jeunes est en erreur', () => {
 			it('appelle le service de gestion d’erreur avec l’erreur et le contexte', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({
 					accompagnement: [],
 				}));
@@ -96,7 +96,7 @@ describe('strapiMesuresJeunesRepository', () => {
 
 	describe('quand la récupération des mesures jeunes est en échec', () => {
 		it('relais l’échec du strapi service', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			const strapiServicesJeunesRepository = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
 			const expectedStrapiFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(expectedStrapiFailure);

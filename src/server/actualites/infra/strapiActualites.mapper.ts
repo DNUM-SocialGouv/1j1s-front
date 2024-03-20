@@ -5,7 +5,7 @@ import {
 	flatMapSingleImage,
 	flatMapSingleRelation,
 	getExtraitContenu,
-} from '~/server/cms/infra/repositories/strapi.mapper';
+} from '~/server/cms/infra/repositories/strapi.utils';
 
 export function mapStrapiListeActualites(strapiListeActualités: StrapiListeActualites.ListeActualites): Array<Actualité> {
 	return strapiListeActualités.listeActualites.map((strapiActualité) => {

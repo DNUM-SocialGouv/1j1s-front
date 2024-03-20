@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { FicheMétier } from '~/server/fiche-metier/domain/ficheMetier';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
@@ -9,7 +9,7 @@ export const RESOURCE_FICHE_METIER = 'fiche-metiers';
 const FICHE_METIER_NOM_METIER_FIELD_NAME = 'nom_metier';
 export class StrapiFicheMetierRepository implements FicheMetierRepository {
 
-	constructor(private readonly strapiService: CmsRepository) {
+	constructor(private readonly strapiService: CmsService) {
 	}
 
 	async getFicheMetierByNom(nom: string): Promise<Either<FicheMétier>> {

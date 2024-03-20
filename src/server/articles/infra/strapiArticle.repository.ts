@@ -2,14 +2,14 @@ import { Article, ArticleSlug } from '~/server/articles/domain/article';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
 import { mapArticle } from '~/server/articles/infra/strapiArticle.mapper';
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 
 const RESOURCE_ARTICLE = 'articles';
 
 export class StrapiArticleRepository implements ArticleRepository {
-	constructor(private readonly strapiService: CmsRepository, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async getArticleBySlug(slug: ArticleSlug): Promise<Either<Article>> {

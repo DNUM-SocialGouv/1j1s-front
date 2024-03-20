@@ -5,7 +5,7 @@ import {
 import {
 	StrapiVideoCampagneApprentissage,
 } from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage';
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 
@@ -15,7 +15,7 @@ import {
 
 export class StrapiVideoCampagneApprentissageRepository implements VideoCampagneApprentissageRepository {
 	private RESOURCE_VIDEO_CAMPAGNE_APPRENTISSAGE = 'videos-campagne-apprentissages';
-	constructor(private strapiService: CmsRepository, private errorManagementService: ErrorManagementService) {}
+	constructor(private strapiService: CmsService, private errorManagementService: ErrorManagementService) {}
 
 	async getAllVideosCampagneApprentissage(): Promise<Either<Array<VideoCampagneApprentissage>>> {
 		const query = 'sort[0]=Index';

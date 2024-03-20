@@ -1,4 +1,4 @@
-import { CmsRepository } from '../../cms/domain/cms.repository';
+import { CmsService } from '../../cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '../../errors/either';
 import { ErrorManagementService } from '../../services/error/errorManagement.service';
 import { MesureEmployeur } from '../domain/mesureEmployeur';
@@ -8,7 +8,7 @@ import { mapMesuresEmployeurs } from './strapiMesuresEmployeurs.mapper';
 
 const RESOURCE_MESURES_EMPLOYEURS = 'les-mesures-employeurs';
 export class StrapiMesuresEmployeursRepository implements MesuresEmployeursRepository {
-	constructor(private readonly strapiService: CmsRepository, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 	async getMesuresEmployeurs(): Promise<Either<Array<MesureEmployeur>>> {
 		const query = 'populate=deep';

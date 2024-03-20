@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure, isSuccess } from '~/server/errors/either';
 import { StrapiAnnonceDeLogement } from '~/server/logements/infra/strapiAnnonceDeLogement';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
@@ -10,7 +10,7 @@ import { mapAnnonceLogement } from './strapiAnnonceDeLogement.mapper';
 const RESOURCE_ANNONCE_DE_LOGEMENT = 'annonces-de-logement';
 
 export class StrapiAnnonceDeLogementRepository implements AnnonceDeLogementRepository {
-	constructor(private strapiService: CmsRepository, private errorManagementService: ErrorManagementService) {
+	constructor(private strapiService: CmsService, private errorManagementService: ErrorManagementService) {
 	}
 
 	async getAnnonceDeLogementBySlug(slug: string): Promise<Either<AnnonceDeLogement>> {
