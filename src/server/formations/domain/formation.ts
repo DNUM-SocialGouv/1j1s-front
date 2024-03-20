@@ -5,6 +5,8 @@ export interface RésultatRechercheFormation {
 	tags: [ localisation: string | undefined, niveauRequis: NiveauRequis | 'Autre' ]
 	id: string
 	codePostal?: string
+	longitude?: number
+	latitude?: number
 	ville?: string
 	codeCertification?: string
 }
@@ -16,7 +18,7 @@ export type Formation = {
 	description?: string
 	objectif?: string
 	dureeIndicative?: string
-	adresse: { adresseComplete?: string, codePostal?: string }
+	adresse: { adresseComplete?: string, codePostal?: string, longitude?: number, latitude?: number }
 	lienDemandeRendezVous?: string
 }
 

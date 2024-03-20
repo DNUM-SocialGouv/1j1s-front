@@ -94,7 +94,7 @@ describe('ConsulterFormationUseCase', () => {
 						// Then
 						expect(returnValue).toEqual({ formation: createSuccess(aFormation()) });
 						expect(formationRepository.get).toHaveBeenCalledWith('123', filtres);
-						expect(statistiqueRepository.get).toHaveBeenCalledWith('4567', aFormation().adresse.codePostal);
+						expect(statistiqueRepository.get).toHaveBeenCalledWith('4567', aFormation().adresse.longitude, aFormation().adresse.latitude);
 					});
 				});
 				describe('lorsque la statistique existe', () => {
@@ -124,7 +124,7 @@ describe('ConsulterFormationUseCase', () => {
 							statistiques: createSuccess(statistique),
 						});
 						expect(formationRepository.get).toHaveBeenCalledWith('123', filtres);
-						expect(statistiqueRepository.get).toHaveBeenCalledWith('4567', aFormation().adresse.codePostal);
+						expect(statistiqueRepository.get).toHaveBeenCalledWith('4567', aFormation().adresse.longitude, aFormation().adresse.latitude);
 					});
 				});
 			});

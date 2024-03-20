@@ -12,11 +12,11 @@ export class ConsulterFormationUseCase {
 
 		if (isFailure(formation)) return { formation };
 
-		const codePostal = formation.result.adresse.codePostal;
-		const isMissingInfosToGetStatistics = !filtre?.codeCertification || !codePostal;
+		const { longitude, latitude } = formation.result.adresse;
+		const isMissingInfosToGetStatistics = !filtre?.codeCertification || !longitude || !latitude;
 		if (isMissingInfosToGetStatistics) return { formation };
 
-		const statistiques = await this.statistiqueRepository.get(filtre.codeCertification!, codePostal);
+		const statistiques = await this.statistiqueRepository.get(filtre.codeCertification!, longitude, latitude);
 
 		if (isFailure(statistiques)) return { formation };
 

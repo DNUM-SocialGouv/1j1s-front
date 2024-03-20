@@ -281,6 +281,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 									adresse: {
 										adresseComplete: formationReturnedBySearch.adresse,
 										codePostal: formationReturnedBySearch.codePostal,
+										latitude: 1,
+										longitude: 2,
 									},
 									nomEntreprise: formationReturnedBySearch.nomEntreprise,
 									tags: [formationReturnedBySearch.tags[0] || ''],
@@ -381,6 +383,8 @@ describe('apiLaBonneAlternanceFormation.repository', () => {
 											adresse: {
 												adresseComplete: '1 rue de la République',
 												codePostal: '75001',
+												latitude: 1,
+												longitude: 2,
 											},
 											nomEntreprise: 'La Bonne Alternance',
 											tags: ['Paris'],

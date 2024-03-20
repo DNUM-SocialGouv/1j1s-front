@@ -16,6 +16,8 @@ export const aResultatRechercheFormation = (override?: Partial<RésultatRecherch
 	codeCertification: '999',
 	codePostal: '75001',
 	id: '123__cleMinistereEducatif-123456',
+	latitude: 1,
+	longitude: 2,
 	nomEntreprise: 'La Bonne Alternance',
 	tags: ['Paris', NiveauRequis['NIVEAU_4']],
 	titre: 'Développeur web',
@@ -26,6 +28,8 @@ export const aFormation = (overrides?: Partial<Formation>): Formation => ({
 	adresse: {
 		adresseComplete: '1 rue de la République 75001 Paris',
 		codePostal: '75001',
+		latitude: 1,
+		longitude: 2,
 	},
 	description: 'Description de la formation',
 	dureeIndicative: undefined,

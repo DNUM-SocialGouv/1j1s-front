@@ -14,9 +14,9 @@ import { AuthenticatedHttpClientService } from '~/server/services/http/authentic
 export class ApiTrajectoiresProStatistiqueRepository implements StatistiqueRepository {
 	constructor(private readonly httpClientService: AuthenticatedHttpClientService, private readonly apiGeoLocalisationRepository: LocalisationRepository, private readonly errorManagementService: ErrorManagementService) {}
 
-	async get(codeCertification: string, codePostal: string): Promise<Either<Statistique>> {
+	async get(codeCertification: string, longitude: number, latitude: number): Promise<Either<Statistique>> {
 		try {
-			const codeRegionOrFailure = await this.apiGeoLocalisationRepository.getCodeRegionByCodePostal(codePostal);
+			const codeRegionOrFailure = await this.apiGeoLocalisationRepository.getCodeRegionByLongitudeLatitude(longitude, latitude);
 			if (isFailure(codeRegionOrFailure)) {
 				return codeRegionOrFailure;
 			}
