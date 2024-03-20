@@ -48,7 +48,7 @@ export function HeaderBody() {
 					</Link>
 				</div>
 				{displayBanner &&
-						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
+						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne" id={'encart-campagne'}>
 							<p>
 								<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
 								<span className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</span>
