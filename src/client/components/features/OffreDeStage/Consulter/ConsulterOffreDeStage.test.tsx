@@ -117,7 +117,7 @@ describe('ConsulterOffreDeStage', () => {
 		describe('la rémunération du stage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -125,9 +125,9 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toBeVisible();
 				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
-			it('lorsque la rémunération est à 0, affiche "Aucune"', () => {
+			it('lorsque la rémunération base est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: 0, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -135,9 +135,20 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remunération).toBeVisible();
 				expect(remunération).toHaveTextContent('Aucune');
 			});
-			it('lorsque la rémunération est proposée affiche la somme de la rémunération', () => {
+			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 0, remunerationMin: 0 })}/>, { queries });
+
+				const remunération = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('Aucune');
+			});
+
+			it('lorsque la rémunération de base est proposée affiche la somme de la rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 150, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -145,6 +156,22 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toBeVisible();
 				expect(remuneration).toHaveTextContent('150 €');
 			});
+			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 2000, remunerationMin: 2 })}/>, { queries });
+
+				const remuneration = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remuneration).toBeVisible();
+				expect(remuneration).toHaveTextContent('entre 2 € et 2000 €' );
+			});
+
+		});
+		describe('période de rémunération', () => {
+			it.todo('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération');
+			it.todo('quand la rémunération et la période de rémunération n‘est pas renseignée affiche "Par mois"');
+			it.todo('quand la rémunération et la période de rémunération, affiche pas la période de rémunération');
 		});
 
 		describe('dans les étiquettes', () => {

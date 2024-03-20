@@ -1,4 +1,5 @@
 import Localisation = OffreDeStage.Localisation;
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
@@ -25,6 +26,9 @@ export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage 
 			ville: undefined,
 		},
 		remunerationBase: 1000,
+		remunerationMax: 1000,
+		remunerationMin: 1000,
+		remunerationPeriode: RemunerationPeriode.MONTHLY,
 		slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
 		source: SourceDesDonnées.JOBTEASER,
 		teletravailPossible: true,

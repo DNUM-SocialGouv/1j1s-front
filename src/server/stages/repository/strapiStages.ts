@@ -1,5 +1,5 @@
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
 

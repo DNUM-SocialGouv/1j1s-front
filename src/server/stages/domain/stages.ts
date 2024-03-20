@@ -1,6 +1,8 @@
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 
+import { RemunerationPeriode } from './remunerationPeriode';
+
 export interface EmployeurStageCMS {
 	nom: string
 	description?: string
@@ -22,6 +24,9 @@ export interface OffreDeStage {
 	localisation?: OffreDeStage.Localisation
 	employeur?: EmployeurStageCMS
 	remunerationBase?: number
+	remunerationMin?: number
+	remunerationMax?: number
+	remunerationPeriode?: RemunerationPeriode
 	source?: SourceDesDonnées
 	teletravailPossible?: boolean
 }
