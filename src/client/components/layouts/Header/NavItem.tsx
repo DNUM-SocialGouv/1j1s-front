@@ -1,10 +1,10 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
 
 interface NavItemProps {
-	label: string
+	label: string | ReactNode
 	link: string
 	isActive: boolean
 	onClick?: MouseEventHandler<HTMLAnchorElement>

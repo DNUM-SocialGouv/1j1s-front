@@ -97,7 +97,7 @@ export function NavItemWithSubItems({ className, onClick, item: root, isMobile =
 		if (isNavigationItem(item)) {
 			return (
 				<NavItem className={styles.subNavItem}
-					key={item.label}
+					key={item.label?.toString()}
 					label={item.label}
 					link={item.link}
 					isActive={router.pathname === item.link}
