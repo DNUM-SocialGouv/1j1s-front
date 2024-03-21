@@ -203,25 +203,54 @@ describe('Page d‘accueil', () => {
 			});
 		});
 		describe('quand le feature flip des stages seconde est actif', () => {
-			it('l’utilisateur voit la bannière des stages de seconde avec un CTA',  () => {
-				// GIVEN
-				const fakeUrl = 'https://url-pour-depot-stages-seconde.fr';
-				process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
-				process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL= fakeUrl;
+			describe('quand le feature flip de la recherche de stages de seconde est actif', () => {
+			  it('la bannière est adressée au jeunes en recherche de stages de seconde', () => {
+					// GIVEN
+					const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_URL= fakeUrlVoirStageSeconde;
 
-				// WHEN
-				render(
-					<DependenciesProvider analyticsService={analyticsService}>
-						<Accueil/>
-					</DependenciesProvider>,
-				);
+					// WHEN
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil/>
+						</DependenciesProvider>,
+					);
 
-				// THEN
-				const titreBanniere = screen.getByText('Accueillez des élèves en stages de seconde générale et technologique.');
-				const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
-				expect(titreBanniere).toBeVisible();
-				expect(depotOffreButton).toBeVisible();
-				expect(depotOffreButton).toHaveAttribute('href', fakeUrl);
+					// THEN
+					const titreBanniere = screen.getByText('Rechercher un stage de seconde générale et technologique.');
+					const sousTitreBanniere = screen.getByText('Du 17 au 28 Juin.');
+					const voirStageSecondeButton = screen.getByRole('link', { name: 'Rechercher une offre de stage' });
+					expect(titreBanniere).toBeVisible();
+					expect(sousTitreBanniere).toBeVisible();
+					expect(voirStageSecondeButton).toBeVisible();
+					expect(voirStageSecondeButton).toHaveAttribute('href', fakeUrlVoirStageSeconde);
+			  });
+			});
+
+			describe('quand le feature flip de la recherche de stages de seconde est inactif', () => {
+				it('la bannière est adressée aux employeurs souhaitant déposer une offre de stage de seconde',  () => {
+					// GIVEN
+					const fakeUrlDepotStageSeconde = 'https://url-pour-depot-stages-seconde.fr';
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
+					process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL= fakeUrlDepotStageSeconde;
+
+					// WHEN
+					render(
+						<DependenciesProvider analyticsService={analyticsService}>
+							<Accueil/>
+						</DependenciesProvider>,
+					);
+
+					// THEN
+					const titreBanniere = screen.getByText('Accueillez des élèves en stages de seconde générale et technologique.');
+					const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
+					expect(titreBanniere).toBeVisible();
+					expect(depotOffreButton).toBeVisible();
+					expect(depotOffreButton).toHaveAttribute('href', fakeUrlDepotStageSeconde);
+				});
 			});
 		});
 
