@@ -1,3 +1,9 @@
+import React, { ReactNode } from 'react';
+
+import { Icon } from '~/client/components/ui/Icon/Icon';
+
+import styles from './Header.module.scss';
+
 export interface NavigationItemWithChildren {
   label: string;
   legend?: string;
@@ -5,7 +11,7 @@ export interface NavigationItemWithChildren {
 }
 
 export interface NavigationItem {
-  label: string;
+  label: string | ReactNode;
   link: string;
 }
 
@@ -18,6 +24,7 @@ const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
+		{ label: <>Stage de 2de <Icon className={styles.externalIcon} name="external-redirection"/></>, link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL || '#' },
 		{ label: 'Stages d’études', link: '/stages' },
 		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{ label: 'Stages de 3e et 2de', link: '/stages-3e-et-2de' }] : []),
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
