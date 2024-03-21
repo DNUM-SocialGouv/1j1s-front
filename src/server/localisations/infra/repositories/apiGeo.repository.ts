@@ -49,8 +49,8 @@ export class ApiGeoRepository implements LocalisationRepository {
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}
 
-	async getCodeRegionByCodePostal(codePostalRecherche: string): Promise<Either<string | undefined>> {
-		const endpoint = `communes?codePostal=${codePostalRecherche}`;
+	async getCodeRegionByLongitudeLatitude(longitude: number, latitude: number): Promise<Either<string | undefined>> {
+		const endpoint = `communes?lon=${longitude}&lat=${latitude}`;
 		const contexte = 'communes';
 		return this.request<ApiDecoupageAdministratifResponse[], string>(endpoint, getCodeRegion, contexte);
 	}

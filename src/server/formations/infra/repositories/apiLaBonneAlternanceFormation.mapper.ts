@@ -15,6 +15,8 @@ export const mapRésultatRechercheFormation = (response: ApiLaBonneAlternanceFor
 		codeCertification: formation.cfd,
 		codePostal: formation.place?.zipCode,
 		id: mapIdFormation(formation),
+		latitude: formation.place?.latitude,
+		longitude: formation.place?.longitude,
 		nomEntreprise: formation.company?.name,
 		tags: [formation.place?.city, mapNiveauFormation(formation.diplomaLevel)],
 		titre: formation.title,
@@ -40,6 +42,8 @@ export const mapFormation = (response: ApiLaBonneAlternanceFormationResponse): F
 		adresse: {
 			adresseComplete: apiFormationResult.place?.fullAddress,
 			codePostal: apiFormationResult.place?.zipCode,
+			latitude: apiFormationResult.place?.latitude,
+			longitude: apiFormationResult.place?.longitude,
 		},
 		description: apiFormationResult.training?.description,
 		dureeIndicative: undefined, // NOTE (SULI 17-10-2023): LBA doit calculer cette donnée et nous la fournir dans un champ qu'ils nous préciseront
@@ -54,6 +58,8 @@ export const mapRésultatRechercheFormationToFormation = (résultatRechercheForm
 	adresse: {
 		adresseComplete: résultatRechercheFormation.adresse,
 		codePostal: résultatRechercheFormation.codePostal,
+		latitude: résultatRechercheFormation.latitude,
+		longitude: résultatRechercheFormation.longitude,
 	},
 	nomEntreprise: résultatRechercheFormation.nomEntreprise,
 	tags: [résultatRechercheFormation.tags[0] || ''],

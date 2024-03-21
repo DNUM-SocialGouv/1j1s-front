@@ -32,7 +32,7 @@ export function aStrapiSingleType<T>(data: T): Strapi.SingleType<T> {
 	};
 }
 
-export function aStrapiCollectionType<T>(data: T[], meta?: Partial<Strapi.Meta>): Strapi.CollectionType<T> {
+export function aStrapiCollectionType<T>(data: T[], pagination?: Partial<Strapi.Pagination>): Strapi.CollectionType<T> {
 	return {
 		...aStrapiCollectionRelation(data),
 		meta: {
@@ -41,8 +41,8 @@ export function aStrapiCollectionType<T>(data: T[], meta?: Partial<Strapi.Meta>)
 				pageCount: 1,
 				pageSize: 25,
 				total: 1,
+				...pagination,
 			},
-			...meta,
 		},
 	};
 }

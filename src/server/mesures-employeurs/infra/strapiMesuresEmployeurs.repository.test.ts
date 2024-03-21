@@ -1,4 +1,4 @@
-import { aStrapiCmsRepository } from '~/server/cms/infra/repositories/strapi.repository.fixture';
+import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
@@ -14,7 +14,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		it('appelle le service strapi avec les bons paramètres', async () => {
 			const resource = 'les-mesures-employeurs';
 
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 			const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
 			const query = 'populate=deep';
@@ -26,7 +26,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 
 		describe('quand la récupération est en succès', () => {
 			it('quand le mapping vers les mesures employeurs est en succès, renvoie la liste des mesures employeurs', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiMesuresEmployeursList()));
 				const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());
 
@@ -37,7 +37,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 			});
 
 			it('quand le mapping vers les mesures employeurs est en échec, appelle le service de management d‘erreur avec l‘erreur et le contexte', async () => {
-				const strapiService = aStrapiCmsRepository();
+				const strapiService = aStrapiService();
 				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess({ someNonExistentField: '' }));
 
 				const errorManagementService = anErrorManagementService();
@@ -58,7 +58,7 @@ describe('StrapiMesuresEmployeursRepository', () => {
 		});
 
 		it('quand la récupération est en échec, relais l‘échec du strapi service', async () => {
-			const strapiService = aStrapiCmsRepository();
+			const strapiService = aStrapiService();
 			const failureFromStrapi = createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 			jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(failureFromStrapi);
 			const strapiMesuresEmployeurs = new StrapiMesuresEmployeursRepository(strapiService, anErrorManagementService());

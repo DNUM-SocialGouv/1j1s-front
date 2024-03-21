@@ -32,7 +32,7 @@ import {
 } from '~/server/campagne-apprentissage/infra/strapiVideoCampagneApprentissage.repository';
 import { CmsDependencies, cmsDependenciesContainer } from '~/server/cms/configuration/dependencies.container';
 import { getApiStrapiConfig, getAuthApiStrapiConfig } from '~/server/cms/configuration/strapi/strapiHttpClient.config';
-import { StrapiRepository } from '~/server/cms/infra/repositories/strapi.repository';
+import { StrapiService } from '~/server/cms/infra/repositories/strapi.service';
 import { StrapiErrorManagementService } from '~/server/cms/infra/repositories/strapiErrorManagement.service';
 import {
 	DemandeDeContactDependencies,
@@ -298,8 +298,8 @@ export function dependenciesContainer(): Dependencies {
 	const strapiAuthenticatedHttpClientService = new AuthenticatedHttpClientService(getAuthApiStrapiConfig(serverConfigurationService), loggerService);
 	const strapiPublicHttpClientService = new PublicHttpClientService(getApiStrapiConfig(serverConfigurationService));
 	const strapiErrorManagementService = new StrapiErrorManagementService(loggerService);
-	const cmsRepository = new StrapiRepository(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
-	const cmsDependencies = cmsDependenciesContainer(cmsRepository, serverConfigurationService);
+	const cmsService = new StrapiService(strapiPublicHttpClientService, strapiAuthenticatedHttpClientService, strapiErrorManagementService);
+	const cmsDependencies = cmsDependenciesContainer(serverConfigurationService);
 
 
 	const franceTravailReferentielsHttpClientService = new AuthenticatedHttpClientService(getApiFranceTravailReferentielsConfig(serverConfigurationService), loggerService);
@@ -354,7 +354,7 @@ export function dependenciesContainer(): Dependencies {
 	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
 	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
 
-	const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(cmsRepository);
+	const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(cmsService);
 	const formationInitialeDetailDependencies = formationInitialeDetailDependenciesContainer(onisepFormationInitialeRepository, strapiFormationInitialeDetailRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
@@ -374,7 +374,7 @@ export function dependenciesContainer(): Dependencies {
 		serverConfigurationService.getConfiguration().MAILER_SERVICE_REDIRECT_TO || undefined,
 	);
 	const demandeDeContactAccompagnementRepository = new DemandeDeContactAccompagnementRepository(mailRepository);
-	const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsRepository);
+	const demandeDeContactCEJRepository = new DemandeDeContactCEJRepository(cmsService);
 
 	const demandeDeContactDependencies = demandeDeContactDependenciesContainer(
 		demandeDeContactAccompagnementRepository,
@@ -390,40 +390,40 @@ export function dependenciesContainer(): Dependencies {
 	const apiEtablissementPublicRepository = new ApiEtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = etablissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
 
-	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsRepository);
+	const ficheMetierRepository = new StrapiFicheMetierRepository(cmsService);
 	const ficheMetierDependencies = ficheMetierDependenciesContainer(ficheMetierRepository);
 
-	const faqRepository = new StrapiFAQRepository(cmsRepository);
+	const faqRepository = new StrapiFAQRepository(cmsService);
 	const faqDependencies = FAQDependenciesContainer(faqRepository);
 
-	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsRepository, defaultErrorManagementService);
+	const annonceDeLogementRepository = new StrapiAnnonceDeLogementRepository(cmsService, defaultErrorManagementService);
 	const annonceDeLogementDependencies = annonceDeLogementDependenciesContainer(annonceDeLogementRepository);
 
-	const stagesRepository = new StrapiStagesRepository(cmsRepository, defaultErrorManagementService);
+	const stagesRepository = new StrapiStagesRepository(cmsService, defaultErrorManagementService);
 	const stagesDependencies = stagesDependenciesContainer(stagesRepository);
 
-	const videoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(cmsRepository, defaultErrorManagementService);
+	const videoCampagneApprentissageRepository = new StrapiVideoCampagneApprentissageRepository(cmsService, defaultErrorManagementService);
 	const campagneApprentissageDependencies = campagneApprentissageDependenciesContainer(videoCampagneApprentissageRepository);
 
-	const actualitesRepository = new StrapiActualitesRepository(cmsRepository, defaultErrorManagementService);
+	const actualitesRepository = new StrapiActualitesRepository(cmsService, defaultErrorManagementService);
 	const actualitesDependencies = actualitesDependenciesContainer(actualitesRepository);
 
-	const articleRepository = new StrapiArticleRepository(cmsRepository, defaultErrorManagementService);
+	const articleRepository = new StrapiArticleRepository(cmsService, defaultErrorManagementService);
 	const articleDependencies = articleDependenciesContainer(articleRepository);
 
-	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsRepository, defaultErrorManagementService);
+	const servicesJeunesRepository = new StrapiServicesJeunesRepository(cmsService, defaultErrorManagementService);
 	const servicesJeunesDependencies = servicesJeunesDependenciesContainer(servicesJeunesRepository);
 
-	const mesuresEmployeursRepository= new StrapiMesuresEmployeursRepository(cmsRepository, defaultErrorManagementService);
+	const mesuresEmployeursRepository= new StrapiMesuresEmployeursRepository(cmsService, defaultErrorManagementService);
 	const mesuresEmployeursDependencies = mesuresEmployeursDependenciesContainer(mesuresEmployeursRepository);
 
-	const mentionObligatoireRepository = new StrapiMentionObligatoireRepository(cmsRepository);
+	const mentionObligatoireRepository = new StrapiMentionObligatoireRepository(cmsService);
 	const mentionObligatoireDependencies = mentionObligatoireDependenciesContainer(mentionObligatoireRepository);
 
 	const robotsDependencies = robotsDependenciesContainer(serverConfigurationService);
 
 	const baseUrl = `https://${serverConfigurationService.getConfiguration().NEXT_PUBLIC_1J1S_DOMAIN}`;
-	const sitemapDependencies = sitemapDependenciesContainer(cmsRepository, ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository, baseUrl);
+	const sitemapDependencies = sitemapDependenciesContainer(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articleRepository, baseUrl);
 
 	const apiEuresHttpClientService = new PublicHttpClientService(getApiEuresPublicHttpClientConfig(serverConfigurationService));
 	const apiEuresXmlService = new FastXmlParserService();

@@ -47,6 +47,8 @@ export const aLaBonneAlternanceApiRésultatRechercheFormationResponse = (): ApiL
 			place: {
 				city: 'Paris',
 				fullAddress: '1 rue de la République',
+				latitude: 1,
+				longitude: 2,
 				zipCode: '75001',
 			},
 			title: 'Développeur web',
@@ -76,6 +78,8 @@ export const anApiLaBonneAlternanceFormation = (overrides? : Partial<ApiLaBonneA
 		place: {
 			city: 'Paris',
 			fullAddress: '1 rue de la République 75001 Paris',
+			latitude: 1,
+			longitude: 2,
 			zipCode: '75001',
 		},
 		title: 'Développeur web',

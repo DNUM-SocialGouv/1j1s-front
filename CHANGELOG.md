@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.267.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.3...v3.267.4) (2024-03-21)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2822](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2822)) ([6178458](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6178458e00c1d63ffaff64ad25f6644ccd8dcc72))
+
+## [3.267.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.2...v3.267.3) (2024-03-20)
+
+
+### Bug Fixes
+
+* **formation:** recuperation des statistique quand code postal est un code cedex ([#2811](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2811)) ([d1e5117](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d1e5117f74524f4f7ae410898dd8b58c2d6dbf5b))
+
 ## [3.267.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.1...v3.267.2) (2024-03-19)
 
 

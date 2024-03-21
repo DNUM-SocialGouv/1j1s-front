@@ -1,6 +1,6 @@
 import { StrapiArticle } from '~/server/articles/infra/strapiArticle';
-import { flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.mapper';
 import { Strapi } from '~/server/cms/infra/repositories/strapi.response';
+import { flatMapSingleRelation } from '~/server/cms/infra/repositories/strapi.utils';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { StrapiMesuresJeunes } from '~/server/services-jeunes/infra/strapiMesuresJeunes';
 

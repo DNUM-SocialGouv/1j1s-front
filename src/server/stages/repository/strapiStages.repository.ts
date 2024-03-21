@@ -1,4 +1,4 @@
-import { CmsRepository } from '~/server/cms/domain/cms.repository';
+import { CmsService } from '~/server/cms/domain/cmsService';
 import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
@@ -11,7 +11,7 @@ export const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
 const API_SOURCE_OFFRE_STAGE = 'Strapi - offre de stage';
 
 export class StrapiStagesRepository implements StagesRepository {
-	constructor(private readonly strapiService: CmsRepository, private readonly errorManagementService: ErrorManagementService) {
+	constructor(private readonly strapiService: CmsService, private readonly errorManagementService: ErrorManagementService) {
 	}
 
 	async getOffreDeStageBySlug(slug: string): Promise<Either<OffreDeStage>> {
