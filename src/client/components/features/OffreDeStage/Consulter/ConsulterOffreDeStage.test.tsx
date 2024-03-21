@@ -6,9 +6,11 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import { emailRegex } from '~/shared/emailRegex';
 import { queries } from '~/test-utils';
 
 describe('ConsulterOffreDeStage', () => {
@@ -169,9 +171,39 @@ describe('ConsulterOffreDeStage', () => {
 
 		});
 		describe('période de rémunération', () => {
-			it.todo('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération');
-			it.todo('quand la rémunération et la période de rémunération n‘est pas renseignée affiche "Par mois"');
-			it.todo('quand la rémunération et la période de rémunération, affiche pas la période de rémunération');
+			it('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération', () => {
+				const { queryByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/>, { queries });
+
+				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).not.toBeInTheDocument();
+			});
+			it('quand la rémunération et la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
+
+				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).toBeVisible();
+				expect(periodeDeRemuneration).toHaveTextContent('Par mois' );
+			});
+			it.each([
+				[RemunerationPeriode.HOURLY, 'Par heure'],
+				[RemunerationPeriode.MONTHLY, 'Par mois'],
+				[RemunerationPeriode.YEARLY, 'Par an' ],
+			])('quand la rémunération et la période de rémunération sont renseignée, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
+
+				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).toBeVisible();
+				expect(periodeDeRemuneration).toHaveTextContent(labelRemunerationAttendu);
+			});
 		});
 
 		describe('dans les étiquettes', () => {

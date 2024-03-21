@@ -24,7 +24,7 @@ const mapPeriodePaiementLabel = (remunerationPeriode?: RemunerationPeriode) => {
 		case RemunerationPeriode.YEARLY:
 			return 'Par an';
 		default:
-			return undefined;
+			return 'Par mois';
 	}
 };
 
@@ -70,6 +70,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 	}, [offreDeStage.remunerationBase]);
 
 	const periodeDePaiementLabel = mapPeriodePaiementLabel(offreDeStage.remunerationPeriode);
+	const doitAfficherPeriodeDePaiment = remuneration() !== 'Aucune' && remuneration() !== 'Non renseignée';
 
 	return (
 		<ConsulterOffreLayout>
@@ -107,6 +108,10 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 						<dt>Rémunération :</dt>
 						<dd>{remuneration()}</dd>
 					</div>
+					{doitAfficherPeriodeDePaiment && <div>
+						<dt>Période de paiement :</dt>
+						<dd>{periodeDePaiementLabel}</dd>
+					</div>}
 				</dl>
 			</section>
 		</ConsulterOffreLayout>
