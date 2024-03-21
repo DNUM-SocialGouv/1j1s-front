@@ -67,10 +67,10 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 			return `entre ${offreDeStage.remunerationMin?.toString()} € et ${offreDeStage.remunerationMax?.toString()} €`;
 		}
 		return 'Aucune';
-	}, [offreDeStage.remunerationBase]);
+	}, [offreDeStage.remunerationBase, offreDeStage.remunerationMin, offreDeStage.remunerationMax])();
 
 	const periodeDePaiementLabel = mapPeriodePaiementLabel(offreDeStage.remunerationPeriode);
-	const doitAfficherPeriodeDePaiment = remuneration() !== 'Aucune' && remuneration() !== 'Non renseignée';
+	const doitAfficherPeriodeDePaiment = remuneration !== 'Aucune' && remuneration !== 'Non renseignée';
 
 	return (
 		<ConsulterOffreLayout>
@@ -106,7 +106,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 					}
 					<div>
 						<dt>Rémunération :</dt>
-						<dd>{remuneration()}</dd>
+						<dd>{remuneration}</dd>
 					</div>
 					{doitAfficherPeriodeDePaiment && <div>
 						<dt>Période de paiement :</dt>
