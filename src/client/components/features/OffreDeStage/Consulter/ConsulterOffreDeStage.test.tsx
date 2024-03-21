@@ -10,7 +10,6 @@ import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode'
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { emailRegex } from '~/shared/emailRegex';
 import { queries } from '~/test-utils';
 
 describe('ConsulterOffreDeStage', () => {
