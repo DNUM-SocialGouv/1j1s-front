@@ -147,6 +147,17 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remunération).toHaveTextContent('Aucune');
 			});
 
+			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 1234, remunerationMin: 1234 })}/>, { queries });
+
+				const remunération = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('1234 €');
+			});
+
 			it('lorsque la rémunération de base est proposée affiche la somme de la rémunération', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: 150, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });

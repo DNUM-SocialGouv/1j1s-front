@@ -28,6 +28,9 @@ const mapPeriodePaiementLabel = (remunerationPeriode?: RemunerationPeriode) => {
 	}
 };
 
+const LABEL_AUCUNE_REMUNERATION = 'Aucune';
+const LABEL_REMUNERATION_NON_RENSEIGNEE = 'Non renseignée';
+
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
 	const listeEtiquettes = useMemo(() => {
 		const domainesWithoutNonRenseigne = offreDeStage.domaines
@@ -58,19 +61,19 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 
 	const remuneration = useCallback(function getRemunerationOffreDeStage() {
 		if (offreDeStage.remunerationBase === undefined && offreDeStage.remunerationMin === undefined && offreDeStage.remunerationMax === undefined) {
-			return 'Non renseignée';
+			return LABEL_REMUNERATION_NON_RENSEIGNEE;
 		}
 		if (offreDeStage.remunerationBase) { // supprimer ce if lors du ticket UNJ1S-1964
-			return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : 'Aucune';
+			return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : LABEL_AUCUNE_REMUNERATION;
 		}
 		if (offreDeStage.remunerationMax && offreDeStage.remunerationMax > 0) {
 			return `entre ${offreDeStage.remunerationMin?.toString()} € et ${offreDeStage.remunerationMax?.toString()} €`;
 		}
-		return 'Aucune';
+		return LABEL_AUCUNE_REMUNERATION;
 	}, [offreDeStage.remunerationBase, offreDeStage.remunerationMin, offreDeStage.remunerationMax])();
 
 	const periodeDePaiementLabel = mapPeriodePaiementLabel(offreDeStage.remunerationPeriode);
-	const doitAfficherPeriodeDePaiment = remuneration !== 'Aucune' && remuneration !== 'Non renseignée';
+	const doitAfficherPeriodeDePaiment = remuneration !== LABEL_AUCUNE_REMUNERATION && remuneration !== LABEL_REMUNERATION_NON_RENSEIGNEE;
 
 	return (
 		<ConsulterOffreLayout>
