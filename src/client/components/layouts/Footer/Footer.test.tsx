@@ -36,7 +36,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'legifrance.gouv.fr' });
+		const link = screen.getByRole('link', { name: 'legifrance.gouv.fr - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.legifrance.gouv.fr/');
@@ -47,7 +47,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'gouvernement.fr' });
+		const link = screen.getByRole('link', { name: 'gouvernement.fr - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.gouvernement.fr/');
@@ -58,7 +58,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'service-public.fr' });
+		const link = screen.getByRole('link', { name: 'service-public.fr - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.service-public.fr/');
@@ -69,7 +69,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'data.gouv.fr' });
+		const link = screen.getByRole('link', { name: 'data.gouv.fr - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.data.gouv.fr/');
@@ -80,7 +80,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'france.fr' });
+		const link = screen.getByRole('link', { name: 'france.fr - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.france.fr/');
@@ -91,7 +91,7 @@ describe('Footer', () => {
 		render(<Footer />);
 
 		// Then
-		const link = screen.getByRole('link', { name: 'etalab-2.0' });
+		const link = screen.getByRole('link', { name: 'etalab-2.0 - nouvelle fenêtre' });
 
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', 'https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf');

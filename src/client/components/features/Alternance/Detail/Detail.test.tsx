@@ -40,7 +40,7 @@ describe('<Detail />', () => {
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail' });
+			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
 			expect(lien).toBeVisible();
 			expect(lien).toHaveAttribute('href', 'url');
@@ -50,7 +50,7 @@ describe('<Detail />', () => {
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
 			expect(lien).not.toBeInTheDocument();
 		});
@@ -71,7 +71,7 @@ describe('<Detail />', () => {
 
 			render(<Detail annonce={annonce}/>);
 
-			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail' });
+			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
 			expect(lien).not.toBeInTheDocument();
 		});

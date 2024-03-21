@@ -39,7 +39,7 @@ describe('ConsulterOffreEmploi', () => {
 
 		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 
-		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Je postule sur France Travail' });
+		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Je postule sur France Travail - nouvelle fenêtre' });
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreEmploi.urlOffreOrigine);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');
