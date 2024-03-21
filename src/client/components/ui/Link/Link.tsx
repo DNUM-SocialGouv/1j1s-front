@@ -116,7 +116,7 @@ function DefaultLinkIcon() {
 	const { href } = useLinkContext();
 	const isInternalLink = useIsInternalLink(href);
 
-	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}</>;
+	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection" aria-hidden="false" aria-label="- nouvelle fenêtre"/>}</>;
 }
 
 Link.Icon = LinkIcon;
