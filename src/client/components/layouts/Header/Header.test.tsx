@@ -199,7 +199,7 @@ describe('Header', () => {
 		it('affiche le lien stage de 2de quand le feature flip est actif', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_STAGES_SECONDE_LIEN_FEATURE = '1';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
 			render(<Header/>);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
@@ -216,8 +216,24 @@ describe('Header', () => {
 		it('masque le lien stage de 2de quand le feature flip est inactif', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_STAGES_SECONDE_LIEN_FEATURE = '0';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
 			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de' });
+			expect(stage2deLink).not.toBeInTheDocument();
+		});
+		it('masque le lien stage de 2de quand l’url n’est pas fournie', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = '';
 			render(<Header/>);
 			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
 			const user = userEvent.setup();

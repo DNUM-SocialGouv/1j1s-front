@@ -165,6 +165,9 @@ export function aSitemap(baseUrl: string) {
 		<loc>${baseUrl}/emplois</loc>
 	</url>
 	<url>
+		<loc>${baseUrl}https://stagedeseconde.recette.1jeune1solution.gouv.fr/eleves</loc>
+	</url>
+	<url>
 		<loc>${baseUrl}/stages</loc>
 	</url>
 	<url>
