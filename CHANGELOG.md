@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.268.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.5...v3.268.0) (2024-03-21)
+
+
+### Features
+
+* **stage2de:** rechercher des stages de 2de ([#2828](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2828)) ([ecca1b4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ecca1b4a6a47c9d3cc7ae75903a2e8d5ee144ce0))
+
 ## [3.267.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.4...v3.267.5) (2024-03-21)
 
 
