@@ -41,8 +41,8 @@ export function HeaderBody() {
 					<Link
 						className={styles.headerBodyTitle}
 			      href="/"
-						title="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
-						aria-label="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
+						title="1jeune1solution (retour à l'accueil)"
+						aria-label="1jeune1solution (retour à l'accueil)"
 					>
 						1jeune1solution
 					</Link>
