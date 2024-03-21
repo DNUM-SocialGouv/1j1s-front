@@ -179,7 +179,7 @@ describe('ConsulterOffreDeStage', () => {
 
 				expect(periodeDeRemuneration).not.toBeInTheDocument();
 			});
-			it('quand la rémunération et la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
+			it('quand la rémunération est renseignée mais la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
 
