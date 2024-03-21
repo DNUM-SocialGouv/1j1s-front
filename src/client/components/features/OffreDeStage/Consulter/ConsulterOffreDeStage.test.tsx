@@ -193,7 +193,7 @@ describe('ConsulterOffreDeStage', () => {
 				[RemunerationPeriode.HOURLY, 'Par heure'],
 				[RemunerationPeriode.MONTHLY, 'Par mois'],
 				[RemunerationPeriode.YEARLY, 'Par an' ],
-			])('quand la rémunération et la période de rémunération sont renseignée, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
+			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
 
