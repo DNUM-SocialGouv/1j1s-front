@@ -221,7 +221,7 @@ describe('Page d‘accueil', () => {
 					// THEN
 					const titreBanniere = screen.getByText('Un stage du 17 au 28 juin 2024');
 					const sousTitreBanniere = screen.getByText('pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.');
-					const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater' });
+					const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater - nouvelle fenêtre' });
 					expect(titreBanniere).toBeVisible();
 					expect(sousTitreBanniere).toBeVisible();
 					expect(voirStageSecondeButton).toBeVisible();
@@ -246,7 +246,7 @@ describe('Page d‘accueil', () => {
 
 					// THEN
 					const titreBanniere = screen.getByText('Accueillez des élèves en stages de seconde générale et technologique.');
-					const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
+					const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage - nouvelle fenêtre' });
 					expect(titreBanniere).toBeVisible();
 					expect(depotOffreButton).toBeVisible();
 					expect(depotOffreButton).toHaveAttribute('href', fakeUrlDepotStageSeconde);
@@ -267,7 +267,7 @@ describe('Page d‘accueil', () => {
 			);
 
 			// THEN
-			const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage' });
+			const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage - nouvelle fenêtre' });
 			expect(depotOffreButton).toBeVisible();
 			expect(depotOffreButton).toHaveAttribute('href', '');
 		});
