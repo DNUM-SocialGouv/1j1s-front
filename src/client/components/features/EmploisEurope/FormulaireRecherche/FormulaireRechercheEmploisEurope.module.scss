@@ -73,7 +73,8 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
   }
 
   .buttonRechercher {
-    margin-top: utilities.pixel-to-rem(28);
+    // TODO (DORO 21/03/2024): a modifier lors de la refonte des formulaires de recherche
+    margin-top: utilities.pixel-to-rem(41);
   }
 
   .inputButtonWrapper > div {
