@@ -83,6 +83,26 @@ describe('<ComboboxPays />', () => {
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(aideSaisie));
 			expect(combobox).toHaveAccessibleDescription(expect.stringContaining(messageErreur));
 		});
+		it('accepte un label', () => {
+			const label = 'Rechercher un pays';
+
+			render(
+				<ComboboxPays paysList={[]} name='pays' label={label} labelComplement="" />,
+			);
+
+			const combobox = screen.getByRole('combobox', { name: label });
+			expect(combobox).toBeVisible();
+		});
+		it('accepte un labelComplement', () => {
+			const labelComplement = 'Exemple : France, Belgique…';
+
+			render(
+				<ComboboxPays paysList={[]} name='pays' label="" labelComplement={labelComplement} />,
+			);
+
+			const combobox = screen.getByRole('combobox', { name: labelComplement });
+			expect(combobox).toBeVisible();
+		});
 		it('lorsqu‘il n‘y a pas de label, utilise le label par défaut', () => {
 			const id = 'id';
 
@@ -91,7 +111,7 @@ describe('<ComboboxPays />', () => {
 			);
 
 			const combobox = screen.getByRole('combobox');
-			expect(combobox).toHaveAccessibleName('Localisation (pays)');
+			expect(combobox).toHaveAccessibleName('Localisation (pays) Exemple : France, Belgique');
 		});
 	});
 
@@ -102,7 +122,7 @@ describe('<ComboboxPays />', () => {
 			render(
 				<ComboboxPays paysList={[]} name={'pays'} label={'Rechercher un pays'} />,
 			);
-			const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays' });
+			const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays Exemple : France, Belgique' });
 			await user.type(comboboxPays, 'dddddd');
 			const emptyResultText = await screen.findByText('Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un pays. Exemple : Belgique, …');
 
@@ -128,7 +148,7 @@ describe('<ComboboxPays />', () => {
 			render(
 				<ComboboxPays paysList={paysList} name={'pays'} label={'Rechercher un pays'} />,
 			);
-			const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays' });
+			const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays Exemple : France, Belgique' });
 			await user.type(comboboxPays, 'esp');
 
 			expect(await screen.findAllByRole('option')).toHaveLength(1);
@@ -206,7 +226,7 @@ describe('<ComboboxPays />', () => {
 						<ComboboxPays paysList={paysList} name={'pays'} label={'Rechercher un pays'} />
 					</form>,
 				);
-				const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays' });
+				const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays Exemple : France, Belgique' });
 				await user.type(comboboxPays, 'fra');
 				await user.click(screen.getByRole('option', { name: 'France' }));
 
@@ -227,7 +247,7 @@ describe('<ComboboxPays />', () => {
 				render(
 					<ComboboxPays paysList={paysList} name={'pays'} label={'Rechercher un pays'} />,
 				);
-				const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays' });
+				const comboboxPays = screen.getByRole('combobox', { name: 'Rechercher un pays Exemple : France, Belgique' });
 				await user.type(comboboxPays, 'fra');
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);

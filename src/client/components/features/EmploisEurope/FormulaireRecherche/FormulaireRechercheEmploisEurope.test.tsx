@@ -33,7 +33,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise' });
+				const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise Exemple : boulanger, marketing, Google' });
 				await user.type(inputRechercheMotCle, 'boulanger');
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
@@ -54,7 +54,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays)' });
+				const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays) Exemple : Belgique, Allemagne' });
 				await user.type(inputRechercheLocalisation, 'Espagne');
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
@@ -195,9 +195,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				<FormulaireRechercheEmploisEurope />,
 			);
 
-			expect(screen.getByRole('button', { name: 'Type de contrat' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Temps de travail' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Niveau d‘études demandé' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' })).toBeVisible();
 		});
 
 		describe('quand on recherche par type de contrat', () => {
@@ -212,7 +212,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Type de contrat' });
+				const button = screen.getByRole('button', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' });
 				await user.click(button);
 
 				const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Apprentissage' });
@@ -238,7 +238,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Temps de travail' });
+				const button = screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
 				await user.click(button);
 
 				const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
@@ -264,7 +264,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Niveau d‘études demandé' });
+				const button = screen.getByRole('button', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' });
 				await user.click(button);
 
 				const checkboxNiveauEtude = screen.getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
@@ -291,7 +291,7 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Domaines' });
+				const button = screen.getByRole('button', { name: 'Domaines Exemple : Agriculture, Communication' });
 				await user.click(button);
 
 				const checkboxSecteurActivite = screen.getByRole('checkbox', { name: 'Agriculture, sylviculture et pêche' });
@@ -325,12 +325,12 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			<FormulaireRechercheEmploisEurope />,
 		);
 
-		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise' });
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise Exemple : boulanger, marketing, Google' });
 		expect(inputRechercheMotCle).toHaveValue('boulanger');
-		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays)' });
+		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays) Exemple : Belgique, Allemagne' });
 		expect(inputRechercheLocalisation).toHaveValue('Espagne');
 
-		const button = screen.getByRole('button', { name: 'Temps de travail' });
+		const button = screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
 		await user.click(button);
 
 		const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
@@ -347,9 +347,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			<FormulaireRechercheEmploisEurope />,
 		);
 
-		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise' });
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise Exemple : boulanger, marketing, Google' });
 		expect(inputRechercheMotCle).toHaveValue('boulanger');
-		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays)' });
+		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays) Exemple : Belgique, Allemagne' });
 		expect(inputRechercheLocalisation).toHaveValue('');
 	});
 	it('laisse le champ localisation vide si il manque le libellé pays dans les query params', async () => {
@@ -362,9 +362,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 			<FormulaireRechercheEmploisEurope />,
 		);
 
-		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise' });
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Métier, mot-clé ou entreprise Exemple : boulanger, marketing, Google' });
 		expect(inputRechercheMotCle).toHaveValue('boulanger');
-		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays)' });
+		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays) Exemple : Belgique, Allemagne' });
 		expect(inputRechercheLocalisation).toHaveValue('');
 	});
 });

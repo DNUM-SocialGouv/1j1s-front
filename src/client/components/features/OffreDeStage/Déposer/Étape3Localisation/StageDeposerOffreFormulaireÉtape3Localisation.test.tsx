@@ -98,18 +98,18 @@ describe('<Localisation />', () => {
 			);
 
 			expect(screen.getByText('Étape 3 sur 3 : Localisation du stage')).toBeInTheDocument();
-			expect(screen.getByRole('combobox', { name: 'Pays' })).toBeInTheDocument();
-			expect(screen.getByLabelText('Ville')).toBeInTheDocument();
-			expect(screen.getByLabelText('Adresse')).toBeInTheDocument();
-			expect(screen.getByLabelText('Code postal')).toBeInTheDocument();
-			expect(screen.getByLabelText('Région')).toBeInTheDocument();
-			expect(screen.getByLabelText('Département')).toBeInTheDocument();
+			expect(screen.getByRole('combobox', { name: 'Pays Exemple : France' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Ville Exemple : Paris' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Adresse Exemple : 127 rue de Grenelle' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Code postal Exemple : 75007' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Région Exemple : Île-De-France' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Département Exemple : Yvelines' })).toBeInTheDocument();
 			expect(screen.getByRole('button', { name: 'Envoyer ma demande de dépôt d’offre' })).toBeInTheDocument();
 		});
 
 		it('il voit affiché des champs facultatifs', async () => {
-			const labelRegion = 'Région';
-			const labelDepartement = 'Département';
+			const labelRegion = 'Région Exemple : Île-De-France';
+			const labelDepartement = 'Département Exemple : Yvelines';
 			const stageService = aStageService();
 			mockLocalStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeEntreprise()));
 			mockSessionStorageGetItem.mockReturnValue(JSON.stringify(aFormulaireEtapeStage()));
@@ -120,11 +120,11 @@ describe('<Localisation />', () => {
 				</DependenciesProvider>,
 			);
 
-			await userEvent.type(screen.getByLabelText(labelRegion), 's{backspace}');
-			await userEvent.type(screen.getByLabelText(labelDepartement), 's{backspace}');
+			await userEvent.type(screen.getByRole('textbox', { name: labelRegion }), 's{backspace}');
+			await userEvent.type(screen.getByRole('textbox', { name: labelDepartement }), 's{backspace}');
 
-			expect(screen.getByLabelText(labelRegion)).toBeValid();
-			expect(screen.getByLabelText(labelDepartement)).toBeValid();
+			expect(screen.getByRole('textbox', { name: labelRegion })).toBeValid();
+			expect(screen.getByRole('textbox', { name: labelDepartement })).toBeValid();
 		});
 
 		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
@@ -169,12 +169,12 @@ describe('<Localisation />', () => {
 				);
 
 				// THEN
-				expect(screen.getByRole('combobox', { name: 'Pays' })).toHaveValue('France');
-				expect(screen.getByLabelText('Ville')).toHaveValue('Paris');
-				expect(screen.getByLabelText('Adresse')).toHaveValue('34 avenue de l’Opéra');
-				expect(screen.getByLabelText('Code postal')).toHaveValue('75000');
-				expect(screen.getByLabelText('Région')).toHaveValue('Ile-de-France');
-				expect(screen.getByLabelText('Département')).toHaveValue('Paris');
+				expect(screen.getByRole('combobox', { name: 'Pays Exemple : France' })).toHaveValue('France');
+				expect(screen.getByRole('textbox', { name: 'Ville Exemple : Paris' })).toHaveValue('Paris');
+				expect(screen.getByRole('textbox', { name: 'Adresse Exemple : 127 rue de Grenelle' })).toHaveValue('34 avenue de l’Opéra');
+				expect(screen.getByRole('textbox', { name: 'Code postal Exemple : 75007' })).toHaveValue('75000');
+				expect(screen.getByRole('textbox', { name: 'Région Exemple : Île-De-France' })).toHaveValue('Ile-de-France');
+				expect(screen.getByRole('textbox', { name: 'Département Exemple : Yvelines' })).toHaveValue('Paris');
 			});
 		});
 
@@ -255,9 +255,9 @@ describe('<Localisation />', () => {
 
 async function remplirFormulaireEtape3() {
 	const user = userEvent.setup();
-	await user.type(screen.getByRole('combobox', { name: 'Pays' }), 'France');
+	await user.type(screen.getByRole('combobox', { name: 'Pays Exemple : France' }), 'France');
 	await user.click(screen.getByRole('option', { name: 'France' }));
-	await user.type(screen.getByRole('textbox', { name: 'Ville' }), 'Toulon');
-	await user.type(screen.getByRole('textbox', { name: 'Adresse' }), 'rue de la faim');
-	await user.type(screen.getByRole('textbox', { name: 'Code postal' }), '83000');
+	await user.type(screen.getByRole('textbox', { name: 'Ville Exemple : Paris' }), 'Toulon');
+	await user.type(screen.getByRole('textbox', { name: 'Adresse Exemple : 127 rue de Grenelle' }), 'rue de la faim');
+	await user.type(screen.getByRole('textbox', { name: 'Code postal Exemple : 75007' }), '83000');
 }
