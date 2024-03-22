@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.268.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.3...v3.268.4) (2024-03-22)
+
+
+### Bug Fixes
+
+* **localisation:** cas particulier de la corse qui necessite de supprimer le numero de département avant de soumettre à l'api ([#2841](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2841)) ([c6a5dd0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c6a5dd07d3d7b08ae779b252b8218d0c99b8e898))
+
 ## [3.268.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.2...v3.268.3) (2024-03-22)
 
 
