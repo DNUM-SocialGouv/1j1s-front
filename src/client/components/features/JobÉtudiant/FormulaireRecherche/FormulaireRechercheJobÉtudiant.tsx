@@ -55,7 +55,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						</Champ.Label>
 						<Champ.Input
 							render={Input}
-							value={inputMotCle}
+							defaultValue={inputMotCle}
 							name="motCle"
 							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 							minLength={2}
@@ -64,7 +64,6 @@ export function FormulaireRechercheJobÉtudiant() {
 					</Champ>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
-						labelComplement="Exemples : Paris, Béziers…"
 					/>
 
 					<Select

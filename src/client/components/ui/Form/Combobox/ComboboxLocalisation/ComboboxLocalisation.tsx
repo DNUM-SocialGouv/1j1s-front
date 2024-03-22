@@ -51,8 +51,6 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		onChange: onChangeProps = () => null,
 		debounceTimeout = 300,
 		id: idProps,
-		onInvalid: onInvalidProps = () => null,
-		'aria-describedby': ariaDescribedby = '',
 		...rest
 	} = props;
 
@@ -70,7 +68,6 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 
 	const idState = useId();
 	const inputId = idProps ?? idState;
-	const errorId = useId();
 
 	const isSuggestionListEmpty = useCallback(() => {
 		return !localisationOptions.departementList.length && !localisationOptions.regionList.length && !localisationOptions.communeList.length;
@@ -126,7 +123,6 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 				ref={ref}
 				autoComplete="off"
 				optionsAriaLabel="localisations"
-				aria-describedby={`${ariaDescribedby} ${errorId}`}
 				id={inputId}
 				value={userInput}
 				onChange={
@@ -136,7 +132,6 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 						onChangeProps(event, newUserInput);
 					}
 				}
-				onInvalid={onInvalidProps}
 				requireValidOption
 				filter={Combobox.noFilter}
 				{...rest}
