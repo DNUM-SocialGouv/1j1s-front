@@ -30,7 +30,7 @@
   }
 
   &SecondaryText {
-    @extend %headline;
+    @include utilities.title-small;
     font-weight: initial;
     color: inherit;
   }

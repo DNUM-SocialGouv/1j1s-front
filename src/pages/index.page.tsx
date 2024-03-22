@@ -30,9 +30,9 @@ export default function Accueil() {
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
 	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
-	const isBanniereStagesSecondeAdresseeAuxJeunes = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
+	const isBanniereStagesSecondePourCampagneDu25Mars = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
-	const urlConsultationOffresStagesSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ?? '';
+	const urlHomePageStageDe2de = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -247,23 +247,23 @@ export default function Accueil() {
 				{isBanniereStagesSecondeVisible
 				&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
 																 className={styles.stageSecondeBanner}>
-					{isBanniereStagesSecondeAdresseeAuxJeunes ?
+					{isBanniereStagesSecondePourCampagneDu25Mars ?
 						<>
-							<h1><HeroPrimaryText className={styles.heroTitle}>
-									Rechercher un stage de seconde générale et technologique.
-							</HeroPrimaryText></h1>
+							<HeroPrimaryText className={styles.heroTitle}>
+								Un stage du 17 au 28 juin 2024
+							</HeroPrimaryText>
 							<HeroSecondaryText>
-								Du 17 au 28 Juin.
+								Pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers
 							</HeroSecondaryText>
-							<Link href={urlConsultationOffresStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-								Rechercher une offre de stage
+							<Link href={urlHomePageStageDe2de} appearance={'asSecondaryButton'} className={styles.heroButton}>
+								Proposer un stage ou candidater
 								<Link.Icon/>
 							</Link>
 						</> :
 						<>
-							<h1><HeroPrimaryText className={styles.heroTitle}>
+							<HeroPrimaryText className={styles.heroTitle}>
 									Accueillez des élèves en stages de seconde générale et technologique.
-							</HeroPrimaryText></h1>
+							</HeroPrimaryText>
 							<HeroSecondaryText>
 								Inspirez, transmettez, faites découvrir vos métiers.
 							</HeroSecondaryText>
