@@ -4,13 +4,14 @@ import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import {
 	ComboboxLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
@@ -47,17 +48,23 @@ export function FormulaireRechercheJobÉtudiant() {
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
-					<InputText
-						label="Métier, mot-clé (minimum 2 caractères)"
-						value={inputMotCle}
-						name="motCle"
-						placeholder="Exemples : serveur, tourisme..."
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-						minLength={2}
-					/>
+					<Champ>
+						<Champ.Label>
+							Métier, mot-clé (minimum 2 caractères)
+							<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={Input}
+							value={inputMotCle}
+							name="motCle"
+							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+							minLength={2}
+						/>
+						<Champ.Error/>
+					</Champ>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
-						placeholder="Exemples : Paris, Béziers…"
+						labelComplement="Exemples : Paris, Béziers…"
 					/>
 
 					<Select
@@ -65,6 +72,7 @@ export function FormulaireRechercheJobÉtudiant() {
 						optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
 						onChange={setInputDomaine}
 						label="Domaines"
+						labelComplement="Exemple : Commerce, Immobilier…"
 						value={inputDomaine}
 						name="grandDomaine"
 					/>

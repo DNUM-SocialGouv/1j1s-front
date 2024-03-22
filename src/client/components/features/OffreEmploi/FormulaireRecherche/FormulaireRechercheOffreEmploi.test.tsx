@@ -42,7 +42,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères)' });
+				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères) Exemples : boulanger, informatique…' });
 				await user.type(inputRechercheMotClé, 'boulanger');
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -171,7 +171,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
+				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
 				// WHEN
@@ -244,7 +244,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaines' });
+			const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 			expect(button).toBeInTheDocument();
 		});
 
@@ -261,7 +261,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Types de contrats' });
+				const button = screen.getByRole('button', { name: 'Types de contrats Exemple : CDI, CDD…' });
 				await user.click(button);
 
 				const typeDeContratList = await screen.findByRole('listbox');
@@ -289,7 +289,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaines' });
+				const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 				await user.click(button);
 
 				const domaineList = await screen.findByRole('listbox');
@@ -317,7 +317,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Niveau demandé' });
+				const button = screen.getByRole('button', { name: 'Niveau demandé Exemple : De 1 à 3 ans' });
 				await user.click(button);
 
 				const niveauDemandéList = await screen.findByRole('listbox');
@@ -345,7 +345,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Temps de travail' });
+				const button = screen.getByRole('button', { name: 'Temps de travail Exemple : temps plein, temps partiel…' });
 				await user.click(button);
 
 				const tempsDeTravailList = await screen.findByRole('listbox');

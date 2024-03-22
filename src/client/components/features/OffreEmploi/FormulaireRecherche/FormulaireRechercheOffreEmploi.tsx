@@ -6,13 +6,14 @@ import styles
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import {
 	ComboboxLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -93,17 +94,23 @@ export function FormulaireRechercheOffreEmploi() {
 		>
 			<div className={styles.filtresRechercherOffre}>
 				<div className={styles.inputButtonWrapper}>
-					<InputText
-						label="Métier, mot-clé (minimum 2 caractères)"
-						value={inputMotCle}
-						name="motCle"
-						placeholder="Exemples : boulanger, informatique..."
-						onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
-						minLength={2}
-					/>
+					<Champ>
+						<Champ.Label>
+							Métier, mot-clé (minimum 2 caractères)
+							<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
+						</Champ.Label>
+						<Champ.Input
+							render={Input}
+							value={inputMotCle}
+							name="motCle"
+							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
+							minLength={2}
+						/>
+						<Champ.Error/>
+					</Champ>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
-						placeholder="Exemples : Paris, Béziers…"
+						labelComplement="Exemples : Paris, Béziers…"
 					/>
 
 					{isSmallScreen &&
@@ -198,6 +205,7 @@ export function FormulaireRechercheOffreEmploi() {
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
 							onChange={setInputTypeDeContrat}
 							label="Types de contrats"
+							labelComplement="Exemple : CDI, CDD…"
 							value={inputTypeDeContrat}
 							name="typeDeContrats"
 						/>
@@ -207,6 +215,7 @@ export function FormulaireRechercheOffreEmploi() {
 							onChange={setInputTempsDeTravail}
 							value={inputTempsDeTravail}
 							label="Temps de travail"
+							labelComplement="Exemple : temps plein, temps partiel…"
 						/>
 						<Select
 							name="experienceExigence"
@@ -214,6 +223,7 @@ export function FormulaireRechercheOffreEmploi() {
 							onChange={setInputExpérience}
 							value={inputExpérience}
 							label="Niveau demandé"
+							labelComplement="Exemple : De 1 à 3 ans"
 						/>
 						<Select
 							multiple
@@ -222,6 +232,7 @@ export function FormulaireRechercheOffreEmploi() {
 							value={inputDomaine}
 							name="grandDomaine"
 							label="Domaines"
+							labelComplement="Exemple : Commerce, Immobilier…"
 						/>
 					</div>
 				)}

@@ -1,6 +1,7 @@
 import debounce from 'lodash.debounce';
 import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Combobox } from '~/client/components/ui/Form/Combobox';
 import {
 	buildUserInput,
@@ -18,7 +19,6 @@ import { Localisations } from '~/client/components/ui/Form/Combobox/ComboboxLoca
 import {
 	mapToLocalisations,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/mapToLocalisations';
-import styles from '~/client/components/ui/Form/Input.module.scss';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { isSuccess } from '~/server/errors/either';
@@ -29,6 +29,7 @@ const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisi
 const MESSAGE_CHARGEMENT = 'Chargement ...';
 const MESSAGE_CHAMP_VIDE = 'Commencez à saisir au moins 3 caractères, 2 chiffres d’un département ou les 5 chiffres d’une commune, puis sélectionnez votre localisation';
 const DEFAULT_LABEL = 'Localisation';
+const DEFAULT_LABEL_COMPLEMENT = 'Exemples : Paris, Béziers…';
 
 type ComboboxProps = React.ComponentPropsWithoutRef<typeof Combobox>;
 type ComboboxRef = React.ComponentRef<typeof Combobox>;
@@ -36,6 +37,7 @@ type ComboboxRef = React.ComponentRef<typeof Combobox>;
 type ComboboxPropsWithOmit = Omit<ComboboxProps, 'defaultValue' | 'optionsAriaLabel'>
 type ComboboxLocalisationProps = ComboboxPropsWithOmit & {
 	label?: string,
+	labelComplement?: string,
 	defaultValue?: DefaultLocalisation | undefined,
 	debounceTimeout?: number,
 }
@@ -44,6 +46,7 @@ type FetchStatus = 'init' | 'pending' | 'success' | 'failure';
 export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocalisationProps>(function ComboboxLocalisation(props, ref) {
 	const {
 		label = DEFAULT_LABEL,
+		labelComplement = DEFAULT_LABEL_COMPLEMENT,
 		defaultValue,
 		onChange: onChangeProps = () => null,
 		debounceTimeout = 300,
@@ -62,11 +65,9 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		regionList: defaultValue?.type === TypeLocalisation.REGION ? [defaultValue] : [],
 	});
 	const [status, setStatus] = useState<FetchStatus>('init');
-	const [fieldError, setFieldError] = useState<string | null>(null);
 
 	const matchingOption = findMatchingLocalisation(localisationOptions, userInput);
 
-	const labelId = useId();
 	const idState = useId();
 	const inputId = idProps ?? idState;
 	const errorId = useId();
@@ -115,11 +116,13 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 	}, [handleRechercherWithDebounce]);
 
 	return (
-		<div className={styles.wrapper}>
-			<label htmlFor={inputId} id={labelId} className={styles.label}>
+		<Champ>
+			<Champ.Label>
 				{label}
-			</label>
-			<Combobox
+				<Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				render={Combobox}
 				ref={ref}
 				autoComplete="off"
 				optionsAriaLabel="localisations"
@@ -128,27 +131,23 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 				value={userInput}
 				onChange={
 					(event, newUserInput) => {
-						setFieldError(null);
 						getLocalisationDebounced(newUserInput);
 						setUserInput(newUserInput);
 						onChangeProps(event, newUserInput);
 					}
 				}
-				onInvalid={(event) => {
-					setFieldError(event.currentTarget.validationMessage);
-					onInvalidProps(event);
-				}}
+				onInvalid={onInvalidProps}
 				requireValidOption
 				filter={Combobox.noFilter}
 				{...rest}
 			>
 				<LocalisationOptionsByCategory localisations={localisationOptions} optionMessage={optionMessage}/>
-			</Combobox>
-			<span id={errorId} className={styles.instructionMessageError}>{fieldError}</span>
+			</Champ.Input>
+			<Champ.Error/>
 			<input type="hidden" value={matchingOption?.nom ?? ''} name="nomLocalisation"/>
 			<input type="hidden" value={matchingOption?.codePostal ?? ''} name="codePostalLocalisation"/>
 			<input type="hidden" value={matchingOption?.code ?? ''} name="codeLocalisation"/>
 			<input type="hidden" value={matchingOption?.type ?? ''} name="typeLocalisation"/>
-		</div>
+		</Champ>
 	);
 });

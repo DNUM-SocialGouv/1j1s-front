@@ -37,7 +37,7 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères)' });
+				const inputRechercheMotClé = screen.getByRole('textbox', { name: 'Métier, mot-clé (minimum 2 caractères) Exemples : boulanger, informatique…' });
 				fireEvent.change(inputRechercheMotClé, { target: { value: 'boulanger' } });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 
@@ -63,7 +63,7 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
+				const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.type(inputLocalisation, 'Par');
 				const resultatsLocalisation = await screen.findAllByRole('option');
@@ -97,7 +97,7 @@ describe('FormulaireRechercheJobEte', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaines' });
+			const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 			expect(button).toBeInTheDocument();
 
 		});
@@ -114,7 +114,7 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaines' });
+				const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 				fireEvent.click(button);
 
 				const domaineList = await screen.findByRole('listbox');
