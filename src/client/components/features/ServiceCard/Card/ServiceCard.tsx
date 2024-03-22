@@ -29,6 +29,7 @@ interface ServiceCardProps {
 	children: React.ReactNode
 	imageFit?: 'cover' | 'contain'
 	logo: string
+	logoAlt?: string
 	link: string
 	linkLabel: string
 	title: string
@@ -37,7 +38,7 @@ interface ServiceCardProps {
 
 export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLLinkElement>) {
 	const {
-		className, imageFit = 'contain', logo, link, linkLabel, title, titleAs, children,
+		className, imageFit = 'contain', logo, logoAlt = '', link, linkLabel, title, titleAs, children,
 	} = props;
 	
 	const isInternalLink = useIsInternalLink(link);
@@ -58,7 +59,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 					styles.serviceCard,
 					imageFit === 'cover' && styles.cardCover)}
 			>
-				<Card.Image className={styles.cardLogo} src={logo} aria-hidden/>
+				<Card.Image className={styles.cardLogo} src={logo} alt={logoAlt}/>
 				<Card.Content className={styles.cardBody}>
 					<Card.Title titleAs={titleAs} className={styles.cardTitle}>{title}</Card.Title>
 					<p>{children}</p>

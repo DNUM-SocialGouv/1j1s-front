@@ -8,6 +8,7 @@ export function PassPartner() {
 			linkLabel="Accéder au site web"
 			link="https://www.pass.fonction-publique.gouv.fr/"
 			logo="/images/logos/pass.png"
+			logoAlt="PASS, Place de l'apprentissage et des stages dans la fonction publique"
 			title="Recherche une offre d'alternance dans la fonction publique"
 			titleAs={'h3'}
 		>
