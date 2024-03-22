@@ -24,7 +24,7 @@ const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
-		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{ label: <>Stage de 2de <Icon className={styles.externalIcon} name="external-redirection"/></>, link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL }] : []),
+		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{ label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection"/></>, link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL }] : []),
 		{ label: 'Stages d’études', link: '/stages' },
 		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{ label: 'Stages de 3e et 2de', link: '/stages-3e-et-2de' }] : []),
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },

@@ -32,7 +32,7 @@ export default function Accueil() {
 	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
 	const isBanniereStagesSecondePourCampagneDu25Mars = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
-	const urlHomePageStageDe2de = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
+	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -235,7 +235,7 @@ export default function Accueil() {
 				<HeroWithIllustration image="/images/portraits-verticaux.webp">
 					<h1><HeroPrimaryText className={styles.heroTitle}>À chacun sa solution.</HeroPrimaryText></h1>
 					<HeroSecondaryText>
-					Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
+						Vous avez entre 15 et 30 ans ? Découvrez toutes les solutions pour votre avenir !
 					</HeroSecondaryText>
 					<Link href={'/espace-jeune'} appearance={'asSecondaryButton'} className={styles.heroButton}>
 						<span className={styles.heroButtonLargeScreenText}>Découvrir les actualités et services jeunes</span>
@@ -255,7 +255,7 @@ export default function Accueil() {
 							<HeroSecondaryText>
 								Pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.
 							</HeroSecondaryText>
-							<Link href={urlHomePageStageDe2de} appearance={'asSecondaryButton'} className={styles.heroButton}>
+							<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 								Proposer un stage ou candidater
 								<Link.Icon/>
 							</Link>
@@ -357,5 +357,4 @@ export default function Accueil() {
 			</main>
 		</>
 	);
-
 };
