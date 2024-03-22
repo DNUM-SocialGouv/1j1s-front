@@ -151,6 +151,40 @@ describe('ApiGeoLocalisationRepository', () => {
 	});
 
 	describe('getDépartementListByNom', () => {
+		it('supprime les parenthèses de la recherche avant d’appeler l’api', async () => {
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+				{
+					_score: 1,
+					code: '78',
+					codeRegion: '11',
+					nom: 'Yvelines',
+				},
+			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
+
+			await apiGeoLocalisationRepository.getDépartementListByNom('Yvelines (78)');
+
+			expect(httpClientService.get).toHaveBeenCalledWith('departements?nom=Yvelines 78');
+		});
+
+		it('supprime le numéro du département si c’est un département corse avant d’appeler l’api', async () => {
+			const httpClientService = aCachedHttpClientService();
+			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([
+				{
+					_score: 1,
+					code: '78',
+					codeRegion: '11',
+					nom: 'Yvelines',
+				},
+			]) as CacheAxiosResponse);
+			const apiGeoLocalisationRepository = new ApiGeoRepository(httpClientService, anErrorManagementService());
+
+			await apiGeoLocalisationRepository.getDépartementListByNom('Haute-Corse (2B)');
+
+			expect(httpClientService.get).toHaveBeenCalledWith('departements?nom=Haute-Corse');
+		});
+
 		it('retourne la liste des départements par nom trouvées par l‘api decoupage administratif', async () => {
 			const httpClientService = aCachedHttpClientService();
 			jest.spyOn(httpClientService, 'get').mockResolvedValue(aCacheAxiosResponse([

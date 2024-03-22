@@ -4,6 +4,7 @@ export default class RechercheLocalisationUtils {
 	private static DEPARTEMENT_LENGTH_DOMTOM = 3;
 	private static CODE_CORSE_DU_SUD = '2a';
 	private static CODE_HAUTE_CORSE = '2b';
+	static DEPARTEMENT_CORSE_REGEX = /2a|2b/i;
 
 	static isRechercheByNumeroCodePostal(recherche: string): boolean {
 		return this.checkRechercheOnlyNumber(this.CODE_POSTAL_LENGTH, recherche);
@@ -18,5 +19,9 @@ export default class RechercheLocalisationUtils {
 
 	static checkRechercheOnlyNumber(length: number, recherche: string): boolean {
 		return new RegExp(/^\d*$/).test(recherche) && recherche.length === length;
+	}
+
+	static isRechercheConcerneDepartementCorse(recherche: string): boolean {
+		return this.DEPARTEMENT_CORSE_REGEX.test(recherche);
 	}
 }
