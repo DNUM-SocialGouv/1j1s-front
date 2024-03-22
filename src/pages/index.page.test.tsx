@@ -219,8 +219,8 @@ describe('Page d‘accueil', () => {
 					);
 
 					// THEN
-					const titreBanniere = screen.getByText('Un stage du 17 au 28 juin 2024.');
-					const sousTitreBanniere = screen.getByText('Pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.');
+					const titreBanniere = screen.getByText('Un stage du 17 au 28 juin 2024');
+					const sousTitreBanniere = screen.getByText('pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.');
 					const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater' });
 					expect(titreBanniere).toBeVisible();
 					expect(sousTitreBanniere).toBeVisible();

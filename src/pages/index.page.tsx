@@ -250,10 +250,10 @@ export default function Accueil() {
 					{isBanniereStagesSecondePourCampagneDu25Mars ?
 						<>
 							<HeroPrimaryText className={styles.heroTitle}>
-								Un stage du 17 au 28 juin 2024.
+								Un stage du 17 au 28 juin 2024
 							</HeroPrimaryText>
 							<HeroSecondaryText>
-								Pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.
+								pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.
 							</HeroSecondaryText>
 							<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
 								Proposer un stage ou candidater
