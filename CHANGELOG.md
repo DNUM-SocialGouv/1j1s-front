@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.268.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.1...v3.268.2) (2024-03-22)
+
+
+### Bug Fixes
+
+* **multiple:** css rechercherSolutionLayout et rechercherSolutionLayoutWithTabs ([#2834](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2834)) ([8be2d54](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8be2d54736c37a3e630b4fbcad08ce786c06541e))
+
 ## [3.268.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.0...v3.268.1) (2024-03-22)
 
 
