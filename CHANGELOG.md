@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.268.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.0...v3.268.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* ajoute la possibilite d'alternative textuelle sur logos de ServiceCard et ajoute alternatives manquantes ([#2800](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2800)) ([6645cb8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6645cb8cc1caa1d3d2d65589ed3e9867c4c727c3))
+
 ## [3.268.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.5...v3.268.0) (2024-03-21)
 
 
