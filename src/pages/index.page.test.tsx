@@ -204,12 +204,12 @@ describe('Page d‘accueil', () => {
 		});
 		describe('quand le feature flip des stages seconde est actif', () => {
 			describe('quand le feature flip de la recherche de stages de seconde est actif', () => {
-			  it('la bannière est adressée au jeunes en recherche de stages de seconde', () => {
+			  it('la bannière contient les wording de la campagne du 25 mars 2024', () => {
 					// GIVEN
 					const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
-					process.env.NEXT_PUBLIC_STAGES_SECONDE_URL= fakeUrlVoirStageSeconde;
+					process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL = fakeUrlVoirStageSeconde;
 
 					// WHEN
 					render(
@@ -219,9 +219,9 @@ describe('Page d‘accueil', () => {
 					);
 
 					// THEN
-					const titreBanniere = screen.getByText('Rechercher un stage de seconde générale et technologique.');
-					const sousTitreBanniere = screen.getByText('Du 17 au 28 Juin.');
-					const voirStageSecondeButton = screen.getByRole('link', { name: 'Rechercher une offre de stage' });
+					const titreBanniere = screen.getByText('Un stage du 17 au 28 juin 2024.');
+					const sousTitreBanniere = screen.getByText('Pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.');
+					const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater' });
 					expect(titreBanniere).toBeVisible();
 					expect(sousTitreBanniere).toBeVisible();
 					expect(voirStageSecondeButton).toBeVisible();
