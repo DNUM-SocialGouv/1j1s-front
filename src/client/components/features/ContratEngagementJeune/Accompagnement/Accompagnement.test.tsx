@@ -157,7 +157,7 @@ describe('<Accompagnement />', () => {
 			expect(screen.getByText(contenuModal)).toBeVisible();
 			const link = screen.getByRole('link', { name: inscriptionFranceTravail });
 			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.francetravail.fr/inscription-en-ligne/accueil'));
 			expect(link).toHaveAttribute('target', '_blank');
 		});
 	});
@@ -352,7 +352,7 @@ describe('<Accompagnement />', () => {
 			// Then
 			const link = screen.getByRole('link', { name: jeContacteMonConseiller });
 			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('pole-emploi.fr'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('francetravail.fr'));
 			expect(link).toHaveAttribute('target', '_blank');
 		});
 	});
