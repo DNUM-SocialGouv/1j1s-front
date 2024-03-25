@@ -31,6 +31,13 @@ describe('<Entreprise />', () => {
 			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
 		});
 
+		it('les champs contenant des données pouvant être saisie automatiquement ont un attribut autocomplete approprié', () => {
+			render(<Entreprise/>);
+
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toHaveAttribute('autocomplete', 'organization');
+			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toHaveAttribute('autocomplete', 'email');
+		});
+
 		describe('champ adresse mail', () => {
 			it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
 				render(<Entreprise/>);
