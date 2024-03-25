@@ -7,12 +7,29 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { getHtmlFromMd } from '~/client/components/ui/MarkdownToHtml/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 interface ConsulterOffreDeStageProps {
 	offreDeStage: OffreDeStage
 }
+
+const mapPeriodePaiementLabel = (remunerationPeriode?: RemunerationPeriode) => {
+	switch (remunerationPeriode) {
+		case RemunerationPeriode.HOURLY:
+			return 'Par heure';
+		case RemunerationPeriode.MONTHLY:
+			return 'Par mois';
+		case RemunerationPeriode.YEARLY:
+			return 'Par an';
+		default:
+			return 'Par mois';
+	}
+};
+
+const LABEL_AUCUNE_REMUNERATION = 'Aucune';
+const LABEL_REMUNERATION_NON_RENSEIGNEE = 'Non renseignée';
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
 	const listeEtiquettes = useMemo(() => {
@@ -43,11 +60,20 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
 	const remuneration = useCallback(function getRemunerationOffreDeStage() {
-		if (offreDeStage.remunerationBase === undefined) {
-			return 'Non renseignée';
+		if (offreDeStage.remunerationBase === undefined && offreDeStage.remunerationMin === undefined && offreDeStage.remunerationMax === undefined) {
+			return LABEL_REMUNERATION_NON_RENSEIGNEE;
 		}
-		return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : 'Aucune';
-	}, [offreDeStage.remunerationBase]);
+		if (offreDeStage.remunerationBase) { // supprimer ce if lors du ticket UNJ1S-1964
+			return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : LABEL_AUCUNE_REMUNERATION;
+		}
+		if (offreDeStage.remunerationMax && offreDeStage.remunerationMax > 0) {
+			return `entre ${offreDeStage.remunerationMin?.toString()} € et ${offreDeStage.remunerationMax?.toString()} €`;
+		}
+		return LABEL_AUCUNE_REMUNERATION;
+	}, [offreDeStage.remunerationBase, offreDeStage.remunerationMin, offreDeStage.remunerationMax])();
+
+	const periodeDePaiementLabel = mapPeriodePaiementLabel(offreDeStage.remunerationPeriode);
+	const doitAfficherPeriodeDePaiment = remuneration !== LABEL_AUCUNE_REMUNERATION && remuneration !== LABEL_REMUNERATION_NON_RENSEIGNEE;
 
 	return (
 		<ConsulterOffreLayout>
@@ -83,8 +109,12 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 					}
 					<div>
 						<dt>Rémunération :</dt>
-						<dd>{remuneration()}</dd>
+						<dd>{remuneration}</dd>
 					</div>
+					{doitAfficherPeriodeDePaiment && <div>
+						<dt>Période de paiement :</dt>
+						<dd>{periodeDePaiementLabel}</dd>
+					</div>}
 				</dl>
 			</section>
 		</ConsulterOffreLayout>

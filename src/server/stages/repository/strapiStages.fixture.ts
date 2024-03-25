@@ -1,5 +1,5 @@
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
@@ -31,6 +31,9 @@ export function aStrapiOffreDeStage(override?: Partial<OffreStageResponseStrapi.
 		},
 		publishedAt: '2023-01-06T07:49:10.756Z',
 		remunerationBase: 1000,
+		remunerationMax: 1000,
+		remunerationMin: 1000,
+		remunerationPeriode: RemunerationPeriode.MONTHLY,
 		slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
 		source: 'jobteaser' as SourceDesDonnées,
 		sourceCreatedAt: '',

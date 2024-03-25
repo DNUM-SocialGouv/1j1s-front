@@ -1,8 +1,8 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
@@ -43,6 +43,9 @@ describe('strapiStage mapper', () => {
 				},
 				publishedAt: '2023-01-06T07:49:10.756Z',
 				remunerationBase: 1000,
+				remunerationMax: 1100,
+				remunerationMin: 900,
+				remunerationPeriode: RemunerationPeriode.MONTHLY,
 				slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
 				source: 'jobteaser' as SourceDesDonnées,
 				sourceCreatedAt: '',
@@ -71,6 +74,9 @@ describe('strapiStage mapper', () => {
 					pays: 'France',
 				},
 				remunerationBase: 1000,
+				remunerationMax: 1100,
+				remunerationMin: 900,
+				remunerationPeriode: RemunerationPeriode.MONTHLY,
 				slug: 'alternance-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
 				source: SourceDesDonnées.JOBTEASER,
 				teletravailPossible: true,

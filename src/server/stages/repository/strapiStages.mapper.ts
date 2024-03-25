@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage, OffreStageDepot } from '~/server/stages/domain/stages';
-import { RemunerationPeriode } from '~/server/stages/repository/remunerationPeriode';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
 import { OffreStageDepotStrapi, OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 
@@ -28,6 +28,9 @@ export function mapOffreStage(response: OffreStageResponseStrapi.OffreStage): Of
 			ville: response.localisation.ville || undefined,
 		} : undefined,
 		remunerationBase: response.remunerationBase ?? undefined,
+		remunerationMax: response.remunerationMax ?? undefined,
+		remunerationMin: response.remunerationMin ?? undefined,
+		remunerationPeriode: response.remunerationPeriode ?? undefined,
 		slug: response.slug,
 		source: response.source || undefined,
 		teletravailPossible: response.teletravailPossible ?? undefined,
