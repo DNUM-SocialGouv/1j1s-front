@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.269.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.0...v3.269.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.33.3 ([#2843](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2843)) ([a8a5a6a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a8a5a6a8cda1e161e8580ff4780e3c462aee478a))
+
 ## [3.269.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.4...v3.269.0) (2024-03-25)
 
 
