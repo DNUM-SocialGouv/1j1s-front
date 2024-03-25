@@ -47,6 +47,18 @@ describe('<FormulaireDeContactCEJ />', () => {
 		expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 	});
 
+	it('les champs contenant des informations personnels ont des autocomplete', async () => {
+		// When
+		renderComponent();
+
+		// Then
+		expect(screen.getByRole('textbox',{ name: 'Prénom Exemple : Jean' })).toHaveAttribute('autocomplete', 'given-name');
+		expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toHaveAttribute('autocomplete', 'family-name');
+		expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toHaveAttribute('autocomplete', 'email');
+		expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toHaveAttribute('autocomplete', 'tel-national');
+	});
+
+
 	it('lorsque je remplis le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
 		const user = userEvent.setup();
 
