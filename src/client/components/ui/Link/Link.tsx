@@ -111,7 +111,6 @@ export function LinkIcon(props: LinkIconProps) {
 	);
 }
 
-// NOTE (BRUJ 11/03/2024): le defaultLinkIcon est deprecié pour des raisons d'accessibilité cf ticket n°2013
 function DefaultLinkIcon() {
 	const { href } = useLinkContext();
 	const isInternalLink = useIsInternalLink(href);
