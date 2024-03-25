@@ -169,7 +169,9 @@ export default function LesEntreprisesSEngagentInscription() {
 										<Champ.Input
 											render={Input}
 											name={'companyName'}
-											required/>
+											required
+											autoComplete="organization"
+										/>
 										<Champ.Error/>
 									</Champ>
 									<ComboboxCommune
@@ -250,7 +252,9 @@ export default function LesEntreprisesSEngagentInscription() {
 										<Champ.Input
 											render={Input}
 											name={'firstName'}
-											required/>
+											required
+											autoComplete="given-name"
+										/>
 										<Champ.Error/>
 									</Champ>
 
@@ -262,7 +266,9 @@ export default function LesEntreprisesSEngagentInscription() {
 										<Champ.Input
 											render={Input}
 											name={'lastName'}
-											required/>
+											required
+											autoComplete="family-name"
+										/>
 										<Champ.Error/>
 									</Champ>
 
@@ -276,7 +282,9 @@ export default function LesEntreprisesSEngagentInscription() {
 										<Champ.Input
 											render={Input}
 											name={'job'}
-											required/>
+											required
+											autoComplete="organization-title"
+										/>
 										<Champ.Error/>
 									</Champ>
 
@@ -292,7 +300,9 @@ export default function LesEntreprisesSEngagentInscription() {
 											type="email"
 											render={Input}
 											name={'email'}
-											required/>
+											required
+											autoComplete="email"
+										/>
 										<Champ.Hint>Cette adresse vous permettra d’accéder à votre espace sécurisé afin de gérer les
 											informations suivies.</Champ.Hint>
 										<Champ.Error/>
