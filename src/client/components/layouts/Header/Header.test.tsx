@@ -209,7 +209,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).toBeVisible();
 			expect(stage2deLink).toHaveAttribute('href', 'https://www.monstageenligne.example/');
 		});
@@ -226,7 +226,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).not.toBeInTheDocument();
 		});
 		it('masque le lien stage de 2de quand l’url n’est pas fournie', async () => {
@@ -242,7 +242,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).not.toBeInTheDocument();
 		});
 
