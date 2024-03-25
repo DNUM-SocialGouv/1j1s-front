@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.269.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.4...v3.269.0) (2024-03-25)
+
+
+### Features
+
+* **stage2de:** ajout du feature flip sur la banniere accueil avec changement wording et url ([#2831](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2831)) ([d51578c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d51578ce5ae68b5f1ea161d06fb9d2f35d1f0155))
+
 ## [3.268.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.3...v3.268.4) (2024-03-22)
 
 
