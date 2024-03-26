@@ -5,14 +5,14 @@
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import useDisplayBackButton from '~/client/hooks/useDisplayBackButton';
+import { BackButtonPersistenceService } from '~/client/services/backButtonPersistence/backButtonPersistence.service';
 import {
 	aBackButtonPersistenceService,
 } from '~/client/services/backButtonPersistence/backButtonPersistence.service.fixture';
 
-function TestComponent() {
-	useDisplayBackButton();
+function TestComponent(props: { backButtonPersistenceService: BackButtonPersistenceService | false }) {
+	useDisplayBackButton(props.backButtonPersistenceService);
 	return <></>;
 }
 
@@ -27,7 +27,7 @@ describe('useDisplayBackButton', () => {
 				const backButtonPersistenceService = aBackButtonPersistenceService();
 
 				// When
-				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
+				render(<TestComponent backButtonPersistenceService={backButtonPersistenceService} />);
 
 				// Then
 				expect(backButtonPersistenceService.setCurrentPath).toHaveBeenCalledWith('/');
@@ -45,7 +45,7 @@ describe('useDisplayBackButton', () => {
 				});
 
 				// When
-				render(<DependenciesProvider backButtonPersistenceService={backButtonPersistenceService}><TestComponent /></DependenciesProvider>);
+				render(<TestComponent backButtonPersistenceService={backButtonPersistenceService} />);
 
 				// Then
 				expect(backButtonPersistenceService.setPreviousPath).toHaveBeenCalledWith('/');

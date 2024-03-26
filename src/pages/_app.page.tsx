@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const dependenciesContainerInstance = useMemo(() => isClientSide && dependenciesContainer(sessionId), [isClientSide, sessionId]);
 	const router = useRouter();
 
-	useDisplayBackButton();
+	useDisplayBackButton(dependenciesContainerInstance && dependenciesContainerInstance.backButtonPersistenceService);
 
 	useEffect(() => {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];
