@@ -7,7 +7,7 @@ export function FranceTravailPartner() {
 		<ServiceCard
 			title="France Travail propose un accompagnement individualisé pour les jeunes de 16 à 30 ans"
 			logo="/images/logos/france-travail.svg"
-			link="/articles/france-travail"
+			link="/articles/accompagnement-france-travail"
 			linkLabel="En savoir plus"
 			titleAs={'h3'}
 		>
