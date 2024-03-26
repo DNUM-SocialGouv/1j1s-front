@@ -79,7 +79,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 			label="Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
 			name={StageEnum.LIEN_CANDIDATURE}
 			value={props.informationsStage?.lienCandidature}
-			placeholder="Exemples : https://candidat.pole-emploi.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
+			placeholder="Exemples : https://candidat.francetravail.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
 			required
 			className={styles.inputLienCandidature}
 		/>

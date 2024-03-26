@@ -61,7 +61,7 @@ export function aBarmanOffre(): Offre {
 		lieuTravail: 'BOURG LES VALENCE (26)',
 		qualitéeProfessionnelleList: [],
 		typeContrat: Offre.CONTRAT_SAISONNIER,
-		urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
+		urlOffreOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132LKFB',
 		étiquetteList: ['BOURG LES VALENCE (26)', 'Débutant accepté', 'Saisonnier', 'Temps partiel'],
 	};
 }
@@ -84,7 +84,7 @@ export function aMaçonOffre(): Offre {
 		lieuTravail: undefined,
 		qualitéeProfessionnelleList: [],
 		typeContrat: Offre.CONTRAT_INTÉRIMAIRE,
-		urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
+		urlOffreOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/130WPHC',
 		étiquetteList: ['Expérience exigée', 'Intérim', 'Temps partiel'],
 	};
 }
@@ -105,7 +105,7 @@ export function aValetOffre(): Offre {
 		lieuTravail: 'BALARUC LES BAINS (34)',
 		qualitéeProfessionnelleList: [],
 		typeContrat: Offre.CONTRAT_CDD,
-		urlOffreOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
+		urlOffreOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132MDKM',
 		étiquetteList: ['BALARUC LES BAINS (34)', 'Expérience souhaitée', 'CDD', 'Temps partiel'],
 	};
 }
