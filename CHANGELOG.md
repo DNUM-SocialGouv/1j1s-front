@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.270.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.1...v3.270.0) (2024-03-26)
+
+
+### Features
+
+* corrige le nom accessible des liens (= nouvelle fenetre)  ([#2833](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2833)) ([00149b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/00149b159996089a94a73f70b06bade02f6044b3))
+
 ## [3.269.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.0...v3.269.1) (2024-03-25)
 
 
