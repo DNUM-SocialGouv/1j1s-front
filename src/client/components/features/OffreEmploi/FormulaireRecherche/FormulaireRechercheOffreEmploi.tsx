@@ -53,7 +53,6 @@ export function FormulaireRechercheOffreEmploi() {
 	const [inputExpérience, setInputExpérience] = useState(queryParams.experienceExigence ?? '');
 	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(queryParams.tempsDeTravail ?? '');
 	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
-	const [inputMotCle, setInputMotCle] = useState(queryParams.motCle ?? '');
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
@@ -101,9 +100,8 @@ export function FormulaireRechercheOffreEmploi() {
 						</Champ.Label>
 						<Champ.Input
 							render={Input}
-							defaultValue={inputMotCle}
+							defaultValue={queryParams.motCle}
 							name="motCle"
-							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 							minLength={2}
 						/>
 						<Champ.Error/>

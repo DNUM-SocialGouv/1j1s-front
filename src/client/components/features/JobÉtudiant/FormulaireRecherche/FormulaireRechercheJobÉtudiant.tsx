@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
@@ -29,7 +29,6 @@ export function FormulaireRechercheJobÉtudiant() {
 	const router = useRouter();
 
 	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
-	const [inputMotCle, setInputMotCle] = useState<string>(queryParams.motCle ?? '');
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
@@ -55,9 +54,8 @@ export function FormulaireRechercheJobÉtudiant() {
 						</Champ.Label>
 						<Champ.Input
 							render={Input}
-							defaultValue={inputMotCle}
+							defaultValue={queryParams.motCle}
 							name="motCle"
-							onChange={(event: ChangeEvent<HTMLInputElement>) => setInputMotCle(event.currentTarget.value)}
 							minLength={2}
 						/>
 						<Champ.Error/>
