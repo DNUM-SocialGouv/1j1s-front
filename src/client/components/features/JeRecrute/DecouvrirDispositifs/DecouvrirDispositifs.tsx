@@ -29,7 +29,7 @@ export function DécouvrirDispositifs () {
 						<Link href="/apprentissage/deposer-offre" appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre d’alternance<Link.Icon/></Link>
 					</li>
 					<li>
-						<Link href={MAIL_TO} appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage<Link.Icon/></Link>
+						<Link href={MAIL_TO} appearance='asPrimaryButton' className={styles.offresLien}>Déposer une offre de stage<Link.Icon name="mail"/></Link>
 					</li>
 				</ul>
 			</Container>

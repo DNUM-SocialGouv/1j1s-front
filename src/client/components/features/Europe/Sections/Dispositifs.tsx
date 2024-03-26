@@ -38,7 +38,7 @@ function EuresCardContent() {
 			<Link
 				appearance="asPrimaryButton"
 				href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
-				aria-label="En savoir plus sur EURES"
+				aria-label="En savoir plus sur EURES - nouvelle fenêtre"
 			>
 				En savoir plus
 				<Link.Icon/>
@@ -79,7 +79,7 @@ function ErasmusCardContent() {
 			<Link
 				appearance="asPrimaryButton"
 				href="https://info.erasmusplus.fr/"
-				aria-label="En savoir plus sur ERASMUS+"
+				aria-label="En savoir plus sur ERASMUS+ - nouvelle fenêtre"
 			>
 				En savoir plus
 				<Link.Icon/>

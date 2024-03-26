@@ -39,7 +39,7 @@ describe('ConsulterMission', () => {
 
 			render(<ConsulterMissionEngagement missionEngagement={offreMission} />);
 
-			const lienPostuler = screen.getByRole('link', { name: 'S’engager' });
+			const lienPostuler = screen.getByRole('link', { name: 'S’engager - nouvelle fenêtre' });
 			expect(lienPostuler).toBeVisible();
 			expect(lienPostuler).toHaveAttribute('href', offreMission.url);
 		});

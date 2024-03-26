@@ -279,7 +279,7 @@ describe('<ConsulterAnnonce />', () => {
 		it('affiche un lien externe Voir l‘annonce', () => {
 			const annonceDeLogement = anAnnonceDeLogement();
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce' });
+			const lienExterneCandidater = screen.getByRole('link', { name: 'Voir l‘annonce - nouvelle fenêtre' });
 			expect(lienExterneCandidater).toBeVisible();
 			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
 		});

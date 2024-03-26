@@ -111,12 +111,11 @@ export function LinkIcon(props: LinkIconProps) {
 	);
 }
 
-// NOTE (BRUJ 11/03/2024): le defaultLinkIcon est deprecié pour des raisons d'accessibilité cf ticket n°2013
 function DefaultLinkIcon() {
 	const { href } = useLinkContext();
 	const isInternalLink = useIsInternalLink(href);
 
-	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection"/>}</>;
+	return <>{isInternalLink ? <Icon name="arrow-right"/> : <Icon name="external-redirection" aria-hidden="false" aria-label="- nouvelle fenêtre"/>}</>;
 }
 
 Link.Icon = LinkIcon;

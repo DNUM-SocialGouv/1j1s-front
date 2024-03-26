@@ -12,12 +12,12 @@ describe('<EntreprendreOutilADisposition />', () => {
 	it('affiche correctement un lien', () => {
 		const props = {
 			description: 'description',
-			link: 'lien',
+			link: 'https://entreprendre.com',
 			linkLabel: 'linkLabel',
 		};
 		render(<EntreprendreOutilADisposition {...props} />);
 
-		const link = screen.getByRole('link', { name: props.linkLabel });
+		const link = screen.getByRole('link', { name: `${props.linkLabel} - nouvelle fenêtre` });
 		expect(link).toBeVisible();
 	});
 });
