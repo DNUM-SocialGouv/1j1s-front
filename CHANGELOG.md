@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.270.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.270.0...v3.270.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* **francetravail:** donner le bon slug d’article sur l’accompagnement france travail ([#2852](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2852)) ([b746ef9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b746ef9fd25ff0046323bca92ef2a30758a39034))
+
 ## [3.270.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.1...v3.270.0) (2024-03-26)
 
 
