@@ -1,5 +1,47 @@
 # Changelog
 
+## [3.269.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.0...v3.269.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.33.3 ([#2843](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2843)) ([a8a5a6a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a8a5a6a8cda1e161e8580ff4780e3c462aee478a))
+
+## [3.269.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.4...v3.269.0) (2024-03-25)
+
+
+### Features
+
+* **stage2de:** ajout du feature flip sur la banniere accueil avec changement wording et url ([#2831](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2831)) ([d51578c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d51578ce5ae68b5f1ea161d06fb9d2f35d1f0155))
+
+## [3.268.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.3...v3.268.4) (2024-03-22)
+
+
+### Bug Fixes
+
+* **localisation:** cas particulier de la corse qui necessite de supprimer le numero de département avant de soumettre à l'api ([#2841](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2841)) ([c6a5dd0](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c6a5dd07d3d7b08ae779b252b8218d0c99b8e898))
+
+## [3.268.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.2...v3.268.3) (2024-03-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dompurify to v3.0.11 ([#2829](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2829)) ([a386a95](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a386a95c39a2475e88817d25c70a26014bc2ed82))
+
+## [3.268.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.1...v3.268.2) (2024-03-22)
+
+
+### Bug Fixes
+
+* **multiple:** css rechercherSolutionLayout et rechercherSolutionLayoutWithTabs ([#2834](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2834)) ([8be2d54](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8be2d54736c37a3e630b4fbcad08ce786c06541e))
+
+## [3.268.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.0...v3.268.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* ajoute la possibilite d'alternative textuelle sur logos de ServiceCard et ajoute alternatives manquantes ([#2800](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2800)) ([6645cb8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6645cb8cc1caa1d3d2d65589ed3e9867c4c727c3))
+
 ## [3.268.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.267.5...v3.268.0) (2024-03-21)
 
 

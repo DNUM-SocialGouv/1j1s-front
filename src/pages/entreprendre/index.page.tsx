@@ -119,6 +119,7 @@ export default function Entreprendre() {
 							link="https://entreprendreamarseille.fr/prendre-un-rendez-vous/"
 							linkLabel="Prendre rendez-vous pour exposer son projet"
 							logo="/images/entreprendre/région-sud.png"
+							logoAlt="Région Sud, Provence Alpes Côte d'Azur. Gourvenement, Liberté, Égalité, Fraternité"
 							title="Vous avez moins de 30 ans, habitez Marseille et souhaitez créer votre entreprise ?"
 							titleAs={'h3'}
 						>

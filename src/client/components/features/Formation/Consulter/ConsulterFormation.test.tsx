@@ -63,7 +63,7 @@ describe('ConsulterFormation', () => {
 
 		render(<ConsulterFormation formation={formation}/>);
 
-		const link = screen.getByRole('link', { name: 'Contacter l’établissement' });
+		const link = screen.getByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).toBeVisible();
 		expect(link).toHaveAttribute('href', formation.lienDemandeRendezVous);
 	});
@@ -83,7 +83,7 @@ describe('ConsulterFormation', () => {
 
 		render(<ConsulterFormation formation={formation}/>);
 
-		const link = screen.queryByRole('link', { name: 'Demander un rendez-vous' });
+		const link = screen.queryByRole('link', { name: 'Contacter l’établissement - nouvelle fenêtre' });
 		expect(link).not.toBeInTheDocument();
 	});
 });

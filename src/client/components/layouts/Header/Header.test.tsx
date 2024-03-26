@@ -38,7 +38,7 @@ describe('Header', () => {
 			mockUseRouter({ pathname: '/' });
 			render(<Header/>);
 
-			const accueilLink = screen.getByRole('link', { name: '1jeune1solution (retour à l\'accueil) - République française, Liberté, Égalité, Fraternité' });
+			const accueilLink = screen.getByRole('link', { name: '1jeune1solution (retour à l\'accueil)' });
 			expect(accueilLink).toBeVisible();
 		});
 
@@ -209,7 +209,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).toBeVisible();
 			expect(stage2deLink).toHaveAttribute('href', 'https://www.monstageenligne.example/');
 		});
@@ -226,7 +226,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).not.toBeInTheDocument();
 		});
 		it('masque le lien stage de 2de quand l’url n’est pas fournie', async () => {
@@ -242,7 +242,7 @@ describe('Header', () => {
 			await user.click(offreNavItem);
 
 			// THEN
-			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de' });
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).not.toBeInTheDocument();
 		});
 
@@ -256,7 +256,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre' });
 				expect(lienEnquete).toBeVisible();
 				expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
 			});

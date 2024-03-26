@@ -78,7 +78,7 @@ export function RechercherSolutionLayoutWithTabs(props: RechercherSolutionLayout
             <>
             	{erreurRecherche ? <ErrorComponent errorType={erreurRecherche}/>
             		: <>
-            			<Container className={styles.informationRésultat}>
+            			<Container className={styles.informationResultat}>
             				{étiquettesRecherche}
             				{(hasSolutionsInCurrentTab || isLoading) &&
                         <Skeleton type="line" isLoading={isLoading} className={styles.nombreRésultats}>

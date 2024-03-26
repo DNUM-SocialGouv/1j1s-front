@@ -1,6 +1,7 @@
 import { createSuccess, Either } from '~/server/errors/either';
 import { Localisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
+import RechercheLocalisationUtils from '~/server/localisations/domain/rechercheLocalisationUtils';
 import { getCodeRegion, mapLocalisationList } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { ApiDecoupageAdministratifResponse } from '~/server/localisations/infra/repositories/apiGeo.response';
 import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
@@ -31,7 +32,16 @@ export class ApiGeoRepository implements LocalisationRepository {
 
 	async getDépartementListByNom(departementRecherche: string): Promise<Either<Localisation[]>> {
 		const departementRechercheWithoutParenthesis = removeParenthesis(departementRecherche);
-		const endpoint = `departements?nom=${departementRechercheWithoutParenthesis}`;
+		let departementQuery;
+
+		if (RechercheLocalisationUtils.isRechercheConcerneDepartementCorse(departementRechercheWithoutParenthesis)) {
+			const corseSansCodeDepartement = departementRechercheWithoutParenthesis.replace(RechercheLocalisationUtils.DEPARTEMENT_CORSE_REGEX, '').trim();
+			departementQuery = corseSansCodeDepartement;
+		} else {
+			departementQuery = departementRechercheWithoutParenthesis;
+		}
+
+		const endpoint = `departements?nom=${departementQuery}`;
 		const contexte = 'départements';
 		return this.request<ApiDecoupageAdministratifResponse[], Localisation[]>(endpoint, mapLocalisationList, contexte);
 	}

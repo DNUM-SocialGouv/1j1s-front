@@ -64,7 +64,7 @@ describe('LesEntreprisesSEngagentInscription', () => {
 		it('il peut envoyer un email', () => {
 			renderComponent();
 
-			const link = screen.getByRole('link', { name: 'nous contacter' });
+			const link = screen.getByRole('link', { name: 'nous contacter - nouvelle fenêtre' });
 			expect(link.getAttribute('href')).toMatch(/^mailto:/);
 		});
 	});

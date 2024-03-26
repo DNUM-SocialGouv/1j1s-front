@@ -7,6 +7,7 @@ export function MissionsLocalesPartner() {
 		<ServiceCard
 			title="Les missions locales proposent un suivi personnalisé pour tous les jeunes jusqu’à 25 ans"
 			logo="/images/logos/union-mission-locale.svg"
+			logoAlt="Union Nationale des Missions Locales, Représenter et accompagner les réseaux d’insertions"
 			link="/articles/mission-locale"
 			linkLabel="En savoir plus"
 			titleAs={'h3'}

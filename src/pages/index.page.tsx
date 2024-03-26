@@ -30,7 +30,9 @@ export default function Accueil() {
 	const is1Jeune1PermisVisible = process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1';
 
 	const isBanniereStagesSecondeVisible = process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE === '1';
+	const isBanniereStagesSecondePourCampagneDu25Mars = process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1';
 	const urlDepotOffreStagesSeconde = process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL ?? '';
+	const urlHomePageStageDeSeconde = process.env.NEXT_PUBLIC_STAGES_SECONDE_HOMEPAGE_URL ?? '';
 
 	const offreCardListContent: CardContent[] = [
 		{
@@ -93,7 +95,7 @@ export default function Accueil() {
 			link: '/formations-initiales',
 			linkLabel: 'En savoir plus',
 			title: 'Formations initiales',
-		}: undefined,
+		} : undefined,
 		{
 			children: <p>Plus de 40 000 formations accessibles pour réaliser votre projet et trouver un emploi</p>,
 			imageUrl: '/images/formations-apprentissage.webp',
@@ -242,23 +244,42 @@ export default function Accueil() {
 					</Link>
 				</HeroWithIllustration>
 
-				{ isBanniereStagesSecondeVisible
-					&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp" className={styles.stageSecondeBanner}>
-						<h1><HeroPrimaryText className={styles.heroTitle}>Accueillez des élèves en stages de seconde générale et technologique. </HeroPrimaryText></h1>
-						<HeroSecondaryText>
-						Inspirez, transmettez, faites découvrir vos métiers.
-						</HeroSecondaryText>
-						<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
-							Déposer votre offre de stage
-							<Link.Icon/>
-						</Link>
-					</HeroWithIllustration>
+				{isBanniereStagesSecondeVisible
+				&& <HeroWithIllustration image="/images/stages-seconde/banniere-stages-seconde.webp"
+																 className={styles.stageSecondeBanner}>
+					{isBanniereStagesSecondePourCampagneDu25Mars ?
+						<>
+							<HeroPrimaryText className={styles.heroTitle}>
+								Un stage du 17 au 28 juin 2024
+							</HeroPrimaryText>
+							<HeroSecondaryText>
+								pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.
+							</HeroSecondaryText>
+							<Link href={urlHomePageStageDeSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
+								Proposer un stage ou candidater
+								<Link.Icon/>
+							</Link>
+						</> :
+						<>
+							<HeroPrimaryText className={styles.heroTitle}>
+									Accueillez des élèves en stages de seconde générale et technologique.
+							</HeroPrimaryText>
+							<HeroSecondaryText>
+								Inspirez, transmettez, faites découvrir vos métiers.
+							</HeroSecondaryText>
+							<Link href={urlDepotOffreStagesSeconde} appearance={'asSecondaryButton'} className={styles.heroButton}>
+								Déposer votre offre de stage
+								<Link.Icon/>
+							</Link>
+						</>
+					}
+				</HeroWithIllustration>
 				}
 
 				<section className={classNames(styles.section, styles.sectionNosOffres)}>
 					<h2 id="offres" className={styles.sectionHeader}>
 						<Icon name="brief-case" className={styles.sectionNosOffresHeaderIcon}/>
-						Offres
+				Offres
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -271,7 +292,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionFormationsOrientation)}>
 					<h2 id="formation" className={styles.sectionHeader}>
 						<Icon name={'book'} className={styles.sectionFormationsOrientationHeaderIcon}/>
-						Formations et orientation
+				Formations et orientation
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -284,7 +305,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionEngagementBénévolat)}>
 					<h2 id="engagement-benevolat" className={styles.sectionHeader}>
 						<Icon name="trophy" className={styles.sectionEngagementBénévolatHeaderIcon}/>
-						Engagement
+				Engagement
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -297,7 +318,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionLogement)}>
 					<h2 id="logement" className={styles.sectionHeader}>
 						<Icon name={'home'} className={styles.sectionLogementHeaderIcon}/>
-						Logement
+				Logement
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -310,7 +331,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionAidesOrientationAccompagnement)}>
 					<h2 id="aides-orientation-accompagnement" className={styles.sectionHeader}>
 						<Icon name={'compass'} className={styles.sectionAidesOrientationAccompagnementHeaderIcon}/>
-						Accompagnement
+				Accompagnement
 					</h2>
 					<Container>
 						<SeeMoreItemList
@@ -323,7 +344,7 @@ export default function Accueil() {
 				<section className={classNames(styles.section, styles.sectionAidesEtOutils)}>
 					<h2 id="aides-et-outils" className={styles.sectionHeader}>
 						<Icon name={'mark-pen'} className={styles.sectionAidesEtOutilsHeaderIcon}/>
-						Aides et outils
+				Aides et outils
 					</h2>
 					<Container>
 						<SeeMoreItemList

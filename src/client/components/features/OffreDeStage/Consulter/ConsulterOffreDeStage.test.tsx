@@ -6,6 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreDeStage } from '~/client/components/features/OffreDeStage/Consulter/ConsulterOffreDeStage';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage, anOffreDeStageLocalisation } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
@@ -117,7 +118,7 @@ describe('ConsulterOffreDeStage', () => {
 		describe('la rémunération du stage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -125,9 +126,9 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toBeVisible();
 				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
-			it('lorsque la rémunération est à 0, affiche "Aucune"', () => {
+			it('lorsque la rémunération base est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 0 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: 0, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -135,15 +136,83 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remunération).toBeVisible();
 				expect(remunération).toHaveTextContent('Aucune');
 			});
-			it('lorsque la rémunération est proposée affiche la somme de la rémunération', () => {
+			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 150 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 0, remunerationMin: 0 })}/>, { queries });
+
+				const remunération = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('Aucune');
+			});
+
+			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 1234, remunerationMin: 1234 })}/>, { queries });
+
+				const remunération = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remunération).toBeVisible();
+				expect(remunération).toHaveTextContent('1234 €');
+			});
+
+			it('lorsque la rémunération de base est proposée affiche la somme de la rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: 150, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
 
 				expect(remuneration).toBeVisible();
 				expect(remuneration).toHaveTextContent('150 €');
+			});
+			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 2000, remunerationMin: 2 })}/>, { queries });
+
+				const remuneration = getByDescriptionTerm('Rémunération :');
+
+
+				expect(remuneration).toBeVisible();
+				expect(remuneration).toHaveTextContent('entre 2 € et 2000 €' );
+			});
+
+		});
+		describe('période de rémunération', () => {
+			it('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération', () => {
+				const { queryByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/>, { queries });
+
+				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).not.toBeInTheDocument();
+			});
+			it('quand la rémunération est renseignée mais la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
+
+				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).toBeVisible();
+				expect(periodeDeRemuneration).toHaveTextContent('Par mois' );
+			});
+			it.each([
+				[RemunerationPeriode.HOURLY, 'Par heure'],
+				[RemunerationPeriode.MONTHLY, 'Par mois'],
+				[RemunerationPeriode.YEARLY, 'Par an' ],
+			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
+				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
+
+				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
+
+
+				expect(periodeDeRemuneration).toBeVisible();
+				expect(periodeDeRemuneration).toHaveTextContent(labelRemunerationAttendu);
 			});
 		});
 
@@ -253,7 +322,7 @@ describe('ConsulterOffreDeStage', () => {
 	it('permet de postuler à l‘offre de stage', () => {
 		render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
-		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler' });
+		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler - nouvelle fenêtre' });
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreDeStage.urlDeCandidature);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');

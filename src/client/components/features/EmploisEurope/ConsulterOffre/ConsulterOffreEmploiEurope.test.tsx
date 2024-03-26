@@ -75,7 +75,7 @@ describe('DetailOffreEmploiEurope', () => {
 			render(<DetailEmploiEurope annonceEmploiEurope={offreEmploiEurope}/>);
 
 
-			const linkCandidature = screen.getByRole('link', { name: 'Je postule sur Eures' });
+			const linkCandidature = screen.getByRole('link', { name: 'Je postule sur Eures - nouvelle fenêtre' });
 
 			expect(linkCandidature).toHaveAttribute('href', 'https://urlDeCandidature.com');
 			expect(linkCandidature).toBeVisible();

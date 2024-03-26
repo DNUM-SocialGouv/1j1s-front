@@ -14,7 +14,7 @@ export function HeaderBody() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-	const displayBanner = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
+	const displayEncartDeCampagne = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
 
 	return (
 		<Container className={styles.headerBodyContainer}>
@@ -41,13 +41,13 @@ export function HeaderBody() {
 					<Link
 						className={styles.headerBodyTitle}
 			      href="/"
-						title="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
-						aria-label="1jeune1solution (retour à l'accueil) - République française, Liberté, Égalité, Fraternité"
+						title="1jeune1solution (retour à l'accueil)"
+						aria-label="1jeune1solution (retour à l'accueil)"
 					>
 						1jeune1solution
 					</Link>
 				</div>
-				{displayBanner &&
+				{displayEncartDeCampagne &&
 						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 							<p>
 								<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
