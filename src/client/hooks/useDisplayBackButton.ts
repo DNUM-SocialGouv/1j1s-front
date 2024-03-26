@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import dependenciesContainer from '~/client/dependencies.container';
+import { BackButtonPersistenceService } from '~/client/services/backButtonPersistence/backButtonPersistence.service';
 
-
-function useDisplayBackButton(): void {
+function useDisplayBackButton(backButtonPersistenceService: BackButtonPersistenceService | false): void {
 	const router = useRouter();
 
-	const backButtonPersistenceService = dependenciesContainer().backButtonPersistenceService;
-
 	useEffect(() => {
+		if (!backButtonPersistenceService) {
+			return;
+		}
 		const currentPage = backButtonPersistenceService.getCurrentPath();
 		if (currentPage && currentPage !== router.pathname) {
 			backButtonPersistenceService.setPreviousPath(currentPage);

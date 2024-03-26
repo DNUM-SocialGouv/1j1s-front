@@ -132,7 +132,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			it('lorsque la rémunération base est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 0, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationBase: 0, remunerationMax: undefined, remunerationMin: undefined })}/></DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -141,7 +141,7 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remunération).toHaveTextContent('Aucune');
 			});
 			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
 					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 0, remunerationMin: 0 })}/></DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
@@ -152,8 +152,8 @@ describe('ConsulterOffreDeStage', () => {
 			});
 
 			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 1234, remunerationMin: 1234 })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 1234, remunerationMin: 1234 })}/></DependenciesProvider>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -173,8 +173,8 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toHaveTextContent('150 €');
 			});
 			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 2000, remunerationMin: 2 })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 2000, remunerationMin: 2 })}/></DependenciesProvider>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -186,8 +186,8 @@ describe('ConsulterOffreDeStage', () => {
 		});
 		describe('période de rémunération', () => {
 			it('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération', () => {
-				const { queryByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/>, { queries });
+				const { queryByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/></DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
 
@@ -195,8 +195,8 @@ describe('ConsulterOffreDeStage', () => {
 				expect(periodeDeRemuneration).not.toBeInTheDocument();
 			});
 			it('quand la rémunération est renseignée mais la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/></DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
 
@@ -209,8 +209,8 @@ describe('ConsulterOffreDeStage', () => {
 				[RemunerationPeriode.MONTHLY, 'Par mois'],
 				[RemunerationPeriode.YEARLY, 'Par an' ],
 			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
+				const { getByDescriptionTerm } = render(<DependenciesProvider backButtonPersistenceService={aBackButtonPersistenceService()}><ConsulterOffreDeStage
+					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/></DependenciesProvider>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
 
