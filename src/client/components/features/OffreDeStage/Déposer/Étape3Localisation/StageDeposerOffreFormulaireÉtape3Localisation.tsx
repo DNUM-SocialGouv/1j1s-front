@@ -15,13 +15,17 @@ import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSub
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { paysList } from '~/client/domain/pays';
-import useLocalStorage from '~/client/hooks/useLocalStorage';
-import useSessionStorage from '~/client/hooks/useSessionStorage';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import {
-	ETAPE_ENTREPRISE,
-	ETAPE_LOCALISATION,
-	ETAPE_OFFRE_DE_STAGE,
+	StageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
+import {
+	StageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/stageDeposerOffreEtape2Persistence.service';
+import {
+	StageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
+import {
 	URL_DEPOSER_OFFRE,
 } from '~/pages/stages/deposer-offre/index.page';
 
@@ -43,14 +47,14 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 	const [isLoading, setIsLoading] = useState(false);
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
-	const informationsEntreprise = localStorageEntreprise.get();
+	const persistenceEntreprise = useDependency<StageDeposerOffreEtape1PersistenceService>('stageDeposerOffreEtape1PersistenceService');
+	const informationsEntreprise = persistenceEntreprise.getInformationsEtape1();
 
-	const sessionStorageStage = useSessionStorage<OffreDeStageDeposee.Stage>(ETAPE_OFFRE_DE_STAGE);
-	const informationsStage = sessionStorageStage.get();
+	const persistenceStage = useDependency<StageDeposerOffreEtape2PersistenceService>('stageDeposerOffreEtape2PersistenceService');
+	const informationsStage = persistenceStage.getInformationsEtape2();
 
-	const localStorageLocalisation = useLocalStorage<OffreDeStageDeposee.Localisation>(ETAPE_LOCALISATION);
-	const informationsLocalisation = localStorageLocalisation.get();
+	const persistenceLocalisation = useDependency<StageDeposerOffreEtape3PersistenceService>('stageDeposerOffreEtape3PersistenceService');
+	const informationsLocalisation = persistenceLocalisation.getInformationsEtape3();
 
 	function getPaysDefaultValue() {
 		const paysCodeStored = informationsLocalisation?.pays;
@@ -179,12 +183,12 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const donnéesLocalisation = parseDonnéesLocalisation(data);
-		localStorageLocalisation.set(donnéesLocalisation);
+		persistenceLocalisation.setInformationsEtape3(donnéesLocalisation);
 
 		if (informationsEntreprise !== null && informationsStage !== null) {
 			const result = await stageService.enregistrerOffreDeStage(informationsEntreprise, informationsStage, donnéesLocalisation);
 			if (result.instance === 'success') {
-				sessionStorageStage.remove();
+				persistenceStage.removeInformationsEtape2();
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}
 			setIsModalErrorSubmitOpen(true);

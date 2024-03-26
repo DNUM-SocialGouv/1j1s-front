@@ -14,6 +14,15 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLocalStorage, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStageService } from '~/client/services/stage/stageService.fixture';
+import {
+	aStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service.fixture';
+import {
+	aStageDeposerOffreEtape2PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape2Persistence/stageDeposerOffreEtape2Persistence.service.fixture';
+import {
+	aStageDeposerOffreEtape3PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service.fixture';
 import DeposerOffreStageEtape3Page from '~/pages/stages/deposer-offre/localisation/index.page';
 
 describe('<DeposerOffreStageEtape3Page />', () => {
@@ -35,7 +44,12 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(
-			<DependenciesProvider stageService={aStageService()}>
+			<DependenciesProvider
+				stageService={aStageService()}
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
+				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
+				stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+			>
 				<DeposerOffreStageEtape3Page/>
 			</DependenciesProvider> );
 
@@ -46,6 +60,9 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				stageService={aStageService()}
+				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}
+				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService()}
+				stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
 			>
 				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider>,

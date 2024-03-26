@@ -12,6 +12,10 @@ import { userEvent } from '@testing-library/user-event';
 import Entreprise
 	from '~/client/components/features/OffreDeStage/Déposer/Étape1Entreprise/StageDeposerOffreFormulaireÉtape1Entreprise';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import {
+	aStageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service.fixture';
 
 describe('<Entreprise />', () => {
 	beforeEach(() => {
@@ -20,7 +24,7 @@ describe('<Entreprise />', () => {
 
 	describe('quand l’utilisateur arrive sur la page Entreprise', () => {
 		it('affiche la première étape de formulaire', () => {
-			render(<Entreprise/>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeInTheDocument();
@@ -33,7 +37,7 @@ describe('<Entreprise />', () => {
 
 		describe('champ adresse mail', () => {
 			it('le champ adresse mail donne une indication sur l’usage de celle-ci', async () => {
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 				const emailInput = screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' });
 
@@ -43,7 +47,7 @@ describe('<Entreprise />', () => {
 			it('lorsque je remplis le champ email avec des espaces avant et après, ils sont pas pris en compte', async () => {
 				const user = userEvent.setup();
 
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 				const mailInput = screen.getByRole('textbox', { name: /Adresse mail/ });
 
 				await user.type(mailInput, '     mail@avecespaces.com    ');
@@ -56,7 +60,7 @@ describe('<Entreprise />', () => {
 			const labelLogo = 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…';
 			const labelSite = 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr';
 			// Given
-			render(<Entreprise/>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 			const logoEntrepriseInput = screen.getByRole('textbox', { name: labelLogo });
 			const siteEntrepriseInput = screen.getByRole('textbox', { name: labelSite });
 
@@ -72,7 +76,7 @@ describe('<Entreprise />', () => {
 
 	describe('quand l’utilisateur clique sur Suivant mais n’a pas rempli l’étape 1', () => {
 		it('il voit une erreur native sur le premier champ obligatoire mais non rempli', async () => {
-			render(<Entreprise/>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 			const inputNomSociété = screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' });
 			await userEvent.type(inputNomSociété, 'Crédit Agricole');
@@ -88,7 +92,7 @@ describe('<Entreprise />', () => {
 		describe('et qu’il ne s’agit pas d’une URL', () => {
 			it('je vois un message d’erreur', async () => {
 				// Given
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 				// When
 				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
@@ -103,7 +107,7 @@ describe('<Entreprise />', () => {
 		describe('et qu’il s’agit bien d’une URL', () => {
 			it('je ne vois rien d’autre que mon url saisie', async () => {
 				// Given
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 				// When
 				const logoUrlInputText = screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' });
@@ -119,7 +123,7 @@ describe('<Entreprise />', () => {
 		describe('et qu’il ne s’agit pas d’une URL', () => {
 			it('je vois un message d’erreur', async () => {
 				// Given
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 				// When
 				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
@@ -133,7 +137,7 @@ describe('<Entreprise />', () => {
 		describe('et qu’il s’agit bien d’une URL', () => {
 			it('je ne vois rien d’autre que mon url saisie', async () => {
 				// Given
-				render(<Entreprise/>);
+				render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 				// When
 				const websiteUrlInputText = screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' });
