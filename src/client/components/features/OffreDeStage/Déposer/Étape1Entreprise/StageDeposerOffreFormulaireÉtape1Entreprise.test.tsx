@@ -36,7 +36,7 @@ describe('<Entreprise />', () => {
 		});
 
 		it('les champs contenant des données pouvant être saisie automatiquement ont un attribut autocomplete approprié', () => {
-			render(<Entreprise/>);
+			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toHaveAttribute('autocomplete', 'organization');
 			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toHaveAttribute('autocomplete', 'email');
