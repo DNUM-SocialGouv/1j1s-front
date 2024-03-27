@@ -49,7 +49,9 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 required
 										 type="text"
 										 maxLength={255}
-										 defaultValue={informationsEntreprise?.nomEmployeur}/>
+										 defaultValue={informationsEntreprise?.nomEmployeur}
+										 autoComplete="organization"
+				/>
 				<Champ.Error/>
 				<Champ.Hint>255 caractères maximum</Champ.Hint>
 			</Champ>
@@ -62,7 +64,9 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 pattern={emailRegex}
 										 defaultValue={informationsEntreprise?.emailEmployeur}
 										 required
-										 type="email"/>
+										 type="email"
+										 autoComplete="email"
+				/>
 				<Champ.Error/>
 				<Champ.Hint>
 					Cette adresse de contact sera utilisée dans le cas où

@@ -90,6 +90,13 @@ describe('LesEntreprisesSEngagentInscription', () => {
 			});
 		});
 
+		it('le champ concernant le nom de l’entreprise possède un attribut autocomplete approprié', () => {
+			renderComponent();
+
+			const inputOrganizationName = screen.getByRole('textbox', { name: /Nom de l’entreprise/ });
+			expect(inputOrganizationName).toHaveAttribute('autocomplete', 'organization');
+		});
+
 		describe('champ secteur d‘activité', () => {
 			it('les secteurs d’activités sont triés par ordre alphabétique avec "autres" et "autres activités" à la fin', async () => {
 				const user = userEvent.setup();
@@ -164,6 +171,21 @@ describe('LesEntreprisesSEngagentInscription', () => {
 	});
 
 	describe('sur l‘étape 2', () => {
+		it('les champs nécessitant une auto-complétion ont un attribut autocomplete approprié', async () => {
+			// GIVEN
+			renderComponent();
+			await remplirFormulaireEtape1();
+
+			// WHEN
+			await clickOnGoToEtape2();
+
+			// THEN
+			expect(screen.getByRole('textbox', { name: /Prénom/ })).toHaveAttribute('autocomplete', 'given-name');
+			expect(screen.getByRole('textbox', { name: /Nom/ })).toHaveAttribute('autocomplete', 'family-name');
+			expect(screen.getByRole('textbox', { name: /Adresse e-mail de contact/ })).toHaveAttribute('autocomplete', 'email');
+			expect(screen.getByRole('textbox', { name: /Fonction au sein de l’entreprise/ })).toHaveAttribute('autocomplete', 'organization-title');
+		});
+
 		it('lorsqu‘il remplit le champ email avec des espaces avant et après, ils ne sont pas pris en compte', async () => {
 			const user = userEvent.setup();
 			renderComponent();
