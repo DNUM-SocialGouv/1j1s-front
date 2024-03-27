@@ -42,7 +42,6 @@ describe('strapiStage mapper', () => {
 					ville: null,
 				},
 				publishedAt: '2023-01-06T07:49:10.756Z',
-				remunerationBase: 1000,
 				remunerationMax: 1100,
 				remunerationMin: 900,
 				remunerationPeriode: RemunerationPeriode.MONTHLY,
@@ -73,7 +72,6 @@ describe('strapiStage mapper', () => {
 				localisation: {
 					pays: 'France',
 				},
-				remunerationBase: 1000,
 				remunerationMax: 1100,
 				remunerationMin: 900,
 				remunerationPeriode: RemunerationPeriode.MONTHLY,
@@ -109,7 +107,6 @@ describe('strapiStage mapper', () => {
 					region: 'Provence-Alpes-Côte d\'Azure',
 					ville: 'Paris',
 				},
-				remunerationBase: 560,
 				teletravailPossible: true,
 				titre: 'Assistant conducteur train',
 				urlDeCandidature: 'mailto:admin@example.com',
@@ -141,8 +138,7 @@ describe('strapiStage mapper', () => {
 					region: 'Provence-Alpes-Côte d\'Azure',
 					ville: 'Paris',
 				},
-				remunerationBase: 560,
-				remunerationMax: 560, 
+				remunerationMax: 560,
 				remunerationMin: 560,
 				remunerationPeriode: RemunerationPeriode.MONTHLY,
 				teletravailPossible: true,
@@ -155,13 +151,12 @@ describe('strapiStage mapper', () => {
 
 		it('lorsque la rémunération n‘est pas présente, ne soumet pas de période de rémunération', () => {
 			const offreDeStageToSave = anOffreDeStageDepot({
-				remunerationBase: undefined,
+				remuneration: undefined,
 			});
 
 			const offreDeStageMapped = mapToStrapiDepotOffreDeStage(offreDeStageToSave);
 
 			const expectedResult = aStrapiOffreDeStageDepot({
-				remunerationBase: undefined,
 				remunerationMax: undefined,
 				remunerationMin: undefined,
 				remunerationPeriode: undefined,

@@ -24,7 +24,6 @@ export namespace OffreStageResponseStrapi {
 		dureeEnJourMax: number | null
 		localisation?: OffreStageResponseStrapi.Localisation
 		employeur?: OffreStageResponseStrapi.Employeur
-		remunerationBase: number | null
 		remunerationMin?: number
 		remunerationMax?: number
 		remunerationPeriode?: RemunerationPeriode
@@ -56,7 +55,7 @@ export namespace OffreStageResponseStrapi {
 }
 
 export type OffreStageDepotStrapi =
-	Pick<OffreStageResponseStrapi.OffreStage, 'dateDeDebutMin' | 'dateDeDebutMax' | 'description' | 'domaines' | 'dureeEnJour' | 'remunerationBase' | 'teletravailPossible' | 'titre' | 'remunerationMin' | 'remunerationMax' | 'remunerationPeriode'>
+	Pick<OffreStageResponseStrapi.OffreStage, 'dateDeDebutMin' | 'dateDeDebutMax' | 'description' | 'domaines' | 'dureeEnJour' | 'teletravailPossible' | 'titre' | 'remunerationMin' | 'remunerationMax' | 'remunerationPeriode'>
 	& {
 	identifiantSource: string;
 	publishedAt: null;

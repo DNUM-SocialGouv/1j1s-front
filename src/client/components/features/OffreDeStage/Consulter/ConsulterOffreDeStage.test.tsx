@@ -34,7 +34,6 @@ describe('ConsulterOffreDeStage', () => {
 			region: 'IDF',
 			ville: 'Paris',
 		},
-		remunerationBase: 1500,
 		slug: 'stage-en-graphisme',
 		teletravailPossible: true,
 		titre: 'stage en graphisme',
@@ -118,7 +117,7 @@ describe('ConsulterOffreDeStage', () => {
 		describe('la rémunération du stage', () => {
 			it('Lorsque la rémunération n‘est pas renseignée affiche "Non renseignée', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -126,19 +125,9 @@ describe('ConsulterOffreDeStage', () => {
 				expect(remuneration).toBeVisible();
 				expect(remuneration).toHaveTextContent('Non renseignée');
 			});
-			it('lorsque la rémunération base est à 0, affiche "Aucune"', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 0, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
-
-				const remunération = getByDescriptionTerm('Rémunération :');
-
-
-				expect(remunération).toBeVisible();
-				expect(remunération).toHaveTextContent('Aucune');
-			});
 			it('lorsque la rémunération min et max est à 0, affiche "Aucune"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 0, remunerationMin: 0 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: 0, remunerationMin: 0 })}/>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
@@ -149,28 +138,19 @@ describe('ConsulterOffreDeStage', () => {
 
 			it('lorsque la rémunération min et max sont identiques affiche cette rémunération', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 1234, remunerationMin: 1234 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: 1234, remunerationMin: 1234 })}/>, { queries });
 
 				const remunération = getByDescriptionTerm('Rémunération :');
 
 
 				expect(remunération).toBeVisible();
 				expect(remunération).toHaveTextContent('1234 €');
+				expect(remunération).not.toHaveTextContent('entre');
 			});
 
-			it('lorsque la rémunération de base est proposée affiche la somme de la rémunération', () => {
-				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: 150, remunerationMax: undefined, remunerationMin: undefined })}/>, { queries });
-
-				const remuneration = getByDescriptionTerm('Rémunération :');
-
-
-				expect(remuneration).toBeVisible();
-				expect(remuneration).toHaveTextContent('150 €');
-			});
 			it('lorsque la rémunération min et max sont proposées affiche l‘intervalle de rémunération', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 2000, remunerationMin: 2 })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: 2000, remunerationMin: 2 })}/>, { queries });
 
 				const remuneration = getByDescriptionTerm('Rémunération :');
 
@@ -183,7 +163,7 @@ describe('ConsulterOffreDeStage', () => {
 		describe('période de rémunération', () => {
 			it('quand la rémunération n‘est pas renseignée n‘affiche pas la période de rémunération', () => {
 				const { queryByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: undefined, remunerationMin: undefined, remunerationPeriode: RemunerationPeriode.YEARLY })}/>, { queries });
 
 				const periodeDeRemuneration = queryByDescriptionTerm('Période de paiement :');
 
@@ -192,7 +172,7 @@ describe('ConsulterOffreDeStage', () => {
 			});
 			it('quand la rémunération est renseignée mais la période de rémunération n‘est pas renseignée affiche "Par mois"', () => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode: undefined })}/>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
 
@@ -206,7 +186,7 @@ describe('ConsulterOffreDeStage', () => {
 				[RemunerationPeriode.YEARLY, 'Par an' ],
 			])('quand la rémunération et la période de rémunération sont renseignées, affiche la période de rémunération', (remunerationPeriode, labelRemunerationAttendu) => {
 				const { getByDescriptionTerm } = render(<ConsulterOffreDeStage
-					offreDeStage={anOffreDeStage({ remunerationBase: undefined, remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
+					offreDeStage={anOffreDeStage({ remunerationMax: 10000000, remunerationMin: 10000000, remunerationPeriode })}/>, { queries });
 
 				const periodeDeRemuneration = getByDescriptionTerm('Période de paiement :');
 

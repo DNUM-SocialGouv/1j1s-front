@@ -60,17 +60,17 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));
 
 	const remuneration = useCallback(function getRemunerationOffreDeStage() {
-		if (offreDeStage.remunerationBase === undefined && offreDeStage.remunerationMin === undefined && offreDeStage.remunerationMax === undefined) {
+		if (offreDeStage.remunerationMin === undefined && offreDeStage.remunerationMax === undefined) {
 			return LABEL_REMUNERATION_NON_RENSEIGNEE;
 		}
-		if (offreDeStage.remunerationBase) { // supprimer ce if lors du ticket UNJ1S-1964
-			return offreDeStage.remunerationBase > 0 ? `${offreDeStage.remunerationBase?.toString()} €` : LABEL_AUCUNE_REMUNERATION;
+		if (offreDeStage.remunerationMin && offreDeStage.remunerationMax && offreDeStage.remunerationMin === offreDeStage.remunerationMax && offreDeStage.remunerationMin > 0) {
+			return `${offreDeStage.remunerationMin.toString()} €`;
 		}
 		if (offreDeStage.remunerationMax && offreDeStage.remunerationMax > 0) {
 			return `entre ${offreDeStage.remunerationMin?.toString()} € et ${offreDeStage.remunerationMax?.toString()} €`;
 		}
 		return LABEL_AUCUNE_REMUNERATION;
-	}, [offreDeStage.remunerationBase, offreDeStage.remunerationMin, offreDeStage.remunerationMax])();
+	}, [offreDeStage.remunerationMin, offreDeStage.remunerationMax])();
 
 	const periodeDePaiementLabel = mapPeriodePaiementLabel(offreDeStage.remunerationPeriode);
 	const doitAfficherPeriodeDePaiment = remuneration !== LABEL_AUCUNE_REMUNERATION && remuneration !== LABEL_REMUNERATION_NON_RENSEIGNEE;

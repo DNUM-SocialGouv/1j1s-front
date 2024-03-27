@@ -25,7 +25,6 @@ export function anOffreDeStage(overrides?: Partial<OffreDeStage>): OffreDeStage 
 			region: undefined,
 			ville: undefined,
 		},
-		remunerationBase: 1000,
 		remunerationMax: 1000,
 		remunerationMin: 1000,
 		remunerationPeriode: RemunerationPeriode.MONTHLY,

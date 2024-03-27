@@ -21,7 +21,6 @@ export function anOffreDeStageIndexee(override?: Partial<OffreDeStageIndexée>):
 		},
 		logoUrlEmployeur: 'www.vienstravailler.example.com',
 		nomEmployeur: 'Viens travailler',
-		remunerationBase: 1000,
 		slug: 'stage-audit-tours-h-f-036780b7-95ba-4711-bf26-471d1f95051c',
 		source: SourceDesDonnées.JOBTEASER,
 		teletravailPossible: true,

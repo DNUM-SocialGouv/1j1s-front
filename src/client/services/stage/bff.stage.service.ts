@@ -43,7 +43,7 @@ export class BffStageService implements StageService {
 				region: informationsLocalisation.region || null,
 				ville: informationsLocalisation.ville,
 			},
-			remunerationBase: Number(informationsStage.remunerationStage) ?? null,
+			remuneration: Number(informationsStage.remunerationStage) ?? null,
 			teletravailPossible: informationsStage.teletravail ? informationsStage.teletravail === 'true' : null,
 			titre: informationsStage.nomOffre,
 			urlDeCandidature,
