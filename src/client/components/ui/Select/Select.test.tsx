@@ -213,6 +213,32 @@ describe('Select', () => {
 			const hiddenInput = await screen.findByTestId('Select-InputHidden');
 			expect(hiddenInput).toHaveValue('CDI');
 		});
+
+		it('quand on sélectionne une valeur, on appelle la fonction onChange passée au select', async () => {
+			// GIVEN
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+			render(
+				<Select
+					multiple
+					onChange={onChangeSpy}
+					placeholder={'Type de contrat'}
+					optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
+					label={'Type de contrat'}
+				/>,
+			);
+			const selectInput = screen.getByRole('button', { name: 'Type de contrat' });
+			await user.click(selectInput);
+			const listbox = await screen.findByRole('listbox');
+			const allOptions = within(listbox).getAllByRole('checkbox');
+
+			// WHEN
+			await user.click(allOptions[1]);
+
+			// THEN
+			const expectedContractType = Offre.TYPE_DE_CONTRAT_LIST[1].valeur;
+			expect(onChangeSpy).toHaveBeenCalledWith(expectedContractType);
+		});
 	});
 });
 

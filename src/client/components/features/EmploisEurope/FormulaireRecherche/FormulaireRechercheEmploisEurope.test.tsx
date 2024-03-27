@@ -87,7 +87,6 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				await user.click(buttonRechercher);
 
 				// THEN
-
 				expect(routerPush).toHaveBeenCalledWith({ query: `typeContrat=${EURES_CONTRACT_TYPE.Apprenticeship}&page=1` }, undefined, { shallow: true });
 			});
 		});
