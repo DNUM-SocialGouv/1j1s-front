@@ -149,7 +149,8 @@ export function Select(props: SelectProps) {
 
 		const newSelectedValue = valueList.join(',');
 		setSelectedValue(newSelectedValue);
-	}, [selectedValue, setSelectedValue]);
+		onChange?.(newSelectedValue);
+	}, [selectedValue, setSelectedValue, onChange]);
 
 	const renderOptionList = () => (
 		<ul
