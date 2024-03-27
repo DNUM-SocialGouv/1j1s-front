@@ -23,7 +23,6 @@ export interface OffreDeStage {
 	dureeEnJourMax?: number
 	localisation?: OffreDeStage.Localisation
 	employeur?: EmployeurStageCMS
-	remunerationBase?: number
 	remunerationMin?: number
 	remunerationMax?: number
 	remunerationPeriode?: RemunerationPeriode
@@ -68,7 +67,7 @@ export namespace OffreStageDepot {
 		duree: string
 		employeur: EmployeurDepotStage
 		localisation: Localisation
-		remunerationBase: number
+		remuneration: number
 		teletravailPossible: boolean | null
 		titre: string
 		urlDeCandidature: string

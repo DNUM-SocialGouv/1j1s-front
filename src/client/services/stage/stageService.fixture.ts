@@ -44,7 +44,7 @@ export function anOffreDeStageDepot(overrides?: Partial<OffreDeStageDepot>): Off
 			region: 'Provence-Alpes-Côte d\'Azure',
 			ville: 'Paris',
 		},
-		remunerationBase: 560,
+		remuneration: 560,
 		teletravailPossible: true,
 		titre: 'Assistant conducteur train',
 		urlDeCandidature: 'mailto:admin@example.com',
