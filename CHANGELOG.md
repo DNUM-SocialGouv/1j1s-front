@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.271.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.270.1...v3.271.0) (2024-03-27)
+
+
+### Features
+
+* **formulaires:** a11y ajouter les attributs autocomplete sur les formulaires quand c'est pertinent ([#2849](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2849)) ([1e15d8d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e15d8db0c09aa81734d8c1adc84769c7071a512))
+
 ## [3.270.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.270.0...v3.270.1) (2024-03-26)
 
 
