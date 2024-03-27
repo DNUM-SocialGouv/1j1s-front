@@ -190,6 +190,25 @@ describe('<ComboboxCommune/>', () => {
 		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
 
 		await user.type(combobox, 'ab');
+		await screen.findByText('Commencez à saisir au moins 3 caractères ou le code postal de la ville, puis sélectionnez votre localisation');
+
+		expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
+	});
+
+	it.each(['(', ')', '&', '+', '#', '$'])
+	('n‘appelle pas le service lorsque l‘utilisateur tape moins de 3 caractères dont un des caractères créé une erreur', async (caractereAIgnorer) => {
+		const user = userEvent.setup();
+		const localisationService = aLocalisationService({
+			rechercherCommune: jest.fn(),
+		});
+
+		render(<DependenciesProvider localisationService={localisationService}>
+			<ComboboxCommune label={'comboboxLabel'}/>
+		</DependenciesProvider>);
+		const combobox = screen.getByRole('combobox', { name: 'comboboxLabel Exemples : Paris, Béziers…' });
+
+		await user.type(combobox, `ab${caractereAIgnorer}`);
+		await screen.findByText('Commencez à saisir au moins 3 caractères ou le code postal de la ville, puis sélectionnez votre localisation');
 
 		expect(localisationService.rechercherCommune).not.toHaveBeenCalled();
 	});
