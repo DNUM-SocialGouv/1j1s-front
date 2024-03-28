@@ -31,7 +31,7 @@ describe('enregistrer une offre de stage', () => {
 				.once()
 				.reply(201);
 
-			await testApiHandler<void | ErrorHttpResponse>({
+			 await testApiHandler<void | ErrorHttpResponse>({
 				pagesHandler: (req, res) => depotOffreDeStageController(req, res),
 				test: async ({ fetch }) => {
 					const res = await fetch({

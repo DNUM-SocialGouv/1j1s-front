@@ -29,7 +29,7 @@ export const enregistrerOffreDeStageBodySchema = Joi.object({
 		region: Joi.string(),
 		ville: Joi.string().required(),
 	}),
-	remunerationBase: Joi.number(),
+	remuneration: Joi.number(),
 	teletravailPossible: Joi.boolean(),
 	titre: Joi.string().required(),
 	urlDeCandidature: Joi.string().required(),
