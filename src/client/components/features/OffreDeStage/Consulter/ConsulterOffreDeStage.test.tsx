@@ -322,7 +322,7 @@ describe('ConsulterOffreDeStage', () => {
 	it('permet de postuler à l‘offre de stage', () => {
 		render(<ConsulterOffreDeStage offreDeStage={offreDeStage}/>);
 
-		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler' });
+		const linkPostulerOffreEmploi = screen.getByRole('link', { name: 'Postuler - nouvelle fenêtre' });
 
 		expect(linkPostulerOffreEmploi).toHaveAttribute('href', offreDeStage.urlDeCandidature);
 		expect(linkPostulerOffreEmploi).toHaveAttribute('target', '_blank');

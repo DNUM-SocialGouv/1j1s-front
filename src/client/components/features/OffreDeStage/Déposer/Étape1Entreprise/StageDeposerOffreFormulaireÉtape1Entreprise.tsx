@@ -11,8 +11,11 @@ import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import useLocalStorage from '~/client/hooks/useLocalStorage';
-import { ETAPE_ENTREPRISE, URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import {
+	StageDeposerOffreEtape1PersistenceService,
+} from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
+import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 import { emailRegex } from '~/shared/emailRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape1Entreprise.module.scss';
@@ -32,8 +35,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 
 	const router = useRouter();
 
-	const localStorageEntreprise = useLocalStorage<OffreDeStageDeposee.Entreprise>(ETAPE_ENTREPRISE);
-	const informationsEntreprise = localStorageEntreprise.get();
+	const persistenceEntreprise = useDependency<StageDeposerOffreEtape1PersistenceService>('stageDeposerOffreEtape1PersistenceService');
+	const informationsEntreprise = persistenceEntreprise.getInformationsEtape1();
 
 	function ChampsObligatoires() {
 		return <>
@@ -46,7 +49,9 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 required
 										 type="text"
 										 maxLength={255}
-										 defaultValue={informationsEntreprise?.nomEmployeur}/>
+										 defaultValue={informationsEntreprise?.nomEmployeur}
+										 autoComplete="organization"
+				/>
 				<Champ.Error/>
 				<Champ.Hint>255 caractères maximum</Champ.Hint>
 			</Champ>
@@ -59,7 +64,9 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 										 pattern={emailRegex}
 										 defaultValue={informationsEntreprise?.emailEmployeur}
 										 required
-										 type="email"/>
+										 type="email"
+										 autoComplete="email"
+				/>
 				<Champ.Error/>
 				<Champ.Hint>
 					Cette adresse de contact sera utilisée dans le cas où
@@ -132,7 +139,7 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 		const form: HTMLFormElement = event.currentTarget;
 		const data = new FormData(form);
 		const donnéesEntreprise = parseDonnéesEntreprise(data);
-		localStorageEntreprise.set(donnéesEntreprise);
+		persistenceEntreprise.setInformationsEtape1(donnéesEntreprise);
 		return router.push(`${URL_DEPOSER_OFFRE}/votre-offre-de-stage`);
 	}
 

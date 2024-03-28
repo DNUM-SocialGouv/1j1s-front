@@ -78,7 +78,7 @@ describe('ComboboxLocalisation', () => {
 				<ComboboxLocalisation />
 			</DependenciesProvider>,
 		);
-		const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation' });
+		const inputLocalisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 
 		// WHEN
 		await user.type(inputLocalisation, 'no result');

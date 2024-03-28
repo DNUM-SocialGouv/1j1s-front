@@ -59,7 +59,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Prénom
 					<Champ.Label.Complement>Exemple : Jean</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="firstname" render={Input} required/>
+				<Champ.Input name="firstname" render={Input} required autoComplete="given-name"/>
 				<Champ.Error/>
 			</Champ>
 
@@ -68,7 +68,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Nom
 					<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="lastname" render={Input} required/>
+				<Champ.Input name="lastname" render={Input} required autoComplete="family-name"/>
 				<Champ.Error/>
 			</Champ>
 
@@ -77,7 +77,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Adresse e-mail
 					<Champ.Label.Complement>Exemple : jean.dupont@gmail.com</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email"/>
+				<Champ.Input name="mail" render={Input} required pattern={emailRegex} type="email" autoComplete="email"/>
 				<Champ.Error/>
 			</Champ>
 
@@ -86,7 +86,7 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 					Téléphone
 					<Champ.Label.Complement>Exemple : 0606060606</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input name="phone" render={Input} required pattern={telFrRegex} type="tel"/>
+				<Champ.Input name="phone" render={Input} required pattern={telFrRegex} type="tel" autoComplete="tel-national"/>
 				<Champ.Error/>
 			</Champ>
 

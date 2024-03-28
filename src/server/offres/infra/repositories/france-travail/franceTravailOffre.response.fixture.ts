@@ -35,7 +35,7 @@ export function aBarmanOffreEmploiApiResponse(): OffreResponse {
 			libelle: '26 - BOURG LES VALENCE',
 		},
 		origineOffre: {
-			urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132LKFB',
+			urlOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132LKFB',
 		},
 		typeContrat: 'SAI',
 	};
@@ -58,7 +58,7 @@ function aMaçonOffreEmploiResponse(): OffreResponse {
 		intitule: 'Maçon / Maçonne',
 		lieuTravail: undefined,
 		origineOffre: {
-			urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/130WPHC',
+			urlOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/130WPHC',
 		},
 		typeContrat: 'MIS',
 	};
@@ -76,7 +76,7 @@ function aValetOffreEmploiResponse(): OffreResponse {
 			libelle: '34 - BALARUC LES BAINS',
 		},
 		origineOffre: {
-			urlOrigine: 'https://candidat.pole-emploi.fr/offres/recherche/detail/132MDKM',
+			urlOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132MDKM',
 		},
 		typeContrat: 'CDD',
 	};

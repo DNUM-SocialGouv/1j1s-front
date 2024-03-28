@@ -144,7 +144,7 @@ describe('<Accompagnement />', () => {
 			// Given
 			const user = userEvent.setup();
 			const contenuModal = 'Vous pouvez bénéficier des services de France Travail';
-			const inscriptionFranceTravail = 'S‘inscrire à France Travail';
+			const inscriptionFranceTravail = 'S‘inscrire à France Travail - nouvelle fenêtre';
 
 			renderComponent();
 			// When
@@ -157,7 +157,7 @@ describe('<Accompagnement />', () => {
 			expect(screen.getByText(contenuModal)).toBeVisible();
 			const link = screen.getByRole('link', { name: inscriptionFranceTravail });
 			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.pole-emploi.fr/inscription-en-ligne/accueil'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.francetravail.fr/inscription-en-ligne/accueil'));
 			expect(link).toHaveAttribute('target', '_blank');
 		});
 	});
@@ -350,9 +350,9 @@ describe('<Accompagnement />', () => {
 			await user.click(screen.getByText(franceTravail));
 
 			// Then
-			const link = screen.getByRole('link', { name: jeContacteMonConseiller });
+			const link = screen.getByRole('link', { name: `${jeContacteMonConseiller} - nouvelle fenêtre` });
 			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('pole-emploi.fr'));
+			expect(link).toHaveAttribute('href', expect.stringContaining('francetravail.fr'));
 			expect(link).toHaveAttribute('target', '_blank');
 		});
 	});

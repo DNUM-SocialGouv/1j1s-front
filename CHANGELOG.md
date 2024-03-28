@@ -1,5 +1,33 @@
 # Changelog
 
+## [3.271.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.270.1...v3.271.0) (2024-03-27)
+
+
+### Features
+
+* **formulaires:** a11y ajouter les attributs autocomplete sur les formulaires quand c'est pertinent ([#2849](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2849)) ([1e15d8d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e15d8db0c09aa81734d8c1adc84769c7071a512))
+
+## [3.270.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.270.0...v3.270.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* **francetravail:** donner le bon slug d’article sur l’accompagnement france travail ([#2852](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2852)) ([b746ef9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b746ef9fd25ff0046323bca92ef2a30758a39034))
+
+## [3.270.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.1...v3.270.0) (2024-03-26)
+
+
+### Features
+
+* corrige le nom accessible des liens (= nouvelle fenetre)  ([#2833](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2833)) ([00149b1](https://github.com/DNUM-SocialGouv/1j1s-front/commit/00149b159996089a94a73f70b06bade02f6044b3))
+
+## [3.269.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.269.0...v3.269.1) (2024-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sharp to v0.33.3 ([#2843](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2843)) ([a8a5a6a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a8a5a6a8cda1e161e8580ff4780e3c462aee478a))
+
 ## [3.269.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.268.4...v3.269.0) (2024-03-25)
 
 

@@ -8,7 +8,7 @@ export function LaBonneBoitePartner() {
 			linkLabel="Accéder au site web"
 			logo="/images/logos/la-bonne-boite.svg"
 			logoAlt="La Bonne Boite, Pôle Emploi"
-			link="https://labonneboite.pole-emploi.fr/"
+			link="https://labonneboite.francetravail.fr/"
 			title="Et si vous contactiez directement les entreprises ?"
 			titleAs={'h3'}
 		>

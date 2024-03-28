@@ -27,12 +27,12 @@ describe('<RecrutementCandidatFranceTravail/>', () => {
 		expect(lienDeRetour).toHaveAttribute('href', '#abreviation');
 	});
 	it('je peux m‘engager à recruter et completer une demande', () => {
-		const LINK_M_ENGAGER_A_RECRUTER = 'https://entreprise.pole-emploi.fr/accueil/description/afpr';
-		const LINK_COMPLETER_UNE_DEMANDE = 'https://entreprise.pole-emploi.fr/accueil/choixauthentification?goto=https://entreprise.pole-emploi.fr/accueil/description/afpr';
+		const LINK_M_ENGAGER_A_RECRUTER = 'https://entreprise.francetravail.fr/accueil/description/afpr';
+		const LINK_COMPLETER_UNE_DEMANDE = 'https://entreprise.francetravail.fr/accueil/choixauthentification?goto=https://entreprise.francetravail.fr/accueil/description/afpr';
 
 		render(<RecrutementCandidatFranceTravail/>);
 
-		expect(screen.getByRole('link', { name: 'M‘engager à recruter' })).toHaveAttribute('href', LINK_M_ENGAGER_A_RECRUTER);
-		expect(screen.getByRole('link', { name: 'Compléter une demande' })).toHaveAttribute('href', LINK_COMPLETER_UNE_DEMANDE);
+		expect(screen.getByRole('link', { name: 'M‘engager à recruter - nouvelle fenêtre' })).toHaveAttribute('href', LINK_M_ENGAGER_A_RECRUTER);
+		expect(screen.getByRole('link', { name: 'Compléter une demande - nouvelle fenêtre' })).toHaveAttribute('href', LINK_COMPLETER_UNE_DEMANDE);
 	});
 });

@@ -164,7 +164,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Comme eux, vous souhaitez faire le choix de l’apprentissage\u00A0?' });
-				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche' });
+				const link = within(section).getByRole('link', { name: 'Se renseigner sur l’embauche - nouvelle fenêtre' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/formation-en-alternance-10751/apprentissage/embaucher-un-apprenti/' );
 			});
@@ -189,7 +189,7 @@ describe('CampagneApprentissageEntreprises', () => {
 
 				// THEN
 				const section = screen.getByRole('region', { name: 'Vous envisagez de recruter un apprenti\u00A0? Vous pouvez bénéficier d’une aide financière' });
-				const link = within(section).getByRole('link', { name: 'En savoir plus' });
+				const link = within(section).getByRole('link', { name: 'En savoir plus - nouvelle fenêtre' });
 				expect(link).toBeVisible();
 				expect(link).toHaveAttribute('href', 'https://travail-emploi.gouv.fr/formation-professionnelle/entreprise-et-alternance/aides-au-recrutement-d-un-alternant/article/aide-2023-aux-employeurs-qui-recrutent-en-alternance' );
 			});

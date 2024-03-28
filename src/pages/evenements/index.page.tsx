@@ -34,7 +34,7 @@ export default function PageEvenements() {
               en participant à des ateliers thématiques ou en assistant à une conférence près de chez vous !'
 							buttonLabel='Trouver un événement France Travail'
 							buttonLabelSecondary='Trouver un événement ma Mission Locale'
-							buttonHref='https://mesevenementsemploi.pole-emploi.fr/mes-evenements-emploi/evenements'
+							buttonHref='https://mesevenementsemploi.francetravail.fr/mes-evenements-emploi/evenements'
 							buttonHrefSecondary='https://40-ans.unml.info/le-programme'
 							imgSrc='/images/évènements.webp'/>
 					</main>
