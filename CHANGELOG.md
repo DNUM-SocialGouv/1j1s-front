@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.271.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.1...v3.271.2) (2024-03-28)
+
+
+### Bug Fixes
+
+* fix CSP pour rechercher meilisearch ([#2861](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2861)) ([db12552](https://github.com/DNUM-SocialGouv/1j1s-front/commit/db12552bc368fd1828566ba1381da4f5677bc92e))
+
 ## [3.271.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.0...v3.271.1) (2024-03-28)
 
 
