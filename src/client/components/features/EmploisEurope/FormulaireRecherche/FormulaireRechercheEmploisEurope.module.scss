@@ -44,8 +44,6 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
   }
 
   .filtresRechercheMobile {
-    display: unset;
-
     @include utilities.media(medium) {
       display: none;
     }
