@@ -1,10 +1,23 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 @use "@styles/components/link/_placeholders.scss";
 
+$color-separation-line: utilities.$color-primary;
+$color-text-concerne: utilities.$color-secondary;
+
+.logoWrapper {
+  width: 100%;
+  align-items: center;
+
+  @include utilities.media(medium) {
+    //grid-row: 1 / -1;
+    //margin-top: 1rem; // todo comment faire pour centrer le logo ?
+  }
+}
+
 .card {
-  display: flex;
-  flex-direction: column;
-  background: utilities-deprecated.$color-surface;
+  display: grid;
+  grid-template-rows: min-content max-content;
+  grid-template-columns: 1fr 4fr;
   border-radius: 1.25rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1) !important;
 
@@ -17,54 +30,45 @@
 
   &Header {
     display: flex;
+    flex-direction: column;
     padding: 0.5rem;
-    border-bottom: 4px solid utilities-deprecated.$color-primary;
+    border-bottom: 4px solid $color-separation-line;
     height: 5.5rem;
-    align-items: center;
+    justify-content: center;
+
     img {
       width: 56px;
       height: auto;
+      //grid-column: 1 / span 2;
     }
   }
 
   &Description {
+    grid-column: 1 / end;
     display: flex;
     flex-direction: column;
+    gap: 1.25rem;
     padding: 0.75rem;
   }
 }
 
 .infoEntreprise {
-  margin-left: 1rem;
-
   &Title {
-    color: utilities-deprecated.$color-on-background;
     @extend %bold;
-    @extend %text-medium;
+    @include utilities.text-medium;
   }
   &SubTitle {
-    @extend %text-small;
-    color: utilities-deprecated.$color-on-background;
+    @include utilities.text-small;
   }
 }
 
 .descriptionPublicConcerne {
   @extend %bold;
-  color: utilities-deprecated.$color-secondary;
-  margin-top: 1.25rem;
+  color: $color-text-concerne;
 }
 
-.offreLead {
-  margin-left: 2rem;
-  line-height: 1.5;
-  &Title {
-    @extend  %bold;
-    font-size: 1rem;
-  }
-  &SubTitle {
-    min-height: 1.5rem;
-    font-size: 0.75rem;
-  }
+.descriptionEntreprise {
+  display: none;
 }
 
 .callToAction {
@@ -77,43 +81,23 @@
   }
 }
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
   .card {
     padding: 1rem 1.5rem;
-    border-left: 4px solid utilities-deprecated.$color-primary;
-    flex-direction: row;
+    border-left: 4px solid $color-separation-line;
 
     &Header {
       display: flex;
       border-bottom: none;
       margin-bottom: 0;
       padding: 0;
-      width: 20%;
       img {
         width: 120px;
         height: auto;
       }
     }
 
-    &ImageContainer {
-      width: 7.5rem;
-    }
-
-    &ImageWrapper {
-      min-height: 7.5rem;
-      max-height: 7.5rem;
-      min-width: 7.5rem;
-      max-width: 7.5rem;
-    }
-
     .infoEntreprise {
-      margin-left: 0;
-      width: 100%;
-
-      * > ul {
-        margin-top: 1.25rem;
-      }
-
       &Title {
         font-size: 1.25rem;
       }
@@ -123,8 +107,8 @@
     }
 
     &Description {
+      grid-column: 2 / end;
       width: 100%;
-      margin-top: 1rem;
       flex-direction: column;
       justify-content: space-between;
       padding: 0;
@@ -132,10 +116,7 @@
   }
 
   .descriptionEntreprise {
-    color: utilities-deprecated.$color-on-background;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
+    display: unset;
   }
-
 }
 
