@@ -4,34 +4,18 @@
   background-color: utilities-deprecated.$color-background-white-lilac;
   padding-bottom: 3rem;
   padding-inline: 1rem;
-  h2 {
-    @extend %text-xLarge, %bold;
-    text-align: center;
-    padding: 4rem;
-  }
+
   .cartes {
     display: flex;
     gap: 2rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
-
-    @include utilities-deprecated.media(medium) {
-      margin-bottom: 2rem;
-    }
 
     > li {
       flex-grow: 1;
       flex-basis: 100%;
       max-width: 22.5rem;
     }
-  }
-}
-
-.mobile .dispositifs {
-  h2 {
-    margin-top: 0;
-    padding: 2rem;
   }
 }
 
