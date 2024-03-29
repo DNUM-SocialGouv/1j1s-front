@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogementIndexee';
@@ -66,13 +66,14 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 	const { imageSrcList } = props;
 	const hasNoImage = imageSrcList.length === 0;
 	const hasOnlyOneImage = imageSrcList.length === 1;
+	const [error, setError] = useState(false);
 
-	if (hasNoImage) return <div className={styles.CardImageWrapper}>
+	if (hasNoImage || error) return <div className={styles.CardImageWrapper}>
 		<Image src={'/images/image-par-defaut-carte.webp'} alt="" width={360} height={180}/>
 	</div>;
 
 	if (hasOnlyOneImage) return <div className={styles.CardImageWrapper}>
-		<Image src={imageSrcList[0]} alt="" width={360} height={180}/>
+		<Image src={imageSrcList[0]} onError={() => setError(true)} alt="" width={360} height={180}/>
 	</div>;
 
 	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;

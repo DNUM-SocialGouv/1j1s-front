@@ -31,6 +31,7 @@ export function Carousel(props: CarouselProps) {
 	const [isAnimated, setIsAnimated] = useState(true);
 	const isLastSlide = (currentSlideIndex + 1) === numberOfImages;
 	const isFirstSlide = currentSlideIndex === 0;
+	const [error, setError] = useState(false);
 
 	const goToPreviousSlide = useCallback(() => {
 		setIsAnimated(true);
@@ -54,10 +55,22 @@ export function Carousel(props: CarouselProps) {
 
 	if (numberOfImages === 0) return null;
 
+	if (error) {
+		return (
+			<Image
+				src={'/images/image-par-defaut-carte.webp'}
+				alt=""
+				width={360}
+				height={180}
+			/>
+		);
+	}
+
 	if (numberOfImages === 1) {
 		return (
 			<Image
 				src={imageList[0].src}
+				onError={() => setError(true)}
 				alt={imageList[0].alt || '1 sur 1'}
 				width={imagesSize.width}
 				height={imagesSize.height}
@@ -83,6 +96,7 @@ export function Carousel(props: CarouselProps) {
 						setDirection={setDirection}
 						isAnimated={isAnimated}
 						imagesSize={imagesSize}
+						setError={setError}
 					/>
 				))}
 			</ul>
