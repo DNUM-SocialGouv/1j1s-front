@@ -1,4 +1,5 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .avoidLineBreakInside {
   display: inline-block;
@@ -17,11 +18,11 @@
       width: 100%;
       margin-top: 1rem;
       justify-content: center;
-      @include utilities-deprecated.media(small) {
+      @include utilities.media(small) {
         width: fit-content;
       }
 
-      @include utilities-deprecated.media(large) {
+      @include utilities.media(large) {
         margin-top: 5rem;
       }
     }
