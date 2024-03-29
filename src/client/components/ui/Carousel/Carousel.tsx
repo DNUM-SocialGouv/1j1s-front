@@ -62,6 +62,7 @@ export function Carousel(props: CarouselProps) {
 				alt=""
 				width={360}
 				height={180}
+				className={styles.imageOnError}
 			/>
 		);
 	}
