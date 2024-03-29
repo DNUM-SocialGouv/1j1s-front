@@ -9,8 +9,8 @@ $color-text-concerne: utilities.$color-secondary;
   align-items: center;
 
   @include utilities.media(medium) {
-    //grid-row: 1 / -1;
-    //margin-top: 1rem; // todo comment faire pour centrer le logo ?
+    grid-row: 1 / -1;
+    grid-column: 1;
   }
 }
 
@@ -39,7 +39,6 @@ $color-text-concerne: utilities.$color-secondary;
     img {
       width: 56px;
       height: auto;
-      //grid-column: 1 / span 2;
     }
   }
 
@@ -91,6 +90,7 @@ $color-text-concerne: utilities.$color-secondary;
       border-bottom: none;
       margin-bottom: 0;
       padding: 0;
+      height: unset;
       img {
         width: 120px;
         height: auto;
