@@ -27,6 +27,7 @@ type ComboboxCommuneProps = {
 } & ComboboxPropsWithOmit
 
 const MINIMUM_CHARACTER_NUMBER_FOR_SEARCH = 3;
+const SEARCH_CHARACTERS_TO_IGNORE = '()&+#$';
 const MESSAGE_ERREUR_FETCH = 'Une erreur est survenue lors de la récupération des lieux. Veuillez réessayer plus tard.';
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, ...';
 const MESSAGE_CHARGEMENT = 'Chargement ...';
@@ -55,7 +56,10 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	const matchingOption = findMatchingOptionFromUserInput(userInput, communeOptions);
 
 	function isUserInputValid(userInput: string) {
-		return userInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+		const regexSearchCharToIgnore = new RegExp(`[${SEARCH_CHARACTERS_TO_IGNORE}]`, 'g');
+		const trimmedUserInput = userInput.replace(regexSearchCharToIgnore, '');
+
+		return trimmedUserInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}
 
 	const rechercherCommunesWithUserInputValid = useCallback(async (userInputCommune: string) => {
