@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
@@ -102,24 +102,22 @@ type AnnonceSourceProps = {
 	className?: string
 }
 function AnnonceSource({ source, className }: AnnonceSourceProps) {
-	return useMemo(() => {
-		switch (source) {
-			case 'immojeune':
-				return (
-					<span className={classNames(styles.source, className)}>
+	switch (source) {
+		case 'immojeune':
+			return (
+				<span className={classNames(styles.source, className)}>
 						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/>
-					</span>
-				);
-			case 'studapart':
-				return (
-					<span className={classNames(styles.source, className)}>
+				</span>
+			);
+		case 'studapart':
+			return (
+				<span className={classNames(styles.source, className)}>
 						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/>
-					</span>
-				);
-			default:
-				return null;
-		}
-	}, [source]);
+				</span>
+			);
+		default:
+			return null;
+	}
 }
 
 function CandidaterDesktop({
