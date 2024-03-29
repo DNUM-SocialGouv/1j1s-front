@@ -50,7 +50,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 	return (
 		<main id="contenu" className={styles.gridLayout}>
 			<BackButton className={styles.boutonRetour}/>
-			<AnnonceSource source={source} className={styles.mobileOnly}/>
+			<AnnonceSource source={source} className={styles.mobileOnly} data-testid="source-annonce-mobile"/>
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>
 				<h1>{titre}</h1>
@@ -67,7 +67,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
 					/>
 				</div>
-				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature}/>
+				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop"/>
 			</Container>
 			<div className={styles.lienDeCandidatureMobile}>
 				<Link
@@ -101,17 +101,17 @@ type AnnonceSourceProps = {
 	source: AnnonceDeLogement.Source
 	className?: string
 }
-function AnnonceSource({ source, className }: AnnonceSourceProps) {
+function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 	switch (source) {
 		case 'immojeune':
 			return (
-				<span className={classNames(styles.source, className)}>
+				<span className={classNames(styles.source, className)} {...rest}>
 						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/>
 				</span>
 			);
 		case 'studapart':
 			return (
-				<span className={classNames(styles.source, className)}>
+				<span className={classNames(styles.source, className)} {...rest}>
 						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/>
 				</span>
 			);
@@ -123,9 +123,10 @@ function AnnonceSource({ source, className }: AnnonceSourceProps) {
 function CandidaterDesktop({
 														 source,
 														 urlDeCandidature,
+	...rest
 													 }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) {
 	return (
-		<div className={classNames(styles.cardCandidater)}>
+		<div className={classNames(styles.cardCandidater)} {...rest}>
 			<AnnonceSource source={source}/>
 			<Link
 				appearance="asPrimaryButton"
