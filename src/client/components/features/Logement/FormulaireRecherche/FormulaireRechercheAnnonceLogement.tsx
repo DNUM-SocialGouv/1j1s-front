@@ -1,6 +1,4 @@
-import React, {
-	useState,
-} from 'react';
+import React, { useState } from 'react';
 
 import styles
 	from '~/client/components/features/Logement/FormulaireRecherche/FormulaireRechercheAnnonceLogement.module.scss';
@@ -17,7 +15,6 @@ import {
 } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export const PRIX_MINIMUM = 0;
 export const PRIX_MAXIMUM = 3000;
@@ -27,7 +24,6 @@ export const DEVISE = '€';
 export const UNITE_SURFACE = 'm²';
 
 export function FormulaireRechercheAnnonceLogement() {
-	const { isSmallScreen } = useBreakpoint();
 	const [isFiltresAvancésMobileOpen, setIsFiltresAvancésMobileOpen] = useState(false);
 
 	return (
@@ -41,42 +37,37 @@ export function FormulaireRechercheAnnonceLogement() {
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 			/>
-			{!isSmallScreen && (
-				<>
-					<MeilisearchCustomRefinementList
-						className={styles.inputType}
-						attribute="type"
-						label="Type d‘offre"
-						sortBy={['name:asc']}
-					/>
-					<MeilisearchCustomRefinementList
-						className={styles.inputTypeBien}
-						attribute="typeBien"
-						label="Type de bien"
-						sortBy={['name:asc']}
-					/>
-					<MeilisearchCustomRangeInput
-						className={styles.inputSurface}
-						attribute="surface"
-						label="Surface (m²)"
-						placeholder="Surface"
-						unite={UNITE_SURFACE}
-						min={SURFACE_MINIMUM}
-						max={SURFACE_MAXIMUM}
-					/>
-					<MeilisearchCustomRangeInput
-						className={styles.inputPrix}
-						attribute="prix"
-						label="Prix"
-						placeholder="Fourchette de prix"
-						unite={DEVISE}
-						min={PRIX_MINIMUM}
-						max={PRIX_MAXIMUM}
-					/>
-				</>
-			)}
-			{isSmallScreen &&
-        <div>
+			<MeilisearchCustomRefinementList
+				className={styles.filtresDesktop}
+				attribute="type"
+				label="Type d‘offre"
+				sortBy={['name:asc']}
+			/>
+			<MeilisearchCustomRefinementList
+				className={styles.filtresDesktop}
+				attribute="typeBien"
+				label="Type de bien"
+				sortBy={['name:asc']}
+			/>
+			<MeilisearchCustomRangeInput
+				className={styles.filtresDesktop}
+				attribute="surface"
+				label="Surface (m²)"
+				placeholder="Surface"
+				unite={UNITE_SURFACE}
+				min={SURFACE_MINIMUM}
+				max={SURFACE_MAXIMUM}
+			/>
+			<MeilisearchCustomRangeInput
+				className={styles.filtresDesktop}
+				attribute="prix"
+				label="Prix"
+				placeholder="Fourchette de prix"
+				unite={DEVISE}
+				min={PRIX_MINIMUM}
+				max={PRIX_MAXIMUM}
+			/>
+			<div className={styles.filtresAvancesMobile}>
         	<ButtonComponent
         		appearance="quaternary"
         		icon={<Icon name="filter"/>}
@@ -138,8 +129,7 @@ export function FormulaireRechercheAnnonceLogement() {
         			</div>
         		</ModalComponent.Footer>
         	</ModalComponent>
-        </div>
-			}
+			</div>
 		</form>
 	);
 }
