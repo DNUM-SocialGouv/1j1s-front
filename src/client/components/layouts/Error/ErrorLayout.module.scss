@@ -34,8 +34,13 @@
 }
 
 .errorLogo {
+  display: none;
   flex-shrink: 0;
   margin: auto;
+
+  @include utilities.media(medium) {
+    display: unset;
+  }
 
   img {
     width: 15rem;

@@ -15,7 +15,6 @@ interface ErrorLayoutProps {
 }
 
 export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
-	const { isSmallScreen } = useBreakpoint();
 	const { children } = props;
 
 	return (
@@ -28,11 +27,9 @@ export function ErrorLayout(props: React.PropsWithChildren<ErrorLayoutProps>) {
 				</div>
 			</div>
 
-			{!isSmallScreen &&
-          <div className={styles.errorLogo}>
+			<div className={styles.errorLogo}>
           	<Image src="/images/logos/technical-error.svg" alt="" width={185} height={205}/>
-          </div>
-			}
+			</div>
 		</Container>
 	);
 }
