@@ -42,12 +42,14 @@ export function FormulaireRechercheAnnonceLogement() {
 				attribute="type"
 				label="Type d‘offre"
 				sortBy={['name:asc']}
+				data-testid="input-type-offre-desktop"
 			/>
 			<MeilisearchCustomRefinementList
 				className={styles.filtresDesktop}
 				attribute="typeBien"
 				label="Type de bien"
 				sortBy={['name:asc']}
+				data-testid="input-type-bien-desktop"
 			/>
 			<MeilisearchCustomRangeInput
 				className={styles.filtresDesktop}

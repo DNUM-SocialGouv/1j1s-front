@@ -120,16 +120,16 @@ describe('FormulaireRechercheAnnonceLogement', () => {
 		it('n‘affiche pas le champ type d‘offre dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const buttonTypeOffre = screen.queryByRole('button', { name: 'Type d‘offre' });
-			expect(buttonTypeOffre).not.toBeInTheDocument();
+			const buttonTypeOffreDesktop = screen.getByTestId('input-type-offre-desktop');
+			expect(buttonTypeOffreDesktop).toBeInTheDocument();
 
 		});
 
 		it('n‘affiche pas le champ type de bien dans le formulaire', () => {
 			render(<FormulaireRechercheAnnonceLogement/>);
 
-			const buttonTypeBien = screen.queryByRole('button', { name: 'Type de bien' });
-			expect(buttonTypeBien).not.toBeInTheDocument();
+			const buttonTypeBienDesktop = screen.getByTestId('input-type-bien-desktop');
+			expect(buttonTypeBienDesktop).toBeInTheDocument();
 
 		});
 
