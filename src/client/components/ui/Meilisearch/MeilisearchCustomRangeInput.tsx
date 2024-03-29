@@ -14,6 +14,7 @@ interface MeilisearchCustomRangeInputProps extends Pick<React.HTMLAttributes<unk
     unite: string
     min: number
     max: number
+		'data-testid': string // FIXME (SULI 29-03-2024): a été ajouté pour faire passer des tests car pas de CSS inclus dans le JSDOM
 }
 
 export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCustomRangeInputProps) {
@@ -118,7 +119,7 @@ export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCu
   );
 
   return (
-  	<div className={classNames(className)}>
+  	<div className={classNames(className)} data-testid={props['data-testid']}>
   		<label className={styles.label} id={labelledBy.current}>{label}</label>
   		<div ref={rangeBoxRef} className={styles.selectContainer}>
   			<button

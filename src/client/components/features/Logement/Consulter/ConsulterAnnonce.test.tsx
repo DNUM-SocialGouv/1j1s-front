@@ -243,12 +243,17 @@ describe('<ConsulterAnnonce />', () => {
 			it('retourne le logo immojeune',  () => {
 				const annonceDeLogement = anAnnonceDeLogement({ source: 'immojeune' });
 				render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-				const diffuseur = screen.getAllByText('Ce bien est diffusé par');
-				expect(diffuseur[0]).toBeVisible();
-				expect(diffuseur[1]).not.toBeVisible();
+				const diffuseurMobile = screen.getByTestId('source-annonce-mobile');
+				const diffuseurDesktop = screen.getByTestId('source-annonce-desktop');
+				expect(diffuseurMobile).toBeVisible();
+				expect(diffuseurDesktop).toBeVisible();
+				expect(diffuseurMobile).toHaveTextContent('Ce bien est diffusé par');
+				expect(diffuseurDesktop).toHaveTextContent('Ce bien est diffusé par');
 
-				const logoDiffuseur = screen.getByRole('img', { name: 'immojeune' });
-				expect(logoDiffuseur).toBeVisible();
+				const logoDiffuseurMobile = within(diffuseurMobile).getByRole('img', { name: 'immojeune' });
+				const logoDiffuseurDesktop = within(diffuseurDesktop).getByRole('img', { name: 'immojeune' });
+				expect(logoDiffuseurMobile).toBeVisible();
+				expect(logoDiffuseurDesktop).toBeVisible();
 			});
 		});
 
@@ -287,9 +292,9 @@ describe('<ConsulterAnnonce />', () => {
 		it('affiche un lien externe Voir l‘annonce', () => {
 			const annonceDeLogement = anAnnonceDeLogement();
 			render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement} />);
-			const lienExterneCandidater = screen.getAllByRole('link', { name: 'Voir l‘annonce - nouvelle fenêtre' });
-			expect(lienExterneCandidater).toBeVisible();
-			expect(lienExterneCandidater).toHaveAttribute('href', 'lien-immo-jeune.com');
+			const lienExterneCandidaterMobileEtDesktop = screen.getAllByRole('link', { name: 'Voir l‘annonce - nouvelle fenêtre' });
+			expect(lienExterneCandidaterMobileEtDesktop[0]).toBeVisible();
+			expect(lienExterneCandidaterMobileEtDesktop[0]).toHaveAttribute('href', 'lien-immo-jeune.com');
 		});
 	});
 	it('affiche les services', () => {

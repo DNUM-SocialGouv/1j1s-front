@@ -57,6 +57,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				unite={UNITE_SURFACE}
 				min={SURFACE_MINIMUM}
 				max={SURFACE_MAXIMUM}
+				data-testid="input-surface-desktop"
 			/>
 			<MeilisearchCustomRangeInput
 				className={styles.filtresDesktop}
@@ -66,6 +67,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				unite={DEVISE}
 				min={PRIX_MINIMUM}
 				max={PRIX_MAXIMUM}
+				data-testid="input-prix-desktop"
 			/>
 			<div className={styles.filtresAvancesMobile}>
         	<ButtonComponent
@@ -73,6 +75,7 @@ export function FormulaireRechercheAnnonceLogement() {
         		icon={<Icon name="filter"/>}
         		iconPosition="right"
         		label="Filtrer ma recherche"
+					data-testid="bouton-filtrer-recherche-mobile"
         		onClick={() => setIsFiltresAvancésMobileOpen(true)}
         	/>
         	<ModalComponent
