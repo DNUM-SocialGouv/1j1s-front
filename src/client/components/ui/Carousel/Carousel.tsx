@@ -16,12 +16,13 @@ interface CarouselProps extends React.ComponentPropsWithoutRef<'div'> {
 	imageList: Array<ImageProps>
 	hideIndicators?: boolean
 	imagesSize: { width: number, height: number }
+	onErrorImageLoading?: () => void
 }
 
 export type Direction = 'next' | 'previous' | null;
 
 export function Carousel(props: CarouselProps) {
-	const { imageList, imagesSize, hideIndicators = false, className, ...rest } = props;
+	const { imageList, imagesSize, hideIndicators = false, className, onErrorImageLoading, ...rest } = props;
 	const _classNames = classNames(className, styles.carousel);
 	const numberOfImages = imageList.length;
 
@@ -31,7 +32,6 @@ export function Carousel(props: CarouselProps) {
 	const [isAnimated, setIsAnimated] = useState(true);
 	const isLastSlide = (currentSlideIndex + 1) === numberOfImages;
 	const isFirstSlide = currentSlideIndex === 0;
-	const [error, setError] = useState(false);
 
 	const goToPreviousSlide = useCallback(() => {
 		setIsAnimated(true);
@@ -55,23 +55,11 @@ export function Carousel(props: CarouselProps) {
 
 	if (numberOfImages === 0) return null;
 
-	if (error) {
-		return (
-			<Image
-				src={'/images/image-par-defaut-carte.webp'}
-				alt=""
-				width={360}
-				height={180}
-				className={styles.imageOnError}
-			/>
-		);
-	}
-
 	if (numberOfImages === 1) {
 		return (
 			<Image
 				src={imageList[0].src}
-				onError={() => setError(true)}
+				onError={onErrorImageLoading}
 				alt={imageList[0].alt || '1 sur 1'}
 				width={imagesSize.width}
 				height={imagesSize.height}
@@ -97,7 +85,7 @@ export function Carousel(props: CarouselProps) {
 						setDirection={setDirection}
 						isAnimated={isAnimated}
 						imagesSize={imagesSize}
-						setError={setError}
+						onErrorImageLoading={onErrorImageLoading}
 					/>
 				))}
 			</ul>

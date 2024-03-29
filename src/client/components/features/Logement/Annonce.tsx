@@ -76,11 +76,11 @@ function CardImage(props: { imageSrcList: ImageSrcListProps }) {
 		<Image src={imageSrcList[0]} onError={() => setError(true)} alt="" width={360} height={180}/>
 	</div>;
 
-	return <CardAnnonceCarousel imageSrcList={imageSrcList}/>;
+	return <CardAnnonceCarousel imageSrcList={imageSrcList} onErrorImageLoading={() => setError(true)}/>;
 }
 
-const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
-	const { imageSrcList } = props;
+const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps, onErrorImageLoading: () => void }) => {
+	const { imageSrcList, onErrorImageLoading } = props;
 	const formattedList = imageSrcList.map((src) => ({ alt: undefined, src }));
 	const MAX_IMAGE_WIDTH = 360;
 	const MAX_IMAGE_HEIGHT = 180;
@@ -92,6 +92,7 @@ const CardAnnonceCarousel = (props: { imageSrcList: ImageSrcListProps }) => {
 			className={styles.CardImageWrapper}
 			imagesSize={{ height: MAX_IMAGE_HEIGHT, width: MAX_IMAGE_WIDTH }}
 			aria-label="Photos du logement"
+			onErrorImageLoading={onErrorImageLoading}
 		/>
 	);
 };

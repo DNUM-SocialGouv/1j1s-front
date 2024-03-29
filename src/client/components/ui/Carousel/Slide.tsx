@@ -20,7 +20,7 @@ interface SlideProps {
 	setDirection: (direction: Direction) => void
 	isAnimated: boolean
 	imagesSize: { width: number, height: number }
-	setError: (value: boolean) => void
+	onErrorImageLoading?: () => void
 }
 
 export function defaultAlternative(index: number, numberOfImages: number) {
@@ -41,7 +41,7 @@ export const Slide = (props: SlideProps) => {
 		setDirection,
 		isAnimated,
 		imagesSize,
-		setError,
+		onErrorImageLoading,
 	} = props;
 
 	const isCurrentSlide = useMemo(() => index === currentSlideIndex, [index, currentSlideIndex]);
@@ -70,7 +70,7 @@ export const Slide = (props: SlideProps) => {
 				{ [styles.transition]: isAnimated },
 			)}
 		>
-			<Image src={image.src} onError={() => setError(true)} alt={image.alt || defaultAlternative(index, numberOfImages)} width={imagesSize.width} height={imagesSize.height} />
+			<Image src={image.src} onError={onErrorImageLoading} alt={image.alt || defaultAlternative(index, numberOfImages)} width={imagesSize.width} height={imagesSize.height} />
 		</li>
 	);
 };
