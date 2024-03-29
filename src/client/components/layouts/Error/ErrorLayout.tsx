@@ -7,7 +7,6 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Error/ErrorLayout.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 
 interface ErrorLayoutProps {
