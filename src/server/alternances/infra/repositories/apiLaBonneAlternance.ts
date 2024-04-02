@@ -25,6 +25,7 @@ export namespace AlternanceApiJobsResponse {
 		rythmeAlternance?: string
 		description?: string
 		employeurDescription?: string
+		status?: string
 	}
 
 	export interface JobPE extends Job {
