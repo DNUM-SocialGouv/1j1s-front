@@ -23,7 +23,6 @@ export type OffreDeStageIndexée = {
 	localisation?: LocalisationStageIndexée
 	nomEmployeur?: string
 	logoUrlEmployeur?: string
-	remunerationBase: number
 	source?: SourceDesDonnées
 	teletravailPossible?: boolean
 };

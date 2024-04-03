@@ -56,7 +56,7 @@ export const aFormulaireEnvoyePostedValue = () => {
 			region: 'Ile-de-France',
 			ville: 'Paris',
 		},
-		remunerationBase: 1,
+		remuneration: 1,
 		teletravailPossible: true,
 		titre: 'Nom Offre',
 		urlDeCandidature: 'mailto:oui@non.com',
