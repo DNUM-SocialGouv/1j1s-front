@@ -1,11 +1,9 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import Bannière from '~/client/components/features/MesuresEmployeurs/Bannière/Bannière';
 import styles from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs.module.scss';
 import { Head } from '~/client/components/head/Head';
 import { FlippingCard } from '~/client/components/ui/Card/Flipping/FlippingCard';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import useSanitize from '~/client/hooks/useSanitize';
 import { MesureEmployeur } from '~/server/mesures-employeurs/domain/mesureEmployeur';
 
@@ -14,8 +12,6 @@ export interface MesuresEmployeursProps {
 }
 
 export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmployeursProps) {
-	const { isLargeScreen } = useBreakpoint();
-	const isMobile = !isLargeScreen;
 	return (
 		<>
 			<Head
@@ -23,13 +19,13 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 				description="Plus de 400 000 offres d‘emplois et d‘alternances sélectionnées pour vous"
 				robots="index,follow"
 			/>
-			<main id="contenu" className={classNames({ [styles.mobile]: isMobile })}>
+			<main id="contenu">
 				<Bannière/>
 				<section className={styles.dispositifs}>
 					<ul className={styles.cartes} aria-labelledby="dispositifs">
 						{mesureEmployeurList.map((carte) => (
 							<li key={carte.titre}>
-								<CarteMesureEmployeur carte={carte} isMobile={isMobile}/>
+								<CarteMesureEmployeur carte={carte}/>
 							</li>
 						))}
 					</ul>
@@ -41,7 +37,6 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 
 interface CarteMesureEmployeurProps {
 	carte: MesureEmployeur;
-	isMobile: boolean;
 }
 
 function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {

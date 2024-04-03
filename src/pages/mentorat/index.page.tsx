@@ -7,13 +7,11 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import analytics from '~/pages/mentorat/index.analytics';
 import styles from '~/pages/mentorat/index.module.scss';
 
 export default function MentoratPage() {
 	useAnalytics(analytics);
-	const { isLargeScreen } = useBreakpoint();
 
 	return (
 		<>
@@ -93,14 +91,12 @@ export default function MentoratPage() {
 								<RaisonParticipationsMentorat/>
 							</SeeMoreMobileOnly>
 						</div>
-						{isLargeScreen &&
-								<Image
-									src="/illustrations/aventure-du-mentorat.svg"
-									alt=""
-									width={490}
-									height={370}
-								/>
-						}
+						<Image
+							src="/illustrations/aventure-du-mentorat.svg"
+							alt=""
+							width={490}
+							height={370}
+						/>
 					</article>
 				</div>
 			</main>

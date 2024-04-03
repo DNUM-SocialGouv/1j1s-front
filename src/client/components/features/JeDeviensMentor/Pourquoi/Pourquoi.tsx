@@ -3,23 +3,19 @@ import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/Pourquoi/Pourquoi.module.scss';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 export function Pourquoi() {
-	const { isLargeScreen } = useBreakpoint();
 
 	return (
 		<div className={styles.pourquoi}>
 			<article>
 				<section>
-					{isLargeScreen &&
-              <Image
-              	src="/illustrations/mentorat-employeur.svg"
-              	alt=""
-              	width={500}
-              	height={300}
-              />
-					}
+					<Image
+						src="/illustrations/mentorat-employeur.svg"
+						alt=""
+						width={500}
+						height={300}
+					/>
 					<h2>Pourquoi participer à l’aventure du mentorat en tant qu’employeur ?</h2>
 					<SeeMoreMobileOnly
 						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant qu‘employeur"
@@ -31,14 +27,12 @@ export function Pourquoi() {
 					</SeeMoreMobileOnly>
 				</section>
 				<section>
-					{isLargeScreen &&
-              <Image
-              	src="/illustrations/mentorat-citoyen.svg"
-              	alt=""
-              	width={500}
-              	height={300}
-              />
-					}
+					<Image
+						src="/illustrations/mentorat-citoyen.svg"
+						alt=""
+						width={500}
+						height={300}
+					/>
 					<h2>Vous êtes citoyen : vous pouvez devenir mentor !</h2>
 					<SeeMoreMobileOnly
 						seeLessAriaLabel="Voir plus de raisons de devenir mentor en tant que citoyen"

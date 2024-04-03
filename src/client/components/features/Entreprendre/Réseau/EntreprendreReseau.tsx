@@ -3,10 +3,11 @@ import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau.module.scss';
-import { EntreprendreRéseauPhasesProjet } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
+import {
+	EntreprendreRéseauPhasesProjet,
+} from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 interface Entreprise {
   logo: string
@@ -30,43 +31,22 @@ export interface EntreprendreRéseauProps {
 
 function EntreprendreReseau(props: EntreprendreRéseauProps) {
 	const { entreprise, phases, publicConcerné } = props;
-	const { isSmallScreen } = useBreakpoint();
 
 	return (
 		<Link href={entreprise.lien} className={classNames(styles.card, 'underline-none')} prefetch={false}>
-			{
-				isSmallScreen && <>
-					<header className={styles.cardHeader}>
-						<Image alt="" src={entreprise.logo} width={56} height={56} />
-						<div className={styles.infoEntreprise}>
-							<div className={styles.infoEntrepriseTitle}>{entreprise.nom}</div>
-							{ entreprise.tagline && <div className={styles.infoEntrepriseSubTitle}>{entreprise.tagline}</div> }
-						</div>
-					</header>
-					<div className={styles.cardDescription}>
-						<EntreprendreRéseauPhasesProjet phases={phases} />
-						{publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
-						<span className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></span>
-					</div>
-				</>
-			}
-			{
-				!isSmallScreen && <>
-					<header className={styles.cardHeader}>
-						<Image alt="" src={entreprise.logo} width={120} height={120}  />
-					</header>
-					<section className={styles.cardDescription}>
-						<div className={styles.infoEntreprise}>
-							<div className={styles.infoEntrepriseTitle}>{entreprise.nom}</div>
-							{ entreprise.tagline && <div className={styles.infoEntrepriseSubTitle}>{entreprise.tagline}</div> }
-						</div>
-						<p className={styles.descriptionEntreprise}>{entreprise.description}</p>
-						<EntreprendreRéseauPhasesProjet phases={phases} />
-						{publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
-						<div className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></div>
-					</section>
-				</>
-			}
+			<div className={classNames(styles.logoWrapper, styles.cardHeader)}>
+				<Image alt="" src={entreprise.logo} width={120} height={120}  />
+			</div>
+			<div className={classNames(styles.infoEntreprise, styles.cardHeader)}>
+				<div className={styles.infoEntrepriseTitle}>{entreprise.nom}</div>
+				{ entreprise.tagline && <div className={styles.infoEntrepriseSubTitle}>{entreprise.tagline}</div> }
+			</div>
+			<div className={styles.cardDescription}>
+				<p className={styles.descriptionEntreprise}>{entreprise.description}</p>
+				<EntreprendreRéseauPhasesProjet phases={phases} />
+				{publicConcerné && <p className={styles.descriptionPublicConcerne}>{publicConcerné}</p>}
+				<span className={styles.callToAction}>Découvrir<Icon name={'external-redirection'} /></span>
+			</div>
 		</Link>
 	);
 }

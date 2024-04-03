@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { BilanEnergetiqueLogement } from '~/client/components/features/Logement/Consulter/BilanEnergetiqueLogement';
@@ -11,7 +11,6 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { Image as ImageProps } from '~/client/components/props';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
 import styles from './ConsulterAnnonce.module.scss';
@@ -47,12 +46,11 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 		urlDeCandidature,
 		bilanEnergetique,
 	} = annonceDeLogement;
-	const { isSmallScreen } = useBreakpoint();
 
 	return (
 		<main id="contenu" className={styles.gridLayout}>
 			<BackButton className={styles.boutonRetour}/>
-			{isSmallScreen && <AnnonceSource source={source}/>}
+			<AnnonceSource source={source} className={styles.mobileOnly} data-testid="source-annonce-mobile"/>
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>
 				<h1>{titre}</h1>
@@ -69,19 +67,17 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 						emissionDeGaz={bilanEnergetique.emissionDeGaz}
 					/>
 				</div>
-				{!isSmallScreen && <CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature}/>}
+				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop"/>
 			</Container>
-			{isSmallScreen && (
-				<div className={styles.lienDeCandidatureMobile}>
-					<Link
-						appearance="asPrimaryButton"
-						href={urlDeCandidature}
-					>
+			<div className={styles.lienDeCandidatureMobile}>
+				<Link
+					appearance="asPrimaryButton"
+					href={urlDeCandidature}
+				>
             Voir l‘annonce
-						<Link.Icon/>
-					</Link>
-				</div>
-			)}
+					<Link.Icon/>
+				</Link>
+			</div>
 		</main>
 	);
 }
@@ -101,33 +97,36 @@ const AnnonceCarousel = ({ imageUrlList }: { imageUrlList: Array<ImageProps> | [
 	</div>;
 };
 
-function AnnonceSource({ source }: { source: AnnonceDeLogement.Source }) {
-	return useMemo(() => {
-		switch (source) {
-			case 'immojeune':
-				return (
-					<span className={styles.source}>
+type AnnonceSourceProps = {
+	source: AnnonceDeLogement.Source
+	className?: string
+}
+function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
+	switch (source) {
+		case 'immojeune':
+			return (
+				<span className={classNames(styles.source, className)} {...rest}>
 						Ce bien est diffusé par <Image src="/images/logement/immojeune.webp" alt="immojeune" width="95" height="44"/>
-					</span>
-				);
-			case 'studapart':
-				return (
-					<span className={styles.source}>
+				</span>
+			);
+		case 'studapart':
+			return (
+				<span className={classNames(styles.source, className)} {...rest}>
 						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/>
-					</span>
-				);
-			default:
-				return null;
-		}
-	}, [source]);
+				</span>
+			);
+		default:
+			return null;
+	}
 }
 
 function CandidaterDesktop({
 														 source,
 														 urlDeCandidature,
+	...rest
 													 }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) {
 	return (
-		<div className={classNames(styles.cardCandidater)}>
+		<div className={classNames(styles.cardCandidater)} {...rest}>
 			<AnnonceSource source={source}/>
 			<Link
 				appearance="asPrimaryButton"

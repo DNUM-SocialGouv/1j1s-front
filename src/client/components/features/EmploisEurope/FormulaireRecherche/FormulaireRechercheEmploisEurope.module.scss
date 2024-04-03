@@ -21,29 +21,33 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
     flex-direction: column;
     gap: variables.$form-vertical-gap-mobile;
   }
-}
 
-.rechercherAccompagnementFiltres {
-  flex: 1 0;
-}
+  .filtreRechercheDesktop {
+    display: none;
 
-.filtresAvancésModalTitle > span {
-  font-size: 0.875rem;
-}
+    @include utilities.media(medium) {
+        display: flex;
+        column-gap: variables.$form-horizontal-gap;
+        row-gap: variables.$form-vertical-gap-desktop;
+        flex-wrap: wrap;
+      }
 
-.filtresAvancésModalContenu {
+      > div {
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 25%;
+      }
 
-  & details {
-    border-top: 1px solid $color-border-filters;
+      > div > button {
+        width: 100%;
+      }
+  }
 
-    &:last-of-type {
-      border-bottom: 1px solid $color-border-filters;
+  .filtresRechercheMobile {
+    @include utilities.media(medium) {
+      display: none;
     }
   }
-}
-
-.filtresAvancésModalFooter {
-  justify-content: center;
 }
 
 .buttonRechercher > button {
@@ -79,23 +83,6 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
 
   .inputButtonWrapper > div {
     flex-grow: 1;
-  }
-
-  .filtreRechercheDesktop {
-    display: flex;
-    column-gap: variables.$form-horizontal-gap;
-    row-gap: variables.$form-vertical-gap-desktop;
-    flex-wrap: wrap;
-  }
-
-  .filtreRechercheDesktop > div {
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 25%;
-  }
-
-  .filtreRechercheDesktop > div > button {
-    width: 100%;
   }
 }
 

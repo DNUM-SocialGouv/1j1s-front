@@ -19,6 +19,7 @@ import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRefineme
 
 interface MeilisearchCustomRefinementListProps extends React.ComponentPropsWithoutRef<'div'> {
 	label: string
+	'data-testid'?: string // FIXME (SULI 29-03-2024): a été ajouté pour faire passer des tests car pas de CSS inclus dans le JSDOM
 }
 
 export function MeilisearchCustomRefinementList(props: UseRefinementListProps & MeilisearchCustomRefinementListProps) {
@@ -89,7 +90,7 @@ export function MeilisearchCustomRefinementList(props: UseRefinementListProps & 
 
 	if (items.length === 0) return null;
 	return (
-		<div className={classNames(className)}>
+		<div className={classNames(className)} data-testid={props['data-testid']}>
 			<span className={styles.label} id={labelledBy.current}>{label}</span>
 			<div  className={styles.selectContainer} onBlur={onBlur}>
 				<button
