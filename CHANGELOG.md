@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.271.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.3...v3.271.4) (2024-04-03)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies to v3.2.0 ([#2868](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2868)) ([e3ea38c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e3ea38c7ca51d5ae0d5763deba8081e1d23609ac))
+* empêche appel API commune en erreur avec characteres speciaux ([#2858](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2858)) ([3bd7e12](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3bd7e1288498c59c8bd5e812ed75478658bca43d))
+
 ## [3.271.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.2...v3.271.3) (2024-03-29)
 
 
