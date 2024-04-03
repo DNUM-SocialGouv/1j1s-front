@@ -2,7 +2,7 @@ module "front_app" {
   source  = "scalingo-community/app/scalingo"
   version = "0.3.2"
 
-  stack = "scalingo-20"
+  stack = "scalingo-22"
 
   name = var.nom_de_l_application
 
