@@ -11,12 +11,14 @@ import {
 	mapAlternanceListe,
 	mapMatcha, mapPEJob,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import { createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
+const CANCELED = 'Annulée';
 
 const FRANCE_TRAVAIL_ID_LENGTH = 7;
 
@@ -86,6 +88,11 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 				});
 			}
 			const matcha = apiResponse.data.matchas[0];
+
+			if (matcha.job.status === CANCELED) {
+				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
+			}
+
 			return createSuccess(mapMatcha(matcha));
 		} catch (error) {
 			return this.errorManagementServiceGet.handleFailureError(error, {
