@@ -17,7 +17,7 @@ type IconProps = {
 
 export type ButtonComponentProps = React.ComponentPropsWithoutRef<'button'> & {
 	appearance?: ButtonAppearance
-	label: string
+	label: React.ReactNode
 }
 
 type ButtonComponentPropsWithIconProps = ButtonComponentProps & IconProps
