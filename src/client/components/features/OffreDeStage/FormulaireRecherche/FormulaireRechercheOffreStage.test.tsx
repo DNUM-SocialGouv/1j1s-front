@@ -5,7 +5,7 @@
 import type { SearchResults } from 'algoliasearch-helper';
 
 import {
-	sortWithMoinsUnMoisAtTheBegining,
+	sortByDurationAscending,
 	sortWithNonRenseigneAtTheEnd,
 } from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage';
 
@@ -42,7 +42,7 @@ describe('sortWithNonRenseigneAtTheEnd', () => {
 	});
 });
 
-describe('sortWithMoinsUnMoisAtTheBegining', () => {
+describe('sortByDurationAscending', () => {
 	it('tri les données par ordre ascendant avec < 1 mois au début', () => {
 		const data = [
 			anFacedValue({ name: '< 1 mois' }),
@@ -53,7 +53,7 @@ describe('sortWithMoinsUnMoisAtTheBegining', () => {
 			anFacedValue({ name: '> 6 mois' }),
 		];
 
-		const sortedData = data.sort(sortWithMoinsUnMoisAtTheBegining);
+		const sortedData = data.sort(sortByDurationAscending);
 
 
 		expect(sortedData).toStrictEqual([

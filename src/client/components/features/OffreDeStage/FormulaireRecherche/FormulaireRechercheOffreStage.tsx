@@ -20,7 +20,7 @@ export function sortWithNonRenseigneAtTheEnd(a: SearchResults.FacetValue, b: Sea
 	return a.name.localeCompare(b.name);
 }
 
-export function sortWithMoinsUnMoisAtTheBegining(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
+export function sortByDurationAscending(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
 	const MOINS_D_UN_MOIS = '< 1 mois';
 	if (a.name === MOINS_D_UN_MOIS) {
 		return -1;
@@ -58,7 +58,7 @@ export function FormulaireRechercheOffreStage() {
 			<MeilisearchCustomRefinementList
 				attribute="dureeCategorisee"
 				label="Durée de stage"
-				sortBy={sortWithMoinsUnMoisAtTheBegining}
+				sortBy={sortByDurationAscending}
 			/>
 		</form>
 	);
