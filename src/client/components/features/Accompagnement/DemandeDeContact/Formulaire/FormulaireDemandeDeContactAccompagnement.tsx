@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FormEvent, useState } from 'react';
 import styles
 	from 'src/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement.module.scss';
@@ -129,11 +130,18 @@ export function FormulaireDemandeDeContactAccompagnement({
 			/>
 			{isLoading
 				? <LoadingButton className={styles.formulaireValidateButton}/>
-				: <ButtonComponent
-					type="submit"
-					className={styles.formulaireValidateButton}
-					label="Envoyer mes informations afin d‘être rappelé(e)"
-				/>
+				: <>
+					<ButtonComponent
+						type="submit"
+						className={classNames(styles.formulaireValidateButton, styles.desktopOnly)}
+						label="Envoyer mes informations afin d‘être rappelé(e)"
+					/>
+					<ButtonComponent
+						type="submit"
+						className={classNames(styles.formulaireValidateButton, styles.mobileOnly)}
+						label="Envoyer mes informations"
+					/>
+				</>
 			}
 			<div className={styles.formulaireDécharge}>
 				<p>
