@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.272.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.4...v3.272.0) (2024-04-08)
+
+
+### Features
+
+* **alternance:** ne pas afficher les offres expirées ([#2872](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2872)) ([ef581f7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ef581f7c556a432f18385d3d798e61942cb497e7))
+* **CEJ:** fix espace combobox bouton ([#2882](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2882)) ([b3f102b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b3f102b427cb13e3e09da9a77cd1a04dc85a3079))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2864](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2864)) ([cdb83dd](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cdb83ddb32fd6669a6fa31a05b064c07c830e1fe))
+* **deps:** update all non-major dependencies ([#2879](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2879)) ([dc98a56](https://github.com/DNUM-SocialGouv/1j1s-front/commit/dc98a56df2dad5a0dbb656d7082f3db68fb879f2))
+
 ## [3.271.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.3...v3.271.4) (2024-04-03)
 
 
