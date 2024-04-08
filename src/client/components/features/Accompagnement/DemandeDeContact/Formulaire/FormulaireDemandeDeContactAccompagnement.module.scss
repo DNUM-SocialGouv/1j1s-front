@@ -29,12 +29,6 @@ $color-background-decharge: utilities.$color-background-primary-alternative;
     }
   }
 
-  & .mobileOnly {
-    @include utilities.media(medium) {
-      display: none;
-    }
-  }
-
   &ValidateButton {
     width: 100%;
     justify-self: center;

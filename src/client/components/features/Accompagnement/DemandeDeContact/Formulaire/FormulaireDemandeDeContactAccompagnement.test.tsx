@@ -154,6 +154,6 @@ async function envoyerDemandeContact() {
 	const resultatCommuneList = await screen.findAllByRole('option');
 	await userEvent.click(resultatCommuneList[0]);
 
-	const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations' });
+	const submitButton = screen.getByRole('button', { name: 'Envoyer mes informations afin d‘être rappelé(e)' });
 	await userEvent.click(submitButton);
 }
