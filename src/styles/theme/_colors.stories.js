@@ -1,8 +1,9 @@
 import './_colors.stories.scss';
 
-export default {
+const story = {
 	title: 'Toolbox/Colors',
 };
+export default story;
 
 export const ExampleColors = {
 	name: 'Example - Colors',

@@ -1,9 +1,12 @@
 import { ButtonComponent } from '../../client/components/ui/Button/ButtonComponent';
 import { InputText } from '../../client/components/ui/Form/InputText/InputText';
 
-export default {
+const story = {
 	title: 'Toolbox/Typography',
 };
+
+export default story;
+
 export const TailleDePolice = {
 	name: 'Example - Taille de police',
 
@@ -51,7 +54,8 @@ export const TailleDePolice = {
 				</div>
 				<div>
 					<div className="text-interactive-example">
-						<InputText className="text-interactive-example-input" label="Label du champ" placeholder="Contenu du champ"/>
+						<InputText className="text-interactive-example-input" label="Label du champ"
+											 placeholder="Contenu du champ"/>
 						<ButtonComponent label="label du bouton"/>
 					</div>
 				</div>
@@ -66,8 +70,8 @@ export const Title = {
 
 	render: () => (
 		<>
-			<h2 className="titre-headline">Un titre 'headline'</h2>
-			<h2 className="titre-subheading">Un sous-titre 'subheading'</h2>
+			<h2 className="titre-headline">Un titre &quot;headline&quot;</h2>
+			<h2 className="titre-subheading">Un sous-titre &quot;subheading&quot;</h2>
 		</>
 	),
 };
