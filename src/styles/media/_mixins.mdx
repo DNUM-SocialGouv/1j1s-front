@@ -1,8 +1,8 @@
-import {Canvas, Meta, Source, Story} from "@storybook/blocks"
+import {Canvas, Meta, Story} from "@storybook/blocks"
 import "./_mixins.stories.scss"
-import {ButtonComponent} from "../../client/components/ui/Button/ButtonComponent";
+import * as MixinsStories from './_mixins.stories';
 
-<Meta title="Toolbox/Media query mixins" />
+<Meta of={MixinsStories} />
 
 # Media query mixins
 
@@ -10,8 +10,8 @@ La mixin `media`  permettent de gérer facilement les différents breakpoints.
 
 Elle peut prendre les valeurs suivantes en argument : `small`, `medium`, `large`, `xlarge`, `xxlarge`
 
-
 Elle s'utilise de la manière suivante :
+
 ```scss
 @use "@styles/utilities";
 
@@ -24,12 +24,12 @@ Elle s'utilise de la manière suivante :
 }
 ```
 
-
 À noter, que la version par défaut doit être la version mobile.
 
 ## Exemple
 
 Le SCSS suivant permet de générer un layout qui change en fonction de la taille de l'écran :
+
 ```scss
 @use "@styles/utilities";
 
@@ -42,12 +42,7 @@ Le SCSS suivant permet de générer un layout qui change en fonction de la taill
     }
 }
 ```
+
 <Canvas>
-    <Story name="Example - Media mixins - query large">
-        <div className="buttonsContainer">
-            <ButtonComponent label="Bouton 1"/>
-            <ButtonComponent label="Bouton 2"/>
-            <ButtonComponent label="Bouton 3"/>
-        </div>
-    </Story>
+  <Story of={MixinsStories.ExampleMediaMixinsQueryLarge} />
 </Canvas>
