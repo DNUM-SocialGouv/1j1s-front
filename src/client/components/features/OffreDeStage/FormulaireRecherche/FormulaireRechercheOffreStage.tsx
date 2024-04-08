@@ -11,6 +11,16 @@ import { DomainesStage } from '~/server/stages/repository/domainesStage';
 const LIMIT_MAX_FACETS = 100000;
 const LIMIT_MAX_DOMAINS = 100;
 
+function sortASCII(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
+	if (a.name < b.name) {
+		return -1;
+	}
+	if (a.name > b.name) {
+		return 1;
+	}
+	return 0;
+}
+
 export function sortWithNonRenseigneAtTheEnd(a: SearchResults.FacetValue, b: SearchResults.FacetValue) {
 	if (a.name === DomainesStage.NON_RENSEIGNE) {
 		return 1;
@@ -28,13 +38,7 @@ export function sortByDurationAscending(a: SearchResults.FacetValue, b: SearchRe
 	if (b.name === MOINS_D_UN_MOIS) {
 		return 1;
 	}
-	if (a.name < b.name) {
-		return -1;
-	}
-	if (a.name > b.name) {
-		return 1;
-	}
-	return 0;
+	return sortASCII(a, b);
 }
 
 export function FormulaireRechercheOffreStage() {
