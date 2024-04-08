@@ -3,12 +3,15 @@ import { Meta, StoryObj } from '@storybook/react';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { createSuccess, Either } from '~/server/errors/either';
-import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 import { aLocalisationList } from '~/server/localisations/domain/localisation.fixture';
+import { RésultatsRechercheCommune } from '~/server/localisations/domain/localisationAvecCoordonnées';
+import {
+	RechercheLocalisationApiResponse,
+} from '~/server/localisations/infra/controllers/RechercheLocalisationApiResponse';
 
 import { ComboboxLocalisation } from './ComboboxLocalisation';
 
-const meta:Meta<typeof ComboboxLocalisation> = {
+const meta: Meta<typeof ComboboxLocalisation> = {
 	argTypes: {
 		debounceTimeout: {
 			description: 'Temps (en ms) attendu après la dernière saisie avant de lancer la récupération des localisations',
@@ -23,24 +26,29 @@ const meta:Meta<typeof ComboboxLocalisation> = {
 			description: 'Libellé affiché devant le combobox',
 		},
 	},
-	args: {
-	},
+	args: {},
 	component: ComboboxLocalisation,
 	parameters: {
 		docs: {
-			controls: { exclude: ['onFocus','onChange', 'onBlur', 'onInput', 'filter', 'requireValidOption', 'valueName'] },
+			controls: { exclude: ['onFocus', 'onChange', 'onBlur', 'onInput', 'filter', 'requireValidOption', 'valueName'] },
 		},
 	},
 	title: 'Components/Form/Combobox/ComboboxLocalisation',
 };
 
 class LocalisationServiceStub implements LocalisationService {
-	async rechercherLocalisation(query: string): Promise<Either<TypeLocalisation[]>> {
+	isInvalidLocalisationQuery(): boolean {
+		return false;
+	}
+	rechercherCommune(): Promise<Either<RésultatsRechercheCommune>> {
+		throw new Error('Method not implemented.');
+	}
+	async rechercherLocalisation(query: string): Promise<Either<RechercheLocalisationApiResponse>> {
 		return new Promise((resolve) => setTimeout(() => resolve(createSuccess(
 			{
-				communes: aLocalisationList().communeList.filter((commune) => commune.nom.toLowerCase().includes(query.toLowerCase())),
-				departements: aLocalisationList().departementList.filter((departement) => departement.nom.toLowerCase().includes(query.toLowerCase())),
-				regions: aLocalisationList().regionList.filter((region) => region.nom.toLowerCase().includes(query.toLowerCase())),
+				communeList: aLocalisationList().communeList.filter((commune) => commune.nom.toLowerCase().includes(query.toLowerCase())),
+				departementList: aLocalisationList().departementList.filter((departement) => departement.nom.toLowerCase().includes(query.toLowerCase())),
+				regionList: aLocalisationList().regionList.filter((region) => region.nom.toLowerCase().includes(query.toLowerCase())),
 			},
 		)), 1000));
 	}
