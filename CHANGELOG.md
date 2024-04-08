@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.273.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.272.0...v3.273.0) (2024-04-08)
+
+
+### Features
+
+* **accompagnement:** bouton formulaire mission locale mobile simplifié ([#2881](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2881)) ([d690141](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d69014137ab49431769e2fdf01dc4da827f12afa))
+* **stages:** tri les durees par ordre logique ([#2883](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2883)) ([ef5d119](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ef5d11911f6277d22801aca61f90640999b0f660))
+
 ## [3.272.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.271.4...v3.272.0) (2024-04-08)
 
 
