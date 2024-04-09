@@ -4,10 +4,9 @@
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { RouterContext } from 'next/dist/shared/lib/router-context';
 
 import { Header } from '~/client/components/layouts/Header/Header';
-import { createMockRouter, mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Header', () => {
@@ -418,11 +417,8 @@ describe('Header', () => {
 		describe('Au clic sur un item du menu', () => {
 			it('ferme le menu de navigation', () => {
 				mockUseRouter({ pathname: '/' });
-				const router = createMockRouter({ pathname: '/' });
 				render(
-					<RouterContext.Provider value={router}>
-						<Header/>
-					</RouterContext.Provider>,
+					<Header/>,
 				);
 				const button = screen.getByRole('button', { name: 'Menu' });
 				fireEvent.click(button);
@@ -438,11 +434,8 @@ describe('Header', () => {
 			it('affiche les menus en profondeur', async () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
-				const router = createMockRouter({ pathname: '/' });
 				render(
-					<RouterContext.Provider value={router}>
-						<Header/>
-					</RouterContext.Provider>,
+					<Header/>,
 				);
 
 				// When
@@ -464,11 +457,8 @@ describe('Header', () => {
 		  it('l’utilisateur peut naviguer en profondeur dans le dernier item du menu', async () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
-				const router = createMockRouter({ pathname: '/' });
 				render(
-					<RouterContext.Provider value={router}>
-						<Header/>
-					</RouterContext.Provider>,
+					<Header/>,
 				);
 				const burgerMenu = screen.getByRole('button', { name: 'Menu' });
 				await userEvent.click(burgerMenu);
