@@ -11,7 +11,12 @@ export default meta;
 
 type Story = StoryObj<typeof Img>;
 export const exemple: Story = {
-	args: { src: 'https://picsum.photos/200/300' },
+	args: {
+		alt: '',
+		height: 216,
+		src: 'https://picsum.photos/384/216',
+		width: 384,
+	},
 	render: (args) => (
 		<Img {...args}/>
 	),
