@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.273.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.273.0...v3.273.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* **CEJ:** icon qui change de taille en mobile ([#2885](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2885)) ([06cf42b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/06cf42bbef0ef395a76e6a53dd6b6931af461455))
+* **deps:** update dependency next to v14 ([#2890](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2890)) ([7ff561f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7ff561ff9bd268a839597a30ef7bb743ab71cd13))
+* **storybook:** correction de la story du comboboxLocalisation ([#2886](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2886)) ([533fa3e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/533fa3eb05ace0c766e7a4286f9547e32926b9ff))
+
 ## [3.273.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.272.0...v3.273.0) (2024-04-08)
 
 
