@@ -32,8 +32,8 @@
     background-color: utilities-deprecated.$color-surface;
     max-width: utilities-deprecated.$breakpoint-xl;
     min-height: 60px;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
     list-style: none;
     padding: 12px;
