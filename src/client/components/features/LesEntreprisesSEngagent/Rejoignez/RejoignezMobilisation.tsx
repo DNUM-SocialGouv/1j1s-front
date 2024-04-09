@@ -25,6 +25,7 @@ export default function RejoignezMobilisation() {
 				de services inédits</b> : un accompagnement personnalisé si vous le souhaitez, des aides pour communiquer, etc.
 			</p>
 			<div className={styles.linkAsButtonWrapper}>
+				{/* TODO (BRUJ 09/04/2024): changer pour un lien de redirection + test */ }
 				<Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la
 					mobilisation<Link.Icon/></Link>
 				<Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">

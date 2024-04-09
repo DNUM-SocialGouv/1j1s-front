@@ -27,7 +27,6 @@ jest.mock('~/server/services/serverConfiguration.service', () => {
 					API_GEO_BASE_URL: 'https://geo.api.gouv.fr/',
 					API_LA_BONNE_ALTERNANCE_CALLER: '1jeune1solution',
 					API_LA_BONNE_ALTERNANCE_URL: 'https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/',
-					API_LES_ENTREPRISES_SENGAGENT_URL: 'https://staging.lesentreprises-sengagent.local',
 					API_ONISEP_ACCOUNT_EMAIL: 'fake@example.com',
 					API_ONISEP_ACCOUNT_PASSWORD: 'password-bidon',
 					API_ONISEP_APPLICATION_ID: '123456789',
