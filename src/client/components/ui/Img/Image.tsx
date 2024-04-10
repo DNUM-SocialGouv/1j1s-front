@@ -7,7 +7,7 @@ type ImageProps = React.ComponentPropsWithoutRef<typeof NextImage>;
 type ImageRef = React.ComponentRef<typeof NextImage>;
 export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 	src,
-	onError: onErrorProps = () => {},
+	onError: onErrorProps = doNothing,
 	...props
 }, ref) {
 	const [error, setError] = useState(false);
@@ -23,3 +23,5 @@ export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 			ref={ref}/>
 	);
 });
+
+function doNothing() {}

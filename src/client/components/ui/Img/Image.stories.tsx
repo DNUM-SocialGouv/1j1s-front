@@ -17,9 +17,6 @@ export const exemple: Story = {
 		src: 'https://picsum.photos/384/216',
 		width: 384,
 	},
-	render: (args) => (
-		<Image {...args}/>
-	),
 };
 
 export const sourceInvalide: Story = {
@@ -29,7 +26,4 @@ export const sourceInvalide: Story = {
 		src: '/invalid/image',
 		width: 384,
 	},
-	render: (args) => (
-		<Image {...args}/>
-	),
 };
