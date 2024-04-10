@@ -15,19 +15,19 @@ export const Example: Story = {
 		imageList: [
 			{
 				alt: '',
-				src: '/images/accompagnement.webp',
+				src: 'https://picsum.photos/384/216?1',
 			},
 			{
 				alt: '',
-				src: '/images/accompagnement.webp',
+				src: 'https://picsum.photos/384/216?2',
 			},
 			{
 				alt: '',
-				src: '/images/accompagnement.webp',
+				src: 'https://picsum.photos/384/216?3',
 			},
 		],
-		imageListLabel: 'liste de photo d´illustration',
 		imagesSize: { height: 109, width: 34 },
+		style: { aspectRatio: '16/9' },
 	},
 };
 
