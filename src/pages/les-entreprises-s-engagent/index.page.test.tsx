@@ -34,7 +34,7 @@ describe('<LesEntreprisesSEngagent />', () => {
 	});
 
 	it('je vois le lien pour rejoindre la mobilisation', () => {
-		process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT = 'http://url.com';
+		process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT_URL = 'http://url.com';
 
 		render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<LesEntreprisesSEngagent/>

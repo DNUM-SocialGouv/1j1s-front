@@ -7,7 +7,7 @@ import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/Lig
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function RejoignezMobilisation() {
-	const urlRejoindreLaMobilisation = process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT ?? '';
+	const urlRejoindreLaMobilisation = process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT_URL ?? '';
 
 	return <div className={styles.content}>
 		<Container className={styles.container}>
