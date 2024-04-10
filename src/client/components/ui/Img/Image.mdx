@@ -1,0 +1,14 @@
+import * as stories from './Image.stories'
+import { Meta, Primary, Canvas } from "@storybook/blocks";
+
+<Meta of={stories} />
+
+# Definition
+
+Une image.
+
+<Primary />
+
+Quand une erreur survient (source invalide, image non-disponible...), l'image affichera un *placeholder*.
+
+<Canvas of={stories.sourceInvalide} />
