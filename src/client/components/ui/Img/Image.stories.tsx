@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import { Img } from './Img';
+import { Image } from './Image';
 
-const meta: Meta<typeof Img> = {
-	component: Img,
-	title: 'Components/Img',
+const meta: Meta<typeof Image> = {
+	component: Image,
+	title: 'Components/Image',
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Img>;
+type Story = StoryObj<typeof Image>;
 export const exemple: Story = {
 	args: {
 		alt: '',
@@ -18,6 +18,6 @@ export const exemple: Story = {
 		width: 384,
 	},
 	render: (args) => (
-		<Img {...args}/>
+		<Image {...args}/>
 	),
 };
