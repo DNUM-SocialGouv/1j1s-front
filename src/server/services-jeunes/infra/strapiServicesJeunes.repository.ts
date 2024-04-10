@@ -22,7 +22,6 @@ export class StrapiServicesJeunesRepository implements ServicesJeunesRepository 
 		try {
 			let servicesJeunes = mapToServicesJeunes(strapiMesuresJeunes.result);
 			servicesJeunes = servicesJeunes.filter((serviceJeune) => serviceJeune.categorie !== ServiceJeune.Categorie.AIDES_FINANCIERES);
-			servicesJeunes.sort((a, b) => a.titre.localeCompare(b.titre));
 			return createSuccess(servicesJeunes);
 		} catch (error) {
 			return this.errorManagementService.handleFailureError(error, {

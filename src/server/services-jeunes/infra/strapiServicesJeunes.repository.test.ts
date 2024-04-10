@@ -2,12 +2,9 @@ import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.f
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
-import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
 	aStrapiMesureJeune,
 	aStrapiMesuresJeunesParCategorie,
-	aStrapiUnorderedMesuresJeunesParCategorie,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
 import { StrapiServicesJeunesRepository } from '~/server/services-jeunes/infra/strapiServicesJeunes.repository';
 
@@ -27,34 +24,6 @@ describe('strapiMesuresJeunesRepository', () => {
 		});
 
 		describe('quand les mesures jeunes sont trouvées', () => {
-			it('retourne la liste des services jeunes triée alphabétiquement par titre', async () => {
-				const strapiService = aStrapiService();
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(aStrapiUnorderedMesuresJeunesParCategorie()));
-				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
-
-				const result = await strapiMesuresJeunes.getServicesJeunesList();
-
-				const orderedServicesJeunes = [
-					aServiceJeune({
-						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,
-						titre: 'A une belle formation',
-					}),
-					aServiceJeune({
-						categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE,
-						titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
-					}),
-					aServiceJeune({
-						categorie: ServiceJeune.Categorie.ORIENTATION_FORMATION,
-						titre: 'Les Junior Entreprises',
-					}),
-					aServiceJeune({
-						categorie: ServiceJeune.Categorie.ACCOMPAGNEMENT,
-						titre: 'Une formation en centre EPIDE',
-					}),
-				];
-				expect(result).toEqual(createSuccess(orderedServicesJeunes));
-			});
-
 			it('retourne la liste des services jeunes sans la catégorie aides financières', async () => {
 				const strapiService = aStrapiService();
 				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorie({
