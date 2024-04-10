@@ -18,7 +18,7 @@ export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 			src={error ? PLACEHOLDER_SRC : src}
 			onError={(...args) => {
 				setError(true);
-				return onErrorProps(...args);
+				onErrorProps(...args);
 			}}
 			ref={ref}/>
 	);
