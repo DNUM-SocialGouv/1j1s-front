@@ -4,7 +4,7 @@
 
 import '~/test-utils';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
@@ -15,7 +15,7 @@ describe('<LesEntreprisesSEngagent />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<LesEntreprisesSEngagent/>
-		</DependenciesProvider> );
+		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -26,10 +26,20 @@ describe('<LesEntreprisesSEngagent />', () => {
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
 			>
-				<LesEntreprisesSEngagent />);
+				<LesEntreprisesSEngagent/>);
 			</DependenciesProvider>,
 		);
 
 		await expect(container).toBeAccessible();
+	});
+
+	it('je vois le lien pour rejoindre la mobilisation', () => {
+		process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT = 'http://url.com';
+
+		render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
+			<LesEntreprisesSEngagent/>
+		</DependenciesProvider>);
+
+		expect(screen.getByRole('link', { name: 'Rejoindre la mobilisation - nouvelle fenêtre' })).toHaveAttribute('href', 'http://url.com');
 	});
 });
