@@ -21,3 +21,15 @@ export const exemple: Story = {
 		<Image {...args}/>
 	),
 };
+
+export const sourceInvalide: Story = {
+	args: {
+		alt: '',
+		height: 216,
+		src: '/invalid/image',
+		width: 384,
+	},
+	render: (args) => (
+		<Image {...args}/>
+	),
+};
