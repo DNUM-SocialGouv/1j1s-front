@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import illustration from 'public/images/CEJ/what-it-is.png';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
+import { Image } from '~/client/components/ui/Img';
 
 import styles from './QuEstCeQueCEst.module.scss';
 

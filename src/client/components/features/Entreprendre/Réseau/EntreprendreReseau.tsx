@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/Entreprendre/Réseau/EntreprendreReseau.module.scss';
@@ -7,6 +6,7 @@ import {
 	EntreprendreRéseauPhasesProjet,
 } from '~/client/components/features/Entreprendre/Réseau/PhasesProjet/EntreprendreRéseauPhasesProjet';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 interface Entreprise {

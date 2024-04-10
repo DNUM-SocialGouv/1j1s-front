@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import illustration from 'public/images/CEJ/benefit-from-it.png';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Allocations/Allocations.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export default function Allocations() {

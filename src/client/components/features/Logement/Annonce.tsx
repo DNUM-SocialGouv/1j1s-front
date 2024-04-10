@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, { useMemo } from 'react';
 
 import styles from '~/client/components/features/Logement/Annonce.module.scss';
@@ -7,6 +6,7 @@ import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { Card } from '~/client/components/ui/Card/Card';
 import { Carousel } from '~/client/components/ui/Carousel/Carousel';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 

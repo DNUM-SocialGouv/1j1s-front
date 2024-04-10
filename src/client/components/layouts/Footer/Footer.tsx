@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Footer/Footer.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 interface FooterLink {

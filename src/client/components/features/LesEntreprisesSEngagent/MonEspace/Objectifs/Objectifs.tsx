@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/Objectifs/Objectifs.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Image } from '~/client/components/ui/Img';
 
 export function Objectifs () {
 	return (

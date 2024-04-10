@@ -1,7 +1,6 @@
-import Image from 'next/image';
-
 import styles from '~/client/components/features/JeDonneMonAvis/JeDonneMonAvis.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function JeDonneMonAvis() {

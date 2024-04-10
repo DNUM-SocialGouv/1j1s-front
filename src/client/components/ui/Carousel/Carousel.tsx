@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, {
 	useCallback,
 	useState,
@@ -9,6 +8,7 @@ import { Image as ImageProps } from '~/client/components/props';
 import { Controls } from '~/client/components/ui/Carousel/Controls';
 import { Indicators } from '~/client/components/ui/Carousel/Indicators';
 import { Slide } from '~/client/components/ui/Carousel/Slide';
+import { Image } from '~/client/components/ui/Img';
 
 import styles from './Carousel.module.scss';
 

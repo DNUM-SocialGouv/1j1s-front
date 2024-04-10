@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import styles from '~/client/components/ui/Card/Link/LinkCard.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 interface LinkCardProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {

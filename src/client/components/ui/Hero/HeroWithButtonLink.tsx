@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/Hero.module.scss';
+import { Image } from '~/client/components/ui/Img';
 
 import { Link } from '../Link/Link';
 

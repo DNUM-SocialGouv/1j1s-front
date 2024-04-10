@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/JeDeviensMentor/Pourquoi/Pourquoi.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 
 export function Pourquoi() {
