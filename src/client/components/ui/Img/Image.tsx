@@ -1,20 +1,25 @@
 import NextImage from 'next/image';
 import React, { useState } from 'react';
 
-type ImageProps = React.ComponentPropsWithoutRef<typeof NextImage>;
+const PLACEHOLDER_SRC = '/images/placeholder.webp';
 
+type ImageProps = React.ComponentPropsWithoutRef<typeof NextImage>;
 type ImageRef = React.ComponentRef<typeof NextImage>;
 export const Image = React.forwardRef<ImageRef, ImageProps>(function Image({
 	src,
+	onError: onErrorProps = () => {},
 	...props
 }, ref) {
 	const [error, setError] = useState(false);
 
 	return (
 		<NextImage
-			src={error ? '/images/placeholder.webp' : src}
-			onError={() => setError(true)}
 			{...props}
+			src={error ? PLACEHOLDER_SRC : src}
+			onError={(...args) => {
+				setError(true);
+				return onErrorProps(...args);
+			}}
 			ref={ref}/>
 	);
 });
