@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.276.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.275.0...v3.276.0) (2024-04-11)
+
+
+### Features
+
+* **lee:** supprimer le formulaire rejoindre la mobilisation et ajout redirection ([#2895](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2895)) ([361ea11](https://github.com/DNUM-SocialGouv/1j1s-front/commit/361ea11dd0241aa4785fe43b5fb0f80cce61eee9))
+
 ## [3.275.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.274.0...v3.275.0) (2024-04-11)
 
 
