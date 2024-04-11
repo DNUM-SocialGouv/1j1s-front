@@ -5,7 +5,6 @@ import { anErrorManagementService } from '~/server/services/error/errorManagemen
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { aServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes.fixture';
 import {
-	aStrapiMesureJeune,
 	aStrapiMesuresJeunesParCategorie,
 	aStrapiUnorderedMesuresJeunesParCategorie,
 } from '~/server/services-jeunes/infra/strapiMesuresJeunes.fixture';
@@ -40,6 +39,12 @@ describe('strapiMesuresJeunesRepository', () => {
 						titre: 'A une belle formation',
 					}),
 					aServiceJeune({
+						categorie: 'Aides financières',
+						concerne: 'pour les 12 à 18mois',
+						link: 'Une belle url de carte',
+						titre: 'Des aides pour financer son permis de conduire',
+					}),
+					aServiceJeune({
 						categorie: ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE,
 						titre: 'Le Parcours Emploi Compétences (PEC) Jeunes',
 					}),
@@ -53,22 +58,6 @@ describe('strapiMesuresJeunesRepository', () => {
 					}),
 				];
 				expect(result).toEqual(createSuccess(orderedServicesJeunes));
-			});
-
-			it('retourne la liste des services jeunes sans la catégorie aides financières', async () => {
-				const strapiService = aStrapiService();
-				const strapiMesuresJeunesParCategorie = aStrapiMesuresJeunesParCategorie({
-					accompagnement: [],
-					aidesFinancieres: [aStrapiMesureJeune()],
-					orienterFormer: [],
-					vieProfessionnelle: [],
-				});
-				jest.spyOn(strapiService, 'getSingleType').mockResolvedValue(createSuccess(strapiMesuresJeunesParCategorie));
-				const strapiMesuresJeunes = new StrapiServicesJeunesRepository(strapiService, anErrorManagementService());
-
-				const result = await strapiMesuresJeunes.getServicesJeunesList();
-
-				expect(result).toEqual(createSuccess([]));
 			});
 		});
 

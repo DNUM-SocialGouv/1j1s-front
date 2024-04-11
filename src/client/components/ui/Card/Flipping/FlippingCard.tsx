@@ -9,6 +9,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import MarkdownToHtml from '~/client/components/ui/MarkdownToHtml/MarkdownToHtml';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
+import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 
 interface FlippingCardProps {
 	imageUrl?: string
@@ -31,12 +32,14 @@ export function FlippingCard(props: FlippingCardProps) {
 
 	const categoryClass = useMemo(() => {
 		switch (category) {
-			case 'Accompagnement':
+			case ServiceJeune.Categorie.ACCOMPAGNEMENT:
 				return styles.cardCategoryAccompagnement;
-			case 'Orientation et formation':
+			case ServiceJeune.Categorie.ORIENTATION_FORMATION:
 				return styles.cardCategoryOrienterFormer;
-			case 'Entrée dans la vie professionnelle':
+			case ServiceJeune.Categorie.ENTREE_VIE_PROFESSIONELLE:
 				return styles.cardCategoryVieProfessionnelle;
+			case ServiceJeune.Categorie.AIDES_FINANCIERES:
+				return styles.cardCategoryAidesFinancieres;
 		}
 	}, [category]);
 

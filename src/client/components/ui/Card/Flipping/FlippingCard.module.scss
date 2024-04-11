@@ -35,16 +35,19 @@
     width: fit-content;
     @extend %text-small;
     @extend %bold;
+  }
 
-    &Accompagnement {
-      background-color: utilities-deprecated.$cerro-green;
-    }
-    &OrienterFormer {
-      background-color: utilities-deprecated.$auricula-purple;
-    }
-    &VieProfessionnelle {
-      background-color: utilities-deprecated.$dark-vinaceous;
-    }
+  & .cardCategoryAccompagnement {
+    background-color: utilities-deprecated.$cerro-green;
+  }
+  & .cardCategoryOrienterFormer {
+    background-color: utilities-deprecated.$auricula-purple;
+  }
+  & .cardCategoryVieProfessionnelle {
+    background-color: utilities-deprecated.$dark-vinaceous;
+  }
+  & .cardCategoryAidesFinancieres {
+    background-color: utilities-deprecated.$duck-green;
   }
 
   &Flip {
