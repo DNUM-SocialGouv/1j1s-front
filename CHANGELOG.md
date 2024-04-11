@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.275.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.274.0...v3.275.0) (2024-04-11)
+
+
+### Features
+
+* **mesures empl:** ajout des tests d'accessibilité ([#2897](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2897)) ([0eaaaef](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0eaaaef787dd2eb271bcaf65609c0831ec47caea))
+
 ## [3.274.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.273.1...v3.274.0) (2024-04-10)
 
 
