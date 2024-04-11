@@ -1,0 +1,6 @@
+@use "@styles/utilities";
+
+.décharge {
+  @include utilities.text-small;
+  text-align: left;
+}

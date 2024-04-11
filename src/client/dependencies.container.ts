@@ -22,9 +22,6 @@ import {
 	FormationInitialeService,
 } from '~/client/services/formationInitiale/formationInitiale.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
-import {
-	LesEntreprisesSEngagentService,
-} from '~/client/services/lesEntreprisesSEngagent/lesEntreprisesSEngagent.service';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
@@ -77,7 +74,6 @@ export type Dependencies = {
 	demandeDeContactService: DemandeDeContactService
 	formationService: FormationService
 	formationInitialeService: FormationInitialeInterface
-	lesEntreprisesSEngagentService: LesEntreprisesSEngagentService
 	localisationService: LocalisationService
 	metierLbaService: MetierService
 	metierStage3eEt2deService: MetierService
@@ -117,7 +113,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new MissionEngagementService(httpClientService);
 	const demandeDeContactService = new BffDemandeDeContactService(httpClientService);
-	const lesEntreprisesSEngagentService = new LesEntreprisesSEngagentService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
@@ -175,7 +170,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		emploiEuropeService,
 		formationInitialeService,
 		formationService,
-		lesEntreprisesSEngagentService,
 		localisationService,
 		marketingService,
 		metierLbaService,

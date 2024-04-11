@@ -70,17 +70,6 @@ import {
 } from '~/server/engagement/configuration/dependencies.container';
 import { ApiEngagementRepository } from '~/server/engagement/infra/repositories/apiEngagement.repository';
 import {
-	EntrepriseDependencies,
-	entreprisesDependenciesContainer,
-} from '~/server/entreprises/configuration/dependencies.container';
-import {
-	getApiRejoindreLaMobilisationConfig,
-} from '~/server/entreprises/configuration/rejoindre-la-mobilisation/rejoindreLaMobilisationHttpClient.config';
-import { ApiRejoindreLaMobilisationRepository } from '~/server/entreprises/infra/apiRejoindreLaMobilisation.repository';
-import {
-	ApiRejoindreLaMobilisationErrorManagementService,
-} from '~/server/entreprises/infra/apiRejoindreLaMobilisationErrorManagement.service';
-import {
 	EtablissementAccompagnementDependencies,
 	etablissementAccompagnementDependenciesContainer,
 } from '~/server/etablissement-accompagnement/configuration/dependencies.container';
@@ -256,7 +245,6 @@ export type Dependencies = {
 	engagementDependencies: EngagementDependencies;
 	localisationDependencies: LocalisationDependencies;
 	demandeDeContactDependencies: DemandeDeContactDependencies;
-	entrepriseDependencies: EntrepriseDependencies;
 	offreJobEteDependencies: OffresJobEteDependencies;
 	offreJobÉtudiantDependencies: OffresJobÉtudiantDependencies
 	robotsDependencies: RobotsDependencies;
@@ -381,11 +369,6 @@ export function dependenciesContainer(): Dependencies {
 		demandeDeContactCEJRepository,
 	);
 
-	const lesEntreprisesSEngagentHttpClientService = new PublicHttpClientService(getApiRejoindreLaMobilisationConfig(serverConfigurationService));
-	const apiRejoindreLaMobilisationErrorManagementService = new ApiRejoindreLaMobilisationErrorManagementService(loggerService);
-	const apiRejoindreLaMobilisationRepository = new ApiRejoindreLaMobilisationRepository(lesEntreprisesSEngagentHttpClientService, apiRejoindreLaMobilisationErrorManagementService);
-	const entrepriseDependencies = entreprisesDependenciesContainer(apiRejoindreLaMobilisationRepository);
-
 	const etablissementPublicHttpClientService = new PublicHttpClientService(getApiEtablissementPublicConfig(serverConfigurationService));
 	const apiEtablissementPublicRepository = new ApiEtablissementPublicRepository(etablissementPublicHttpClientService, defaultErrorManagementService);
 	const établissementAccompagnementDependencies = etablissementAccompagnementDependenciesContainer(apiEtablissementPublicRepository);
@@ -453,7 +436,6 @@ export function dependenciesContainer(): Dependencies {
 		demandeDeContactDependencies,
 		emploiEuropeDependencies,
 		engagementDependencies,
-		entrepriseDependencies,
 		faqDependencies,
 		ficheMetierDependencies,
 		formationDependencies,

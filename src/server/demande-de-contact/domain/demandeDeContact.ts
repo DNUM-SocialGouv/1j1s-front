@@ -2,7 +2,7 @@ import {
 	ContactEtablissementAccompagnement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-export type DemandeDeContactType = 'CEJ' | 'LesEntreprisesSEngagent';
+export type DemandeDeContactType = 'CEJ';
 
 export interface DemandeDeContact {
   prénom: string

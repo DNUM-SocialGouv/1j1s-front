@@ -7,6 +7,8 @@ import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/Lig
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function RejoignezMobilisation() {
+	const urlRejoindreLaMobilisation = process.env.NEXT_PUBLIC_LES_ENTREPRISES_S_ENGAGENT_URL ?? '';
+
 	return <div className={styles.content}>
 		<Container className={styles.container}>
 			<div className={styles.lesEntreprisesSEngagent}>
@@ -25,8 +27,10 @@ export default function RejoignezMobilisation() {
 				de services inédits</b> : un accompagnement personnalisé si vous le souhaitez, des aides pour communiquer, etc.
 			</p>
 			<div className={styles.linkAsButtonWrapper}>
-				<Link href="/les-entreprises-s-engagent/inscription" appearance="asPrimaryButton">Rejoindre la
-					mobilisation<Link.Icon/></Link>
+				<Link href={urlRejoindreLaMobilisation} appearance="asPrimaryButton">
+					Rejoindre la mobilisation
+					<Link.Icon/>
+				</Link>
 				<Link href="https://lesentreprises-sengagent.gouv.fr/les-entreprises-engagees" appearance="asSecondaryButton">
 					Découvrir les entreprises engagées
 					<Link.Icon/>

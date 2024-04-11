@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 
-import { DéchargeRGPD } from '~/client/components/features/LesEntreprisesSEngagent/DéchargeRGPD/DéchargeRGPD';
+import { DéchargeRGPD } from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';

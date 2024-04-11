@@ -9,7 +9,6 @@ import { userEvent } from '@testing-library/user-event';
 import DemandeContactCEJ
 	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -32,12 +31,7 @@ describe('<DemandeContactCEJ />', () => {
 	});
 
 	function renderComponent() {
-		const onSuccess = jest.fn();
-		const anDemandeDeContactService = (): BffDemandeDeContactService => ({
-			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
-			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		} as unknown as BffDemandeDeContactService);
-		const demandeDeContactServiceMock = anDemandeDeContactService();
+		const demandeDeContactServiceMock = aDemandeDeContactService();
 		const localisationService = aLocalisationService();
 
 		render(
@@ -45,7 +39,6 @@ describe('<DemandeContactCEJ />', () => {
 				<DemandeContactCEJ/>
 			</DependenciesProvider>,
 		);
-		return { demandeDeContactServiceMock, onSuccess };
 	}
 
 	it('le composant s‘affiche correctement', () => {

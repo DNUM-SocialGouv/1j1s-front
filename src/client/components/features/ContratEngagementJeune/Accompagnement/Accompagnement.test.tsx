@@ -8,7 +8,6 @@ import { userEvent } from '@testing-library/user-event';
 
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
-import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -37,10 +36,7 @@ describe('<Accompagnement />', () => {
 	});
 
 	function renderComponent() {
-		const demandeDeContactService: BffDemandeDeContactService = {
-			envoyerPourLeCEJ: jest.fn().mockResolvedValue(createSuccess(undefined)),
-			envoyerPourLesEntreprisesSEngagent: jest.fn().mockResolvedValue(createSuccess(undefined)),
-		} as unknown as BffDemandeDeContactService;
+		const demandeDeContactService = aDemandeDeContactService();
 		const localisationService = {} as unknown as LocalisationService;
 
 
@@ -49,7 +45,6 @@ describe('<Accompagnement />', () => {
 				<Accompagnement/>
 			</DependenciesProvider>,
 		);
-
 	}
 
 	describe('quand il se passe rien', () => {

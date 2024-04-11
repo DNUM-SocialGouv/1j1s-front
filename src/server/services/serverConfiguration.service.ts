@@ -18,7 +18,6 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_LA_BONNE_ALTERNANCE_CALLER: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_CALLER'),
 			API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: Boolean(Number(ServerConfigurationService.getOrDefault('API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE', '0'))),
 			API_LA_BONNE_ALTERNANCE_URL: ServerConfigurationService.getOrThrowError('API_LA_BONNE_ALTERNANCE_URL'),
-			API_LES_ENTREPRISES_SENGAGENT_URL: ServerConfigurationService.getOrThrowError('API_LES_ENTREPRISES_SENGAGENT_URL'),
 			API_ONISEP_ACCOUNT_EMAIL: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_EMAIL'),
 			API_ONISEP_ACCOUNT_PASSWORD: ServerConfigurationService.getOrThrowError('API_ONISEP_ACCOUNT_PASSWORD'),
 			API_ONISEP_APPLICATION_ID: ServerConfigurationService.getOrThrowError('API_ONISEP_APPLICATION_ID'),
@@ -105,7 +104,6 @@ export interface EnvironmentVariables {
 	readonly API_LA_BONNE_ALTERNANCE_CALLER: string
 	readonly API_LA_BONNE_ALTERNANCE_IS_ALTERNANCE_MOCK_ACTIVE: boolean
 	readonly API_LA_BONNE_ALTERNANCE_URL: string
-	readonly API_LES_ENTREPRISES_SENGAGENT_URL: string
 	readonly API_ONISEP_BASE_URL: string
 	readonly API_ONISEP_ACCOUNT_EMAIL: string
 	readonly API_ONISEP_ACCOUNT_PASSWORD: string
