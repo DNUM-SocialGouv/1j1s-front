@@ -22,7 +22,7 @@ export function MesuresEmployeursComponent({ mesureEmployeurList }: MesuresEmplo
 			<main id="contenu">
 				<Bannière/>
 				<section className={styles.dispositifs}>
-					<ul className={styles.cartes} aria-labelledby="dispositifs">
+					<ul className={styles.cartes}>
 						{mesureEmployeurList.map((carte) => (
 							<li key={carte.titre}>
 								<CarteMesureEmployeur carte={carte}/>
@@ -51,9 +51,9 @@ function CarteMesureEmployeur({ carte }: CarteMesureEmployeurProps) {
 	return <FlippingCard
 		imageUrl={banniere?.src}
 		link={link}
+		titleAs={'h2'}
 		title={titre}
 		flippingCardContent={pourQui}
-		data-testid="carteMesuresEmployeurs"
 		className={styles.carteMesureEmployeur}
 	/>;
 }

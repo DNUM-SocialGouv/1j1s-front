@@ -7,18 +7,12 @@ import { render, screen } from '@testing-library/react';
 import { MesuresEmployeursComponent } from '~/client/components/features/MesuresEmployeurs/MesuresEmployeurs';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
+import { aMesureEmployeur, aMesuresEmployeursList } from '~/server/mesures-employeurs/domain/mesureEmployeur.fixture';
 
 describe('MesuresEmployeurs', () => {
 	beforeEach(() => {
 		mockSmallScreen();
-	});
-	beforeEach(() => {
 		mockUseRouter({});
-	});
-
-	afterEach(() => {
-		jest.clearAllMocks();
 	});
 
 	it('affiche les sections des mesures employeurs', () => {
@@ -28,9 +22,10 @@ describe('MesuresEmployeurs', () => {
 	});
 
 	it('affiches les cartes dispositifs employeurs', () => {
-		render(<MesuresEmployeursComponent mesureEmployeurList={aMesuresEmployeursList()}/>);
-		const cartes = screen.getAllByTestId('carteMesuresEmployeurs');
-		expect(cartes.length).toEqual(4);
+		const mesureEmployeurList = [aMesureEmployeur(), aMesureEmployeur({ titre: 'une seconde mesure employeur' })];
+		render(<MesuresEmployeursComponent mesureEmployeurList={mesureEmployeurList}/>);
+
+		expect(screen.getAllByRole('listitem').length).toEqual(2);
 	});
 });
 
