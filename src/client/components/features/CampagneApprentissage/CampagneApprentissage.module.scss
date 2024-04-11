@@ -3,13 +3,23 @@
 
 .avoidLineBreakInside {
   display: inline-block;
-};
+}
+
+;
+
+.desktopOnly {
+  display: none;
+  @include utilities.media(small) {
+    display: unset;
+  }
+}
 
 .titrePage {
   & h1 {
     @extend %headline;
     font-weight: bold;
   }
+
   & .hero {
     background-color: utilities-deprecated.$color-background;
 
