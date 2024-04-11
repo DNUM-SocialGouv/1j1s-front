@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.274.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.273.1...v3.274.0) (2024-04-10)
+
+
+### Features
+
+* Composant Image ([#2894](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2894)) ([6d42a2c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6d42a2cf2fcd9a380663e7df5b03a7923f1529b7))
+
 ## [3.273.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.273.0...v3.273.1) (2024-04-09)
 
 
