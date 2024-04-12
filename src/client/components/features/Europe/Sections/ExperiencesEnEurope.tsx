@@ -23,7 +23,7 @@ export function ExperiencesEnEurope() {
 						Si vous êtes accompagné·e en mission locale, rapprochez-vous de votre conseiller pour en savoir plus sur les mobilités courtes
 				</p>
 			</div>
-			<Link href="https://ec.europa.eu/eures/portal/jv-se/home" appearance="asPrimaryButton">
+			<Link href="https://europa.eu/eures/portal/jv-se/home?lang=fr" appearance="asPrimaryButton">
 					Trouver une offre d’emploi en Europe
 				<Link.Icon/>
 			</Link>
