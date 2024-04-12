@@ -76,7 +76,7 @@ describe('RechercherAccompagnement', () => {
 						codeCommune: '75056',
 						codePostal: '75006',
 						libelleCommune: 'Paris (75006)',
-						typeAccompagnement: 'cij',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
 					},
 				});
 				render(
@@ -108,7 +108,7 @@ describe('RechercherAccompagnement', () => {
 						codeCommune: '75056',
 						codePostal: '75006',
 						libelleCommune: 'Paris (75006)',
-						typeAccompagnement: 'cij',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
 					},
 				});
 				render(
@@ -144,7 +144,7 @@ describe('RechercherAccompagnement', () => {
 						codeCommune: '75056',
 						codePostal: '75006',
 						libelleCommune: 'Paris (75006)',
-						typeAccompagnement: 'cij',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
 					},
 				});
 				render(
@@ -232,7 +232,7 @@ describe('RechercherAccompagnement', () => {
 					codeCommune: '75056',
 					codePostal: '75006',
 					libelleCommune: 'Paris (75006)',
-					typeAccompagnement: 'mission_locale',
+					typeAccompagnement: TypeÉtablissement.MISSION_LOCALE,
 				},
 			});
 			render(

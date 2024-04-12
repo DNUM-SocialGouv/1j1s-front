@@ -58,13 +58,13 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 	function MailLink(props: { établissement: EtablissementAccompagnement }) {
 		const label = 'Contacter l‘agence';
 		const mailTo = `mailto:${props.établissement.email}`;
-		const title = 'Contacter l‘agence - adresse mail';
+		const title = `${label} - adresse mail`;
 
 		return <>
 			<Link
 				appearance={'asQuaternaryButton'}
 				href={mailTo}
-				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDektop)}
+				className={classNames(styles.contactMailÉtablissement, styles.contactMailÉtablissementDesktop)}
 				title={title}>
 				{label}
 				<Link.Icon name="mail"/>

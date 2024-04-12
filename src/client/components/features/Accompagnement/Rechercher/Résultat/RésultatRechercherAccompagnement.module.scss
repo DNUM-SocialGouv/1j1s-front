@@ -78,7 +78,7 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
   grid-area: contact;
 }
 
-.contactMailÉtablissementDektop {
+.contactMailÉtablissementDesktop {
   display: none;
   @include utilities.media(large) {
     display: flex;
