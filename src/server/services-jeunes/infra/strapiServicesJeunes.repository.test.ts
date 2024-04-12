@@ -39,7 +39,7 @@ describe('strapiMesuresJeunesRepository', () => {
 						titre: 'A une belle formation',
 					}),
 					aServiceJeune({
-						categorie: 'Aides financières',
+						categorie: ServiceJeune.Categorie.AIDES_FINANCIERES,
 						concerne: 'pour les 12 à 18mois',
 						link: 'Une belle url de carte',
 						titre: 'Des aides pour financer son permis de conduire',
