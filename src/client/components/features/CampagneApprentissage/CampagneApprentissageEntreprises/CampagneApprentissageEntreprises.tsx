@@ -14,7 +14,6 @@ import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
@@ -23,7 +22,6 @@ interface CampagneApprentissageEntreprisesProps {
 }
 
 export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissageEntreprisesProps) {
-	const { isSmallScreen } = useBreakpoint();
 	const raisons: Raisons[] = [
 		{
 			iconName: 'award',
@@ -53,7 +51,8 @@ export function CampagneApprentissageEntreprises({ videos }: CampagneApprentissa
 				<HeroWithIllustration image={'/images/campagne-apprentissage-entreprise-avec-texte.webp'} className={styles.hero}>
 					<h1>L’apprentissage, pour mon entreprise <span className={styles.avoidLineBreakInside}>c’est le bon choix&nbsp;!</span></h1>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.EMPLOYEUR}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						{ isSmallScreen ? 'Simuler le coût d’embauche' : 'Simuler le coût de l’embauche d’un apprenti'}
+						<span className={styles.mobileOnly}>Simuler le coût d’embauche</span>
+						<span className={styles.desktopOnly}>Simuler le coût de l’embauche d’un apprenti</span>
 						<Link.Icon/>
 					</Link>
 				</HeroWithIllustration>

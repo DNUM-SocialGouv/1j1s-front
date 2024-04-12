@@ -5,7 +5,11 @@
   display: inline-block;
 }
 
-;
+.mobileOnly {
+  @include utilities.media(small) {
+    display: none;
+  }
+}
 
 .desktopOnly {
   display: none;
