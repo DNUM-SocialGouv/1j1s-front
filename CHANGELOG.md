@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.277.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.276.0...v3.277.0) (2024-04-12)
+
+
+### Features
+
+* **mesures jeunes:** activer les aides financières ([#2902](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2902)) ([78c039a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/78c039a54317f60bb7de54a4b05b6c377af86fcc))
+
 ## [3.276.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.275.0...v3.276.0) (2024-04-11)
 
 
