@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, { PropsWithChildren, ReactNode, useId } from 'react';
 
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';

@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import illustration from 'public/illustrations/rejoindre-la-mobilisation.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Avantages/AvantagesMobilisation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Image } from '~/client/components/ui/Img';
 
 export default function AvantagesMobilisation() {
 	return (

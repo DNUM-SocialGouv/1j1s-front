@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import styles
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideoFrame.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { VideoService } from '~/client/services/video/video.service';

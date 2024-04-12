@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/ui/Hero/HeroComponent.module.scss';
+import { Image } from '~/client/components/ui/Img';
 
 interface HeroComponentProps extends Pick<React.HTMLAttributes<unknown>, 'className' | 'children'> {
   titlePrimaryText: React.ReactNode

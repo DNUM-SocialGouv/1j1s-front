@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import { BackButton } from '~/client/components/features/ButtonRetour/BackButton';
 import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/layouts/Error/ErrorLayout.module.scss';
 import { HtmlHeadingTag } from '~/client/components/props';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 

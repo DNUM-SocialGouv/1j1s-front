@@ -1,10 +1,10 @@
-import Image from 'next/image';
 import logoImage from 'public/images/CEJ/logo.svg';
 import logoApple from 'public/images/logos/apple.svg';
 import logoGoogle from 'public/images/logos/google-play.svg';
 import React from 'react';
 
 import styles from '~/client/components/features/ContratEngagementJeune/Application/Application.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function Application() {

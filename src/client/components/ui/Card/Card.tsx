@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React, { useMemo } from 'react';
 
 import { HtmlHeadingTag } from '~/client/components/props';
 import { ButtonComponent, ButtonComponentProps } from '~/client/components/ui/Button/ButtonComponent';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './Card.module.scss';

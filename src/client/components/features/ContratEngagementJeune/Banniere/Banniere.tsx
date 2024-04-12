@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import banniereImage from 'public/images/cej.webp';
 import React from 'react';
 
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 import styles from './Banniere.module.scss';

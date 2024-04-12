@@ -1,8 +1,7 @@
-import Image from 'next/image';
-
 import styles from '~/client/components/features/JeRecruteAfprPoei/Avantages/Avantages.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Image } from '~/client/components/ui/Img';
 
 export default function Avantages() {
 	return (

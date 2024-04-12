@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/MaintenanceFranceTravail/MaintenanceFranceTravail.module.scss';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function MaintenanceFranceTravail() {

@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import React from 'react';
 
 import styles from '~/client/components/features/LesEntreprisesSEngagent/Rejoignez/RejoignezMobilisation.module.scss';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { LightHero, LightHeroPrimaryText } from '~/client/components/ui/Hero/LightHero';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export default function RejoignezMobilisation() {

@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
+import { Image } from '~/client/components/ui/Img';
 
 import styles from './CommentCaMarche.module.scss';
 

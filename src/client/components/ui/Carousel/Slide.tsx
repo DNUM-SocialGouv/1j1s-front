@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import { useMemo } from 'react';
 
 import { Image as ImageProps } from '~/client/components/props';
 import { Direction } from '~/client/components/ui/Carousel/Carousel';
 import styles from '~/client/components/ui/Carousel/Slide.module.scss';
+import { Image } from '~/client/components/ui/Img';
 
 
 interface SlideProps {

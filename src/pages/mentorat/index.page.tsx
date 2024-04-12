@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import SeeMoreMobileOnly from '~/client/components/ui/SeeMore/MobileOnly/SeeMoreMobileOnly';
 import useAnalytics from '~/client/hooks/useAnalytics';
