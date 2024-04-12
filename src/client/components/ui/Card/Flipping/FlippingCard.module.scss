@@ -1,4 +1,4 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .animate {
   --rotate-y: 180deg;
@@ -17,10 +17,10 @@
   flex-direction: column;
   border-radius: 20px;
   box-shadow: 10px 10px 20px rgba(22, 22, 22, 0.05);
-  background-color: utilities-deprecated.$color-on-primary;
+  background-color: utilities.$color-background-primary;
   max-height: calc(250px + 8.75rem);
   overflow: hidden;
-  border: 1px solid utilities-deprecated.$deep-neutral-grey;
+  border: 1px solid utilities.$color-background-border;
 
   > img {
     object-fit: cover;
@@ -30,21 +30,24 @@
 
   &Category {
     margin-inline: 1rem;
-    color: utilities-deprecated.$white;
-    padding-inline: 0.25rem;
+    color: utilities.$color-text-primary-inverse;
+    padding: 0.25rem 0.25rem;
     width: fit-content;
-    @extend %text-small;
-    @extend %bold;
+    @include utilities.text-small;
+    font-weight: bold;
+  }
 
-    &Accompagnement {
-      background-color: utilities-deprecated.$cerro-green;
-    }
-    &OrienterFormer {
-      background-color: utilities-deprecated.$auricula-purple;
-    }
-    &VieProfessionnelle {
-      background-color: utilities-deprecated.$dark-vinaceous;
-    }
+  & .cardCategoryAccompagnement {
+    background-color: utilities.$color-groupe-2-light-green;
+  }
+  & .cardCategoryOrienterFormer {
+    background-color: utilities.$color-groupe-2-burgundy;
+  }
+  & .cardCategoryVieProfessionnelle {
+    background-color: utilities.$color-groupe-2-rust;
+  }
+  & .cardCategoryAidesFinancieres {
+    background-color: utilities.$color-groupe-3-green;
   }
 
   &Flip {
@@ -54,18 +57,18 @@
   &FlipBack {
     width: 100%;
     backface-visibility: hidden;
-    background-color: utilities-deprecated.$color-primary;
+    background-color: utilities.$color-background-secondary;
     position: absolute;
     top: 0;
     bottom: 0;
     transform: rotateY(180deg) translateZ(1px);
-    color: utilities-deprecated.$color-on-primary;
+    color: utilities.$color-text-primary-inverse;
     padding: 1rem;
 
 
     &Title {
       $lineHeight: 1.2;
-      @include utilities-deprecated.line-clamp(2, $lineHeight);
+      @include utilities.line-clamp(2, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
       text-align: center;
@@ -83,11 +86,11 @@
 
 
     &Action {
-      background-color: utilities-deprecated.$color-on-primary;
+      background-color: utilities.$color-background-primary;
       border-radius: 50%;
       padding: 0.25rem;
       font-size: 1rem;
-      color: utilities-deprecated.$color-primary;
+      color: utilities.$color-text-primary-alternative;
       width: 2rem;
       height: 2rem;
     }
@@ -98,7 +101,7 @@
 
     &Title {
       $lineHeight: 1.2;
-      @include utilities-deprecated.line-clamp(3, $lineHeight);
+      @include utilities.line-clamp(3, $lineHeight);
       font-size: 1rem;
       font-weight: bold;
       line-height: $lineHeight;
@@ -124,7 +127,7 @@
   }
 }
 
-@include utilities-deprecated.media(medium) {
+@include utilities.media(medium) {
   .card {
     max-height: calc(17.5rem + 8.75rem);
 
