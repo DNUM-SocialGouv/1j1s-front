@@ -25,7 +25,7 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
 
   @include utilities.media(large) {
     width: 100%;
-    grid-template-columns: auto 1fr 1fr;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
             "logo titre horaire"
             "logo tags horaire"
@@ -57,10 +57,6 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
   gap: 0.5rem;
   padding: 0;
 
-  @include utilities.media(large) {
-    margin-block: 1rem;
-  }
-
   & .telephone {
     text-decoration: none;
     display: flex;
@@ -82,6 +78,7 @@ $color-summary-hover: utilities.$color-cta-background-primary-hover;
   display: none;
   @include utilities.media(large) {
     display: flex;
+    align-items: center;
   }
 }
 
