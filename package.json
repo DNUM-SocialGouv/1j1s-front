@@ -70,7 +70,7 @@
     "@types/jest": "29.5.12",
     "@types/jest-axe": "3.5.9",
     "@types/lodash.debounce": "4.0.9",
-    "@types/markdown-it": "14.0.0",
+    "@types/markdown-it": "14.0.1",
     "@types/node": "18.19.31",
     "@types/react": "18.2.75",
     "@types/react-autosuggest": "10.1.11",
