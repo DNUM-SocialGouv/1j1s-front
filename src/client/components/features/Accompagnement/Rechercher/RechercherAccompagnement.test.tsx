@@ -48,7 +48,10 @@ describe('RechercherAccompagnement', () => {
 			// WHEN
 			const formulaireRechercheEtablissementAccompagnement = screen.getByRole('form');
 			const résultatRechercheEtablissementAccompagnementList = screen.queryByRole('list', { name: 'Établissements d‘accompagnement' });
-			const rechercheEtablissementAccompagnementNombreResultats = screen.queryByRole('heading', { level: 2, name: /établissement/ });
+			const rechercheEtablissementAccompagnementNombreResultats = screen.queryByRole('heading', {
+				level: 2,
+				name: /établissement/,
+			});
 			const zeroResultsMessage = screen.queryByText('0 résultat');
 			const errorMessage = screen.queryByText('Erreur - Demande incorrecte');
 
@@ -68,7 +71,14 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createSuccess([]));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
+				mockUseRouter({
+					query: {
+						codeCommune: '75056',
+						codePostal: '75006',
+						libelleCommune: 'Paris (75006)',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
+					},
+				});
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -93,7 +103,14 @@ describe('RechercherAccompagnement', () => {
 				établissementAccompagnementService.rechercher = jest.fn().mockResolvedValue(createFailure(ErreurMetier.DEMANDE_INCORRECTE));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
+				mockUseRouter({
+					query: {
+						codeCommune: '75056',
+						codePostal: '75006',
+						libelleCommune: 'Paris (75006)',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
+					},
+				});
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -122,7 +139,14 @@ describe('RechercherAccompagnement', () => {
 				]));
 				const localisationServiceMock = aLocalisationService();
 
-				mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'cij' } });
+				mockUseRouter({
+					query: {
+						codeCommune: '75056',
+						codePostal: '75006',
+						libelleCommune: 'Paris (75006)',
+						typeAccompagnement: TypeÉtablissement.INFO_JEUNE,
+					},
+				});
 				render(
 					<DependenciesProvider
 						localisationService={localisationServiceMock}
@@ -203,7 +227,14 @@ describe('RechercherAccompagnement', () => {
 			jest.spyOn(établissementAccompagnementService, 'rechercher').mockResolvedValue(createSuccess(anEtablissementMissionLocalList));
 			const localisationServiceMock = aLocalisationService();
 
-			mockUseRouter({ query: { codeCommune: '75056', codePostal: '75006', libelleCommune: 'Paris (75006)', typeAccompagnement: 'mission_locale' } });
+			mockUseRouter({
+				query: {
+					codeCommune: '75056',
+					codePostal: '75006',
+					libelleCommune: 'Paris (75006)',
+					typeAccompagnement: TypeÉtablissement.MISSION_LOCALE,
+				},
+			});
 			render(
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
@@ -214,11 +245,10 @@ describe('RechercherAccompagnement', () => {
 
 			// WHEN
 			const résultatRechercheÉtablissementAccompagnementListHeader = await screen.findByRole('list', { name: 'Établissements d‘accompagnement' });
-			const résultatRechercheÉtablissementAccompagnementButton = await within(résultatRechercheÉtablissementAccompagnementListHeader).findByRole('button');
+			const résultatRechercheÉtablissementAccompagnementButton = within(résultatRechercheÉtablissementAccompagnementListHeader).getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 
 			// THEN
 			expect(résultatRechercheÉtablissementAccompagnementButton).toBeVisible();
-			expect(résultatRechercheÉtablissementAccompagnementButton.textContent).toEqual('Je souhaite être contacté(e)');
 		});
 	});
 });

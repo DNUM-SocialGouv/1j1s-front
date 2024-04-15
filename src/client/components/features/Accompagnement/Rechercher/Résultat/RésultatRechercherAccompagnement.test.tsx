@@ -14,9 +14,12 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
-	EtablissementAccompagnement,
+	EtablissementAccompagnement, JourSemaine,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import {
+	anEtablissementAccompagnement,
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
 
@@ -30,7 +33,163 @@ const formulaireContact = {
 };
 
 describe('<RésultatRechercherAccompagnement/>', () => {
-	describe('lorsque je peux faire une demande de contact', () => {
+	describe('Quand le type d‘accompagnement est une mission locale', () => {
+		it('n‘affiche pas l‘email', () => {
+			// GIVEN
+			const email = 'email';
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: email,
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.MISSION_LOCALE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			// THEN
+			expect(screen.queryByText(email)).not.toBeInTheDocument();
+		});
+
+		it('affiche le bouton "Je souhaite être contacté(e)"', () => {
+			// GIVEN
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.MISSION_LOCALE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			// THEN
+			// NOTE (BRUJ 11/04/2024): Plusieurs boutons car une version desktop et une version mobile
+			const button = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
+			expect(button).toBeVisible();
+		});
+	});
+
+	describe('Quand le type d‘accompagnement n‘est pas une mission locale', () => {
+		it('affiche l‘email', () => {
+			// GIVEN
+			const email = 'email';
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: email,
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			// THEN
+			const link = screen.getAllByRole('link', { name: 'Contacter l‘agence' })[0];
+			expect(link).toBeVisible();
+			expect(link).toHaveAttribute('href', `mailto:${email}`);
+			expect(link).toHaveAttribute('title', 'Contacter l‘agence - adresse mail');
+		});
+
+		it('n‘affiche pas le bouton "Je souhaite être contacté(e)"', () => {
+			// GIVEN
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			// THEN
+			expect(screen.queryByRole('button', { name: 'Je souhaite être contacté(e)' })).not.toBeInTheDocument();
+		});
+	});
+
+	describe('Quand aucune horaire n’est disponible', () => {
+		it('n‘affiche pas "Voir les horaires d’ouverture"', () => {
+			// GIVEN
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: 'email',
+				horaires: [],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			// THEN
+			expect(screen.queryByText('Voir les horaires d‘ouverture')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('Quand des horaires sont disponibles', () => {
+		it('affiche "Voir les horaires d’ouverture" et les horaires', async () => {
+			// GIVEN
+			const etablissement = anEtablissementAccompagnement({
+				adresse: 'address',
+				email: 'email',
+				horaires: [
+					{
+						heures: [
+							{
+								début: '09:00',
+								fin: '12:00',
+							},
+						],
+						jour: JourSemaine.LUNDI,
+					},
+				],
+				id: 'id',
+				nom: 'nom',
+				telephone: 'telephone',
+				type: TypeÉtablissement.INFO_JEUNE,
+			});
+
+			// WHEN
+			render(<DependenciesProvider>
+				<RésultatRechercherAccompagnement établissement={etablissement}/>
+			</DependenciesProvider>);
+
+			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));
+
+			// THEN
+			expect(screen.getByText('Voir les horaires d‘ouverture')).toBeVisible();
+			expect(screen.getByText('Lundi')).toBeVisible();
+			expect(screen.getByText('09h')).toBeVisible();
+			expect(screen.getByText('12h')).toBeVisible();
+		});
+	});
+
+	describe('lorsque je fais une demande de contact', () => {
 		beforeEach(() => {
 			mockSmallScreen();
 		});
@@ -54,7 +213,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				<RésultatRechercherAccompagnement établissement={établissement}/>
 			</DependenciesProvider>);
 
-			const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 			expect(buttonDemandeContact).toBeVisible();
 			await user.click(buttonDemandeContact);
 
@@ -78,12 +237,13 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
 			}));
 			render(
-				<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
+				<DependenciesProvider
+					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}>
 					<RésultatRechercherAccompagnement établissement={établissement}/>
 				</DependenciesProvider>);
 
-			const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 			await user.click(buttonDemandeContact);
 
 
@@ -118,7 +278,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			</DependenciesProvider>);
 
 
-			const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 			expect(buttonDemandeContact).toBeVisible();
 			await user.click(buttonDemandeContact);
 
@@ -152,7 +312,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					<RésultatRechercherAccompagnement établissement={établissement}/>
 				</DependenciesProvider>);
 
-				const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
 
@@ -186,7 +346,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					<RésultatRechercherAccompagnement établissement={établissement}/>
 				</DependenciesProvider>);
 
-				const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
 
@@ -224,7 +384,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 					<RésultatRechercherAccompagnement établissement={établissement}/>
 				</DependenciesProvider>);
 
-				const buttonDemandeContact = screen.getByRole('button', { name: 'Je souhaite être contacté(e)' });
+				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
 				expect(buttonDemandeContact).toBeVisible();
 				await user.click(buttonDemandeContact);
 
