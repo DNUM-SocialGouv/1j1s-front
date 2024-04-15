@@ -54,7 +54,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 						{suggestion}
 					</Combobox.Option>
 				))}
-				<Combobox.SyncMessagePasDeResultat>{MESSAGE_PAS_DE_RESULTAT}</Combobox.SyncMessagePasDeResultat>
+				<Combobox.AsyncMessage>{listeDeLocalisations.length === 0 && MESSAGE_PAS_DE_RESULTAT}</Combobox.AsyncMessage>
 			</Champ.Input>
 			<Champ.Error/>
 		</Champ>
