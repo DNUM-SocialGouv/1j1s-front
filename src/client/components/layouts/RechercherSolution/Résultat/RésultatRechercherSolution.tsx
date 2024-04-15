@@ -5,9 +5,8 @@ import React, { PropsWithChildren, ReactNode, useId } from 'react';
 import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
+type LogoProps = ({ logo?: never, logoAlt?: never } | { logo: string, logoAlt?: string })
 type RésultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string | ReactNode;
@@ -17,12 +16,21 @@ type RésultatRechercherSolutionProps = {
 } & React.HTMLAttributes<HTMLElement> & LogoProps;
 
 export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
-	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt= '', className } = props;
-	const { isSmallScreen } = useBreakpoint();
+	const {
+		lienOffre,
+		intituléOffre,
+		intituléLienOffre,
+		logo,
+		sousTitreOffre,
+		étiquetteOffreList,
+		children,
+		logoAlt = '',
+		className,
+	} = props;
 	const idLink = useId();
 	const idIntitulé = useId();
 
-	const cardTagsAndCTA = () => {
+	function CardTagsAndCTA() {
 		return (
 			<section className={styles.cardTagsAndCTA}>
 				{étiquetteOffreList.length > 0 &&
@@ -45,24 +53,24 @@ export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRe
 				}
 			</section>
 		);
-	};
+	}
 
 	return (
 		<div
 			className={classNames(styles.card, className)}
 			data-testid="RésultatRechercherSolution">
 			<div className={classNames(styles.cardLead, logo && styles.logoCardLead)}>
-				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
+				{logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 				<div className={styles.offreLead}>
 					<header>
 						<h3 id={idIntitulé} className={styles.title}>{intituléOffre}</h3>
 						{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
 					</header>
 					{children && <section className={styles.offreLeadDescription}>{children}</section>}
-					{!isSmallScreen && cardTagsAndCTA()}
+					<div className={styles.desktopOnly} data-testid="tagsCTADektop"><CardTagsAndCTA/></div>
 				</div>
 			</div>
-			{isSmallScreen && cardTagsAndCTA()}
+			<div className={styles.mobileOnly} data-testid="tagsCTAMobile"><CardTagsAndCTA/></div>
 		</div>
 	);
 }

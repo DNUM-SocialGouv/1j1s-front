@@ -30,13 +30,14 @@ describe('RésultatRechercherSolution', () => {
 				étiquetteOffreList={offreEmploi.étiquetteList}
 			/>,
 		);
-
-		const étiquettesOffreAlternanceList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-		const lienVersOffreEmploi = screen.getByRole('link');
+		// TODO (BRUJ 13/04/2024): après la refactorisation du composant avec grid, ne plus utiliser le testId
+		const mobileVersion = screen.getByTestId('tagsCTAMobile');
+		const étiquettesOffreAlternanceList = within(mobileVersion).getByRole('list', { name: 'Caractéristiques de l‘offre' });
+		const lienVersOffreEmploi = within(mobileVersion).getAllByRole('link')[0];
 		const intituléOffreEmploi = screen.getByRole('heading', { level: 3 });
 
 		expect(within(étiquettesOffreAlternanceList).queryAllByRole('listitem')).toHaveLength(4);
-		expect(screen.getByText('En savoir plus')).toBeVisible();
+		expect(within(mobileVersion).getByText('En savoir plus')).toBeVisible();
 		expect(lienVersOffreEmploi).toHaveAttribute('href', `/emplois/${offreEmploi.id}`);
 		expect(intituléOffreEmploi.textContent).toEqual(offreEmploi.intitulé);
 	});
@@ -53,9 +54,9 @@ describe('RésultatRechercherSolution', () => {
 					étiquetteOffreList={offreEmploi.étiquetteList}
 				/>,
 			);
-
-			expect(screen.queryByRole('link')).not.toBeInTheDocument();
-			expect(screen.queryByText('En savoir plus')).not.toBeInTheDocument();
+			const mobileVersion = screen.getByTestId('tagsCTAMobile');
+			expect(within(mobileVersion).queryByRole('link')).not.toBeInTheDocument();
+			expect(within(mobileVersion).queryByText('En savoir plus')).not.toBeInTheDocument();
 		});
 	});
 
@@ -99,7 +100,8 @@ describe('RésultatRechercherSolution', () => {
 				</RésultatRechercherSolution>,
 			);
 
-			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
+			const mobileVersion = screen.getByTestId('tagsCTAMobile');
+			expect(within(mobileVersion).getByRole('link', { name: 'Candidater' })).toBeVisible();
 		});
 		it('n‘a pas d‘attribut aria-labelledby', () => {
 			const offreEmploi = aBarmanOffre();
@@ -117,8 +119,8 @@ describe('RésultatRechercherSolution', () => {
 					<div>Description 2</div>
 				</RésultatRechercherSolution>,
 			);
-
-			const lien = screen.getByRole('link', { name: 'Candidater' });
+			const mobileVersion = screen.getByTestId('tagsCTAMobile');
+			const lien = within(mobileVersion).getByRole('link', { name: 'Candidater' });
 			expect(lien).toBeVisible();
 			expect(lien).not.toHaveAttribute('aria-labelledby');
 		});
@@ -139,8 +141,8 @@ describe('RésultatRechercherSolution', () => {
 					<div>Description 2</div>
 				</RésultatRechercherSolution>,
 			);
-
-			expect(screen.getByRole('link', { name: 'Barman En savoir plus' })).toBeVisible();
+			const mobileVersion = screen.getByTestId('tagsCTAMobile');
+			expect(within(mobileVersion).getByRole('link', { name: 'Barman En savoir plus' })).toBeVisible();
 		});
 	});
 });
