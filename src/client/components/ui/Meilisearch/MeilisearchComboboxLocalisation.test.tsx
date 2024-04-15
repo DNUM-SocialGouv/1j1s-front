@@ -37,6 +37,43 @@ describe('MeilisearchComboboxLocalisation', () => {
 		expect(options[1]).toHaveTextContent('PACA');
 	});
 
+	it('affiche uniquement les 20 premiers resultat', async () => {
+		spyed.mockImplementation(() => mockUseRefinementList({
+			items: [
+				generateRefinementListItem({ value: 'a' }),
+				generateRefinementListItem({ value: 'ab' }),
+				generateRefinementListItem({ value: 'abc' }),
+				generateRefinementListItem({ value: 'abcd' }),
+				generateRefinementListItem({ value: 'abcde' }),
+				generateRefinementListItem({ value: 'abcdef' }),
+				generateRefinementListItem({ value: 'abcdefg' }),
+				generateRefinementListItem({ value: 'abcdefh' }),
+				generateRefinementListItem({ value: 'abcdefhi' }),
+				generateRefinementListItem({ value: 'abcdefhj' }),
+				generateRefinementListItem({ value: 'abcdefhk' }),
+				generateRefinementListItem({ value: 'abcdefhkl' }),
+				generateRefinementListItem({ value: 'abcdefhklm' }),
+				generateRefinementListItem({ value: 'abcdefhklmn' }),
+				generateRefinementListItem({ value: 'abcdefhklmno' }),
+				generateRefinementListItem({ value: 'abcdefhklmnop' }),
+				generateRefinementListItem({ value: 'abcdefhklmnopq' }),
+				generateRefinementListItem({ value: 'abcdefhklmnopqr' }),
+				generateRefinementListItem({ value: 'abcdefhklmnopqrs' }),
+				generateRefinementListItem({ value: 'abcdefhklmnopqrst' }),
+				generateRefinementListItem({ value: 'abcdefhklmnopqrstu' }),
+			],
+			refine: jest.fn(),
+		}));
+		const user = userEvent.setup();
+
+		render(<MeilisearchComboboxLocalisation attribute={'test'}/>);
+		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
+		await user.type(combobox, 'a');
+
+		const options = screen.getAllByRole('option');
+		expect(options.length).toBe(20);
+	});
+
 	it('lorsqu‘il n‘y a pas de résultat, l‘utilisateur voit un message', async () => {
 		const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, Marseille …';
 		spyed.mockImplementation(() => mockUseRefinementList({

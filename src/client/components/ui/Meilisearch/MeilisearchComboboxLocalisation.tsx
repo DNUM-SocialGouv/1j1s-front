@@ -7,7 +7,6 @@ import { Combobox } from '../Form/Combobox';
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, Marseille …';
 const NOMBRE_RESULTAT_MAXIMUM = 20;
 
-
 export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 	const { refine, items } = useRefinementList(props);
 	const [userInput, setUserInput] = useState<string>('');
