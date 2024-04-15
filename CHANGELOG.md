@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.278.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.277.0...v3.278.0) (2024-04-15)
+
+
+### Features
+
+* **accompagnement:** ordonnancement cohérent des informations ([#2904](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2904)) ([e63d07b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e63d07b2db8555de217bf440054562eae1624499))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2910](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2910)) ([73beed5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/73beed540e5c099f8824508fbb948f4b41112675))
+
 ## [3.277.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.276.0...v3.277.0) (2024-04-12)
 
 
