@@ -36,13 +36,13 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 		<Champ>
 			<Champ.Label>
 				Localisation
-				<Champ.Label.Complement>Exemples : Toulouse, Paris…</Champ.Label.Complement>
 			</Champ.Label>
 			<Champ.Input
 				render={Combobox}
 				valueName="inputLocalisation"
 				requireValidOption
 				optionsAriaLabel="villes"
+				placeholder={'Exemples : Toulouse, Paris…'}
 				value={userInput}
 				autoComplete="off"
 				filter={Combobox.noFilter}
