@@ -6,19 +6,6 @@ $color-border-left: utilities.$color-primary;
 $color-call-to-action-text: utilities.$color-cta-texte-secondary;
 $border-card-lead: 4px solid $color-card-lead-border;
 
-.mobileOnly {
-  @include utilities.media(medium) {
-    display: none;
-  }
-}
-
-.desktopOnly {
-  display: none;
-  @include utilities.media(medium) {
-    display: initial;
-  }
-}
-
 .card {
   position: relative;
   background: $color-card-background;
