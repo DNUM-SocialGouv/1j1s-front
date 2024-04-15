@@ -54,7 +54,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 		expect(statusPasDeResultat).toHaveTextContent(MESSAGE_PAS_DE_RESULTAT);
 	});
 
-	it('quand l‘utilisateur séléctionne une option, le champ de saisie se vide et la méthode refine est appelé', async () => {
+	it('quand l‘utilisateur séléctionne une option au click, le champ de saisie se vide et la méthode refine est appelé', async () => {
 		const refine = jest.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
@@ -72,6 +72,28 @@ describe('MeilisearchComboboxLocalisation', () => {
 		await user.type(combobox, 'p');
 		const option = screen.getByRole('option', { name: 'Paris' });
 		await user.click(option);
+
+		expect(refine).toHaveBeenCalledTimes(1);
+		expect(refine).toHaveBeenCalledWith('Paris');
+		expect(combobox).toHaveValue('');
+	});
+
+	it('quand l‘utilisateur séléctionne une option en tappant l‘option, le champ de saisie se vide et la méthode refine est appelé', async () => {
+		const refine = jest.fn();
+		spyed.mockImplementation(() => mockUseRefinementList({
+			items: [
+				generateRefinementListItem({ value: 'Paris' }),
+				generateRefinementListItem({ value: 'Marseille' }),
+				generateRefinementListItem({ value: 'PACA' }),
+				generateRefinementListItem({ value: 'Le Vésinet' })],
+			refine,
+		}));
+		const user = userEvent.setup();
+
+		render(<MeilisearchComboboxLocalisation attribute={'test'}/>);
+		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
+
+		await user.type(combobox, 'Paris');
 
 		expect(refine).toHaveBeenCalledTimes(1);
 		expect(refine).toHaveBeenCalledWith('Paris');

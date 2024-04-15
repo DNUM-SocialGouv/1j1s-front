@@ -25,7 +25,7 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 
 	function findMatchingOption(userInput: string) {
 		listeDeLocalisations.map((localisation) => {
-			if (localisation.toLowerCase() === userInput.toLowerCase()) {
+			if (localisation === userInput) {
 				refine(localisation);
 				setUserInput('');
 			}
