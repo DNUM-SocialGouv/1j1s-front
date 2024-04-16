@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.279.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.278.1...v3.279.0) (2024-04-16)
+
+
+### Features
+
+* **emploi europe:** mise à jour de l'url pour trouver un emploi en europe ([#2906](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2906)) ([5504c78](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5504c78781f53a9d0891c2a38c6f4314c24336e7))
+
 ## [3.278.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.278.0...v3.278.1) (2024-04-15)
 
 
