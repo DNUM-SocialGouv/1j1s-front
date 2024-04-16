@@ -33,6 +33,6 @@ describe('<ExperiencesEnEurope />', () => {
 
 		const CTA = screen.getByRole('link', { name: /Trouver une offre d’emploi en Europe/i });
 		expect(CTA).toBeVisible();
-		expect(CTA).toHaveAttribute('href', 'https://ec.europa.eu/eures/portal/jv-se/home');
+		expect(CTA).toHaveAttribute('href', 'https://europa.eu/eures/portal/jv-se/home?lang=fr');
 	});
 });
