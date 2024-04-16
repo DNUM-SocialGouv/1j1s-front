@@ -12,7 +12,6 @@ import VideosCampagneApprentissage
 	from '~/client/components/features/CampagneApprentissage/VideosCampagneApprentissage/VideosCampagneApprentissage';
 import { HeroWithIllustration } from '~/client/components/ui/Hero/Hero';
 import { Link } from '~/client/components/ui/Link/Link';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { TYPE_SIMULATEUR } from '~/pages/apprentissage/simulation/index.page';
 import { VideoCampagneApprentissage } from '~/server/campagne-apprentissage/domain/videoCampagneApprentissage';
 
@@ -23,7 +22,6 @@ interface CampagneApprentissageJeunesProps {
 }
 
 export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeunesProps) {
-	const { isSmallScreen } = useBreakpoint();
 
 	const raisons: Raisons[] = [
 		{
@@ -54,7 +52,9 @@ export function CampagneApprentissageJeunes({ videos }: CampagneApprentissageJeu
 				<HeroWithIllustration image={'/images/campagne-apprentissage-jeune-avec-texte.webp'} className={styles.hero}>
 					<h1>Avec l’apprentissage, vous apprenez directement <span className={styles.avoidLineBreakInside}>sur le terrain</span> <span className={styles.avoidLineBreakInside}>et vous êtes payés !</span></h1>
 					<Link href={`/apprentissage/simulation?simulateur=${TYPE_SIMULATEUR.ALTERNANT}`} appearance={'asPrimaryButton'} className={styles.cta}>
-						Simuler votre rémunération { !isSmallScreen && 'en tant qu’apprenti' }
+						<span>
+							Simuler votre rémunération <span className={styles.desktopOnly}>en tant qu’apprenti</span>
+						</span>
 						<Link.Icon/>
 					</Link>
 				</HeroWithIllustration>

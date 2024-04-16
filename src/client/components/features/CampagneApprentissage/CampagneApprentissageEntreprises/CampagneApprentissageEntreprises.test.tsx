@@ -51,23 +51,6 @@ describe('CampagneApprentissageEntreprises', () => {
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=employeur');
 	});
 
-	it('raccourci le contenu du lien vers le simulateur en mobile', () => {
-		// GIVEN
-		mockSmallScreen();
-
-		// WHEN
-		render(
-			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageEntreprises videos={[]} />
-			</DependenciesProvider>,
-		);
-
-		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler le coût d’embauche/i });
-		expect(simulation).toBeVisible();
-		expect(simulation).not.toHaveTextContent('d’un apprenti');
-	});
-
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
 		it('comportant un titre', () => {
 			// WHEN

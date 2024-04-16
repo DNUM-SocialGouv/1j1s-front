@@ -73,31 +73,6 @@ describe('CampagneApprentissageJeunes', () => {
 		expect(simulation).toHaveAttribute('href', '/apprentissage/simulation?simulateur=alternant');
 	});
 
-	it('raccourci l’intitulé du lien en mobile', () => {
-		// GIVEN
-		mockSmallScreen();
-		const videos = [
-			aVideoCampagneApprentissage(),
-			aVideoCampagneApprentissage({
-				titre: "Qu'est-ce que le Contrat d'Engagement Jeune CEJ ?",
-				transcription: '[transcription]',
-				videoId: '7zD4PCOiUvw',
-			}),
-		];
-
-		// WHEN
-		render(
-			<DependenciesProvider youtubeService={aVideoService()}>
-				<CampagneApprentissageJeunes videos={videos}/>
-			</DependenciesProvider>,
-		);
-
-		// THEN
-		const simulation = screen.getByRole('link', { name: /Simuler votre rémunération/i });
-		expect(simulation).toBeVisible();
-		expect(simulation).not.toHaveTextContent('en tant qu’apprenti');
-	});
-
 	describe('affiche une première section pour les raisons de choisir l’apprentissage', () => {
 		it('comportant un titre', () => {
 			// WHEN
