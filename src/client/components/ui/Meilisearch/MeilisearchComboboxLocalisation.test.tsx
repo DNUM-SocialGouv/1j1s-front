@@ -5,6 +5,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation';
 import {
 	generateRefinementListItem,
@@ -115,7 +116,7 @@ describe('MeilisearchComboboxLocalisation', () => {
 		expect(combobox).toHaveValue('');
 	});
 
-	it('quand l‘utilisateur séléctionne une option en tappant l‘option, le champ de saisie se vide et la méthode refine est appelé', async () => {
+	it('quand l‘utilisateur séléctionne une option au clavier, le champ de saisie se vide et la méthode refine est appelé', async () => {
 		const refine = jest.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
@@ -130,8 +131,10 @@ describe('MeilisearchComboboxLocalisation', () => {
 		render(<MeilisearchComboboxLocalisation attribute={'test'}/>);
 		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
 
-		await user.type(combobox, 'Paris');
-
+		await user.type(combobox, 'P');
+		await user.keyboard(`{${KeyBoard.ARROW_DOWN}}`);
+		await user.keyboard(`{${KeyBoard.ENTER}}`);
+		
 		expect(refine).toHaveBeenCalledTimes(1);
 		expect(refine).toHaveBeenCalledWith('Paris');
 		expect(combobox).toHaveValue('');

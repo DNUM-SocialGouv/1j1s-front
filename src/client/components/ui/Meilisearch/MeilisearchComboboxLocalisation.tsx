@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+
 import { Champ } from '../Form/Champ/Champ';
 import { Combobox } from '../Form/Combobox';
 
@@ -22,13 +24,23 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 	const listeDeLocalisations = useMemo(() => filterLocalisations().map(({ value }) => value).slice(0, NOMBRE_RESULTAT_MAXIMUM),
 		[filterLocalisations]);
 
-	function findMatchingOption(userInput: string) {
-		listeDeLocalisations.map((localisation) => {
-			if (localisation === userInput) {
-				refine(localisation);
-				setUserInput('');
+	function onOptionSelected(localisation: string) {
+		refine(localisation);
+		setUserInput('');
+	}
+
+	function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+		if (event.key == KeyBoard.ENTER) {
+			const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+			if (selectedOptionID) {
+				const selectedElement = document.getElementById(selectedOptionID);
+				selectedElement?.textContent && onOptionSelected(selectedElement.textContent);
 			}
-		});
+		}
+	}
+
+	function onClickOnOption(event: React.MouseEvent<HTMLLIElement>) {
+		event.currentTarget.textContent && onOptionSelected(event.currentTarget.textContent);
 	}
 
 	return (
@@ -43,14 +55,14 @@ export function MeilisearchComboboxLocalisation(props: UseRefinementListProps) {
 				optionsAriaLabel="villes"
 				placeholder={'Exemples : Toulouse, Paris…'}
 				value={userInput}
+				onKeyDown={onKeyDown}
 				autoComplete="off"
 				filter={Combobox.noFilter}
 				onChange={(_, newValue) => {
 					setUserInput(newValue);
-					findMatchingOption(newValue);
 				}}>
 				{listeDeLocalisations.map((suggestion) => (
-					<Combobox.Option key={suggestion}>
+					<Combobox.Option key={suggestion} onClick={onClickOnOption}>
 						{suggestion}
 					</Combobox.Option>
 				))}
