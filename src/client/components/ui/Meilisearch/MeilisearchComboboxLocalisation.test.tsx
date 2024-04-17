@@ -11,6 +11,7 @@ import {
 	generateRefinementListItem,
 	mockUseRefinementList,
 } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
@@ -117,6 +118,8 @@ describe('MeilisearchComboboxLocalisation', () => {
 	});
 
 	it('quand l‘utilisateur séléctionne une option au clavier, le champ de saisie se vide et la méthode refine est appelé', async () => {
+		mockScrollIntoView();
+
 		const refine = jest.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
 			items: [
@@ -138,5 +141,26 @@ describe('MeilisearchComboboxLocalisation', () => {
 		expect(refine).toHaveBeenCalledTimes(1);
 		expect(refine).toHaveBeenCalledWith('Paris');
 		expect(combobox).toHaveValue('');
+	});
+
+	it('quand l‘utilisateur tappe l‘option en entier, l‘option n‘est pas séléctionné', async () => {
+		const refine = jest.fn();
+		spyed.mockImplementation(() => mockUseRefinementList({
+			items: [
+				generateRefinementListItem({ value: 'Paris' }),
+				generateRefinementListItem({ value: 'Marseille' }),
+				generateRefinementListItem({ value: 'PACA' }),
+				generateRefinementListItem({ value: 'Le Vésinet' })],
+			refine,
+		}));
+		const user = userEvent.setup();
+
+		render(<MeilisearchComboboxLocalisation attribute={'test'}/>);
+		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
+
+		await user.type(combobox, 'Paris');
+
+		expect(refine).toHaveBeenCalledTimes(0);
+		expect(combobox).toHaveValue('Paris');
 	});
 });
