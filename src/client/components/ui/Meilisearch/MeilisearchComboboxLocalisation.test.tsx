@@ -143,6 +143,31 @@ describe('MeilisearchComboboxLocalisation', () => {
 		expect(combobox).toHaveValue('');
 	});
 
+	it('quand l‘utilisateur tappe une option valide au clavier et fait entrer, le champ de saisie se vide et la méthode refine est appelé', async () => {
+		mockScrollIntoView();
+
+		const refine = jest.fn();
+		spyed.mockImplementation(() => mockUseRefinementList({
+			items: [
+				generateRefinementListItem({ value: 'Paris' }),
+				generateRefinementListItem({ value: 'Marseille' }),
+				generateRefinementListItem({ value: 'PACA' }),
+				generateRefinementListItem({ value: 'Le Vésinet' })],
+			refine,
+		}));
+		const user = userEvent.setup();
+
+		render(<MeilisearchComboboxLocalisation attribute={'test'}/>);
+		const combobox = screen.getByRole('combobox', { name: 'Localisation' });
+
+		await user.type(combobox, 'Paris');
+		await user.keyboard(`{${KeyBoard.ENTER}}`);
+
+		expect(refine).toHaveBeenCalledTimes(1);
+		expect(refine).toHaveBeenCalledWith('Paris');
+		expect(combobox).toHaveValue('');
+	});
+
 	it('quand l‘utilisateur tappe l‘option en entier, l‘option n‘est pas séléctionné', async () => {
 		const refine = jest.fn();
 		spyed.mockImplementation(() => mockUseRefinementList({
