@@ -50,8 +50,8 @@ export function HeaderBody() {
 				{displayEncartDeCampagne &&
 						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 							<p>
-								<span className={styles.headerBodyBannerTitle}>Vous êtes en 2de générale ou technologique et vous cherchez un stage&nbsp;?</span>
-								<span className={styles.headerBodyBannerContent}>L’ouverture du service est prévue le 25 mars</span>
+								<span className={styles.headerBodyBannerTitle}>Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus&nbsp;?</span>
+								<span className={styles.headerBodyBannerContent}>Retrouvez nos apprentis en live tous les jours sur Instagram.</span>
 							</p>
 							<Link.Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
 						</Link>

@@ -140,8 +140,8 @@ describe('Header', () => {
 				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
 				expect(encartCampagne).toBeVisible();
 				expect(encartCampagne).toHaveRole('link');
-				expect(encartCampagne).toHaveAttribute('href', 'https://forms.sbc33.com/62553f47462f0e1887f81bfe/VQ35E9J0QhCSCxvF8H-mVA/form.html');
-				expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ?L’ouverture du service est prévue le 25 mars');
+				expect(encartCampagne).toHaveAttribute('href', '/articles/decouvrez-apprentissage-live-instagram');
+				expect(encartCampagne).toHaveTextContent('Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus ?Retrouvez nos apprentis en live tous les jours sur Instagram.');
 			});
 		});
 
@@ -321,8 +321,8 @@ describe('Header', () => {
 					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
 					expect(encartCampagne).toBeVisible();
 					expect(encartCampagne).toHaveRole('link');
-					expect(encartCampagne).toHaveAttribute('href', 'https://forms.sbc33.com/62553f47462f0e1887f81bfe/VQ35E9J0QhCSCxvF8H-mVA/form.html');
-					expect(encartCampagne).toHaveTextContent('Vous êtes en 2de générale ou technologique et vous cherchez un stage ? L’ouverture du service est prévue le 25 mars');
+					expect(encartCampagne).toHaveAttribute('href', '/articles/decouvrez-apprentissage-live-instagram');
+					expect(encartCampagne).toHaveTextContent('Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus ? Retrouvez nos apprentis en live tous les jours sur Instagram.');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
