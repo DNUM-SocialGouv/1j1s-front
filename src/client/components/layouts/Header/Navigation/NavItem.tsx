@@ -1,7 +1,8 @@
 import React, { MouseEventHandler, ReactNode } from 'react';
 
-import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
+
+import styles from './Nav.module.scss';
 
 interface NavItemProps {
 	label: string | ReactNode

@@ -2,11 +2,10 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 
-import styles from '~/client/components/layouts/Header/NavEmployeurs.module.scss';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
-import { useExitModal } from '~/client/hooks/useExitModal';
-
+import { useExitModal } from '../../../../hooks/useExitModal';
+import { Icon } from '../../../ui/Icon/Icon';
+import { Link } from '../../../ui/Link/Link';
+import styles from './NavDesktopEmployeur.module.scss';
 import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from './NavigationStructure';
 
 interface NavEmployeursProps {
@@ -14,7 +13,7 @@ interface NavEmployeursProps {
   onClick?: () => void;
 }
 
-export function NavEmployeurs({ item: root }: NavEmployeursProps) {
+export function NavDesktopEmployeur({ item: root }: NavEmployeursProps) {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const wrapper = useRef<HTMLDivElement>(null);
 	const content = useRef<HTMLUListElement>(null);
@@ -22,7 +21,6 @@ export function NavEmployeurs({ item: root }: NavEmployeursProps) {
 	const isActive = useMemo(() => isItemActive(root, router.pathname), [router.pathname, root]);
 
 	useExitModal(wrapper, isExpanded, () => isExpanded && setIsExpanded(false));
-
 
 	return (
 		<li className={styles.navItem}>

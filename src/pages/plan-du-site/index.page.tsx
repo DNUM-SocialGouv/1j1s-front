@@ -7,7 +7,7 @@ import {
 	NavigationItem,
 	navigationItemList,
 	NavigationItemWithChildren,
-} from '~/client/components/layouts/Header/NavigationStructure';
+} from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { Link } from '~/client/components/ui/Link/Link';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/plan-du-site/index.analytics';
