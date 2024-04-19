@@ -116,7 +116,16 @@ module.exports = isOnlineEnvironment
 			...moduleExports,
 			headers: async () => SECURITY_MODE_HEADERS,
 			sentry: sentryModuleExports,
-		}, undefined, sentryModuleExports)
+		}, {
+			errorHandler: (err, invokeErr, compilation) => {
+				if (err.message.includes('sentry')) {
+					compilation.warnings.push(`Erreur Sentry : ${err.message}`);
+				} else {
+					invokeErr();
+				}
+			},
+
+		}, sentryModuleExports)
 	: {
 		...moduleExports,
 		headers: async () => LOCAL_MODE_HEADERS,
