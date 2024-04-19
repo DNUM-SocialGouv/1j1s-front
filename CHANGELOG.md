@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.280.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.279.0...v3.280.0) (2024-04-19)
+
+
+### Features
+
+* **banniere:** mise à jour bannière campagne vidéo instagram ([#2929](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2929)) ([36ef633](https://github.com/DNUM-SocialGouv/1j1s-front/commit/36ef6335d51dad1fdd5e2a237c4add51f4255fe2))
+* **transverse:** suppression usebreakpoint pour passer en ssr ssg ([#2913](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2913)) ([b2e0e2e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b2e0e2e2d825f4c9e16d51447e1eecdc893565d6))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies to v14.2.2 ([#2926](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2926)) ([16326be](https://github.com/DNUM-SocialGouv/1j1s-front/commit/16326be783ffd13df283a24b30cc90e80808b230))
+* **deps:** update dependency @sentry/nextjs to v7.110.1 ([#2918](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2918)) ([863fbbe](https://github.com/DNUM-SocialGouv/1j1s-front/commit/863fbbedb178a8a8276320a0d966b59c4d212907))
+* **deps:** update dependency ioredis to v5.4.1 ([#2924](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2924)) ([4ecbd7a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4ecbd7acbf998cf76b83b199fe3be436ed3588c1))
+* supprime le MAIL_TO sur le depot d'offre de stage et le feature flipping ([#2921](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2921)) ([cb996f2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cb996f2561e137bd28dccf9272232229c9cae45d))
+
 ## [3.279.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.278.1...v3.279.0) (2024-04-16)
 
 
