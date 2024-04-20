@@ -83,7 +83,7 @@
     "eslint-plugin-cypress": "2.15.2",
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-testing-library": "6.2.2",
-    "html-validate": "8.18.1",
+    "html-validate": "8.18.2",
     "jest": "29.7.0",
     "jest-axe": "8.0.0",
     "jest-environment-jsdom": "29.7.0",
