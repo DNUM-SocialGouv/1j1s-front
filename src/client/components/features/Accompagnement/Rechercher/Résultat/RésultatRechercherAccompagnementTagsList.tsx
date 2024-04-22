@@ -26,7 +26,11 @@ export function RésultatRechercherAccompagnementTagsList({ etablissement }: tag
 			</li>}
 		{!isMissionLocale && etablissement.email &&
 			<li key="mail" aria-label="email de l‘établissement">
-				<Tag>{etablissement.email}</Tag>
+				<Tag>
+					<Link href={`mailto:${etablissement.email}`} className={styles.email}>
+						<Icon name="mail"/>{etablissement.email}
+					</Link>
+				</Tag>
 			</li>}
 	</ul>;
 }

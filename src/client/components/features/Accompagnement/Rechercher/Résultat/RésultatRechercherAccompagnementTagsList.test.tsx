@@ -38,7 +38,10 @@ describe('<RésultatRechercherAccompagnementTagsList/>', () => {
 	describe('email', () => {
 		it('lorsque l‘établissement est mission locale, je n‘affiche pas le mail', () => {
 			render(<RésultatRechercherAccompagnementTagsList
-				etablissement={anEtablissementAccompagnement({ email: 'example@example.com', type: TypeÉtablissement.MISSION_LOCALE })}/>);
+				etablissement={anEtablissementAccompagnement({
+					email: 'example@example.com',
+					type: TypeÉtablissement.MISSION_LOCALE,
+				})}/>);
 			expect(screen.queryByRole('listitem', { name: 'email de l‘établissement' })).not.toBeInTheDocument();
 		});
 
@@ -48,10 +51,16 @@ describe('<RésultatRechercherAccompagnementTagsList/>', () => {
 			expect(screen.queryByRole('listitem', { name: 'email de l‘établissement' })).not.toBeInTheDocument();
 		});
 
-		it('lorsque l‘établissement n‘est pas mission locale et que l‘email est présent, je vois l‘adresse email', () => {
+		it('lorsque l‘établissement n‘est pas mission locale et que l‘email est présent, je vois le lien pour envoyer un email', () => {
+			const etablissementEmail = 'example@example.com';
+
 			render(<RésultatRechercherAccompagnementTagsList
-				etablissement={anEtablissementAccompagnement({ email: 'example@example.com', type: TypeÉtablissement.INFO_JEUNE })}/>);
-			expect(screen.getByRole('listitem', { name: 'email de l‘établissement' })).toHaveTextContent('example@example.com');
+				etablissement={anEtablissementAccompagnement({
+					email: 'example@example.com',
+					type: TypeÉtablissement.INFO_JEUNE,
+				})}/>);
+			expect(screen.getByRole('listitem', { name: 'email de l‘établissement' })).toHaveTextContent(etablissementEmail);
+			expect(screen.getByRole('link', { name: etablissementEmail })).toHaveAttribute('href', `mailto:${etablissementEmail}`);
 		});
 	});
 });
