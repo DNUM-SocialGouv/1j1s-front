@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.281.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.280.1...v3.281.0) (2024-04-22)
+
+
+### Features
+
+* **stages:** utilisation du composant combobox avec Meilisearch ([#2917](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2917)) ([eb03add](https://github.com/DNUM-SocialGouv/1j1s-front/commit/eb03addcf21a25caccb8ea75c3c65a37ff6a30b8))
+
 ## [3.280.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.280.0...v3.280.1) (2024-04-20)
 
 
