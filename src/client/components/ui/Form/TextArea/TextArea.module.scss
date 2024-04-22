@@ -1,4 +1,4 @@
-@use "../TextboxShared.module" as inputStyles;
+@use "../TextboxShared.module";
 
 .textarea {
   @extend %input;

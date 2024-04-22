@@ -12,7 +12,6 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
