@@ -3,9 +3,9 @@ import React from 'react';
 
 import styles
 	from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage.module.scss';
+import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation';
 import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
-import { MeilisearchInputRefinement } from '~/client/components/ui/Meilisearch/MeilisearchInputRefinement';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 const LIMIT_MAX_FACETS = 100000;
@@ -49,7 +49,7 @@ export function FormulaireRechercheOffreStage() {
 				name="motCle"
 				placeholder="Exemples : designer, juriste…"
 			/>
-			<MeilisearchInputRefinement
+			<MeilisearchComboboxLocalisation
 				attribute="localisationFiltree"
 				limit={LIMIT_MAX_FACETS}
 			/>
