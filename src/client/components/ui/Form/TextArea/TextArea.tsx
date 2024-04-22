@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import React, { ComponentPropsWithoutRef, FocusEvent, useCallback, useEffect } from 'react';
 
-import styles from '~/client/components/ui/Form/InputText/InputText.module.scss';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import { useTouchedInput } from '~/client/hooks/useTouchedInput';
 
 import { ChangeEvent } from '../Combobox/ChangeEvent';
+import styles from './TextArea.module.scss';
 
 
 type ErrorMessage = string;
@@ -65,7 +65,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(fun
 			onChange={onChange}
 			onFocus={onFocus}
 			onBlur={onBlur}
-			className={classNames(styles.textInputField, touched && styles.textInputFieldTouched, className)}
+			className={classNames(styles.textarea, className)}
 			ref={ref}
 			{...props}
 		/>

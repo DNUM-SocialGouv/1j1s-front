@@ -1,0 +1,6 @@
+@use "../TextboxShared.module" as inputStyles;
+
+.textarea {
+  @extend %input;
+  font-family: inherit;
+}

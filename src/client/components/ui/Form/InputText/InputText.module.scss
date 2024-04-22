@@ -2,11 +2,6 @@
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
-
-// NOTE (GAFI 07-07-2023): Beaucoup du style post-UIKit est disponible sans beaucoup de modification dans le composant
-//  Combobox, idéalement à mettre en commun
-
-
 .textInput {
   position: relative;
   display: flex;
