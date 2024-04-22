@@ -9,7 +9,7 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
@@ -44,13 +44,14 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				<Champ.Label>Nom de l’entreprise ou de l’employeur
 					<Champ.Label.Complement>Exemples : Crédit Agricole, SNCF…</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input render={Input}
-										 name={InputName.NOM}
-										 required
-										 type="text"
-										 maxLength={255}
-										 defaultValue={informationsEntreprise?.nomEmployeur}
-										 autoComplete="organization"
+				<Champ.Input
+					render={Input}
+					name={InputName.NOM}
+					required
+					type="text"
+					maxLength={255}
+					defaultValue={informationsEntreprise?.nomEmployeur}
+					autoComplete="organization"
 				/>
 				<Champ.Error/>
 				<Champ.Hint>255 caractères maximum</Champ.Hint>
@@ -59,13 +60,14 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 				<Champ.Label>Adresse mail de contact
 					<Champ.Label.Complement>Exemple : contactRH@example.com</Champ.Label.Complement>
 				</Champ.Label>
-				<Champ.Input render={Input}
-										 name={InputName.EMAIL}
-										 pattern={emailRegex}
-										 defaultValue={informationsEntreprise?.emailEmployeur}
-										 required
-										 type="email"
-										 autoComplete="email"
+				<Champ.Input
+					render={Input}
+					name={InputName.EMAIL}
+					pattern={emailRegex}
+					defaultValue={informationsEntreprise?.emailEmployeur}
+					required
+					type="email"
+					autoComplete="email"
 				/>
 				<Champ.Error/>
 				<Champ.Hint>
@@ -74,17 +76,21 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 					Cette adresse peut donc être différente de l’adresse sur laquelle il faudra candidater.
 				</Champ.Hint>
 			</Champ>
-			<TextArea
-				className={styles.textareaWrapper}
-				id="description"
-				label="Courte description de l’entreprise (500 caractères maximum)"
-				placeholder="Informations sur votre entreprise : son histoire, des objectifs, des enjeux..."
-				name={InputName.DESCRIPTION}
-				defaultValue={informationsEntreprise?.descriptionEmployeur}
-				required
-				rows={10}
-				maxLength={500}
-			/>
+			<Champ className={styles.textareaWrapper}>
+				<Champ.Label>Courte description de l’entreprise (500 caractères maximum)
+					<Champ.Label.Complement>Informations sur votre entreprise : son histoire, des objectifs, des
+						enjeux...</Champ.Label.Complement>
+				</Champ.Label>
+				<Champ.Input
+					render={TextArea}
+					name={InputName.DESCRIPTION}
+					onChange={(event) => event.currentTarget}
+					defaultValue={informationsEntreprise?.descriptionEmployeur}
+					required
+					rows={10}
+					maxLength={500}/>
+				<Champ.Error/>
+			</Champ>
 		</>;
 	}
 
@@ -92,7 +98,8 @@ export default function StageDeposerOffreFormulaireÉtape1Entreprise() {
 		return <>
 			<Champ>
 				<Champ.Label>Logo de l’entreprise - lien/URL
-					<Champ.Label.Complement>Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…</Champ.Label.Complement>
+					<Champ.Label.Complement>Exemple :
+						https://www.1jeune1solution.gouv.fr/images/logos/r%C3…</Champ.Label.Complement>
 				</Champ.Label>
 				<Champ.Input render={Input}
 										 type="url"

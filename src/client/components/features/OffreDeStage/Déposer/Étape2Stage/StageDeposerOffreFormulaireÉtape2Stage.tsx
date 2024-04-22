@@ -11,7 +11,7 @@ import { domaineStage } from '~/client/components/features/OffreDeStage/Déposer
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
@@ -88,7 +88,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 			required
 			className={styles.inputLienCandidature}
 		/>
-		<TextArea
+		<TextAreaDeprecated
 			className={styles.textareaWrapper}
 			id="descriptionOffre"
 			label={'Description de l’offre de stage (200 caractères minimum)'}

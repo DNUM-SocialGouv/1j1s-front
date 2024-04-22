@@ -5,7 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
@@ -354,7 +354,7 @@ function FormulaireContactParEmail(props: {
 							Partagez vos motivations, vos attentes ou toute information que vous jugeriez utiles (500 charactères maximum)
 						</Champ.Label.Complement>
 					</Champ.Label>
-					<TextArea id="message" name="message" maxLength={500} required defaultValue={messageContactParDefaut}/>
+					<TextAreaDeprecated id="message" name="message" maxLength={500} required defaultValue={messageContactParDefaut}/>
 					<Champ.Error/>
 				</Champ>
 				<ButtonComponent

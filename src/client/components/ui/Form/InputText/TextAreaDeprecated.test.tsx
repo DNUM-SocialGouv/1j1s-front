@@ -5,11 +5,11 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
 
 describe('<TextArea />', () => {
 	it('affiche un input', () => {
-		render(<TextArea />);
+		render(<TextAreaDeprecated />);
 
 		const input = screen.getByRole('textbox');
 
@@ -18,7 +18,7 @@ describe('<TextArea />', () => {
 
 	describe('props natifs', () => {
 		it('passe toutes les props au textarea sous-jacent', () => {
-			render(<TextArea disabled aria-label='Mon input' />);
+			render(<TextAreaDeprecated disabled aria-label='Mon input' />);
 
 			const input = screen.getByRole('textbox');
 
@@ -27,13 +27,13 @@ describe('<TextArea />', () => {
 		});
 		it('accepte une ref', () => {
 			const ref = jest.fn();
-			render(<TextArea ref={ref} />);
+			render(<TextAreaDeprecated ref={ref} />);
 
 			expect(ref).toHaveBeenCalledTimes(1);
 			expect(ref).toHaveBeenCalledWith(expect.any(Element));
 		});
 		it('utilise l’id en props si présent', () => {
-			render(<TextArea label="Mon input" id="mon-id" />);
+			render(<TextAreaDeprecated label="Mon input" id="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -41,7 +41,7 @@ describe('<TextArea />', () => {
 			expect(input).toHaveAttribute('id', 'mon-id');
 		});
 		it('utilise l’aria-describedby en props si présent', () => {
-			render(<TextArea aria-describedby="mon-id" />);
+			render(<TextAreaDeprecated aria-describedby="mon-id" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -49,7 +49,7 @@ describe('<TextArea />', () => {
 		});
 		it('utilise onChange en props si présent', async () => {
 			const onChange = jest.fn();
-			render(<TextArea onChange={onChange}/>);
+			render(<TextAreaDeprecated onChange={onChange}/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.type(input, 'a');
@@ -58,7 +58,7 @@ describe('<TextArea />', () => {
 		});
 		it('utilise onBlur en props si présent', async () => {
 			const onBlur = jest.fn();
-			render(<TextArea onBlur={onBlur}/>);
+			render(<TextAreaDeprecated onBlur={onBlur}/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.click(input);
@@ -70,7 +70,7 @@ describe('<TextArea />', () => {
 
 	describe('<label />', () => {
 		it('affiche le label lorsque indiqué', () => {
-			render(<TextArea label='Mon input' />);
+			render(<TextAreaDeprecated label='Mon input' />);
 
 			const label = screen.getByText('Mon input');
 			const input = screen.getByRole('textbox');
@@ -80,7 +80,7 @@ describe('<TextArea />', () => {
 		});
 		it('accepte un ReactNode comme label', () => {
 			render(
-				<TextArea
+				<TextAreaDeprecated
 					label={<>Mon input <abbr title="(required)">*</abbr></>}
 				/>,
 			);
@@ -93,8 +93,8 @@ describe('<TextArea />', () => {
 		it('génère un id unique pour chaque composant', () => {
 			render(
 				<>
-					<TextArea label='Mon input 1' />
-					<TextArea label='Mon input 2' />
+					<TextAreaDeprecated label='Mon input 1' />
+					<TextAreaDeprecated label='Mon input 2' />
 				</>,
 			);
 
@@ -106,14 +106,14 @@ describe('<TextArea />', () => {
 
 	describe('hint', () => {
 		it('affiche une aide lorsque présente', () => {
-			render(<TextArea hint="Ceci est une aide" />);
+			render(<TextAreaDeprecated hint="Ceci est une aide" />);
 
 			const hint = screen.getByText('Ceci est une aide');
 
 			expect(hint).toBeVisible();
 		});
 		it('décrit la textbox avec l’aide si présente', () => {
-			render(<TextArea hint="Ceci est une aide" />);
+			render(<TextAreaDeprecated hint="Ceci est une aide" />);
 
 			const input = screen.getByRole('textbox');
 
@@ -124,7 +124,7 @@ describe('<TextArea />', () => {
 				<>
 					<p id="mon-id1">Ceci est une première description externe.</p>
 					<p id="mon-id2">Ceci est une seconde description externe.</p>
-					<TextArea aria-describedby="mon-id1 mon-id2" hint="Ceci est une aide" />
+					<TextAreaDeprecated aria-describedby="mon-id1 mon-id2" hint="Ceci est une aide" />
 				</>,
 			);
 
@@ -135,7 +135,7 @@ describe('<TextArea />', () => {
 			expect(input).toHaveAccessibleDescription(/Ceci est une aide/);
 		});
 		it('n’ajoute pas d’attribut si pas présent', () => {
-			render(<TextArea />);
+			render(<TextAreaDeprecated />);
 
 			const input = screen.getByRole('textbox');
 
@@ -145,7 +145,7 @@ describe('<TextArea />', () => {
 
 	describe('error', () => {
 		it('affiche un message d’erreur lorsque le champ est en erreur et que l’utilisateur l’a touché', async () => {
-			render(<TextArea required/>);
+			render(<TextAreaDeprecated required/>);
 
 			let message = screen.queryByText('Constraints not satisfied');
 			expect(message).not.toBeInTheDocument();
@@ -158,7 +158,7 @@ describe('<TextArea />', () => {
 			expect(message).toBeVisible();
 		});
 		it('met à jour le message d’erreur quand la valeur change', async () => {
-			render(<TextArea required defaultValue=""/>);
+			render(<TextAreaDeprecated required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.type(input, 'a');
@@ -173,14 +173,14 @@ describe('<TextArea />', () => {
 			expect(message).toBeVisible();
 		});
 		it('ne masque pas l’aide à la saisie si un message d’erreur apparait',  () => {
-			render(<TextArea required defaultValue="" hint="Salut"/>);
+			render(<TextAreaDeprecated required defaultValue="" hint="Salut"/>);
 
 			const hint = screen.getByText('Salut');
 
 			expect(hint).toBeVisible();
 		});
 		it('lie l’erreur avec le champ', async () => {
-			render(<TextArea required defaultValue=""/>);
+			render(<TextAreaDeprecated required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
 			await userEvent.click(input);
@@ -189,7 +189,7 @@ describe('<TextArea />', () => {
 			expect(input).toHaveAccessibleErrorMessage('Constraints not satisfied');
 		});
 		it('n’ajoute pas d’attribut aria-errormessage, si il n’y a pas d’erreur', () => {
-			render(<TextArea required defaultValue=""/>);
+			render(<TextAreaDeprecated required defaultValue=""/>);
 
 			const input = screen.getByRole('textbox');
 
@@ -204,7 +204,7 @@ describe('<TextArea />', () => {
 				return null;
 			}
 
-			render(<TextArea validate={validate}/>);
+			render(<TextAreaDeprecated validate={validate}/>);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeValid();
@@ -217,7 +217,7 @@ describe('<TextArea />', () => {
 				return 'Error';
 			}
 
-			render(<TextArea validate={validate}/>);
+			render(<TextAreaDeprecated validate={validate}/>);
 
 			const input = screen.getByRole('textbox');
 			expect(input).toBeInvalid();

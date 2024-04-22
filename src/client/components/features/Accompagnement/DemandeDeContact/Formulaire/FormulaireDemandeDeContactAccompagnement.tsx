@@ -7,7 +7,7 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Input } from '~/client/components/ui/Form/Input';
-import { TextArea } from '~/client/components/ui/Form/InputText/TextArea';
+import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -119,7 +119,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 
 			<ComboboxCommune required/>
 
-			<TextArea
+			<TextAreaDeprecated
 				id="commentaire"
 				label="Commentaires ou autres informations utiles (facultatif)"
 				placeholder="Saisissez votre texte ici..."
