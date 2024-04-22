@@ -7,7 +7,7 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Input } from '~/client/components/ui/Form/Input';
-import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
+import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Link } from '~/client/components/ui/Link/Link';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -118,15 +118,12 @@ export function FormulaireDemandeDeContactAccompagnement({
 			/>
 
 			<ComboboxCommune required/>
+			<Champ >
+				<Champ.Label>Commentaires ou autres informations utiles (facultatif)</Champ.Label>
+				<Champ.Input render={TextArea} name="commentaire" rows={5}/>
+				<Champ.Error/>
+			</Champ>
 
-			<TextAreaDeprecated
-				id="commentaire"
-				label="Commentaires ou autres informations utiles (facultatif)"
-				placeholder="Saisissez votre texte ici..."
-				name="commentaire"
-				rows={5}
-				className={styles.commentaireDemandeDeContact}
-			/>
 			{isLoading
 				? <LoadingButton className={styles.formulaireValidateButton}/>
 				: <>

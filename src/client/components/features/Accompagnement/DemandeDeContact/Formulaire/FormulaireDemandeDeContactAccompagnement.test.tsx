@@ -89,7 +89,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		renderComponent();
 
 		//When
-		await userEvent.type(screen.getByLabelText(label), 's{backspace}');
+		const textarea = screen.getByRole('textbox', { name: label });
+		await userEvent.type(textarea, 's{backspace}');
 
 		// Then
 		expect(screen.getByLabelText(label)).toBeValid();

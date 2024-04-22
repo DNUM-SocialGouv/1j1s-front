@@ -5,7 +5,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
+import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
@@ -53,7 +53,7 @@ const INSTRUCTION_CANDIDATURE_MAIL = <p className={styles.sousTitre}>Cette entre
 	e-mail. Veuillez compléter ce formulaire qui sera transmis à l’entreprise.</p>;
 
 const messageContactParDefaut =
-`Bonjour,
+	`Bonjour,
  
 J’ai trouvé votre entreprise sur le site https://www.1jeune1solution.gouv.fr/
 [Rédigez ici votre email de motivation.]
@@ -178,10 +178,10 @@ function FormulaireContactParTelephone(props: {
 						<Champ.Label.Complement>Exemple : Alexis</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-										 name="prenom"
-										 required
-										 type="text"
-										 autoComplete="given-name"
+											 name="prenom"
+											 required
+											 type="text"
+											 autoComplete="given-name"
 					/>
 					<Champ.Error/>
 				</Champ>
@@ -190,10 +190,10 @@ function FormulaireContactParTelephone(props: {
 						<Champ.Label.Complement>Exemple : Dupont</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-										 name="nom"
-										 required
-										 type="text"
-										 autoComplete="family-name"
+											 name="nom"
+											 required
+											 type="text"
+											 autoComplete="family-name"
 					/>
 					<Champ.Error/>
 				</Champ>
@@ -202,11 +202,11 @@ function FormulaireContactParTelephone(props: {
 						<Champ.Label.Complement>Exemple : alexis.dupont@example.com</Champ.Label.Complement>
 					</Champ.Label>
 					<Champ.Input render={Input}
-										 name="email"
-										 required
-										 type="email"
-										 autoComplete="email"
-										 pattern={emailRegex}
+											 name="email"
+											 required
+											 type="email"
+											 autoComplete="email"
+											 pattern={emailRegex}
 					/>
 					<Champ.Error/>
 				</Champ>
@@ -222,16 +222,16 @@ function FormulaireContactParTelephone(props: {
 					:
 					<Champ>
 						<Champ.Label>
-						Métier sur lequel porte la demande d’immersion
+							Métier sur lequel porte la demande d’immersion
 							<Champ.Label.Complement className={styles.elementDesactive}>Un ou plusieurs métiers ont été renseignés par
-							l’entreprise</Champ.Label.Complement>
+								l’entreprise</Champ.Label.Complement>
 						</Champ.Label>
 						<Champ.Input render={Input}
-											 name="metierCode"
-											 required
-											 value={props.metiersStage3eEt2de[0].label}
-											 readOnly
-											 type="text"
+												 name="metierCode"
+												 required
+												 value={props.metiersStage3eEt2de[0].label}
+												 readOnly
+												 type="text"
 						/>
 						<Champ.Error/>
 					</Champ>
@@ -351,10 +351,16 @@ function FormulaireContactParEmail(props: {
 					<Champ.Label htmlFor="message">
 						Votre message à l’entreprise
 						<Champ.Label.Complement>
-							Partagez vos motivations, vos attentes ou toute information que vous jugeriez utiles (500 charactères maximum)
+							Partagez vos motivations, vos attentes ou toute information que vous jugeriez utiles (500 charactères
+							maximum)
 						</Champ.Label.Complement>
 					</Champ.Label>
-					<TextAreaDeprecated id="message" name="message" maxLength={500} required defaultValue={messageContactParDefaut}/>
+					<Champ.Input
+						render={TextArea}
+						name="message"
+						maxLength={500}
+						required
+						defaultValue={messageContactParDefaut}/>
 					<Champ.Error/>
 				</Champ>
 				<ButtonComponent

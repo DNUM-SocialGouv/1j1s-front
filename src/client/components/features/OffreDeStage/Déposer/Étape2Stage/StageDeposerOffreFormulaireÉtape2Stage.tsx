@@ -10,8 +10,10 @@ import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/D
 import { domaineStage } from '~/client/components/features/OffreDeStage/Déposer/StageDomaines';
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { InputText } from '~/client/components/ui/Form/InputText/InputText';
 import { TextAreaDeprecated } from '~/client/components/ui/Form/InputText/TextAreaDeprecated';
+import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import { Option, Select } from '~/client/components/ui/Select/Select';
@@ -88,17 +90,20 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 			required
 			className={styles.inputLienCandidature}
 		/>
-		<TextAreaDeprecated
-			className={styles.textareaWrapper}
-			id="descriptionOffre"
-			label={'Description de l’offre de stage (200 caractères minimum)'}
-			placeholder="Informations sur le stage : les objectifs, les challenges, les missions..."
-			name={StageEnum.DESCRIPTION}
-			defaultValue={props.informationsStage?.descriptionOffre}
-			required
-			rows={10}
-			minLength={200}
-		/>
+		{/* TODO (BRUJ 22/04/2024): Ne plus utiliser le placeholder et passer la valeur dans le label complémentaire */}
+		<Champ className={styles.textareaWrapper}>
+			<Champ.Label>Description de l’offre de stage (200 caractères minimum)</Champ.Label>
+			<Champ.Input
+				render={TextArea}
+				name={StageEnum.DESCRIPTION}
+				defaultValue={props.informationsStage?.descriptionOffre}
+				required
+				rows={10}
+				minLength={200}
+				placeholder="Informations sur le stage : les objectifs, les challenges, les missions..."
+			/>
+			<Champ.Error/>
+		</Champ>
 		<fieldset className={styles.contenuDateDeDebut}>
 			<legend>Date de début du stage</legend>
 			<RadioIsDatePrecise
@@ -151,9 +156,9 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 				<legend>Télétravail possible</legend>
 				<div className={styles.inputTeletravail}>
 					<Radio name={StageEnum.TELETRAVAIL} value="true" label="Oui"
-					       defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.OUI}/>
 					<Radio name={StageEnum.TELETRAVAIL} value="false" label="Non"
-					       defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}/>
+								 defaultChecked={props.informationsStage?.teletravail === Teletravail.NON}/>
 				</div>
 			</fieldset>
 		</div>
@@ -192,9 +197,9 @@ export default function StageDeposerOffreFormulaireÉtape2Stage() {
 		>
 			<StageDeposerOffreFormulaireLayout
 				inputsObligatoires={
-					<ChampsObligatoires informationsStage={informationsStage} />
+					<ChampsObligatoires informationsStage={informationsStage}/>
 				}
-				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage} />}
+				inputsFacultatifs={<ChampsFaculatifs informationsStage={informationsStage}/>}
 				formRef={formRef}
 				handleFormSubmit={handleFormSubmit}
 				boutonValidation={<ButtonComponent
