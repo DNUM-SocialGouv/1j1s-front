@@ -246,7 +246,7 @@ function FormulaireContactParTelephone(props: {
 		</Container>
 		{DECHARGE}
 	</>;
-};
+}
 
 function FormulaireContactParEmail(props: {
 	nomEntreprise: string,
@@ -348,7 +348,7 @@ function FormulaireContactParEmail(props: {
 					</Champ>
 				}
 				<Champ className={styles.champMessage}>
-					<Champ.Label htmlFor="message">
+					<Champ.Label>
 						Votre message à l’entreprise
 						<Champ.Label.Complement>
 							Partagez vos motivations, vos attentes ou toute information que vous jugeriez utiles (500 charactères
@@ -373,4 +373,4 @@ function FormulaireContactParEmail(props: {
 		</Container>
 		{DECHARGE}
 	</>;
-};
+}
