@@ -8,8 +8,6 @@ import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
 import { NavDesktop } from '~/client/components/layouts/Header/Navigation/NavDesktop';
 
-export const ENCART_CAMPAGNE_URL = '/articles/decouvrez-apprentissage-live-instagram';
-
 export function Header() {
 
 	const enqueteSatisfactionUrl = process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL ?? '';

@@ -10,130 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Header', () => {
-	it('affiche le lien jobs d‘été quand le feature flip est actif', async () => {
-		// GIVEN
-		mockUseRouter({ pathname: '/' });
-		process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
-		render(<Header/>);
-		const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
-		const user = userEvent.setup();
 
-		// WHEN
-		await user.click(offreNavItem);
-
-		// THEN
-		const jobsEteLink = screen.getByRole('link', { name: 'Jobs d‘été' });
-		expect(jobsEteLink).toBeVisible();
-		expect(jobsEteLink).toHaveAttribute('href', '/jobs-ete');
-	});
-	it('masque le lien jobs d‘été quand le feature flip est inactif', async () => {
-		// GIVEN
-		mockUseRouter({ pathname: '/' });
-		process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
-		render(<Header/>);
-		const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
-		const user = userEvent.setup();
-
-		// WHEN
-		await user.click(offreNavItem);
-
-		// THEN
-		const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
-		expect(jobsEteLink).not.toBeInTheDocument();
-	});
-	it('affiche le lien stage de 2de quand le feature flip est actif', async () => {
-		// GIVEN
-		mockUseRouter({ pathname: '/' });
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
-		render(<Header/>);
-		const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
-		const user = userEvent.setup();
-
-		// WHEN
-		await user.click(offreNavItem);
-
-		// THEN
-		const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de GT' });
-		expect(stage2deLink).toBeVisible();
-		expect(stage2deLink).toHaveAttribute('href', 'https://www.monstageenligne.example/');
-	});
-	it('masque le lien stage de 2de quand le feature flip est inactif', async () => {
-		// GIVEN
-		mockUseRouter({ pathname: '/' });
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
-		render(<Header/>);
-		const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
-		const user = userEvent.setup();
-
-		// WHEN
-		await user.click(offreNavItem);
-
-		// THEN
-		const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
-		expect(stage2deLink).not.toBeInTheDocument();
-	});
-	it('masque le lien stage de 2de quand l’url n’est pas fournie', async () => {
-		// GIVEN
-		mockUseRouter({ pathname: '/' });
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
-		process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = '';
-		render(<Header/>);
-		const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
-		const user = userEvent.setup();
-
-		// WHEN
-		await user.click(offreNavItem);
-
-		// THEN
-		const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
-		expect(stage2deLink).not.toBeInTheDocument();
-	});
-
-	describe('quand l’enquête de satisfaction est feature flippé', () => {
-		it('ON, affiche le lien vers l’enquête de satisfaction', () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
-
-			// WHEN
-			render(<Header/>);
-
-			// THEN
-			const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre' });
-			expect(lienEnquete).toBeVisible();
-			expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
-		});
-
-		it('ON, mais que l’url de l’enquête n’est pas fournie, masque le lien vers l’enquête de satisfaction', () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
-			process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
-
-			// WHEN
-			render(<Header/>);
-
-			// THEN
-			const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
-			expect(lienEnquete).not.toBeInTheDocument();
-		});
-
-		it('OFF, masque le lien vers l’enquête de satisfaction', () => {
-			// GIVEN
-			mockUseRouter({ pathname: '/' });
-			process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
-			process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw';
-
-			// WHEN
-			render(<Header/>);
-
-			// THEN
-			const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
-			expect(lienEnquete).not.toBeInTheDocument();
-		});
-	});
 
 	describe('Sur desktop', () => {
 		beforeEach(() => {
@@ -266,6 +143,130 @@ describe('Header', () => {
 				// Then
 				const encartCampagne = screen.queryByTestId('desktop-encart-campagne');
 				expect(encartCampagne).not.toBeInTheDocument();
+			});
+		});
+
+		it('affiche le lien jobs d‘été quand le feature flip est actif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '1';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.getByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).toBeVisible();
+			expect(jobsEteLink).toHaveAttribute('href', '/jobs-ete');
+		});
+		it('masque le lien jobs d‘été quand le feature flip est inactif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
+			expect(jobsEteLink).not.toBeInTheDocument();
+		});
+		it('affiche le lien stage de 2de quand le feature flip est actif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const stage2deLink = screen.getByRole('link', { name: 'Stage de 2de GT' });
+			expect(stage2deLink).toBeVisible();
+			expect(stage2deLink).toHaveAttribute('href', 'https://www.monstageenligne.example/');
+		});
+		it('masque le lien stage de 2de quand le feature flip est inactif', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = 'https://www.monstageenligne.example/';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
+			expect(stage2deLink).not.toBeInTheDocument();
+		});
+		it('masque le lien stage de 2de quand l’url n’est pas fournie', async () => {
+			// GIVEN
+			mockUseRouter({ pathname: '/' });
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '1';
+			process.env.NEXT_PUBLIC_STAGES_SECONDE_URL = '';
+			render(<Header/>);
+			const offreNavItem = screen.getByRole('button', { name: /^Offres$/i });
+			const user = userEvent.setup();
+
+			// WHEN
+			await user.click(offreNavItem);
+
+			// THEN
+			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
+			expect(stage2deLink).not.toBeInTheDocument();
+		});
+		describe('quand l’enquête de satisfaction est feature flippé', () => {
+			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE = '1';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete = screen.getByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes - nouvelle fenêtre' });
+				expect(lienEnquete).toBeVisible();
+				expect(lienEnquete).toHaveAttribute('href', 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw/viewform');
+			});
+
+			it('ON, mais que l’url de l’enquête n’est pas fournie, masque le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '1';
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = '';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				expect(lienEnquete).not.toBeInTheDocument();
+			});
+
+			it('OFF, masque le lien vers l’enquête de satisfaction', () => {
+				// GIVEN
+				mockUseRouter({ pathname: '/' });
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_FEATURE = '0';
+				process.env.NEXT_PUBLIC_ENQUETE_SATISFACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeY3bU5cQlKNCO6B5VRJhPe7j6LwOXLXBikLrzKVAEFkUQPYw';
+
+				// WHEN
+				render(<Header/>);
+
+				// THEN
+				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				expect(lienEnquete).not.toBeInTheDocument();
 			});
 		});
 	});
