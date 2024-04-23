@@ -118,7 +118,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 			/>
 
 			<ComboboxCommune required/>
-			<Champ >
+			<Champ className={styles.commentaireDemandeDeContact}>
 				<Champ.Label>Commentaires ou autres informations utiles (facultatif)</Champ.Label>
 				<Champ.Input render={TextArea} name="commentaire" rows={5}/>
 				<Champ.Error/>
