@@ -13,8 +13,8 @@ import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
 import { Age, DemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact';
 import { isSuccess } from '~/server/errors/either';
 import {
@@ -34,7 +34,7 @@ export function FormulaireDemandeDeContactAccompagnement({
 																													 onSuccess,
 																													 onFailure,
 																												 }: FormulaireDemandeDeContactAccompagnementProps) {
-	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
+	const établissementAccompagnementService = useDependency<BffEtablissementAccompagnementService>('établissementAccompagnementService');
 	const [isLoading, setIsLoading] = useState(false);
 
 	async function envoyerFormulaire(event: FormEvent<HTMLFormElement>) {

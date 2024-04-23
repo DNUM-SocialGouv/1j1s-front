@@ -21,8 +21,8 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -33,7 +33,7 @@ import {
 
 export function RechercherAccompagnement() {
 	const accompagnementQuery = useAccompagnementQuery();
-	const établissementAccompagnementService = useDependency<ÉtablissementAccompagnementService>('établissementAccompagnementService');
+	const établissementAccompagnementService = useDependency<BffEtablissementAccompagnementService>('établissementAccompagnementService');
 
 	const [établissementAccompagnementList, setÉtablissementAccompagnementList] = useState<EtablissementAccompagnement[]>([]);
 	const [isLoading, setIsLoading] = useState(false);

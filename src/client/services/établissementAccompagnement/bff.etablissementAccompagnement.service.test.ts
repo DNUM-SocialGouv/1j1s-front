@@ -1,7 +1,7 @@
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
 import { createSuccess } from '~/server/errors/either';
@@ -14,7 +14,7 @@ describe('établissementAccompagnementService', () => {
 		it('retourne la liste des établissement d‘accompagnement', async () => {
 			const httpClient = anHttpClientService();
 			jest.spyOn(httpClient, 'get').mockResolvedValue(createSuccess(anEtablissementAccompagnementList()));
-			const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClient);
+			const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClient);
 			const accompagnementQueryParams = {
 				typeAccompagnement: 'cij',
 				...aCommuneQuery({
@@ -37,7 +37,7 @@ describe('établissementAccompagnementService', () => {
 		it('envoie la demande de contact', async () => {
 			const httpClient = anHttpClientService();
 			jest.spyOn(httpClient, 'post').mockResolvedValue(createSuccess(undefined));
-			const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClient);
+			const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClient);
 			const demandeDeContact = aDemandeDeContactAccompagnement();
 
 			const actual = await établissementAccompagnementService.envoyerDemandeContact(demandeDeContact);

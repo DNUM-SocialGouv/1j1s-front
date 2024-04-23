@@ -12,8 +12,11 @@ import { JsDateService } from '~/client/services/date/js/js.date.service';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
+import {
+	EtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
 import { BffFormationService } from '~/client/services/formation/bff.formation.service';
@@ -83,7 +86,7 @@ export type Dependencies = {
 	rechercheClientService: SearchClient
 	stageService: StageService
 	youtubeService: VideoService
-	établissementAccompagnementService: ÉtablissementAccompagnementService
+	établissementAccompagnementService: EtablissementAccompagnementService
 	marketingService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
@@ -115,7 +118,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const localisationService = new BffLocalisationService(httpClientService);
 	const missionEngagementService = new BffMissionEngagementService(httpClientService);
 	const demandeDeContactService = new BffDemandeDeContactService(httpClientService);
-	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+	const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
 	const cookiesService = getCookieService();

@@ -11,11 +11,14 @@ import {
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	anEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	anEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
+import {
+	EtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aDemandeDeContactAccompagnement } from '~/server/demande-de-contact/domain/demandeDeContact.fixture';
@@ -27,7 +30,7 @@ import {
 
 describe('FormulaireDemandeDeContactAccompagnement', () => {
 	let localisationService: LocalisationService;
-	let établissementAccompagnementService: ÉtablissementAccompagnementService;
+	let établissementAccompagnementService: EtablissementAccompagnementService;
 	const contactÉtablissementAccompagnement = aContactÉtablissementAccompagnement();
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 	let onSuccess: () => void;
