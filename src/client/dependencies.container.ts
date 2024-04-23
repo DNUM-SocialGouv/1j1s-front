@@ -31,6 +31,7 @@ import { MarketingService } from '~/client/services/marketing/marketing.service'
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
+import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
@@ -112,7 +113,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	const formationService = new BffFormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
-	const missionEngagementService = new MissionEngagementService(httpClientService);
+	const missionEngagementService = new BffMissionEngagementService(httpClientService);
 	const demandeDeContactService = new BffDemandeDeContactService(httpClientService);
 	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);

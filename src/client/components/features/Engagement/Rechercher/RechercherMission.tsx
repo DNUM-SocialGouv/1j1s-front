@@ -15,7 +15,7 @@ import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { Footnote } from '~/client/components/ui/Footnote/Footnote';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
-import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import empty from '~/client/utils/empty';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -34,7 +34,7 @@ interface RechercherMissionProps {
 
 export function RechercherMission(props: RechercherMissionProps) {
 	const { category } = props;
-	const missionEngagementService = useDependency<MissionEngagementService>('missionEngagementService');
+	const missionEngagementService = useDependency<BffMissionEngagementService>('missionEngagementService');
 	const missionEngagementQuery = useMissionEngagementQuery();
 	const [missionList, setMissionList] = useState<Mission[]>([]);
 	const [nombreResultats, setNombreResultats] = useState(0);

@@ -11,7 +11,7 @@ import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagementService.fixture';
+import { aMissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service.fixture';
 import RechercherMissionServiceCiviquePage from '~/pages/service-civique/index.page';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 

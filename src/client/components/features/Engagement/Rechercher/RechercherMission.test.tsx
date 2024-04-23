@@ -13,7 +13,7 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import {
 	aMissionEngagementService,
 	aSingleResultMissionEngagementService,
-} from '~/client/services/missionEngagement/missionEngagementService.fixture';
+} from '~/client/services/missionEngagement/missionEngagement.service.fixture';
 import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 
 describe('RechercherMission', () => {
