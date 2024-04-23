@@ -1,7 +1,8 @@
 import React from 'react';
 
-import styles from '~/client/components/layouts/Header/Banner/EnqueteSatisfactionBanner.module.scss';
 import { Link } from '~/client/components/ui/Link/Link';
+
+import styles from './EnqueteSatisfactionBanner.module.scss';
 
 interface EnqueteSatisfactionBannerProps {
 	enqueteUrl: string;
