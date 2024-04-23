@@ -25,12 +25,12 @@ export default class ServerConfigurationService implements ConfigurationService 
 			API_TRAJECTOIRES_PRO_PASSWORD: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_PASSWORD'),
 			API_TRAJECTOIRES_PRO_URL: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_URL'),
 			API_TRAJECTOIRES_PRO_USERNAME: ServerConfigurationService.getOrThrowError('API_TRAJECTOIRES_PRO_USERNAME'),
+			DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: Number(ServerConfigurationService.getOrThrowError('DUREE_VALIDITE_CACHE_CMS_EN_SECONDES')),
 			ENVIRONMENT: ServerConfigurationService.getOrDefault('ENVIRONMENT', 'local'),
 			FRANCE_TRAVAIL_CONNECT_CLIENT_ID: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_ID'),
 			FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_CLIENT_SECRET'),
 			FRANCE_TRAVAIL_CONNECT_SCOPE: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_SCOPE').replace(/,/g, ' '),
 			FRANCE_TRAVAIL_CONNECT_URL: ServerConfigurationService.getOrThrowError('FRANCE_TRAVAIL_CONNECT_URL'),
-			IS_REVIEW_APP: ServerConfigurationService.getOrDefault('IS_REVIEW_APP', '').toLowerCase() === 'true',
 			MAILER_SERVICE_ACTIVE: ServerConfigurationService.getOrDefault('MAILER_SERVICE_ACTIVE', '0'),
 
 			MAILER_SERVICE_REDIRECT_TO: ServerConfigurationService.getOrDefault('MAILER_SERVICE_REDIRECT_TO', ''),
@@ -115,7 +115,7 @@ export interface EnvironmentVariables {
 	readonly API_TRAJECTOIRES_PRO_USERNAME: string
 	readonly API_TRAJECTOIRES_PRO_PASSWORD: string
 	readonly ENVIRONMENT: string
-	readonly IS_REVIEW_APP: boolean
+	readonly DUREE_VALIDITE_CACHE_CMS_EN_SECONDES: number
 	readonly MAILER_SERVICE_ACTIVE: string
 	readonly MAILER_SERVICE_REDIRECT_TO: string
 	readonly NEXT_PUBLIC_ALTERNANCE_LBA_FEATURE: boolean

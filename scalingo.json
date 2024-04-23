@@ -1,8 +1,5 @@
 {
   "env": {
-    "IS_REVIEW_APP": {
-      "value": "true"
-    },
     "NEXT_PUBLIC_SENTRY_ENVIRONMENT": {
       "value": "review_app"
     },
