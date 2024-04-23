@@ -32,7 +32,6 @@ $border-width-compensation: calc($error-border-width - $border-width);
 
   &:valid,
   &:not([data-touched="true"]) {
-    // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
-    margin: $border-width-compensation 0 $border-width-compensation $border-width-compensation;
+    margin: $border-width-compensation;
   }
 }

@@ -15,7 +15,7 @@ type TextAreaProps = ComponentPropsWithoutRef<'textarea'> & {
 	onTouch?: (touched: boolean) => void,
 };
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextAreaTest(
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
 	{
 		className,
 		validation = nullValidation,

@@ -64,8 +64,9 @@ describe('<TextArea/>', () => {
 		render(<TextArea onBlur={onBlur}/>);
 
 		const textarea = screen.getByRole('textbox');
-		await user.type(textarea, 'a');
+		await user.click(textarea);
 		await user.tab();
+
 		expect(onBlur).toHaveBeenCalledTimes(1);
 		expect(onBlur).toHaveBeenCalledWith(expect.objectContaining({ target: textarea }));
 	});
@@ -151,7 +152,7 @@ describe('<TextArea/>', () => {
 			const textarea = screen.getByRole('textbox');
 			await user.type(textarea, 'a');
 
-			expect(onInvalid).toHaveBeenCalledTimes(0);
+			expect(onInvalid).not.toHaveBeenCalled();
 		});
 
 		it('lorsque le textarea est déjà en erreur et qu‘il est touched, onInvalid est appelé', async () => {
@@ -175,7 +176,7 @@ describe('<TextArea/>', () => {
 			await user.type(textarea, 'a');
 			await user.clear(textarea);
 
-			expect(onInvalid).toHaveBeenCalledTimes(0);
+			expect(onInvalid).not.toHaveBeenCalled();
 		});
 	});
 
