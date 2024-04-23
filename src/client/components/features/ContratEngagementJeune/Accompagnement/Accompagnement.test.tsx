@@ -37,7 +37,7 @@ describe('<Accompagnement />', () => {
 
 	function renderComponent() {
 		const demandeDeContactService = aDemandeDeContactService();
-		const localisationService = {} as unknown as LocalisationService;
+		const localisationService = aLocalisationService();
 
 
 		render(
