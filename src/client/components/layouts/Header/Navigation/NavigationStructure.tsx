@@ -5,14 +5,14 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import styles from './NavigationStructure.module.scss';
 
 export interface NavigationItemWithChildren {
-  label: string;
-  legend?: string;
-  children: Array<NavigationItem | NavigationItemWithChildren>;
+	label: string;
+	legend?: string;
+	children: Array<NavigationItem | NavigationItemWithChildren>;
 }
 
 export interface NavigationItem {
-  label: string | ReactNode;
-  link: string;
+	label: string | ReactNode;
+	link: string;
 }
 
 export function isNavigationItem(nav: NavigationItem | NavigationItemWithChildren): nav is NavigationItem {
@@ -24,13 +24,22 @@ const accueil = (): NavigationItem => ({ label: 'Accueil', link: '/' });
 const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
-		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{ label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection"/></>, link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL }] : []),
+		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{
+			label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection"/></>,
+			link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL,
+		}] : []),
 		{ label: 'Stages d’études', link: '/stages' },
-		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{ label: 'Stages de 3e et 2de', link: '/stages-3e-et-2de' }] : []),
+		...(process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE === '1' ? [{
+			label: 'Stages de 3e et 2de',
+			link: '/stages-3e-et-2de',
+		}] : []),
 		{ label: 'Contrats d’alternance', link: '/apprentissage' },
 		...(process.env.NEXT_PUBLIC_JOB_ETE_FEATURE === '1' ? [{ label: 'Jobs d‘été ', link: '/jobs-ete' }] : []),
 		{ label: 'Jobs étudiants', link: '/jobs-etudiants' },
-		...(process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE === '1' ? [{ label: 'Emplois en Europe ', link: '/emplois-europe' }] : []),
+		...(process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE === '1' ? [{
+			label: 'Emplois en Europe ',
+			link: '/emplois-europe',
+		}] : []),
 		{ label: 'Expérience en Europe', link: '/europe' },
 	],
 	label: 'Offres',
@@ -38,8 +47,14 @@ const offresNav = (): NavigationItemWithChildren => ({
 
 const orientationNav = (): NavigationItemWithChildren => ({
 	children: [
-		...(process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1' ? [{ label: 'Formations initiales', link: '/formations-initiales' }] : []),
-		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{ label: 'Formations en apprentissage', link: '/formations/apprentissage' }] : []),
+		...(process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE === '1' ? [{
+			label: 'Formations initiales',
+			link: '/formations-initiales',
+		}] : []),
+		...(process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE === '1' ? [{
+			label: 'Formations en apprentissage',
+			link: '/formations/apprentissage',
+		}] : []),
 		{ label: 'Découvrir les métiers', link: '/decouvrir-les-metiers' },
 		{ label: 'Participer à des évènements', link: '/evenements' },
 		{ label: 'Découvrir et trouver sa voie avec l’apprentissage', link: '/choisir-apprentissage' },
@@ -74,7 +89,8 @@ const employeurNav = (): NavigationItemWithChildren => ({
 				{ label: 'Je deviens mentor', link: '/je-deviens-mentor' },
 				{ label: 'Je propose des immersions', link: '/immersions' },
 				{ label: 'Je forme les jeunes grâce à l‘emploi', link: '/je-recrute-afpr-poei' },
-			], label: 'Recruter et agir pour les jeunes',
+			],
+			label: 'Recruter et agir pour les jeunes',
 		},
 		{ label: 'Découvrir les mesures employeurs', link: '/mesures-employeurs' },
 		{ label: 'Accéder à mon espace', link: '/mon-espace' },
@@ -95,21 +111,24 @@ const logementsNav = (): NavigationItemWithChildren => ({
 const aidesEtOutilsNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Simulateur d’aides financières', link: '/mes-aides' },
-		...(process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1' ? [{ label: 'Aides au permis de conduire', link: '/1jeune1permis' }] : []),
+		...(process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE === '1' ? [{
+			label: 'Aides au permis de conduire',
+			link: '/1jeune1permis',
+		}] : []),
 		{ label: 'Créer son CV personnalisé', link: '/creer-mon-cv' },
 	],
 	label: 'Aides et outils',
 });
 
 export interface NavigationItemList {
-  accueil: NavigationItem,
+	accueil: NavigationItem,
 	aidesEtOutilsNav: NavigationItemWithChildren,
-  offresNav: NavigationItemWithChildren,
-  orientationNav: NavigationItemWithChildren,
-  accompagnementNav: NavigationItemWithChildren,
-  engagementNav: NavigationItemWithChildren,
-  logementsNav: NavigationItemWithChildren
-  employeurNav: NavigationItemWithChildren,
+	offresNav: NavigationItemWithChildren,
+	orientationNav: NavigationItemWithChildren,
+	accompagnementNav: NavigationItemWithChildren,
+	engagementNav: NavigationItemWithChildren,
+	logementsNav: NavigationItemWithChildren
+	employeurNav: NavigationItemWithChildren,
 }
 
 export const navigationItemList = (): NavigationItemList => ({

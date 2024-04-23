@@ -105,25 +105,6 @@ describe('Header', () => {
 			});
 		});
 
-		describe('quand la page courante est "Je deviens mentor"', () => {
-			it('affiche le composant Header avec la navigation active sur "Je deviens mentor"', async () => {
-				mockUseRouter({ pathname: '/je-deviens-mentor' });
-				render(<Header/>);
-
-				const navigationDesktop = screen.getByTestId('navigation-desktop');
-				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
-				const lesNavItem = within(navigationDesktop).getAllByText('Je suis employeur').at(0) as HTMLElement;
-
-				fireEvent.click(lesNavItem);
-
-				const jeDeviensMentorNavItem = within(navigationDesktop).getByText('Je deviens mentor');
-
-				expect(accueilNavItem).toHaveAttribute('aria-current', 'false');
-				// eslint-disable-next-line testing-library/no-node-access
-				expect(jeDeviensMentorNavItem.parentNode).toHaveAttribute('aria-current', 'true');
-			});
-		});
-
 		describe('quand la fonctionnalité de campagne de com est activée', () => {
 			it('affiche le composant Header avec l’encart', async () => {
 				// Given
@@ -430,27 +411,30 @@ describe('Header', () => {
 				expect(menu).not.toBeInTheDocument();
 			});
 		});
+
 		describe('Au clic sur le menu employeur', () => {
-			it('affiche les menus en profondeur', async () => {
+			it('affiche les menus en profondeur tout en laissant visible le bouton du menu employeur', async () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
 				render(
 					<Header/>,
 				);
 
+				const buttonNavEmployeurLabel = 'Je suis employeur';
+
 				// When
 				const burgerMenu = screen.getByRole('button', { name: 'Menu' });
 				await userEvent.click(burgerMenu);
 
 				const navigationMobile = screen.getByTestId('navigation-mobile');
-				const sectionEmployeur = within(navigationMobile).getByRole('button', { name: 'Je suis employeur' });
+				const sectionEmployeur = within(navigationMobile).getByRole('button', { name: buttonNavEmployeurLabel });
 				await userEvent.click(sectionEmployeur);
 				const sousItemSectionEmployeurAyantEncoreUnNiveauPlusProfond = within(navigationMobile).getByRole('button', { name: 'Recruter et agir pour les jeunes' });
 				await userEvent.click(sousItemSectionEmployeurAyantEncoreUnNiveauPlusProfond);
 
 				// Then
-				expect(within(navigationMobile).queryByText('Je suis employeur')).not.toBeInTheDocument();
-				expect(sectionEmployeur).toHaveTextContent('Recruter et agir pour les jeunes');
+				expect(within(navigationMobile).getByRole('link', { name: 'Je recrute' })).toBeVisible();
+				expect(within(navigationMobile).getByRole('button', { name: buttonNavEmployeurLabel })).toBeVisible();
 			});
 		});
 		describe('navigation au clavier', () => {

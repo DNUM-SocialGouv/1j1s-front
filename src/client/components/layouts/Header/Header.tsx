@@ -3,7 +3,7 @@ import React from 'react';
 import { EnqueteSatisfactionBanner } from '~/client/components/layouts/Header/Banner/EnqueteSatisfactionBanner';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { HeaderBody } from '~/client/components/layouts/Header/HeaderBody';
-import { HeaderNavDesktop } from '~/client/components/layouts/Header/HeaderNavDesktop';
+import { NavDesktop } from '~/client/components/layouts/Header/Navigation/NavDesktop';
 import { Link } from '~/client/components/ui/Link/Link';
 
 export const ENCART_CAMPAGNE_URL = '/articles/decouvrez-apprentissage-live-instagram';
@@ -24,7 +24,7 @@ export function Header() {
 					<Link.Icon name="angle-right"/>
 				</Link> }
 			<HeaderBody/>
-			<HeaderNavDesktop/>
+			<NavDesktop/>
 			{displayEnqueteSatisfactionBanner &&
 				<EnqueteSatisfactionBanner enqueteUrl={enqueteSatisfactionUrl}/>
 			}

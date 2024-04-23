@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Container } from '~/client/components/layouts/Container/Container';
 import { ENCART_CAMPAGNE_URL } from '~/client/components/layouts/Header/Header';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
-import { HeaderNavMobile } from '~/client/components/layouts/Header/HeaderNavMobile';
+import { NavMobile } from '~/client/components/layouts/Header/Navigation/NavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Image } from '~/client/components/ui/Img';
@@ -63,7 +63,7 @@ export function HeaderBody() {
 					<span>Menu</span>
 				</ModalComponent.Title>
 				<ModalComponent.Content>
-					<HeaderNavMobile toggleModal={toggleModal}/>
+					<NavMobile toggleModal={toggleModal}/>
 				</ModalComponent.Content>
 			</ModalComponent>
 		</Container>

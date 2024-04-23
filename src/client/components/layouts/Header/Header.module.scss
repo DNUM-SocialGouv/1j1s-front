@@ -2,10 +2,6 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
-@mixin underline {
-  text-decoration: underline;
-  text-underline-offset: 0.2rem;
-}
 
 .header {
   border-bottom: 1px solid utilities.$color-background-disabled;
@@ -67,7 +63,7 @@
           right: 0;
           top: 0;
           bottom: 0;
-          background-color: rgba(0,0,0,0);
+          background-color: rgba(0, 0, 0, 0);
           z-index: 1;
         }
       }
@@ -84,7 +80,6 @@
           padding-bottom: 0;
         }
       }
-
 
       & .headerBodyTitle {
         line-height: 1rem;
@@ -127,7 +122,7 @@
             5px 5px 0 utilities-deprecated.$color-header-on-hover,
             6px 6px 0 utilities-deprecated.$color-header-on-hover;
 
-            &  .headerBodyBannerTitle {
+            & .headerBodyBannerTitle {
               color: utilities-deprecated.$color-header-on-hover;
             }
           }
@@ -158,233 +153,6 @@
     }
   }
 
-  &NavigationList {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &NavigationListLeft {
-    display: flex;
-  }
-
-  &NavigationListRight {
-    display: flex;
-
-    .navItem {
-      color: utilities.$color-cta-texte-primary;
-      background-color: utilities.$color-title-primary-contrast;
-
-      &:hover {
-        background-color: color.adjust(utilities.$color-title-primary-contrast, utilities.$alpha:-0.15);
-      }
-
-      & .subNavItemList {
-        color: utilities.$color-text-primary;
-      }
-    }
-  }
-
-
-  &Navigation {
-    display: none;
-
-
-    @include utilities.media(large) {
-      display: unset;
-    }
-
-    padding-inline: 1rem;
-
-    @include utilities.media(large) {
-      border-top: 1px solid utilities.$color-background-disabled;
-      padding-inline: 0;
-    }
-  }
 }
 
 
-.subNavItemList {
-  color: utilities.$color-text-primary;
-  z-index: 5;
-  position: absolute;
-  width: 100%;
-  min-width: 12.5rem;
-  background-color: utilities.$color-background-primary;
-  border: 1px solid utilities.$color-background-disabled;
-  border-radius: 0 0 20px 20px;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  @extend %box-shadow;
-}
-
-.navItem {
-  &:hover > a.navItemLabel, &:hover .subNavItemLabel {
-    @include underline;
-  }
-
-  & > a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    outline-offset: -2px;
-  }
-
-  &Label {
-    @extend %text-regular;
-    display: block;
-    padding: 0.8rem 1rem;
-    color: utilities.$color-text-primary;
-  }
-
-  &:not(:last-child) {
-    color: utilities.$color-text-primary;
-  }
-}
-
-.navItem, .subNavItem {
-  position: relative;
-  @extend %text-regular;
-}
-
-.subNavItem {
-  color: utilities.$color-text-primary;
-
-  &:hover > a.navItemLabel {
-      @include underline;
-  }
-
-  > a.navItemLabel{
-    outline-offset: -2px;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid utilities.$color-background-disabled;
-  }
-
-  &:last-child a {
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-  }
-
-  &Button {
-    font-size: inherit;
-    padding-block: 0.8rem;
-    padding-inline: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin: auto;
-    color: inherit;
-    width: 100%;
-
-    svg {
-      vertical-align: text-top;
-    }
-  }
-
-  &Label {
-    margin-right: 0.2rem;
-    display: inline-block;
-  }
-
-  &Icon {
-    transition: transform 0.2s;
-
-    &Expanded {
-      transform: rotate(-180deg);
-      transition: transform 0.2s;
-    }
-  }
-}
-
-.navItemLabel[aria-current=true], .subNavItemLabel[aria-current=true], .embeddedNavItem[aria-current=true] {
-  @include underline;
-  @extend %bold;
-}
-
-.headerModalNavigationList {
-  a {
-    text-decoration: none;
-  }
-
-  & > .navItem:last-child {
-    color: utilities.$color-text-primary-inverse;
-    background-color: utilities.$color-title-primary-contrast;
-
-    &:hover {
-      background-color: color.adjust(utilities.$color-title-primary-contrast, utilities.$alpha:-0.15);
-    }
-
-    & .subNavItemList {
-      color: utilities.$color-text-primary;
-    }
-  }
-
-  .navItem {
-    border-top: 1px solid utilities.$color-background-disabled;
-
-    &:last-child {
-      border-bottom: 1px solid utilities.$color-background-disabled;
-    }
-  }
-
-  .navItem > a, .subNavItemButton {
-    justify-content: space-between;
-  }
-
-  .subNavItemList {
-    position: static;
-    margin: 0;
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
-  }
-
-  .subNavItem {
-    border-top: 1px solid utilities.$color-background-disabled;
-
-    &:not(:last-child) {
-      border-bottom: 0;
-    }
-
-    & > a {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .navItemLabel {
-      padding-left: 2.5rem;
-    }
-  }
-
-  .embeddedNavItem {
-    @extend .subNavItem;
-
-    &Button {
-      > span {
-        @extend %text-regular;
-      }
-
-      @extend .navItemLabel;
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
-
-  .subNavItemButton.embedded {
-    flex-direction: row-reverse;
-
-    > span {
-      flex-grow: 2;
-      text-align: left;
-      padding-left: .3rem;
-    }
-
-    > .subNavItemIconExpanded {
-      transform: rotate(90deg);
-    }
-  }
-}
