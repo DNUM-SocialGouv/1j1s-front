@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.282.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.281.0...v3.282.0) (2024-04-23)
+
+
+### Features
+
+* changement wording Boussole -&gt; Aides Jeunes ([#2942](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2942)) ([de9ed98](https://github.com/DNUM-SocialGouv/1j1s-front/commit/de9ed98fc5569cb3c53a329f9464d4420d9f18c4))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/nextjs to v7.111.0 ([#2932](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2932)) ([f9d1ebf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f9d1ebf8c25a0350d3f21877a61d87008c67fe8c))
+
 ## [3.281.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.280.1...v3.281.0) (2024-04-22)
 
 
