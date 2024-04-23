@@ -29,7 +29,7 @@ describe('<FlippingCard>', () => {
 		render(<FlippingCard link="/coucou" title="test" flippingCardContent="pour qui" />);
 
 		// Then
-		const image = screen.getByRole('img');
+		const image = screen.getByRole('presentation');
 		expect(image).toHaveAttribute('src', expect.stringContaining('image-par-defaut-carte.webp'));
 	});
 });

@@ -10,7 +10,7 @@ describe('<Image />', () => {
 	it('affiche un placeholder quand l’image est en erreur', () => {
 		render(<Image src="/invalid" alt="" width={320} height={320} />);
 
-		const image = screen.getByRole('img');
+		const image = screen.getByRole('presentation');
 		fireEvent.error(image);
 
 		expect(image).toHaveAttribute('src', expect.stringContaining('placeholder.webp'));
@@ -19,7 +19,7 @@ describe('<Image />', () => {
 		const onError = jest.fn();
 		render(<Image src="/invalid" alt="" width={320} height={320} onError={onError} />);
 
-		const image = screen.getByRole('img');
+		const image = screen.getByRole('presentation');
 		fireEvent.error(image);
 
 		expect(onError).toHaveBeenCalledTimes(1);
