@@ -11,9 +11,6 @@ import {
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
-	BffEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
-import {
 	anEtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
 import {

@@ -4,6 +4,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
+import { BffHttpClientService } from '~/client/services/bff.httpClient.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
@@ -25,7 +26,6 @@ import {
 	FormationInitialeInterface,
 	FormationInitialeService,
 } from '~/client/services/formationInitiale/formationInitiale.service';
-import { HttpClientService } from '~/client/services/httpClient.service';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
@@ -110,7 +110,7 @@ const getCookieService = () => {
 
 export default function dependenciesContainer(sessionId?: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
-	const httpClientService = new HttpClientService(sessionId, loggerService);
+	const httpClientService = new BffHttpClientService(sessionId, loggerService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
 	const metierStage3eEt2deService = new BffStage3eEt2deMetierService(httpClientService);
 	const formationService = new BffFormationService(httpClientService);

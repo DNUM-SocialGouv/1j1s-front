@@ -83,10 +83,10 @@ describe('ApiLaBonneAlternanceRepository', () => {
 						aMatchaResponse(
 							{
 								job: {
+									// @ts-expect-error
 									id: 1,
 								},
-							} as unknown as Partial<AlternanceApiJobsResponse.Matcha>,
-							// NOTE (DORO 2023-08-29) : utilisation du as unknown as Partial<AlternanceApiJobsResponse.Matcha> pour forcer un type incorrect
+							},
 						),
 					],
 				},

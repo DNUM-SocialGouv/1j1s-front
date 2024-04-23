@@ -1,7 +1,4 @@
 import {
-	BffEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
-import {
 	EtablissementAccompagnementService,
 } from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { createSuccess } from '~/server/errors/either';

@@ -5,7 +5,8 @@ import { createSuccess, Either, isFailure } from '~/server/errors/either';
 import { MetierAlternance } from '~/server/metiers/domain/metierAlternance';
 
 export class BffAlternanceMetierService implements MetierService {
-	constructor(private httpClientService: HttpClientService) {}
+	constructor(private httpClientService: HttpClientService) {
+	}
 
 	async rechercherMetier(query: string): Promise<Either<Metier[]>> {
 		const metiersAlternanceResult = await this.httpClientService.get<MetierAlternance[]>(`metiers?motCle=${query}`);

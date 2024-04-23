@@ -1,7 +1,4 @@
-import {
-	ParsedUrlQuery,
-	stringify,
-} from 'querystring';
+import { ParsedUrlQuery, stringify } from 'querystring';
 
 import { FormationQueryParams } from '~/client/hooks/useFormationQuery';
 import { FormationService } from '~/client/services/formation/formation.service';
