@@ -19,14 +19,18 @@ export function RésultatRechercherAccompagnementTagsList({ etablissement }: tag
 		{etablissement.telephone &&
 			<li key="téléphone" aria-label="téléphone de l‘établissement">
 				<Tag>
-					<Link href={`tel:${etablissement.telephone}`} className={styles.telephone}>
+					<Link href={`tel:${etablissement.telephone}`}>
 						<Icon name="phone"/>{etablissement.telephone}
 					</Link>
 				</Tag>
 			</li>}
 		{!isMissionLocale && etablissement.email &&
 			<li key="mail" aria-label="email de l‘établissement">
-				<Tag>{etablissement.email}</Tag>
+				<Tag>
+					<Link href={`mailto:${etablissement.email}`}>
+						<Icon name="mail"/>{etablissement.email}
+					</Link>
+				</Tag>
 			</li>}
 	</ul>;
 }
