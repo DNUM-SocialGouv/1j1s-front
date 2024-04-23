@@ -16,14 +16,15 @@
   text-underline-offset: 3px;
   text-align: center;
   font-weight: bold;
-  line-height: 2;
   @include utilities.text-small;
+  line-height: 1.7;
 }
 
 .headerBannerDektop {
   display: none;
 
   @include utilities.media(large) {
+    text-decoration: none;
     padding: 0.5rem 1rem;
     border: 1px solid utilities.$color-primary;
     box-shadow: 1px 1px 0 utilities.$color-primary,

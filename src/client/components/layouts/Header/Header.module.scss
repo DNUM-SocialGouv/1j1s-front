@@ -8,7 +8,6 @@
   background-color: utilities.$color-background-primary;
 
   a {
-    text-decoration: none;
     outline-offset: 8px;
   }
 
@@ -63,6 +62,7 @@
       }
 
       & .headerBodyTitle {
+        text-decoration: none;
         line-height: 1rem;
         @extend %text-large;
         @extend %bold;
@@ -75,7 +75,6 @@
       }
     }
   }
-
 }
 
 
