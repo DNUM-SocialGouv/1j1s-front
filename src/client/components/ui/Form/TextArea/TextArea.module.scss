@@ -1,0 +1,7 @@
+@use "../TextboxShared.module";
+
+.textarea {
+  @extend %input;
+  font-family: inherit;
+  resize: vertical;
+}

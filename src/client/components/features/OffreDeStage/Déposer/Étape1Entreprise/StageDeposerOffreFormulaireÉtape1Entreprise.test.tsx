@@ -27,12 +27,12 @@ describe('<Entreprise />', () => {
 			render(<DependenciesProvider stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService()}><Entreprise/></DependenciesProvider>);
 
 			expect(screen.getByText('Étape 1 sur 3 : Votre entreprise')).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Courte description de l’entreprise (500 caractères maximum)' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' })).toBeInTheDocument();
-			expect(screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' })).toBeInTheDocument();
-			expect(screen.getByRole('button', { name: 'Suivant' })).toBeInTheDocument();
+			expect(screen.getByRole('textbox', { name: 'Nom de l’entreprise ou de l’employeur Exemples : Crédit Agricole, SNCF…' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Adresse mail de contact Exemple : contactRH@example.com' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Courte description de l’entreprise (500 caractères maximum) Informations sur votre entreprise : son histoire, des objectifs, des enjeux...' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Logo de l’entreprise - lien/URL Exemple : https://www.1jeune1solution.gouv.fr/images/logos/r%C3…' })).toBeVisible();
+			expect(screen.getByRole('textbox', { name: 'Lien du site de l’entreprise - lien/URL Exemple : https://1jeune1solution.gouv.fr' })).toBeVisible();
+			expect(screen.getByRole('button', { name: 'Suivant' })).toBeVisible();
 		});
 
 		it('les champs contenant des données pouvant être saisie automatiquement ont un attribut autocomplete approprié', () => {

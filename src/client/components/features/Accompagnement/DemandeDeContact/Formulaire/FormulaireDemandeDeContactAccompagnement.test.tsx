@@ -59,9 +59,8 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 	describe('champ email', () => {
 		it('a un champ Adresse e-mail facultatif', async () => {
-			const label = 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com';
 			renderComponent();
-			const inputEmail = screen.getByRole('textbox', { name: label });
+			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
 
 			await userEvent.type(inputEmail, 's{backspace}');
 
@@ -69,12 +68,11 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		});
 
 		it('ne prend pas en compte les espaces avant et après', async () => {
-			const label = 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com';
 			// Given
 			renderComponent();
 
 			//When
-			const inputEmail = screen.getByRole('textbox', { name: label });
+			const inputEmail = screen.getByRole('textbox', { name: 'Adresse e-mail (facultatif) Exemple : jean.dupont@gmail.com' });
 			await userEvent.type(inputEmail, '    mail@avecespace.com   ');
 
 			// Then
@@ -84,15 +82,15 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 
 
 	it('a un champ Commentaire facultatif', async () => {
-		const label = 'Commentaires ou autres informations utiles (facultatif)';
 		// Given
 		renderComponent();
 
 		//When
-		await userEvent.type(screen.getByLabelText(label), 's{backspace}');
+		const textarea = screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' });
+		await userEvent.type(textarea, 's{backspace}');
 
 		// Then
-		expect(screen.getByLabelText(label)).toBeValid();
+		expect(textarea).toBeValid();
 	});
 
 	it('a un champ Age obligatoire', async () => {
@@ -100,7 +98,7 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 		renderComponent();
 		// When
 		await userEvent.click(screen.getByText('Age'));
-		await userEvent.click(screen.getByLabelText(/Nom/));
+		await userEvent.click(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }));
 		// When
 		const input = await screen.findByTestId('Select-InputHidden');
 
@@ -143,7 +141,7 @@ async function envoyerDemandeContact() {
 	await userEvent.type(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }), demandeDeContactAccompagnement.nom);
 	await userEvent.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), demandeDeContactAccompagnement.prénom);
 	await userEvent.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), demandeDeContactAccompagnement.téléphone);
-	await userEvent.type(screen.getByLabelText('Commentaires ou autres informations utiles (facultatif)'), demandeDeContactAccompagnement.commentaire || '');
+	await userEvent.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), demandeDeContactAccompagnement.commentaire || '');
 	const button = screen.getByRole('button', { name: 'Age Exemple : 16 ans' });
 	await userEvent.click(button);
 	const listbox = screen.getByRole('listbox');

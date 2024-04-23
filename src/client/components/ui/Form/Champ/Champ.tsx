@@ -32,12 +32,15 @@ export function Champ(props: ComponentPropsWithoutRef<'div'>) {
 	);
 }
 
-type InputChampProps<Props extends ComponentChildrenPropsNecessary> = Props extends {render: unknown} ? never: Props & {
+type InputChampProps<Props extends ComponentChildrenPropsNecessary> = Props extends {
+	render: unknown
+} ? never : Props & {
 	render: React.ComponentType<Props>
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ChangeFunction = (event: React.ChangeEvent<HTMLInputElement>, ...args: any[]) => void;
+type ChangeFunction = (event: any & { currentTarget: { validationMessage: string; }}, ...args: any[]) => void
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TouchFunction = (touched: boolean, ...args: any[]) => void;
 type ComponentChildrenPropsNecessary = {
@@ -48,52 +51,49 @@ type ComponentChildrenPropsNecessary = {
 	id?: string
 }
 
-export const InputChamp: <
-	Props extends ComponentChildrenPropsNecessary
->(props: InputChampProps<Props>) => React.ReactNode = React.forwardRef(function InputChamp<
-	Props extends ComponentChildrenPropsNecessary,
->(
-	{
-		'aria-describedby': ariaDescribedby = '',
-		id,
-		onChange: onChangeProps = doNothing,
-		onInvalid: onInvalidProps = doNothing,
-		onTouch: onTouchProps = doNothing,
-		render: Render,
-		...rest
-	}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
-	const { errorId, hintId, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
-	const inputRef = useSynchronizedRef(outerRef);
+export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: InputChampProps<Props>) => React.ReactNode = React.forwardRef(
+	function InputChamp<Props extends ComponentChildrenPropsNecessary>(
+		{
+			'aria-describedby': ariaDescribedby = '',
+			id,
+			onChange: onChangeProps = doNothing,
+			onInvalid: onInvalidProps = doNothing,
+			onTouch: onTouchProps = doNothing,
+			render: Render,
+			...rest
+		}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
+		const { errorId, hintId, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
+		const inputRef = useSynchronizedRef(outerRef);
 
-	useEffect(() => {
-		id && setInputId(id);
-	}, [id, setInputId]);
+		useEffect(() => {
+			id && setInputId(id);
+		}, [id, setInputId]);
 
-	const onChange = useCallback<ChangeFunction>((event, ...args) => {
-		setErrorMessage('');
-		onChangeProps(event, ...args);
-	}, [onChangeProps, setErrorMessage]);
+		const onChange = useCallback<ChangeFunction>((event, ...args) => {
+			setErrorMessage('');
+			onChangeProps(event, ...args);
+		}, [onChangeProps, setErrorMessage]);
 
-	const onTouch = useCallback<TouchFunction>((touched, ...args) => {
-		onTouchProps(touched, ...args);
-	}, [onTouchProps]);
+		const onTouch = useCallback<TouchFunction>((touched, ...args) => {
+			onTouchProps(touched, ...args);
+		}, [onTouchProps]);
 
-	const onInvalid = useCallback<ChangeFunction>((event, ...args) => {
-		setErrorMessage(event.currentTarget.validationMessage);
-		onInvalidProps(event, ...args);
-	}, [onInvalidProps, setErrorMessage]);
+		const onInvalid = useCallback<ChangeFunction>((event, ...args) => {
+			setErrorMessage(event.currentTarget.validationMessage);
+			onInvalidProps(event, ...args);
+		}, [onInvalidProps, setErrorMessage]);
 
-	return (<Render
-		onTouch={onTouch}
-		ref={inputRef}
-		aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
-		aria-invalid={errorMessage !== ''}
-		id={inputId}
-		onInvalid={onInvalid}
-		onChange={onChange}
-		{...rest}
-	/>);
-});
+		return (<Render
+			onTouch={onTouch}
+			ref={inputRef}
+			aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
+			aria-invalid={errorMessage !== ''}
+			id={inputId}
+			onInvalid={onInvalid}
+			onChange={onChange}
+			{...rest}
+		/>);
+	});
 
 function ErrorChamp({ id, ...rest }: Omit<ComponentPropsWithoutRef<typeof Error>, 'children'>) {
 	const { errorId, setErrorId, errorMessage } = useChampContext();

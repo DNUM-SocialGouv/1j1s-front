@@ -1,9 +1,7 @@
 @use "@styles/utilities";
-@use "../Input/Input.module" as inputStyles;
+@use "../TextboxShared.module" as inputStyles;
 
 .combobox {
-  // TODO (GAFI 27-06-2023): mettre en commun le style avec le composant d'input et de select
-
   $color-text: inputStyles.$color-text;
   $color-border: inputStyles.$color-border;
   $color-text-disabled: inputStyles.$color-text-disabled;
@@ -74,11 +72,7 @@
   & input[role="combobox"]:valid,
   & input[role="combobox"]:not([data-touched="true"]) {
     // NOTE (GAFI 06-07-2023): Compense la bordure plus épaisse quand en erreur
-    margin:
-            $border-width-compensation
-            0
-            $border-width-compensation
-            $border-width-compensation;
+    margin-right: 0;
 
     & ~ button {
       margin:
