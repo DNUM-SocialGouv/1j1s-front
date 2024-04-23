@@ -51,7 +51,7 @@ $offset-sub-nav: 2.5rem;
 
   & .navItemLabel {
     @extend %text-regular;
-    display: block;
+    display: flex;
     padding: 0.8rem 1rem;
     color: utilities.$color-text-primary;
   }
@@ -89,11 +89,6 @@ $offset-sub-nav: 2.5rem;
 
     &:not(:last-child) {
       border-bottom: 1px solid utilities.$color-background-disabled;
-    }
-
-    &:last-child a {
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
     }
   }
 }
@@ -165,7 +160,7 @@ $offset-sub-nav: 2.5rem;
   }
 
   .subNavItemList {
-    position: static;
+    position: relative;
     margin: 0;
     border-radius: 0;
     box-shadow: none;
@@ -176,11 +171,6 @@ $offset-sub-nav: 2.5rem;
 
       &:not(:last-child) {
         border-bottom: 0;
-      }
-
-      & > a {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
       }
 
       .navItemLabel {

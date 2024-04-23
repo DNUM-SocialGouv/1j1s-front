@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 
-import { useExitModal } from '../../../../hooks/useExitModal';
-import { Icon } from '../../../ui/Icon/Icon';
-import { Link } from '../../../ui/Link/Link';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
+import { useExitModal } from '~/client/hooks/useExitModal';
+
 import styles from './NavDesktopEmployeur.module.scss';
 import { isNavigationItem, NavigationItem, NavigationItemWithChildren } from './NavigationStructure';
 

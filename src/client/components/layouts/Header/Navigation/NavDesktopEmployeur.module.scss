@@ -2,6 +2,9 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
+$background-color-NavItem: utilities.$color-title-primary-contrast;
+$background-color-NavItem-hover :color.adjust($background-color-NavItem, utilities.$alpha:-0.15);
+
 @mixin underline {
   text-decoration: underline;
   text-underline-offset: 0.2rem;
@@ -11,10 +14,10 @@
   position: relative;
   @extend %text-regular;
   color: utilities.$color-cta-texte-primary;
-  background-color: utilities.$color-title-primary-contrast;
+  background-color: $background-color-NavItem;
 
   &:hover {
-    background-color: color.adjust(utilities.$color-title-primary-contrast, utilities.$alpha:-0.15);
+    background-color: $background-color-NavItem-hover ;
     .navItemLabel {
       @include underline;
     }
