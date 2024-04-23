@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.283.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.282.0...v3.283.0) (2024-04-23)
+
+
+### Features
+
+* **accompagnement:** transformer l'étiquette d'email en mailto ([#2939](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2939)) ([d0cabb4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d0cabb44e3d44cbbdf36e1fdf9e6d85100679ac3))
+* **stage:** refonte menu mobile ([#2928](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2928)) ([3f3ca79](https://github.com/DNUM-SocialGouv/1j1s-front/commit/3f3ca79857f3738aa3484a51f7e20f3281748661))
+* **UI:** utiliser textarea avec champ ([#2938](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2938)) ([bbcf5cc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bbcf5cc3652b564f3502cd382f0e47528352372c))
+
 ## [3.282.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.281.0...v3.282.0) (2024-04-23)
 
 
