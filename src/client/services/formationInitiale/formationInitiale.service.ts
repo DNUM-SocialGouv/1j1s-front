@@ -1,12 +1,9 @@
 import { ParsedUrlQuery, stringify } from 'querystring';
 
 import { FormationInitialeQueryParams } from '~/client/hooks/useFormationInitialeQuery';
-import { BffHttpClientService } from '~/client/services/bff.httpClient.service';
 import { HttpClientService } from '~/client/services/httpClient.service';
 import { Either } from '~/server/errors/either';
-import {
-	ResultatRechercheFormationsInitiales,
-} from '~/server/formations-initiales/domain/formationInitiale';
+import { ResultatRechercheFormationsInitiales } from '~/server/formations-initiales/domain/formationInitiale';
 import { removeUndefinedKeys } from '~/server/removeUndefinedKeys.utils';
 
 export interface FormationInitialeInterface {

@@ -1,9 +1,8 @@
 import { createSuccess } from '~/server/errors/either';
+import { MailRepository } from '~/server/mail/domain/mail.repository';
 
-import { TipimailRepository } from './tipimail.repository';
-
-export function aMailRepository(): TipimailRepository {
+export function aMailRepository(): MailRepository {
 	return {
 		send: jest.fn().mockResolvedValue(createSuccess(undefined)),
-	} as unknown as TipimailRepository;
+	};
 }
