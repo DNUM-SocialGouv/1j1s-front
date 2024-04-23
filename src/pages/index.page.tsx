@@ -195,7 +195,7 @@ export default function Accueil() {
 
 	const aideEtOutilCardListContent = [
 		{
-			children: <p>Avec La Boussole, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi,
+			children: <p>Avec Aides Jeunes, trouvez les aides auxquelles vous avez droit : logement, santé, mobilité, emploi,
 				culture, etc.</p>,
 			imageUrl: '/images/aides-financières.webp',
 			link: '/mes-aides',
