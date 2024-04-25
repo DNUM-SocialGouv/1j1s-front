@@ -3,138 +3,16 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Select } from '~/client/components/ui/Select/Select';
-import { mapTypeDeContratToOffreEmploiCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
-import { Offre } from '~/server/offres/domain/offre';
-
-describe('Select', () => {
-	describe('Select Multiple', () => {
-		it('quand on clique sur le select, retourne une liste d‘options', async () => {
-			//GIVEN
-			const user = userEvent.setup();
-			render(
-				<Select
-					multiple
-					placeholder={'Type de contrat'}
-					optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-					label={'Type de contrat'}
-				/>,
-			);
-
-			//WHEN
-			const button = screen.getByRole('button', { name: 'Type de contrat' });
-			await user.click(button);
-			screen.getByRole('listbox');
-
-			//THEN
-			expect(screen.getByRole('checkbox', { name: 'CDD' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'CDI' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'Intérim' })).toBeInTheDocument();
-			expect(screen.getByRole('checkbox', { name: 'Saisonnier' })).toBeInTheDocument();
-		});
-
-		it('quand on sélectionne une valeur, met la valeur sélectionnée dans l‘input', async () => {
-			//GIVEN
-			render(
-				<Select
-					multiple
-					placeholder={'Type de contrat'}
-					optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-					label={'Type de contrat'}
-				/>,
-			);
-
-			//WHEN
-			const button = screen.getByRole('button', { name: 'Type de contrat' });
-			fireEvent.click(button);
-			const listbox = await screen.findByRole('listbox');
-			const input = within(listbox).getAllByRole('checkbox');
-			fireEvent.click(input[1]);
-
-			//THEN
-			await waitFor(async () => {
-				const placeholder = await screen.findByTestId('Select-Placeholder');
-				expect(placeholder.textContent).toEqual('1 choix sélectionné');
-			});
-
-			const hiddenInput = await screen.findByTestId('Select-InputHidden');
-			expect(hiddenInput).toHaveValue('CDI');
-		});
-
-		it('quand on sélectionne une valeur, on appelle la fonction onChange passée au select', async () => {
-			// GIVEN
-			const user = userEvent.setup();
-			const onChangeSpy = jest.fn();
-			render(
-				<Select
-					multiple
-					onChange={onChangeSpy}
-					placeholder={'Type de contrat'}
-					optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-					label={'Type de contrat'}
-				/>,
-			);
-			const selectInput = screen.getByRole('button', { name: 'Type de contrat' });
-			await user.click(selectInput);
-			const listbox = await screen.findByRole('listbox');
-			const allOptions = within(listbox).getAllByRole('checkbox');
-
-			// WHEN
-			await user.click(allOptions[1]);
-
-			// THEN
-			const expectedContractType = Offre.TYPE_DE_CONTRAT_LIST[1].valeur;
-			expect(onChangeSpy).toHaveBeenCalledWith(expectedContractType);
-		});
-	});
-});
-
-describe('Keyboard Select', () => {
-	describe('Select Multiple', () => {
-		it('sélectionne une option avec la touche space ET ne ferme pas la liste des options', async () => {
-			const user = userEvent.setup();
-			render(
-				<Select
-					multiple
-					placeholder={'Type de contrat'}
-					optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-					label={'Type de contrat'}
-				/>,
-			);
 
 
-			const button = screen.getByRole('button', { name: 'Type de contrat' });
-			button.focus();
-			await user.keyboard(KeyBoard.SPACE);
-			const optionList = await screen.findByRole('listbox');
-			const firstOption = within(optionList).getAllByRole('option')[0];
-			const secondOption = within(optionList).getAllByRole('option')[1];
-
-			expect(firstOption).toHaveFocus();
-
-			await user.keyboard(KeyBoard.SPACE);
-			const hiddenInput = await screen.findByTestId('Select-InputHidden');
-			expect(hiddenInput).toHaveValue('CDD');
-			expect(optionList).toBeInTheDocument();
-
-			await user.keyboard(KeyBoard.ARROW_DOWN);
-			expect(secondOption).toHaveFocus();
-
-			await user.keyboard(KeyBoard.SPACE);
-			expect(hiddenInput).toHaveValue('CDD,CDI');
-			expect(optionList).toBeInTheDocument();
-		});
-	});
-});
-
-
-describe('secure test', () => {
-	describe('keyboard support', () => {
+describe('<Select />', () => {
+	describe('interaction support', () => {
 		describe('quand la liste d‘options est fermée', () => {
 			it('lorsque l‘utilisateur n‘intéragit pas, il ne voit pas les options', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
@@ -191,77 +69,159 @@ describe('secure test', () => {
 			});
 		});
 
-		describe('quand la liste d‘options est ouverte', () => {
-			it.todo('lorsque l‘utilisateur fait "Entrer", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
-
-			it('lorsque l‘utilisateur fait "Espace", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme', async () => {
+		describe('simple select', () => {
+			it('l‘utilisateur séléctionne une option avec la souris, séléctionne l‘option et ferme la liste d‘option', async () => {
 				const user = userEvent.setup();
+				const onChange = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				render(<Select optionList={options} label={'label'}/>);
+				render(<Select optionList={options} label={'label'} onChange={onChange}/>);
 
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ARROW_DOWN);
-				await user.keyboard(KeyBoard.SPACE);
+				await user.click(screen.getByRole('button'));
+				await user.click(screen.getByText('options 2'));
 
 				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
-			});
-
-			it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
-
-			it.todo('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable');
-
-			it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
-				const user = userEvent.setup();
-				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				render(<Select optionList={options} label={'label'}/>);
-
-				await user.tab();
-				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ARROW_DOWN);
-				await user.keyboard(KeyBoard.ESCAPE);
-
-				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('');
 				expect(screen.queryByRole('option')).not.toBeInTheDocument();
 			});
 
-			describe('lorsque l‘utilisateur fait "fleche du bas"', () => {
-				it.todo('déplace le focus visuel sur la prochaine option');
-				it.todo('lorsqu‘il est sur la dernière option, ne déplace pas le focus visuel');
-			});
+			describe('quand la liste d‘options est ouverte', () => {
+				it.todo('lorsque l‘utilisateur fait "Entrer", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
 
-			describe('lorsque l‘utilisateur fait "fleche du haut"', () => {
-				it.todo('déplace le focus visuel sur la précédente option');
-				it.todo('lorsqu‘il est sur la première option, ne déplace pas le focus visuel');
-			});
+				it('lorsque l‘utilisateur fait "Espace", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+					render(<Select optionList={options} label={'label'}/>);
 
-			it.todo('lorsque l‘utilisateur fait "Home", déplace le focus visuel sur la première option');
+					await user.tab();
+					await user.keyboard(KeyBoard.ENTER);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+					await user.keyboard(KeyBoard.SPACE);
 
-			it.todo('lorsque l‘utilisateur fait "End", déplace le focus visuel sur la dernière option');
+					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
+					expect(screen.queryByRole('option')).not.toBeInTheDocument();
+				});
 
-			describe('lorsque l‘utilisateur fait "PageUp"', () => {
-				it.todo('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut');
-				it.todo('s‘il y a moins de 10 options précédentes, déplace le focus visuel sur la première option');
-			});
+				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
 
-			describe('lorsque l‘utilisateur fait "PageDown"', () => {
-				it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
-				it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
+				it.todo('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable');
+
+				it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+					render(<Select optionList={options} label={'label'}/>);
+
+					await user.tab();
+					await user.keyboard(KeyBoard.ENTER);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+					await user.keyboard(KeyBoard.ESCAPE);
+
+					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('');
+					expect(screen.queryByRole('option')).not.toBeInTheDocument();
+				});
+
+				describe('lorsque l‘utilisateur fait "fleche du bas"', () => {
+					it.todo('déplace le focus visuel sur la prochaine option');
+					it.todo('lorsqu‘il est sur la dernière option, ne déplace pas le focus visuel');
+				});
+
+				describe('lorsque l‘utilisateur fait "fleche du haut"', () => {
+					it.todo('déplace le focus visuel sur la précédente option');
+					it.todo('lorsqu‘il est sur la première option, ne déplace pas le focus visuel');
+				});
+
+				it.todo('lorsque l‘utilisateur fait "Home", déplace le focus visuel sur la première option');
+
+				it.todo('lorsque l‘utilisateur fait "End", déplace le focus visuel sur la dernière option');
+
+				describe('lorsque l‘utilisateur fait "PageUp"', () => {
+					it.todo('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut');
+					it.todo('s‘il y a moins de 10 options précédentes, déplace le focus visuel sur la première option');
+				});
+
+				describe('lorsque l‘utilisateur fait "PageDown"', () => {
+					it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
+					it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
+				});
 			});
 		});
-	});
 
-	it('l‘utilisateur séléctionne une option avec la souris, séléctionne l‘option et ferme la liste d‘option', async () => {
-		const user = userEvent.setup();
-		const onChange = jest.fn();
-		const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-		render(<Select optionList={options} label={'label'} onChange={onChange}/>);
+		describe('choix multiple select', () => {
+			it('l‘utilisateur séléctionne une option avec la souris, l‘option est ajoutée aux options séléctionnés et la liste d‘option ne se ferme pas', async () => {
+				const user = userEvent.setup();
+				const onChange = jest.fn();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				render(<Select multiple optionList={options} label={'label'} onChange={onChange}/>);
+				const inputValue = screen.getByRole('textbox', { hidden: true });
 
-		await user.click(screen.getByRole('button'));
-		await user.click(screen.getByText('options 2'));
+				await user.click(screen.getByRole('button'));
+				await user.click(screen.getByText('options 1'));
+				expect(inputValue).toHaveValue('1');
 
-		expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
-		expect(screen.queryByRole('option')).not.toBeInTheDocument();
+				await user.click(screen.getByText('options 2'));
+				expect(inputValue).toHaveValue('1,2');
+
+				expect(screen.getAllByRole('option').length).toBe(2);
+			});
+
+			describe('quand la liste d‘options est ouverte', () => {
+				it.todo('lorsque l‘utilisateur fait "Entrer", l‘option qui a le focus visuel est ajoutée aux options séléctionnés et la liste d‘option se ferme');
+
+				it('lorsque l‘utilisateur fait "Espace", l‘option qui a le focus visuel est ajoutée aux options séléctionnés et la liste d‘option ne se ferme pas', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+					render(<Select multiple optionList={options} label={'label'} value="1"/>);
+
+					await user.tab();
+					await user.keyboard(KeyBoard.ENTER);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+					await user.keyboard(KeyBoard.SPACE);
+
+					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('1,2');
+					expect(screen.getAllByRole('option').length).toBe(2);
+				});
+
+				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option ne se ferme pas');
+
+				it.todo('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable');
+
+				it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+					render(<Select multiple optionList={options} label={'label'} value="1"/>);
+
+					await user.tab();
+					await user.keyboard(KeyBoard.ENTER);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+					await user.keyboard(KeyBoard.ESCAPE);
+
+					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('1');
+					expect(screen.queryByRole('option')).not.toBeInTheDocument();
+				});
+
+				describe('lorsque l‘utilisateur fait "fleche du bas"', () => {
+					it.todo('déplace le focus visuel sur la prochaine option');
+					it.todo('lorsqu‘il est sur la dernière option, ne déplace pas le focus visuel');
+				});
+
+				describe('lorsque l‘utilisateur fait "fleche du haut"', () => {
+					it.todo('déplace le focus visuel sur la précédente option');
+					it.todo('lorsqu‘il est sur la première option, ne déplace pas le focus visuel');
+				});
+
+				it.todo('lorsque l‘utilisateur fait "Home", déplace le focus visuel sur la première option');
+
+				it.todo('lorsque l‘utilisateur fait "End", déplace le focus visuel sur la dernière option');
+
+				describe('lorsque l‘utilisateur fait "PageUp"', () => {
+					it.todo('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut');
+					it.todo('s‘il y a moins de 10 options précédentes, déplace le focus visuel sur la première option');
+				});
+
+				describe('lorsque l‘utilisateur fait "PageDown"', () => {
+					it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
+					it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
+				});
+			});
+		});
 	});
 
 	describe('props', () => {
@@ -299,7 +259,7 @@ describe('secure test', () => {
 		it('accepte une liste d‘options', async () => {
 			const user = userEvent.setup();
 			const optionsList = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-			render(<Select optionList={optionsList} label={'label'} />);
+			render(<Select optionList={optionsList} label={'label'}/>);
 
 			await user.tab();
 			await user.keyboard(KeyBoard.ENTER);
@@ -320,18 +280,18 @@ describe('secure test', () => {
 
 			it('lorsque la value change, le select prend la valeur de value mise à jour', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				let valueThatCanChange= '1';
+				let valueThatCanChange = '1';
 
 				const { rerender } = render(<Select optionList={options} value={valueThatCanChange} label={'label'}/>);
 
-				valueThatCanChange= '2';
+				valueThatCanChange = '2';
 
 				rerender(<Select optionList={options} value={valueThatCanChange} label={'label'}/>);
 				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
 			});
 		});
 
-		it('accepte un name, on peut récupérer la valeur séléctionné depuis ce nom', async () => {
+		it('lorsque l‘on donne un name au select simple, on peut récupérer la valeur séléctionnée depuis ce nom', async () => {
 			const user = userEvent.setup();
 			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
@@ -345,6 +305,23 @@ describe('secure test', () => {
 			await user.keyboard(KeyBoard.SPACE);
 
 			expect(screen.getByRole('form', { name: 'formulaire' })).toHaveFormValues({ nomSelect: '2' });
+		});
+
+		it('lorsque l‘on donne un name au select à choix multiple, on peut récupérer les valeur séléctionnées depuis ce nom', async () => {
+			const user = userEvent.setup();
+			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+			render(<form aria-label={'formulaire'}>
+				<Select multiple optionList={options} label={'label'} name={'nomSelect'}/>
+			</form>);
+
+			await user.tab();
+			await user.keyboard(KeyBoard.ENTER);
+			await user.keyboard(KeyBoard.SPACE);
+			await user.keyboard(KeyBoard.ARROW_DOWN);
+			await user.keyboard(KeyBoard.SPACE);
+
+			expect(screen.getByRole('form', { name: 'formulaire' })).toHaveFormValues({ nomSelect: '1,2' });
 		});
 	});
 });
