@@ -11,7 +11,9 @@ import empty from '~/client/utils/empty';
 import { queryToArray } from '~/pages/api/utils/queryToArray.util';
 import analytics from '~/pages/apprentissage/index.analytics';
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
+import { isFailure } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServerSidePropsError';
 import { dependencies } from '~/server/start';
 
 type RechercherAlternancePageProps = RechercherAlternanceProps;
@@ -62,15 +64,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 		};
 	}
 	const filtre = alternanceFiltreMapper(query);
-	
+
 	const resultats = await dependencies.alternanceDependencies.rechercherAlternance.handle(filtre);
-	if (resultats.instance === 'failure') {
+
+	if (isFailure(resultats)) {
+		changeStatusCodeWhenErrorOcurred(context, resultats.errorType);
 		return {
 			props: {
 				erreurRecherche: resultats.errorType,
 			},
 		};
 	}
+
 	return {
 		props: {
 			resultats: JSON.parse(JSON.stringify(resultats.result)),

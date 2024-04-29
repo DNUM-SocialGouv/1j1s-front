@@ -38,7 +38,7 @@ describe('<RechercherJobEtudiantPage />', () => {
 				analyticsService={aManualAnalyticsService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherJobÉtudiantPage />);
+				<RechercherJobÉtudiantPage/>);
 			</DependenciesProvider>,
 		);
 
@@ -94,27 +94,22 @@ describe('<RechercherJobEtudiantPage />', () => {
 			});
 
 			describe('lorsque la recherche retourne une erreur', () => {
-				it('retourne une erreur de service indisponible', async () => {
+				it('relai l‘erreur associée', async () => {
 					// GIVEN
-					(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					jest.spyOn(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+					const statusCodeToBeOverridden = 0;
 					const context = {
 						query: {
 							page: 1,
 						},
+						res: { statusCode: statusCodeToBeOverridden },
 					} as unknown as GetServerSidePropsContext;
 
 					// WHEN
 					const result = await getServerSideProps(context);
 
 					// THEN
-					expect(result).toEqual({
-						props: {
-							erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
-						},
-					});
-					expect(dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle).toHaveBeenCalledWith({
-						page: 1,
-					});
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
 				});
 			});
 		});

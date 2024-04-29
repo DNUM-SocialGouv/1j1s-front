@@ -149,6 +149,7 @@ describe('Page rechercher une alternance', () => {
 				expect(result).toEqual({ notFound: true });
 			});
 		});
+
 		describe('lorsque la recherche est lancée avec des query params', () => {
 			beforeEach(() => {
 				process.env = {
@@ -198,10 +199,11 @@ describe('Page rechercher une alternance', () => {
 
 				describe('lorsque les query params sont valides', () => {
 					describe('lorsque la recherche retourne une erreur', () => {
-						it('retourne l’erreur reçue', async () => {
+						it('retourne l’erreur reçue et change le status de la page', async () => {
 							// GIVEN
 							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
+							const statusCodeToBeOverridden = 0;
 							const context = {
 								query: {
 									codeCommune: '75056',
@@ -210,24 +212,15 @@ describe('Page rechercher une alternance', () => {
 									latitudeCommune: '48.859',
 									longitudeCommune: '2.347',
 								},
+								res: { statusCode: statusCodeToBeOverridden },
 							} as unknown as GetServerSidePropsContext;
 
 							// WHEN
 							const result = await getServerSideProps(context);
 
 							// THEN
-							expect(result).toEqual({
-								props: {
-									erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
-								},
-							});
-							expect(dependencies.alternanceDependencies.rechercherAlternance.handle).toHaveBeenCalledWith({
-								codeCommune: '75056',
-								codeRomes: ['D1102'],
-								distanceCommune: '10',
-								latitudeCommune: '48.859',
-								longitudeCommune: '2.347',
-							});
+							expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
+							expect(context.res.statusCode).toEqual(500);
 						});
 					});
 

@@ -39,7 +39,7 @@ describe('Page Emploi', () => {
 					analyticsService={aManualAnalyticsService()}
 					localisationService={aLocalisationService()}
 				>
-					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()} />);
+					<RechercherOffreEmploiPage resultats={aRésultatsRechercheOffre()}/>);
 				</DependenciesProvider>);
 
 			await screen.findByRole('list', { name: /Offres d‘emplois/i });
@@ -63,7 +63,7 @@ describe('Page Emploi', () => {
 						analyticsService={aManualAnalyticsService()}
 						localisationService={aLocalisationService()}
 					>
-						<RechercherOffreEmploiPage resultats={offres} />);
+						<RechercherOffreEmploiPage resultats={offres}/>);
 					</DependenciesProvider>,
 				);
 
@@ -122,27 +122,23 @@ describe('Page Emploi', () => {
 			});
 
 			describe('lorsque la recherche retourne une erreur', () => {
-				it('retourne une erreur de service indisponible', async () => {
+				it('relai l‘erreur associée', async () => {
 					// GIVEN
+					const statusCodeToBeOverridden = 0;
 					jest.spyOn(dependencies.offreEmploiDependencies.rechercherOffreEmploi, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 					const context = {
 						query: {
 							page: 1,
 						},
+						res: { statusCode: statusCodeToBeOverridden },
 					} as unknown as GetServerSidePropsContext;
 
 					// WHEN
 					const result = await getServerSideProps(context);
 
 					// THEN
-					expect(result).toEqual({
-						props: {
-							erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
-						},
-					});
-					expect(dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle).toHaveBeenCalledWith({
-						page: 1,
-					});
+					expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
+					expect(context.res.statusCode).toEqual(500);
 				});
 			});
 		});

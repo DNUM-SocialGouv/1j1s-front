@@ -1,7 +1,10 @@
 import { GetServerSidePropsContext } from 'next';
 
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
+import {
+	changeStatusCodeWhenErrorOcurred,
+	handleGetServerSidePropsError,
+} from '~/server/errors/handleGetServerSidePropsError';
 
 describe('handleGetServerSidePropsError', () => {
 	describe('quand l’erreur est CONTENU_INDISPONIBLE', () => {
@@ -53,6 +56,37 @@ describe('handleGetServerSidePropsError', () => {
 					error: erreur,
 				},
 			});
+		});
+	});
+});
+
+describe('changeStatusCodeWhenErrorOcurred', () => {
+	describe('quand l’erreur est CONTENU_INDISPONIBLE', () => {
+		it('ne change pas le code statut de la réponse', () => {
+			const statusCodeInitial = 0;
+			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
+
+			changeStatusCodeWhenErrorOcurred(context, ErreurMetier.CONTENU_INDISPONIBLE);
+
+			expect(context.res.statusCode).toBe(0);
+		});
+	});
+
+	describe('quand l’erreur n’est pas CONTENU_INDISPONIBLE', () => {
+		it.each([
+			[ErreurMetier.DEMANDE_INCORRECTE, 400],
+			[ErreurMetier.CONFLIT_D_IDENTIFIANT, 409],
+			[ErreurMetier.SERVICE_INDISPONIBLE, 500],
+		])('pour %s, modifie le code statut de la réponse à %d', (erreur, codeStatutAttendu) => {
+			// Given
+			const statusCodeInitial = 0;
+			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
+
+			// When
+			changeStatusCodeWhenErrorOcurred(context, erreur);
+
+			// Then
+			expect(context.res.statusCode).toBe(codeStatutAttendu);
 		});
 	});
 });

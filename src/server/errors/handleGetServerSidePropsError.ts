@@ -6,12 +6,26 @@ import { ErreurTechnique } from '~/server/errors/erreurTechnique.types';
 import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
 
 export function handleGetServerSidePropsError(context: GetServerSidePropsContext, erreur: Erreur): GetServerSidePropsResult<never> {
+	changeStatusCodeWhenErrorOcurred(context, erreur);
+	if(erreur === ErreurMetier.CONTENU_INDISPONIBLE) {
+		return {
+			notFound: true,
+		};
+	}
+	return {
+		props: {
+			error: erreur,
+		},
+	};
+}
+
+export function changeStatusCodeWhenErrorOcurred(context: GetServerSidePropsContext, erreur: Erreur) {
 	switch (erreur) {
 		case ErreurMetier.DEMANDE_INCORRECTE:
 			context.res.statusCode = 400;
 			break;
 		case ErreurMetier.CONTENU_INDISPONIBLE:
-			return { notFound: true };
+			break;
 		case ErreurMetier.CONFLIT_D_IDENTIFIANT:
 			context.res.statusCode = 409;
 			break;
@@ -22,9 +36,4 @@ export function handleGetServerSidePropsError(context: GetServerSidePropsContext
 			context.res.statusCode = 500;
 			break;
 	}
-	return {
-		props: {
-			error: erreur,
-		},
-	};
 }

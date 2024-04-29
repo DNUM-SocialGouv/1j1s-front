@@ -35,7 +35,7 @@ describe('Page rechercher un job d‘été', () => {
 	});
 
 	describe('quand le feature flip n‘est pas actif', () => {
-		it('affiche la page non trouvée', async() => {
+		it('affiche la page non trouvée', async () => {
 			process.env.NEXT_PUBLIC_JOB_ETE_FEATURE = '0';
 			mockUseRouter({ query: { page: '1' } });
 
@@ -165,27 +165,22 @@ describe('Page rechercher un job d‘été', () => {
 				});
 
 				describe('lorsque la recherche retourne une erreur', () => {
-					it('retourne une erreur de service indisponible', async () => {
+					it('retourne une erreur de service indisponible et change le status de la page', async () => {
 						// GIVEN
-						(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle as jest.Mock).mockReturnValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+						const statusCodeToBeOverridden = 0;
+						jest.spyOn(dependencies.offreJobEteDependencies.rechercherOffreJobEte, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
+
 						const context = {
-							query: {
-								page: 1,
-							},
+							query: { page: 1 },
+							res: { statusCode: statusCodeToBeOverridden },
 						} as unknown as GetServerSidePropsContext;
 
 						// WHEN
 						const result = await getServerSideProps(context);
 
 						// THEN
-						expect(result).toEqual({
-							props: {
-								erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
-							},
-						});
-						expect(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle).toHaveBeenCalledWith({
-							page: 1,
-						});
+						expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
+						expect(context.res.statusCode).toEqual(500);
 					});
 				});
 			});
