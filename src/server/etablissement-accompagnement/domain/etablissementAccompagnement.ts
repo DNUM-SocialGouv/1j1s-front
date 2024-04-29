@@ -25,7 +25,6 @@ export namespace EtablissementAccompagnement {
 }
 
 export interface ParametresRechercheEtablissementAccompagnement {
-	codePostal: string
 	typeAccompagnement: string
 	codeCommune: string
 }
