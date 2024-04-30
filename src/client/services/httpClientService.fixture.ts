@@ -1,4 +1,4 @@
-import { HttpClientService } from '~/client/services/httpClient.service';
+import { HttpClientService } from './httpClient.service';
 
 export function anHttpClientService(): HttpClientService {
 	return {

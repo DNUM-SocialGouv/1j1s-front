@@ -25,7 +25,7 @@ import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationQuery } from '~/client/hooks/useFormationQuery';
-import { BffFormationService } from '~/client/services/formation/bff.formation.service';
+import { FormationService } from '~/client/services/formation/formation.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { Erreur } from '~/server/errors/erreur.types';
@@ -38,7 +38,7 @@ export default function RechercherFormation() {
 	const router = useRouter();
 
 	const formationQuery = useFormationQuery();
-	const formationService = useDependency<BffFormationService>('formationService');
+	const formationService = useDependency<FormationService>('formationService');
 	const [title, setTitle] = useState<string>(`${PREFIX_TITRE_PAGE} | 1jeune1solution`);
 	const [formationList, setFormationList] = useState<RésultatRechercheFormation[]>([]);
 	const [isLoading, setIsLoading] = useState(false);

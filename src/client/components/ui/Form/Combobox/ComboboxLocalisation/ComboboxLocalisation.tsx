@@ -20,7 +20,7 @@ import {
 	mapToLocalisations,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/localisations/mapToLocalisations';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
-import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
+import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { isSuccess } from '~/server/errors/either';
 import { TypeLocalisation } from '~/server/localisations/domain/localisation';
 
@@ -54,7 +54,7 @@ export const ComboboxLocalisation = React.forwardRef<ComboboxRef, ComboboxLocali
 		...rest
 	} = props;
 
-	const localisationService = useDependency<BffLocalisationService>('localisationService');
+	const localisationService = useDependency<LocalisationService>('localisationService');
 
 	const [userInput, setUserInput] = useState<string>(buildUserInput(defaultValue));
 	const [localisationOptions, setLocalisationOptions] = useState<Localisations>({
