@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.284.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.283.2...v3.284.0) (2024-04-30)
+
+
+### Features
+
+* **banniere:** modification wording bannière live apprentissage ([#2959](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2959)) ([01c762a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/01c762a3b73a2b7f90b84cc029573303676fb3c5))
+
 ## [3.283.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.283.1...v3.283.2) (2024-04-29)
 
 
