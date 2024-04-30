@@ -51,7 +51,7 @@ export function HeaderBody() {
 						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
 							<p>
 								<span className={styles.headerBodyBannerTitle}>Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus&nbsp;?</span>
-								<span className={styles.headerBodyBannerContent}>Retrouvez nos apprentis en live tous les jours sur Instagram.</span>
+								<span className={styles.headerBodyBannerContent}>Retrouvez les replays des lives Instagram avec nos apprentis.</span>
 							</p>
 							<Link.Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
 						</Link>
