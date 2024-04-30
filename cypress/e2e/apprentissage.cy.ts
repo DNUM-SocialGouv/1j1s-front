@@ -89,7 +89,7 @@ describe('Parcours alternance LBA', () => {
 				codeCommune: '12345',
 			};
 
-			cy.visit(`/apprentissage?${stringify(query)}`);
+			cy.visit(`/apprentissage?${stringify(query)}`, { failOnStatusCode: false });
 
 			cy.findByText(/Service Indisponible/i).should('be.visible');
 		});
