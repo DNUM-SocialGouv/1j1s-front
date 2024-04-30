@@ -13,12 +13,14 @@
 }
 
 .boutonsConfirmationEnvoi {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
   margin-top: 1rem;
   margin-bottom: 2rem;
   > a {
     margin-top: 1rem;
     width: 100%;
-    justify-content: center;
   }
 }
 
