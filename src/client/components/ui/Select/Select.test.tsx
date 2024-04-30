@@ -14,7 +14,7 @@ import { Select } from '~/client/components/ui/Select/Select';
 describe('<Select />', () => {
 	describe('interaction support', () => {
 		describe('quand la liste d‘options est fermée', () => {
-			it('lorsque l‘utilisateur n‘intéragit pas, il ne voit pas les options', () => {
+			it('les options sont masquées', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 				render(<Select optionList={options} label={'Temps de travail'}/>);
 				expect(screen.queryByRole('option')).not.toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('<Select />', () => {
 					await user.tab();
 					await user.keyboard(KeyBoard.ENTER);
 
-					expect(screen.getAllByRole('option').length).toBe(2);
+					expect(screen.getByRole('listbox')).toBeVisible();
 				});
 
 				it.todo('ne change pas le focus et de selection');
@@ -50,6 +50,7 @@ describe('<Select />', () => {
 					await user.tab();
 					await user.keyboard(KeyBoard.SPACE);
 
+					expect(screen.getByRole('listbox')).toBeVisible();
 					expect(screen.getAllByRole('option').length).toBe(2);
 				});
 
@@ -60,12 +61,12 @@ describe('<Select />', () => {
 
 			it.todo('lorsque l‘utilisateur fait "End", la liste d‘options s‘ouvre et le focus visuel est placé sur la dernière option');
 
-			describe('lorsque l‘utilisateur tappe des caractères', () => {
-				it.todo('lorsque l‘utilisateur tappe un seul caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur l‘option qui match le caractère');
+			describe('lorsque l‘utilisateur tape des caractères', () => {
+				it.todo('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match le caractère');
 
-				it.todo('lorsque l‘utilisateur tappe plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur l‘option qui match les caractères');
+				it.todo('lorsque l‘utilisateur tape plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match les caractères');
 
-				it.todo('lorsque l‘utilisateur tappe le même caractère plusieurs fois, la liste d‘options s‘ouvre et déplace le focus visuel sur l‘option qui commence par ce caractère');
+				it.todo('lorsque l‘utilisateur tape le même caractère plusieurs fois, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui commence par ce caractère');
 			});
 		});
 
@@ -80,7 +81,7 @@ describe('<Select />', () => {
 				await user.click(screen.getByText('options 2'));
 
 				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
-				expect(screen.queryByRole('option')).not.toBeInTheDocument();
+				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 			});
 
 			describe('quand la liste d‘options est ouverte', () => {
@@ -179,22 +180,22 @@ describe('<Select />', () => {
 					expect(screen.getAllByRole('option').length).toBe(2);
 				});
 
-				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option ne se ferme pas');
+				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
 
 				it.todo('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable');
 
 				it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
 					const user = userEvent.setup();
 					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-					render(<Select multiple optionList={options} label={'label'} value="1"/>);
+					render(<Select multiple optionList={options} label={'label'}/>);
 
 					await user.tab();
 					await user.keyboard(KeyBoard.ENTER);
 					await user.keyboard(KeyBoard.ARROW_DOWN);
 					await user.keyboard(KeyBoard.ESCAPE);
 
-					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('1');
-					expect(screen.queryByRole('option')).not.toBeInTheDocument();
+					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('');
+					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 				});
 
 				describe('lorsque l‘utilisateur fait "fleche du bas"', () => {
@@ -265,7 +266,7 @@ describe('<Select />', () => {
 			await user.keyboard(KeyBoard.ENTER);
 
 			const options = screen.getAllByRole('option');
-			expect(options.length).toBe(2);
+			expect(options).toHaveLength(2);
 			expect(options[0]).toHaveTextContent('options 1');
 			expect(options[1]).toHaveTextContent('options 2');
 		});
@@ -295,7 +296,7 @@ describe('<Select />', () => {
 			const user = userEvent.setup();
 			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-			render(<form aria-label={'formulaire'}>
+			render(<form role="form">
 				<Select optionList={options} label={'label'} name={'nomSelect'}/>
 			</form>);
 
@@ -304,7 +305,7 @@ describe('<Select />', () => {
 			await user.keyboard(KeyBoard.ARROW_DOWN);
 			await user.keyboard(KeyBoard.SPACE);
 
-			expect(screen.getByRole('form', { name: 'formulaire' })).toHaveFormValues({ nomSelect: '2' });
+			expect(screen.getByRole('form')).toHaveFormValues({ nomSelect: '2' });
 		});
 
 		it('lorsque l‘on donne un name au select à choix multiple, on peut récupérer les valeur séléctionnées depuis ce nom', async () => {
