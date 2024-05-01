@@ -79,7 +79,7 @@
     "cypress": "13.8.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.3",
-    "eslint-plugin-cypress": "3.0.2",
+    "eslint-plugin-cypress": "3.0.3",
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-testing-library": "6.2.2",
     "html-validate": "8.18.2",
