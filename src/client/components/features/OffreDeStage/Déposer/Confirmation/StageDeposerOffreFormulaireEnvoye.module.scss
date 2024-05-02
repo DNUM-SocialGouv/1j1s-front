@@ -1,34 +1,34 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
 .container {
   padding: 0 2rem;
-  @include utilities-deprecated.media(large) {
+  @include utilities.media(large) {
     padding: 0 0 1rem;
   }
 }
 
 .texteValidation {
-  @extend %text-large;
+  @include utilities.text-large;
   font-size: 1.2rem;
+
+  @include utilities.media(medium) {
+    text-align: center;
+  }
 }
 
 .boutonsConfirmationEnvoi {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
   margin-top: 1rem;
   margin-bottom: 2rem;
+
   > a {
     margin-top: 1rem;
     width: 100%;
-    justify-content: center;
-  }
-}
-
-@include utilities-deprecated.media(large) {
-  .texteValidation {
-    text-align: center;
   }
 
-  .boutonsConfirmationEnvoi {
-    display: flex;
+  @include utilities.media(medium) {
     margin-bottom: 4rem;
     align-items: center;
     justify-content: center;
@@ -39,3 +39,4 @@
     }
   }
 }
+
