@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.284.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.0...v3.284.1) (2024-05-02)
+
+
+### Bug Fixes
+
+* **accompagnement:** privilegier le code commune pour rechercher les accompagnements sur les grandes villes ([#2955](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2955)) ([369fbb4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/369fbb46fdd3fdebf7a77d5453f69518e7ed3d47))
+* **combobox:** combobox commune lancer la recherche à partir de 3 caractères sans espace ([#2957](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2957)) ([f8641e7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f8641e76d456405ac91ecab1c33736a5377bdd7b))
+
 ## [3.284.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.283.2...v3.284.0) (2024-04-30)
 
 
