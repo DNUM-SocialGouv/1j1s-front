@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
 	changeStatusCodeWhenErrorOcurred,
@@ -10,7 +11,7 @@ describe('handleGetServerSidePropsError', () => {
 	describe('quand l’erreur est CONTENU_INDISPONIBLE', () => {
 		it('laisse Next gérer nativement en retournant { notFound: true }', () => {
 			// Given
-			const context = {} as GetServerSidePropsContext;
+			const context = aGetServerSidePropsContext();
 			const erreur = ErreurMetier.CONTENU_INDISPONIBLE;
 
 			// When
@@ -64,7 +65,7 @@ describe('changeStatusCodeWhenErrorOcurred', () => {
 	describe('quand l’erreur est CONTENU_INDISPONIBLE', () => {
 		it('ne change pas le code statut de la réponse', () => {
 			const statusCodeInitial = 0;
-			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
+			const context = aGetServerSidePropsContext({ res: { statusCode: statusCodeInitial } });
 
 			changeStatusCodeWhenErrorOcurred(context, ErreurMetier.CONTENU_INDISPONIBLE);
 
@@ -80,7 +81,7 @@ describe('changeStatusCodeWhenErrorOcurred', () => {
 		])('pour %s, modifie le code statut de la réponse à %d', (erreur, codeStatutAttendu) => {
 			// Given
 			const statusCodeInitial = 0;
-			const context = { res: { statusCode: statusCodeInitial } } as unknown as GetServerSidePropsContext;
+			const context = aGetServerSidePropsContext({ res: { statusCode: statusCodeInitial } });
 
 			// When
 			changeStatusCodeWhenErrorOcurred(context, erreur);

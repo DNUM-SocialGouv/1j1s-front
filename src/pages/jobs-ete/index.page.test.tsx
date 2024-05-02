@@ -5,7 +5,6 @@
 import '~/test-utils';
 
 import { render, screen, waitFor } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -13,6 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/index.page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
@@ -49,7 +49,7 @@ describe('Page rechercher un job d‘été', () => {
 			);
 
 			await waitFor(async () => {
-				const result = await getServerSideProps({} as GetServerSidePropsContext);
+				const result = await getServerSideProps(aGetServerSidePropsContext());
 				expect(result).toMatchObject({ notFound: true });
 			});
 		});
@@ -123,18 +123,9 @@ describe('Page rechercher un job d‘été', () => {
 
 			describe('lorsque la recherche est lancée sans query params', () => {
 				it('retourne un résultat vide', async () => {
-					// GIVEN
-					const context = {
-						query: {},
-					} as GetServerSidePropsContext;
+					const result = await getServerSideProps(aGetServerSidePropsContext({ query: {} }));
 
-					// WHEN
-					const result = await getServerSideProps(context);
-
-					// THEN
-					expect(result).toEqual({
-						props: {},
-					});
+					expect(result).toEqual({ props: {} });
 					expect(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle).not.toHaveBeenCalled();
 				});
 			});
@@ -144,14 +135,8 @@ describe('Page rechercher un job d‘été', () => {
 					// GIVEN
 					(dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle as jest.Mock).mockReturnValue(createSuccess(aRésultatsRechercheOffre()));
 
-					const context = {
-						query: {
-							page: 1,
-						},
-					} as unknown as GetServerSidePropsContext;
-
 					// WHEN
-					const result = await getServerSideProps(context);
+					const result = await getServerSideProps(aGetServerSidePropsContext({ query: { page: '1' } }));
 
 					// THEN
 					expect(result).toEqual({
@@ -170,10 +155,10 @@ describe('Page rechercher un job d‘été', () => {
 						const defaultStatusCode = 200;
 						jest.spyOn(dependencies.offreJobEteDependencies.rechercherOffreJobEte, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-						const context = {
-							query: { page: 1 },
+						const context = aGetServerSidePropsContext({
+							query: { page: '1' },
 							res: { statusCode: defaultStatusCode },
-						} as unknown as GetServerSidePropsContext;
+						});
 
 						// WHEN
 						const result = await getServerSideProps(context);
@@ -188,11 +173,7 @@ describe('Page rechercher un job d‘été', () => {
 			describe('lorsque la recherche est lancée avec des query params invalides', () => {
 				it('retourne une erreur de demande incorrecte', async () => {
 					// GIVEN
-					const context = {
-						query: {
-							page: 'invalid',
-						},
-					} as unknown as GetServerSidePropsContext;
+					const context = aGetServerSidePropsContext({ query: { page: 'invalid' } });
 
 					// WHEN
 					const result = await getServerSideProps(context);

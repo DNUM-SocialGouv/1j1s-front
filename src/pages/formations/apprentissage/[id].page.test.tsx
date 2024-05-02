@@ -5,13 +5,12 @@
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterFormationPage, { getServerSideProps } from '~/pages/formations/apprentissage/[id].page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aFormation } from '~/server/formations/domain/formation.fixture';
@@ -37,7 +36,7 @@ describe('getServerSideProps', () => {
 			};
 		});
 		it('retourne une page 404', async () => {
-			const value = await getServerSideProps({ params: { id: '1' } } as GetServerSidePropsContext<{ id: string }>);
+			const value = await getServerSideProps(aGetServerSidePropsContext<{ id: string }>({ params: { id: '1' } }));
 
 			expect(value).toEqual({ notFound: true });
 		});
@@ -53,10 +52,15 @@ describe('getServerSideProps', () => {
 
 		describe('lorsque les query params sont incorrects', () => {
 			it('retourne en props une erreur Demande Incorrecte', async () => {
-				const queryParam = {} as ParsedUrlQuery;
 
 				const defaultStatusCode = 200;
-				const value = await getServerSideProps({ params: { id: '1' }, query: queryParam, res: { statusCode: defaultStatusCode } } as GetServerSidePropsContext<{ id: string }>);
+				const context = aGetServerSidePropsContext<{ id: string }>({
+					params: { id: '1' },
+					query: {},
+					res: { statusCode: defaultStatusCode },
+				});
+				
+				const value = await getServerSideProps(context);
 
 				expect(value).toEqual({ props: { error: ErreurMetier.DEMANDE_INCORRECTE } });
 				expect(dependencies.formationDependencies.consulterFormation.handle).not.toHaveBeenCalled();
@@ -72,13 +76,15 @@ describe('getServerSideProps', () => {
 					id: '1',
 					latitudeCommune: '48.2',
 					longitudeCommune: '29.10',
-				} as ParsedUrlQuery;
+				};
 				(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(aFormation()) });
-
-				await getServerSideProps({
+				const context = aGetServerSidePropsContext<{ id: string }>({
 					params: { id: '1' },
 					query: queryParam,
-				} as GetServerSidePropsContext<{ id: string }>);
+				});
+				
+				await getServerSideProps(context);
+				
 				expect(dependencies.formationDependencies.consulterFormation.handle).toHaveBeenCalledWith('1', {
 					codeCertification: '',
 					codeCommune: '13180',
@@ -102,15 +108,17 @@ describe('getServerSideProps', () => {
 						latitudeCommune: '48.2',
 						longitudeCommune: '29.10',
 						niveauEtudes: '6',
-					} as ParsedUrlQuery;
+					};
 					(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
 
 					const defaultStatusCode = 200;
-					const value = await getServerSideProps({
+					const context = aGetServerSidePropsContext<{ id: string }>({
 						params: { id: '1' },
 						query: queryParam,
 						res: { statusCode: defaultStatusCode },
-					} as GetServerSidePropsContext<{ id: string }>);
+					});
+
+					const value = await getServerSideProps(context);
 
 					expect(value).toEqual({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 				});
@@ -128,13 +136,17 @@ describe('getServerSideProps', () => {
 							latitudeCommune: '48.2',
 							longitudeCommune: '29.10',
 							niveauEtudes: '6',
-						} as ParsedUrlQuery;
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createFailure(ErreurMetier.SERVICE_INDISPONIBLE) });
-
-						const value = await getServerSideProps({
+						};
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+							formation: createSuccess(formation),
+							statistiques: createFailure(ErreurMetier.SERVICE_INDISPONIBLE),
+						});
+						const context = aGetServerSidePropsContext<{ id: string }>({
 							params: { id: '1' },
 							query: queryParam,
-						} as GetServerSidePropsContext<{ id: string }>);
+						});
+
+						const value = await getServerSideProps(context);
 
 						expect(value).toEqual({ props: { formation: formation } });
 					});
@@ -157,18 +169,22 @@ describe('getServerSideProps', () => {
 							latitudeCommune: '48.2',
 							longitudeCommune: '29.10',
 							niveauEtudes: '6',
-						} as ParsedUrlQuery;
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createSuccess(statistiques) });
+						};
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+							formation: createSuccess(formation),
+							statistiques: createSuccess(statistiques),
+						});
 
-						const value = await getServerSideProps({
+						const context = aGetServerSidePropsContext<{ id: string }>({
 							params: { id: '1' },
 							query: queryParam,
-						} as GetServerSidePropsContext<{ id: string }>);
+						});
+						const value = await getServerSideProps(context);
 
 						expect(value).toEqual({ props: { formation: formation, statistiques: statistiques } });
 					});
 				});
-				describe('lorsqu un paramètre supplémentaire est fourni en query' , () => {
+				describe('lorsqu un paramètre supplémentaire est fourni en query', () => {
 					// Test ajouté suite à un bug
 					it('retourne quand même les props de la page avec les statistiques', async () => {
 						const formation = aFormation();
@@ -188,13 +204,17 @@ describe('getServerSideProps', () => {
 							longitudeCommune: '29.10',
 							niveauEtudes: '6',
 							parametreSupplementaire: 'foobarbaz',
-						} as ParsedUrlQuery;
-						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({ formation: createSuccess(formation), statistiques: createSuccess(statistiques) });
+						};
+						(dependencies.formationDependencies.consulterFormation.handle as jest.Mock).mockReturnValue({
+							formation: createSuccess(formation),
+							statistiques: createSuccess(statistiques),
+						});
 
-						const value = await getServerSideProps({
+						const context = aGetServerSidePropsContext<{ id: string }>({
 							params: { id: '1' },
 							query: queryParam,
-						} as GetServerSidePropsContext<{ id: string }>);
+						});
+						const value = await getServerSideProps(context);
 
 						expect(value).toEqual({ props: { formation: formation, statistiques: statistiques } });
 					});
@@ -211,7 +231,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<ConsulterFormationPage formation={formation}/>
-		</DependenciesProvider> );
+		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -225,7 +245,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation} />
+				<ConsulterFormationPage formation={formation}/>
 			</DependenciesProvider>,
 		);
 
@@ -241,7 +261,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation} />
+				<ConsulterFormationPage formation={formation}/>
 			</DependenciesProvider>,
 		);
 
@@ -258,7 +278,7 @@ describe('Page Consulter Formations en Apprentissage', () => {
 			<DependenciesProvider
 				analyticsService={analyticsService}
 			>
-				<ConsulterFormationPage formation={formation} />
+				<ConsulterFormationPage formation={formation}/>
 			</DependenciesProvider>,
 		);
 

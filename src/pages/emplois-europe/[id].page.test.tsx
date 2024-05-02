@@ -4,7 +4,6 @@
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
 import { HeadMock } from '~/client/components/head.mock';
@@ -12,6 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterEmploiEurope, { getServerSideProps } from '~/pages/emplois-europe/[id].page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 import { anEmploiEurope } from '~/server/emplois-europe/domain/emploiEurope.fixture';
 import { createFailure } from '~/server/errors/either';
@@ -42,7 +42,8 @@ describe('<ConsulterEmploiEurope />', () => {
 		it('retourne une page 404', async () => {
 			process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 
-			const result = await getServerSideProps({ params: { id: '1' } } as GetServerSidePropsContext<{ id: string }>);
+			const context = aGetServerSidePropsContext<{ id: string }>({ params: { id: '1' } });
+			const result = await getServerSideProps(context);
 			expect(result).toMatchObject({ notFound: true });
 		});
 	});
@@ -52,7 +53,11 @@ describe('<ConsulterEmploiEurope />', () => {
 			jest.spyOn(dependencies.emploiEuropeDependencies.consulterEmploiEuropeUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 			const defaultStatusCode = 200;
-			const result = await getServerSideProps({ params: { id: '1' }, res: { statusCode: defaultStatusCode } } as GetServerSidePropsContext<{ id: string }>);
+			const context = aGetServerSidePropsContext<{ id: string }>({
+				params: { id: '1' },
+				res: { statusCode: defaultStatusCode },
+			});
+			const result = await getServerSideProps(context);
 			expect(result).toMatchObject({ props: { error: ErreurMetier.SERVICE_INDISPONIBLE } });
 		});
 	});
@@ -60,7 +65,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
-			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 		</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
@@ -68,7 +73,7 @@ describe('<ConsulterEmploiEurope />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		const analyticsService = aManualAnalyticsService();
 		const { container } = render(<DependenciesProvider analyticsService={analyticsService}>
-			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+			<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 		</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
@@ -76,11 +81,11 @@ describe('<ConsulterEmploiEurope />', () => {
 
 	it('ajoute le titre de l’annonce au titre du document si le titre est donné', async () => {
 		const analyticsService = aManualAnalyticsService();
-		emploiEurope = anEmploiEurope({ titre: 'Bäcker' }); 
-			
+		emploiEurope = anEmploiEurope({ titre: 'Bäcker' });
+
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 			</DependenciesProvider>,
 		);
 
@@ -93,7 +98,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 			</DependenciesProvider>,
 		);
 
@@ -106,7 +111,7 @@ describe('<ConsulterEmploiEurope />', () => {
 
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 			</DependenciesProvider>,
 		);
 
@@ -118,7 +123,7 @@ describe('<ConsulterEmploiEurope />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope} />
+				<ConsulterEmploiEurope annonceEmploiEurope={emploiEurope}/>
 			</DependenciesProvider>,
 		);
 

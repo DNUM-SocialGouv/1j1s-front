@@ -5,7 +5,6 @@
 import '~/test-utils';
 
 import { render } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
 
 import {
 	aDonneesEntrepriseStage3eEt2de,
@@ -14,6 +13,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import Stages3eEt2deCandidaterPage, { getServerSideProps } from '~/pages/stages-3e-et-2de/candidater/index.page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { dependencies } from '~/server/start';
@@ -64,15 +64,10 @@ describe('Page Candidater Stages 3e et 2de', () => {
 	describe('getServerSideProps', () => {
 		describe('lorsque la feature n‘est pas activée', () => {
 			it('retourne une page 404', async () => {
-				// Given
 				process.env.NEXT_PUBLIC_STAGES_3EME_FEATURE = '0';
-				const query = {};
-				const context = { query } as GetServerSidePropsContext;
 
-				// When
-				const result = await getServerSideProps(context);
+				const result = await getServerSideProps(aGetServerSidePropsContext({}));
 
-				// Then
 				expect(result).toMatchObject({ notFound: true });
 			});
 		});
@@ -84,9 +79,8 @@ describe('Page Candidater Stages 3e et 2de', () => {
 			describe('lorsque la query est vide', () => {
 				it('retourne en props une erreur Demande Incorrecte', async () => {
 					// Given
-					const query = {};
 					const defaultStatusCode = 200;
-					const context = { query, res: { statusCode: defaultStatusCode } } as GetServerSidePropsContext;
+					const context = aGetServerSidePropsContext({ query: {}, res: { statusCode: defaultStatusCode } });
 
 					// When
 					const result = await getServerSideProps(context);
@@ -106,10 +100,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 						siret: 1,
 					};
 					const defaultStatusCode = 200;
-					const context = {
+					const context = aGetServerSidePropsContext({
+						// @ts-expect-error
 						query: queryWithInvalidSiretType,
 						res: { statusCode: defaultStatusCode },
-					} as unknown as GetServerSidePropsContext;
+					});
 
 					// When
 					const result = await getServerSideProps(context);
@@ -124,17 +119,16 @@ describe('Page Candidater Stages 3e et 2de', () => {
 					it('retourne en props une erreur Service Indisponible', async () => {
 						// Given
 						jest.spyOn(dependencies.stage3eEt2deDependencies.recupererAppellationMetiersParAppellationCodesUseCase, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
-						const query = {
-							appellationCodes: 'appellationCodes',
-							modeDeContact: 'IN_PERSON',
-							nomEntreprise: 'nomEntreprise',
-							siret: 'siret',
-						};
 						const defaultStatusCode = 200;
-						const context = {
-							query,
+						const context = aGetServerSidePropsContext({
+							query: {
+								appellationCodes: 'appellationCodes',
+								modeDeContact: 'IN_PERSON',
+								nomEntreprise: 'nomEntreprise',
+								siret: 'siret',
+							},
 							res: { statusCode: defaultStatusCode },
-						} as unknown as GetServerSidePropsContext;
+						});
 
 						// When
 						const result = await getServerSideProps(context);
@@ -155,10 +149,10 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							siret: 'siret',
 						};
 						const defaultStatusCode = 200;
-						const context = {
+						const context = aGetServerSidePropsContext({
 							query,
 							res: { statusCode: defaultStatusCode },
-						} as unknown as GetServerSidePropsContext;
+						});
 
 						// When
 						const result = await getServerSideProps(context);
@@ -181,13 +175,14 @@ describe('Page Candidater Stages 3e et 2de', () => {
 								label: 'label2',
 							},
 						]));
-						const query = {
-							appellationCodes: 'appellationCodes',
-							modeDeContact: 'IN_PERSON',
-							nomEntreprise: 'nomEntreprise',
-							siret: 'siret',
-						};
-						const context = { query } as unknown as GetServerSidePropsContext;
+						const context = aGetServerSidePropsContext({
+							query: {
+								appellationCodes: 'appellationCodes',
+								modeDeContact: 'IN_PERSON',
+								nomEntreprise: 'nomEntreprise',
+								siret: 'siret',
+							},
+						});
 
 						// When
 						const result = await getServerSideProps(context);
