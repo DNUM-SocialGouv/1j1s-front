@@ -27,11 +27,12 @@ export class ApiEtablissementPublicRepository implements EtablissementAccompagne
 	}
 
 	async search(params: ParametresRechercheEtablissementAccompagnement): Promise<Either<Array<EtablissementAccompagnement>>> {
-		const { codePostal, typeAccompagnement, codeCommune } = params;
+		const { typeAccompagnement, codeCommune } = params;
 		try {
 			const select = 'select=adresse,telephone,adresse_courriel,nom,id,pivot,plage_ouverture';
 			const limit = `limit=${NOMBRE_RESULTAT_MAX}`;
-			const queryLocalisation = this.getQueryLocalisation(codeCommune, codePostal);
+
+			const queryLocalisation = this.getQueryLocalisation(codeCommune);
 			const queryTypeEtablissement = `pivot%20LIKE%20%22${typeAccompagnement}%22`;
 
 			const { data } = await this.httpClient.get<ResultatRechercheEtablissementPublicResponse.EtablissementsPublicList>(`catalog/datasets/api-lannuaire-administration/records?where=${queryLocalisation}and%20${queryTypeEtablissement}&${limit}&${select}`);
@@ -55,8 +56,7 @@ export class ApiEtablissementPublicRepository implements EtablissementAccompagne
 		}
 	}
 
-
-	private getQueryLocalisation(codeCommune: string, codePostal: string): string {
+	private getQueryLocalisation(codeCommune: string): string {
 		if (codeCommune === CODE_COMMUNE_MARSEILLE) {
 			return 'suggest(adresse,%22code_postal%20130*%22)';
 		}
@@ -67,6 +67,6 @@ export class ApiEtablissementPublicRepository implements EtablissementAccompagne
 			return 'suggest(adresse,%22code_postal%20750*%22)';
 		}
 
-		return `suggest(adresse,%22code_postal%20${codePostal}%22)`;
+		return `suggest(pivot,%22code_insee_commune%20${codeCommune}%22)`;
 	}
 }

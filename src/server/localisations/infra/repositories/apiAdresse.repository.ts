@@ -3,8 +3,8 @@ import { RésultatsRechercheCommune } from '~/server/localisations/domain/locali
 import {
 	LocalisationAvecCoordonnéesRepository,
 } from '~/server/localisations/domain/localisationAvecCoordonnées.repository';
+import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiAdresse.mapper';
 import { ApiAdresseResponse } from '~/server/localisations/infra/repositories/apiAdresse.response';
-import { mapRésultatsRechercheCommune } from '~/server/localisations/infra/repositories/apiGeo.mapper';
 import { removeParenthesis } from '~/server/localisations/infra/repositories/removeParenthesis';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { CachedHttpClientService } from '~/server/services/http/cachedHttpClient.service';
