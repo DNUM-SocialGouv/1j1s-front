@@ -13,8 +13,10 @@ import analytics from '~/pages/jobs-etudiants/index.analytics';
 import {
 	LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL,
 } from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
+import { isFailure } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServerSidePropsError';
 import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant';
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
@@ -78,7 +80,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	const filtres = jobÉtudiantFiltreMapper(context.query);
 
 	const resultatsRecherche = await dependencies.offreJobÉtudiantDependencies.rechercherOffreJobÉtudiant.handle(filtres);
-	if (resultatsRecherche.instance === 'failure') {
+
+	if (isFailure(resultatsRecherche)) {
+		changeStatusCodeWhenErrorOcurred(context, resultatsRecherche.errorType);
 		return {
 			props: {
 				erreurRecherche: resultatsRecherche.errorType,

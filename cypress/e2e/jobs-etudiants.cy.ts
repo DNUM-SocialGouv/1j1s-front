@@ -84,7 +84,7 @@ describe('Page de recherche d’emplois', () => {
 
 	context('quand les paramètres de l’url ne respectent pas le schema de validation du controller', () => {
 		it('retourne une erreur de demande incorrecte', () => {
-			cy.visit('/jobs-etudiants?page=67');
+			cy.visit('/jobs-etudiants?page=67', { failOnStatusCode: false });
 
 			cy.findByText('Erreur - Demande incorrecte').should('exist');
 		});

@@ -30,6 +30,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 		try {
 			const response = await this.getAlternanceListe(filtre);
 			const apiValidationError = validateApiResponse<AlternanceApiJobsResponse>(response.data, apiLaBonneAlternanceSchemas.search);
+
 			if (apiValidationError) {
 				this.errorManagementServiceSearch.logValidationError(apiValidationError, {
 					apiSource: 'API LaBonneAlternance',

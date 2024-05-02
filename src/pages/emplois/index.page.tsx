@@ -14,8 +14,10 @@ import { EmploiFiltre } from '~/server/emplois/domain/emploi';
 import {
 	LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL,
 } from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
+import { isFailure } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServerSidePropsError';
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
@@ -83,13 +85,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	const filtres = emploiFiltreMapper(context.query);
 
 	const resultatsRecherche = await dependencies.offreEmploiDependencies.rechercherOffreEmploi.handle(filtres);
-	if (resultatsRecherche.instance === 'failure') {
+
+	if (isFailure(resultatsRecherche)) {
+		changeStatusCodeWhenErrorOcurred(context, resultatsRecherche.errorType);
 		return {
 			props: {
 				erreurRecherche: resultatsRecherche.errorType,
 			},
 		};
 	}
+	
 	return {
 		props: {
 			resultats: JSON.parse(JSON.stringify(resultatsRecherche.result)),

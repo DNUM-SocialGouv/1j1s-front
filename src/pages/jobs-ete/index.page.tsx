@@ -13,8 +13,10 @@ import analytics from '~/pages/jobs-ete/index.analytics';
 import {
 	LONGUEUR_MINIMUM_DU_MOT_CLE_REQUISE_PAR_FRANCE_TRAVAIL,
 } from '~/server/emplois/infra/repositories/apiFranceTravailOffre.repository';
+import { isFailure } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { changeStatusCodeWhenErrorOcurred } from '~/server/errors/handleGetServerSidePropsError';
 import { JobEteFiltre } from '~/server/jobs-ete/domain/jobEte';
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
@@ -36,7 +38,7 @@ export default function RechercherJobsEtePage(props: RechercherJobsEtePageProps)
 		}
 	}, [router]);
 
-	return <RechercherJobEte resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
+	return <RechercherJobEte resultats={props.resultats} erreurRecherche={props.erreurRecherche}/>;
 };
 
 const jobsEteQuerySchema = Joi.object({
@@ -47,7 +49,7 @@ const jobsEteQuerySchema = Joi.object({
 	typeLocalisation: Joi.string().valid('REGION', 'DEPARTEMENT', 'COMMUNE'),
 }).options({ allowUnknown: true });
 
-type RequestQuery = Partial<{[p: string]: string | string[]}>;
+type RequestQuery = Partial<{ [p: string]: string | string[] }>;
 
 function jobEteFiltreMapper(query: RequestQuery): JobEteFiltre {
 	return {
@@ -84,7 +86,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 	const filtres = jobEteFiltreMapper(context.query);
 
 	const resultatsRecherche = await dependencies.offreJobEteDependencies.rechercherOffreJobEte.handle(filtres);
-	if (resultatsRecherche.instance === 'failure') {
+
+	if (isFailure(resultatsRecherche)) {
+		changeStatusCodeWhenErrorOcurred(context, resultatsRecherche.errorType);
 		return {
 			props: {
 				erreurRecherche: resultatsRecherche.errorType,

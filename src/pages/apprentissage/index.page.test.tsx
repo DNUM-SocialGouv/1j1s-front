@@ -4,7 +4,6 @@
 import '~/test-utils';
 
 import { render, screen } from '@testing-library/react';
-import { GetServerSidePropsContext } from 'next';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
@@ -13,6 +12,7 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage, { getServerSideProps } from '~/pages/apprentissage/index.page';
+import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import {
 	anAlternanceMatchaBoulanger,
@@ -69,13 +69,13 @@ describe('Page rechercher une alternance', () => {
 					page: '1',
 				},
 			});
-			const { container } = render(<DependenciesProvider
-				analyticsService={aManualAnalyticsService()}
-				localisationService={localisationServiceMock}
-				metierLbaService={métiersServiceMock}
-			>
-				<RechercherAlternancePage resultats={resultats}/>
-			</DependenciesProvider>,
+			const { container } = render(
+				<DependenciesProvider
+					analyticsService={aManualAnalyticsService()}
+					localisationService={localisationServiceMock}
+					metierLbaService={métiersServiceMock}>
+					<RechercherAlternancePage resultats={resultats}/>
+				</DependenciesProvider>,
 			);
 
 			await screen.findByText(`${alternanceFixture.length} résultats pour Boulangerie, pâtisserie, chocolaterie`);
@@ -139,16 +139,12 @@ describe('Page rechercher une alternance', () => {
 				};
 			});
 			it('redirige vers la page 404', async () => {
-				// GIVEN
-				const context = {} as unknown as GetServerSidePropsContext;
+				const result = await getServerSideProps(aGetServerSidePropsContext());
 
-				// WHEN
-				const result = await getServerSideProps(context);
-
-				// THEN
 				expect(result).toEqual({ notFound: true });
 			});
 		});
+
 		describe('lorsque la recherche est lancée avec des query params', () => {
 			beforeEach(() => {
 				process.env = {
@@ -158,15 +154,8 @@ describe('Page rechercher une alternance', () => {
 			});
 			describe('lorsque la page est affichée sans query params', () => {
 				it('retourne des props vide pour que le composant front n’affiche pas de résultat', async () => {
-					// GIVEN
-					const context = {
-						query: {},
-					} as GetServerSidePropsContext;
+					const result = await getServerSideProps(aGetServerSidePropsContext());
 
-					// WHEN
-					const result = await getServerSideProps(context);
-
-					// THEN
 					expect(result).toEqual({
 						props: {},
 					});
@@ -177,32 +166,25 @@ describe('Page rechercher une alternance', () => {
 				describe('lorsque les query params sont invalides', () => {
 					it('retourne une erreur et ne fait pas de recherche', async () => {
 						// GIVEN
-						const context = {
-							query: {
-								queryInvalide: '75056',
-							},
-						} as unknown as GetServerSidePropsContext;
+						const context = aGetServerSidePropsContext({ query: { queryInvalide: '75056' } });
 
 						// WHEN
 						const result = await getServerSideProps(context);
 
 						// THEN
-						expect(result).toEqual({
-							props: {
-								erreurRecherche: 'DEMANDE_INCORRECTE',
-							},
-						});
+						expect(result).toEqual({ props: { erreurRecherche: 'DEMANDE_INCORRECTE' } });
 						expect(dependencies.alternanceDependencies.rechercherAlternance.handle).not.toHaveBeenCalled();
 					});
 				});
 
 				describe('lorsque les query params sont valides', () => {
 					describe('lorsque la recherche retourne une erreur', () => {
-						it('retourne l’erreur reçue', async () => {
+						it('retourne l’erreur reçue et change le status de la page', async () => {
 							// GIVEN
 							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-							const context = {
+							const defaultStatusCode = 200;
+							const context = aGetServerSidePropsContext({
 								query: {
 									codeCommune: '75056',
 									codeRomes: 'D1102',
@@ -210,24 +192,15 @@ describe('Page rechercher une alternance', () => {
 									latitudeCommune: '48.859',
 									longitudeCommune: '2.347',
 								},
-							} as unknown as GetServerSidePropsContext;
+								res: { statusCode: defaultStatusCode },
+							});
 
 							// WHEN
 							const result = await getServerSideProps(context);
 
 							// THEN
-							expect(result).toEqual({
-								props: {
-									erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE,
-								},
-							});
-							expect(dependencies.alternanceDependencies.rechercherAlternance.handle).toHaveBeenCalledWith({
-								codeCommune: '75056',
-								codeRomes: ['D1102'],
-								distanceCommune: '10',
-								latitudeCommune: '48.859',
-								longitudeCommune: '2.347',
-							});
+							expect(result).toEqual({ props: { erreurRecherche: ErreurMetier.SERVICE_INDISPONIBLE } });
+							expect(context.res.statusCode).toEqual(500);
 						});
 					});
 
@@ -236,7 +209,7 @@ describe('Page rechercher une alternance', () => {
 							// GIVEN
 							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createSuccess(aResultatRechercherMultipleAlternance()));
 
-							const context = {
+							const context = aGetServerSidePropsContext({
 								query: {
 									codeCommune: '75056',
 									codeRomes: 'D1102',
@@ -244,7 +217,7 @@ describe('Page rechercher une alternance', () => {
 									latitudeCommune: '48.859',
 									longitudeCommune: '2.347',
 								},
-							} as unknown as GetServerSidePropsContext;
+							});
 
 							// WHEN
 							const result = await getServerSideProps(context);

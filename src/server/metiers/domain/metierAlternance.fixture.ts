@@ -16,7 +16,7 @@ export function aListeDeMetierLaBonneAlternance(): Array<MetierAlternance> {
 	];
 }
 
-export function aMetier(override: Partial<MetierAlternance>): MetierAlternance {
+export function aMetier(override?: Partial<MetierAlternance>): MetierAlternance {
 	return {
 		codeRomes: ['F1201', 'F1202', 'I1101'],
 		label: 'Conduite de travaux, direction de chantier',
