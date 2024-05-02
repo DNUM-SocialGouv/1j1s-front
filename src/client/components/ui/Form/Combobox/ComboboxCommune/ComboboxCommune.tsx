@@ -57,9 +57,10 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 
 	function isUserInputValid(userInput: string) {
 		const regexSearchCharToIgnore = new RegExp(`[${SEARCH_CHARACTERS_TO_IGNORE}]`, 'g');
-		const trimmedUserInput = userInput.replace(regexSearchCharToIgnore, '');
+		const userInputWithoutSearchCharToIgnore = userInput.replace(regexSearchCharToIgnore, '');
+		const userInputWithoutSearchCharToIgnoreTrimed = userInputWithoutSearchCharToIgnore.trim();
 
-		return trimmedUserInput.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
+		return userInputWithoutSearchCharToIgnoreTrimed.length >= MINIMUM_CHARACTER_NUMBER_FOR_SEARCH;
 	}
 
 	const rechercherCommunesWithUserInputValid = useCallback(async (userInputCommune: string) => {
