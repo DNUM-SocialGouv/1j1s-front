@@ -167,12 +167,12 @@ describe('Page rechercher un job d‘été', () => {
 				describe('lorsque la recherche retourne une erreur', () => {
 					it('retourne une erreur de service indisponible et change le status de la page', async () => {
 						// GIVEN
-						const statusCodeToBeOverridden = 0;
+						const defaultStatusCode = 200;
 						jest.spyOn(dependencies.offreJobEteDependencies.rechercherOffreJobEte, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 						const context = {
 							query: { page: 1 },
-							res: { statusCode: statusCodeToBeOverridden },
+							res: { statusCode: defaultStatusCode },
 						} as unknown as GetServerSidePropsContext;
 
 						// WHEN

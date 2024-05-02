@@ -203,7 +203,7 @@ describe('Page rechercher une alternance', () => {
 							// GIVEN
 							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
-							const statusCodeToBeOverridden = 0;
+							const defaultStatusCode = 200;
 							const context = {
 								query: {
 									codeCommune: '75056',
@@ -212,7 +212,7 @@ describe('Page rechercher une alternance', () => {
 									latitudeCommune: '48.859',
 									longitudeCommune: '2.347',
 								},
-								res: { statusCode: statusCodeToBeOverridden },
+								res: { statusCode: defaultStatusCode },
 							} as unknown as GetServerSidePropsContext;
 
 							// WHEN

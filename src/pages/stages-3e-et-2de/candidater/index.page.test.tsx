@@ -85,8 +85,8 @@ describe('Page Candidater Stages 3e et 2de', () => {
 				it('retourne en props une erreur Demande Incorrecte', async () => {
 					// Given
 					const query = {};
-					const statusCodeToBeOverridden = 0;
-					const context = { query, res: { statusCode: statusCodeToBeOverridden } } as GetServerSidePropsContext;
+					const defaultStatusCode = 200;
+					const context = { query, res: { statusCode: defaultStatusCode } } as GetServerSidePropsContext;
 
 					// When
 					const result = await getServerSideProps(context);
@@ -105,8 +105,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 						nomEntreprise: 'nomEntreprise',
 						siret: 1,
 					};
-					const statusCodeToBeOverridden = 0;
-					const context = { query: queryWithInvalidSiretType, res: { statusCode: statusCodeToBeOverridden } } as unknown as GetServerSidePropsContext;
+					const defaultStatusCode = 200;
+					const context = {
+						query: queryWithInvalidSiretType,
+						res: { statusCode: defaultStatusCode },
+					} as unknown as GetServerSidePropsContext;
 
 					// When
 					const result = await getServerSideProps(context);
@@ -127,8 +130,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
-						const statusCodeToBeOverridden = 0;
-						const context = { query, res: { statusCode: statusCodeToBeOverridden } } as unknown as GetServerSidePropsContext;
+						const defaultStatusCode = 200;
+						const context = {
+							query,
+							res: { statusCode: defaultStatusCode },
+						} as unknown as GetServerSidePropsContext;
 
 						// When
 						const result = await getServerSideProps(context);
@@ -148,8 +154,11 @@ describe('Page Candidater Stages 3e et 2de', () => {
 							nomEntreprise: 'nomEntreprise',
 							siret: 'siret',
 						};
-						const statusCodeToBeOverridden = 0;
-						const context = { query, res: { statusCode: statusCodeToBeOverridden } } as unknown as GetServerSidePropsContext;
+						const defaultStatusCode = 200;
+						const context = {
+							query,
+							res: { statusCode: defaultStatusCode },
+						} as unknown as GetServerSidePropsContext;
 
 						// When
 						const result = await getServerSideProps(context);
