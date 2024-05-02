@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.284.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.2...v3.284.3) (2024-05-02)
+
+
+### Bug Fixes
+
+* **ssr-erreur:** changer le code status de la page en cas d'erreur sur les formulaires de recherche ([#2956](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2956)) ([2715206](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2715206e12954000353beab8ceb995cdba8bd8b1))
+
 ## [3.284.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.1...v3.284.2) (2024-05-02)
 
 
