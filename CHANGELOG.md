@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.284.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.1...v3.284.2) (2024-05-02)
+
+
+### Bug Fixes
+
+* **stage:** passer à la ligne les boutons de la validation du dépot de stage en mobile ([#2962](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2962)) ([13d54bf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/13d54bf89dc7285e46735535f19c744808609e7d))
+
 ## [3.284.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.0...v3.284.1) (2024-05-02)
 
 
