@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.284.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.3...v3.284.4) (2024-05-03)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2961](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2961)) ([11bd67f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/11bd67f4668d1e03ecce67affcd7bfdc06926474))
+* permet d'accepter une adresse mail a moins de 3 char avant @ ([#2952](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2952)) ([0840684](https://github.com/DNUM-SocialGouv/1j1s-front/commit/08406842a68e23af6590a06ab44278a6d46ef095))
+
 ## [3.284.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.2...v3.284.3) (2024-05-02)
 
 
