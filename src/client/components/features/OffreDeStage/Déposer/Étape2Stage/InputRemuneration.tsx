@@ -22,7 +22,7 @@ export function ChampRemuneration({ defaultValue }: ChampRemunerationProps) {
 		const inputRef = useSynchronizedRef(outerRef);
 		return <div className={styles.remunerationContenu}>
 			<Input ref={inputRef} {...props}/>
-			<span className={styles.remunerationContenuUnite} id={idUnite}>{UNITE}</span>
+			<span className={styles.remunerationContenuUnite} id={idUnite}><abbr title="Euro">{UNITE}</abbr></span>
 		</div>;
 	});
 
