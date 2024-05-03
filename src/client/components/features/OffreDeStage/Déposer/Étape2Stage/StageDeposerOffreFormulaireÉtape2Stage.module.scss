@@ -1,36 +1,11 @@
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
 
+
 .rémunération {
-  &Label {
+  & .rémunérationLabel {
     margin-bottom: 0.5rem;
     @extend %label-champ;
-  }
-
-  &Contenu {
-    margin-top: 0.5rem;
-    display: flex;
-    height: 2.5rem;
-
-    &Input {
-      @include utilities.text-interactive-medium;
-      padding: 1rem;
-      border: 1px solid utilities.$color-background-border;
-      width: 100%;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-    }
-
-    &Unité {
-      @include utilities.text-interactive-medium;
-      padding: 0 2rem;
-      align-items: center;
-      display: flex;
-      background-color: utilities.$color-background-secondary;
-      color: utilities.$color-text-primary-inverse;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-    }
   }
 }
 
@@ -98,18 +73,13 @@
 }
 
 .textareaWrapper {
-
   @include utilities.media(xlarge) {
     width: 100%;
   }
 }
 
 @include utilities.media(xlarge) {
-  .inputNomOffre {
-    width: 100%;
-  }
-
-  .inputLienCandidature {
+  .inputNomOffre, .inputLienCandidature {
     width: 100%;
   }
 }
