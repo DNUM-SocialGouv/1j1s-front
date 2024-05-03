@@ -2,6 +2,7 @@ import { emailRegex } from '~/shared/emailRegex';
 
 describe('E-mail regex', () => {
 	it.each([
+		'r@example.com',
 		'rh@example.com',
 		'email@example.com',
 		'firstname.lastname@example.com',
