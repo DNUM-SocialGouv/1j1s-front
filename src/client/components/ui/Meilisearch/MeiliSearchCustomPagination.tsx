@@ -1,9 +1,11 @@
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import React, { useMemo } from 'react';
 import { usePagination } from 'react-instantsearch';
 import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connectors/usePagination';
 
-import { CommonPagination } from '~/client/components/ui/Pagination/CommonPagination';
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const CommonPagination = dynamic(() => import('../Pagination/CommonPagination').then((mod) => mod.CommonPagination), { ssr: false });
 
 interface MeiliSearchCustomPaginationProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
   numberOfResultPerPage: number

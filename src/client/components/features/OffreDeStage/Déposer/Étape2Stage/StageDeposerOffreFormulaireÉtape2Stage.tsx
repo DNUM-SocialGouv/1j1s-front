@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -18,7 +19,7 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
-import { Option, Select } from '~/client/components/ui/Select/Select';
+import { Option } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
 	StageDeposerOffreEtape1PersistenceService,
@@ -32,6 +33,9 @@ import { emailRegex } from '~/shared/emailRegex';
 import { urlRegex } from '~/shared/urlRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
+
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au select et son contenu on désactive le srr sur ce composant, à supprimer après refonte du select cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Select = dynamic(() => import('~/client/components/ui/Select/Select').then((mod) => mod.Select), { ssr: false });
 
 const EMAIL_OR_URL_REGEX = `^${emailRegex}|${urlRegex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
