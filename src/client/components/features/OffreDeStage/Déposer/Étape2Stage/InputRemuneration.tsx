@@ -7,22 +7,19 @@ import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 import styles from './InputRemuneration.module.scss';
 import { StageEnum } from './StageDeposerOffreFormulaireÉtape2Stage';
 
-const UNITE = '€';
-
-
 type ChampRemunerationProps = {
 	defaultValue?: string
 }
 
 export function ChampRemuneration({ defaultValue }: ChampRemunerationProps) {
 	const idUnite = useId();
-	
+
 	const InputRemuneration = React.forwardRef<HTMLInputElement, ComponentPropsWithoutRef<'input'>>(function InputRemuneration(
 		props, outerRef) {
 		const inputRef = useSynchronizedRef(outerRef);
 		return <div className={styles.remunerationContenu}>
-			<Input ref={inputRef} {...props}/>
-			<span className={styles.remunerationContenuUnite} id={idUnite}><abbr title="Euro">{UNITE}</abbr></span>
+			<Input ref={inputRef} className={styles.remunerationInput}{...props}/>
+			<span className={styles.remunerationUnite} id={idUnite}><abbr title="Euro">€</abbr></span>
 		</div>;
 	});
 
@@ -38,7 +35,6 @@ export function ChampRemuneration({ defaultValue }: ChampRemunerationProps) {
 			min={0}
 			aria-describedby={idUnite}
 			defaultValue={defaultValue}
-			className={styles.remunerationContenuInput}
 		/>
 		<Champ.Error/>
 	</Champ>);

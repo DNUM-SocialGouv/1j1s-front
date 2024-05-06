@@ -80,7 +80,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 			<Champ.Input
 				render={Input}
 				name={StageEnum.NOM}
-				value={props.informationsStage?.nomOffre}
+				defaultValue={props.informationsStage?.nomOffre}
 				maxLength={LONGUEUR_MAX_TITRE}
 				required
 			/>
@@ -96,7 +96,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 				render={Input}
 				pattern={EMAIL_OR_URL_REGEX}
 				name={StageEnum.LIEN_CANDIDATURE}
-				value={props.informationsStage?.lienCandidature}
+				defaultValue={props.informationsStage?.lienCandidature}
 				required
 			/>
 			<Champ.Error/>

@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import styles
-	from '~/client/components/features/FormationInitiale/Rechercher/FormulaireRecherche/FormulaireRechercheFormationInitiale.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
+
+import styles from './FormulaireRechercheFormationInitiale.module.scss';
 
 export function FormulaireRechercheFormationInitiale() {
 	const queryParams = useFormationInitialeQuery();

@@ -2,13 +2,6 @@
 @use "@styles/components/form/variables";
 
 
-.rémunération {
-  & .rémunérationLabel {
-    margin-bottom: 0.5rem;
-    @extend %label-champ;
-  }
-}
-
 .contenuTeletravail {
   border: none;
 
