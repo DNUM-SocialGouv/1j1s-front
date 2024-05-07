@@ -204,8 +204,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
-
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {}));
 			render(
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
