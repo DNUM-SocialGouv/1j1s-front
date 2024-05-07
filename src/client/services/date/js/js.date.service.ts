@@ -2,10 +2,8 @@ import { DateService } from '../date.service';
 
 export class JsDateService implements DateService {
 	formatToHumanReadableDate(date: string | Date): string {
-		if(date instanceof Date) {
-			date.toLocaleDateString('fr-FR', { dateStyle: 'long' });
-		}
-		return new Date(date).toLocaleDateString('fr-FR', { dateStyle: 'long' });
+		const result = (date instanceof Date) ? date : new Date(date);
+		return result.toLocaleDateString('fr-FR', { dateStyle: 'long' });
 	}
 
 	today(): Date {

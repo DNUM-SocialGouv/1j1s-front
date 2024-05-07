@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getDateStageFormatted } from '~/client/components/features/OffreDeStage/getDateStageFormatted';
+import { DateStageFormatted } from '~/client/components/features/OffreDeStage/dateStageFormatted';
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
@@ -29,7 +29,7 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 	);
 
 	if (stage.dateDeDebutMin) {
-		listeEtiquettes.push(getDateStageFormatted(stage.dateDeDebutMin, stage.dateDeDebutMax));
+		listeEtiquettes.push(DateStageFormatted(stage.dateDeDebutMin, stage.dateDeDebutMax));
 	}
 
 	return <RésultatRechercherSolution

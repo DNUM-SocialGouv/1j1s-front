@@ -8,7 +8,6 @@ import { userEvent } from '@testing-library/user-event';
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { LocaleProvider } from '~/client/context/locale.context';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { queries } from '~/test-utils';
 
@@ -213,8 +212,7 @@ describe('<Detail />', () => {
 	it('affiche la date de début de contrat', () => {
 		const annonce = aDetailAlternance({ dateDébut: new Date('2022-01-01') });
 
-		const { getByDescriptionTerm } = render(<LocaleProvider value={'fr'}><Detail
-			annonce={annonce}/></LocaleProvider>, { queries });
+		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
 
 		const dateDébut = getByDescriptionTerm('Début du contrat');
 		expect(dateDébut).toHaveTextContent('1 janvier 2022');

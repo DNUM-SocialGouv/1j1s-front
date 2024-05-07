@@ -6,7 +6,9 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
+import { DateService } from '~/client/services/date/date.service';
 import { JsDateService } from '~/client/services/date/js/js.date.service';
 import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
 
@@ -23,7 +25,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 	const description = useSanitize(annonce.description);
 	const descriptionEmployeur = useSanitize(annonce.descriptionEmployeur);
 
-	const dateService = new JsDateService();
+	const dateService = useDependency<DateService>('dateService');
 	const dateFormated = annonce.dateDébut && dateService.formatToHumanReadableDate(annonce.dateDébut);
 
 	return (

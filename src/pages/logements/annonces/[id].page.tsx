@@ -17,11 +17,15 @@ import { dependencies } from '~/server/start';
 import { GetServerSidePropsResult } from '../../../server/errors/getServerSidePropsResultWithError';
 import { handleGetServerSidePropsError } from '../../../server/errors/handleGetServerSidePropsError';
 
-export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
+export default function ConsulterAnnonceLogementPage(
+	{ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
 	useAnalytics(analytics);
 	usePopstate();
 
 	if (!isFeatureActive) return <ErrorUnavailableService/>;
+
+	annonceDeLogement.dateDeMiseAJour = new Date(annonceDeLogement.dateDeMiseAJour);
+	annonceDeLogement.dateDeDisponibilité = new Date(annonceDeLogement.dateDeDisponibilité);
 
 	return (
 		<>

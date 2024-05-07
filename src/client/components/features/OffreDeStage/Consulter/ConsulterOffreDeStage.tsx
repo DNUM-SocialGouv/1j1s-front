@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import commonStyles from '~/client/components/features/ConsulterOffre.module.scss';
 import { dureeCategorisee } from '~/client/components/features/OffreDeStage/Consulter/getDureeCategorisee';
-import { getDateStageFormatted } from '~/client/components/features/OffreDeStage/getDateStageFormatted';
+import { DateStageFormatted } from '~/client/components/features/OffreDeStage/dateStageFormatted';
 import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre/ConsulterOffreLayout';
 import { Link } from '~/client/components/ui/Link/Link';
 import { getHtmlFromMd } from '~/client/components/ui/MarkdownToHtml/getHtmlFromMd';
@@ -48,7 +48,7 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 		}
 		tags.push(dureeCategorisee(offreDeStage.dureeEnJour || 0));
 		if (offreDeStage.dateDeDebutMin) {
-			tags.push(getDateStageFormatted(offreDeStage.dateDeDebutMin, offreDeStage.dateDeDebutMax));
+			tags.push(DateStageFormatted(offreDeStage.dateDeDebutMin, offreDeStage.dateDeDebutMax));
 		}
 		return tags;
 	}, [offreDeStage]);

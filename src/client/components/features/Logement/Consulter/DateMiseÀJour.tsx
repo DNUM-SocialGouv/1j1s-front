@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { JsDateService } from '~/client/services/date/js/js.date.service';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DateService } from '~/client/services/date/date.service';
 
 import styles from './ConsulterAnnonce.module.scss';
 
-export function DateMiseÀJour({ date }: { date: string }) {
-	const dateToFormat = new Date(date);
-	const dateService = new JsDateService();
+export function DateMiseÀJour({ date }: { date: Date }) {
+	const dateService = useDependency<DateService>('dateService');
 	return (
 		<span className={styles.date}>
-			Annonce mise à jour le <time dateTime={dateToFormat.toISOString()}>
-				{dateService.formatToHumanReadableDate(dateToFormat)}
+			Annonce mise à jour le <time dateTime={date.toISOString()}>
+				{dateService.formatToHumanReadableDate(date)}
 			</time>
 		</span>
 	);
