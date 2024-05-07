@@ -158,6 +158,8 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
+	// FIXME? (GAFI 07-05-2024): On pourrait faire ces checks au runtime potentiellement ? Est-ce qu'on a des trucs
+	//	intelligents à faire à l'initialisation si on a pas de storage ?
 	let localStorageService: BrowserPersistanceService | undefined;
 	if (isStorageAvailable('localStorage')) {
 		localStorageService = new BrowserPersistanceService(window.localStorage);
@@ -167,7 +169,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		sessionStorageService = new BrowserPersistanceService(window.sessionStorage);
 	}
 	const stageDeposerOffreEtape1PersistenceService = localStorageService
-		? new LocalStorageStageDeposerOffreEtape1PersistenceService()
+		? new LocalStorageStageDeposerOffreEtape1PersistenceService(localStorageService)
 		: new NullStageDeposerOffreEtape1PersistenceService();
 
 	const stageDeposerOffreEtape2PersistenceService = sessionStorageService
@@ -186,10 +188,10 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		emploiEuropeService,
 		formationInitialeService,
 		formationService,
+		localStorageService,
 		localisationService,
 		marketingService,
 		metierLbaService,
-		localStorageService,
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
