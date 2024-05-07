@@ -177,7 +177,7 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		: new NullStageDeposerOffreEtape2PersistenceService();
 
 	const stageDeposerOffreEtape3PersistenceService = localStorageService
-		? new LocalStorageStageDeposerOffreEtape3PersistenceService()
+		? new LocalStorageStageDeposerOffreEtape3PersistenceService(localStorageService)
 		: new NullStageDeposerOffreEtape3PersistenceService();
 
 	return {
