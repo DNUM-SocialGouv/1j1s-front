@@ -6,7 +6,6 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
-import { LocaleProvider } from '~/client/context/locale.context';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 
 describe('<InformationsGénérales />', () => {
@@ -14,7 +13,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche le prix', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.prix = 500;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
 			expect(prixRow).toHaveTextContent(/500 €CC\/mois/i);
@@ -24,7 +23,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans le prix', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
 			expect(prixRow).toHaveTextContent(/\$/i);
@@ -32,7 +31,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche les charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = 500;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
 			expect(chargesRow).toHaveTextContent(/500 €/i);
@@ -40,7 +39,7 @@ describe('<InformationsGénérales />', () => {
 		it('masque la ligne quand pas de charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = undefined;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const chargesRow = screen.queryByRole('row', { name: /Charges/i });
 			expect(chargesRow).not.toBeInTheDocument();
@@ -48,7 +47,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans les charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
 			expect(chargesRow).toHaveTextContent(/\$/i);
@@ -56,7 +55,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = 500;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
 			expect(cautionRow).toHaveTextContent(/500 €/i);
@@ -64,7 +63,7 @@ describe('<InformationsGénérales />', () => {
 		it('masque la ligne quand pas de caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = undefined;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const cautionRow = screen.queryByRole('row', { name: /Caution/i });
 			expect(cautionRow).not.toBeInTheDocument();
@@ -72,7 +71,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans la caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
 			expect(cautionRow).toHaveTextContent(/\$/i);
@@ -85,7 +84,7 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 100;
-					render(<InformationsGénérales annonce={annonce} />);
+					render(<InformationsGénérales annonce={annonce}/>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
@@ -96,7 +95,7 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 0;
-					render(<InformationsGénérales annonce={annonce} />);
+					render(<InformationsGénérales annonce={annonce}/>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
@@ -107,7 +106,7 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = undefined;
-					render(<InformationsGénérales annonce={annonce} />);
+					render(<InformationsGénérales annonce={annonce}/>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
@@ -137,7 +136,7 @@ describe('<InformationsGénérales />', () => {
 		it("affiche l'étage", async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 2;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/2ème/i);
@@ -145,7 +144,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Rez-de-chaussée" quand l\'étage est 0', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 0;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/Rez-de-chaussée/i);
@@ -153,7 +152,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "1er" quand l\'étage est 1', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 1;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/1er/i);
@@ -161,7 +160,7 @@ describe('<InformationsGénérales />', () => {
 		it("masque la ligne quand pas d'étage", async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = undefined;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const étageRow = screen.queryByRole('row', { name: /Étage/i });
 			expect(étageRow).not.toBeInTheDocument();
@@ -169,7 +168,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche le type de bien', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.typeBien = 'Appartement';
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const typeBienRow = screen.getByRole('row', { name: /Type de bien/i });
 			expect(typeBienRow).toHaveTextContent(/Appartement/i);
@@ -177,7 +176,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Non" si le logement n\'est pas meublé', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = false;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
 			expect(meubléRow).toHaveTextContent(/Non/i);
@@ -185,7 +184,7 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Oui" si le logement est meublé', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = true;
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
 			expect(meubléRow).toHaveTextContent(/Oui/i);
@@ -199,7 +198,7 @@ describe('<InformationsGénérales />', () => {
 				codePostal: '75001',
 				ville: 'Paris',
 			};
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
 			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
@@ -211,7 +210,7 @@ describe('<InformationsGénérales />', () => {
 				codePostal: undefined,
 				ville: undefined,
 			};
-			render(<InformationsGénérales annonce={annonce} />);
+			render(<InformationsGénérales annonce={annonce}/>);
 
 			const localisationRow = screen.queryByRole('row', { name: /Localisation/i });
 			expect(localisationRow).not.toBeInTheDocument();
@@ -222,37 +221,11 @@ describe('<InformationsGénérales />', () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
 			render(
-				<LocaleProvider value="fr-FR">
-					<InformationsGénérales annonce={annonce}/>
-				</LocaleProvider>,
+				<InformationsGénérales annonce={annonce}/>,
 			);
 
 			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
 			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
-		});
-		it('affiche la date de disponibilité dépendamment de la locale', async () => {
-			const annonce = anAnnonceDeLogement();
-			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
-			render(
-				<LocaleProvider value="en-US">
-					<InformationsGénérales annonce={annonce}/>
-				</LocaleProvider>,
-			);
-
-			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
-			expect(disponibilitéRow).toHaveTextContent(/le February 1, 2022/i);
-		});
-		it("ajoute l'attribut lang à la date", async () => {
-			const annonce = anAnnonceDeLogement();
-			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
-			render(
-				<LocaleProvider value="fr-FR">
-					<InformationsGénérales annonce={annonce}/>
-				</LocaleProvider>,
-			);
-
-			const date = screen.getByText(/1 février 2022/i);
-			expect(date).toHaveAttribute('lang', 'fr-FR');
 		});
 	});
 });

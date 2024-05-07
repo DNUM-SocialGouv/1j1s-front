@@ -21,6 +21,17 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		beforeEach(() => {
 			mockSmallScreen();
 		});
+		it('le bouton de filtre avancé à le type button pour ne pas prendre automatiquement le type submit', () => {
+			mockUseRouter({});
+
+			render(
+				<FormulaireRechercheEmploisEurope />,
+			);
+			const buttonFiltresAvances = screen.getByRole('button', { name: 'Filtrer ma recherche' });
+
+			expect(buttonFiltresAvances).toHaveAttribute('type', 'button');
+		});
+
 		describe('quand on recherche par mot clé', () => {
 			it('ajoute le mot clé recherché aux query params', async () => {
 				// GIVEN

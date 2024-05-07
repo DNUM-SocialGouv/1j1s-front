@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getDateStageFormatted } from '~/client/components/features/OffreDeStage/getDateStageFormatted';
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
@@ -8,7 +9,7 @@ import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 
-export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
+export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 	const stage = props.hit;
 	const listeEtiquettes: Array<string> = stage.domaines
 		? stage.domaines
@@ -28,12 +29,7 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	);
 
 	if (stage.dateDeDebutMin) {
-		// FIXME (GAFI 13-10-2023): Passer par des composants pour pouvoir notamment les partager entre les pages
-		listeEtiquettes.push(
-			stage.dateDeDebutMax && stage.dateDeDebutMin !== stage.dateDeDebutMax
-				? `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`
-				: `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`,
-		);
+		listeEtiquettes.push(getDateStageFormatted(stage.dateDeDebutMin, stage.dateDeDebutMax));
 	}
 
 	return <RésultatRechercherSolution

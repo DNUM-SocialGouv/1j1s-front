@@ -2,16 +2,11 @@
  * @jest-environment jsdom
  */
 
-import {
-	render,
-	screen,
-	within,
-} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterAnnonce } from '~/client/components/features/Logement/Consulter/ConsulterAnnonce';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { LocaleProvider } from '~/client/context/locale.context';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 
 describe('<ConsulterAnnonce />', () => {
@@ -61,39 +56,11 @@ describe('<ConsulterAnnonce />', () => {
 		const annonceDeLogement = anAnnonceDeLogement();
 		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
 
-		render(
-			<LocaleProvider value={'fr-FR'}>
-				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
-			</LocaleProvider>);
+		render(<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>);
 		const date = screen.getByText(/Annonce mise à jour le/i);
 
 		expect(date).toBeVisible();
 		expect(date).toHaveTextContent(/Annonce mise à jour le 1 février 2020/i);
-	});
-	it('affiche la date de mise à jour au bon format dépendamment de la locale', () => {
-		const annonceDeLogement = anAnnonceDeLogement();
-		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
-
-		render(
-			<LocaleProvider value={'en-US'}>
-				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
-			</LocaleProvider>);
-		const date = screen.getByText(/Annonce mise à jour le/i);
-
-		expect(date).toBeVisible();
-		expect(date).toHaveTextContent(/Annonce mise à jour le February 1, 2020/i);
-	});
-	it("ajoute l'attribut lang à la date", () => {
-		const annonceDeLogement = anAnnonceDeLogement();
-		annonceDeLogement.dateDeMiseAJour = new Date(2020, 1, 1).toISOString();
-
-		render(
-			<LocaleProvider value={'fr-FR'}>
-				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
-			</LocaleProvider>);
-		const date = screen.getByText(/1 février 2020/i);
-
-		expect(date).toHaveAttribute('lang', 'fr-FR');
 	});
 
 	describe('carousel', () => {

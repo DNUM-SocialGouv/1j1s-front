@@ -9,13 +9,15 @@ import { Carousel } from '~/client/components/ui/Carousel/Carousel';
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { JsDateService } from '~/client/services/date/js/js.date.service';
 
 const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
 
 export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 	const annonce = props.hit;
 	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL ? 'intergénérationnel' : annonce.type;
-	const dateDeLAnnonce = new Date(annonce.dateDeMiseAJour).toLocaleDateString();
+	const dateService = new JsDateService();
+	const dateDeLAnnonce = dateService.formatToHumanReadableDate(annonce.dateDeMiseAJour);
 
 	return (
 		<Card layout="vertical" className={styles.Card}>

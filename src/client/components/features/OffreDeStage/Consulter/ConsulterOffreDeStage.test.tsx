@@ -272,7 +272,7 @@ describe('ConsulterOffreDeStage', () => {
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const tagDateDebut = within(tags).getAllByRole('listitem')
-						.find((listItem) => listItem.textContent === 'Débute le : 9/1/2024');
+						.find((listItem) => listItem.textContent === 'Débute le 1 septembre 2024');
 					expect(tagDateDebut).toBeVisible();
 				});
 				it('affiche la période de date de début quand la date de début est une période de date', () => {
@@ -282,7 +282,7 @@ describe('ConsulterOffreDeStage', () => {
 
 					const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre de stage' });
 					const tagDateDebut = within(tags).getAllByRole('listitem')
-						.find((listItem) => listItem.textContent === 'Débute entre le : 9/1/2024 et 9/30/2024');
+						.find((listItem) => listItem.textContent === 'Débute entre le 1 septembre 2024 et le 30 septembre 2024');
 					expect(tagDateDebut).toBeVisible();
 				});
 				it('n’affiche pas le tag de date de début quand il n‘y a pas de date de début', () => {

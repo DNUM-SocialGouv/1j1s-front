@@ -54,7 +54,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>
 				<h1>{titre}</h1>
-				<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
+				<DateMiseÀJour date={dateDeMiseAJour}/>
 				<TypeBien>{type} - {typeBien}</TypeBien>
 			</AnnonceEntête>
 			<Container className={styles.annonceBody}>

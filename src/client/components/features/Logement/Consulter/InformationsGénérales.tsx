@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
-import { useLocale } from '~/client/context/locale.context';
+import { JsDateService } from '~/client/services/date/js/js.date.service';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
@@ -41,7 +41,7 @@ export function InformationsGénérales({
 		dateDeDisponibilité: dateDeDisponibilitéString,
 	},
 }: InformationsGénéralesProps) {
-	const locale = useLocale();
+	const dateService = new JsDateService();
 	const dateDeDisponibilité = new Date(dateDeDisponibilitéString);
 	const localisationAffichable = formatLocalisation(localisation);
 	return (
@@ -113,9 +113,10 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le <time dateTime={dateDeDisponibilité.toISOString()} lang={locale}>
-							{dateDeDisponibilité.toLocaleDateString(locale, { dateStyle: 'long' })}
-						</time></td>
+						<td>le <time dateTime={dateDeDisponibilité.toISOString()}>
+							{dateService.formatToHumanReadableDate(dateDeDisponibilité)}
+						</time>
+						</td>
 					</tr>
 				</tbody>
 			</table>
