@@ -1,7 +1,7 @@
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { MissionEngagementQueryParams } from '~/client/hooks/useMissionEngagementQuery';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
-import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
 import { createSuccess } from '~/server/errors/either';
 
@@ -10,7 +10,7 @@ describe('MissionEngagementService', () => {
 		describe('quand la catégorie est services-civique', () => {
 			it('appelle services-civique avec le filtre', async () => {
 				const httpClientService = anHttpClientService();
-				const missionEngagementService = new MissionEngagementService(httpClientService);
+				const missionEngagementService = new BffMissionEngagementService(httpClientService);
 				const catégorie = 'service-civique';
 				const missionEngagementQuery: MissionEngagementQueryParams = {
 					distanceCommune: '10',
@@ -35,7 +35,7 @@ describe('MissionEngagementService', () => {
 		describe('quand la catégorie est bénévolat', () => {
 			it('appelle benevolats avec le filtre', async () => {
 				const httpClientService = anHttpClientService();
-				const missionEngagementService = new MissionEngagementService(httpClientService);
+				const missionEngagementService = new BffMissionEngagementService(httpClientService);
 				const catégorie = 'bénévolat';
 				const missionEngagementQuery: MissionEngagementQueryParams = {
 					distanceCommune: '10',
@@ -54,7 +54,7 @@ describe('MissionEngagementService', () => {
 		});
 		it('filtre les clés undefined', async () => {
 			const httpClientService = anHttpClientService();
-			const missionEngagementService = new MissionEngagementService(httpClientService);
+			const missionEngagementService = new BffMissionEngagementService(httpClientService);
 			const catégorie = 'bénévolat';
 			const missionEngagementQuery: MissionEngagementQueryParams = {
 				distanceCommune: '10',

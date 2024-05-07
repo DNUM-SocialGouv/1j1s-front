@@ -9,7 +9,6 @@ import { userEvent } from '@testing-library/user-event';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
-import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -37,7 +36,7 @@ describe('<Accompagnement />', () => {
 
 	function renderComponent() {
 		const demandeDeContactService = aDemandeDeContactService();
-		const localisationService = {} as unknown as LocalisationService;
+		const localisationService = aLocalisationService();
 
 
 		render(

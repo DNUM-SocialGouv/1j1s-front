@@ -1,12 +1,12 @@
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { FormationQueryParams } from '~/client/hooks/useFormationQuery';
-import { FormationService } from '~/client/services/formation/formation.service';
+import { BffFormationService } from '~/client/services/formation/bff.formation.service';
 import { anHttpClientService } from '~/client/services/httpClientService.fixture';
 
 describe('FormationService', () => {
 	it('appelle le endpoint avec la query', async () => {
 		const httpClientService = anHttpClientService();
-		const formationService = new FormationService(httpClientService);
+		const formationService = new BffFormationService(httpClientService);
 		const formationQuery = {
 			codeRomes: ['D123', 'D122'],
 			distanceCommune: '30',
@@ -32,7 +32,7 @@ describe('FormationService', () => {
 			describe('et que ça valeur est renseignée', () => {
 				it('appelle formation avec la query avec le paramètre niveauEtude', async () => {
 					const httpClientService = anHttpClientService();
-					const formationService = new FormationService(httpClientService);
+					const formationService = new BffFormationService(httpClientService);
 					const formationQuery = {
 						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
@@ -52,7 +52,7 @@ describe('FormationService', () => {
 			describe('et que ça valeur est indifférent', () => {
 				it('appelle formation avec la query sans le paramètre niveauEtude', async () => {
 					const httpClientService = anHttpClientService();
-					const formationService = new FormationService(httpClientService);
+					const formationService = new BffFormationService(httpClientService);
 					const formationQuery = {
 						codeRomes: ['D123', 'D122'],
 						distanceCommune: '30',
@@ -74,7 +74,7 @@ describe('FormationService', () => {
 		describe('quand le paramètre optionnel niveauEtude n’est pas présent', () => {
 			it('appelle formation avec la query sans le paramètre niveauEtude', async () => {
 				const httpClientService = anHttpClientService();
-				const formationService = new FormationService(httpClientService);
+				const formationService = new BffFormationService(httpClientService);
 				const formationQuery = {
 					codeRomes: ['D123', 'D122'],
 					distanceCommune: '30',
@@ -95,7 +95,7 @@ describe('FormationService', () => {
 
 	it("filtre les query params d'affichage", async () => {
 		const httpClientService = anHttpClientService();
-		const formationService = new FormationService(httpClientService);
+		const formationService = new BffFormationService(httpClientService);
 		const formationQuery: FormationQueryParams = {
 			...aCommuneQuery(),
 		};

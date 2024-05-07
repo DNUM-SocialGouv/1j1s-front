@@ -4,6 +4,7 @@ import { SearchClient } from 'algoliasearch-helper/types/algoliasearch';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { EulerianAnalyticsService } from '~/client/services/analytics/eulerian/eulerian.analytics.service';
 import { MatomoAnalyticsService } from '~/client/services/analytics/matomo/matomo.analytics.service';
+import { BffHttpClientService } from '~/client/services/bff.httpClient.service';
 import { CookiesService } from '~/client/services/cookies/cookies.service';
 import { NullCookiesService } from '~/client/services/cookies/null/null.cookies.service';
 import { TarteAuCitronCookiesService } from '~/client/services/cookies/tarteaucitron/tarteAuCitron.cookies.service';
@@ -12,16 +13,19 @@ import { JsDateService } from '~/client/services/date/js/js.date.service';
 import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
 import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import {
-	ÉtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.service';
+	BffEtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/bff.etablissementAccompagnement.service';
+import {
+	EtablissementAccompagnementService,
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import { BffEmploiEuropeService } from '~/client/services/europe/bff.emploiEurope.service';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
+import { BffFormationService } from '~/client/services/formation/bff.formation.service';
 import { FormationService } from '~/client/services/formation/formation.service';
 import {
 	FormationInitialeInterface,
 	FormationInitialeService,
 } from '~/client/services/formationInitiale/formationInitiale.service';
-import { HttpClientService } from '~/client/services/httpClient.service';
 import { BffLocalisationService } from '~/client/services/localisation/bff.localisation.service';
 import { LocalisationService } from '~/client/services/localisation/localisation.service';
 import { LoggerService } from '~/client/services/logger.service';
@@ -30,6 +34,7 @@ import { MarketingService } from '~/client/services/marketing/marketing.service'
 import { NullMarketingService } from '~/client/services/marketing/null/null.marketing.service';
 import { BffAlternanceMetierService } from '~/client/services/metiers/bff.alternance.metier.service';
 import { MetierService } from '~/client/services/metiers/metier.service';
+import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
@@ -81,7 +86,7 @@ export type Dependencies = {
 	rechercheClientService: SearchClient
 	stageService: StageService
 	youtubeService: VideoService
-	établissementAccompagnementService: ÉtablissementAccompagnementService
+	établissementAccompagnementService: EtablissementAccompagnementService
 	marketingService: MarketingService
 	dateService: DateService
 	emploiEuropeService: EmploiEuropeService
@@ -105,15 +110,15 @@ const getCookieService = () => {
 
 export default function dependenciesContainer(sessionId?: string): Dependencies {
 	const loggerService = new LoggerService(sessionId);
-	const httpClientService = new HttpClientService(sessionId, loggerService);
+	const httpClientService = new BffHttpClientService(sessionId, loggerService);
 	const metierLbaService = new BffAlternanceMetierService(httpClientService);
 	const metierStage3eEt2deService = new BffStage3eEt2deMetierService(httpClientService);
-	const formationService = new FormationService(httpClientService);
+	const formationService = new BffFormationService(httpClientService);
 	const formationInitialeService = new FormationInitialeService(httpClientService);
 	const localisationService = new BffLocalisationService(httpClientService);
-	const missionEngagementService = new MissionEngagementService(httpClientService);
+	const missionEngagementService = new BffMissionEngagementService(httpClientService);
 	const demandeDeContactService = new BffDemandeDeContactService(httpClientService);
-	const établissementAccompagnementService = new ÉtablissementAccompagnementService(httpClientService);
+	const établissementAccompagnementService = new BffEtablissementAccompagnementService(httpClientService);
 	const emploiEuropeService = new BffEmploiEuropeService(httpClientService);
 	const stageService = new BffStageService(httpClientService);
 	const cookiesService = getCookieService();

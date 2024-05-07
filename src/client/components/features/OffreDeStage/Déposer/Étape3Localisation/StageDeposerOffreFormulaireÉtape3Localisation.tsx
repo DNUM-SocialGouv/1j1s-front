@@ -15,7 +15,7 @@ import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSub
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { paysList } from '~/client/domain/pays';
-import { BffStageService } from '~/client/services/stage/bff.stage.service';
+import { StageService } from '~/client/services/stage/stage.service';
 import {
 	StageDeposerOffreEtape1PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
@@ -25,9 +25,7 @@ import {
 import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
-import {
-	URL_DEPOSER_OFFRE,
-} from '~/pages/stages/deposer-offre/index.page';
+import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
 
 enum LocalisationInputName {
 	PAYS = 'pays',
@@ -41,7 +39,7 @@ enum LocalisationInputName {
 export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 	const router = useRouter();
 	const [isModalErrorSubmitOpen, setIsModalErrorSubmitOpen] = useState<boolean>(false);
-	const stageService = useDependency<BffStageService>('stageService');
+	const stageService = useDependency<StageService>('stageService');
 
 	const formRef = useRef<HTMLFormElement>(null);
 

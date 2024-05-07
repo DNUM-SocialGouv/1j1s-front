@@ -1,12 +1,11 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { HttpClientService } from '~/client/services/httpClient.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { removeNullOrEmptyValue } from '~/client/utils/removeNullOrEmptyValue.util';
 import { Either } from '~/server/errors/either';
 import { OffreStageDepot } from '~/server/stages/domain/stages';
-
-import { HttpClientService } from '../httpClient.service';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 export class BffStageService implements StageService {
 	constructor(private httpClientService: HttpClientService) {

@@ -3,12 +3,9 @@ import { aStrapiService } from '~/server/cms/infra/repositories/strapi.service.f
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
-import { OffreStageDepot } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
-import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
-import { aStrapiOffreDeStage,aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
+import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
 import { StrapiStagesRepository } from '~/server/stages/repository/strapiStages.repository';
-import OffreDeStageDepot = OffreStageDepot.OffreDeStageDepot;
 
 
 const RESOURCE_OFFRE_DE_STAGE = 'offres-de-stage';
@@ -47,7 +44,8 @@ describe('strapiStagesRepository', () => {
 			const expectedFailure = createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
 			jest.spyOn(errorManagementService, 'handleFailureError').mockReturnValue(expectedFailure);
 			const slug = 'slug';
-			const offreDeStageAvecDonnéesErronées = aStrapiOffreDeStage({ domaines: 35 } as unknown as Partial<OffreStageResponseStrapi.OffreStage>);
+			// @ts-expect-error
+			const offreDeStageAvecDonnéesErronées = aStrapiOffreDeStage({ domaines: 35 });
 			jest.spyOn(strapiService, 'getFirstFromCollectionType').mockResolvedValue(createSuccess(offreDeStageAvecDonnéesErronées));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
 
@@ -137,12 +135,13 @@ describe('strapiStagesRepository', () => {
 			jest.spyOn(strapiService, 'save').mockResolvedValueOnce(createSuccess(offreSauvegarde));
 			const strapiStagesRepository = new StrapiStagesRepository(strapiService, errorManagementService);
 
-			const result = await strapiStagesRepository.saveOffreDeStage({
+			const resultSaveOffreEnErreur = await strapiStagesRepository.saveOffreDeStage({
 				...aStrapiOffreDeStage(),
+				// @ts-expect-error
 				employeur: null,
-			} as unknown as OffreDeStageDepot);
+			});
 
-			expect(result).toStrictEqual(expectedFailure);
+			expect(resultSaveOffreEnErreur).toStrictEqual(expectedFailure);
 			expect(errorManagementService.handleFailureError).toHaveBeenCalledWith(expect.any(Error), aLogInformation({
 				apiSource: 'Strapi - offre de stage',
 				contexte: 'save offre de stage',

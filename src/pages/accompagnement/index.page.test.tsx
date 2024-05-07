@@ -12,7 +12,7 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import {
 	anEtablissementAccompagnementService,
-} from '~/client/services/établissementAccompagnement/établissementAccompagnement.fixture';
+} from '~/client/services/établissementAccompagnement/etablissementAccompagnement.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import Accompagnement from '~/pages/accompagnement/index.page';
 

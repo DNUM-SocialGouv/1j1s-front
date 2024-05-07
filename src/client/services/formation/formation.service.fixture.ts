@@ -1,6 +1,6 @@
 import { FormationService } from '~/client/services/formation/formation.service';
 import { createSuccess } from '~/server/errors/either';
-import { NiveauRequis,RésultatRechercheFormation } from '~/server/formations/domain/formation';
+import { NiveauRequis, RésultatRechercheFormation } from '~/server/formations/domain/formation';
 
 export const aRésultatFormation = (): Array<RésultatRechercheFormation> => [
 	{
@@ -12,10 +12,8 @@ export const aRésultatFormation = (): Array<RésultatRechercheFormation> => [
 	},
 ];
 
-export function aFormationService(
-	rechercherFormationValue = aRésultatFormation(),
-): FormationService {
+export function aFormationService(rechercherFormationValue = aRésultatFormation()): FormationService {
 	return {
 		rechercherFormation: jest.fn().mockResolvedValue(createSuccess(rechercherFormationValue)),
-	} as unknown as FormationService;
+	};
 }

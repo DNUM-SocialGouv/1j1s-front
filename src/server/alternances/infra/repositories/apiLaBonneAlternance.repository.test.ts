@@ -1,5 +1,4 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
 	aLaBonneAlternanceApiJobsResponse,
 	aMatchaResponse,
@@ -11,10 +10,7 @@ import {
 import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { ApiValidationError } from '~/server/services/error/apiValidationError';
-import {
-	aLogInformation,
-	anErrorManagementService,
-} from '~/server/services/error/errorManagement.fixture';
+import { aLogInformation, anErrorManagementService } from '~/server/services/error/errorManagement.fixture';
 import { anHttpError } from '~/server/services/http/httpError.fixture';
 import { anAxiosResponse, aPublicHttpClientService } from '~/server/services/http/publicHttpClient.service.fixture';
 
@@ -83,10 +79,10 @@ describe('ApiLaBonneAlternanceRepository', () => {
 						aMatchaResponse(
 							{
 								job: {
+									// @ts-expect-error
 									id: 1,
 								},
-							} as unknown as Partial<AlternanceApiJobsResponse.Matcha>,
-							// NOTE (DORO 2023-08-29) : utilisation du as unknown as Partial<AlternanceApiJobsResponse.Matcha> pour forcer un type incorrect
+							},
 						),
 					],
 				},

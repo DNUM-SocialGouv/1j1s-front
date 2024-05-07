@@ -1,6 +1,8 @@
 import React, { FormEvent, useState } from 'react';
 
-import { DéchargeRGPD } from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD';
+import {
+	DéchargeRGPD,
+} from '~/client/components/features/ContratEngagementJeune/FormulaireContactCEJ/DechargeRGPD/DéchargeRGPD';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
@@ -9,7 +11,7 @@ import { Input } from '~/client/components/ui/Form/Input';
 import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
-import { BffDemandeDeContactService } from '~/client/services/demandeDeContact/bff.demandeDeContact.service';
+import { DemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service';
 import { isSuccess } from '~/server/errors/either';
 import { emailRegex } from '~/shared/emailRegex';
 import { telFrRegex } from '~/shared/telRegex';
@@ -24,7 +26,7 @@ interface FormulaireDeContactCEJProps {
 export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeContactCEJProps) {
 	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const demandeDeContactService = useDependency<BffDemandeDeContactService>('demandeDeContactService');
+	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
 	async function envoyerFormulaireDeContact(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
