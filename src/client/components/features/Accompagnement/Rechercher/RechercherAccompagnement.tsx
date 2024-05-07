@@ -145,7 +145,7 @@ function ListeÉtablissementAccompagnement({ résultatList }: ListeRésultatProp
 		<ListeRésultatsRechercherSolution aria-label="Établissements d‘accompagnement">
 			{résultatList.map((établissementAccompagnement: EtablissementAccompagnement) => (
 				<li key={établissementAccompagnement.id}>
-					<RésultatRechercherAccompagnement établissement={établissementAccompagnement}/>
+					<RésultatRechercherAccompagnement etablissement={établissementAccompagnement}/>
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>

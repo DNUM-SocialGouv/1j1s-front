@@ -14,11 +14,11 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import {
-	EtablissementAccompagnement, JourSemaine,
+	JourSemaine,
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
-	anEtablissementAccompagnement,
+	anEtablissementAccompagnement, anEtablissementAccompagnementAdresse,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 
 import { RésultatRechercherAccompagnement } from './RésultatRechercherAccompagnement';
@@ -33,23 +33,33 @@ const formulaireContact = {
 };
 
 describe('<RésultatRechercherAccompagnement/>', () => {
+	it('affiche adresse formatée', () => {
+		const etablissement = anEtablissementAccompagnement({
+			adresse: anEtablissementAccompagnementAdresse({
+				codePostal: '75011',
+				nomCommune: 'Paris',
+				numeroVoie: '29-31 rue des Boulets',
+			}),
+		});
+
+		render(<DependenciesProvider>
+			<RésultatRechercherAccompagnement etablissement={etablissement}/>
+		</DependenciesProvider>);
+
+		expect(screen.getByText('29-31 rue des Boulets, 75011 Paris')).toBeVisible();
+	});
 	describe('Quand le type d‘accompagnement est une mission locale', () => {
 		it('n‘affiche pas l‘email', () => {
 			// GIVEN
 			const email = 'email';
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
 				email: email,
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -59,18 +69,12 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('affiche le bouton "Je souhaite être contacté(e)"', () => {
 			// GIVEN
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
-				email: 'email',
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -85,18 +89,13 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 			// GIVEN
 			const email = 'email';
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
 				email: email,
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -109,18 +108,12 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('n‘affiche pas le bouton "Je souhaite être contacté(e)"', () => {
 			// GIVEN
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
-				email: 'email',
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -132,18 +125,13 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('n‘affiche pas "Voir les horaires d’ouverture"', () => {
 			// GIVEN
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
-				email: 'email',
 				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			// THEN
@@ -155,8 +143,6 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('affiche "Voir les horaires d’ouverture" et les horaires', async () => {
 			// GIVEN
 			const etablissement = anEtablissementAccompagnement({
-				adresse: 'address',
-				email: 'email',
 				horaires: [
 					{
 						heures: [
@@ -168,15 +154,12 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 						jour: JourSemaine.LUNDI,
 					},
 				],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
 				type: TypeÉtablissement.INFO_JEUNE,
 			});
 
 			// WHEN
 			render(<DependenciesProvider>
-				<RésultatRechercherAccompagnement établissement={etablissement}/>
+				<RésultatRechercherAccompagnement etablissement={etablissement}/>
 			</DependenciesProvider>);
 
 			await userEvent.click(screen.getByText('Voir les horaires d‘ouverture'));
@@ -196,21 +179,15 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 		it('je vois la modale de formulaire s‘afficher', async () => {
 			const user = userEvent.setup();
-			const établissement: EtablissementAccompagnement = {
-				adresse: 'address',
-				email: 'email',
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
+			const établissement = anEtablissementAccompagnement({
 				type: TypeÉtablissement.MISSION_LOCALE,
-			};
+			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
 			const localisationService = aLocalisationService();
 
 			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
 																	 localisationService={localisationService}>
-				<RésultatRechercherAccompagnement établissement={établissement}/>
+				<RésultatRechercherAccompagnement etablissement={établissement}/>
 			</DependenciesProvider>);
 
 			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -223,24 +200,17 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
 			// GIVEN
 			const user = userEvent.setup();
-			const établissement: EtablissementAccompagnement = {
-				adresse: 'address',
-				email: 'email',
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
+			const établissement = anEtablissementAccompagnement({
 				type: TypeÉtablissement.MISSION_LOCALE,
-			};
+			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			const localisationService = aLocalisationService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
-			}));
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
+
 			render(
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={localisationService}>
-					<RésultatRechercherAccompagnement établissement={établissement}/>
+					localisationService={aLocalisationService()}>
+					<RésultatRechercherAccompagnement etablissement={établissement}/>
 				</DependenciesProvider>);
 
 			const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -260,21 +230,16 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 		it('lorsque la demande de contact est un succès, affiche la modale de succès', async () => {
 			const user = userEvent.setup();
-			const établissement: EtablissementAccompagnement = {
-				adresse: 'address',
-				email: 'email',
-				horaires: [],
-				id: 'id',
-				nom: 'nom',
-				telephone: 'telephone',
+			const établissement = anEtablissementAccompagnement({
 				type: TypeÉtablissement.MISSION_LOCALE,
-			};
+			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			const localisationService = aLocalisationService();
 			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createSuccess(undefined));
-			render(<DependenciesProvider établissementAccompagnementService={établissementAccompagnementService}
-																	 localisationService={localisationService}>
-				<RésultatRechercherAccompagnement établissement={établissement}/>
+
+			render(<DependenciesProvider
+				établissementAccompagnementService={établissementAccompagnementService}
+				localisationService={aLocalisationService()}>
+				<RésultatRechercherAccompagnement etablissement={établissement}/>
 			</DependenciesProvider>);
 
 
@@ -292,24 +257,16 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 		describe('modale d‘erreur', () => {
 			it('lorsque l‘envoi de la demande de contact est en echec, affiche la modale d‘echec et ferme la modale de formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: EtablissementAccompagnement = {
-					adresse: 'address',
-					email: 'email',
-					horaires: [],
-					id: 'id',
-					nom: 'nom',
-					telephone: 'telephone',
+				const établissement = anEtablissementAccompagnement({
 					type: TypeÉtablissement.MISSION_LOCALE,
-				};
+				});
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
-				const localisationService = aLocalisationService();
-
 				jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(createFailure(ErreurMetier.SERVICE_INDISPONIBLE));
 
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
-					localisationService={localisationService}>
-					<RésultatRechercherAccompagnement établissement={établissement}/>
+					localisationService={aLocalisationService()}>
+					<RésultatRechercherAccompagnement etablissement={établissement}/>
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -326,15 +283,9 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Retour au formulaire, ouvre la modale de formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: EtablissementAccompagnement = {
-					adresse: 'address',
-					email: 'email',
-					horaires: [],
-					id: 'id',
-					nom: 'nom',
-					telephone: 'telephone',
+				const établissement = anEtablissementAccompagnement({
 					type: TypeÉtablissement.MISSION_LOCALE,
-				};
+				});
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
@@ -343,7 +294,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}>
-					<RésultatRechercherAccompagnement établissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement}/>
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
@@ -364,15 +315,9 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 
 			it('lorsque je ferme la modale d‘erreur avec le bouton Fermer, ferme la modale et ne re ouvre pas le formulaire', async () => {
 				const user = userEvent.setup();
-				const établissement: EtablissementAccompagnement = {
-					adresse: 'address',
-					email: 'email',
-					horaires: [],
-					id: 'id',
-					nom: 'nom',
-					telephone: 'telephone',
+				const établissement = anEtablissementAccompagnement({
 					type: TypeÉtablissement.MISSION_LOCALE,
-				};
+				});
 				const établissementAccompagnementService = anEtablissementAccompagnementService();
 				const localisationService = aLocalisationService();
 
@@ -381,7 +326,7 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				render(<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
 					localisationService={localisationService}>
-					<RésultatRechercherAccompagnement établissement={établissement}/>
+					<RésultatRechercherAccompagnement etablissement={établissement}/>
 				</DependenciesProvider>);
 
 				const buttonDemandeContact = screen.getAllByRole('button', { name: 'Je souhaite être contacté(e)' })[0];
