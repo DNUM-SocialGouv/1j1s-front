@@ -1,20 +1,21 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
+import { PersistanceService } from '~/client/services/persistance/persistance.service';
 
 import { StageDeposerOffreEtape2PersistenceService } from './stageDeposerOffreEtape2Persistence.service';
 
-const STAGE_DEPOSER_OFFRE_ETAPE_2_KEY = 'formulaireEtape2';
-
 export class SessionStorageStageDeposerOffreEtape2PersistenceService implements StageDeposerOffreEtape2PersistenceService {
+	private static STORAGE_KEY = 'formulaireEtape2';
+	constructor(private storage: PersistanceService) {}
+
 	getInformationsEtape2(): OffreDeStageDeposee.Stage | null {
-		const item = sessionStorage.getItem(STAGE_DEPOSER_OFFRE_ETAPE_2_KEY);
-		return item ? JSON.parse(item) : null;
+		return this.storage.get(SessionStorageStageDeposerOffreEtape2PersistenceService.STORAGE_KEY);
 	}
 
 	setInformationsEtape2(informations: OffreDeStageDeposee.Stage): void {
-		sessionStorage.setItem(STAGE_DEPOSER_OFFRE_ETAPE_2_KEY, JSON.stringify(informations));
+		this.storage.set(SessionStorageStageDeposerOffreEtape2PersistenceService.STORAGE_KEY, informations);
 	}
 
 	removeInformationsEtape2(): void {
-		sessionStorage.removeItem(STAGE_DEPOSER_OFFRE_ETAPE_2_KEY);
+		this.storage.remove(SessionStorageStageDeposerOffreEtape2PersistenceService.STORAGE_KEY);
 	}
 }
