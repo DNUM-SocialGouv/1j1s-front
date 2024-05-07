@@ -36,6 +36,7 @@ import { BffAlternanceMetierService } from '~/client/services/metiers/bff.altern
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
+import { BrowserPersistanceService } from '~/client/services/persistance/browser.persistance.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
@@ -94,6 +95,8 @@ export type Dependencies = {
 	stageDeposerOffreEtape1PersistenceService: StageDeposerOffreEtape1PersistenceService
 	stageDeposerOffreEtape2PersistenceService: StageDeposerOffreEtape2PersistenceService
 	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
+	localStorageService?: BrowserPersistanceService
+	sessionStorageService?: BrowserPersistanceService
 }
 
 class DependencyInitException extends Error {
@@ -155,15 +158,23 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const stageDeposerOffreEtape1PersistenceService = isStorageAvailable('localStorage')
+	let localStorageService: BrowserPersistanceService | undefined;
+	if (isStorageAvailable('localStorage')) {
+		localStorageService = new BrowserPersistanceService(window.localStorage);
+	}
+	let sessionStorageService: BrowserPersistanceService | undefined;
+	if (isStorageAvailable('sessionStorage')) {
+		sessionStorageService = new BrowserPersistanceService(window.sessionStorage);
+	}
+	const stageDeposerOffreEtape1PersistenceService = localStorageService
 		? new LocalStorageStageDeposerOffreEtape1PersistenceService()
 		: new NullStageDeposerOffreEtape1PersistenceService();
 
-	const stageDeposerOffreEtape2PersistenceService = isStorageAvailable('sessionStorage')
+	const stageDeposerOffreEtape2PersistenceService = sessionStorageService
 		? new SessionStorageStageDeposerOffreEtape2PersistenceService()
 		: new NullStageDeposerOffreEtape2PersistenceService();
 
-	const stageDeposerOffreEtape3PersistenceService = isStorageAvailable('localStorage')
+	const stageDeposerOffreEtape3PersistenceService = localStorageService
 		? new LocalStorageStageDeposerOffreEtape3PersistenceService()
 		: new NullStageDeposerOffreEtape3PersistenceService();
 
@@ -178,9 +189,11 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		localisationService,
 		marketingService,
 		metierLbaService,
+		localStorageService,
 		metierStage3eEt2deService,
 		missionEngagementService,
 		rechercheClientService,
+		sessionStorageService,
 		stage3eEt2deService,
 		stageDeposerOffreEtape1PersistenceService,
 		stageDeposerOffreEtape2PersistenceService,
