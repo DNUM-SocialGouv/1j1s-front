@@ -77,7 +77,7 @@
     "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "cypress": "13.8.1",
-    "eslint": "8.57.0",
+    "eslint": "9.2.0",
     "eslint-config-next": "14.2.3",
     "eslint-plugin-cypress": "3.2.0",
     "eslint-plugin-storybook": "0.8.0",
@@ -96,7 +96,7 @@
   },
   "overrides": {
     "@socialgouv/eslint-config-recommended": {
-      "eslint": "^8.28.0"
+      "eslint": "^9.0.0"
     }
   },
   "lint-staged": {
