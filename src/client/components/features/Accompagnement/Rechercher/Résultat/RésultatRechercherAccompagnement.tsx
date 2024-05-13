@@ -81,9 +81,9 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 		</>;
 	}
 
-	function getAdressFormated(adresse: EtablissementAccompagnement.Adresse) {
-		return `${adresse.numeroVoie}, ${adresse.codePostal} ${adresse.nomCommune}`;
-	}
+	const Address = ({ address, className }: { address: EtablissementAccompagnement.Adresse} & React.HTMLAttributes<HTMLSpanElement>) => {
+		return <span className={className}>{`${address.numeroVoie}, ${address.codePostal} ${address.nomCommune}`}</span>;
+	};
 
 	return (
 		<>
@@ -94,7 +94,7 @@ export function RésultatRechercherAccompagnement({ etablissement }: RésultatRe
 						<Card.Title className={styles.title} titleAs={'h3'}>
 							{etablissement.nom}
 						</Card.Title>
-						{adresse && <span className={styles.address}>{getAdressFormated(adresse)}</span>}
+						{adresse && <Address className={styles.address} address={adresse}/>}
 					</div>
 					<RésultatRechercherAccompagnementTagsList etablissement={etablissement}/>
 
