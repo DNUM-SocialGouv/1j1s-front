@@ -6,8 +6,9 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import { useLocale } from '~/client/context/locale.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
+import { DateService } from '~/client/services/date/date.service';
 import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
@@ -17,13 +18,14 @@ function toISODate(date: Date) {
 }
 
 export function Detail({ annonce }: { annonce: Alternance }) {
-	const locale = useLocale();
-
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
 	const description = useSanitize(annonce.description);
 	const descriptionEmployeur = useSanitize(annonce.descriptionEmployeur);
+
+	const dateService = useDependency<DateService>('dateService');
+	const dateFormated = annonce.dateDébut && dateService.formatToHumanReadableDate(annonce.dateDébut);
 
 	return (
 		<ConsulterOffreLayout>
@@ -32,17 +34,17 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList className={styles.tags} list={annonce.tags}/>
 				{isFranceTravail(annonce.source) && annonce.lienPostuler &&
-            <Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur France Travail<Link.Icon/></Link>
+					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur France Travail<Link.Icon/></Link>
 				}
 				{isMatcha(annonce.source) && annonce.id &&
-            <ButtonComponent
-            	appearance={'primary'}
-            	icon={<Icon name="arrow-right"/>}
-            	iconPosition="right"
-            	className={styles.postuler}
-            	label={'Postuler'}
-            	onClick={() => toggleModal()}
-            />
+					<ButtonComponent
+						appearance={'primary'}
+						icon={<Icon name="arrow-right"/>}
+						iconPosition="right"
+						className={styles.postuler}
+						label={'Postuler'}
+						onClick={() => toggleModal()}
+					/>
 				}
 			</header>
 			<section>
@@ -79,7 +81,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 						<div className={styles.dateDebut}>
 							<dt>Début du contrat</dt>
 							<dd>
-								<time dateTime={toISODate(annonce.dateDébut)}>{annonce.dateDébut.toLocaleDateString(locale, { dateStyle: 'long' })}</time>
+								<time dateTime={toISODate(annonce.dateDébut)}>{dateFormated}</time>
 							</dd>
 						</div>
 					)}

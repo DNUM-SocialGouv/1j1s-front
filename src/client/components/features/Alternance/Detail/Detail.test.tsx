@@ -8,7 +8,8 @@ import { userEvent } from '@testing-library/user-event';
 import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
 import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { LocaleProvider } from '~/client/context/locale.context';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import { queries } from '~/test-utils';
 
@@ -20,7 +21,9 @@ describe('<Detail />', () => {
 	it('affiche le titre de l’annonce comme titre principal', () => {
 		const annonce = aDetailAlternance({ titre: 'Ma super alternance' });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const titre = screen.getByRole('heading', { level: 1 });
 		expect(titre).toHaveTextContent('Ma super alternance');
@@ -29,7 +32,9 @@ describe('<Detail />', () => {
 	it('affiche le nom de l’entreprise', () => {
 		const annonce = aDetailAlternance({ entreprise: { nom: 'Ma super entreprise' } });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const entreprise = screen.getByText('Ma super entreprise');
 		expect(entreprise).toBeVisible();
@@ -38,7 +43,9 @@ describe('<Detail />', () => {
 		it('affiche le lien pour postuler', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
@@ -48,7 +55,9 @@ describe('<Detail />', () => {
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
@@ -58,7 +67,9 @@ describe('<Detail />', () => {
 			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
 			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.FRANCE_TRAVAIL });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const bouton = screen.queryByRole('button', { name: /Postuler/i });
 
@@ -69,7 +80,9 @@ describe('<Detail />', () => {
 		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
@@ -84,7 +97,9 @@ describe('<Detail />', () => {
 			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
 			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const bouton = screen.getByRole('button', { name: /Postuler/i });
 			expect(bouton).toBeVisible();
@@ -98,7 +113,9 @@ describe('<Detail />', () => {
 		it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
 			const annonce = aDetailAlternance({ id: undefined });
 
-			render(<Detail annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const bouton = screen.queryByRole('button', { name: /Postuler/i });
 
@@ -108,7 +125,9 @@ describe('<Detail />', () => {
 	it('affiche la description du contrat', () => {
 		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Description du poste');
 		expect(description).toBeVisible();
@@ -118,7 +137,9 @@ describe('<Detail />', () => {
 		it('affiche la description du contrat', () => {
 			const annonce = aDetailAlternance({ description: "<p>C'est une super alternance !</p>" });
 
-			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description du poste');
 			expect(description).toBeVisible();
@@ -129,7 +150,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de description du contrat lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ description: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Description du contrat');
 		expect(term).not.toBeInTheDocument();
@@ -137,7 +160,9 @@ describe('<Detail />', () => {
 	it('affiche la description de l’entreprise', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: "C'est une super entreprise !" });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Description de l’entreprise');
 		expect(description).toBeVisible();
@@ -147,7 +172,9 @@ describe('<Detail />', () => {
 		it('affiche la description de l’entreprise', () => {
 			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
 
-			const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+				<Detail annonce={annonce}/>
+			</DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description de l’entreprise');
 			expect(description).toBeVisible();
@@ -158,7 +185,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de description de l’entreprise lorsque non-renseignée', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Description de l’entreprise');
 		expect(term).not.toBeInTheDocument();
@@ -166,7 +195,9 @@ describe('<Detail />', () => {
 	it('affiche les compétences requises', () => {
 		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Connaissances et compétences requises');
 		expect(description).toBeVisible();
@@ -180,7 +211,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des compétences requises lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ compétences: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Connaissances et compétences requises');
 		expect(term).not.toBeInTheDocument();
@@ -188,7 +221,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise', () => {
 		const annonce = aDetailAlternance({ compétences: [] });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Connaissances et compétences requises');
 		expect(term).not.toBeInTheDocument();
@@ -196,7 +231,9 @@ describe('<Detail />', () => {
 	it('affiche le niveau requis', () => {
 		const annonce = aDetailAlternance({ niveauRequis: 'CAP' });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const niveauRequis = getByDescriptionTerm('Niveau visé en fin d’études');
 		expect(niveauRequis).toBeVisible();
@@ -205,16 +242,21 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de niveau requis lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ niveauRequis: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Niveau requis');
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche la date de début de contrat', () => {
 		const annonce = aDetailAlternance({ dateDébut: new Date('2022-01-01') });
+		const dateService = aDateService();
+		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 
-		const { getByDescriptionTerm } = render(<LocaleProvider value={'fr'}><Detail
-			annonce={annonce}/></LocaleProvider>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={dateService}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const dateDébut = getByDescriptionTerm('Début du contrat');
 		expect(dateDébut).toHaveTextContent('1 janvier 2022');
@@ -225,7 +267,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de la date de début de contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ dateDébut: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Début du contrat');
 		expect(term).not.toBeInTheDocument();
@@ -233,7 +277,9 @@ describe('<Detail />', () => {
 	it('affiche le type de contrat', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: ['Alternance'] });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const typeDeContrat = getByDescriptionTerm('Type de contrat');
 		expect(typeDeContrat).toBeVisible();
@@ -242,7 +288,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de type de contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Type de contrat');
 		expect(term).not.toBeInTheDocument();
@@ -250,7 +298,9 @@ describe('<Detail />', () => {
 	it('affiche la nature du contrat', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: 'CDI' });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const typeDeContrat = getByDescriptionTerm('Nature du contrat');
 		expect(typeDeContrat).toBeVisible();
@@ -259,7 +309,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de nature du contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Nature du contrat');
 		expect(term).not.toBeInTheDocument();
@@ -267,7 +319,9 @@ describe('<Detail />', () => {
 	it('affiche la durée du contrat', () => {
 		const annonce = aDetailAlternance({ durée: '4 ans' });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const durée = getByDescriptionTerm('Durée du contrat');
 		expect(durée).toHaveTextContent('4 ans');
@@ -278,7 +332,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de la durée du contrat lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ durée: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Durée du contrat');
 		expect(term).not.toBeInTheDocument();
@@ -286,7 +342,9 @@ describe('<Detail />', () => {
 	it('affiche le rythme de l’alternance', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: '1 jour par semaine' });
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const rythmeAlternance = getByDescriptionTerm('Rythme de l’alternance');
 		expect(rythmeAlternance).toBeVisible();
@@ -295,7 +353,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc de rythme de l’alternance lorsque non-renseignées', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: undefined });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Rythme de l’alternance');
 		expect(term).not.toBeInTheDocument();
@@ -308,7 +368,9 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');
 		expect(entreprise).toBeVisible();
@@ -320,7 +382,9 @@ describe('<Detail />', () => {
 	it('n’affiche pas le bloc des contacts d’entreprise lorsqu’aucun n’est renseignées', () => {
 		const annonce = aDetailAlternance({ entreprise: {} });
 
-		render(<Detail annonce={annonce}/>);
+		render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>);
 
 		const term = screen.queryByText('Informations sur l’entreprise');
 		expect(term).not.toBeInTheDocument();
@@ -333,7 +397,9 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');
 		expect(entreprise).toBeVisible();
@@ -351,7 +417,9 @@ describe('<Detail />', () => {
 			},
 		});
 
-		const { getByDescriptionTerm } = render(<Detail annonce={annonce}/>, { queries });
+		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
+			<Detail annonce={annonce}/>
+		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');
 		expect(entreprise).toBeVisible();

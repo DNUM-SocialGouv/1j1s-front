@@ -3,7 +3,8 @@ import React from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { SquareMeter } from '~/client/components/ui/SquareMeter/SquareMeter';
-import { useLocale } from '~/client/context/locale.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DateService } from '~/client/services/date/date.service';
 import formatLocalisation from '~/client/utils/formatLocalisation.util';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 
@@ -38,11 +39,10 @@ export function InformationsGénérales({
 		typeBien,
 		meublé,
 		localisation,
-		dateDeDisponibilité: dateDeDisponibilitéString,
+		dateDeDisponibilité,
 	},
 }: InformationsGénéralesProps) {
-	const locale = useLocale();
-	const dateDeDisponibilité = new Date(dateDeDisponibilitéString);
+	const dateService = useDependency<DateService>('dateService');
 	const localisationAffichable = formatLocalisation(localisation);
 	return (
 		<section className={classNames(styles.card, styles.informationsGenerales)} aria-labelledby="informations-annonce-title">
@@ -113,9 +113,10 @@ export function InformationsGénérales({
 				<tbody>
 					<tr>
 						<th scope="row">Disponible</th>
-						<td>le <time dateTime={dateDeDisponibilité.toISOString()} lang={locale}>
-							{dateDeDisponibilité.toLocaleDateString(locale, { dateStyle: 'long' })}
-						</time></td>
+						<td>le <time dateTime={dateDeDisponibilité.toISOString()}>
+							{dateService.formatToHumanReadableDate(dateDeDisponibilité)}
+						</time>
+						</td>
 					</tr>
 				</tbody>
 			</table>

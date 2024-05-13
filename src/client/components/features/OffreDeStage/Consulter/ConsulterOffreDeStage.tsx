@@ -6,7 +6,9 @@ import { ConsulterOffreLayout } from '~/client/components/layouts/ConsulterOffre
 import { Link } from '~/client/components/ui/Link/Link';
 import { getHtmlFromMd } from '~/client/components/ui/MarkdownToHtml/getHtmlFromMd';
 import { TagList } from '~/client/components/ui/Tag/TagList';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
+import { DateService } from '~/client/services/date/date.service';
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
 import { OffreDeStage } from '~/server/stages/domain/stages';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
@@ -32,6 +34,14 @@ const LABEL_AUCUNE_REMUNERATION = 'Aucune';
 const LABEL_REMUNERATION_NON_RENSEIGNEE = 'Non renseignée';
 
 export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStageProps) {
+	const dateService = useDependency<DateService>('dateService');
+
+	const formatDate = useCallback((dateDebutMin: string, dateDebutMax?: string) => {
+		if (!dateDebutMax || dateDebutMin === dateDebutMax) return `Débute le ${dateService.formatToHumanReadableDate(new Date(dateDebutMin))}`;
+
+		return `Débute entre le ${dateService.formatToHumanReadableDate(new Date(dateDebutMin))} et le ${dateService.formatToHumanReadableDate(new Date(dateDebutMax))}`;
+	}, [dateService]);
+
 	const listeEtiquettes = useMemo(() => {
 		const domainesWithoutNonRenseigne = offreDeStage.domaines
 			? offreDeStage.domaines
@@ -47,14 +57,10 @@ export function ConsulterOffreDeStage({ offreDeStage }: ConsulterOffreDeStagePro
 		}
 		tags.push(dureeCategorisee(offreDeStage.dureeEnJour || 0));
 		if (offreDeStage.dateDeDebutMin) {
-			tags.push(
-				offreDeStage.dateDeDebutMax && offreDeStage.dateDeDebutMin !== offreDeStage.dateDeDebutMax
-					? `Débute entre le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()} et ${new Date(offreDeStage.dateDeDebutMax).toLocaleDateString()}`
-					: `Débute le : ${new Date(offreDeStage.dateDeDebutMin).toLocaleDateString()}`,
-			);
+			tags.push(formatDate(offreDeStage.dateDeDebutMin, offreDeStage.dateDeDebutMax));
 		}
 		return tags;
-	}, [offreDeStage]);
+	}, [offreDeStage, formatDate]);
 
 	const descriptionEmployeurHtmlSanitiezd = useSanitize(offreDeStage.employeur?.description && getHtmlFromMd(offreDeStage.employeur.description));
 	const descriptionHtmlSanitized = useSanitize(getHtmlFromMd(offreDeStage.description));

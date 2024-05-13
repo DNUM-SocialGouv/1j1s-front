@@ -46,7 +46,6 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 		urlDeCandidature,
 		bilanEnergetique,
 	} = annonceDeLogement;
-
 	return (
 		<main id="contenu" className={styles.gridLayout}>
 			<BackButton className={styles.boutonRetour}/>
@@ -54,7 +53,7 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 			<AnnonceCarousel imageUrlList={imageList}/>
 			<AnnonceEntête>
 				<h1>{titre}</h1>
-				<DateMiseÀJour date={new Date(dateDeMiseAJour)}/>
+				<DateMiseÀJour date={dateDeMiseAJour}/>
 				<TypeBien>{type} - {typeBien}</TypeBien>
 			</AnnonceEntête>
 			<Container className={styles.annonceBody}>
@@ -70,11 +69,8 @@ export function ConsulterAnnonce({ annonceDeLogement }: ConsulterAnnonceDeLogeme
 				<CandidaterDesktop source={source} urlDeCandidature={urlDeCandidature} data-testid="source-annonce-desktop"/>
 			</Container>
 			<div className={styles.lienDeCandidatureMobile}>
-				<Link
-					appearance="asPrimaryButton"
-					href={urlDeCandidature}
-				>
-            Voir l‘annonce
+				<Link appearance="asPrimaryButton" href={urlDeCandidature}>
+					Voir l‘annonce
 					<Link.Icon/>
 				</Link>
 			</div>
@@ -101,6 +97,7 @@ type AnnonceSourceProps = {
 	source: AnnonceDeLogement.Source
 	className?: string
 }
+
 function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 	switch (source) {
 		case 'immojeune':
@@ -112,7 +109,8 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 		case 'studapart':
 			return (
 				<span className={classNames(styles.source, className)} {...rest}>
-						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95" height="44"/>
+						Ce bien est diffusé par <Image src="/images/logement/studapart.webp" alt="studapart" width="95"
+																					 height="44"/>
 				</span>
 			);
 		default:
@@ -120,11 +118,8 @@ function AnnonceSource({ source, className, ...rest }: AnnonceSourceProps) {
 	}
 }
 
-function CandidaterDesktop({
-														 source,
-														 urlDeCandidature,
-	...rest
-													 }: { source: AnnonceDeLogement.Source, urlDeCandidature: string }) {
+type CandidaterDesktopProps = { source: AnnonceDeLogement.Source, urlDeCandidature: string }
+function CandidaterDesktop({ source, urlDeCandidature, ...rest }: CandidaterDesktopProps) {
 	return (
 		<div className={classNames(styles.cardCandidater)} {...rest}>
 			<AnnonceSource source={source}/>

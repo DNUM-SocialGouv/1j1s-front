@@ -10,6 +10,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 import Entreprendre from '~/pages/entreprendre/index.page';
 
 describe('<Entreprendre />', () => {
@@ -17,9 +18,13 @@ describe('<Entreprendre />', () => {
 		mockUseRouter({});
 		mockSmallScreen();
 
-		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-			<Entreprendre/>
-		</DependenciesProvider> );
+		const { container } = render(
+			<DependenciesProvider
+				analyticsService={aManualAnalyticsService()}
+				dateService={aDateService()}>
+				<Entreprendre/>
+			</DependenciesProvider>,
+		);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -31,8 +36,9 @@ describe('<Entreprendre />', () => {
 		const { container } = render(
 			<DependenciesProvider
 				analyticsService={aManualAnalyticsService()}
+				dateService={aDateService()}
 			>
-				<Entreprendre />);
+				<Entreprendre/>);
 			</DependenciesProvider>);
 
 		await expect(container).toBeAccessible();
