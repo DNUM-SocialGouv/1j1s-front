@@ -24,14 +24,15 @@ import {
 import styles from './RésultatRechercherAccompagnement.module.scss';
 
 export interface RésultatRechercherAccompagnementProps {
-	établissement: EtablissementAccompagnement
+	etablissement: EtablissementAccompagnement
 }
 
-export function RésultatRechercherAccompagnement({ établissement }: RésultatRechercherAccompagnementProps) {
+export function RésultatRechercherAccompagnement({ etablissement }: RésultatRechercherAccompagnementProps) {
 
-	const isMissionLocale = établissement.type === TypeÉtablissement.MISSION_LOCALE;
+	const isMissionLocale = etablissement.type === TypeÉtablissement.MISSION_LOCALE;
 	const [isPopInOpen, setIsPopInOpen] = useState(false);
-	const logoÉtablissement = useAccompagnementLogo(établissement.type);
+	const logoÉtablissement = useAccompagnementLogo(etablissement.type);
+	const adresse = etablissement.adresse;
 
 	const openContactÉtablissementModal = useCallback(() => {
 		setIsPopInOpen(true);
@@ -80,6 +81,10 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 		</>;
 	}
 
+	const Address = ({ address, className }: { address: EtablissementAccompagnement.Adresse} & React.HTMLAttributes<HTMLSpanElement>) => {
+		return <span className={className}>{`${address.numeroVoie}, ${address.codePostal} ${address.nomCommune}`}</span>;
+	};
+
 	return (
 		<>
 			<Card layout={'vertical'} className={styles.card}>
@@ -87,18 +92,18 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 					<Card.Image className={styles.logo} src={logoÉtablissement} aria-hidden/>
 					<div className={styles.mainInfoEtablissement}>
 						<Card.Title className={styles.title} titleAs={'h3'}>
-							{établissement.nom}
+							{etablissement.nom}
 						</Card.Title>
-						{établissement.adresse && <span className={styles.address}>{établissement.adresse}</span>}
+						{adresse && <Address className={styles.address} address={adresse}/>}
 					</div>
-					<RésultatRechercherAccompagnementTagsList etablissement={établissement}/>
+					<RésultatRechercherAccompagnementTagsList etablissement={etablissement}/>
 
-					{établissement.horaires && établissement.horaires.length > 0 &&
+					{etablissement.horaires && etablissement.horaires.length > 0 &&
 						<details className={styles.details}>
 							<summary className={styles.summary}>Voir les horaires d‘ouverture</summary>
 							<div className={styles.horaireBackground}>
 								<ol className={styles.listeHoraire}>
-									{établissement.horaires.map((horaire) => (
+									{etablissement.horaires.map((horaire) => (
 										<li key={horaire.jour} className={styles.horaireElement}>
 											<HorairesResultatRechercherAccompagnement horaire={horaire}/>
 										</li>
@@ -109,18 +114,18 @@ export function RésultatRechercherAccompagnement({ établissement }: RésultatR
 					}
 
 					{
-						établissement.email && (isMissionLocale ? <ContactButton/>
-							: <MailLink établissement={établissement}/>)
+						etablissement.email && (isMissionLocale ? <ContactButton/>
+							: <MailLink établissement={etablissement}/>)
 					}
 				</Card.Content>
 			</Card>
 			{
-				isMissionLocale && établissement.email &&
+				isMissionLocale && etablissement.email &&
 				<ModalDemandeDeContactAccompagnement
 					contactÉtablissementAccompagnement={{
-						email: établissement.email,
-						nom: établissement.nom,
-						type: établissement.type,
+						email: etablissement.email,
+						nom: etablissement.nom,
+						type: etablissement.type,
 					}}
 					isOpen={isPopInOpen}
 					setIsOpen={setIsPopInOpen}

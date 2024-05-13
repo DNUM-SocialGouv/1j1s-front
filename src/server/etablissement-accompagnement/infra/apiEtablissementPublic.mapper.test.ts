@@ -3,7 +3,7 @@ import {
 	TypeÉtablissement,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
-	anEtablissementAccompagnement,
+	anEtablissementAccompagnement, anEtablissementAccompagnementAdresse,
 	anEtablissementAccompagnementList,
 } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
 import {
@@ -38,7 +38,10 @@ describe('mapÉtablissementAccompagnement', () => {
 			})];
 			const result = mapEtablissementPublicAccompagnement(resultatRechercheEtablissementPublicResponse);
 
-			expect(result).toEqual([anEtablissementAccompagnement({ nom: 'un établissement avec un type correct', type: TypeÉtablissement.INFO_JEUNE })]);
+			expect(result).toEqual([anEtablissementAccompagnement({
+				nom: 'un établissement avec un type correct',
+				type: TypeÉtablissement.INFO_JEUNE,
+			})]);
 		});
 
 		it('lorsque le type d‘établissement est correcte, renvoie l‘établissement', () => {
@@ -88,7 +91,13 @@ describe('mapÉtablissementAccompagnement', () => {
 
 			const result = mapEtablissementPublicAccompagnement([anEtablissement]);
 
-			expect(result).toEqual([anEtablissementAccompagnement({ adresse: '1 rue Daniel Huet, 14053 Caen' })]);
+			expect(result).toEqual([anEtablissementAccompagnement({
+				adresse: anEtablissementAccompagnementAdresse({
+					codePostal: '14053',
+					nomCommune: 'Caen',
+					numeroVoie: '1 rue Daniel Huet',
+				}),
+			})]);
 		});
 	});
 
@@ -146,7 +155,10 @@ describe('mapÉtablissementAccompagnement', () => {
 			expect(result).toEqual([anEtablissementAccompagnement({
 				horaires: [
 					{ heures: [], jour: JourSemaine.LUNDI },
-					{ heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }], jour: JourSemaine.MARDI },
+					{
+						heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }],
+						jour: JourSemaine.MARDI,
+					},
 					{ heures: [], jour: JourSemaine.MERCREDI },
 					{ heures: [{ début: '09:00:00', fin: '11:30:00' }], jour: JourSemaine.JEUDI },
 					{ heures: [], jour: JourSemaine.VENDREDI },
@@ -184,8 +196,14 @@ describe('mapÉtablissementAccompagnement', () => {
 					{ heures: [{ début: '09:00:00', fin: '11:30:00' }], jour: JourSemaine.MARDI },
 					{ heures: [{ début: '09:00:00', fin: '11:30:00' }], jour: JourSemaine.MERCREDI },
 					{ heures: [{ début: '09:00:00', fin: '11:30:00' }], jour: JourSemaine.JEUDI },
-					{ heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }], jour: JourSemaine.VENDREDI },
-					{ heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }], jour: JourSemaine.SAMEDI },
+					{
+						heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }],
+						jour: JourSemaine.VENDREDI,
+					},
+					{
+						heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }],
+						jour: JourSemaine.SAMEDI,
+					},
 					{ heures: [], jour: JourSemaine.DIMANCHE },
 				],
 			})]);
@@ -217,7 +235,10 @@ describe('mapÉtablissementAccompagnement', () => {
 			expect(result).toEqual([anEtablissementAccompagnement({
 				horaires: [
 					{ heures: [], jour: JourSemaine.LUNDI },
-					{ heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }], jour: JourSemaine.MARDI },
+					{
+						heures: [{ début: '09:00:00', fin: '11:30:00' }, { début: '13:30:00', fin: '16:30:00' }],
+						jour: JourSemaine.MARDI,
+					},
 					{ heures: [], jour: JourSemaine.MERCREDI },
 					{ heures: [], jour: JourSemaine.JEUDI },
 					{ heures: [], jour: JourSemaine.VENDREDI },
