@@ -11,7 +11,6 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DateService } from '~/client/services/date/date.service';
-import { JsDateService } from '~/client/services/date/js/js.date.service';
 
 const TYPE_DE_LOGEMENT_INTERGENERATIONNEL = 'habitation intergénérationnelle';
 
@@ -19,7 +18,7 @@ export function AnnonceDeLogement(props: HitProps<AnnonceDeLogementIndexee>) {
 	const annonce = props.hit;
 	const typeDeLogement = annonce.type === TYPE_DE_LOGEMENT_INTERGENERATIONNEL ? 'intergénérationnel' : annonce.type;
 	const dateService = useDependency<DateService>('dateService');
-	const dateDeLAnnonce = dateService.formatToHumanReadableDate(annonce.dateDeMiseAJour);
+	const dateDeLAnnonce = dateService.formatToHumanReadableDate(new Date(annonce.dateDeMiseAJour));
 
 	return (
 		<Card layout="vertical" className={styles.Card}>

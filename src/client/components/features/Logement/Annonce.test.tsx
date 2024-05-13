@@ -9,6 +9,8 @@ import {
 
 import { AnnonceDeLogement } from '~/client/components/features/Logement/Annonce';
 import { AnnonceDeLogementIndexee } from '~/client/components/features/Logement/AnnonceDeLogementIndexee';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 
 
 const anAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): AnnonceDeLogementIndexee => {
@@ -30,20 +32,17 @@ const anAnnonceDeLogement = (override?: Partial<AnnonceDeLogementIndexee>): Anno
 	};
 };
 
-const mockDate = jest.spyOn(Date.prototype, 'toLocaleDateString').mockReturnValue('12/4/2022');
 
 describe('Annonce Component', () => {
-	afterAll(() => {
-		mockDate.mockRestore();
-	});
-
 	describe('quand il n‘y a pas d‘image', () => {
 		it('contient une image par défaut', () => {
 			render(
-				<AnnonceDeLogement
-					hit={anAnnonceDeLogement({ imagesUrl: [] })}
-					sendEvent={jest.fn()}
-				/>,
+				<DependenciesProvider dateService={aDateService()}>
+					<AnnonceDeLogement
+						hit={anAnnonceDeLogement({ imagesUrl: [] })}
+						sendEvent={jest.fn()}
+					/>
+				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('img');
 			expect(image.src).toContain('%2Fimages%2Fimage-par-defaut-carte.webp'); // %2F => /
@@ -53,10 +52,12 @@ describe('Annonce Component', () => {
 	describe("quand il n'y a qu‘une image", () => {
 		it('contient l‘image', () => {
 			render(
-				<AnnonceDeLogement
-					hit={anAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
-					sendEvent={jest.fn()}
-				/>,
+				<DependenciesProvider dateService={aDateService()}>
+					<AnnonceDeLogement
+						hit={anAnnonceDeLogement({ imagesUrl: ['/image-0.jpg'] })}
+						sendEvent={jest.fn()}
+					/>
+				</DependenciesProvider>,
 			);
 			const image: HTMLImageElement = screen.getByRole('img');
 			expect(image.src).toContain('image-0.jpg');
@@ -66,10 +67,12 @@ describe('Annonce Component', () => {
 	describe('quand il y a plusieurs images', () => {
 		it('contient un carousel d‘images', () => {
 			render(
-				<AnnonceDeLogement
-					hit={anAnnonceDeLogement()}
-					sendEvent={jest.fn()}
-				/>,
+				<DependenciesProvider dateService={aDateService()}>
+					<AnnonceDeLogement
+						hit={anAnnonceDeLogement()}
+						sendEvent={jest.fn()}
+					/>
+				</DependenciesProvider>,
 			);
 			const listDesSlides = screen.getByText((content, element) => element?.getAttribute('aria-live') === 'polite');
 			expect(listDesSlides).toBeInTheDocument();
@@ -81,10 +84,12 @@ describe('Annonce Component', () => {
 		describe('quand le type de logement est habitation intergénérationnelle', () => {
 			it('contient le type de logement intérgénérationnel', () => {
 				render(
-					<AnnonceDeLogement
-						hit={anAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
-						sendEvent={jest.fn()}
-					/>,
+					<DependenciesProvider dateService={aDateService()}>
+						<AnnonceDeLogement
+							hit={anAnnonceDeLogement({ type: 'habitation intergénérationnelle' })}
+							sendEvent={jest.fn()}
+						/>
+					</DependenciesProvider>,
 				);
 				const type = screen.getByText(/intergénérationnel/i);
 				expect(type).toBeVisible();
@@ -94,10 +99,12 @@ describe('Annonce Component', () => {
 		describe('quand le type de logement est autre', () => {
 			it('contient le type de logement', () => {
 				render(
-					<AnnonceDeLogement
-						hit={anAnnonceDeLogement()}
-						sendEvent={jest.fn()}
-					/>,
+					<DependenciesProvider dateService={aDateService()}>
+						<AnnonceDeLogement
+							hit={anAnnonceDeLogement()}
+							sendEvent={jest.fn()}
+						/>
+					</DependenciesProvider>,
 				);
 				const appartement = 'appartement';
 				const type = screen.getByText(appartement);
@@ -106,24 +113,34 @@ describe('Annonce Component', () => {
 		});
 	});
 
-	it('contient la date de mise à jours', () => {
+	it('contient la date de mise à jour', () => {
+		const dateService = aDateService();
+		const annoncesLogement = anAnnonceDeLogement({
+			dateDeMiseAJour: '12/4/2022',
+		});
+		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('12 avril 2022');
+
 		render(
-			<AnnonceDeLogement
-				hit={anAnnonceDeLogement()}
-				sendEvent={jest.fn()}
-			/>,
+			<DependenciesProvider dateService={dateService}>
+				<AnnonceDeLogement
+					hit={annoncesLogement}
+					sendEvent={jest.fn()}
+				/>
+			</DependenciesProvider>,
 		);
-		const dateDePublication = 'postée le 12/4/2022';
+		const dateDePublication = 'postée le 12 avril 2022';
 		const date = screen.getByText(dateDePublication);
 		expect(date).toBeInTheDocument();
 	});
 
 	it('contient le titre de l‘annonce', () => {
 		render(
-			<AnnonceDeLogement
-				hit={anAnnonceDeLogement()}
-				sendEvent={jest.fn()}
-			/>,
+			<DependenciesProvider dateService={aDateService()}>
+				<AnnonceDeLogement
+					hit={anAnnonceDeLogement()}
+					sendEvent={jest.fn()}
+				/>
+			</DependenciesProvider>,
 		);
 		const titre = screen.getByRole('heading', { level: 3 });
 		expect(titre).toBeInTheDocument();
@@ -131,10 +148,12 @@ describe('Annonce Component', () => {
 
 	it('contient la surface et le prix', () => {
 		render(
-			<AnnonceDeLogement
-				hit={anAnnonceDeLogement()}
-				sendEvent={jest.fn()}
-			/>,
+			<DependenciesProvider dateService={aDateService()}>
+				<AnnonceDeLogement
+					hit={anAnnonceDeLogement()}
+					sendEvent={jest.fn()}
+				/>
+			</DependenciesProvider>,
 		);
 		const intervalleSurface = 'de 70 à 71m2';
 		const surface = screen.getByText(intervalleSurface);
@@ -147,10 +166,12 @@ describe('Annonce Component', () => {
 
 	it('contient la localisation', () => {
 		render(
-			<AnnonceDeLogement
-				hit={anAnnonceDeLogement()}
-				sendEvent={jest.fn()}
-			/>,
+			<DependenciesProvider dateService={aDateService()}>
+				<AnnonceDeLogement
+					hit={anAnnonceDeLogement()}
+					sendEvent={jest.fn()}
+				/>
+			</DependenciesProvider>,
 		);
 		const ville = 'Paris';
 		const localisation = screen.getByText(ville);
@@ -159,10 +180,12 @@ describe('Annonce Component', () => {
 
 	it('contient le lien externe de l‘annonce', () => {
 		render(
-			<AnnonceDeLogement
-				hit={anAnnonceDeLogement()}
-				sendEvent={jest.fn()}
-			/>,
+			<DependenciesProvider dateService={aDateService()}>
+				<AnnonceDeLogement
+					hit={anAnnonceDeLogement()}
+					sendEvent={jest.fn()}
+				/>
+			</DependenciesProvider>,
 		);
 		const url = screen.getByRole('link');
 		expect(url).toBeInTheDocument();

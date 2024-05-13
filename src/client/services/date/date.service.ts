@@ -1,5 +1,5 @@
 export interface DateService {
-    formatToHumanReadableDate(date: string | Date): string
+    formatToHumanReadableDate(date: Date): string
     today(): Date
 }
 

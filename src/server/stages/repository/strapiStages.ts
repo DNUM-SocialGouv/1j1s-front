@@ -8,8 +8,8 @@ export namespace OffreStageResponseStrapi {
 		titre: string
 		id: string
 		slug: string
-		dateDeDebutMin: string
-		dateDeDebutMax: string
+		dateDeDebutMin?: string
+		dateDeDebutMax?: string
 		createdAt: string
 		publishedAt: string
 		updatedAt: string

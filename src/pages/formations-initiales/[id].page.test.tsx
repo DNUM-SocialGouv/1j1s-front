@@ -83,7 +83,7 @@ describe('quand le feature flip est actif', () => {
 			// GIVEN
 			const analyticsService = aManualAnalyticsService();
 			const dateService = aDateService();
-			const updateDateFromFormationInitiale = '2023-05-15T09:37:44.283Z';
+			const updateDateFromFormationInitiale = new Date('2023-05-15T09:37:44.283Z');
 			const detailsUpdateDate = '15 mai 2023';
 			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(detailsUpdateDate);
 
@@ -105,7 +105,6 @@ describe('quand le feature flip est actif', () => {
 			const analyticsService = aManualAnalyticsService();
 			const dateService = aDateService();
 			const todayDate = new Date('2023-08-01T14:45:25.000Z');
-			const todayDateString = todayDate.toString();
 			const todayFormattedDate = '01 août 2023';
 			jest.spyOn(dateService, 'today').mockReturnValueOnce(todayDate);
 			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValueOnce(todayFormattedDate);
@@ -120,7 +119,7 @@ describe('quand le feature flip est actif', () => {
 			// THEN
 			const onisepCardTitle = screen.getByText(`Idéo-fiches formations, Onisep, ${todayFormattedDate}, sous licence ODBL`);
 			expect(onisepCardTitle).toBeVisible();
-			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDateString);
+			expect(dateService.formatToHumanReadableDate).toHaveBeenCalledWith(todayDate);
 		});
 	});
 });

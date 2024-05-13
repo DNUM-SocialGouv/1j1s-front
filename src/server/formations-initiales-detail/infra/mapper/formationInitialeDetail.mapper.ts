@@ -8,7 +8,7 @@ export function mapFormationInitiale(strapiFormationInitiale: StrapiFormationIni
 	return {
 		attendusParcoursup: strapiFormationInitiale.attendusParcoursup,
 		conditionsAcces: strapiFormationInitiale.conditionsAcces,
-		dateDeMiseAJour: strapiFormationInitiale.updatedAt,
+		dateDeMiseAJour: new Date(strapiFormationInitiale.updatedAt),
 		description: strapiFormationInitiale.description,
 		poursuiteEtudes: strapiFormationInitiale.poursuiteEtudes,
 	};

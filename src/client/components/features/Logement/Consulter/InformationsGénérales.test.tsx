@@ -6,6 +6,8 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { InformationsGénérales } from '~/client/components/features/Logement/Consulter/InformationsGénérales';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 import { anAnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement.fixture';
 
 describe('<InformationsGénérales />', () => {
@@ -13,7 +15,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche le prix', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.prix = 500;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
 			expect(prixRow).toHaveTextContent(/500 €CC\/mois/i);
@@ -23,7 +27,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans le prix', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const prixRow = screen.getByRole('row', { name: /Prix/i });
 			expect(prixRow).toHaveTextContent(/\$/i);
@@ -31,7 +37,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche les charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = 500;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
 			expect(chargesRow).toHaveTextContent(/500 €/i);
@@ -39,7 +47,9 @@ describe('<InformationsGénérales />', () => {
 		it('masque la ligne quand pas de charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.charge = undefined;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const chargesRow = screen.queryByRole('row', { name: /Charges/i });
 			expect(chargesRow).not.toBeInTheDocument();
@@ -47,7 +57,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans les charges', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const chargesRow = screen.getByRole('row', { name: /Charges/i });
 			expect(chargesRow).toHaveTextContent(/\$/i);
@@ -55,7 +67,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = 500;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
 			expect(cautionRow).toHaveTextContent(/500 €/i);
@@ -63,7 +77,9 @@ describe('<InformationsGénérales />', () => {
 		it('masque la ligne quand pas de caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.garantie = undefined;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const cautionRow = screen.queryByRole('row', { name: /Caution/i });
 			expect(cautionRow).not.toBeInTheDocument();
@@ -71,7 +87,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche la bonne devise dans la caution', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.devise = '$';
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const cautionRow = screen.getByRole('row', { name: /Caution/i });
 			expect(cautionRow).toHaveTextContent(/\$/i);
@@ -84,7 +102,9 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 100;
-					render(<InformationsGénérales annonce={annonce}/>);
+					render(<DependenciesProvider dateService={aDateService()}>
+						<InformationsGénérales annonce={annonce}/>
+					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50 à 100 m2/i);
@@ -95,7 +115,9 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = 0;
-					render(<InformationsGénérales annonce={annonce}/>);
+					render(<DependenciesProvider dateService={aDateService()}>
+						<InformationsGénérales annonce={annonce}/>
+					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
@@ -106,7 +128,9 @@ describe('<InformationsGénérales />', () => {
 					const annonce = anAnnonceDeLogement();
 					annonce.surface = 50;
 					annonce.surfaceMax = undefined;
-					render(<InformationsGénérales annonce={annonce}/>);
+					render(<DependenciesProvider dateService={aDateService()}>
+						<InformationsGénérales annonce={annonce}/>
+					</DependenciesProvider>);
 
 					const surfaceRow = screen.getByRole('row', { name: /Surface/i });
 					expect(surfaceRow).toHaveTextContent(/50m2/i);
@@ -117,7 +141,9 @@ describe('<InformationsGénérales />', () => {
 			it('affiche le nombre de pièces lorsque le nombre de pièces est supérieur à 0', async () => {
 				const annonce = anAnnonceDeLogement();
 				annonce.nombreDePièces = 2;
-				render(<InformationsGénérales annonce={annonce}/>);
+				render(<DependenciesProvider dateService={aDateService()}>
+					<InformationsGénérales annonce={annonce}/>
+				</DependenciesProvider>);
 
 				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
 				expect(piècesRow).toHaveTextContent(/2/i);
@@ -125,7 +151,9 @@ describe('<InformationsGénérales />', () => {
 			it('affiche le message attendu lorsque le nombre de pièces est 0', async () => {
 				const annonce = anAnnonceDeLogement();
 				annonce.nombreDePièces = 0;
-				render(<InformationsGénérales annonce={annonce}/>);
+				render(<DependenciesProvider dateService={aDateService()}>
+					<InformationsGénérales annonce={annonce}/>
+				</DependenciesProvider>);
 
 				const piècesRow = screen.getByRole('row', { name: /Nombre de pièces/i });
 				expect(piècesRow).toHaveTextContent(/non renseigné/i);
@@ -136,7 +164,9 @@ describe('<InformationsGénérales />', () => {
 		it("affiche l'étage", async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 2;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/2ème/i);
@@ -144,7 +174,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Rez-de-chaussée" quand l\'étage est 0', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 0;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/Rez-de-chaussée/i);
@@ -152,7 +184,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "1er" quand l\'étage est 1', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = 1;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const étageRow = screen.getByRole('row', { name: /Étage/i });
 			expect(étageRow).toHaveTextContent(/1er/i);
@@ -160,7 +194,9 @@ describe('<InformationsGénérales />', () => {
 		it("masque la ligne quand pas d'étage", async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.étage = undefined;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const étageRow = screen.queryByRole('row', { name: /Étage/i });
 			expect(étageRow).not.toBeInTheDocument();
@@ -168,7 +204,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche le type de bien', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.typeBien = 'Appartement';
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const typeBienRow = screen.getByRole('row', { name: /Type de bien/i });
 			expect(typeBienRow).toHaveTextContent(/Appartement/i);
@@ -176,7 +214,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Non" si le logement n\'est pas meublé', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = false;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
 			expect(meubléRow).toHaveTextContent(/Non/i);
@@ -184,7 +224,9 @@ describe('<InformationsGénérales />', () => {
 		it('affiche "Oui" si le logement est meublé', async () => {
 			const annonce = anAnnonceDeLogement();
 			annonce.meublé = true;
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const meubléRow = screen.getByRole('row', { name: /Meublé/i });
 			expect(meubléRow).toHaveTextContent(/Oui/i);
@@ -198,7 +240,9 @@ describe('<InformationsGénérales />', () => {
 				codePostal: '75001',
 				ville: 'Paris',
 			};
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const localisationRow = screen.getByRole('row', { name: /Localisation/i });
 			expect(localisationRow).toHaveTextContent(/15 rue de l'impasse, Paris \(75001\)/i);
@@ -210,7 +254,9 @@ describe('<InformationsGénérales />', () => {
 				codePostal: undefined,
 				ville: undefined,
 			};
-			render(<InformationsGénérales annonce={annonce}/>);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<InformationsGénérales annonce={annonce}/>
+			</DependenciesProvider>);
 
 			const localisationRow = screen.queryByRole('row', { name: /Localisation/i });
 			expect(localisationRow).not.toBeInTheDocument();
@@ -218,14 +264,19 @@ describe('<InformationsGénérales />', () => {
 	});
 	describe('Disponibilité', () => {
 		it('affiche la date de disponibilité', async () => {
-			const annonce = anAnnonceDeLogement();
-			annonce.dateDeDisponibilité = new Date(2022, 1, 1).toISOString();
+			const dateService = aDateService();
+			const annonce = anAnnonceDeLogement({
+				dateDeDisponibilité: new Date(2022, 1, 1),
+			});
+			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 			render(
-				<InformationsGénérales annonce={annonce}/>,
+				<DependenciesProvider dateService={dateService}>
+					<InformationsGénérales annonce={annonce}/>
+				</DependenciesProvider>,
 			);
 
 			const disponibilitéRow = screen.getByRole('row', { name: /Disponible/i });
-			expect(disponibilitéRow).toHaveTextContent(/le 1 février 2022/i);
+			expect(disponibilitéRow).toHaveTextContent(/le 1 janvier 2022/i);
 		});
 	});
 });

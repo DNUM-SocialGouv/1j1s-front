@@ -18,7 +18,7 @@ interface ConsulterStagePageProps {
 	offreDeStage: OffreDeStage;
 }
 
-export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStagePageProps) {
+export default function ConsulterOffreStagePage({ offreDeStage }: ConsulterStagePageProps) {
 	useAnalytics(analytics);
 	usePopstate();
 
@@ -35,7 +35,7 @@ export default function ConsulterOffreStagePage({ offreDeStage } : ConsulterStag
 }
 
 interface StageContext extends ParsedUrlQuery {
-  id: string;
+	id: string;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<StageContext>): Promise<GetServerSidePropsResult<ConsulterStagePageProps>> {

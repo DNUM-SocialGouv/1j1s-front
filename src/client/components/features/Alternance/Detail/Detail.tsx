@@ -9,7 +9,6 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
 import { DateService } from '~/client/services/date/date.service';
-import { JsDateService } from '~/client/services/date/js/js.date.service';
 import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
 
 import styles from './Detail.module.scss';
