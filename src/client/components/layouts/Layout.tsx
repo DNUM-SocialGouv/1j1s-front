@@ -1,11 +1,9 @@
-import dynamic from 'next/dynamic';
 import React, { useRef } from 'react';
 
+import Footer from '~/client/components/layouts/Footer/Footer';
 import { Header } from '~/client/components/layouts/Header/Header';
 import Bouée from '~/client/components/ui/Bouée/Bouée';
-
-const Footer = dynamic(() => import(/* webpackChunkName: 'footer' */ '~/client/components/layouts/Footer/Footer'), { ssr: false });
-const SkipLink = dynamic(() => import(/* webpackChunkName: 'header' */ '~/client/components/ui/SkipLink/SkipLink'), { ssr: false });
+import SkipLink from '~/client/components/ui/SkipLink/SkipLink';
 
 export function Layout({ children }: React.PropsWithChildren) {
 	const surface = useRef<HTMLDivElement>(null);
