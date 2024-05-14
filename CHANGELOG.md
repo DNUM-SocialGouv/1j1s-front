@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.285.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.5...v3.285.0) (2024-05-13)
+
+
+### Features
+
+* **transverse:** passer l'ensemble des dates en longue date ([#2974](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2974)) ([bb2697c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb2697c14f2c3cff2a298d38ea7521daea8b542e))
+
 ## [3.284.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.4...v3.284.5) (2024-05-13)
 
 
