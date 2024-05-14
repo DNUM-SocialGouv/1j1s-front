@@ -5,7 +5,7 @@ import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 export const IS_PREVIOUS_PAGE_LOCAL = 'is-previous-page-local';
 
-function useDisplayBackButton(): void {
+export default function usePageHistory(): void {
 	useEffect(() => {
 		return () => {
 			if (isStorageAvailable('sessionStorage')) {
@@ -14,5 +14,3 @@ function useDisplayBackButton(): void {
 		};
 	}, []);
 }
-
-export default useDisplayBackButton;

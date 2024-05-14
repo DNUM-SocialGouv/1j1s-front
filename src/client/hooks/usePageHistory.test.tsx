@@ -5,14 +5,14 @@
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import useDisplayBackButton, { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/useDisplayBackButton';
+import usePageHistory, { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/usePageHistory';
 
 function TestComponent() {
-	useDisplayBackButton();
+	usePageHistory();
 	return <></>;
 }
 
-describe('useDisplayBackButton', () => {
+describe('usePageHistory', () => {
 	beforeEach(() => {
 		sessionStorage.clear();
 		jest.resetAllMocks();

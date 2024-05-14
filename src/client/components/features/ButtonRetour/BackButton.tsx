@@ -6,7 +6,7 @@ import {
 	ButtonComponent,
 } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/useDisplayBackButton';
+import { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/usePageHistory';
 import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
