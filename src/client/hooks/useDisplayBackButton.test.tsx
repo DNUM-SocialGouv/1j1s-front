@@ -5,7 +5,7 @@
 import { render } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import useDisplayBackButton, { PREVIOUS_PAGE } from '~/client/hooks/useDisplayBackButton';
+import useDisplayBackButton, { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/useDisplayBackButton';
 
 function TestComponent() {
 	useDisplayBackButton();
@@ -30,7 +30,7 @@ describe('useDisplayBackButton', () => {
 			unmount();
 
 			// Then
-			expect(setItem).toHaveBeenCalledWith(PREVIOUS_PAGE, 'true');
+			expect(setItem).toHaveBeenCalledWith(IS_PREVIOUS_PAGE_LOCAL, 'true');
 		});
 	});
 });
