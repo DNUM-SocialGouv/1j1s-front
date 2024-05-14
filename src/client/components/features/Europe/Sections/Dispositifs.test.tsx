@@ -48,7 +48,7 @@ describe('<Dispositifs />', () => {
 		expect(aides[1]).toHaveTextContent(/Soutien financier/i);
 		const lienEures = within(carte).getByRole('link', { name: /En savoir plus sur EURES/i });
 		expect(lienEures).toBeVisible();
-		expect(lienEures).toHaveAttribute('href', 'https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr');
+		expect(lienEures).toHaveAttribute('href', 'https://eures.europa.eu/index_fr');
 		expect(lienEures).toHaveTextContent('En savoir plus');
 	});
 	it('affiche la carte Erasmus', () => {

@@ -37,7 +37,7 @@ function EuresCardContent() {
 			</dl>
 			<Link
 				appearance="asPrimaryButton"
-				href="https://ec.europa.eu/eures/public/eures-services/eures-targeted-mobility-scheme_fr"
+				href="https://eures.europa.eu/index_fr"
 				aria-label="En savoir plus sur EURES - nouvelle fenêtre"
 			>
 				En savoir plus
