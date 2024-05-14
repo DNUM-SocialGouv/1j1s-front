@@ -9,7 +9,8 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import useSanitize from '~/client/hooks/useSanitize';
 import { DateService } from '~/client/services/date/date.service';
-import { Alternance, isFranceTravail,isMatcha } from '~/server/alternances/domain/alternance';
+import { Alternance, isFranceTravail, isMatcha } from '~/server/alternances/domain/alternance';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 import styles from './Detail.module.scss';
 
@@ -27,6 +28,23 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 	const dateService = useDependency<DateService>('dateService');
 	const dateFormated = annonce.dateDébut && dateService.formatToHumanReadableDate(annonce.dateDébut);
 
+
+
+	function StatusOffreMatcha() {
+		const isOfferCanceled = annonce.status === AlternanceStatus.CANCELED;
+		if (isOfferCanceled) {
+			return <div className={styles.offerFilled}>OFFRE DÉJÀ POURVUE</div>;
+		}
+		return annonce.id && <ButtonComponent
+			appearance={'primary'}
+			icon={<Icon name="arrow-right"/>}
+			iconPosition="right"
+			className={styles.postuler}
+			label={'Postuler'}
+			onClick={() => toggleModal()}
+		/>;
+	}
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
@@ -34,17 +52,10 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
 				<TagList className={styles.tags} list={annonce.tags}/>
 				{isFranceTravail(annonce.source) && annonce.lienPostuler &&
-					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur France Travail<Link.Icon/></Link>
+					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur
+						France Travail<Link.Icon/></Link>
 				}
-				{isMatcha(annonce.source) && annonce.id &&
-					<ButtonComponent
-						appearance={'primary'}
-						icon={<Icon name="arrow-right"/>}
-						iconPosition="right"
-						className={styles.postuler}
-						label={'Postuler'}
-						onClick={() => toggleModal()}
-					/>
+				{isMatcha(annonce.source) && <StatusOffreMatcha/>
 				}
 			</header>
 			<section>

@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+import { AlternanceStatus } from '~/server/alternances/infra/status';
+
 export namespace MetierLaBonneAlternanceApiResponse {
 	export interface LabelAndRomes {
 		label: string
@@ -25,7 +27,7 @@ export namespace AlternanceApiJobsResponse {
 		rythmeAlternance?: string
 		description?: string
 		employeurDescription?: string
-		status?: string
+		status?: AlternanceStatus
 	}
 
 	export interface JobPE extends Job {

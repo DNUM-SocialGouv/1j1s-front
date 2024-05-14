@@ -11,7 +11,10 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
 import { queries } from '~/test-utils';
+
+const OFFER_FILLED_TEXT = 'OFFRE DÉJÀ POURVUE';
 
 describe('<Detail />', () => {
 	beforeEach(() => {
@@ -88,38 +91,63 @@ describe('<Detail />', () => {
 
 			expect(lien).not.toBeInTheDocument();
 		});
-		it('affiche un bouton pour postuler affichant une iframe LBA', async () => {
-			process.env = {
-				...process.env,
-				NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://url.com/',
-			};
-			const user = userEvent.setup();
-			const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
-			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
 
-			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
-			</DependenciesProvider>);
+		describe('état de l‘offre actif', () => {
+			it('n‘affiche pas l‘information que l‘offre est désactivée', () => {
+				const annonce = aDetailAlternance({ status: AlternanceStatus.ACTIVE });
 
-			const bouton = screen.getByRole('button', { name: /Postuler/i });
-			expect(bouton).toBeVisible();
-			await user.click(bouton);
+				render(<DependenciesProvider dateService={aDateService()}>
+					<Detail annonce={annonce}/>
+				</DependenciesProvider>);
 
-			const iframe = screen.getByTitle('Formulaire de candidature à l’annonce');
+				const bouton = screen.queryByText(OFFER_FILLED_TEXT);
 
-			expect(iframe).toBeVisible();
-			expect(iframe).toHaveAttribute('src', url);
+				expect(bouton).not.toBeInTheDocument();
+			});
+			it('affiche un bouton pour postuler affichant une iframe LBA', async () => {
+				process.env = {
+					...process.env,
+					NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://url.com/',
+				};
+				const user = userEvent.setup();
+				const url = 'http://url.com/postuler?caller=1jeune1solution&itemId=123&type=matcha';
+				const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
+
+				render(<DependenciesProvider dateService={aDateService()}>
+					<Detail annonce={annonce}/>
+				</DependenciesProvider>);
+
+				const bouton = screen.getByRole('button', { name: /Postuler/i });
+				expect(bouton).toBeVisible();
+				await user.click(bouton);
+
+				const iframe = screen.getByTitle('Formulaire de candidature à l’annonce');
+
+				expect(iframe).toBeVisible();
+				expect(iframe).toHaveAttribute('src', url);
+			});
+			it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
+				const annonce = aDetailAlternance({ id: undefined });
+
+				render(<DependenciesProvider dateService={aDateService()}>
+					<Detail annonce={annonce}/>
+				</DependenciesProvider>);
+
+				const bouton = screen.queryByRole('button', { name: /Postuler/i });
+
+				expect(bouton).not.toBeInTheDocument();
+			});
 		});
-		it('n’affiche pas un bouton pour postuler lorsque l’annonce n’a pas d’id', () => {
-			const annonce = aDetailAlternance({ id: undefined });
+
+		it('lorsque l‘offre est à l‘état annulé, affiche l‘information et pas de CTA', () => {
+			const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
 
 			render(<DependenciesProvider dateService={aDateService()}>
 				<Detail annonce={annonce}/>
 			</DependenciesProvider>);
 
-			const bouton = screen.queryByRole('button', { name: /Postuler/i });
-
-			expect(bouton).not.toBeInTheDocument();
+			expect(screen.getByText(OFFER_FILLED_TEXT)).toBeVisible();
+			expect(screen.queryByRole('button', { name: /Postuler/i })).not.toBeInTheDocument();
 		});
 	});
 	it('affiche la description du contrat', () => {

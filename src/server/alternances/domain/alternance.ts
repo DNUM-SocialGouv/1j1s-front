@@ -1,3 +1,5 @@
+import { AlternanceStatus } from '~/server/alternances/infra/status';
+
 export namespace Alternance {
 	export interface Entreprise {
 		nom?: string
@@ -23,6 +25,7 @@ export interface Alternance {
 	source: Alternance.Source
 	tags: string[]
 	lienPostuler?: string
+	status?: AlternanceStatus
 }
 
 export type ResultatRechercheAlternance = {
