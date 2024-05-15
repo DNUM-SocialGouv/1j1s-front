@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.286.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.285.0...v3.286.0) (2024-05-15)
+
+
+### Features
+
+* **exp europe:** modification du lien de redirection vers Eures ([#2986](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2986)) ([4f3ffe4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4f3ffe42fc3e67331699e20479d56dc52a298068))
+* **logement:** ajout d'un gap entre le type de location et la date de l'annonce ([#2989](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2989)) ([43fad50](https://github.com/DNUM-SocialGouv/1j1s-front/commit/43fad50cc7c966e8baaae0b4f3e7d83fdc6357ce))
+
 ## [3.285.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.5...v3.285.0) (2024-05-13)
 
 
