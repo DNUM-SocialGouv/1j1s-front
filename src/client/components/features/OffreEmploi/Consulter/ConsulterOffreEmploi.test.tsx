@@ -6,7 +6,7 @@ import { render, screen, within } from '@testing-library/react';
 
 import { ConsulterOffreEmploi } from '~/client/components/features/OffreEmploi/Consulter/ConsulterOffreEmploi';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { aBarmanOffre, aMaçonOffre, aValetOffre } from '~/server/offres/domain/offre.fixture';
+import { aMaçonOffre, anOffreEmploi, aValetOffre } from '~/server/offres/domain/offre.fixture';
 
 jest.mock('dompurify', () => {
 	return {
@@ -58,7 +58,7 @@ describe('ConsulterOffreEmploi', () => {
 	});
 
 	it('affiche les formations requises dans une liste', () => {
-		const offreEmploi = aBarmanOffre();
+		const offreEmploi = anOffreEmploi();
 
 		render(<ConsulterOffreEmploi offreEmploi={offreEmploi} />);
 

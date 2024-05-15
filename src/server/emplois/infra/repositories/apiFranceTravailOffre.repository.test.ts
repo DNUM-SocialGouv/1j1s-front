@@ -3,9 +3,9 @@ import { createFailure, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
-	aBarmanOffre,
 	anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
 	anOffreÉchantillonFiltre,
+	anOffreEmploi,
 	anOffreEmploiFiltre,
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
@@ -59,7 +59,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aBarmanOffreEmploiApiResponse()));
-				const expected = aBarmanOffre();
+				const expected = anOffreEmploi();
 				const offreEmploiId = expected.id;
 
 				const { result } = await apiFranceTravailOffreRepository.get(offreEmploiId) as Success<Offre>;
@@ -79,7 +79,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 					.mockRejectedValue(httpError);
 				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiFranceTravailOffreRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailOffreRepository.get(anOffreEmploi().id);
 
 				expect(apiFranceTravailErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API France Travail',
@@ -97,7 +97,7 @@ describe('ApiFranceTravailOffreRepository', () => {
 				jest.spyOn(apiFranceTravailErrorManagementGet, 'isError').mockReturnValue(true);
 				jest.spyOn(apiFranceTravailErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiFranceTravailOffreRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailOffreRepository.get(anOffreEmploi().id);
 
 				expect(apiFranceTravailErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API France Travail',

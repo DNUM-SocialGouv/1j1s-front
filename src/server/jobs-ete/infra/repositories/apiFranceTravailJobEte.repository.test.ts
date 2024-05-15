@@ -4,9 +4,9 @@ import { aJobEteFiltre } from '~/server/jobs-ete/domain/jobEte.fixture';
 import { ApiFranceTravailJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiFranceTravailJobEte.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
-	aBarmanOffre,
 	anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
 	anOffreÉchantillonFiltre,
+	anOffreEmploi,
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
 import {
@@ -58,7 +58,7 @@ describe('ApiFranceTravailJobEteRepository', () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aBarmanOffreEmploiApiResponse()));
-				const expected = aBarmanOffre();
+				const expected = anOffreEmploi();
 				const offreEmploiId = expected.id;
 
 				const { result } = await apiFranceTravailJobEteRepository.get(offreEmploiId) as Success<Offre>;
@@ -75,7 +75,7 @@ describe('ApiFranceTravailJobEteRepository', () => {
 						.mockRejectedValue(httpError);
 					jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-					const result = await apiFranceTravailJobEteRepository.get(aBarmanOffre().id);
+					const result = await apiFranceTravailJobEteRepository.get(anOffreEmploi().id);
 
 					expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 						apiSource: 'API France Travail',
@@ -93,7 +93,7 @@ describe('ApiFranceTravailJobEteRepository', () => {
 					jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'isError').mockReturnValue(true);
 					jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-					const result = await apiFranceTravailJobEteRepository.get(aBarmanOffre().id);
+					const result = await apiFranceTravailJobEteRepository.get(anOffreEmploi().id);
 
 					expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 						apiSource: 'API France Travail',

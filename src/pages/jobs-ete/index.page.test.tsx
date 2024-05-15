@@ -15,7 +15,7 @@ import RechercherJobsEtePage, { getServerSideProps } from '~/pages/jobs-ete/inde
 import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
-import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
+import { anOffreEmploi, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 import { dependencies } from '~/server/start';
 
 jest.mock('~/server/start', () => ({
@@ -111,7 +111,7 @@ describe('Page rechercher un job d‘été', () => {
 				</DependenciesProvider>,
 			);
 
-			await screen.findByRole('heading', { level: 3, name: aBarmanOffre().intitulé });
+			await screen.findByRole('heading', { level: 3, name: anOffreEmploi().intitulé });
 
 			await expect(container).toBeAccessible();
 		});

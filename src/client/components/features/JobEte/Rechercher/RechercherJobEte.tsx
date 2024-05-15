@@ -35,7 +35,7 @@ import {
 } from '~/server/offres/domain/offre';
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job d’été';
-const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
+const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherJobEteProps {
 	erreurRecherche?: Erreur
@@ -119,7 +119,8 @@ function ListeOffreJobEte({ resultatList }: ListeResultatProps) {
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/jobs-ete/${offreEmploi.id}`}
-						logo={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
+						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
 						sousTitreOffre={offreEmploi.entreprise.nom}
 					/>
 				</li>

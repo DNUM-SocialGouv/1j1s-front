@@ -11,7 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterJobEtePage from '~/pages/jobs-ete/[id].page';
-import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
+import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
 
 jest.mock('next/head', () => HeadMock);
 
@@ -21,7 +21,7 @@ describe('<ConsulterJobEtePage />', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
-		const jobEte = aBarmanOffre();
+		const jobEte = anOffreEmploi();
 
 		const { container } = render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<ConsulterJobEtePage jobEte={jobEte}/>
@@ -31,7 +31,7 @@ describe('<ConsulterJobEtePage />', () => {
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
-		const jobEte = aBarmanOffre();
+		const jobEte = anOffreEmploi();
 		const { container } = render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
@@ -42,7 +42,7 @@ describe('<ConsulterJobEtePage />', () => {
 	});
 
 	it('ajoute le nom de l’annonce au titre du document', async () => {
-		const jobEte = aBarmanOffre();
+		const jobEte = anOffreEmploi();
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 				<ConsulterJobEtePage jobEte={jobEte}/>
@@ -55,7 +55,7 @@ describe('<ConsulterJobEtePage />', () => {
 	it('affiche le détail de l’annonce', async () => {
 		render(
 			<DependenciesProvider analyticsService={aManualAnalyticsService()}>
-				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>
+				<ConsulterJobEtePage jobEte={anOffreEmploi()}/>
 			</DependenciesProvider>,
 		);
 
@@ -67,7 +67,7 @@ describe('<ConsulterJobEtePage />', () => {
 		const analyticsService = aManualAnalyticsService();
 		render(
 			<DependenciesProvider analyticsService={analyticsService}>
-				<ConsulterJobEtePage jobEte={aBarmanOffre()}/>
+				<ConsulterJobEtePage jobEte={anOffreEmploi()}/>
 			</DependenciesProvider>,
 		);
 

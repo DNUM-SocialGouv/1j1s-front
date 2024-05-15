@@ -10,7 +10,7 @@ export function aRésultatsRechercheOffre(override?: Partial<RésultatsRecherche
 	return {
 		nombreRésultats: 3,
 		résultats: [
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
 		],
@@ -22,26 +22,26 @@ export function aRésultatEchantillonOffre(): RésultatsRechercheOffre {
 	return {
 		nombreRésultats: 15,
 		résultats: [
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
-			aBarmanOffre(),
+			anOffreEmploi(),
 			aMaçonOffre(),
 			aValetOffre(),
 		],
 	};
 }
 
-export function aBarmanOffre(): Offre {
+export function anOffreEmploi(override?: Partial<Offre>): Offre {
 	return {
 		compétenceList:[],
 		description: 'Nous recherchons pour la saison demi-mai à mi-octobre 2022 un(e) Barman h/f.\n\nVos missions principales: \n- Vous effectuez le service au comptoir, en salle, en terrasse, de boissons chaudes ou froides selon la législation relative à la consommation d‘alcools. \n- Vous entretenez la verrerie, les équipements du bar et les locaux selon les règles d‘hygiène et la réglementation  en vigueur.\n- Vous participez à la vie de la paillote. \n \nVous travaillez vendredi et samedi. \n\n\n',
@@ -63,6 +63,7 @@ export function aBarmanOffre(): Offre {
 		typeContrat: Offre.CONTRAT_SAISONNIER,
 		urlOffreOrigine: 'https://candidat.francetravail.fr/offres/recherche/detail/132LKFB',
 		étiquetteList: ['BOURG LES VALENCE (26)', 'Débutant accepté', 'Saisonnier', 'Temps partiel'],
+		...override,
 	};
 }
 
