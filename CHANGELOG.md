@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.287.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.286.0...v3.287.0) (2024-05-15)
+
+
+### Features
+
+* **UI:** ajout du composant champ sur les pages ([#2969](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2969)) ([1c12d8b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1c12d8be1b08164a964bb6ad189229f4a8fa2aeb))
+
 ## [3.286.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.285.0...v3.286.0) (2024-05-15)
 
 
