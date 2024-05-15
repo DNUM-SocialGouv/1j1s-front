@@ -97,7 +97,8 @@
   "overrides": {
     "@socialgouv/eslint-config-recommended": {
       "eslint": "^8.28.0"
-    }
+    },
+    "@testing-library/dom": "10.1.0"
   },
   "lint-staged": {
     "*.ts": "eslint --fix",
