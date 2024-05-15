@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import { Combobox } from '.';
@@ -64,7 +64,7 @@ export const intégrationDansUnFormulaire: Story = {
 		>
 			<label>
 				Mot clé
-				<InputText readOnly value="Informatique" />
+				<Input readOnly value="Informatique" />
 			</label>
 			<label htmlFor="localisation">
 				Localisation

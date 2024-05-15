@@ -1,0 +1,37 @@
+@use "@styles/utilities";
+@use "~/client/components/ui/Form/TextboxShared.module" as inputStyles;
+$unite-background-color: utilities.$color-background-secondary;
+$unite-text-color: utilities.$color-text-primary-inverse;
+
+.remunerationContenu {
+  display: flex;
+  height: 2.5rem;
+
+  & .remunerationInput {
+    width: 100%;
+    margin: 0;
+  }
+
+  & .remunerationUnite {
+    @include utilities.text-interactive-medium;
+    padding: 0 2rem;
+    align-items: center;
+    display: flex;
+    background-color: $unite-background-color;
+    color: $unite-text-color;
+  }
+
+  & > * {
+    border-radius: 0;
+  }
+
+  & > :first-child {
+    border-bottom-left-radius: inputStyles.$border-radius;
+    border-top-left-radius: inputStyles.$border-radius;
+  }
+
+  & > :last-child {
+    border-bottom-right-radius: inputStyles.$border-radius;
+    border-top-right-radius: inputStyles.$border-radius;
+  }
+}

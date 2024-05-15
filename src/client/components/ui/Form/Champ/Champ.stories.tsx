@@ -62,7 +62,7 @@ export const ComposantNonInput: Story = {
 		return(
 			<Champ {...args}>
 				<Champ.Label>Pays <Champ.Label.Complement>(requis)</Champ.Label.Complement></Champ.Label>
-				<Champ.Input render={Combobox} aria-label="Pays" required={true}>
+				<Champ.Input render={Combobox} aria-label="Pays" required={true} optionsAriaLabel="Pays">
 					<Combobox.Option>France</Combobox.Option>
 					<Combobox.Option>Allemagne</Combobox.Option>
 					<Combobox.Option>Suisse</Combobox.Option>
