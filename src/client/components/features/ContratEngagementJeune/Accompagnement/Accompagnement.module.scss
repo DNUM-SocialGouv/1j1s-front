@@ -5,7 +5,7 @@
   @extend %background-primary;
   padding: 3rem 0;
 
-  &Container {
+  & .accompagnementContainer {
     margin: 0 auto;
     padding: 0 1.5rem;
 
@@ -14,55 +14,57 @@
       color: utilities-deprecated.$color-on-primary;
       font-size: 1.5rem;
     }
-  }
 
-  article {
-    @extend %background-surface;
-    padding: 20px;
-    border-radius: 12px;
-
-    div {
-      @extend %text-regular;
+    & .accompagnementExplication {
+      @extend %text-medium;
+      line-height: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .optionBouton {
-      @extend %text-regular;
-      padding: 12px;
-      text-align: start;
-      line-height: 1.25rem;
-      border-radius: 20px;
-      border: 1px solid utilities-deprecated.$color-primary;
-      margin-top: 20px;
-      width: 100%;
+    article {
+      @extend %background-surface;
+      padding: 20px;
+      border-radius: 12px;
+
+      div {
+        @extend %text-regular;
+      }
+
+      .optionBouton {
+        @extend %text-regular;
+        padding: 12px;
+        text-align: start;
+        line-height: 1.25rem;
+        border-radius: 20px;
+        border: 1px solid utilities-deprecated.$color-primary;
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      & .boutonRetour {
+        @extend %text-regular;
+        border: none;
+        color: utilities-deprecated.$color-primary;
+        padding: 5px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        align-items: center;
+      }
+
+      & .accompagnementQuestion {
+        @extend %bold;
+      }
     }
-
-    .boutonRetour {
-      @extend %text-regular;
-      border: none;
-      color: utilities-deprecated.$color-primary;
-      padding: 5px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      align-items: center;
-    }
   }
 
-  &Question {
-    @extend %bold;
-  }
-
-  &Explication {
-    @extend %text-medium;
-    line-height: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
 
   &Modal {
+    display: flex;
     > div:first-child {
-      height: 35vh;
-      margin: 15rem 1rem 8rem 1rem;
+      height: fit-content;
+      margin: auto;
       border-radius: 20px;
     }
 
@@ -105,64 +107,6 @@
     text-align: center;
   }
 
-  &Dispositifs {
-    &__Title {
-      @extend %text-xLarge;
-      @extend %bold;
-      color: utilities-deprecated.$color-primary;
-      text-align: center;
-      line-height: 2rem;
-      margin: 1rem 2rem;
-    }
-
-    &__Content {
-      display: flex;
-
-      > div {
-        margin: auto;
-      }
-    }
-
-    &Position {
-      display: grid;
-      place-content: center;
-
-      &Icon {
-        box-shadow: 0 1px 1px rgba(55, 86, 189) !important;
-        border: 1px solid utilities-deprecated.$color-primary;
-        border-radius: 20px;
-        width: 300px;
-        display: grid;
-        place-items: center;
-        margin-top: 10px;
-        @include utilities.text-small;
-
-        &Offre {
-          color: utilities-deprecated.$color-blue-navy;
-          width: 30px;
-          margin-top: 0.5rem;
-        }
-
-        &Formation {
-          color: utilities-deprecated.$color-tapestry;
-          width: 30px;
-          margin-top: 0.5rem;
-        }
-
-        &Aide {
-          color: utilities-deprecated.$color-smalt-blue;
-          width: 30px;
-          margin-top: 0.5rem;
-        }
-
-        &Benevolat {
-          color: utilities-deprecated.$color-coral;
-          width: 30px;
-          margin-top: 0.5rem;
-        }
-      }
-    }
-  }
 
   &Valider {
     text-align: center;
@@ -210,12 +154,12 @@
     &Modal {
       > div:first-child {
         width: 40%;
-        height: 35vh;
+        height: fit-content;
         margin: auto;
       }
     }
 
-    &Container {
+    & .accompagnementContainer {
       padding: 0;
       gap: 2rem;
       display: grid;
@@ -228,47 +172,24 @@
         font-size: 1.5rem;
         line-height: 4rem;
       }
-    }
 
-    article {
-      padding: 40px;
-
-      p {
-        margin-bottom: 0;
+      & .accompagnementExplication {
+        font-size: 1.25rem;
+        line-height: 2rem;
       }
 
-      .optionBouton {
-        padding: 20px;
-        min-width: 460px;
-        line-height: 2.5rem;
-      }
-    }
+      article {
+        padding: 40px;
 
-    &Explication {
-      font-size: 1.25rem;
-      line-height: 2rem;
-    }
+        p {
+          margin-bottom: 0;
+        }
 
-    &Dispositifs {
-      > div:first-child {
-        width: 50%;
-        height: 55vh;
-        margin: auto;
-        border-radius: 20px;
-      }
-
-      &__Title {
-        margin: 2.5rem;
-      }
-
-      &__Content {
-        padding: 1rem;
-      }
-
-      &Position {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
+        .optionBouton {
+          padding: 20px;
+          min-width: 460px;
+          line-height: 2.5rem;
+        }
       }
     }
 
