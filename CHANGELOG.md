@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.288.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.287.0...v3.288.0) (2024-05-16)
+
+
+### Features
+
+* **transverse:** suprimer les hydratation mismatch ([#2973](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2973)) ([352cb65](https://github.com/DNUM-SocialGouv/1j1s-front/commit/352cb65cad2fe0b2d01d364d2723b63b6e3f78e6))
+
 ## [3.287.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.286.0...v3.287.0) (2024-05-15)
 
 
