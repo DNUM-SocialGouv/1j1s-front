@@ -36,7 +36,7 @@ const RésultatRechercherSolution = dynamic(() => import('~/client/components/la
 const FormulaireRechercheOffreEmploi = dynamic(() => import('../FormulaireRecherche/FormulaireRechercheOffreEmploi').then((mod) => mod.FormulaireRechercheOffreEmploi), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher un emploi';
-const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
+const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherOffreEmploiProps {
 	erreurRecherche?: Erreur
@@ -113,7 +113,8 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/emplois/${offreEmploi.id}`}
-						logo={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
+						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
 						sousTitreOffre={offreEmploi.entreprise.nom}
 					/>
 				</li>
