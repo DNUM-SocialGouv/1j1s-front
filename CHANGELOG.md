@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.289.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.288.0...v3.289.0) (2024-05-16)
+
+
+### Features
+
+* **offre:** ajouter un alt sur le logo france travail ([#2993](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2993)) ([8b153de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b153de04ce8432a2eb97c3c51a138b7e452da35))
+
 ## [3.288.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.287.0...v3.288.0) (2024-05-16)
 
 
