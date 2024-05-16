@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.290.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.289.0...v3.290.0) (2024-05-16)
+
+
+### Features
+
+* **alternance:** afficher un message pour les offres annulées ([#2988](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2988)) ([da75dec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/da75dec0eb78aebcbaa6c4b463f5d3a5c279bdfc))
+
 ## [3.289.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.288.0...v3.289.0) (2024-05-16)
 
 
