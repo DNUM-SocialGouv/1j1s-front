@@ -9,7 +9,7 @@ $color-text-canceled: utilities.$color-text-primary-inverse;
   margin: 2.5rem 0;
   text-align: center;
 
-  & > *:not(:last-child) {
+  & > :not(:last-child) {
     padding-inline: 1rem;
   }
 }
@@ -30,6 +30,7 @@ $color-text-canceled: utilities.$color-text-primary-inverse;
 
 .entete .postuler, .offerFilled {
   margin: 3rem auto 0 auto;
+  text-transform: uppercase;
 }
 
 .offerFilled {

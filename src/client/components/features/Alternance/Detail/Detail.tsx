@@ -33,7 +33,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 	function StatusOffreMatcha() {
 		const isOfferCanceled = annonce.status === AlternanceStatus.CANCELED;
 		if (isOfferCanceled) {
-			return <div className={styles.offerFilled}>OFFRE DÉJÀ POURVUE</div>;
+			return <div className={styles.offerFilled}>offre déjà pourvue</div>;
 		}
 		return annonce.id && <ButtonComponent
 			appearance={'primary'}

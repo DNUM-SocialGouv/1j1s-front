@@ -14,7 +14,7 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 import { queries } from '~/test-utils';
 
-const OFFER_FILLED_TEXT = 'OFFRE DÉJÀ POURVUE';
+const OFFER_FILLED_TEXT = 'offre déjà pourvue';
 
 describe('<Detail />', () => {
 	beforeEach(() => {
@@ -100,9 +100,9 @@ describe('<Detail />', () => {
 					<Detail annonce={annonce}/>
 				</DependenciesProvider>);
 
-				const bouton = screen.queryByText(OFFER_FILLED_TEXT);
+				const mention = screen.queryByText(OFFER_FILLED_TEXT);
 
-				expect(bouton).not.toBeInTheDocument();
+				expect(mention).not.toBeInTheDocument();
 			});
 			it('affiche un bouton pour postuler affichant une iframe LBA', async () => {
 				process.env = {
