@@ -4,6 +4,7 @@
   position: fixed;
   z-index: 5500;
   width: 100%;
+  /* NOTE (BRUJ 15-05-2024): fallback quand dvh pas supporté */
   height: 100vh;
   height: 100dvh;
   top: 0;
@@ -21,6 +22,7 @@
   }
 
   &Body {
+    /* NOTE (BRUJ 15-05-2024): fallback quand dvh pas supporté */
     height: 100vh;
     height: 100dvh;
     overflow-y: scroll;
