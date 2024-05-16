@@ -22,6 +22,8 @@ export class BffHttpClientService implements HttpClientService {
 			(request: InternalAxiosRequestConfig) => {
 				const transactionId = uuid4();
 				request.headers['x-transaction-id'] = transactionId;
+				// FIXME (GAFI 16-05-2024): On est d'accord que là, si j'ai 2 requêtes qui partent coup sur coup, le transactionId
+				//	de la première est écrasé par la seconde ?
 				this.logger.setTransactionId(transactionId);
 				return request;
 			},
