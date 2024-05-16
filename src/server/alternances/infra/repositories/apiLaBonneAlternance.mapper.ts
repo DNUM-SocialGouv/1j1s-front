@@ -52,13 +52,15 @@ function mapCommonMatchaFields(alternance: Matcha): Alternance {
 		niveauRequis: alternance.diplomaLevel,
 		rythmeAlternance: alternance.job.rythmeAlternance,
 		source: Alternance.Source.MATCHA,
+		status: alternance.job.status,
+		// TODO (BRUJ 14/05/2024): les tags devraient être construit côté client
 		tags: getTagList(),
 		titre: alternance.title,
 		typeDeContrat: parseContractTypeMatcha(alternance),
 	};
 }
 
-export function mapMatcha(alternance: Matcha): Alternance {
+export function mapDetailMatcha(alternance: Matcha): Alternance {
 	if (isMatchaPass(alternance)) {
 		return {
 			...mapCommonMatchaFields(alternance),
@@ -74,7 +76,7 @@ export function mapMatcha(alternance: Matcha): Alternance {
 	};
 }
 
-export function mapPEJob(alternance: PEJobs): Alternance {
+export function mapDetailPEJob(alternance: PEJobs): Alternance {
 	return {
 		description: alternance.job.description,
 		durée: alternance.job.contractDescription,
@@ -173,7 +175,7 @@ function mapLbaCompanies(lbaCompanies: AlternanceApiJobsResponse['lbaCompanies']
 	return lbaCompanies.results.map(mapRésultatRechercherAlternanceLbaEntreprise);
 }
 
-export const mapAlternanceListe = (response: AlternanceApiJobsResponse): ResultatRechercheAlternance => {
+export const mapRechercheAlternanceListe = (response: AlternanceApiJobsResponse): ResultatRechercheAlternance => {
 	const matchas = response.matchas?.results?.map(mapRésultatRechercherAlternanceMatcha) ?? [];
 	const peJobs = response.peJobs?.results?.map(mapRésultatRechercherAlternancePEJob) ?? [];
 	const lbaCompanies = mapLbaCompanies(response.lbaCompanies);

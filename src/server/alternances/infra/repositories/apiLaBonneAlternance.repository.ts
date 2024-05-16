@@ -1,24 +1,20 @@
-import {
-	Alternance,
-	AlternanceFiltre,
-	ResultatRechercheAlternance,
-} from '~/server/alternances/domain/alternance';
+import { Alternance, AlternanceFiltre, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { AlternanceRepository } from '~/server/alternances/domain/alternance.repository';
 import {
-	AlternanceApiJobsResponse, apiLaBonneAlternanceSchemas,
+	AlternanceApiJobsResponse,
+	apiLaBonneAlternanceSchemas,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
-	mapAlternanceListe,
-	mapMatcha, mapPEJob,
+	mapDetailMatcha,
+	mapDetailPEJob,
+	mapRechercheAlternanceListe,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
-import { ErreurMetier } from '~/server/errors/erreurMetier.types';
+import { createSuccess, Either } from '~/server/errors/either';
 import { validateApiResponse } from '~/server/services/error/apiResponseValidator';
 import { ErrorManagementService } from '~/server/services/error/errorManagement.service';
 import { PublicHttpClientService } from '~/server/services/http/publicHttpClient.service';
 
 const SOURCES_ALTERNANCE = 'matcha,offres,lba';
-const CANCELED = 'Annulée';
 
 const FRANCE_TRAVAIL_ID_LENGTH = 7;
 
@@ -38,7 +34,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 					message: 'erreur de validation du schéma de l’api',
 				});
 			}
-			return createSuccess(mapAlternanceListe(response.data));
+			return createSuccess(mapRechercheAlternanceListe(response.data));
 		} catch (error) {
 			return this.errorManagementServiceSearch.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',
@@ -74,7 +70,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 					});
 				}
 				const offre = apiResponse.data.peJobs[0];
-				return createSuccess(mapPEJob(offre));
+				return createSuccess(mapDetailPEJob(offre));
 			}
 
 			const apiResponse = await this.httpClientService.get<{
@@ -90,11 +86,7 @@ export class ApiLaBonneAlternanceRepository implements AlternanceRepository {
 			}
 			const matcha = apiResponse.data.matchas[0];
 
-			if (matcha.job.status === CANCELED) {
-				return createFailure(ErreurMetier.CONTENU_INDISPONIBLE);
-			}
-
-			return createSuccess(mapMatcha(matcha));
+			return createSuccess(mapDetailMatcha(matcha));
 		} catch (error) {
 			return this.errorManagementServiceGet.handleFailureError(error, {
 				apiSource: 'API LaBonneAlternance',

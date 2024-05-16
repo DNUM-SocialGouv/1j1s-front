@@ -1,9 +1,9 @@
 import { AlternanceFiltre } from '~/server/alternances/domain/alternance';
-import {
-	AlternanceApiJobsResponse,
-} from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
 import Matcha = AlternanceApiJobsResponse.Matcha;
 import LbaCompanies = AlternanceApiJobsResponse.LbaCompanies;
+import PEJobs = AlternanceApiJobsResponse.PEJobs;
 
 export function anAlternanceFiltre(): AlternanceFiltre {
 	return {
@@ -15,7 +15,7 @@ export function anAlternanceFiltre(): AlternanceFiltre {
 	};
 }
 
-export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse => {
+export const aLaBonneAlternanceApiJobsResponse = (override?: Partial<AlternanceApiJobsResponse>): AlternanceApiJobsResponse => {
 	return {
 		lbaCompanies: {
 			results: [aLbaCompaniesResponse()],
@@ -55,7 +55,7 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 		},
 		peJobs: {
 			results: [
-				{
+				aPeJobsResponse({
 					company: { name: 'une entreprise' },
 					job: {
 						contractType: 'CDD',
@@ -68,15 +68,44 @@ export const aLaBonneAlternanceApiJobsResponse = (): AlternanceApiJobsResponse =
 					},
 					place: { city: 'paris' },
 					title: 'un titre',
-				},
+				}),
 			],
 		},
+		...override,
 	};
 };
 
+export function aPeJobsResponse(override?: Partial<PEJobs>): PEJobs {
+	return {
+		company: { name: 'ECOLE DE TRAVAIL ORT' },
+		contact: {
+			phone: 'phone',
+		},
+		job: {
+			contractDescription: 'CDD de 6 mois',
+			contractType: 'CDD',
+			description: 'description',
+			duration: '6 mois',
+			id: 'id 2',
+		},
+		place: {
+			city: 'PARIS 4',
+			fullAddress: 'full address',
+		},
+		title: 'Monteur / Monteuse en chauffage (H/F)',
+		url: 'url',
+		...override,
+	};
+}
+
 export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 	return {
-		company: { name: 'une entreprise' },
+		company: {
+			name: 'une entreprise',
+		},
+		contact: {
+			phone: 'phone',
+		},
 		diplomaLevel: 'débutant',
 		job: {
 			contractType: 'Apprentissage, CDI',
@@ -85,8 +114,12 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 				competencesDeBase: [{ libelle: 'savoir faire' }],
 				definition: 'Prépare et confectionne des produits de pâtisserie.',
 			},
+			status: AlternanceStatus.ACTIVE,
 		},
-		place: { city: 'paris' },
+		place: {
+			city: 'paris',
+			fullAddress: 'full address',
+		},
 		title: 'un titre',
 		...override,
 	};
