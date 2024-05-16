@@ -5,197 +5,47 @@
   @extend %background-primary;
   padding: 3rem 0;
 
+  @include utilities.media(large) {
+    padding: 5rem 2rem;
+  }
+
   & .accompagnementContainer {
-    margin: 0 auto;
     padding: 0 1.5rem;
+    @include utilities.media(large) {
+      max-width: 85rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 2rem;
+      margin: 0 auto;
+      padding: 0;
+    }
 
     h2 {
-      @extend %headline;
-      color: utilities-deprecated.$color-on-primary;
-      font-size: 1.5rem;
+      @include utilities.title-large;
+      color: utilities.$color-title-secondary;
+      margin-bottom: 0.5rem;
+
+      @include utilities.media(large) {
+        margin-bottom: 1rem;
+      }
     }
 
     & .accompagnementExplication {
-      @extend %text-medium;
-      line-height: 1.5rem;
       margin-bottom: 1.5rem;
+      @include utilities.media(large) {
+        @include utilities.title-small;
+        line-height: 2rem;
+      }
     }
 
     article {
       @extend %background-surface;
       padding: 20px;
       border-radius: 12px;
-
-      div {
-        @extend %text-regular;
-      }
-
-      .optionBouton {
-        @extend %text-regular;
-        padding: 12px;
-        text-align: start;
-        line-height: 1.25rem;
-        border-radius: 20px;
-        border: 1px solid utilities-deprecated.$color-primary;
-        margin-top: 20px;
-        width: 100%;
-      }
-
-      & .boutonRetour {
-        @extend %text-regular;
-        border: none;
-        color: utilities-deprecated.$color-primary;
-        padding: 5px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        align-items: center;
-      }
-
-      & .accompagnementQuestion {
-        @extend %bold;
-      }
-    }
-  }
-
-
-  &Modal {
-    display: flex;
-    > div:first-child {
-      height: fit-content;
-      margin: auto;
-      border-radius: 20px;
-    }
-
-    &Content {
-      text-align: center;
-      color: utilities-deprecated.$color-primary;
-      padding: 3rem 2rem 2rem 2rem;
-
-      h1 {
-        @extend %text-large;
-        @extend %bold;
-        margin: 1rem 2rem;
-      }
-
-      p {
-        @extend %text-small, %background-surface;
-        margin: 2rem;
-        font-weight: 400;
-      }
-
-      a {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  }
-
-  &ModalTitle {
-    @extend %bold;
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  &ModalSubTitle {
-    display: block;
-    font-size: 1rem;
-    margin-top: 1rem;
-    color: utilities-deprecated.$color-primary;
-    text-align: center;
-  }
-
-
-  &Valider {
-    text-align: center;
-    margin-top: 2rem;
-  }
-
-  &Boutons {
-    display: grid;
-    grid-template-rows: 1fr;
-  }
-
-  &IsActive {
-    display: grid;
-    gap: 1rem;
-    text-align: center;
-    min-width: 230px;
-    border-radius: 20px;
-    border: 1px solid utilities-deprecated.$color-primary;
-    margin-top: 15px;
-    width: 100%;
-    min-height: 3.375rem;
-    padding: 1rem;
-    background-color: utilities-deprecated.$color-primary;
-    color: utilities-deprecated.$color-on-primary;
-  }
-
-  &Desactive {
-    display: grid;
-    gap: 1rem;
-    text-align: center;
-    min-width: 230px;
-    border-radius: 20px;
-    border: 1px solid utilities-deprecated.$color-primary;
-    margin-top: 15px;
-    width: 100%;
-    min-height: 3.375rem;
-    padding: 1rem;
-  }
-}
-
-@include utilities-deprecated.media(large) {
-  .accompagnement {
-    padding: 5rem 2rem;
-
-    &Modal {
-      > div:first-child {
-        width: 40%;
-        height: fit-content;
-        margin: auto;
-      }
-    }
-
-    & .accompagnementContainer {
-      padding: 0;
-      gap: 2rem;
-      display: grid;
-      margin: 0 auto;
-      max-width: 85rem;
-      align-items: start;
-      grid-template-columns: auto 1fr;
-
-      h2 {
-        font-size: 1.5rem;
-        line-height: 4rem;
-      }
-
-      & .accompagnementExplication {
-        font-size: 1.25rem;
-        line-height: 2rem;
-      }
-
-      article {
+      @include utilities.media(large) {
         padding: 40px;
-
-        p {
-          margin-bottom: 0;
-        }
-
-        .optionBouton {
-          padding: 20px;
-          min-width: 460px;
-          line-height: 2.5rem;
-        }
       }
-    }
-
-    &Boutons {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
     }
   }
 }

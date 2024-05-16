@@ -1,87 +1,75 @@
 @use "@styles/utilities";
 @use "@styles/utilities-deprecated";
 
-.dispoisitifsModale {
-  & .title {
-    @extend %text-xLarge;
-    @extend %bold;
-    color: utilities-deprecated.$color-primary;
-    text-align: center;
-    line-height: 2rem;
-    margin: 1rem 2rem;
+.dispositifsModale {
+  @include utilities.media(large) {
+    > div:first-child {
+      max-width: 50rem;
+      height: fit-content;
+      border-radius: 20px;
+    }
   }
 
   & .content {
-    display: flex;
+    @include utilities.media(large) {
+      padding: 1rem 2rem 5rem 2rem;
+    }
 
-    > div {
-      margin: auto;
+    & .title {
+      @include utilities.title-medium;
+      @extend %bold;
+      color: utilities.$color-title-primary;
+      text-align: center;
+      margin-bottom: 2rem;
+
+      @include utilities.media(large) {
+        margin-bottom: 2.5rem;
+      }
     }
 
     ul {
       display: grid;
       place-content: center;
+      grid-gap: 2rem;
+
+      @include utilities.media(large) {
+        grid-template-rows: auto auto;
+        grid-template-columns: auto auto;
+      }
 
       a {
-        box-shadow: 0 1px 1px rgba(55, 86, 189) !important;
-        border: 1px solid utilities-deprecated.$color-primary;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         border-radius: 20px;
-        width: 300px;
-        display: grid;
-        place-items: center;
-        margin-top: 10px;
-        @include utilities.text-small;
+        box-shadow: utilities.$box-shadow;
+        padding: 1rem 2rem;
+        @include utilities.title-small;
+        font-weight: bold;
+        text-decoration: none;
+        color: utilities.$color-title-primary-alternative;
+        border: 1px solid utilities.$color-primary;
+
+        & .icon {
+          width: 30px;
+        }
 
         & .iconOffre {
           color: utilities-deprecated.$color-blue-navy;
-          width: 30px;
-          margin-top: 0.5rem;
         }
 
         & .iconFormation {
           color: utilities-deprecated.$color-tapestry;
-          width: 30px;
-          margin-top: 0.5rem;
         }
 
         & .iconAide {
           color: utilities-deprecated.$color-smalt-blue;
-          width: 30px;
-          margin-top: 0.5rem;
         }
 
         & .iconBenevolat {
           color: utilities-deprecated.$color-coral;
-          width: 30px;
-          margin-top: 0.5rem;
         }
       }
     }
   }
-
-
-  @include utilities.media(large) {
-    > div:first-child {
-      margin: auto;
-      max-width: 50rem;
-      height: fit-content;
-      border-radius: 20px;
-    }
-
-    & .title {
-      margin: 2.5rem;
-    }
-
-    & .content {
-      padding: 1rem 2rem 5rem 2rem;
-
-      ul {
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-template-rows: auto auto;
-        grid-gap: 2rem;
-      }
-    }
-  }
-
 }

@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -8,7 +10,7 @@ export function ModaleDispositifsReferences(props: { open: boolean, close: () =>
 	return <ModalComponent
 		isOpen={props.open}
 		close={props.close}
-		className={styles.dispoisitifsModale}>
+		className={styles.dispositifsModale}>
 		<ModalComponent.Content className={styles.content}>
 			<div>
 				<h1 className={styles.title}>Découvrez les dispositifs référencés sur le portail
@@ -16,25 +18,25 @@ export function ModaleDispositifsReferences(props: { open: boolean, close: () =>
 				<ul>
 					<li>
 						<Link href={'/#offres'}>
-							<Icon name="brief-case" className={styles.iconOffre}/>
+							<Icon name="brief-case" className={classNames(styles.icon, styles.iconOffre)}/>
 							<p>Découvrez nos offres</p>
 						</Link>
 					</li>
 					<li>
 						<Link href={'/#formation'}>
-							<Icon name={'book'} className={styles.iconFormation}/>
+							<Icon name={'book'} className={classNames(styles.icon,styles.iconFormation)}/>
 							<p>Formation et orientation</p>
 						</Link>
 					</li>
 					<li>
-						<Link href={'/#aides-orientation-'}>
-							<Icon name={'compass'} className={styles.iconAide}/>
-							<p>Aides et </p>
+						<Link href={'/#aides-orientation-accompagnement'}>
+							<Icon name={'compass'} className={classNames(styles.icon,styles.iconAide)}/>
+							<p>Aides et accompagnement</p>
 						</Link>
 					</li>
 					<li>
 						<Link href={'/#engagement-benevolat'}>
-							<Icon name="trophy" className={styles.iconBenevolat}/>
+							<Icon name="trophy" className={classNames(styles.icon,styles.iconBenevolat)}/>
 							<p>Engagement</p>
 						</Link>
 					</li>
