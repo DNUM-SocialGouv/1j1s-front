@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 
@@ -9,7 +10,6 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
 import { Input } from '~/client/components/ui/Form/Input';
 import { ModalErrorSubmission } from '~/client/components/ui/Form/ModaleErrorSubmission/ModalErrorSubmission';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -26,6 +26,9 @@ import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
+
+// NOTE (BRUJ 06/05/2024): Pour éviter l'hydratation mismatch lié au fait que le local storage peut modifier le contenu du html (valeur par défaut) cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const ComboboxPays = dynamic(() => import('~/client/components/ui/Form/Combobox/ComboboxPays').then((mod) => mod.ComboboxPays), { ssr: false });
 
 enum LocalisationInputName {
 	PAYS = 'pays',

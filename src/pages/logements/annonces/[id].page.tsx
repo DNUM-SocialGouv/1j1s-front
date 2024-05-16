@@ -1,6 +1,4 @@
-import {
-	GetServerSidePropsContext,
-} from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
 
@@ -10,15 +8,13 @@ import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnav
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { usePopstate } from '~/client/hooks/usePopstate';
 import analytics from '~/pages/logements/annonces/[id].analytics';
+import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
+import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import { AnnonceDeLogement } from '~/server/logements/domain/annonceDeLogement';
 import { dependencies } from '~/server/start';
 
-import { GetServerSidePropsResult } from '../../../server/errors/getServerSidePropsResultWithError';
-import { handleGetServerSidePropsError } from '../../../server/errors/handleGetServerSidePropsError';
-
-export default function ConsulterAnnonceLogementPage(
-	{ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
+export default function ConsulterAnnonceLogementPage({ annonceDeLogement, isFeatureActive }: ConsulterAnnonceLogementPageProps) {
 	useAnalytics(analytics);
 	usePopstate();
 
