@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.291.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.290.0...v3.291.0) (2024-05-16)
+
+
+### Features
+
+* **menu:** utiliser dvh sur la modale pour supprimer le blocage de scroll en mobile ([#2992](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2992)) ([fd7d213](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd7d21390db3a29aa4ccf245bc6518defb07de39))
+
 ## [3.290.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.289.0...v3.290.0) (2024-05-16)
 
 
