@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.291.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.0...v3.291.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* Fix l'affichage du BackButton au premier chargement ([#2987](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2987)) ([65971cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/65971cf331fe37089ffd61b28c6fcda40dfedf28))
+
 ## [3.291.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.290.0...v3.291.0) (2024-05-16)
 
 
