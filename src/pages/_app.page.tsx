@@ -10,7 +10,7 @@ import ErrorServer from '~/client/components/layouts/Error/ErrorServer';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
-import useDisplayBackButton from '~/client/hooks/useDisplayBackButton';
+import usePageHistory from '~/client/hooks/usePageHistory';
 import useSessionId from '~/client/hooks/useSessionId';
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	const dependenciesContainerInstance = useMemo(() => dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
 
-	useDisplayBackButton();
+	usePageHistory();
 
 	useEffect(() => {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];
