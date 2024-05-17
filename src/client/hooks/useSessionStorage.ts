@@ -1,27 +1,24 @@
 import { useState } from 'react';
 
-import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
+import { useDependency } from '../context/dependenciesContainer.context';
+import { StorageService } from '../services/storage/storage.service';
 
 function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T) => void, remove: () => void} {
-	const [defaultValue, setDefaultValue] = useState<T | null>(null);
+	const [fallbackStorage, setFallbackStorage] = useState<T | null>(null);
+	const sessionStorage = useDependency<StorageService>('sessionStorageService');
 
-	const get = (): T | null => {
-		const item = sessionStorage.getItem(key);
-		return item ? JSON.parse(item) : null;
-	};
-
-	if (typeof window !== 'undefined' && isStorageAvailable('sessionStorage')) {
+	if (sessionStorage != null) {
 		return {
-			get,
-			remove: (): void => sessionStorage.removeItem(key),
-			set: (value) => sessionStorage.setItem(key, JSON.stringify(value)),
+			get: () => sessionStorage.get(key),
+			remove: (): void => sessionStorage.remove(key),
+			set: (value) => sessionStorage.set(key, value),
 		};
 	}
 
 	return {
-		get: () => defaultValue,
-		remove: () => setDefaultValue(null),
-		set: setDefaultValue,
+		get: () => fallbackStorage,
+		remove: () => setFallbackStorage(null),
+		set: setFallbackStorage,
 	};
 }
 

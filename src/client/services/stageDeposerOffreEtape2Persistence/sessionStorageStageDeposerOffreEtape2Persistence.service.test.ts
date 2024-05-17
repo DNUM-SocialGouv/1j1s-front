@@ -3,22 +3,17 @@
  */
 
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { mockSessionStorage } from '~/client/components/window.mock';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 import { SessionStorageStageDeposerOffreEtape2PersistenceService } from './sessionStorageStageDeposerOffreEtape2Persistence.service';
 
 describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
 	describe('setInformationsEtape2', () => {
 		it('envoie les informations dans le sessionStorage', () => {
 			// Given
-			mockSessionStorage({
-				setItem: jest.fn(),
-			});
-			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService();
+			const storage = aStorageService();
+			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 			const informations: OffreDeStageDeposee.Stage = {
 				dateDeDebutMax: '2022-01-01',
 				dateDeDebutMin: '2022-01-01',
@@ -36,39 +31,35 @@ describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
 			service.setInformationsEtape2(informations);
 
 			// Then
-			expect(sessionStorage.setItem).toHaveBeenCalledWith('formulaireEtape2', JSON.stringify(informations));
+			expect(storage.set).toHaveBeenCalledWith('formulaireEtape2', informations);
 		});
 	});
 
 	describe('getInformationsEtape2', () => {
 		it('récupère les informations du sessionStorage', () => {
 			// Given
-			mockSessionStorage({
-				getItem: jest.fn(),
-			});
-			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService();
+			const storage = aStorageService();
+			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 
 			// When
 			service.getInformationsEtape2();
 
 			// Then
-			expect(sessionStorage.getItem).toHaveBeenCalledWith('formulaireEtape2');
+			expect(storage.get).toHaveBeenCalledWith('formulaireEtape2');
 		});
 	});
 
 	describe('removeInformationsEtape2', () => {
 		it('supprime les informations du sessionStorage', () => {
 			// Given
-			mockSessionStorage({
-				removeItem: jest.fn(),
-			});
-			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService();
+			const storage = aStorageService();
+			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 
 			// When
 			service.removeInformationsEtape2();
 
 			// Then
-			expect(sessionStorage.removeItem).toHaveBeenCalledWith('formulaireEtape2');
+			expect(storage.remove).toHaveBeenCalledWith('formulaireEtape2');
 		});
 	});
 });
