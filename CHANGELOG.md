@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.291.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.2...v3.291.3) (2024-05-17)
+
+
+### Bug Fixes
+
+* **deps:** Mise à jour de dépendances mineures ([#3004](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3004)) ([cff5d45](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cff5d458aafb8e2167d9cff63074281c6c50ce8c))
+
 ## [3.291.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.1...v3.291.2) (2024-05-17)
 
 
