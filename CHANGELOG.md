@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.291.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.3...v3.291.4) (2024-05-17)
+
+
+### Bug Fixes
+
+* **cej:** correction de l'anomalie de scroll sur les modales ([#2996](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2996)) ([fd35b73](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd35b730b7e9e61e719a7be8b0bba05f153d2d35))
+
 ## [3.291.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.2...v3.291.3) (2024-05-17)
 
 
