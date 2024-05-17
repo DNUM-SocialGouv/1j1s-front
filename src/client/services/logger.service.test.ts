@@ -8,9 +8,7 @@ const SentryMock = jest.mocked(Sentry, { shallow: true });
 const SentryScopeMock = {
 	setTag: jest.fn(),
 } as unknown as Sentry.Scope;
-SentryMock.configureScope.mockImplementation((callback) => {
-	callback(SentryScopeMock);
-});
+SentryMock.getCurrentScope.mockReturnValue(SentryScopeMock);
 
 describe('LoggerService', () => {
 	const sessionId = 'ma-session-id';
