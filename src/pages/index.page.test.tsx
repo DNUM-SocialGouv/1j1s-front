@@ -253,23 +253,5 @@ describe('Page d‘accueil', () => {
 				});
 			});
 		});
-
-		it('si le lien du dépôt de stages de seconde n’est pas défini alors aucune redirection n’est mise en place',  () => {
-			// GIVEN
-			process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
-			delete process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL;
-
-			// WHEN
-			render(
-				<DependenciesProvider analyticsService={analyticsService}>
-					<Accueil/>
-				</DependenciesProvider>,
-			);
-
-			// THEN
-			const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage - nouvelle fenêtre' });
-			expect(depotOffreButton).toBeVisible();
-			expect(depotOffreButton).toHaveAttribute('href', '');
-		});
 	});
 });

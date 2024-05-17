@@ -10,7 +10,7 @@ describe('ServiceCard', () => {
 	it('si aucune alternative textuelle au logo n‘est fournie, le logo a une alternative textuelle vide', () => {
 		render(<ServiceCard link='/par-ici' linkLabel='Par là' logo='/image.jpg' title='Mon nouveau service' titleAs='h1'>Wow ce service est incroyable</ServiceCard>);
 
-		const logo = screen.getByRole('img');
+		const logo = screen.getByRole('presentation');
 
 		expect(logo).toHaveAttribute('alt', '');
 	});

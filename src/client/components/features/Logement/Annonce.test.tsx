@@ -44,7 +44,7 @@ describe('Annonce Component', () => {
 					/>
 				</DependenciesProvider>,
 			);
-			const image: HTMLImageElement = screen.getByRole('img');
+			const image: HTMLImageElement = screen.getByRole('presentation');
 			expect(image.src).toContain('%2Fimages%2Fimage-par-defaut-carte.webp'); // %2F => /
 		});
 	});
@@ -59,7 +59,7 @@ describe('Annonce Component', () => {
 					/>
 				</DependenciesProvider>,
 			);
-			const image: HTMLImageElement = screen.getByRole('img');
+			const image: HTMLImageElement = screen.getByRole('presentation');
 			expect(image.src).toContain('image-0.jpg');
 		});
 	});
