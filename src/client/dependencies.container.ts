@@ -158,8 +158,6 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	// FIXME? (GAFI 07-05-2024): On pourrait faire ces checks au runtime potentiellement ? Est-ce qu'on a des trucs
-	//	intelligents à faire à l'initialisation si on a pas de storage ?
 	const localStorageService = isStorageAvailable('localStorage')
 		? new BrowserStorageService(window.localStorage)
 		: undefined;
