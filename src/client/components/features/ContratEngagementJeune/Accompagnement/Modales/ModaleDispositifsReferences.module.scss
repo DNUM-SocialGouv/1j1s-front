@@ -1,0 +1,75 @@
+@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
+
+.dispositifsModale {
+  @include utilities.media(large) {
+    > div:first-child {
+      max-width: 50rem;
+      height: fit-content;
+      border-radius: 20px;
+    }
+  }
+
+  & .content {
+    @include utilities.media(large) {
+      padding: 1rem 2rem 5rem 2rem;
+    }
+
+    & .title {
+      @include utilities.title-medium;
+      @extend %bold;
+      color: utilities.$color-title-primary;
+      text-align: center;
+      margin-bottom: 2rem;
+
+      @include utilities.media(large) {
+        margin-bottom: 2.5rem;
+      }
+    }
+
+    ul {
+      display: grid;
+      place-content: center;
+      grid-gap: 2rem;
+
+      @include utilities.media(large) {
+        grid-template-rows: auto auto;
+        grid-template-columns: auto auto;
+      }
+
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+        box-shadow: utilities.$box-shadow;
+        padding: 1rem 2rem;
+        @include utilities.title-small;
+        font-weight: bold;
+        text-decoration: none;
+        color: utilities.$color-title-primary-alternative;
+        border: 1px solid utilities.$color-primary;
+
+        & .icon {
+          width: 30px;
+        }
+
+        & .iconOffre {
+          color: utilities-deprecated.$color-blue-navy;
+        }
+
+        & .iconFormation {
+          color: utilities-deprecated.$color-tapestry;
+        }
+
+        & .iconAide {
+          color: utilities-deprecated.$color-smalt-blue;
+        }
+
+        & .iconBenevolat {
+          color: utilities-deprecated.$color-coral;
+        }
+      }
+    }
+  }
+}

@@ -66,7 +66,7 @@ export default function Accompagnement() {
 							identifier l‘interlocuteur à contacter, répondez à ces quelques questions.
 						</div>
 					</div>
-					<article className={styles.accompagnementArticle}>
+					<article>
 						{formulaire}
 					</article>
 				</div>

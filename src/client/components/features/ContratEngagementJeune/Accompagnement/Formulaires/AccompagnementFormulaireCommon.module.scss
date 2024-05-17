@@ -1,0 +1,70 @@
+@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
+
+.boutonRetour {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.question {
+  @extend %bold;
+}
+
+.optionBouton {
+  @extend %text-regular;
+  padding: 12px;
+  text-align: start;
+  line-height: 1.25rem;
+  border-radius: 20px;
+  border: 1px solid utilities-deprecated.$color-primary;
+  margin-top: 20px;
+  width: 100%;
+
+  @include utilities.media(large) {
+    padding: 20px;
+    min-width: 460px;
+    line-height: 2.5rem;
+  }
+}
+
+.accompagnementValider {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.autresBesoinsContainer {
+  display: grid;
+  grid-template-rows: 1fr;
+  @include utilities-deprecated.media(large) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.accompagnementIsActive {
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+  min-width: 230px;
+  border-radius: 20px;
+  border: 1px solid utilities-deprecated.$color-primary;
+  margin-top: 15px;
+  width: 100%;
+  min-height: 3.375rem;
+  padding: 1rem;
+  background-color: utilities-deprecated.$color-primary;
+  color: utilities-deprecated.$color-on-primary;
+}
+
+.accompagnementDesactive {
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+  min-width: 230px;
+  border-radius: 20px;
+  border: 1px solid utilities-deprecated.$color-primary;
+  margin-top: 15px;
+  width: 100%;
+  min-height: 3.375rem;
+  padding: 1rem;
+}

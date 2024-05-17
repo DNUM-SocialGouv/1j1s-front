@@ -1,41 +1,42 @@
-import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
+import classNames from 'classnames';
+
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
+
+import styles from './ModaleDispositifsReferences.module.scss';
 
 export function ModaleDispositifsReferences(props: { open: boolean, close: () => void }) {
 	return <ModalComponent
 		isOpen={props.open}
 		close={props.close}
-		className={styles.accompagnementDispositifs}>
-		<ModalComponent.Content className={styles.accompagnementDispositifs__Content}>
+		className={styles.dispositifsModale}>
+		<ModalComponent.Content className={styles.content}>
 			<div>
-				<h1 className={styles.accompagnementDispositifs__Title}>Découvrez les dispositifs référencés sur le portail
+				<h1 className={styles.title}>Découvrez les dispositifs référencés sur le portail
 					1jeune1solution</h1>
-				<ul className={styles.accompagnementDispositifsPosition}>
+				<ul>
 					<li>
-						<Link href={'/#offres'} className={styles.accompagnementDispositifsPositionIcon}>
-							<Icon name="brief-case" className={styles.accompagnementDispositifsPositionIconOffre}/>
+						<Link href={'/#offres'}>
+							<Icon name="brief-case" className={classNames(styles.icon, styles.iconOffre)}/>
 							<p>Découvrez nos offres</p>
 						</Link>
 					</li>
 					<li>
-						<Link href={'/#formation'} className={styles.accompagnementDispositifsPositionIcon}>
-							<Icon name={'book'} className={styles.accompagnementDispositifsPositionIconFormation}/>
+						<Link href={'/#formation'}>
+							<Icon name={'book'} className={classNames(styles.icon,styles.iconFormation)}/>
 							<p>Formation et orientation</p>
 						</Link>
 					</li>
 					<li>
-						<Link
-							href={'/#aides-orientation-accompagnement'}
-							className={styles.accompagnementDispositifsPositionIcon}>
-							<Icon name={'compass'} className={styles.accompagnementDispositifsPositionIconAide}/>
+						<Link href={'/#aides-orientation-accompagnement'}>
+							<Icon name={'compass'} className={classNames(styles.icon,styles.iconAide)}/>
 							<p>Aides et accompagnement</p>
 						</Link>
 					</li>
 					<li>
-						<Link href={'/#engagement-benevolat'} className={styles.accompagnementDispositifsPositionIcon}>
-							<Icon name="trophy" className={styles.accompagnementDispositifsPositionIconBenevolat}/>
+						<Link href={'/#engagement-benevolat'}>
+							<Icon name="trophy" className={classNames(styles.icon,styles.iconBenevolat)}/>
 							<p>Engagement</p>
 						</Link>
 					</li>
