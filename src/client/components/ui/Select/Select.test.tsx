@@ -76,11 +76,11 @@ describe('<Select />', () => {
 				const onChange = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 				render(<Select optionList={options} label={'label'} onChange={onChange}/>);
+				const combobox = screen.getByRole('combobox', { name: 'label' });
+				await user.click(combobox);
+				await user.click(screen.getByRole('option', { name: 'options 2' }));
 
-				await user.click(screen.getByRole('button'));
-				await user.click(screen.getByText('options 2'));
-
-				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
+				expect(combobox).toHaveTextContent('options 2');
 				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 			});
 
@@ -97,7 +97,7 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.ARROW_DOWN);
 					await user.keyboard(KeyBoard.SPACE);
 
-					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
+					expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
 					expect(screen.queryByRole('option')).not.toBeInTheDocument();
 				});
 
@@ -115,8 +115,8 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.ARROW_DOWN);
 					await user.keyboard(KeyBoard.ESCAPE);
 
-					expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('');
-					expect(screen.queryByRole('option')).not.toBeInTheDocument();
+					expect(screen.getByRole('combobox')).toHaveTextContent('Sélectionnez votre choix');
+					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 				});
 
 				describe('lorsque l‘utilisateur fait "fleche du bas"', () => {
@@ -237,24 +237,24 @@ describe('<Select />', () => {
 			await user.keyboard(KeyBoard.ARROW_DOWN);
 			await user.keyboard(KeyBoard.SPACE);
 
-			// TODO (BRUJ 24/04/2024): Ne doit pas être appelé avec la valeur selectionné mais avec l'événement de changement et la nouvelle valeur
-			expect(onChange).toHaveBeenCalledWith('2');
+			expect(onChange).toHaveBeenCalledWith(expect.objectContaining({
+				tagName: 'LI',
+				textContent: 'options 2',
+			}));
 		});
 
 		it('accepte un label et le lie au select', () => {
 			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 			render(<Select optionList={options} label={'label'}/>);
 
-			// TODO (BRUJ 24/04/2024): devrait être un combobox
-			expect(screen.getByRole('button', { name: 'label' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'label' })).toBeVisible();
 		});
 
 		it('accepte un complément label et le lie au select', () => {
 			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 			render(<Select optionList={options} label={'label'} labelComplement={'complement label'}/>);
 
-			// TODO (BRUJ 24/04/2024): devrait être un combobox
-			expect(screen.getByRole('button', { name: 'label complement label' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'label complement label' })).toBeVisible();
 		});
 
 		it('accepte une liste d‘options', async () => {
@@ -270,25 +270,27 @@ describe('<Select />', () => {
 			expect(options[0]).toHaveTextContent('options 1');
 			expect(options[1]).toHaveTextContent('options 2');
 		});
+		it('accepte une defaultValue et initialise le select avec cette value', () => {
+			const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+			render(<Select optionList={options} defaultValue={'1'} label={'label'}/>);
+
+			expect(screen.getByRole('combobox')).toHaveTextContent('options 1');
+		});
 
 		describe('value', () => {
-			it('accepte une value et initialise le select avec cette value', () => {
-				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				render(<Select optionList={options} value={'1'} label={'label'}/>);
-
-				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('1');
-			});
-
 			it('lorsque la value change, le select prend la valeur de value mise à jour', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 				let valueThatCanChange = '1';
 
-				const { rerender } = render(<Select optionList={options} value={valueThatCanChange} label={'label'}/>);
+				const { rerender } = render(<form role="form">
+					<Select optionList={options} value={valueThatCanChange} label={'label'} name="name"/>
+				</form>);
 
 				valueThatCanChange = '2';
 
 				rerender(<Select optionList={options} value={valueThatCanChange} label={'label'}/>);
-				expect(screen.getByRole('textbox', { hidden: true })).toHaveValue('2');
+				expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
+				expect(screen.getByRole('form')).toHaveFormValues({ name: '2' });
 			});
 		});
 

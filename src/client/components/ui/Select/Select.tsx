@@ -1,13 +1,25 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import React, {
+	ChangeEvent,
+	FocusEvent,
+	KeyboardEvent,
+	SyntheticEvent,
+	useCallback,
+	useId,
+	useMemo,
+	useReducer,
+	useRef,
+	useState,
+} from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { handleKeyBoardInteraction, setFocusToSelectButton } from '~/client/components/keyboard/select.keyboard';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
+import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
+import { SelectAction, SelectReducer } from '~/client/components/ui/Select/SelectReducer';
 
 type SelectProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	placeholder?: string;
@@ -19,8 +31,9 @@ type SelectProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	multiple?: boolean;
 	required?: boolean;
 	id?: string
-	onChange?: (value: string) => void; // FIXME: utiliser le type natif onChange de React.HTMLAttributes<HTMLInputElement>
+	onChange?: (value: HTMLElement) => void;
 	labelComplement?: string
+	defaultValue?: string
 }
 
 export interface Option {
@@ -33,7 +46,8 @@ const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
 const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
 export function Select(props: SelectProps) {
-	const { className,
+	const {
+		className,
 		id,
 		optionList,
 		value,
@@ -42,102 +56,120 @@ export function Select(props: SelectProps) {
 		label,
 		multiple,
 		required,
-		onChange,
+		onChange: onChangeProps = doNothing,
 		labelComplement,
-		...rest
+		defaultValue,
 	} = props;
-	const errorMessageBy = useId();
 	const optionsRef = useRef<HTMLDivElement>(null);
+	const listboxRef = useRef<HTMLUListElement>(null);
 	const labelledBy = useId();
-	const listBoxRef = useRef<HTMLUListElement>(null);
 	const selectIdState = useId();
+	const optionsId = useId();
 	const selectId = id ?? selectIdState;
-
-	const [isTouched, setIsTouched] = useState(false);
-	const [isOptionListOpen, setIsOptionListOpen] = useState(false);
+	const [state, dispatch] = useReducer(
+		SelectReducer, {
+			activeDescendant: undefined,
+			isListOptionsOpen: false,
+			optionSelectedLabel: defaultValue ? getLabelByValue(defaultValue) : '',
+			suggestionList: listboxRef,
+			visibleOptions: [],
+		},
+	);
 	const [selectedValue, setSelectedValue] = useState(value || '');
-	const [errorMessage] = useState(SELECT_ERROR_MESSAGE_REQUIRED);
 
-	const selectedOption = useMemo(() => optionList.find((option) => option.valeur === selectedValue),
-		[optionList, selectedValue]);
+	function getLabelByValue(value: string) {
+		const optionValue = optionList.find((option) => option.valeur === value);
+		if (optionValue) {
+			return optionValue.libellé;
+		}
+		return '';
+	}
+
+	function selectOption(optionId: string) {
+		dispatch(new SelectAction.SelectOption(optionId));
+		const option = document.getElementById(optionId);
+		if (option) onChangeProps(option);
+	}
 
 	const defaultPlaceholder = useMemo(() => multiple ? SELECT_PLACEHOLDER_PLURAL : SELECT_PLACEHOLDER_SINGULAR,
 		[multiple]);
+
+	const valueSelected = useMemo(() => {
+		const optionValue = optionList.find((option) => option.libellé === .optionSelectedLabel);
+		if (optionValue) {
+			return optionValue.valeur;
+		}
+		return '';
+	}, [state.optionSelectedLabel]);
 
 	const multipleSelectLabel = useMemo(() => {
 		const selectedValueLength = String(selectedValue).split(',').length;
 		return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
 	}, [selectedValue]);
 
-	const singleSelectLabel = useMemo(() => selectedOption ? selectedOption.libellé : '', [selectedOption]);
-
-	const buttonLabel = useMemo(() => {
-		if (selectedValue) return multiple ? multipleSelectLabel : singleSelectLabel;
+	const optionSelectedLabel = () => {
+		if (state.optionSelectedLabel) return multiple ? multipleSelectLabel : state.optionSelectedLabel;
 		if (placeholder) return placeholder;
 		return defaultPlaceholder;
-	}, [defaultPlaceholder, multiple, multipleSelectLabel, placeholder, selectedValue, singleSelectLabel]);
+	};
 
-	const hasError = useMemo(() => isTouched && !selectedValue && !isOptionListOpen, [isOptionListOpen, isTouched, selectedValue]);
-
-	const closeOptionsOnClickOutside = useCallback((event: MouseEvent) => {
-		if (!(optionsRef.current)?.contains(event.target as Node)) {
-			setIsOptionListOpen(false);
-		}
+	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
+	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
+		event.preventDefault();
 	}, []);
 
-	const closeOptionsOnEscape = useCallback((event: KeyboardEvent) => {
-		const currentItem = event.target as HTMLElement;
-		if (event.key === KeyBoard.ESCAPE && isOptionListOpen) {
-			setIsOptionListOpen(false);
-			setFocusToSelectButton(currentItem);
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
+		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
+		if (newFocusStillInCombobox) {
+			cancelEvent(event);
+			return;
 		}
-	}, [isOptionListOpen]);
 
-	useEffect(function onValueChange() {
-		if (value) setSelectedValue(value);
+		dispatch(new SelectAction.CloseList());
 	}, [value]);
 
-	useEffect(function setEventListenerOnMount() {
-		document.addEventListener('mousedown', closeOptionsOnClickOutside);
-		document.addEventListener('keyup', closeOptionsOnEscape);
+	const isCurrentItemSelected = useCallback((option: Option, optionId?: string) => {
+		return multiple ? state.optionSelectedLabel?.split(',').includes(option.libellé) : state.activeDescendant === optionId;
+	}, [state.activeDescendant, multiple]);
 
-		return () => {
-			document.removeEventListener('mousedown', closeOptionsOnClickOutside);
-			document.removeEventListener('keyup', closeOptionsOnEscape);
-		};
-	}, [closeOptionsOnClickOutside, closeOptionsOnEscape]);
-
-	useEffect(function setFocusOnOpen() {
-		if (isOptionListOpen) {
-			const currentItem = optionsRef.current as HTMLDivElement;
-			const firstElement = currentItem.getElementsByTagName('li')[0];
-			firstElement.focus();
-		}
-	}, [isOptionListOpen]);
-
-	const isCurrentItemSelected = useCallback((option: Option): boolean => {
-		return multiple ? selectedValue.split(',').includes(option.valeur) : selectedValue === option.valeur;
-	}, [selectedValue, multiple]);
-
-	const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLElement>) => {
-		const currentItem = event.target as HTMLElement;
-		const updateValues = () => {
-			const currentInput = currentItem.querySelector('input');
-			if (currentInput === null) return;
-			const inputValue = currentInput.getAttribute('value');
-			if (multiple && inputValue !== null) onSelectMultipleChange(!currentInput.checked, inputValue);
-			else {
-				if (inputValue !== null) {
-					setSelectedValue(inputValue);
-					onChange?.(inputValue);
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+		switch (event.key) {
+			case KeyBoard.ARROW_UP:
+			case KeyBoard.IE_ARROW_UP:
+				dispatch(new SelectAction.PreviousOption());
+				event.preventDefault();
+				break;
+			case KeyBoard.ARROW_DOWN:
+			case KeyBoard.IE_ARROW_DOWN:
+				if (event.altKey) {
+				} else {
+					dispatch(new SelectAction.NextOption());
 				}
-				setIsOptionListOpen(false);
-				setFocusToSelectButton(currentItem);
+				event.preventDefault();
+				break;
+			case KeyBoard.ESCAPE:
+			case KeyBoard.IE_ESCAPE:
+				dispatch(new SelectAction.CloseList());
+				event.preventDefault();
+				break;
+			case KeyBoard.SPACE:
+			case KeyBoard.ENTER: {
+				if (state.isListOptionsOpen) {
+					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+					if (selectedOptionID) {
+						selectOption(selectedOptionID);
+						event.preventDefault();
+					}
+				} else {
+					cancelEvent(event);
+					dispatch(new SelectAction.OpenList());
+				}
+				break;
 			}
-		};
-		handleKeyBoardInteraction(event, currentItem, updateValues);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedValue, multiple, setIsOptionListOpen, setSelectedValue]);
+			default:
+				break;
+		}
+	}, [state]);
 
 	const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
 		const valueList = selectedValue ? selectedValue.split(',') : [];
@@ -150,25 +182,33 @@ export function Select(props: SelectProps) {
 
 		const newSelectedValue = valueList.join(',');
 		setSelectedValue(newSelectedValue);
-		onChange?.(newSelectedValue);
-	}, [selectedValue, setSelectedValue, onChange]);
+		// TODO (BRUJ 17/05/2024): voir comment changer la version multiple
+		//onChangeProps?.(newSelectedValue);
+	}, [selectedValue, setSelectedValue, onChangeProps]);
 
 	const renderOptionList = () => (
 		<ul
-			className={styles.options}
 			role="listbox"
-			ref={listBoxRef}
+			ref={listboxRef}
+			aria-labelledby={labelledBy}
+			tabIndex={-1}
+			hidden={!state.isListOptionsOpen}
 			aria-multiselectable={multiple}>
-			{optionList.map((option, index) =>
-				<li
+			{optionList.map((option, index) => {
+				const optionId = `${optionsId}-${index}`;
+				return <li
 					tabIndex={-1}
+					id={optionId}
 					role="option"
 					key={index}
-					aria-selected={isCurrentItemSelected(option)}
-					onKeyDown={handleKeyDown}>
+					onMouseDown={onMouseDown}
+					onClick={() => {
+						selectOption(optionId);
+					}}
+					aria-selected={isCurrentItemSelected(option, optionId)}>
 					{multiple ? renderCheckBox(option) : renderRadioButton(option)}
-				</li>,
-			)}
+				</li>;
+			})}
 		</ul>
 	);
 
@@ -184,64 +224,55 @@ export function Select(props: SelectProps) {
 		/>
 	);
 
-	const renderRadioButton = (option: Option) => (
-		<Radio
+	function renderRadioButton(option: Option) {
+		return <Radio
 			className={styles.option}
 			label={option.libellé}
 			value={option.valeur}
-			checked={isCurrentItemSelected(option)}
-			onChange={() => {
-				setIsOptionListOpen(false);
-				setSelectedValue(option.valeur);
-				onChange?.(option.valeur);
-			}}
-		/>
-	);
+			onChange={doNothing}
+			checked={option.libellé === state.optionSelectedLabel}
+			hidden={true}/>;
+	}
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
 			<Champ.Label htmlFor={selectId} className={styles.selectLabel} id={labelledBy}>
 				{label}
-				{ labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement> }
+				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 			</Champ.Label>
-			<div ref={optionsRef} className={styles.container}>
-				<button
-					type="button"
+			<div className={styles.container}>
+				<div
+					role="combobox"
 					aria-haspopup="listbox"
-					aria-expanded={isOptionListOpen}
+					aria-expanded={state.isListOptionsOpen}
 					aria-labelledby={labelledBy}
-					className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
-					onClick={() => setIsOptionListOpen(!isOptionListOpen)}
+					tabIndex={0}
+					onClick={() => {
+						dispatch(new SelectAction.ToggleList());
+					}}
+					aria-activedescendant={state.activeDescendant}
+					onKeyDown={onKeyDown}
+					onBlur={onBlur}
 				>
-					<span className={classNames({ [styles.selectedLabel]: selectedValue })}
-						  data-testid="Select-Placeholder">{buttonLabel}</span>
-					{isOptionListOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
-				</button>
-				<input
-					className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
-					id={selectId}
-					tabIndex={-1}
+					{optionSelectedLabel()}
+					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+				</div>
+				{renderOptionList()}
+				<Input
+					type="hidden"
 					name={name}
-					value={selectedValue}
-					aria-hidden="true"
-					aria-invalid={hasError}
-					aria-errormessage={errorMessageBy} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
-					data-testid="Select-InputHidden"
-					autoComplete="off"
-					required={required}
-					onChange={() => ({})}
-					onBlur={() => required ? setIsTouched(true) : undefined}
-					type="text"
-					{...rest}
+					value={valueSelected}
 				/>
-				{isOptionListOpen && renderOptionList()}
 			</div>
-			{hasError &&
-				<p className={classNames(styles.inputError)}
-				   id={errorMessageBy}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */}
-					{errorMessage}
-				</p>
-			}
 		</div>
 	);
+}
+
+function cancelEvent(event: SyntheticEvent) {
+	event.preventDefault();
+	event.stopPropagation();
+}
+
+function doNothing() {
+	return;
 }
