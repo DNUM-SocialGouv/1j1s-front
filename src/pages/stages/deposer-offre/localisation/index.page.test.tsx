@@ -37,16 +37,19 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 	});
 
 	it('doit rendre du HTML respectant la specification', () => {
+		const stageDeposerOffreEtape1PersistenceService = aStageDeposerOffreEtape1PersistenceService({
+			getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+		});
+		const stageDeposerOffreEtape2PersistenceService = aStageDeposerOffreEtape2PersistenceService({
+			getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+		});
+		const stageDeposerOffreEtape3PersistenceService = aStageDeposerOffreEtape3PersistenceService();
 		const { container } = render(
 			<DependenciesProvider
 				stageService={aStageService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
-				})}
-				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
-				})}
-				stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				stageDeposerOffreEtape1PersistenceService={stageDeposerOffreEtape1PersistenceService}
+				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
+				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}
 			>
 				<DeposerOffreStageEtape3Page/>
 			</DependenciesProvider> );
@@ -55,16 +58,19 @@ describe('<DeposerOffreStageEtape3Page />', () => {
 	});
 
 	it('n‘a pas de défaut d‘accessibilité', async () => {
+		const stageDeposerOffreEtape1PersistenceService = aStageDeposerOffreEtape1PersistenceService({
+			getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
+		});
+		const stageDeposerOffreEtape2PersistenceService = aStageDeposerOffreEtape2PersistenceService({
+			getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
+		});
+		const stageDeposerOffreEtape3PersistenceService = aStageDeposerOffreEtape3PersistenceService();
 		const { container } = render(
 			<DependenciesProvider
 				stageService={aStageService()}
-				stageDeposerOffreEtape1PersistenceService={aStageDeposerOffreEtape1PersistenceService({
-					getInformationsEtape1: jest.fn().mockReturnValue(aFormulaireEtapeEntreprise()),
-				})}
-				stageDeposerOffreEtape2PersistenceService={aStageDeposerOffreEtape2PersistenceService({
-					getInformationsEtape2: jest.fn().mockReturnValue(aFormulaireEtapeStage()),
-				})}
-				stageDeposerOffreEtape3PersistenceService={aStageDeposerOffreEtape3PersistenceService()}
+				stageDeposerOffreEtape1PersistenceService={stageDeposerOffreEtape1PersistenceService}
+				stageDeposerOffreEtape2PersistenceService={stageDeposerOffreEtape2PersistenceService}
+				stageDeposerOffreEtape3PersistenceService={stageDeposerOffreEtape3PersistenceService}
 			>
 				<DeposerOffreStageEtape3Page />
 			</DependenciesProvider>,

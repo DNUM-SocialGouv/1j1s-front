@@ -160,14 +160,12 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	// FIXME? (GAFI 07-05-2024): On pourrait faire ces checks au runtime potentiellement ? Est-ce qu'on a des trucs
 	//	intelligents à faire à l'initialisation si on a pas de storage ?
-	let localStorageService: BrowserPersistanceService | undefined;
-	if (isStorageAvailable('localStorage')) {
-		localStorageService = new BrowserPersistanceService(window.localStorage);
-	}
-	let sessionStorageService: BrowserPersistanceService | undefined;
-	if (isStorageAvailable('sessionStorage')) {
-		sessionStorageService = new BrowserPersistanceService(window.sessionStorage);
-	}
+	const localStorageService = isStorageAvailable('localStorage')
+		? new BrowserPersistanceService(window.localStorage)
+		: undefined;
+	const sessionStorageService = isStorageAvailable('sessionStorage')
+		? new BrowserPersistanceService(window.sessionStorage)
+		: undefined;
 	const stageDeposerOffreEtape1PersistenceService = localStorageService
 		? new LocalStorageStageDeposerOffreEtape1PersistenceService(localStorageService)
 		: new NullStageDeposerOffreEtape1PersistenceService();
