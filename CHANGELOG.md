@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.291.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.4...v3.291.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency markdown-it-anchor to v9.0.1 ([#3008](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3008)) ([098dbb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/098dbb3bdda7b34caff135a71915eff726452aa9))
+
 ## [3.291.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.3...v3.291.4) (2024-05-17)
 
 
