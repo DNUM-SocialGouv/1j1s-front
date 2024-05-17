@@ -257,7 +257,7 @@ describe('RechercherJobÉtudiant', () => {
 
 			expect(messageNombreRésultats).toBeInTheDocument();
 			const item = screen.getAllByRole('listitem')[0];
-			const img = within(item).getByRole('img');
+			const img = within(item).getByRole('presentation');
 			expect(img).toBeVisible();
 			expect(img).toHaveAttribute('src', expect.stringContaining('logo.com'));
 			expect(img).toHaveAttribute('alt', '');
