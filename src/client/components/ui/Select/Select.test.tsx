@@ -278,7 +278,7 @@ describe('<Select />', () => {
 		});
 
 		describe('value', () => {
-			it('lorsque la value change, le select prend la valeur de value mise à jour', () => {
+			it('lorsque la value change, le select prend la valeur de value mise à jour', async () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 				let valueThatCanChange = '1';
 
@@ -288,9 +288,12 @@ describe('<Select />', () => {
 
 				valueThatCanChange = '2';
 
-				rerender(<Select optionList={options} value={valueThatCanChange} label={'label'}/>);
+				rerender(<form role="form" aria-label={'test'}>
+					<Select optionList={options} value={valueThatCanChange} label={'label'} name="name"/>
+				</form>);
+
 				expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
-				expect(screen.getByRole('form')).toHaveFormValues({ name: '2' });
+				expect(screen.getByRole('form', { name: 'test' })).toHaveFormValues({ name: '2' });
 			});
 		});
 

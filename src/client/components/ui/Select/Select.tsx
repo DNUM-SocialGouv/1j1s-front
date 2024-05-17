@@ -76,6 +76,7 @@ export function Select(props: SelectProps) {
 		},
 	);
 	const [selectedValue, setSelectedValue] = useState(value || '');
+	const optionSelectedLabel = value ? getLabelByValue(value) : state.optionSelectedLabel;
 
 	function getLabelByValue(value: string) {
 		const optionValue = optionList.find((option) => option.valeur === value);
@@ -95,20 +96,21 @@ export function Select(props: SelectProps) {
 		[multiple]);
 
 	const valueSelected = useMemo(() => {
-		const optionValue = optionList.find((option) => option.libellé === .optionSelectedLabel);
+		if(value) return value;
+		const optionValue = optionList.find((option) => option.libellé === optionSelectedLabel);
 		if (optionValue) {
 			return optionValue.valeur;
 		}
 		return '';
-	}, [state.optionSelectedLabel]);
+	}, [optionSelectedLabel, value]);
 
 	const multipleSelectLabel = useMemo(() => {
 		const selectedValueLength = String(selectedValue).split(',').length;
 		return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
 	}, [selectedValue]);
 
-	const optionSelectedLabel = () => {
-		if (state.optionSelectedLabel) return multiple ? multipleSelectLabel : state.optionSelectedLabel;
+	const placeholderSelect = () => {
+		if (optionSelectedLabel) return multiple ? multipleSelectLabel : optionSelectedLabel;
 		if (placeholder) return placeholder;
 		return defaultPlaceholder;
 	};
@@ -129,7 +131,7 @@ export function Select(props: SelectProps) {
 	}, [value]);
 
 	const isCurrentItemSelected = useCallback((option: Option, optionId?: string) => {
-		return multiple ? state.optionSelectedLabel?.split(',').includes(option.libellé) : state.activeDescendant === optionId;
+		return multiple ? optionSelectedLabel?.split(',').includes(option.libellé) : state.activeDescendant === optionId;
 	}, [state.activeDescendant, multiple]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
@@ -230,7 +232,7 @@ export function Select(props: SelectProps) {
 			label={option.libellé}
 			value={option.valeur}
 			onChange={doNothing}
-			checked={option.libellé === state.optionSelectedLabel}
+			checked={option.libellé === optionSelectedLabel}
 			hidden={true}/>;
 	}
 
@@ -254,7 +256,7 @@ export function Select(props: SelectProps) {
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
 				>
-					{optionSelectedLabel()}
+					{placeholderSelect()}
 					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 				</div>
 				{renderOptionList()}
