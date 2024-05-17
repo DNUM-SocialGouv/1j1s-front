@@ -36,7 +36,6 @@ import { BffAlternanceMetierService } from '~/client/services/metiers/bff.altern
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { BffMissionEngagementService } from '~/client/services/missionEngagement/bff.missionEngagement.service';
 import { MissionEngagementService } from '~/client/services/missionEngagement/missionEngagement.service';
-import { BrowserPersistanceService } from '~/client/services/persistance/browser.persistance.service';
 import { BffStageService } from '~/client/services/stage/bff.stage.service';
 import { StageService } from '~/client/services/stage/stage.service';
 import { BffStage3eEt2deService } from '~/client/services/stage3eEt2de/bff.stage3eEt2de.service';
@@ -69,6 +68,7 @@ import {
 import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
+import { BrowserStorageService } from '~/client/services/storage/browser.storage.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
 import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
@@ -95,8 +95,8 @@ export type Dependencies = {
 	stageDeposerOffreEtape1PersistenceService: StageDeposerOffreEtape1PersistenceService
 	stageDeposerOffreEtape2PersistenceService: StageDeposerOffreEtape2PersistenceService
 	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
-	localStorageService?: BrowserPersistanceService
-	sessionStorageService?: BrowserPersistanceService
+	localStorageService?: BrowserStorageService
+	sessionStorageService?: BrowserStorageService
 }
 
 class DependencyInitException extends Error {
@@ -161,10 +161,10 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 	// FIXME? (GAFI 07-05-2024): On pourrait faire ces checks au runtime potentiellement ? Est-ce qu'on a des trucs
 	//	intelligents à faire à l'initialisation si on a pas de storage ?
 	const localStorageService = isStorageAvailable('localStorage')
-		? new BrowserPersistanceService(window.localStorage)
+		? new BrowserStorageService(window.localStorage)
 		: undefined;
 	const sessionStorageService = isStorageAvailable('sessionStorage')
-		? new BrowserPersistanceService(window.sessionStorage)
+		? new BrowserStorageService(window.sessionStorage)
 		: undefined;
 	const stageDeposerOffreEtape1PersistenceService = localStorageService
 		? new LocalStorageStageDeposerOffreEtape1PersistenceService(localStorageService)

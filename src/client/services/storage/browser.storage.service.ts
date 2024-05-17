@@ -1,4 +1,4 @@
-import { PersistanceService } from './persistance.service';
+import { StorageService } from './storage.service';
 
 export type BrowserStorage = {
 	getItem(key: string): string | null;
@@ -6,7 +6,7 @@ export type BrowserStorage = {
 	removeItem(key: string): void;
 };
 
-export class BrowserPersistanceService implements PersistanceService {
+export class BrowserStorageService implements StorageService {
 	constructor(private storage: BrowserStorage) {}
 
 	get<DataType>(key: string): DataType | null {

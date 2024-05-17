@@ -1,4 +1,4 @@
-import { BrowserPersistanceService, BrowserStorage } from './browser.persistance.service';
+import { BrowserStorage,BrowserStorageService } from './browser.storage.service';
 
 function aStorage(overrides?: Partial<BrowserStorage>): BrowserStorage {
 	return {
@@ -9,13 +9,13 @@ function aStorage(overrides?: Partial<BrowserStorage>): BrowserStorage {
 	};
 }
 
-describe('browserPersistanceService', () => {
+describe('browserStorageService', () => {
 	it('devrait parser la donnée renvoyée quand on get()', () => {
 		const expectedData = { test: 'value' };
 		const storage = aStorage({
 			getItem: jest.fn().mockReturnValue(JSON.stringify(expectedData)),
 		});
-		const service = new BrowserPersistanceService(storage);
+		const service = new BrowserStorageService(storage);
 
 		const result = service.get('key');
 
@@ -24,7 +24,7 @@ describe('browserPersistanceService', () => {
 	it('devrait serialiser la donnée quand on set()', () => {
 		const data = { test: 'value' };
 		const storage = aStorage();
-		const service = new BrowserPersistanceService(storage);
+		const service = new BrowserStorageService(storage);
 
 		service.set('key', data);
 

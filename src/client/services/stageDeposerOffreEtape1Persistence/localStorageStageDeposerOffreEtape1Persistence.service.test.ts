@@ -1,5 +1,5 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { aPersistanceService } from '~/client/services/persistance/persistance.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 
 import { LocalStorageStageDeposerOffreEtape1PersistenceService } from './localStorageStageDeposerOffreEtape1Persistence.service';
 
@@ -7,7 +7,7 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 	describe('setInformationsEtape1', () => {
 		it('envoie les informations dans le localStorage', () => {
 			// Given
-			const storage = aPersistanceService();
+			const storage = aStorageService();
 			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService(storage);
 			const informations: OffreDeStageDeposee.Entreprise = {
 				descriptionEmployeur: 'descriptionEmployeur',
@@ -28,7 +28,7 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 	describe('getInformationsEtape1', () => {
 		it('récupère les informations du localStorage', () => {
 			// Given
-			const storage = aPersistanceService();
+			const storage = aStorageService();
 			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService(storage);
 
 			// When

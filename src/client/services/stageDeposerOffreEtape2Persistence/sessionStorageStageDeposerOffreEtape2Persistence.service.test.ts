@@ -3,7 +3,7 @@
  */
 
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { aPersistanceService } from '~/client/services/persistance/persistance.service.fixture';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 import { SessionStorageStageDeposerOffreEtape2PersistenceService } from './sessionStorageStageDeposerOffreEtape2Persistence.service';
@@ -12,7 +12,7 @@ describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
 	describe('setInformationsEtape2', () => {
 		it('envoie les informations dans le sessionStorage', () => {
 			// Given
-			const storage = aPersistanceService();
+			const storage = aStorageService();
 			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 			const informations: OffreDeStageDeposee.Stage = {
 				dateDeDebutMax: '2022-01-01',
@@ -38,7 +38,7 @@ describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
 	describe('getInformationsEtape2', () => {
 		it('récupère les informations du sessionStorage', () => {
 			// Given
-			const storage = aPersistanceService();
+			const storage = aStorageService();
 			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 
 			// When
@@ -52,7 +52,7 @@ describe('SessionStorageStageDeposerOffreEtape2PersistenceService', () => {
 	describe('removeInformationsEtape2', () => {
 		it('supprime les informations du sessionStorage', () => {
 			// Given
-			const storage = aPersistanceService();
+			const storage = aStorageService();
 			const service = new SessionStorageStageDeposerOffreEtape2PersistenceService(storage);
 
 			// When

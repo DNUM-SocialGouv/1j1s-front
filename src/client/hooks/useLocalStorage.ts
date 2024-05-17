@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
 import { useDependency } from '../context/dependenciesContainer.context';
-import { PersistanceService } from '../services/persistance/persistance.service';
+import { StorageService } from '../services/storage/storage.service';
 
 function useLocalStorage<T>(key: string): { get: () => T | null, set: (value: T) => void, remove: () => void } {
 	const [fallbackStorage, setFallbackStorage] = useState<T | null>(null);
-	const localStorage = useDependency<PersistanceService>('localStorageService');
+	const localStorage = useDependency<StorageService>('localStorageService');
 
 	if (localStorage != null) {
 		return {

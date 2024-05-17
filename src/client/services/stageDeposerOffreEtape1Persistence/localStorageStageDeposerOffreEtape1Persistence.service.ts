@@ -1,11 +1,11 @@
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { PersistanceService } from '~/client/services/persistance/persistance.service';
+import { StorageService } from '~/client/services/storage/storage.service';
 
 import { StageDeposerOffreEtape1PersistenceService } from './stageDeposerOffreEtape1Persistence.service';
 
 export class LocalStorageStageDeposerOffreEtape1PersistenceService implements StageDeposerOffreEtape1PersistenceService {
 	private static STORAGE_KEY = 'formulaireEtape1';
-	constructor(private storage: PersistanceService) {}
+	constructor(private storage: StorageService) {}
 
 	getInformationsEtape1(): OffreDeStageDeposee.Entreprise | null {
 		return this.storage.get(LocalStorageStageDeposerOffreEtape1PersistenceService.STORAGE_KEY);
