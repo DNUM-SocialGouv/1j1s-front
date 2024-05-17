@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { ChangeEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { handleKeyBoardInteraction, setFocusToSelectButton } from '~/client/components/keyboard/select.keyboard';
@@ -47,11 +46,13 @@ export function Select(props: SelectProps) {
 		labelComplement,
 		...rest
 	} = props;
-	const errorMessageBy = useRef(uuidv4());
+	const errorMessageBy = useId();
 	const optionsRef = useRef<HTMLDivElement>(null);
-	const labelledBy = useRef(uuidv4());
+	const labelledBy = useId();
 	const listBoxRef = useRef<HTMLUListElement>(null);
-	const selectId = useRef<string>(id || uuidv4());
+	const selectIdState = useId();
+	const selectId = id ?? selectIdState;
+
 	const [isTouched, setIsTouched] = useState(false);
 	const [isOptionListOpen, setIsOptionListOpen] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(value || '');
@@ -199,7 +200,7 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<Champ.Label htmlFor={selectId.current} className={styles.selectLabel} id={labelledBy.current}>
+			<Champ.Label htmlFor={selectId} className={styles.selectLabel} id={labelledBy}>
 				{label}
 				{ labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement> }
 			</Champ.Label>
@@ -208,7 +209,7 @@ export function Select(props: SelectProps) {
 					type="button"
 					aria-haspopup="listbox"
 					aria-expanded={isOptionListOpen}
-					aria-labelledby={labelledBy.current}
+					aria-labelledby={labelledBy}
 					className={classNames(styles.button, { [styles.buttonInvalid]: hasError })}
 					onClick={() => setIsOptionListOpen(!isOptionListOpen)}
 				>
@@ -218,13 +219,13 @@ export function Select(props: SelectProps) {
 				</button>
 				<input
 					className={classNames(styles.innerInput, selectedValue ? styles.innerInputWithValue : '')}
-					id={selectId.current}
+					id={selectId}
 					tabIndex={-1}
 					name={name}
 					value={selectedValue}
 					aria-hidden="true"
 					aria-invalid={hasError}
-					aria-errormessage={errorMessageBy.current} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
+					aria-errormessage={errorMessageBy} // TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur
 					data-testid="Select-InputHidden"
 					autoComplete="off"
 					required={required}
@@ -237,7 +238,7 @@ export function Select(props: SelectProps) {
 			</div>
 			{hasError &&
 				<p className={classNames(styles.inputError)}
-				   id={errorMessageBy.current}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */}
+				   id={errorMessageBy}>  { /* TODO GMO 17-10-2023 Conditionner la présence de cet élément à la présence d'une erreur */}
 					{errorMessage}
 				</p>
 			}

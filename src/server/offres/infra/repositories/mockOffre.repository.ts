@@ -2,7 +2,7 @@ import { createFailure, createSuccess, Either } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 
 import { Offre, OffreFiltre, RésultatsRechercheOffre } from '../../domain/offre';
-import { aBarmanOffre, aRésultatEchantillonOffre, aRésultatsRechercheOffre } from '../../domain/offre.fixture';
+import { anOffreEmploi, aRésultatEchantillonOffre, aRésultatsRechercheOffre } from '../../domain/offre.fixture';
 import { OffreRepository } from '../../domain/offre.repository';
 
 export function searchOffreRepositoryMockResults(filtre: OffreFiltre): Either<RésultatsRechercheOffre> {
@@ -12,7 +12,7 @@ export function searchOffreRepositoryMockResults(filtre: OffreFiltre): Either<R�
 	if (filtre.page === 1 && filtre.motClé === 'barman') {
 		return createSuccess(aRésultatsRechercheOffre({
 			nombreRésultats: 1,
-			résultats: [aBarmanOffre()],
+			résultats: [anOffreEmploi()],
 		}));
 	}
 	if (filtre.page === 67) {
@@ -23,7 +23,7 @@ export function searchOffreRepositoryMockResults(filtre: OffreFiltre): Either<R�
 }
 
 export function getOffreRepositoryMockResults(): Either<Offre> {
-	return createSuccess(aBarmanOffre());
+	return createSuccess(anOffreEmploi());
 }
 
 export class MockOffreRepository implements OffreRepository {

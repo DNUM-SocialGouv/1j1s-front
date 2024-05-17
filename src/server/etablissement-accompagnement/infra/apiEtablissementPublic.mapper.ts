@@ -48,13 +48,17 @@ function mapTypeEtablissement(pivotLocal: Array<PivotLocal>): TypeÉtablissement
 	return pivotLocalWithValidEtablissementType?.type_service_local as TypeÉtablissement;
 }
 
-function mapAdresse(adresseList: Array<Adresse>): string | undefined {
-	// TODO (BRUJ 20/02/2024): ce n‘est pas au bff de formater l'adresse
+function mapAdresse(adresseList: Array<Adresse>): EtablissementAccompagnement.Adresse | undefined {
 	const adresse = adresseList.find((adresse) => adresse.type_adresse === 'Adresse');
 	if (!adresse) {
 		return undefined;
 	}
-	return `${adresse.numero_voie}, ${adresse.code_postal} ${adresse.nom_commune}`;
+
+	return {
+		codePostal: adresse.code_postal,
+		nomCommune: adresse.nom_commune,
+		numeroVoie: adresse.numero_voie,
+	};
 }
 
 function isValidPlageOuverture(plageOuverture: PlageOuverture): boolean {

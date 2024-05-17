@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import React, { useMemo } from 'react';
 
 import {
@@ -12,9 +13,6 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import {
-	RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	formatLibelleLocalisation,
@@ -38,9 +36,11 @@ import {
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution').then((mod) => mod.RésultatRechercherSolution), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher un job étudiant';
-const LOGO_OFFRE_EMPLOI = '/images/logos/france-travail.svg';
+const LOGO_FRANCE_TRAVAIL = '/images/logos/france-travail.svg';
 
 interface RechercherJobEtudiantProps {
 	erreurRecherche?: Erreur
@@ -130,7 +130,8 @@ function ListeOffreJobÉtudiant({ résultatList }: ListeRésultatProps) {
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/jobs-etudiants/${offreEmploi.id}`}
-						logo={offreEmploi.entreprise.logo || LOGO_OFFRE_EMPLOI}
+						logo={offreEmploi.entreprise.logo || LOGO_FRANCE_TRAVAIL}
+						logoAlt={offreEmploi.entreprise.logo ? '' : 'France travail'}
 						sousTitreOffre={offreEmploi.entreprise.nom}
 					/>
 				</li>

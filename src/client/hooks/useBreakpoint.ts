@@ -23,7 +23,6 @@ function getScreenSize() {
 	return BREAKPOINT.SM;
 }
 
-// TODO supprimer la plupart des utilisations pour se reposer sur du CSS + display:none à la place
 export default function useBreakpoint() {
 	const [screenSize, setScreenSize] = useState(getScreenSize());
 

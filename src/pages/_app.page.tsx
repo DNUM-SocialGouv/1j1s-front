@@ -4,21 +4,21 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react';
 
 import ErrorServer from '~/client/components/layouts/Error/ErrorServer';
 import { Layout } from '~/client/components/layouts/Layout';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import dependenciesContainer from '~/client/dependencies.container';
-import useDisplayBackButton from '~/client/hooks/useDisplayBackButton';
+import usePageHistory from '~/client/hooks/usePageHistory';
 import useSessionId from '~/client/hooks/useSessionId';
 
 export type NextPageWithLayout<P = object> = NextPage<P, P> & {
-  getLayout?: (page: ReactElement) => ReactNode;
+	getLayout?: (page: ReactElement) => ReactNode;
 }
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
+	Component: NextPageWithLayout;
 }
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
@@ -28,15 +28,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 	 Il est nécessaire pour le moment car la codebase contient toujours des appels à des méthodes comme useBreakpoint
 	 qui causent des hydration mismatch = différence de rendu entre serveur et premier chargement du JS côté client
 	La suppression de isClientSide permettra un rendu SSR / SSG complet */
-	const [isClientSide, setIsClientSide] = useState(false);
-	useEffect(() => {
-		setIsClientSide(true);
-	}, []);
 
-	const dependenciesContainerInstance = useMemo(() => isClientSide && dependenciesContainer(sessionId), [isClientSide, sessionId]);
+	const dependenciesContainerInstance = useMemo(() => dependenciesContainer(sessionId), [sessionId]);
 	const router = useRouter();
 
-	useDisplayBackButton();
+	usePageHistory();
 
 	useEffect(() => {
 		const [/* full path */, targetId] = router.asPath.match(/^[^#]*#(.+)$/) ?? [];
@@ -60,7 +56,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 					<DependenciesProvider {...dependenciesContainerInstance}>
 						{getLayout(
 							pageProps.error
-								? <ErrorServer error={pageProps.error} />
+								? <ErrorServer error={pageProps.error}/>
 								: <Component {...pageProps} />,
 						)}
 					</DependenciesProvider>
@@ -69,6 +65,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 		</>
 	);
 }
+
 function defaultLayout(page: ReactElement) {
 	return (
 		<Layout>{page}</Layout>

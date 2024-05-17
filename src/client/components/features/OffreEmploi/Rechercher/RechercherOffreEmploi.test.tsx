@@ -11,7 +11,7 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
-import { aBarmanOffre, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
+import { anOffreEmploi, aRésultatsRechercheOffre } from '~/server/offres/domain/offre.fixture';
 
 describe('RechercherOffreEmploi', () => {
 	beforeEach(() => {
@@ -32,7 +32,7 @@ describe('RechercherOffreEmploi', () => {
 				<DependenciesProvider
 					localisationService={localisationServiceMock}
 				>
-					<RechercherOffreEmploi />
+					<RechercherOffreEmploi/>
 				</DependenciesProvider>,
 			);
 
@@ -191,7 +191,7 @@ describe('RechercherOffreEmploi', () => {
 			const offre = aRésultatsRechercheOffre({
 				nombreRésultats: 1,
 				résultats: [
-					aBarmanOffre(),
+					anOffreEmploi(),
 				],
 			});
 			const localisationServiceMock = aLocalisationService();
@@ -236,6 +236,57 @@ describe('RechercherOffreEmploi', () => {
 
 			// THEN
 			expect(errorMessage).toBeInTheDocument();
+		});
+	});
+
+	describe('carte de résultat', () => {
+		it('lorsque l‘entreprise a fourni un logo, affiche ce logo sans alternative', async () => {
+			const offre = aRésultatsRechercheOffre({
+				nombreRésultats: 1,
+				résultats: [anOffreEmploi({ entreprise: { logo: 'http://logo.com' } })],
+			});
+			mockUseRouter({ query: { motCle: 'barman', page: '1' } });
+
+			render(
+				<DependenciesProvider
+					localisationService={aLocalisationService()}
+				>
+					<RechercherOffreEmploi resultats={offre}/>
+				</DependenciesProvider>,
+			);
+
+			const messageNombreRésultats = await screen.findByText('1 offre d‘emploi pour barman');
+
+			expect(messageNombreRésultats).toBeInTheDocument();
+			const item = screen.getAllByRole('listitem')[0];
+			const img = within(item).getByRole('img');
+			expect(img).toBeVisible();
+			expect(img).toHaveAttribute('src', expect.stringContaining('logo.com'));
+			expect(img).toHaveAttribute('alt', '');
+		});
+		it('lorsque l‘entreprise n‘a pas fourni de logo, affiche ce logo de France travail et l‘alternative associée',async () => {
+			const offre = aRésultatsRechercheOffre({
+				nombreRésultats: 1,
+				résultats: [anOffreEmploi({ entreprise: { logo: undefined } })],
+			});
+			mockUseRouter({ query: { motCle: 'barman', page: '1' } });
+
+			render(
+				<DependenciesProvider
+					localisationService={aLocalisationService()}
+				>
+					<RechercherOffreEmploi resultats={offre}/>
+				</DependenciesProvider>,
+			);
+
+			const messageNombreRésultats = await screen.findByText('1 offre d‘emploi pour barman');
+
+			expect(messageNombreRésultats).toBeInTheDocument();
+			const item = screen.getAllByRole('listitem')[0];
+			const img = within(item).getByRole('img');
+			expect(img).toBeVisible();
+			expect(img).toHaveAttribute('src', expect.stringContaining('france-travail'));
+			expect(img).toHaveAttribute('alt', 'France travail');
 		});
 	});
 });

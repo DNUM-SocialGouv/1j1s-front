@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -19,7 +20,7 @@ import { Head } from '~/client/components/head/Head';
 import {
 	RechercherSolutionLayoutWithTabs,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
-import { ArticleCard, ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
+import { ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -27,6 +28,8 @@ import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const ArticleCard = dynamic(() => import('~/client/components/ui/Card/Article/ArticleCard').then((mod) => mod.ArticleCard), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
@@ -34,6 +37,8 @@ export type RechercherAlternanceProps = {
 	erreurRecherche?: Erreur
 	resultats?: ResultatRechercheAlternance
 }
+
+
 
 export default function RechercherAlternance(props: RechercherAlternanceProps) {
 	const alternanceQuery = useAlternanceQuery();

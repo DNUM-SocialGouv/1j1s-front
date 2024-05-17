@@ -1,23 +1,14 @@
-/**
- * @jest-environment jsdom
- */
-
 import { OffreDeStageDeposee } from '~/client/components/features/OffreDeStage/Déposer/StageDeposerOffre';
-import { mockLocalStorage } from '~/client/components/window.mock';
+import { aStorageService } from '~/client/services/storage/storage.service.fixture';
 
 import { LocalStorageStageDeposerOffreEtape1PersistenceService } from './localStorageStageDeposerOffreEtape1Persistence.service';
 
 describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
-	afterEach(() => {
-		jest.resetAllMocks();
-	});
 	describe('setInformationsEtape1', () => {
 		it('envoie les informations dans le localStorage', () => {
 			// Given
-			mockLocalStorage({
-				setItem: jest.fn(),
-			});
-			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService();
+			const storage = aStorageService();
+			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService(storage);
 			const informations: OffreDeStageDeposee.Entreprise = {
 				descriptionEmployeur: 'descriptionEmployeur',
 				emailEmployeur: 'emailEmployeur',
@@ -30,23 +21,21 @@ describe('LocalStorageStageDeposerOffreEtape1PersistenceService', () => {
 			service.setInformationsEtape1(informations);
 
 			// Then
-			expect(localStorage.setItem).toHaveBeenCalledWith('formulaireEtape1', JSON.stringify(informations));
+			expect(storage.set).toHaveBeenCalledWith('formulaireEtape1', informations);
 		});
 	});
 
 	describe('getInformationsEtape1', () => {
 		it('récupère les informations du localStorage', () => {
 			// Given
-			mockLocalStorage({
-				getItem: jest.fn(),
-			});
-			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService();
+			const storage = aStorageService();
+			const service = new LocalStorageStageDeposerOffreEtape1PersistenceService(storage);
 
 			// When
 			service.getInformationsEtape1();
 
 			// Then
-			expect(localStorage.getItem).toHaveBeenCalledWith('formulaireEtape1');
+			expect(storage.get).toHaveBeenCalledWith('formulaireEtape1');
 		});
 	});
 });

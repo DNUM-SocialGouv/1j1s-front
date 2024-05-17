@@ -1,22 +1,31 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
-import { AlternanceApiJobsResponse } from '~/server/alternances/infra/repositories/apiLaBonneAlternance';
 import {
+	aDetailMatchaAlternance,
+	aDetailPEJobAlternance,
+	aRechercheAlternance,
+	aRecherchePEJobAlternance,
+} from '~/server/alternances/domain/alternance.fixture';
+import {
+	aLaBonneAlternanceApiJobsResponse,
 	aLbaCompaniesResponse,
 	aMatchaResponse,
+	aPeJobsResponse,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.fixture';
 import {
-	mapAlternanceListe,
-	mapMatcha,
-	mapPEJob,
+	mapDetailMatcha,
+	mapDetailPEJob,
+	mapRechercheAlternanceListe,
 } from '~/server/alternances/infra/repositories/apiLaBonneAlternance.mapper';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
+import Source = Alternance.Source;
 
-describe('mapAlternance', () => {
+describe('mapRechercheAlternance', () => {
 	process.env = {
 		...process.env,
 		NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://lba.com/',
 	};
-	it('converti une response en liste d’alternance', () => {
-		const input: AlternanceApiJobsResponse = {
+	it('converti une response en liste d’alternance et d‘entreprises', () => {
+		const input = aLaBonneAlternanceApiJobsResponse({
 			lbaCompanies: {
 				results: [
 					{
@@ -70,9 +79,9 @@ describe('mapAlternance', () => {
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
-		};
+		});
 
-		const result = mapAlternanceListe(input);
+		const result = mapRechercheAlternanceListe(input);
 
 		expect(result).toEqual({
 			entrepriseList: [{
@@ -81,7 +90,7 @@ describe('mapAlternance', () => {
 				id: '52352551700026',
 				nom: 'CLUB VET',
 				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
-				tags: ['Paris', '0 à 9 salariés','Candidature spontanée'],
+				tags: ['Paris', '0 à 9 salariés', 'Candidature spontanée'],
 				ville: 'Paris',
 			}],
 			offreList: [
@@ -90,7 +99,7 @@ describe('mapAlternance', () => {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
-					source: Alternance.Source.MATCHA,
+					source: Source.MATCHA,
 					tags: ['CDD', 'CDI', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 				},
@@ -99,290 +108,100 @@ describe('mapAlternance', () => {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
-					source: Alternance.Source.FRANCE_TRAVAIL,
+					source: Source.FRANCE_TRAVAIL,
 					tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 		});
 	});
-	describe('Converti la taille d’une entreprise', () => {
-		it('renvoie la taille de l’entrerprise formatté', () => {
-			const input: AlternanceApiJobsResponse = {
-				lbaCompanies: {
-					results: [
-						aLbaCompaniesResponse({
-							company: {
-								name: 'CLUB VET',
-								size: '0-0',
-							},
-						}),
-						aLbaCompaniesResponse({
-							company: {
-								name: 'Entreprise2',
-								size: '55',
-							},
-						}),
-						aLbaCompaniesResponse({
-							company: {
-								name: 'Entreprise3',
-								size: '20-30',
-							},
-						}),
-					],
-				},
-				matchas: {
-					results: [],
-				},
-				peJobs: {
-					results: [],
-				},
-			};
-			const resultEntreprise = mapAlternanceListe(input).entrepriseList;
 
-			expect(resultEntreprise[0].tags[1]).toEqual('0 à 9 salariés');
-			expect(resultEntreprise[1].tags[1]).toEqual('55 salariés');
-			expect(resultEntreprise[2].tags[1]).toEqual('20 à 30 salariés');
-		});
-	});
-
-	describe('Quand l’email d’une entreprise n’est pas rempli', () => {
-		it('la candidature est impossible', () => {
-			const input: AlternanceApiJobsResponse = {
-				lbaCompanies: {
-					results: [
-						{
-							company: {
-								name: 'CLUB VET',
-							},
-							contact: {
-								iv: '93f7bd08e956453cd8d0f8f75821a634',
-							},
-						},
-					],
-				},
-				matchas: {
-					results: [],
-				},
-				peJobs: {
-					results: [],
-				},
-			};
-
-			const result = mapAlternanceListe(input);
-
-			expect(result).toEqual({
-				entrepriseList: [{
-					candidaturePossible: false,
-					nom: 'CLUB VET',
-					tags: ['Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise'],
-				}],
-				offreList: [],
-			});
-		});
-	});
-
-	it('sanitize tout le texte présent dans l’alternance', () => {
-		const input: AlternanceApiJobsResponse.Matcha =
-			aMatchaResponse({
-				job: {
-					contractType: 'CDD, CDI',
-					id: 'id',
-					romeDetails: {
-						competencesDeBase: [{ libelle: 'un libelle' }],
-						definition: 'Avec des \\n',
+	describe('Entreprise', () => {
+		describe('Converti la taille d’une entreprise', () => {
+			it('renvoie la taille de l’entrerprise formatté', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [
+							aLbaCompaniesResponse({
+								company: {
+									name: 'CLUB VET',
+									size: '0-0',
+								},
+							}),
+							aLbaCompaniesResponse({
+								company: {
+									name: 'Entreprise2',
+									size: '55',
+								},
+							}),
+							aLbaCompaniesResponse({
+								company: {
+									name: 'Entreprise3',
+									size: '20-30',
+								},
+							}),
+						],
 					},
-				},
-			});
-
-		const result = mapMatcha(input);
-
-		expect(result).toEqual(expect.objectContaining({
-			description: 'Avec des \n',
-		}));
-
-	});
-
-	describe('mapMatcha', () => {
-		describe('quand la response Matcha n’est pas une offre PASS', () => {
-			it('converti une response Matcha en alternance en utilisant les champs definition et competencesDeBase de romeDetails', () => {
-				const input: AlternanceApiJobsResponse.Matcha = {
-					company: {
-						name: 'ECOLE DE TRAVAIL ORT',
-						place: {
-							city: 'PARIS 4',
-						},
+					matchas: {
+						results: [],
 					},
-					contact: {
-						phone: 'phone',
+					peJobs: {
+						results: [],
 					},
-					diplomaLevel: 'CAP, BEP',
-					job: {
-						contractType: 'CDD',
-						dureeContrat: 1,
-						id: 'id',
-						jobStartDate: '2020-01-01',
-						romeDetails: {
-							competencesDeBase: [{ libelle: 'un libelle' }],
-							definition: 'Avec des \\n',
-						},
-						rythmeAlternance: 'alternance',
-					},
-					place: {
-						city: 'PARIS 4',
-						fullAddress: 'full address',
-					},
-					title: 'Monteur / Monteuse en chauffage (H/F)',
-				};
-
-				const result = mapMatcha(input);
-
-				expect(result).toEqual({
-					compétences: ['un libelle'],
-					dateDébut: new Date('2020-01-01'),
-					description: 'Avec des \n',
-					durée: '1 mois',
-					entreprise: {
-						adresse: 'full address',
-						nom: 'ECOLE DE TRAVAIL ORT',
-						téléphone: 'phone',
-					},
-					id: 'id',
-					lienPostuler: 'http://lba.com/postuler?caller=1jeune1solution&itemId=id&type=matcha',
-					localisation: 'PARIS 4',
-					niveauRequis: 'CAP, BEP',
-					rythmeAlternance: 'alternance',
-					source: Alternance.Source.MATCHA,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
-					titre: 'Monteur / Monteuse en chauffage (H/F)',
-					typeDeContrat: ['CDD'],
 				});
+				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
+
+				expect(resultEntreprise[0].tags[1]).toEqual('0 à 9 salariés');
+				expect(resultEntreprise[1].tags[1]).toEqual('55 salariés');
+				expect(resultEntreprise[2].tags[1]).toEqual('20 à 30 salariés');
 			});
 		});
 
-		describe('quand la response Matcha est une offre PASS', () => {
-			it('converti une response Matcha en alternance en utilisant les champs description et employeurDescription de job', () => {
-				const input: AlternanceApiJobsResponse.Matcha = {
-					company: {
-						name: 'ECOLE DE TRAVAIL ORT',
-						place: {
-							city: 'PARIS 4',
-						},
+		describe('Quand l’email d’une entreprise n’est pas rempli', () => {
+			it('la candidature est impossible', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [{
+							company: { name: 'CLUB VET' },
+							contact: { iv: '93f7bd08e956453cd8d0f8f75821a634' },
+						}],
 					},
-					contact: {
-						phone: 'phone',
-					},
-					diplomaLevel: 'CAP, BEP',
-					job: {
-						contractType: 'CDD',
-						description: 'description de l’offre',
-						dureeContrat: 1,
-						employeurDescription: 'description de l’employeur avec des <p>p</p>',
-						id: 'id',
-						jobStartDate: '2020-01-01',
-						rythmeAlternance: 'alternance',
-					},
-					place: {
-						city: 'PARIS 4',
-						fullAddress: 'full address',
-					},
-					title: 'Monteur / Monteuse en chauffage (H/F)',
-				};
-
-				const result = mapMatcha(input);
-
-				expect(result).toEqual({
-					dateDébut: new Date('2020-01-01'),
-					description: 'description de l’offre',
-					descriptionEmployeur: 'description de l’employeur avec des <p>p</p>',
-					durée: '1 mois',
-					entreprise: {
-						adresse: 'full address',
-						nom: 'ECOLE DE TRAVAIL ORT',
-						téléphone: 'phone',
-					},
-					id: 'id',
-					lienPostuler: 'http://lba.com/postuler?caller=1jeune1solution&itemId=id&type=matcha',
-					localisation: 'PARIS 4',
-					niveauRequis: 'CAP, BEP',
-					rythmeAlternance: 'alternance',
-					source: Alternance.Source.MATCHA,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
-					titre: 'Monteur / Monteuse en chauffage (H/F)',
-					typeDeContrat: ['CDD'],
+					matchas: { results: [] },
+					peJobs: { results: [] },
 				});
+
+				const result = mapRechercheAlternanceListe(input);
+
+				expect(result).toEqual(aRechercheAlternance({
+					entrepriseList: [{
+						candidaturePossible: false,
+						nom: 'CLUB VET',
+						tags: ['Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise'],
+					}],
+					offreList: [],
+				}));
 			});
 		});
-	});
 
-	it('converti une response PEJobs en alternance', () => {
-		const input: AlternanceApiJobsResponse.PEJobs = {
-			company: { name: 'ECOLE DE TRAVAIL ORT' },
-			contact: {
-				phone: 'phone',
-			},
-			job: {
-				contractDescription: 'CDD de 6 mois',
-				contractType: 'CDD',
-				description: 'description',
-				duration: '6 mois',
-				id: 'id',
-			},
-			place: {
-				city: 'PARIS 4',
-				fullAddress: 'full address',
-			},
-			title: 'Monteur / Monteuse en chauffage (H/F)',
-			url: 'url',
-		};
+		describe('lorsqu‘il n‘y a pas d‘entreprise', () => {
+			it('retourne une liste vide', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: [],
+					matchas: { results: [] },
+					peJobs: { results: [] },
+				});
 
-		const result = mapPEJob(input);
+				const result = mapRechercheAlternanceListe(input);
 
-		expect(result).toEqual({
-			description: 'description',
-			durée: 'CDD de 6 mois',
-			entreprise: {
-				adresse: 'full address',
-				nom: 'ECOLE DE TRAVAIL ORT',
-				téléphone: 'phone',
-			},
-			id: 'id',
-			lienPostuler: 'url',
-			localisation: 'PARIS 4',
-			natureDuContrat: 'Contrat d‘alternance',
-			niveauRequis: undefined,
-			rythmeAlternance: '6 mois',
-			source: Alternance.Source.FRANCE_TRAVAIL,
-			tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
-			titre: 'Monteur / Monteuse en chauffage (H/F)',
-			typeDeContrat: ['CDD'],
-		});
-	});
-
-	describe('lorsque le champ lbaCompanies est une liste vide', () => {
-		it('retourne une liste vide', () => {
-			// Given
-			const input: AlternanceApiJobsResponse = {
-				lbaCompanies: [],
-				matchas: { results: [] },
-				peJobs: { results: [] },
-			};
-
-			// When
-			const result = mapAlternanceListe(input);
-
-			// Then
-			expect(result).toEqual({
-				entrepriseList: [],
-				offreList: [],
+				expect(result).toEqual(aRechercheAlternance({ entrepriseList: [], offreList: [] }));
 			});
 		});
 	});
 
 	describe('lorsque le champ matchas n’est pas présent', () => {
 		it('retourne seulement les offres PEJobs', () => {
-			// Given
-			const input: AlternanceApiJobsResponse = {
+			const input = aLaBonneAlternanceApiJobsResponse({
 				lbaCompanies: [],
+				matchas: undefined,
 				peJobs: {
 					results: [
 						{
@@ -406,37 +225,35 @@ describe('mapAlternance', () => {
 						},
 					],
 				},
-			};
+			});
 
-			// When
-			const result = mapAlternanceListe(input);
+			const result = mapRechercheAlternanceListe(input);
 
-			// Then
-			expect(result).toEqual({
+			expect(result).toEqual(aRechercheAlternance({
 				entrepriseList: [],
 				offreList: [
-					{
+					aRecherchePEJobAlternance({
 						entreprise: {
 							nom: 'ECOLE DE TRAVAIL ORT',
 						},
 						id: 'id',
-						source: 1,
+						source: Source.FRANCE_TRAVAIL,
 						tags: [
 							'PARIS 4',
 							'Contrat d‘alternance',
 							'CDD',
 						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
-					},
+					}),
 				],
-			});
+			}));
 		});
 	});
 
 	describe('lorsque le champ peJobs n’est pas présent', () => {
 		it('retourne seulement les offres Matcha', () => {
 			// Given
-			const input: AlternanceApiJobsResponse = {
+			const input = aLaBonneAlternanceApiJobsResponse({
 				lbaCompanies: [],
 				matchas: {
 					results: [
@@ -470,81 +287,259 @@ describe('mapAlternance', () => {
 						},
 					],
 				},
-			};
+				peJobs: undefined,
+			});
 
 			// When
-			const result = mapAlternanceListe(input);
+			const result = mapRechercheAlternanceListe(input);
 
 			// Then
-			expect(result).toEqual({
+			expect(result).toEqual(aRechercheAlternance({
 				entrepriseList: [],
 				offreList: [
-					{
+					aRecherchePEJobAlternance({
 						entreprise: {
 							nom: 'ECOLE DE TRAVAIL ORT',
 						},
 						id: 'id',
-						source: 0,
+						source: Source.MATCHA,
 						tags: [
 							'PARIS 4',
 							'CDD',
 							'CAP, BEP',
 						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
-					},
+					}),
 				],
-			});
+			}));
 		});
 	});
 
-	describe('lorsque le champ matchas est en erreur', () => {
+	describe('lorsqu‘il n‘y a pas résultat pour les offres matchas', () => {
 		it('retourne les autres offres', () => {
-			// Given
-			const input: AlternanceApiJobsResponse = {
-				lbaCompanies: {
-					results: [
-					],
-				},
+			const input = aLaBonneAlternanceApiJobsResponse({
+				lbaCompanies: { results: [] },
 				matchas: {},
 				peJobs: {
-					results: [
-					],
+					results: [aPeJobsResponse()],
 				},
-			};
-
-			// When
-			const result = mapAlternanceListe(input);
-
-			// Then
-			expect(result).toEqual({
-				entrepriseList: [],
-				offreList: [],
 			});
+
+			const result = mapRechercheAlternanceListe(input);
+
+			expect(result).toEqual(aRechercheAlternance({
+				entrepriseList: [],
+				offreList: [aRecherchePEJobAlternance()],
+			}));
 		});
 	});
 
-	describe('lorsque le champ peJobs est en erreur', () => {
+	describe('lorsqu‘il n‘y a pas résultat pour les offres Pejobs', () => {
 		it('retourne les autres offres', () => {
-			// Given
-			const input: AlternanceApiJobsResponse = {
+			const input = aLaBonneAlternanceApiJobsResponse({
 				lbaCompanies: {
-					results: [
-					],
+					results: [],
 				},
 				matchas: {
 					results: [],
 				},
 				peJobs: {},
-			};
+			});
 
-			// When
-			const result = mapAlternanceListe(input);
+			const result = mapRechercheAlternanceListe(input);
 
-			// Then
-			expect(result).toEqual({
+			expect(result).toEqual(aRechercheAlternance({
 				entrepriseList: [],
 				offreList: [],
+			}));
+		});
+	});
+});
+
+describe('mapDetail', () => {
+	describe('mapDetailPeJobs', () => {
+		it('converti une response PEJobs en alternance', () => {
+			const input = aPeJobsResponse({
+				company: { name: 'ECOLE DE TRAVAIL ORT' },
+				contact: {
+					phone: 'phone',
+				},
+				job: {
+					contractDescription: 'CDD de 6 mois',
+					contractType: 'CDD',
+					description: 'description',
+					duration: '6 mois',
+					id: 'id',
+				},
+				place: {
+					city: 'PARIS 4',
+					fullAddress: 'full address',
+				},
+				title: 'Monteur / Monteuse en chauffage (H/F)',
+				url: 'url',
+			});
+
+			const result = mapDetailPEJob(input);
+
+			expect(result).toEqual(aDetailPEJobAlternance({
+				description: 'description',
+				durée: 'CDD de 6 mois',
+				entreprise: {
+					adresse: 'full address',
+					nom: 'ECOLE DE TRAVAIL ORT',
+					téléphone: 'phone',
+				},
+				id: 'id',
+				lienPostuler: 'url',
+				localisation: 'PARIS 4',
+				natureDuContrat: 'Contrat d‘alternance',
+				niveauRequis: undefined,
+				rythmeAlternance: '6 mois',
+				source: Source.FRANCE_TRAVAIL,
+				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
+				titre: 'Monteur / Monteuse en chauffage (H/F)',
+				typeDeContrat: ['CDD'],
+			}));
+		});
+	});
+
+	describe('mapDetailMatcha', () => {
+		it('sanitize tout le texte présent dans l’alternance', () => {
+			const input = aMatchaResponse({
+				job: {
+					contractType: 'CDD, CDI',
+					id: 'id',
+					romeDetails: {
+						competencesDeBase: [{ libelle: 'un libelle' }],
+						definition: 'Avec des \\n',
+					},
+				},
+			});
+
+			const result = mapDetailMatcha(input);
+
+			expect(result).toEqual(expect.objectContaining({
+				description: 'Avec des \n',
+			}));
+
+		});
+
+		describe('quand la response Matcha n’est pas une offre PASS', () => {
+			it('converti une response Matcha en alternance en utilisant les champs definition et competencesDeBase de romeDetails', () => {
+				const input = aMatchaResponse({
+					company: {
+						name: 'ECOLE DE TRAVAIL ORT',
+						place: {
+							city: 'PARIS 4',
+						},
+					},
+					contact: {
+						phone: 'phone',
+					},
+					diplomaLevel: 'CAP, BEP',
+					job: {
+						contractType: 'CDD',
+						dureeContrat: 1,
+						id: 'id',
+						jobStartDate: '2020-01-01',
+						romeDetails: {
+							competencesDeBase: [{ libelle: 'un libelle' }],
+							definition: 'Avec des \\n',
+						},
+						rythmeAlternance: 'alternance',
+						status: AlternanceStatus.ACTIVE,
+					},
+					place: {
+						city: 'PARIS 4',
+						fullAddress: 'full address',
+					},
+					title: 'Monteur / Monteuse en chauffage (H/F)',
+				});
+
+				const result = mapDetailMatcha(input);
+
+				expect(result).toEqual({
+					compétences: ['un libelle'],
+					dateDébut: new Date('2020-01-01'),
+					description: 'Avec des \n',
+					durée: '1 mois',
+					entreprise: {
+						adresse: 'full address',
+						nom: 'ECOLE DE TRAVAIL ORT',
+						téléphone: 'phone',
+					},
+					id: 'id',
+					lienPostuler: 'http://lba.com/postuler?caller=1jeune1solution&itemId=id&type=matcha',
+					localisation: 'PARIS 4',
+					niveauRequis: 'CAP, BEP',
+					rythmeAlternance: 'alternance',
+					source: Source.MATCHA,
+					status: AlternanceStatus.ACTIVE,
+					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
+					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD'],
+				});
+			});
+		});
+
+		describe('quand la response Matcha est une offre PASS', () => {
+			it('converti une response Matcha en alternance en utilisant les champs description et employeurDescription de job', () => {
+				const input = aMatchaResponse({
+					company: {
+						name: 'ECOLE DE TRAVAIL ORT',
+						place: {
+							city: 'PARIS 4',
+						},
+					},
+					contact: {
+						phone: 'phone',
+					},
+					diplomaLevel: 'CAP, BEP',
+					job: {
+						contractType: 'CDD',
+						description: 'description de l’offre',
+						dureeContrat: 1,
+						employeurDescription: 'description de l’employeur avec des <p>p</p>',
+						id: 'id',
+						jobStartDate: '2020-01-01',
+						romeDetails: undefined,
+						rythmeAlternance: 'alternance',
+						status: AlternanceStatus.ACTIVE,
+					},
+					place: {
+						city: 'PARIS 4',
+						fullAddress: 'full address',
+					},
+					title: 'Monteur / Monteuse en chauffage (H/F)',
+				});
+
+				const result = mapDetailMatcha(input);
+
+				expect(result).toEqual(aDetailMatchaAlternance({
+					compétences: undefined,
+					dateDébut: new Date('2020-01-01'),
+					description: 'description de l’offre',
+					descriptionEmployeur: 'description de l’employeur avec des <p>p</p>',
+					durée: '1 mois',
+					entreprise: {
+						adresse: 'full address',
+						nom: 'ECOLE DE TRAVAIL ORT',
+						téléphone: 'phone',
+					},
+					id: 'id',
+					lienPostuler: 'http://lba.com/postuler?caller=1jeune1solution&itemId=id&type=matcha',
+					localisation: 'PARIS 4',
+					niveauRequis: 'CAP, BEP',
+					rythmeAlternance: 'alternance',
+					source: Source.MATCHA,
+					status: AlternanceStatus.ACTIVE,
+					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
+					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD'],
+				}));
 			});
 		});
 	});
 });
+
+

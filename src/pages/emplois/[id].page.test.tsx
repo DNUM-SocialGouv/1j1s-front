@@ -11,13 +11,13 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import ConsulterOffreEmploiPage from '~/pages/emplois/[id].page';
-import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
+import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
 
 describe('<ConsulterOffreEmploiPage />', () => {
 	it('doit rendre du HTML respectant la specification', () => {
 		mockUseRouter({});
 		mockSmallScreen();
-		const offre = aBarmanOffre();
+		const offre = anOffreEmploi();
 
 		const { container } =			render(<DependenciesProvider analyticsService={aManualAnalyticsService()}>
 			<ConsulterOffreEmploiPage offreEmploi={offre}/>
@@ -29,7 +29,7 @@ describe('<ConsulterOffreEmploiPage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
 		mockSmallScreen();
-		const offre = aBarmanOffre();
+		const offre = anOffreEmploi();
 
 		const { container } = render(
 			<DependenciesProvider

@@ -1,10 +1,8 @@
 import { anOffreDeStageDepot } from '~/client/services/stage/stageService.fixture';
 import { RemunerationPeriode } from '~/server/stages/domain/remunerationPeriode';
-import { OffreDeStage } from '~/server/stages/domain/stages';
 import { anOffreDeStage } from '~/server/stages/domain/stages.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 import { SourceDesDonnées } from '~/server/stages/repository/sourceDesDonnéesStage';
-import { OffreStageResponseStrapi } from '~/server/stages/repository/strapiStages';
 import { aStrapiOffreDeStage, aStrapiOffreDeStageDepot } from '~/server/stages/repository/strapiStages.fixture';
 import { mapOffreStage, mapToStrapiDepotOffreDeStage } from '~/server/stages/repository/strapiStages.mapper';
 
@@ -16,7 +14,7 @@ jest.mock('uuid', () => {
 describe('strapiStage mapper', () => {
 	describe('mapOffreDeStage', () => {
 		it('map vers une offre de stage à afficher', () => {
-			const offreDeStageResponse: OffreStageResponseStrapi.OffreStage = aStrapiOffreDeStage({
+			const offreDeStageResponse = aStrapiOffreDeStage({
 				createdAt: '2023-01-06T07:49:10.773Z',
 				dateDeDebutMax: '2024-09-01',
 				dateDeDebutMin: '2024-09-01',
@@ -57,8 +55,8 @@ describe('strapiStage mapper', () => {
 			});
 
 
-			const result: OffreDeStage = mapOffreStage(offreDeStageResponse);
-			const expectedResult: OffreDeStage = anOffreDeStage({
+			const result = mapOffreStage(offreDeStageResponse);
+			const expectedResult = anOffreDeStage({
 				dateDeDebutMax: '2024-09-01',
 				dateDeDebutMin: '2024-09-01',
 				description: 'Poste ouvert aux personnes en situation de handicap',

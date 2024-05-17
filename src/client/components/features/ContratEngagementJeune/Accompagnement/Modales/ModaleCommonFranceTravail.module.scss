@@ -1,0 +1,43 @@
+@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
+
+$color-title-modal: utilities.$color-primary;
+
+.accompagnementModal {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+
+  > div:first-child {
+    height: fit-content;
+    border-radius: 20px;
+    margin: auto;
+
+    @include utilities.media(large) {
+      width: 40%;
+    }
+  }
+}
+
+.accompagnementModalContent {
+  text-align: center;
+  padding: 1rem;
+
+  h1 {
+    color: $color-title-modal;
+    @include utilities.title-small;
+    @extend %bold;
+  }
+
+  p {
+    @include utilities.text-small;
+    margin-top: 1rem;
+  }
+
+  a {
+    margin: 2rem auto 1rem auto;
+  }
+}
+
+
+

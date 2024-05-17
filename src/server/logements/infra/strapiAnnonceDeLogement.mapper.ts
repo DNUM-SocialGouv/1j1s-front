@@ -4,13 +4,11 @@ import { AnnonceDeLogement } from '../domain/annonceDeLogement';
 import { StrapiAnnonceDeLogement } from './strapiAnnonceDeLogement';
 
 export function mapAnnonceLogement(annonceLogementResponse: StrapiAnnonceDeLogement): AnnonceDeLogement {
-	const dateDeMiseAJour = new Date(annonceLogementResponse.sourceUpdatedAt).toLocaleDateString();
-
 	return {
 		bilanEnergetique: annonceLogementResponse.bilanEnergetique,
 		charge: annonceLogementResponse.charge,
-		dateDeDisponibilité: annonceLogementResponse.dateDeDisponibilite,
-		dateDeMiseAJour,
+		dateDeDisponibilité: new Date(annonceLogementResponse.dateDeDisponibilite),
+		dateDeMiseAJour: new Date(annonceLogementResponse.sourceUpdatedAt),
 		description: annonceLogementResponse.description,
 		devise: annonceLogementResponse.devise,
 		garantie: annonceLogementResponse.garantie,

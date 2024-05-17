@@ -4,7 +4,7 @@ export interface AnnonceDeLogement {
 	titre: string
 	type: string
 	typeBien: string
-	dateDeMiseAJour: string
+	dateDeMiseAJour: Date
 	surface: number
 	surfaceMax?: number
 	nombreDePièces: number
@@ -13,7 +13,7 @@ export interface AnnonceDeLogement {
 	prixHT?: number
 	charge?: number
 	garantie?: number
-	dateDeDisponibilité: string
+	dateDeDisponibilité: Date
 	meublé: boolean
 	localisation: AnnonceDeLogement.Localisation
 	description: string

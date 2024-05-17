@@ -1,15 +1,28 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import { RésultatRechercherSolution } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DateService } from '~/client/services/date/date.service';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
+
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution').then((mod) => mod.RésultatRechercherSolution), { ssr: false });
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 
-export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
+export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 	const stage = props.hit;
+	const dateService = useDependency<DateService>('dateService');
+
+	function formatDate(dateDebutMin: string, dateDebutMax?: string) {
+		if (!dateDebutMax || dateDebutMin === dateDebutMax) return `Débute le ${dateService.formatToHumanReadableDate(new Date(dateDebutMin))}`;
+
+		return `Débute entre le ${dateService.formatToHumanReadableDate(new Date(dateDebutMin))} et le ${dateService.formatToHumanReadableDate(new Date(dateDebutMax))}`;
+	}
+
 	const listeEtiquettes: Array<string> = stage.domaines
 		? stage.domaines
 			.filter((domaine) => domaine !== DomainesStage.NON_RENSEIGNE)
@@ -28,12 +41,7 @@ export function OffreDeStage (props : HitProps<OffreDeStageIndexée>) {
 	);
 
 	if (stage.dateDeDebutMin) {
-		// FIXME (GAFI 13-10-2023): Passer par des composants pour pouvoir notamment les partager entre les pages
-		listeEtiquettes.push(
-			stage.dateDeDebutMax && stage.dateDeDebutMin !== stage.dateDeDebutMax
-				? `Débute entre le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()} et ${new Date(stage.dateDeDebutMax).toLocaleDateString()}`
-				: `Débute le : ${new Date(stage.dateDeDebutMin).toLocaleDateString()}`,
-		);
+		listeEtiquettes.push(formatDate(stage.dateDeDebutMin, stage.dateDeDebutMax));
 	}
 
 	return <RésultatRechercherSolution

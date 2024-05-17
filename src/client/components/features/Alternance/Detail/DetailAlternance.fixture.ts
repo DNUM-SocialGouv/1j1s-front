@@ -1,4 +1,5 @@
 import { Alternance } from '~/server/alternances/domain/alternance';
+import { AlternanceStatus } from '~/server/alternances/infra/status';
 
 export function aDetailAlternance(override?: Partial<Alternance>): Alternance {
 	return {
@@ -12,6 +13,7 @@ export function aDetailAlternance(override?: Partial<Alternance>): Alternance {
 		niveauRequis: 'débutant',
 		rythmeAlternance: '3 jours en entreprise, 2 jours en formation',
 		source: Alternance.Source.MATCHA,
+		status: AlternanceStatus.ACTIVE,
 		tags: ['tag1', 'tag2'],
 		titre: 'un titre',
 		typeDeContrat: ['apprentissage'],

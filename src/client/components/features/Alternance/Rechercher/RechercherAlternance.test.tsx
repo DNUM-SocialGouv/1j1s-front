@@ -15,11 +15,10 @@ import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import { MetierService } from '~/client/services/metiers/metier.service';
 import { Alternance } from '~/server/alternances/domain/alternance';
 import {
-	anAlternanceEntreprise,
-	anAlternanceEntrepriseSansCandidature,
-	anAlternanceMatcha,
-	anAlternancePEJobs,
-	aResultatRechercherMultipleAlternance,
+	aRechercheAlternance,
+	aRechercheEntrepriseAlternance,
+	aRechercheMatchaAlternance,
+	aRecherchePEJobAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 
 describe('RechercherAlternance', () => {
@@ -60,28 +59,24 @@ describe('RechercherAlternance', () => {
 		let métierServiceMock: MetierService;
 		let localisationServiceMock: LocalisationService;
 		const alternanceFixture = [
-			{
+			aRechercheMatchaAlternance({
 				entreprise: { nom: 'MONSIEUR MICHEL' },
 				id: 'an-id-matchas',
-				niveauRequis: 'Cap, autres formations niveau (Infrabac)',
 				source: Alternance.Source.MATCHA,
 				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 				titre: 'Ouvrier boulanger / Ouvrière boulangère',
-				typeDeContrat: ['Apprentissage'],
-			},
-			{
+			}),
+			aRecherchePEJobAlternance({
 				entreprise: { nom: 'une entreprise' },
 				id: 'an-id-pe',
-				localisation: 'paris',
 				source: Alternance.Source.FRANCE_TRAVAIL,
 				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 				titre: 'un titre',
-				typeDeContrat: ['CDD'],
-			},
+			}),
 		];
 
 		const entrepriseFixture = [
-			{
+			aRechercheEntrepriseAlternance({
 				adresse: 'une adresse',
 				candidaturePossible: true,
 				id: '0123456789',
@@ -89,17 +84,17 @@ describe('RechercherAlternance', () => {
 				secteurs: ['secteur 1', 'secteur 2'],
 				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 				ville: 'une ville',
-			},
-			{
+			}),
+			aRechercheEntrepriseAlternance({
 				candidaturePossible: false,
 				id: '1234567890',
 				nom: 'UN NOM 2',
 				secteurs: ['secteur 1', 'secteur 2'],
 				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
-			},
+			}),
 		];
 
-		const resultatFixture = aResultatRechercherMultipleAlternance({
+		const resultatFixture = aRechercheAlternance({
 			entrepriseList: entrepriseFixture,
 			offreList: alternanceFixture,
 		});
@@ -180,8 +175,8 @@ describe('RechercherAlternance', () => {
 			describe('lorsque je clique sur contrat d‘alternance', () => {
 				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
 					const user = userEvent.setup();
-					const offresAlternance = [anAlternanceMatcha(), anAlternancePEJobs()];
-					const resultats = aResultatRechercherMultipleAlternance({
+					const offresAlternance = [aRechercheMatchaAlternance(), aRecherchePEJobAlternance({ id: 'pejob' })];
+					const resultats = aRechercheAlternance({
 						entrepriseList: [],
 						offreList: offresAlternance,
 					});
@@ -203,7 +198,7 @@ describe('RechercherAlternance', () => {
 
 				it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
 					const user = userEvent.setup();
-					const resultats = aResultatRechercherMultipleAlternance({
+					const resultats = aRechercheAlternance({
 						entrepriseList: [],
 						offreList: [],
 					});
@@ -228,8 +223,8 @@ describe('RechercherAlternance', () => {
 			describe('lorsque je clique sur entreprise', () => {
 				it('lorsqu‘il y a des résultats, affiche le nombre d’entreprises', async () => {
 					const user = userEvent.setup();
-					const entrepriseList = [anAlternanceEntreprise(), anAlternanceEntrepriseSansCandidature()];
-					const resultats = aResultatRechercherMultipleAlternance({
+					const entrepriseList = [aRechercheEntrepriseAlternance(), aRechercheEntrepriseAlternance({ id: 'id 2' })];
+					const resultats = aRechercheAlternance({
 						entrepriseList,
 						offreList: [],
 					});
@@ -251,7 +246,7 @@ describe('RechercherAlternance', () => {
 
 				it('lorsqu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux entreprises', async () => {
 					const user = userEvent.setup();
-					const resultats = aResultatRechercherMultipleAlternance({
+					const resultats = aRechercheAlternance({
 						entrepriseList: [],
 						offreList: [],
 					});
@@ -284,7 +279,7 @@ describe('RechercherAlternance', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance resultats={aResultatRechercherMultipleAlternance()}/>
+				<RechercherAlternance resultats={aRechercheAlternance()}/>
 			</DependenciesProvider>,
 		);
 
@@ -303,7 +298,7 @@ describe('RechercherAlternance', () => {
 				metierLbaService={aMetierService()}
 				localisationService={aLocalisationService()}
 			>
-				<RechercherAlternance resultats={aResultatRechercherMultipleAlternance()}/>
+				<RechercherAlternance resultats={aRechercheAlternance()}/>
 			</DependenciesProvider>,
 		);
 

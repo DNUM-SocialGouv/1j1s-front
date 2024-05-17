@@ -11,6 +11,8 @@ import {
 } from '~/client/components/features/OffreDeStage/offreDeStageIndexee.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
+import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
+import { aDateService } from '~/client/services/date/date.service.fixture';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 describe('Une carte d’offre de stage affiche des étiquettes', () => {
@@ -30,11 +32,9 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			const displayedFormattedDomain = 'Qualité / Maintenance';
 			const offreStage = anOffreDeStageIndexee({ domaines: [displayedDomain, DomainesStage.NON_RENSEIGNE] });
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
+			render(<DependenciesProvider dateService={aDateService()}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>,
 			);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -50,11 +50,9 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithCity });
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
+			render(<DependenciesProvider dateService={aDateService()}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>,
 			);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
@@ -66,31 +64,31 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithDepartment });
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
-			);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) =>
+				listItem.textContent);
 			expect(displayedTagsTextContents).toContain(localisationWithDepartment.departement);
 		});
 		it('si ni la ville, ni le département ne sont connus, mais que la région est connue, affiche la région', () => {
-			const localisationWithRegion = aLocalisationStageIndexee({ departement: undefined, region: 'Ile de France', ville: undefined });
+			const localisationWithRegion = aLocalisationStageIndexee({
+				departement: undefined,
+				region: 'Ile de France',
+				ville: undefined,
+			});
 
 			const offreStage = anOffreDeStageIndexee({ localisation: localisationWithRegion });
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
-			);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) =>
+				listItem.textContent);
 			expect(displayedTagsTextContents).toContain(localisationWithRegion.region);
 		});
 	});
@@ -99,15 +97,13 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 		it('une durée catégorisée "Non renseignée" n’est pas affichée', () => {
 			const offreStage = anOffreDeStageIndexee({ dureeCategorisee: 'Non renseigné' });
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
-			);
+			render(<DependenciesProvider dateService={aDateService()}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
-			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
+			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) =>
+				listItem.textContent);
 			expect(displayedTagsTextContents).not.toContain('Non renseigné');
 		});
 	});
@@ -117,17 +113,16 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			it('la date précise est affichée', () => {
 				const datePrecise = '2024-09-01';
 				const offreStage = anOffreDeStageIndexee({ dateDeDebutMax: datePrecise, dateDeDebutMin: datePrecise });
+				const dateService = aDateService();
+				jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
-				render(
-					<OffreDeStage
-						hit={offreStage}
-						sendEvent={someDummy}
-					/>,
-				);
+				render(<DependenciesProvider dateService={dateService}>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 				const tagDateDebut = within(tags).getAllByRole('listitem')
-					.find((listItem) => listItem.textContent === 'Débute le : 9/1/2024');
+					.find((listItem) => listItem.textContent === 'Débute le 1 septembre 2024');
 				expect(tagDateDebut).toBeVisible();
 			});
 		});
@@ -136,18 +131,23 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			it('la période de date de début est affichée', () => {
 				const datePeriodeDebut = '2024-09-01';
 				const datePeriodeFin = '2024-09-30';
-				const offreStage = anOffreDeStageIndexee({ dateDeDebutMax: datePeriodeFin, dateDeDebutMin: datePeriodeDebut });
+				const offreStage = anOffreDeStageIndexee({
+					dateDeDebutMax: datePeriodeFin,
+					dateDeDebutMin: datePeriodeDebut,
+				});
 
-				render(
-					<OffreDeStage
-						hit={offreStage}
-						sendEvent={someDummy}
-					/>,
-				);
+				const dateService = aDateService();
+				jest.spyOn(dateService, 'formatToHumanReadableDate')
+					.mockReturnValueOnce('1 septembre 2024')
+					.mockReturnValueOnce('30 septembre 2024');
+
+				render(<DependenciesProvider dateService={dateService}>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 				const tagDateDebut = within(tags).getAllByRole('listitem')
-					.find((listItem) => listItem.textContent === 'Débute entre le : 9/1/2024 et 9/30/2024');
+					.find((listItem) => listItem.textContent === 'Débute entre le 1 septembre 2024 et le 30 septembre 2024');
 				expect(tagDateDebut).toBeVisible();
 			});
 		});
@@ -156,12 +156,9 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 			it('le tag n’est pas affiché', () => {
 				const offreStage = anOffreDeStageIndexee({ dateDeDebutMin: undefined });
 
-				render(
-					<OffreDeStage
-						hit={offreStage}
-						sendEvent={someDummy}
-					/>,
-				);
+				render(<DependenciesProvider dateService={aDateService()}>
+					<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+				</DependenciesProvider>);
 
 				const tags = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 				const tagDateDebut = within(tags).getAllByRole('listitem')
@@ -171,7 +168,7 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 		});
 	});
 
-	describe('quand il n’y a aucune information concernant les domaines, la localisation, la durée categorisée', () => {
+	describe('quand il n’y a aucune information concernant les domaines, la localisation, la duréecategorisée', () => {
 		it('n’affiche aucune étiquettes les concernant, seule la date de début est affichée', () => {
 			const offreStage = anOffreDeStageIndexee({
 				domaines: [],
@@ -182,18 +179,18 @@ describe('Une carte d’offre de stage affiche des étiquettes', () => {
 					ville: undefined,
 				}),
 			});
+			const dateService = aDateService();
+			jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 septembre 2024');
 
-			render(
-				<OffreDeStage
-					hit={offreStage}
-					sendEvent={someDummy}
-				/>,
-			);
+			render(<DependenciesProvider dateService={dateService}>
+				<OffreDeStage hit={offreStage} sendEvent={someDummy}/>
+			</DependenciesProvider>);
 
 			const displayedTagsList = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
 			const displayedTagsTextContents = within(displayedTagsList).queryAllByRole('listitem').map((listItem) => listItem.textContent);
 			expect(displayedTagsTextContents).toHaveLength(1);
-			expect(displayedTagsTextContents[0]).toBe('Débute le : 9/1/2024');
+			expect(displayedTagsTextContents[0]).toBe('Débute le 1 septembre 2024');
 		});
 	});
-});
+})
+;

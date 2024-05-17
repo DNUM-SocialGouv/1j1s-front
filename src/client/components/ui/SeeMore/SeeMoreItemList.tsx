@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useCallback, useId, useMemo, useRef, useState } from 'react';
 
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -30,7 +29,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 		className,
 		...rest
 	} = props;
-	const ariaId = useRef(uuidv4());
+	const ariaId = useId();
 	const divRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +64,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 			{itemListToDisplay.length > 0 &&
           <div
           	ref={divRef}
-          	id={`section-${ariaId.current}`}
+          	id={`section-${ariaId}`}
           	{...rest}
           >
           	<ul className={styles.itemList}>
@@ -84,7 +83,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
           	onClick={toggle}
           	type="button"
           	aria-expanded={isOpen}
-          	aria-controls={`section-${ariaId.current}`}
+          	aria-controls={`section-${ariaId}`}
           	aria-label={buttonAriaLabel}>
           </ButtonComponent>
 			}

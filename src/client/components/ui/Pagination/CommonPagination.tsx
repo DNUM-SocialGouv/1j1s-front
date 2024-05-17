@@ -142,4 +142,4 @@ export function CommonPagination(props: CommonPaginationProps) {
 			}
 		</>
 	);
-}
+};

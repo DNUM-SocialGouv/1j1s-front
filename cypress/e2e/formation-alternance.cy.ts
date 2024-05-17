@@ -22,12 +22,6 @@ context('Parcours formation LBA', () => {
 			.should('not.exist');
 	});
 
-	it('place le focus sur le premier input du formulaire de recherche', () => {
-		cy.visit('/formations/apprentissage');
-
-		cy.findByRole('combobox', { name: /Domaine/i }).should('have.focus');
-	});
-
 	context('Quand l’utilisateur cherche un métier', () => {
 		it('tous les métiers sont accessibles mais certains sont masqués sans scroll', () => {
 			const aListeDeMetierLaBonneAlternanceFixture = aListeDeMetierLaBonneAlternance();

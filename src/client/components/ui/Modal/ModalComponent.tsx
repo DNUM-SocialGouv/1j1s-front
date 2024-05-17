@@ -116,7 +116,7 @@ export function ModalComponent(props: ModalProps) {
 					aria-modal="true"
 					{...rest}>
 					<div className={styles.modalBody}>
-						<div className={classNames(className, styles.modalClose)}>
+						<div className={styles.modalClose}>
 							<ButtonComponent
 								appearance="quaternary"
 								icon={<Icon name="close"/>}

@@ -8,5 +8,7 @@ export const LocaleProvider = Context.Provider;
 
 export function useLocale() {
 	const locale = useContext(Context);
-	return locale ?? navigator.language;
+	if (locale) return locale;
+	if (typeof window !== 'undefined') return window.navigator.language;
+	return 'fr-FR';
 }

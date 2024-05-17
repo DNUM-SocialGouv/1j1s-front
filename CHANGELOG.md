@@ -1,5 +1,98 @@
 # Changelog
 
+## [3.291.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.4...v3.291.5) (2024-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency markdown-it-anchor to v9.0.1 ([#3008](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3008)) ([098dbb3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/098dbb3bdda7b34caff135a71915eff726452aa9))
+
+## [3.291.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.3...v3.291.4) (2024-05-17)
+
+
+### Bug Fixes
+
+* **cej:** correction de l'anomalie de scroll sur les modales ([#2996](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2996)) ([fd35b73](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd35b730b7e9e61e719a7be8b0bba05f153d2d35))
+
+## [3.291.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.2...v3.291.3) (2024-05-17)
+
+
+### Bug Fixes
+
+* **deps:** Mise à jour de dépendances mineures ([#3004](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3004)) ([cff5d45](https://github.com/DNUM-SocialGouv/1j1s-front/commit/cff5d458aafb8e2167d9cff63074281c6c50ce8c))
+
+## [3.291.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.1...v3.291.2) (2024-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2997](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2997)) ([c038cdf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c038cdffcbd19e64d8d682f747a56a22bd07d54d))
+* **deps:** update dependency markdown-it-anchor to v9 ([#3002](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3002)) ([2976be9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2976be903b99bbf33d74c9f85a456e73ab313aaf))
+
+## [3.291.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.0...v3.291.1) (2024-05-16)
+
+
+### Bug Fixes
+
+* Fix l'affichage du BackButton au premier chargement ([#2987](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2987)) ([65971cf](https://github.com/DNUM-SocialGouv/1j1s-front/commit/65971cf331fe37089ffd61b28c6fcda40dfedf28))
+
+## [3.291.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.290.0...v3.291.0) (2024-05-16)
+
+
+### Features
+
+* **menu:** utiliser dvh sur la modale pour supprimer le blocage de scroll en mobile ([#2992](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2992)) ([fd7d213](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fd7d21390db3a29aa4ccf245bc6518defb07de39))
+
+## [3.290.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.289.0...v3.290.0) (2024-05-16)
+
+
+### Features
+
+* **alternance:** afficher un message pour les offres annulées ([#2988](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2988)) ([da75dec](https://github.com/DNUM-SocialGouv/1j1s-front/commit/da75dec0eb78aebcbaa6c4b463f5d3a5c279bdfc))
+
+## [3.289.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.288.0...v3.289.0) (2024-05-16)
+
+
+### Features
+
+* **offre:** ajouter un alt sur le logo france travail ([#2993](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2993)) ([8b153de](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b153de04ce8432a2eb97c3c51a138b7e452da35))
+
+## [3.288.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.287.0...v3.288.0) (2024-05-16)
+
+
+### Features
+
+* **transverse:** suprimer les hydratation mismatch ([#2973](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2973)) ([352cb65](https://github.com/DNUM-SocialGouv/1j1s-front/commit/352cb65cad2fe0b2d01d364d2723b63b6e3f78e6))
+
+## [3.287.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.286.0...v3.287.0) (2024-05-15)
+
+
+### Features
+
+* **UI:** ajout du composant champ sur les pages ([#2969](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2969)) ([1c12d8b](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1c12d8be1b08164a964bb6ad189229f4a8fa2aeb))
+
+## [3.286.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.285.0...v3.286.0) (2024-05-15)
+
+
+### Features
+
+* **exp europe:** modification du lien de redirection vers Eures ([#2986](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2986)) ([4f3ffe4](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4f3ffe42fc3e67331699e20479d56dc52a298068))
+* **logement:** ajout d'un gap entre le type de location et la date de l'annonce ([#2989](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2989)) ([43fad50](https://github.com/DNUM-SocialGouv/1j1s-front/commit/43fad50cc7c966e8baaae0b4f3e7d83fdc6357ce))
+
+## [3.285.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.5...v3.285.0) (2024-05-13)
+
+
+### Features
+
+* **transverse:** passer l'ensemble des dates en longue date ([#2974](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2974)) ([bb2697c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bb2697c14f2c3cff2a298d38ea7521daea8b542e))
+
+## [3.284.5](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.4...v3.284.5) (2024-05-13)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#2980](https://github.com/DNUM-SocialGouv/1j1s-front/issues/2980)) ([4ca45d5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/4ca45d52a75fa1e9428cee36fb41e5df7c04602a))
+
 ## [3.284.4](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.284.3...v3.284.4) (2024-05-03)
 
 

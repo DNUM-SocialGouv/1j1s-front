@@ -1,5 +1,5 @@
 import { ButtonComponent } from '../../client/components/ui/Button/ButtonComponent';
-import { InputText } from '../../client/components/ui/Form/InputText/InputText';
+import { Input } from '../../client/components/ui/Form/Input';
 
 const story = {
 	title: 'Toolbox/Typography',
@@ -54,8 +54,8 @@ export const TailleDePolice = {
 				</div>
 				<div>
 					<div className="text-interactive-example">
-						<InputText className="text-interactive-example-input" label="Label du champ"
-											 placeholder="Contenu du champ"/>
+						<Input className="text-interactive-example-input" label="Label du champ"
+									 placeholder="Contenu du champ"/>
 						<ButtonComponent label="label du bouton"/>
 					</div>
 				</div>

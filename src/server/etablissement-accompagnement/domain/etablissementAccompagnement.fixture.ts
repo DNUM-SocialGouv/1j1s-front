@@ -11,9 +11,18 @@ export function anEtablissementAccompagnementList(overrides?: Partial<Etablissem
 	];
 }
 
+export function anEtablissementAccompagnementAdresse(overrides?: Partial<EtablissementAccompagnement.Adresse>): EtablissementAccompagnement.Adresse {
+	return {
+		codePostal: '75011',
+		nomCommune: 'Paris',
+		numeroVoie: '29-31 rue des Boulets',
+		...overrides,
+	};
+}
+
 export function anEtablissementAccompagnement(overrides?: Partial<EtablissementAccompagnement>): EtablissementAccompagnement {
 	return {
-		adresse: '29-31 rue des Boulets, 75011 Paris',
+		adresse: anEtablissementAccompagnementAdresse(),
 		email: 'email@missionlocaledeparis.fr',
 		horaires: [
 			{

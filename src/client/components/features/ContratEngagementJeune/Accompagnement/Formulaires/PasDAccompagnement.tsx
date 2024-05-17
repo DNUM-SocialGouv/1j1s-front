@@ -1,18 +1,25 @@
 import React from 'react';
 
 import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
-import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+
+import styles from './AccompagnementFormulaireCommon.module.scss';
 
 type PasDAccompagnementProps = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen'>
 
 export default function PasDAccompagnement({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen }: PasDAccompagnementProps) {
 
 	return <>
-		<button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Démarrage')}>
-			<TextIcon icon="angle-left" iconPosition="left">Retour</TextIcon>
-		</button>
-		<p className={styles.accompagnementQuestion}>Quel âge avez-vous ?</p>
+		<ButtonComponent
+			appearance={'quaternary'}
+			className={styles.boutonRetour}
+			onClick={() => setTypeFormulaireAffiché('Démarrage')}
+			label="Retour"
+			icon={<Icon name={'angle-left'}/>}
+			iconPosition={'left'}
+		/>
+		<p className={styles.question}>Quel âge avez-vous ?</p>
 		<div>
 			<span>Sélectionnez l‘option qui vous correspond :</span>
 			<button className={styles.optionBouton} onClick={() => setIsMissionLocaleModalOpen(true)}>Moins de 18 ans</button>

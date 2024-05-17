@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { useLocale } from '~/client/context/locale.context';
+import { useDependency } from '~/client/context/dependenciesContainer.context';
+import { DateService } from '~/client/services/date/date.service';
 
 import styles from './ConsulterAnnonce.module.scss';
 
-export function DateMiseÀJour(props: { date: Date }) {
-	const locale = useLocale();
-	const { date } = props;
+export function DateMiseÀJour({ date }: { date: Date }) {
+	const dateService = useDependency<DateService>('dateService');
 	return (
 		<span className={styles.date}>
-			Annonce mise à jour le <time dateTime={date.toISOString()} lang={locale}>
-				{date.toLocaleDateString(locale, { dateStyle: 'long' })}
+			Annonce mise à jour le <time dateTime={date.toISOString()}>
+				{dateService.formatToHumanReadableDate(date)}
 			</time>
 		</span>
 	);

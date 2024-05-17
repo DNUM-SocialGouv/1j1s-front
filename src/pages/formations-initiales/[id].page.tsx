@@ -57,10 +57,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 
 export default function ConsulterFormationInitialePage({ formationInitialeDetail }: ConsulterDetailFormationInitialePageProps) {
 	const dateService = useDependency<DateService>('dateService');
-
 	useAnalytics(analytics);
 
-	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today().toString());
+	if (isFormationWithDetails(formationInitialeDetail)) {
+		formationInitialeDetail.dateDeMiseAJour = new Date(formationInitialeDetail.dateDeMiseAJour);
+	}
+
+	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today());
 
 	return (
 		<>

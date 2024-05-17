@@ -119,6 +119,7 @@ export function FormulaireRechercheEmploisEurope() {
 					<div className={styles.filtresRechercheMobile}>
 						  <ButtonComponent
 							appearance="quaternary"
+							type="button"
 							icon={<Icon name="filter"/>}
 							iconPosition="right"
 							label="Filtrer ma recherche"

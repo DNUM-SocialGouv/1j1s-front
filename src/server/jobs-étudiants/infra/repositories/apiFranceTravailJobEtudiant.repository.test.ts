@@ -5,9 +5,9 @@ import {
 } from '~/server/jobs-étudiants/infra/repositories/apiFranceTravailJobEtudiant.repository';
 import { Offre, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import {
-	aBarmanOffre,
 	anOffreÉchantillonAvecLocalisationEtMotCléFiltre,
 	anOffreÉchantillonFiltre,
+	anOffreEmploi,
 	anOffreEmploiFiltre,
 	aRésultatsRechercheOffre,
 } from '~/server/offres/domain/offre.fixture';
@@ -61,7 +61,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				jest
 					.spyOn(httpClientServiceWithAuthentification, 'get')
 					.mockResolvedValue(anAxiosResponse(aBarmanOffreEmploiApiResponse()));
-				const expected = aBarmanOffre();
+				const expected = anOffreEmploi();
 				const offreEmploiId = expected.id;
 
 				const { result } = await apiFranceTravailJobEtudiantRepository.get(offreEmploiId) as Success<Offre>;
@@ -79,7 +79,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 					.mockRejectedValue(httpError);
 				jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiFranceTravailJobEtudiantRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailJobEtudiantRepository.get(anOffreEmploi().id);
 
 				expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(httpError, {
 					apiSource: 'API France Travail',
@@ -97,7 +97,7 @@ describe('ApiFranceTravailJobEtudiantRepository', () => {
 				jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'isError').mockReturnValue(true);
 				jest.spyOn(apiFranceTravailOffreErrorManagementGet, 'handleFailureError').mockReturnValue(createFailure(expectedFailure));
 
-				const result = await apiFranceTravailJobEtudiantRepository.get(aBarmanOffre().id);
+				const result = await apiFranceTravailJobEtudiantRepository.get(anOffreEmploi().id);
 
 				expect(apiFranceTravailOffreErrorManagementGet.handleFailureError).toHaveBeenCalledWith(apiResponse, {
 					apiSource: 'API France Travail',

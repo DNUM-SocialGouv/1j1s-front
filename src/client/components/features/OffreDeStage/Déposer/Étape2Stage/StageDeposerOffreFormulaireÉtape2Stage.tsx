@@ -1,7 +1,11 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
 import { InputDateDeDebut } from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/InputDateDeDebut';
+import {
+	ChampRemuneration,
+} from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/InputRemuneration';
 import { RadioIsDatePrecise } from '~/client/components/features/OffreDeStage/Déposer/Étape2Stage/RadioIsDatePrecise';
 import {
 	StageDeposerOffreFormulaireLayout,
@@ -11,11 +15,11 @@ import { domaineStage } from '~/client/components/features/OffreDeStage/Déposer
 import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEtape/FormulaireEtapeLayout';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { InputText } from '~/client/components/ui/Form/InputText/InputText';
+import { Input } from '~/client/components/ui/Form/Input';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
-import { Option, Select } from '~/client/components/ui/Select/Select';
+import { Option } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import {
 	StageDeposerOffreEtape1PersistenceService,
@@ -30,9 +34,11 @@ import { urlRegex } from '~/shared/urlRegex';
 
 import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
 
+// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au select et son contenu on désactive le srr sur ce composant, à supprimer après refonte du select cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
+const Select = dynamic(() => import('~/client/components/ui/Select/Select').then((mod) => mod.Select), { ssr: false });
+
 const EMAIL_OR_URL_REGEX = `^${emailRegex}|${urlRegex}$`;
 const DUREE_MOIS_EN_JOUR = 30;
-const UNITE = '€';
 const LONGUEUR_MAX_TITRE = 200;
 
 export enum StageEnum {
@@ -71,27 +77,40 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 	const [displayDateDeDebutPrecise, setDisplayDateDeDebutPrecise] = useState<boolean>(props.informationsStage?.isDateDeDebutPrecise ? props.informationsStage.isDateDeDebutPrecise === IsDateDeDebutPrecise.OUI : true);
 
 	return <>
-		<InputText
-			label="Nom de l’offre de stage (200 caractères maximum)"
-			name={StageEnum.NOM}
-			value={props.informationsStage?.nomOffre}
-			placeholder="Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE"
-			maxLength={LONGUEUR_MAX_TITRE}
-			required
-			className={styles.inputNomOffre}
-		/>
-		<InputText
-			pattern={EMAIL_OR_URL_REGEX}
-			label="Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa candidature"
-			name={StageEnum.LIEN_CANDIDATURE}
-			value={props.informationsStage?.lienCandidature}
-			placeholder="Exemples : https://candidat.francetravail.fr/offres/142Y   OU   candidature_PE_technicien@exemple.com"
-			required
-			className={styles.inputLienCandidature}
-		/>
-		{/* TODO (BRUJ 22/04/2024): Ne plus utiliser le placeholder et passer la valeur dans le label complémentaire */}
+		<Champ className={styles.inputNomOffre}>
+			<Champ.Label>Nom de l’offre de stage (200 caractères maximum)
+				<Champ.Label.Complement>Exemple : Assistant de recherche (6mois) chez ABC.ENTREPRISE</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				render={Input}
+				name={StageEnum.NOM}
+				defaultValue={props.informationsStage?.nomOffre}
+				maxLength={LONGUEUR_MAX_TITRE}
+				required
+			/>
+			<Champ.Error/>
+		</Champ>
+		<Champ className={styles.inputLienCandidature}>
+			<Champ.Label>Lien sur lequel les candidats pourront postuler ou une adresse e-mail à laquelle envoyer sa
+				candidature
+			<Champ.Label.Complement>Exemples : https://candidat.francetravail.fr/offres/142Y OU
+					candidature_PE_technicien@exemple.com</Champ.Label.Complement>
+			</Champ.Label>
+			<Champ.Input
+				render={Input}
+				pattern={EMAIL_OR_URL_REGEX}
+				name={StageEnum.LIEN_CANDIDATURE}
+				defaultValue={props.informationsStage?.lienCandidature}
+				required
+			/>
+			<Champ.Error/>
+		</Champ>
+
 		<Champ className={styles.textareaWrapper}>
-			<Champ.Label>Description de l’offre de stage (200 caractères minimum)</Champ.Label>
+			<Champ.Label>Description de l’offre de stage (200 caractères minimum)
+				<Champ.Label.Complement>Informations sur le stage : les objectifs, les challenges, les
+					missions…</Champ.Label.Complement>
+			</Champ.Label>
 			<Champ.Input
 				render={TextArea}
 				name={StageEnum.DESCRIPTION}
@@ -99,7 +118,6 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 				required
 				rows={10}
 				minLength={200}
-				placeholder="Informations sur le stage : les objectifs, les challenges, les missions..."
 			/>
 			<Champ.Error/>
 		</Champ>
@@ -118,7 +136,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 			label="Durée du stage"
 			name={StageEnum.DUREE}
 			value={props.informationsStage?.dureeStage}
-			placeholder="Sélectionnez une durée"
+			labelComplement="Exemple : 3 mois"
 			optionList={dureeStageList}
 			className={styles.dureeStage}
 			required
@@ -130,26 +148,14 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 	return <>
 		<Select
 			label="Domaine de l’offre de stage"
+			labelComplement="Exemple : Agriculture"
 			name={StageEnum.DOMAINE}
 			value={props.informationsStage?.domaineStage}
 			placeholder="Sélectionnez un domaine"
 			optionList={domaineStage}
 		/>
-		<div className={styles.rémunérationWrapper}>
-			<label className={styles.rémunérationLabel} htmlFor="remunerationStage">Rémunération par mois</label>
-			<div className={styles.rémunérationContenu}>
-				<input
-					id="remunerationStage"
-					type="number"
-					name={StageEnum.REMUNERATION}
-					placeholder="Exemple : 560"
-					min={0}
-					defaultValue={props.informationsStage?.remunerationStage}
-					className={styles.rémunérationContenuInput}
-				/>
-				<span className={styles.rémunérationContenuUnité}>{UNITE}</span>
-			</div>
-		</div>
+
+		<ChampRemuneration defaultValue={props.informationsStage?.remunerationStage}/>
 		<div>
 			<fieldset className={styles.contenuTeletravail}>
 				<legend>Télétravail possible</legend>

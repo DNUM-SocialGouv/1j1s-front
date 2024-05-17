@@ -16,7 +16,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 		mockUseRouter({});
 
 		render(<FormulaireRechercheFormationInitiale/>);
-		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 		expect(inputRechercheMotCle).toBeVisible();
 
 		const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -28,7 +28,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 			mockUseRouter({ push: routerPush });
 
 			render(<FormulaireRechercheFormationInitiale/>);
-			const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+			const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 			fireEvent.change(inputRechercheMotCle, { target: { value: 'boulanger' } });
 
 			const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -59,7 +59,7 @@ describe('FormulaireRechercheFormationInitiale', () => {
 
 		render(<FormulaireRechercheFormationInitiale/>);
 
-		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé...' });
+		const inputRechercheMotCle = screen.getByRole('textbox', { name: 'Domaine, mot-clé… Exemples: boulanger, informatique' });
 		expect(inputRechercheMotCle).toHaveValue('boulanger');
 	});
 });

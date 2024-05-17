@@ -1,6 +1,6 @@
 export interface EtablissementAccompagnement {
 	nom: string
-	adresse?: string
+	adresse?: EtablissementAccompagnement.Adresse
 	id: string
 	telephone?: string
 	email?: string
@@ -11,6 +11,11 @@ export interface EtablissementAccompagnement {
 export type ContactEtablissementAccompagnement = Required<Pick<EtablissementAccompagnement, 'nom' | 'email' | 'type'>>
 
 export namespace EtablissementAccompagnement {
+	export interface Adresse {
+		codePostal: string
+		numeroVoie: string
+		nomCommune: string
+	}
 	export interface Horaire {
 		jour: JourSemaine
 		heures: Array<Horaire.Heure>

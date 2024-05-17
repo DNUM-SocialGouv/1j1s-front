@@ -13,7 +13,7 @@ describe('BackButton', () => {
 		jest.resetAllMocks();
 	});
 
-	describe('Lorsque la variable PREVIOUS_PAGE est définie dans le sessionStorage', () => {
+	describe('Lorsque la variable IS_PREVIOUS_PAGE_LOCAL est définie dans le sessionStorage', () => {
 		it('affiche le bouton de retour', () => {
 			// Given
 			mockUseRouter({});
@@ -28,7 +28,7 @@ describe('BackButton', () => {
 			expect(screen.getByRole('button', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
 		});
 	});
-	describe('Lorsque la variable PREVIOUS_PAGE n’est pas définie dans le sessionStorage', () => {
+	describe('Lorsque la variable IS_PREVIOUS_PAGE_LOCAL n’est pas définie dans le sessionStorage', () => {
 		it('n’affiche pas le bouton de retour', () => {
 			// Given
 			mockUseRouter({});

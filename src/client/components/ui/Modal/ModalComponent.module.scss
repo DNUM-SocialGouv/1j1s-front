@@ -4,11 +4,13 @@
   position: fixed;
   z-index: 5500;
   width: 100%;
+  /* NOTE (BRUJ 15-05-2024): fallback quand dvh pas supporté */
   height: 100vh;
+  height: 100dvh;
   top: 0;
   padding: 0;
   border: none;
-  background-color: hsla(0,0%,9%,.375);
+  background-color: hsla(0, 0%, 9%, .375);
   pointer-events: none;
   display: block;
   visibility: visible;
@@ -20,7 +22,9 @@
   }
 
   &Body {
+    /* NOTE (BRUJ 15-05-2024): fallback quand dvh pas supporté */
     height: 100vh;
+    height: 100dvh;
     overflow-y: scroll;
     background-color: white;
     pointer-events: all;
@@ -58,6 +62,7 @@
       font-size: 0.875rem;
       margin-right: 0.2rem;
     }
+
     &Icon {
       fill: utilities-deprecated.$color-primary;
       vertical-align: bottom;
@@ -70,6 +75,7 @@
     padding-left: 50px;
     padding-right: 50px;
     display: flex;
+
     &Body {
       width: 1200px;
       height: 90vh;

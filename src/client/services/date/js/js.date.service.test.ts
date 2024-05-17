@@ -2,15 +2,16 @@ import { JsDateService } from '~/client/services/date/js/js.date.service';
 
 describe('Date service', () => {
 	describe('formatToHumanReadableDate', () => {
-		it('retourne la date sous format "jour mois (en lettre abrégée) année"', () => {
+		it('retourne la date sous format "jour mois (en lettre abrégée) année', () => {
 			// GIVEN
 			const dateService = new JsDateService();
+			const date = new Date('2024-09-01');
 
 			// WHEN
-			const formattedDate = dateService.formatToHumanReadableDate('2023-07-25T09:37:44.283Z');
+			const formattedDate = dateService.formatToHumanReadableDate(date);
 
 			// THEN
-			expect(formattedDate).toBe('25 juillet 2023');
+			expect(formattedDate).toBe('1 septembre 2024');
 		});
 	});
 

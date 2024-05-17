@@ -14,10 +14,9 @@
   & .buttonWrapper {
     > button {
       width: 100%;
-
-      @include utilities.media(medium) {
-        margin-top: utilities.pixel-to-rem(28);
-      }
+    }
+    @include utilities.media(medium) {
+      margin-top: auto;
     }
   }
 }

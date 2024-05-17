@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 
 import { FormulairesProps } from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement';
-import styles from '~/client/components/features/ContratEngagementJeune/Accompagnement/Accompagnement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { TextIcon } from '~/client/components/ui/TextIcon/TextIcon';
+import { Icon } from '~/client/components/ui/Icon/Icon';
+
+import styles from './AccompagnementFormulaireCommon.module.scss';
 
 type AutresBesoins26ans = Pick<FormulairesProps, 'setTypeFormulaireAffiché' | 'setIsMissionLocaleModalOpen' | 'setIsInscriptionFranceTravailModalOpen'>
-export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMissionLocaleModalOpen, setIsInscriptionFranceTravailModalOpen }: AutresBesoins26ans) {
+export default function AutresBesoins26ans({
+																						 setTypeFormulaireAffiché,
+																						 setIsMissionLocaleModalOpen,
+																						 setIsInscriptionFranceTravailModalOpen,
+																					 }: AutresBesoins26ans) {
 	const [activeCounter, setActiveCounter] = useState(0);
 
 
@@ -22,16 +27,24 @@ export default function AutresBesoins26ans({ setTypeFormulaireAffiché, setIsMis
 			}
 
 		};
-		return <button onClick={toggleClass}
-									 className={isActive ? styles.accompagnementIsActive : styles.accompagnementDesactive}>{placeholder}</button>;
+		return <button
+			onClick={toggleClass}
+			className={isActive ? styles.accompagnementIsActive : styles.accompagnementDesactive}>
+			{placeholder}
+		</button>;
 	}
 
 	return <>
-		<button className={styles.boutonRetour} onClick={() => setTypeFormulaireAffiché('Handicap')}>
-			<TextIcon icon="angle-left" iconPosition="left">Retour</TextIcon>
-		</button>
-		<p className={styles.accompagnementQuestion}>Rencontrez-vous d’autres besoins ?</p>
-		<div className={styles.accompagnementBoutons}>
+		<ButtonComponent
+			appearance={'quaternary'}
+			className={styles.boutonRetour}
+			onClick={() => setTypeFormulaireAffiché('Handicap')}
+			label="Retour"
+			icon={<Icon name={'angle-left'}/>}
+			iconPosition={'left'}
+		/>
+		<p className={styles.question}>Rencontrez-vous d’autres besoins ?</p>
+		<div className={styles.autresBesoinsContainer}>
 			{BoutonAutreBesoin('Logement')}
 			{BoutonAutreBesoin('Santé')}
 			{BoutonAutreBesoin('Difficultés administratives ou juridiques')}

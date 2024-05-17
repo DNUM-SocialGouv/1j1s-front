@@ -13,11 +13,11 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { aMetierService } from '~/client/services/metiers/metier.fixture';
 import RechercherAlternancePage, { getServerSideProps } from '~/pages/apprentissage/index.page';
 import { aGetServerSidePropsContext } from '~/server/aGetServerSidePropsContext.fixture';
-import { Alternance, ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
+import { Alternance } from '~/server/alternances/domain/alternance';
 import {
-	anAlternanceMatchaBoulanger,
-	anAlternancePEJobs,
-	aResultatRechercherMultipleAlternance,
+	aDetailMatchaAlternance,
+	aDetailPEJobAlternance,
+	aRechercheAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
@@ -48,13 +48,13 @@ describe('Page rechercher une alternance', () => {
 
 		it('n‘a pas de défaut d‘accessibilité', async () => {
 			const alternanceFixture: Array<Alternance> = [
-				anAlternanceMatchaBoulanger(),
-				anAlternancePEJobs(),
+				aDetailMatchaAlternance(),
+				aDetailPEJobAlternance(),
 			];
-			const resultats: ResultatRechercheAlternance = {
+			const resultats = aRechercheAlternance({
 				entrepriseList: [],
 				offreList: alternanceFixture,
-			};
+			});
 			const localisationServiceMock = aLocalisationService();
 			const métiersServiceMock = aMetierService();
 			mockUseRouter({
@@ -207,7 +207,7 @@ describe('Page rechercher une alternance', () => {
 					describe('lorsque la recherche retourne un résultat', () => {
 						it('retourne le résultat', async () => {
 							// GIVEN
-							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createSuccess(aResultatRechercherMultipleAlternance()));
+							jest.spyOn(dependencies.alternanceDependencies.rechercherAlternance, 'handle').mockResolvedValue(createSuccess(aRechercheAlternance()));
 
 							const context = aGetServerSidePropsContext({
 								query: {
@@ -225,7 +225,7 @@ describe('Page rechercher une alternance', () => {
 							// THEN
 							expect(result).toEqual({
 								props: {
-									resultats: aResultatRechercherMultipleAlternance(),
+									resultats: aRechercheAlternance(),
 								},
 							});
 							expect(dependencies.alternanceDependencies.rechercherAlternance.handle).toHaveBeenCalledWith({

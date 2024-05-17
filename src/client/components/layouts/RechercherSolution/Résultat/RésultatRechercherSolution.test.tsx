@@ -9,7 +9,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
-import { aBarmanOffre } from '~/server/offres/domain/offre.fixture';
+import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
 
 describe('RésultatRechercherSolution', () => {
 
@@ -19,7 +19,7 @@ describe('RésultatRechercherSolution', () => {
 	});
 
 	it('affiche une carte emploi avec un résumé de l‘offre', () => {
-		const offreEmploi = aBarmanOffre();
+		const offreEmploi = anOffreEmploi();
 
 		render(
 			<RésultatRechercherSolution
@@ -43,7 +43,7 @@ describe('RésultatRechercherSolution', () => {
 
 	describe('lorsque le lien d‘offre n‘existe pas', () => {
 		it('je ne peux pas clicker sur la carte', () => {
-			const offreEmploi = aBarmanOffre();
+			const offreEmploi = anOffreEmploi();
 
 			render(
 				<RésultatRechercherSolution
@@ -62,7 +62,7 @@ describe('RésultatRechercherSolution', () => {
 
 	describe('lorsqu‘une description est fournise', () => {
 		it('je vois la description', () => {
-			const offreEmploi = aBarmanOffre();
+			const offreEmploi = anOffreEmploi();
 
 			render(
 				<RésultatRechercherSolution
@@ -83,7 +83,7 @@ describe('RésultatRechercherSolution', () => {
 
 	describe('lorsqu‘un intitulé de lien est fournis', () => {
 		it('je vois l‘intitulé', () => {
-			const offreEmploi = aBarmanOffre();
+			const offreEmploi = anOffreEmploi();
 
 			render(
 				<RésultatRechercherSolution
@@ -102,7 +102,7 @@ describe('RésultatRechercherSolution', () => {
 			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
 		});
 		it('n‘a pas d‘attribut aria-labelledby', () => {
-			const offreEmploi = aBarmanOffre();
+			const offreEmploi = anOffreEmploi();
 
 			render(
 				<RésultatRechercherSolution
@@ -125,7 +125,7 @@ describe('RésultatRechercherSolution', () => {
 	});
 	describe('lorsqu‘un intitulé de lien n‘est pas fournis', () => {
 		it('le nom du lien par défaut est complété par l‘intitulé de l‘offre', () => {
-			const offreEmploi = aBarmanOffre();
+			const offreEmploi = anOffreEmploi();
 
 			render(
 				<RésultatRechercherSolution
