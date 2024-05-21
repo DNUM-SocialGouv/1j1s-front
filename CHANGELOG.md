@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.292.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.6...v3.292.0) (2024-05-21)
+
+
+### Features
+
+* **banner:** modifier le wording de la banniere ([#3013](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3013)) ([ebce71f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ebce71f28d665cde4e7af20ebed6d2b5302ad894))
+
 ## [3.291.6](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.291.5...v3.291.6) (2024-05-21)
 
 
