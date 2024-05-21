@@ -29,7 +29,8 @@ type SelectProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	id?: string
 	onChange?: (value: HTMLElement) => void;
 	labelComplement?: string
-	defaultValue?: string
+	defaultValue?: string;
+	multiple?: boolean
 }
 
 export interface Option {
@@ -43,25 +44,58 @@ export function Select(props: SelectProps) {
 	const {
 		className,
 		id,
+		label,
+		labelComplement,
+		multiple,
+		...rest
+	} = props;
+	const selectIdState = useId();
+	const selectId = id ?? selectIdState;
+	const labelledBy = useId();
+
+	return (
+		<div className={classNames(styles.selectWrapper, className)}>
+			<Champ.Label htmlFor={selectId} className={styles.selectLabel} id={labelledBy}>
+				{label}
+				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
+			</Champ.Label>
+			{
+				multiple ? <></> : <SelectSimple labelledBy={labelledBy} {...rest}/>
+			}
+		</div>
+	);
+}
+
+type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
+	placeholder?: string;
+	optionList: Option[];
+	value?: string;
+	className?: string
+	name?: string;
+	required?: boolean;
+	onChange?: (value: HTMLElement) => void;
+	defaultValue?: string;
+	labelledBy: string
+}
+
+function SelectSimple(props: SelectSimpleProps) {
+	const {
 		optionList,
 		value,
 		placeholder,
 		name,
-		label,
 		onChange: onChangeProps = doNothing,
-		labelComplement,
+		labelledBy,
 		defaultValue,
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
-	const labelledBy = useId();
-	const selectIdState = useId();
 	const optionsId = useId();
-	const selectId = id ?? selectIdState;
+	const listboxId = useId();
 	const [state, dispatch] = useReducer(
 		SelectReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
-			optionSelectedValue: defaultValue ? defaultValue: '',
+			optionSelectedValue: defaultValue ? defaultValue : '',
 			suggestionList: listboxRef,
 			visibleOptions: [],
 		},
@@ -91,11 +125,11 @@ export function Select(props: SelectProps) {
 		return '';
 	}, [optionList, optionSelectedValue, value]);
 
-	const placeholderSelect = () => {
+	function PlaceholderSelectedValue() {
 		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
 		if (placeholder) return placeholder;
 		return SELECT_PLACEHOLDER_SINGULAR;
-	};
+	}
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -156,16 +190,15 @@ export function Select(props: SelectProps) {
 		}
 	}, [selectOption, state.isListOptionsOpen]);
 
-
 	const renderOptionList = () => (
 		<ul
 			role="listbox"
 			ref={listboxRef}
 			aria-labelledby={labelledBy}
+			id={listboxId}
 			tabIndex={-1}
 			hidden={!state.isListOptionsOpen}>
 			{optionList.map((option, index) => {
-				console.log(option.valeur);
 				const optionId = `${optionsId}-${index}`;
 				return <li
 					tabIndex={-1}
@@ -195,35 +228,30 @@ export function Select(props: SelectProps) {
 	}
 
 	return (
-		<div className={classNames(styles.selectWrapper, className)}>
-			<Champ.Label htmlFor={selectId} className={styles.selectLabel} id={labelledBy}>
-				{label}
-				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
-			</Champ.Label>
-			<div className={styles.container}>
-				<div
-					role="combobox"
-					aria-haspopup="listbox"
-					aria-expanded={state.isListOptionsOpen}
-					aria-labelledby={labelledBy}
-					tabIndex={0}
-					onClick={() => {
-						dispatch(new SelectAction.ToggleList());
-					}}
-					aria-activedescendant={state.activeDescendant}
-					onKeyDown={onKeyDown}
-					onBlur={onBlur}
-				>
-					{placeholderSelect()}
-					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
-				</div>
-				{renderOptionList()}
-				<Input
-					type="hidden"
-					name={name}
-					value={valueSelected}
-				/>
+		<div className={styles.container}>
+			<div
+				role="combobox"
+				aria-controls={listboxId}
+				aria-haspopup="listbox"
+				aria-expanded={state.isListOptionsOpen}
+				aria-labelledby={labelledBy}
+				tabIndex={0}
+				onClick={() => {
+					dispatch(new SelectAction.ToggleList());
+				}}
+				aria-activedescendant={state.activeDescendant}
+				onKeyDown={onKeyDown}
+				onBlur={onBlur}
+			>
+				<PlaceholderSelectedValue/>
+				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 			</div>
+			{renderOptionList()}
+			<Input
+				type="hidden"
+				name={name}
+				value={valueSelected}
+			/>
 		</div>
 	);
 }
