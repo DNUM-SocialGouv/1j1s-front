@@ -116,17 +116,12 @@ import {
 	OnisepFormationInitialeRepository,
 } from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
 import {
-	FormationInitialeDetailDependencies,
-	formationInitialeDetailDependenciesContainer,
-} from '~/server/formations-initiales-detail/configuration/dependencies.container';
-import {
-	StrapiFormationInitialeDetailRepository,
-} from '~/server/formations-initiales-detail/infra/strapiFormationInitialeDetail.repository';
-import {
 	jobsEteDependenciesContainer,
 	OffresJobEteDependencies,
 } from '~/server/jobs-ete/configuration/dependencies.container';
-import { ApiFranceTravailJobEteRepository } from '~/server/jobs-ete/infra/repositories/apiFranceTravailJobEte.repository';
+import {
+	ApiFranceTravailJobEteRepository,
+} from '~/server/jobs-ete/infra/repositories/apiFranceTravailJobEte.repository';
 import {
 	jobsÉtudiantsDependenciesContainer,
 	OffresJobÉtudiantDependencies,
@@ -238,7 +233,6 @@ export type Dependencies = {
 	alternanceDependencies: AlternanceDependencies;
 	formationDependencies: FormationDependencies;
 	formationInitialeDependencies: FormationInitialeDependencies;
-	formationInitialeDetailDependencies: FormationInitialeDetailDependencies;
 	métierDependencies: MétierDependencies;
 	offreEmploiDependencies: OffresEmploiDependencies;
 	cmsDependencies: CmsDependencies;
@@ -339,11 +333,9 @@ export function dependenciesContainer(): Dependencies {
 	const apiOnisepHttpClient = isProd
 		? new AuthenticatedHttpClientService(getApiOnisepAuthenticatedConfig(serverConfigurationService), loggerService)
 		: new PublicHttpClientService(getApiOnisepPublicConfig(serverConfigurationService));
-	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService);
+	const onisepFormationInitialeRepository = new OnisepFormationInitialeRepository(apiOnisepHttpClient, defaultErrorManagementService, cmsService);
 	const formationInitialeDependencies = formationInitialeDependenciesContainer(onisepFormationInitialeRepository);
 
-	const strapiFormationInitialeDetailRepository = new StrapiFormationInitialeDetailRepository(cmsService);
-	const formationInitialeDetailDependencies = formationInitialeDetailDependenciesContainer(onisepFormationInitialeRepository, strapiFormationInitialeDetailRepository);
 
 	const engagementHttpClientService = new PublicHttpClientService(getApiEngagementConfig(serverConfigurationService));
 	const apiEngagementRepository = new ApiEngagementRepository(engagementHttpClientService, defaultErrorManagementService);
@@ -440,7 +432,6 @@ export function dependenciesContainer(): Dependencies {
 		ficheMetierDependencies,
 		formationDependencies,
 		formationInitialeDependencies,
-		formationInitialeDetailDependencies,
 		localisationDependencies,
 		loggerService,
 		mentionObligatoireDependencies,

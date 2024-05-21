@@ -13,17 +13,18 @@ import useAnalytics from '~/client/hooks/useAnalytics';
 import { DateService } from '~/client/services/date/date.service';
 import analytics from '~/pages/formations-initiales/[id].analytics';
 import styles from '~/pages/formations-initiales/[id].module.scss';
+import { isFailure } from '~/server/errors/either';
 import { GetServerSidePropsResult } from '~/server/errors/getServerSidePropsResultWithError';
 import { handleGetServerSidePropsError } from '~/server/errors/handleGetServerSidePropsError';
 import { PageContextParamsException } from '~/server/exceptions/pageContextParams.exception';
 import {
-	FormationInitialeDetailComplete,
-	isFormationWithDetails,
-} from '~/server/formations-initiales-detail/domain/formationInitiale';
+	FormationInitialeDetailAvecInformationsComplementaires,
+	isFormationWithComplementaryInformation,
+} from '~/server/formations-initiales/domain/formationInitiale';
 import { dependencies } from '~/server/start';
 
 type ConsulterDetailFormationInitialePageProps = {
-	formationInitialeDetail: FormationInitialeDetailComplete;
+	formationInitialeDetail: FormationInitialeDetailAvecInformationsComplementaires;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext<{
@@ -41,9 +42,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext<{
 	}
 
 	const { id } = context.params;
-	const formationInitialeDetailComplete = await dependencies.formationInitialeDetailDependencies.consulterDetailFormationInitiale.handle(id);
+	const formationInitialeDetailComplete = await dependencies.formationInitialeDependencies.consulterDetailFormationInitiale.handle(id);
 
-	if (formationInitialeDetailComplete.instance === 'failure') {
+	if (isFailure(formationInitialeDetailComplete)) {
 		return handleGetServerSidePropsError(context, formationInitialeDetailComplete.errorType);
 	}
 
@@ -59,11 +60,11 @@ export default function ConsulterFormationInitialePage({ formationInitialeDetail
 	const dateService = useDependency<DateService>('dateService');
 	useAnalytics(analytics);
 
-	if (isFormationWithDetails(formationInitialeDetail)) {
+	if (isFormationWithComplementaryInformation(formationInitialeDetail)) {
 		formationInitialeDetail.dateDeMiseAJour = new Date(formationInitialeDetail.dateDeMiseAJour);
 	}
 
-	const dataUpdatedDate = isFormationWithDetails(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today());
+	const dataUpdatedDate = isFormationWithComplementaryInformation(formationInitialeDetail) ? dateService.formatToHumanReadableDate(formationInitialeDetail.dateDeMiseAJour) : dateService.formatToHumanReadableDate(dateService.today());
 
 	return (
 		<>

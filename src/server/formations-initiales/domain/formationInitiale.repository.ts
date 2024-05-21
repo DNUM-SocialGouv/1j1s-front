@@ -6,7 +6,8 @@ import {
 } from '~/server/formations-initiales/domain/formationInitiale';
 
 export interface FormationInitialeRepository {
-    search(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>>;
-    getFormationInitiale(id: string): Promise<Either<FormationInitiale>>
+	search(filtre: FormationInitialeFiltre): Promise<Either<ResultatRechercheFormationsInitiales>>;
+
+	getFormationInitialeDetail(id: string): Promise<Either<FormationInitiale>>
 }
 

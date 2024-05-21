@@ -1,3 +1,5 @@
+export const NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE = 15;
+
 export interface FormationInitiale {
     libelle: string;
     url_formation: string
@@ -15,5 +17,16 @@ export interface FormationInitialeFiltre {
 	page: number
 }
 
+export interface FormationInitialeDetailCMS {
+	description?: string
+	attendusParcoursup?: string,
+	conditionsAcces?: string,
+	poursuiteEtudes?: string,
+	dateDeMiseAJour: string,
+}
 
-export const NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE = 15;
+export type FormationInitialeDetailAvecInformationsComplementaires = FormationInitiale | (FormationInitiale & FormationInitialeDetailCMS);
+
+export function isFormationWithComplementaryInformation(formation: FormationInitialeDetailAvecInformationsComplementaires): formation is (FormationInitiale & FormationInitialeDetailCMS) {
+	return 'dateDeMiseAJour' in formation;
+}

@@ -15,7 +15,7 @@ import {
 } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
-} from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
+} from '~/server/formations-initiales/infra/onisepFormationInitiale.fixture';
 
 describe('lorsque je veux faire une recherche de formations initiales', () => {
 	it('en recette, doit récupérer des formations initiales en mode non authentifié', async () => {
