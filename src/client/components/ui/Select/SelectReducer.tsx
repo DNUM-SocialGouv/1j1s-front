@@ -35,7 +35,6 @@ export namespace SelectAction {
 		execute(previousState: SelectState): SelectState {
 			return {
 				...previousState,
-				activeDescendant: undefined,
 				isListOptionsOpen: false,
 			};
 		}
@@ -50,12 +49,31 @@ export namespace SelectAction {
 		}
 	}
 
+	export class VisualyFocusFirstOption implements SelectAction {
+		execute(previousState: SelectState): SelectState {
+			return {
+				...previousState,
+				activeDescendant: getVisibleOptions(previousState.suggestionList)[0]?.id,
+			};
+		}
+	}
+
+	export class VisualyFocusLastOption implements SelectAction {
+		execute(previousState: SelectState): SelectState {
+			const lastOption = getVisibleOptions(previousState.suggestionList).at(-1);
+			return {
+				...previousState,
+				activeDescendant: lastOption?.id,
+			};
+		}
+	}
+
 	export class NextOption implements SelectAction {
 		execute(previousState: SelectState): SelectState {
 			const { activeDescendant, suggestionList } = previousState;
 			const options = getVisibleOptions(suggestionList);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[0];
+			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
 			return {
 				...previousState,
 				activeDescendant: nextDescendant?.id,
@@ -69,7 +87,7 @@ export namespace SelectAction {
 			const { activeDescendant, suggestionList } = previousState;
 			const options = getVisibleOptions(suggestionList);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[options.length - 1];
+			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
 			return {
 				...previousState,
 				activeDescendant: previousDescendant?.id,

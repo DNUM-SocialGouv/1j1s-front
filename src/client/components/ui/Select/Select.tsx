@@ -60,7 +60,7 @@ export function Select(props: SelectProps) {
 				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 			</Champ.Label>
 			{
-				multiple ? <></> : <SelectSimple labelledBy={labelledBy} {...rest}/>
+				multiple ? <SelectMultiple labelledBy={labelledBy} {...rest}/> : <SelectSimple labelledBy={labelledBy} {...rest}/>
 			}
 		</div>
 	);
@@ -146,7 +146,7 @@ function SelectSimple(props: SelectSimpleProps) {
 		dispatch(new SelectAction.CloseList());
 	}, []);
 
-	const isCurrentItemSelected = useCallback((option: Option, optionId?: string) => {
+	const isCurrentItemSelected = useCallback((optionId?: string) => {
 		return state.activeDescendant === optionId;
 	}, [state.activeDescendant]);
 
@@ -154,15 +154,19 @@ function SelectSimple(props: SelectSimpleProps) {
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
-				dispatch(new SelectAction.PreviousOption());
+				if (state.isListOptionsOpen) {
+					dispatch(new SelectAction.PreviousOption());
+				} else {
+					dispatch(new SelectAction.OpenList());
+				}
 				event.preventDefault();
 				break;
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
-				if (event.altKey) {
-					// TODO (BRUJ 21/05/2024): rajouter qqch là
-				} else {
+				if (state.isListOptionsOpen) {
 					dispatch(new SelectAction.NextOption());
+				} else {
+					dispatch(new SelectAction.OpenList());
 				}
 				event.preventDefault();
 				break;
@@ -183,6 +187,31 @@ function SelectSimple(props: SelectSimpleProps) {
 					cancelEvent(event);
 					dispatch(new SelectAction.OpenList());
 				}
+				break;
+			}
+			case KeyBoard.TAB: {
+				if (state.isListOptionsOpen) {
+					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+					if (selectedOptionID) {
+						selectOption(selectedOptionID);
+					}
+				}
+				break;
+			}
+			case KeyBoard.HOME: {
+				if (!state.isListOptionsOpen) {
+					dispatch(new SelectAction.OpenList());
+				}
+				dispatch(new SelectAction.VisualyFocusFirstOption());
+				event.preventDefault();
+				break;
+			}
+			case KeyBoard.END: {
+				if (!state.isListOptionsOpen) {
+					dispatch(new SelectAction.OpenList());
+				}
+				dispatch(new SelectAction.VisualyFocusLastOption());
+				event.preventDefault();
 				break;
 			}
 			default:
@@ -210,7 +239,227 @@ function SelectSimple(props: SelectSimpleProps) {
 					onClick={() => {
 						selectOption(optionId);
 					}}
-					aria-selected={isCurrentItemSelected(option, optionId)}>
+					aria-selected={isCurrentItemSelected(optionId)}>
+					{renderRadioButton(option)}
+				</li>;
+			})}
+		</ul>
+	);
+
+	function renderRadioButton(option: Option) {
+		return <Radio
+			className={styles.option}
+			label={option.libellé}
+			value={option.valeur}
+			onChange={doNothing}
+			checked={option.valeur === optionSelectedValue}
+			hidden={true}/>;
+	}
+
+	return (
+		<div className={styles.container}>
+			<div
+				role="combobox"
+				aria-controls={listboxId}
+				aria-haspopup="listbox"
+				aria-expanded={state.isListOptionsOpen}
+				aria-labelledby={labelledBy}
+				tabIndex={0}
+				onClick={() => {
+					dispatch(new SelectAction.ToggleList());
+				}}
+				aria-activedescendant={state.activeDescendant}
+				onKeyDown={onKeyDown}
+				onBlur={onBlur}
+			>
+				<PlaceholderSelectedValue/>
+				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+			</div>
+			{renderOptionList()}
+			<Input
+				type="hidden"
+				name={name}
+				value={valueSelected}
+			/>
+		</div>
+	);
+}
+
+
+type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
+	placeholder?: string;
+	optionList: Option[];
+	value?: Array<string>;
+	className?: string
+	name?: string;
+	required?: boolean;
+	onChange?: (value: HTMLElement) => void;
+	defaultValue?: Array<string>;
+	labelledBy: string
+}
+
+function SelectMultiple(props: SelectMultipleProps) {
+	const {
+		optionList,
+		value,
+		placeholder,
+		name,
+		onChange: onChangeProps = doNothing,
+		labelledBy,
+		defaultValue,
+	} = props;
+	const listboxRef = useRef<HTMLUListElement>(null);
+	const optionsId = useId();
+	const listboxId = useId();
+	const [state, dispatch] = useReducer(
+		SelectReducer, {
+			activeDescendant: undefined,
+			isListOptionsOpen: false,
+			optionSelectedValue: defaultValue ? defaultValue : '',
+			suggestionList: listboxRef,
+			visibleOptions: [],
+		},
+	);
+	const optionSelectedValue = value ?? state.optionSelectedValue;
+
+	function getLabelByValue(value: string) {
+		const optionValue = optionList.find((option) => option.valeur === value);
+		if (optionValue) {
+			return optionValue.libellé;
+		}
+		return '';
+	}
+
+	const selectOption = useCallback((optionId: string) => {
+		dispatch(new SelectAction.SelectOption(optionId));
+		const option = document.getElementById(optionId);
+		if (option) onChangeProps(option);
+	}, [onChangeProps]);
+
+	const valueSelected = useMemo(() => {
+		if (value) return value;
+		const optionValue = optionList.find((option) => option.valeur === optionSelectedValue);
+		if (optionValue) {
+			return optionValue.valeur;
+		}
+		return '';
+	}, [optionList, optionSelectedValue, value]);
+
+	function PlaceholderSelectedValue() {
+		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
+		if (placeholder) return placeholder;
+		return SELECT_PLACEHOLDER_SINGULAR;
+	}
+
+	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
+	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
+		event.preventDefault();
+	}, []);
+
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
+		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
+		if (newFocusStillInCombobox) {
+			cancelEvent(event);
+			return;
+		}
+
+		dispatch(new SelectAction.CloseList());
+	}, []);
+
+	const isCurrentItemSelected = useCallback((optionId?: string) => {
+		return state.activeDescendant === optionId;
+	}, [state.activeDescendant]);
+
+	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+		switch (event.key) {
+			case KeyBoard.ARROW_UP:
+			case KeyBoard.IE_ARROW_UP:
+				if (state.isListOptionsOpen) {
+					dispatch(new SelectAction.PreviousOption());
+				} else {
+					dispatch(new SelectAction.OpenList());
+				}
+				event.preventDefault();
+				break;
+			case KeyBoard.ARROW_DOWN:
+			case KeyBoard.IE_ARROW_DOWN:
+				if (state.isListOptionsOpen) {
+					dispatch(new SelectAction.NextOption());
+				} else {
+					dispatch(new SelectAction.OpenList());
+				}
+				event.preventDefault();
+				break;
+			case KeyBoard.ESCAPE:
+			case KeyBoard.IE_ESCAPE:
+				dispatch(new SelectAction.CloseList());
+				event.preventDefault();
+				break;
+			case KeyBoard.SPACE:
+			case KeyBoard.ENTER: {
+				if (state.isListOptionsOpen) {
+					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+					if (selectedOptionID) {
+						selectOption(selectedOptionID);
+						event.preventDefault();
+					}
+				} else {
+					cancelEvent(event);
+					dispatch(new SelectAction.OpenList());
+				}
+				break;
+			}
+			case KeyBoard.TAB: {
+				if (state.isListOptionsOpen) {
+					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+					if (selectedOptionID) {
+						selectOption(selectedOptionID);
+					}
+				}
+				break;
+			}
+			case KeyBoard.HOME: {
+				if (!state.isListOptionsOpen) {
+					dispatch(new SelectAction.OpenList());
+				}
+				dispatch(new SelectAction.VisualyFocusFirstOption());
+				event.preventDefault();
+				break;
+			}
+			case KeyBoard.END: {
+				if (!state.isListOptionsOpen) {
+					dispatch(new SelectAction.OpenList());
+				}
+				dispatch(new SelectAction.VisualyFocusLastOption());
+				event.preventDefault();
+				break;
+			}
+			default:
+				break;
+		}
+	}, [selectOption, state.isListOptionsOpen]);
+
+	const renderOptionList = () => (
+		<ul
+			role="listbox"
+			ref={listboxRef}
+			aria-labelledby={labelledBy}
+			id={listboxId}
+			tabIndex={-1}
+			hidden={!state.isListOptionsOpen}>
+			{optionList.map((option, index) => {
+				const optionId = `${optionsId}-${index}`;
+				return <li
+					tabIndex={-1}
+					id={optionId}
+					role="option"
+					key={index}
+					onMouseDown={onMouseDown}
+					data-value={option.valeur}
+					onClick={() => {
+						selectOption(optionId);
+					}}
+					aria-selected={isCurrentItemSelected(optionId)}>
 					{renderRadioButton(option)}
 				</li>;
 			})}
