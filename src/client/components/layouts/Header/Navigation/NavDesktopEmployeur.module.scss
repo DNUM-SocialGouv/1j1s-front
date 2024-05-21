@@ -76,6 +76,10 @@ $background-color-NavItem-hover :color.adjust($background-color-NavItem, utiliti
   }
 
   .navDetail {
+    a {
+      text-decoration: none;
+    }
+
     a:hover {
       @include underline;
     }

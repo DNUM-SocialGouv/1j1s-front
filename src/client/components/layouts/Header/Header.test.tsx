@@ -10,6 +10,8 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Header', () => {
+
+
 	describe('Sur desktop', () => {
 		beforeEach(() => {
 			mockLargeScreen();
@@ -175,7 +177,6 @@ describe('Header', () => {
 			const jobsEteLink = screen.queryByRole('link', { name: 'Jobs d‘été' });
 			expect(jobsEteLink).not.toBeInTheDocument();
 		});
-
 		it('affiche le lien stage de 2de quand le feature flip est actif', async () => {
 			// GIVEN
 			mockUseRouter({ pathname: '/' });
@@ -225,7 +226,6 @@ describe('Header', () => {
 			const stage2deLink = screen.queryByRole('link', { name: 'Stage de 2de GT' });
 			expect(stage2deLink).not.toBeInTheDocument();
 		});
-
 		describe('quand l’enquête de satisfaction est feature flippé', () => {
 			it('ON, affiche le lien vers l’enquête de satisfaction', () => {
 				// GIVEN
@@ -251,7 +251,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 
@@ -265,7 +265,7 @@ describe('Header', () => {
 				render(<Header/>);
 
 				// THEN
-				const lienEnquete =  screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
+				const lienEnquete = screen.queryByRole('link', { name: 'Vous souhaitez aider 1jeune1solution à s’améliorer ? Donnez votre avis en moins de 2 minutes' });
 				expect(lienEnquete).not.toBeInTheDocument();
 			});
 		});
@@ -286,41 +286,43 @@ describe('Header', () => {
 				expect(menu).not.toBeInTheDocument();
 			});
 
-			describe('quand la fonctionnalité encart est activée', () => {
-				it('affiche le composant Header avec l’encart', async () => {
-					// Given
-					process.env = {
-						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
-					};
-					mockUseRouter({ pathname: '/' });
+			describe('banner campagne de com', () => {
+				describe('quand la fonctionnalité de campagne de com est activée', () => {
+					it('affiche le composant Header avec l’encart', async () => {
+						// Given
+						process.env = {
+							...process.env,
+							NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '1',
+						};
+						mockUseRouter({ pathname: '/' });
 
-					// When
-					render(<Header/>);
+						// When
+						render(<Header/>);
 
-					// Then
-					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
-					expect(encartCampagne).toBeVisible();
-					expect(encartCampagne).toHaveRole('link');
-					expect(encartCampagne).toHaveAttribute('href', 'https://stagedeseconde.1jeune1solution.gouv.fr/professionnels');
-					expect(encartCampagne).toHaveTextContent('Vous souhaitez accueillir des élèves de 2de et contribuer à leur orientation ? Faites la différence et déposez facilement une offre de stage.');
+						// Then
+						const encartCampagne = screen.getByTestId('mobile-encart-campagne');
+						expect(encartCampagne).toBeVisible();
+						expect(encartCampagne).toHaveRole('link');
+						expect(encartCampagne).toHaveAttribute('href', 'https://stagedeseconde.1jeune1solution.gouv.fr/professionnels');
+						expect(encartCampagne).toHaveTextContent('Vous souhaitez accueillir des élèves de 2de et contribuer à leur orientation ? Faites la différence et déposez facilement une offre de stage.');
+					});
 				});
-			});
-			describe('quand la fonctionnalité encart est désactivée', () => {
-				it('affiche le composant Header sans l’encart', async () => {
-					// Given
-					process.env = {
-						...process.env,
-						NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
-					};
-					mockUseRouter({ pathname: '/' });
+				describe('quand la fonctionnalité de campagne de com est désactivée', () => {
+					it('affiche le composant Header sans l’encart', async () => {
+						// Given
+						process.env = {
+							...process.env,
+							NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE: '0',
+						};
+						mockUseRouter({ pathname: '/' });
 
-					// When
-					render(<Header/>);
+						// When
+						render(<Header/>);
 
-					// Then
-					const encartCampagne = screen.queryByTestId('mobile-encart-campagne');
-					expect(encartCampagne).not.toBeInTheDocument();
+						// Then
+						const encartCampagne = screen.queryByTestId('mobile-encart-campagne');
+						expect(encartCampagne).not.toBeInTheDocument();
+					});
 				});
 			});
 		});
@@ -338,24 +340,24 @@ describe('Header', () => {
 			it('positionne le menu dans le bon sous menu de niveau 1', () => {
 				mockUseRouter({ pathname: '/decouvrir-les-metiers' });
 				render(<Header/>);
-				const button = screen.getByRole('button', { name : 'Menu' });
+				const button = screen.getByRole('button', { name: 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 
-				const modaleNavigation =  screen.getByRole('dialog');
+				const modaleNavigation = screen.getByRole('dialog');
 				expect(within(modaleNavigation).getByText('Découvrir les métiers')).toBeVisible();
 			});
 
 			it('positionne le menu dans le bon sous menu de niveau 2', () => {
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
 				render(<Header/>);
-				const button = screen.getByRole('button', { name : 'Menu' });
+				const button = screen.getByRole('button', { name: 'Menu' });
 				fireEvent.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 
-				const modaleNavigation =  screen.getByRole('dialog');
+				const modaleNavigation = screen.getByRole('dialog');
 				expect(within(modaleNavigation).getByText('Je deviens mentor')).toBeVisible();
 			});
 
@@ -368,7 +370,7 @@ describe('Header', () => {
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 
-				const modaleNavigation =  screen.getByRole('dialog');
+				const modaleNavigation = screen.getByRole('dialog');
 				expect(within(modaleNavigation).getByText('Je deviens mentor')).toBeVisible();
 				const retourEnArrière = within(modaleNavigation).getByRole('button', { name: 'Recruter et agir pour les jeunes' });
 				await user.click(retourEnArrière);
@@ -438,7 +440,7 @@ describe('Header', () => {
 			});
 		});
 		describe('navigation au clavier', () => {
-		  it('l’utilisateur peut naviguer en profondeur dans le dernier item du menu', async () => {
+			it('l’utilisateur peut naviguer en profondeur dans le dernier item du menu', async () => {
 				// Given
 				mockUseRouter({ pathname: '/' });
 				render(
@@ -457,7 +459,7 @@ describe('Header', () => {
 				// Then
 				const premierElementEnfantDuDernierItem = within(navigationMobile).getByRole('link', { name: 'Rejoindre la mobilisation' });
 				expect(premierElementEnfantDuDernierItem).toHaveFocus();
-		  });
+			});
 		});
 	});
 });
