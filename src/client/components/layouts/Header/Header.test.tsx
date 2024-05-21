@@ -121,8 +121,8 @@ describe('Header', () => {
 				const encartCampagne = screen.getByTestId('desktop-encart-campagne');
 				expect(encartCampagne).toBeVisible();
 				expect(encartCampagne).toHaveRole('link');
-				expect(encartCampagne).toHaveAttribute('href', '/articles/decouvrez-apprentissage-live-instagram');
-				expect(encartCampagne).toHaveTextContent('Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus ?Retrouvez les replays des lives Instagram avec nos apprentis.');
+				expect(encartCampagne).toHaveAttribute('href', 'https://stagedeseconde.1jeune1solution.gouv.fr/professionnels');
+				expect(encartCampagne).toHaveTextContent('Vous souhaitez accueillir des élèves de 2de et contribuer à leur orientation ?Faites la différence et déposez facilement une offre de stage.');
 			});
 		});
 
@@ -302,8 +302,8 @@ describe('Header', () => {
 					const encartCampagne = screen.getByTestId('mobile-encart-campagne');
 					expect(encartCampagne).toBeVisible();
 					expect(encartCampagne).toHaveRole('link');
-					expect(encartCampagne).toHaveAttribute('href', '/articles/decouvrez-apprentissage-live-instagram');
-					expect(encartCampagne).toHaveTextContent('Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus ? Retrouvez les replays des lives Instagram avec nos apprentis.');
+					expect(encartCampagne).toHaveAttribute('href', 'https://stagedeseconde.1jeune1solution.gouv.fr/professionnels');
+					expect(encartCampagne).toHaveTextContent('Vous souhaitez accueillir des élèves de 2de et contribuer à leur orientation ? Faites la différence et déposez facilement une offre de stage.');
 				});
 			});
 			describe('quand la fonctionnalité encart est désactivée', () => {
