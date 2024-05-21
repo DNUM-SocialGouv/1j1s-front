@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, {
-	ChangeEvent,
 	FocusEvent,
 	KeyboardEvent,
 	SyntheticEvent,
@@ -9,11 +8,9 @@ import React, {
 	useMemo,
 	useReducer,
 	useRef,
-	useState,
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -28,7 +25,6 @@ type SelectProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	className?: string
 	label: string;
 	name?: string;
-	multiple?: boolean;
 	required?: boolean;
 	id?: string
 	onChange?: (value: HTMLElement) => void;
@@ -42,8 +38,6 @@ export interface Option {
 }
 
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
-const SELECT_PLACEHOLDER_PLURAL = 'Sélectionnez vos choix';
-const SELECT_ERROR_MESSAGE_REQUIRED = 'Veuillez sélectionner un choix';
 
 export function Select(props: SelectProps) {
 	const {
@@ -54,13 +48,10 @@ export function Select(props: SelectProps) {
 		placeholder,
 		name,
 		label,
-		multiple,
-		required,
 		onChange: onChangeProps = doNothing,
 		labelComplement,
 		defaultValue,
 	} = props;
-	const optionsRef = useRef<HTMLDivElement>(null);
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const labelledBy = useId();
 	const selectIdState = useId();
@@ -70,13 +61,12 @@ export function Select(props: SelectProps) {
 		SelectReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
-			optionSelectedLabel: defaultValue ? getLabelByValue(defaultValue) : '',
+			optionSelectedValue: defaultValue ? defaultValue: '',
 			suggestionList: listboxRef,
 			visibleOptions: [],
 		},
 	);
-	const [selectedValue, setSelectedValue] = useState(value || '');
-	const optionSelectedLabel = value ? getLabelByValue(value) : state.optionSelectedLabel;
+	const optionSelectedValue = value ?? state.optionSelectedValue;
 
 	function getLabelByValue(value: string) {
 		const optionValue = optionList.find((option) => option.valeur === value);
@@ -86,33 +76,25 @@ export function Select(props: SelectProps) {
 		return '';
 	}
 
-	function selectOption(optionId: string) {
+	const selectOption = useCallback((optionId: string) => {
 		dispatch(new SelectAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
-	}
-
-	const defaultPlaceholder = useMemo(() => multiple ? SELECT_PLACEHOLDER_PLURAL : SELECT_PLACEHOLDER_SINGULAR,
-		[multiple]);
+	}, [onChangeProps]);
 
 	const valueSelected = useMemo(() => {
-		if(value) return value;
-		const optionValue = optionList.find((option) => option.libellé === optionSelectedLabel);
+		if (value) return value;
+		const optionValue = optionList.find((option) => option.valeur === optionSelectedValue);
 		if (optionValue) {
 			return optionValue.valeur;
 		}
 		return '';
-	}, [optionSelectedLabel, value]);
-
-	const multipleSelectLabel = useMemo(() => {
-		const selectedValueLength = String(selectedValue).split(',').length;
-		return `${selectedValueLength} choix ${selectedValueLength > 1 ? 'sélectionnés' : 'sélectionné'}`;
-	}, [selectedValue]);
+	}, [optionList, optionSelectedValue, value]);
 
 	const placeholderSelect = () => {
-		if (optionSelectedLabel) return multiple ? multipleSelectLabel : optionSelectedLabel;
+		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
 		if (placeholder) return placeholder;
-		return defaultPlaceholder;
+		return SELECT_PLACEHOLDER_SINGULAR;
 	};
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
@@ -128,11 +110,11 @@ export function Select(props: SelectProps) {
 		}
 
 		dispatch(new SelectAction.CloseList());
-	}, [value]);
+	}, []);
 
 	const isCurrentItemSelected = useCallback((option: Option, optionId?: string) => {
-		return multiple ? optionSelectedLabel?.split(',').includes(option.libellé) : state.activeDescendant === optionId;
-	}, [state.activeDescendant, multiple]);
+		return state.activeDescendant === optionId;
+	}, [state.activeDescendant]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		switch (event.key) {
@@ -144,6 +126,7 @@ export function Select(props: SelectProps) {
 			case KeyBoard.ARROW_DOWN:
 			case KeyBoard.IE_ARROW_DOWN:
 				if (event.altKey) {
+					// TODO (BRUJ 21/05/2024): rajouter qqch là
 				} else {
 					dispatch(new SelectAction.NextOption());
 				}
@@ -171,22 +154,8 @@ export function Select(props: SelectProps) {
 			default:
 				break;
 		}
-	}, [state]);
+	}, [selectOption, state.isListOptionsOpen]);
 
-	const onSelectMultipleChange = useCallback((isValueSelected: boolean, changedValue: string) => {
-		const valueList = selectedValue ? selectedValue.split(',') : [];
-		if (isValueSelected) {
-			valueList.push(changedValue);
-		} else {
-			const indexOfValue = valueList.indexOf(changedValue);
-			valueList.splice(indexOfValue, 1);
-		}
-
-		const newSelectedValue = valueList.join(',');
-		setSelectedValue(newSelectedValue);
-		// TODO (BRUJ 17/05/2024): voir comment changer la version multiple
-		//onChangeProps?.(newSelectedValue);
-	}, [selectedValue, setSelectedValue, onChangeProps]);
 
 	const renderOptionList = () => (
 		<ul
@@ -194,9 +163,9 @@ export function Select(props: SelectProps) {
 			ref={listboxRef}
 			aria-labelledby={labelledBy}
 			tabIndex={-1}
-			hidden={!state.isListOptionsOpen}
-			aria-multiselectable={multiple}>
+			hidden={!state.isListOptionsOpen}>
 			{optionList.map((option, index) => {
+				console.log(option.valeur);
 				const optionId = `${optionsId}-${index}`;
 				return <li
 					tabIndex={-1}
@@ -204,26 +173,15 @@ export function Select(props: SelectProps) {
 					role="option"
 					key={index}
 					onMouseDown={onMouseDown}
+					data-value={option.valeur}
 					onClick={() => {
 						selectOption(optionId);
 					}}
 					aria-selected={isCurrentItemSelected(option, optionId)}>
-					{multiple ? renderCheckBox(option) : renderRadioButton(option)}
+					{renderRadioButton(option)}
 				</li>;
 			})}
 		</ul>
-	);
-
-	const renderCheckBox = (option: Option) => (
-		<Checkbox
-			className={styles.option}
-			label={option.libellé}
-			value={option.valeur}
-			checked={isCurrentItemSelected(option)}
-			onChange={(event: ChangeEvent<HTMLInputElement>) => {
-				onSelectMultipleChange(event.target.checked, option.valeur);
-			}}
-		/>
 	);
 
 	function renderRadioButton(option: Option) {
@@ -232,7 +190,7 @@ export function Select(props: SelectProps) {
 			label={option.libellé}
 			value={option.valeur}
 			onChange={doNothing}
-			checked={option.libellé === optionSelectedLabel}
+			checked={option.valeur === optionSelectedValue}
 			hidden={true}/>;
 	}
 

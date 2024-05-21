@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 export type SelectState = {
 	isListOptionsOpen: boolean,
 	activeDescendant: string | undefined,
-	optionSelectedLabel: string | undefined,
+	optionSelectedValue: string | undefined,
 	suggestionList: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
 }
@@ -91,7 +91,7 @@ export namespace SelectAction {
 			const closeListState = new CloseList().execute(previousState);
 			return {
 				...closeListState,
-				optionSelectedLabel: this.option?.textContent ?? '',
+				optionSelectedValue: this.option?.getAttribute('data-value') ?? '',
 			};
 		}
 	}

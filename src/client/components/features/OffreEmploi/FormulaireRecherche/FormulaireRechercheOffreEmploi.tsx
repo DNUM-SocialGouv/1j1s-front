@@ -200,7 +200,10 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-							onChange={setInputTypeDeContrat}
+							onChange={(option) => {
+								const value = option.getAttribute('data-value');
+								if (value) setInputTypeDeContrat(value);
+							}}
 							label="Types de contrats"
 							labelComplement="Exemple : CDI, CDD…"
 							value={inputTypeDeContrat}
@@ -209,15 +212,16 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							name="tempsDeTravail"
 							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
-							onChange={setInputTempsDeTravail}
-							value={inputTempsDeTravail}
 							label="Temps de travail"
 							labelComplement="Exemple : temps plein, temps partiel…"
 						/>
 						<Select
 							name="experienceExigence"
 							optionList={Offre.EXPÉRIENCE}
-							onChange={setInputExpérience}
+							onChange={(option) => {
+								const value = option.getAttribute('data-value');
+								if (value) setInputExpérience(value);
+							}}
 							value={inputExpérience}
 							label="Niveau demandé"
 							labelComplement="Exemple : De 1 à 3 ans"
@@ -225,7 +229,10 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							onChange={setInputDomaine}
+							onChange={(option) => {
+								const value = option.getAttribute('data-value');
+								if (value) setInputDomaine(value);
+							}}
 							value={inputDomaine}
 							name="grandDomaine"
 							label="Domaines"
