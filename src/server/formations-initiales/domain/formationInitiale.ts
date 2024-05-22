@@ -22,7 +22,7 @@ export interface FormationInitialeDetailCMS {
 	attendusParcoursup?: string,
 	conditionsAcces?: string,
 	poursuiteEtudes?: string,
-	dateDeMiseAJour: string,
+	dateDeMiseAJour: Date,
 }
 
 export type FormationInitialeDetailAvecInformationsComplementaires = FormationInitiale | (FormationInitiale & FormationInitialeDetailCMS);
