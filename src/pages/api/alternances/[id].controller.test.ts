@@ -1,4 +1,4 @@
-import { configureScope } from '@sentry/nextjs';
+import * as Sentry from '@sentry/nextjs';
 import { testApiHandler } from 'next-test-api-route-handler';
 import nock from 'nock';
 
@@ -11,19 +11,15 @@ import {
 
 import getAlternanceHandler from './[id].controller';
 
-jest.mock('@sentry/nextjs', () => {
-	const sentry = jest.requireActual('@sentry/nextjs');
+jest.mock('@sentry/nextjs');
 
-	return ({
-		...sentry,
-		configureScope: jest.fn(),
-	});
-});
+const SentryMock = jest.mocked(Sentry, { shallow: true });
+const SentryScopeMock = {
+	setTag: jest.fn(),
+} as unknown as Sentry.Scope;
+SentryMock.getCurrentScope.mockReturnValue(SentryScopeMock);
 
 describe('rechercher alternance', () => {
-	beforeEach(() => {
-		(configureScope as jest.Mock).mockClear();
-	});
 	it('retourne une alternance', async () => {
 		const alternanceId = '63c53c3566193e05691e9ce1';
 		nock('https://labonnealternance-recette.apprentissage.beta.gouv.fr/api/v1/').get(
@@ -57,6 +53,7 @@ describe('rechercher alternance', () => {
 			},
 			url: `/alternances/${alternanceId}`,
 		});
-		expect(configureScope).toHaveBeenCalledTimes(1);
+		expect(SentryMock.getCurrentScope).toHaveBeenCalledTimes(1);
+		expect(SentryScopeMock.setTag).toHaveBeenCalled();
 	});
 });
