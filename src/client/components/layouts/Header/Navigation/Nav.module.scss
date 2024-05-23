@@ -51,6 +51,7 @@ $offset-sub-nav: 2.5rem;
 
   & .navItemLabel {
     @extend %text-regular;
+    text-decoration: none;
     display: flex;
     padding: 0.8rem 1rem;
     color: utilities.$color-text-primary;
@@ -130,10 +131,6 @@ $offset-sub-nav: 2.5rem;
 }
 
 .modalNavigationList {
-  a {
-    text-decoration: none;
-  }
-
   & > .navItem:last-child {
     color: utilities.$color-text-primary-inverse;
     background-color: utilities.$color-title-primary-contrast;

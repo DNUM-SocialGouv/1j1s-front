@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { ENCART_CAMPAGNE_URL } from '~/client/components/layouts/Header/Header';
+import { CampagneBannerDesktop } from '~/client/components/layouts/Header/Banner/Campagne/CampagneBanner';
 import styles from '~/client/components/layouts/Header/Header.module.scss';
 import { NavMobile } from '~/client/components/layouts/Header/Navigation/NavMobile';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
@@ -14,8 +14,6 @@ export function HeaderBody() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-	const displayEncartDeCampagne = process.env.NEXT_PUBLIC_CAMPAGNE_COM_EN_COURS_FEATURE === '1';
-
 	return (
 		<Container className={styles.headerBodyContainer}>
 			<div className={styles.headerBody}>
@@ -27,7 +25,8 @@ export function HeaderBody() {
 							width="88"
 							height="80"
 						/>
-						<nav role={'navigation'} aria-label="ouvrir le menu principal" className={styles.headerBodyNavigationMobile}>
+						<nav role={'navigation'} aria-label="ouvrir le menu principal"
+								 className={styles.headerBodyNavigationMobile}>
 							<ButtonComponent
 								appearance="quaternary"
 								icon={<Icon name="burger-menu"/>}
@@ -40,22 +39,14 @@ export function HeaderBody() {
 					</div>
 					<Link
 						className={styles.headerBodyTitle}
-			      href="/"
+						href="/"
 						title="1jeune1solution (retour à l'accueil)"
 						aria-label="1jeune1solution (retour à l'accueil)"
 					>
 						1jeune1solution
 					</Link>
 				</div>
-				{displayEncartDeCampagne &&
-						<Link href={ENCART_CAMPAGNE_URL} className={styles.headerBodyBanner} data-testid="desktop-encart-campagne">
-							<p>
-								<span className={styles.headerBodyBannerTitle}>Vous êtes intéressés par l’apprentissage et souhaitez en savoir plus&nbsp;?</span>
-								<span className={styles.headerBodyBannerContent}>Retrouvez les replays des lives Instagram avec nos apprentis.</span>
-							</p>
-							<Link.Icon className={styles.headerBodyBannerIcon} name="angle-right"/>
-						</Link>
-				}
+				<CampagneBannerDesktop/>
 			</div>
 			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
 				<ModalComponent.Title>
