@@ -32,5 +32,22 @@ describe('usePageHistory', () => {
 			// Then
 			expect(setItem).toHaveBeenCalledWith(IS_PREVIOUS_PAGE_LOCAL, 'true');
 		});
+		it('stocke le pathname de la page dans sessionStorage (mode hydratation du contenu)', () => {
+			// Given
+			mockUseRouter({
+				pathname: '/other-page',
+			});
+			const setItem = jest.spyOn(Object.getPrototypeOf(sessionStorage), 'setItem');
+			const { rerender } = render(<TestComponent />);
+
+			// When
+			mockUseRouter({
+				pathname: '/other-other-page',
+			});
+			rerender(<TestComponent />);
+
+			// Then
+			expect(setItem).toHaveBeenCalledWith(IS_PREVIOUS_PAGE_LOCAL, 'true');
+		});
 	});
 });
