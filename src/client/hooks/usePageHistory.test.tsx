@@ -32,7 +32,7 @@ describe('usePageHistory', () => {
 			// Then
 			expect(setItem).toHaveBeenCalledWith(IS_PREVIOUS_PAGE_LOCAL, 'true');
 		});
-		it('stocke le pathname de la page dans sessionStorage (mode PESPA)', () => {
+		it('stocke le pathname de la page dans sessionStorage (mode hydratation du contenu)', () => {
 			// Given
 			mockUseRouter({
 				pathname: '/other-page',
