@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.292.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.1...v3.292.2) (2024-05-24)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#3017](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3017)) ([fb9007a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/fb9007a972c9a1b99931c59809b01e3c301564f9))
+* Retour du disclaimer dans tarteaucitron ([#3021](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3021)) ([8a223e2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8a223e265fdac42132f901d543407d9418c5a500))
+
 ## [3.292.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.0...v3.292.1) (2024-05-23)
 
 
