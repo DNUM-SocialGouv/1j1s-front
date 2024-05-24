@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.292.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.2...v3.292.3) (2024-05-24)
+
+
+### Bug Fixes
+
+* Fix le BackButton sur le build ([#3023](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3023)) ([2ede777](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2ede777fd169e784054ae51772cd7a580d1cef5d))
+
 ## [3.292.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.1...v3.292.2) (2024-05-24)
 
 
