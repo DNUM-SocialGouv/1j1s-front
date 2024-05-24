@@ -1,7 +1,8 @@
+
 import {
 	FormationInitialeApiResponse,
 	ResultatRechercheFormationInitialeApiResponse,
-} from '~/server/formations-initiales/infra/onisepFormationInitiale.repository';
+} from '~/server/formations-initiales/infra/onisepFormationInitiale';
 
 
 export function aResultatRechercheFormationInitialeApiResponse(override?: Partial<ResultatRechercheFormationInitialeApiResponse>): ResultatRechercheFormationInitialeApiResponse {

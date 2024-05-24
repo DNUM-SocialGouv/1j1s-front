@@ -14,10 +14,10 @@ import { aManualAnalyticsService } from '~/client/services/analytics/analytics.s
 import { aDateService } from '~/client/services/date/date.service.fixture';
 import ConsulterFormationInitialePage from '~/pages/formations-initiales/[id].page';
 import { getServerSideProps } from '~/pages/formations-initiales/index.page';
-import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
+	aFormationInitiale,
 	aFormationInitialeDetailComplete,
-} from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
 
 describe('quand le feature flip est actif', () => {
 	beforeEach(() => {

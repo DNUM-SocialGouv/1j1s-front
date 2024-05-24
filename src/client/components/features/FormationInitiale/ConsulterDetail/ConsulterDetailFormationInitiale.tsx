@@ -5,16 +5,16 @@ import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
 import useSanitize from '~/client/hooks/useSanitize';
 import {
-	FormationInitialeDetailComplete,
-	isFormationWithDetails,
-} from '~/server/formations-initiales-detail/domain/formationInitiale';
+	FormationInitialeDetailAvecInformationsComplementaires,
+	isFormationWithComplementaryInformation,
+} from '~/server/formations-initiales/domain/formationInitiale';
 
 import styles from './ConsulterDetailFormationInitiale.module.scss';
 
 export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
-	formationInitialeDetail: FormationInitialeDetailComplete
+	formationInitialeDetail: FormationInitialeDetailAvecInformationsComplementaires
 }) {
-	const isFormationInitialeWithCMSDetails = isFormationWithDetails(formationInitialeDetail);
+	const isFormationInitialeWithCMSDetails = isFormationWithComplementaryInformation(formationInitialeDetail);
 
 	const descriptionDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.description : undefined;
 	const attendusParcoursupDirty = isFormationInitialeWithCMSDetails ? formationInitialeDetail.attendusParcoursup : undefined;

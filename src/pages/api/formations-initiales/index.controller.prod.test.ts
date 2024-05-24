@@ -10,7 +10,7 @@ import {
 import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
 	aResultatRechercheFormationInitialeApiResponse,
-} from '~/server/formations-initiales/infra/formationInitialeResponse.fixture';
+} from '~/server/formations-initiales/infra/onisepFormationInitiale.fixture';
 
 
 jest.mock('~/server/services/serverConfiguration.service', () => {

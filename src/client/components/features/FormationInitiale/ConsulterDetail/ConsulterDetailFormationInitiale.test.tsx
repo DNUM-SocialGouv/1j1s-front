@@ -9,10 +9,10 @@ import {
 	ConsulterDetailFormationInitiale,
 } from '~/client/components/features/FormationInitiale/ConsulterDetail/ConsulterDetailFormationInitiale';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { aFormationInitiale } from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import {
+	aFormationInitiale,
 	aFormationInitialeDetailComplete,
-} from '~/server/formations-initiales-detail/domain/formationInitiale.fixture';
+} from '~/server/formations-initiales/domain/formationInitiale.fixture';
 import { queries } from '~/test-utils';
 
 describe('ConsulterDetailFormationInitiale', () => {
