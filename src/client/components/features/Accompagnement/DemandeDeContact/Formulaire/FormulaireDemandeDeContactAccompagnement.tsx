@@ -7,9 +7,9 @@ import { LoadingButton } from '~/client/components/ui/Button/LoadingButton';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Link } from '~/client/components/ui/Link/Link';
-import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { ageOptions } from '~/client/domain/selectAgeData';
 import {

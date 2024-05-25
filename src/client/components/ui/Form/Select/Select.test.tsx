@@ -8,7 +8,7 @@ import { userEvent } from '@testing-library/user-event';
 import React, { FormEvent } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
-import { Select } from '~/client/components/ui/Select/Select';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
 const SELECT_MULTIPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez vos choix';

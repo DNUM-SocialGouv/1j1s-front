@@ -1,17 +1,17 @@
 import classNames from 'classnames';
 import React, { FocusEvent, KeyboardEvent, SyntheticEvent, useCallback, useId, useReducer, useRef } from 'react';
 
-import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import { Input } from '~/client/components/ui/Form/Input';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import styles from '~/client/components/ui/Select/Select.module.scss';
+import { KeyBoard } from '../../../keyboard/keyboard.enum';
+import { Icon } from '../../Icon/Icon';
+import { Champ } from '../Champ/Champ';
+import { Input } from '../Input';
+import styles from './Select.module.scss';
 import {
 	SelectMultipleAction,
 	SelectMultipleReducer,
 	SelectReducer,
 	SelectSimpleAction,
-} from '~/client/components/ui/Select/SelectReducer';
+} from './SelectReducer';
 
 type SelectProps = SelectSimpleProps & {
 	multiple?: false;

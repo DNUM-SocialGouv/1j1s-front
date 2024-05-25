@@ -14,10 +14,10 @@ import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
-import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';

@@ -1,4 +1,4 @@
-import { Option } from '~/client/components/ui/Select/Select';
+import { Option } from '~/client/components/ui/Form/Select/Select';
 import { ACCOMPAGNEMENT_MAX_AGE, ACCOMPAGNEMENT_MIN_AGE } from '~/server/demande-de-contact/domain/demandeDeContact';
 
 const numberOfDifferentsAges = ACCOMPAGNEMENT_MAX_AGE-ACCOMPAGNEMENT_MIN_AGE+1;

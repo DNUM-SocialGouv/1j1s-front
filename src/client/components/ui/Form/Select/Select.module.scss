@@ -1,6 +1,6 @@
-@use "@styles/utilities-deprecated";
-@use "@styles/utilities";
-@use "@styles/components/form/variables";
+@use "utilities-deprecated";
+@use "utilities";
+@use "variables";
 
 $color-option-hover: utilities.$color-background-primary-alternative;
 $border-radius: inputStyles.$border-radius;
