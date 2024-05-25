@@ -222,6 +222,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	return (
 		<div className={styles.container}>
 			<div
+				className={styles.combobox}
 				role="combobox"
 				aria-controls={listboxId}
 				aria-haspopup="listbox"
@@ -248,6 +249,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				{optionList.map((option, index) => {
 					const optionId = `${optionsId}-${index}`;
 					return <li
+						className={classNames(styles.optionComboboxSimple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
 						tabIndex={-1}
 						id={optionId}
 						role="option"
@@ -402,6 +404,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		<div className={styles.container}>
 			<div
 				role="combobox"
+				className={styles.combobox}
 				aria-controls={listboxId}
 				aria-haspopup="listbox"
 				aria-expanded={state.isListOptionsOpen}
@@ -427,6 +430,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				{optionList.map((option, index) => {
 					const optionId = `${optionsId}-${index}`;
 					return <li
+						className={classNames(styles.optionComboboxMultiple ,state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
 						tabIndex={-1}
 						id={optionId}
 						role="option"
