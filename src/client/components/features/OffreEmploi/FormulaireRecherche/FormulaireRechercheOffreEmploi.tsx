@@ -200,13 +200,9 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-							onChange={(option) => {
-								const value = option.getAttribute('data-value');
-								if (value) setInputTypeDeContrat(value);
-							}}
 							label="Types de contrats"
 							labelComplement="Exemple : CDI, CDD…"
-							value={inputTypeDeContrat}
+							defaultValue={queryParams.typeDeContrats?.split(',')}
 							name="typeDeContrats"
 						/>
 						<Select
@@ -229,11 +225,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							onChange={(option) => {
-								const value = option.getAttribute('data-value');
-								if (value) setInputDomaine(value);
-							}}
-							value={inputDomaine}
+							defaultValue={queryParams.grandDomaine}
 							name="grandDomaine"
 							label="Domaines"
 							labelComplement="Exemple : Commerce, Immobilier…"
