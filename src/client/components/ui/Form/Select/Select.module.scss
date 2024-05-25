@@ -2,7 +2,7 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/components/form/variables";
 @use "../TextboxShared.module" as inputStyles;
-
+@use "src/client/components/ui/Checkbox/Checkbox.module" as checkboxStyles;
 $color-text: inputStyles.$color-text;
 $color-border: inputStyles.$color-border;
 $color-text-disabled: inputStyles.$color-text-disabled;
@@ -61,25 +61,16 @@ $border-width: inputStyles.$border-width;
       align-items: center;
       padding: .5rem 1ch;
 
-      &.optionComboboxMultiple::before {
-        content: "";
-        width: 1rem;
-        height: 1rem;
-        margin-right: 0.5rem;
-        background-size: 1rem;
-        background-position: center;
-        background-repeat: no-repeat;
-        border-radius: 0.25rem;
-        box-shadow: inset 0 0 0 1px utilities-deprecated.$color-on-surface;
-      }
-
       &[role="option"] {
         cursor: pointer;
       }
 
+      &.optionComboboxMultiple::before {
+        @extend %checkbox;
+      }
+
       &[role="option"][aria-selected="true"].optionComboboxMultiple::before  {
-          background-color: utilities.$color-background-secondary;
-          background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23fff' d='M10 15.17l9.2-9.2 1.4 1.42L10 18l-6.36-6.36 1.4-1.42z'/></svg>");
+        @extend %checkbox-checked;
       }
 
       &[role="option"]:hover,
