@@ -1,21 +1,10 @@
 import classNames from 'classnames';
-import React, {
-	FocusEvent,
-	KeyboardEvent,
-	SyntheticEvent,
-	useCallback,
-	useId,
-	useMemo,
-	useReducer,
-	useRef,
-} from 'react';
+import React, { FocusEvent, KeyboardEvent, SyntheticEvent, useCallback, useId, useReducer, useRef } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Radio } from '~/client/components/ui/Radio/Radio';
 import styles from '~/client/components/ui/Select/Select.module.scss';
 import {
 	SelectMultipleAction,
@@ -48,7 +37,6 @@ type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> &
 	defaultValue?: Array<string>;
 }
 
-
 type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	optionList: Option[];
 	value?: string;
@@ -59,13 +47,13 @@ type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	defaultValue?: string;
 }
 
-
 export interface Option {
 	libellé: string;
 	valeur: string;
 }
 
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
+const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 
 export function Select(props: SelectProps) {
 	const {
@@ -100,6 +88,7 @@ export function Select(props: SelectProps) {
 	);
 }
 
+// TODO (BRUJ 25/05/2024): gestion d'erreur !!
 function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	const {
 		optionList,
@@ -118,19 +107,12 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
 			optionSelectedValue: defaultValue ? defaultValue : '',
-			suggestionList: listboxRef,
+			refListOption: listboxRef,
 			visibleOptions: [],
 		},
 	);
-	const optionSelectedValue = value ?? state.optionSelectedValue;
 
-	function getLabelByValue(value: string) {
-		const optionValue = optionList.find((option) => option.valeur === value);
-		if (optionValue) {
-			return optionValue.libellé;
-		}
-		return '';
-	}
+	const optionSelectedValue = value ?? state.optionSelectedValue;
 
 	const selectOption = useCallback((optionId: string) => {
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
@@ -138,29 +120,14 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		if (option) onChangeProps(option);
 	}, [onChangeProps]);
 
-	const valueSelected = useMemo(() => {
-		if (value) return value;
-		const optionValue = optionList.find((option) => option.valeur === optionSelectedValue);
-		if (optionValue) {
-			return optionValue.valeur;
-		}
-		return '';
-	}, [optionList, optionSelectedValue, value]);
-
-	function PlaceholderSelectedValue() {
-		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
-		if (placeholder) return placeholder;
-		return SELECT_PLACEHOLDER_SINGULAR;
-	}
-
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
 		event.preventDefault();
 	}, []);
 
 	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLDivElement>) {
-		const newFocusStillInCombobox = event.currentTarget.contains(event.relatedTarget);
-		if (newFocusStillInCombobox) {
+		const newFocusStillInSelect = event.currentTarget.contains(event.relatedTarget);
+		if (newFocusStillInSelect) {
 			cancelEvent(event);
 			return;
 		}
@@ -168,9 +135,9 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		dispatch(new SelectSimpleAction.CloseList());
 	}, []);
 
-	const isCurrentItemSelected = useCallback((optionId?: string) => {
-		return state.activeDescendant === optionId;
-	}, [state.activeDescendant]);
+	const isCurrentItemSelected = useCallback((optionValue?: string) => {
+		return optionSelectedValue === optionValue;
+	}, [optionSelectedValue]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		switch (event.key) {
@@ -241,41 +208,15 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		}
 	}, [selectOption, state.isListOptionsOpen]);
 
-	const renderOptionList = () => (
-		<ul
-			role="listbox"
-			ref={listboxRef}
-			aria-labelledby={labelledBy}
-			id={listboxId}
-			tabIndex={-1}
-			hidden={!state.isListOptionsOpen}>
-			{optionList.map((option, index) => {
-				const optionId = `${optionsId}-${index}`;
-				return <li
-					tabIndex={-1}
-					id={optionId}
-					role="option"
-					key={index}
-					onMouseDown={onMouseDown}
-					data-value={option.valeur}
-					onClick={() => {
-						selectOption(optionId);
-					}}
-					aria-selected={isCurrentItemSelected(optionId)}>
-					{renderRadioButton(option)}
-				</li>;
-			})}
-		</ul>
-	);
+	function PlaceholderSelectedValue() {
+		function getLabelByValue(value: string) {
+			const optionValue = optionList.find((option) => option.valeur === value);
+			return optionValue?.libellé ?? '';
+		}
 
-	function renderRadioButton(option: Option) {
-		return <Radio
-			className={styles.option}
-			label={option.libellé}
-			value={option.valeur}
-			onChange={doNothing}
-			checked={option.valeur === optionSelectedValue}
-			hidden={true}/>;
+		if (optionSelectedValue) return getLabelByValue(optionSelectedValue);
+		if (placeholder) return placeholder;
+		return SELECT_PLACEHOLDER_SINGULAR;
 	}
 
 	return (
@@ -297,17 +238,39 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				<PlaceholderSelectedValue/>
 				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
 			</div>
-			{renderOptionList()}
+			<ul
+				role="listbox"
+				ref={listboxRef}
+				aria-labelledby={labelledBy}
+				id={listboxId}
+				tabIndex={-1}
+				hidden={!state.isListOptionsOpen}>
+				{optionList.map((option, index) => {
+					const optionId = `${optionsId}-${index}`;
+					return <li
+						tabIndex={-1}
+						id={optionId}
+						role="option"
+						key={index}
+						onMouseDown={onMouseDown}
+						data-value={option.valeur}
+						onClick={() => {
+							selectOption(optionId);
+						}}
+						aria-selected={isCurrentItemSelected(option.valeur)}>
+						{option.libellé}
+					</li>;
+				})}
+			</ul>
 			<Input
 				type="hidden"
 				name={name}
-				value={valueSelected}
+				value={optionSelectedValue}
 			/>
 		</div>
 	);
 }
 
-const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 
 function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const {
@@ -326,12 +289,12 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		SelectMultipleReducer, {
 			activeDescendant: undefined,
 			isListOptionsOpen: false,
-			optionSelectedValue: defaultValue ? defaultValue : [],
-			suggestionList: listboxRef,
+			optionsSelectedValues: defaultValue ? defaultValue : [],
+			refListOption: listboxRef,
 			visibleOptions: [],
 		},
 	);
-	const optionSelectedValue = value ?? state.optionSelectedValue;
+	const optionsSelectedValues = value ?? state.optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
@@ -355,8 +318,8 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	}, []);
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
-		return state.optionSelectedValue.includes(optionValue);
-	}, [state.optionSelectedValue]);
+		return state.optionsSelectedValues.includes(optionValue);
+	}, [state.optionsSelectedValues]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		switch (event.key) {
@@ -428,7 +391,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	}, [selectOption, state.isListOptionsOpen]);
 
 	function PlaceholderSelectedOptions() {
-		const optionsSelectedValueLength = optionSelectedValue.length;
+		const optionsSelectedValueLength = optionsSelectedValues.length;
 		if (optionsSelectedValueLength > 1) return `${optionsSelectedValueLength} choix séléctionnés`;
 		if (optionsSelectedValueLength === 1) return '1 choix séléctionné';
 		if (placeholder) return placeholder;
@@ -479,7 +442,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				})}
 			</ul>
 			{
-				optionSelectedValue?.map((optionValue) => {
+				optionsSelectedValues?.map((optionValue) => {
 					return <Input
 						key={optionValue}
 						type="hidden"
@@ -491,6 +454,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		</div>
 	);
 }
+
 
 function cancelEvent(event: SyntheticEvent) {
 	event.preventDefault();

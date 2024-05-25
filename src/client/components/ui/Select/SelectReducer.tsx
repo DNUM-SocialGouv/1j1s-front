@@ -4,12 +4,12 @@ export type SelectSimpleState = {
 	isListOptionsOpen: boolean,
 	activeDescendant: string | undefined,
 	optionSelectedValue: string | undefined,
-	suggestionList: RefObject<HTMLUListElement>
+	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
 }
 
-function getVisibleOptions(suggestionList: RefObject<HTMLUListElement>) {
-	return Array.from(suggestionList.current?.querySelectorAll('[role="option"]') ?? []);
+function getVisibleOptions(refListOption: RefObject<HTMLUListElement>) {
+	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
 export interface SelectSimpleAction {
@@ -21,7 +21,7 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			let activeDescendant = previousState.activeDescendant;
 			if (!previousState.activeDescendant) {
-				activeDescendant = getVisibleOptions(previousState.suggestionList)[0]?.id;
+				activeDescendant = getVisibleOptions(previousState.refListOption)[0]?.id;
 			}
 			return {
 				...previousState,
@@ -53,14 +53,14 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			return {
 				...previousState,
-				activeDescendant: getVisibleOptions(previousState.suggestionList)[0]?.id,
+				activeDescendant: getVisibleOptions(previousState.refListOption)[0]?.id,
 			};
 		}
 	}
 
 	export class VisualyFocusLastOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			const lastOption = getVisibleOptions(previousState.suggestionList).at(-1);
+			const lastOption = getVisibleOptions(previousState.refListOption).at(-1);
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
@@ -70,8 +70,8 @@ export namespace SelectSimpleAction {
 
 	export class NextOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
+			const { activeDescendant, refListOption } = previousState;
+			const options = getVisibleOptions(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -84,8 +84,8 @@ export namespace SelectSimpleAction {
 
 	export class PreviousOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
+			const { activeDescendant, refListOption } = previousState;
+			const options = getVisibleOptions(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -119,12 +119,11 @@ export function SelectReducer(state: SelectSimpleState, action: SelectSimpleActi
 	return action.execute(state);
 }
 
-
 export type SelectMultipleState = {
 	isListOptionsOpen: boolean,
 	activeDescendant: string | undefined,
-	optionSelectedValue: Array<string>,
-	suggestionList: RefObject<HTMLUListElement>
+	optionsSelectedValues: Array<string>,
+	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
 }
 
@@ -138,7 +137,7 @@ export namespace SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			let activeDescendant = previousState.activeDescendant;
 			if (!previousState.activeDescendant) {
-				activeDescendant = getVisibleOptions(previousState.suggestionList)[0]?.id;
+				activeDescendant = getVisibleOptions(previousState.refListOption)[0]?.id;
 			}
 			return {
 				...previousState,
@@ -170,14 +169,14 @@ export namespace SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			return {
 				...previousState,
-				activeDescendant: getVisibleOptions(previousState.suggestionList)[0]?.id,
+				activeDescendant: getVisibleOptions(previousState.refListOption)[0]?.id,
 			};
 		}
 	}
 
 	export class VisualyFocusLastOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
-			const lastOption = getVisibleOptions(previousState.suggestionList).at(-1);
+			const lastOption = getVisibleOptions(previousState.refListOption).at(-1);
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
@@ -187,8 +186,8 @@ export namespace SelectMultipleAction {
 
 	export class NextOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
+			const { activeDescendant, refListOption } = previousState;
+			const options = getVisibleOptions(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -201,8 +200,8 @@ export namespace SelectMultipleAction {
 
 	export class PreviousOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
-			const { activeDescendant, suggestionList } = previousState;
-			const options = getVisibleOptions(suggestionList);
+			const { activeDescendant, refListOption } = previousState;
+			const options = getVisibleOptions(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -223,13 +222,13 @@ export namespace SelectMultipleAction {
 		}
 
 		execute(previousState: SelectMultipleState): SelectMultipleState {
-			const previousOptionsSelected = JSON.parse(JSON.stringify(previousState.optionSelectedValue));
+			const previousOptionsSelected = JSON.parse(JSON.stringify(previousState.optionsSelectedValues));
 			const optionValueToAdd = this.option?.getAttribute('data-value');
 
 			if (!optionValueToAdd) {
 				return {
 					...previousState,
-					optionSelectedValue: previousOptionsSelected,
+					optionsSelectedValues: previousOptionsSelected,
 				};
 			}
 			const indexOfOptionValueToAdd = previousOptionsSelected.indexOf(optionValueToAdd);
@@ -238,7 +237,7 @@ export namespace SelectMultipleAction {
 				previousOptionsSelected.push(optionValueToAdd);
 				return {
 					...previousState,
-					optionSelectedValue: previousOptionsSelected,
+					optionsSelectedValues: previousOptionsSelected,
 				};
 			}
 
@@ -246,7 +245,7 @@ export namespace SelectMultipleAction {
 
 			return {
 				...previousState,
-				optionSelectedValue: previousOptionsSelected,
+				optionsSelectedValues: previousOptionsSelected,
 			};
 		}
 	}
