@@ -67,7 +67,6 @@ export function FormulaireRechercheAccompagnement() {
 						/>
 					</div>
 					<Select
-						id={'type-accompagnement'}
 						required
 						className={styles.inputAccompagnement}
 						label={'Type d‘accompagnement'}
