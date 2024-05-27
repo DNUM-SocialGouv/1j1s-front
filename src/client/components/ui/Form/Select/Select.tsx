@@ -247,7 +247,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 
 	return (
 		<div className={styles.container}>
-			<input
+			<div
 				className={styles.combobox}
 				role="combobox"
 				aria-controls={listboxId}
@@ -262,10 +262,11 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				aria-activedescendant={state.activeDescendant}
 				onKeyDown={onKeyDown}
 				onBlur={onBlur}
-				value={PlaceholderSelectedValue()}
 				{...rest}
-			/>
-			{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+			>
+				<PlaceholderSelectedValue/>
+				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+			</div>
 			<ul
 				role="listbox"
 				ref={listboxRef}
