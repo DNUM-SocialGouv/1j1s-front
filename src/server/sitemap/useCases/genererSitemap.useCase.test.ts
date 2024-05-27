@@ -1,5 +1,5 @@
 import {
-	NavigationItem,
+	NavigationItem, NavigationItemList,
 	navigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
@@ -125,20 +125,28 @@ describe('GenererSitemapUseCase', () => {
 	});
 	it('contient les url statiques présentes dans le menu principal', async () => {
 		const baseUrl = 'http://localhost:3000';
-		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+		const entreesMenu: NavigationItemList = {
+			accompagnements: { children: [
+				{ label: 'Stages', link: '/stages' },
+				{ children: [
+					{ label: 'Formations Initiales', link: '/formations-initiales' },
+				], label: 'Formations' },
+			], label: 'Accompagnements' },
+			accueil: { label: 'Accueil', link: '/' },
+		};
+		const générerSitemapUseCase = new GenererSitemapUseCase(
+			ficheMetierRepository,
+			faqRepository,
+			annonceDeLogementRepository,
+			stagesRepository,
+			articlesRepository,
+			baseUrl,
+			entreesMenu);
 
 		const result = await générerSitemapUseCase.handle();
 
-		// FIXME (GAFI 27-05-2024): Golden master before injection
-		function flattenNavigationList(item: NavigationItem | NavigationItemWithChildren): Array<string> {
-			if ('link' in item) {
-				return [item.link];
-			}
-			return item.children.flatMap((child) => flattenNavigationList(child));
-		}
-		const staticPaths = Object.values(navigationItemList()).flatMap((entry) => flattenNavigationList(entry));
-		staticPaths.forEach((path) => {
-			expect(result).toContain(`<loc>http://localhost:3000${path}</loc>`);
-		});
+		expect(result).toContain('<loc>http://localhost:3000/</loc>');
+		expect(result).toContain('<loc>http://localhost:3000/stages</loc>');
+		expect(result).toContain('<loc>http://localhost:3000/formations-initiales</loc>');
 	});
 });

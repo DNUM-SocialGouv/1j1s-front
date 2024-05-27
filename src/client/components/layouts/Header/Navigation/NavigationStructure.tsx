@@ -120,7 +120,9 @@ const aidesEtOutilsNav = (): NavigationItemWithChildren => ({
 	label: 'Aides et outils',
 });
 
-export interface NavigationItemList {
+export type NavigationItemList = Record<string, NavigationItem | NavigationItemWithChildren>;
+
+type SpecificNavigationItemList = {
 	accueil: NavigationItem,
 	aidesEtOutilsNav: NavigationItemWithChildren,
 	offresNav: NavigationItemWithChildren,
@@ -131,7 +133,7 @@ export interface NavigationItemList {
 	employeurNav: NavigationItemWithChildren,
 }
 
-export const navigationItemList = (): NavigationItemList => ({
+export const navigationItemList = (): SpecificNavigationItemList => ({
 	accompagnementNav: accompagnementNav(),
 	accueil: accueil(),
 	aidesEtOutilsNav: aidesEtOutilsNav(),

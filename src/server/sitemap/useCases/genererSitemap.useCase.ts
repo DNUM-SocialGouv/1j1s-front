@@ -1,6 +1,6 @@
 import {
 	isNavigationItem,
-	NavigationItem,
+	NavigationItem, NavigationItemList,
 	navigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
@@ -43,11 +43,12 @@ export class GenererSitemapUseCase {
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,
 							private stagesRepository: StagesRepository,
 							private articlesRepository: ArticleRepository,
-							private baseUrl: string) {
+							private baseUrl: string,
+							private navigationList: NavigationItemList = navigationItemList()) {
 	}
 
 	async handle(): Promise<string> {
-		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
+		const staticPathList = this.flattenNavigationItemList(Object.values(this.navigationList));
 		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
 		staticPathList.push(...OTHER_STATIC_PATH_LIST);
 
