@@ -114,7 +114,7 @@ describe('<ComboboxCommune/>', () => {
 				/>
 			</DependenciesProvider>);
 
-			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeVisible();
+			expect(screen.getByDisplayValue(radiusList[1].valeur)).toBeInTheDocument();
 		});
 
 		it('accepte une ref', () => {
@@ -427,8 +427,8 @@ describe('<ComboboxCommune/>', () => {
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
 
-					expect(screen.getByRole('button', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
-					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeVisible();
+					expect(screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
+					expect(screen.getByDisplayValue(DEFAULT_RADIUS_VALUE)).toBeInTheDocument();
 				});
 
 				it('quand on sélectionne un rayon, le rayon est sélectionné', async () => {
@@ -449,11 +449,11 @@ describe('<ComboboxCommune/>', () => {
 					await user.type(combobox, 'abc');
 					await user.click(await screen.findByText('Paris'));
 
-					const rayonSelect = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
+					const rayonSelect = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
 					await user.click(rayonSelect);
 					await user.click(screen.getByRole('option', { name: radiusToSelect.libellé }));
 
-					expect(screen.getByDisplayValue(radiusToSelect.valeur)).toBeVisible();
+					expect(screen.getByDisplayValue(radiusToSelect.valeur)).toBeInTheDocument();
 				});
 			});
 

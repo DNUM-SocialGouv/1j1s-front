@@ -61,7 +61,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext): Pr
 			props: {
 				erreurRecherche: ErreurMetier.DEMANDE_INCORRECTE,
 			},
-		};m;
+		};
 	}
 	const filtre = alternanceFiltreMapper(query);
 

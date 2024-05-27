@@ -71,7 +71,7 @@ describe('FormulaireRechercheAccompagnement', () => {
 				</DependenciesProvider>,
 			);
 
-			const selectTypeAccompagnement = screen.getByRole('button', { name:'Type d‘accompagnement Exemple : Missions locales' });
+			const selectTypeAccompagnement = screen.getByRole('combobox', { name:'Type d‘accompagnement Exemple : Missions locales' });
 			expect(selectTypeAccompagnement).toBeVisible();
 		});
 	});
@@ -93,7 +93,8 @@ describe('FormulaireRechercheAccompagnement', () => {
 
 		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75001)');
-		const typeAccompagnement = screen.getByTestId('Select-InputHidden');
-		expect(typeAccompagnement).toHaveValue('mission_locale');
+		const selectTypeAccompagnement = screen.getByRole('combobox', { name:'Type d‘accompagnement Exemple : Missions locales' });
+		expect(selectTypeAccompagnement).toHaveTextContent('Missions locales');
+		expect(screen.getByDisplayValue('mission_locale')).toBeInTheDocument();
 	});
 });

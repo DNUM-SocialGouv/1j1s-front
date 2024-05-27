@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import {
-	ComboboxLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import { ComboboxLocalisation } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
@@ -17,9 +15,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import {
-	mapRéférentielDomaineToOffreCheckboxFiltre,
-} from '~/client/utils/offreEmploi.mapper';
+import { mapRéférentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
 
 
 export function FormulaireRechercheJobÉtudiant() {

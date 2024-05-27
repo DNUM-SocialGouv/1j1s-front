@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import styles
 	from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement.module.scss';

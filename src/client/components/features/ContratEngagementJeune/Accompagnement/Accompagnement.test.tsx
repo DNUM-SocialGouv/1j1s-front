@@ -175,7 +175,7 @@ describe('<Accompagnement />', () => {
 			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Age Exemple : 16 ans' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' })).toBeVisible();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 		});
@@ -389,6 +389,7 @@ async function remplirFormulaire() {
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
+	const selectAge = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+	await user.click(selectAge);
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

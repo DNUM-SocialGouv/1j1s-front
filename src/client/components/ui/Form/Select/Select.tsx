@@ -10,6 +10,8 @@ import React, {
 	useState,
 } from 'react';
 
+import { Error } from '~/client/components/ui/Form/Error';
+
 import { KeyBoard } from '../../../keyboard/keyboard.enum';
 import { Icon } from '../../Icon/Icon';
 import { Champ } from '../Champ/Champ';
@@ -289,7 +291,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 					</li>;
 				})}
 			</ul>
-			<span id={errorId}>{errorMessage}</span>
+			<Error id={errorId}>{errorMessage}</Error>
 			<Input
 				type="hidden"
 				name={name}
@@ -489,7 +491,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 					</li>;
 				})}
 			</ul>
-			<span id={errorId}>{errorMessage}</span>
+			<Error id={errorId}>{errorMessage}</Error>
 			{
 				optionsSelectedValues?.map((optionValue) => {
 					return <Input

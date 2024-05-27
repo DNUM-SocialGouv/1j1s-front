@@ -361,6 +361,6 @@ async function remplirFormulaire() {
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
+	await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

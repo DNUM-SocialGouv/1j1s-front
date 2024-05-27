@@ -119,10 +119,10 @@ describe('RechercherMission', () => {
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectButtonRadius);
+				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
+				await user.click(selectRadius);
 
-				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
+				expect(screen.getByRole('option', { name: '30 km' })).toBeVisible();
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
@@ -199,10 +199,10 @@ describe('RechercherMission', () => {
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectButtonRadius);
+				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
+				await user.click(selectRadius);
 
-				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
+				expect(screen.getByRole('option', { name: '100 km' })).toHaveAttribute('aria-selected', 'true');;
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);

@@ -98,8 +98,8 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-			expect(button).toBeInTheDocument();
+			const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+			expect(button).toBeVisible();
 
 		});
 
@@ -116,18 +116,17 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+				const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
 				await user.click(button);
 
-				const domaineList = await screen.findByRole('listbox');
 
-				const inputDomaine = within(domaineList).getAllByRole('checkbox');
-				await user.click(inputDomaine[2]);
+				const optionDomaine = screen.getByRole('option', { name: référentielDomaineList[2].libelle });
+				await user.click(optionDomaine);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${référentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -152,7 +151,8 @@ describe('FormulaireRechercheJobÉtudiant', () => {
 		expect(motCle).toHaveValue('Boulanger');
 		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75010)');
-		const domaine = screen.getByTestId('Select-InputHidden');
-		expect(domaine).toHaveValue(référentielDomaineList[0].code);
+
+		expect(screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' })).toHaveTextContent('1 choix séléctionné');
+		expect(screen.getByDisplayValue(référentielDomaineList[0].code)).toBeInTheDocument();
 	});
 });
