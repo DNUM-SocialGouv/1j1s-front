@@ -138,10 +138,10 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectSimpleAction.CloseList());
-		if (required) {
+		if (required && !optionSelectedValue) {
 			setErrorMessage(ERROR_LABEL_REQUIRED_SIMPLE);
 		}
-	}, [required]);
+	}, [optionSelectedValue, required]);
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -340,10 +340,10 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const closeList = useCallback(() => {
 		dispatch(new SelectMultipleAction.CloseList());
 
-		if (required) {
+		if (required && optionsSelectedValues.length > 0) {
 			setErrorMessage(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
-	}, [required]);
+	}, [optionsSelectedValues.length, required]);
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {

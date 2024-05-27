@@ -24,7 +24,6 @@ interface FormulaireDeContactCEJProps {
 }
 
 export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeContactCEJProps) {
-	const [inputAge, setInputAge] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const demandeDeContactService = useDependency<DemandeDeContactService>('demandeDeContactService');
 
@@ -97,8 +96,6 @@ export function FormulaireDeContactCEJ({ onSuccess, onFailure }: FormulaireDeCon
 				label="Age"
 				name="age"
 				optionList={ageOptions}
-				onChange={setInputAge}
-				value={inputAge}
 				labelComplement="Exemple : 16 ans"
 			/>
 
