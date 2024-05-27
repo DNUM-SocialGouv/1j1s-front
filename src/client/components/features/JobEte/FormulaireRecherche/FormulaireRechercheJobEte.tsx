@@ -27,8 +27,6 @@ export function FormulaireRechercheJobEte() {
 	const queryParams = useOffreQuery();
 	const router = useRouter();
 
-	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
-
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
 	async function updateRechercherJobEteQueryParams(event: FormEvent<HTMLFormElement>) {
@@ -66,10 +64,9 @@ export function FormulaireRechercheJobEte() {
 					<Select
 						multiple
 						optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-						onChange={setInputDomaine}
 						label="Domaines"
 						labelComplement="Exemple : Commerce, Immobilier…"
-						value={inputDomaine}
+						defaultValue={queryParams.grandDomaine?.split(',')}
 						name="grandDomaine"
 					/>
 				</div>
