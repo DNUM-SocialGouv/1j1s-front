@@ -1,5 +1,14 @@
 import classNames from 'classnames';
-import React, { FocusEvent, KeyboardEvent, SyntheticEvent, useCallback, useId, useReducer, useRef } from 'react';
+import React, {
+	FocusEvent,
+	KeyboardEvent,
+	SyntheticEvent,
+	useCallback,
+	useId,
+	useReducer,
+	useRef,
+	useState,
+} from 'react';
 
 import { KeyBoard } from '../../../keyboard/keyboard.enum';
 import { Icon } from '../../Icon/Icon';
@@ -54,6 +63,8 @@ export interface Option {
 
 const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
+const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
+const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
 
 export function Select(props: SelectProps) {
 	const {
@@ -67,7 +78,6 @@ export function Select(props: SelectProps) {
 	const selectId = id ?? selectIdState;
 	const labelledBy = useId();
 
-	// TODO (BRUJ 23/05/2024): ne plus utiliser ces fonctions et inliner dans les utilisations
 	function isSelectMultipleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectMultipleProps {
 		return rest.multiple === true;
 	}
@@ -98,8 +108,13 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		onChange: onChangeProps = doNothing,
 		labelledBy,
 		defaultValue,
+		'aria-describedby': ariaDescribedby = '',
+		required,
+		...rest
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
+	const [errorMessage, setErrorMessage] = useState<string>('');
+	const errorId = useId();
 	const optionsId = useId();
 	const listboxId = useId();
 	const [state, dispatch] = useReducer(
@@ -115,10 +130,18 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	const optionSelectedValue = value ?? state.optionSelectedValue;
 
 	const selectOption = useCallback((optionId: string) => {
+		setErrorMessage('');
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
 	}, [onChangeProps]);
+
+	const closeList = useCallback(() => {
+		dispatch(new SelectSimpleAction.CloseList());
+		if (required) {
+			setErrorMessage(ERROR_LABEL_REQUIRED_SIMPLE);
+		}
+	}, [required]);
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -132,8 +155,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			return;
 		}
 
-		dispatch(new SelectSimpleAction.CloseList());
-	}, []);
+		closeList();
+	}, [closeList]);
 
 	const isCurrentItemSelected = useCallback((optionValue?: string) => {
 		return optionSelectedValue === optionValue;
@@ -161,7 +184,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				dispatch(new SelectSimpleAction.CloseList());
+				closeList();
 				event.preventDefault();
 				break;
 			case KeyBoard.SPACE:
@@ -206,7 +229,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [selectOption, state.isListOptionsOpen]);
+	}, [closeList, selectOption, state.isListOptionsOpen]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -228,6 +251,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				aria-haspopup="listbox"
 				aria-expanded={state.isListOptionsOpen}
 				aria-labelledby={labelledBy}
+				aria-describedby={`${ariaDescribedby} ${errorId}`}
 				tabIndex={0}
 				onClick={() => {
 					dispatch(new SelectSimpleAction.ToggleList());
@@ -235,6 +259,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				aria-activedescendant={state.activeDescendant}
 				onKeyDown={onKeyDown}
 				onBlur={onBlur}
+				{...rest}
 			>
 				<PlaceholderSelectedValue/>
 				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
@@ -264,6 +289,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 					</li>;
 				})}
 			</ul>
+			<span id={errorId}>{errorMessage}</span>
 			<Input
 				type="hidden"
 				name={name}
@@ -283,10 +309,15 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		onChange: onChangeProps = doNothing,
 		labelledBy,
 		defaultValue,
+		'aria-describedby': ariaDescribedby = '',
+		required,
+		...rest
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
 	const optionsId = useId();
 	const listboxId = useId();
+	const errorId = useId();
+	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [state, dispatch] = useReducer(
 		SelectMultipleReducer, {
 			activeDescendant: undefined,
@@ -299,10 +330,20 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const optionsSelectedValues = value ?? state.optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
+		setErrorMessage('');
+
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
 	}, [onChangeProps]);
+
+	const closeList = useCallback(() => {
+		dispatch(new SelectMultipleAction.CloseList());
+
+		if (required) {
+			setErrorMessage(ERROR_LABEL_REQUIRED_MULTIPLE);
+		}
+	}, [required]);
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -316,8 +357,9 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			return;
 		}
 
-		dispatch(new SelectMultipleAction.CloseList());
-	}, []);
+		closeList();
+	}, [closeList]);
+
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
 		return state.optionsSelectedValues.includes(optionValue);
@@ -345,7 +387,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
-				dispatch(new SelectMultipleAction.CloseList());
+				closeList();
 				event.preventDefault();
 				break;
 			case KeyBoard.SPACE:
@@ -390,7 +432,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [selectOption, state.isListOptionsOpen]);
+	}, [closeList, selectOption, state.isListOptionsOpen]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;
@@ -408,6 +450,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				aria-controls={listboxId}
 				aria-haspopup="listbox"
 				aria-expanded={state.isListOptionsOpen}
+				aria-describedby={`${ariaDescribedby} ${errorId}`}
 				aria-labelledby={labelledBy}
 				tabIndex={0}
 				onClick={() => {
@@ -416,6 +459,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				aria-activedescendant={state.activeDescendant}
 				onKeyDown={onKeyDown}
 				onBlur={onBlur}
+				{...rest}
 			>
 				<PlaceholderSelectedOptions/>
 				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
@@ -445,6 +489,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 					</li>;
 				})}
 			</ul>
+			<span id={errorId}>{errorMessage}</span>
 			{
 				optionsSelectedValues?.map((optionValue) => {
 					return <Input

@@ -201,7 +201,10 @@ describe('<Select />', () => {
 				await user.click(combobox);
 				await user.click(screen.getByRole('option', { name: 'options 2' }));
 
-				expect(screen.getByRole('option', { hidden: true , name: 'options 2' })).toHaveAttribute('aria-selected', 'true');
+				expect(screen.getByRole('option', {
+					hidden: true,
+					name: 'options 2',
+				})).toHaveAttribute('aria-selected', 'true');
 				expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 				expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '2' });
 			});
@@ -219,7 +222,10 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.ARROW_DOWN);
 					await user.keyboard(KeyBoard.ENTER);
 
-					expect(screen.getByRole('option', { hidden: true , name: 'options 2' })).toHaveAttribute('aria-selected', 'true');
+					expect(screen.getByRole('option', {
+						hidden: true,
+						name: 'options 2',
+					})).toHaveAttribute('aria-selected', 'true');
 					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 					expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
 					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
@@ -238,7 +244,10 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.SPACE);
 
 					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-					expect(screen.getByRole('option', { hidden: true , name: 'options 2' })).toHaveAttribute('aria-selected', 'true');
+					expect(screen.getByRole('option', {
+						hidden: true,
+						name: 'options 2',
+					})).toHaveAttribute('aria-selected', 'true');
 					expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
 					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
 				});
@@ -260,7 +269,10 @@ describe('<Select />', () => {
 
 					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 					expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
-					expect(screen.getByRole('option', { hidden: true , name: 'options 2' })).toHaveAttribute('aria-selected', 'true');
+					expect(screen.getByRole('option', {
+						hidden: true,
+						name: 'options 2',
+					})).toHaveAttribute('aria-selected', 'true');
 					expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
 					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
 				});
@@ -393,6 +405,36 @@ describe('<Select />', () => {
 			});
 		});
 
+		describe('label de l‘option séléctionné (placeholder)', () => {
+			it('lorsqu‘un placeholder est donné en props', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'} placeholder={'placeholder'}/>);
+
+				expect(screen.getByRole('combobox')).toHaveTextContent('placeholder');
+			});
+
+			it('lorsqu‘aucune option est séléctionnée, je vois le placeholder par défaut', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'}/>);
+
+				expect(screen.getByRole('combobox')).toHaveTextContent(SELECT_SIMPLE_LABEL_DEFAULT_OPTION);
+			});
+
+			it('lorsqu‘une option est séléctionnée, je vois le libellé de l‘option dans le placeholder', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'}/>);
+
+				await user.click(screen.getByRole('combobox'));
+				await user.click(screen.getByRole('option', { name: 'options 1' }));
+
+				expect(screen.getByRole('combobox')).toHaveTextContent('options 1');
+			});
+		});
+
 		describe('props', () => {
 			it('appelle onChange quand une valeur est selectionné', async () => {
 				const user = userEvent.setup();
@@ -479,51 +521,67 @@ describe('<Select />', () => {
 
 				expect(screen.getByRole('form')).toHaveFormValues({ nomSelect: '2' });
 			});
+		});
+
+		describe('erreur', () => {
+			it('lorsque le champ est requis mais pas touché, je ne vois le message d‘erreur', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'} required/>);
+
+				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
+			});
 
 			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où j‘ai ouvert puis fermé le select', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select optionList={options} label={'label'} required/>)
+				render(<Select optionList={options} label={'label'} required/>);
+
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
+				expect(screen.getByText('Séléctionnez un élément de la liste')).toBeVisible();
+			});
+
+			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<>
+					<Select required optionList={options} label={'label'} aria-describedby={'id1'}/>
+					<p id={'id1'}>La description accessible</p>
+				</>);
 
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
 				await user.keyboard(KeyBoard.ESCAPE);
 
-			});
-			});
-		});
-
-		describe('label de l‘option séléctionné (placeholder)', () => {
-			it('lorsqu‘un placeholder est donné en props', () => {
-				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-
-				render(<Select optionList={options} label={'label'} placeholder={'placeholder'}/>);
-
-				expect(screen.getByRole('combobox')).toHaveTextContent('placeholder');
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible Séléctionnez un élément de la liste');
 			});
 
-			it('lorsqu‘aucune option est séléctionnée, je vois le placeholder par défaut', () => {
-				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-
-				render(<Select optionList={options} label={'label'}/>);
-
-				expect(screen.getByRole('combobox')).toHaveTextContent(SELECT_SIMPLE_LABEL_DEFAULT_OPTION);
-			});
-
-			it('lorsqu‘une option est séléctionnée, je vois le libellé de l‘option dans le placeholder', async () => {
+			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select optionList={options} label={'label'}/>);
+				render(<>
+					<Select optionList={options} label={'label'} required aria-describedby={'id1'}/>
+					<p id={'id1'}>La description accessible</p>
+				</>);
 
-				await user.click(screen.getByRole('combobox'));
-				await user.click(screen.getByRole('option', { name: 'options 1' }));
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
 
-				expect(screen.getByRole('combobox')).toHaveTextContent('options 1');
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ARROW_DOWN);
+				await user.keyboard(KeyBoard.ENTER);
+
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible ');
+				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
 			});
 		});
-
 	});
 
 	describe('select choix multiple', () => {
@@ -954,6 +1012,7 @@ describe('<Select />', () => {
 				expect(screen.getByRole('combobox')).toHaveTextContent('2 choix séléctionnés');
 			});
 		});
+
 		describe('props', () => {
 			it('appelle onChange quand une valeur est selectionné', async () => {
 				const user = userEvent.setup();
@@ -1037,6 +1096,66 @@ describe('<Select />', () => {
 				expect(options).toHaveLength(2);
 				expect(options[0]).toHaveTextContent('options 1');
 				expect(options[1]).toHaveTextContent('options 2');
+			});
+		});
+
+		describe('erreur', () => {
+			it('lorsque le champ est requis mais pas touché, je ne vois le message d‘erreur', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select multiple optionList={options} label={'label'} required/>);
+
+				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
+			});
+
+			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où l‘utilisateur a fermé le select sans option séléctionnée', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select multiple required optionList={options} label={'label'}/>);
+
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
+				expect(screen.getByText('Séléctionnez au moins un élément de la liste')).toBeVisible();
+			});
+
+			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<>
+					<Select multiple required optionList={options} label={'label'} aria-describedby={'id1'}/>
+					<p id={'id1'}>La description accessible</p>
+				</>);
+
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible Séléctionnez au moins un élément de la liste');
+			});
+
+			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<>
+					<Select multiple optionList={options} label={'label'} required aria-describedby={'id1'}/>
+					<p id={'id1'}>La description accessible</p>
+				</>);
+
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ARROW_DOWN);
+				await user.keyboard(KeyBoard.ENTER);
+
+				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible ');
 			});
 		});
 	});
