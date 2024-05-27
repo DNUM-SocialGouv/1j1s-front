@@ -1,5 +1,7 @@
+import isRelativeURL from '~/shared/isRelativeURL';
+
 export default function isLocalURL(url: string, origin: string) {
-	const isRelative = !URL.canParse(url);
+	const isRelative = isRelativeURL(url);
 
 	if (!URL.canParse(origin)) {
 		throw new TypeError('Invalid Origin');
