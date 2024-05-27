@@ -28,8 +28,8 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { Offre } from '~/server/offres/domain/offre';
 
-function updateFilterQuery(filterQuery: string, filterToToggle: string) {
-	const currentString = filterQuery.split(',').filter((element) => element);
+function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
+	const currentString = filterQuery.filter((element) => element);
 	const indexOfValue = currentString.indexOf(filterToToggle);
 	if (indexOfValue >= 0) {
 		currentString.splice(indexOfValue, 1);
@@ -37,7 +37,7 @@ function updateFilterQuery(filterQuery: string, filterToToggle: string) {
 		currentString.push(filterToToggle);
 	}
 
-	return currentString.join(',');
+	return currentString;
 }
 
 export function FormulaireRechercheOffreEmploi() {
@@ -49,10 +49,10 @@ export function FormulaireRechercheOffreEmploi() {
 	const { isSmallScreen } = useBreakpoint();
 	const router = useRouter();
 
-	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ?? '');
+	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ? queryParams.typeDeContrats.split(',') : []);
 	const [inputExpérience, setInputExpérience] = useState(queryParams.experienceExigence ?? '');
 	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(queryParams.tempsDeTravail ?? '');
-	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
+	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ? queryParams.grandDomaine.split(',') : []);
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
@@ -81,6 +81,10 @@ export function FormulaireRechercheOffreEmploi() {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		router.push({ query }, undefined, { scroll: false });
+	}
+
+	function getValueSelected(option: HTMLElement) {
+		return option.getAttribute('data-value') ?? '';
 	}
 
 	return (
@@ -177,7 +181,7 @@ export function FormulaireRechercheOffreEmploi() {
 										label={domaine.libelle}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
 										value={domaine.code}
-										checked={inputDomaine.split(',').includes(domaine.code)}
+										checked={inputDomaine.includes(domaine.code)}
 									/>
 								))}
 							</FilterAccordion>
@@ -200,13 +204,23 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
+							onChange={(option) => {
+								setInputTypeDeContrat((previous) => {
+									previous.push(getValueSelected(option));
+									return previous;
+								});
+							}}
+							value={inputTypeDeContrat}
 							label="Types de contrats"
 							labelComplement="Exemple : CDI, CDD…"
-							defaultValue={queryParams.typeDeContrats?.split(',')}
 							name="typeDeContrats"
 						/>
 						<Select
 							name="tempsDeTravail"
+							onChange={(option) => {
+								setInputTempsDeTravail(getValueSelected(option));
+							}}
+							value={inputTempsDeTravail}
 							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
 							label="Temps de travail"
 							labelComplement="Exemple : temps plein, temps partiel…"
@@ -215,8 +229,7 @@ export function FormulaireRechercheOffreEmploi() {
 							name="experienceExigence"
 							optionList={Offre.EXPÉRIENCE}
 							onChange={(option) => {
-								const value = option.getAttribute('data-value');
-								if (value) setInputExpérience(value);
+								setInputExpérience(getValueSelected(option));
 							}}
 							value={inputExpérience}
 							label="Niveau demandé"
@@ -225,7 +238,13 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							defaultValue={queryParams.grandDomaine?.split(',')}
+							onChange={(option) => {
+								setInputDomaine((previous) => {
+									previous.push(getValueSelected(option));
+									return previous;
+								});
+							}}
+							value={inputDomaine}
 							name="grandDomaine"
 							label="Domaines"
 							labelComplement="Exemple : Commerce, Immobilier…"
