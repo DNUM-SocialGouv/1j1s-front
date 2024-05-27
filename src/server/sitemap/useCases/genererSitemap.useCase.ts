@@ -39,12 +39,12 @@ const OTHER_STATIC_PATH_LIST = [
 
 export class GenererSitemapUseCase {
 	constructor(private ficheMetierRepository: FicheMetierRepository,
-							private faqRepository: FAQRepository,
-							private annonceDeLogementRepository: AnnonceDeLogementRepository,
-							private stagesRepository: StagesRepository,
-							private articlesRepository: ArticleRepository,
-							private baseUrl: string,
-							private navigationList: NavigationItemList = navigationItemList()) {
+		private faqRepository: FAQRepository,
+		private annonceDeLogementRepository: AnnonceDeLogementRepository,
+		private stagesRepository: StagesRepository,
+		private articlesRepository: ArticleRepository,
+		private navigationList: NavigationItemList,
+		private baseUrl: string) {
 	}
 
 	async handle(): Promise<string> {

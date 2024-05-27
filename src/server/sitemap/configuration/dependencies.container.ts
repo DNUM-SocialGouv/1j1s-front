@@ -1,3 +1,4 @@
+import { navigationItemList } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
@@ -16,6 +17,6 @@ export function sitemapDependenciesContainer(ficheMetierRepository: FicheMetierR
 																						 articlesRepository: ArticleRepository,
 																						 baseUrl: string) {
 	return {
-		générerSitemapUseCase: new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stageRepository, articlesRepository, baseUrl),
+		générerSitemapUseCase: new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stageRepository, articlesRepository, navigationItemList(), baseUrl),
 	};
 }
