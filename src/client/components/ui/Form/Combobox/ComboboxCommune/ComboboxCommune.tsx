@@ -51,7 +51,6 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 	const [userInput, setUserInput] = useState<string>(defaultCommuneProps?.libelle ?? '');
 
 	const [status, setStatus] = useState<FetchStatus>('init');
-	const [distanceCommune, setDistanceCommune] = useState<string>(defaultDistanceProps || DEFAULT_RADIUS_VALUE);
 
 	const matchingOption = findMatchingOptionFromUserInput(userInput, communeOptions);
 
@@ -152,8 +151,7 @@ export const ComboboxCommune = React.forwardRef<ComboboxRef, ComboboxCommuneProp
 				labelComplement="Exemple : 30 km"
 				name="distanceCommune"
 				optionList={radiusList}
-				onChange={setDistanceCommune}
-				value={distanceCommune}
+				defaultValue={defaultDistanceProps || DEFAULT_RADIUS_VALUE}
 			/>}
 		</>
 	);

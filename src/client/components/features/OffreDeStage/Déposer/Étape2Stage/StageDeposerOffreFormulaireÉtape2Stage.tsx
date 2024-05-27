@@ -135,7 +135,7 @@ function ChampsObligatoires(props: { informationsStage: OffreDeStageDeposee.Stag
 		<Select
 			label="Durée du stage"
 			name={StageEnum.DUREE}
-			value={props.informationsStage?.dureeStage}
+			defaultValue={props.informationsStage?.dureeStage}
 			labelComplement="Exemple : 3 mois"
 			optionList={dureeStageList}
 			className={styles.dureeStage}
@@ -150,7 +150,7 @@ function ChampsFaculatifs(props: { informationsStage: OffreDeStageDeposee.Stage 
 			label="Domaine de l’offre de stage"
 			labelComplement="Exemple : Agriculture"
 			name={StageEnum.DOMAINE}
-			value={props.informationsStage?.domaineStage}
+			defaultValue={props.informationsStage?.domaineStage}
 			placeholder="Sélectionnez un domaine"
 			optionList={domaineStage}
 		/>
