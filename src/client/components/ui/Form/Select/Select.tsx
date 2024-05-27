@@ -67,7 +67,7 @@ export function Select(props: SelectProps) {
 	const selectId = id ?? selectIdState;
 	const labelledBy = useId();
 
-	// TODO (BRUJ 23/05/2024): ne plus utiliser ces fonctions et passer directement par champ
+	// TODO (BRUJ 23/05/2024): ne plus utiliser ces fonctions et inliner dans les utilisations
 	function isSelectMultipleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectMultipleProps {
 		return rest.multiple === true;
 	}
@@ -430,7 +430,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				{optionList.map((option, index) => {
 					const optionId = `${optionsId}-${index}`;
 					return <li
-						className={classNames(styles.optionComboboxMultiple ,state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
+						className={classNames(styles.optionComboboxMultiple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
 						tabIndex={-1}
 						id={optionId}
 						role="option"

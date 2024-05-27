@@ -225,7 +225,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							defaultValue={queryParams.grandDomaine}
+							defaultValue={queryParams.grandDomaine?.split(',')}
 							name="grandDomaine"
 							label="Domaines"
 							labelComplement="Exemple : Commerce, Immobilier…"

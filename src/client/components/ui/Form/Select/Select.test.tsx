@@ -479,6 +479,19 @@ describe('<Select />', () => {
 
 				expect(screen.getByRole('form')).toHaveFormValues({ nomSelect: '2' });
 			});
+
+			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où j‘ai ouvert puis fermé le select', async () => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'} required/>)
+
+				await user.tab();
+				await user.keyboard(KeyBoard.ENTER);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+			});
+			});
 		});
 
 		describe('label de l‘option séléctionné (placeholder)', () => {
@@ -510,6 +523,7 @@ describe('<Select />', () => {
 				expect(screen.getByRole('combobox')).toHaveTextContent('options 1');
 			});
 		});
+
 	});
 
 	describe('select choix multiple', () => {

@@ -2,7 +2,9 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/components/form/variables";
 @use "../TextboxShared.module" as inputStyles;
-@use "src/client/components/ui/Checkbox/Checkbox.module" as checkboxStyles;
+@use "src/client/components/ui/Checkbox/Checkbox.module";
+@use "src/client/components/ui/Radio/Radio.module";
+
 $color-text: inputStyles.$color-text;
 $color-border: inputStyles.$color-border;
 $color-text-disabled: inputStyles.$color-text-disabled;
@@ -43,17 +45,17 @@ $border-width: inputStyles.$border-width;
     background-color: transparent;
   }
 
-  ul {
-    z-index: 2;
+  ul[role="listbox"]  {
+    z-index: 1;
     position: absolute;
-    padding: 8px;
+    top: 100%;
     width: 100%;
-    border: 1px solid utilities-deprecated.$color-separator;
-    border-radius: 20px;
-    background-color: utilities-deprecated.$color-background;
-    margin: 4px 0 0 0;
-    max-height: 300px;
-    overflow-y: auto;
+    border: 1px solid $color-list-border;
+    border-radius: $border-radius;
+    background-color: $color-list-background;
+    margin-top: 1px;
+    max-height: 10em;
+    overflow-y: scroll;
 
     & li {
       display: grid;
@@ -63,6 +65,15 @@ $border-width: inputStyles.$border-width;
 
       &[role="option"] {
         cursor: pointer;
+      }
+
+      &.optionComboboxSimple::before {
+        @extend %radio;
+        margin-right: 0.5rem;
+      }
+
+      &[role="option"][aria-selected="true"].optionComboboxSimple::before  {
+        @extend %radio-checked;
       }
 
       &.optionComboboxMultiple::before {
@@ -77,8 +88,6 @@ $border-width: inputStyles.$border-width;
       &[role="option"].optionVisuallyFocus{
         background-color: $color-option-hover;
         font-weight: bold;
-
-
       }
     }
   }
