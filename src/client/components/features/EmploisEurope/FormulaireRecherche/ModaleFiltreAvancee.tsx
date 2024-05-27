@@ -20,10 +20,10 @@ export function ModaleFiltreAvancee(props: {
 	toggleTempsDeTravail: (tempsDeTravail: string) => void,
 	toggleNiveauEtude: (niveauEtude: string) => void,
 	toggleSecteurActivite: (secteurActivite: string) => void,
-	inputTypeContrat: string,
-	inputTempsDeTravail: string,
-	inputNiveauEtude: string,
-	inputSecteurActivite: string,
+	inputTypeContrat: Array<string>,
+	inputTempsDeTravail: Array<string>,
+	inputNiveauEtude: Array<string>,
+	inputSecteurActivite: Array<string>,
 	onClick: () => void
 }) {
 	return (

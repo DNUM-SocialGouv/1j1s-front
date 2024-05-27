@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
@@ -85,6 +85,21 @@ export function FormulaireRechercheOffreEmploi() {
 
 	function getValueSelected(option: HTMLElement) {
 		return option.getAttribute('data-value') ?? '';
+	}
+
+
+	function onChangeMultipleSelect(option: HTMLElement, setInputValue: Dispatch<SetStateAction<Array<string>>>) {
+		const value = option.getAttribute('data-value') ?? '';
+		setInputValue((previous) => {
+			const indexOfValue = previous.indexOf(value);
+			if (value && indexOfValue === -1) {
+				previous.push(value);
+			}
+			else{
+				previous.splice(indexOfValue, 1);
+			}
+			return previous;
+		});
 	}
 
 	return (
@@ -204,12 +219,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-							onChange={(option) => {
-								setInputTypeDeContrat((previous) => {
-									previous.push(getValueSelected(option));
-									return previous;
-								});
-							}}
+							onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
 							value={inputTypeDeContrat}
 							label="Types de contrats"
 							labelComplement="Exemple : CDI, CDD…"
@@ -217,9 +227,7 @@ export function FormulaireRechercheOffreEmploi() {
 						/>
 						<Select
 							name="tempsDeTravail"
-							onChange={(option) => {
-								setInputTempsDeTravail(getValueSelected(option));
-							}}
+							onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
 							value={inputTempsDeTravail}
 							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
 							label="Temps de travail"
@@ -228,9 +236,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							name="experienceExigence"
 							optionList={Offre.EXPÉRIENCE}
-							onChange={(option) => {
-								setInputExpérience(getValueSelected(option));
-							}}
+							onChange={(option) => setInputExpérience(getValueSelected(option))}
 							value={inputExpérience}
 							label="Niveau demandé"
 							labelComplement="Exemple : De 1 à 3 ans"
@@ -238,12 +244,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							onChange={(option) => {
-								setInputDomaine((previous) => {
-									previous.push(getValueSelected(option));
-									return previous;
-								});
-							}}
+							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
 							value={inputDomaine}
 							name="grandDomaine"
 							label="Domaines"

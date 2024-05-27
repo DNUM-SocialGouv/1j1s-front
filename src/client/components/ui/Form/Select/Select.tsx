@@ -340,7 +340,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const closeList = useCallback(() => {
 		dispatch(new SelectMultipleAction.CloseList());
 
-		if (required && optionsSelectedValues.length > 0) {
+		if (required && optionsSelectedValues.length === 0) {
 			setErrorMessage(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
 	}, [optionsSelectedValues.length, required]);
@@ -362,8 +362,8 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 
 
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
-		return state.optionsSelectedValues.includes(optionValue);
-	}, [state.optionsSelectedValues]);
+		return optionsSelectedValues.includes(optionValue);
+	}, [optionsSelectedValues]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		switch (event.key) {

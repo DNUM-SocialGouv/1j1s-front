@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useRef, useState } from 'react';
 
-import { ModaleFiltreAvancee } from '~/client/components/features/EmploisEurope/FormulaireRecherche/ModaleFiltreAvancee';
+import {
+	ModaleFiltreAvancee,
+} from '~/client/components/features/EmploisEurope/FormulaireRecherche/ModaleFiltreAvancee';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxPays } from '~/client/components/ui/Form/Combobox/ComboboxPays';
@@ -18,16 +20,16 @@ import { typesContratEures } from '~/server/emplois-europe/infra/typesContratEur
 
 import styles from './FormulaireRechercheEmploisEurope.module.scss';
 
-function addSelectionToQueryParams(filterQuery: string, filterToToggle: string) {
-	const currentString = filterQuery.split(',').filter((element) => element);
-	const indexOfValue = currentString.indexOf(filterToToggle);
+function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
+	const newQuery = filterQuery.filter((element) => element);
+	const indexOfValue = newQuery.indexOf(filterToToggle);
 	if (indexOfValue >= 0) {
-		currentString.splice(indexOfValue, 1);
+		newQuery.splice(indexOfValue, 1);
 	} else {
-		currentString.push(filterToToggle);
+		newQuery.push(filterToToggle);
 	}
 
-	return currentString.join(',');
+	return newQuery;
 }
 
 export function FormulaireRechercheEmploisEurope() {
@@ -48,28 +50,28 @@ export function FormulaireRechercheEmploisEurope() {
 	const [isFiltresAvancesMobileOpen, setIsFiltresAvancesMobileOpen] = useState<boolean>(false);
 
 	const [inputMotCle, setInputMotCle] = useState<string>(motCle ?? '');
-	const [inputTypeContrat, setInputTypeContrat] = useState<string>(typeContrat ?? '');
-	const [inputTempsDeTravail, setInputTempsDeTravail] = useState<string>(tempsDeTravail ?? '');
-	const [inputNiveauEtude, setInputNiveauEtude] = useState<string>(niveauEtude ?? '');
-	const [inputSecteurActivite, setInputSecteurActivite] = useState<string>(secteurActivite ?? '');
+	const [inputTypeContrat, setInputTypeContrat] = useState(typeContrat ? typeContrat.split(',') : []);
+	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(tempsDeTravail ? tempsDeTravail.split(',') : []);
+	const [inputNiveauEtude, setInputNiveauEtude] = useState(niveauEtude ? niveauEtude.split(',') : []);
+	const [inputSecteurActivite, setInputSecteurActivite] = useState(secteurActivite ? secteurActivite.split(',') : []);
 	const localisationDefaultValue = (codePays && libellePays)
 		? { code: codePays, label: libellePays }
 		: undefined;
 
 	const toggleTypeContrat = useCallback((typeContrat: string) => {
-		setInputTypeContrat(addSelectionToQueryParams(inputTypeContrat, typeContrat));
+		setInputTypeContrat(updateFilterQuery(inputTypeContrat, typeContrat));
 	}, [inputTypeContrat]);
 
 	const toggleTempsDeTravail = useCallback((tempsDeTravail: string) => {
-		setInputTempsDeTravail(addSelectionToQueryParams(inputTempsDeTravail, tempsDeTravail));
+		setInputTempsDeTravail(updateFilterQuery(inputTempsDeTravail, tempsDeTravail));
 	}, [inputTempsDeTravail]);
 
 	const toggleNiveauEtude = useCallback((niveauEtude: string) => {
-		setInputNiveauEtude(addSelectionToQueryParams(inputNiveauEtude, niveauEtude));
+		setInputNiveauEtude(updateFilterQuery(inputNiveauEtude, niveauEtude));
 	}, [inputNiveauEtude]);
 
 	const toggleSecteurActivite = useCallback((secteurActivite: string) => {
-		setInputSecteurActivite(addSelectionToQueryParams(inputSecteurActivite, secteurActivite));
+		setInputSecteurActivite(updateFilterQuery(inputSecteurActivite, secteurActivite));
 	}, [inputSecteurActivite]);
 
 	const applyFiltresAvances = useCallback(() => {
@@ -83,6 +85,19 @@ export function FormulaireRechercheEmploisEurope() {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		return router.push({ query }, undefined, { shallow: true });
+	}
+
+	function onChangeMultipleSelect(option: HTMLElement, setInputValue: Dispatch<SetStateAction<Array<string>>>) {
+		const value = option.getAttribute('data-value') ?? '';
+		setInputValue((previous) => {
+			const indexOfValue = previous.indexOf(value);
+			if (value && indexOfValue === -1) {
+				previous.push(value);
+			} else {
+				previous.splice(indexOfValue, 1);
+			}
+			return previous;
+		});
 	}
 
 	return (
@@ -117,14 +132,14 @@ export function FormulaireRechercheEmploisEurope() {
 					/>
 
 					<div className={styles.filtresRechercheMobile}>
-						  <ButtonComponent
+						<ButtonComponent
 							appearance="quaternary"
 							type="button"
 							icon={<Icon name="filter"/>}
 							iconPosition="right"
 							label="Filtrer ma recherche"
 							onClick={() => setIsFiltresAvancesMobileOpen(!isFiltresAvancesMobileOpen)}
-						  />
+						/>
 					</div>
 					<ModaleFiltreAvancee
 						close={() => setIsFiltresAvancesMobileOpen(false)}
@@ -145,7 +160,7 @@ export function FormulaireRechercheEmploisEurope() {
 					<Select
 						multiple
 						optionList={typesContratEures}
-						onChange={setInputTypeContrat}
+						onChange={(option) => onChangeMultipleSelect(option, setInputTypeContrat)}
 						label="Type de contrat"
 						value={inputTypeContrat}
 						name="typeContrat"
@@ -154,7 +169,7 @@ export function FormulaireRechercheEmploisEurope() {
 					<Select
 						multiple
 						optionList={tempsDeTravailEures}
-						onChange={setInputTempsDeTravail}
+						onChange={(option) => onChangeMultipleSelect(option, setInputTempsDeTravail)}
 						label="Temps de travail"
 						value={inputTempsDeTravail}
 						name="tempsDeTravail"
@@ -163,7 +178,7 @@ export function FormulaireRechercheEmploisEurope() {
 					<Select
 						multiple
 						optionList={niveauEtudesEures}
-						onChange={setInputNiveauEtude}
+						onChange={(option) => onChangeMultipleSelect(option, setInputNiveauEtude)}
 						label="Niveau d‘études demandé"
 						value={inputNiveauEtude}
 						name="niveauEtude"
@@ -172,7 +187,7 @@ export function FormulaireRechercheEmploisEurope() {
 					<Select
 						multiple
 						optionList={secteurActiviteEures}
-						onChange={setInputSecteurActivite}
+						onChange={(option) => onChangeMultipleSelect(option, setInputSecteurActivite)}
 						label="Domaines"
 						value={inputSecteurActivite}
 						name="secteurActivite"
