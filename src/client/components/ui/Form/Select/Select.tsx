@@ -74,6 +74,7 @@ export function Select(props: SelectProps) {
 		id,
 		label,
 		labelComplement,
+		multiple,
 		...rest
 	} = props;
 	const selectIdState = useId();
@@ -81,11 +82,11 @@ export function Select(props: SelectProps) {
 	const labelledBy = useId();
 
 	function isSelectMultipleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectMultipleProps {
-		return rest.multiple === true;
+		return multiple === true;
 	}
 
 	function isSelectSimpleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectSimpleProps {
-		return !rest.multiple;
+		return !multiple;
 	}
 
 	return (
@@ -271,13 +272,11 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				ref={listboxRef}
 				aria-labelledby={labelledBy}
 				id={listboxId}
-				tabIndex={-1}
 				hidden={!state.isListOptionsOpen}>
 				{optionList.map((option, index) => {
 					const optionId = `${optionsId}-${index}`;
 					return <li
 						className={classNames(styles.optionComboboxSimple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-						tabIndex={-1}
 						id={optionId}
 						role="option"
 						key={index}
