@@ -21,18 +21,29 @@ const typeAccompagnementListe: Option[] = [
 export function FormulaireRechercheAccompagnement() {
 	const rechercheAccompagnementForm = useRef<HTMLFormElement>(null);
 
-	const [inputTypeAccompagnement, setInputTypeAccompagnement] = useState<string>('');
 
 	const accompagnementQueryParams = useAccompagnementQuery();
-	const { libelleCommune, codeCommune, codePostal, ville, longitudeCommune, latitudeCommune, typeAccompagnement } = accompagnementQueryParams;
+	const {
+		libelleCommune,
+		codeCommune,
+		codePostal,
+		ville,
+		longitudeCommune,
+		latitudeCommune,
+		typeAccompagnement,
+	} = accompagnementQueryParams;
 
-	const defaultCommuneValue = mapToCommune({ codeCommune, codePostal, latitudeCommune, libelleCommune, longitudeCommune, ville });
+	const defaultCommuneValue = mapToCommune({
+		codeCommune,
+		codePostal,
+		latitudeCommune,
+		libelleCommune,
+		longitudeCommune,
+		ville,
+	});
 
 	const router = useRouter();
 
-	useEffect(function initFormValues() {
-		setInputTypeAccompagnement(typeAccompagnement || '');
-	}, [typeAccompagnement]);
 
 	async function updateRechercheAccompagnementQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -62,9 +73,9 @@ export function FormulaireRechercheAccompagnement() {
 						label={'Type d‘accompagnement'}
 						name={'typeAccompagnement'}
 						optionList={typeAccompagnementListe}
-						value={inputTypeAccompagnement}
-						labelComplement='Exemple : Missions locales'
-						onChange={setInputTypeAccompagnement}/>
+						defaultValue={typeAccompagnement}
+						labelComplement="Exemple : Missions locales"
+					/>
 				</div>
 				<ButtonComponent
 					className={styles.buttonRechercher}
