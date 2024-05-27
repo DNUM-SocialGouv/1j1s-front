@@ -14,12 +14,12 @@ import {
 	anArticlePathList,
 	aSitemap,
 } from '~/server/sitemap/domain/sitemap.fixture';
-import { GénérerSitemapUseCase } from '~/server/sitemap/useCases/générerSitemap.useCase';
+import { GenererSitemapUseCase } from '~/server/sitemap/useCases/genererSitemap.useCase';
 import { anOffreDeStageSlugsList } from '~/server/stages/domain/stages.fixture';
 import { StagesRepository } from '~/server/stages/domain/stages.repository';
 import { aStagesRepository } from '~/server/stages/repository/strapiStages.repository.fixture';
 
-describe('GénérerSitemapUseCase', () => {
+describe('GenererSitemapUseCase', () => {
 	let ficheMetierRepository: FicheMetierRepository;
 	let faqRepository: FAQRepository;
 	let annonceDeLogementRepository: AnnonceDeLogementRepository;
@@ -43,7 +43,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le xml contenant le sitemap', async () => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase( ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase( ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const expected = aSitemap(baseUrl);
 
@@ -57,7 +57,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitamp avec la Formation en apprentissage', async () => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 
@@ -70,7 +70,7 @@ describe('GénérerSitemapUseCase', () => {
 			it('génère le sitmap sans la formations initiales', async () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '0';
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 
@@ -83,7 +83,7 @@ describe('GénérerSitemapUseCase', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 
@@ -97,7 +97,7 @@ describe('GénérerSitemapUseCase', () => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '0';
 
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 
@@ -110,7 +110,7 @@ describe('GénérerSitemapUseCase', () => {
 				process.env.NEXT_PUBLIC_EMPLOIS_EUROPE_FEATURE = '1';
 
 				const baseUrl = 'http://localhost:3000';
-				const générerSitemapUseCase = new GénérerSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
+				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, baseUrl);
 
 				const result = await générerSitemapUseCase.handle();
 

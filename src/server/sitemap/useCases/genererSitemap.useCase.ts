@@ -37,7 +37,7 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/simulation?simulateur=employeur',
 ];
 
-export class GénérerSitemapUseCase {
+export class GenererSitemapUseCase {
 	constructor(private ficheMetierRepository: FicheMetierRepository,
 							private faqRepository: FAQRepository,
 							private annonceDeLogementRepository: AnnonceDeLogementRepository,
