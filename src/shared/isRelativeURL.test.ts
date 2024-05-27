@@ -25,6 +25,6 @@ describe('isRelativeURL', () => {
 	it('throw un erreur si l‘url est invalide', () => {
 		const url = 'url invalide';
 
-		expect(() => isRelativeURL(url)).toThrow(new TypeError('Invalid URL'));
+		expect(() => isRelativeURL(url)).toThrow(new TypeError('Invalid URL "url invalide"'));
 	});
 });

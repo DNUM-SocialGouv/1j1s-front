@@ -1,7 +1,7 @@
 import {
 	isNavigationItem,
-	NavigationItem, NavigationItemList,
-	navigationItemList,
+	NavigationItem,
+	NavigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';

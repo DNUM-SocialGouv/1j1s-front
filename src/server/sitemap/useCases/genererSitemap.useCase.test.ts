@@ -1,7 +1,6 @@
 import {
-	NavigationItem, NavigationItemList,
+	NavigationItemList,
 	navigationItemList,
-	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
 import { anArticleRepository } from '~/server/articles/infra/stapiArticle.repository.fixture';

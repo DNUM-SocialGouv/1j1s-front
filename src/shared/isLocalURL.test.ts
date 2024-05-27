@@ -47,12 +47,12 @@ describe('isLocalURL()', () => {
 		const url = 'url invalide';
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid URL'));
+		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid URL "url invalide"'));
 	});
 	it('throw un erreur si l‘origine est invalide', () => {
 		const url = '/toot';
 		const origin = 'www.test.com';
 
-		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid Origin'));
+		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid Origin "www.test.com"'));
 	});
 });
