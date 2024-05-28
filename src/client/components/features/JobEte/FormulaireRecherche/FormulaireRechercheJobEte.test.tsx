@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -17,7 +17,6 @@ import { référentielDomaineList } from '~/client/domain/référentielDomaineLi
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
-import { DomaineCode } from '~/server/offres/domain/offre';
 
 describe('FormulaireRechercheJobEte', () => {
 	describe('en version mobile', () => {

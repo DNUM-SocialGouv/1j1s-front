@@ -424,7 +424,6 @@ describe('FormulaireRechercheOffreEmploi', () => {
 });
 
 function checkSelectValue(fieldLabel: string, optionName: string): void {
-	const combobox = screen.getByRole('combobox', { name: fieldLabel });
 	const option = screen.getByRole('option', { hidden: true, name: optionName });
 	expect(option).toHaveAttribute('aria-selected', 'true');
 }
