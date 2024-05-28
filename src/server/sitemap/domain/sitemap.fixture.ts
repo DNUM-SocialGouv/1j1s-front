@@ -114,6 +114,9 @@ export function aSitemap(baseUrl: string) {
 		<loc>${baseUrl}/entreprendre</loc>
 	</url>
 	<url>
+		<loc>${baseUrl}/experience-europe</loc>
+	</url>
+	<url>
 		<loc>${baseUrl}/</loc>
 	</url>
 	<url>
@@ -184,9 +187,6 @@ export function aSitemap(baseUrl: string) {
 	</url>
 	<url>
 		<loc>${baseUrl}/emplois-europe</loc>
-	</url>
-	<url>
-		<loc>${baseUrl}/europe</loc>
 	</url>
 	<url>
 		<loc>${baseUrl}/formations-initiales</loc>
