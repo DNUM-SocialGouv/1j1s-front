@@ -33,9 +33,11 @@ $border-width: inputStyles.$border-width;
 .container {
   position: relative;
   border-radius: $border-radius;
-  @extend %outlined;
+
+
 
   & .combobox {
+    @extend %outlined;
     @include utilities.text-interactive-medium;
     display: grid;
     grid-template-columns: 1fr auto;
@@ -45,7 +47,12 @@ $border-width: inputStyles.$border-width;
     background-color: transparent;
   }
 
-  ul[role="listbox"]  {
+  & .comboboxError {
+    border-color: $color-error;
+    border-width: $error-border-width;
+  }
+
+  ul[role="listbox"] {
     z-index: 1;
     position: absolute;
     top: 100%;
@@ -72,7 +79,7 @@ $border-width: inputStyles.$border-width;
         margin-right: 0.5rem;
       }
 
-      &[role="option"][aria-selected="true"].optionComboboxSimple::before  {
+      &[role="option"][aria-selected="true"].optionComboboxSimple::before {
         @extend %radio-checked;
       }
 
@@ -80,19 +87,19 @@ $border-width: inputStyles.$border-width;
         @extend %checkbox;
       }
 
-      &[role="option"][aria-selected="true"].optionComboboxMultiple::before  {
+      &[role="option"][aria-selected="true"].optionComboboxMultiple::before {
         @extend %checkbox-checked;
       }
 
       &[role="option"]:hover,
-      &[role="option"].optionVisuallyFocus{
+      &[role="option"].optionVisuallyFocus {
         background-color: $color-option-hover;
         font-weight: bold;
       }
     }
   }
 
-  & .inputHiddenValue{
+  & .inputHiddenValue {
     position: absolute;
     pointer-events: none;
     opacity: 0;

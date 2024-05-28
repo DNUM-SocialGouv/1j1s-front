@@ -247,7 +247,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	return (
 		<div className={styles.container}>
 			<div
-				className={styles.combobox}
+				className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
 				role="combobox"
 				aria-controls={listboxId}
 				aria-haspopup="listbox"
@@ -449,7 +449,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		<div className={styles.container}>
 			<div
 				role="combobox"
-				className={styles.combobox}
+				className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
 				aria-controls={listboxId}
 				aria-haspopup="listbox"
 				aria-expanded={state.isListOptionsOpen}
