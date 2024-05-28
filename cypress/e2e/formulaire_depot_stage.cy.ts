@@ -58,8 +58,7 @@ describe('Dépôt de Stage', () => {
 				cy.findByRole('textbox', { name: /Lien sur lequel les candidats pourront postuler/i }).type(aFormulaireEtapeStage().lienCandidature);
 				cy.findByRole('textbox', { name: /Description de l’offre de stage/i }).type(aFormulaireEtapeStage().descriptionOffre);
 				cy.findByLabelText(/^Date précise du début de stage/i).type(aFormulaireEtapeStage().dateDeDebutMin);
-				// FIXME (GAFI 06-11-2023): Devrait être un combobox (pas le composant, juste le rôle pour un select)
-				cy.findByRole('button', { name: /Durée du stage/i }).click();
+				cy.findByRole('combobox', { name: 'Durée du stage Exemple : 3 mois' }).click();
 				cy.findAllByRole('option').first().click();
 				cy.findByRole('button', { name: /Suivant/i }).click();
 

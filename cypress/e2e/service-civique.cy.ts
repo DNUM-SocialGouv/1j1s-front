@@ -15,8 +15,7 @@ context('Parcours service civique', () => {
 			cy.visit('/service-civique');
 		});
 		it('affiche la liste des résultats', () => {
-			// FIXME (GAFI 06-11-2023): Devrait être role combobox
-			cy.findByRole('button', { name: /Domaine/i }).click();
+			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).click();
 			cy.findAllByRole('option').first().click();
 
 			interceptGet(

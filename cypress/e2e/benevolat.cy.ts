@@ -13,7 +13,7 @@ describe('Parcours bénévolat', () => {
 			cy.visit('/benevolat');
 		});
 		it('affiche la liste des résultats', () => {
-			cy.findByRole('button', { name: /Domaine/i }).click();
+			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).click();
 			cy.findAllByRole('option').first().click();
 
 			interceptGet(
