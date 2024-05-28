@@ -220,14 +220,14 @@ describe('<Detail />', () => {
 		const term = screen.queryByText('Description de l’entreprise');
 		expect(term).not.toBeInTheDocument();
 	});
-	it('affiche les compétences requises', () => {
+	it('affiche les compétences types du métier', () => {
 		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
 			<Detail annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
-		const description = getByDescriptionTerm('Connaissances et compétences requises');
+		const description = getByDescriptionTerm('Compétences types du métier');
 		expect(description).toBeVisible();
 		const compétencesList = within(description).getByRole('list');
 		expect(compétencesList).toBeVisible();
@@ -243,17 +243,17 @@ describe('<Detail />', () => {
 			<Detail annonce={annonce}/>
 		</DependenciesProvider>);
 
-		const term = screen.queryByText('Connaissances et compétences requises');
+		const term = screen.queryByText('Compétences types du métier');
 		expect(term).not.toBeInTheDocument();
 	});
-	it('n’affiche pas le bloc des compétences requises lorsque aucune compétence requise', () => {
+	it('n’affiche pas le bloc des compétences types du métier lorsque aucune compétence requise', () => {
 		const annonce = aDetailAlternance({ compétences: [] });
 
 		render(<DependenciesProvider dateService={aDateService()}>
 			<Detail annonce={annonce}/>
 		</DependenciesProvider>);
 
-		const term = screen.queryByText('Connaissances et compétences requises');
+		const term = screen.queryByText('Compétences types du métier');
 		expect(term).not.toBeInTheDocument();
 	});
 	it('affiche le niveau requis', () => {
