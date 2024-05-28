@@ -533,6 +533,19 @@ describe('<Select />', () => {
 				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
 			});
 
+			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onSubmit = jest.fn() ;
+				const user = userEvent.setup();
+
+				render(<form onSubmit={onSubmit}><Select optionList={options} label={'label'} required />
+					<button>Submit</button>
+				</form>);
+
+				await user.click(screen.getByRole('button', { name: 'Submit' }));
+				expect(onSubmit).not.toHaveBeenCalled();
+			});
+
 			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où j‘ai ouvert puis fermé le select', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
@@ -1107,6 +1120,20 @@ describe('<Select />', () => {
 
 				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
 				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
+			});
+
+			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onSubmit = jest.fn() ;
+				const user = userEvent.setup();
+
+				render(<form onSubmit={onSubmit}>
+					<Select multiple optionList={options} label={'label'} required/>
+					<button>Submit</button>
+				</form>);
+
+				await user.click(screen.getByRole('button', { name: 'Submit' }));
+				expect(onSubmit).not.toHaveBeenCalled();
 			});
 
 			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où l‘utilisateur a fermé le select sans option séléctionnée', async () => {

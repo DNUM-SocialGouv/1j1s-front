@@ -91,10 +91,11 @@ $border-width: inputStyles.$border-width;
       }
     }
   }
-}
 
-.inputError {
-  @include utilities.text-small;
-  padding-top: 0.25rem;
-  color: utilities-deprecated.$color-error;
+  & .inputHiddenValue{
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    inset: 0;
+  }
 }

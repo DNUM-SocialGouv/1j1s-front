@@ -101,7 +101,6 @@ export function Select(props: SelectProps) {
 	);
 }
 
-// TODO (BRUJ 25/05/2024): gestion d'erreur !!
 function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	const {
 		optionList,
@@ -292,7 +291,10 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
 			<Input
-				type="hidden"
+				className={styles.inputHiddenValue}
+				tabIndex={-1}
+				required={required}
+				aria-hidden={'true'}
 				name={name}
 				value={optionSelectedValue}
 			/>
@@ -491,11 +493,15 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				})}
 			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
-			{
-				optionsSelectedValues?.map((optionValue) => {
+			{optionsSelectedValues.length === 0 ?
+				<Input className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name} value={''}/> :
+				optionsSelectedValues.map((optionValue) => {
 					return <Input
+						tabIndex={-1}
+						className={styles.inputHiddenValue}
+						required={required}
 						key={optionValue}
-						type="hidden"
+						aria-hidden="true"
 						name={name}
 						value={optionValue}
 					/>;
