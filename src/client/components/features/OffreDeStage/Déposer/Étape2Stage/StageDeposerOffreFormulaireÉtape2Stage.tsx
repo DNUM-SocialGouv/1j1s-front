@@ -37,7 +37,7 @@ import styles from './StageDeposerOffreFormulaireÉtape2Stage.module.scss';
 // NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au select et son contenu on désactive le srr sur ce composant, à supprimer après refonte du select cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
 const Select = dynamic(() => import('~/client/components/ui/Form/Select/Select').then((mod) => mod.Select), { ssr: false });
 
-const EMAIL_OR_URL_REGEX = `^${emailRegex}|${urlRegex}$`;
+const EMAIL_OR_URL_REGEX = `${emailRegex}|${urlRegex}`;
 const DUREE_MOIS_EN_JOUR = 30;
 const LONGUEUR_MAX_TITRE = 200;
 
