@@ -10,7 +10,7 @@ import {
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
 import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
@@ -21,6 +21,9 @@ import { Formation } from '~/server/formations/domain/formation';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('FormulaireRechercherFormation', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});

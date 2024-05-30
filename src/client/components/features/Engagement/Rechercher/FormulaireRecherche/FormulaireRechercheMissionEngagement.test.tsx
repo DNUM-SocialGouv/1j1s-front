@@ -9,11 +9,15 @@ import {
 	FormulaireRechercheMissionEngagement,
 } from '~/client/components/features/Engagement/Rechercher/FormulaireRecherche/FormulaireRechercheMissionEngagement';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMissionEngagementDomainList } from '~/server/engagement/domain/missionEngagement.fixture';
 
 describe('FormulaireRechercheMissionEngagement', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	describe('quand on recherche par domaine', () => {
 		it('ajoute les domaines aux query params', async () => {
 			// GIVEN

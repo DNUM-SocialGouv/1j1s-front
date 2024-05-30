@@ -9,7 +9,7 @@ import {
 	FormulaireDemandeDeContactAccompagnement,
 } from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
 import { KeyBoard } from '~/client/components/keyboard.fixture';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
@@ -33,7 +33,9 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 	let onSuccess: () => void;
 	let onFailure: () => void;
-
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 		localisationService = aLocalisationService();

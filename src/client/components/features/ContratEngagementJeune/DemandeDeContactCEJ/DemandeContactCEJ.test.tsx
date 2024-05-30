@@ -8,6 +8,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import DemandeContactCEJ
 	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -26,6 +27,9 @@ const formulaireContact = {
 };
 
 describe('<DemandeContactCEJ />', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	afterEach(() => {
 		jest.clearAllMocks();
 	});

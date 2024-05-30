@@ -11,7 +11,7 @@ import {
 	FormulaireRechercheOffreEmploi,
 } from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -22,6 +22,7 @@ import CONTRAT_CDD = Offre.CONTRAT_CDD;
 
 describe('FormulaireRechercheOffreEmploi', () => {
 	beforeEach(() => {
+		mockScrollIntoView();
 		mockLargeScreen();
 	});
 	describe('en version mobile', () => {

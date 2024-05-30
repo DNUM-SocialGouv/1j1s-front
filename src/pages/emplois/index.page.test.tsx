@@ -7,7 +7,7 @@ import '~/test-utils';
 import { render, screen } from '@testing-library/react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -29,6 +29,9 @@ jest.mock('~/server/start', () => ({
 }));
 
 describe('Page Emploi', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	describe('<RechercherOffreEmploiPage />', () => {
 		it('n‘a pas de défaut d‘accessibilité', async () => {
 			mockUseRouter({ query: { page: '1' } });

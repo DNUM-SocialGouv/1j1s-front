@@ -11,7 +11,7 @@ import {
 	FormulaireRechercheJobEte,
 } from '~/client/components/features/JobEte/FormulaireRecherche/FormulaireRechercheJobEte';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -19,6 +19,9 @@ import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheJobEte', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	describe('en version mobile', () => {
 		beforeEach(() => {
 			mockSmallScreen();

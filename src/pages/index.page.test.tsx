@@ -10,7 +10,7 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
@@ -18,7 +18,9 @@ import Accueil from '~/pages/index.page';
 
 describe('Page d‘accueil', () => {
 	let analyticsService: ManualAnalyticsService;
-
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({ asPath: '/' });

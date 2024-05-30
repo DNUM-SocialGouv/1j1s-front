@@ -6,7 +6,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -28,6 +28,7 @@ const formulaireContact = {
 describe('<Accompagnement />', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+		mockScrollIntoView();
 	});
 
 	afterEach(() => {

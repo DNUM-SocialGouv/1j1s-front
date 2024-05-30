@@ -7,6 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -14,7 +15,10 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 
 describe('<FormulaireDeContactCEJ />', () => {
-
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
+	
 	function renderComponent() {
 		const onSuccess = jest.fn();
 		const onFailure = jest.fn();

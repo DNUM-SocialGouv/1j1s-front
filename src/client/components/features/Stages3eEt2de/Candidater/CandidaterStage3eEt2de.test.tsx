@@ -10,7 +10,7 @@ import {
 	aDonneesEntrepriseStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/donneesEntreprise.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -23,6 +23,9 @@ import {
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
 describe('Candidater à un stage de 3e et 2de', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockUseRouter({});
 	});
