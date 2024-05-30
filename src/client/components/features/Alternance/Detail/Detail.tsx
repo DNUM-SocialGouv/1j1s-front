@@ -72,7 +72,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 						</div>)}
 					{annonce.compétences && annonce.compétences.length > 0 && (
 						<div className={styles.competences}>
-							<dt>Connaissances et compétences requises</dt>
+							<dt>Compétences types du métier</dt>
 							<dd>
 								<ul>
 									{annonce.compétences.map((compétence) => (
