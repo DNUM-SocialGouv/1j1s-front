@@ -7,6 +7,8 @@ describe('URL regex', () => {
 		'http://www.example.com?extension',
 		'http://www.example.com+extension',
 		'http://www.example.com.extension',
+		'http://www.examplesansextension',
+		'http://www.example-avec-tiret.com', // ????
 		'www.example.com', // ????
 		'example.com', // ????
 	])('%s est une url valide', (validUrl) => {
