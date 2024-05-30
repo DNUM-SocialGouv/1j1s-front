@@ -47,6 +47,7 @@ describe('Dépôt de Stage', () => {
 		});
 
 		describe('et qu‘il remplit le formulaire', () => {
+			// NOTE (BRUJ 30/05/2024): Ce test permet de verifier que la regex url et email est bien fonctionelle en tant que pattern d'un input
 			it('avec une url/email de candidature invalide, ne peut pas aller à l‘étape 3', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage', {
 					onBeforeLoad(win: Cypress.AUTWindow) {

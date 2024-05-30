@@ -19,7 +19,6 @@ describe('URL regex', () => {
 	});
 
 	it.each([
-		'http://www.example.com rrr',
 		'pasuneurl',
 		'https:google.com',
 		'https:google.com',
