@@ -47,6 +47,22 @@ describe('Dépôt de Stage', () => {
 		});
 
 		describe('et qu‘il remplit le formulaire', () => {
+			it('avec une url/email de candidature invalide, ne peut pas aller à l‘étape 3', () => {
+				cy.visit('/stages/deposer-offre/votre-offre-de-stage', {
+					onBeforeLoad(win: Cypress.AUTWindow) {
+						win.localStorage.setItem(FORMULAIRE_ETAPE_1_LABEL, JSON.stringify(aFormulaireEtapeEntreprise()));
+					},
+				});
+
+				cy.findByRole('textbox', { name: /Nom de l’offre de stage/i }).type(aFormulaireEtapeStage().nomOffre);
+				cy.findByRole('textbox', { name: /Lien sur lequel les candidats pourront postuler/i }).type('mauvaisemail');
+				cy.findByRole('textbox', { name: /Description de l’offre de stage/i }).type(aFormulaireEtapeStage().descriptionOffre);
+				cy.findByLabelText(/^Date précise du début de stage/i).type(aFormulaireEtapeStage().dateDeDebutMin);
+				cy.findByRole('button', { name: /Durée du stage/i }).click();
+				cy.findAllByRole('option').first().click();
+
+				cy.get('input:invalid').should('have.length', 1);
+			});
 			it('le redirige vers l’étape 3', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage', {
 					onBeforeLoad(win: Cypress.AUTWindow) {

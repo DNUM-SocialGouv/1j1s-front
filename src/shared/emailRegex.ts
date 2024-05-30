@@ -5,7 +5,7 @@ const localPart = `[${atext}]+(\\.[${atext}]+)*`;
 
 const letter = 'a-zA-Z';
 const letDig = `${letter}0-9`;
-const ldhStr = `${letDig}-`;
+const ldhStr = `${letDig}\\-`;
 const label = `[${letter}]+[${ldhStr}]*[${letDig}]*`;
 const subdomain = `${label}(\\.${label})+`;
 const domain = `${subdomain}`;
