@@ -193,8 +193,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
+				if (state.isListOptionsOpen) event.preventDefault();
 				closeList();
-				event.preventDefault();
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
@@ -404,8 +404,8 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
+				if (state.isListOptionsOpen) event.preventDefault();
 				closeList();
-				event.preventDefault();
 				break;
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {

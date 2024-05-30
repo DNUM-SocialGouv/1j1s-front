@@ -18,7 +18,6 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 import { Offre } from '~/server/offres/domain/offre';
-import CONTRAT_CDD = Offre.CONTRAT_CDD;
 
 describe('FormulaireRechercheOffreEmploi', () => {
 	beforeEach(() => {
@@ -266,7 +265,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const selectTypeContrat = screen.getByRole('combobox', { name: 'Types de contrats Exemple : CDI, CDD…' });
 				await user.click(selectTypeContrat);
 
-				const inputTypeDeContrat = screen.getByRole('option', { name: CONTRAT_CDD.libelléCourt });
+				const inputTypeDeContrat = screen.getByRole('option', { name: Offre.CONTRAT_CDD.libelléCourt });
 				await user.click(inputTypeDeContrat);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
