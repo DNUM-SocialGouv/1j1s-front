@@ -11,7 +11,7 @@ import { mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { ManualAnalyticsService } from '~/client/services/analytics/analytics.service';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
-import EuropePage from '~/pages/europe/index.page';
+import EuropePage from '~/pages/experience-europe/index.page';
 
 describe('Page Europe', () => {
 	let analyticsService: ManualAnalyticsService;

@@ -40,7 +40,6 @@ const offresNav = (): NavigationItemWithChildren => ({
 			label: 'Emplois en Europe ',
 			link: '/emplois-europe',
 		}] : []),
-		{ label: 'Expérience en Europe', link: '/europe' },
 	],
 	label: 'Offres',
 });
@@ -68,6 +67,7 @@ const accompagnementNav = (): NavigationItemWithChildren => ({
 		{ label: 'Echanger avec un mentor', link: '/mentorat' },
 		{ label: 'Trouver une structure d’accompagnement', link: '/accompagnement' },
 		{ label: 'Entreprendre : financements, aides et accompagnement', link: '/entreprendre' },
+		{ label: 'Expérience en Europe', link: '/experience-europe' },
 	],
 	label: 'Accompagnement',
 });
