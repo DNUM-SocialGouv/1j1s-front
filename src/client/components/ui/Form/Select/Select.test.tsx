@@ -9,11 +9,16 @@ import React, { FormEvent } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard.fixture';
 import { Select } from '~/client/components/ui/Form/Select/Select';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
 const SELECT_MULTIPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez vos choix';
 
 describe('<Select />', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
+
 	describe('simple select', () => {
 		describe('interaction support', () => {
 			describe('quand la liste d‘options est fermée', () => {
@@ -402,6 +407,23 @@ describe('<Select />', () => {
 					it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
 					it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
 				});
+
+				it('lorsque l‘option active change, scroll jusqu’à la nouvelle option active', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' },
+						{ libellé: 'options 2', valeur: '2' },
+						{ libellé: 'options 3', valeur: '3' }];
+					render(<Select optionList={options} label={'label'} name="select"/>);
+
+					const option = screen.getByRole('option', { hidden: true, name: 'options 2' });
+					option.scrollIntoView = jest.fn();
+
+					const input = screen.getByRole('combobox');
+					await user.click(input);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+
+					expect(option.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
+				});
 			});
 		});
 
@@ -535,10 +557,10 @@ describe('<Select />', () => {
 
 			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				const onSubmit = jest.fn() ;
+				const onSubmit = jest.fn();
 				const user = userEvent.setup();
 
-				render(<form onSubmit={onSubmit}><Select optionList={options} label={'label'} required />
+				render(<form onSubmit={onSubmit}><Select optionList={options} label={'label'} required/>
 					<button>Submit</button>
 				</form>);
 
@@ -988,6 +1010,23 @@ describe('<Select />', () => {
 					it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
 					it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
 				});
+
+				it('lorsque l‘option active change, scroll jusqu’à la nouvelle option active', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' },
+						{ libellé: 'options 2', valeur: '2' },
+						{ libellé: 'options 3', valeur: '3' }];
+					render(<Select multiple optionList={options} label={'label'} name="select"/>);
+
+					const option = screen.getByRole('option', { hidden: true, name: 'options 2' });
+					option.scrollIntoView = jest.fn();
+
+					const input = screen.getByRole('combobox');
+					await user.click(input);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+
+					expect(option.scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ block: 'nearest' }));
+				});
 			});
 		});
 
@@ -1124,7 +1163,7 @@ describe('<Select />', () => {
 
 			it('lorsque le champ est requis et que l‘utilisateur n‘a pas séléctionné d‘option, il ne peux pas soumettre le formulaire', async () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
-				const onSubmit = jest.fn() ;
+				const onSubmit = jest.fn();
 				const user = userEvent.setup();
 
 				render(<form onSubmit={onSubmit}>

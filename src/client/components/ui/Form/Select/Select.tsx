@@ -5,6 +5,7 @@ import React, {
 	SyntheticEvent,
 	useCallback,
 	useId,
+	useLayoutEffect,
 	useReducer,
 	useRef,
 	useState,
@@ -144,6 +145,12 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			setErrorMessage(ERROR_LABEL_REQUIRED_SIMPLE);
 		}
 	}, [optionSelectedValue, required]);
+
+	useLayoutEffect(function scrollOptionIntoView() {
+		if (state.activeDescendant) {
+			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		}
+	}, [state.activeDescendant]);
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
@@ -347,6 +354,13 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			setErrorMessage(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
 	}, [optionsSelectedValues.length, required]);
+
+	useLayoutEffect(function scrollOptionIntoView() {
+		if (state.activeDescendant) {
+			document.getElementById(state.activeDescendant)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		}
+	}, [state.activeDescendant]);
+
 
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
