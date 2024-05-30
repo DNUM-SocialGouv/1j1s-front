@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.293.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.3...v3.293.0) (2024-05-30)
+
+
+### Features
+
+* **exp europe:** déplacer les expériences en europe et ajouter une redirection ([#3031](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3031)) ([5663b83](https://github.com/DNUM-SocialGouv/1j1s-front/commit/5663b836db4a7d5f3263a5c2ee71c8fa61cee883))
+
 ## [3.292.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.2...v3.292.3) (2024-05-24)
 
 
