@@ -8,6 +8,11 @@ import { render, screen } from '@testing-library/react';
 import { Link } from '~/client/components/ui/Link/Link';
 
 describe('Link', () => {
+	beforeAll(() => {
+		Object.defineProperty(window, 'location', {
+			value: { origin: 'https://localhost:3000' },
+		});
+	});
 	
 	describe('quand le lien est un lien externe', () => {
 		it('retourne un *tag a* avec les propriétés target et rel', () => {
@@ -54,10 +59,7 @@ describe('Link', () => {
 		});
 
 		it('avec href absolu, retourne le composant Link sans les propriétés de la redirection externe', () => {
-			Object.defineProperty(window, 'location', {
-				value: { origin: 'localhost' },
-			});
-			const lienInterne = 'localhost/emplois';
+			const lienInterne = 'https://localhost:3000/emplois';
 
 			render(
 				<Link href={lienInterne} />,
@@ -65,7 +67,7 @@ describe('Link', () => {
 
 			const linkComponent = screen.getByRole('link');
 
-			expect(linkComponent.getAttribute('href')).toEqual('localhost/emplois');
+			expect(linkComponent.getAttribute('href')).toEqual('https://localhost:3000/emplois');
 			expect(linkComponent).not.toHaveAttribute('target');
 			expect(linkComponent).not.toHaveAttribute('rel');
 		});

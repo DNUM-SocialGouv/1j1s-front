@@ -85,8 +85,8 @@ describe('Strapi annonce de logement mapper', () => {
 		// GIVEN
 		const strapiAnnonceDeLogement = aStrapiAnnonceDeLogement({
 			imagesUrl: [
-				{ value: 'image/1' },
-				{ value: 'image/2' },
+				{ value: '/image/1' },
+				{ value: '/image/2' },
 			],
 		});
 
@@ -98,11 +98,11 @@ describe('Strapi annonce de logement mapper', () => {
 			imageList: [
 				{
 					alt: '',
-					src: 'image/1',
+					src: '/image/1',
 				},
 				{
 					alt: '',
-					src: 'image/2',
+					src: '/image/2',
 				},
 			],
 		}));
