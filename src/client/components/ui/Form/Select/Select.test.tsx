@@ -1051,7 +1051,7 @@ describe('<Select />', () => {
 				expect(screen.getByRole('combobox')).toHaveTextContent('1 choix séléctionné');
 			});
 
-			it('lorsqu‘au moins deux options est séléctionnées, je vois le nombre d‘options séléctionnées au pluriel dans le placeholder', async () => {
+			it('lorsqu‘au moins deux options sont séléctionnées, je vois le nombre d‘options séléctionnées au pluriel dans le placeholder', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
