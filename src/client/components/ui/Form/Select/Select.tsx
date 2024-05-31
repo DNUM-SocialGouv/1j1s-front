@@ -25,26 +25,17 @@ import {
 	SelectSimpleAction,
 } from './SelectReducer';
 
-type SelectProps = SelectSimpleProps & {
-	multiple?: false;
-	placeholder?: string;
+type SelectProps = {
 	label: string;
-	id?: string
 	labelComplement?: string
-} | SelectMultipleProps & {
-	multiple: true;
-	placeholder?: string;
-	label: string;
-	id?: string
-	labelComplement?: string
-}
+} & (
+	SelectSimpleProps & { multiple?: false }
+	| SelectMultipleProps & { multiple: true }
+	)
 
 type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	optionList: Option[];
 	value?: Array<string>;
-	className?: string
-	name?: string;
-	required?: boolean;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: Array<string>;
 }
@@ -52,9 +43,6 @@ type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> &
 type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	optionList: Option[];
 	value?: string;
-	className?: string
-	name?: string;
-	required?: boolean;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
 }
@@ -72,14 +60,11 @@ const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de l
 export function Select(props: SelectProps) {
 	const {
 		className,
-		id,
 		label,
 		labelComplement,
 		multiple,
 		...rest
 	} = props;
-	const selectIdState = useId();
-	const selectId = id ?? selectIdState;
 	const labelledBy = useId();
 
 	function isSelectMultipleProps(rest: SelectSimpleProps | SelectMultipleProps): rest is SelectMultipleProps {
@@ -92,7 +77,7 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<Champ.Label htmlFor={selectId} className={styles.selectLabel} id={labelledBy}>
+			<Champ.Label className={styles.selectLabel} id={labelledBy}>
 				{label}
 				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
 			</Champ.Label>
