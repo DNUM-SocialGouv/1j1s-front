@@ -1,45 +1,48 @@
-export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, unknown>, appendPageQueryParam = true): string {
-	const formData = new FormData(formElement);
-	const formEntries = Array.from<[Name, string | File], Value[]>(
-		formData,
-		([key, value]) => (
-			[key, typeof value === 'string' ? value : value.name]
-		),
-	).filter((inputData) => {
-		const inputName = inputData[0];
-		const inputValue = inputData[1];
-		return inputName in queryParamsWhitelist && inputValue !== '' && inputValue !== 'false';
-	});
+export type Whitelist = Record<string, unknown>;
 
-	// TODO (BRUJ 27/05/2024): ne plus regrouper mais conserver les n array en modifiant côté serveur
-	const groupedFormEntries = regroupFormEntriesByName(formEntries);
-
-	if (appendPageQueryParam) {
-		groupedFormEntries.push(['page', '1']);
-	}
-
-	return new URLSearchParams(groupedFormEntries).toString();
-}
-
+type FormEntry = [Name, Value | File];
 type Name = string;
 type Value = string;
-type JoinedValues = string;
-type GroupedValues = Record<string, Array<string>>;
+type FlattenedFormEntry = [Name, Value];
 const NAME_INDEX = 0;
 const VALUE_INDEX = 1;
 
-// Entrée : [['typeDeContrat', 'CDD'], ['typeDeContrat', 'CDI'], ['durée', '2mois']]
-// Sortie : [['typeDeContrat', 'CDD,CDI'], ['durée', '2mois']]
-function regroupFormEntriesByName(formEntries: Array<[Name, Value]>): Array<[Name, JoinedValues]> {
-	const formEntriesGrouped = formEntries.reduce<GroupedValues>((groups, entry) => {
-		const name = entry[NAME_INDEX];
-		if (groups[name] == null) {
-			groups[name] = [];
-		}
-		groups[name].push(entry[VALUE_INDEX]);
-		return groups;
-	}, {});
+function flattenFiles([key, value]: FormEntry): FlattenedFormEntry {
+	return [key, typeof value === 'string' ? value : value.name];
+}
+function isWhitelisted(whitelist: Whitelist) {
+	return (entry: FlattenedFormEntry) => (entry[NAME_INDEX] in whitelist);
+}
+function isSet(entry: FlattenedFormEntry) {
+	const value = entry[VALUE_INDEX];
+	return value && value !== 'false';
+}
 
-	return Object.entries(formEntriesGrouped)
-		.map(([name, values]) => ([name, values.join(',')]));
+type GroupedFormEntries = Record<Name, Array<Value>>;
+function GroupByEntryName(groups: GroupedFormEntries, entry: FlattenedFormEntry): GroupedFormEntries {
+	const name = entry[NAME_INDEX];
+	if (groups[name] == null) {
+		groups[name] = [];
+	}
+	groups[name].push(entry[VALUE_INDEX]);
+	return groups;
+}
+function joinValues([ name, values ]: [Name, Array<Value>]) {
+	return [name, values.join(',')];
+}
+
+export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelist: Whitelist, appendPageQueryParam = true): string {
+	const formData = new FormData(formElement);
+	if (appendPageQueryParam) {
+		formData.set('page', '1');
+	}
+
+	const groupedEntries = Array.from<FormEntry, FlattenedFormEntry>(formData, flattenFiles)
+		.filter(isWhitelisted(queryParamsWhitelist))
+		.filter(isSet)
+		.reduce(GroupByEntryName, {});
+
+	const flattenedGroupedEntries = Object.entries(groupedEntries)
+		.map(joinValues);
+	return new URLSearchParams(flattenedGroupedEntries).toString();
 }
