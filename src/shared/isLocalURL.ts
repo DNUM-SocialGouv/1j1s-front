@@ -1,3 +1,5 @@
+import { URL } from 'url';
+
 import isRelativeURL from '~/shared/isRelativeURL';
 
 export default function isLocalURL(url: string, origin: string) {
