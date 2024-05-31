@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.294.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.293.0...v3.294.0) (2024-05-30)
+
+
+### Features
+
+* **alternance:** modifier le wording des compétences type du métier ([#3028](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3028)) ([8b35dcb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/8b35dcb8881a653c361596a1d79e9900bd942e80))
+
 ## [3.293.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.292.3...v3.293.0) (2024-05-30)
 
 
