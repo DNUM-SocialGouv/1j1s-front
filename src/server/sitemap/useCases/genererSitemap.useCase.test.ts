@@ -138,4 +138,15 @@ describe('GenererSitemapUseCase', () => {
 		expect(result).toContain('<loc>http://localhost:3000/stages</loc>');
 		expect(result).toContain('<loc>http://localhost:3000/formations-initiales</loc>');
 	});
+	it('filtre les entrées externes', async () => {
+		const baseUrl = 'http://localhost:3000';
+		const entreesMenu: NavigationItemList = {
+			stages: { label: 'Stage de 2nd GT', link: 'https://stagedeseconde.recette.1jeune1solution.gouv.fr/eleves' },
+		};
+		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, entreesMenu, baseUrl);
+
+		const result = await générerSitemapUseCase.handle();
+
+		expect(result).not.toContain('https://stagedeseconde.recette.1jeune1solution.gouv.fr/eleves');
+	});
 });
