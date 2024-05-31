@@ -1,5 +1,3 @@
-import { URL } from 'url';
-
 export default function isRelativeURL(url: string) {
 	const isAbsolute = URL.canParse(url);
 	if (isAbsolute) {
