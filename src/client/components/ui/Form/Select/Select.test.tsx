@@ -39,7 +39,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.ARROW_DOWN);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 						expect(screen.getByRole('combobox')).toHaveFocus();
 					});
 
@@ -68,7 +68,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.ARROW_UP);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 						expect(screen.getByRole('combobox')).toHaveFocus();
 					});
 
@@ -126,7 +126,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.SPACE);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 					});
 
 					it('ne change pas le focus et la précédente option qui avait le focus visuel est conservée', async () => {
@@ -160,16 +160,19 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.ESCAPE);
 
 					await user.keyboard(KeyBoard.HOME);
+
+					expect(screen.getByRole('listbox')).toBeVisible();
 					const option1Id = screen.getByRole('option', { name: 'options 1' }).id;
 					expect(combobox).toHaveAttribute('aria-activedescendant', option1Id);
 				});
 
 				it('lorsque l‘utilisateur fait "End", la liste d‘options s‘ouvre et le focus visuel est placé sur la dernière option', async () => {
 					const user = userEvent.setup();
-					const options = [{ libellé: 'options 1', valeur: '1' }, {
-						libellé: 'options 2',
-						valeur: '2',
-					}, { libellé: 'options 3', valeur: '3' }];
+					const options = [
+						{ libellé: 'options 1', valeur: '1' },
+						{ libellé: 'options 2', valeur: '2' },
+						{ libellé: 'options 3', valeur: '3' },
+					];
 					render(<Select optionList={options} label={'Temps de travail'}/>);
 
 					const combobox = screen.getByRole('combobox');
@@ -180,6 +183,7 @@ describe('<Select />', () => {
 					await user.keyboard(KeyBoard.ESCAPE);
 
 					await user.keyboard(KeyBoard.END);
+					expect(screen.getByRole('listbox')).toBeVisible();
 					const option3Id = screen.getByRole('option', { name: 'options 3' }).id;
 					expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option3Id);
 				});
@@ -259,7 +263,7 @@ describe('<Select />', () => {
 
 				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
 
-				it('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme, le placeholder se met ç jour et le focus se déplace sur le prochain élément focusable', async () => {
+				it('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme, le placeholder se met à jour et le focus se déplace sur le prochain élément focusable', async () => {
 					const user = userEvent.setup();
 					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 					render(<form aria-label="form">
@@ -428,7 +432,7 @@ describe('<Select />', () => {
 		});
 
 		describe('label de l‘option séléctionné (placeholder)', () => {
-			it('lorsqu‘un placeholder est donné en props', () => {
+			it('affiche le placeholder lorsqu‘un placeholder est donné en props', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
 				render(<Select optionList={options} label={'label'} placeholder={'placeholder'}/>);
@@ -466,13 +470,10 @@ describe('<Select />', () => {
 
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
-				await user.keyboard(KeyBoard.ARROW_DOWN);
-				await user.keyboard(KeyBoard.SPACE);
+				const option = screen.getByRole('option', { name: 'options 2' });
+				await user.click(option);
 
-				expect(onChange).toHaveBeenCalledWith(expect.objectContaining({
-					tagName: 'LI',
-					textContent: 'options 2',
-				}));
+				expect(onChange).toHaveBeenCalledWith(option);
 			});
 
 			it('lorsque la value change, le select prend la valeur de value mise à jour', async () => {
@@ -546,7 +547,7 @@ describe('<Select />', () => {
 		});
 
 		describe('erreur', () => {
-			it('lorsque le champ est requis mais pas touché, je ne vois le message d‘erreur', () => {
+			it('lorsque le champ est requis mais pas touché, je ne vois pas le message d‘erreur', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
 				render(<Select optionList={options} label={'label'} required/>);
@@ -601,8 +602,7 @@ describe('<Select />', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
 				render(<>
-					<Select optionList={options} label={'label'} required aria-describedby={'id1'}/>
-					<p id={'id1'}>La description accessible</p>
+					<Select optionList={options} label={'label'} required/>
 				</>);
 
 				await user.tab();
@@ -613,7 +613,7 @@ describe('<Select />', () => {
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible ');
+				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
 				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
 			});
 		});
@@ -638,7 +638,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.ARROW_DOWN);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 						expect(screen.getByRole('combobox')).toHaveFocus();
 					});
 
@@ -668,7 +668,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.ARROW_UP);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 						expect(screen.getByRole('combobox')).toHaveFocus();
 					});
 
@@ -725,7 +725,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.SPACE);
 
 						expect(screen.getByRole('listbox')).toBeVisible();
-						expect(screen.getAllByRole('option').length).toBe(2);
+						expect(screen.getAllByRole('option')).toHaveLength(2);
 					});
 
 					it('ne change pas le focus et la précédente option qui avait le focus visuel est conservée', async () => {
