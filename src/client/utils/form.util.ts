@@ -1,6 +1,6 @@
 export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, unknown>, appendPageQueryParam = true): string {
 	const formData = new FormData(formElement);
-	const formEntries = Array.from(
+	const formEntries = Array.from<[Name, string | File], Value[]>(
 		formData,
 		([key, value]) => (
 			[key, typeof value === 'string' ? value : value.name]
