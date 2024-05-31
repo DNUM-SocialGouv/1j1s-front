@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, any>, appendPageQueryParam = true): string {
+export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelist: Record<string, unknown>, appendPageQueryParam = true): string {
 	const formData = new FormData(formElement);
-	let formEntries = Array.from(
+	const formEntries = Array.from(
 		formData,
 		([key, value]) => (
 			[key, typeof value === 'string' ? value : value.name]
@@ -13,26 +12,34 @@ export function getFormAsQuery(formElement: HTMLFormElement, queryParamsWhitelis
 	});
 
 	// TODO (BRUJ 27/05/2024): ne plus regrouper mais conserver les n array en modifiant côté serveur
-	formEntries = regroupFormEntriesByName(formEntries);
+	const groupedFormEntries = regroupFormEntriesByName(formEntries);
 
 	if (appendPageQueryParam) {
-		formEntries.push(['page', '1']);
+		groupedFormEntries.push(['page', '1']);
 	}
 
-	return new URLSearchParams(formEntries).toString();
+	return new URLSearchParams(groupedFormEntries).toString();
 }
 
-function regroupFormEntriesByName(formEntries: Array<Array<string>>) {
-	const formEntriesGrouped: Array<Array<string>> = [];
-	formEntries.map((entryToGroup) => {
-		const indexEntryAlreadyGrouped = formEntriesGrouped.findIndex((entryAlreadyGrouped) => entryAlreadyGrouped[0] === entryToGroup[0]);
-		if (indexEntryAlreadyGrouped === -1) {
-			formEntriesGrouped.push([entryToGroup[0], entryToGroup[1]]);
-		} else {
-			const entryToConcataneWithNewValue = formEntriesGrouped[indexEntryAlreadyGrouped];
-			entryToConcataneWithNewValue[1] = entryToConcataneWithNewValue[1].concat(',', entryToGroup[1]);
-		}
-	});
+type Name = string;
+type Value = string;
+type JoinedValues = string;
+type GroupedValues = Record<string, Array<string>>;
+const NAME_INDEX = 0;
+const VALUE_INDEX = 1;
 
-	return formEntriesGrouped;
+// Entrée : [['typeDeContrat', 'CDD'], ['typeDeContrat', 'CDI'], ['durée', '2mois']]
+// Sortie : [['typeDeContrat', 'CDD,CDI'], ['durée', '2mois']]
+function regroupFormEntriesByName(formEntries: Array<[Name, Value]>): Array<[Name, JoinedValues]> {
+	const formEntriesGrouped = formEntries.reduce<GroupedValues>((groups, entry) => {
+		const name = entry[NAME_INDEX];
+		if (groups[name] == null) {
+			groups[name] = [];
+		}
+		groups[name].push(entry[VALUE_INDEX]);
+		return groups;
+	}, {});
+
+	return Object.entries(formEntriesGrouped)
+		.map(([name, values]) => ([name, values.join(',')]));
 }
