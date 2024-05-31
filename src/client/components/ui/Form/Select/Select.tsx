@@ -471,13 +471,11 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				ref={listboxRef}
 				aria-labelledby={labelledBy}
 				id={listboxId}
-				tabIndex={-1}
 				hidden={!state.isListOptionsOpen}>
 				{optionList.map((option, index) => {
 					const optionId = `${optionsId}-${index}`;
 					return <li
 						className={classNames(styles.optionComboboxMultiple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-						tabIndex={-1}
 						id={optionId}
 						role="option"
 						key={index}
@@ -493,7 +491,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
 			{optionsSelectedValues.length === 0 ?
-				<Input className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name} value={''}/> :
+				<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name} value={''} /> :
 				optionsSelectedValues.map((optionValue) => {
 					return <Input
 						tabIndex={-1}
