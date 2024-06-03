@@ -79,6 +79,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
 						aMatchaResponse(
 							{
 								job: {
+									contractType: 'CDI',
+									dureeContrat: 3,
 									// @ts-expect-error
 									id: 1,
 								},
@@ -251,8 +253,8 @@ describe('ApiLaBonneAlternanceRepository', () => {
 				expectedApiValidationError,
 				{
 					apiSource: 'API LaBonneAlternance',
-				  contexte: 'get détail annonce alternance',
-				  message: 'erreur de validation du schéma de l’api',
+					contexte: 'get détail annonce alternance',
+					message: 'erreur de validation du schéma de l’api',
 				},
 			);
 			expect(result.instance).toEqual('success');

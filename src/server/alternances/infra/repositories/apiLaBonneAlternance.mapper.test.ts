@@ -206,9 +206,6 @@ describe('mapRechercheAlternance', () => {
 					results: [
 						{
 							company: { name: 'ECOLE DE TRAVAIL ORT' },
-							contact: {
-								phone: 'phone',
-							},
 							job: {
 								contractDescription: 'CDD de 6 mois',
 								contractType: 'CDD',
@@ -361,9 +358,6 @@ describe('mapDetail', () => {
 		it('converti une response PEJobs en alternance', () => {
 			const input = aPeJobsResponse({
 				company: { name: 'ECOLE DE TRAVAIL ORT' },
-				contact: {
-					phone: 'phone',
-				},
 				job: {
 					contractDescription: 'CDD de 6 mois',
 					contractType: 'CDD',
@@ -387,7 +381,6 @@ describe('mapDetail', () => {
 				entreprise: {
 					adresse: 'full address',
 					nom: 'ECOLE DE TRAVAIL ORT',
-					téléphone: 'phone',
 				},
 				id: 'id',
 				lienPostuler: 'url',
@@ -422,6 +415,21 @@ describe('mapDetail', () => {
 				description: 'Avec des \n',
 			}));
 
+		});
+
+		it('lorsque le type de contrat est vide, renvoie l‘offre sans type de contrat', () => {
+			const input = aMatchaResponse({
+				job: {
+					contractType: '',
+					id: 'id',
+				},
+			});
+
+			const result = mapDetailMatcha(input);
+
+			expect(result).toEqual(expect.objectContaining({
+				typeDeContrat: [],
+			}));
 		});
 
 		describe('quand la response Matcha n’est pas une offre PASS', () => {
