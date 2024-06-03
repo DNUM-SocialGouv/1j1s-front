@@ -10,7 +10,6 @@ import {
 import {
 	EtiquettesFiltresRecherche,
 } from '~/client/components/features/EmploisEurope/Rechercher/EtiquettesFiltresRecherche';
-import { ExperiencesEnEurope } from '~/client/components/features/Europe/Sections';
 import { AidesFinancieresEurope } from '~/client/components/features/ServiceCard/AidesFinancieresEurope';
 import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { EurasmusPlusPartner } from '~/client/components/features/ServiceCard/ErasmusPlusPartner';
