@@ -8,7 +8,7 @@ describe('URL regex', () => {
 		'http://www.example.com+extension',
 		'http://www.example.com.extension',
 		'http://www.examplesansextension',
-		'http://www.example-avec-tiret.com', // ????
+		'http://www.example-avec-tiret.com',
 		'https://www.example.com/en/test-test/001-15-9741-6-air-liquide',
 	])('%s est une url valide', (validUrl) => {
 		// WHEN
@@ -20,7 +20,6 @@ describe('URL regex', () => {
 
 	it.each([
 		'pasuneurl',
-		'https:google.com',
 		'https:google.com',
 		'www.example.com',
 		'example.com',

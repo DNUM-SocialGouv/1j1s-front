@@ -79,14 +79,14 @@ describe('Parcours formulaire cej', () => {
 
 	context('quand l‘utilisateur rempli le champ email avec un email qui ne correspond pas à la regex', () => {
 		// NOTE (BRUJ 30/05/2024): Ce test permet de verifier que la regex d'email est bien fonctionelle en tant que pattern d'un input
-		it('le champ est invalid et le formulaire n‘est pas envoyé', () => {
+		it('le champ est invalide et le formulaire n‘est pas envoyé', () => {
 			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
 
 			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
 			cy.findByRole('textbox', { name: /Nom/ }).type('dupont', { force: true });
 			cy.findByRole('textbox', { name: /Adresse e-mail/i }).type('mauvais-email@123ab.com');
 			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
-			cy.findByRole('button', { name: /^Age/i }).click();
+			cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
 			cy.findAllByRole('option').first().click();
 			cy.findByRole('combobox', { name: /Ville/i }).type('paris');
 			cy.intercept(
@@ -111,7 +111,7 @@ describe('Parcours formulaire cej', () => {
 			cy.findByRole('button', { name: /Envoyer la demande/i }).click();
 
 
-			cy.get('input:invalid').should('have.length', 1);
+			cy.findByRole('textbox', { name: /Adresse e-mail/i }).should('match', ':invalid');
 		});
 	});
 });

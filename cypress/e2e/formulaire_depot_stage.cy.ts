@@ -59,10 +59,10 @@ describe('Dépôt de Stage', () => {
 				cy.findByRole('textbox', { name: /Lien sur lequel les candidats pourront postuler/i }).type('mauvaisemail');
 				cy.findByRole('textbox', { name: /Description de l’offre de stage/i }).type(aFormulaireEtapeStage().descriptionOffre);
 				cy.findByLabelText(/^Date précise du début de stage/i).type(aFormulaireEtapeStage().dateDeDebutMin);
-				cy.findByRole('button', { name: /Durée du stage/i }).click();
+				cy.findByRole('combobox', { name: 'Durée du stage Exemple : 3 mois' }).click();
 				cy.findAllByRole('option').first().click();
 
-				cy.get('input:invalid').should('have.length', 1);
+				cy.findByRole('textbox', { name: /Lien sur lequel les candidats pourront postuler/i }).should('match', ':invalid');
 			});
 			it('le redirige vers l’étape 3', () => {
 				cy.visit('/stages/deposer-offre/votre-offre-de-stage', {
