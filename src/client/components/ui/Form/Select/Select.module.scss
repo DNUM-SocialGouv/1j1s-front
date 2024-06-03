@@ -1,0 +1,108 @@
+@use "@styles/utilities";
+@use "@styles/utilities-deprecated";
+@use "@styles/components/form/variables";
+@use "../TextboxShared.module" as inputStyles;
+@use "src/client/components/ui/Checkbox/Checkbox.module";
+@use "src/client/components/ui/Radio/Radio.module";
+
+$color-text: inputStyles.$color-text;
+$color-border: inputStyles.$color-border;
+$color-text-disabled: inputStyles.$color-text-disabled;
+$error-border-width: inputStyles.$error-border-width;
+$color-background-disabled: inputStyles.$color-background-disabled;
+$color-error: inputStyles.$color-error;
+$border-width-compensation: inputStyles.$border-width-compensation;
+$color-list-border: $color-border;
+$color-list-background: utilities.$color-background-primary;
+$color-option-hover: utilities.$color-background-primary-alternative;
+$color-category-separator: $color-border;
+$border-radius: inputStyles.$border-radius;
+$border-width: inputStyles.$border-width;
+
+.selectWrapper {
+  position: relative;
+  flex-shrink: 0;
+
+  & .selectLabel {
+    @extend %label-champ;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.container {
+  position: relative;
+  border-radius: $border-radius;
+
+
+
+  & .combobox {
+    @extend %outlined;
+    @include utilities.text-interactive-medium;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border: $border-width solid $color-border;
+    border-radius: $border-radius;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+  }
+
+  & .comboboxError {
+    border-color: $color-error;
+    border-width: $error-border-width;
+  }
+
+  ul[role="listbox"] {
+    z-index: 1;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    border: 1px solid $color-list-border;
+    border-radius: $border-radius;
+    background-color: $color-list-background;
+    margin-top: 1px;
+    max-height: 10em;
+    overflow-y: scroll;
+
+    & li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      padding: .5rem 1ch;
+
+      &[role="option"] {
+        cursor: pointer;
+      }
+
+      &.optionComboboxSimple::before {
+        @extend %radio;
+        margin-right: 0.5rem;
+      }
+
+      &[role="option"][aria-selected="true"].optionComboboxSimple::before {
+        @extend %radio-checked;
+      }
+
+      &.optionComboboxMultiple::before {
+        @extend %checkbox;
+      }
+
+      &[role="option"][aria-selected="true"].optionComboboxMultiple::before {
+        @extend %checkbox-checked;
+      }
+
+      &[role="option"]:hover,
+      &[role="option"].optionVisuallyFocus {
+        background-color: $color-option-hover;
+        font-weight: bold;
+      }
+    }
+  }
+
+  & .inputHiddenValue {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    inset: 0;
+  }
+}

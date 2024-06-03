@@ -10,7 +10,7 @@ import {
 	aDonneesEntrepriseStage3eEt2de,
 } from '~/client/components/features/Stages3eEt2de/Candidater/donneesEntreprise.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSessionStorage } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSessionStorage } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aStage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service.fixture';
 import { createFailure, createSuccess } from '~/server/errors/either';
@@ -23,6 +23,9 @@ import {
 } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de.fixture';
 
 describe('Candidater à un stage de 3e et 2de', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockUseRouter({});
 	});
@@ -510,15 +513,14 @@ En vous remerciant,
 						/>
 					</DependenciesProvider>,
 				);
-				const inputAppellation = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+				const selectMetier = screen.getByRole('combobox', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
 
-				await user.click(inputAppellation);
-				const options = screen.getByRole('listbox');
-				const metierOptions = within(options).getAllByRole('option');
+				await user.click(selectMetier);
+				const metierOptions = screen.getAllByRole('option');
 
 				// THEN
-				expect(inputAppellation).toBeVisible();
-				expect(inputAppellation).not.toBeDisabled();
+				expect(selectMetier).toBeVisible();
+				expect(selectMetier).not.toBeDisabled();
 				expect(metierOptions).toHaveLength(2);
 				expect(metierOptions[0]).toHaveTextContent('label');
 				expect(metierOptions[1]).toHaveTextContent('label2');
@@ -1277,9 +1279,9 @@ async function remplirLeFormulaire(donneesFormulaire: DonneesFormulaires) {
 
 async function selectionnerUnMetier(metierLabel: string) {
 	const user = userEvent.setup();
-	const inputMetier = screen.getByRole('button', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
-	await user.click(inputMetier);
-	const options = screen.getByRole('listbox');
-	const optionDuMetierLabel = within(options).getByRole('radio', { name: metierLabel });
+	const selectMetier = screen.getByRole('combobox', { name: 'Métier sur lequel porte la demande d’immersion Un ou plusieurs métiers ont été renseignés par l’entreprise' });
+	await user.click(selectMetier);
+
+	const optionDuMetierLabel = screen.getByRole('option', { name: metierLabel });
 	await user.click(optionDuMetierLabel);
 }

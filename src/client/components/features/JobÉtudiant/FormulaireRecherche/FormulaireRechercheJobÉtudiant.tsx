@@ -1,25 +1,21 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
-import {
-	ComboboxLocalisation,
-} from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
+import { ComboboxLocalisation } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
 import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
-import {
-	mapRéférentielDomaineToOffreCheckboxFiltre,
-} from '~/client/utils/offreEmploi.mapper';
+import { mapRéférentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
 
 
 export function FormulaireRechercheJobÉtudiant() {
@@ -27,8 +23,6 @@ export function FormulaireRechercheJobÉtudiant() {
 
 	const queryParams = useOffreQuery();
 	const router = useRouter();
-
-	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
@@ -67,10 +61,9 @@ export function FormulaireRechercheJobÉtudiant() {
 					<Select
 						multiple
 						optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-						onChange={setInputDomaine}
 						label="Domaines"
 						labelComplement="Exemple : Commerce, Immobilier…"
-						value={inputDomaine}
+						defaultValue={queryParams.grandDomaine?.split(',')}
 						name="grandDomaine"
 					/>
 				</div>

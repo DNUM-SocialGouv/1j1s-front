@@ -5,7 +5,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
@@ -33,6 +33,9 @@ const formulaireContact = {
 };
 
 describe('<RésultatRechercherAccompagnement/>', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	it('affiche adresse formatée', () => {
 		const etablissement = anEtablissementAccompagnement({
 			adresse: anEtablissementAccompagnementAdresse({
@@ -204,7 +207,8 @@ describe('<RésultatRechercherAccompagnement/>', () => {
 				type: TypeÉtablissement.MISSION_LOCALE,
 			});
 			const établissementAccompagnementService = anEtablissementAccompagnementService();
-			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {}));
+			jest.spyOn(établissementAccompagnementService, 'envoyerDemandeContact').mockResolvedValue(new Promise(() => {
+			}));
 			render(
 				<DependenciesProvider
 					établissementAccompagnementService={établissementAccompagnementService}
@@ -361,6 +365,6 @@ async function remplirFormulaire() {
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
+	await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

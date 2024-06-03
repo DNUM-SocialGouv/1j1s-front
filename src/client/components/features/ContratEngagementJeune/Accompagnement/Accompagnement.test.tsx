@@ -6,7 +6,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -28,6 +28,7 @@ const formulaireContact = {
 describe('<Accompagnement />', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+		mockScrollIntoView();
 	});
 
 	afterEach(() => {
@@ -175,7 +176,7 @@ describe('<Accompagnement />', () => {
 			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Age Exemple : 16 ans' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' })).toBeVisible();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
 		});
@@ -389,6 +390,7 @@ async function remplirFormulaire() {
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
+	const selectAge = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+	await user.click(selectAge);
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

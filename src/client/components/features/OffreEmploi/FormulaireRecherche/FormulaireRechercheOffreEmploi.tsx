@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
@@ -14,10 +14,10 @@ import {
 	mapToDefaultLocalisation,
 } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/defaultLocalisation/mapToDefaultLocalisation';
 import { Input } from '~/client/components/ui/Form/Input';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 import { Radio } from '~/client/components/ui/Radio/Radio';
-import { Select } from '~/client/components/ui/Select/Select';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
@@ -28,8 +28,8 @@ import {
 } from '~/client/utils/offreEmploi.mapper';
 import { Offre } from '~/server/offres/domain/offre';
 
-function updateFilterQuery(filterQuery: string, filterToToggle: string) {
-	const currentString = filterQuery.split(',').filter((element) => element);
+function updateFilterQuery(filterQuery: Array<string>, filterToToggle: string) {
+	const currentString = filterQuery.filter((element) => element);
 	const indexOfValue = currentString.indexOf(filterToToggle);
 	if (indexOfValue >= 0) {
 		currentString.splice(indexOfValue, 1);
@@ -37,7 +37,7 @@ function updateFilterQuery(filterQuery: string, filterToToggle: string) {
 		currentString.push(filterToToggle);
 	}
 
-	return currentString.join(',');
+	return currentString;
 }
 
 export function FormulaireRechercheOffreEmploi() {
@@ -49,10 +49,10 @@ export function FormulaireRechercheOffreEmploi() {
 	const { isSmallScreen } = useBreakpoint();
 	const router = useRouter();
 
-	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ?? '');
+	const [inputTypeDeContrat, setInputTypeDeContrat] = useState(queryParams.typeDeContrats ? queryParams.typeDeContrats.split(',') : []);
 	const [inputExpérience, setInputExpérience] = useState(queryParams.experienceExigence ?? '');
 	const [inputTempsDeTravail, setInputTempsDeTravail] = useState(queryParams.tempsDeTravail ?? '');
-	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ?? '');
+	const [inputDomaine, setInputDomaine] = useState(queryParams.grandDomaine ? queryParams.grandDomaine.split(',') : []);
 
 	const inputLocalisation = mapToDefaultLocalisation(queryParams.codeLocalisation, queryParams.typeLocalisation, queryParams.nomLocalisation, queryParams.codePostalLocalisation);
 
@@ -81,6 +81,25 @@ export function FormulaireRechercheOffreEmploi() {
 		event.preventDefault();
 		const query = getFormAsQuery(event.currentTarget, queryParams);
 		router.push({ query }, undefined, { scroll: false });
+	}
+
+	function getValueSelected(option: HTMLElement) {
+		return option.getAttribute('data-value') ?? '';
+	}
+
+
+	function onChangeMultipleSelect(option: HTMLElement, setInputValue: Dispatch<SetStateAction<Array<string>>>) {
+		const value = option.getAttribute('data-value') ?? '';
+		setInputValue((previous) => {
+			const indexOfValue = previous.indexOf(value);
+			if (value && indexOfValue === -1) {
+				previous.push(value);
+			}
+			else{
+				previous.splice(indexOfValue, 1);
+			}
+			return previous;
+		});
 	}
 
 	return (
@@ -177,7 +196,7 @@ export function FormulaireRechercheOffreEmploi() {
 										label={domaine.libelle}
 										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
 										value={domaine.code}
-										checked={inputDomaine.split(',').includes(domaine.code)}
+										checked={inputDomaine.includes(domaine.code)}
 									/>
 								))}
 							</FilterAccordion>
@@ -200,24 +219,24 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
-							onChange={setInputTypeDeContrat}
+							onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
+							value={inputTypeDeContrat}
 							label="Types de contrats"
 							labelComplement="Exemple : CDI, CDD…"
-							value={inputTypeDeContrat}
 							name="typeDeContrats"
 						/>
 						<Select
 							name="tempsDeTravail"
-							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
-							onChange={setInputTempsDeTravail}
+							onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
 							value={inputTempsDeTravail}
+							optionList={Offre.TEMPS_DE_TRAVAIL_LIST}
 							label="Temps de travail"
 							labelComplement="Exemple : temps plein, temps partiel…"
 						/>
 						<Select
 							name="experienceExigence"
 							optionList={Offre.EXPÉRIENCE}
-							onChange={setInputExpérience}
+							onChange={(option) => setInputExpérience(getValueSelected(option))}
 							value={inputExpérience}
 							label="Niveau demandé"
 							labelComplement="Exemple : De 1 à 3 ans"
@@ -225,7 +244,7 @@ export function FormulaireRechercheOffreEmploi() {
 						<Select
 							multiple
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-							onChange={setInputDomaine}
+							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
 							value={inputDomaine}
 							name="grandDomaine"
 							label="Domaines"

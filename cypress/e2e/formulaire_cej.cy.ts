@@ -29,9 +29,7 @@ describe('Parcours formulaire cej', () => {
 			cy.findByRole('textbox', { name: /Adresse e-mail/i }).type('jean.dupont@mail.com');
 			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
 			// FIXME (GAFI 23-10-2023): Manque un circonflèxe par ici ...
-			cy.findByRole('button', { name: /^Age/i }).click();
-			// FIXME (GAFI 23-10-2023): Idéalement récupérer avec cy.findByRole('listbox', { name: /Age/i }).children()
-			//  À remplacer après fix du composant associé
+			cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
 			cy.findAllByRole('option').first().click();
 
 			cy.intercept(

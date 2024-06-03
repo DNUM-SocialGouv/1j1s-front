@@ -11,16 +11,17 @@ import {
 	FormulaireRechercheOffreEmploi,
 } from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { createSuccess } from '~/server/errors/either';
-import { NiveauRequis } from '~/server/formations/domain/formation';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
+import { Offre } from '~/server/offres/domain/offre';
 
 describe('FormulaireRechercheOffreEmploi', () => {
 	beforeEach(() => {
+		mockScrollIntoView();
 		mockLargeScreen();
 	});
 	describe('en version mobile', () => {
@@ -38,7 +39,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -64,7 +65,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -98,7 +99,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -132,7 +133,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -167,7 +168,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				mockUseRouter({ push: routerPush });
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -203,7 +204,7 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -240,12 +241,12 @@ describe('FormulaireRechercheOffreEmploi', () => {
 			mockUseRouter({ push: jest.fn() });
 			render(
 				<DependenciesProvider localisationService={localisationServiceMock}>
-					<FormulaireRechercheOffreEmploi />
+					<FormulaireRechercheOffreEmploi/>
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-			expect(button).toBeInTheDocument();
+			const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+			expect(button).toBeVisible();
 		});
 
 		describe('quand on filtre par type de contrat', () => {
@@ -257,17 +258,15 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Types de contrats Exemple : CDI, CDD…' });
-				await user.click(button);
+				const selectTypeContrat = screen.getByRole('combobox', { name: 'Types de contrats Exemple : CDI, CDD…' });
+				await user.click(selectTypeContrat);
 
-				const typeDeContratList = await screen.findByRole('listbox');
-
-				const inputTypeDeContrat = within(typeDeContratList).getAllByRole('checkbox');
-				await user.click(inputTypeDeContrat[0]);
+				const inputTypeDeContrat = screen.getByRole('option', { name: Offre.CONTRAT_CDD.libelléCourt });
+				await user.click(inputTypeDeContrat);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
@@ -285,22 +284,20 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-				await user.click(button);
+				const selectDomaine = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+				await user.click(selectDomaine);
 
-				const domaineList = await screen.findByRole('listbox');
-
-				const inputDomaine = within(domaineList).getAllByRole('checkbox');
-				await user.click(inputDomaine[2]);
+				const optionDomaine = screen.getByRole('option', { name: référentielDomaineList[2].libelle });
+				await user.click(optionDomaine);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${référentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
 			});
 		});
 
@@ -313,22 +310,20 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Niveau demandé Exemple : De 1 à 3 ans' });
+				const button = screen.getByRole('combobox', { name: 'Niveau demandé Exemple : De 1 à 3 ans' });
 				await user.click(button);
 
-				const niveauDemandéList = await screen.findByRole('listbox');
-
-				const inputNiveauDemandé = within(niveauDemandéList).getAllByRole('radio');
-				await user.click(inputNiveauDemandé[0]);
+				const optionNiveauDemandé = screen.getByRole('option', { name: Offre.EXPÉRIENCE_DEBUTANT.libellé });
+				await user.click(optionNiveauDemandé);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'experienceExigence=D&page=1' }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `experienceExigence=${Offre.EXPÉRIENCE_DEBUTANT.valeur}&page=1` }, undefined, { scroll: false });
 			});
 		});
 
@@ -341,22 +336,20 @@ describe('FormulaireRechercheOffreEmploi', () => {
 
 				render(
 					<DependenciesProvider localisationService={localisationServiceMock}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Temps de travail Exemple : temps plein, temps partiel…' });
+				const button = screen.getByRole('combobox', { name: 'Temps de travail Exemple : temps plein, temps partiel…' });
 				await user.click(button);
 
-				const tempsDeTravailList = await screen.findByRole('listbox');
-
-				const inputTempsDeTravail = within(tempsDeTravailList).getAllByRole('radio');
-				await user.click(inputTempsDeTravail[0]);
+				const optionTempsTravail = screen.getByRole('option',{ name: Offre.TEMPS_PLEIN.libellé });
+				await user.click(optionTempsTravail);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
 				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'tempsDeTravail=tempsPlein&page=1' }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `tempsDeTravail=${Offre.TEMPS_PLEIN.valeur}&page=1` }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -364,21 +357,23 @@ describe('FormulaireRechercheOffreEmploi', () => {
 	describe('quand les query params sont présents', () => {
 		describe('que le type de localisation est une commune', () => {
 			it('rempli automatiquement les champs de recherche', () => {
-				mockUseRouter({ query: {
-					codeLocalisation: '75110',
-					codePostalLocalisation: '75010',
-					experienceExigence: NiveauRequis.NIVEAU_3,
-					grandDomaine: référentielDomaineList[0].code,
-					motCle: 'Boulanger',
-					nomLocalisation: 'Paris',
-					tempsDeTravail: 'tempsPlein',
-					typeDeContrats: 'CDD',
-					typeLocalisation: 'COMMUNE',
-				} });
+				mockUseRouter({
+					query: {
+						codeLocalisation: '75110',
+						codePostalLocalisation: '75010',
+						experienceExigence: Offre.EXPÉRIENCE_DEBUTANT.valeur,
+						grandDomaine: référentielDomaineList[0].code,
+						motCle: 'Boulanger',
+						nomLocalisation: 'Paris',
+						tempsDeTravail: 'tempsPlein',
+						typeDeContrats: 'CDD',
+						typeLocalisation: 'COMMUNE',
+					},
+				});
 
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -387,28 +382,30 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75010)');
 
-				checkSelectValue('Types de contrats', 'CDD');
-				checkSelectValue('Temps de travail', 'tempsPlein');
-				checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
-				checkSelectValue('Domaines', référentielDomaineList[0].code);
+				checkSelectValue('Types de contrats Exemple : CDI, CDD…', Offre.CONTRAT_CDD.libelléCourt);
+				checkSelectValue('Temps de travail Exemple : temps plein, temps partiel…', Offre.TEMPS_PLEIN.libellé);
+				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', Offre.EXPÉRIENCE_DEBUTANT.libellé);
+				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', référentielDomaineList[0].libelle);
 			});
 		});
 		describe('que le type de localisation est un département', () => {
 			it('rempli automatiquement les champs de recherche', () => {
-				mockUseRouter({ query: {
-					codeLocalisation: '75',
-					experienceExigence: NiveauRequis.NIVEAU_3,
-					grandDomaine: référentielDomaineList[0].code,
-					motCle: 'Boulanger',
-					nomLocalisation: 'Paris',
-					tempsDeTravail: 'tempsPlein',
-					typeDeContrats: 'CDD',
-					typeLocalisation: 'DEPARTEMENT',
-				} });
+				mockUseRouter({
+					query: {
+						codeLocalisation: '75',
+						experienceExigence: Offre.EXPÉRIENCE_DEBUTANT.valeur,
+						grandDomaine: référentielDomaineList[0].code,
+						motCle: 'Boulanger',
+						nomLocalisation: 'Paris',
+						tempsDeTravail: Offre.TEMPS_PLEIN.valeur,
+						typeDeContrats: 'CDD',
+						typeLocalisation: 'DEPARTEMENT',
+					},
+				});
 
 				render(
 					<DependenciesProvider localisationService={aLocalisationService()}>
-						<FormulaireRechercheOffreEmploi />
+						<FormulaireRechercheOffreEmploi/>
 					</DependenciesProvider>,
 				);
 
@@ -417,22 +414,16 @@ describe('FormulaireRechercheOffreEmploi', () => {
 				const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 				expect(localisation).toHaveValue('Paris (75)');
 
-				checkSelectValue('Types de contrats', 'CDD');
-				checkSelectValue('Temps de travail', 'tempsPlein');
-				checkSelectValue('Niveau demandé', NiveauRequis.NIVEAU_3);
-				checkSelectValue('Domaines', référentielDomaineList[0].code);
+				checkSelectValue('Types de contrats Exemple : CDI, CDD…', Offre.CONTRAT_CDD.libelléCourt);
+				checkSelectValue('Temps de travail Exemple : temps plein, temps partiel…', Offre.TEMPS_PLEIN.libellé);
+				checkSelectValue('Niveau demandé Exemple : De 1 à 3 ans', Offre.EXPÉRIENCE_DEBUTANT.libellé);
+				checkSelectValue('Domaines Exemple : Commerce, Immobilier…', référentielDomaineList[0].libelle);
 			});
 		});
 	});
 });
 
-// FIXME (GAFI 17-03-2023):
-// problème 1 : les inputs checkés ne sont pas valides (ex : input dans span, le tout dans un button pour type de contrat)
-// problème 2 : ne pas utiliser de data-testid (d'autant plus qu'ils sont tous identiques aujourd'hui), préférer avoir des input accessibles (récupérables en test)
-/* eslint-disable testing-library/no-node-access */
-function checkSelectValue(fieldLabel: string, expectedValue: string): void {
-	const labelElement = screen.getByText(fieldLabel);
-	const fieldId = labelElement.getAttribute('for');
-	const field = fieldId && document.getElementById(fieldId);
-	expect(field).toHaveValue(expectedValue);
+function checkSelectValue(fieldLabel: string, optionName: string): void {
+	const option = screen.getByRole('option', { hidden: true, name: optionName });
+	expect(option).toHaveAttribute('aria-selected', 'true');
 }

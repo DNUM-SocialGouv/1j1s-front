@@ -7,7 +7,7 @@ import React from 'react';
 
 import { RechercherMission } from '~/client/components/features/Engagement/Rechercher/RechercherMission';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import {
@@ -19,6 +19,7 @@ import { EngagementCategory } from '~/client/utils/engagementsCategory.enum';
 describe('RechercherMission', () => {
 	beforeEach(() => {
 		mockSmallScreen();
+		mockScrollIntoView();
 	});
 
 	afterEach(() => {
@@ -119,10 +120,10 @@ describe('RechercherMission', () => {
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectButtonRadius);
+				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
+				await user.click(selectRadius);
 
-				expect(screen.getByRole('option', { name: '30 km' })).toBeInTheDocument();
+				expect(screen.getByRole('option', { name: '30 km' })).toBeVisible();
 				expect(await screen.findByText('2 missions de service civique')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
@@ -199,10 +200,11 @@ describe('RechercherMission', () => {
 				await user.type(comboboxCommune, 'Pari');
 				const resultListCommune = await screen.findAllByRole('option');
 				await user.click(resultListCommune[0]);
-				const selectButtonRadius = screen.getByRole('button', { name: 'Rayon Exemple : 30 km' });
-				await user.click(selectButtonRadius);
+				const selectRadius = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
+				await user.click(selectRadius);
 
-				expect(screen.getByRole('option', { name: '100 km' })).toBeInTheDocument();
+				expect(screen.getByRole('option', { name: '100 km' })).toHaveAttribute('aria-selected', 'true');
+				;
 				expect(await screen.findByText('2 missions de bénévolat')).toBeInTheDocument();
 				// eslint-disable-next-line testing-library/no-node-access
 				expect((await screen.findAllByRole('list', { name: /Offre pour/ }))[0].children).toHaveLength(2);
@@ -328,7 +330,8 @@ describe('RechercherMission', () => {
 	describe('lorsque le page est celle du service civique', () => {
 		it('affiche 2 cartes de services', async () => {
 			render(
-				<DependenciesProvider missionEngagementService={aMissionEngagementService()} localisationService={aLocalisationService()}>
+				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
+					localisationService={aLocalisationService()}>
 					<RechercherMission category={EngagementCategory.SERVICE_CIVIQUE}/>
 				</DependenciesProvider>,
 			);
@@ -336,16 +339,23 @@ describe('RechercherMission', () => {
 			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
 			const serviceCards = within(serviceCardsUl).getAllByRole('link');
 			expect(serviceCards).toHaveLength(2);
-			expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: 'Pourquoi faire un service civique ?' })).toBeVisible();
+			expect(within(serviceCards[0]).getByRole('heading', {
+				level: 3,
+				name: 'Pourquoi faire un service civique ?',
+			})).toBeVisible();
 			expect(serviceCards[0]).toHaveAttribute('href', '/articles/faire-un-service-civique');
-			expect(within(serviceCards[1]).getByRole('heading', { level: 3, name: "L'impact du service civique sur les jeunes" })).toBeVisible();
+			expect(within(serviceCards[1]).getByRole('heading', {
+				level: 3,
+				name: "L'impact du service civique sur les jeunes",
+			})).toBeVisible();
 			expect(serviceCards[1]).toHaveAttribute('href', '/articles/service-civique-jeunes');
 		});
 	});
 	describe('lorsque le page est celle du bénévolat', () => {
 		it('affiche 1 carte de service', async () => {
 			render(
-				<DependenciesProvider missionEngagementService={aMissionEngagementService()} localisationService={aLocalisationService()}>
+				<DependenciesProvider missionEngagementService={aMissionEngagementService()}
+					localisationService={aLocalisationService()}>
 					<RechercherMission category={EngagementCategory.BENEVOLAT}/>
 				</DependenciesProvider>,
 			);
@@ -353,7 +363,10 @@ describe('RechercherMission', () => {
 			const serviceCardsUl = await screen.findByRole('list', { name: 'Liste des partenaires et des services' });
 			const serviceCards = within(serviceCardsUl).getAllByRole('link');
 			expect(serviceCards).toHaveLength(1);
-			expect(within(serviceCards[0]).getByRole('heading', { level: 3, name: 'Des missions de bénévolat toujours disponibles' })).toBeVisible();
+			expect(within(serviceCards[0]).getByRole('heading', {
+				level: 3,
+				name: 'Des missions de bénévolat toujours disponibles',
+			})).toBeVisible();
 			expect(serviceCards[0]).toHaveAttribute('href', '/articles/des-missions-de-benevolat-toujours-disponibles');
 		});
 	});

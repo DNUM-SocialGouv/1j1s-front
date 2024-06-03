@@ -6,6 +6,8 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
+import { KeyBoard } from '~/client/components/keyboard.fixture';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -13,7 +15,10 @@ import { aLocalisationService } from '~/client/services/localisation/localisatio
 import { FormulaireDeContactCEJ } from './FormulaireContactCEJ';
 
 describe('<FormulaireDeContactCEJ />', () => {
-
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
+	
 	function renderComponent() {
 		const onSuccess = jest.fn();
 		const onFailure = jest.fn();
@@ -65,17 +70,15 @@ describe('<FormulaireDeContactCEJ />', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		// Given
+		const user = userEvent.setup();
 		renderComponent();
-		// When
-		await userEvent.click(screen.getByText('Age'));
-		await userEvent.click(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }));
-		// When
-		const input = await screen.findByTestId('Select-InputHidden');
+		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+		await user.click(combobox);
+		await user.keyboard(KeyBoard.ESCAPE);
 
-		// Then
-		expect(input).toBeInvalid();
+		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
 	});
+
 	describe('Quand l’utilisateur clique sur Envoyer la demande', () => {
 		describe('et que le formulaire est valide', () => {
 			it('le bouton de soumission est désactivé et affiche "Envoi en cours" pendant la soumission du formulaire', async () => {
@@ -184,8 +187,8 @@ async function remplirFormulaireDeContactEtEnvoyer(data: ContactInputs) {
 	const paris15eOption = await screen.findByText('Paris 15e Arrondissement (75015)');
 	await user.click(paris15eOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByText(data.age));
+	await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+	await user.click(screen.getByRole('option', { name: data.age }));
 
 	await user.click(screen.getByRole('button', { name: 'Envoyer la demande' }));
 }

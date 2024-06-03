@@ -8,6 +8,7 @@ import { userEvent } from '@testing-library/user-event';
 
 import DemandeContactCEJ
 	from '~/client/components/features/ContratEngagementJeune/DemandeDeContactCEJ/DemandeContactCEJ';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDemandeDeContactService } from '~/client/services/demandeDeContact/demandeDeContact.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -26,6 +27,9 @@ const formulaireContact = {
 };
 
 describe('<DemandeContactCEJ />', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -59,7 +63,7 @@ describe('<DemandeContactCEJ />', () => {
 			expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Age Exemple : 16 ans' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' })).toBeVisible();
 			expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
 
 			expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
@@ -233,6 +237,6 @@ async function remplirFormulaire() {
 	const villeOption = await screen.findByText(formulaireContact.ville);
 	await user.click(villeOption);
 
-	await user.click(screen.getByRole('button', { name: 'Age Exemple : 16 ans' }));
-	await user.click(screen.getByRole('radio', { name: formulaireContact.age }));
+	await user.click(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' }));
+	await user.click(screen.getByRole('option', { name: formulaireContact.age }));
 }

@@ -9,11 +9,14 @@ import {
 	FormulaireRechercheEmploisEurope,
 } from '~/client/components/features/EmploisEurope/FormulaireRecherche/FormulaireRechercheEmploisEurope';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { EURES_POSITION_SCHEDULE_TYPE } from '~/client/domain/codesTempsTravailEures';
 import { EURES_CONTRACT_TYPE } from '~/server/emplois-europe/infra/typesContratEures';
 
 describe('FormulaireRechercheEmploisEurope', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 	});
@@ -205,9 +208,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				<FormulaireRechercheEmploisEurope />,
 			);
 
-			expect(screen.getByRole('button', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' })).toBeVisible();
-			expect(screen.getByRole('button', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Temps de travail Exemple : Temps plein, temps partiel' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' })).toBeVisible();
 		});
 
 		describe('quand on recherche par type de contrat', () => {
@@ -222,10 +225,9 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' });
+				const button = screen.getByRole('combobox', { name: 'Type de contrat Exemple : Alternance, Contrat déterminé' });
 				await user.click(button);
-
-				const checkboxApprentissage = screen.getByRole('checkbox', { name: 'Apprentissage' });
+				const checkboxApprentissage = screen.getByRole('option', { name: 'Apprentissage' });
 				await user.click(checkboxApprentissage);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -248,10 +250,10 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
+				const button = screen.getByRole('combobox', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
 				await user.click(button);
 
-				const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
+				const checkboxTempsDeTravail = screen.getByRole('option', { name: 'Temps plein' });
 				await user.click(checkboxTempsDeTravail);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -274,10 +276,10 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' });
+				const button = screen.getByRole('combobox', { name: 'Niveau d‘études demandé Exemple : Master, Bachelor' });
 				await user.click(button);
 
-				const checkboxNiveauEtude = screen.getByRole('checkbox', { name: 'Niveau maîtrise (Master) ou équivalent' });
+				const checkboxNiveauEtude = screen.getByRole('option', { name: 'Niveau maîtrise (Master) ou équivalent' });
 				await user.click(checkboxNiveauEtude);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -301,13 +303,13 @@ describe('FormulaireRechercheEmploisEurope', () => {
 				);
 
 				// WHEN
-				const button = screen.getByRole('button', { name: 'Domaines Exemple : Agriculture, Communication' });
+				const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Agriculture, Communication' });
 				await user.click(button);
 
-				const checkboxSecteurActivite = screen.getByRole('checkbox', { name: 'Agriculture, sylviculture et pêche' });
+				const checkboxSecteurActivite = screen.getByRole('option', { name: 'Agriculture, sylviculture et pêche' });
 				await user.click(checkboxSecteurActivite);
 
-				const checkboxSecteurActiviteSecondOption = screen.getByRole('checkbox', { name: 'Hébergement et restauration' });
+				const checkboxSecteurActiviteSecondOption = screen.getByRole('option', { name: 'Hébergement et restauration' });
 				await user.click(checkboxSecteurActiviteSecondOption);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
@@ -340,12 +342,11 @@ describe('FormulaireRechercheEmploisEurope', () => {
 		const inputRechercheLocalisation = screen.getByRole('combobox', { name: 'Localisation (pays) Exemple : Belgique, Allemagne' });
 		expect(inputRechercheLocalisation).toHaveValue('Espagne');
 
-		const button = screen.getByRole('button', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
+		const button = screen.getByRole('combobox', { name: 'Temps de travail Exemple : Temps plein, temps partiel' });
 		await user.click(button);
 
-		const checkboxTempsDeTravail = screen.getByRole('checkbox', { name: 'Temps plein' });
-		expect(checkboxTempsDeTravail).toHaveAttribute('checked');
-
+		const optionTempsPlein = screen.getByRole('option', { name: 'Temps plein' });
+		expect(optionTempsPlein).toHaveAttribute('aria-selected', 'true');
 	});
 	it('laisse le champ localisation vide si il manque le code pays dans les query params', async () => {
 		mockUseRouter({ query: {

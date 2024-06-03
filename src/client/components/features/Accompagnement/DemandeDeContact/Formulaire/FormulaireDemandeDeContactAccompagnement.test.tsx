@@ -2,13 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import {
 	FormulaireDemandeDeContactAccompagnement,
 } from '~/client/components/features/Accompagnement/DemandeDeContact/Formulaire/FormulaireDemandeDeContactAccompagnement';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { KeyBoard } from '~/client/components/keyboard.fixture';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import {
 	anEtablissementAccompagnementService,
@@ -32,7 +33,9 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	const demandeDeContactAccompagnement = aDemandeDeContactAccompagnement();
 	let onSuccess: () => void;
 	let onFailure: () => void;
-
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 		localisationService = aLocalisationService();
@@ -94,16 +97,14 @@ describe('FormulaireDemandeDeContactAccompagnement', () => {
 	});
 
 	it('a un champ Age obligatoire', async () => {
-		// Given
+		const user = userEvent.setup();
 		renderComponent();
-		// When
-		await userEvent.click(screen.getByText('Age'));
-		await userEvent.click(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' }));
-		// When
-		const input = await screen.findByTestId('Select-InputHidden');
 
-		// Then
-		expect(input).toBeInvalid();
+		const combobox = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+		await user.click(combobox);
+		await user.keyboard(KeyBoard.ESCAPE);
+
+		expect(combobox).toHaveAccessibleDescription(/Séléctionnez un élément de la liste/);
 	});
 
 	describe('quand l’utilisateur souhaite contacter un établissement', () => {
@@ -142,11 +143,12 @@ async function envoyerDemandeContact() {
 	await userEvent.type(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' }), demandeDeContactAccompagnement.prénom);
 	await userEvent.type(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }), demandeDeContactAccompagnement.téléphone);
 	await userEvent.type(screen.getByRole('textbox', { name: 'Commentaires ou autres informations utiles (facultatif)' }), demandeDeContactAccompagnement.commentaire || '');
-	const button = screen.getByRole('button', { name: 'Age Exemple : 16 ans' });
-	await userEvent.click(button);
-	const listbox = screen.getByRole('listbox');
-	const input = within(listbox).getByRole('radio', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
-	await userEvent.click(input);
+
+	const selectAge = screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' });
+	await userEvent.click(selectAge);
+	const optionAge = screen.getByRole('option', { name: `${demandeDeContactAccompagnement.age.toString()} ans` });
+	await userEvent.click(optionAge);
+
 	const comboboxCommune = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 	await userEvent.type(comboboxCommune, 'Paris');
 	const resultatCommuneList = await screen.findAllByRole('option');

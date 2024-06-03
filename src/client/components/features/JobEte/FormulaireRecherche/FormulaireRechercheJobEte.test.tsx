@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -11,7 +11,7 @@ import {
 	FormulaireRechercheJobEte,
 } from '~/client/components/features/JobEte/FormulaireRecherche/FormulaireRechercheJobEte';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
+import { mockLargeScreen, mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { référentielDomaineList } from '~/client/domain/référentielDomaineList';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
@@ -19,6 +19,9 @@ import { createSuccess } from '~/server/errors/either';
 import { aLocalisationListWithCommuneAndDépartement } from '~/server/localisations/domain/localisation.fixture';
 
 describe('FormulaireRechercheJobEte', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	describe('en version mobile', () => {
 		beforeEach(() => {
 			mockSmallScreen();
@@ -97,13 +100,14 @@ describe('FormulaireRechercheJobEte', () => {
 				</DependenciesProvider>,
 			);
 
-			const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-			expect(button).toBeInTheDocument();
+			const button = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+			expect(button).toBeVisible();
 
 		});
 
 		describe('quand on filtre par domaine', () => {
 			it('ajoute le domaine sélectionné aux query params', async () => {
+				const user = userEvent.setup();
 				const localisationServiceMock = aLocalisationService();
 				const routerPush = jest.fn();
 				mockUseRouter({ push: routerPush });
@@ -114,18 +118,15 @@ describe('FormulaireRechercheJobEte', () => {
 					</DependenciesProvider>,
 				);
 
-				const button = screen.getByRole('button', { name: 'Domaines Exemple : Commerce, Immobilier…' });
-				fireEvent.click(button);
-
-				const domaineList = await screen.findByRole('listbox');
-
-				const inputDomaine = within(domaineList).getAllByRole('checkbox');
-				fireEvent.click(inputDomaine[2]);
+				const select = screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' });
+				await user.click(select);
+				const optionDomaine = screen.getByRole('option', { name: référentielDomaineList[2].libelle });
+				await user.click(optionDomaine);
 
 				const buttonRechercher = screen.getByRole('button', { name: 'Rechercher' });
-				fireEvent.click(buttonRechercher);
+				await user.click(buttonRechercher);
 
-				expect(routerPush).toHaveBeenCalledWith({ query: 'grandDomaine=C&page=1' }, undefined, { scroll: false });
+				expect(routerPush).toHaveBeenCalledWith({ query: `grandDomaine=${référentielDomaineList[2].code}&page=1` }, undefined, { scroll: false });
 			});
 		});
 	});
@@ -150,7 +151,8 @@ describe('FormulaireRechercheJobEte', () => {
 		expect(motCle).toHaveValue('Boulanger');
 		const localisation = screen.getByRole('combobox', { name: /Localisation/i });
 		expect(localisation).toHaveValue('Paris (75010)');
-		const domaine = screen.getByTestId('Select-InputHidden');
-		expect(domaine).toHaveValue(référentielDomaineList[0].code);
+
+		expect(screen.getByRole('combobox', { name: 'Domaines Exemple : Commerce, Immobilier…' })).toHaveTextContent('1 choix séléctionné');
+		expect(screen.getByDisplayValue(référentielDomaineList[0].code)).toBeInTheDocument();
 	});
 });

@@ -1,4 +1,4 @@
-import { Option } from '~/client/components/ui/Select/Select';
+import { Option } from '~/client/components/ui/Form/Select/Select';
 import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 
 describe('récupérerLibelléDepuisValeur', () => {

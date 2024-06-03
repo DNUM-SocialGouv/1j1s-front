@@ -59,7 +59,7 @@ describe('FormulaireRechercheAlternance', () => {
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
-			expect(screen.getByRole('button', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
+			expect(screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' })).toBeVisible();
 		});
 	});
 
@@ -214,8 +214,10 @@ describe('FormulaireRechercheAlternance', () => {
 		expect(inputMetiers).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = screen.getByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
-		const rayon = screen.getByTestId('Select-InputHidden');
-		expect(rayon).toHaveValue('10');
+
+		const comboboxRayon = screen.getByRole('combobox', { name: 'Rayon Exemple : 30 km' });
+		expect(comboboxRayon).toHaveTextContent('10 km');
+		expect(screen.getByDisplayValue('10')).toBeInTheDocument();
 	});
 
 	it('laisse le champ domaine vide quand il manque les codes romes dans les query params', () => {

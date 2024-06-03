@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import {
@@ -10,16 +10,20 @@ import {
 } from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercherFormation';
 import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aCommuneQuery } from '~/client/hooks/useCommuneQuery';
 import { aFormationService, aRésultatFormation } from '~/client/services/formation/formation.service.fixture';
 import { aLocalisationService } from '~/client/services/localisation/localisation.service.fixture';
 import { aMetier, aMetierService, aMetiersList } from '~/client/services/metiers/metier.fixture';
 import { createSuccess } from '~/server/errors/either';
+import { Formation } from '~/server/formations/domain/formation';
 import { aListeDeMetierLaBonneAlternance } from '~/server/metiers/domain/metierAlternance.fixture';
 
 describe('FormulaireRechercherFormation', () => {
+	beforeAll(() => {
+		mockScrollIntoView();
+	});
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
@@ -235,12 +239,11 @@ describe('FormulaireRechercherFormation', () => {
 			const localisationOptions = await screen.findAllByRole('option');
 			await user.click(localisationOptions[0]);
 
-			const selectNiveauEtudes = screen.getByRole('button', { name: 'Niveau d’études visé (facultatif)' });
+			const selectNiveauEtudes = screen.getByRole('combobox', { name: 'Niveau d’études visé (facultatif)' });
 			await user.click(selectNiveauEtudes);
 
-			const niveauEtudesList = await screen.findByRole('listbox');
-			const inputNiveauEtudes = within(niveauEtudesList).getAllByRole('radio');
-			await user.click(inputNiveauEtudes[0]);
+			const optionNiveauEtude = screen.getByRole('option', { name: Formation.NIVEAU_3.libellé });
+			await user.click(optionNiveauEtude);
 
 			const submitButton = screen.getByRole('button', { name: 'Rechercher' });
 			await user.click(submitButton);
@@ -287,9 +290,12 @@ describe('FormulaireRechercherFormation', () => {
 		expect(domaine).toHaveValue('Boulangerie, pâtisserie, chocolaterie');
 		const localisation = await screen.findByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' });
 		expect(localisation).toHaveValue('Paris (75001)');
-		const rayon = screen.getByRole('button', { hidden: true, name: /Rayon/i });
-		expect(rayon).toHaveTextContent('10');
-		const niveau = screen.getByRole('button', { name: /Niveau d’études visé/i });
+
+		const selectRayon = screen.getByRole('combobox', { name: /Rayon/i });
+		expect(selectRayon).toHaveTextContent('10 km');
+		expect(screen.getByDisplayValue('10')).toBeInTheDocument();
+
+		const niveau = screen.getByRole('combobox', { name: /Niveau d’études visé/i });
 		expect(niveau).toHaveTextContent('Bac, autres formations niveau 4');
 		const formulaireRechercheFormation = screen.getByRole('form');
 		expect(formulaireRechercheFormation).toHaveFormValues(query);

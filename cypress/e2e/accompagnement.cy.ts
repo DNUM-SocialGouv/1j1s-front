@@ -31,7 +31,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('listbox', { name: 'communes' })
 					.within(() => cy.findAllByRole('option').first().click());
 
-				cy.findByRole('button', { name: /Type d‘accompagnement/ }).click();
+				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).click();
 				cy.findByRole('listbox')
 					.within(() => cy.findAllByRole('option').first().click());
 
@@ -61,7 +61,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('listbox', { name: 'communes' })
 					.within(() => cy.findAllByRole('option').first().click());
 
-				cy.findByRole('button', { name: /Type d‘accompagnement/ }).click();
+				cy.findByRole('combobox', { name: 'Type d‘accompagnement Exemple : Missions locales' }).click();
 				cy.findByRole('listbox')
 					.within(() => cy.findAllByRole('option').first().click());
 
@@ -85,7 +85,7 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('textbox', { name: 'Nom Exemple : Dupont' }).type('Doe', { force: true });
 				cy.findByRole('textbox', { name: /Adresse e-mail/ }).type('john.doe@email.com');
 				cy.findByRole('textbox', { name: 'Téléphone Exemple : 0606060606' }).type('0606060606');
-				cy.findByRole('button', { name: 'Age Exemple : 16 ans' }).click();
+				cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
 				cy.findByRole('option', { name: '23 ans' }).click();
 
 				interceptGet({

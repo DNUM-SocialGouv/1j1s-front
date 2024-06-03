@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent } from 'react';
 
-import styles from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
+import styles
+	from '~/client/components/features/Formation/FormulaireRecherche/FormulaireRechercheFormation.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
 import { ComboboxMetiers } from '~/client/components/ui/Form/Combobox/ComboboxMetiers';
 import { Metier } from '~/client/components/ui/Form/Combobox/ComboboxMetiers/Metier';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Select } from '~/client/components/ui/Select/Select';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { MetierDependenciesProvider } from '~/client/context/metier.context';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
@@ -28,6 +29,7 @@ export function FormulaireRechercherFormation() {
 		distanceCommune,
 		ville,
 		codePostal,
+		niveauEtudes,
 	} = queryParams;
 
 	const domaineDefaultValue: Metier | undefined = (codeRomes && libelleMetier)
@@ -44,15 +46,7 @@ export function FormulaireRechercherFormation() {
 		longitudeCommune,
 		ville,
 	});
-
-	const [inputNiveauEtudes, setInputNiveauEtudes] = useState<string>('');
-
 	const router = useRouter();
-
-	useEffect(function initFormValues() {
-		// FIXME (GAFI 08-08-2023): Faire évoluer les composants pour pouvoir passer par defaultValue plutôt que value et onChange
-		setInputNiveauEtudes(queryParams.niveauEtudes || '');
-	}, [queryParams]);
 
 	async function updateRechercherFormationQueryParams(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -88,8 +82,7 @@ export function FormulaireRechercherFormation() {
 					<Select
 						name="niveauEtudes"
 						optionList={Formation.NIVEAU_ETUDES}
-						onChange={setInputNiveauEtudes}
-						value={inputNiveauEtudes}
+						defaultValue={niveauEtudes}
 						label="Niveau d’études visé (facultatif)"
 						className={styles.inputNiveauEtudes}
 					/>

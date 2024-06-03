@@ -6,8 +6,8 @@ import styles
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
+import { Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Select } from '~/client/components/ui/Select/Select';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { useMissionEngagementQuery } from '~/client/hooks/useMissionEngagementQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
@@ -29,6 +29,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		ville,
 		codePostal,
 		distanceCommune,
+		domain,
 	} = queryParams;
 
 	const defaultCommune = mapToCommune({
@@ -40,12 +41,10 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 		ville,
 	});
 
-	const [domainValue, setDomainValue] = useState('');
 	const [ouvertAuxMineurs, setOuvertAuxMineurs] = useState<boolean>(false);
 
 
 	useEffect(function initFormValues() {
-		setDomainValue(queryParams.domain || '');
 		setOuvertAuxMineurs(queryParams.ouvertsAuxMineurs || false);
 	}, [queryParams]);
 
@@ -68,8 +67,7 @@ export function FormulaireRechercheMissionEngagement({ domainList }: FormulaireR
 						name="domain"
 						labelComplement="Exemple : Culture et loisirs"
 						optionList={domainList}
-						onChange={(value) => setDomainValue(value)}
-						value={domainValue}
+						defaultValue={domain}
 					/>
 					<ComboboxCommune
 						defaultCommune={defaultCommune}
