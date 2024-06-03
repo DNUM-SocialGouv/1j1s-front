@@ -879,23 +879,46 @@ describe('<Select />', () => {
 
 				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
 
-				it('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable', async () => {
-					const user = userEvent.setup();
-					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				describe('lorsque l‘utilisateur fait tab', () => {
+					it('sur une option pas encore séléctionnée, l‘option qui a le focus visuel est séléctionnée, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable', async () => {
+						const user = userEvent.setup();
+						const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-					render(<form aria-label="form">
-						<Select multiple optionList={options} label={'label'} name={'name'}/>
-						<input aria-label={'input label'}/>
-					</form>);
+						render(<form aria-label="form">
+							<Select multiple optionList={options} label={'label'} name={'name'}/>
+							<input aria-label={'input label'}/>
+						</form>);
 
-					await user.tab();
-					await user.keyboard(KeyBoard.ENTER);
-					await user.keyboard(KeyBoard.ARROW_DOWN);
-					await user.tab();
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+						await user.keyboard(KeyBoard.ARROW_DOWN);
+						await user.tab();
 
-					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '2' });
-					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
-					expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
+						expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '2' });
+						expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+						expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
+					});
+
+					it('sur une option pas déjà séléctionnée, l‘option qui a le focus visuel reste séléctionnée, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable', async () => {
+						const user = userEvent.setup();
+						const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+						render(<form aria-label="form">
+							<Select multiple optionList={options} label={'label'} name={'name'}/>
+							<input aria-label={'input label'}/>
+						</form>);
+
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+						await user.keyboard(KeyBoard.ARROW_DOWN);
+						await user.keyboard(KeyBoard.SPACE);
+						await user.tab();
+
+						expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '2' });
+						expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+						expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
+					});
+
 				});
 
 				it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {

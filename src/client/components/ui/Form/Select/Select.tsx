@@ -409,8 +409,12 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			case KeyBoard.TAB: {
 				if (state.isListOptionsOpen) {
 					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+
 					if (selectedOptionID) {
-						selectOption(selectedOptionID);
+						const option = document.getElementById(selectedOptionID);
+						const optionValue = option?.getAttribute('data-value');
+						const isOptionSelected=  optionValue && isCurrentItemSelected(optionValue);
+						!isOptionSelected && selectOption(selectedOptionID);
 					}
 				}
 				break;
@@ -434,7 +438,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [closeList, selectOption, state.isListOptionsOpen]);
+	}, [closeList, isCurrentItemSelected, selectOption, state.isListOptionsOpen]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;
