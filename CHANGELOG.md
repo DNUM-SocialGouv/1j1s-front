@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.295.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.294.1...v3.295.0) (2024-06-03)
+
+
+### Features
+
+* **UI:** mise en place d'un select accessible etape 1 ([#3027](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3027)) ([a11121d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a11121d2b208869069bc3a2c26c8819cb51d7314))
+
 ## [3.294.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.294.0...v3.294.1) (2024-06-03)
 
 
