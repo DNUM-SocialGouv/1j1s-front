@@ -10,8 +10,15 @@ import {
 import {
 	EtiquettesFiltresRecherche,
 } from '~/client/components/features/EmploisEurope/Rechercher/EtiquettesFiltresRecherche';
+import { ExperiencesEnEurope } from '~/client/components/features/Europe/Sections';
+import { AidesFinancieresEurope } from '~/client/components/features/ServiceCard/AidesFinancieresEurope';
+import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { EurasmusPlusPartner } from '~/client/components/features/ServiceCard/ErasmusPlusPartner';
+import { EuresPartner } from '~/client/components/features/ServiceCard/EuresPartner';
+import { ExperiencesEurope } from '~/client/components/features/ServiceCard/ExperiencesEurope';
 import { Head } from '~/client/components/head/Head';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useEmploiEuropeQuery } from '~/client/hooks/useEmploiEuropeQuery';
 import { EmploiEuropeService } from '~/client/services/europe/emploiEurope.service';
@@ -85,6 +92,13 @@ export default function RechercherEmploisEurope() {
 				messageResultatRecherche={messageResultatRecherche}
 				maxPage={EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED - 1}
 			/>
+			<EnTete heading="Découvrez les dispositifs pour vous accompagner dans votre projet"/>
+			<ServiceCardList>
+				<EuresPartner/>
+				<EurasmusPlusPartner/>
+				<AidesFinancieresEurope/>
+				<ExperiencesEurope/>
+			</ServiceCardList>
 		</main>
 	</>;
 }
