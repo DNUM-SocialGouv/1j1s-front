@@ -34,18 +34,20 @@ describe('Parcours formulaire cej', () => {
 
 			cy.intercept(
 				'/api/communes*',
-				JSON.stringify({ résultats: [
-					{
-						code: '75056',
-						codePostal: '75006',
-						coordonnées: {
-							latitude: 48.859,
-							longitude: 2.347,
+				JSON.stringify({
+					résultats: [
+						{
+							code: '75056',
+							codePostal: '75006',
+							coordonnées: {
+								latitude: 48.859,
+								longitude: 2.347,
+							},
+							libelle: 'Paris (75006)',
+							ville: 'Paris',
 						},
-						libelle: 'Paris (75006)',
-						ville: 'Paris',
-					},
-				] }),
+					],
+				}),
 			).as('get-communes');
 			cy.findByRole('combobox', { name: /Ville/i }).type('paris');
 			cy.findByRole('option', { name: 'Paris (75006)' }).click();
@@ -72,6 +74,44 @@ describe('Parcours formulaire cej', () => {
 			);
 
 			cy.findByText('Votre demande a bien été transmise !').should('be.visible');
+		});
+	});
+
+	context('quand l‘utilisateur rempli le champ email avec un email qui ne correspond pas à la regex', () => {
+		// NOTE (BRUJ 30/05/2024): Ce test permet de verifier que la regex d'email est bien fonctionelle en tant que pattern d'un input
+		it('le champ est invalide et le formulaire n‘est pas envoyé', () => {
+			cy.findByRole('button', { name: /Demander à être contacté\.e/i }).click();
+
+			cy.findByRole('textbox', { name: /Prénom/i }).type('jean');
+			cy.findByRole('textbox', { name: /Nom/ }).type('dupont', { force: true });
+			cy.findByRole('textbox', { name: /Adresse e-mail/i }).type('mauvais-email@123ab.com');
+			cy.findByRole('textbox', { name: /Téléphone/i }).type('0688552233');
+			cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
+			cy.findAllByRole('option').first().click();
+			cy.findByRole('combobox', { name: /Ville/i }).type('paris');
+			cy.intercept(
+				'/api/communes*',
+				JSON.stringify({
+					résultats: [
+						{
+							code: '75056',
+							codePostal: '75006',
+							coordonnées: {
+								latitude: 48.859,
+								longitude: 2.347,
+							},
+							libelle: 'Paris (75006)',
+							ville: 'Paris',
+						},
+					],
+				}),
+			).as('get-communes');
+			cy.findByRole('option', { name: 'Paris (75006)' }).click();
+
+			cy.findByRole('button', { name: /Envoyer la demande/i }).click();
+
+
+			cy.findByRole('textbox', { name: /Adresse e-mail/i }).should('match', ':invalid');
 		});
 	});
 });
