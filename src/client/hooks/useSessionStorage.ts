@@ -7,18 +7,10 @@ function useSessionStorage<T>(key: string): {get: () => T | null, set: (value: T
 	const [fallbackStorage, setFallbackStorage] = useState<T | null>(null);
 	const sessionStorage = useDependency<StorageService>('sessionStorageService');
 
-	if (sessionStorage != null) {
-		return {
-			get: () => sessionStorage.get(key),
-			remove: (): void => sessionStorage.remove(key),
-			set: (value) => sessionStorage.set(key, value),
-		};
-	}
-
 	return {
-		get: () => fallbackStorage,
-		remove: () => setFallbackStorage(null),
-		set: setFallbackStorage,
+		get() { try { return sessionStorage.get<T>(key); } catch (e) { return fallbackStorage; }},
+		remove() { try { sessionStorage.remove(key); } catch (e) { setFallbackStorage(null); }},
+		set(value) { try { sessionStorage.set(key, value); } catch (e) { setFallbackStorage(value); }},
 	};
 }
 
