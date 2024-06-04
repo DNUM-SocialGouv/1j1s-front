@@ -46,14 +46,8 @@ import {
 	LocalStorageStageDeposerOffreEtape1PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape1Persistence/localStorageStageDeposerOffreEtape1Persistence.service';
 import {
-	NullStageDeposerOffreEtape1PersistenceService,
-} from '~/client/services/stageDeposerOffreEtape1Persistence/nullStageDeposerOffreEtape1Persistence.service';
-import {
 	StageDeposerOffreEtape1PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape1Persistence/stageDeposerOffreEtape1Persistence.service';
-import {
-	NullStageDeposerOffreEtape2PersistenceService,
-} from '~/client/services/stageDeposerOffreEtape2Persistence/nullStageDeposerOffreEtape2Persistence.service';
 import {
 	SessionStorageStageDeposerOffreEtape2PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape2Persistence/sessionStorageStageDeposerOffreEtape2Persistence.service';
@@ -64,15 +58,13 @@ import {
 	LocalStorageStageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/localStorageStageDeposerOffreEtape3Persistence.service';
 import {
-	NullStageDeposerOffreEtape3PersistenceService,
-} from '~/client/services/stageDeposerOffreEtape3Persistence/nullStageDeposerOffreEtape3Persistence.service';
-import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
 import { BrowserStorageService } from '~/client/services/storage/browser.storage.service';
+import { NullStorageService } from '~/client/services/storage/null.storage.service';
+import { StorageService } from '~/client/services/storage/storage.service';
 import { VideoService } from '~/client/services/video/video.service';
 import { YoutubeVideoService } from '~/client/services/video/youtube/youtube.video.service';
-import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
 
 export type Dependency = Dependencies[keyof Dependencies];
 export type Dependencies = {
@@ -95,8 +87,8 @@ export type Dependencies = {
 	stageDeposerOffreEtape1PersistenceService: StageDeposerOffreEtape1PersistenceService
 	stageDeposerOffreEtape2PersistenceService: StageDeposerOffreEtape2PersistenceService
 	stageDeposerOffreEtape3PersistenceService: StageDeposerOffreEtape3PersistenceService
-	localStorageService?: BrowserStorageService
-	sessionStorageService?: BrowserStorageService
+	localStorageService: StorageService
+	sessionStorageService: StorageService
 }
 
 class DependencyInitException extends Error {
@@ -162,23 +154,14 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 
 	const stage3eEt2deService = new BffStage3eEt2deService(httpClientService);
 
-	const localStorageService = isStorageAvailable('localStorage')
-		? new BrowserStorageService(window.localStorage)
-		: undefined;
-	const sessionStorageService = isStorageAvailable('sessionStorage')
-		? new BrowserStorageService(window.sessionStorage)
-		: undefined;
-	const stageDeposerOffreEtape1PersistenceService = localStorageService
-		? new LocalStorageStageDeposerOffreEtape1PersistenceService(localStorageService)
-		: new NullStageDeposerOffreEtape1PersistenceService();
-
-	const stageDeposerOffreEtape2PersistenceService = sessionStorageService
-		? new SessionStorageStageDeposerOffreEtape2PersistenceService(sessionStorageService)
-		: new NullStageDeposerOffreEtape2PersistenceService();
-
-	const stageDeposerOffreEtape3PersistenceService = localStorageService
-		? new LocalStorageStageDeposerOffreEtape3PersistenceService(localStorageService)
-		: new NullStageDeposerOffreEtape3PersistenceService();
+	const localStorageService = new BrowserStorageService(window.localStorage);
+	const sessionStorageService = new BrowserStorageService(window.sessionStorage);
+	const stageDeposerOffreEtape1PersistenceService = new LocalStorageStageDeposerOffreEtape1PersistenceService(
+		addFallbackToStorageService(localStorageService, new NullStorageService()));
+	const stageDeposerOffreEtape2PersistenceService = new SessionStorageStageDeposerOffreEtape2PersistenceService(
+		addFallbackToStorageService(sessionStorageService, new NullStorageService()));
+	const stageDeposerOffreEtape3PersistenceService = new LocalStorageStageDeposerOffreEtape3PersistenceService(
+		addFallbackToStorageService(localStorageService, new NullStorageService()));
 
 	return {
 		analyticsService,
@@ -202,5 +185,31 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,
+	};
+}
+
+function addFallbackToStorageService(service: StorageService, fallback: StorageService): StorageService {
+	return {
+		get<DataType>(key: string): DataType | null {
+			try {
+				return service.get(key);
+			} catch (e) {
+				return fallback.get(key);
+			}
+		},
+		remove(key: string): void {
+			try {
+				return service.remove(key);
+			} catch (e) {
+				return fallback.remove(key);
+			}
+		},
+		set<DataType>(key: string, value: DataType): void {
+			try {
+				return service.set(key, value);
+			} catch (e) {
+				return fallback.set(key, value);
+			}
+		},
 	};
 }
