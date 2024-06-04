@@ -34,14 +34,14 @@ export function ModalComponent(props: ModalProps) {
 		document.body.style.overflow = isOpen ? 'hidden' : 'visible';
 	}
 
-	const closeModalOnClickOutside = useCallback((e: MouseEvent) => {
-		if (modalRef.current && !(modalRef.current)?.contains(e.target as Node)) close();
-
+	const closeModalOnClickOutside = useCallback((event: MouseEvent) => {
+		if (modalRef.current && !modalRef.current.contains(event.target as Node))
+			close();
 	}, [modalRef, close]);
 
-	const closeModalOnClickEscape = useCallback((e: KeyboardEvent) => {
-		if (isOpen && e.key === KeyBoard.ESCAPE) close();
-
+	const closeModalOnClickEscape = useCallback((event: KeyboardEvent) => {
+		if (isOpen && (event.key === KeyBoard.ESCAPE || event.key === KeyBoard.IE_ESCAPE) && !event.defaultPrevented)
+			close();
 	}, [isOpen, close]);
 
 	useEffect(function enableDocumentBodyWhenTheModalIsClosing() {
