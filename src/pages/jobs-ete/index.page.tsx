@@ -4,7 +4,10 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { RechercherJobEte } from '~/client/components/features/JobEte/Rechercher/RechercherJobEte';
+import { CarteOffreEmploi } from '~/client/components/features/CarteOffreEmploi/CarteOffreEmploi';
+import {
+	FormulaireRechercheJobEte,
+} from '~/client/components/features/JobEte/FormulaireRecherche/FormulaireRechercheJobEte';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
 import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
@@ -38,7 +41,18 @@ export default function RechercherJobsEtePage(props: RechercherJobsEtePageProps)
 		}
 	}, [router]);
 
-	return <RechercherJobEte resultats={props.resultats} erreurRecherche={props.erreurRecherche}/>;
+	return (
+		<CarteOffreEmploi 
+			type='jobEte' 
+			prefixTitrePage={'Rechercher un job d’été'} 
+			FormulaireDeRechercheComposant={<FormulaireRechercheJobEte/>}
+			headDescription={'Des milliers de jobs d’été sélectionnés pour vous'} 
+			premierTexteBanniere={'Des milliers de jobs d’été'} 
+			resultats={props.resultats}
+			erreurRecherche={props.erreurRecherche}
+			ariaLabelListeOffres={'Offres de jobs d’été'}
+		/>
+	);
 };
 
 const jobsEteQuerySchema = Joi.object({

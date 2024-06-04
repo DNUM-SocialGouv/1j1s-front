@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { stringify } from 'querystring';
 import React, { useEffect } from 'react';
 
-import { RechercherJobÉtudiant } from '~/client/components/features/JobÉtudiant/Rechercher/RechercherJobÉtudiant';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import empty from '~/client/utils/empty';
 import { transformQueryToArray } from '~/pages/api/utils/joi/joi.util';
@@ -21,6 +20,10 @@ import { JobÉtudiantFiltre } from '~/server/jobs-étudiants/domain/jobÉtudiant
 import { DomaineCode, MAX_PAGE_ALLOWED_BY_FRANCE_TRAVAIL, RésultatsRechercheOffre } from '~/server/offres/domain/offre';
 import { mapLocalisation } from '~/server/offres/infra/controller/offreFiltre.mapper';
 import { dependencies } from '~/server/start';
+import { CarteOffreEmploi } from '~/client/components/features/CarteOffreEmploi/CarteOffreEmploi';
+import {
+	FormulaireRechercheJobÉtudiant
+} from '~/client/components/features/JobÉtudiant/FormulaireRecherche/FormulaireRechercheJobÉtudiant';
 
 interface RechercherJobEtudiantPageProps {
 	erreurRecherche?: Erreur
@@ -39,7 +42,18 @@ export default function RechercherJobÉtudiantPage(props: RechercherJobEtudiantP
 		}
 	}, [router]);
 
-	return <RechercherJobÉtudiant resultats={props.resultats} erreurRecherche={props.erreurRecherche} />;
+	return (
+		<CarteOffreEmploi
+			type='jobEtudiant'
+			prefixTitrePage={'Rechercher un job étudiant'}
+			FormulaireDeRechercheComposant={<FormulaireRechercheJobÉtudiant/>}
+			headDescription={'Des milliers de jobs étudiants sélectionnés pour vous'}
+			premierTexteBanniere={'Des milliers de jobs étudiants'}
+			resultats={props.resultats}
+			erreurRecherche={props.erreurRecherche}
+			ariaLabelListeOffres={'Offres de jobs étudiant'}
+		/>
+	);
 }
 
 const jobsEtudiantsQuerySchema = Joi.object({
