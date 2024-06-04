@@ -62,6 +62,7 @@ import {
 import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
+import { addFallbackToStorageService } from '~/client/services/storage/addFallbackToStorageService';
 import { BrowserStorageService } from '~/client/services/storage/browser.storage.service';
 import { NullStorageService } from '~/client/services/storage/null.storage.service';
 import { StorageService } from '~/client/services/storage/storage.service';
@@ -190,31 +191,5 @@ export default function dependenciesContainer(sessionId?: string): Dependencies 
 		stageService,
 		youtubeService,
 		établissementAccompagnementService,
-	};
-}
-
-function addFallbackToStorageService(service: StorageService, fallback: StorageService): StorageService {
-	return {
-		get<DataType>(key: string): DataType | null {
-			try {
-				return service.get(key);
-			} catch (e) {
-				return fallback.get(key);
-			}
-		},
-		remove(key: string): void {
-			try {
-				return service.remove(key);
-			} catch (e) {
-				return fallback.remove(key);
-			}
-		},
-		set<DataType>(key: string, value: DataType): void {
-			try {
-				return service.set(key, value);
-			} catch (e) {
-				return fallback.set(key, value);
-			}
-		},
 	};
 }
