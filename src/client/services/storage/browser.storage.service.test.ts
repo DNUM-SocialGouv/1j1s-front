@@ -36,7 +36,7 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(storage);
 
-		expect(() => service.get('key')).toThrow(new Error('storage unavailable'));
+		expect(() => service.get('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
 	});
 	it('throw une erreur quand on set(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
@@ -44,7 +44,7 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(storage);
 
-		expect(() => service.set('key', 'value')).toThrow(new Error('storage unavailable'));
+		expect(() => service.set('key', 'value')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
 	});
 	it('throw une erreur quand on remove(), mais que le stockage n‘est pas disponible', () => {
 		const storage = aStorage({
@@ -52,6 +52,6 @@ describe('browserStorageService', () => {
 		});
 		const service = new BrowserStorageService(storage);
 
-		expect(() => service.remove('key')).toThrow(new Error('storage unavailable'));
+		expect(() => service.remove('key')).toThrow(new BrowserStorageService.StorageUnavailableError('storage unavailable'));
 	});
 });

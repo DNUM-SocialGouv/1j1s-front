@@ -14,8 +14,7 @@ export class BrowserStorageService implements StorageService {
 		try {
 			value = this.storage.getItem(key);
 		} catch (e) {
-			// FIXME (GAFI 04-06-2024): Erreur custom
-			throw new Error('storage unavailable');
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 		if (value == null) { return null; }
 		return JSON.parse(value);
@@ -26,8 +25,7 @@ export class BrowserStorageService implements StorageService {
 		try {
 			this.storage.setItem(key, serializedData);
 		} catch (e) {
-			// FIXME (GAFI 04-06-2024): Erreur custom
-			throw new Error('storage unavailable');
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 	}
 
@@ -35,8 +33,11 @@ export class BrowserStorageService implements StorageService {
 		try {
 			this.storage.removeItem(key);
 		} catch (e) {
-			// FIXME (GAFI 04-06-2024): Erreur custom
-			throw new Error('storage unavailable');
+			throw new BrowserStorageService.StorageUnavailableError('storage unavailable');
 		}
 	}
+}
+
+export namespace BrowserStorageService {
+	export class StorageUnavailableError extends Error {}
 }
