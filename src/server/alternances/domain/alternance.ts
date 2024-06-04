@@ -23,7 +23,6 @@ export interface Alternance {
 	dateDébut?: Date
 	rythmeAlternance?: string
 	source: Alternance.Source
-	tags: string[]
 	lienPostuler?: string
 	status?: AlternanceStatus
 }
@@ -34,7 +33,7 @@ export type ResultatRechercheAlternance = {
 }
 
 export namespace ResultatRechercheAlternance {
-	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'tags' | 'entreprise'>
+	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise'>
 	export interface Entreprise {
 		adresse?: string
 		ville?: string

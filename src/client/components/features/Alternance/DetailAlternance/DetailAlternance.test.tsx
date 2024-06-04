@@ -43,6 +43,26 @@ describe('<Detail />', () => {
 		expect(entreprise).toBeVisible();
 	});
 	describe('pour une offre France Travail', () => {
+		it('affiche les tags', () => {
+			const annonce = aDetailAlternance({
+				localisation: 'Paris',
+				source: Alternance.Source.FRANCE_TRAVAIL,
+				typeDeContrat: ['CDD', 'CDI'],
+			});
+
+			render(<DependenciesProvider dateService={aDateService()}>
+				<DetailAlternance annonce={annonce}/>
+			</DependenciesProvider>);
+
+			const tagsUl = screen.getByRole('list', { name: 'mots clés de l‘offre' });
+			const tags = within(tagsUl).getAllByRole('listitem');
+			expect(tags).toHaveLength(4);
+			expect(tags[0]).toHaveTextContent('Paris');
+			expect(tags[1]).toHaveTextContent('Contrat d‘alternance');
+			expect(tags[2]).toHaveTextContent('CDD');
+			expect(tags[3]).toHaveTextContent('CDI');
+		});
+
 		it('affiche le lien pour postuler', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
 
@@ -80,6 +100,27 @@ describe('<Detail />', () => {
 		});
 	});
 	describe('pour une offre Matcha', () => {
+		it('affiche les tags', () => {
+			const annonce = aDetailAlternance({
+				localisation: 'Paris',
+				niveauRequis: 'débutant',
+				source: Alternance.Source.MATCHA,
+				typeDeContrat: ['CDD', 'CDI'],
+			});
+
+			render(<DependenciesProvider dateService={aDateService()}>
+				<DetailAlternance annonce={annonce}/>
+			</DependenciesProvider>);
+
+			const tagsUl = screen.getByRole('list', { name: 'mots clés de l‘offre' });
+			const tags = within(tagsUl).getAllByRole('listitem');
+			expect(tags).toHaveLength(4);
+			expect(tags[0]).toHaveTextContent('Paris');
+			expect(tags[1]).toHaveTextContent('CDD');
+			expect(tags[2]).toHaveTextContent('CDI');
+			expect(tags[3]).toHaveTextContent('débutant');
+		});
+
 		it('n’affiche pas le lien pour postuler a une offre France Travail', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 

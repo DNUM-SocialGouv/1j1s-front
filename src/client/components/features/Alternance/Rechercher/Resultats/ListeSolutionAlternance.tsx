@@ -26,6 +26,21 @@ export function ListeSolutionAlternance({ alternanceList }: {
 		return 'france travail';
 	};
 
+	function getTags(alternance: Alternance) {
+		const tags = [];
+		if (alternance.localisation) tags.push(alternance.localisation);
+
+		if (alternance.source === Alternance.Source.FRANCE_TRAVAIL) {
+			tags.push(Alternance.Contrat.ALTERNANCE);
+			if (alternance.typeDeContrat && alternance.typeDeContrat?.length > 0) tags.push(...alternance.typeDeContrat);
+			return tags;
+		}
+
+		if (alternance.typeDeContrat && alternance.typeDeContrat?.length > 0) tags.push(...alternance.typeDeContrat);
+		if (alternance.niveauRequis) tags.push(alternance.niveauRequis);
+		return tags;
+	}
+
 	return (
 		<>
 			<ListeRésultatsRechercherSolution aria-label="Offres d’alternances">
@@ -35,7 +50,7 @@ export function ListeSolutionAlternance({ alternanceList }: {
 							lienOffre={`/apprentissage/${alternance.id}`}
 							intituléOffre={alternance.titre}
 							logo={getLogo(alternance)}
-							étiquetteOffreList={alternance.tags}
+							étiquetteOffreList={getTags(alternance)}
 							sousTitreOffre={alternance.entreprise.nom}
 							logoAlt={getAlternativeTextuelle(alternance)}
 						/>

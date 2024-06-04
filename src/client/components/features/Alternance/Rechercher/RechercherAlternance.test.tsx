@@ -63,14 +63,12 @@ describe('RechercherAlternance', () => {
 				entreprise: { nom: 'MONSIEUR MICHEL' },
 				id: 'an-id-matchas',
 				source: Alternance.Source.MATCHA,
-				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 				titre: 'Ouvrier boulanger / Ouvrière boulangère',
 			}),
 			aRecherchePEJobAlternance({
 				entreprise: { nom: 'une entreprise' },
 				id: 'an-id-pe',
 				source: Alternance.Source.FRANCE_TRAVAIL,
-				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 				titre: 'un titre',
 			}),
 		];

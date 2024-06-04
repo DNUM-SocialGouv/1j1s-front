@@ -83,7 +83,7 @@ describe('mapRechercheAlternance', () => {
 
 		const result = mapRechercheAlternanceListe(input);
 
-		expect(result).toEqual({
+		expect(result).toEqual(aRechercheAlternance({
 			entrepriseList: [{
 				adresse: '18 RUE EMILE LANDRIN, 75020 Paris',
 				candidaturePossible: true,
@@ -100,7 +100,6 @@ describe('mapRechercheAlternance', () => {
 					},
 					id: 'id',
 					source: Source.MATCHA,
-					tags: ['CDD', 'CDI', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 				},
 				{
@@ -109,10 +108,9 @@ describe('mapRechercheAlternance', () => {
 					},
 					id: 'id',
 					source: Source.FRANCE_TRAVAIL,
-					tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
-		});
+		}));
 	});
 
 	describe('Entreprise', () => {
@@ -235,11 +233,6 @@ describe('mapRechercheAlternance', () => {
 						},
 						id: 'id',
 						source: Source.FRANCE_TRAVAIL,
-						tags: [
-							'PARIS 4',
-							'Contrat d‘alternance',
-							'CDD',
-						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
 					}),
 				],
@@ -300,11 +293,6 @@ describe('mapRechercheAlternance', () => {
 						},
 						id: 'id',
 						source: Source.MATCHA,
-						tags: [
-							'PARIS 4',
-							'CDD',
-							'CAP, BEP',
-						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
 					}),
 				],
@@ -389,7 +377,6 @@ describe('mapDetail', () => {
 				niveauRequis: undefined,
 				rythmeAlternance: '6 mois',
 				source: Source.FRANCE_TRAVAIL,
-				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 				typeDeContrat: ['CDD'],
 			}));
@@ -466,7 +453,7 @@ describe('mapDetail', () => {
 
 				const result = mapDetailMatcha(input);
 
-				expect(result).toEqual({
+				expect(result).toEqual(aDetailMatchaAlternance({
 					compétences: ['un libelle'],
 					dateDébut: new Date('2020-01-01'),
 					description: 'Avec des \n',
@@ -483,10 +470,9 @@ describe('mapDetail', () => {
 					rythmeAlternance: 'alternance',
 					source: Source.MATCHA,
 					status: AlternanceStatus.ACTIVE,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
-				});
+				}));
 			});
 		});
 
@@ -541,7 +527,6 @@ describe('mapDetail', () => {
 					rythmeAlternance: 'alternance',
 					source: Source.MATCHA,
 					status: AlternanceStatus.ACTIVE,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
 				}));
