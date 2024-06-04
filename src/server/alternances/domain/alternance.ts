@@ -39,9 +39,9 @@ export namespace ResultatRechercheAlternance {
 		ville?: string
 		nom: string
 		secteurs?: Array<string>
-		tags: string[]
 		id?: string
 		candidaturePossible: boolean
+		nombreSalariés?: string
 	}
 }
 

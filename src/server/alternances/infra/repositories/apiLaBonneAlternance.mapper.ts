@@ -97,19 +97,7 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRech
 }
 
 function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): ResultatRechercheAlternance.Entreprise {
-	const getTagList = () => {
-		const tags = [];
-		if (entreprise.place?.city) tags.push(entreprise.place?.city);
-		if (entreprise.company?.size) tags.push(getTailleEntreprise(entreprise.company?.size));
-		if (entreprise.contact?.email) {
-			tags.push('Candidature spontanée');
-		} else {
-			tags.push('Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise');
-		}
-		return tags.filter((tag) => !!tag) as string[];
-	};
-
-	const getTailleEntreprise = (tailleEntreprise: string) => {
+	const getNombreSalariés = (tailleEntreprise: string) => {
 		if (tailleEntreprise === '0-0') {
 			return '0 à 9 salariés';
 		}
@@ -123,8 +111,8 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 		candidaturePossible: !!entreprise.contact?.email && !!entreprise.contact?.iv,
 		id: entreprise.company?.siret,
 		nom: entreprise.company.name,
+		nombreSalariés: entreprise.company?.size && getNombreSalariés(entreprise.company.size),
 		secteurs: entreprise.nafs?.map((naf) => naf.label),
-		tags: getTagList(),
 		ville: entreprise.place?.city,
 	};
 }

@@ -39,8 +39,8 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 		candidaturePossible: true,
 		id: '0123456789',
 		nom: 'un nom',
+		nombreSalariés: '0 à 9 salariés',
 		secteurs: ['secteur 1', 'secteur 2'],
-		tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 		ville: 'une ville',
 		...override,
 	};

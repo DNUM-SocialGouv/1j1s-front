@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import RechercherAlternance from '~/client/components/features/Alternance/Rechercher/RechercherAlternance';
@@ -80,7 +80,6 @@ describe('RechercherAlternance', () => {
 				id: '0123456789',
 				nom: 'UN NOM 1',
 				secteurs: ['secteur 1', 'secteur 2'],
-				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 				ville: 'une ville',
 			}),
 			aRechercheEntrepriseAlternance({
@@ -88,7 +87,6 @@ describe('RechercherAlternance', () => {
 				id: '1234567890',
 				nom: 'UN NOM 2',
 				secteurs: ['secteur 1', 'secteur 2'],
-				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 			}),
 		];
 
@@ -164,8 +162,80 @@ describe('RechercherAlternance', () => {
 				// eslint-disable-next-line testing-library/no-node-access
 				const resultListEntreprise = resultatsUl[0].children;
 				expect(resultListEntreprise).toHaveLength(entrepriseFixture.length);
-				expect(await screen.findByText(entrepriseFixture[0].nom)).toBeVisible();
-				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
+				expect(screen.getByText(entrepriseFixture[0].nom)).toBeVisible();
+				expect(screen.getByText(entrepriseFixture[1].nom)).toBeVisible();
+			});
+
+			describe('les tags', () => {
+				it('lorsque la candidature est possible, je vois le tag candidature spontanée', async () => {
+					const entrepriseFixture = [
+						aRechercheEntrepriseAlternance({
+							candidaturePossible: true,
+							nombreSalariés: '0 à 9 salariés',
+							ville: 'Paris',
+						}),
+					];
+
+					const resultatFixture = aRechercheAlternance({
+						entrepriseList: entrepriseFixture,
+						offreList: alternanceFixture,
+					});
+
+					render(
+						<DependenciesProvider
+							metierLbaService={métierServiceMock}
+							localisationService={localisationServiceMock}
+						>
+							<RechercherAlternance resultats={resultatFixture}/>
+						</DependenciesProvider>,
+					);
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
+					const user = userEvent.setup();
+
+					await user.click(onglet);
+
+					const tagsUl = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
+					const tags = within(tagsUl).getAllByRole('listitem');
+					expect(tags).toHaveLength(3);
+					expect(tags[0]).toHaveTextContent('Paris');
+					expect(tags[1]).toHaveTextContent('0 à 9 salariés');
+					expect(tags[2]).toHaveTextContent('Candidature spontanée');
+				});
+				it('lorsque la candidature est impossible, je vois les tags pour contacter en direct l‘entreprise', async () => {
+					const entrepriseFixture = [
+						aRechercheEntrepriseAlternance({
+							candidaturePossible: false,
+							nombreSalariés: '0 à 9 salariés',
+							ville: 'Paris',
+						}),
+					];
+
+					const resultatFixture = aRechercheAlternance({
+						entrepriseList: entrepriseFixture,
+						offreList: alternanceFixture,
+					});
+
+					render(
+						<DependenciesProvider
+							metierLbaService={métierServiceMock}
+							localisationService={localisationServiceMock}
+						>
+							<RechercherAlternance resultats={resultatFixture}/>
+						</DependenciesProvider>,
+					);
+					const onglet = await screen.findByRole('tab', { name: 'Entreprises' });
+					const user = userEvent.setup();
+
+					await user.click(onglet);
+
+					const tagsUl = screen.getByRole('list', { name: 'Caractéristiques de l‘offre' });
+					const tags = within(tagsUl).getAllByRole('listitem');
+					expect(tags).toHaveLength(4);
+					expect(tags[0]).toHaveTextContent('Paris');
+					expect(tags[1]).toHaveTextContent('0 à 9 salariés');
+					expect(tags[2]).toHaveTextContent('Rencontre au sein de l’entreprise');
+					expect(tags[3]).toHaveTextContent('Candidature sur le site de l’entreprise');
+				});
 			});
 		});
 

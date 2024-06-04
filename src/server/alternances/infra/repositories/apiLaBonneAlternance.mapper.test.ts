@@ -89,8 +89,8 @@ describe('mapRechercheAlternance', () => {
 				candidaturePossible: true,
 				id: '52352551700026',
 				nom: 'CLUB VET',
+				nombreSalariés: '0 à 9 salariés',
 				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
-				tags: ['Paris', '0 à 9 salariés', 'Candidature spontanée'],
 				ville: 'Paris',
 			}],
 			offreList: [
@@ -148,9 +148,9 @@ describe('mapRechercheAlternance', () => {
 				});
 				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
 
-				expect(resultEntreprise[0].tags[1]).toEqual('0 à 9 salariés');
-				expect(resultEntreprise[1].tags[1]).toEqual('55 salariés');
-				expect(resultEntreprise[2].tags[1]).toEqual('20 à 30 salariés');
+				expect(resultEntreprise[0].nombreSalariés).toEqual('0 à 9 salariés');
+				expect(resultEntreprise[1].nombreSalariés).toEqual('55 salariés');
+				expect(resultEntreprise[2].nombreSalariés).toEqual('20 à 30 salariés');
 			});
 		});
 
@@ -173,7 +173,6 @@ describe('mapRechercheAlternance', () => {
 					entrepriseList: [{
 						candidaturePossible: false,
 						nom: 'CLUB VET',
-						tags: ['Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise'],
 					}],
 					offreList: [],
 				}));
