@@ -104,7 +104,7 @@ describe('<Detail />', () => {
 
 				expect(mention).not.toBeInTheDocument();
 			});
-			it('affiche un bouton pour postuler affichant une iframe LBA', async () => {
+			it('affiche un bouton pour postuler affichant une modale avec l‘iframe LBA', async () => {
 				process.env = {
 					...process.env,
 					NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL: 'http://url.com/',
@@ -121,8 +121,8 @@ describe('<Detail />', () => {
 				expect(bouton).toBeVisible();
 				await user.click(bouton);
 
+				expect(screen.getByRole('dialog', { name: 'Formulaire de candidature à l’annonce' })).toBeVisible();
 				const iframe = screen.getByTitle('Formulaire de candidature à l’annonce');
-
 				expect(iframe).toBeVisible();
 				expect(iframe).toHaveAttribute('src', url);
 			});

@@ -62,7 +62,7 @@ describe('<Accompagnement />', () => {
 	});
 
 	describe('quand on clique sur Non, je ne bénéficie d‘aucun accompagnement', () => {
-		it('ça affiche le formulaire avec l‘âge du capitaine', async () => {
+		it('ça affiche le formulaire avec l‘âge', async () => {
 			// Given
 			const user = userEvent.setup();
 			const pasDAccompagnement = 'Non, je ne bénéficie d‘aucun accompagnement';
@@ -79,86 +79,188 @@ describe('<Accompagnement />', () => {
 			expect(troisièmeBouton).not.toBeVisible();
 			expect(preuveDExistence).toBeVisible();
 		});
-	});
 
-	describe('quand on clique sur Entre 18 et 25 ans', () => {
-		it('ça affiche le formulaire des dispositifs', async () => {
-			// Given
-			const user = userEvent.setup();
+		describe('quand on clique sur moins de 18 ans', () => {
+			it('je vois la modale avec le formulaire Mission Locale', async () => {
+				const user = userEvent.setup();
+				render(
+					<DependenciesProvider
+						demandeDeContactService={aDemandeDeContactService()}
+						localisationService={aLocalisationService()}>
+						<Accompagnement/>
+					</DependenciesProvider>,
+				);
 
-			const contenuModal = 'Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?';
-			const titreModal = 'Découvrez les dispositifs référencés sur le portail 1jeune1solution';
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Moins de 18 ans' }));
 
-			renderComponent();
+				expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
+				expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
+				expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
+				expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
+				expect(screen.getByRole('textbox', { name: 'Téléphone Exemple : 0606060606' })).toBeVisible();
+				expect(screen.getByRole('combobox', { name: 'Ville Exemples : Paris, Béziers…' })).toBeVisible();
+				expect(screen.getByRole('combobox', { name: 'Age Exemple : 16 ans' })).toBeVisible();
 
-			// When
-			await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
-			await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
-			await user.click(screen.getByRole('button', { name: 'Non' }));
+				expect(screen.getByRole('button', { name: 'Envoyer la demande' })).toBeVisible();
+			});
+		});
 
-			// Then
-			expect(await screen.findByText(titreModal)).toBeVisible();
-			expect(screen.getByText(contenuModal)).toBeVisible();
+		describe('quand on clique sur Entre 18 et 25 ans', () => {
+			it('quand on clique sur je ne souhaite pas être orienté, affiche la modale avec les dispositifs référencés sur 1J1S', async () => {
+				const user = userEvent.setup();
+
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Non' }));
+
+				expect(screen.getByRole('dialog', { name: 'Découvrez les dispositifs référencés sur le portail 1jeune1solution' })).toBeVisible();
+
+				const linkDecouvrezOffres = screen.getByRole('link', { name: 'Découvrez nos offres' });
+				expect(linkDecouvrezOffres).toBeVisible();
+				expect(linkDecouvrezOffres).toHaveAttribute('href', '/#offres');
+
+				const linkFormation = screen.getByRole('link', { name: 'Formation et orientation' });
+				expect(linkFormation).toBeVisible();
+				expect(linkFormation).toHaveAttribute('href', '/#formation');
+
+				const linkAidesAccompagnement = screen.getByRole('link', { name: 'Aides et accompagnement' });
+				expect(linkAidesAccompagnement).toBeVisible();
+				expect(linkAidesAccompagnement).toHaveAttribute('href', '/#aides-orientation-accompagnement');
+
+				const linkEngagement = screen.getByRole('link', { name: 'Engagement' });
+				expect(linkEngagement).toBeVisible();
+				expect(linkEngagement).toHaveAttribute('href', '/#engagement-benevolat');
+			});
+
+			it('quand on clique sur je souhaite être orienté, je vois le formulaire sur les autres besoins', async () => {
+				const user = userEvent.setup();
+
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Entre 18 et 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Oui' }));
+
+				expect(screen.getByText('Rencontrez-vous d’autres besoins ?')).toBeVisible();
+				// TODO (BRUJ 04/06/2024): ne devrait pas être des boutons mais des checkbox
+				expect(screen.getByRole('button', { name: 'Logement' })).toBeVisible();
+				expect(screen.getByRole('button', { name: 'Santé' })).toBeVisible();
+				expect(screen.getByRole('button', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
+				expect(screen.getByRole('button', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
+				expect(screen.getByRole('button', { name: 'Maîtrise de français' })).toBeVisible();
+				expect(screen.getByRole('button', { name: 'Contraintes familiales' })).toBeVisible();
+			});
+		});
+
+		describe('quand on clique sur Plus de 25 ans', () => {
+			describe('et qu‘on souhaite être orienté', () => {
+				it('affiche le formulaire sur le handicao', async () => {
+					// Given
+					const user = userEvent.setup();
+					const contenuModal = 'Êtes-vous en situation de handicap (RQTH) ?';
+
+					renderComponent();
+
+					// When
+					await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+					await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+					await user.click(screen.getByRole('button', { name: 'Oui' }));
+
+					expect(screen.getByText(contenuModal)).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Oui' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Non' })).toBeVisible();
+				});
+
+				it('et qu‘on est en situation de handicap, affiche le formulaire autre besoin', async () => {
+					const user = userEvent.setup();
+
+					renderComponent();
+
+					await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+					await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+					await user.click(screen.getByRole('button', { name: 'Oui' }));
+					await user.click(screen.getByRole('button', { name: 'Oui' }));
+
+					expect(screen.getByText('Rencontrez-vous d’autres besoins ?')).toBeVisible();
+					// TODO (BRUJ 04/06/2024): ne devrait pas être des boutons mais des checkbox
+					expect(screen.getByRole('button', { name: 'Logement' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Santé' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Difficultés administratives ou juridiques' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Problématique d‘accès aux droits' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Maîtrise de français' })).toBeVisible();
+					expect(screen.getByRole('button', { name: 'Contraintes familiales' })).toBeVisible();				});
+
+				it('et qu‘on n‘est pas en situation de handicap, affiche la modale de redirection vers france travail', async () => {
+					const user = userEvent.setup();
+
+					renderComponent();
+
+					await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+					await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+					await user.click(screen.getByRole('button', { name: 'Oui' }));
+					await user.click(screen.getByRole('button', { name: 'Non' }));
+
+					expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier des services de France Travail' })).toBeVisible();
+					const linkFranceTravail = screen.getByRole('link', { name: 'S‘inscrire à France Travail - nouvelle fenêtre' });
+					expect(linkFranceTravail).toBeVisible();
+					expect(linkFranceTravail).toHaveAttribute('href', 'https://candidat.francetravail.fr/inscription-en-ligne/accueil');
+				});
+			});
+			it('et qu‘on ne souhaite pas être orienté, affiche le formulaire des dispositifs', async () => {
+				const user = userEvent.setup();
+				renderComponent();
+
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Non' }));
+
+				expect(screen.getByRole('dialog', { name: 'Découvrez les dispositifs référencés sur le portail 1jeune1solution' })).toBeVisible();
+
+				const linkDecouvrezOffres = screen.getByRole('link', { name: 'Découvrez nos offres' });
+				expect(linkDecouvrezOffres).toBeVisible();
+				expect(linkDecouvrezOffres).toHaveAttribute('href', '/#offres');
+
+				const linkFormation = screen.getByRole('link', { name: 'Formation et orientation' });
+				expect(linkFormation).toBeVisible();
+				expect(linkFormation).toHaveAttribute('href', '/#formation');
+
+				const linkAidesAccompagnement = screen.getByRole('link', { name: 'Aides et accompagnement' });
+				expect(linkAidesAccompagnement).toBeVisible();
+				expect(linkAidesAccompagnement).toHaveAttribute('href', '/#aides-orientation-accompagnement');
+
+				const linkEngagement = screen.getByRole('link', { name: 'Engagement' });
+				expect(linkEngagement).toBeVisible();
+				expect(linkEngagement).toHaveAttribute('href', '/#engagement-benevolat');
+			});
+
+			it('ça te renvoie chez France Travail sur la page Inscription', async () => {
+				// Given
+				const user = userEvent.setup();
+				const contenuModal = 'Vous pouvez bénéficier des services de France Travail';
+				const inscriptionFranceTravail = 'S‘inscrire à France Travail - nouvelle fenêtre';
+
+				renderComponent();
+				// When
+				await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
+				await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
+				await user.click(screen.getByRole('button', { name: 'Oui' }));
+				await user.click(screen.getByRole('button', { name: 'Non' }));
+
+				// Then
+				expect(screen.getByText(contenuModal)).toBeVisible();
+				const link = screen.getByRole('link', { name: inscriptionFranceTravail });
+				expect(link).toBeVisible();
+				expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.francetravail.fr/inscription-en-ligne/accueil'));
+				expect(link).toHaveAttribute('target', '_blank');
+			});
 		});
 	});
 
-	describe('quand on clique sur Plus de 25 ans', () => {
-		it('ça affiche le formulaire des dispositifs', async () => {
-			// Given
-			const user = userEvent.setup();
-			const contenuModal = 'Avez-vous besoin d’aide pour vous orienter, chercher un emploi, une alternance, une formation, ou travailler votre projet professionnel ?';
-			const titreModal = 'Découvrez les dispositifs référencés sur le portail 1jeune1solution';
-
-			renderComponent();
-
-			// When
-			await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
-			await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
-			await user.click(screen.getByRole('button', { name: 'Non' }));
-
-			// Then
-			expect(await screen.findByText(titreModal)).toBeVisible();
-			expect(screen.getByText(contenuModal)).toBeVisible();
-		});
-		it('ça affiche le formulaire Handicap', async () => {
-			// Given
-			const user = userEvent.setup();
-			const contenuModal = 'Êtes-vous en situation de handicap (RQTH) ?';
-
-			renderComponent();
-
-			// When
-			await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
-			await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
-			await user.click(screen.getByRole('button', { name: 'Oui' }));
-
-			// Then
-			expect(screen.getByText(contenuModal)).toBeVisible();
-		});
-		it('ça te renvoie chez France Travail sur la page Inscription', async () => {
-			// Given
-			const user = userEvent.setup();
-			const contenuModal = 'Vous pouvez bénéficier des services de France Travail';
-			const inscriptionFranceTravail = 'S‘inscrire à France Travail - nouvelle fenêtre';
-
-			renderComponent();
-			// When
-			await user.click(screen.getByRole('button', { name: 'Non, je ne bénéficie d‘aucun accompagnement' }));
-			await user.click(screen.getByRole('button', { name: 'Plus de 25 ans' }));
-			await user.click(screen.getByRole('button', { name: 'Oui' }));
-			await user.click(screen.getByRole('button', { name: 'Non' }));
-
-			// Then
-			expect(screen.getByText(contenuModal)).toBeVisible();
-			const link = screen.getByRole('link', { name: inscriptionFranceTravail });
-			expect(link).toBeVisible();
-			expect(link).toHaveAttribute('href', expect.stringContaining('https://candidat.francetravail.fr/inscription-en-ligne/accueil'));
-			expect(link).toHaveAttribute('target', '_blank');
-		});
-	});
-
-	describe('quand je clique sur Oui je suis accompagné par la Mission Locale', () => {
-		it('je vois le formulaire Mission Locale', async () => {
+	describe('quand je clique sur "Oui je suis accompagné par la Mission Locale"', () => {
+		it('je vois la modale avec le formulaire Mission Locale', async () => {
 			const user = userEvent.setup();
 			render(
 				<DependenciesProvider
@@ -171,6 +273,7 @@ describe('<Accompagnement />', () => {
 			const boutonFormulaireMissionLocale = screen.getByRole('button', { name: 'Oui, je suis accompagné(e) par la Mission Locale' });
 			await user.click(boutonFormulaireMissionLocale);
 
+			expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’un accompagnement répondant à vos besoins auprès de votre Mission Locale' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Prénom Exemple : Jean' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Nom Exemple : Dupont' })).toBeVisible();
 			expect(screen.getByRole('textbox', { name: 'Adresse e-mail Exemple : jean.dupont@gmail.com' })).toBeVisible();
@@ -333,8 +436,8 @@ describe('<Accompagnement />', () => {
 		});
 	});
 
-	describe('quand l‘utilisateur clique sur Oui il est accompagné par France Travail', () => {
-		it('ça te renvoie chez France Travail', async () => {
+	describe('quand l‘utilisateur clique sur "Oui je suis accompagné(e) par France Travail"', () => {
+		it('ouvre une modale avec la redirection vers France Travail', async () => {
 			// Given
 			const user = userEvent.setup();
 			const franceTravail = 'Oui, je suis accompagné(e) par France Travail';
@@ -345,6 +448,7 @@ describe('<Accompagnement />', () => {
 			await user.click(screen.getByText(franceTravail));
 
 			// Then
+			expect(screen.getByRole('dialog', { name: 'Vous pouvez bénéficier d’informations sur le Contrat d’Engagement Jeune auprès de votre conseiller France Travail' })).toBeVisible();
 			const link = screen.getByRole('link', { name: `${jeContacteMonConseiller} - nouvelle fenêtre` });
 			expect(link).toBeVisible();
 			expect(link).toHaveAttribute('href', expect.stringContaining('francetravail.fr'));

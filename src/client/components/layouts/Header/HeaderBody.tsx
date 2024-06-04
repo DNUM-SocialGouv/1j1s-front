@@ -48,7 +48,7 @@ export function HeaderBody() {
 				</div>
 				<CampagneBannerDesktop/>
 			</div>
-			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
+			<ModalComponent aria-label="Menu principal" close={toggleModal} isOpen={isModalOpen}>
 				<ModalComponent.Title>
 					<Icon name="menu"/>
 					<span>Menu</span>
