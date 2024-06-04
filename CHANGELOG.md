@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.295.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.295.0...v3.295.1) (2024-06-04)
+
+
+### Bug Fixes
+
+* Fix la fermeture de la modale quand le default est prevented ([#3037](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3037)) ([123c734](https://github.com/DNUM-SocialGouv/1j1s-front/commit/123c734e32d73f9791d3187e510188983aa06c7f))
+* **transverse:** fix les regex url et email ([#3034](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3034)) ([b6e1d92](https://github.com/DNUM-SocialGouv/1j1s-front/commit/b6e1d92738b10897fe24448c907c1a30aac75922))
+
 ## [3.295.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.294.1...v3.295.0) (2024-06-03)
 
 
