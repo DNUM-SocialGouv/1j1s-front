@@ -5,8 +5,8 @@
 import { queries as defaultQueries, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
-import { aDetailAlternance } from '~/client/components/features/Alternance/Detail/DetailAlternance.fixture';
+import { DetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance';
+import { aDetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance.fixture';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aDateService } from '~/client/services/date/date.service.fixture';
@@ -25,7 +25,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ titre: 'Ma super alternance' });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const titre = screen.getByRole('heading', { level: 1 });
@@ -36,7 +36,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ entreprise: { nom: 'Ma super entreprise' } });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const entreprise = screen.getByText('Ma super entreprise');
@@ -47,7 +47,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
 			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
@@ -59,7 +59,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
 			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
@@ -71,7 +71,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
 			const bouton = screen.queryByRole('button', { name: /Postuler/i });
@@ -84,7 +84,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.MATCHA });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
 			const lien = screen.queryByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
@@ -97,7 +97,7 @@ describe('<Detail />', () => {
 				const annonce = aDetailAlternance({ status: AlternanceStatus.ACTIVE });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<Detail annonce={annonce}/>
+					<DetailAlternance annonce={annonce}/>
 				</DependenciesProvider>);
 
 				const mention = screen.queryByText(OFFER_FILLED_TEXT);
@@ -114,7 +114,7 @@ describe('<Detail />', () => {
 				const annonce = aDetailAlternance({ id: '123', lienPostuler: url, source: Alternance.Source.MATCHA });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<Detail annonce={annonce}/>
+					<DetailAlternance annonce={annonce}/>
 				</DependenciesProvider>);
 
 				const bouton = screen.getByRole('button', { name: /Postuler/i });
@@ -130,7 +130,7 @@ describe('<Detail />', () => {
 				const annonce = aDetailAlternance({ id: undefined });
 
 				render(<DependenciesProvider dateService={aDateService()}>
-					<Detail annonce={annonce}/>
+					<DetailAlternance annonce={annonce}/>
 				</DependenciesProvider>);
 
 				const bouton = screen.queryByRole('button', { name: /Postuler/i });
@@ -143,7 +143,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ source: Alternance.Source.MATCHA, status: AlternanceStatus.CANCELED });
 
 			render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
 			expect(screen.getByText(OFFER_FILLED_TEXT)).toBeVisible();
@@ -154,7 +154,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ description: "C'est une super alternance !" });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Description du poste');
@@ -166,7 +166,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ description: "<p>C'est une super alternance !</p>" });
 
 			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description du poste');
@@ -179,7 +179,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ description: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Description du contrat');
@@ -189,7 +189,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: "C'est une super entreprise !" });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Description de l’entreprise');
@@ -201,7 +201,7 @@ describe('<Detail />', () => {
 			const annonce = aDetailAlternance({ descriptionEmployeur: "<p>C'est une super entreprise !</p>" });
 
 			const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-				<Detail annonce={annonce}/>
+				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>, { queries });
 
 			const description = getByDescriptionTerm('Description de l’entreprise');
@@ -214,7 +214,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ descriptionEmployeur: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Description de l’entreprise');
@@ -224,7 +224,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ compétences: ['Savoir faire des trucs', 'Connaître des choses'] });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const description = getByDescriptionTerm('Compétences types du métier');
@@ -240,7 +240,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ compétences: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Compétences types du métier');
@@ -250,7 +250,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ compétences: [] });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Compétences types du métier');
@@ -260,7 +260,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ niveauRequis: 'CAP' });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const niveauRequis = getByDescriptionTerm('Niveau visé en fin d’études');
@@ -271,7 +271,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ niveauRequis: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Niveau requis');
@@ -283,7 +283,7 @@ describe('<Detail />', () => {
 		jest.spyOn(dateService, 'formatToHumanReadableDate').mockReturnValue('1 janvier 2022');
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={dateService}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const dateDébut = getByDescriptionTerm('Début du contrat');
@@ -296,7 +296,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ dateDébut: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Début du contrat');
@@ -306,7 +306,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: ['Alternance'] });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const typeDeContrat = getByDescriptionTerm('Type de contrat');
@@ -317,7 +317,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ typeDeContrat: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Type de contrat');
@@ -327,7 +327,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: 'CDI' });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const typeDeContrat = getByDescriptionTerm('Nature du contrat');
@@ -338,7 +338,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ natureDuContrat: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Nature du contrat');
@@ -348,7 +348,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ durée: '4 ans' });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const durée = getByDescriptionTerm('Durée du contrat');
@@ -361,7 +361,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ durée: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Durée du contrat');
@@ -371,7 +371,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: '1 jour par semaine' });
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const rythmeAlternance = getByDescriptionTerm('Rythme de l’alternance');
@@ -382,7 +382,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ rythmeAlternance: undefined });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Rythme de l’alternance');
@@ -397,7 +397,7 @@ describe('<Detail />', () => {
 		});
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');
@@ -411,7 +411,7 @@ describe('<Detail />', () => {
 		const annonce = aDetailAlternance({ entreprise: {} });
 
 		render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>);
 
 		const term = screen.queryByText('Informations sur l’entreprise');
@@ -426,7 +426,7 @@ describe('<Detail />', () => {
 		});
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');
@@ -446,7 +446,7 @@ describe('<Detail />', () => {
 		});
 
 		const { getByDescriptionTerm } = render(<DependenciesProvider dateService={aDateService()}>
-			<Detail annonce={annonce}/>
+			<DetailAlternance annonce={annonce}/>
 		</DependenciesProvider>, { queries });
 
 		const entreprise = getByDescriptionTerm('Informations sur l’entreprise');

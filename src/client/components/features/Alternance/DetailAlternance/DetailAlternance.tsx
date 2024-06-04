@@ -12,13 +12,13 @@ import { DateService } from '~/client/services/date/date.service';
 import { Alternance, isFranceTravail, isMatcha } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-import styles from './Detail.module.scss';
+import styles from './DetailAlternance.module.scss';
 
 function toISODate(date: Date) {
 	return date.toISOString().split('T')[0];
 }
 
-export function Detail({ annonce }: { annonce: Alternance }) {
+export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
