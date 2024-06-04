@@ -10,17 +10,33 @@ export class BrowserStorageService implements StorageService {
 	constructor(private storage: BrowserStorage) {}
 
 	get<DataType>(key: string): DataType | null {
-		const value = this.storage.getItem(key);
+		let value;
+		try {
+			value = this.storage.getItem(key);
+		} catch (e) {
+			// FIXME (GAFI 04-06-2024): Erreur custom
+			throw new Error('storage unavailable');
+		}
 		if (value == null) { return null; }
 		return JSON.parse(value);
 	}
 
 	set<DataType>(key: string, value: DataType): void {
 		const serializedData = JSON.stringify(value);
-		this.storage.setItem(key, serializedData);
+		try {
+			this.storage.setItem(key, serializedData);
+		} catch (e) {
+			// FIXME (GAFI 04-06-2024): Erreur custom
+			throw new Error('storage unavailable');
+		}
 	}
 
 	remove(key: string): void {
-		this.storage.removeItem(key);
+		try {
+			this.storage.removeItem(key);
+		} catch (e) {
+			// FIXME (GAFI 04-06-2024): Erreur custom
+			throw new Error('storage unavailable');
+		}
 	}
 }
