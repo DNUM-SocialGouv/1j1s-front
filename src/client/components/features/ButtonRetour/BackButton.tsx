@@ -7,7 +7,7 @@ import {
 } from '~/client/components/ui/Button/ButtonComponent';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { IS_PREVIOUS_PAGE_LOCAL } from '~/client/hooks/usePageHistory';
-import { isStorageAvailable } from '~/client/utils/isStorageAvailable';
+import useSessionStorage from '~/client/hooks/useSessionStorage';
 
 type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponent>,'label'> & {
 	label: string
@@ -18,12 +18,12 @@ type BackButtonProps = Omit<React.ComponentPropsWithoutRef<typeof ButtonComponen
 
 export function BackButton({ className, label= 'Retour', ...rest }: BackButtonProps) {
 	const router = useRouter();
+	const sessionStorage = useSessionStorage<boolean>(IS_PREVIOUS_PAGE_LOCAL);
 
 	const [displayBackButton, setDisplayBackButton] = useState(false);
 	useEffect(() => {
-		const previousPage = isStorageAvailable('sessionStorage') ? sessionStorage.getItem(IS_PREVIOUS_PAGE_LOCAL) : null;
-		setDisplayBackButton(!!previousPage);
-	}, []);
+		setDisplayBackButton(!!sessionStorage.get());
+	}, [sessionStorage]);
 
 	return (
 		displayBackButton && (
