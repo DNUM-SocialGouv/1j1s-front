@@ -19,6 +19,7 @@ import { Champ } from '../Champ/Champ';
 import { Input } from '../Input';
 import styles from './Select.module.scss';
 import {
+	getOptionsElement,
 	SelectMultipleAction,
 	SelectMultipleReducer,
 	SelectReducer,
@@ -157,7 +158,23 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	}, [optionSelectedValue]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-		switch (event.key) {
+		const { key, altKey, ctrlKey, metaKey } = event;
+		const isLetterType = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
+		console.log(event.key, event.key.length === 1, event.key !== KeyBoard.SPACE, !altKey, !ctrlKey, !metaKey);
+		if (isLetterType) {
+			event.preventDefault();
+			if (!state.isListOptionsOpen) {
+				dispatch(new SelectSimpleAction.OpenList());
+			}
+			const optionsElement = getOptionsElement(listboxRef);
+			const indexOptionStratingWith = optionsElement.findIndex((node) => node.textContent?.toLowerCase().startsWith(key.toLowerCase()));
+			if (indexOptionStratingWith >= 0) {
+				const idOptionStratingWith = optionsElement[indexOptionStratingWith].id;
+				dispatch(new SelectSimpleAction.VisualyFocusOption(idOptionStratingWith));
+			}
+		}
+
+		switch (key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
@@ -222,8 +239,9 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			}
 			default:
 				break;
+
 		}
-	}, [closeList, selectOption, state.isListOptionsOpen]);
+	}, [closeList, optionList, selectOption, state.isListOptionsOpen]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -413,7 +431,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 					if (selectedOptionID) {
 						const option = document.getElementById(selectedOptionID);
 						const optionValue = option?.getAttribute('data-value');
-						const isOptionSelected=  optionValue && isCurrentItemSelected(optionValue);
+						const isOptionSelected = optionValue && isCurrentItemSelected(optionValue);
 						!isOptionSelected && selectOption(selectedOptionID);
 					}
 				}
@@ -495,7 +513,8 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
 			{optionsSelectedValues.length === 0 ?
-				<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name} value={''} /> :
+				<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name}
+							 value={''}/> :
 				optionsSelectedValues.map((optionValue) => {
 					return <Input
 						tabIndex={-1}

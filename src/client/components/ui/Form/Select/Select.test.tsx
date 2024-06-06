@@ -189,7 +189,27 @@ describe('<Select />', () => {
 				});
 
 				describe('lorsque l‘utilisateur tape des caractères', () => {
-					it.todo('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match le caractère');
+					it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reset ouverte et déplace le focus visuel sur la première option qui match le caractère',async ()=>{
+						const user = userEvent.setup();
+						const options = [
+							{ libellé: 'ab', valeur: '1' },
+							{ libellé: 'ha', valeur: '2' },
+							{ libellé: 'bj', valeur: '3' },
+						];
+						render(<Select optionList={options} label={'Temps de travail'}/>);
+
+						await user.tab();
+						await user.keyboard('h');
+						expect(screen.getByRole('listbox')).toBeVisible();
+						const option2Id = screen.getByRole('option', { name: 'ha' }).id;
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
+
+
+						await user.keyboard('a');
+						const option1Id = screen.getByRole('option', { name: 'ab' }).id;
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
+						expect(screen.getByRole('listbox')).toBeVisible();
+					});
 
 					it.todo('lorsque l‘utilisateur tape plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match les caractères');
 

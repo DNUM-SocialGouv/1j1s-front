@@ -8,7 +8,7 @@ export type SelectSimpleState = {
 	visibleOptions: Array<string>
 }
 
-function getVisibleOptions(refListOption: RefObject<HTMLUListElement>) {
+export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
 	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
@@ -21,7 +21,7 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			let activeDescendant = previousState.activeDescendant;
 			if (!previousState.activeDescendant) {
-				activeDescendant = getVisibleOptions(previousState.refListOption)[0]?.id;
+				activeDescendant = getOptionsElement(previousState.refListOption)[0]?.id;
 			}
 			return {
 				...previousState,
@@ -53,14 +53,31 @@ export namespace SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			return {
 				...previousState,
-				activeDescendant: getVisibleOptions(previousState.refListOption)[0]?.id,
+				activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
+			};
+		}
+	}
+
+	export class VisualyFocusOption implements SelectSimpleAction {
+		private readonly optionId: string | null;
+
+		constructor(option: Element | string) {
+			this.optionId = option instanceof Element
+				? option.id
+				: option;
+		}
+
+		execute(previousState: SelectSimpleState): SelectSimpleState {
+			return {
+				...previousState,
+				activeDescendant: this.optionId ?? previousState.activeDescendant,
 			};
 		}
 	}
 
 	export class VisualyFocusLastOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			const lastOption = getVisibleOptions(previousState.refListOption).at(-1);
+			const lastOption = getOptionsElement(previousState.refListOption).at(-1);
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
@@ -71,7 +88,7 @@ export namespace SelectSimpleAction {
 	export class NextOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			const { activeDescendant, refListOption } = previousState;
-			const options = getVisibleOptions(refListOption);
+			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -85,7 +102,7 @@ export namespace SelectSimpleAction {
 	export class PreviousOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			const { activeDescendant, refListOption } = previousState;
-			const options = getVisibleOptions(refListOption);
+			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -137,7 +154,7 @@ export namespace SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			let activeDescendant = previousState.activeDescendant;
 			if (!previousState.activeDescendant) {
-				activeDescendant = getVisibleOptions(previousState.refListOption)[0]?.id;
+				activeDescendant = getOptionsElement(previousState.refListOption)[0]?.id;
 			}
 			return {
 				...previousState,
@@ -169,14 +186,14 @@ export namespace SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			return {
 				...previousState,
-				activeDescendant: getVisibleOptions(previousState.refListOption)[0]?.id,
+				activeDescendant: getOptionsElement(previousState.refListOption)[0]?.id,
 			};
 		}
 	}
 
 	export class VisualyFocusLastOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
-			const lastOption = getVisibleOptions(previousState.refListOption).at(-1);
+			const lastOption = getOptionsElement(previousState.refListOption).at(-1);
 			return {
 				...previousState,
 				activeDescendant: lastOption?.id,
@@ -187,7 +204,7 @@ export namespace SelectMultipleAction {
 	export class NextOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			const { activeDescendant, refListOption } = previousState;
-			const options = getVisibleOptions(refListOption);
+			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
 			return {
@@ -201,7 +218,7 @@ export namespace SelectMultipleAction {
 	export class PreviousOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			const { activeDescendant, refListOption } = previousState;
-			const options = getVisibleOptions(refListOption);
+			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
 			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
 			return {
