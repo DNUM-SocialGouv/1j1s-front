@@ -6,6 +6,7 @@ export type SelectSimpleState = {
 	optionSelectedValue: string | undefined,
 	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
+	valueTypedByUser: string
 }
 
 export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
@@ -46,6 +47,23 @@ export namespace SelectSimpleAction {
 			return isListOptionsOpen
 				? new CloseList().execute(previousState)
 				: new OpenList().execute(previousState);
+		}
+	}
+
+
+	export class SetValueTypedByUser implements SelectSimpleAction {
+		private readonly newValue: string;
+
+		constructor(letterValue: string) {
+			this.newValue = letterValue;
+		}
+
+		execute(previousState: SelectSimpleState): SelectSimpleState {
+			console.log('setValueTypedByUser',previousState.valueTypedByUser.concat(this.newValue));
+			return {
+				...previousState,
+				valueTypedByUser: this.newValue,
+			};
 		}
 	}
 

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import debounce from 'lodash.debounce';
 import React, {
 	FocusEvent,
 	KeyboardEvent,
@@ -6,6 +7,7 @@ import React, {
 	useCallback,
 	useId,
 	useLayoutEffect,
+	useMemo,
 	useReducer,
 	useRef,
 	useState,
@@ -57,6 +59,7 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 const ERROR_LABEL_REQUIRED_SIMPLE = 'Séléctionnez un élément de la liste';
 const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
+const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export function Select(props: SelectProps) {
 	const {
@@ -112,6 +115,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			isListOptionsOpen: false,
 			optionSelectedValue: defaultValue ? defaultValue : '',
 			refListOption: listboxRef,
+			valueTypedByUser: '',
 			visibleOptions: [],
 		},
 	);
@@ -157,28 +161,49 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		return optionSelectedValue === optionValue;
 	}, [optionSelectedValue]);
 
+	const changeVisualFocusWhenUserTypesLetter = useCallback((valueTyped: string) => {
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionStratingWith = optionsElement.findIndex((node) => node.textContent?.toLowerCase().startsWith(valueTyped.toLowerCase()));
+		if (indexOptionStratingWith >= 0) {
+			const idOptionStratingWith = optionsElement[indexOptionStratingWith].id;
+			dispatch(new SelectSimpleAction.VisualyFocusOption(idOptionStratingWith));
+		}
+		dispatch(new SelectSimpleAction.SetValueTypedByUser(''));
+	}, [state.refListOption]);
+
+	const handlefocusOnTypeLetterDebounce = useMemo(() => {
+		return debounce(changeVisualFocusWhenUserTypesLetter, DEFAULT_DEBOUNCE_TIMEOUT);
+	}, [changeVisualFocusWhenUserTypesLetter]);
+
+	const focusOnTypeLetterDebounced = useCallback(async function focusOnTypeLetter(valueTyped: string) {
+		handlefocusOnTypeLetterDebounce(valueTyped);
+	}, [handlefocusOnTypeLetterDebounce]);
+
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
+
 		const isLetterType = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
-		console.log(event.key, event.key.length === 1, event.key !== KeyBoard.SPACE, !altKey, !ctrlKey, !metaKey);
 		if (isLetterType) {
 			event.preventDefault();
 			if (!state.isListOptionsOpen) {
 				dispatch(new SelectSimpleAction.OpenList());
 			}
-			const optionsElement = getOptionsElement(listboxRef);
-			const indexOptionStratingWith = optionsElement.findIndex((node) => node.textContent?.toLowerCase().startsWith(key.toLowerCase()));
-			if (indexOptionStratingWith >= 0) {
-				const idOptionStratingWith = optionsElement[indexOptionStratingWith].id;
-				dispatch(new SelectSimpleAction.VisualyFocusOption(idOptionStratingWith));
-			}
+
+			const newValueTyped = state.valueTypedByUser.concat(key);
+			dispatch(new SelectSimpleAction.SetValueTypedByUser(newValueTyped));
+			focusOnTypeLetterDebounced(newValueTyped);
 		}
 
 		switch (key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
-					dispatch(new SelectSimpleAction.PreviousOption());
+					if (altKey) {
+						const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
+						selectedOptionID && selectOption(selectedOptionID);
+					} else {
+						dispatch(new SelectSimpleAction.PreviousOption());
+					}
 				} else {
 					dispatch(new SelectSimpleAction.OpenList());
 				}
@@ -241,7 +266,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, optionList, selectOption, state.isListOptionsOpen]);
+	}, [closeList, focusOnTypeLetterDebounced, selectOption, state.isListOptionsOpen, state.valueTypedByUser]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {

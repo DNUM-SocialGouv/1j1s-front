@@ -3,7 +3,7 @@
  */
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React, { FormEvent } from 'react';
 
@@ -13,6 +13,7 @@ import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const SELECT_SIMPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez votre choix';
 const SELECT_MULTIPLE_LABEL_DEFAULT_OPTION = 'Sélectionnez vos choix';
+const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 describe('<Select />', () => {
 	beforeAll(() => {
@@ -189,7 +190,7 @@ describe('<Select />', () => {
 				});
 
 				describe('lorsque l‘utilisateur tape des caractères', () => {
-					it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reset ouverte et déplace le focus visuel sur la première option qui match le caractère',async ()=>{
+					it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reset ouverte et déplace le focus visuel sur la première option qui match le caractère', async () => {
 						const user = userEvent.setup();
 						const options = [
 							{ libellé: 'ab', valeur: '1' },
@@ -200,18 +201,46 @@ describe('<Select />', () => {
 
 						await user.tab();
 						await user.keyboard('h');
+						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+
 						expect(screen.getByRole('listbox')).toBeVisible();
 						const option2Id = screen.getByRole('option', { name: 'ha' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
 
 
 						await user.keyboard('a');
+						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+
 						const option1Id = screen.getByRole('option', { name: 'ab' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
 						expect(screen.getByRole('listbox')).toBeVisible();
 					});
 
-					it.todo('lorsque l‘utilisateur tape plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match les caractères');
+					it('lorsque l‘utilisateur tape plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match les caractères', async () => {
+						const user = userEvent.setup();
+						const options = [
+							{ libellé: 'abc', valeur: '1' },
+							{ libellé: 'abd', valeur: '2' },
+							{ libellé: 'ac', valeur: '3' },
+						];
+						render(<Select optionList={options} label={'Temps de travail'}/>);
+
+						await user.tab();
+						await user.keyboard('abd');
+						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+
+						expect(screen.getByRole('listbox')).toBeVisible();
+						const option2Id = screen.getByRole('option', { name: 'abd' }).id;
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
+
+
+						await user.keyboard('abc');
+						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+
+						const option1Id = screen.getByRole('option', { name: 'abc' }).id;
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
+						expect(screen.getByRole('listbox')).toBeVisible();
+					});
 
 					it.todo('lorsque l‘utilisateur tape le même caractère plusieurs fois, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui commence par ce caractère');
 				});
@@ -281,7 +310,26 @@ describe('<Select />', () => {
 					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
 				});
 
-				it.todo('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme');
+				it('lorsque l‘utilisateur fait "alt + fleche du haut", l‘option qui a le focus visuel est séléctionné et la liste d‘option se ferme', async () => {
+					const user = userEvent.setup();
+					const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+					render(<form aria-label="form">
+						<Select optionList={options} label={'label'} name="select"/>
+					</form>);
+
+					await user.tab();
+					await user.keyboard(KeyBoard.ENTER);
+					await user.keyboard(KeyBoard.ARROW_DOWN);
+					await user.keyboard(KeyBoard.ALT_AND_ARROW_UP);
+
+					expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+					expect(screen.getByRole('option', {
+						hidden: true,
+						name: 'options 2',
+					})).toHaveAttribute('aria-selected', 'true');
+					expect(screen.getByRole('combobox')).toHaveTextContent('options 2');
+					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
+				});
 
 				it('lorsque l‘utilisateur fait "Tab", l‘option qui a le focus visuel est séléctionné, la liste d‘option se ferme, le placeholder se met à jour et le focus se déplace sur le prochain élément focusable', async () => {
 					const user = userEvent.setup();
@@ -1274,4 +1322,8 @@ function getAllFormData(event: FormEvent<HTMLFormElement>, name: string) {
 	event.preventDefault();
 	const formData = new FormData(event.currentTarget);
 	return formData.getAll(name);
+}
+
+function delay(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
