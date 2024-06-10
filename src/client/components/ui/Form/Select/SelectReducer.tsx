@@ -50,16 +50,14 @@ export namespace SelectSimpleAction {
 		}
 	}
 
-
 	export class SetValueTypedByUser implements SelectSimpleAction {
 		private readonly newValue: string;
 
-		constructor(letterValue: string) {
-			this.newValue = letterValue;
+		constructor(value: string) {
+			this.newValue = value;
 		}
 
 		execute(previousState: SelectSimpleState): SelectSimpleState {
-			console.log('setValueTypedByUser',previousState.valueTypedByUser.concat(this.newValue));
 			return {
 				...previousState,
 				valueTypedByUser: this.newValue,

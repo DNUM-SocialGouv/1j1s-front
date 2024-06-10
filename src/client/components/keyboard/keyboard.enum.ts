@@ -19,4 +19,6 @@ export const enum KeyBoard {
 	HOME = 'Home',
 	END = 'End',
 	ALT = 'Alt',
+	PAGE_UP = 'PageUp',
+	PAGE_DOWN = 'PageDown'
 }

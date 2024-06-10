@@ -9,7 +9,8 @@ export const enum KeyBoard {
 	HOME = '{Home}',
 	END = '{End}',
 	BACKSPACE = '{Backspace}',
-	ALT_AND_ARROW_UP= '{Alt>}{ArrowUp}{/Alt}',
-	ALT_AND_ARROW_DOWN= '{Alt>}{ArrowDown}{/Alt}'
+	ALT_AND_ARROW_UP = '{Alt>}{ArrowUp}{/Alt}',
+	PAGE_UP = '{PageUp}',
+	PAGE_DOWN = '{PageDown}'
 }
 

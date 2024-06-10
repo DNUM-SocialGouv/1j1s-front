@@ -34,8 +34,6 @@ $border-width: inputStyles.$border-width;
   position: relative;
   border-radius: $border-radius;
 
-
-
   & .combobox {
     @extend %outlined;
     @include utilities.text-interactive-medium;

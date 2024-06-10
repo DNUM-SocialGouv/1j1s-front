@@ -190,7 +190,7 @@ describe('<Select />', () => {
 				});
 
 				describe('lorsque l‘utilisateur tape des caractères', () => {
-					it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reset ouverte et déplace le focus visuel sur la première option qui match le caractère', async () => {
+					it('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre, reste ouverte et déplace le focus visuel sur la première option qui match le caractère', async () => {
 						const user = userEvent.setup();
 						const options = [
 							{ libellé: 'ab', valeur: '1' },
@@ -241,8 +241,6 @@ describe('<Select />', () => {
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
 						expect(screen.getByRole('listbox')).toBeVisible();
 					});
-
-					it.todo('lorsque l‘utilisateur tape le même caractère plusieurs fois, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui commence par ce caractère');
 				});
 			});
 
@@ -471,13 +469,100 @@ describe('<Select />', () => {
 				});
 
 				describe('lorsque l‘utilisateur fait "PageUp"', () => {
-					it.todo('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut');
-					it.todo('s‘il y a moins de 10 options précédentes, déplace le focus visuel sur la première option');
+					it('s‘il y a plus de 10 options précédentes, déplace le focus visuel de 10 options plus haut', async () => {
+						const user = userEvent.setup();
+						const options = [
+							{ libellé: 'options 1', valeur: '1' },
+							{ libellé: 'options 2', valeur: '2' },
+							{ libellé: 'options 3', valeur: '3' },
+							{ libellé: 'options 4', valeur: '4' },
+							{ libellé: 'options 5', valeur: '5' },
+							{ libellé: 'options 6', valeur: '6' },
+							{ libellé: 'options 7', valeur: '7' },
+							{ libellé: 'options 8', valeur: '8' },
+							{ libellé: 'options 9', valeur: '9' },
+							{ libellé: 'options 10', valeur: '10' },
+							{ libellé: 'options 11', valeur: '11' },
+							{ libellé: 'options 12', valeur: '12' },
+						];
+						render(<Select optionList={options} label={'label'} name="select"/>);
+
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+						await user.keyboard(KeyBoard.END);
+						const option12 = screen.getByRole('option', { name: 'options 12' });
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option12.id);
+
+						await user.keyboard(KeyBoard.PAGE_UP);
+						const option2 = screen.getByRole('option', { name: 'options 2' });
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2.id);
+						expect(option2).toHaveAttribute('aria-selected', 'false');
+					});
+
+					it('s‘il y a moins de 10 options précédentes, déplace le focus visuel sur la première option', async () => {
+						const user = userEvent.setup();
+						const options = [
+							{ libellé: 'options 1', valeur: '1' },
+							{ libellé: 'options 2', valeur: '2' },
+							{ libellé: 'options 3', valeur: '3' },
+						];
+						render(<Select optionList={options} label={'label'} name="select"/>);
+
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+						await user.keyboard(KeyBoard.ARROW_DOWN);
+						await user.keyboard(KeyBoard.ARROW_DOWN);
+
+						await user.keyboard(KeyBoard.PAGE_UP);
+						const option1 = screen.getByRole('option', { name: 'options 1' });
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1.id);
+						expect(option1).toHaveAttribute('aria-selected', 'false');
+					});
 				});
 
 				describe('lorsque l‘utilisateur fait "PageDown"', () => {
-					it.todo('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas');
-					it.todo('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option');
+					it('s‘il y a plus de 10 options suivantes, déplace le focus visuel de 10 options plus bas', async () => {
+						const user = userEvent.setup();
+						const options = [
+							{ libellé: 'options 1', valeur: '1' },
+							{ libellé: 'options 2', valeur: '2' },
+							{ libellé: 'options 3', valeur: '3' },
+							{ libellé: 'options 4', valeur: '4' },
+							{ libellé: 'options 5', valeur: '5' },
+							{ libellé: 'options 6', valeur: '6' },
+							{ libellé: 'options 7', valeur: '7' },
+							{ libellé: 'options 8', valeur: '8' },
+							{ libellé: 'options 9', valeur: '9' },
+							{ libellé: 'options 10', valeur: '10' },
+							{ libellé: 'options 11', valeur: '11' },
+						];
+						render(<Select optionList={options} label={'label'} name="select"/>);
+
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+
+						await user.keyboard(KeyBoard.PAGE_DOWN);
+						const option11 = screen.getByRole('option', { name: 'options 11' });
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option11.id);
+						expect(option11).toHaveAttribute('aria-selected', 'false');
+					});
+
+					it('s‘il y a moins de 10 options suivantes, déplace le focus visuel sur la dernière option',async () => {const user = userEvent.setup();
+						const options = [
+							{ libellé: 'options 1', valeur: '1' },
+							{ libellé: 'options 2', valeur: '2' },
+							{ libellé: 'options 3', valeur: '3' },
+							{ libellé: 'options 4', valeur: '4' },
+						];
+						render(<Select optionList={options} label={'label'} name="select"/>);
+
+						await user.tab();
+						await user.keyboard(KeyBoard.ENTER);
+
+						await user.keyboard(KeyBoard.PAGE_DOWN);
+						const option4 = screen.getByRole('option', { name: 'options 4' });
+						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option4.id);
+						expect(option4).toHaveAttribute('aria-selected', 'false');});
 				});
 
 				it('lorsque l‘option active change, scroll jusqu’à la nouvelle option active', async () => {
@@ -855,8 +940,6 @@ describe('<Select />', () => {
 					it.todo('lorsque l‘utilisateur tape un seul caractère, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match le caractère');
 
 					it.todo('lorsque l‘utilisateur tape plusieurs caractères, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui match les caractères');
-
-					it.todo('lorsque l‘utilisateur tape le même caractère plusieurs fois, la liste d‘options s‘ouvre et déplace le focus visuel sur la première option qui commence par ce caractère');
 				});
 			});
 

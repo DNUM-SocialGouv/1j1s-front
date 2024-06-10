@@ -161,46 +161,87 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		return optionSelectedValue === optionValue;
 	}, [optionSelectedValue]);
 
-	const changeVisualFocusWhenUserTypesLetter = useCallback((valueTyped: string) => {
-		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionStratingWith = optionsElement.findIndex((node) => node.textContent?.toLowerCase().startsWith(valueTyped.toLowerCase()));
-		if (indexOptionStratingWith >= 0) {
-			const idOptionStratingWith = optionsElement[indexOptionStratingWith].id;
-			dispatch(new SelectSimpleAction.VisualyFocusOption(idOptionStratingWith));
-		}
+	const resetValueTypedByUser = useCallback(() => {
 		dispatch(new SelectSimpleAction.SetValueTypedByUser(''));
-	}, [state.refListOption]);
+	}, []);
 
 	const handlefocusOnTypeLetterDebounce = useMemo(() => {
-		return debounce(changeVisualFocusWhenUserTypesLetter, DEFAULT_DEBOUNCE_TIMEOUT);
-	}, [changeVisualFocusWhenUserTypesLetter]);
+		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
+	}, [resetValueTypedByUser]);
 
-	const focusOnTypeLetterDebounced = useCallback(async function focusOnTypeLetter(valueTyped: string) {
-		handlefocusOnTypeLetterDebounce(valueTyped);
-	}, [handlefocusOnTypeLetterDebounce]);
+
+	const handleUserTypeNewLetter = useCallback((key: string) => {
+		function optionMatchUserInput(optionElement: Element) {
+			return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
+		}
+
+		const allUserInput = state.valueTypedByUser.concat(key);
+		dispatch(new SelectSimpleAction.SetValueTypedByUser(allUserInput));
+
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionStartingWith = optionsElement.findIndex((optionElement) => optionMatchUserInput(optionElement));
+		if (indexOptionStartingWith > -1) {
+			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionStartingWith]));
+		}
+		handlefocusOnTypeLetterDebounce();
+	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
+
+	const focus10optionsBefore = useCallback(() => {
+		const NUMBER_OF_OPTIONS_BEFORE = 10;
+
+		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
+		if (indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_BEFORE) {
+			dispatch(new SelectSimpleAction.VisualyFocusFirstOption());
+		} else {
+			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused - NUMBER_OF_OPTIONS_BEFORE]));
+		}
+	}, [state.activeDescendant, state.refListOption]);
+
+	const focus10optionsAfter = useCallback(() => {
+		const NUMBER_OF_OPTIONS_FURTHER = 10;
+
+		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
+		if (optionsElement.length - indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_FURTHER) {
+			dispatch(new SelectSimpleAction.VisualyFocusLastOption());
+		} else {
+			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused + NUMBER_OF_OPTIONS_FURTHER]));
+		}
+	}, [state.activeDescendant, state.refListOption]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
-		const isLetterType = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
-		if (isLetterType) {
+		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
+		if (isUserTypeLetter) {
 			event.preventDefault();
 			if (!state.isListOptionsOpen) {
 				dispatch(new SelectSimpleAction.OpenList());
 			}
-
-			const newValueTyped = state.valueTypedByUser.concat(key);
-			dispatch(new SelectSimpleAction.SetValueTypedByUser(newValueTyped));
-			focusOnTypeLetterDebounced(newValueTyped);
+			handleUserTypeNewLetter(key);
 		}
 
 		switch (key) {
+			case KeyBoard.PAGE_UP:
+				if (state.isListOptionsOpen) {
+					event.preventDefault();
+					focus10optionsBefore();
+				}
+				break;
+			case KeyBoard.PAGE_DOWN:
+				if (state.isListOptionsOpen) {
+					event.preventDefault();
+					focus10optionsAfter();
+				}
+				break;
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
 					if (altKey) {
-						const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
-						selectedOptionID && selectOption(selectedOptionID);
+						state.activeDescendant && selectOption(state.activeDescendant);
 					} else {
 						dispatch(new SelectSimpleAction.PreviousOption());
 					}
@@ -226,9 +267,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			case KeyBoard.SPACE:
 			case KeyBoard.ENTER: {
 				if (state.isListOptionsOpen) {
-					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
-					if (selectedOptionID) {
-						selectOption(selectedOptionID);
+					if (state.activeDescendant) {
+						selectOption(state.activeDescendant);
 						event.preventDefault();
 					}
 				} else {
@@ -239,9 +279,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			}
 			case KeyBoard.TAB: {
 				if (state.isListOptionsOpen) {
-					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
-					if (selectedOptionID) {
-						selectOption(selectedOptionID);
+					if (state.activeDescendant) {
+						selectOption(state.activeDescendant);
 					}
 				}
 				break;
@@ -266,7 +305,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, focusOnTypeLetterDebounced, selectOption, state.isListOptionsOpen, state.valueTypedByUser]);
+	}, [closeList, focus10optionsAfter, focus10optionsBefore, handleUserTypeNewLetter, selectOption, state]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -280,59 +319,61 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	}
 
 	return (
-		<div className={styles.container}>
-			<div
-				className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
-				role="combobox"
-				aria-controls={listboxId}
-				aria-haspopup="listbox"
-				aria-expanded={state.isListOptionsOpen}
-				aria-labelledby={labelledBy}
-				aria-describedby={`${ariaDescribedby} ${errorId}`}
-				tabIndex={0}
-				onClick={() => {
-					dispatch(new SelectSimpleAction.ToggleList());
-				}}
-				aria-activedescendant={state.activeDescendant}
-				onKeyDown={onKeyDown}
-				onBlur={onBlur}
-				{...rest}
-			>
-				<PlaceholderSelectedValue/>
-				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+		<div>
+			<div className={styles.container}>
+				<div
+					className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
+					role="combobox"
+					aria-controls={listboxId}
+					aria-haspopup="listbox"
+					aria-expanded={state.isListOptionsOpen}
+					aria-labelledby={labelledBy}
+					aria-describedby={`${ariaDescribedby} ${errorId}`}
+					tabIndex={0}
+					onClick={() => {
+						dispatch(new SelectSimpleAction.ToggleList());
+					}}
+					aria-activedescendant={state.activeDescendant}
+					onKeyDown={onKeyDown}
+					onBlur={onBlur}
+					{...rest}
+				>
+					<PlaceholderSelectedValue/>
+					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+				</div>
+				<ul
+					role="listbox"
+					ref={listboxRef}
+					aria-labelledby={labelledBy}
+					id={listboxId}
+					hidden={!state.isListOptionsOpen}>
+					{optionList.map((option, index) => {
+						const optionId = `${optionsId}-${index}`;
+						return <li
+							className={classNames(styles.optionComboboxSimple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
+							id={optionId}
+							role="option"
+							key={index}
+							onMouseDown={onMouseDown}
+							data-value={option.valeur}
+							onClick={() => {
+								selectOption(optionId);
+							}}
+							aria-selected={isCurrentItemSelected(option.valeur)}>
+							{option.libellé}
+						</li>;
+					})}
+				</ul>
+				<Input
+					className={styles.inputHiddenValue}
+					tabIndex={-1}
+					required={required}
+					aria-hidden={'true'}
+					name={name}
+					value={optionSelectedValue}
+				/>
 			</div>
-			<ul
-				role="listbox"
-				ref={listboxRef}
-				aria-labelledby={labelledBy}
-				id={listboxId}
-				hidden={!state.isListOptionsOpen}>
-				{optionList.map((option, index) => {
-					const optionId = `${optionsId}-${index}`;
-					return <li
-						className={classNames(styles.optionComboboxSimple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-						id={optionId}
-						role="option"
-						key={index}
-						onMouseDown={onMouseDown}
-						data-value={option.valeur}
-						onClick={() => {
-							selectOption(optionId);
-						}}
-						aria-selected={isCurrentItemSelected(option.valeur)}>
-						{option.libellé}
-					</li>;
-				})}
-			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
-			<Input
-				className={styles.inputHiddenValue}
-				tabIndex={-1}
-				required={required}
-				aria-hidden={'true'}
-				name={name}
-				value={optionSelectedValue}
-			/>
 		</div>
 	);
 }
@@ -492,66 +533,68 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	}
 
 	return (
-		<div className={styles.container}>
-			<div
-				role="combobox"
-				className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
-				aria-controls={listboxId}
-				aria-haspopup="listbox"
-				aria-expanded={state.isListOptionsOpen}
-				aria-describedby={`${ariaDescribedby} ${errorId}`}
-				aria-labelledby={labelledBy}
-				tabIndex={0}
-				onClick={() => {
-					dispatch(new SelectMultipleAction.ToggleList());
-				}}
-				aria-activedescendant={state.activeDescendant}
-				onKeyDown={onKeyDown}
-				onBlur={onBlur}
-				{...rest}
-			>
-				<PlaceholderSelectedOptions/>
-				{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+		<div>
+			<div className={styles.container}>
+				<div
+					role="combobox"
+					className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
+					aria-controls={listboxId}
+					aria-haspopup="listbox"
+					aria-expanded={state.isListOptionsOpen}
+					aria-describedby={`${ariaDescribedby} ${errorId}`}
+					aria-labelledby={labelledBy}
+					tabIndex={0}
+					onClick={() => {
+						dispatch(new SelectMultipleAction.ToggleList());
+					}}
+					aria-activedescendant={state.activeDescendant}
+					onKeyDown={onKeyDown}
+					onBlur={onBlur}
+					{...rest}
+				>
+					<PlaceholderSelectedOptions/>
+					{state.isListOptionsOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+				</div>
+				<ul
+					role="listbox"
+					ref={listboxRef}
+					aria-labelledby={labelledBy}
+					id={listboxId}
+					hidden={!state.isListOptionsOpen}>
+					{optionList.map((option, index) => {
+						const optionId = `${optionsId}-${index}`;
+						return <li
+							className={classNames(styles.optionComboboxMultiple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
+							id={optionId}
+							role="option"
+							key={index}
+							onMouseDown={onMouseDown}
+							data-value={option.valeur}
+							onClick={() => {
+								selectOption(optionId);
+							}}
+							aria-selected={isCurrentItemSelected(option.valeur)}>
+							<div className={styles.option}>{option.libellé}</div>
+						</li>;
+					})}
+				</ul>
+				{optionsSelectedValues.length === 0 ?
+					<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name}
+								 value={''}/> :
+					optionsSelectedValues.map((optionValue) => {
+						return <Input
+							tabIndex={-1}
+							className={styles.inputHiddenValue}
+							required={required}
+							key={optionValue}
+							aria-hidden="true"
+							name={name}
+							value={optionValue}
+						/>;
+					})
+				}
 			</div>
-			<ul
-				role="listbox"
-				ref={listboxRef}
-				aria-labelledby={labelledBy}
-				id={listboxId}
-				hidden={!state.isListOptionsOpen}>
-				{optionList.map((option, index) => {
-					const optionId = `${optionsId}-${index}`;
-					return <li
-						className={classNames(styles.optionComboboxMultiple, state.activeDescendant === optionId ? styles.optionVisuallyFocus : '')}
-						id={optionId}
-						role="option"
-						key={index}
-						onMouseDown={onMouseDown}
-						data-value={option.valeur}
-						onClick={() => {
-							selectOption(optionId);
-						}}
-						aria-selected={isCurrentItemSelected(option.valeur)}>
-						<div className={styles.option}>{option.libellé}</div>
-					</li>;
-				})}
-			</ul>
 			<Error id={errorId}>{errorMessage}</Error>
-			{optionsSelectedValues.length === 0 ?
-				<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name}
-							 value={''}/> :
-				optionsSelectedValues.map((optionValue) => {
-					return <Input
-						tabIndex={-1}
-						className={styles.inputHiddenValue}
-						required={required}
-						key={optionValue}
-						aria-hidden="true"
-						name={name}
-						value={optionValue}
-					/>;
-				})
-			}
 		</div>
 	);
 }
