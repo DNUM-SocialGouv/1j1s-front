@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.296.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.295.2...v3.296.0) (2024-06-11)
+
+
+### Features
+
+* **alternance:** modification du schéma de validation ([#3044](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3044)) ([32b6382](https://github.com/DNUM-SocialGouv/1j1s-front/commit/32b638295e33c89dd5da8c4497fd02cc9260759d))
+
 ## [3.295.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.295.1...v3.295.2) (2024-06-11)
 
 
