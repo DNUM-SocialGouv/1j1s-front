@@ -58,6 +58,7 @@ export const aLaBonneAlternanceApiJobsResponse = (override?: Partial<AlternanceA
 				aPeJobsResponse({
 					company: { name: 'une entreprise' },
 					job: {
+						contractDescription: 'CDD de 6 mois',
 						contractType: 'CDD',
 						description: 'description offre',
 						id: 'alternance-pejob',
@@ -66,7 +67,7 @@ export const aLaBonneAlternanceApiJobsResponse = (override?: Partial<AlternanceA
 							definition: 'Super alternance dans un bar',
 						},
 					},
-					place: { city: 'paris' },
+					place: { city: 'paris', fullAddress: 'full address' },
 					title: 'un titre',
 				}),
 			],
@@ -78,9 +79,6 @@ export const aLaBonneAlternanceApiJobsResponse = (override?: Partial<AlternanceA
 export function aPeJobsResponse(override?: Partial<PEJobs>): PEJobs {
 	return {
 		company: { name: 'ECOLE DE TRAVAIL ORT' },
-		contact: {
-			phone: 'phone',
-		},
 		job: {
 			contractDescription: 'CDD de 6 mois',
 			contractType: 'CDD',
@@ -109,11 +107,14 @@ export function aMatchaResponse(override?: Partial<Matcha>): Matcha {
 		diplomaLevel: 'débutant',
 		job: {
 			contractType: 'Apprentissage, CDI',
+			dureeContrat: 3,
 			id: 'id',
+			jobStartDate: '2020-01-01',
 			romeDetails: {
 				competencesDeBase: [{ libelle: 'savoir faire' }],
 				definition: 'Prépare et confectionne des produits de pâtisserie.',
 			},
+			rythmeAlternance: '6 mois',
 			status: AlternanceStatus.ACTIVE,
 		},
 		place: {

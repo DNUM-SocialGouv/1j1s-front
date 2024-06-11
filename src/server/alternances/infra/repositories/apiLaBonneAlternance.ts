@@ -77,7 +77,6 @@ export namespace AlternanceApiJobsResponse {
 		company?: AlternanceApiJobsResponse.Company
 		place?: AlternanceApiJobsResponse.Place
 		job: AlternanceApiJobsResponse.JobPE
-		contact?: AlternanceApiJobsResponse.Contact
 		url?: string
 	}
 
@@ -101,7 +100,7 @@ export interface AlternanceApiJobsResponse {
 }
 
 export const apiLaBonneAlternanceSchemas = {
-	getFranceTravail:Joi.object({
+	getFranceTravail: Joi.object({
 		peJobs: Joi.array().items(Joi.object({
 			company: Joi.object({
 				name: Joi.string(),
@@ -114,14 +113,14 @@ export const apiLaBonneAlternanceSchemas = {
 			}),
 			job: Joi.object({
 				contractDescription: Joi.string(),
-				description: Joi.string().required(),
+				description: Joi.string(),
 				duration: Joi.string(),
-			}).required(),
+			}),
 			place: Joi.object({
 				city: Joi.string(),
-				fullAddress: Joi.string(),
+				fullAddress: Joi.string().allow(null),
 			}),
-			title: Joi.string().required(),
+			title: Joi.string(),
 			url: Joi.string(),
 		})),
 	}).options({ allowUnknown: true }),
@@ -140,12 +139,12 @@ export const apiLaBonneAlternanceSchemas = {
 			job: Joi.object({
 				dureeContrat: Joi.number(),
 				rythmeAlternance: Joi.string(),
-			}).required(),
+			}),
 			place: Joi.object({
 				city: Joi.string().allow(null),
-				fullAddress: Joi.string(),
+				fullAddress: Joi.string().allow(null),
 			}),
-			title: Joi.string().required(),
+			title: Joi.string(),
 		})),
 	}).options({ allowUnknown: true }),
 	search: Joi.object({
@@ -153,16 +152,13 @@ export const apiLaBonneAlternanceSchemas = {
 			results: Joi.array().items(Joi.object({
 				company: Joi.object({
 					name: Joi.string(),
-					place: Joi.object({
-						city: Joi.string(),
-					}),
 				}),
 				contact: Joi.object({
 					phone: Joi.string(),
-				}),
+				}).allow(null),
 				diplomaLevel: Joi.string(),
 				job: Joi.object({
-					contractType: Joi.string(),
+					contractType: Joi.string().allow(''),
 					dureeContrat: Joi.number(),
 					id: Joi.string(),
 					jobStartDate: Joi.string(),
@@ -172,38 +168,34 @@ export const apiLaBonneAlternanceSchemas = {
 						})),
 						definition: Joi.string(),
 					}),
-					rythmeAlternance: Joi.string(),
-				}).required(),
+					rythmeAlternance: Joi.string().allow(null),
+				}),
 				place: Joi.object({
 					city: Joi.string().allow(null),
-					fullAddress: Joi.string(),
+					fullAddress: Joi.string().allow(null),
 				}),
-				title: Joi.string().required(),
+				title: Joi.string(),
 			})),
-		}).required(),
+		}),
 		peJobs: Joi.object({
 			results: Joi.array().items(Joi.object({
 				company: Joi.object({
-					name: Joi.string(),
-					place: Joi.object({
-						city: Joi.string(),
-					}),
-				}),
-				contact: Joi.object({
-					phone: Joi.string(),
+					// NOTE (BRUJ 03/06/2024): ne devrait pas être optionel, la clef n'est pas présente
+					name: Joi.string().optional(),
 				}),
 				job: Joi.object({
 					contractDescription: Joi.string(),
-					description: Joi.string().required(),
-					duration: Joi.string(),
-				}).required(),
+					description: Joi.string(),
+					// NOTE (BRUJ 03/06/2024): ne devrait pas être optionel, la clef n'est pas présente
+					duration: Joi.string().optional(),
+				}),
 				place: Joi.object({
 					city: Joi.string(),
 					fullAddress: Joi.string(),
 				}),
-				title: Joi.string().required(),
+				title: Joi.string(),
 				url: Joi.string(),
 			})),
-		}).required(),
-	}).options({ allowUnknown: true }),
+		}),
+	}).options({ allowUnknown: true, presence: 'required' }).required(),
 };

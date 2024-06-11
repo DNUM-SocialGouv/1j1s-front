@@ -83,7 +83,7 @@ export function mapDetailPEJob(alternance: PEJobs): Alternance {
 		entreprise: {
 			adresse: alternance.place?.fullAddress,
 			nom: alternance.company?.name,
-			téléphone: alternance.contact?.phone,
+			téléphone: undefined,
 		},
 		id: alternance.job.id,
 		lienPostuler: alternance.url,
