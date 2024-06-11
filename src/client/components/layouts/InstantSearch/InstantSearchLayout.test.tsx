@@ -4,20 +4,48 @@
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import React from 'react';
 
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import { aRechercheClientService } from '~/client/components/layouts/InstantSearch/InstantSearchLayout.fixture';
+import {
+	mockUseInstantSearch,
+	mockUsePagination,
+} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 
-jest.mock('react-instantsearch', () => ({
-	...jest.requireActual('react-instantsearch'),
-	Configure: () => <></>,
-}));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const instantsearch = require('react-instantsearch');
+
+const spyOnUseStats = jest.spyOn(instantsearch, 'useStats');
+const spyOnInstantSearch = jest.spyOn<{
+	InstantSearch: (params: { children: React.ReactNode }) => React.ReactNode
+		}, 'InstantSearch'>(instantsearch, 'InstantSearch');
+const spyOnUseInstantSearch = jest.spyOn(instantsearch, 'useInstantSearch');
+const spyedPagination = jest.spyOn(instantsearch, 'usePagination');
 
 describe('<InstantSearchLayout />', () => {
 	beforeEach(() => {
 		mockLargeScreen();
+		mockUseRouter({});
+
+		spyOnUseStats.mockImplementation(() => ({ nbHits: 2 }));
+		spyOnUseInstantSearch.mockImplementation(() => mockUseInstantSearch({
+			error: undefined,
+			results: { __isArtificial: false },
+		}));
+		spyOnInstantSearch.mockImplementation(({ children }: { children: React.ReactNode }) => {
+			return <>{children}</>;
+		});
+		spyedPagination.mockImplementation(() => mockUsePagination({
+			currentRefinement: 2,
+			isFirstPage: false,
+			isLastPage: false,
+			nbHits: 35,
+			nbPages: 3,
+		}));
 	});
 	it('scroll en haut des résultats quand on change de page', async () => {
 		const user = userEvent.setup();
@@ -31,12 +59,12 @@ describe('<InstantSearchLayout />', () => {
 					sousTitre="Sous-titre"
 					formulaireDeRecherche={<div></div>}
 					tagList={<div></div>}
-					nombreDeResultatParPage={1}
+					nombreDeResultatParPage={2}
 					messageResultatRechercheLabelSingulier="résultat trouvé"
 					messageResultatRechercheLabelPluriel="résultats trouvés"
 					nombreDeSkeleton={1}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
-					resultatDeRecherche={() => <div></div>}/>
+					resultatDeRecherche={() => <></>}/>
 			</DependenciesProvider>,
 		);
 		await screen.findByRole('heading', { name: /2 résultats trouvés/ });

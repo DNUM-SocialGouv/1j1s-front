@@ -1,18 +1,10 @@
-import { CurrentRefinementsRenderState } from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
+import {
+	CurrentRefinementsRenderState,
+} from 'instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements';
 import type { PaginationRenderState } from 'instantsearch.js/es/connectors/pagination/connectPagination';
 import { RangeRenderState } from 'instantsearch.js/es/connectors/range/connectRange';
-// eslint-disable-next-line import/named
 import { RefinementListRenderState } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 import { SearchBoxRenderState } from 'instantsearch.js/es/connectors/search-box/connectSearchBox';
-// eslint-disable-next-line import/named
-import {
-	UseCurrentRefinementsProps,
-	UseInstantSearchProps,
-	UseRangeProps,
-	UseRefinementListProps,
-	UseSearchBoxProps,
-} from 'react-instantsearch';
-import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connectors/usePagination';
 /*
 * UsePagination associé à un getter sur la librairie.
 * Ce getter est défini en readonly (non-configurable)
@@ -25,8 +17,7 @@ import type { UsePaginationProps } from 'react-instantsearch-core/dist/es/connec
 * Il faut donc mocker la totalité de la librairie via le dossier __mock__
 * */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUsePagination(_props: UsePaginationProps): PaginationRenderState {
+function realMockUsePagination(): PaginationRenderState {
 	return {
 		canRefine: true,
 		createURL: jest.fn(),
@@ -40,8 +31,7 @@ function realMockUsePagination(_props: UsePaginationProps): PaginationRenderStat
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseRefinementList(_props: UseRefinementListProps): RefinementListRenderState {
+function realMockUseRefinementList(): RefinementListRenderState {
 	return {
 		canRefine: true,
 		canToggleShowMore: true,
@@ -57,8 +47,7 @@ function realMockUseRefinementList(_props: UseRefinementListProps): RefinementLi
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
+function realMockUseSearchBox(): SearchBoxRenderState {
 	return {
 		clear: jest.fn(),
 		isSearchStalled: false,
@@ -67,8 +56,7 @@ function realMockUseSearchBox(_props: UseSearchBoxProps): SearchBoxRenderState {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
+function realMockUseInstantSearch(): unknown {
 	return {
 		error: jest.fn(),
 		refresh: jest.fn(),
@@ -77,8 +65,7 @@ function realMockUseInstantSearch(_props: UseInstantSearchProps): unknown {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseRange(_props: UseRangeProps): RangeRenderState {
+function realMockUseRange(): RangeRenderState {
 	return {
 		canRefine: true,
 		format: {
@@ -95,8 +82,7 @@ function realMockUseRange(_props: UseRangeProps): RangeRenderState {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function realMockUseCurrentRefinements(_props: UseCurrentRefinementsProps): CurrentRefinementsRenderState {
+function realMockUseCurrentRefinements(): CurrentRefinementsRenderState {
 	return {
 		canRefine: true,
 		createURL: jest.fn(),
@@ -105,11 +91,17 @@ function realMockUseCurrentRefinements(_props: UseCurrentRefinementsProps): Curr
 	};
 }
 
+
+
 module.exports = {
+	Configure: jest.fn(),
+	Hits: jest.fn(),
+	InstantSearch: jest.fn(),
 	useCurrentRefinements: realMockUseCurrentRefinements,
 	useInstantSearch: realMockUseInstantSearch,
 	usePagination: realMockUsePagination,
 	useRange: realMockUseRange,
 	useRefinementList: realMockUseRefinementList,
 	useSearchBox: realMockUseSearchBox,
+	useStats: jest.fn(),
 };

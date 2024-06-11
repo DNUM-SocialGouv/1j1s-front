@@ -54,7 +54,6 @@ export function InstantSearchLayout<THit extends BaseHit = BaseHit>(props: Insta
 	} = props;
 
 	const searchClient = useDependency<SearchClient>('rechercheClientService');
-
 	const listeDesResultatsRef = useRef<HTMLElement>(null);
 
 	const scrollToTopOfListeDesResultats = () => {

@@ -13,11 +13,6 @@ import { DependenciesProvider } from '~/client/context/dependenciesContainer.con
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import RechercherOffreStagePage from '~/pages/stages/index.page';
 
-jest.mock('react-instantsearch', () => ({
-	...jest.requireActual('react-instantsearch'),
-	Configure: () => <></>,
-}));
-
 describe('<RechercherOffreStagePage />', () => {
 	it('n‘a pas de défaut d‘accessibilité', async () => {
 		mockUseRouter({});
