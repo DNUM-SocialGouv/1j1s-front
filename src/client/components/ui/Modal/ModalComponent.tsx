@@ -16,13 +16,15 @@ interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
 	keepModalMounted?: boolean
 }
 
-type ModalPropsWithAccessibleDescription = ({
+type LabelRequired = {
 	'aria-label'?: string;
 	'aria-labelledby': string;
 } | {
 	'aria-label': string;
 	'aria-labelledby'?: string;
-}) & ModalProps
+}
+
+type ModalPropsWithAccessibleDescription = LabelRequired & ModalProps
 
 export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 	const {
