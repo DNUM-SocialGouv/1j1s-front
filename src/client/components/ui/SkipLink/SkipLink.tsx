@@ -7,7 +7,7 @@ export default function SkipLink() {
 	return (
 		<div className={styles.skipLinkWrapper}>
 			<Container>
-				<ul className={styles.skipLinkList}>
+				<ul className={styles.skipLinkList} id="skip-link-list">
 					<li><a className={styles.skipLink} href="#contenu">Contenu</a></li>
 					<li><a className={styles.skipLink} href="#header-navigation">Menu</a></li>
 					<li><a className={styles.skipLink} href="#footer">Pied de page</a></li>

@@ -13,9 +13,9 @@ describe('<Bouée />', () => {
 	const label = 'Remonter en haut de la page';
 	afterEach(() => jest.resetAllMocks());
 	beforeEach(() => {
-		window.scrollTo = function () {
-			this.dispatchEvent(new Event('scroll'));
-		};
+		window.scrollTo = jest.fn().mockImplementation(() => {
+			window.dispatchEvent(new Event('scroll'));
+		});
 	});
 
 	const DEBOUNCE_DELAY = 50;
@@ -24,7 +24,6 @@ describe('<Bouée />', () => {
 		let y = initialY;
 		const surface = {
 			getBoundingClientRect: jest.fn(() => ({ y } as DOMRect)),
-			scrollTo: jest.fn(),
 		};
 		const surfaceRef: RefObject<HTMLElement> = { current: surface as unknown as HTMLElement };
 		const setY = (n: number) => { y=n; };
@@ -32,19 +31,25 @@ describe('<Bouée />', () => {
 	}
 
 	describe('quand l‘élément étalon est visible', () => {
-		it('affiche un bouton qui reste invisible', () => {
+		it('affiche un lien qui reste invisible', () => {
 			// Given
 			const [surfaceRef] = mockSurface();
+
 			// When
 			render(<Bouée surface={ surfaceRef }/>);
+			
 			// Then
-			const button = screen.getByRole('button', { description: label, hidden: true });
-			expect(button).not.toBeVisible();
+			const link = screen.getByLabelText(label, { selector: 'a' });
+
+			expect(link).toHaveAttribute('href', '#skip-link-list');
+			expect(link).not.toBeVisible();
 		});
-		describe('mais qu‘on scroll vers le bas', () => {
-			it('affiche le bouton', async () => {
+
+		describe('quand on scroll vers le bas', () => {
+			it('affiche le lien', async () => {
 				// Given
 				const [surfaceRef, setY] = mockSurface();
+
 				// When
 				render(<Bouée surface={ surfaceRef }/>);
 				setY(-100);
@@ -52,14 +57,17 @@ describe('<Bouée />', () => {
 					window.scrollTo({ top: 200 });
 					await delay(DEBOUNCE_DELAY);
 				});
+				
 				// Then
-				const button = screen.getByRole('button', { description: label, hidden: false });
-				expect(button).toBeVisible();
+				const link = screen.getByLabelText(label, { selector: 'a' });
+				expect(link).toBeVisible();
 			});
-			describe('et qu‘on clique sur le bouton', () => {
+
+			describe('quand on clique sur le lien', () => {
 				it('scrolle jusqu‘à l‘élément étalon', async () => {
 					// Given
-					const [surfaceRef, setY] = mockSurface();
+					const [ surfaceRef, setY] = mockSurface();
+
 					// When
 					render(<Bouée surface={ surfaceRef }/>);
 					setY(-100);
@@ -67,26 +75,31 @@ describe('<Bouée />', () => {
 						window.scrollTo({ top: 200 });
 						await delay(DEBOUNCE_DELAY);
 					});
-					const button = screen.getByRole('button', { description: label });
-					await userEvent.click(button);
+
+					const link = screen.getByLabelText(label, { selector: 'a' });
+					await userEvent.click(link);
+
 					// Then
 					expect(window.scrollY).toEqual(0);
-					// TODO : trouver une meilleure façon de faire
-					// expect(window.scrollTo()).toHaveBeenCalled();
+					expect(window.scrollTo).toHaveBeenCalled();
 				});
 			});
 		});
 	});
+
 	describe('quand l‘élement étalon n‘est plus visible', () => {
-		it('affiche un bouton visible', async () => {
+		it('affiche un lien visible', async () => {
 			// Given
 			const [surfaceRef] = mockSurface(-100);
+
 			// When
 			render(<Bouée surface={ surfaceRef }/>);
 			await act(() => delay(DEBOUNCE_DELAY));
+
 			// Then
-			const button = screen.getByRole('button', { description: label, hidden: false });
-			expect(button).toBeVisible();
+			const link = screen.getByLabelText(label, { selector: 'a' });
+
+			expect(link).toBeVisible();
 		});
 	});
 });

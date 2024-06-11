@@ -27,14 +27,15 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 	}
 
 	return (
-		<button 
+		<a 
 			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
 			hidden={ !isDown }
 			onClick={ toSurface }
-			title="Remonter en haut de la page"
+			aria-label="Remonter en haut de la page"
+			href="#skip-link-list"
 		>
 			<Icon name={'angle-up'} />
-		</button>
+		</a>
 	);
 }
 
