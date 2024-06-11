@@ -16,7 +16,6 @@ import { anAnnonceDeLogementRepository } from '~/server/logements/infra/strapiAn
 import {
 	aFicheMetierNomMetierList,
 	anArticlePathList,
-	aSitemap,
 } from '~/server/sitemap/domain/sitemap.fixture';
 import { GenererSitemapUseCase } from '~/server/sitemap/useCases/genererSitemap.useCase';
 import { anOffreDeStageSlugsList } from '~/server/stages/domain/stages.fixture';
