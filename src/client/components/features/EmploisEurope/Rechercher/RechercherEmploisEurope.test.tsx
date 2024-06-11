@@ -620,7 +620,7 @@ describe('RechercherEmploisEurope', () => {
 			);
 
 			await screen.findAllByRole('list', { name: 'Offres d’emplois en Europe' });
-			const etiquettesRecherche =  screen.queryByRole('list', { name: 'Filtres de la recherche' });
+			const etiquettesRecherche = screen.queryByRole('list', { name: 'Filtres de la recherche' });
 			expect(etiquettesRecherche).not.toBeInTheDocument();
 		});
 	});
@@ -919,6 +919,28 @@ describe('RechercherEmploisEurope', () => {
 				const tagTypeContrat = within(premierResultat).queryByText('Autre');
 				expect(tagTypeContrat).not.toBeInTheDocument();
 			});
+		});
+	});
+
+	describe('affiche les services utiles', () => {
+		it('l‘utilisateur voit les cartes de redirection', () => {
+			mockUseRouter({});
+			mockSmallScreen();
+
+			render(
+				<DependenciesProvider emploiEuropeService={anEmploiEuropeService()}>
+					<RechercherEmploisEurope/>
+				</DependenciesProvider>);
+
+			const listPartenaires = screen.getByRole('list', { name: 'Liste des partenaires et des services' });
+			const links = within(listPartenaires).getAllByRole('link');
+
+			expect(listPartenaires).toBeVisible();
+			expect(links).toHaveLength(4);
+			expect(links[0]).toHaveAttribute('href', 'https://europa.eu/eures/portal/jv-se/home?lang=fr');
+			expect(links[1]).toHaveAttribute('href', 'https://info.erasmusplus.fr/');
+			expect(links[2]).toHaveAttribute('href', '/mes-aides');
+			expect(links[3]).toHaveAttribute('href', '/experience-europe');
 		});
 	});
 });
