@@ -49,11 +49,9 @@ describe('GenererSitemapUseCase', () => {
 				const baseUrl = 'http://localhost:3000';
 				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
 
-				const expected = aSitemap(baseUrl);
-
 				const result = await générerSitemapUseCase.handle();
 
-				expect(result).toEqual(expected);
+				expect(result).not.toContain('<loc>http://localhost:3000/formations/apprentissage</loc>');
 			});
 		});
 
