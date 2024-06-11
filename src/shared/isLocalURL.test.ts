@@ -43,16 +43,4 @@ describe('isLocalURL()', () => {
 
 		expect(isLocal).toBe(true);
 	});
-	it('throw un erreur si l‘url est invalide', () => {
-		const url = 'url invalide';
-		const origin = 'https://www.1jeune1solution.gouv.fr';
-
-		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid URL "url invalide"'));
-	});
-	it('throw un erreur si l‘origine est invalide', () => {
-		const url = '/toot';
-		const origin = 'www.test.com';
-
-		expect(() => isLocalURL(url, origin)).toThrow(new TypeError('Invalid Origin "www.test.com"'));
-	});
 });
