@@ -7,7 +7,7 @@ export function EuresPartner() {
 		<ServiceCard
 			linkLabel="Acceder au site web"
 			link="https://europa.eu/eures/portal/jv-se/home?lang=fr"
-			logo="/images/logos/eures.jpeg"
+			logo="/images/logos/eures.webp"
 			title="Le programme de mobilité ciblé EURES"
 			titleAs={'h3'}
 		>

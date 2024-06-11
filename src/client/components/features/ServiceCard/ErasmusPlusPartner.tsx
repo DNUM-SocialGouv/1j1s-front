@@ -8,7 +8,7 @@ export function EurasmusPlusPartner() {
 			imageFit="cover"
 			linkLabel="Acceder au site web"
 			link="https://info.erasmusplus.fr/"
-			logo="/images/logos/erasmus-plus.png"
+			logo="/images/logos/erasmus-plus.webp"
 			title="Le programme “ERASMUS+”"
 			titleAs={'h3'}
 		>
