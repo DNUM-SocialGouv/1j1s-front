@@ -34,7 +34,7 @@ export function anAnnonceDeLogement(override?: Partial<AnnonceDeLogement>): Anno
 		titre: 'mon titre',
 		type: 'Location',
 		typeBien: 'Appartement',
-		urlDeCandidature: 'lien-immo-jeune.com',
+		urlDeCandidature: 'https://www.lien-immo-jeune.com',
 		étage: 1,
 		...override,
 	};

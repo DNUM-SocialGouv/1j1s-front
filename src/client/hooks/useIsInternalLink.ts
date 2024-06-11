@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 
-const PATHNAME_PREFIX = '/';
-const ANCHOR_PREFIX = '#';
+import isInternalURL from '~/shared/isInternalURL';
 
-export function useIsInternalLink(href: string) {
+export function useIsInternalLink(href: string): boolean {
 	const [origin, setOrigin] = useState<string>('');
 
 	useEffect(() => {
@@ -11,8 +10,6 @@ export function useIsInternalLink(href: string) {
 	}, []);
 
 	return useMemo(function () {
-		return href?.startsWith(origin)
-			|| href?.startsWith(PATHNAME_PREFIX)
-			|| href?.startsWith(ANCHOR_PREFIX);
+		return Boolean(origin) && isInternalURL(href, origin);
 	}, [href, origin]);
 }

@@ -44,7 +44,7 @@ describe('<Detail />', () => {
 	});
 	describe('pour une offre France Travail', () => {
 		it('affiche le lien pour postuler', () => {
-			const annonce = aDetailAlternance({ lienPostuler: 'url', source: Alternance.Source.FRANCE_TRAVAIL });
+			const annonce = aDetailAlternance({ lienPostuler: 'https://example.com', source: Alternance.Source.FRANCE_TRAVAIL });
 
 			render(<DependenciesProvider dateService={aDateService()}>
 				<Detail annonce={annonce}/>
@@ -53,7 +53,7 @@ describe('<Detail />', () => {
 			const lien = screen.getByRole('link', { name: 'Postuler sur France Travail - nouvelle fenêtre' });
 
 			expect(lien).toBeVisible();
-			expect(lien).toHaveAttribute('href', 'url');
+			expect(lien).toHaveAttribute('href', 'https://example.com');
 		});
 		it('n’affiche pas le lien pour postuler lorsque l’url n’est pas renseignée', () => {
 			const annonce = aDetailAlternance({ lienPostuler: undefined, source: Alternance.Source.FRANCE_TRAVAIL });

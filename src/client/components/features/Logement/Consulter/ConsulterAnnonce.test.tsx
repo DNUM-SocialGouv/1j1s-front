@@ -300,14 +300,14 @@ describe('<ConsulterAnnonce />', () => {
 
 	describe('call to action Voir l‘annonce', () => {
 		it('affiche un lien externe Voir l‘annonce', () => {
-			const annonceDeLogement = anAnnonceDeLogement();
+			const annonceDeLogement = anAnnonceDeLogement({ urlDeCandidature: 'https://example.com' });
 			render(<DependenciesProvider dateService={aDateService()}>
 				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
 			</DependenciesProvider>);
 			const lienExterneCandidaterMobileEtDesktop = screen.getAllByRole('link', { name: 'Voir l‘annonce - nouvelle fenêtre' });
 
 			expect(lienExterneCandidaterMobileEtDesktop[0]).toBeVisible();
-			expect(lienExterneCandidaterMobileEtDesktop[0]).toHaveAttribute('href', 'lien-immo-jeune.com');
+			expect(lienExterneCandidaterMobileEtDesktop[0]).toHaveAttribute('href', 'https://example.com');
 		});
 	});
 	it('affiche les services', () => {

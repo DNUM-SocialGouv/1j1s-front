@@ -37,7 +37,7 @@ export function aStrapiAnnonceDeLogement(override?: Partial<StrapiAnnonceDeLogem
 		titre: 'mon titre',
 		type: 'Location',
 		typeBien: 'Appartement',
-		url: 'lien-immo-jeune.com',
+		url: 'https://www.lien-immo-jeune.com',
 		...override,
 	};
 }

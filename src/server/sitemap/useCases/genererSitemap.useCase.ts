@@ -1,7 +1,7 @@
 import {
 	isNavigationItem,
 	NavigationItem,
-	navigationItemList,
+	NavigationItemList,
 	NavigationItemWithChildren,
 } from '~/client/components/layouts/Header/Navigation/NavigationStructure';
 import { ArticleRepository } from '~/server/articles/domain/articles.repository';
@@ -10,6 +10,7 @@ import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import { AnnonceDeLogementRepository } from '~/server/logements/domain/annonceDeLogement.repository';
 import { StagesRepository } from '~/server/stages/domain/stages.repository';
+import isInternalURL from '~/shared/isInternalURL';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
@@ -37,17 +38,18 @@ const OTHER_STATIC_PATH_LIST = [
 	'/apprentissage/simulation?simulateur=employeur',
 ];
 
-export class GénérerSitemapUseCase {
+export class GenererSitemapUseCase {
 	constructor(private ficheMetierRepository: FicheMetierRepository,
-							private faqRepository: FAQRepository,
-							private annonceDeLogementRepository: AnnonceDeLogementRepository,
-							private stagesRepository: StagesRepository,
-							private articlesRepository: ArticleRepository,
-							private baseUrl: string) {
+		private faqRepository: FAQRepository,
+		private annonceDeLogementRepository: AnnonceDeLogementRepository,
+		private stagesRepository: StagesRepository,
+		private articlesRepository: ArticleRepository,
+		private navigationList: NavigationItemList,
+		private baseUrl: string) {
 	}
 
 	async handle(): Promise<string> {
-		const staticPathList = this.flattenNavigationItemList(Object.values(navigationItemList()));
+		const staticPathList = this.flattenNavigationItemList(Object.values(this.navigationList));
 		staticPathList.push(...FOOTER_STATIC_PATH_LIST);
 		staticPathList.push(...OTHER_STATIC_PATH_LIST);
 
@@ -67,7 +69,8 @@ export class GénérerSitemapUseCase {
 
 		];
 		const pathList = [...staticPathList, ...dynamicPathList];
-		return this.generateSiteMap(pathList, this.baseUrl);
+		const localPaths = pathList.filter((path) => isInternalURL(path, this.baseUrl));
+		return this.generateSiteMap(localPaths, this.baseUrl);
 	}
 
 	private flattenNavigationItemList(navigationItemList: Array<NavigationItem | NavigationItemWithChildren>): Array<string> {
@@ -95,7 +98,7 @@ export class GénérerSitemapUseCase {
 		return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pathList.map((path) => `
 	<url>
-		<loc>${baseUrl}${path}</loc>
+		<loc>${new URL(path, baseUrl).toString()}</loc>
 	</url>`).join('')}
 </urlset>`;
 	}
