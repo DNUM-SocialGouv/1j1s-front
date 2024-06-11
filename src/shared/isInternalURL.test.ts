@@ -1,11 +1,11 @@
-import isLocalURL from '~/shared/isLocalURL';
+import isInternalURL from '~/shared/isInternalURL';
 
-describe('isLocalURL()', () => {
+describe('isInternalURL()', () => {
 	it('renvoie true si l‘url est relative', () => {
 		const url = '/home';
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		const isLocal = isLocalURL(url, origin);
+		const isLocal = isInternalURL(url, origin);
 
 		expect(isLocal).toBe(true);
 	});
@@ -13,7 +13,7 @@ describe('isLocalURL()', () => {
 		const url = '#section1';
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		const isLocal = isLocalURL(url, origin);
+		const isLocal = isInternalURL(url, origin);
 
 		expect(isLocal).toBe(true);
 	});
@@ -21,7 +21,7 @@ describe('isLocalURL()', () => {
 		const url = 'https://www.monstagedeseconde.gouv.fr/stages';
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		const isLocal = isLocalURL(url, origin);
+		const isLocal = isInternalURL(url, origin);
 
 		expect(isLocal).toBe(false);
 	});
@@ -31,7 +31,7 @@ describe('isLocalURL()', () => {
 		const url = `${protocol}://www.monstagedeseconde.gouv.fr/stages`;
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		const isLocal = isLocalURL(url, origin);
+		const isLocal = isInternalURL(url, origin);
 
 		expect(isLocal).toBe(false);
 	});
@@ -39,7 +39,7 @@ describe('isLocalURL()', () => {
 		const url = 'https://www.1jeune1solution.gouv.fr/stages';
 		const origin = 'https://www.1jeune1solution.gouv.fr';
 
-		const isLocal = isLocalURL(url, origin);
+		const isLocal = isInternalURL(url, origin);
 
 		expect(isLocal).toBe(true);
 	});

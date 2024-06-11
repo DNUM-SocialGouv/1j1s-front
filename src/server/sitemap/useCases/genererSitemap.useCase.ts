@@ -10,7 +10,7 @@ import { FAQRepository } from '~/server/faq/domain/FAQ.repository';
 import { FicheMetierRepository } from '~/server/fiche-metier/domain/ficheMetier.repository';
 import { AnnonceDeLogementRepository } from '~/server/logements/domain/annonceDeLogement.repository';
 import { StagesRepository } from '~/server/stages/domain/stages.repository';
-import isLocalURL from '~/shared/isLocalURL';
+import isInternalURL from '~/shared/isInternalURL';
 
 const DÉCOUVRIR_LES_METIERS_ROOT_PATH = 'decouvrir-les-metiers';
 const ARTICLE_ROOT_PATH = 'articles';
@@ -69,7 +69,7 @@ export class GenererSitemapUseCase {
 
 		];
 		const pathList = [...staticPathList, ...dynamicPathList];
-		const localPaths = pathList.filter((path) => isLocalURL(path, this.baseUrl));
+		const localPaths = pathList.filter((path) => isInternalURL(path, this.baseUrl));
 		return this.generateSiteMap(localPaths, this.baseUrl);
 	}
 

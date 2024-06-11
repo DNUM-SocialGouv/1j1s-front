@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import isLocalURL from '~/shared/isLocalURL';
+import isInternalURL from '~/shared/isInternalURL';
 
 export function useIsInternalLink(href: string): boolean {
 	const [origin, setOrigin] = useState<string>('');
@@ -10,6 +10,6 @@ export function useIsInternalLink(href: string): boolean {
 	}, []);
 
 	return useMemo(function () {
-		return Boolean(origin) && isLocalURL(href, origin);
+		return Boolean(origin) && isInternalURL(href, origin);
 	}, [href, origin]);
 }
