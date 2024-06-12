@@ -91,8 +91,10 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRech
 			nom: alternance.company?.name,
 		},
 		id: alternance.job.id,
+		localisation: alternance.place?.city,
 		source: Alternance.Source.FRANCE_TRAVAIL,
 		titre: alternance.title,
+		typeDeContrat: alternance.job.contractType ? [alternance.job.contractType] : [],
 	};
 }
 
@@ -123,8 +125,11 @@ function mapRésultatRechercherAlternanceMatcha(alternance: Matcha): ResultatRec
 			nom: alternance.company?.name,
 		},
 		id: alternance.job.id,
+		localisation: alternance.place?.city,
+		niveauRequis: alternance.diplomaLevel,
 		source: Alternance.Source.MATCHA,
 		titre: alternance.title,
+		typeDeContrat: parseContractTypeMatcha(alternance),
 	};
 }
 

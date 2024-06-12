@@ -2,7 +2,7 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	aDetailMatchaAlternance,
 	aDetailPEJobAlternance,
-	aRechercheAlternance,
+	aRechercheAlternance, aRechercheMatchaAlternance,
 	aRecherchePEJobAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import {
@@ -27,30 +27,28 @@ describe('mapRechercheAlternance', () => {
 	it('converti une response en liste d’alternance et d‘entreprises', () => {
 		const input = aLaBonneAlternanceApiJobsResponse({
 			lbaCompanies: {
-				results: [
-					{
-						company: {
-							name: 'CLUB VET',
-							siret: '52352551700026',
-							size: '0-0',
-						},
-						contact: {
-							email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
-							iv: '93f7bd08e956453cd8d0f8f75821a634',
-						},
-						nafs: [
-							{
-								label: 'Autres intermédiaires du commerce en produits divers',
-							}, {
-								label: 'Développement informatique',
-							},
-						],
-						place: {
-							city: 'Paris',
-							fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
-						},
+				results: [{
+					company: {
+						name: 'CLUB VET',
+						siret: '52352551700026',
+						size: '0-0',
 					},
-				],
+					contact: {
+						email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
+						iv: '93f7bd08e956453cd8d0f8f75821a634',
+					},
+					nafs: [
+						{
+							label: 'Autres intermédiaires du commerce en produits divers',
+						}, {
+							label: 'Développement informatique',
+						},
+					],
+					place: {
+						city: 'Paris',
+						fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
+					},
+				}],
 			},
 			matchas: {
 				results: [{
@@ -64,6 +62,7 @@ describe('mapRechercheAlternance', () => {
 							definition: 'description',
 						},
 					},
+					place: { city: 'Paris' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
@@ -99,16 +98,21 @@ describe('mapRechercheAlternance', () => {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
+					localisation: 'Paris',
+					niveauRequis: 'CAP, BEP',
 					source: Source.MATCHA,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD', 'CDI'],
 				},
 				{
 					entreprise: {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
+					localisation: 'PARIS 4',
 					source: Source.FRANCE_TRAVAIL,
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD'],
 				}],
 		}));
 	});
@@ -231,8 +235,11 @@ describe('mapRechercheAlternance', () => {
 							nom: 'ECOLE DE TRAVAIL ORT',
 						},
 						id: 'id',
+						localisation: 'PARIS 4',
+						niveauRequis: undefined,
 						source: Source.FRANCE_TRAVAIL,
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
+						typeDeContrat: ['CDD'],
 					}),
 				],
 			}));
@@ -286,13 +293,14 @@ describe('mapRechercheAlternance', () => {
 			expect(result).toEqual(aRechercheAlternance({
 				entrepriseList: [],
 				offreList: [
-					aRecherchePEJobAlternance({
-						entreprise: {
-							nom: 'ECOLE DE TRAVAIL ORT',
-						},
+					aRechercheMatchaAlternance({
+						entreprise: { nom: 'ECOLE DE TRAVAIL ORT' },
 						id: 'id',
+						localisation: 'PARIS 4',
+						niveauRequis: 'CAP, BEP',
 						source: Source.MATCHA,
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
+						typeDeContrat: ['CDD'],
 					}),
 				],
 			}));
