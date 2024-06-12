@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.297.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.296.0...v3.297.0) (2024-06-12)
+
+
+### Features
+
+* **accessibilité:** ajout d'un nom accessible aux modales ([#3047](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3047)) ([c626907](https://github.com/DNUM-SocialGouv/1j1s-front/commit/c6269079578d304785a1b09efbc493cd9c8d00a3))
+* **emplois europe:** ajout des cartes de service ([#3042](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3042)) ([6552ec3](https://github.com/DNUM-SocialGouv/1j1s-front/commit/6552ec3edc09f2ff89144a71e45814a1a9a4aaf2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency uuid to v10 ([#3054](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3054)) ([003b60c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/003b60caeaee51790fb37d94bf46879a8a919326))
+* Fix le format invalide du sitemap ([#3025](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3025)) ([184caa2](https://github.com/DNUM-SocialGouv/1j1s-front/commit/184caa29a8343012aeb612729ab5650fea6b77ff))
+
 ## [3.296.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.295.2...v3.296.0) (2024-06-11)
 
 
