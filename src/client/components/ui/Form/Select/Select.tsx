@@ -169,7 +169,6 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
-
 	const handleUserTypeNewLetter = useCallback((key: string) => {
 		function optionMatchUserInput(optionElement: Element) {
 			return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
@@ -403,6 +402,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			isListOptionsOpen: false,
 			optionsSelectedValues: defaultValue ? defaultValue : [],
 			refListOption: listboxRef,
+			valueTypedByUser: '',
 			visibleOptions: [],
 		},
 	);
@@ -430,7 +430,6 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		}
 	}, [state.activeDescendant]);
 
-
 	// NOTE (BRUJ 17-05-2023): Sinon on perd le focus avant la fin du clique ==> élément invalid pour la sélection.
 	const onMouseDown = useCallback(function preventBlurOnOptionSelection(event: React.MouseEvent<HTMLLIElement>) {
 		event.preventDefault();
@@ -451,12 +450,78 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		return optionsSelectedValues.includes(optionValue);
 	}, [optionsSelectedValues]);
 
+	const resetValueTypedByUser = useCallback(() => {
+		dispatch(new SelectMultipleAction.SetValueTypedByUser(''));
+	}, []);
+
+	const handlefocusOnTypeLetterDebounce = useMemo(() => {
+		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
+	}, [resetValueTypedByUser]);
+
+	const handleUserTypeNewLetter = useCallback((key: string) => {
+		function optionMatchUserInput(optionElement: Element) {
+			return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
+		}
+
+		const allUserInput = state.valueTypedByUser.concat(key);
+		dispatch(new SelectMultipleAction.SetValueTypedByUser(allUserInput));
+
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionStartingWith = optionsElement.findIndex((optionElement) => optionMatchUserInput(optionElement));
+		if (indexOptionStartingWith > -1) {
+			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionStartingWith]));
+		}
+		handlefocusOnTypeLetterDebounce();
+	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
+
+	const visuallyFocusTenOptionsBefore = useCallback(() => {
+		const NUMBER_OF_OPTIONS_BEFORE = 10;
+
+		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
+		if (indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_BEFORE) {
+			dispatch(new SelectMultipleAction.VisualyFocusFirstOption());
+		} else {
+			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused - NUMBER_OF_OPTIONS_BEFORE]));
+		}
+	}, [state.activeDescendant, state.refListOption]);
+
+	const visuallyFocusTenOptionsAfter = useCallback(() => {
+		const NUMBER_OF_OPTIONS_FURTHER = 10;
+
+		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
+		const optionsElement = getOptionsElement(state.refListOption);
+		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
+		if (optionsElement.length - indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_FURTHER) {
+			dispatch(new SelectMultipleAction.VisualyFocusLastOption());
+		} else {
+			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused + NUMBER_OF_OPTIONS_FURTHER]));
+		}
+	}, [state.activeDescendant, state.refListOption]);
+
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+		const { key, altKey, ctrlKey, metaKey } = event;
+
+		const isUserTypeLetter = event.key.length === 1 && event.key !== KeyBoard.SPACE && !altKey && !ctrlKey && !metaKey;
+		if (isUserTypeLetter) {
+			event.preventDefault();
+			if (!state.isListOptionsOpen) {
+				dispatch(new SelectMultipleAction.OpenList());
+			}
+			handleUserTypeNewLetter(key);
+		}
+
 		switch (event.key) {
 			case KeyBoard.ARROW_UP:
 			case KeyBoard.IE_ARROW_UP:
 				if (state.isListOptionsOpen) {
-					dispatch(new SelectMultipleAction.PreviousOption());
+					if (altKey) {
+						state.activeDescendant && selectOption(state.activeDescendant);
+						dispatch(new SelectMultipleAction.CloseList());
+					} else {
+						dispatch(new SelectMultipleAction.PreviousOption());
+					}
 				} else {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
@@ -470,6 +535,18 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
 				event.preventDefault();
+				break;
+			case KeyBoard.PAGE_UP:
+				if (state.isListOptionsOpen) {
+					event.preventDefault();
+					visuallyFocusTenOptionsBefore();
+				}
+				break;
+			case KeyBoard.PAGE_DOWN:
+				if (state.isListOptionsOpen) {
+					event.preventDefault();
+					visuallyFocusTenOptionsAfter();
+				}
 				break;
 			case KeyBoard.ESCAPE:
 			case KeyBoard.IE_ESCAPE:
@@ -522,7 +599,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [closeList, isCurrentItemSelected, selectOption, state.isListOptionsOpen]);
+	}, [closeList, handleUserTypeNewLetter, isCurrentItemSelected, selectOption, state, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;

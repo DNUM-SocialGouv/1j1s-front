@@ -158,6 +158,7 @@ export type SelectMultipleState = {
 	optionsSelectedValues: Array<string>,
 	refListOption: RefObject<HTMLUListElement>
 	visibleOptions: Array<string>
+	valueTypedByUser: string
 }
 
 
@@ -195,6 +196,38 @@ export namespace SelectMultipleAction {
 			return isListOptionsOpen
 				? new CloseList().execute(previousState)
 				: new OpenList().execute(previousState);
+		}
+	}
+
+	export class SetValueTypedByUser implements SelectMultipleAction {
+		private readonly newValue: string;
+
+		constructor(value: string) {
+			this.newValue = value;
+		}
+
+		execute(previousState: SelectMultipleState): SelectMultipleState {
+			return {
+				...previousState,
+				valueTypedByUser: this.newValue,
+			};
+		}
+	}
+
+	export class VisualyFocusOption implements SelectMultipleAction {
+		private readonly optionId: string | null;
+
+		constructor(option: Element | string) {
+			this.optionId = option instanceof Element
+				? option.id
+				: option;
+		}
+
+		execute(previousState: SelectMultipleState): SelectMultipleState {
+			return {
+				...previousState,
+				activeDescendant: this.optionId ?? previousState.activeDescendant,
+			};
 		}
 	}
 
