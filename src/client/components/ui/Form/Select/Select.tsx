@@ -567,19 +567,6 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				}
 				break;
 			}
-			case KeyBoard.TAB: {
-				if (state.isListOptionsOpen) {
-					const selectedOptionID = event.currentTarget.getAttribute('aria-activedescendant');
-
-					if (selectedOptionID) {
-						const option = document.getElementById(selectedOptionID);
-						const optionValue = option?.getAttribute('data-value');
-						const isOptionSelected = optionValue && isCurrentItemSelected(optionValue);
-						!isOptionSelected && selectOption(selectedOptionID);
-					}
-				}
-				break;
-			}
 			case KeyBoard.HOME: {
 				if (!state.isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.OpenList());
@@ -599,7 +586,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [closeList, handleUserTypeNewLetter, isCurrentItemSelected, selectOption, state, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore]);
+	}, [closeList, handleUserTypeNewLetter, selectOption, state, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;

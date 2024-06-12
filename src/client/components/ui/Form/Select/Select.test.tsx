@@ -1098,8 +1098,8 @@ describe('<Select />', () => {
 					expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ select: '2' });
 				});
 
-				describe('lorsque l‘utilisateur fait tab', () => {
-					it('sur une option pas encore séléctionnée, l‘option qui a le focus visuel est séléctionnée, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable', async () => {
+				describe('lorsque l‘utilisateur fait "Tab"', () => {
+					it('sur une option pas encore séléctionnée, l‘option qui a le focus visuel n‘est pas séléctionnée, la liste d‘option se ferme et le focus se déplace sur le prochain élément focusable', async () => {
 						const user = userEvent.setup();
 						const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
@@ -1113,7 +1113,7 @@ describe('<Select />', () => {
 						await user.keyboard(KeyBoard.ARROW_DOWN);
 						await user.tab();
 
-						expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '2' });
+						expect(screen.getByRole('form', { name: 'form' })).toHaveFormValues({ name: '' });
 						expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 						expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
 					});
@@ -1137,7 +1137,6 @@ describe('<Select />', () => {
 						expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 						expect(screen.getByRole('textbox', { name: 'input label' })).toHaveFocus();
 					});
-
 				});
 
 				it('lorsque l‘utilisateur fait "echap", ferme la liste d‘option sans séléctionner l‘option qui a le focus visuel', async () => {
