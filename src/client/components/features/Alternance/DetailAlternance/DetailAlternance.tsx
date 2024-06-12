@@ -12,13 +12,13 @@ import { DateService } from '~/client/services/date/date.service';
 import { Alternance, isFranceTravail, isMatcha } from '~/server/alternances/domain/alternance';
 import { AlternanceStatus } from '~/server/alternances/infra/status';
 
-import styles from './Detail.module.scss';
+import styles from './DetailAlternance.module.scss';
 
 function toISODate(date: Date) {
 	return date.toISOString().split('T')[0];
 }
 
-export function Detail({ annonce }: { annonce: Alternance }) {
+export function DetailAlternance({ annonce }: { annonce: Alternance }) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -28,7 +28,20 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 	const dateService = useDependency<DateService>('dateService');
 	const dateFormated = annonce.dateDébut && dateService.formatToHumanReadableDate(annonce.dateDébut);
 
+	function getTags(): Array<string> {
+		const tags = [];
+		if (annonce.localisation) tags.push(annonce.localisation);
 
+		if (annonce.source === Alternance.Source.FRANCE_TRAVAIL) {
+			tags.push(Alternance.Contrat.ALTERNANCE);
+			if (annonce.typeDeContrat && annonce.typeDeContrat.length > 0) tags.push(...annonce.typeDeContrat);
+			return tags;
+		}
+
+		if (annonce.typeDeContrat && annonce.typeDeContrat.length > 0) tags.push(...annonce.typeDeContrat);
+		if (annonce.niveauRequis) tags.push(annonce.niveauRequis);
+		return tags;
+	}
 
 	function StatusOffreMatcha() {
 		const isOfferCanceled = annonce.status === AlternanceStatus.CANCELED;
@@ -50,7 +63,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 			<header className={styles.entete}>
 				<h1>{annonce.titre}</h1>
 				{annonce.entreprise.nom && <p className={styles.sousTitre}>{annonce.entreprise.nom}</p>}
-				<TagList className={styles.tags} list={annonce.tags}/>
+				<TagList aria-label="mots clés de l‘offre" className={styles.tags} list={getTags()}/>
 				{isFranceTravail(annonce.source) && annonce.lienPostuler &&
 					<Link appearance={'asPrimaryButton'} href={annonce.lienPostuler} className={styles.postuler}>Postuler sur
 						France Travail<Link.Icon/></Link>

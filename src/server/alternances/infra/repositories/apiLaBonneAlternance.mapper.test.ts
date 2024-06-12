@@ -2,7 +2,7 @@ import { Alternance } from '~/server/alternances/domain/alternance';
 import {
 	aDetailMatchaAlternance,
 	aDetailPEJobAlternance,
-	aRechercheAlternance,
+	aRechercheAlternance, aRechercheMatchaAlternance,
 	aRecherchePEJobAlternance,
 } from '~/server/alternances/domain/alternance.fixture';
 import {
@@ -27,30 +27,28 @@ describe('mapRechercheAlternance', () => {
 	it('converti une response en liste d’alternance et d‘entreprises', () => {
 		const input = aLaBonneAlternanceApiJobsResponse({
 			lbaCompanies: {
-				results: [
-					{
-						company: {
-							name: 'CLUB VET',
-							siret: '52352551700026',
-							size: '0-0',
-						},
-						contact: {
-							email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
-							iv: '93f7bd08e956453cd8d0f8f75821a634',
-						},
-						nafs: [
-							{
-								label: 'Autres intermédiaires du commerce en produits divers',
-							}, {
-								label: 'Développement informatique',
-							},
-						],
-						place: {
-							city: 'Paris',
-							fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
-						},
+				results: [{
+					company: {
+						name: 'CLUB VET',
+						siret: '52352551700026',
+						size: '0-0',
 					},
-				],
+					contact: {
+						email: 'b3759ee20eff2e0a4cd369c4f2eb62238324fc',
+						iv: '93f7bd08e956453cd8d0f8f75821a634',
+					},
+					nafs: [
+						{
+							label: 'Autres intermédiaires du commerce en produits divers',
+						}, {
+							label: 'Développement informatique',
+						},
+					],
+					place: {
+						city: 'Paris',
+						fullAddress: '18 RUE EMILE LANDRIN, 75020 Paris',
+					},
+				}],
 			},
 			matchas: {
 				results: [{
@@ -64,6 +62,7 @@ describe('mapRechercheAlternance', () => {
 							definition: 'description',
 						},
 					},
+					place: { city: 'Paris' },
 					title: 'Monteur / Monteuse en chauffage (H/F)',
 				}],
 			},
@@ -83,14 +82,14 @@ describe('mapRechercheAlternance', () => {
 
 		const result = mapRechercheAlternanceListe(input);
 
-		expect(result).toEqual({
+		expect(result).toEqual(aRechercheAlternance({
 			entrepriseList: [{
 				adresse: '18 RUE EMILE LANDRIN, 75020 Paris',
 				candidaturePossible: true,
 				id: '52352551700026',
 				nom: 'CLUB VET',
+				nombreSalariés: '0 à 9 salariés',
 				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
-				tags: ['Paris', '0 à 9 salariés', 'Candidature spontanée'],
 				ville: 'Paris',
 			}],
 			offreList: [
@@ -99,20 +98,23 @@ describe('mapRechercheAlternance', () => {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
+					localisation: 'Paris',
+					niveauRequis: 'CAP, BEP',
 					source: Source.MATCHA,
-					tags: ['CDD', 'CDI', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD', 'CDI'],
 				},
 				{
 					entreprise: {
 						nom: 'ECOLE DE TRAVAIL ORT',
 					},
 					id: 'id',
+					localisation: 'PARIS 4',
 					source: Source.FRANCE_TRAVAIL,
-					tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
+					typeDeContrat: ['CDD'],
 				}],
-		});
+		}));
 	});
 
 	describe('Entreprise', () => {
@@ -150,9 +152,9 @@ describe('mapRechercheAlternance', () => {
 				});
 				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
 
-				expect(resultEntreprise[0].tags[1]).toEqual('0 à 9 salariés');
-				expect(resultEntreprise[1].tags[1]).toEqual('55 salariés');
-				expect(resultEntreprise[2].tags[1]).toEqual('20 à 30 salariés');
+				expect(resultEntreprise[0].nombreSalariés).toEqual('0 à 9 salariés');
+				expect(resultEntreprise[1].nombreSalariés).toEqual('55 salariés');
+				expect(resultEntreprise[2].nombreSalariés).toEqual('20 à 30 salariés');
 			});
 		});
 
@@ -175,7 +177,6 @@ describe('mapRechercheAlternance', () => {
 					entrepriseList: [{
 						candidaturePossible: false,
 						nom: 'CLUB VET',
-						tags: ['Rencontre au sein de l’entreprise', 'Candidature sur le site de l’entreprise'],
 					}],
 					offreList: [],
 				}));
@@ -234,13 +235,11 @@ describe('mapRechercheAlternance', () => {
 							nom: 'ECOLE DE TRAVAIL ORT',
 						},
 						id: 'id',
+						localisation: 'PARIS 4',
+						niveauRequis: undefined,
 						source: Source.FRANCE_TRAVAIL,
-						tags: [
-							'PARIS 4',
-							'Contrat d‘alternance',
-							'CDD',
-						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
+						typeDeContrat: ['CDD'],
 					}),
 				],
 			}));
@@ -294,18 +293,14 @@ describe('mapRechercheAlternance', () => {
 			expect(result).toEqual(aRechercheAlternance({
 				entrepriseList: [],
 				offreList: [
-					aRecherchePEJobAlternance({
-						entreprise: {
-							nom: 'ECOLE DE TRAVAIL ORT',
-						},
+					aRechercheMatchaAlternance({
+						entreprise: { nom: 'ECOLE DE TRAVAIL ORT' },
 						id: 'id',
+						localisation: 'PARIS 4',
+						niveauRequis: 'CAP, BEP',
 						source: Source.MATCHA,
-						tags: [
-							'PARIS 4',
-							'CDD',
-							'CAP, BEP',
-						],
 						titre: 'Monteur / Monteuse en chauffage (H/F)',
+						typeDeContrat: ['CDD'],
 					}),
 				],
 			}));
@@ -389,7 +384,6 @@ describe('mapDetail', () => {
 				niveauRequis: undefined,
 				rythmeAlternance: '6 mois',
 				source: Source.FRANCE_TRAVAIL,
-				tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 				titre: 'Monteur / Monteuse en chauffage (H/F)',
 				typeDeContrat: ['CDD'],
 			}));
@@ -466,7 +460,7 @@ describe('mapDetail', () => {
 
 				const result = mapDetailMatcha(input);
 
-				expect(result).toEqual({
+				expect(result).toEqual(aDetailMatchaAlternance({
 					compétences: ['un libelle'],
 					dateDébut: new Date('2020-01-01'),
 					description: 'Avec des \n',
@@ -483,10 +477,9 @@ describe('mapDetail', () => {
 					rythmeAlternance: 'alternance',
 					source: Source.MATCHA,
 					status: AlternanceStatus.ACTIVE,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
-				});
+				}));
 			});
 		});
 
@@ -541,7 +534,6 @@ describe('mapDetail', () => {
 					rythmeAlternance: 'alternance',
 					source: Source.MATCHA,
 					status: AlternanceStatus.ACTIVE,
-					tags: ['PARIS 4', 'CDD', 'CAP, BEP'],
 					titre: 'Monteur / Monteuse en chauffage (H/F)',
 					typeDeContrat: ['CDD'],
 				}));

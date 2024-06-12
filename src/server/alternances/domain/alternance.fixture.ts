@@ -18,7 +18,6 @@ export const aRechercheAlternance = (override?: Partial<ResultatRechercheAlterna
 					nom: 'SARL HUGUE-DEBRIX',
 				},
 				id: 'id-boucher',
-				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 				titre: 'Boucher-charcutier / Bouchère-charcutière',
 			}),
 			aRechercheMatchaAlternance({
@@ -26,7 +25,6 @@ export const aRechercheAlternance = (override?: Partial<ResultatRechercheAlterna
 					nom: 'MONSIEUR MICHEL',
 				},
 				id: 'id-boulanger',
-				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 				titre: 'Ouvrier boulanger / Ouvrière boulangère',
 			}),
 			aRecherchePEJobAlternance(),
@@ -41,8 +39,8 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 		candidaturePossible: true,
 		id: '0123456789',
 		nom: 'un nom',
+		nombreSalariés: '0 à 9 salariés',
 		secteurs: ['secteur 1', 'secteur 2'],
-		tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 		ville: 'une ville',
 		...override,
 	};
@@ -54,9 +52,11 @@ export const aRechercheMatchaAlternance = (override?: Partial<ResultatRechercheA
 			nom: 'une entreprise',
 		},
 		id: 'id',
+		localisation: 'Paris',
+		niveauRequis: 'débutant',
 		source: Alternance.Source.MATCHA,
-		tags: ['paris', 'CDD', 'CDI', 'débutant'],
 		titre: 'un titre',
+		typeDeContrat: ['Apprentissage', 'CDI'],
 		...override,
 	};
 };
@@ -67,9 +67,11 @@ export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAl
 			nom: 'ECOLE DE TRAVAIL ORT',
 		},
 		id: 'id 2',
+		localisation: 'PARIS 4',
+		niveauRequis: undefined,
 		source: Alternance.Source.FRANCE_TRAVAIL,
-		tags: ['PARIS 4', Alternance.Contrat.ALTERNANCE, 'CDD'],
 		titre: 'Monteur / Monteuse en chauffage (H/F)',
+		typeDeContrat: ['CDD'],
 		...override,
 	};
 };
@@ -89,7 +91,6 @@ export function aDetailMatchaAlternance (override?: Partial<Alternance>): Altern
 		niveauRequis: 'débutant',
 		source: Alternance.Source.MATCHA,
 		status: AlternanceStatus.ACTIVE,
-		tags: ['paris', 'Apprentissage', 'CDI', 'débutant'],
 		titre: 'un titre',
 		typeDeContrat: ['Apprentissage', 'CDI'],
 		...override,
@@ -112,7 +113,6 @@ export function aDetailPEJobAlternance (override?: Partial<Alternance>): Alterna
 		niveauRequis: undefined,
 		rythmeAlternance: '6 mois',
 		source: Alternance.Source.FRANCE_TRAVAIL,
-		tags: ['PARIS 4', 'Contrat d‘alternance', 'CDD'],
 		titre: 'Monteur / Monteuse en chauffage (H/F)',
 		typeDeContrat: ['CDD'],
 		...override,

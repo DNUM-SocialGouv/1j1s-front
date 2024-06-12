@@ -30,29 +30,69 @@ describe('RechercherAlternance', () => {
 		jest.clearAllMocks();
 	});
 
-	describe('quand le composant est affiché sans recherche', () => {
-		it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', async () => {
-			// GIVEN
-			const métierServiceMock = aMetierService();
-			const localisationServiceMock = aLocalisationService();
-			mockUseRouter({});
+	it('affiche un formulaire pour la recherche de formations, sans échantillon de résultat', () => {
+		// GIVEN
+		const métierServiceMock = aMetierService();
+		const localisationServiceMock = aLocalisationService();
+		mockUseRouter({});
 
-			// WHEN
-			render(
-				<DependenciesProvider
-					metierLbaService={métierServiceMock}
-					localisationService={localisationServiceMock}
-				>
-					<RechercherAlternance/>
-				</DependenciesProvider>,
-			);
-			const formulaireRechercheAlternance = screen.getByRole('form');
+		// WHEN
+		render(
+			<DependenciesProvider
+				metierLbaService={métierServiceMock}
+				localisationService={localisationServiceMock}
+			>
+				<RechercherAlternance/>
+			</DependenciesProvider>,
+		);
+		const formulaireRechercheAlternance = screen.getByRole('form');
 
-			// THEN
-			expect(formulaireRechercheAlternance).toBeInTheDocument();
-			expect(screen.queryByText(/^[0-9]+ résulat(s)? $/)).not.toBeInTheDocument();
-			expect(screen.queryByText('Paris (75001)')).not.toBeInTheDocument();
-		});
+		// THEN
+		expect(formulaireRechercheAlternance).toBeInTheDocument();
+		expect(screen.queryByText(/^[0-9]+ résulat(s)? $/)).not.toBeInTheDocument();
+		expect(screen.queryByText('Paris (75001)')).not.toBeInTheDocument();
+	});
+
+	it('affiche la section "nos articles"', () => {
+		mockUseRouter({});
+
+		render(
+			<DependenciesProvider
+				metierLbaService={aMetierService()}
+				localisationService={aLocalisationService()}
+			>
+				<RechercherAlternance resultats={aRechercheAlternance()}/>
+			</DependenciesProvider>,
+		);
+
+		const section = screen.getByRole('heading', { name: /Consultez nos articles/i });
+		const card = screen.getByRole('heading', { name: /Une aide exceptionnelle pour l’apprentissage/i });
+
+		expect(section).toBeVisible();
+		expect(card).toBeVisible();
+	});
+
+	it('affiche la section "services faits pour vous"', () => {
+		mockUseRouter({});
+
+		render(
+			<DependenciesProvider
+				metierLbaService={aMetierService()}
+				localisationService={aLocalisationService()}
+			>
+				<RechercherAlternance resultats={aRechercheAlternance()}/>
+			</DependenciesProvider>,
+		);
+
+		const section = screen.getByRole('heading', { name: /Découvrez des services faits pour vous/i });
+		const cardCampagneApprentissage = screen.getByRole('heading', { name: /L’apprentissage est-il fait pour vous ?/i });
+		const cardPass = screen.getByRole('heading', { name: /Recherche une offre d'alternance dans la fonction publique/i });
+		const cardONISEP = screen.getByRole('heading', { name: /Besoin d‘informations sur les métiers ?/i });
+
+		expect(section).toBeVisible();
+		expect(cardCampagneApprentissage).toBeVisible();
+		expect(cardPass).toBeVisible();
+		expect(cardONISEP).toBeVisible();
 	});
 
 	describe('quand une recherche est effectuée', () => {
@@ -63,14 +103,12 @@ describe('RechercherAlternance', () => {
 				entreprise: { nom: 'MONSIEUR MICHEL' },
 				id: 'an-id-matchas',
 				source: Alternance.Source.MATCHA,
-				tags: ['Apprentissage', 'Cap, autres formations niveau (Infrabac)'],
 				titre: 'Ouvrier boulanger / Ouvrière boulangère',
 			}),
 			aRecherchePEJobAlternance({
 				entreprise: { nom: 'une entreprise' },
 				id: 'an-id-pe',
 				source: Alternance.Source.FRANCE_TRAVAIL,
-				tags: ['paris', 'Contrat d‘alternance', 'CDD'],
 				titre: 'un titre',
 			}),
 		];
@@ -82,7 +120,6 @@ describe('RechercherAlternance', () => {
 				id: '0123456789',
 				nom: 'UN NOM 1',
 				secteurs: ['secteur 1', 'secteur 2'],
-				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 				ville: 'une ville',
 			}),
 			aRechercheEntrepriseAlternance({
@@ -90,7 +127,6 @@ describe('RechercherAlternance', () => {
 				id: '1234567890',
 				nom: 'UN NOM 2',
 				secteurs: ['secteur 1', 'secteur 2'],
-				tags: ['une ville', '12 salariés', 'Candidature spontanée'],
 			}),
 		];
 
@@ -115,7 +151,7 @@ describe('RechercherAlternance', () => {
 			});
 		});
 
-		it('uniquement les offres d’alternances sont affichées', async () => {
+		it('les offres d’alternances sont affichées', async () => {
 			// GIVEN
 
 			// WHEN
@@ -146,6 +182,55 @@ describe('RechercherAlternance', () => {
 			expect(await screen.findByText(alternanceFixture[1].titre)).toBeInTheDocument();
 		});
 
+		describe('nombre de résultats d‘alternances', () => {
+			it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
+				const user = userEvent.setup();
+				const offresAlternance = [aRechercheMatchaAlternance(), aRecherchePEJobAlternance({ id: 'pejob' })];
+				const resultats = aRechercheAlternance({
+					entrepriseList: [],
+					offreList: offresAlternance,
+				});
+
+				render(
+					<DependenciesProvider
+						metierLbaService={aMetierService()}
+						localisationService={aLocalisationService()}
+					>
+						<RechercherAlternance resultats={resultats}/>
+					</DependenciesProvider>,
+				);
+
+				const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
+				await user.click(onglet);
+
+				expect(screen.getByText(/2 résultats pour/)).toBeVisible();
+			});
+
+			it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
+				const user = userEvent.setup();
+				const resultats = aRechercheAlternance({
+					entrepriseList: [],
+					offreList: [],
+				});
+
+				render(
+					<DependenciesProvider
+						metierLbaService={aMetierService()}
+						localisationService={aLocalisationService()}
+					>
+						<RechercherAlternance resultats={resultats}/>
+					</DependenciesProvider>,
+				);
+
+				const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
+				await user.click(onglet);
+
+				expect(screen.getByText(/0 résultat/)).toBeVisible();
+				expect(screen.getByText('Aucun contrat d‘alternance ne correspond à votre recherche.')).toBeVisible();
+				expect(screen.getByText('Vous pouvez consulter les entreprises ou modifier votre recherche.')).toBeVisible();
+			});
+		});
+
 		describe('lorsque je séléctionne les entreprises', () => {
 			it('je vois uniquement les entreprises', async () => {
 				render(
@@ -166,61 +251,11 @@ describe('RechercherAlternance', () => {
 				// eslint-disable-next-line testing-library/no-node-access
 				const resultListEntreprise = resultatsUl[0].children;
 				expect(resultListEntreprise).toHaveLength(entrepriseFixture.length);
-				expect(await screen.findByText(entrepriseFixture[0].nom)).toBeVisible();
-				expect(await screen.findByText(entrepriseFixture[1].nom)).toBeVisible();
+				expect(screen.getByText(entrepriseFixture[0].nom)).toBeVisible();
+				expect(screen.getByText(entrepriseFixture[1].nom)).toBeVisible();
 			});
-		});
 
-		describe('le nombre de résultats', () => {
-			describe('lorsque je clique sur contrat d‘alternance', () => {
-				it('et qu‘il y a des résultats, affiche le nombre de contrats d’alternance', async () => {
-					const user = userEvent.setup();
-					const offresAlternance = [aRechercheMatchaAlternance(), aRecherchePEJobAlternance({ id: 'pejob' })];
-					const resultats = aRechercheAlternance({
-						entrepriseList: [],
-						offreList: offresAlternance,
-					});
-
-					render(
-						<DependenciesProvider
-							metierLbaService={aMetierService()}
-							localisationService={aLocalisationService()}
-						>
-							<RechercherAlternance resultats={resultats}/>
-						</DependenciesProvider>,
-					);
-
-					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
-					await user.click(onglet);
-
-					expect(screen.getByText(/2 résultats pour/)).toBeVisible();
-				});
-
-				it('et qu‘il n‘y a pas de résultat, affiche le message sans résultat associé aux contrats d‘alternances', async () => {
-					const user = userEvent.setup();
-					const resultats = aRechercheAlternance({
-						entrepriseList: [],
-						offreList: [],
-					});
-
-					render(
-						<DependenciesProvider
-							metierLbaService={aMetierService()}
-							localisationService={aLocalisationService()}
-						>
-							<RechercherAlternance resultats={resultats}/>
-						</DependenciesProvider>,
-					);
-
-					const onglet = await screen.findByRole('tab', { name: 'Contrats d‘alternance' });
-					await user.click(onglet);
-
-					expect(screen.getByText(/0 résultat/)).toBeVisible();
-					expect(screen.getByText('Aucun contrat d‘alternance ne correspond à votre recherche.')).toBeVisible();
-					expect(screen.getByText('Vous pouvez consulter les entreprises ou modifier votre recherche.')).toBeVisible();
-				});
-			});
-			describe('lorsque je clique sur entreprise', () => {
+			describe('nombre de résultat d‘entreprises', () => {
 				it('lorsqu‘il y a des résultats, affiche le nombre d’entreprises', async () => {
 					const user = userEvent.setup();
 					const entrepriseList = [aRechercheEntrepriseAlternance(), aRechercheEntrepriseAlternance({ id: 'id 2' })];
@@ -269,47 +304,5 @@ describe('RechercherAlternance', () => {
 				});
 			});
 		});
-	});
-
-	it('affiche la section "nos articles"', () => {
-		mockUseRouter({});
-
-		render(
-			<DependenciesProvider
-				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<RechercherAlternance resultats={aRechercheAlternance()}/>
-			</DependenciesProvider>,
-		);
-
-		const section = screen.getByRole('heading', { name: /Consultez nos articles/i });
-		const card = screen.getByRole('heading', { name: /Une aide exceptionnelle pour l’apprentissage/i });
-
-		expect(section).toBeVisible();
-		expect(card).toBeVisible();
-	});
-
-	it('affiche la section "services faits pour vous"', () => {
-		mockUseRouter({});
-
-		render(
-			<DependenciesProvider
-				metierLbaService={aMetierService()}
-				localisationService={aLocalisationService()}
-			>
-				<RechercherAlternance resultats={aRechercheAlternance()}/>
-			</DependenciesProvider>,
-		);
-
-		const section = screen.getByRole('heading', { name: /Découvrez des services faits pour vous/i });
-		const cardCampagneApprentissage = screen.getByRole('heading', { name: /L’apprentissage est-il fait pour vous ?/i });
-		const cardPass = screen.getByRole('heading', { name: /Recherche une offre d'alternance dans la fonction publique/i });
-		const cardONISEP = screen.getByRole('heading', { name: /Besoin d‘informations sur les métiers ?/i });
-
-		expect(section).toBeVisible();
-		expect(cardCampagneApprentissage).toBeVisible();
-		expect(cardPass).toBeVisible();
-		expect(cardONISEP).toBeVisible();
 	});
 });

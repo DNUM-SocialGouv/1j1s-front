@@ -29,7 +29,6 @@ const alternanceSerialized: AlternanceSerialized = {
 	natureDuContrat: 'CDI',
 	niveauRequis: 'débutant',
 	source: Alternance.Source.FRANCE_TRAVAIL,
-	tags: [],
 	titre: 'Ma super alternance',
 	typeDeContrat: ['Apprentissage'],
 };

@@ -14,7 +14,6 @@ export function aDetailAlternance(override?: Partial<Alternance>): Alternance {
 		rythmeAlternance: '3 jours en entreprise, 2 jours en formation',
 		source: Alternance.Source.MATCHA,
 		status: AlternanceStatus.ACTIVE,
-		tags: ['tag1', 'tag2'],
 		titre: 'un titre',
 		typeDeContrat: ['apprentissage'],
 		...override,

@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
-import { Detail } from '~/client/components/features/Alternance/Detail/Detail';
+import { DetailAlternance } from '~/client/components/features/Alternance/DetailAlternance/DetailAlternance';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/apprentissage/[id].analytics';
@@ -57,7 +57,7 @@ export default function AnnonceAlternancePage({ alternanceSerialized }: Consulte
 				title={`${alternanceSerialized.titre} | 1jeune1solution`}
 				robots="noindex"
 			/>
-			<Detail annonce={alternance}/>
+			<DetailAlternance annonce={alternance}/>
 		</>
 	);
 }
