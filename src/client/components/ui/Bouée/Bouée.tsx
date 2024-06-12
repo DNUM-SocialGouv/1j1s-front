@@ -32,10 +32,9 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
 			hidden={ !isDown }
 			onClick={ toSurface }
-			aria-label="Remonter en haut de la page"
 			href="#skip-link-list"
 		>
-			<Icon name={'angle-up'} />
+			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
 		</Link>
 	);
 }

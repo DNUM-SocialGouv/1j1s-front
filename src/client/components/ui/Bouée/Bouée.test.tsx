@@ -39,9 +39,8 @@ describe('<Bouée />', () => {
 			render(<Bouée surface={ surfaceRef }/>);
 			
 			// Then
-			const link = screen.getByRole('link', { hidden: true, name: label });
-			expect(link).toHaveAttribute('href', '#skip-link-list');
-			expect(link).not.toBeVisible();
+			const link = screen.queryByRole('link', { hidden: true, name: label });
+			expect(link).not.toBeInTheDocument();
 		});
 
 		describe('quand on scroll vers le bas', () => {
