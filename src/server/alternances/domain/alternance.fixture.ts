@@ -52,8 +52,11 @@ export const aRechercheMatchaAlternance = (override?: Partial<ResultatRechercheA
 			nom: 'une entreprise',
 		},
 		id: 'id',
+		localisation: 'Paris',
+		niveauRequis: 'débutant',
 		source: Alternance.Source.MATCHA,
 		titre: 'un titre',
+		typeDeContrat: ['Apprentissage', 'CDI'],
 		...override,
 	};
 };
@@ -64,8 +67,11 @@ export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAl
 			nom: 'ECOLE DE TRAVAIL ORT',
 		},
 		id: 'id 2',
+		localisation: 'PARIS 4',
+		niveauRequis: undefined,
 		source: Alternance.Source.FRANCE_TRAVAIL,
 		titre: 'Monteur / Monteuse en chauffage (H/F)',
+		typeDeContrat: ['CDD'],
 		...override,
 	};
 };

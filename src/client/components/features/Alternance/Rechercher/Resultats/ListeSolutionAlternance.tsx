@@ -12,31 +12,31 @@ const RésultatRechercherSolution = dynamic(() => import('~/client/components/la
 export function ListeSolutionAlternance({ alternanceList }: {
 	alternanceList: Array<ResultatRechercheAlternance.Offre>
 }): React.ReactElement {
-	const getLogo = (alternance: Alternance) => {
+	const getLogo = (alternance: ResultatRechercheAlternance.Offre) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
 			return '/images/logos/la-bonne-alternance.svg';
 		}
 		return '/images/logos/france-travail.svg';
 	};
 
-	const getAlternativeTextuelle = (alternance: Alternance) => {
+	const getAlternativeTextuelle = (alternance: ResultatRechercheAlternance.Offre) => {
 		if (isMatcha(alternance.source)) {
 			return 'la bonne alternance';
 		}
 		return 'france travail';
 	};
 
-	function getTags(alternance: Alternance) {
+	function getTags(alternance: ResultatRechercheAlternance.Offre) {
 		const tags = [];
 		if (alternance.localisation) tags.push(alternance.localisation);
 
 		if (alternance.source === Alternance.Source.FRANCE_TRAVAIL) {
 			tags.push(Alternance.Contrat.ALTERNANCE);
-			if (alternance.typeDeContrat && alternance.typeDeContrat?.length > 0) tags.push(...alternance.typeDeContrat);
+			if (alternance.typeDeContrat && alternance.typeDeContrat.length > 0) tags.push(...alternance.typeDeContrat);
 			return tags;
 		}
 
-		if (alternance.typeDeContrat && alternance.typeDeContrat?.length > 0) tags.push(...alternance.typeDeContrat);
+		if (alternance.typeDeContrat && alternance.typeDeContrat.length > 0) tags.push(...alternance.typeDeContrat);
 		if (alternance.niveauRequis) tags.push(alternance.niveauRequis);
 		return tags;
 	}

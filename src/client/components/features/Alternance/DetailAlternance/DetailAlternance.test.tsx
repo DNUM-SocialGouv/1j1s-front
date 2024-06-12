@@ -54,8 +54,8 @@ describe('<Detail />', () => {
 				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
-			const tagsUl = screen.getByRole('list', { name: 'mots clés de l‘offre' });
-			const tags = within(tagsUl).getAllByRole('listitem');
+			const tagsList = screen.getByRole('list', { name: 'mots clés de l‘offre' });
+			const tags = within(tagsList).getAllByRole('listitem');
 			expect(tags).toHaveLength(4);
 			expect(tags[0]).toHaveTextContent('Paris');
 			expect(tags[1]).toHaveTextContent('Contrat d‘alternance');
@@ -112,8 +112,8 @@ describe('<Detail />', () => {
 				<DetailAlternance annonce={annonce}/>
 			</DependenciesProvider>);
 
-			const tagsUl = screen.getByRole('list', { name: 'mots clés de l‘offre' });
-			const tags = within(tagsUl).getAllByRole('listitem');
+			const tagsList = screen.getByRole('list', { name: 'mots clés de l‘offre' });
+			const tags = within(tagsList).getAllByRole('listitem');
 			expect(tags).toHaveLength(4);
 			expect(tags[0]).toHaveTextContent('Paris');
 			expect(tags[1]).toHaveTextContent('CDD');

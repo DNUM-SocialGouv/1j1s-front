@@ -33,7 +33,7 @@ export type ResultatRechercheAlternance = {
 }
 
 export namespace ResultatRechercheAlternance {
-	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise'>
+	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise' | 'localisation' | 'typeDeContrat' | 'niveauRequis'>
 	export interface Entreprise {
 		adresse?: string
 		ville?: string
