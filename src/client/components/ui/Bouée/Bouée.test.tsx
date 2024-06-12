@@ -39,8 +39,7 @@ describe('<Bouée />', () => {
 			render(<Bouée surface={ surfaceRef }/>);
 			
 			// Then
-			const link = screen.getByLabelText(label, { selector: 'a' });
-
+			const link = screen.getByRole('link', { hidden: true, name: label });
 			expect(link).toHaveAttribute('href', '#skip-link-list');
 			expect(link).not.toBeVisible();
 		});
@@ -59,7 +58,7 @@ describe('<Bouée />', () => {
 				});
 				
 				// Then
-				const link = screen.getByLabelText(label, { selector: 'a' });
+				const link = screen.getByRole('link', { name: label });
 				expect(link).toBeVisible();
 			});
 
@@ -76,12 +75,12 @@ describe('<Bouée />', () => {
 						await delay(DEBOUNCE_DELAY);
 					});
 
-					const link = screen.getByLabelText(label, { selector: 'a' });
+					const link = screen.getByRole('link', { name: label });
 					await userEvent.click(link);
 
 					// Then
 					expect(window.scrollY).toEqual(0);
-					expect(window.scrollTo).toHaveBeenCalled();
+					expect(window.scrollTo).toHaveBeenNthCalledWith(2, { behavior: 'smooth', top: 0 });
 				});
 			});
 		});
@@ -97,7 +96,7 @@ describe('<Bouée />', () => {
 			await act(() => delay(DEBOUNCE_DELAY));
 
 			// Then
-			const link = screen.getByLabelText(label, { selector: 'a' });
+			const link = screen.getByRole('link', { name: label });
 
 			expect(link).toBeVisible();
 		});

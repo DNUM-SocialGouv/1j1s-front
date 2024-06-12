@@ -3,6 +3,7 @@ import React, { RefObject, useEffect } from 'react';
 
 import styles from '~/client/components/ui/Bouée/Bouée.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import useDebouncedState from '~/client/hooks/useDebouncedState';
 
 export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }) {
@@ -27,7 +28,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 	}
 
 	return (
-		<a 
+		<Link
 			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
 			hidden={ !isDown }
 			onClick={ toSurface }
@@ -35,7 +36,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 			href="#skip-link-list"
 		>
 			<Icon name={'angle-up'} />
-		</a>
+		</Link>
 	);
 }
 
