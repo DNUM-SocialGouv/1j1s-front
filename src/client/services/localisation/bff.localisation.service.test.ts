@@ -53,6 +53,14 @@ describe('BffLocalisationService', () => {
 
 				expect(result).toEqual(true);
 			});
+			it('la recherche contient plus de 3 caractères avec moins de 3 caractères valides', async () => {
+				const httpClientService = anHttpClientService();
+				const bffLocalisationService = new BffLocalisationService(httpClientService);
+
+				const result = bffLocalisationService.isInvalidLocalisationQuery('1((');
+
+				expect(result).toEqual(true);
+			});
 		});
 
 		describe('renvoie false quand', () => {

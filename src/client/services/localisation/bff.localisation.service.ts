@@ -26,10 +26,14 @@ export class BffLocalisationService implements LocalisationService {
 		const isDepartementCorse = rechercheTrimmed.toLowerCase() === CODE_CORSE_DU_SUD || rechercheTrimmed.toLowerCase() === CODE_HAUTE_CORSE;
 		const isDepartement = isDepartementMetropolitain || isDepartementDomTom || isDepartementCorse;
 		const isCodePostal = allDigits && rechercheTrimmed.length === CODE_POSTAL_LENGTH;
-		const queryTooShort = rechercheTrimmed.length < 3 && !isDepartement && !isCodePostal;
+
+		const CHARACTERS_TO_IGNORE = '()&+#$';
+		const regexSearchCharToIgnore = new RegExp(`[${CHARACTERS_TO_IGNORE}]`, 'g');
+		const rechercheWithoutCharToIgnore = rechercheTrimmed.replace(regexSearchCharToIgnore, '');
+		const isQueryTooShort = rechercheWithoutCharToIgnore.length < 3 && !isDepartement && !isCodePostal ;
 
 		// NOTE (GAFI 09-02-2023): Limite le nombre d'appels lorsqu'on sait que l'API Géo donnera une erreur
-		return containsInvalidSymbols || queryTooShort;
+		return containsInvalidSymbols || isQueryTooShort;
 	}
 
 	async rechercherLocalisation(recherche: string): Promise<Either<RechercheLocalisationApiResponse> | null> {
