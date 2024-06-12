@@ -154,9 +154,12 @@ describe('RechercherSolutionLayout', () => {
 					const etiquettes = screen.getByTestId('étiquettes');
 					const messageNbResultats = screen.getByTestId('message du nombre de résultats');
 					const listeResultats = screen.getByTestId('liste des résultats');
+					const containerStatusRole = screen.getByRole('status');
+
 					expect(etiquettes).toBeVisible();
 					expect(messageNbResultats).toBeVisible();
 					expect(listeResultats).toBeVisible();
+					expect(containerStatusRole).toBeInTheDocument();
 				});
 
 				it('affiche une footnote et une pagination', () => {
@@ -209,9 +212,12 @@ describe('RechercherSolutionLayout', () => {
 
 					// THEN
 					const messageNbResultats = screen.getByText('0 résultat');
+					const containerErrorRole = screen.getByRole('error');
+
 					expect(messageNbResultats).toBeVisible();
 					expect(screen.queryByTestId('message du nombre de résultats')).not.toBeInTheDocument();
 					expect(screen.queryByTestId('étiquettes')).not.toBeInTheDocument();
+					expect(containerErrorRole).toBeInTheDocument();
 				});
 				it('n’affiche pas d’étiquettes de la recherche, ni de message du nombre de résultats, ni la liste des résultats', () => {
 					// GIVEN

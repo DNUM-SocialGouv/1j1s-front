@@ -40,6 +40,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		footnote,
 	} = props;
 
+	
 	function getResultatsDeRecherche() {
 		if (isEtatInitial) {
 			return null;
@@ -65,16 +66,25 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				</div>
 			</>;
 		}
+		const attrRole = nombreTotalSolutions > 0 ? 'status' : 'error';
+
 		if (nombreTotalSolutions === 0) {
-			return <NoResultErrorMessage />;
+			return (
+				<div role={attrRole}>
+					<NoResultErrorMessage />
+				</div>
+			);
 		}
+
 		const isRechercheEnCoursOuPlusieursResultats = nombreTotalSolutions !== undefined && nombreTotalSolutions > 0;
 		if (isRechercheEnCoursOuPlusieursResultats) {
 			return <>
 				<div className={'separator'}>
 					<Container className={styles.informationResultat}>
 						{etiquettesRecherche}
-						<h2>{messageResultatRecherche}</h2>
+						<div role={attrRole}>
+							<h2>{messageResultatRecherche}</h2>
+						</div>
 					</Container>
 				</div>
 

@@ -14,9 +14,10 @@ interface MessageResultatRechercheProps {
 
 export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 	const { labelSingulier, labelPluriel, isLoading, numberOfResult } = props;
+	const attrRole = numberOfResult > 0 ? 'status' : 'error';
 
 	function AfficherMessageRésultats() {
-		return <>
+		return <div role={attrRole}>
 			{numberOfResult === 1 &&
             <h2 className={styles.stats}>
             	<span className={styles.nombreResultats}>{numberOfResult}</span>
@@ -30,9 +31,11 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
             	<Footnote.Reference to="partenaires" id="partenaires-reference" />
             </h2>}
 			{(numberOfResult === 0) &&
-            <ErrorComponent/>
+				<div role="alert">
+					<ErrorComponent/>
+				</div>
 			}
-		</>;
+		</div>;
 	}
 
 	return (
