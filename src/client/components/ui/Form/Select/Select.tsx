@@ -186,7 +186,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		handlefocusOnTypeLetterDebounce();
 	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
 
-	const focus10optionsBefore = useCallback(() => {
+	const visuallyFocusTenOptionsBefore = useCallback(() => {
 		const NUMBER_OF_OPTIONS_BEFORE = 10;
 
 		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
@@ -199,7 +199,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		}
 	}, [state.activeDescendant, state.refListOption]);
 
-	const focus10optionsAfter = useCallback(() => {
+	const visuallyFocusTenOptionsAfter = useCallback(() => {
 		const NUMBER_OF_OPTIONS_FURTHER = 10;
 
 		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
@@ -228,13 +228,13 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			case KeyBoard.PAGE_UP:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					focus10optionsBefore();
+					visuallyFocusTenOptionsBefore();
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					focus10optionsAfter();
+					visuallyFocusTenOptionsAfter();
 				}
 				break;
 			case KeyBoard.ARROW_UP:
@@ -305,7 +305,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, focus10optionsAfter, focus10optionsBefore, handleUserTypeNewLetter, selectOption, state]);
+	}, [closeList, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore, handleUserTypeNewLetter, selectOption, state]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
