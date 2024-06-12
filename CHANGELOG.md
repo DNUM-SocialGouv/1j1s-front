@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.298.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.297.1...v3.298.0) (2024-06-12)
+
+
+### Features
+
+* **select:** ajout des interactions manquantes select simple ([#3055](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3055)) ([a56baba](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a56babac1222442b74ada8f2acaf5e27a75d121c))
+
 ## [3.297.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.297.0...v3.297.1) (2024-06-12)
 
 
