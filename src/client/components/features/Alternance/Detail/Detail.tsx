@@ -145,7 +145,7 @@ export function Detail({ annonce }: { annonce: Alternance }) {
 					)}
 				</dl>
 			</section>
-			<ModalComponent close={toggleModal} isOpen={isModalOpen}>
+			<ModalComponent close={toggleModal} isOpen={isModalOpen} aria-label="Formulaire de candidature à l’annonce">
 				<ModalComponent.Content>
 					<iframe
 						src={annonce.lienPostuler}

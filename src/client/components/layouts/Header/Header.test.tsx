@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { Header } from '~/client/components/layouts/Header/Header';
@@ -10,8 +10,6 @@ import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 describe('Header', () => {
-
-
 	describe('Sur desktop', () => {
 		beforeEach(() => {
 			mockLargeScreen();
@@ -45,12 +43,13 @@ describe('Header', () => {
 
 		describe('quand on ouvre la navigation', () => {
 			it('affiche la navigation avec le role correspondant', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/' });
 				render(<Header/>);
 
 				const header = screen.getByRole('banner');
 				const openNavButton = within(header).getByRole('button', { name: 'Offres' });
-				fireEvent.click(openNavButton);
+				await user.click(openNavButton);
 				const navigationDesktop = screen.getByTestId('navigation-desktop');
 
 				expect(navigationDesktop).toHaveRole('navigation');
@@ -91,6 +90,7 @@ describe('Header', () => {
 
 		describe('quand la page courante est "Emplois"', () => {
 			it('affiche le composant Header avec la navigation active sur "Emplois"', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/emplois' });
 				render(<Header/>);
 
@@ -98,7 +98,7 @@ describe('Header', () => {
 				const accueilNavItem = within(navigationDesktop).getByText('Accueil');
 				const offresNavItem = within(navigationDesktop).getByText('Offres');
 
-				fireEvent.click(offresNavItem);
+				await user.click(offresNavItem);
 
 				const emploisNavItem = within(navigationDesktop).getByText('Emplois');
 
@@ -327,37 +327,42 @@ describe('Header', () => {
 			});
 		});
 		describe('Au clic sur le bouton menu', () => {
-			it('ouvre le menu le navigation mobile', () => {
+			it('ouvre le menu de navigation mobile dans une modale', async () => {
 				mockUseRouter({ pathname: '/' });
+				const user = userEvent.setup();
 				render(<Header/>);
 				const burgerMenu = screen.getByRole('navigation', { name: 'ouvrir le menu principal' });
 				const button = within(burgerMenu).getByRole('button', { name: 'Menu' });
-				fireEvent.click(button);
+				await user.click(button);
+
+				expect(screen.getByRole('dialog', { name: 'Menu principal' })).toBeVisible();
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 			});
 
-			it('positionne le menu dans le bon sous menu de niveau 1', () => {
+			it('positionne le menu dans le bon sous menu de niveau 1', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/decouvrir-les-metiers' });
 				render(<Header/>);
 				const button = screen.getByRole('button', { name: 'Menu' });
-				fireEvent.click(button);
+				await user.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 
-				const modaleNavigation = screen.getByRole('dialog');
+				const modaleNavigation = screen.getByRole('dialog', { name: 'Menu principal' });
 				expect(within(modaleNavigation).getByText('Découvrir les métiers')).toBeVisible();
 			});
 
-			it('positionne le menu dans le bon sous menu de niveau 2', () => {
+			it('positionne le menu dans le bon sous menu de niveau 2', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/je-deviens-mentor' });
 				render(<Header/>);
 				const button = screen.getByRole('button', { name: 'Menu' });
-				fireEvent.click(button);
+				await user.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				expect(menu).toBeVisible();
 
-				const modaleNavigation = screen.getByRole('dialog');
+				const modaleNavigation = screen.getByRole('dialog', { name: 'Menu principal' });
 				expect(within(modaleNavigation).getByText('Je deviens mentor')).toBeVisible();
 			});
 
@@ -398,18 +403,21 @@ describe('Header', () => {
 			});
 		});
 		describe('Au clic sur un item du menu', () => {
-			it('ferme le menu de navigation', () => {
+			it('ferme le menu de navigation', async () => {
+				const user = userEvent.setup();
 				mockUseRouter({ pathname: '/' });
 				render(
 					<Header/>,
 				);
 				const button = screen.getByRole('button', { name: 'Menu' });
-				fireEvent.click(button);
+				await user.click(button);
 				const menu = screen.getByRole('navigation', { name: 'menu principal' });
 				const navigationMobile = screen.getByTestId('navigation-mobile');
 
 				const item = within(navigationMobile).getByRole('link');
-				fireEvent.click(item);
+				await user.click(item);
+
+				expect(screen.queryByRole('dialog', { name: 'Menu principal' })).not.toBeInTheDocument();
 				expect(menu).not.toBeInTheDocument();
 			});
 		});

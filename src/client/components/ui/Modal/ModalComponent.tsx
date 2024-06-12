@@ -16,7 +16,17 @@ interface ModalProps extends React.ComponentPropsWithoutRef<'dialog'> {
 	keepModalMounted?: boolean
 }
 
-export function ModalComponent(props: ModalProps) {
+type LabelRequired = {
+	'aria-label'?: string;
+	'aria-labelledby': string;
+} | {
+	'aria-label': string;
+	'aria-labelledby'?: string;
+}
+
+type ModalPropsWithAccessibleDescription = LabelRequired & ModalProps
+
+export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 	const {
 		children,
 		className,
@@ -50,7 +60,7 @@ export function ModalComponent(props: ModalProps) {
 		};
 	}, []);
 
-	useEffect(function gestionSortieModale()  {
+	useEffect(function gestionSortieModale() {
 		document.addEventListener('mousedown', closeModalOnClickOutside);
 		document.addEventListener('keydown', closeModalOnClickEscape);
 
@@ -93,7 +103,7 @@ export function ModalComponent(props: ModalProps) {
 		}
 	}
 
-	useEffect(function sauvegardeEtRestorationFocus(){
+	useEffect(function sauvegardeEtRestorationFocus() {
 		if (isOpen) {
 			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
 		} else {
