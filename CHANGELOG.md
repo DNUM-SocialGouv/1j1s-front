@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.299.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.298.1...v3.299.0) (2024-06-12)
+
+
+### Features
+
+* **combobox:** combobox localisation ne pas faire de recherche quand moins de trois caractères valides ([#3061](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3061)) ([98e0b9d](https://github.com/DNUM-SocialGouv/1j1s-front/commit/98e0b9d319e1e3d21068c6029bceeab18c2af81c))
+
 ## [3.298.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.298.0...v3.298.1) (2024-06-12)
 
 
