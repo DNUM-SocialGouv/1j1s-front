@@ -43,7 +43,7 @@ describe('GenererSitemapUseCase', () => {
 	});
 	describe('feature flip Formation en apprentissage', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
-			it('génère le xml contenant le sitemap', async () => {
+			it('génère le sitamp sans la Formation en apprentissage', async () => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
 				const baseUrl = 'http://localhost:3000';
 				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
@@ -145,5 +145,28 @@ describe('GenererSitemapUseCase', () => {
 		const result = await générerSitemapUseCase.handle();
 
 		expect(result).not.toContain('https://stagedeseconde.recette.1jeune1solution.gouv.fr/eleves');
+	});
+	it('santize les URI', async () => {
+		const baseUrl = 'http://localhost:3000';
+		ficheMetierRepository = aFicheMetierRepository({
+			getAllNomsMetiers: jest.fn().mockResolvedValue(createSuccess(['Dev web'])),
+		});
+		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
+
+		const result = await générerSitemapUseCase.handle();
+
+		expect(result).toContain('http://localhost:3000/decouvrir-les-metiers/Dev%20web');
+	});
+	it('encode les URI', async () => {
+		const baseUrl = 'http://localhost:3000';
+		ficheMetierRepository = aFicheMetierRepository({
+			getAllNomsMetiers: jest.fn().mockResolvedValue(createSuccess(['Dev web "accessibilite<>&\'"'])),
+		});
+		const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
+
+		const result = await générerSitemapUseCase.handle();
+
+		const encodedURI = '/Dev%20web%20%22accessibilite%3C%3E&amp;&apos;%22';
+		expect(result).toContain(encodedURI);
 	});
 });
