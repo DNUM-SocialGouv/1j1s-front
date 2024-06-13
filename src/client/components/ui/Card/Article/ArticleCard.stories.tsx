@@ -22,7 +22,6 @@ const meta: Meta<typeof ArticleCard> = {
 		linkLabel: 'Voir plus',
 		titleHeadingTag: 'h2',
 		titleLabel: 'Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !',
-		vertical: false,
 	},
 	component: ArticleCard,
 	title: 'Components/Cards/ArticleCard',
@@ -30,15 +29,6 @@ const meta: Meta<typeof ArticleCard> = {
 
 export default meta;
 type Story = StoryObj<typeof ArticleCard>;
-
-export const Horizontal: Story = {
-	args: {
-		vertical: false,
-	},
-};
-
-export const Vertical: Story = {
-	args: {
-		vertical: true,
-	},
+export const Default: Story = {
+	args: {},
 };

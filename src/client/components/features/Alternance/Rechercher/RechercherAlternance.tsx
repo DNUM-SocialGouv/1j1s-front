@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -12,7 +11,7 @@ import {
 import {
 	ListeSolutionAlternanceEntreprise,
 } from '~/client/components/features/Alternance/Rechercher/Resultats/ListeSolutionAlternanceEntreprise';
-import { ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
+import { ServiceCard, ServiceCardList } from '~/client/components/features/ServiceCard/Card/ServiceCard';
 import { DecouvrirApprentissage } from '~/client/components/features/ServiceCard/DecouvrirApprentissage';
 import { OnisepMetierPartner } from '~/client/components/features/ServiceCard/OnisepMetierPartner';
 import { PassPartner } from '~/client/components/features/ServiceCard/PassPartner';
@@ -20,7 +19,6 @@ import { Head } from '~/client/components/head/Head';
 import {
 	RechercherSolutionLayoutWithTabs,
 } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayoutWithTabs';
-import { ArticleCardList } from '~/client/components/ui/Card/Article/ArticleCard';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { NoResultErrorMessage } from '~/client/components/ui/ErrorMessage/NoResultErrorMessage';
 import { TagList } from '~/client/components/ui/Tag/TagList';
@@ -28,8 +26,6 @@ import { useAlternanceQuery } from '~/client/hooks/useAlternanceQuery';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import { Erreur } from '~/server/errors/erreur.types';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const ArticleCard = dynamic(() => import('~/client/components/ui/Card/Article/ArticleCard').then((mod) => mod.ArticleCard), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher une alternance';
 
@@ -37,7 +33,6 @@ export type RechercherAlternanceProps = {
 	erreurRecherche?: Erreur
 	resultats?: ResultatRechercheAlternance
 }
-
 
 
 export default function RechercherAlternance(props: RechercherAlternanceProps) {
@@ -121,21 +116,18 @@ export default function RechercherAlternance(props: RechercherAlternanceProps) {
 				}]}
 			/>
 			<EnTete heading="Consultez nos articles"/>
-			<ArticleCardList>
-				<ArticleCard
-					vertical={false}
-					imageSrc="/images/articles/aide-exceptionnelle-apprentissage.svg"
+			<ServiceCardList aria-label="Liste de nos articles">
+				<ServiceCard
+					logo="/images/articles/aide-exceptionnelle-apprentissage.svg"
 					imageFit="cover"
+					linkLabel="Lire l‘article"
 					link="/articles/l-aide-a-l-apprentissage-l-atout-qu-il-faut-pour-vos-candidatures"
-					titleLabel="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
-					titleHeadingTag={'h3'}
-				>
-					<p>
-						Découvrez un argument supplémentaire à avancer pour vous faire
-						embaucher
-					</p>
-				</ArticleCard>
-			</ArticleCardList>
+					title="Une aide exceptionnelle pour l’apprentissage : l’atout qu’il vous faut pour vos candidatures !"
+					titleAs={'h3'}>
+						Découvrez un argument supplémentaire à avancer pour vous faire embaucher
+				</ServiceCard>
+			</ServiceCardList>
+
 			<EnTete heading="Découvrez des services faits pour vous"/>
 			<ServiceCardList>
 				<DecouvrirApprentissage/>
