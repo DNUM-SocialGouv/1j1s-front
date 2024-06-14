@@ -26,8 +26,6 @@ export function MessageResultatRecherche(props: MessageResultatRechercheProps) {
 							<Footnote.Reference to="partenaires" id="partenaires-reference"/>
 						</h2>
 					}
-				</div>
-				<div role="status">
 					{numberOfResult > 1 &&
 						<h2 className={styles.stats}>
 							<span className={styles.nombreResultats}>{numberOfResult}</span>

@@ -8,7 +8,8 @@ import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/Mes
 
 describe('<MessageResultatRecherche />', () => {
 	it('affiche une note de bas de page', () => {
-		render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false} numberOfResult={1} />);
+		render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false}
+																		 numberOfResult={1}/>);
 
 		const titre = screen.getByRole('heading', { name: /1 résultat/i });
 		const footnote = within(titre).getByRole('link', { name: 'note de pied de page' });
@@ -18,17 +19,40 @@ describe('<MessageResultatRecherche />', () => {
 		expect(containerStatusRole).toBeInTheDocument();
 	});
 
-	describe('lorsquil ny a pas de résultat', () => {
-		it('affiche un message d’erreur', () => {
-			render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false} numberOfResult={0} />);
+	describe('lorsqu‘il n‘y a pas de résultat', () => {
+		it('affiche un message d’erreur et l‘annonce au lecteur d‘écran en tant qu‘alerte', () => {
+			render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false}
+																			 numberOfResult={0}/>);
+
+			const alertError = screen.getByRole('alert');
+			expect(alertError).toHaveTextContent(/0 résultat/i);
+			expect(alertError).toHaveTextContent(/malheureusement, aucune offre ne correspond à votre recherche !/i);
 
 			const errorMessageResult = screen.getByText(/0 résultat/i);
 			const errorMessageText = screen.getByText(/malheureusement, aucune offre ne correspond à votre recherche !/i);
-			const containerErrorRole = screen.getByRole('error');
-
-			expect(errorMessageResult).toBeInTheDocument();
-			expect(errorMessageText).toBeInTheDocument();
-			expect(containerErrorRole).toBeInTheDocument();
+			expect(errorMessageResult).toBeVisible();
+			expect(errorMessageText).toBeVisible();
 		});
+	});
+
+	it('lorsqu‘il y a un résultat, l‘annonce au lecteur d‘écran', () => {
+		render(<MessageResultatRecherche
+			labelSingulier={'résultat'}
+			labelPluriel={'résultats'}
+			isLoading={false}
+			numberOfResult={1}/>);
+
+		const statusMessage = screen.getByRole('status');
+		expect(statusMessage).toHaveTextContent('1 résultat');
+	});
+
+	it('lorsqu‘il y a plusieurs résultats, l‘annonce au lecteur d‘écran', () => {
+		render(<MessageResultatRecherche
+			labelSingulier={'résultat'}
+			labelPluriel={'résultats'}
+			isLoading={false}
+			numberOfResult={10}/>);
+		const statusMessage = screen.getByRole('status');
+		expect(statusMessage).toHaveTextContent('10 résultats');
 	});
 });

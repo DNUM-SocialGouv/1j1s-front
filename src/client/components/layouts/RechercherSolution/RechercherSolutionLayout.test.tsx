@@ -76,6 +76,29 @@ describe('RechercherSolutionLayout', () => {
 
 	describe('la recherche est effectuée', () => {
 		describe('lorsqu‘il en résulte une erreur', () => {
+			it('l‘erreur est annoncée directement au lecteur d‘écran', () => {
+				const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
+					isChargement: false,
+					nombreTotalSolutions: 0,
+				};
+
+				// WHEN
+				render(<RechercherSolutionLayout
+					{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+					banniere={<></>}
+					formulaireRecherche={<></>}
+					etiquettesRecherche={<>étiquettes</>}
+					listeSolutionElement={<>liste des résultats</>}
+					messageResultatRecherche={<>message du nombre de résultats</>}
+					isEtatInitial={false}
+				/>);
+
+				const alertElement = screen.getByRole('alert');
+
+				expect(alertElement).toHaveTextContent(/0 résultat/);
+				expect(alertElement).toHaveTextContent(/Malheureusement, aucune offre ne correspond à votre recherche !Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche./);
+			});
+
 			it('affiche l’erreur en question', () => {
 				// GIVEN
 				const erreurDonneeEnProps = ErreurMetier.DEMANDE_INCORRECTE;
@@ -133,6 +156,26 @@ describe('RechercherSolutionLayout', () => {
 
 		describe('lorsqu‘il n’y a pas d’erreur', () => {
 			describe('lorsqu’il y a des résultats', () => {
+				it('le nombre de résultat est annoncée au lecteur d‘écran', () => {
+					const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
+						isChargement: false,
+						nombreTotalSolutions: 10,
+					};
+
+					// WHEN
+					render(<RechercherSolutionLayout
+						{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+						banniere={<></>}
+						formulaireRecherche={<></>}
+						etiquettesRecherche={<>étiquettes</>}
+						listeSolutionElement={<>liste des résultats</>}
+						messageResultatRecherche={<>message du nombre de résultats</>}
+						isEtatInitial={false}
+					/>);
+
+					expect(screen.getByRole('status')).toHaveTextContent('message du nombre de résultats');
+				});
+
 				it('affiche les étiquettes de la recherche, le message du nombre de résultats, la liste des résultats', () => {
 					const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
 						isChargement: false,
@@ -144,22 +187,20 @@ describe('RechercherSolutionLayout', () => {
 						{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
 						banniere={<></>}
 						formulaireRecherche={<></>}
-						etiquettesRecherche={<div data-testid={'étiquettes'}/>}
-						listeSolutionElement={<div data-testid={'liste des résultats'}/>}
-						messageResultatRecherche={<div data-testid={'message du nombre de résultats'}/>}
+						etiquettesRecherche={<>étiquettes</>}
+						listeSolutionElement={<>liste des résultats</>}
+						messageResultatRecherche={<>message du nombre de résultats</>}
 						isEtatInitial={false}
 					/>);
 
 					// THEN
-					const etiquettes = screen.getByTestId('étiquettes');
-					const messageNbResultats = screen.getByTestId('message du nombre de résultats');
-					const listeResultats = screen.getByTestId('liste des résultats');
-					const containerStatusRole = screen.getByRole('status');
+					const etiquettes = screen.getByText('étiquettes');
+					const messageNbResultats = screen.getByText('message du nombre de résultats');
+					const listeResultats = screen.getByText('liste des résultats');
 
 					expect(etiquettes).toBeVisible();
 					expect(messageNbResultats).toBeVisible();
 					expect(listeResultats).toBeVisible();
-					expect(containerStatusRole).toBeInTheDocument();
 				});
 
 				it('affiche une footnote et une pagination', () => {
@@ -212,12 +253,10 @@ describe('RechercherSolutionLayout', () => {
 
 					// THEN
 					const messageNbResultats = screen.getByText('0 résultat');
-					const containerErrorRole = screen.getByRole('error');
 
 					expect(messageNbResultats).toBeVisible();
 					expect(screen.queryByTestId('message du nombre de résultats')).not.toBeInTheDocument();
 					expect(screen.queryByTestId('étiquettes')).not.toBeInTheDocument();
-					expect(containerErrorRole).toBeInTheDocument();
 				});
 				it('n’affiche pas d’étiquettes de la recherche, ni de message du nombre de résultats, ni la liste des résultats', () => {
 					// GIVEN
