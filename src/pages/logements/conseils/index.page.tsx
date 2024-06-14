@@ -1,14 +1,12 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/logements/conseils/index.analytics';
 import styles from '~/pages/logements/conseils/index.module.scss';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const ArticleCard = dynamic(() => import('~/client/components/ui/Card/Article/ArticleCard').then((mod) => mod.ArticleCard), { ssr: false });
 
 export default function ConseilsLogement() {
 	useAnalytics(analytics);

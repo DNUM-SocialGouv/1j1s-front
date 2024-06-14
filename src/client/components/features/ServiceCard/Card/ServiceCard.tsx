@@ -9,10 +9,15 @@ import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
 
 import styles from './ServiceCard.module.scss';
 
-export function ServiceCardList({ children }: React.PropsWithChildren) {
+interface ServiceCardListProps {
+	'aria-label'?: string,
+}
+
+export function ServiceCardList({ children, 'aria-label': ariaLabel }: React.PropsWithChildren<ServiceCardListProps>) {
+	const DEFAULT_LABEL = 'Liste des partenaires et des services';
 	return (
 		<div className={styles.services}>
-			<ul aria-label="Liste des partenaires et des services">
+			<ul aria-label={ariaLabel ?? DEFAULT_LABEL}>
 				{
 					React.Children.map(children, (child, index) => (
 						<li key={index}>
@@ -40,7 +45,7 @@ export function ServiceCard(props: ServiceCardProps & React.HTMLAttributes<HTMLL
 	const {
 		className, imageFit = 'contain', logo, logoAlt = '', link, linkLabel, title, titleAs, children,
 	} = props;
-	
+
 	const isInternalLink = useIsInternalLink(link);
 	const linkTitle = !isInternalLink ? `${linkLabel} - nouvelle fenêtre` : undefined;
 	const icon = useMemo(function () {

@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { GetStaticPropsResult } from 'next';
-import dynamic from 'next/dynamic';
 import React, { useCallback, useMemo } from 'react';
 
 import { ServicesJeunes } from '~/client/components/features/ServicesJeunes/ServicesJeunes';
 import { Head } from '~/client/components/head/Head';
 import { Container } from '~/client/components/layouts/Container/Container';
+import { ArticleCard } from '~/client/components/ui/Card/Article/ArticleCard';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
@@ -15,8 +15,6 @@ import styles from '~/pages/espace-jeune/index.module.scss';
 import { Actualité } from '~/server/actualites/domain/actualite';
 import { ServiceJeune } from '~/server/services-jeunes/domain/servicesJeunes';
 import { dependencies } from '~/server/start';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const ArticleCard = dynamic(() => import('~/client/components/ui/Card/Article/ArticleCard').then((mod) => mod.ArticleCard), { ssr: false });
 
 interface EspaceJeunePageProps {
 	cartesActualites: Actualité[]

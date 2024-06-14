@@ -20,27 +20,6 @@
 }
 
 
-.notOnlyVertical {
-  .illustration {
-    height: 7rem;
-    @include utilities-deprecated.media(large) {
-      min-width: 18.875rem;
-      height: 10rem;
-    }
-  }
-
-  .title {
-    @include utilities-deprecated.line-clamp(0);
-  }
-
-  .cta {
-    text-align: end;
-    @include utilities-deprecated.media(large) {
-      margin-top: auto;
-    }
-  }
-}
-
 .illustration {
   height: 180px;
 
