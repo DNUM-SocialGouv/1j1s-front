@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.300.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.299.1...v3.300.0) (2024-06-14)
+
+
+### Features
+
+* **ssr:** supprimer usebreakpoint sur articleCard pour éviter les hydratations mismatch ([#3073](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3073)) ([9010280](https://github.com/DNUM-SocialGouv/1j1s-front/commit/9010280b5758304b717e032f3777741eb0fafb68))
+* **ui:** ajout des intéractions manquantes select multiple ([#3069](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3069)) ([22e986e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/22e986ed3262424c8f7bd5663c2bbead9cf69e2c))
+
+
+### Bug Fixes
+
+* Fix l'encodage des urls dans le sitemap ([#3074](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3074)) ([0a740e5](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a740e58b11b23dc3568d988f2c80f80555b4def))
+
 ## [3.299.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.299.0...v3.299.1) (2024-06-14)
 
 
