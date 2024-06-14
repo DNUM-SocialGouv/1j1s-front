@@ -262,7 +262,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, selectOption, state]);
+	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -501,7 +501,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [closeList, selectOption, state]);
+	}, [closeList, handlefocusOnTypeLetterDebounce, selectOption, state]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;

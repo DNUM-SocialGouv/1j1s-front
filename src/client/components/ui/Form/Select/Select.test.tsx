@@ -201,15 +201,13 @@ describe('<Select />', () => {
 
 						await user.tab();
 						await user.keyboard('h');
-						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
 
 						expect(screen.getByRole('listbox')).toBeVisible();
 						const option2Id = screen.getByRole('option', { name: 'ha' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
 
-
-						await user.keyboard('a');
 						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+						await user.keyboard('a');
 
 						const option1Id = screen.getByRole('option', { name: 'ab' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
@@ -227,15 +225,13 @@ describe('<Select />', () => {
 
 						await user.tab();
 						await user.keyboard('abd');
-						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
 
 						expect(screen.getByRole('listbox')).toBeVisible();
 						const option2Id = screen.getByRole('option', { name: 'abd' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
 
-
-						await user.keyboard('abc');
 						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+						await user.keyboard('abc');
 
 						const option1Id = screen.getByRole('option', { name: 'abc' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
@@ -950,15 +946,13 @@ describe('<Select />', () => {
 
 						await user.tab();
 						await user.keyboard('h');
-						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
 
 						expect(screen.getByRole('listbox')).toBeVisible();
 						const option2Id = screen.getByRole('option', { name: 'ha' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
 
-
-						await user.keyboard('a');
 						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+						await user.keyboard('a');
 
 						const option1Id = screen.getByRole('option', { name: 'ab' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
@@ -976,15 +970,13 @@ describe('<Select />', () => {
 
 						await user.tab();
 						await user.keyboard('abd');
-						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
 
 						expect(screen.getByRole('listbox')).toBeVisible();
 						const option2Id = screen.getByRole('option', { name: 'abd' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option2Id);
 
-
-						await user.keyboard('abc');
 						await act(() => delay(DEFAULT_DEBOUNCE_TIMEOUT));
+						await user.keyboard('abc');
 
 						const option1Id = screen.getByRole('option', { name: 'abc' }).id;
 						expect(screen.getByRole('combobox')).toHaveAttribute('aria-activedescendant', option1Id);
