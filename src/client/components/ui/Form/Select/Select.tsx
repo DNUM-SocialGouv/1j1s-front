@@ -178,38 +178,12 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		dispatch(new SelectSimpleAction.SetValueTypedByUser(allUserInput));
 
 		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionStartingWith = optionsElement.findIndex((optionElement) => optionMatchUserInput(optionElement));
-		if (indexOptionStartingWith > -1) {
-			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionStartingWith]));
+		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+		if (firstOptionMatchingUserInput) {
+			dispatch(new SelectSimpleAction.VisualyFocusOption(firstOptionMatchingUserInput));
 		}
 		handlefocusOnTypeLetterDebounce();
 	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
-
-	const visuallyFocusTenOptionsBefore = useCallback(() => {
-		const NUMBER_OF_OPTIONS_BEFORE = 10;
-
-		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
-		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
-		if (indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_BEFORE) {
-			dispatch(new SelectSimpleAction.VisualyFocusFirstOption());
-		} else {
-			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused - NUMBER_OF_OPTIONS_BEFORE]));
-		}
-	}, [state.activeDescendant, state.refListOption]);
-
-	const visuallyFocusTenOptionsAfter = useCallback(() => {
-		const NUMBER_OF_OPTIONS_FURTHER = 10;
-
-		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
-		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
-		if (optionsElement.length - indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_FURTHER) {
-			dispatch(new SelectSimpleAction.VisualyFocusLastOption());
-		} else {
-			dispatch(new SelectSimpleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused + NUMBER_OF_OPTIONS_FURTHER]));
-		}
-	}, [state.activeDescendant, state.refListOption]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
@@ -227,13 +201,13 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			case KeyBoard.PAGE_UP:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					visuallyFocusTenOptionsBefore();
+					dispatch(new SelectSimpleAction.PreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					visuallyFocusTenOptionsAfter();
+					dispatch(new SelectSimpleAction.NextOption(10));
 				}
 				break;
 			case KeyBoard.ARROW_UP:
@@ -304,7 +278,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore, handleUserTypeNewLetter, selectOption, state]);
+	}, [closeList, handleUserTypeNewLetter, selectOption, state]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -377,7 +351,6 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	);
 }
 
-
 function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const {
 		optionList,
@@ -445,7 +418,6 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		closeList();
 	}, [closeList]);
 
-
 	const isCurrentItemSelected = useCallback((optionValue: string) => {
 		return optionsSelectedValues.includes(optionValue);
 	}, [optionsSelectedValues]);
@@ -467,38 +439,12 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		dispatch(new SelectMultipleAction.SetValueTypedByUser(allUserInput));
 
 		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionStartingWith = optionsElement.findIndex((optionElement) => optionMatchUserInput(optionElement));
-		if (indexOptionStartingWith > -1) {
-			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionStartingWith]));
+		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+		if (firstOptionMatchingUserInput) {
+			dispatch(new SelectMultipleAction.VisualyFocusOption(firstOptionMatchingUserInput));
 		}
 		handlefocusOnTypeLetterDebounce();
 	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
-
-	const visuallyFocusTenOptionsBefore = useCallback(() => {
-		const NUMBER_OF_OPTIONS_BEFORE = 10;
-
-		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
-		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
-		if (indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_BEFORE) {
-			dispatch(new SelectMultipleAction.VisualyFocusFirstOption());
-		} else {
-			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused - NUMBER_OF_OPTIONS_BEFORE]));
-		}
-	}, [state.activeDescendant, state.refListOption]);
-
-	const visuallyFocusTenOptionsAfter = useCallback(() => {
-		const NUMBER_OF_OPTIONS_FURTHER = 10;
-
-		const optionVisuallyFocused = state.activeDescendant && document.getElementById(state.activeDescendant);
-		const optionsElement = getOptionsElement(state.refListOption);
-		const indexOptionVisuallyFocused = optionsElement.findIndex((optionElement) => optionElement === optionVisuallyFocused);
-		if (optionsElement.length - indexOptionVisuallyFocused < NUMBER_OF_OPTIONS_FURTHER) {
-			dispatch(new SelectMultipleAction.VisualyFocusLastOption());
-		} else {
-			dispatch(new SelectMultipleAction.VisualyFocusOption(optionsElement[indexOptionVisuallyFocused + NUMBER_OF_OPTIONS_FURTHER]));
-		}
-	}, [state.activeDescendant, state.refListOption]);
 
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
@@ -539,13 +485,13 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			case KeyBoard.PAGE_UP:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					visuallyFocusTenOptionsBefore();
+					dispatch(new SelectMultipleAction.PreviousOption(10));
 				}
 				break;
 			case KeyBoard.PAGE_DOWN:
 				if (state.isListOptionsOpen) {
 					event.preventDefault();
-					visuallyFocusTenOptionsAfter();
+					dispatch(new SelectMultipleAction.NextOption(10));
 				}
 				break;
 			case KeyBoard.ESCAPE:
@@ -586,7 +532,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			default:
 				break;
 		}
-	}, [closeList, handleUserTypeNewLetter, selectOption, state, visuallyFocusTenOptionsAfter, visuallyFocusTenOptionsBefore]);
+	}, [closeList, handleUserTypeNewLetter, selectOption, state]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;
@@ -643,8 +589,13 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 					})}
 				</ul>
 				{optionsSelectedValues.length === 0 ?
-					<Input tabIndex={-1} className={styles.inputHiddenValue} required={required} aria-hidden="true" name={name}
-								 value={''}/> :
+					<Input
+						tabIndex={-1}
+						className={styles.inputHiddenValue}
+						required={required}
+						aria-hidden="true"
+						name={name}
+						value={''}/> :
 					optionsSelectedValues.map((optionValue) => {
 						return <Input
 							tabIndex={-1}

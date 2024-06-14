@@ -102,11 +102,17 @@ export namespace SelectSimpleAction {
 	}
 
 	export class NextOption implements SelectSimpleAction {
+		private readonly numberOfOptionAfter: number;
+
+		constructor(numberOfOption?: number) {
+			this.numberOfOptionAfter = numberOfOption ?? 1;
+		}
+
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			const { activeDescendant, refListOption } = previousState;
 			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
+			const nextDescendant = options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? options.at(-1);
 			return {
 				...previousState,
 				activeDescendant: nextDescendant?.id,
@@ -116,11 +122,17 @@ export namespace SelectSimpleAction {
 	}
 
 	export class PreviousOption implements SelectSimpleAction {
+		private readonly numberOfOptionBefore: number;
+
+		constructor(numberOfOption?: number) {
+			this.numberOfOptionBefore = numberOfOption ?? 1;
+		}
+
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			const { activeDescendant, refListOption } = previousState;
 			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
+			const previousDescendant = options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? options[0];
 			return {
 				...previousState,
 				activeDescendant: previousDescendant?.id,
@@ -251,11 +263,17 @@ export namespace SelectMultipleAction {
 	}
 
 	export class NextOption implements SelectMultipleAction {
+		private readonly numberOfOptionAfter: number;
+
+		constructor(numberOfOption?: number) {
+			this.numberOfOptionAfter = numberOfOption ?? 1;
+		}
+
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			const { activeDescendant, refListOption } = previousState;
 			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const nextDescendant = options[currentActiveDescendantIndex + 1] ?? options[currentActiveDescendantIndex];
+			const nextDescendant = options[currentActiveDescendantIndex + this.numberOfOptionAfter] ?? options.at(-1);
 			return {
 				...previousState,
 				activeDescendant: nextDescendant?.id,
@@ -265,11 +283,17 @@ export namespace SelectMultipleAction {
 	}
 
 	export class PreviousOption implements SelectMultipleAction {
+		private readonly numberOfOptionBefore: number;
+
+		constructor(numberOfOption?: number) {
+			this.numberOfOptionBefore = numberOfOption ?? 1;
+		}
+
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			const { activeDescendant, refListOption } = previousState;
 			const options = getOptionsElement(refListOption);
 			const currentActiveDescendantIndex = options.findIndex((node) => node.id === activeDescendant);
-			const previousDescendant = options[currentActiveDescendantIndex - 1] ?? options[currentActiveDescendantIndex];
+			const previousDescendant = options[currentActiveDescendantIndex - this.numberOfOptionBefore] ?? options[0];
 			return {
 				...previousState,
 				activeDescendant: previousDescendant?.id,
