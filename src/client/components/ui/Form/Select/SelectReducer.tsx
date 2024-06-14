@@ -9,7 +9,7 @@ export type SelectSimpleState = {
 	valueTypedByUser: string
 }
 
-export function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
+function getOptionsElement(refListOption: RefObject<HTMLUListElement>) {
 	return Array.from(refListOption.current?.querySelectorAll('[role="option"]') ?? []);
 }
 
@@ -65,7 +65,31 @@ export namespace SelectSimpleAction {
 		}
 	}
 
-	export class VisualyFocusFirstOption implements SelectSimpleAction {
+	export class FocusOptionMatchingUserInput implements SelectSimpleAction {
+		private readonly userInputKey: string;
+
+		constructor(userInputKey: string) {
+			this.userInputKey = userInputKey;
+		}
+
+		execute(previousState: SelectSimpleState): SelectSimpleState {
+			function optionMatchUserInput(optionElement: Element) {
+				return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
+			}
+
+			const allUserInput = previousState.valueTypedByUser.concat(this.userInputKey);
+			const optionsElement = getOptionsElement(previousState.refListOption);
+			const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+
+			return {
+				...previousState,
+				activeDescendant: firstOptionMatchingUserInput?.id ?? previousState.activeDescendant,
+				valueTypedByUser: allUserInput,
+			};
+		}
+	}
+
+	export class FocusFirstOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			return {
 				...previousState,
@@ -74,24 +98,7 @@ export namespace SelectSimpleAction {
 		}
 	}
 
-	export class VisualyFocusOption implements SelectSimpleAction {
-		private readonly optionId: string | null;
-
-		constructor(option: Element | string) {
-			this.optionId = option instanceof Element
-				? option.id
-				: option;
-		}
-
-		execute(previousState: SelectSimpleState): SelectSimpleState {
-			return {
-				...previousState,
-				activeDescendant: this.optionId ?? previousState.activeDescendant,
-			};
-		}
-	}
-
-	export class VisualyFocusLastOption implements SelectSimpleAction {
+	export class FocusLastOption implements SelectSimpleAction {
 		execute(previousState: SelectSimpleState): SelectSimpleState {
 			const lastOption = getOptionsElement(previousState.refListOption).at(-1);
 			return {
@@ -104,8 +111,8 @@ export namespace SelectSimpleAction {
 	export class NextOption implements SelectSimpleAction {
 		private readonly numberOfOptionAfter: number;
 
-		constructor(numberOfOption?: number) {
-			this.numberOfOptionAfter = numberOfOption ?? 1;
+		constructor(relativeNumberOfOptionAfter?: number) {
+			this.numberOfOptionAfter = relativeNumberOfOptionAfter ?? 1;
 		}
 
 		execute(previousState: SelectSimpleState): SelectSimpleState {
@@ -124,8 +131,8 @@ export namespace SelectSimpleAction {
 	export class PreviousOption implements SelectSimpleAction {
 		private readonly numberOfOptionBefore: number;
 
-		constructor(numberOfOption?: number) {
-			this.numberOfOptionBefore = numberOfOption ?? 1;
+		constructor(relativeNumberOfOptionBefore?: number) {
+			this.numberOfOptionBefore = relativeNumberOfOptionBefore ?? 1;
 		}
 
 		execute(previousState: SelectSimpleState): SelectSimpleState {
@@ -226,24 +233,31 @@ export namespace SelectMultipleAction {
 		}
 	}
 
-	export class VisualyFocusOption implements SelectMultipleAction {
-		private readonly optionId: string | null;
+	export class FocusOptionMatchingUserInput implements SelectMultipleAction {
+		private readonly userInputKey: string;
 
-		constructor(option: Element | string) {
-			this.optionId = option instanceof Element
-				? option.id
-				: option;
+		constructor(userInputKey: string) {
+			this.userInputKey = userInputKey;
 		}
 
 		execute(previousState: SelectMultipleState): SelectMultipleState {
+			function optionMatchUserInput(optionElement: Element) {
+				return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
+			}
+
+			const allUserInput = previousState.valueTypedByUser.concat(this.userInputKey);
+			const optionsElement = getOptionsElement(previousState.refListOption);
+			const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
+
 			return {
 				...previousState,
-				activeDescendant: this.optionId ?? previousState.activeDescendant,
+				activeDescendant: firstOptionMatchingUserInput?.id ?? previousState.activeDescendant,
+				valueTypedByUser: allUserInput,
 			};
 		}
 	}
 
-	export class VisualyFocusFirstOption implements SelectMultipleAction {
+	export class FocusFirstOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			return {
 				...previousState,
@@ -252,7 +266,7 @@ export namespace SelectMultipleAction {
 		}
 	}
 
-	export class VisualyFocusLastOption implements SelectMultipleAction {
+	export class FocusLastOption implements SelectMultipleAction {
 		execute(previousState: SelectMultipleState): SelectMultipleState {
 			const lastOption = getOptionsElement(previousState.refListOption).at(-1);
 			return {
@@ -265,8 +279,8 @@ export namespace SelectMultipleAction {
 	export class NextOption implements SelectMultipleAction {
 		private readonly numberOfOptionAfter: number;
 
-		constructor(numberOfOption?: number) {
-			this.numberOfOptionAfter = numberOfOption ?? 1;
+		constructor(relativeNumberOfOptionAfter?: number) {
+			this.numberOfOptionAfter = relativeNumberOfOptionAfter ?? 1;
 		}
 
 		execute(previousState: SelectMultipleState): SelectMultipleState {
@@ -285,8 +299,8 @@ export namespace SelectMultipleAction {
 	export class PreviousOption implements SelectMultipleAction {
 		private readonly numberOfOptionBefore: number;
 
-		constructor(numberOfOption?: number) {
-			this.numberOfOptionBefore = numberOfOption ?? 1;
+		constructor(relativeNumberOfOptionBefore?: number) {
+			this.numberOfOptionBefore = relativeNumberOfOptionBefore ?? 1;
 		}
 
 		execute(previousState: SelectMultipleState): SelectMultipleState {

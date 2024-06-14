@@ -14,19 +14,18 @@ import React, {
 } from 'react';
 
 import { Error } from '~/client/components/ui/Form/Error';
+import {
+	SelectMultipleAction,
+	SelectMultipleReducer,
+	SelectReducer,
+	SelectSimpleAction,
+} from '~/client/components/ui/Form/Select/SelectReducer';
 
 import { KeyBoard } from '../../../keyboard/keyboard.enum';
 import { Icon } from '../../Icon/Icon';
 import { Champ } from '../Champ/Champ';
 import { Input } from '../Input';
 import styles from './Select.module.scss';
-import {
-	getOptionsElement,
-	SelectMultipleAction,
-	SelectMultipleReducer,
-	SelectReducer,
-	SelectSimpleAction,
-} from './SelectReducer';
 
 type SelectProps = {
 	label: string;
@@ -169,22 +168,6 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
-	const handleUserTypeNewLetter = useCallback((key: string) => {
-		function optionMatchUserInput(optionElement: Element) {
-			return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
-		}
-
-		const allUserInput = state.valueTypedByUser.concat(key);
-		dispatch(new SelectSimpleAction.SetValueTypedByUser(allUserInput));
-
-		const optionsElement = getOptionsElement(state.refListOption);
-		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
-		if (firstOptionMatchingUserInput) {
-			dispatch(new SelectSimpleAction.VisualyFocusOption(firstOptionMatchingUserInput));
-		}
-		handlefocusOnTypeLetterDebounce();
-	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
-
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
@@ -194,7 +177,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 			if (!state.isListOptionsOpen) {
 				dispatch(new SelectSimpleAction.OpenList());
 			}
-			handleUserTypeNewLetter(key);
+			dispatch(new SelectSimpleAction.FocusOptionMatchingUserInput(key));
+			handlefocusOnTypeLetterDebounce();
 		}
 
 		switch (key) {
@@ -262,7 +246,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				if (!state.isListOptionsOpen) {
 					dispatch(new SelectSimpleAction.OpenList());
 				}
-				dispatch(new SelectSimpleAction.VisualyFocusFirstOption());
+				dispatch(new SelectSimpleAction.FocusFirstOption());
 				event.preventDefault();
 				break;
 			}
@@ -270,7 +254,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				if (!state.isListOptionsOpen) {
 					dispatch(new SelectSimpleAction.OpenList());
 				}
-				dispatch(new SelectSimpleAction.VisualyFocusLastOption());
+				dispatch(new SelectSimpleAction.FocusLastOption());
 				event.preventDefault();
 				break;
 			}
@@ -278,7 +262,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 				break;
 
 		}
-	}, [closeList, handleUserTypeNewLetter, selectOption, state]);
+	}, [closeList, selectOption, state]);
 
 	function PlaceholderSelectedValue() {
 		function getLabelByValue(value: string) {
@@ -430,22 +414,6 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 		return debounce(resetValueTypedByUser, DEFAULT_DEBOUNCE_TIMEOUT);
 	}, [resetValueTypedByUser]);
 
-	const handleUserTypeNewLetter = useCallback((key: string) => {
-		function optionMatchUserInput(optionElement: Element) {
-			return optionElement.textContent?.toLowerCase().startsWith(allUserInput.toLowerCase());
-		}
-
-		const allUserInput = state.valueTypedByUser.concat(key);
-		dispatch(new SelectMultipleAction.SetValueTypedByUser(allUserInput));
-
-		const optionsElement = getOptionsElement(state.refListOption);
-		const firstOptionMatchingUserInput = optionsElement.find(optionMatchUserInput);
-		if (firstOptionMatchingUserInput) {
-			dispatch(new SelectMultipleAction.VisualyFocusOption(firstOptionMatchingUserInput));
-		}
-		handlefocusOnTypeLetterDebounce();
-	}, [handlefocusOnTypeLetterDebounce, state.refListOption, state.valueTypedByUser]);
-
 	const onKeyDown = useCallback(function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
 		const { key, altKey, ctrlKey, metaKey } = event;
 
@@ -455,7 +423,8 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 			if (!state.isListOptionsOpen) {
 				dispatch(new SelectMultipleAction.OpenList());
 			}
-			handleUserTypeNewLetter(key);
+			dispatch(new SelectMultipleAction.FocusOptionMatchingUserInput(key));
+			handlefocusOnTypeLetterDebounce();
 		}
 
 		switch (event.key) {
@@ -517,7 +486,7 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				if (!state.isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
-				dispatch(new SelectMultipleAction.VisualyFocusFirstOption());
+				dispatch(new SelectMultipleAction.FocusFirstOption());
 				event.preventDefault();
 				break;
 			}
@@ -525,14 +494,14 @@ function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 				if (!state.isListOptionsOpen) {
 					dispatch(new SelectMultipleAction.OpenList());
 				}
-				dispatch(new SelectMultipleAction.VisualyFocusLastOption());
+				dispatch(new SelectMultipleAction.FocusLastOption());
 				event.preventDefault();
 				break;
 			}
 			default:
 				break;
 		}
-	}, [closeList, handleUserTypeNewLetter, selectOption, state]);
+	}, [closeList, selectOption, state]);
 
 	function PlaceholderSelectedOptions() {
 		const optionsSelectedValueLength = optionsSelectedValues.length;
