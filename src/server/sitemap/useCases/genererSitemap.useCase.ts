@@ -87,7 +87,6 @@ export class GenererSitemapUseCase {
 	private mapDynamicPathListResult(dynamicPathListResult: Either<Array<string>>, rootPath: string): Array<string> {
 		if (isSuccess(dynamicPathListResult)) {
 			return dynamicPathListResult.result
-				.map(this.escapeSpecialCharacters)
 				.map((path) => `/${rootPath}/${path}`);
 		} else {
 			return [];
@@ -98,13 +97,14 @@ export class GenererSitemapUseCase {
 		return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pathList.map((path) => `
 	<url>
-		<loc>${new URL(path, baseUrl).toString()}</loc>
+		<loc>${this.escapeSpecialCharacters(new URL(path, baseUrl).toString())}</loc>
 	</url>`).join('')}
 </urlset>`;
 	}
 
 	private escapeSpecialCharacters(unsafeString: string): string {
-		return unsafeString.replace(/[<>&'"/]/g, function (character) {
+		// NOTE (GAFI 13-06-2024): cf. https://www.sitemaps.org/fr/protocol.html#escaping
+		return unsafeString.replace(/[<>&'"]/g, function (character) {
 			switch (character) {
 				case '<':
 					return '&lt;';
@@ -116,8 +116,6 @@ export class GenererSitemapUseCase {
 					return '&apos;';
 				case '"':
 					return '&quot;';
-				case '/':
-					return '%2F';
 				default:
 					return '';
 			}
