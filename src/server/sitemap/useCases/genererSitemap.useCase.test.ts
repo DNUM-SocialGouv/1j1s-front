@@ -43,7 +43,7 @@ describe('GenererSitemapUseCase', () => {
 	});
 	describe('feature flip Formation en apprentissage', () => {
 		describe('quand la feature Formation en apprentissage n‘est pas activée', () => {
-			it('génère le sitamp sans la Formation en apprentissage', async () => {
+			it('génère le sitemap sans la Formation en apprentissage', async () => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '0';
 				const baseUrl = 'http://localhost:3000';
 				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
@@ -55,7 +55,7 @@ describe('GenererSitemapUseCase', () => {
 		});
 
 		describe('quand la feature Formation en apprentissage est activée', () => {
-			it('génère le sitamp avec la Formation en apprentissage', async () => {
+			it('génère le sitemap avec la Formation en apprentissage', async () => {
 				process.env.NEXT_PUBLIC_FORMATION_LBA_FEATURE = '1';
 				const baseUrl = 'http://localhost:3000';
 				const générerSitemapUseCase = new GenererSitemapUseCase(ficheMetierRepository, faqRepository, annonceDeLogementRepository, stagesRepository, articlesRepository, navigationItemList(), baseUrl);
