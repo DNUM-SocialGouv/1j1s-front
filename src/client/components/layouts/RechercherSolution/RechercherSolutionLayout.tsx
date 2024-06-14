@@ -66,11 +66,10 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				</div>
 			</>;
 		}
-		const attrRole = nombreTotalSolutions > 0 ? 'status' : 'error';
 
 		if (nombreTotalSolutions === 0) {
 			return (
-				<div role={attrRole}>
+				<div role={'alert'}>
 					<NoResultErrorMessage />
 				</div>
 			);
@@ -82,7 +81,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				<div className={'separator'}>
 					<Container className={styles.informationResultat}>
 						{etiquettesRecherche}
-						<div role={attrRole}>
+						<div role={'status'}>
 							<h2>{messageResultatRecherche}</h2>
 						</div>
 					</Container>

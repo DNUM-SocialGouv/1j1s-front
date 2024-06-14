@@ -72,68 +72,69 @@ export function FormulaireRechercheAnnonceLogement() {
 				data-testid="input-prix-desktop"
 			/>
 			<div className={styles.filtresAvancesMobile}>
-        	<ButtonComponent
-        		appearance="quaternary"
-        		icon={<Icon name="filter"/>}
-        		iconPosition="right"
-        		label="Filtrer ma recherche"
+				<ButtonComponent
+					type="button"
+					appearance="quaternary"
+					icon={<Icon name="filter"/>}
+					iconPosition="right"
+					label="Filtrer ma recherche"
 					data-testid="bouton-filtrer-recherche-mobile"
-        		onClick={() => setIsFiltresAvancésMobileOpen(true)}
-        	/>
-        	<ModalComponent
-        		className={isFiltresAvancésMobileOpen ? styles.show : styles.hide}
-        		close={() => setIsFiltresAvancésMobileOpen(false)}
-        		closeTitle="Fermer les filtres"
-        		isOpen={isFiltresAvancésMobileOpen}
-        		keepModalMounted
-        		aria-labelledby="dialog_label">
-        		<ModalComponent.Title>
-        			<Icon name="menu"/>
-        			<span id="dialog_label">Filtrer ma recherche</span>
-        		</ModalComponent.Title>
-        		<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
-        			<FilterAccordion title="Type d‘offre" open>
-        				<MeilisearchCustomRefinementListForModal
-        					attribute="type"
-        					label="Type d‘offre"
-        					sortBy={['name:asc']}
-        				/>
-        			</FilterAccordion>
-        			<FilterAccordion title="Type de bien">
-        				<MeilisearchCustomRefinementListForModal
-        					attribute="typeBien"
-        					label="Type de bien"
-        					sortBy={['name:asc']}
-        				/>
-        			</FilterAccordion>
-        			<FilterAccordion title="Prix">
-        				<MeilisearchCustomRangeInputForModal
-        					attribute="prix"
-        					unite="€"
-        					min={PRIX_MINIMUM}
-        					max={PRIX_MAXIMUM}
-        				/>
-        			</FilterAccordion>
-        			<FilterAccordion title="Surface">
-        				<MeilisearchCustomRangeInputForModal
-        					attribute="surface"
-        					unite="m²"
-        					min={SURFACE_MINIMUM}
-        					max={SURFACE_MAXIMUM}
-        				/>
-        			</FilterAccordion>
-        		</ModalComponent.Content>
-        		<ModalComponent.Footer>
-        			<div className={styles.applyFiltersButton}>
-        				<ButtonComponent
-        					icon={<Icon name="angle-right"/>}
-        					iconPosition="right"
-        					label="Appliquer les filtres"
-        					onClick={() => setIsFiltresAvancésMobileOpen(false)}
-        				/>
-        			</div>
-        		</ModalComponent.Footer>
-        	</ModalComponent>
+					onClick={() => setIsFiltresAvancésMobileOpen(true)}
+				/>
+				<ModalComponent
+					className={isFiltresAvancésMobileOpen ? styles.show : styles.hide}
+					close={() => setIsFiltresAvancésMobileOpen(false)}
+					closeTitle="Fermer les filtres"
+					isOpen={isFiltresAvancésMobileOpen}
+					keepModalMounted
+					aria-labelledby="dialog_label">
+					<ModalComponent.Title>
+						<Icon name="menu"/>
+						<span id="dialog_label">Filtrer ma recherche</span>
+					</ModalComponent.Title>
+					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
+						<FilterAccordion title="Type d‘offre" open>
+							<MeilisearchCustomRefinementListForModal
+								attribute="type"
+								label="Type d‘offre"
+								sortBy={['name:asc']}
+							/>
+						</FilterAccordion>
+						<FilterAccordion title="Type de bien">
+							<MeilisearchCustomRefinementListForModal
+								attribute="typeBien"
+								label="Type de bien"
+								sortBy={['name:asc']}
+							/>
+						</FilterAccordion>
+						<FilterAccordion title="Prix">
+							<MeilisearchCustomRangeInputForModal
+								attribute="prix"
+								unite="€"
+								min={PRIX_MINIMUM}
+								max={PRIX_MAXIMUM}
+							/>
+						</FilterAccordion>
+						<FilterAccordion title="Surface">
+							<MeilisearchCustomRangeInputForModal
+								attribute="surface"
+								unite="m²"
+								min={SURFACE_MINIMUM}
+								max={SURFACE_MAXIMUM}
+							/>
+						</FilterAccordion>
+					</ModalComponent.Content>
+					<ModalComponent.Footer>
+						<div className={styles.applyFiltersButton}>
+							<ButtonComponent
+								icon={<Icon name="angle-right"/>}
+								iconPosition="right"
+								label="Appliquer les filtres"
+								onClick={() => setIsFiltresAvancésMobileOpen(false)}
+							/>
+						</div>
+					</ModalComponent.Footer>
+				</ModalComponent>
 			</div>
 		</form>
 	);
