@@ -25,6 +25,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 	return (
 		<Link
 			className={styles.bouée}
+			appearance="asPrimaryButton"
 			hidden={ !isDown }
 			href="#top"
 		>
