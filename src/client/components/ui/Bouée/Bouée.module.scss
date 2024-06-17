@@ -1,27 +1,33 @@
-@use "@styles/utilities-deprecated";
+@use "@styles/utilities" as utilities;
 
+// FIXME (GAFI 17-06-2024): C'est dommage de ne pas profiter du style des boutons
 .bouée {
   position: fixed;
   z-index: 1;
-  background: utilities-deprecated.$color-primary;
-  color: utilities-deprecated.$color-on-primary;
-  display: flex;
+  --inset: #{utilities.$gutter};
+  right: var(--inset);
+  bottom: var(--inset);
+
   --size: 2rem;
   min-height: var(--size);
   min-width: var(--size);
+
+  background: utilities.$color-cta-background-primary;
+  color: utilities.$color-cta-texte-primary;
+  border-radius: 100vmax;
+  box-shadow: 10px 10px 20px rgb(0 0 0 / 10%);
+
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100vmax;
-  right: utilities-deprecated.$gutter;
-  bottom: utilities-deprecated.$gutter;
-  box-shadow: 10px 10px 20px rgb(0 0 0 / 10%);
+
   outline-offset: 4px;
 
+  &[hidden]:not([hidden="false"]) {
+    transform: translateY(calc(100% + var(--inset)));
+    visibility: hidden;
+  }
   transition:
           transform 400ms ease-in-out,
           visibility 400ms ease-in-out;
-  &[hidden]:not([hidden="false"]) {
-    transform: translateY(calc(100% + utilities-deprecated.$gutter));
-    visibility: hidden;
-  }
 }
