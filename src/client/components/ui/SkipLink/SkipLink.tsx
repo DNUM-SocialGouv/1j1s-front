@@ -4,7 +4,7 @@ import { Container } from '~/client/components/layouts/Container/Container';
 import styles from '~/client/components/ui/SkipLink/SkipLink.module.scss';
 
 export default function SkipLink() {
-	const id = 'skip-links';
+	const id = 'top';
 
 	return (
 		<div className={styles.skipLinkWrapper}>

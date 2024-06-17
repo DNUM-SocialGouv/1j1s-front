@@ -27,7 +27,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 		<Link
 			className={styles.bouée}
 			hidden={ !isDown }
-			href="#skip-links"
+			href="#top"
 		>
 			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
 		</Link>
