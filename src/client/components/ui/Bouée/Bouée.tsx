@@ -29,7 +29,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 
 	return (
 		<Link
-			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
+			className={ classNames({ [styles.bouée]: true })}
 			hidden={ !isDown }
 			onClick={ toSurface }
 			href="#skip-link-list"
