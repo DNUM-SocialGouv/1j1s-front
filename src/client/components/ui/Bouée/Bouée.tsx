@@ -23,16 +23,11 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 	// eslint croit que c'est une bonne idée de mettre `setIsDown` dans les dépendances ¯\_(ツ)_/¯
 	// alors qu'en pratique, ça fait une boucle infinie.
 
-	function toSurface () {
-		window.scrollTo({ behavior: 'smooth', top: 0 });
-	}
-
 	return (
 		<Link
 			className={ classNames({ [styles.bouée]: true })}
 			hidden={ !isDown }
-			onClick={ toSurface }
-			href="#skip-link-list"
+			href="#skip-links"
 		>
 			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
 		</Link>
