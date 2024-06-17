@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.300.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.300.0...v3.300.1) (2024-06-16)
+
+
+### Bug Fixes
+
+* **menu:** corrige la visibilité du focus dans le menu mobile ([#3068](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3068)) ([1a42a60](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1a42a6014772924d713a68962d9d7670f9339a7f))
+
 ## [3.300.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.299.1...v3.300.0) (2024-06-14)
 
 
