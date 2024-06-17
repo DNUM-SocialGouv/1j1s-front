@@ -4,13 +4,14 @@
 import '@testing-library/jest-dom';
 
 import { act, render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { RefObject } from 'react';
 
 import Bouée from '~/client/components/ui/Bouée/Bouée';
 
+const LABEL_BOUEE = 'Remonter en haut de la page';
+const DEBOUNCE_DELAY = 50;
+
 describe('<Bouée />', () => {
-	const label = 'Remonter en haut de la page';
 	afterEach(() => jest.resetAllMocks());
 	beforeEach(() => {
 		window.scrollTo = jest.fn().mockImplementation(() => {
@@ -18,9 +19,7 @@ describe('<Bouée />', () => {
 		});
 	});
 
-	const DEBOUNCE_DELAY = 50;
-
-	function mockSurface (initialY=20): [RefObject<HTMLElement>, (y: number) => void] {
+	function mockSurface (initialY = 20): [RefObject<HTMLElement>, (y: number) => void] {
 		let y = initialY;
 		const surface = {
 			getBoundingClientRect: jest.fn(() => ({ y } as DOMRect)),
@@ -30,8 +29,8 @@ describe('<Bouée />', () => {
 		return [surfaceRef, setY];
 	}
 
-	describe('quand l‘élément étalon est visible', () => {
-		it('affiche un lien qui reste invisible', () => {
+	describe('quand l‘utilisateur est en haut de la page', () => {
+		it('masque le lien', () => {
 			// Given
 			const [surfaceRef] = mockSurface();
 
@@ -39,7 +38,7 @@ describe('<Bouée />', () => {
 			render(<Bouée surface={ surfaceRef }/>);
 			
 			// Then
-			const link = screen.queryByRole('link', { hidden: true, name: label });
+			const link = screen.queryByRole('link', { hidden: true, name: LABEL_BOUEE });
 			expect(link).not.toBeInTheDocument();
 		});
 
@@ -57,12 +56,12 @@ describe('<Bouée />', () => {
 				});
 				
 				// Then
-				const link = screen.getByRole('link', { name: label });
+				const link = screen.getByRole('link', { name: LABEL_BOUEE });
 				expect(link).toBeVisible();
 			});
 
 			describe('quand on clique sur le lien', () => {
-				it('scrolle jusqu‘à l‘élément étalon', async () => {
+				it('remonte jusqu‘en haut de la page', async () => {
 					// Given
 					const [ surfaceRef, setY] = mockSurface();
 
@@ -74,12 +73,10 @@ describe('<Bouée />', () => {
 						await delay(DEBOUNCE_DELAY);
 					});
 
-					const link = screen.getByRole('link', { name: label });
-					await userEvent.click(link);
+					const link = screen.getByRole('link', { name: LABEL_BOUEE });
 
 					// Then
-					expect(window.scrollY).toEqual(0);
-					expect(window.scrollTo).toHaveBeenNthCalledWith(2, { behavior: 'smooth', top: 0 });
+					expect(link).toHaveAttribute('href', '#top');
 				});
 			});
 		});
@@ -95,7 +92,7 @@ describe('<Bouée />', () => {
 			await act(() => delay(DEBOUNCE_DELAY));
 
 			// Then
-			const link = screen.getByRole('link', { name: label });
+			const link = screen.getByRole('link', { name: LABEL_BOUEE });
 
 			expect(link).toBeVisible();
 		});

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { RefObject, useEffect } from 'react';
 
 import styles from '~/client/components/ui/Bouée/Bouée.module.scss';
