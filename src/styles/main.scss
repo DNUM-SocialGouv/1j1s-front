@@ -32,6 +32,10 @@ video[controls] {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   overflow: auto;
 }

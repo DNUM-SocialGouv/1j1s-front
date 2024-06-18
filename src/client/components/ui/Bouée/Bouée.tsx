@@ -1,9 +1,11 @@
-import classNames from 'classnames';
 import React, { RefObject, useEffect } from 'react';
 
 import styles from '~/client/components/ui/Bouée/Bouée.module.scss';
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { Link } from '~/client/components/ui/Link/Link';
 import useDebouncedState from '~/client/hooks/useDebouncedState';
+
+export const TOP_ELEMENT_ID = 'top';
 
 export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }) {
 	const [isDown, setIsDown] = useDebouncedState(false, 50);
@@ -22,19 +24,15 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 	// eslint croit que c'est une bonne idée de mettre `setIsDown` dans les dépendances ¯\_(ツ)_/¯
 	// alors qu'en pratique, ça fait une boucle infinie.
 
-	function toSurface () {
-		window.scrollTo({ behavior: 'smooth', top: 0 });
-	}
-
 	return (
-		<button 
-			className={ classNames({ [styles.bouée]: true, [styles.enabled]: isDown, [styles.disabled]: !isDown })}
+		<Link
+			className={styles.bouée}
+			appearance="asPrimaryButton"
 			hidden={ !isDown }
-			onClick={ toSurface }
-			title="Remonter en haut de la page"
+			href={`#${TOP_ELEMENT_ID}`}
 		>
-			<Icon name={'angle-up'} />
-		</button>
+			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
+		</Link>
 	);
 }
 

@@ -1,10 +1,10 @@
 @use "@styles/utilities-deprecated";
 
+// FIXME (GAFI 17-06-2024): On pourrait pas se passer de ce wrapper ? Le UL est déjà un wrapper en soi
 .skipLinkWrapper {
   --ul-type: none;
   position: absolute;
   top: 0;
-  padding-top: 1rem;
   transform: translateY(-100%);
   background-color: utilities-deprecated.$color-separator;
   color: utilities-deprecated.$color-blue-navy;
@@ -17,6 +17,7 @@
 }
 
 .skipLinkList {
+  padding-top: 1rem;
   display: flex;
   flex-direction: row;
 }
