@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.302.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.301.0...v3.302.0) (2024-06-18)
+
+
+### Features
+
+* **a11y:** ajout restitution resultat recherche meilisearch ([#3072](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3072)) ([0bcee1a](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0bcee1a2725d0448a8c44fbc88582011617f147f))
+
 ## [3.301.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.300.1...v3.301.0) (2024-06-18)
 
 
