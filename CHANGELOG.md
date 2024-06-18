@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.301.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.300.1...v3.301.0) (2024-06-18)
+
+
+### Features
+
+* **accessibilité:** focus reposionné en haut de page au clique sur le lien remonter… ([#3064](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3064)) ([276e506](https://github.com/DNUM-SocialGouv/1j1s-front/commit/276e506db326c546b710af52627cdb12a1b0c4dc))
+
 ## [3.300.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.300.0...v3.300.1) (2024-06-16)
 
 
