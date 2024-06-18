@@ -138,6 +138,7 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 						isLoading={isInstantSearchLoading}
 						numberOfResult={nbHits}
 					/>
+
 				</Container>
 			</section>
 			<ListeDesResultats
@@ -152,5 +153,4 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 			/>
 		</>
 	);
-}) ;
-
+});

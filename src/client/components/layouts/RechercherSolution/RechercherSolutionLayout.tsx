@@ -40,12 +40,13 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		footnote,
 	} = props;
 
+
 	function getResultatsDeRecherche() {
 		if (isEtatInitial) {
 			return null;
 		}
 		if (erreurRecherche) {
-			return <ErrorComponent errorType={erreurRecherche}/>;
+			return <div role={'alert'}><ErrorComponent errorType={erreurRecherche}/></div>;
 		}
 		if (isChargement) {
 			return <>
@@ -59,22 +60,30 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
 					<Container>
 						<Skeleton type="card" isLoading={true} repeat={2}
-						          className={styles.listeSolutions}>
+							className={styles.listeSolutions}>
 						</Skeleton>
 					</Container>
 				</div>
 			</>;
 		}
+
 		if (nombreTotalSolutions === 0) {
-			return <NoResultErrorMessage />;
+			return (
+				<div role={'alert'}>
+					<NoResultErrorMessage/>
+				</div>
+			);
 		}
+
 		const isRechercheEnCoursOuPlusieursResultats = nombreTotalSolutions !== undefined && nombreTotalSolutions > 0;
 		if (isRechercheEnCoursOuPlusieursResultats) {
 			return <>
 				<div className={'separator'}>
 					<Container className={styles.informationResultat}>
 						{etiquettesRecherche}
-						<h2>{messageResultatRecherche}</h2>
+						<div role={'status'}>
+							<h2>{messageResultatRecherche}</h2>
+						</div>
 					</Container>
 				</div>
 
