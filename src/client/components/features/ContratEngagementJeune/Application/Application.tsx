@@ -15,8 +15,9 @@ export default function Application() {
 				<Image src={logoImage} alt={'Contrat d‘engagement jeune'} aria-hidden="true"/>
 
 				<div className={styles.applicationDescription}>
-          L‘appli qui vous permet d‘échanger plus facilement avec votre conseiller et de réaliser vos recherches d‘emploi,
-          d‘immersion, d‘alternance et de service civique.
+					L‘appli qui vous permet d‘échanger plus facilement avec votre conseiller et de réaliser vos recherches
+					d‘emploi,
+					d‘immersion, d‘alternance et de service civique.
 				</div>
 
 				<div className={styles.applicationTelecharger}>
@@ -28,8 +29,7 @@ export default function Application() {
 							<Image src={logoGoogle} alt={''} fill/>
 						</div>
 						<div>
-              Télécharger sur<br/>
-							<span className={styles.applicationTelechargerLienStore}>Google Play</span>
+							Télécharger sur <span>Google Play</span>
 						</div>
 					</Link>
 					<Link
@@ -40,8 +40,7 @@ export default function Application() {
 							<Image src={logoApple} alt={''} fill/>
 						</div>
 						<div>
-              Télécharger sur<br/>
-							<span className={styles.applicationTelechargerLienStore}>APP Store</span>
+							Télécharger sur <span>APP Store</span>
 						</div>
 					</Link>
 				</div>
