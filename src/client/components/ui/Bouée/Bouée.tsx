@@ -5,6 +5,8 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
 import useDebouncedState from '~/client/hooks/useDebouncedState';
 
+export const TOP_ELEMENT_ID = 'top';
+
 export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }) {
 	const [isDown, setIsDown] = useDebouncedState(false, 50);
 
@@ -27,7 +29,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 			className={styles.bouée}
 			appearance="asPrimaryButton"
 			hidden={ !isDown }
-			href="#top"
+			href={`#${TOP_ELEMENT_ID}`}
 		>
 			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
 		</Link>
