@@ -4,12 +4,10 @@
 import { stringify } from 'querystring';
 
 import { anAlternanceFiltre } from '~/server/alternances/domain/alternance.fixture';
-import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
-
 import {
 	mockedRepositoryReturnsASuccessWhenCodeCommuneIsNot12345,
-} from '../../src/server/alternances/infra/repositories/mockAlternance.repository';
-import { interceptGet } from '../interceptGet';
+} from '~/server/alternances/infra/repositories/mockAlternance.repository';
+import { aMetier } from '~/server/metiers/domain/metierAlternance.fixture';
 
 const aQuery = {
 	codeCommune: '75056',
@@ -38,12 +36,14 @@ describe('Parcours alternance LBA', () => {
 			const listeMetiers = new Array(11).fill(aMetier());
 
 			cy.visit('/apprentissage');
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Domaine/i }).type('travaux'),
-				alias: 'recherche-mot-cle-alternances',
-				path: '/api/metiers*',
-				response: JSON.stringify(listeMetiers),
-			});
+			cy.intercept(
+				'GET',
+				'/api/metiers*',
+				JSON.stringify(listeMetiers),
+			).as('recherche-mot-cle-alternances');
+
+			cy.findByRole('combobox', { name: /Domaine/i }).type('travaux');
+			cy.wait('@recherche-mot-cle-alternances');
 
 			cy.findAllByRole('option').should('have.length', 11);
 			cy.findAllByRole('option').first().should('be.visible');

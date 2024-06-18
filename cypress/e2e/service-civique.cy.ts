@@ -2,8 +2,7 @@
 /// <reference types="@testing-library/cypress" />
 
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
-
-import { interceptGet } from '../interceptGet';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 context('Parcours service civique', () => {
 	beforeEach(() => {
@@ -18,33 +17,30 @@ context('Parcours service civique', () => {
 			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).click();
 			cy.findAllByRole('option').first().click();
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Localisation/i }).type('paris'),
-					alias: 'recherche-communes',
-					path: '/api/communes*',
-					response: JSON.stringify({ résultats: [
-						{
-							code: '75056',
-							codePostal: '75006',
-							coordonnées: {
-								latitude: 48.859,
-								longitude: 2.347,
-							},
-							libelle: 'Paris (75006)',
-							ville: 'Paris',
-						},
-					] } ),
-				},
-			);
+			cy.intercept(
+				'GET',
+				'/api/communes*',
+				JSON.stringify({
+					résultats: [aCommune({
+						code: '75056',
+						codePostal: '75006',
+						coordonnées: { latitude: 48.859, longitude: 2.347 },
+						libelle: 'Paris (75006)',
+						ville: 'Paris',
+					})],
+				}),
+			).as('recherche-communes');
+
+			cy.findByRole('combobox', { name: /Localisation/i }).type('paris');
+			cy.wait('@recherche-communes');
+
 			cy.findAllByRole('option').first().click();
 
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
-				alias: 'recherche-services-civique',
-				path: '/api/services-civique*',
-				response: JSON.stringify(aRésultatRechercheMission()),
-			});
+			cy.intercept('GET', '/api/services-civique*', JSON.stringify(aRésultatRechercheMission()))
+				.as('recherche-services-civique');
+
+			cy.findByRole('button', { name: /Rechercher/i }).click();
+			cy.wait('@recherche-services-civique');
 
 			cy.findByRole('list', { name: /Offre pour le service civique/i }).children().should('have.length', 2);
 			cy.findByRole('list', { name: /Offre pour le service civique/i })
@@ -59,25 +55,22 @@ context('Parcours service civique', () => {
 			cy.visit('/service-civique?domain=culture-loisirs&libelleCommune=Paris+%2875001%29&codeCommune=75056&latitudeCommune=48.859&longitudeCommune=2.347&distanceCommune=10&page=1');
 		});
 		it('navigue vers le détail de l‘offre', () => {
-			interceptGet({
-				actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
-				alias: 'recherche-services-civique',
-				path: '/api/services-civique*',
-				response: JSON.stringify(aRésultatRechercheMission()),
-			});
+			cy.intercept('GET', '/api/services-civique*', JSON.stringify(aRésultatRechercheMission()))
+				.as('recherche-services-civique');
+
+			cy.findByRole('button', { name: /Rechercher/i }).click();
+			cy.wait('@recherche-services-civique');
 
 			const id = aRésultatRechercheMission().résultats[0].id;
-			interceptGet({
-				actionBeforeWaitTheCall: () => (
-					cy.findByRole('list', { name: /Offre pour le service civique/i })
-						.children()
-						.first()
-						.within(() => cy.findByRole('link', { name: /En savoir plus/i }).click())
-				),
-				alias: 'get-services-civique',
-				path: `/_next/data/*/service-civique/${id}.json?id=${id}`,
-				response: JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }),
-			});
+
+			cy.intercept('GET',
+				`/_next/data/*/service-civique/${id}.json?id=${id}`,
+				JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }))
+				.as('get-services-civique');
+
+			cy.findByRole('list', { name: /Offre pour le service civique/i }).children().first()
+				.within(() => cy.findByRole('link', { name: /En savoir plus/i }).click());
+			cy.wait('@get-services-civique');
 
 			cy.findByRole('heading', { level: 1 })
 				.should('contain.text', 'Je distribue des produits de première nécessité et des repas aux plus démunis, dans la rue ou au sein d’établissements dédiés');
