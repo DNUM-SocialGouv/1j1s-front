@@ -16,15 +16,11 @@ describe('RechercherSolutionLayout', () => {
 
 	describe('aucune recherche n’est lancée', () => {
 		it('n’affiche pas le message de résultats de recherche ni d’étiquette', () => {
-			// GIVEN
 			const messageResultat = 'message de résultats de recherche';
 			const etiquettes = 'étiquettes de recherche';
-			const propsQuiVeutDireQueAucuneRechercheEstLancee = {
-				isEtatInitial: true,
-			};
 
-			// WHEN
 			render(<RechercherSolutionLayout
+				isEtatInitial={true}
 				banniere={<></>}
 				formulaireRecherche={<></>}
 				etiquettesRecherche={<>{etiquettes}</>}
@@ -32,7 +28,6 @@ describe('RechercherSolutionLayout', () => {
 				listeSolutionElement={<></>}
 				isChargement={false}
 				nombreTotalSolutions={0}
-				{...propsQuiVeutDireQueAucuneRechercheEstLancee}
 			/>);
 
 			// THEN
@@ -43,13 +38,8 @@ describe('RechercherSolutionLayout', () => {
 
 	describe('pendant le chargement de la recherche', () => {
 		it('affiche les skeletons', () => {
-			// GIVEN
-			const propsQuiVeutDireQueLaRechercheEstEnCours = {
-				isChargement: true,
-			};
-
-			// WHEN
 			render(<RechercherSolutionLayout
+				isChargement={true}
 				banniere={<></>}
 				formulaireRecherche={<></>}
 				etiquettesRecherche={<></>}
@@ -57,10 +47,8 @@ describe('RechercherSolutionLayout', () => {
 				listeSolutionElement={<></>}
 				isEtatInitial={false}
 				nombreTotalSolutions={0}
-				{...propsQuiVeutDireQueLaRechercheEstEnCours}
 			/>);
 
-			// THEN
 			const skeletons = screen.getAllByLabelText('...En cours de chargement');
 			expect(skeletons).toHaveLength(2);
 			const skeletonMessageResultatUl = skeletons[0];
@@ -76,40 +64,28 @@ describe('RechercherSolutionLayout', () => {
 
 	describe('la recherche est effectuée', () => {
 		describe('lorsqu‘il en résulte une erreur', () => {
-			it('l‘erreur est annoncée directement au lecteur d‘écran', () => {
-				const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
-					isChargement: false,
-					nombreTotalSolutions: 0,
-				};
-
-				// WHEN
+			it('annonce l‘erreur au lecteur d‘écran', () => {
 				render(<RechercherSolutionLayout
-					{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+					erreurRecherche={ErreurMetier.DEMANDE_INCORRECTE}
+					isChargement={false}
 					banniere={<></>}
 					formulaireRecherche={<></>}
 					etiquettesRecherche={<>étiquettes</>}
 					listeSolutionElement={<>liste des résultats</>}
 					messageResultatRecherche={<>message du nombre de résultats</>}
 					isEtatInitial={false}
+					nombreTotalSolutions={0}
 				/>);
 
 				const alertElement = screen.getByRole('alert');
 
-				expect(alertElement).toHaveTextContent(/0 résultat/);
-				expect(alertElement).toHaveTextContent(/Malheureusement, aucune offre ne correspond à votre recherche !Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche./);
+				expect(alertElement).toHaveTextContent(/Erreur - Demande incorrecteVotre navigateur a envoyé une demande que ce serveur n’a pas pu comprendre./);
 			});
 
 			it('affiche l’erreur en question', () => {
-				// GIVEN
-				const erreurDonneeEnProps = ErreurMetier.DEMANDE_INCORRECTE;
-				const propsQuiVeutDireQuIlYAErreur = {
-					erreurRecherche: erreurDonneeEnProps,
-					isChargement: false,
-				};
-
-				// WHEN
 				render(<RechercherSolutionLayout
-					{...propsQuiVeutDireQuIlYAErreur}
+					erreurRecherche={ErreurMetier.DEMANDE_INCORRECTE}
+					isChargement={false}
 					banniere={<></>}
 					etiquettesRecherche={<></>}
 					formulaireRecherche={<></>}
@@ -125,16 +101,9 @@ describe('RechercherSolutionLayout', () => {
 			});
 
 			it('n’affiche pas les étiquettes de la recherche, le message du nombre de résultats, la liste des résultats', () => {
-				// GIVEN
-				const erreurDonneeEnProps = ErreurMetier.DEMANDE_INCORRECTE;
-				const propsQuiVeutDireQuIlYAErreur = {
-					erreurRecherche: erreurDonneeEnProps,
-					isChargement: false,
-				};
-
-				// WHEN
 				render(<RechercherSolutionLayout
-					{...propsQuiVeutDireQuIlYAErreur}
+					erreurRecherche={ErreurMetier.DEMANDE_INCORRECTE}
+					isChargement={false}
 					banniere={<></>}
 					etiquettesRecherche={<div data-testid={'étiquettes'}/>}
 					formulaireRecherche={<></>}
@@ -156,15 +125,10 @@ describe('RechercherSolutionLayout', () => {
 
 		describe('lorsqu‘il n’y a pas d’erreur', () => {
 			describe('lorsqu’il y a des résultats', () => {
-				it('le nombre de résultat est annoncée au lecteur d‘écran', () => {
-					const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
-						isChargement: false,
-						nombreTotalSolutions: 10,
-					};
-
-					// WHEN
+				it('annonce le nombre de résultat au lecteur d‘écran', () => {
 					render(<RechercherSolutionLayout
-						{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+						nombreTotalSolutions={10}
+						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<>étiquettes</>}
@@ -177,14 +141,9 @@ describe('RechercherSolutionLayout', () => {
 				});
 
 				it('affiche les étiquettes de la recherche, le message du nombre de résultats, la liste des résultats', () => {
-					const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
-						isChargement: false,
-						nombreTotalSolutions: 10,
-					};
-
-					// WHEN
 					render(<RechercherSolutionLayout
-						{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+						isChargement={false}
+						nombreTotalSolutions={10}
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<>étiquettes</>}
@@ -193,7 +152,6 @@ describe('RechercherSolutionLayout', () => {
 						isEtatInitial={false}
 					/>);
 
-					// THEN
 					const etiquettes = screen.getByText('étiquettes');
 					const messageNbResultats = screen.getByText('message du nombre de résultats');
 					const listeResultats = screen.getByText('liste des résultats');
@@ -204,16 +162,11 @@ describe('RechercherSolutionLayout', () => {
 				});
 
 				it('affiche une footnote et une pagination', () => {
-					// GIVEN
 					mockSmallScreen();
-					const propsQuiVeutDireQuIlYADesResultatsEtPasDErreur = {
-						isChargement: false,
-						nombreTotalSolutions: 10,
-					};
 
-					// WHEN
 					render(<RechercherSolutionLayout
-						{...propsQuiVeutDireQuIlYADesResultatsEtPasDErreur}
+						nombreTotalSolutions={10}
+						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<></>}
@@ -224,7 +177,6 @@ describe('RechercherSolutionLayout', () => {
 						paginationOffset={5}
 					/>);
 
-					// THEN
 					const footnote = screen.getByTestId('footnote');
 					expect(footnote).toBeVisible();
 					const pagination = screen.getByRole('navigation', { name: 'pagination' });
@@ -233,16 +185,28 @@ describe('RechercherSolutionLayout', () => {
 			});
 
 			describe('il y a 0 résultat', () => {
-				it('affiche une message indiquant 0 résultat', () => {
-					// GIVEN
-					const propsQuiVeutDireQuIlYA0Resultat = {
-						isChargement: false,
-						nombreTotalSolutions: 0,
-					};
-
-					// WHEN
+				it('annonce qu‘il n‘y a pas de résultat au lecteur d‘écran', () => {
 					render(<RechercherSolutionLayout
-						{...propsQuiVeutDireQuIlYA0Resultat}
+						nombreTotalSolutions={0}
+						isChargement={false}
+						banniere={<></>}
+						formulaireRecherche={<></>}
+						etiquettesRecherche={<>étiquettes</>}
+						listeSolutionElement={<>liste des résultats</>}
+						messageResultatRecherche={<>message du nombre de résultats</>}
+						isEtatInitial={false}
+					/>);
+
+					const alertElement = screen.getByRole('alert');
+
+					expect(alertElement).toHaveTextContent(/0 résultat/);
+					expect(alertElement).toHaveTextContent(/Malheureusement, aucune offre ne correspond à votre recherche !Vérifiez l‘orthographe, essayez d‘autres mots-clés ou élargissez votre zone géographique de recherche./);
+				});
+
+				it('affiche une message indiquant 0 résultat', () => {
+					render(<RechercherSolutionLayout
+						nombreTotalSolutions={0}
+						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<div data-testid={'étiquettes'}/>}
@@ -250,7 +214,6 @@ describe('RechercherSolutionLayout', () => {
 						listeSolutionElement={<div data-testid={'liste des résultats'}/>}
 						isEtatInitial={false}
 					/>);
-
 					// THEN
 					const messageNbResultats = screen.getByText('0 résultat');
 
@@ -258,16 +221,11 @@ describe('RechercherSolutionLayout', () => {
 					expect(screen.queryByTestId('message du nombre de résultats')).not.toBeInTheDocument();
 					expect(screen.queryByTestId('étiquettes')).not.toBeInTheDocument();
 				});
-				it('n’affiche pas d’étiquettes de la recherche, ni de message du nombre de résultats, ni la liste des résultats', () => {
-					// GIVEN
-					const propsQuiVeutDireQuIlYA0Resultat = {
-						isChargement: false,
-						nombreTotalSolutions: 0,
-					};
 
-					// WHEN
+				it('n’affiche pas d’étiquettes de la recherche, ni de message du nombre de résultats, ni la liste des résultats', () => {
 					render(<RechercherSolutionLayout
-						{...propsQuiVeutDireQuIlYA0Resultat}
+						nombreTotalSolutions={0}
+						isChargement={false}
 						banniere={<></>}
 						formulaireRecherche={<></>}
 						etiquettesRecherche={<div data-testid={'étiquettes'}/>}
@@ -276,7 +234,6 @@ describe('RechercherSolutionLayout', () => {
 						isEtatInitial={false}
 					/>);
 
-					// THEN
 					const etiquettes = screen.queryByTestId('étiquettes');
 					const messageNbResultats = screen.queryByTestId('message du nombre de résultats');
 					const listeResultats = screen.queryByTestId('liste des résultats');

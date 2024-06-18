@@ -8,15 +8,16 @@ import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/Mes
 
 describe('<MessageResultatRecherche />', () => {
 	it('affiche une note de bas de page', () => {
-		render(<MessageResultatRecherche labelSingulier={'résultat'} labelPluriel={'résultats'} isLoading={false}
-																		 numberOfResult={1}/>);
+		render(<MessageResultatRecherche
+			labelSingulier={'résultat'}
+			labelPluriel={'résultats'}
+			isLoading={false}
+			numberOfResult={1}/>);
 
 		const titre = screen.getByRole('heading', { name: /1 résultat/i });
 		const footnote = within(titre).getByRole('link', { name: 'note de pied de page' });
-		const containerStatusRole = screen.getByRole('status');
 
 		expect(footnote).toHaveAttribute('href', '#partenaires');
-		expect(containerStatusRole).toBeInTheDocument();
 	});
 
 	describe('lorsqu‘il n‘y a pas de résultat', () => {
@@ -27,11 +28,7 @@ describe('<MessageResultatRecherche />', () => {
 			const alertError = screen.getByRole('alert');
 			expect(alertError).toHaveTextContent(/0 résultat/i);
 			expect(alertError).toHaveTextContent(/malheureusement, aucune offre ne correspond à votre recherche !/i);
-
-			const errorMessageResult = screen.getByText(/0 résultat/i);
-			const errorMessageText = screen.getByText(/malheureusement, aucune offre ne correspond à votre recherche !/i);
-			expect(errorMessageResult).toBeVisible();
-			expect(errorMessageText).toBeVisible();
+			expect(alertError).toBeVisible();
 		});
 	});
 

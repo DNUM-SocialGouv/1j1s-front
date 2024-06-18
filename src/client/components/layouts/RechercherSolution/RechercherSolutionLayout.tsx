@@ -40,13 +40,13 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		footnote,
 	} = props;
 
-	
+
 	function getResultatsDeRecherche() {
 		if (isEtatInitial) {
 			return null;
 		}
 		if (erreurRecherche) {
-			return <ErrorComponent errorType={erreurRecherche}/>;
+			return <div role={'alert'}><ErrorComponent errorType={erreurRecherche}/></div>;
 		}
 		if (isChargement) {
 			return <>
@@ -60,7 +60,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 				<div className={classNames(styles.listeSolutionsWrapper, 'background-white-lilac')}>
 					<Container>
 						<Skeleton type="card" isLoading={true} repeat={2}
-						          className={styles.listeSolutions}>
+							className={styles.listeSolutions}>
 						</Skeleton>
 					</Container>
 				</div>
@@ -70,7 +70,7 @@ export function RechercherSolutionLayout(props: RechercherSolutionLayoutProps) {
 		if (nombreTotalSolutions === 0) {
 			return (
 				<div role={'alert'}>
-					<NoResultErrorMessage />
+					<NoResultErrorMessage/>
 				</div>
 			);
 		}
