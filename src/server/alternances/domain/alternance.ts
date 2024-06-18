@@ -34,6 +34,7 @@ export type ResultatRechercheAlternance = {
 
 export namespace ResultatRechercheAlternance {
 	export type Offre = Pick<Alternance, 'id' | 'titre' | 'source' | 'entreprise' | 'localisation' | 'typeDeContrat' | 'niveauRequis'>
+
 	export interface Entreprise {
 		adresse?: string
 		ville?: string
@@ -41,7 +42,12 @@ export namespace ResultatRechercheAlternance {
 		secteurs?: Array<string>
 		id?: string
 		candidaturePossible: boolean
-		nombreSalariés?: string
+		nombreSalariés?: NombreSalaries
+	}
+
+	export interface NombreSalaries {
+		min: number
+		max: number
 	}
 }
 

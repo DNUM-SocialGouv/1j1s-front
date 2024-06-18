@@ -39,7 +39,7 @@ export const aRechercheEntrepriseAlternance = (override?: Partial<ResultatRecher
 		candidaturePossible: true,
 		id: '0123456789',
 		nom: 'un nom',
-		nombreSalariés: '0 à 9 salariés',
+		nombreSalariés: { max: 9, min: 0 },
 		secteurs: ['secteur 1', 'secteur 2'],
 		ville: 'une ville',
 		...override,
@@ -76,7 +76,7 @@ export const aRecherchePEJobAlternance = (override?: Partial<ResultatRechercheAl
 	};
 };
 
-export function aDetailMatchaAlternance (override?: Partial<Alternance>): Alternance  {
+export function aDetailMatchaAlternance(override?: Partial<Alternance>): Alternance {
 	return {
 		compétences: ['savoir faire'],
 		description: 'Prépare et confectionne des produits de pâtisserie.',
@@ -97,7 +97,7 @@ export function aDetailMatchaAlternance (override?: Partial<Alternance>): Altern
 	};
 };
 
-export function aDetailPEJobAlternance (override?: Partial<Alternance>): Alternance {
+export function aDetailPEJobAlternance(override?: Partial<Alternance>): Alternance {
 	return {
 		description: 'description',
 		durée: 'CDD de 6 mois',

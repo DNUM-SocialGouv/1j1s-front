@@ -17,7 +17,13 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 	const getTags = (entreprise: Entreprise) => {
 		const tags: Array<string> = [];
 		if (entreprise.ville) tags.push(entreprise.ville);
-		if (entreprise.nombreSalariés) tags.push(entreprise.nombreSalariés);
+		if (entreprise.nombreSalariés) {
+			if (entreprise.nombreSalariés.min === entreprise.nombreSalariés.max && entreprise.nombreSalariés.min > 0) {
+				tags.push(`${entreprise.nombreSalariés.min} salariés`);
+			} else {
+				tags.push(`${entreprise.nombreSalariés.min} à ${entreprise.nombreSalariés.max} salariés`);
+			}
+		}
 		if (entreprise.candidaturePossible) {
 			tags.push('Candidature spontanée');
 		} else {
