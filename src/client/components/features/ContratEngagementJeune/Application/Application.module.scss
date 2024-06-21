@@ -3,90 +3,83 @@
 
 .application {
   padding: 40px 20px;
-  background: utilities-deprecated.$color-primary;
+  background: utilities.$color-background-secondary;
 
-  &Container {
-    background: utilities-deprecated.$color-on-primary;
+  @include utilities.media(large) {
+    padding: 2.5rem 0;
+  }
+
+  & .applicationContainer {
+    background: utilities.$color-background-primary;
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-  }
 
-  &Description {
-    @extend %text-regular;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  &Telecharger {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(min-content, 12.5rem));
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 20px;
-
-    @include utilities-deprecated.media(large) {
-      gap: 0.75rem;
-    }
-
-    &Lien {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      background: utilities-deprecated.$color-on-background;
-      color: utilities-deprecated.$color-on-primary;
-      text-align: left;
-      line-height: 1rem;
-      font-size: 0.625rem;
-      font-weight: 400;
-      border-radius: 8px;
-      padding: 8px 10px;
-      text-decoration: none;
-
-      &:focus {
-        outline: 2px solid utilities.$color-primary;
-        outline-offset: 2px;
-      }
-
-      @include utilities-deprecated.media(large) {
-        font-size: 0.875rem;
-      }
-
-      &Logo {
-        position: relative;
-        flex: 0 0 35px;
-        align-self: stretch;
-
-        @include utilities-deprecated.media(large) {
-          flex-basis: 50px;
-        }
-      }
-
-      &Store {
-        font-weight: 500;
-        white-space: nowrap;
-
-        @include utilities-deprecated.media(large) {
-          font-size: 1.25rem;
-          line-height: 2rem;
-        }
-      }
-    }
-  }
-}
-
-@include utilities-deprecated.media(large) {
-  .application {
-    padding: 2.5rem 0;
-
-    &Container {
+    @include utilities.media(large) {
       max-width: 32rem;
       margin: 0 auto;
       border-radius: 20px;
     }
 
-    &Description {
-      line-height: 1.5rem;
+    & .applicationDescription {
+      @include utilities.text-medium;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    & .applicationTelecharger {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(min-content, 12.5rem));
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 20px;
+
+      @include utilities.media(large) {
+        gap: 0.75rem;
+      }
+
+      & .applicationTelechargerLien {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        background: utilities-deprecated.$color-on-background;
+        color: utilities.$color-cta-texte-primary;
+        font-size: 0.625rem;
+        border-radius: 8px;
+        padding: 8px 10px;
+        text-decoration: none;
+        text-align: left;
+
+        &:focus {
+          outline-offset: 2px;
+        }
+
+        @include utilities.media(large) {
+          @include utilities.text-small;
+        }
+
+        & .applicationTelechargerLienLogo {
+          position: relative;
+          flex: 0 0 35px;
+          align-self: stretch;
+
+          @include utilities.media(large) {
+            flex-basis: 50px;
+          }
+        }
+
+        & span {
+          display: block;
+          font-weight: bold;
+          margin-top: 0.5ch;
+          white-space: nowrap;
+
+          @include utilities.media(large) {
+            @include utilities.text-large;
+          }
+        }
+      }
     }
   }
 }
+
