@@ -20,16 +20,7 @@ describe('Parcours bénévolat', () => {
 				'/api/communes*',
 				JSON.stringify({
 					résultats: [
-						aCommune({
-							code: '75056',
-							codePostal: '75006',
-							coordonnées: {
-								latitude: 48.859,
-								longitude: 2.347,
-							},
-							libelle: 'Paris (75006)',
-							ville: 'Paris',
-						}),
+						aCommune(),
 					],
 				}),
 			).as('recherche-communes');
