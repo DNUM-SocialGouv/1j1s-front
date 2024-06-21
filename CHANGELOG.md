@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.303.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.302.2...v3.303.0) (2024-06-21)
+
+
+### Features
+
+* **a11y:** supprimer br sur contrat engagement jeune ([#3082](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3082)) ([0a739a7](https://github.com/DNUM-SocialGouv/1j1s-front/commit/0a739a79ed0dc32f5f8c8692a826d68358bdb761))
+* **banniere:** refactorisation titre et suppression du test associée ([#3093](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3093)) ([271c8ac](https://github.com/DNUM-SocialGouv/1j1s-front/commit/271c8ac894470bfa1e7c676112b0e52f8e3d49d0))
+
 ## [3.302.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.302.1...v3.302.2) (2024-06-21)
 
 
