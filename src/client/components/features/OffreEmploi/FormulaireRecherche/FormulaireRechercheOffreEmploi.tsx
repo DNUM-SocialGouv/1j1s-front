@@ -1,5 +1,14 @@
 import { useRouter } from 'next/router';
-import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+	ChangeEvent,
+	Dispatch,
+	FormEvent,
+	SetStateAction,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 
 import styles
 	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
@@ -94,8 +103,7 @@ export function FormulaireRechercheOffreEmploi() {
 			const indexOfValue = previous.indexOf(value);
 			if (value && indexOfValue === -1) {
 				previous.push(value);
-			}
-			else{
+			} else {
 				previous.splice(indexOfValue, 1);
 			}
 			return previous;
@@ -111,112 +119,42 @@ export function FormulaireRechercheOffreEmploi() {
 			role="search"
 		>
 			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
-					<Champ>
-						<Champ.Label>
-							Métier, mot-clé (minimum 2 caractères)
-							<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input
-							render={Input}
-							defaultValue={queryParams.motCle}
-							name="motCle"
-							minLength={2}
-						/>
-						<Champ.Error/>
-					</Champ>
-					<ComboboxLocalisation
-						defaultValue={inputLocalisation}
+				<Champ className={styles.metier}>
+					<Champ.Label>
+						Métier, mot-clé (minimum 2 caractères)
+						<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						defaultValue={queryParams.motCle}
+						name="motCle"
+						minLength={2}
 					/>
+					<Champ.Error/>
+				</Champ>
 
-					{isSmallScreen &&
-						<div>
-							<ButtonComponent
-								appearance="quaternary"
-								icon={<Icon name="filter"/>}
-								iconPosition="right"
-								label="Filtrer ma recherche"
-								onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-							/>
-							<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
-							<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
-							<input type="hidden" name="experienceExigence" value={inputExpérience}/>
-							<input type="hidden" name="grandDomaine" value={inputDomaine}/>
-						</div>
-					}
-					<ModalComponent
-						close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
-						closeTitle="Fermer les filtres"
-						isOpen={isFiltresAvancésMobileOpen}
-						aria-labelledby="dialog_label">
-						<ModalComponent.Title>
-							<Icon name="menu"/>
-							<span id="dialog_label">Filtrer ma recherche</span>
-						</ModalComponent.Title>
-						<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
-							<FilterAccordion title="Type de contrat" open>
-								{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
-									<Checkbox
-										key={`Type de contrat${index}`}
-										label={typeDeContrat.libelléLong}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
-										value={typeDeContrat.valeur}
-										checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
-									/>
-								))}
-							</FilterAccordion>
-							<FilterAccordion title="Temps de travail">
-								{Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
-									<Radio
-										key={index}
-										label={tempsDeTravail.libellé}
-										name="tempsDeTravail"
-										checked={inputTempsDeTravail === tempsDeTravail.valeur}
-										onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
-										value={tempsDeTravail.valeur}
-									/>
-								))}
-							</FilterAccordion>
-							<FilterAccordion title="Niveau demandé">
-								{Offre.EXPÉRIENCE.map((expérience, index) => (
-									<Radio
-										key={`Niveau demandé${index}`}
-										label={expérience.libellé}
-										name={expérience.libellé}
-										checked={inputExpérience === expérience.valeur}
-										onChange={() => setInputExpérience(expérience.valeur)}
-										value={expérience.valeur}
-									/>
-								))}
-							</FilterAccordion>
-							<FilterAccordion title="Domaine">
-								{référentielDomaineList.map((domaine, index) => (
-									<Checkbox
-										key={`Domaine${index}`}
-										label={domaine.libelle}
-										onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
-										value={domaine.code}
-										checked={inputDomaine.includes(domaine.code)}
-									/>
-								))}
-							</FilterAccordion>
-						</ModalComponent.Content>
-						<ModalComponent.Footer>
-							<div className={styles.applyFiltersButton}>
-								<ButtonComponent
-									icon={<Icon name="angle-right"/>}
-									iconPosition="right"
-									label="Appliquer les filtres"
-									onClick={applyFiltresAvancés}
-								/>
-							</div>
-						</ModalComponent.Footer>
-					</ModalComponent>
+				<div className={styles.localisation}>
+					<ComboboxLocalisation defaultValue={inputLocalisation}/>
 				</div>
 
+				{isSmallScreen && <div>
+					<ButtonComponent
+						appearance="quaternary"
+						icon={<Icon name="filter"/>}
+						iconPosition="right"
+						label="Filtrer ma recherche"
+						onClick={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
+					/>
+					<input type="hidden" name="typeDeContrats" value={inputTypeDeContrat}/>
+					<input type="hidden" name="tempsDeTravail" value={inputTempsDeTravail}/>
+					<input type="hidden" name="experienceExigence" value={inputExpérience}/>
+					<input type="hidden" name="grandDomaine" value={inputDomaine}/>
+				</div>}
+
 				{!isSmallScreen && (
-					<div className={styles.filtreRechercheDesktop}>
+					<>
 						<Select
+							className={styles.typeContrat}
 							multiple
 							optionList={mapTypeDeContratToOffreEmploiCheckboxFiltre(Offre.TYPE_DE_CONTRAT_LIST)}
 							onChange={(option) => onChangeMultipleSelect(option, setInputTypeDeContrat)}
@@ -226,6 +164,7 @@ export function FormulaireRechercheOffreEmploi() {
 							name="typeDeContrats"
 						/>
 						<Select
+							className={styles.tempsTravail}
 							name="tempsDeTravail"
 							onChange={(option) => setInputTempsDeTravail(getValueSelected(option))}
 							value={inputTempsDeTravail}
@@ -234,6 +173,7 @@ export function FormulaireRechercheOffreEmploi() {
 							labelComplement="Exemple : temps plein, temps partiel…"
 						/>
 						<Select
+							className={styles.niveau}
 							name="experienceExigence"
 							optionList={Offre.EXPÉRIENCE}
 							onChange={(option) => setInputExpérience(getValueSelected(option))}
@@ -243,6 +183,7 @@ export function FormulaireRechercheOffreEmploi() {
 						/>
 						<Select
 							multiple
+							className={styles.domaines}
 							optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
 							onChange={(option) => onChangeMultipleSelect(option, setInputDomaine)}
 							value={inputDomaine}
@@ -250,7 +191,7 @@ export function FormulaireRechercheOffreEmploi() {
 							label="Domaines"
 							labelComplement="Exemple : Commerce, Immobilier…"
 						/>
-					</div>
+					</>
 				)}
 			</div>
 			<div className={styles.buttonRechercher}>
@@ -261,6 +202,75 @@ export function FormulaireRechercheOffreEmploi() {
 					type="submit"
 				/>
 			</div>
+
+			<ModalComponent
+				close={() => setIsFiltresAvancésMobileOpen(!isFiltresAvancésMobileOpen)}
+				closeTitle="Fermer les filtres"
+				isOpen={isFiltresAvancésMobileOpen}
+				aria-labelledby="dialog_label">
+				<ModalComponent.Title>
+					<Icon name="menu"/>
+					<span id="dialog_label">Filtrer ma recherche</span>
+				</ModalComponent.Title>
+				<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
+					<FilterAccordion title="Type de contrat" open>
+						{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
+							<Checkbox
+								key={`Type de contrat${index}`}
+								label={typeDeContrat.libelléLong}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleTypeDeContrat(e.target.value)}
+								value={typeDeContrat.valeur}
+								checked={inputTypeDeContrat.includes(typeDeContrat.valeur)}
+							/>
+						))}
+					</FilterAccordion>
+					<FilterAccordion title="Temps de travail">
+						{Offre.TEMPS_DE_TRAVAIL_LIST.map((tempsDeTravail, index) => (
+							<Radio
+								key={index}
+								label={tempsDeTravail.libellé}
+								name="tempsDeTravail"
+								checked={inputTempsDeTravail === tempsDeTravail.valeur}
+								onChange={() => setInputTempsDeTravail(tempsDeTravail.valeur)}
+								value={tempsDeTravail.valeur}
+							/>
+						))}
+					</FilterAccordion>
+					<FilterAccordion title="Niveau demandé">
+						{Offre.EXPÉRIENCE.map((expérience, index) => (
+							<Radio
+								key={`Niveau demandé${index}`}
+								label={expérience.libellé}
+								name={expérience.libellé}
+								checked={inputExpérience === expérience.valeur}
+								onChange={() => setInputExpérience(expérience.valeur)}
+								value={expérience.valeur}
+							/>
+						))}
+					</FilterAccordion>
+					<FilterAccordion title="Domaine">
+						{référentielDomaineList.map((domaine, index) => (
+							<Checkbox
+								key={`Domaine${index}`}
+								label={domaine.libelle}
+								onChange={(e: ChangeEvent<HTMLInputElement>) => toggleDomaine(e.target.value)}
+								value={domaine.code}
+								checked={inputDomaine.includes(domaine.code)}
+							/>
+						))}
+					</FilterAccordion>
+				</ModalComponent.Content>
+				<ModalComponent.Footer>
+					<div className={styles.applyFiltersButton}>
+						<ButtonComponent
+							icon={<Icon name="angle-right"/>}
+							iconPosition="right"
+							label="Appliquer les filtres"
+							onClick={applyFiltresAvancés}
+						/>
+					</div>
+				</ModalComponent.Footer>
+			</ModalComponent>
 		</form>
 	);
 }

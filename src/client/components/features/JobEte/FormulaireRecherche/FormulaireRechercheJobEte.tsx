@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { FormEvent, useRef } from 'react';
 
-import styles
-	from '~/client/components/features/OffreEmploi/FormulaireRecherche/FormulaireRechercheOffreEmploi.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { ComboboxLocalisation } from '~/client/components/ui/Form/Combobox/ComboboxLocalisation/ComboboxLocalisation';
@@ -16,6 +14,8 @@ import { référentielDomaineList } from '~/client/domain/référentielDomaineLi
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { mapRéférentielDomaineToOffreCheckboxFiltre } from '~/client/utils/offreEmploi.mapper';
+
+import styles from './FormulaireRechercheJobEte.module.scss';
 
 export function FormulaireRechercheJobEte() {
 	const rechercheJobEteForm = useRef<HTMLFormElement>(null);
@@ -39,33 +39,35 @@ export function FormulaireRechercheJobEte() {
 			onSubmit={updateRechercherJobEteQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
-					<Champ>
-						<Champ.Label>
+				<Champ className={styles.metier}>
+					<Champ.Label>
 							Métier, mot-clé (minimum 2 caractères)
-							<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
-						</Champ.Label>
-						<Champ.Input
-							render={Input}
-							defaultValue={queryParams.motCle}
-							name="motCle"
-							minLength={2}
-						/>
-						<Champ.Error/>
-					</Champ>
+						<Champ.Label.Complement>Exemples : boulanger, informatique…</Champ.Label.Complement>
+					</Champ.Label>
+					<Champ.Input
+						render={Input}
+						defaultValue={queryParams.motCle}
+						name="motCle"
+						minLength={2}
+					/>
+					<Champ.Error/>
+				</Champ>
+
+				<div className={styles.localisation}>
 					<ComboboxLocalisation
 						defaultValue={inputLocalisation}
 					/>
-
-					<Select
-						multiple
-						optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
-						label="Domaines"
-						labelComplement="Exemple : Commerce, Immobilier…"
-						defaultValue={queryParams.grandDomaine?.split(',')}
-						name="grandDomaine"
-					/>
 				</div>
+
+				<Select
+					className={styles.domaine}
+					multiple
+					optionList={mapRéférentielDomaineToOffreCheckboxFiltre(référentielDomaineList)}
+					label="Domaines"
+					labelComplement="Exemple : Commerce, Immobilier…"
+					defaultValue={queryParams.grandDomaine?.split(',')}
+					name="grandDomaine"
+				/>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent
