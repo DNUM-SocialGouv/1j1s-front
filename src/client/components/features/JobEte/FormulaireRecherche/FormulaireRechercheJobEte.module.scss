@@ -5,20 +5,19 @@
 $color-border-filters: lighten(utilities.$color-primary, 15%);
 
 .rechercheOffreForm {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
 
   @include utilities.media(medium) {
-    flex-direction: row;
-    align-items: flex-start;
+    grid-template-columns: 1fr auto;
+    grid-gap: variables.$form-horizontal-gap;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-    gap: variables.$form-horizontal-gap;
   }
 
   & .filtres {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -44,7 +43,3 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
     }
   }
 }
-
-
-
-
