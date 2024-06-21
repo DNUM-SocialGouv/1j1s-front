@@ -118,7 +118,7 @@ export function FormulaireRechercheOffreEmploi() {
 			onSubmit={updateRechercherOffreEmploiQueryParams}
 			role="search"
 		>
-			<div className={styles.filtresRechercherOffre}>
+			<div className={styles.filtres}>
 				<Champ className={styles.metier}>
 					<Champ.Label>
 						Métier, mot-clé (minimum 2 caractères)
@@ -212,7 +212,7 @@ export function FormulaireRechercheOffreEmploi() {
 					<Icon name="menu"/>
 					<span id="dialog_label">Filtrer ma recherche</span>
 				</ModalComponent.Title>
-				<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
+				<ModalComponent.Content className={styles.modalfiltresAvancesContenu}>
 					<FilterAccordion title="Type de contrat" open>
 						{Offre.TYPE_DE_CONTRAT_LIST.map((typeDeContrat, index) => (
 							<Checkbox
@@ -261,7 +261,7 @@ export function FormulaireRechercheOffreEmploi() {
 					</FilterAccordion>
 				</ModalComponent.Content>
 				<ModalComponent.Footer>
-					<div className={styles.applyFiltersButton}>
+					<div className={styles.modalfiltresAvancesButton}>
 						<ButtonComponent
 							icon={<Icon name="angle-right"/>}
 							iconPosition="right"

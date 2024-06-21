@@ -17,7 +17,7 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
     gap: variables.$form-horizontal-gap;
   }
 
-  & .filtresRechercherOffre {
+  & .filtres {
     display: grid;
     grid-auto-rows: auto;
     grid-gap: variables.$form-vertical-gap-mobile;
@@ -26,7 +26,7 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
     @include utilities.media(medium) {
       grid-template-columns: repeat(6, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      grid-template-areas:"metier metier metier localisation localisation localisation"
+      grid-template-areas: "metier metier metier localisation localisation localisation"
     "typeContrat typeContrat tempsTravail tempsTravail niveau niveau"
     "domaines domaines domaines domaines domaines domaines";
 
@@ -55,15 +55,23 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
       }
     }
   }
+
+  & .buttonRechercher {
+    > button {
+      width: 100%;
+    }
+
+    @include utilities.media(medium) {
+      margin-top: utilities.pixel-to-rem(28);
+    }
+  }
 }
 
-
-.applyFiltersButton button {
+.modalfiltresAvancesButton button {
   width: 100%;
 }
 
-
-.filtresAvancésModalContenu {
+.modalfiltresAvancesContenu {
   & details {
     border-top: 1px solid $color-border-filters;
 
@@ -74,12 +82,4 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
 }
 
 
-.buttonRechercher {
-  > button{
-    width: 100%;
-  }
-  @include utilities.media(medium) {
-    margin-top: utilities.pixel-to-rem(28);
-  }
-}
 

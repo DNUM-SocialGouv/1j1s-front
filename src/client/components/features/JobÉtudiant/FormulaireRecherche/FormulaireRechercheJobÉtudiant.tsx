@@ -39,7 +39,7 @@ export function FormulaireRechercheJobÉtudiant() {
 			className={styles.rechercheOffreForm}
 			onSubmit={updateRechercherJobÉtudiantQueryParams}
 		>
-			<div className={styles.filtresRechercherOffre}>
+			<div className={styles.filtres}>
 				<Champ className={styles.metier}>
 					<Champ.Label>
 						Métier, mot-clé (minimum 2 caractères)
