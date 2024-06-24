@@ -35,6 +35,7 @@ $border-width: inputStyles.$border-width;
   border-radius: $border-radius;
 
   & .combobox {
+    cursor: pointer;
     @extend %outlined;
     @include utilities.text-interactive-medium;
     display: grid;
@@ -46,12 +47,6 @@ $border-width: inputStyles.$border-width;
   }
 
   input:invalid + .combobox[data-touched="true"] {
-    border-color: $color-error;
-    border-width: $error-border-width;
-  }
-
-
-  & .comboboxError {
     border-color: $color-error;
     border-width: $error-border-width;
   }
