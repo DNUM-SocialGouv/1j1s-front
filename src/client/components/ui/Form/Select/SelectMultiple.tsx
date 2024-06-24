@@ -14,7 +14,6 @@ import React, {
 } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { Error } from '~/client/components/ui/Form/Error';
 import { Input } from '~/client/components/ui/Form/Input';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
@@ -39,10 +38,6 @@ export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onCha
 	onTouch?: (touched: boolean) => void,
 }
 
-
-
-
-
 export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string }) {
 	const {
 		optionList,
@@ -50,17 +45,20 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 		placeholder,
 		name,
 		onChange: onChangeProps = doNothing,
+		onInvalid: onInvalidProps = doNothing,
+		onTouch: onTouchProps = doNothing,
 		labelledBy,
 		defaultValue,
-		'aria-describedby': ariaDescribedby = '',
 		required,
 		...rest
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
+	const firstInputHiddenRef = useRef<HTMLInputElement>(null);
+
 	const optionsId = useId();
 	const listboxId = useId();
-	const errorId = useId();
-	const [errorMessage, setErrorMessage] = useState<string>('');
+
+	const [touched, setTouched] = useState<boolean>(false);
 	const [state, dispatch] = useReducer(
 		SelectMultipleReducer, {
 			activeDescendant: undefined,
@@ -74,7 +72,8 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	const optionsSelectedValues = value ?? state.optionsSelectedValues;
 
 	const selectOption = useCallback((optionId: string) => {
-		setErrorMessage('');
+		firstInputHiddenRef.current?.setCustomValidity('');
+		setTouched(true);
 
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
@@ -83,10 +82,12 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectMultipleAction.CloseList());
+		setTouched(true);
 
 		if (required && optionsSelectedValues.length === 0) {
-			setErrorMessage(ERROR_LABEL_REQUIRED_MULTIPLE);
+			firstInputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
+		firstInputHiddenRef.current?.checkValidity();
 	}, [optionsSelectedValues.length, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
@@ -222,18 +223,35 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 	return (
 		<div>
 			<div className={styles.container}>
+				<Input
+					ref={firstInputHiddenRef}
+					onInvalid={onInvalidProps}
+					tabIndex={-1}
+					className={styles.inputHiddenValue}
+					required={required}
+					aria-hidden="true"
+					name={name}
+					value={optionsSelectedValues[0] || ''}/>
+				{optionsSelectedValues.slice(1).map((optionValue) => {
+					return <Input
+						tabIndex={-1}
+						className={styles.inputHiddenValue}
+						key={optionValue}
+						aria-hidden="true"
+						name={name}
+						value={optionValue}
+					/>;
+				})}
 				<div
 					role="combobox"
-					className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
+					className={classNames(styles.combobox)}
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
 					aria-expanded={state.isListOptionsOpen}
-					aria-describedby={`${ariaDescribedby} ${errorId}`}
 					aria-labelledby={labelledBy}
+					data-touched={touched}
 					tabIndex={0}
-					onClick={() => {
-						dispatch(new SelectMultipleAction.ToggleList());
-					}}
+					onClick={() => dispatch(new SelectMultipleAction.ToggleList())}
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
@@ -257,36 +275,13 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 							key={index}
 							onMouseDown={onMouseDown}
 							data-value={option.valeur}
-							onClick={() => {
-								selectOption(optionId);
-							}}
+							onClick={() => selectOption(optionId)}
 							aria-selected={isCurrentItemSelected(option.valeur)}>
 							<div className={styles.option}>{option.libellé}</div>
 						</li>;
 					})}
 				</ul>
-				{optionsSelectedValues.length === 0 ?
-					<Input
-						tabIndex={-1}
-						className={styles.inputHiddenValue}
-						required={required}
-						aria-hidden="true"
-						name={name}
-						value={''}/> :
-					optionsSelectedValues.map((optionValue) => {
-						return <Input
-							tabIndex={-1}
-							className={styles.inputHiddenValue}
-							required={required}
-							key={optionValue}
-							aria-hidden="true"
-							name={name}
-							value={optionValue}
-						/>;
-					})
-				}
 			</div>
-			<Error id={errorId}>{errorMessage}</Error>
 		</div>
 	);
 }

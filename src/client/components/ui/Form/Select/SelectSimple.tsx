@@ -48,16 +48,16 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		onTouch: onTouchProps = doNothing,
 		labelledBy,
 		defaultValue,
-		'aria-describedby': ariaDescribedby = '',
 		required,
 		...rest
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
-	const inputRef = useRef<HTMLInputElement>(null);
-	const [touched, setTouched] = useState<boolean>(false);
-	const errorId = useId();
+	const inputHiddenRef = useRef<HTMLInputElement>(null);
+
 	const optionsId = useId();
 	const listboxId = useId();
+
+	const [touched, setTouched] = useState<boolean>(false);
 	const [state, dispatch] = useReducer(
 		SelectReducer, {
 			activeDescendant: undefined,
@@ -73,7 +73,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 
 	const selectOption = useCallback((optionId: string) => {
 		setTouched(true);
-		inputRef.current?.setCustomValidity('');
+		inputHiddenRef.current?.setCustomValidity('');
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
@@ -84,9 +84,9 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		onTouchProps(touched);
 		setTouched(true);
 		if (required && !optionSelectedValue) {
-			inputRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_SIMPLE);
+			inputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_SIMPLE);
 		}
-		inputRef.current?.checkValidity();
+		inputHiddenRef.current?.checkValidity();
 	}, [onTouchProps, optionSelectedValue, required, touched]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
@@ -233,7 +233,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 		<div>
 			<div className={styles.container}>
 				<Input
-					ref={inputRef}
+					ref={inputHiddenRef}
 					className={styles.inputHiddenValue}
 					tabIndex={-1}
 					required={required}
@@ -247,14 +247,11 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
-					data-touched={touched}
 					aria-expanded={state.isListOptionsOpen}
 					aria-labelledby={labelledBy}
-					aria-describedby={`${ariaDescribedby} ${errorId}`}
+					data-touched={touched}
 					tabIndex={0}
-					onClick={() => {
-						dispatch(new SelectSimpleAction.ToggleList());
-					}}
+					onClick={() => dispatch(new SelectSimpleAction.ToggleList())}
 					aria-activedescendant={state.activeDescendant}
 					onKeyDown={onKeyDown}
 					onBlur={onBlur}
@@ -278,9 +275,7 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 							key={index}
 							onMouseDown={onMouseDown}
 							data-value={option.valeur}
-							onClick={() => {
-								selectOption(optionId);
-							}}
+							onClick={() => selectOption(optionId)}
 							aria-selected={isCurrentItemSelected(option.valeur)}>
 							{option.libellé}
 						</li>;
