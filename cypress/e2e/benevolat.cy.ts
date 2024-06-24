@@ -2,8 +2,7 @@
 /// <reference types="@testing-library/cypress" />
 
 import { aRésultatRechercheMission } from '~/server/engagement/domain/missionEngagement.fixture';
-
-import { interceptGet } from '../interceptGet';
+import { aCommune } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 describe('Parcours bénévolat', () => {
 
@@ -16,37 +15,28 @@ describe('Parcours bénévolat', () => {
 			cy.findByRole('combobox', { name: 'Domaine Exemple : Culture et loisirs' }).click();
 			cy.findAllByRole('option').first().click();
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('combobox', { name: /Localisation/i }).type('paris'),
-					alias: 'recherche-communes',
-					path: '/api/communes*',
-					response: JSON.stringify({
-						résultats: [
-							{
-								code: '75056',
-								codePostal: '75006',
-								coordonnées: {
-									latitude: 48.859,
-									longitude: 2.347,
-								},
-								libelle: 'Paris (75006)',
-								ville: 'Paris',
-							},
-						],
-					}),
-				},
-			);
-			cy.findAllByRole('option').first().click();
+			cy.intercept(
+				'GET',
+				'/api/communes*',
+				JSON.stringify({
+					résultats: [
+						aCommune(),
+					],
+				}),
+			).as('recherche-communes');
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
-					alias: 'recherche-api-benevolats',
-					path: '/api/benevolats*',
-					response: JSON.stringify(aRésultatRechercheMission()),
-				},
-			);
+			cy.findByRole('combobox', { name: /Localisation/i }).type('paris');
+			cy.wait('@recherche-communes');
+
+			cy.findAllByRole('option').first().click();
+			cy.intercept(
+				'GET',
+				'/api/benevolats*',
+				JSON.stringify(aRésultatRechercheMission()),
+			).as('recherche-api-benevolats');
+
+			cy.findByRole('button', { name: /Rechercher/i }).click();
+			cy.wait('@recherche-api-benevolats');
 
 			cy.findByRole('list', { name: /Offre pour le bénévolat/i }).children().should('have.length', 2);
 		});
@@ -60,28 +50,23 @@ describe('Parcours bénévolat', () => {
 		it('navigue vers le détail de l‘offre', () => {
 			const id = aRésultatRechercheMission().résultats[0].id;
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: /Rechercher/i }).click(),
-					alias: 'recherche-api-benevolats',
-					path: '/api/benevolats*',
-					response: JSON.stringify(aRésultatRechercheMission()),
-				},
-			);
+			cy.intercept(
+				'GET',
+				'/api/benevolats*',
+				JSON.stringify(aRésultatRechercheMission()),
+			).as('recherche-api-benevolats');
 
-			interceptGet(
-				{
-					actionBeforeWaitTheCall: () => (
-						cy.findByRole('list', { name: /Offre pour le bénévolat/i })
-							.children()
-							.first()
-							.click()
-					),
-					alias: 'get-benevolat',
-					path: `/_next/data/*/benevolat/${id}.json?id=${id}`,
-					response: JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }),
-				},
-			);
+			cy.findByRole('button', { name: /Rechercher/i }).click();
+			cy.wait('@recherche-api-benevolats');
+
+			cy.intercept(
+				'GET',
+				`/_next/data/*/benevolat/${id}.json?id=${id}`,
+				JSON.stringify({ pageProps: { missionEngagement: aRésultatRechercheMission().résultats[0] } }),
+			).as('get-benevolat');
+
+			cy.findByRole('list', { name: /Offre pour le bénévolat/i }).children().first().click();
+			cy.wait('@get-benevolat');
 
 			cy.findByRole('heading', { level: 1 }).should('be.visible');
 			cy.findByRole('list', { name: /Caractéristiques de la mission/i }).should('be.visible');

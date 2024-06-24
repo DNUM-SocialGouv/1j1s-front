@@ -1,13 +1,12 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 
-import { TypeÉtablissement } from '../../src/server/etablissement-accompagnement/domain/etablissementAccompagnement';
+import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 import {
 	anEtablissementAccompagnement,
 	anEtablissementAccompagnementList,
-} from '../../src/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
-import { aCommuneList } from '../../src/server/localisations/domain/localisationAvecCoordonnées.fixture';
-import { interceptGet } from '../interceptGet';
+} from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement.fixture';
+import { aCommuneList } from '~/server/localisations/domain/localisationAvecCoordonnées.fixture';
 
 describe('Parcours Accompagnement', () => {
 	beforeEach(() => {
@@ -35,12 +34,19 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('listbox')
 					.within(() => cy.findAllByRole('option').first().click());
 
-				interceptGet({
-					actionBeforeWaitTheCall: () => cy.findByRole('button', { name: 'Rechercher' }).click(),
-					alias: 'recherche-accompagnement',
+				const apiResponse = [
+					anEtablissementAccompagnement({ id: '1' }),
+					anEtablissementAccompagnement({ id: '2' }),
+				];
+
+				cy.intercept({
+					method: 'GET',
 					path: '/api/etablissements-accompagnement*',
-					response: JSON.stringify([anEtablissementAccompagnement({ id: '1' }), anEtablissementAccompagnement({ id: '2' })]),
-				});
+				}, JSON.stringify(apiResponse))
+					.as('recherche-accompagnement');
+
+				cy.findByRole('button', { name: 'Rechercher' }).click();
+				cy.wait('@recherche-accompagnement');
 
 				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
 					.children('li')
@@ -72,7 +78,7 @@ describe('Parcours Accompagnement', () => {
 						type: TypeÉtablissement.MISSION_LOCALE,
 					})),
 				).as('recherche-accompagnement');
-				cy.findByRole('button', { name:'Rechercher' }).click();
+				cy.findByRole('button', { name: 'Rechercher' }).click();
 				cy.wait('@recherche-accompagnement');
 
 				cy.findByRole('list', { name: 'Établissements d‘accompagnement' })
@@ -88,14 +94,14 @@ describe('Parcours Accompagnement', () => {
 				cy.findByRole('combobox', { name: 'Age Exemple : 16 ans' }).click();
 				cy.findByRole('option', { name: '23 ans' }).click();
 
-				interceptGet({
-					actionBeforeWaitTheCall: () => cy.findAllByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }).last().type('par'),
-					alias: 'recherche-commune',
+				cy.intercept({
+					method: 'GET',
 					path: '/api/communes?q=*',
-					response: JSON.stringify({
-						résultats: aCommuneList(),
-					}),
-				});
+				}, JSON.stringify({ résultats: aCommuneList() }))
+					.as('recherche-commune');
+
+				cy.findAllByRole('combobox', { name: 'Localisation Exemples : Paris, Béziers…' }).last().type('par');
+				cy.wait('@recherche-commune');
 
 				cy.findByRole('listbox', { name: 'communes' })
 					.within(() => cy.findAllByRole('option').first().click());
