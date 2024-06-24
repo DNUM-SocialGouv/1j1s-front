@@ -776,36 +776,42 @@ describe('<Select />', () => {
 		describe('touched', () => {
 			it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
 
-				render(<Select optionList={options} label={'label'}/>);
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
+				expect(onTouch).not.toHaveBeenCalled();
 				expect(combobox).toHaveAttribute('data-touched', 'false');
 			});
 			
 			it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async() => {
 				const user = userEvent.setup();
+				const onTouch = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select optionList={options} label={'label'}/>);
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
 				await user.click(combobox);
 				await user.keyboard(KeyBoard.ESCAPE);
 
+				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 			
 			it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async() => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
 
-				render(<Select optionList={options} label={'label'}/>);
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
 				await user.click(combobox);
 				await user.click(screen.getByRole('option', { name: 'options 1' }));
 
+				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 		});
@@ -1625,36 +1631,41 @@ describe('<Select />', () => {
 		describe('touched', () => {
 			it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
 
-				render(<Select multiple optionList={options} label={'label'}/>);
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
+				expect(onTouch).not.toHaveBeenCalled();
 				expect(combobox).toHaveAttribute('data-touched', 'false');
 			});
 
 			it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async() => {
 				const user = userEvent.setup();
+				const onTouch = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select multiple optionList={options} label={'label'}/>);
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
 				await user.click(combobox);
 				await user.keyboard(KeyBoard.ESCAPE);
-
+				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 
 			it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async() => {
 				const user = userEvent.setup();
+				const onTouch = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select multiple optionList={options} label={'label'}/>);
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
 
 				const combobox = screen.getByRole('combobox');
 				await user.click(combobox);
 				await user.click(screen.getByRole('option', { name: 'options 1' }));
 
+				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 		});

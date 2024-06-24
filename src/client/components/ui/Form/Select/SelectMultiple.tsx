@@ -15,6 +15,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
+import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
@@ -24,14 +25,8 @@ const SELECT_PLACEHOLDER_MULTIPLE = 'Sélectionnez vos choix';
 const ERROR_LABEL_REQUIRED_MULTIPLE = 'Séléctionnez au moins un élément de la liste';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
-
-export interface OptionSelectMultiple {
-	libellé: string;
-	valeur: string;
-}
-
 export type SelectMultipleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
-	optionList: OptionSelectMultiple[];
+	optionList: OptionSelect[];
 	value?: Array<string>;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: Array<string>;
@@ -73,22 +68,24 @@ export function SelectMultiple(props: SelectMultipleProps & { labelledBy: string
 
 	const selectOption = useCallback((optionId: string) => {
 		firstInputHiddenRef.current?.setCustomValidity('');
+		onTouchProps(true);
 		setTouched(true);
 
 		dispatch(new SelectMultipleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
-	}, [onChangeProps]);
+	}, [onChangeProps, onTouchProps]);
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectMultipleAction.CloseList());
 		setTouched(true);
+		onTouchProps(true);
 
 		if (required && optionsSelectedValues.length === 0) {
 			firstInputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_MULTIPLE);
 		}
 		firstInputHiddenRef.current?.checkValidity();
-	}, [optionsSelectedValues.length, required]);
+	}, [onTouchProps, optionsSelectedValues.length, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (state.activeDescendant) {
@@ -293,4 +290,4 @@ function cancelEvent(event: SyntheticEvent) {
 
 function doNothing() {
 	return;
-};
+}

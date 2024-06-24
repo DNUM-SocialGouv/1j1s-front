@@ -7,6 +7,12 @@ import { SelectSimple, SelectSimpleProps } from '~/client/components/ui/Form/Sel
 
 import styles from './Select.module.scss';
 
+
+export interface OptionSelect {
+	libellé: string;
+	valeur: string;
+}
+
 type SelectProps = {
 	label: string;
 	labelComplement?: string

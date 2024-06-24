@@ -15,6 +15,7 @@ import React, {
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Input } from '~/client/components/ui/Form/Input';
+import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Select.module.scss';
@@ -25,16 +26,11 @@ const SELECT_PLACEHOLDER_SINGULAR = 'Sélectionnez votre choix';
 const DEFAULT_DEBOUNCE_TIMEOUT = 300;
 
 export type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
-	optionList: OptionSelectSimple[];
+	optionList: OptionSelect[];
 	value?: string;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
 	onTouch?: (touched: boolean) => void,
-}
-
-export interface OptionSelectSimple {
-	libellé: string;
-	valeur: string;
 }
 
 export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
@@ -73,21 +69,24 @@ export function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) 
 
 	const selectOption = useCallback((optionId: string) => {
 		setTouched(true);
+		onTouchProps(true);
+
 		inputHiddenRef.current?.setCustomValidity('');
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
-	}, [onChangeProps]);
+	}, [onChangeProps, onTouchProps]);
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectSimpleAction.CloseList());
-		onTouchProps(touched);
+		onTouchProps(true);
 		setTouched(true);
+
 		if (required && !optionSelectedValue) {
 			inputHiddenRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_SIMPLE);
 		}
 		inputHiddenRef.current?.checkValidity();
-	}, [onTouchProps, optionSelectedValue, required, touched]);
+	}, [onTouchProps, optionSelectedValue, required]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (state.activeDescendant) {
