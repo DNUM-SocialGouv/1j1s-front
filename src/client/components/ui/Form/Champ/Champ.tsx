@@ -4,7 +4,6 @@ import React, { ComponentPropsWithoutRef, useCallback, useEffect, useId, useStat
 import { Error } from '~/client/components/ui/Form/Error';
 import { Hint } from '~/client/components/ui/Form/Hint';
 import { Label } from '~/client/components/ui/Form/Label';
-import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 
 import styles from './Champ.module.scss';
 import { ChampContextProvider, useChampContext } from './ChampContext';
@@ -63,7 +62,6 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 			...rest
 		}: InputChampProps<Props>, outerRef: React.ForwardedRef<HTMLInputElement>) {
 		const { errorId, hintId, inputId, setInputId, setErrorMessage, errorMessage } = useChampContext();
-		const inputRef = useSynchronizedRef(outerRef);
 
 		useEffect(() => {
 			id && setInputId(id);
@@ -85,12 +83,12 @@ export const InputChamp: <Props extends ComponentChildrenPropsNecessary>(props: 
 
 		return (<Render
 			onTouch={onTouch}
-			ref={inputRef}
 			aria-describedby={`${ariaDescribedby} ${errorMessage ? errorId : ''} ${hintId}`}
 			aria-invalid={errorMessage !== ''}
 			id={inputId}
 			onInvalid={onInvalid}
 			onChange={onChange}
+			ref={outerRef}
 			{...rest}
 		/>);
 	});

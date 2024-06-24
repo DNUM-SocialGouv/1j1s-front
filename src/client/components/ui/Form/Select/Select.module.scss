@@ -45,6 +45,12 @@ $border-width: inputStyles.$border-width;
     background-color: transparent;
   }
 
+  input:invalid + .combobox[data-touched="true"] {
+    border-color: $color-error;
+    border-width: $error-border-width;
+  }
+
+
   & .comboboxError {
     border-color: $color-error;
     border-width: $error-border-width;

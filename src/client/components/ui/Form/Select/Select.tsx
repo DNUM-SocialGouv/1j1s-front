@@ -13,18 +13,18 @@ import React, {
 	useState,
 } from 'react';
 
+import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
+import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Error } from '~/client/components/ui/Form/Error';
+import { Input } from '~/client/components/ui/Form/Input';
 import {
 	SelectMultipleAction,
 	SelectMultipleReducer,
 	SelectReducer,
 	SelectSimpleAction,
 } from '~/client/components/ui/Form/Select/SelectReducer';
+import { Icon } from '~/client/components/ui/Icon/Icon';
 
-import { KeyBoard } from '../../../keyboard/keyboard.enum';
-import { Icon } from '../../Icon/Icon';
-import { Champ } from '../Champ/Champ';
-import { Input } from '../Input';
 import styles from './Select.module.scss';
 
 type SelectProps = {
@@ -47,6 +47,7 @@ type SelectSimpleProps = Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> & {
 	value?: string;
 	onChange?: (value: HTMLElement) => void;
 	defaultValue?: string;
+	onTouch?: (touched: boolean) => void,
 }
 
 export interface Option {
@@ -80,12 +81,22 @@ export function Select(props: SelectProps) {
 
 	return (
 		<div className={classNames(styles.selectWrapper, className)}>
-			<Champ.Label className={styles.selectLabel} id={labelledBy}>
-				{label}
-				{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
-			</Champ.Label>
-			{isSelectMultipleProps(rest) && <SelectMultiple labelledBy={labelledBy} {...rest}/>}
-			{isSelectSimpleProps(rest) && <SelectSimple labelledBy={labelledBy} {...rest}/>}
+			{isSelectSimpleProps(rest) && <Champ>
+				<Champ.Label id={labelledBy}>
+					{label}
+					{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
+				</Champ.Label>
+				<Champ.Input render={SelectSimple} labelledBy={labelledBy} {...rest}/>
+				<Champ.Error/>
+			</Champ>}
+
+			{isSelectMultipleProps(rest) && <>
+				<Champ.Label className={styles.selectLabel} id={labelledBy}>
+					{label}
+					{labelComplement && <Champ.Label.Complement>{labelComplement}</Champ.Label.Complement>}
+				</Champ.Label>
+				<SelectMultiple labelledBy={labelledBy} {...rest}/>
+			</>}
 		</div>
 	);
 }
@@ -97,6 +108,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		placeholder,
 		name,
 		onChange: onChangeProps = doNothing,
+		onInvalid: onInvalidProps = doNothing,
+		onTouch: onTouchProps = doNothing,
 		labelledBy,
 		defaultValue,
 		'aria-describedby': ariaDescribedby = '',
@@ -104,7 +117,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 		...rest
 	} = props;
 	const listboxRef = useRef<HTMLUListElement>(null);
-	const [errorMessage, setErrorMessage] = useState<string>('');
+	const inputRef = useRef<HTMLInputElement>(null);
+	const [touched, setTouched] = useState<boolean>(false);
 	const errorId = useId();
 	const optionsId = useId();
 	const listboxId = useId();
@@ -122,7 +136,8 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	const optionSelectedValue = value ?? state.optionSelectedValue;
 
 	const selectOption = useCallback((optionId: string) => {
-		setErrorMessage('');
+		setTouched(true);
+		inputRef.current?.setCustomValidity('');
 		dispatch(new SelectSimpleAction.SelectOption(optionId));
 		const option = document.getElementById(optionId);
 		if (option) onChangeProps(option);
@@ -130,10 +145,13 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 
 	const closeList = useCallback(() => {
 		dispatch(new SelectSimpleAction.CloseList());
+		onTouchProps(touched);
+		setTouched(true);
 		if (required && !optionSelectedValue) {
-			setErrorMessage(ERROR_LABEL_REQUIRED_SIMPLE);
+			inputRef.current?.setCustomValidity(ERROR_LABEL_REQUIRED_SIMPLE);
 		}
-	}, [optionSelectedValue, required]);
+		inputRef.current?.checkValidity();
+	}, [onTouchProps, optionSelectedValue, required, touched]);
 
 	useLayoutEffect(function scrollOptionIntoView() {
 		if (state.activeDescendant) {
@@ -278,11 +296,22 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 	return (
 		<div>
 			<div className={styles.container}>
+				<Input
+					ref={inputRef}
+					className={styles.inputHiddenValue}
+					tabIndex={-1}
+					required={required}
+					aria-hidden={'true'}
+					name={name}
+					onInvalid={onInvalidProps}
+					value={optionSelectedValue}
+				/>
 				<div
-					className={classNames(styles.combobox, errorMessage ? styles.comboboxError : '')}
+					className={classNames(styles.combobox)}
 					role="combobox"
 					aria-controls={listboxId}
 					aria-haspopup="listbox"
+					data-touched={touched}
 					aria-expanded={state.isListOptionsOpen}
 					aria-labelledby={labelledBy}
 					aria-describedby={`${ariaDescribedby} ${errorId}`}
@@ -321,16 +350,7 @@ function SelectSimple(props: SelectSimpleProps & { labelledBy: string }) {
 						</li>;
 					})}
 				</ul>
-				<Input
-					className={styles.inputHiddenValue}
-					tabIndex={-1}
-					required={required}
-					aria-hidden={'true'}
-					name={name}
-					value={optionSelectedValue}
-				/>
 			</div>
-			<Error id={errorId}>{errorMessage}</Error>
 		</div>
 	);
 }

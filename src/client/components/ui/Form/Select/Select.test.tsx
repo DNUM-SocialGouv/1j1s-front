@@ -720,16 +720,18 @@ describe('<Select />', () => {
 				expect(onSubmit).not.toHaveBeenCalled();
 			});
 
-			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où j‘ai ouvert puis fermé le select', async () => {
+			it('lorsque le champ est requis et que l‘utilisateur ouvre puis ferme le select, appelle onInvalid et affiche le message d‘erreur', async () => {
 				const user = userEvent.setup();
+				const onInvalid = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select optionList={options} label={'label'} required/>);
+				render(<Select optionList={options} label={'label'} required onInvalid={onInvalid}/>);
 
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
 				await user.keyboard(KeyBoard.ESCAPE);
 				expect(screen.getByText('Séléctionnez un élément de la liste')).toBeVisible();
+				expect(onInvalid).toHaveBeenCalled();
 			});
 
 			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
@@ -751,9 +753,10 @@ describe('<Select />', () => {
 			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onInvalid = jest.fn();
 
 				render(<>
-					<Select optionList={options} label={'label'} required/>
+					<Select optionList={options} label={'label'} required onInvalid={onInvalid}/>
 				</>);
 
 				await user.tab();
@@ -764,8 +767,46 @@ describe('<Select />', () => {
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
+				expect(onInvalid).toHaveBeenCalledTimes(1);
 				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
 				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
+			});
+		});
+
+		describe('touched', () => {
+			it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'}/>);
+
+				const combobox = screen.getByRole('combobox');
+				expect(combobox).toHaveAttribute('data-touched', 'false');
+			});
+			
+			it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async() => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+				expect(combobox).toHaveAttribute('data-touched', 'true');
+			});
+			
+			it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async() => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.click(screen.getByRole('option', { name: 'options 1' }));
+
+				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 		});
 	});
