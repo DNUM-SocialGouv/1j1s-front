@@ -1,35 +1,67 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$background-color: utilities.$color-background-primary-alternative;
 
 .monEspace {
   margin: 0 auto;
   padding: 2rem 1rem 2rem 1rem;
-  background-color: utilities-deprecated.$color-background-white-lilac;
+  background-color: $background-color;
 
   &Titre {
-    color: utilities-deprecated.$color-primary;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
+    @extend %text-xLarge;
+
+    @include utilities.media(large) {
+      font-weight: bold;
+      text-align: center;
+    }
   }
 
-  &Accroche {
-    color: utilities-deprecated.$color-secondary;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 1.25rem;
-    line-height: 1.75rem;
+  & .entreprisesPourLaJeunesse {
+    display: grid;
+    grid-template-areas: "leeImg lbaImg"
+    "leeTitre lbaTitre"
+    "leeDescription lbaDescription"
+    "leeCTA lbaCTA";
+    grid-row-start: 1;
+    grid-gap: 2rem;
+
+    & > :nth-child(1) {
+      grid-area: leeImg;
+    }
+
+    & > :nth-child(2) {
+      grid-area: leeTitre;
+    }
+
+    & > :nth-child(3) {
+      grid-area: leeDescription;
+    }
+
+    & > :nth-child(4) {
+      grid-area: leeCTA;
+    }
+
+    & > :nth-child(5) {
+      grid-area: lbaImg;
+    }
+
+    & > :nth-child(6) {
+      grid-area: lbaTitre;
+    }
+
+    & > :nth-child(7) {
+      grid-area: lbaDescription;
+    }
+
+    & > :nth-child(8) {
+      grid-area: lbaCTA;
+    }
   }
 
-  &Description {
-    text-align: left;
-    margin-bottom: 1.5rem;
-  }
-
-  &Connexion {
-    margin-bottom: 1.5rem;
-    width: 100%;
-    justify-content: center;
+  p {
+    @extend %text-regular;
   }
 }
 
@@ -38,9 +70,6 @@
     padding: 4rem 1rem 4rem 1rem;
 
     .container {
-      max-width: 45rem;
-      margin: auto;
-
       &Boutons {
         display: flex;
         flex-direction: column;
@@ -57,12 +86,6 @@
       }
     }
 
-    &Titre {
-      color: utilities-deprecated.$color-primary;
-      font-weight: 700;
-      text-align: left;
-    }
-
     &Accroche {
       font-weight: 400;
       color: utilities-deprecated.$color-secondary;
@@ -71,9 +94,7 @@
     }
 
     &Description {
-      line-height: 2rem;
-      font-size: 1rem;
-      margin-bottom: 4rem;
+
     }
 
     &Inscription {
