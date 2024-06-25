@@ -11,6 +11,10 @@ $background-color: utilities.$color-background-primary-alternative;
     padding: 2rem 4rem;
   }
 
+  span {
+    display: block;
+  }
+
   h1 {
     margin-bottom: 2rem;
     @extend %text-xLarge;
@@ -41,16 +45,15 @@ $background-color: utilities.$color-background-primary-alternative;
       padding: 1rem;
     }
 
+    & h2 {
+      @extend %text-large;
+    }
+
     & p {
       @extend %text-regular;
       span {
         margin-top: 0.5ch;
-        display: block;
       }
-    }
-
-    & h2 {
-      @extend %text-large;
     }
 
     & a {

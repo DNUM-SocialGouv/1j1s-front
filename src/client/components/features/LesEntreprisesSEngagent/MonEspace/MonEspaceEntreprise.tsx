@@ -12,14 +12,16 @@ export function MonEspaceEntreprise() {
 	return (
 		<section className={styles.monEspace}>
 			<Container>
-				<LightHeroPrimaryText>
-					<h1>Les entreprises s‘engagent auprès de la jeunesse !</h1>
-				</LightHeroPrimaryText>
+				<h1>
+					<LightHeroPrimaryText>
+						Les entreprises s‘engagent auprès de la jeunesse !
+					</LightHeroPrimaryText>
+				</h1>
 				<div className={styles.entreprisesPourLaJeunesse}>
 					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={150} height={150}/>
 					<h2>
 						<LightHeroSecondaryText>
-							<div>J‘accède à mon espace entreprise</div>
+							<span>J‘accède à mon espace entreprise</span>
 							Les entreprises s‘engagent
 						</LightHeroSecondaryText>
 					</h2>
