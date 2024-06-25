@@ -5,11 +5,14 @@ $background-color: utilities.$color-background-primary-alternative;
 
 .monEspace {
   margin: 0 auto;
-  padding: 2rem 1rem 2rem 1rem;
+  padding: 1rem;
   background-color: $background-color;
+  @include utilities.media(large) {
+    padding: 2rem 4rem;
+  }
 
-  &Titre {
-    margin-bottom: 4rem;
+  h1 {
+    margin-bottom: 2rem;
     @extend %text-xLarge;
 
     @include utilities.media(large) {
@@ -20,86 +23,40 @@ $background-color: utilities.$color-background-primary-alternative;
 
   & .entreprisesPourLaJeunesse {
     display: grid;
-    grid-template-areas: "leeImg lbaImg"
-    "leeTitre lbaTitre"
-    "leeDescription lbaDescription"
-    "leeCTA lbaCTA";
-    grid-row-start: 1;
-    grid-gap: 2rem;
-
-    & > :nth-child(1) {
-      grid-area: leeImg;
+    grid-row-gap: 1rem;
+    grid-auto-rows: auto;
+    @include utilities.media(large) {
+      grid-auto-flow: column;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto auto;
+      grid-column-gap: 5rem;
     }
 
-    & > :nth-child(2) {
-      grid-area: leeTitre;
+    & img {
+      height: 100%;
+      border-radius: 10px;
+      box-shadow: utilities.$box-shadow;
+      background-color: utilities.$color-background-primary;
+      padding: 1rem;
     }
 
-    & > :nth-child(3) {
-      grid-area: leeDescription;
+    & p {
+      @extend %text-regular;
     }
 
-    & > :nth-child(4) {
-      grid-area: leeCTA;
+    & h2 {
+      @extend %text-large;
     }
 
-    & > :nth-child(5) {
-      grid-area: lbaImg;
-    }
+    & a {
+      width: 100%;
 
-    & > :nth-child(6) {
-      grid-area: lbaTitre;
-    }
-
-    & > :nth-child(7) {
-      grid-area: lbaDescription;
-    }
-
-    & > :nth-child(8) {
-      grid-area: lbaCTA;
-    }
-  }
-
-  p {
-    @extend %text-regular;
-  }
-}
-
-@include utilities-deprecated.media(large) {
-  .monEspace {
-    padding: 4rem 1rem 4rem 1rem;
-
-    .container {
-      &Boutons {
-        display: flex;
-        flex-direction: column;
-        max-width: 28rem;
-        margin: 40px auto auto;
-      }
-
-      &Info {
-        max-width: 30rem;
-        margin: 40px auto auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem
-      }
-    }
-
-    &Accroche {
-      font-weight: 400;
-      color: utilities-deprecated.$color-secondary;
-      margin-bottom: 3.5rem;
-      text-align: left;
-    }
-
-    &Description {
-
-    }
-
-    &Inscription {
-      &Lien {
-        align-items: center;
+      &:last-child:not(:first-child) {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        @include utilities.media(large) {
+          margin-bottom: 0;
+        }
       }
     }
   }

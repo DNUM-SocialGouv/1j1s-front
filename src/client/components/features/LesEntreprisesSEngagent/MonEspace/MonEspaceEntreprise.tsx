@@ -11,12 +11,12 @@ export function MonEspaceEntreprise() {
 	const AUTHENTIFICATION_URL_LBA = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/authentification`;
 	return (
 		<section className={styles.monEspace}>
-			<Container className={styles.container}>
+			<Container>
 				<LightHeroPrimaryText>
-					<h1 className={styles.monEspaceTitre}>Les entreprises s‘engagent auprès de la jeunesse !</h1>
+					<h1>Les entreprises s‘engagent auprès de la jeunesse !</h1>
 				</LightHeroPrimaryText>
 				<div className={styles.entreprisesPourLaJeunesse}>
-					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={65} height={65}/>
+					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={150} height={150}/>
 					<h2>
 						<LightHeroSecondaryText>
 							<div>J‘accède à mon espace entreprise</div>
@@ -32,7 +32,7 @@ export function MonEspaceEntreprise() {
 							jeunesse, connectez-vous à votre espace sur la plateforme &quot;Les entreprises s‘engagent&quot;.
 						</div>
 					</p>
-					<div className={styles.containerBoutons}>
+					<div>
 						<Link
 							href="https://www.lesentreprises-sengagent.gouv.fr/login"
 							appearance="asPrimaryButton">
@@ -41,20 +41,22 @@ export function MonEspaceEntreprise() {
 						</Link>
 						<Link
 							appearance={'asQuaternaryButton'}
-							className={styles.monEspaceInscription}
 							href="/les-entreprises-s-engagent">
 							<Link.Icon name="information"/>
 							Pas encore inscrit ? Rejoignez la mobilisation
 						</Link>
 					</div>
-					<Image className={styles.laBonneAlternanceImg} src="/images/logos/la-bonne-alternance.svg" alt="" width={65}
-								 height={65}/>
+					<Image
+						src="/images/logos/la-bonne-alternance.svg"
+						alt=""
+						width={150}
+						height={150}/>
 					<h2>
-						<LightHeroSecondaryText className={styles.laBonneAlternanceTitle}>
+						<LightHeroSecondaryText>
 							Je gère mes offres d’emploi en alternance avec La Bonne Alternance
 						</LightHeroSecondaryText>
 					</h2>
-					<p className={styles.laBonneAlternanceDescription}>
+					<p>
 						<strong>
 							Vous avez déjà publié une offre en alternance pour les jeunes ?
 						</strong>
@@ -64,13 +66,7 @@ export function MonEspaceEntreprise() {
 						</div>
 					</p>
 					<div>
-						<Link
-							className={styles.laBonneAlternanceConnexion}
-							href={AUTHENTIFICATION_URL_LBA}
-							appearance="asPrimaryButton">
-							Se connecter
-							<Link.Icon/>
-						</Link>
+						<Link href={AUTHENTIFICATION_URL_LBA} appearance="asPrimaryButton">Se connecter<Link.Icon/></Link>
 					</div>
 				</div>
 			</Container>
