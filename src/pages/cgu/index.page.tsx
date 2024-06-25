@@ -26,6 +26,6 @@ export async function getStaticProps(): Promise<GetStaticPropsResult<ConsulterCo
 			contenu,
 			titre,
 		},
-		revalidate: false,
+		revalidate: dependencies.cmsDependencies.duréeDeValiditéEnSecondes(),
 	};
 }
