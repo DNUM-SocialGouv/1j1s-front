@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container } from '~/client/components/layouts/Container/Container';
-import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
+import { LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 
@@ -27,10 +27,10 @@ export function MonEspaceEntreprise() {
 						<strong>
 							Vous avez déjà rejoint la mobilisation &quot;Les entreprises s‘engagent&quot; pour les jeunes ?
 						</strong>
-						<div>
+						<span>
 							Pour accéder à tous les services qui vous aideront à réaliser et valoriser vos engagements pour la
 							jeunesse, connectez-vous à votre espace sur la plateforme &quot;Les entreprises s‘engagent&quot;.
-						</div>
+						</span>
 					</p>
 					<div>
 						<Link
@@ -60,10 +60,10 @@ export function MonEspaceEntreprise() {
 						<strong>
 							Vous avez déjà publié une offre en alternance pour les jeunes ?
 						</strong>
-						<div>
+						<span>
 							Connectez-vous à votre espace sur la plateforme &quot;La Bonne Alternance&quot; pour gérer vos offres
 							actuelles ou en publier de nouvelles.
-						</div>
+						</span>
 					</p>
 					<div>
 						<Link href={AUTHENTIFICATION_URL_LBA} appearance="asPrimaryButton">Se connecter<Link.Icon/></Link>

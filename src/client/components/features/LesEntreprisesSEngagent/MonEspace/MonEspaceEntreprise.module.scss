@@ -23,8 +23,9 @@ $background-color: utilities.$color-background-primary-alternative;
 
   & .entreprisesPourLaJeunesse {
     display: grid;
-    grid-row-gap: 1rem;
     grid-auto-rows: auto;
+    grid-row-gap: 1.5rem;
+
     @include utilities.media(large) {
       grid-auto-flow: column;
       grid-template-columns: 1fr 1fr;
@@ -42,6 +43,10 @@ $background-color: utilities.$color-background-primary-alternative;
 
     & p {
       @extend %text-regular;
+      span {
+        margin-top: 0.5ch;
+        display: block;
+      }
     }
 
     & h2 {
