@@ -17,7 +17,7 @@ import { anchorRegex } from '~/shared/anchorRegex';
 
 import styles from './Link.module.scss';
 
-type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
+export type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
 
 
 interface Link extends React.ComponentPropsWithoutRef<'a'> {
@@ -70,7 +70,8 @@ export function Link(props: PropsWithChildren<Link>) {
 
 	return (
 		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
-			{isAnAnchor ? (
+			{/* NOTE (SYMO 26/06/2024): Nous avons opté pour l'élément HTML <a> pour créer des ancres, car l'utilisation de <LinkNext> provoque un bug de focus sur les éléments suivants, probablement parce que ce composant est conçu pour la navigation entre routes. */}
+			{isAnAnchor ? ( 
 				<a href={href} {...commonProps}>{children}</a>
 			) : isInternalLink ? (
 				<LinkNext href={href} prefetch={prefetch} {...commonProps}>{children}</LinkNext>

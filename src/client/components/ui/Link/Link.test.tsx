@@ -5,16 +5,16 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 
-import { Link } from '~/client/components/ui/Link/Link';
+import { ButtonAppearance, Link } from '~/client/components/ui/Link/Link';
 
 import styles from './Link.module.scss';
 
-const boutonsAppearances = {
-	asPrimaryButton: styles.primary,
-	asQuaternaryButton: styles.quaternary,
-	asSecondaryButton: styles.secondary,
-	asTertiaryButton: styles.tertiary,
-};
+const boutonsAppearances: [ButtonAppearance , string][] = [
+	['asPrimaryButton', styles.primary],
+	['asSecondaryButton', styles.secondary],
+	['asTertiaryButton', styles.tertiary],
+	['asQuaternaryButton', styles.quaternary],
+];
 
 describe('Link', () => {
 	beforeAll(() => {
@@ -24,17 +24,18 @@ describe('Link', () => {
 	});
 	
 	describe('apparence des liens', () => {
-		Object.entries(boutonsAppearances).forEach(([appearance, expectedClass]) => {
-			it(`doit appliquer la classe ${expectedClass} pour l'apparence ${appearance}`, () => {
+		it.each(boutonsAppearances)(
+			"doit appliquer la classe %s pour l'apparence %s",
+			(appearance, expectedClass) => {
 				const lienExterne = 'https://mon-lien-externe';
-
-				render(<Link href={lienExterne} appearance={appearance as keyof typeof undefined} />);
 				
+				render(<Link href={lienExterne} appearance={appearance} />);
+	
 				const linkComponent = screen.getByRole('link');
 	
 				expect(linkComponent).toHaveClass(expectedClass);
-			});
-		});
+			},
+		);
 	});
 
 	describe('quand le lien est un lien externe', () => {
@@ -45,7 +46,7 @@ describe('Link', () => {
 
 			const linkComponent = screen.getByRole('link');
 
-			expect(linkComponent).toHaveAttribute('href', lienExterne);
+			expect(linkComponent).toHaveAttribute('href', 'https://mon-lien-externe');
 			expect(linkComponent).toHaveAttribute('target', '_blank');
 			expect(linkComponent).toHaveAttribute('rel', 'noreferrer');
 		});
@@ -116,7 +117,7 @@ describe('Link', () => {
 	
 				const linkComponent = screen.getByRole('link');
 
-				expect(linkComponent.tagName).toBe('A');
+				expect(linkComponent).toBeVisible();
 				expect(MockLinkNext).not.toHaveBeenCalled();
 			});
 		});
