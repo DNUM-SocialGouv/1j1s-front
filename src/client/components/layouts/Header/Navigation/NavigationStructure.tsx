@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
+import { LinkIcon } from '~/client/components/ui/Link/Link';
 
 import styles from './NavigationStructure.module.scss';
 
@@ -25,7 +26,7 @@ const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
 		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{
-			label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection" aria-label="Nouvel onglet" /></>,
+			label: <>Stage de 2de GT <LinkIcon /></>,
 			link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL,
 		}] : []),
 		{ label: 'Stages d’études', link: '/stages' },
