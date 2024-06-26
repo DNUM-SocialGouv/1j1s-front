@@ -30,7 +30,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 		...rest
 	} = props;
 	const ariaId = useId();
-	const divRef = useRef<HTMLDivElement>(null);
+	const listRef = useRef<HTMLUListElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const completeItemList = useMemo(() => itemList, [itemList]);
@@ -46,10 +46,12 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 	}, [isOpen, completeItemList, visibleItemList]);
 
 	const toggle = useCallback(() => {
-		if (isOpen && divRef.current) {
-			const divPosition = divRef.current.getBoundingClientRect();
-			window.scrollBy({ behavior: 'smooth', top: -divPosition.height });
+		listRef.current?.focus();
+
+		if (isOpen && listRef.current) {
+			listRef.current?.scrollIntoView({ behavior: 'smooth' });
 		}
+
 		setIsOpen(!isOpen);
 	}, [isOpen]);
 
@@ -62,30 +64,29 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 	return (
 		<>
 			{itemListToDisplay.length > 0 &&
-          <div
-          	ref={divRef}
-          	id={`section-${ariaId}`}
-          	{...rest}
-          >
-          	<ul className={styles.itemList}>
-          		{itemListToDisplay?.map((element, index) =>
-          			<li key={index}>{element}</li>,
-          		)}
-          	</ul>
-          </div>
+				<div
+					id={`section-${ariaId}`}
+					{...rest}
+				>
+					<ul className={styles.itemList} ref={listRef} tabIndex={-1}>
+						{itemListToDisplay?.map((element, index) =>
+							<li key={index}>{element}</li>,
+						)}
+					</ul>
+				</div>
 			}
 			{itemList.length > numberOfVisibleItems &&
-          <ButtonComponent className={classNames(styles.seeMoreButton, className)}
-          	appearance={'quaternary'}
-          	label={buttonLabel}
-          	icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
-          	iconPosition={'right'}
-          	onClick={toggle}
-          	type="button"
-          	aria-expanded={isOpen}
-          	aria-controls={`section-${ariaId}`}
-          	aria-label={buttonAriaLabel}>
-          </ButtonComponent>
+				<ButtonComponent className={classNames(styles.seeMoreButton, className)}
+												 appearance={'quaternary'}
+												 label={buttonLabel}
+												 icon={isOpen ? <Icon name={'angle-up'}/> : <Icon name={'angle-down'}/>}
+												 iconPosition={'right'}
+												 onClick={toggle}
+												 type="button"
+												 aria-expanded={isOpen}
+												 aria-controls={`section-${ariaId}`}
+												 aria-label={buttonAriaLabel}>
+				</ButtonComponent>
 			}
 		</>
 	);

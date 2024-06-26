@@ -6,7 +6,7 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
 import SeeMoreItemList from '~/client/components/ui/SeeMore/SeeMoreItemList';
-import { mockScrollBy } from '~/client/components/window.mock';
+import { mockScrollIntoView } from '~/client/components/window.mock';
 
 const itemList = [
 	React.createElement('h1'),
@@ -16,7 +16,7 @@ const itemList = [
 
 describe('SeeMore component', () => {
 	beforeEach(() => {
-		mockScrollBy();
+		mockScrollIntoView();
 	});
 
 	describe('Lorsque le nombre d‘élements à afficher est supérieur à la taille totale des éléments', () => {
@@ -55,6 +55,15 @@ describe('SeeMore component', () => {
 		});
 
 		describe('Au clic sur le bouton dépliant', () => {
+			it('déplace le focus sur la liste d‘élément',async () => {
+				const user = userEvent.setup();
+				render(<SeeMoreItemList itemList={itemList} numberOfVisibleItems={2} seeMoreAriaLabel={'Voir plus'} seeLessAriaLabel={''} />);
+				const button = screen.getByRole('button', { name: 'Voir plus' });
+				await user.click(button);
+
+				expect(screen.getByRole('list')).toHaveFocus();
+			});
+
 			it('affiche l‘ensemble des éléments', async () => {
 				const user = userEvent.setup();
 				render(<SeeMoreItemList itemList={itemList} numberOfVisibleItems={2} seeMoreAriaLabel={''} seeLessAriaLabel={''} />);
@@ -68,6 +77,18 @@ describe('SeeMore component', () => {
 			});
 
 			describe('Au clic à nouveau sur le bouton dépliant', () => {
+				it('déplace le focus sur la liste', async () => {
+					const user = userEvent.setup();
+					render(<SeeMoreItemList itemList={itemList} numberOfVisibleItems={2} seeMoreAriaLabel={'Voir plus'} seeLessAriaLabel={'Voir moins'} />);
+					const buttonVoirPlus = screen.getByRole('button', { name: 'Voir plus' });
+					await user.click(buttonVoirPlus);
+						
+					const buttonVoirMoins = screen.getByRole('button', { name: 'Voir moins' });
+					await user.click(buttonVoirMoins);
+
+					expect(screen.getByRole('list')).toHaveFocus();
+				});
+
 				it('n‘affiche que les premiers éléments visibles', async () => {
 					const user = userEvent.setup();
 					render(<SeeMoreItemList itemList={itemList} numberOfVisibleItems={2} seeMoreAriaLabel={''} seeLessAriaLabel={''} />);
