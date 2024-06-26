@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.304.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.303.2...v3.304.0) (2024-06-26)
+
+
+### Features
+
+* **transverse:** revalidation des pages avec du contenu du cms en fonction de la variable d'env ([#3107](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3107)) ([86d7b23](https://github.com/DNUM-SocialGouv/1j1s-front/commit/86d7b23a34d13d8ed7bd142b3dbf4cf696402c50))
+
 ## [3.303.2](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.303.1...v3.303.2) (2024-06-25)
 
 
