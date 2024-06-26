@@ -46,7 +46,7 @@ export function mapMission(mission: RésultatsMissionEngagementResponse): Missio
 	const postalCode = data.postalCode ? `(${data.postalCode})` : '';
 	const fullLocalisation = mapFullLocalisation(city, departmentName, departmentCode, region);
 	const localisation = city.length > 0 || postalCode.length > 0 ? `${city} ${postalCode}` : undefined;
-	const étiquetteList = [accessibleAuxJeunes, localisation, mapDateDébutContratEtiquette(data.startAt)].filter((tag: string | undefined) => tag !== undefined) as string[];
+	const étiquetteList = [accessibleAuxJeunes, localisation, mapDateDébutContratEtiquette(data.startAt)].filter((tag) => tag !== undefined);
 
 	return {
 		description: data.description,
@@ -89,7 +89,7 @@ export function mapMissionList(missionList: Array<MissionEngagementResponse>): A
 		const city = mission.city || '';
 		const postalCode = mission.postalCode ? `(${mission.postalCode})` : '';
 		const localisation = city.length > 0 || postalCode.length > 0 ? `${city} ${postalCode}` : undefined;
-		const étiquetteList = [accessibleAuxJeunes, localisation, mapDateDébutContrat(mission.startAt)].filter((tag: string |undefined) => tag !== undefined) as string[];
+		const étiquetteList = [accessibleAuxJeunes, localisation, mapDateDébutContrat(mission.startAt)].filter((tag) => tag !== undefined);
 
 		return {
 			description: mission.description,

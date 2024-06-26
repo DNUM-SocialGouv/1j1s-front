@@ -21,7 +21,7 @@ export function mapOffre(offreResponse: OffreResponse): Offre {
 	const expérience = mapExpérience(offreResponse.experienceExige);
 	const typeContrat = mapTypeContrat(offreResponse.typeContrat);
 	const duréeTravail = mapDuréeTravail(offreResponse.dureeTravailLibelleConverti);
-	const étiquetteList = [lieuTravail, expérience, typeContrat && typeContrat.libelléCourt, duréeTravail].filter((tag) => tag !== undefined) as string[];
+	const étiquetteList = [lieuTravail, expérience, typeContrat && typeContrat.libelléCourt, duréeTravail].filter((tag) => tag !== undefined);
 	return {
 		compétenceList: mapCompétenceList(offreResponse.competences),
 		description: offreResponse.description,
@@ -84,7 +84,7 @@ export function mapCompétenceList(compétenceResponse?: OffreResponse.Compéten
 	if (!compétenceResponse) return [];
 
 	const compétenceMappée = compétenceResponse.map((compétence) => (compétence.libelle));
-	return compétenceMappée.filter((compétence) => !!compétence) as string[];
+	return compétenceMappée.filter((compétence) => compétence !== undefined);
 }
 
 export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse?: OffreResponse.QualitéeProfessionnelle[]): string[] {
@@ -92,7 +92,7 @@ export function mapQualitéeProfessionnelleList(qualitéeProfessionnelleResponse
 		return [];
 	}
 	const qualitéeProfessionnelleMappée = qualitéeProfessionnelleResponse.map((qualitéeProfessionnelle) => (qualitéeProfessionnelle.libelle));
-	return qualitéeProfessionnelleMappée.filter((qualitéeProfessionnelle) => !!qualitéeProfessionnelle) as string[];
+	return qualitéeProfessionnelleMappée.filter((qualitéeProfessionnelle) => qualitéeProfessionnelle !== undefined);
 }
 
 function mapLieuTravail(lieuTravailResponse?: OffreResponse.LieuTravail): string | undefined {
