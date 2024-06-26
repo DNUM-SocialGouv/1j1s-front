@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.305.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.304.0...v3.305.0) (2024-06-26)
+
+
+### Features
+
+* **a11y:** Transformer le lien d’accès rapide 'Contenu' en 'Contenu principal' pour le rendre plus explicite ([#3110](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3110)) ([f06b2cb](https://github.com/DNUM-SocialGouv/1j1s-front/commit/f06b2cb7ba8e4835ac67cbbf27ea76575bde49bd))
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies to v7.11.4 ([#3108](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3108)) ([05bd458](https://github.com/DNUM-SocialGouv/1j1s-front/commit/05bd4589d6bcb1bc3369698f39f6c7c2984835e4))
+
 ## [3.304.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.303.2...v3.304.0) (2024-06-26)
 
 
