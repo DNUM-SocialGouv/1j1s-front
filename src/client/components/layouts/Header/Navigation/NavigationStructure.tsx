@@ -1,9 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { Icon } from '~/client/components/ui/Icon/Icon';
 import { LinkIcon } from '~/client/components/ui/Link/Link';
-
-import styles from './NavigationStructure.module.scss';
 
 export interface NavigationItemWithChildren {
 	label: string;
