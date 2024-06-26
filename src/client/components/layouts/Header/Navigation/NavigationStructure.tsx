@@ -25,7 +25,7 @@ const offresNav = (): NavigationItemWithChildren => ({
 	children: [
 		{ label: 'Emplois', link: '/emplois' },
 		...(process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE === '1' && process.env.NEXT_PUBLIC_STAGES_SECONDE_URL ? [{
-			label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection"/></>,
+			label: <>Stage de 2de GT <Icon className={styles.externalIcon} name="external-redirection" aria-label="Nouvel onglet" /></>,
 			link: process.env.NEXT_PUBLIC_STAGES_SECONDE_URL,
 		}] : []),
 		{ label: 'Stages d’études', link: '/stages' },
