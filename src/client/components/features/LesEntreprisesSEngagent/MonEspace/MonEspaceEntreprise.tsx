@@ -27,11 +27,10 @@ export function MonEspaceEntreprise() {
 					</h2>
 					<p>
 						<strong>
-							Vous avez déjà rejoint la mobilisation &quot;Les entreprises s‘engagent&quot; pour les jeunes ?
+							Vous êtes déjà membre de la Communauté &quot;Les entreprises s‘engagent&quot; ?
 						</strong>
 						<span>
-							Pour accéder à tous les services qui vous aideront à réaliser et valoriser vos engagements pour la
-							jeunesse, connectez-vous à votre espace sur la plateforme &quot;Les entreprises s‘engagent&quot;.
+							Connectez-vous à votre espace sur la plateforme &quot;Les entreprises s‘engagent&quot; pour accéder à tous les services d‘accompagnement et valoriser votre engagement en faveur des jeunes.
 						</span>
 					</p>
 					<div>
