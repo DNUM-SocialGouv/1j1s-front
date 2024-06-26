@@ -730,8 +730,9 @@ describe('<Select />', () => {
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
 				await user.keyboard(KeyBoard.ESCAPE);
+
 				expect(screen.getByText('Séléctionnez un élément de la liste')).toBeVisible();
-				expect(onInvalid).toHaveBeenCalled();
+				expect(onInvalid).toHaveBeenCalledTimes(1);
 			});
 
 			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
@@ -1650,6 +1651,8 @@ describe('<Select />', () => {
 				const combobox = screen.getByRole('combobox');
 				await user.click(combobox);
 				await user.keyboard(KeyBoard.ESCAPE);
+
+				expect(onTouch).toHaveBeenCalledTimes(1);
 				expect(onTouch).toHaveBeenCalledWith(true);
 				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
