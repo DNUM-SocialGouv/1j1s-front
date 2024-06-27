@@ -13,10 +13,11 @@ import React, {
 import { Icon, IconName, IconProps } from '~/client/components/ui/Icon/Icon';
 import NoProviderError from '~/client/Errors/NoProviderError';
 import { useIsInternalLink } from '~/client/hooks/useIsInternalLink';
+import { anchorRegex } from '~/shared/anchorRegex';
 
 import styles from './Link.module.scss';
 
-type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
+export type ButtonAppearance = 'asPrimaryButton' | 'asSecondaryButton' | 'asTertiaryButton' | 'asQuaternaryButton';
 
 
 interface Link extends React.ComponentPropsWithoutRef<'a'> {
@@ -51,43 +52,35 @@ export function Link(props: PropsWithChildren<Link>) {
 	} = props;
 	const [isLinkIcon, setIsLinkIcon] = useState<boolean>(false);
 	const isInternalLink = useIsInternalLink(href);
+	const isAnAnchor = isInternalLink && new RegExp(anchorRegex).test(href);
 
-	const appearanceClass = () => {
-		switch (appearance) {
-			case 'asPrimaryButton':
-				return styles.primary;
-			case 'asSecondaryButton':
-				return styles.secondary;
-			case 'asTertiaryButton':
-				return styles.tertiary;
-			case 'asQuaternaryButton':
-				return styles.quaternary;
-			default:
-				return;
-		}
+	const appearanceClasses: Record<ButtonAppearance, string> = {
+		asPrimaryButton: styles.primary,
+		asQuaternaryButton: styles.quaternary,
+		asSecondaryButton: styles.secondary,
+		asTertiaryButton: styles.tertiary,
 	};
 
-	return isInternalLink ? (
+	const appearanceClass = appearance ? appearanceClasses[appearance] : '';
+
+	const commonProps = {
+		className: classNames(className, appearanceClass, isLinkIcon && styles.linkWithIcon),
+		...rest,
+	};
+
+	return (
 		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
-			<LinkNext
-				href={href}
-				prefetch={prefetch}
-				className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
-				{children}
-			</LinkNext>
-		</LinkContext.Provider>
-	) : (
-		<LinkContext.Provider value={{ href, setIsLinkIcon }}>
-			<a href={href}
-				 target="_blank"
-				 rel="noreferrer"
-				 className={classNames(className, appearanceClass(), isLinkIcon ? styles.linkWithIcon : '')} {...rest}>
-				{children}
-			</a>
+			{/* NOTE (SYMO 26/06/2024): Nous avons opté pour l'élément HTML <a> pour créer des ancres, car l'utilisation de <LinkNext> provoque un bug de focus sur les éléments suivants, probablement parce que ce composant est conçu pour la navigation entre routes. */}
+			{isAnAnchor ? ( 
+				<a href={href} {...commonProps}>{children}</a>
+			) : isInternalLink ? (
+				<LinkNext href={href} prefetch={prefetch} {...commonProps}>{children}</LinkNext>
+			) : (
+				<a href={href} target="_blank" rel="noreferrer" {...commonProps}>{children}</a>
+			)}
 		</LinkContext.Provider>
 	);
 }
-
 interface LinkIconProps extends Omit<IconProps, 'name'> {
 	name?: IconName
 	className?: string

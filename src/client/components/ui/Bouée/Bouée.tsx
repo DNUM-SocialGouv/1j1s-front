@@ -1,9 +1,9 @@
 import React, { RefObject, useEffect } from 'react';
 
 import styles from '~/client/components/ui/Bouée/Bouée.module.scss';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import { Link } from '~/client/components/ui/Link/Link';
 import useDebouncedState from '~/client/hooks/useDebouncedState';
+
+import { Link } from '../Link/Link';
 
 export const TOP_ELEMENT_ID = 'top';
 
@@ -31,7 +31,7 @@ export default function Bouée ({ surface }: { surface: RefObject<HTMLElement> }
 			hidden={ !isDown }
 			href={`#${TOP_ELEMENT_ID}`}
 		>
-			<Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
+			<Link.Icon name={'angle-up'} aria-hidden={false} aria-label='Remonter en haut de la page' />
 		</Link>
 	);
 }
