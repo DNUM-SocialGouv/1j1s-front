@@ -9,6 +9,9 @@ import styles from './MonEspaceEntreprise.module.scss';
 
 export function MonEspaceEntreprise() {
 	const AUTHENTIFICATION_URL_LBA = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/authentification`;
+	const INSCRIPTION_URL_LBA = `${process.env.NEXT_PUBLIC_LA_BONNE_ALTERNANCE_URL}espace-pro/creation/entreprise`;
+	const MAIL_TO_CONTACT_1J1S = 'contact-1j1s@sg.social.gouv.fr';
+
 	return (
 		<section className={styles.monEspace}>
 			<Container>
@@ -68,8 +71,17 @@ export function MonEspaceEntreprise() {
 					</p>
 					<div>
 						<Link href={AUTHENTIFICATION_URL_LBA} appearance="asPrimaryButton">Se connecter<Link.Icon/></Link>
+						<Link
+							appearance={'asQuaternaryButton'}
+							href={INSCRIPTION_URL_LBA}>
+							<Link.Icon name="information"/>
+							Pas encore inscrit ? Inscrivez votre entreprise
+						</Link>
 					</div>
 				</div>
+				<p className={styles.contact}>
+					Pour toute demande concernant les offres de stages d‘études, veuillez nous contacter par <span><Link href={`mailto:${MAIL_TO_CONTACT_1J1S}`}>email<Link.Icon/></Link></span>
+				</p>
 			</Container>
 		</section>
 	);

@@ -38,6 +38,7 @@ $background-color: utilities.$color-background-primary-alternative;
     }
 
     & img {
+      margin: auto;
       height: 100%;
       border-radius: 10px;
       box-shadow: utilities.$box-shadow;
@@ -47,10 +48,12 @@ $background-color: utilities.$color-background-primary-alternative;
 
     & h2 {
       @extend %text-large;
+      text-align: center;
     }
 
     & p {
       @extend %text-regular;
+
       span {
         margin-top: 0.5ch;
       }
@@ -66,6 +69,15 @@ $background-color: utilities.$color-background-primary-alternative;
           margin-bottom: 0;
         }
       }
+    }
+  }
+
+  & .contact {
+    text-align: center;
+    margin-top: 2rem;
+
+    > span {
+      display: inline-block;
     }
   }
 }
