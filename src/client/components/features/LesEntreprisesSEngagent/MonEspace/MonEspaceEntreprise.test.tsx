@@ -28,6 +28,14 @@ describe('<MonEspaceEntreprise/>', () => {
 		expect(linkInscriptionLBA).toBeVisible();
 		expect(linkInscriptionLBA).toHaveAttribute('href', 'https://url-lba.com/espace-pro/creation/entreprise');
 	});
+
+	it('voit la demande de contact par mail', () => {
+		render(<MonEspaceEntreprise/>);
+
+		const demandeContactMail = screen.getByRole('link', { name: 'demande de contact par email' });
+		expect(demandeContactMail).toBeVisible();
+		expect(demandeContactMail).toHaveAttribute('href', 'mailto:contact-1j1s@sg.social.gouv.fr');
+	});
 });
 
 

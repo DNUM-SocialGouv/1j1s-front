@@ -80,7 +80,9 @@ export function MonEspaceEntreprise() {
 					</div>
 				</div>
 				<p className={styles.contact}>
-					Pour toute demande concernant les offres de stages d‘études, veuillez nous contacter par <span><Link href={`mailto:${MAIL_TO_CONTACT_1J1S}`}>email<Link.Icon/></Link></span>
+					Pour toute demande concernant les offres de stages d‘études, veuillez nous contacter par <span>
+						<Link href={`mailto:${MAIL_TO_CONTACT_1J1S}`} aria-label={'demande de contact par email'}>email<Link.Icon/></Link>
+					</span>
 				</p>
 			</Container>
 		</section>
