@@ -1,4 +1,4 @@
-import { Option } from '~/client/components/ui/Form/Select/Select';
+import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { recupererLibelleDepuisValeur } from '~/client/utils/recupererLibelleDepuisValeur.utils';
 
 describe('récupérerLibelléDepuisValeur', () => {
@@ -6,7 +6,7 @@ describe('récupérerLibelléDepuisValeur', () => {
 		it('retourne un libellé en fonction de la valeur', () => {
 			//given
 			const valeur = '10';
-			const optionList: Option[] = [
+			const optionList: OptionSelect[] = [
 				{ libellé: 'Indifférent', valeur: 'indifférent' },
 				{ libellé: 'dix', valeur: '10' },
 				{ libellé: '30', valeur: '30' },
@@ -24,7 +24,7 @@ describe('récupérerLibelléDepuisValeur', () => {
 		it('retourne une valeur par défaut', () => {
 			//given
 			const valeur = '101';
-			const optionList: Option[] = [
+			const optionList: OptionSelect[] = [
 				{ libellé: 'Indifférent', valeur: 'indifférent' },
 				{ libellé: 'dix', valeur: '10' },
 				{ libellé: '30', valeur: '30' },

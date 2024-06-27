@@ -5,14 +5,14 @@ import styles
 	from '~/client/components/features/Accompagnement/FormulaireRecherche/FormulaireRechercheAccompagnement.module.scss';
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { ComboboxCommune } from '~/client/components/ui/Form/Combobox/ComboboxCommune/ComboboxCommune';
-import { Option, Select } from '~/client/components/ui/Form/Select/Select';
+import { OptionSelect, Select } from '~/client/components/ui/Form/Select/Select';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { useAccompagnementQuery } from '~/client/hooks/useAccompagnementQuery';
 import { mapToCommune } from '~/client/hooks/useCommuneQuery';
 import { getFormAsQuery } from '~/client/utils/form.util';
 import { TypeÉtablissement } from '~/server/etablissement-accompagnement/domain/etablissementAccompagnement';
 
-const typeAccompagnementListe: Option[] = [
+const typeAccompagnementListe: OptionSelect[] = [
 	{ libellé: 'Agences France Travail', valeur: TypeÉtablissement.FRANCE_TRAVAIL },
 	{ libellé: 'Missions locales', valeur: TypeÉtablissement.MISSION_LOCALE },
 	{ libellé: 'Info jeunes', valeur: TypeÉtablissement.INFO_JEUNE },

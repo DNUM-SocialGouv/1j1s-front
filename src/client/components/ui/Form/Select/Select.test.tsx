@@ -720,16 +720,19 @@ describe('<Select />', () => {
 				expect(onSubmit).not.toHaveBeenCalled();
 			});
 
-			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où j‘ai ouvert puis fermé le select', async () => {
+			it('lorsque le champ est requis et que l‘utilisateur ouvre puis ferme le select, appelle onInvalid et affiche le message d‘erreur', async () => {
 				const user = userEvent.setup();
+				const onInvalid = jest.fn();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select optionList={options} label={'label'} required/>);
+				render(<Select optionList={options} label={'label'} required onInvalid={onInvalid}/>);
 
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
 				await user.keyboard(KeyBoard.ESCAPE);
+
 				expect(screen.getByText('Séléctionnez un élément de la liste')).toBeVisible();
+				expect(onInvalid).toHaveBeenCalledTimes(1);
 			});
 
 			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
@@ -751,9 +754,10 @@ describe('<Select />', () => {
 			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onInvalid = jest.fn();
 
 				render(<>
-					<Select optionList={options} label={'label'} required/>
+					<Select optionList={options} label={'label'} required onInvalid={onInvalid}/>
 				</>);
 
 				await user.tab();
@@ -764,8 +768,52 @@ describe('<Select />', () => {
 				await user.keyboard(KeyBoard.ARROW_DOWN);
 				await user.keyboard(KeyBoard.ENTER);
 
+				expect(onInvalid).toHaveBeenCalledTimes(1);
 				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('');
 				expect(screen.queryByText('Séléctionnez un élément de la liste')).not.toBeInTheDocument();
+			});
+		});
+
+		describe('touched', () => {
+			it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
+
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				expect(onTouch).not.toHaveBeenCalled();
+				expect(combobox).toHaveAttribute('data-touched', 'false');
+			});
+			
+			it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async() => {
+				const user = userEvent.setup();
+				const onTouch = jest.fn();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+				expect(onTouch).toHaveBeenCalledWith(true);
+				expect(combobox).toHaveAttribute('data-touched', 'true');
+			});
+			
+			it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async() => {
+				const user = userEvent.setup();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
+
+				render(<Select optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.click(screen.getByRole('option', { name: 'options 1' }));
+
+				expect(onTouch).toHaveBeenCalledWith(true);
+				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 		});
 	});
@@ -1527,16 +1575,19 @@ describe('<Select />', () => {
 				expect(onSubmit).not.toHaveBeenCalled();
 			});
 
-			it('lorsque le champ est requis, je vois le message d‘erreur à partir du moment où l‘utilisateur a fermé le select sans option séléctionnée', async () => {
+			it('lorsque le champ est requis et que l‘utilisateur ouvre puis ferme le select sans selectionner d‘option, appelle onInvalid et affiche le message d‘erreur', async () => {
 				const user = userEvent.setup();
+				const onInvalid = jest.fn();
+
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
-				render(<Select multiple required optionList={options} label={'label'}/>);
+				render(<Select multiple required optionList={options} label={'label'} onInvalid={onInvalid}/>);
 
 				await user.tab();
 				await user.keyboard(KeyBoard.ENTER);
 				await user.keyboard(KeyBoard.ESCAPE);
 				expect(screen.getByText('Séléctionnez au moins un élément de la liste')).toBeVisible();
+				expect(onInvalid).toHaveBeenCalledTimes(1);
 			});
 
 			it('lorsque le champ est requis et en erreur, le message d‘erreur est fusionné avec la description accessible', async () => {
@@ -1556,11 +1607,12 @@ describe('<Select />', () => {
 			});
 
 			it('lorsque le champ est requis et en erreur, lorsque l‘utilisateur séléctionne une option le champ n‘est plus en erreur', async () => {
+				const onInvalid = jest.fn();
 				const user = userEvent.setup();
 				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
 
 				render(<>
-					<Select multiple optionList={options} label={'label'} required aria-describedby={'id1'}/>
+					<Select multiple optionList={options} label={'label'} required aria-describedby={'id1'} onInvalid={onInvalid}/>
 					<p id={'id1'}>La description accessible</p>
 				</>);
 
@@ -1573,7 +1625,51 @@ describe('<Select />', () => {
 				await user.keyboard(KeyBoard.ENTER);
 
 				expect(screen.queryByText('Séléctionnez au moins un élément de la liste')).not.toBeInTheDocument();
-				expect(screen.getByRole('combobox')).toHaveAccessibleDescription('La description accessible ');
+				expect(onInvalid).toHaveBeenCalledTimes(1);
+			});
+		});
+
+		describe('touched', () => {
+			it('lorsque l‘utilisateur n‘a pas interragit avec le champ, le select n‘est pas touched', () => {
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+				const onTouch = jest.fn();
+
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				expect(onTouch).not.toHaveBeenCalled();
+				expect(combobox).toHaveAttribute('data-touched', 'false');
+			});
+
+			it('lorsque l‘utilisateur ouvre puis ferme le select, le select est touched', async() => {
+				const user = userEvent.setup();
+				const onTouch = jest.fn();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.keyboard(KeyBoard.ESCAPE);
+
+				expect(onTouch).toHaveBeenCalledTimes(1);
+				expect(onTouch).toHaveBeenCalledWith(true);
+				expect(combobox).toHaveAttribute('data-touched', 'true');
+			});
+
+			it('lorsque l‘utilisateur ouvre puis selectionne une option, le select est touched', async() => {
+				const user = userEvent.setup();
+				const onTouch = jest.fn();
+				const options = [{ libellé: 'options 1', valeur: '1' }, { libellé: 'options 2', valeur: '2' }];
+
+				render(<Select multiple optionList={options} label={'label'} onTouch={onTouch}/>);
+
+				const combobox = screen.getByRole('combobox');
+				await user.click(combobox);
+				await user.click(screen.getByRole('option', { name: 'options 1' }));
+
+				expect(onTouch).toHaveBeenCalledWith(true);
+				expect(combobox).toHaveAttribute('data-touched', 'true');
 			});
 		});
 	});

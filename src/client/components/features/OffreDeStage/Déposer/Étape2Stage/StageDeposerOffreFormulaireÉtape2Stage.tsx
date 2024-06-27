@@ -16,7 +16,7 @@ import { FormulaireÉtapeLayout } from '~/client/components/layouts/FormulaireEt
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { Champ } from '~/client/components/ui/Form/Champ/Champ';
 import { Input } from '~/client/components/ui/Form/Input';
-import { Option } from '~/client/components/ui/Form/Select/Select';
+import { OptionSelect } from '~/client/components/ui/Form/Select/Select';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Radio } from '~/client/components/ui/Radio/Radio';
@@ -64,7 +64,7 @@ export enum IsDateDeDebutPrecise {
 	NON = 'false',
 }
 
-const dureeStageList: Option[] = [
+const dureeStageList: OptionSelect[] = [
 	{ libellé: '1 mois', valeur: DUREE_MOIS_EN_JOUR.toString() },
 	{ libellé: '2 mois', valeur: (2 * DUREE_MOIS_EN_JOUR).toString() },
 	{ libellé: '3 mois', valeur: (3 * DUREE_MOIS_EN_JOUR).toString() },
