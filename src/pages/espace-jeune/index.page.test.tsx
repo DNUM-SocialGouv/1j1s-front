@@ -7,7 +7,7 @@ import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import { mockUseRouter } from '~/client/components/useRouter.mock';
-import { mockSmallScreen } from '~/client/components/window.mock';
+import { mockScrollIntoView, mockSmallScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';
 import { aManualAnalyticsService } from '~/client/services/analytics/analytics.service.fixture';
 import EspaceJeunePage from '~/pages/espace-jeune/index.page';
@@ -18,6 +18,7 @@ describe('Page Espace Jeune', () => {
 	beforeEach(() => {
 		mockSmallScreen();
 		mockUseRouter({});
+		mockScrollIntoView();
 	});
 	afterEach(() => {
 		jest.clearAllMocks();
