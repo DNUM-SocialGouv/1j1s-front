@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.307.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.306.0...v3.307.0) (2024-06-27)
+
+
+### Features
+
+* **a11y:** retour du focus sur les listes déroulantes ([#3111](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3111)) ([110898f](https://github.com/DNUM-SocialGouv/1j1s-front/commit/110898f8aad5e9fede8a0f7a7369573b9601fdcc))
+
 ## [3.306.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.305.0...v3.306.0) (2024-06-27)
 
 
