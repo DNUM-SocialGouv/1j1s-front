@@ -25,7 +25,7 @@ export function NavItem({
 		<li className={className}>
 			<Link href={link} prefetch={false} className={styles.navItemLabel} aria-current={isActive} onClick={onClick}>
 				{label}
-				{!isInternalLink && <Link.Icon/>}
+				{!isInternalLink && <Link.Icon className={styles.externalRedirectionIcon}/>}
 			</Link>
 		</li>
 	);
