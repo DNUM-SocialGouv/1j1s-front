@@ -47,10 +47,7 @@ export default function SeeMoreItemList(props: SeeMoreProps) {
 
 	const toggle = useCallback(() => {
 		listRef.current?.focus();
-
-		if (isOpen && listRef.current) {
-			listRef.current?.scrollIntoView({ behavior: 'smooth' });
-		}
+		listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 		setIsOpen(!isOpen);
 	}, [isOpen]);
