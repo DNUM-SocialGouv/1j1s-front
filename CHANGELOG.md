@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.306.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.305.0...v3.306.0) (2024-06-27)
+
+
+### Features
+
+* **ui:** utiliser champ avec le select ([#3103](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3103)) ([581c222](https://github.com/DNUM-SocialGouv/1j1s-front/commit/581c2224d6f5474a9781a615eb258f7165dac9ff))
+
 ## [3.305.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.304.0...v3.305.0) (2024-06-26)
 
 
