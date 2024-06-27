@@ -21,6 +21,7 @@
   transform: translateY(-100%);
   background-color: utilities-deprecated.$color-separator;
   color: utilities-deprecated.$color-blue-navy;
+  padding: 1rem 0.5rem;
 
   &:focus-within {
     position: relative;
@@ -28,9 +29,10 @@
   }
 
   & ul {
-    padding-top: 1rem;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
 
     &:focus-within {
       position: relative;
@@ -38,11 +40,8 @@
     }
 
     & > li {
-      margin: 0 1rem 1.5rem;
-
       & > a {
         border-radius: 1rem;
-        min-height: 2rem;
         padding: 0.25rem 0.75rem;
       }
     }

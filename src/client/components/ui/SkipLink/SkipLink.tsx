@@ -11,10 +11,10 @@ export default function SkipLink() {
 		<div className={styles.skipLinkWrapper}>
 			<Container>
 				<ul id={ID_TOP_ELEMENT} tabIndex={-1}>
-					<li><a  href="#contenu">Contenu principal</a></li>
-					<li><a className={styles.desktopOnly} href={`#${ID_NAV_DESKTOP}`}>Menu</a></li>
-					<li><a className={styles.mobileOnly} href={`#${ID_NAV_MOBILE}`}>Menu</a></li>
-					<li><a  href="#footer">Pied de page</a></li>
+					<li><a href="#contenu">Contenu principal</a></li>
+					<li className={styles.desktopOnly}><a href={`#${ID_NAV_DESKTOP}`}>Menu</a></li>
+					<li className={styles.mobileOnly}><a href={`#${ID_NAV_MOBILE}`}>Menu</a></li>
+					<li><a href="#footer">Pied de page</a></li>
 				</ul>
 			</Container>
 		</div>
