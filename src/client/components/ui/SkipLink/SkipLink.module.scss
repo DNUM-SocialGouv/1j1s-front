@@ -15,13 +15,12 @@
 }
 
 .skipLinkWrapper {
-  --ul-type: none;
+  list-style: none;
   position: absolute;
   top: 0;
   transform: translateY(-100%);
   background-color: utilities-deprecated.$color-separator;
   color: utilities-deprecated.$color-blue-navy;
-  --link-underline: none;
 
   &:focus-within {
     position: relative;
