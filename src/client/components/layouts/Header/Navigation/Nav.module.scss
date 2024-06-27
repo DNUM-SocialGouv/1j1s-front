@@ -58,6 +58,16 @@ $outline-offset-focus-last-child: -4px;
     display: flex;
     padding: 0.8rem 1rem;
     color: utilities.$color-text-primary;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+    }
   }
 
   &:not(:last-child) {

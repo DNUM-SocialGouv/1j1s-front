@@ -5,7 +5,7 @@ import { Container } from '../../Container/Container';
 import styles from './Nav.module.scss';
 import { NavDesktopEmployeur } from './NavDesktopEmployeur';
 import { navigationItemList } from './NavigationStructure';
-import { NavItem } from './NavItem';
+import { NavItem } from './NavItem/NavItem';
 import { NavItemWithSubItems } from './NavItemWithSubItems';
 
 export function NavDesktop() {
