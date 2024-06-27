@@ -8,6 +8,7 @@ import { navigationItemList } from './NavigationStructure';
 import { NavItem } from './NavItem';
 import { NavItemWithSubItems } from './NavItemWithSubItems';
 
+export const ID_NAV_DESKTOP = 'header-navigation-desktop';
 export function NavDesktop() {
 	const {
 		accueil,
@@ -24,7 +25,7 @@ export function NavDesktop() {
 	return (
 		<div className={styles.navigationDesktop}>
 			<Container>
-				<nav id="header-navigation"
+				<nav id={ID_NAV_DESKTOP}
 					className={styles.navigationDesktopNavigation}
 					role="navigation"
 					data-testid="navigation-desktop"

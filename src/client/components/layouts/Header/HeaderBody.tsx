@@ -10,6 +10,8 @@ import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
+export const ID_NAV_MOBILE = 'header-navigation-mobile';
+
 export function HeaderBody() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const toggleModal = () => setIsModalOpen(!isModalOpen);
@@ -25,8 +27,11 @@ export function HeaderBody() {
 							width="88"
 							height="80"
 						/>
-						<nav role={'navigation'} aria-label="ouvrir le menu principal"
-								 className={styles.headerBodyNavigationMobile}>
+						<nav
+							role={'navigation'}
+							aria-label="ouvrir le menu principal"
+							id={ID_NAV_MOBILE}
+							className={styles.headerBodyNavigationMobile}>
 							<ButtonComponent
 								appearance="quaternary"
 								icon={<Icon name="burger-menu"/>}

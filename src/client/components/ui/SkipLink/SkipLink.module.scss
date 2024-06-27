@@ -1,6 +1,19 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
 
-// FIXME (GAFI 17-06-2024): On pourrait pas se passer de ce wrapper ? Le UL est déjà un wrapper en soi
+.mobileOnly {
+  @include utilities.media(small) {
+    display: none;
+  }
+}
+
+.desktopOnly {
+  display: none;
+  @include utilities.media(small) {
+    display: unset;
+  }
+}
+
 .skipLinkWrapper {
   --ul-type: none;
   position: absolute;
@@ -9,30 +22,30 @@
   background-color: utilities-deprecated.$color-separator;
   color: utilities-deprecated.$color-blue-navy;
   --link-underline: none;
-}
 
-.skipLinkWrapper:focus-within {
-  position: relative;
-  transform: translateY(0);
-}
+  &:focus-within {
+    position: relative;
+    transform: translateY(0);
+  }
 
-.skipLinkList {
-  padding-top: 1rem;
-  display: flex;
-  flex-direction: row;
-}
+  & ul {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
 
-.skipLinkList > li {
-  margin: 0 1rem 1.5rem;
-}
+    &:focus-within {
+      position: relative;
+      transform: translateY(0);
+    }
 
-.skipLinkList:focus-within {
-  position: relative;
-  transform: translateY(0);
-}
+    & > li {
+      margin: 0 1rem 1.5rem;
 
-.skipLink {
-  border-radius: 1rem;
-  min-height: 2rem;
-  padding: 0.25rem 0.75rem;
+      & > a {
+        border-radius: 1rem;
+        min-height: 2rem;
+        padding: 0.25rem 0.75rem;
+      }
+    }
+  }
 }
