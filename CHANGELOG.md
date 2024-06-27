@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.307.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.307.0...v3.307.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* **a11y:** lien d'évitement du menu en mobile ([#3117](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3117)) ([ba482e8](https://github.com/DNUM-SocialGouv/1j1s-front/commit/ba482e8c7596f6225cba48e2ad78077cbf7bbad3))
+
 ## [3.307.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.306.0...v3.307.0) (2024-06-27)
 
 
