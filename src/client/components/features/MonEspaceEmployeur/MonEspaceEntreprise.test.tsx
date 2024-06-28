@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { MonEspaceEntreprise } from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/MonEspaceEntreprise';
+import { MonEspaceEntreprise } from '~/client/components/features/MonEspaceEmployeur/MonEspaceEntreprise';
 
 describe('<MonEspaceEntreprise/>', () => {
 	it('l‘utilisateur voit les liens de redirection', () => {
