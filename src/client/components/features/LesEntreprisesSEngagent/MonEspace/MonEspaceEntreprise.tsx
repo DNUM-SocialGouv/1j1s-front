@@ -21,7 +21,7 @@ export function MonEspaceEntreprise() {
 					</LightHeroPrimaryText>
 				</h1>
 				<div className={styles.entreprisesPourLaJeunesse}>
-					<Image src="/icons/les-entreprises-s-engagent.svg" alt="" width={150} height={150}/>
+					<Image src="/images/logos/les-entrerprises-s-engagent.svg" alt="" width={150} height={150}/>
 					<h2>
 						<LightHeroSecondaryText>
 							<span>J‘accède à mon espace entreprise</span>
@@ -53,8 +53,8 @@ export function MonEspaceEntreprise() {
 					<Image
 						src="/images/logos/la-bonne-alternance.svg"
 						alt=""
-						width={150}
-						height={150}/>
+						width={200}
+						height={200}/>
 					<h2>
 						<LightHeroSecondaryText>
 							Je gère mes offres d’emploi en alternance avec La Bonne Alternance
