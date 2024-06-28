@@ -11,17 +11,16 @@ $offset-sub-nav: 2.5rem;
 $outline-offset-focus: -2px;
 $outline-offset-focus-last-child: -4px;
 
-
 .navigationDesktop {
   display: none;
 
-  @include utilities.media(large) {
+  @include utilities.media(xlarge) {
     display: unset;
   }
 
   padding-inline: 1rem;
 
-  @include utilities.media(large) {
+  @include utilities.media(xlarge) {
     border-top: 1px solid utilities.$color-background-disabled;
     padding-inline: 0;
   }

@@ -2,7 +2,7 @@
 @use "@styles/utilities-deprecated";
 
 .headerBannerMobile {
-  @include utilities.media(large) {
+  @include utilities.media(xlarge) {
     display: none;
   }
 
@@ -23,7 +23,7 @@
 .headerBannerDektop {
   display: none;
 
-  @include utilities.media(large) {
+  @include utilities.media(xlarge) {
     text-decoration: none;
     padding: 0.5rem 1rem;
     border: 1px solid utilities.$color-primary;
