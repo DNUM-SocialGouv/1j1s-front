@@ -58,20 +58,12 @@ $outline-offset-focus-last-child: -4px;
     display: flex;
     padding: 0.8rem 1rem;
     color: utilities.$color-text-primary;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0);
-    }
+    width: 100%;
+    justify-content: flex-start;
 
     & .externalRedirectionIcon {
-      width: 1.1rem;
-      height: 1.1rem;
+      width: 1em;
+      height: 1em;
     }
   }
 
