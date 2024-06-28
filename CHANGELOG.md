@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.310.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.309.0...v3.310.0) (2024-06-28)
+
+
+### Features
+
+* **mon-espace:** modification de la section les entreprises s engagent pour la jeunesse ([#3106](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3106)) ([1e646c6](https://github.com/DNUM-SocialGouv/1j1s-front/commit/1e646c649718b3491122411c3fc0cd93716f3a44))
+
 ## [3.309.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.308.0...v3.309.0) (2024-06-28)
 
 
