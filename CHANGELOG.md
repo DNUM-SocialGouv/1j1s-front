@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.311.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.310.0...v3.311.0) (2024-06-28)
+
+
+### Features
+
+* **a11y:** nom accessible pour lien Stage de 2de ([#3113](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3113)) ([e431d4e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/e431d4e2daa16b4924c15ca639aee0ca6b8d022a))
+
 ## [3.310.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.309.0...v3.310.0) (2024-06-28)
 
 
