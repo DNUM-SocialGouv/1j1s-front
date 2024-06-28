@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.308.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.307.1...v3.308.0) (2024-06-28)
+
+
+### Features
+
+* **job:** utiliser grid dans les formulaires de recherche de job ([#3099](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3099)) ([12350a9](https://github.com/DNUM-SocialGouv/1j1s-front/commit/12350a98fc1fc84b685bed124579e962b9f843e7))
+
 ## [3.307.1](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.307.0...v3.307.1) (2024-06-27)
 
 
