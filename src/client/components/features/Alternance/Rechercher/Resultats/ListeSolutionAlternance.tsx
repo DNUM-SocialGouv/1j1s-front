@@ -14,7 +14,7 @@ export function ListeSolutionAlternance({ alternanceList }: {
 }): React.ReactElement {
 	const getLogo = (alternance: ResultatRechercheAlternance.Offre) => {
 		if (alternance.source === Alternance.Source.MATCHA) {
-			return '/images/logos/la-bonne-alternance.svg';
+			return '/images/logos/la-bonne-alternance-candidat.svg';
 		}
 		return '/images/logos/france-travail.svg';
 	};

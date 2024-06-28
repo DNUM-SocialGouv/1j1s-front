@@ -1,85 +1,78 @@
 @use "@styles/utilities-deprecated";
+@use "@styles/utilities";
+
+$background-color: utilities.$color-background-primary-alternative;
 
 .monEspace {
   margin: 0 auto;
-  padding: 2rem 1rem 2rem 1rem;
-  background-color: utilities-deprecated.$color-background-white-lilac;
-
-  &Titre {
-    color: utilities-deprecated.$color-primary;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.75rem;
-    margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: $background-color;
+  @include utilities.media(large) {
+    padding: 2rem 4rem;
   }
 
-  &Accroche {
-    color: utilities-deprecated.$color-secondary;
-    font-size: 1.5rem;
-    font-weight: 400;
-    margin-bottom: 1.25rem;
-    line-height: 1.75rem;
+  span {
+    display: block;
   }
 
-  &Description {
-    text-align: left;
-    margin-bottom: 1.5rem;
+  h1 {
+    margin-bottom: 2rem;
+    @extend %text-xLarge;
+
+    @include utilities.media(large) {
+      font-weight: bold;
+      text-align: center;
+    }
   }
 
-  &Connexion {
-    margin-bottom: 1.5rem;
-    width: 100%;
-    justify-content: center;
-  }
-}
+  & .entreprisesPourLaJeunesse {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-row-gap: 1.5rem;
 
-@include utilities-deprecated.media(large) {
-  .monEspace {
-    padding: 4rem 1rem 4rem 1rem;
+    @include utilities.media(large) {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      grid-template-rows: auto auto auto auto;
+      grid-column-gap: 5rem;
+    }
 
-    .container {
-      max-width: 45rem;
+    & img {
       margin: auto;
+      height: 100%;
+      padding: 1rem;
+    }
 
-      &Boutons {
-        display: flex;
-        flex-direction: column;
-        max-width: 28rem;
-        margin: 40px auto auto;
+    & h2 {
+      @extend %text-large;
+      text-align: center;
+    }
+
+    & p {
+      @extend %text-regular;
+
+      span {
+        margin-top: 0.5ch;
       }
+    }
 
-      &Info {
-        max-width: 30rem;
-        margin: 40px auto auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem
+    & a {
+      width: 100%;
+
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      @include utilities.media(large) {
+        margin-bottom: 0;
       }
     }
+  }
 
-    &Titre {
-      color: utilities-deprecated.$color-primary;
-      font-weight: 700;
-      text-align: left;
-    }
+  & .contact {
+    text-align: center;
+    margin-top: 2rem;
 
-    &Accroche {
-      font-weight: 400;
-      color: utilities-deprecated.$color-secondary;
-      margin-bottom: 3.5rem;
-      text-align: left;
-    }
-
-    &Description {
-      line-height: 2rem;
-      font-size: 1rem;
-      margin-bottom: 4rem;
-    }
-
-    &Inscription {
-      &Lien {
-        align-items: center;
-      }
+    > a {
+      display: inline-flex;
     }
   }
 }
