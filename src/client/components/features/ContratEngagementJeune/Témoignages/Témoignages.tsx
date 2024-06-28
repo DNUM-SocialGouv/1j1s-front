@@ -24,7 +24,8 @@ function TémoignageKévin() {
 					<Image src={portraitKévin} alt=""/>
 				</div>
 				<div className={styles.bio}>
-					<p>Kévin, 18 ans <span>Sans diplôme et sans aucune ressource financière, il pourra bénéficier du Contrat d‘Engagement Jeune.</span></p>
+					<p>Kévin, 18 ans</p>
+					<p>Sans diplôme et sans aucune ressource financière, il pourra bénéficier du Contrat d‘Engagement Jeune.</p>
 				</div>
 
 				<Programme>
@@ -63,8 +64,9 @@ function TémoignageLatifa() {
 					<Image src={portraitLatifa} alt=""/>
 				</div>
 				<div className={styles.bio}>
-					<p>Latifa, 22 ans <span>Diplômée d‘un CAP gestion, sans emploi et sans aucune ressource financière, elle pourra bénéficier du Contrat
-						d‘Engagement Jeune.</span></p>
+					<p>Latifa, 22 ans</p>
+					<p>Diplômée d‘un CAP gestion, sans emploi et sans aucune ressource financière, elle pourra bénéficier du
+						Contrat d‘Engagement Jeune.</p>
 				</div>
 				<Programme>
 					<h3>Son programme :</h3>
