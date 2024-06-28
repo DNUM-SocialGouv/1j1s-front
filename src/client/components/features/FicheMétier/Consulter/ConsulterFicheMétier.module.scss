@@ -1,41 +1,4 @@
 @use "@styles/utilities-deprecated";
-
-.section {
-  border-radius: 20px;
-
-  &:not(:last-of-type) {
-    margin-bottom: 1rem;
-
-    @include utilities-deprecated.media(xlarge) {
-      margin-bottom: 2rem;
-    }
-  }
-
-  details[open] summary {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  &Content {
-    padding: 1.5rem 1rem;
-
-    @include utilities-deprecated.media(large) {
-      padding-inline: 1.5rem;
-    }
-  }
-}
-
-.foldingSectionContent {
-  padding: 1.5rem 1rem;
-  border: 1px solid utilities-deprecated.$color-separator;
-  border-radius: 0 0 20px 20px;
-  background-color: utilities-deprecated.$color-surface;
-
-  @include utilities-deprecated.media(large) {
-    padding-inline: 1.5rem;
-  }
-}
-
 .abstractSection {
   display: grid;
   grid-template-columns: 1fr;
