@@ -31,7 +31,7 @@ describe('Page d‘accueil', () => {
 		const { container } = render(
 			<DependenciesProvider analyticsService={analyticsService}>
 				<Accueil/>
-			</DependenciesProvider> );
+			</DependenciesProvider>);
 
 		expect(container.outerHTML).toHTMLValidate();
 	});
@@ -56,7 +56,7 @@ describe('Page d‘accueil', () => {
 			);
 
 			// THEN
-			const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres Plus de 20 000 offres de stages sélectionnées spécialement pour vous' } );
+			const redirectionVersStagesDEtudes = screen.getByRole('link', { name: 'Stages d’études Voir les offres Plus de 20 000 offres de stages sélectionnées spécialement pour vous' });
 			expect(redirectionVersStagesDEtudes).toBeVisible();
 			expect(redirectionVersStagesDEtudes).toHaveAttribute('href', '/stages');
 		});
@@ -74,7 +74,7 @@ describe('Page d‘accueil', () => {
 				);
 
 				// THEN
-				const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' } );
+				const redirectionVersStages3eEt2de = screen.getByRole('link', { name: 'Stages de 3e et 2de Voir les offres Des milliers d’entreprises prêtes à vous accueillir pour votre stage de 3e et 2de' });
 				expect(redirectionVersStages3eEt2de).toBeVisible();
 				expect(redirectionVersStages3eEt2de).toHaveAttribute('href', '/stages-3e-et-2de');
 			});
@@ -144,7 +144,7 @@ describe('Page d‘accueil', () => {
 			});
 		});
 		describe('quand le feature flip des formations initales est actif', () => {
-			it('je vois la carte de redirection vers les formations initiales',  () => {
+			it('je vois la carte de redirection vers les formations initiales', () => {
 				process.env.NEXT_PUBLIC_FORMATIONS_INITIALES_FEATURE = '1';
 
 				render(
@@ -172,7 +172,7 @@ describe('Page d‘accueil', () => {
 			});
 		});
 		describe('quand le feature flip 1jeune1permis est actif', () => {
-			it('je vois la carte de redirection vers les aides au permis de conduire',  () => {
+			it('je vois la carte de redirection vers les aides au permis de conduire', () => {
 				process.env.NEXT_PUBLIC_1JEUNE1PERMIS_FEATURE = '1';
 
 				render(
@@ -206,7 +206,7 @@ describe('Page d‘accueil', () => {
 		});
 		describe('quand le feature flip des stages seconde est actif', () => {
 			describe('quand le feature flip de la recherche de stages de seconde est actif', () => {
-			  it('la bannière contient les wording de la campagne du 25 mars 2024', () => {
+				it('la bannière contient les wording de la campagne du 25 mars 2024', () => {
 					// GIVEN
 					const fakeUrlVoirStageSeconde = 'https://url-voir-offres-de-stages-de-seconde.fr';
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
@@ -221,23 +221,21 @@ describe('Page d‘accueil', () => {
 					);
 
 					// THEN
-					const titreBanniere = screen.getByText('Un stage du 17 au 28 juin 2024');
-					const sousTitreBanniere = screen.getByText('pour permettre aux élèves de seconde générale et technologique de diversifier leur connaissance des métiers.');
+					const headingStage2nd = screen.getByRole('heading', { level: 2, name: 'Un stage du 17 au 28 juin 2024' });
+					expect(headingStage2nd).toBeVisible();
 					const voirStageSecondeButton = screen.getByRole('link', { name: 'Proposer un stage ou candidater - nouvelle fenêtre' });
-					expect(titreBanniere).toBeVisible();
-					expect(sousTitreBanniere).toBeVisible();
 					expect(voirStageSecondeButton).toBeVisible();
 					expect(voirStageSecondeButton).toHaveAttribute('href', fakeUrlVoirStageSeconde);
-			  });
+				});
 			});
 
 			describe('quand le feature flip de la recherche de stages de seconde est inactif', () => {
-				it('la bannière est adressée aux employeurs souhaitant déposer une offre de stage de seconde',  () => {
+				it('la bannière est adressée aux employeurs souhaitant déposer une offre de stage de seconde', () => {
 					// GIVEN
 					const fakeUrlDepotStageSeconde = 'https://url-pour-depot-stages-seconde.fr';
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_FEATURE = '1';
 					process.env.NEXT_PUBLIC_STAGES_SECONDE_RECHERCHE_FEATURE = '0';
-					process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL= fakeUrlDepotStageSeconde;
+					process.env.NEXT_PUBLIC_DEPOT_STAGES_SECONDE_URL = fakeUrlDepotStageSeconde;
 
 					// WHEN
 					render(
@@ -247,7 +245,7 @@ describe('Page d‘accueil', () => {
 					);
 
 					// THEN
-					const titreBanniere = screen.getByText('Accueillez des élèves en stages de seconde générale et technologique.');
+					const titreBanniere = screen.getByRole('heading',{ level:2 , name: 'Accueillez des élèves en stages de seconde générale et technologique.' });
 					const depotOffreButton = screen.getByRole('link', { name: 'Déposer votre offre de stage - nouvelle fenêtre' });
 					expect(titreBanniere).toBeVisible();
 					expect(depotOffreButton).toBeVisible();

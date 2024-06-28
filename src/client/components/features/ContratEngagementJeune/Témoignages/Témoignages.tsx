@@ -24,12 +24,12 @@ function TémoignageKévin() {
 					<Image src={portraitKévin} alt=""/>
 				</div>
 				<div className={styles.bio}>
-					<h3>Kévin, 18 ans</h3>
+					<p>Kévin, 18 ans</p>
 					<p>Sans diplôme et sans aucune ressource financière, il pourra bénéficier du Contrat d‘Engagement Jeune.</p>
 				</div>
 
 				<Programme>
-					<h4>Son programme :</h4>
+					<h3>Son programme :</h3>
 					<ul aria-label="Programme de Kévin">
 						<li>
 							3 mois dans sa Mission Locale avec son conseiller qui lui proposera des ateliers collectifs pour
@@ -64,12 +64,12 @@ function TémoignageLatifa() {
 					<Image src={portraitLatifa} alt=""/>
 				</div>
 				<div className={styles.bio}>
-					<h3>Latifa, 22 ans</h3>
-					<p>Diplômée d‘un CAP gestion, sans emploi et sans aucune ressource financière, elle pourra bénéficier du Contrat
-						d‘Engagement Jeune.</p>
+					<p>Latifa, 22 ans</p>
+					<p>Diplômée d‘un CAP gestion, sans emploi et sans aucune ressource financière, elle pourra bénéficier du
+						Contrat d‘Engagement Jeune.</p>
 				</div>
 				<Programme>
-					<h4>Son programme :</h4>
+					<h3>Son programme :</h3>
 					<ul aria-label="Programme de Latifa">
 						<li>
 							Un parcours de 9 mois construit avec son conseiller France Travail, dont 6 mois d‘accompagnement intensif

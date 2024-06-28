@@ -234,8 +234,7 @@ describe('<ConsulterAnnonce />', () => {
 				<ConsulterAnnonce annonceDeLogement={annonceDeLogement}/>
 			</DependenciesProvider>);
 
-			// NOTE (GAFI 06-02-2023): nécessaire puisque texte splitté dans plusieurs balises
-			const titre = screen.getByText((content, element) => element?.textContent === 'Émissions de GES');
+			const titre = screen.getByRole('heading', { level: 2, name: 'Émissions de GES' });
 			expect(titre).toBeVisible();
 			const abréviation = screen.getByText('GES');
 			expect(abréviation).toHaveAttribute('title', 'Gaz à Effet de Serre');
