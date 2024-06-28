@@ -1,8 +1,9 @@
 @use "@styles/utilities";
 @use "@styles/utilities-deprecated";
+@use "src/client/components/layouts/Header/Navigation/Nav.module" as navStyles;
 
 .headerBannerMobile {
-  @include utilities.media(xlarge) {
+  @media (min-width: navStyles.$breakpoint-menu) {
     display: none;
   }
 
@@ -23,7 +24,7 @@
 .headerBannerDektop {
   display: none;
 
-  @include utilities.media(xlarge) {
+  @media (min-width: navStyles.$breakpoint-menu) {
     text-decoration: none;
     padding: 0.5rem 1rem;
     border: 1px solid utilities.$color-primary;
