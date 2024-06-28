@@ -32,7 +32,7 @@ $background-color: utilities.$color-background-primary-alternative;
 
     @include utilities.media(large) {
       grid-auto-flow: column;
-      grid-template-columns: 1fr 1fr;
+      grid-auto-columns: 1fr;
       grid-template-rows: auto auto auto auto;
       grid-column-gap: 5rem;
     }
@@ -59,12 +59,10 @@ $background-color: utilities.$color-background-primary-alternative;
     & a {
       width: 100%;
 
-      &:last-child:not(:first-child) {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
-        @include utilities.media(large) {
-          margin-bottom: 0;
-        }
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      @include utilities.media(large) {
+        margin-bottom: 0;
       }
     }
   }
@@ -73,8 +71,8 @@ $background-color: utilities.$color-background-primary-alternative;
     text-align: center;
     margin-top: 2rem;
 
-    > span {
-      display: inline-block;
+    > a {
+      display: inline-flex;
     }
   }
 }
