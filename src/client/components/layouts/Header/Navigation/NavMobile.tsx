@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import { NavItem } from '~/client/components/layouts/Header/Navigation/NavItem/NavItem';
+
 import { Container } from '../../Container/Container';
 import styles from './Nav.module.scss';
 import { navigationItemList } from './NavigationStructure';
-import { NavItem } from './NavItem';
 import { NavItemWithSubItems } from './NavItemWithSubItems';
 
 export function NavMobile({ toggleModal }: { toggleModal: () => void }) {

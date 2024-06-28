@@ -7,7 +7,7 @@ import { Icon } from '~/client/components/ui/Icon/Icon';
 
 import styles from './Nav.module.scss';
 import { isNavigationItem, NavigationItemWithChildren } from './NavigationStructure';
-import { NavItem } from './NavItem';
+import { NavItem } from './NavItem/NavItem';
 
 interface NavItemWithSubItemsProps {
 	onClick?: () => void;
