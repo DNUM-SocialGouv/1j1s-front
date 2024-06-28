@@ -3,37 +3,74 @@
 @use "@styles/components/form/variables";
 
 $color-border-filters: lighten(utilities.$color-primary, 15%);
-$color-message-champs-obligatoires: utilities.$color-primary;
 
 .rechercheOffreForm {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
-}
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
 
-.filtresRechercherOffre {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-vertical-gap-mobile;
+  @include utilities.media(medium) {
+    grid-template-columns: 1fr auto;
+    grid-gap: variables.$form-horizontal-gap;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
 
-  & .inputButtonWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: variables.$form-vertical-gap-mobile;
+  & .filtres {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-gap: variables.$form-vertical-gap-mobile;
+
+    @include utilities.media(medium) {
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-areas: "metier metier metier localisation localisation localisation"
+    "typeContrat typeContrat tempsTravail tempsTravail niveau niveau"
+    "domaines domaines domaines domaines domaines domaines";
+
+      .metier {
+        grid-area: metier;
+      }
+
+      .localisation {
+        grid-area: localisation;
+      }
+
+      .typeContrat {
+        grid-area: typeContrat;
+      }
+
+      .tempsTravail {
+        grid-area: tempsTravail;
+      }
+
+      .niveau {
+        grid-area: niveau;
+      }
+
+      .domaines {
+        grid-area: domaines;
+      }
+    }
+  }
+
+  & .buttonRechercher {
+    > button {
+      width: 100%;
+    }
+
+    @include utilities.media(medium) {
+      margin-top: utilities.pixel-to-rem(28);
+    }
   }
 }
 
-.rechercherAccompagnementFiltres {
-  flex: 1 0;
+.modalfiltresAvancesButton button {
+  width: 100%;
 }
 
-.filtresAvancésModalTitle > span {
-  font-size: 0.875rem;
-}
-
-.filtresAvancésModalContenu {
-
+.modalfiltresAvancesContenu {
   & details {
     border-top: 1px solid $color-border-filters;
 
@@ -43,67 +80,5 @@ $color-message-champs-obligatoires: utilities.$color-primary;
   }
 }
 
-.filtresAvancésModalFooter {
-  justify-content: center;
-}
 
-.buttonRechercher > button {
-  width: 100%;
-}
 
-.champsObligatoires {
-  color: $color-message-champs-obligatoires;
-  margin-block: 1.25rem;
-}
-
-@include utilities.media(medium) {
-  .rechercheOffreForm {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    gap: variables.$form-horizontal-gap;
-  }
-
-  .filtresRechercherOffre {
-    gap: variables.$form-vertical-gap-desktop;
-
-    &  .inputButtonWrapper {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      gap: variables.$form-vertical-gap-desktop;
-      flex-wrap: wrap;
-      padding-block: 0;
-    }
-  }
-
-  .buttonRechercher {
-    margin-top: utilities.pixel-to-rem(28);
-  }
-
-  .inputButtonWrapper > div {
-    flex-grow: 1;
-  }
-
-  .filtreRechercheDesktop {
-    display: flex;
-    column-gap: variables.$form-horizontal-gap;
-    row-gap: variables.$form-vertical-gap-desktop;
-    flex-wrap: wrap;
-  }
-
-  .filtreRechercheDesktop > div {
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 25%;
-  }
-
-  .filtreRechercheDesktop > div > button {
-    width: 100%;
-  }
-}
-
-.applyFiltersButton button {
-  width: 100%;
-}
