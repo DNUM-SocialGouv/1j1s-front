@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.309.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.308.0...v3.309.0) (2024-06-28)
+
+
+### Features
+
+* **a11y:** modification hierarchie des titres ([#3120](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3120)) ([7523ebc](https://github.com/DNUM-SocialGouv/1j1s-front/commit/7523ebcb666f5e6626fb815c3b2bba7f5cb56b9c))
+
 ## [3.308.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.307.1...v3.308.0) (2024-06-28)
 
 
