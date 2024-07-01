@@ -8,7 +8,7 @@ import { TagList } from '~/client/components/ui/Tag/TagList';
 import useBreakpoint from '~/client/hooks/useBreakpoint';
 
 type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
-type RésultatRechercherSolutionProps = {
+type ResultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string | ReactNode;
 	intituléLienOffre?: string;
@@ -16,7 +16,7 @@ type RésultatRechercherSolutionProps = {
 	étiquetteOffreList: Array<string>;
 } & React.HTMLAttributes<HTMLElement> & LogoProps;
 
-export function RésultatRechercherSolution(props: PropsWithChildren<RésultatRechercherSolutionProps>) {
+export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRechercherSolutionProps>) {
 	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt= '', className } = props;
 	const { isSmallScreen } = useBreakpoint();
 	const idLink = useId();
