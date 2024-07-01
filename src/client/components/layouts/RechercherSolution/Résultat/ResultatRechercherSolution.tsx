@@ -48,23 +48,21 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 			</div>
 
 
-			{étiquetteOffreList.length > 0 && <div className={styles.tags}>
-				<TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>
-			</div>}
+			{étiquetteOffreList.length > 0 &&
+				<TagList className={styles.tags} list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>}
 
 			{lienOffre &&
 				// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
-				<div className={styles.linkContainer}>
-					<Link
-						id={idLink}
-						href={lienOffre}
-						appearance={'asQuaternaryButton'}
-						aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
-					>
-						{intituléLienOffre || 'En savoir plus'}
-						<Link.Icon name="angle-right"/>
-					</Link>
-				</div>}
+				<Link
+					id={idLink}
+					href={lienOffre}
+					appearance={'asQuaternaryButton'}
+					aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
+				>
+					{intituléLienOffre || 'En savoir plus'}
+					<Link.Icon name="angle-right"/>
+				</Link>
+			}
 		</div>
 	);
 }

@@ -13,17 +13,16 @@ $padding-card-content: 1rem;
   gap: 2rem;
   grid-template-rows: auto auto auto;
   grid-template-columns: auto 1fr;
+  padding-top: $padding-card-content;
+  padding-bottom: $padding-card-content;
   background: $color-card-background;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  padding-top: $padding-card-content;
-  padding-bottom: $padding-card-content;
 
   & > img {
     padding-left: $padding-card-content;
     width: 140px;
     grid-row: 1;
-    grid-column: 1;
     margin: auto;
     object-fit: contain;
   }
@@ -47,31 +46,25 @@ $padding-card-content: 1rem;
   }
 
   & .tags {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    display: flex;
-    padding: $padding-card-content $padding-card-content 0 $padding-card-content;
     border-top: $border-card-lead;
+    grid-column: 1 / -1;
+    padding: $padding-card-content $padding-card-content 0 $padding-card-content;
+    display: flex;
   }
 
-  & .linkContainer {
+  & > a {
     grid-column: 2;
-    grid-row: 3;
     padding-right: $padding-card-content;
-    text-align: right;
+    margin-left: auto;
 
-    a {
-      margin-left: auto;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0);
-      }
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
     }
   }
 
@@ -81,30 +74,24 @@ $padding-card-content: 1rem;
 
     & > img {
       padding: 0;
-      width: 190px;
+      width: 150px;
       grid-row: 1 / -1;
-      grid-column: 1;
-      margin: auto;
-      object-fit: contain;
     }
 
     & .mainContent {
       padding: 0;
-      grid-row: 1;
       grid-column: 2;
     }
 
     & .tags {
-      border: 0;
-      grid-row: 2;
-      grid-column: 2;
       padding: 0;
+      border: 0;
+      grid-column: 2;
     }
 
-    & .linkContainer {
+    & > a {
       padding: 0;
       grid-column: 2;
-      grid-row: 3;
     }
   }
 }
