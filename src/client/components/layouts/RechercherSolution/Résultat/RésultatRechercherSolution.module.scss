@@ -71,6 +71,7 @@ $padding-card-content: 1rem;
   @include utilities.media(medium) {
     row-gap: 1rem;
     padding: $padding-card-content;
+    border-left: 4px solid #566bb1;
 
     & > img {
       padding: 0;
