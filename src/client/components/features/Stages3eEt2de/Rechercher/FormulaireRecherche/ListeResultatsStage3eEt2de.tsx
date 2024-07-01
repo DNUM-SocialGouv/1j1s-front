@@ -1,15 +1,15 @@
-import dynamic from 'next/dynamic';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 
 import styles from './ListeResultatsStage3eEt2de.module.scss';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution').then((mod) => mod.ResultatRechercherSolution), { ssr: false });
 
 interface ListeResultatsStage3eEt2deProps {
 	resultatList: ResultatRechercheStage3eEt2de | undefined;
@@ -63,7 +63,7 @@ function ResultatStage3eEt2de(stage3eEt2de: Stage3eEt2de) {
 
 	return (
 		<li key={uuidv4()}>
-			<RésultatRechercherSolution
+			<ResultatRechercherSolution
 				intituléOffre={stage3eEt2de.nomEntreprise}
 				sousTitreOffre={<>
 					<p>{stage3eEt2de.domaine}</p>

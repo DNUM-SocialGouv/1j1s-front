@@ -1,15 +1,13 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import Entreprise = ResultatRechercheAlternance.Entreprise;
-
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution').then((mod) => mod.ResultatRechercherSolution), { ssr: false });
-
 
 export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 	entrepriseList: Array<ResultatRechercheAlternance.Entreprise>
@@ -31,7 +29,7 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 			<ListeRésultatsRechercherSolution aria-label="Entreprises">
 				{entrepriseList.map((entreprise, index) => (
 					<li key={`${entreprise.id}-${index}`}>
-						<RésultatRechercherSolution
+						<ResultatRechercherSolution
 							lienOffre={entreprise.candidaturePossible ? `/apprentissage/entreprise/${entreprise.id}` : undefined}
 							logo={'/images/logos/fallback.svg'}
 							intituléOffre={entreprise.nom}
@@ -43,7 +41,7 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 									<li>{entreprise.secteurs.join(', ')}</li>}
 								{entreprise.adresse && <li>{entreprise.adresse}</li>}
 							</ul>
-						</RésultatRechercherSolution>
+						</ResultatRechercherSolution>
 					</li>
 				))}
 			</ListeRésultatsRechercherSolution>

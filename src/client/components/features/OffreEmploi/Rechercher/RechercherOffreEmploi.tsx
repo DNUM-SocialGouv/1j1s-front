@@ -13,12 +13,11 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
-import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
-	LightHero,
-	LightHeroPrimaryText,
-	LightHeroSecondaryText,
-} from '~/client/components/ui/Hero/LightHero';
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+import { EnTete } from '~/client/components/ui/EnTete/EnTete';
+import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useOffreQuery } from '~/client/hooks/useOffreQuery';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
@@ -29,8 +28,6 @@ import {
 	Offre,
 	RésultatsRechercheOffre,
 } from '~/server/offres/domain/offre';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution').then((mod) => mod.ResultatRechercherSolution), { ssr: false });
 
 // NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
 const FormulaireRechercheOffreEmploi = dynamic(() => import('../FormulaireRecherche/FormulaireRechercheOffreEmploi').then((mod) => mod.FormulaireRechercheOffreEmploi), { ssr: false });
@@ -109,7 +106,7 @@ function ListeOffreEmploi({ résultatList }: ListeRésultatProps) {
 		<ListeRésultatsRechercherSolution aria-label="Offres d‘emplois">
 			{résultatList.map((offreEmploi: Offre) => (
 				<li key={offreEmploi.id}>
-					<RésultatRechercherSolution
+					<ResultatRechercherSolution
 						étiquetteOffreList={offreEmploi.étiquetteList}
 						intituléOffre={offreEmploi.intitulé}
 						lienOffre={`/emplois/${offreEmploi.id}`}

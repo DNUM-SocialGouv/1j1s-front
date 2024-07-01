@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,6 +18,9 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
@@ -29,8 +31,6 @@ import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRech
 import { Erreur } from '~/server/errors/erreur.types';
 import { RésultatRechercheFormation } from '~/server/formations/domain/formation';
 import { transformObjectToQueryString } from '~/server/services/utils/urlParams.util';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution').then((mod) => mod.ResultatRechercherSolution), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation en apprentissage';
 
@@ -144,7 +144,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 		<ListeRésultatsRechercherSolution aria-label="Formations en alternance">
 			{résultatList.map((formation) => (
 				<li key={uuidv4()}>
-					<RésultatRechercherSolution
+					<ResultatRechercherSolution
 						lienOffre={getLienOffre(formation, queryParams)}
 						intituléOffre={formation.titre}
 						étiquetteOffreList={formation.tags as string[]}
@@ -153,7 +153,7 @@ function ListeFormation({ résultatList, queryParams }: ListeRésultatProps) {
 							<div>{formation.nomEntreprise && formation.nomEntreprise}</div>
 							<div>Adresse : {formation.adresse && formation.adresse}</div>
 						</section>
-					</RésultatRechercherSolution>
+					</ResultatRechercherSolution>
 				</li>
 			))}
 		</ListeRésultatsRechercherSolution>
