@@ -5,9 +5,8 @@ import styles from '~/client/components/layouts/RechercherSolution/Résultat/Ré
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';
-import useBreakpoint from '~/client/hooks/useBreakpoint';
 
-type LogoProps = ({ logo?: never, logoAlt?: never} | { logo: string, logoAlt?: string })
+type LogoProps = ({ logo?: never, logoAlt?: never } | { logo: string, logoAlt?: string })
 type ResultatRechercherSolutionProps = {
 	lienOffre?: string;
 	intituléOffre: string | ReactNode;
@@ -17,52 +16,55 @@ type ResultatRechercherSolutionProps = {
 } & React.HTMLAttributes<HTMLElement> & LogoProps;
 
 export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRechercherSolutionProps>) {
-	const { lienOffre, intituléOffre, intituléLienOffre, logo, sousTitreOffre, étiquetteOffreList, children, logoAlt= '', className } = props;
-	const { isSmallScreen } = useBreakpoint();
+	const {
+		lienOffre,
+		intituléOffre,
+		intituléLienOffre,
+		logo,
+		sousTitreOffre,
+		étiquetteOffreList,
+		children,
+		logoAlt = '',
+		className,
+	} = props;
 	const idLink = useId();
 	const idIntitulé = useId();
-
-	const cardTagsAndCTA = () => {
-		return (
-			<section className={styles.cardTagsAndCTA}>
-				{étiquetteOffreList.length > 0 &&
-					<TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>}
-
-				{lienOffre &&
-					// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
-					<div className={styles.cardLinkContainer}>
-						<Link
-							id={idLink}
-							className={classNames(styles.cardLink)}
-							href={lienOffre}
-							appearance={'asQuaternaryButton'}
-							aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
-						>
-							{intituléLienOffre || 'En savoir plus'}
-							<Link.Icon name="angle-right"/>
-						</Link>
-					</div>
-				}
-			</section>
-		);
-	};
 
 	return (
 		<div
 			className={classNames(styles.card, className)}
+			// TODO (BRUJ 01/07/2024): supprimer ce testid
 			data-testid="RésultatRechercherSolution">
-			<div className={classNames(styles.cardLead, logo && styles.logoCardLead)}>
-				{ logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
-				<div className={styles.offreLead}>
-					<header>
-						<h3 id={idIntitulé} className={styles.title}>{intituléOffre}</h3>
-						{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
-					</header>
-					{children && <section className={styles.offreLeadDescription}>{children}</section>}
-					{!isSmallScreen && cardTagsAndCTA()}
-				</div>
+
+			{logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
+
+			<div className={styles.mainContent}>
+				<header>
+					<h3 id={idIntitulé} className={styles.title}>{intituléOffre}</h3>
+					{sousTitreOffre && <p className={styles.subtitle}>{sousTitreOffre}</p>}
+				</header>
+
+				{children && <div>{children}</div>}
 			</div>
-			{isSmallScreen && cardTagsAndCTA()}
+
+
+			{étiquetteOffreList.length > 0 && <div className={styles.tags}>
+				<TagList list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>
+			</div>}
+
+			{lienOffre &&
+				// NOTE (BRUJ 31-03-2023): L‘intégralité de la carte est cliquable grâce aux propriétés CSS
+				<div className={styles.linkContainer}>
+					<Link
+						id={idLink}
+						href={lienOffre}
+						appearance={'asQuaternaryButton'}
+						aria-labelledby={intituléLienOffre ? undefined : `${idIntitulé} ${idLink}`}
+					>
+						{intituléLienOffre || 'En savoir plus'}
+						<Link.Icon name="angle-right"/>
+					</Link>
+				</div>}
 		</div>
 	);
 }

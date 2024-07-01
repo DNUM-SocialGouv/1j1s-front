@@ -5,110 +5,106 @@ $color-card-lead-border: utilities.$color-primary;
 $color-border-left: utilities.$color-primary;
 $color-call-to-action-text: utilities.$color-cta-texte-secondary;
 $border-card-lead: 4px solid $color-card-lead-border;
+$padding-card-content: 1rem;
 
 .card {
   position: relative;
+  display: grid;
+  gap: 2rem;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto 1fr;
   background: $color-card-background;
   border-radius: 20px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding-top: $padding-card-content;
+  padding-bottom: $padding-card-content;
+
+  & > img {
+    padding-left: $padding-card-content;
+    width: 140px;
+    grid-row: 1;
+    grid-column: 1;
+    margin: auto;
+    object-fit: contain;
+  }
+
+  & .mainContent {
+    grid-row: 1;
+    grid-column: 2;
+    padding-right: $padding-card-content;
+
+    & > header {
+      h3 {
+        @extend %bold;
+        @include utilities.title-small;
+      }
+
+      p {
+        min-height: 24px;
+        @include utilities.text-medium;
+      }
+    }
+  }
+
+  & .tags {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    padding: $padding-card-content $padding-card-content 0 $padding-card-content;
+    border-top: $border-card-lead;
+  }
+
+  & .linkContainer {
+    grid-column: 2;
+    grid-row: 3;
+    padding-right: $padding-card-content;
+    text-align: right;
+
+    a {
+      margin-left: auto;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0);
+      }
+    }
+  }
 
   @include utilities.media(medium) {
-    padding: 2rem 1.5rem;
-    border-left: 4px solid $color-border-left;
-  }
+    row-gap: 1rem;
+    padding: $padding-card-content;
 
-  & .cardLead {
-    display: flex;
-    padding: 1.5rem;
-    border-bottom: $border-card-lead;
-
-    @include utilities.media(medium) {
-      border-bottom: none;
+    & > img {
       padding: 0;
-    }
-
-    &:has(img) {
-      gap: 1.5rem;
-
-      @include utilities.media(medium) {
-        gap: 2.5rem;
-      }
-    }
-
-    > img {
-      margin-top: auto;
-      margin-bottom: auto;
-      width: 96px;
-      height: 56px;
+      width: 190px;
+      grid-row: 1 / -1;
+      grid-column: 1;
+      margin: auto;
       object-fit: contain;
-      flex-shrink: 0;
-
-      @include utilities.media(medium) {
-        width: 190px;
-        height: 120px;
-      }
-    }
-  }
-
-  //NOTE : logoCardLead pourra être supprimé quand le pseudo-selecteur :has sera suffisament supporté
-  & .logoCardLead {
-    gap: 2rem;
-    @include utilities.media(medium) {
-      gap: 2.5rem;
-    }
-  }
-
-  & .offreLead {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    .title {
-      @extend %bold;
-      @include utilities.title-small;
     }
 
-    .subtitle {
-      min-height: 24px;
-      @include utilities.text-medium;
-    }
-
-    .description {
-      @include utilities.text-medium;
-    }
-  }
-
-  & .cardTagsAndCTA {
-    display: flex;
-    flex-direction: column;
-    padding: 0.75rem 0.75rem 0.75rem 1.25rem;
-
-    @include utilities.media(medium) {
+    & .mainContent {
       padding: 0;
-      margin-top: 1rem;
+      grid-row: 1;
+      grid-column: 2;
     }
 
-    & .cardLinkContainer {
-      padding: 1rem;
-      text-align: right;
+    & .tags {
+      border: 0;
+      grid-row: 2;
+      grid-column: 2;
+      padding: 0;
+    }
 
-      @include utilities.media(medium) {
-        padding: 0;
-      }
-
-      .cardLink {
-        margin-left: auto;
-
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0);
-        }
-      }
+    & .linkContainer {
+      padding: 0;
+      grid-column: 2;
+      grid-row: 3;
     }
   }
 }
