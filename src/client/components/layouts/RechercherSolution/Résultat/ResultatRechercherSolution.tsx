@@ -31,17 +31,14 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 	const idIntitulé = useId();
 
 	return (
-		<div
-			className={classNames(styles.card, className)}
-			// TODO (BRUJ 01/07/2024): supprimer ce testid
-			data-testid="RésultatRechercherSolution">
+		<div className={classNames(styles.card, className)}>
 
 			{logo && <Image alt={logoAlt} src={logo} width={120} height={120}/>}
 
 			<div className={styles.mainContent}>
 				<header>
 					<h3 id={idIntitulé} className={styles.title}>{intituléOffre}</h3>
-					{sousTitreOffre && <p className={styles.subtitle}>{sousTitreOffre}</p>}
+					{sousTitreOffre && <div className={styles.subtitle}>{sousTitreOffre}</div>}
 				</header>
 
 				{children && <div>{children}</div>}
