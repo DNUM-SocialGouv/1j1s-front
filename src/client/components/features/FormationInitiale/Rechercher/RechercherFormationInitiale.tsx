@@ -19,6 +19,7 @@ import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQu
 import { FormationInitialeService } from '~/client/services/formationInitiale/formationInitiale.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
 	FormationInitiale,
@@ -51,7 +52,7 @@ export function RechercherFormationInitiale() {
 
 		formationInitialeService.rechercherFormationInitiale(formationInitialeQuery)
 			.then((response) => {
-				if (response.instance === 'success') {
+				if (isSuccess(response)) {
 					setTitle(formatRechercherSolutionDocumentTitle(`${PREFIX_TITRE_PAGE}${response.result.nombreDeResultat === 0 ? ' - Aucun résultat' : ''}`));
 					const formationInitiales = response.result.formationsInitiales;
 					setResultatList(formationInitiales);
@@ -116,8 +117,16 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		return undefined;
 	}
 
-	function getLienOffre(identifiant?: string){
+	function getLienOffre(identifiant?: string) {
 		return identifiant ? `/formations-initiales/${encodeURIComponent(identifiant)}` : undefined;
+	}
+
+	function getTags(formation: FormationInitiale) {
+		const tags = [];
+		if (formation.isCertifiante) tags.push('Certifiante');
+		tags.push(formation.niveauDeSortie);
+		tags.push(formation.duree);
+		return tags;
 	}
 
 	return (
@@ -125,7 +134,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 			{resultatList.map((formation: FormationInitiale) => (
 				<li key={formation.libelle}>
 					<RésultatRechercherSolution
-						étiquetteOffreList={formation.tags}
+						étiquetteOffreList={getTags(formation)}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}
 						lienOffre={getLienOffre(formation.identifiant)}

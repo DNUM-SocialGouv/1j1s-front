@@ -16,9 +16,12 @@ export function aResultatFormationInitiale(override?: Partial<ResultatRechercheF
 
 export function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
-		libelle: 'Formation Boulanger Chez Pierre Hermé',
-		tags: ['Certifiante', 'Bac + 2', '1 an'],
-		url_formation: 'https://www.onisep.fr/formations/macarons',
+		duree: '1 an',
+		identifiant: 'FOR.1234',
+		isCertifiante: true,
+		libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
+		niveauDeSortie: 'Bac + 2',
+		url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 		...override,
 	};
 }

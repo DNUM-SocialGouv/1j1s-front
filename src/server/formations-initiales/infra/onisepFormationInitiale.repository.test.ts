@@ -196,7 +196,6 @@ describe('onisep formation initiale repository', () => {
 					...aFormationInitiale({
 						identifiant: 'FOR.1234',
 						libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-						tags: ['Certifiante', 'Bac + 2', '1 an'],
 						url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 					}),
 				})));
@@ -235,7 +234,6 @@ describe('onisep formation initiale repository', () => {
 					...aFormationInitiale({
 						identifiant: 'FOR.1234',
 						libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-						tags: ['Certifiante', 'Bac + 2', '1 an'],
 						url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 					}),
 				})));

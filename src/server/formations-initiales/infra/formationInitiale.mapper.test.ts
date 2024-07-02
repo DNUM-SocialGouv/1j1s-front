@@ -2,10 +2,8 @@
  * @jest-environment jsdom
  */
 
-import {
-	FormationInitiale, FormationInitialeDetailCMS,
-	ResultatRechercheFormationsInitiales,
-} from '~/server/formations-initiales/domain/formationInitiale';
+import { aResultatFormationInitiale } from '~/client/services/formationInitiale/formationInitiale.service.fixture';
+import { FormationInitialeDetailCMS } from '~/server/formations-initiales/domain/formationInitiale';
 import {
 	aFormationInitiale,
 	aFormationInitialeDetailCMS,
@@ -55,54 +53,57 @@ describe('mapRechercheformationInitiale', () => {
 			})],
 			total: 150,
 		});
-		const formationInitialeMapped = mapRechercheformationInitiale(apiResponse);
 
-		const formationInitialeAttendue: ResultatRechercheFormationsInitiales = {
+		const formationInitialeAttendue = aResultatFormationInitiale({
 			formationsInitiales: [
-				{
+				aFormationInitiale({
+					duree: '1 an',
 					identifiant: 'FOR.1234',
+					isCertifiante: true,
 					libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-					tags: ['Certifiante', 'Bac + 2', '1 an'],
+					niveauDeSortie: 'Bac + 2',
 					url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
-				},
+				}),
 			],
 			nombreDeResultat: 150,
-		};
-		expect(formationInitialeMapped).toEqual(formationInitialeAttendue);
+		});
+
+		expect(mapRechercheformationInitiale(apiResponse)).toEqual(formationInitialeAttendue);
 	});
 
-	describe('map la certification', () => {
-		it('lorsque le niveau de certification est 0, je renvoie une string vide', () => {
+	describe('formation certifiante', () => {
+		it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '0' });
 			const apiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
 			const formationInitialeMapped = mapRechercheformationInitiale(apiResponse);
-			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped.formationsInitiales[0].isCertifiante).toBe(false);
 		});
 
-		it('lorsque le niveau de certification est une string vide, je renvoie une string vide', () => {
+		it('lorsque le niveau de certification est une string vide, la formation n‘est pas certifiante', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: '' });
 			const apiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
 			const formationInitialeMapped = mapRechercheformationInitiale(apiResponse);
-			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual([formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped.formationsInitiales[0].isCertifiante).toBe(false);
 		});
 
-		it('lorsque le niveau de certification est fourni, je renvoie l‘information attendue', () => {
+		it('lorsque le niveau de certification est fourni, la formation est certifiante', () => {
 			const formationInitialeApiResponse = aFormationInitialeApiResponse({ niveau_de_certification: 'niveau 5 (bac + 2)' });
 			const formationInitialeListApiResponse = aResultatRechercheFormationInitialeApiResponse({ results: [formationInitialeApiResponse] });
 			const formationInitialeMapped = mapRechercheformationInitiale(formationInitialeListApiResponse);
-			expect(formationInitialeMapped.formationsInitiales[0].tags).toEqual(['Certifiante', formationInitialeApiResponse.niveau_de_sortie_indicatif, formationInitialeApiResponse.duree]);
+			expect(formationInitialeMapped.formationsInitiales[0].isCertifiante).toBe(true);
 		});
 	});
 });
 
 describe('mapFormationInitialeDetailFromOnisep', () => {
 	it('map une formation initiale pour afficher le détail', () => {
-		const formationInitialeResultExpected: FormationInitiale = {
+		const formationInitialeResultExpected = aFormationInitiale({
 			identifiant: 'FOR.1234',
+			isCertifiante: true,
 			libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-			tags: ['Certifiante', 'Bac + 2', '1 an'],
+			niveauDeSortie: 'Bac + 2',
 			url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
-		};
+		});
 
 		const formationInitialeMapped = mapFormationInitialeDetailFromOnisep(aFormationInitialeApiResponse({
 			duree: '1 an',
@@ -113,56 +114,6 @@ describe('mapFormationInitialeDetailFromOnisep', () => {
 		}));
 
 		expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-	});
-
-	describe('affiche les tags', () => {
-		it('lorsque le niveau de certification est 0, la formation n‘est pas certifiante', () => {
-			const formationInitialeResultExpected = aFormationInitiale({
-				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				tags: ['Bac + 2', '1 an'],
-			});
-
-			const formationInitialeMapped = mapFormationInitialeDetailFromOnisep(aFormationInitialeApiResponse({
-				duree: '1 an',
-				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				niveau_de_certification: '0',
-				niveau_de_sortie_indicatif: 'Bac + 2',
-			}));
-
-			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-		});
-
-		it('lorsque le niveau de certification est vide, la formation n‘est pas certifiante', () => {
-			const formationInitialeResultExpected = aFormationInitiale({
-				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				tags: ['Bac + 2', '1 an'],
-			});
-
-			const formationInitialeMapped = mapFormationInitialeDetailFromOnisep(aFormationInitialeApiResponse({
-				duree: '1 an',
-				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				niveau_de_certification: '',
-				niveau_de_sortie_indicatif: 'Bac + 2',
-			}));
-
-			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-		});
-
-		it('lorsque le niveau de certification est valide, la formation est certifiante', () => {
-			const formationInitialeResultExpected = aFormationInitiale({
-				libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				tags: ['Certifiante', 'Bac + 2', '1 an'],
-			});
-
-			const formationInitialeMapped = mapFormationInitialeDetailFromOnisep(aFormationInitialeApiResponse({
-				duree: '1 an',
-				libelle_formation_principal: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-				niveau_de_certification: '3',
-				niveau_de_sortie_indicatif: 'Bac + 2',
-			}));
-
-			expect(formationInitialeMapped).toEqual(formationInitialeResultExpected);
-		});
 	});
 });
 
@@ -187,8 +138,6 @@ describe('mapFormationInitialeDetailFromStrapi', () => {
 			poursuiteEtudes: 'Le BTS est un diplôme conçu pour une insertion professionnelle',
 		});
 
-		const formationInitialeMapped = mapFormationInitialeDetailFromStrapi(formationInitialeStrapiReponse);
-
-		expect(formationInitialeMapped).toStrictEqual(formationExpected);
+		expect(mapFormationInitialeDetailFromStrapi(formationInitialeStrapiReponse)).toStrictEqual(formationExpected);
 	});
 });
