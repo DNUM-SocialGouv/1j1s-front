@@ -2,26 +2,23 @@
 @use "@styles/utilities-deprecated";
 @use "@styles/utilities";
 
+
 @mixin underline {
   text-decoration: underline;
   text-underline-offset: 0.2rem;
 }
 
+// NOTE (BRUJ 01/07/2024): breakpoint particulier pour le menu pour eviter le scroll horizontal sur des supports de taille moyenne
+$breakpoint-menu: 67em;
 $offset-sub-nav: 2.5rem;
 $outline-offset-focus: -2px;
 $outline-offset-focus-last-child: -4px;
 
-
 .navigationDesktop {
   display: none;
 
-  @include utilities.media(large) {
+  @media (min-width: $breakpoint-menu) {
     display: unset;
-  }
-
-  padding-inline: 1rem;
-
-  @include utilities.media(large) {
     border-top: 1px solid utilities.$color-background-disabled;
     padding-inline: 0;
   }
