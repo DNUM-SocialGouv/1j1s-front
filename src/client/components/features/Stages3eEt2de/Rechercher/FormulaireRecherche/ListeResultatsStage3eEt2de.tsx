@@ -5,7 +5,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { ModeDeContact } from '~/server/stage-3e-et-2de/domain/candidatureStage3eEt2de';
 import { ResultatRechercheStage3eEt2de, Stage3eEt2de } from '~/server/stage-3e-et-2de/domain/stage3eEt2de';
 

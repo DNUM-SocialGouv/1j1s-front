@@ -4,7 +4,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
 
 interface ListeResultatsEmploiEuropeProps {

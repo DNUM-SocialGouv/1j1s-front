@@ -4,7 +4,7 @@ import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DateService } from '~/client/services/date/date.service';

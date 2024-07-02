@@ -5,7 +5,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { Mission } from '~/server/engagement/domain/engagement';
 
 interface ListeMissionsProps {

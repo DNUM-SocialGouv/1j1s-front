@@ -14,7 +14,7 @@ import {
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { EnTete } from '~/client/components/ui/EnTete/EnTete';
 import {
 	formatLibelleLocalisation,

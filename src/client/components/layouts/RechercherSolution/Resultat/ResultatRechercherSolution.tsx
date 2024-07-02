@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { PropsWithChildren, ReactNode, useId } from 'react';
 
-import styles from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution.module.scss';
+import styles from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution.module.scss';
 import { Image } from '~/client/components/ui/Img';
 import { Link } from '~/client/components/ui/Link/Link';
 import { TagList } from '~/client/components/ui/Tag/TagList';

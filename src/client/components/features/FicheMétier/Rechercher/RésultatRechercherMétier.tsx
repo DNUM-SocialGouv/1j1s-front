@@ -4,7 +4,7 @@ import styles from '~/client/components/features/FicheMétier/Rechercher/Résult
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import useSanitize from '~/client/hooks/useSanitize';
 import { formatCarriageReturnToHtml } from '~/client/utils/formatCarriageReturnToHtml';
 import { mapFicheMetier } from '~/server/fiche-metier/domain/ficheMetierHttp';

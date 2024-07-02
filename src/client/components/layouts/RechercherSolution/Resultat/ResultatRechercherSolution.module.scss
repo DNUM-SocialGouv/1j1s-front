@@ -49,7 +49,6 @@ $padding-card-content: 1rem;
     border-top: $border-card-lead;
     grid-column: 1 / -1;
     padding: $padding-card-content $padding-card-content 0 $padding-card-content;
-    display: flex;
   }
 
   & > a {

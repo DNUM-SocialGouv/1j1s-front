@@ -5,7 +5,7 @@ import {
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import {
 	ResultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/ResultatRechercherSolution';
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { ResultatRechercheAlternance } from '~/server/alternances/domain/alternance';
 import Entreprise = ResultatRechercheAlternance.Entreprise;
 
