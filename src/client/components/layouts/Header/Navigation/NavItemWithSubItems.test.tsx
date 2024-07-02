@@ -4,7 +4,7 @@
 
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { NavItemWithSubItems } from './NavItemWithSubItems';
