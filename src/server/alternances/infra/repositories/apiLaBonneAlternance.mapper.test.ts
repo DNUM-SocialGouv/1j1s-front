@@ -88,7 +88,7 @@ describe('mapRechercheAlternance', () => {
 				candidaturePossible: true,
 				id: '52352551700026',
 				nom: 'CLUB VET',
-				nombreSalariés: '0 à 9 salariés',
+				nombreSalariés: { max: 9, min: 0 },
 				secteurs: ['Autres intermédiaires du commerce en produits divers', 'Développement informatique'],
 				ville: 'Paris',
 			}],
@@ -119,42 +119,68 @@ describe('mapRechercheAlternance', () => {
 
 	describe('Entreprise', () => {
 		describe('Converti la taille d’une entreprise', () => {
-			it('renvoie la taille de l’entrerprise formatté', () => {
+			it('lorsque l‘entreprise ne fournis pas de nombre d‘employé, ne renvoie pas le nombre d‘employé', () => {
 				const input = aLaBonneAlternanceApiJobsResponse({
 					lbaCompanies: {
-						results: [
-							aLbaCompaniesResponse({
-								company: {
-									name: 'CLUB VET',
-									size: '0-0',
-								},
-							}),
-							aLbaCompaniesResponse({
-								company: {
-									name: 'Entreprise2',
-									size: '55',
-								},
-							}),
-							aLbaCompaniesResponse({
-								company: {
-									name: 'Entreprise3',
-									size: '20-30',
-								},
-							}),
-						],
-					},
-					matchas: {
-						results: [],
-					},
-					peJobs: {
-						results: [],
+						results: [aLbaCompaniesResponse({ company: { name: 'CLUB VET', size: undefined } })],
 					},
 				});
 				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
 
-				expect(resultEntreprise[0].nombreSalariés).toEqual('0 à 9 salariés');
-				expect(resultEntreprise[1].nombreSalariés).toEqual('55 salariés');
-				expect(resultEntreprise[2].nombreSalariés).toEqual('20 à 30 salariés');
+				expect(resultEntreprise[0].nombreSalariés).toEqual(undefined);
+			});
+
+			it('lorsque l‘entreprise fourni un nombre d‘employé invalide, ne renvoie pas le nombre d‘employé', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [
+							aLbaCompaniesResponse({ company: { name: 'CLUB VET', size: 'je ne suis pas un nombre' } }),
+							aLbaCompaniesResponse({
+								company: {
+									name: 'CLUB VET',
+									size: 'je ne suis pas un nombre - avec un tiret',
+								},
+							}),
+						],
+					},
+				});
+				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
+
+				expect(resultEntreprise[0].nombreSalariés).toEqual(undefined);
+				expect(resultEntreprise[1].nombreSalariés).toEqual(undefined);
+			});
+
+			it('lorsque l‘entreprise fourni un nombre d‘employé valide sous la forme d‘une fourchette valant 0, renvoie une fourchette entre 0 et 9', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [aLbaCompaniesResponse({ company: { name: 'CLUB VET', size: '0-0' } })],
+					},
+				});
+				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
+
+				expect(resultEntreprise[0].nombreSalariés).toEqual({ max: 9, min: 0 });
+			});
+
+			it('lorsque l‘entreprise fourni un nombre d‘employé valide sous la forme d‘une fourchette, renvoie le nombre d‘employé min et max', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [aLbaCompaniesResponse({ company: { name: 'CLUB VET', size: '6-12' } })],
+					},
+				});
+				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
+
+				expect(resultEntreprise[0].nombreSalariés).toEqual({ max: 12, min: 6 });
+			});
+
+			it('lorsque l‘entreprise fourni un nombre d‘employé valide sous la forme d‘un nombre, renvoie le nombre d‘employé min et max', () => {
+				const input = aLaBonneAlternanceApiJobsResponse({
+					lbaCompanies: {
+						results: [aLbaCompaniesResponse({ company: { name: 'CLUB VET', size: '15' } })],
+					},
+				});
+				const resultEntreprise = mapRechercheAlternanceListe(input).entrepriseList;
+
+				expect(resultEntreprise[0].nombreSalariés).toEqual({ max: 15, min: 15 });
 			});
 		});
 

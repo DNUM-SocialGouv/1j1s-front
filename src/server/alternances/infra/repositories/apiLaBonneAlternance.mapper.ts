@@ -101,11 +101,18 @@ function mapRésultatRechercherAlternancePEJob(alternance: PEJobs): ResultatRech
 function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies): ResultatRechercheAlternance.Entreprise {
 	const getNombreSalariés = (tailleEntreprise: string) => {
 		if (tailleEntreprise === '0-0') {
-			return '0 à 9 salariés';
+			return { max: 9, min: 0 };
 		}
-		if (tailleEntreprise.includes('-'))
-			return `${tailleEntreprise.replace('-', ' à ')} salariés`;
-		return `${tailleEntreprise} salariés`;
+
+		if (tailleEntreprise.includes('-')) {
+			const [ minTailleEntreprise, maxTailleEntreprise ] = tailleEntreprise.split('-').map(Number);
+			const isMinAndMaxNumberValid = minTailleEntreprise >= 0 && maxTailleEntreprise >= 0;
+			return isMinAndMaxNumberValid ? { max: maxTailleEntreprise, min: minTailleEntreprise } : undefined;
+		}
+
+		const tailleEntrepriseNumber = Number(tailleEntreprise);
+		const isTailleEntrepriseNumberValide = tailleEntrepriseNumber >= 0;
+		return isTailleEntrepriseNumberValide ? { max: tailleEntrepriseNumber, min: tailleEntrepriseNumber } : undefined;
 	};
 
 	return {
@@ -113,7 +120,7 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 		candidaturePossible: !!entreprise.contact?.email && !!entreprise.contact?.iv,
 		id: entreprise.company?.siret,
 		nom: entreprise.company.name,
-		nombreSalariés: entreprise.company?.size && getNombreSalariés(entreprise.company.size),
+		nombreSalariés: entreprise.company?.size ? getNombreSalariés(entreprise.company.size) : undefined,
 		secteurs: entreprise.nafs?.map((naf) => naf.label),
 		ville: entreprise.place?.city,
 	};
