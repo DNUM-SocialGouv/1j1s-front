@@ -25,6 +25,7 @@ import {
 } from '~/client/services/établissementAccompagnement/etablissementAccompagnement.service';
 import empty from '~/client/utils/empty';
 import { formatRechercherSolutionDocumentTitle } from '~/client/utils/formatRechercherSolutionDocumentTitle.util';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
 	EtablissementAccompagnement,
@@ -46,7 +47,7 @@ export function RechercherAccompagnement() {
 			setErreurRecherche(undefined);
 			établissementAccompagnementService.rechercher(accompagnementQuery)
 				.then((response) => {
-					if (response.instance === 'success') {
+					if (isSuccess(response)) {
 						setTitle(formatRechercherSolutionDocumentTitle(`Rechercher un établissement d‘accompagnement ${response.result.length === 0 ? ' - Aucun résultat' : ''}`));
 						setÉtablissementAccompagnementList(response.result);
 					} else {
