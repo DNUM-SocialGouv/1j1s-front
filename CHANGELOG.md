@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.314.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.313.0...v3.314.0) (2024-07-02)
+
+
+### Features
+
+* **menu:** ne plus avoir de scroll horizontal ([#3126](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3126)) ([861139e](https://github.com/DNUM-SocialGouv/1j1s-front/commit/861139e3f8545962691b56da36ec09ffbe1fd1d5))
+
 ## [3.313.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.312.0...v3.313.0) (2024-07-02)
 
 
