@@ -26,6 +26,7 @@ import {
 	StageDeposerOffreEtape3PersistenceService,
 } from '~/client/services/stageDeposerOffreEtape3Persistence/stageDeposerOffreEtape3Persistence.service';
 import { URL_DEPOSER_OFFRE } from '~/pages/stages/deposer-offre/index.page';
+import { isSuccess } from '~/server/errors/either';
 
 // NOTE (BRUJ 06/05/2024): Pour éviter l'hydratation mismatch lié au fait que le local storage peut modifier le contenu du html (valeur par défaut) cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
 const ComboboxPays = dynamic(() => import('~/client/components/ui/Form/Combobox/ComboboxPays').then((mod) => mod.ComboboxPays), { ssr: false });
@@ -188,7 +189,7 @@ export default function StageDeposerOffreFormulaireÉtape3Localisation() {
 
 		if (informationsEntreprise !== null && informationsStage !== null) {
 			const result = await stageService.enregistrerOffreDeStage(informationsEntreprise, informationsStage, donnéesLocalisation);
-			if (result.instance === 'success') {
+			if (isSuccess(result)) {
 				persistenceStage.removeInformationsEtape2();
 				return router.push(`${URL_DEPOSER_OFFRE}/confirmation-envoi`);
 			}

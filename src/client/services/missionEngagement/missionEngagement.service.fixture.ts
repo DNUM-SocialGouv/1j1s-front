@@ -3,15 +3,19 @@ import {
 	anAmbassadeurDuDonDeVêtementMission,
 	aRésultatRechercheMission,
 } from '~/server/engagement/domain/missionEngagement.fixture';
+import { createSuccess } from '~/server/errors/either';
 
 export function aMissionEngagementService(): MissionEngagementService {
 	return {
-		rechercherMission: jest.fn().mockResolvedValue({ instance: 'success' , result: aRésultatRechercheMission() }),
-	} ;
+		rechercherMission: jest.fn().mockResolvedValue(createSuccess(aRésultatRechercheMission())),
+	};
 }
 
 export function aSingleResultMissionEngagementService(): MissionEngagementService {
 	return {
-		rechercherMission: jest.fn().mockResolvedValue({ instance: 'success' , result: { nombreRésultats: 1, résultats: [anAmbassadeurDuDonDeVêtementMission()] } }),
-	} ;
+		rechercherMission: jest.fn().mockResolvedValue(createSuccess({
+			nombreRésultats: 1,
+			résultats: [anAmbassadeurDuDonDeVêtementMission()],
+		})),
+	};
 }

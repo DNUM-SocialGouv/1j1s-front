@@ -1,7 +1,11 @@
 import { createFailure, createSuccess, Failure, Success } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
-import { aDépartementList, aLocalisationRepository, aRégionList } from '~/server/localisations/domain/localisation.fixture';
+import {
+	aDépartementList,
+	aLocalisationRepository,
+	aRégionList,
+} from '~/server/localisations/domain/localisation.fixture';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
 import {
 	aCommuneList,
@@ -43,7 +47,7 @@ describe('RechercherLocalisationUseCase', () => {
 		describe('Lorsque la récupération de la liste des communes fonctionne', () => {
 			it('renvoie la liste de communes correspondant à la recherche', async () => {
 				const listeLocalisationUseCase = new RechercherLocalisationUseCase(localisationRepository, localisationAvecCoordonneesRepository);
-				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue({ instance: 'success', result: aRésultatsRechercheCommune() });
+				jest.spyOn(localisationAvecCoordonneesRepository, 'getCommuneList').mockResolvedValue(createSuccess(aRésultatsRechercheCommune()));
 				const expected: RechercheLocalisation = {
 					communeList: aCommuneList(),
 					departementList: [],

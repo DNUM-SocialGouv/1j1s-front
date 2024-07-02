@@ -65,7 +65,7 @@ describe('BffLocalisationService', () => {
 
 		describe('renvoie false quand', () => {
 			it('la recherche est un nombre au format département métropolitain (sauf la corse)', async () => {
-			// Given
+				// Given
 				const httpClientService = anHttpClientService();
 				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
@@ -76,7 +76,7 @@ describe('BffLocalisationService', () => {
 				expect(result).toEqual(false);
 			});
 			it('la recherche est un nombre au format département d’outre-mer', () => {
-			// Given
+				// Given
 				const httpClientService = anHttpClientService();
 				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
@@ -87,7 +87,7 @@ describe('BffLocalisationService', () => {
 				expect(result).toEqual(false);
 			});
 			it('la recherche est le département de la Corse-du-Sud', async () => {
-			// Given
+				// Given
 				const httpClientService = anHttpClientService();
 				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
@@ -98,7 +98,7 @@ describe('BffLocalisationService', () => {
 				expect(result).toEqual(false);
 			});
 			it('la recherche est le département de la Haute-Corse', async () => {
-			// Given
+				// Given
 				const httpClientService = anHttpClientService();
 				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
@@ -109,7 +109,7 @@ describe('BffLocalisationService', () => {
 				expect(result).toEqual(false);
 			});
 			it('la recherche est un code postal', async () => {
-			// Given
+				// Given
 				const httpClientService = anHttpClientService();
 				const bffLocalisationService = new BffLocalisationService(httpClientService);
 
@@ -147,7 +147,7 @@ describe('BffLocalisationService', () => {
 		it('appelle communes avec la recherche', async () => {
 			const httpClientService = anHttpClientService();
 			const bffLocalisationService = new BffLocalisationService(httpClientService);
-			const query='pari';
+			const query = 'pari';
 			const expected: RésultatsRechercheCommune = {
 				résultats: [
 					{
@@ -177,10 +177,7 @@ describe('BffLocalisationService', () => {
 
 			const result = await bffLocalisationService.rechercherCommune(query);
 
-			expect(result).toEqual({
-				instance: 'success',
-				result: expected,
-			});
+			expect(result).toEqual(createSuccess(expected));
 			expect(httpClientService.get).toHaveBeenCalledWith('communes?q=pari');
 		});
 	});

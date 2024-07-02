@@ -9,6 +9,7 @@ import { Select } from '~/client/components/ui/Form/Select/Select';
 import { TextArea } from '~/client/components/ui/Form/TextArea/TextArea';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { Stage3eEt2deService } from '~/client/services/stage3eEt2de/stage3eEt2de.service';
+import { isFailure, isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 import {
 	CandidatureStage3eEt2de,
@@ -118,8 +119,8 @@ export function FormulaireCandidaterStage3eEt2de(props: {
 		}
 		const resultat = await stage3eEt2deService.candidaterStage3eEt2de(candidature);
 		setIsLoading(false);
-		if (resultat.instance === 'success') onSuccess();
-		if (resultat.instance === 'failure') onFailure(resultat.errorType);
+		if (isSuccess(resultat)) onSuccess();
+		if (isFailure(resultat)) onFailure(resultat.errorType);
 	}
 
 	return <>
