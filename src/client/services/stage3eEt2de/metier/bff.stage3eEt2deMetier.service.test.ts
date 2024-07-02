@@ -15,7 +15,7 @@ describe('BffStage3eEt2deMetierService', () => {
 			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aListeDeMetierStage3eEt2de()));
 			const result = await metierService.rechercherMetier(metierQuery);
 
-			expect(result).toEqual({ instance: 'success', result: aListeDeMetierStage3eEt2de() });
+			expect(result).toEqual(createSuccess(aListeDeMetierStage3eEt2de()));
 			expect(httpClientService.get).toHaveBeenCalledWith('stages-3e-et-2de/metiers?motCle=boulang');
 		});
 	});

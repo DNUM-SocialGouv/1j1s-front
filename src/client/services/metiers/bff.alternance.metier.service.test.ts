@@ -14,7 +14,7 @@ describe('BffLbaMetierService', () => {
 			(httpClientService.get as jest.Mock).mockResolvedValue(createSuccess(aListeDeMetierLaBonneAlternance()));
 			const result = await metierService.rechercherMetier(metierQuery);
 
-			expect(result).toEqual({ instance: 'success', result: aMetiersList() });
+			expect(result).toEqual(createSuccess(aMetiersList()));
 			expect(httpClientService.get).toHaveBeenCalledWith('metiers?motCle=boulang');
 		});
 	});

@@ -28,6 +28,7 @@ import {
 	EMPLOIS_EUROPE_ITEMS_PER_PAGE,
 	EMPLOIS_EUROPE_LAST_VISIBLE_PAGE_ALLOWED,
 } from '~/server/emplois-europe/infra/repositories/apiEuresEmploiEurope';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 
 export default function RechercherEmploisEurope() {
@@ -45,7 +46,7 @@ export default function RechercherEmploisEurope() {
 
 			emploiEuropeService.rechercherEmploiEurope(emploiEuropeQuery)
 				.then((response) => {
-					if (response.instance === 'success') {
+					if (isSuccess(response)) {
 						setEmploiEuropeList(response.result.offreList);
 						setNombreResultats(response.result.nombreResultats);
 					} else {

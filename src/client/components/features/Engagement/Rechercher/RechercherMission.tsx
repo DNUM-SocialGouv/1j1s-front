@@ -26,6 +26,7 @@ import {
 	NOMBRE_RÉSULTATS_MISSION_PAR_PAGE,
 	serviceCiviqueDomaineList,
 } from '~/server/engagement/domain/engagement';
+import { isSuccess } from '~/server/errors/either';
 import { Erreur } from '~/server/errors/erreur.types';
 
 interface RechercherMissionProps {
@@ -57,7 +58,7 @@ export function RechercherMission(props: RechercherMissionProps) {
 		missionEngagementService
 			.rechercherMission(missionEngagementQuery, category)
 			.then((response) => {
-				if (response.instance === 'success') {
+				if (isSuccess(response)) {
 					setTitle(formatRechercherSolutionDocumentTitle(`Rechercher une mission de  ${isServiceCivique ? 'service civique' : 'bénévolat'} ${response.result.résultats.length === 0 ? ' - Aucun résultat' : ''}`));
 					setMissionList(response.result.résultats);
 					setNombreResultats(response.result.nombreRésultats);

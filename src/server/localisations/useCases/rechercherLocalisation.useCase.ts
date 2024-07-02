@@ -1,4 +1,4 @@
-import { createFailure, createSuccess, Either } from '~/server/errors/either';
+import { createFailure, createSuccess, Either, isSuccess } from '~/server/errors/either';
 import { ErreurMetier } from '~/server/errors/erreurMetier.types';
 import { RechercheLocalisation } from '~/server/localisations/domain/localisation';
 import { LocalisationRepository } from '~/server/localisations/domain/localisation.repository';
@@ -11,7 +11,8 @@ const MIN_CHAR_LENGTH_FOR_SEARCH = 3;
 
 export class RechercherLocalisationUseCase {
 	constructor(private localisationRepository: LocalisationRepository,
-              private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {}
+							private localisationAvecCoordonnéesRepository: LocalisationAvecCoordonnéesRepository) {
+	}
 
 	async handle(recherche: string): Promise<Either<RechercheLocalisation>> {
 		if (RechercheLocalisationUtils.isRechercheByNumeroDepartement(recherche)) {
@@ -26,55 +27,58 @@ export class RechercherLocalisationUseCase {
 	private async getLocalisationByNumeroDepartement(recherche: string): Promise<Either<RechercheLocalisation>> {
 		const response = await this.localisationRepository.getDépartementListByNuméroDépartement(recherche);
 
-		switch (response.instance) {
-			case 'success': {
-				return createSuccess({
-					communeList: [],
-					departementList: response.result,
-					regionList: [],
-				});
-			};
-			case 'failure': return response;
+		if (isSuccess(response)) {
+			return createSuccess({
+				communeList: [],
+				departementList: response.result,
+				regionList: [],
+			})
 		}
+		return response
 	}
 
 	private async getLocalisationByNumeroCodePostal(recherche: string): Promise<Either<RechercheLocalisation>> {
 		const responseCommuneList = await this.localisationAvecCoordonnéesRepository.getCommuneList(recherche);
 
-		switch (responseCommuneList.instance) {
-			case 'success': {
-				return createSuccess({
-					communeList: responseCommuneList.result.résultats,
-					departementList: [],
-					regionList: [],
-				});
-			}
-			case 'failure':
-				return responseCommuneList;
-		}
-	}
-
-	private async getLocalisationByNom(recherche: string): Promise<Either<RechercheLocalisation>> {
-		if (recherche.length < MIN_CHAR_LENGTH_FOR_SEARCH) {
-			return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
-		}
-
-		const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
-			this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
-			this.localisationRepository.getDépartementListByNom(recherche),
-			this.localisationRepository.getRégionListByNom(recherche),
-		]);
-
-		if (responseCommuneList.instance === 'success' && responseDépartementList.instance === 'success' && responseRégionList.instance === 'success') {
-			responseCommuneList.result.résultats.sort((a, b) => a.libelle.toLowerCase().localeCompare(b.libelle.toLowerCase()));
-
+		if (isSuccess(responseCommuneList)) {
 			return createSuccess({
 				communeList: responseCommuneList.result.résultats,
-				departementList: responseDépartementList.result,
-				regionList: responseRégionList.result,
+				departementList: [],
+				regionList: [],
 			});
-		} else {
-			return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
 		}
+		return responseCommuneList;
 	}
+}
+
+private async
+getLocalisationByNom(recherche
+:
+string
+):
+Promise < Either < RechercheLocalisation >> {
+	if(recherche.length < MIN_CHAR_LENGTH_FOR_SEARCH
+)
+{
+	return createFailure(ErreurMetier.DEMANDE_INCORRECTE);
+}
+
+const [responseCommuneList, responseDépartementList, responseRégionList] = await Promise.all([
+	this.localisationAvecCoordonnéesRepository.getCommuneList(recherche),
+	this.localisationRepository.getDépartementListByNom(recherche),
+	this.localisationRepository.getRégionListByNom(recherche),
+]);
+
+if (isSuccess(responseCommuneList) && isSuccess(responseDépartementList) && isSuccess(responseRégionList)) {
+	responseCommuneList.result.résultats.sort((a, b) => a.libelle.toLowerCase().localeCompare(b.libelle.toLowerCase()));
+
+	return createSuccess({
+		communeList: responseCommuneList.result.résultats,
+		departementList: responseDépartementList.result,
+		regionList: responseRégionList.result,
+	});
+} else {
+	return createFailure(ErreurMetier.SERVICE_INDISPONIBLE);
+}
+}
 }
