@@ -26,11 +26,19 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 	const conditionsAccesSanitized = useSanitize(conditionsAccesDirty);
 	const poursuiteEtudesSanitized = useSanitize(poursuiteEtudesDirty);
 
+	function getTags() {
+		const tags = [];
+		if (formationInitialeDetail.isCertifiante) tags.push('Certifiante');
+		if (formationInitialeDetail.niveauDeSortie) tags.push(formationInitialeDetail.niveauDeSortie);
+		if (formationInitialeDetail.duree) tags.push(formationInitialeDetail.duree);
+		return tags;
+	}
+
 	return (
 		<ConsulterOffreLayout>
 			<header className={styles.entete}>
 				<h1>{formationInitialeDetail.libelle}</h1>
-				<TagList list={formationInitialeDetail.tags} className={styles.tags}/>
+				<TagList list={getTags()} className={styles.tags}/>
 			</header>
 
 			<Link href={formationInitialeDetail.url_formation} appearance="asPrimaryButton">
@@ -66,7 +74,8 @@ export function ConsulterDetailFormationInitiale({ formationInitialeDetail }: {
 				</dl>
 			</section>}
 			{!isFormationInitialeWithCMSDetails && (
-				<p className={styles.mentionFormationNonDocumentee}>L‘ONISEP ne fournit pas de description pour cette formation. Vous pouvez consulter les établissements pour plus d‘informations.</p>
+				<p className={styles.mentionFormationNonDocumentee}>L‘ONISEP ne fournit pas de description pour cette formation.
+					Vous pouvez consulter les établissements pour plus d‘informations.</p>
 			)}
 		</ConsulterOffreLayout>
 	);

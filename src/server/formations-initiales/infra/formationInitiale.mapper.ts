@@ -27,21 +27,13 @@ export function mapFormationInitialeDetailFromOnisep(formationInitialeApiRespons
 		return undefined;
 	}
 
-	function getTags(formationInitialeApiResponse: FormationInitialeApiResponse) {
-		const tags = [];
-		const isCertifiante = !(formationInitialeApiResponse.niveau_de_certification === '0' || formationInitialeApiResponse.niveau_de_certification === '');
-
-		if (isCertifiante) tags.push('Certifiante');
-		tags.push(formationInitialeApiResponse.niveau_de_sortie_indicatif);
-		tags.push(formationInitialeApiResponse.duree);
-		return tags;
-	}
-
+	const isCertifiante = !(formationInitialeApiResponse.niveau_de_certification === '0' || formationInitialeApiResponse.niveau_de_certification === '');
 	return {
+		duree: formationInitialeApiResponse.duree,
 		identifiant: getIdentifiant(formationInitialeApiResponse.url_et_id_onisep),
+		isCertifiante: isCertifiante,
 		libelle: formationInitialeApiResponse.libelle_formation_principal,
-		// TODO (BRUJ 21/05/2024): déplacer la formation du tag côté client
-		tags: getTags(formationInitialeApiResponse),
+		niveauDeSortie: formationInitialeApiResponse.niveau_de_sortie_indicatif,
 		url_formation: formationInitialeApiResponse.url_et_id_onisep,
 	};
 }

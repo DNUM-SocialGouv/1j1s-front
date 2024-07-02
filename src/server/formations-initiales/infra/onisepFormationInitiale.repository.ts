@@ -53,6 +53,19 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 		});
 	}
 
+	async getFormationInitialeDetail(id: string): Promise<Either<FormationInitialeDetailAvecInformationsComplementaires>> {
+		const formationInitialeFromOnisep = await this.getFormationInitialeDetailFromOnisep(id);
+		if (isFailure(formationInitialeFromOnisep)) return formationInitialeFromOnisep;
+
+		const query = `filters[identifiant][$eq]=${id}`;
+		const additionalInformationFormationInitialFromStrapi = await this.strapiService.getFirstFromCollectionType<StrapiFormationInitialeDetail>(RESSOURCE_FORMATION_INITIALE, query);
+		if (isFailure(additionalInformationFormationInitialFromStrapi)) {
+			return formationInitialeFromOnisep;
+		}
+
+		return createSuccess({ ...formationInitialeFromOnisep.result, ...mapFormationInitialeDetailFromStrapi(additionalInformationFormationInitialFromStrapi.result) });
+	}
+
 	private async getFormationInitialeDetailFromOnisep(id: string): Promise<Either<FormationInitiale>> {
 		try {
 			const apiResponse = await this.httpClient.get<ResultatRechercheFormationInitialeApiResponse>(`/dataset/${ONISEP_FORMATIONS_INITIALES_DATASET_ID}/search?q="${id}"`);
@@ -66,18 +79,5 @@ export class OnisepFormationInitialeRepository implements FormationInitialeRepos
 				message: 'impossible de récupérer le détail d‘une formation initiale',
 			});
 		}
-	}
-
-	async getFormationInitialeDetail(id: string): Promise<Either<FormationInitialeDetailAvecInformationsComplementaires>> {
-		const formationInitialeFromOnisep = await this.getFormationInitialeDetailFromOnisep(id);
-		if (isFailure(formationInitialeFromOnisep)) return formationInitialeFromOnisep;
-
-		const query = `filters[identifiant][$eq]=${id}`;
-		const additionalInformationFormationInitialFromStrapi = await this.strapiService.getFirstFromCollectionType<StrapiFormationInitialeDetail>(RESSOURCE_FORMATION_INITIALE, query);
-		if (isFailure(additionalInformationFormationInitialFromStrapi)) {
-			return formationInitialeFromOnisep;
-		}
-
-		return createSuccess({ ...formationInitialeFromOnisep.result, ...mapFormationInitialeDetailFromStrapi(additionalInformationFormationInitialFromStrapi.result) });
 	}
 }
