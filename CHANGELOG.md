@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.312.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.311.0...v3.312.0) (2024-07-02)
+
+
+### Features
+
+* **mon-espace:** ajout de la nouvelle section en savoir plus ([#3122](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3122)) ([d625474](https://github.com/DNUM-SocialGouv/1j1s-front/commit/d6254742a52e7a515dc2c5975e8684ce68388eee))
+
 ## [3.311.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.310.0...v3.311.0) (2024-06-28)
 
 
