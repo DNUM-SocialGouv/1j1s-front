@@ -24,9 +24,11 @@ export function aResultatFormationInitiale(override?: Partial<ResultatRechercheF
 
 export function aFormationInitiale(override?: Partial<FormationInitiale>): FormationInitiale {
 	return {
+		duree: '1 an',
 		identifiant: 'FOR.1234',
+		isCertifiante: true,
 		libelle: 'Classe préparatoire Technologie et sciences industrielles (TSI), 2e année',
-		tags: ['Certifiante', 'Bac + 2', '1 an'],
+		niveauDeSortie: 'Bac + 2',
 		url_formation: 'http://www.onisep.fr/http/redirection/formation/slug/FOR.1234',
 		...override,
 	};
