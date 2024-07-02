@@ -22,6 +22,7 @@ export function NavItemWithSubItems({
 	isMobile = false,
 }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
 	const optionRef = useRef<HTMLLIElement>(null);
+	const navContainerRef = useRef<HTMLUListElement>(null);
 	const router = useRouter();
 	const [isExpanded, setIsExpanded] = useState(false);
 
@@ -49,6 +50,12 @@ export function NavItemWithSubItems({
 		}
 	}, []);
 
+	const closeNavSubOnFocusOutside = useCallback((event: FocusEvent) => {
+		if (navContainerRef.current && !navContainerRef.current.contains(event.target as Node)) {
+			setIsExpanded(false);
+		}
+	}, []);
+
 	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
 		if (event.key === KeyBoard.ESCAPE) {
 			setIsExpanded(false);
@@ -66,13 +73,15 @@ export function NavItemWithSubItems({
 		document.addEventListener('mouseup', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeMenuOnEscape);
 		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
-
+		document.addEventListener('focusin', closeNavSubOnFocusOutside);
+		
 		return () => {
 			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
 			document.removeEventListener('keyup', closeMenuOnEscape);
 			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
+			document.removeEventListener('focusin', closeNavSubOnFocusOutside);
 		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
+	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeNavSubOnFocusOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
@@ -104,7 +113,7 @@ export function NavItemWithSubItems({
 				</span>
 				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
 			</button>
-			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
+			{isExpanded && <ul ref={navContainerRef} className={styles.subNavItemList}>{subNav}</ul>}
 		</li>
 	);
 }
