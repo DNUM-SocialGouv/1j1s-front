@@ -18,9 +18,9 @@ export function ListeSolutionAlternanceEntreprise({ entrepriseList }: {
 		const tags: Array<string> = [];
 		if (entreprise.ville) tags.push(entreprise.ville);
 		if (entreprise.nombreSalariés) {
-			if (entreprise.nombreSalariés.min === entreprise.nombreSalariés.max && entreprise.nombreSalariés.min > 0) {
+			if (entreprise.nombreSalariés.min === entreprise.nombreSalariés.max && entreprise.nombreSalariés.max > 0) {
 				tags.push(`${entreprise.nombreSalariés.min} salariés`);
-			} else {
+			} else if (entreprise.nombreSalariés.min !== entreprise.nombreSalariés.max) {
 				tags.push(`${entreprise.nombreSalariés.min} à ${entreprise.nombreSalariés.max} salariés`);
 			}
 		}

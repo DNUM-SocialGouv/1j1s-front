@@ -105,9 +105,7 @@ function mapRésultatRechercherAlternanceLbaEntreprise(entreprise: LbaCompanies)
 		}
 
 		if (tailleEntreprise.includes('-')) {
-			const tailleEntrepriseSplited = tailleEntreprise.split('-');
-			const minTailleEntreprise = Number(tailleEntrepriseSplited[0]);
-			const maxTailleEntreprise = Number(tailleEntrepriseSplited[1]);
+			const [ minTailleEntreprise, maxTailleEntreprise ] = tailleEntreprise.split('-').map(Number);
 			const isMinAndMaxNumberValid = minTailleEntreprise >= 0 && maxTailleEntreprise >= 0;
 			return isMinAndMaxNumberValid ? { max: maxTailleEntreprise, min: minTailleEntreprise } : undefined;
 		}
