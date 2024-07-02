@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {
-	MonEspaceEntreprise,
-} from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/MonEspaceEntreprise';
-import { Objectifs } from '~/client/components/features/LesEntreprisesSEngagent/MonEspace/Objectifs/Objectifs';
+	MonEspaceEnSavoirPlus,
+} from '~/client/components/features/MonEspaceEmployeur/EnSavoirPlus/MonEspaceEnSavoirPlus';
+import { MonEspaceEntreprise } from '~/client/components/features/MonEspaceEmployeur/MonEspaceEntreprise';
 import { Head } from '~/client/components/head/Head';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import analytics from '~/pages/mon-espace/index.analytics';
@@ -20,7 +20,7 @@ export default function MonEspace() {
 			/>
 			<main id="contenu">
 				<MonEspaceEntreprise/>
-				<Objectifs/>
+				<MonEspaceEnSavoirPlus />
 			</main>
 		</>
 	);
