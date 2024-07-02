@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.313.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.312.0...v3.313.0) (2024-07-02)
+
+
+### Features
+
+* **alternance:** deplacer nombre employes cote client ([#3087](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3087)) ([2f17536](https://github.com/DNUM-SocialGouv/1j1s-front/commit/2f175363cd17f2584dd9189aaf34b6c9366b2778))
+
 ## [3.312.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.311.0...v3.312.0) (2024-07-02)
 
 
