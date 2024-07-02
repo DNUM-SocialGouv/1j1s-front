@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -13,6 +12,9 @@ import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
 import { RechercherSolutionLayout } from '~/client/components/layouts/RechercherSolution/RechercherSolutionLayout';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useFormationInitialeQuery } from '~/client/hooks/useFormationInitialeQuery';
@@ -24,8 +26,6 @@ import {
 	FormationInitiale,
 	NOMBRE_RÉSULTATS_FORMATIONS_INITIALES_PAR_PAGE,
 } from '~/server/formations-initiales/domain/formationInitiale';
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution').then((mod) => mod.RésultatRechercherSolution), { ssr: false });
 
 const PREFIX_TITRE_PAGE = 'Rechercher une formation initiale';
 
@@ -124,7 +124,7 @@ function ListeFormationInitiale({ resultatList }: ListResultatProps) {
 		<ListeRésultatsRechercherSolution aria-label="Formations Initiales">
 			{resultatList.map((formation: FormationInitiale) => (
 				<li key={formation.libelle}>
-					<RésultatRechercherSolution
+					<ResultatRechercherSolution
 						étiquetteOffreList={formation.tags}
 						intituléOffre={formation.libelle}
 						logo={'/images/logos/fallback.svg'}

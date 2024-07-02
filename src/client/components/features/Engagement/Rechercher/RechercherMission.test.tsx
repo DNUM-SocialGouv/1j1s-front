@@ -43,13 +43,11 @@ describe('RechercherMission', () => {
 
 			// WHEN
 			const formulaireRechercheMissionEngagement = screen.getByRole('form');
-			const résultatRechercheMissionEngagementList = screen.queryAllByTestId('RésultatRechercherSolution');
 			const rechercheMissionEngagementNombreRésultats = screen.queryByTestId('NombreRésultatsSolution');
 			const errorMessage = screen.queryByText('0 résultat');
 
 			// THEN
 			expect(formulaireRechercheMissionEngagement).toBeInTheDocument();
-			expect(résultatRechercheMissionEngagementList).toHaveLength(0);
 			expect(rechercheMissionEngagementNombreRésultats).not.toBeInTheDocument();
 			expect(errorMessage).not.toBeInTheDocument();
 		});

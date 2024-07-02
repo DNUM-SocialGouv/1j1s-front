@@ -1,13 +1,11 @@
-import dynamic from 'next/dynamic';
-
 import { getTagsFromAnnonce } from '~/client/components/features/EmploisEurope/tags.utils';
 import {
 	ListeRésultatsRechercherSolution,
 } from '~/client/components/layouts/RechercherSolution/ListeRésultats/ListeRésultatsRechercherSolution';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { EmploiEurope } from '~/server/emplois-europe/domain/emploiEurope';
-
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution').then((mod) => mod.RésultatRechercherSolution), { ssr: false });
 
 interface ListeResultatsEmploiEuropeProps {
 	resultatList: EmploiEurope[];
@@ -32,7 +30,7 @@ function ResultatEmploiEurope(emploiEurope: EmploiEurope) {
 
 	return (
 		<li key={emploiEurope.id}>
-			<RésultatRechercherSolution
+			<ResultatRechercherSolution
 				intituléOffre={emploiEurope.titre ? <span lang={codeLangueDeLOffre}>{emploiEurope.titre}</span> : 'Offre d’emploi sans titre'}
 				lienOffre={`/emplois-europe/${emploiEurope.id}`}
 				sousTitreOffre={emploiEurope.nomEntreprise}

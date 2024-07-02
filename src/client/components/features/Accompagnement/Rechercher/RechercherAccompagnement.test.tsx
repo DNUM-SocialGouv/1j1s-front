@@ -87,12 +87,7 @@ describe('RechercherAccompagnement', () => {
 					</DependenciesProvider>,
 				);
 
-				// WHEN
 				const aucunRésultat = await screen.findByText('0 résultat');
-				const résultatRechercheÉtablissementAccompagnementList = screen.queryByTestId('RésultatRechercherSolution');
-
-				// THEN
-				expect(résultatRechercheÉtablissementAccompagnementList).not.toBeInTheDocument();
 				expect(aucunRésultat).toBeInTheDocument();
 			});
 		});
@@ -120,12 +115,8 @@ describe('RechercherAccompagnement', () => {
 				);
 
 				// WHEN
-				const aucunRésultat = await screen.findByText('Erreur - Demande incorrecte');
-				const résultatRechercheÉtablissementAccompagnementList = screen.queryByTestId('RésultatRechercherSolution');
-
-				// THEN
-				expect(résultatRechercheÉtablissementAccompagnementList).not.toBeInTheDocument();
-				expect(aucunRésultat).toBeInTheDocument();
+				const demandeIncorrecte = await screen.findByText('Erreur - Demande incorrecte');
+				expect(demandeIncorrecte).toBeInTheDocument();
 			});
 		});
 
