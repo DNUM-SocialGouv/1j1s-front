@@ -1,10 +1,13 @@
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
+@use "@styles/theme/variables" as theme-variables;
+
+$border-width: 1px;
 
 .rechercheOffreForm {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
   padding-bottom: 1rem;
 }
 
@@ -18,8 +21,38 @@
   gap: variables.$form-vertical-gap-mobile;
 }
 
-.buttonRechercher > button {
-  width: 100%;
+.buttonRechercher {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  @include utilities.media(small) {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-top: $border-width solid theme-variables.$color-background-border;
+      top: 50%;
+      height: 1px;
+      width: calc(50% - 130px);
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  > button {
+    width: 100%;
+
+    @include utilities.media(small) {
+      width: auto;
+    }
+  }
 }
 
 .champsObligatoires {

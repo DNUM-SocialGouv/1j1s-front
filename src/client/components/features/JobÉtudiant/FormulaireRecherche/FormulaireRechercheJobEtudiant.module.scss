@@ -1,8 +1,10 @@
 @use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
+@use "@styles/theme/variables" as theme-variables;
 
 $color-border-filters: lighten(utilities.$color-primary, 15%);
+$border-width: 1px;
 
 .rechercheOffreForm {
   display: grid;
@@ -11,7 +13,6 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
   grid-gap: variables.$form-submit-button-vertical-gap-mobile;
 
   @include utilities.media(medium) {
-    grid-template-columns: 1fr auto;
     grid-gap: variables.$form-horizontal-gap;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
@@ -34,12 +35,40 @@ $color-border-filters: lighten(utilities.$color-primary, 15%);
   }
 
   & .buttonRechercher {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    @include utilities.media(small) {
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        border-top: $border-width solid theme-variables.$color-background-border;
+        top: 50%;
+        height: 1px;
+        width: calc(50% - 130px);
+      }
+  
+      &::before {
+        left: 0;
+      }
+  
+      &::after {
+        right: 0;
+      }
+    }
+
     @include utilities.media(medium) {
       margin-top: utilities.pixel-to-rem(28);
     }
 
     > button {
       width: 100%;
+
+      @include utilities.media(small) {
+        width: auto;
+      }
     }
   }
 }

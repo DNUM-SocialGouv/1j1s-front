@@ -1,9 +1,11 @@
 @use "sass:color";
 @use "@styles/utilities";
 @use "@styles/components/form/variables";
+@use "@styles/theme/variables" as theme-variables;
 
 $color-border-filters: lighten(utilities.$color-primary, 15%);
 $color-message-champs-obligatoires: utilities.$color-primary;
+$border-width: 1px;
 
 .champsInformation{
   color: $color-message-champs-obligatoires;
@@ -11,11 +13,11 @@ $color-message-champs-obligatoires: utilities.$color-primary;
 }
 
 .rechercheOffreForm {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 1fr;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  gap: variables.$form-submit-button-vertical-gap-mobile;
+  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
 }
 
 .filtresRechercherOffre {
@@ -31,8 +33,38 @@ $color-message-champs-obligatoires: utilities.$color-primary;
   }
 }
 
-.buttonRechercher > button {
-  width: 100%;
+.buttonRechercher { 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  
+  @include utilities.media(small) {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-top: $border-width solid theme-variables.$color-background-border;
+      top: 50%;
+      height: 1px;
+      width: calc(50% - 130px);
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+  }
+
+  > button {
+    width: 100%;
+
+    @include utilities.media(small) {
+      width: auto;
+    }
+  }
 }
 
 @include utilities.media(medium) {
