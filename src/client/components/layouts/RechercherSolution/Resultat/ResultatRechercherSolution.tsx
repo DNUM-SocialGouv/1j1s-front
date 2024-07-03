@@ -44,6 +44,7 @@ export function ResultatRechercherSolution(props: PropsWithChildren<ResultatRech
 				{children && <div>{children}</div>}
 			</div>
 
+			<span className={styles.separator}/>
 
 			{étiquetteOffreList.length > 0 &&
 				<TagList className={styles.tags} list={étiquetteOffreList} aria-label="Caractéristiques de l‘offre"/>}

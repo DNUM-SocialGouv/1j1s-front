@@ -6,12 +6,12 @@ $color-border-left: utilities.$color-primary;
 $color-call-to-action-text: utilities.$color-cta-texte-secondary;
 $border-card-lead: 4px solid $color-card-lead-border;
 $padding-card-content: 1rem;
+$gap-between-sections: 1rem;
 
 .card {
   position: relative;
   display: grid;
-  gap: 2rem;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto auto;
   grid-template-columns: auto 1fr;
   padding-top: $padding-card-content;
   padding-bottom: $padding-card-content;
@@ -30,7 +30,7 @@ $padding-card-content: 1rem;
   & .mainContent {
     grid-row: 1;
     grid-column: 2;
-    padding-right: $padding-card-content;
+    padding: 0 $padding-card-content $gap-between-sections $gap-between-sections;
 
     & > header {
       h3 {
@@ -45,15 +45,20 @@ $padding-card-content: 1rem;
     }
   }
 
-  & .tags {
-    border-top: $border-card-lead;
+  & .separator {
     grid-column: 1 / -1;
-    padding: $padding-card-content $padding-card-content 0 $padding-card-content;
+    border-bottom: $border-card-lead;
+  }
+
+  & .tags {
+    grid-column: 1 / -1;
+    padding: $gap-between-sections $padding-card-content 0 $padding-card-content;
   }
 
   & > a {
     grid-column: 2;
     padding-right: $padding-card-content;
+    padding-top: $gap-between-sections;
     margin-left: auto;
 
     &::before {
@@ -68,14 +73,13 @@ $padding-card-content: 1rem;
   }
 
   @include utilities.media(medium) {
-    row-gap: 1rem;
     padding: $padding-card-content;
     border-left: 4px solid #566bb1;
 
     & > img {
-      padding: 0;
       width: 150px;
       grid-row: 1 / -1;
+      margin-right: $gap-between-sections;
     }
 
     & .mainContent {
@@ -83,14 +87,18 @@ $padding-card-content: 1rem;
       grid-column: 2;
     }
 
+    & .separator{
+      display: none;
+    }
     & .tags {
-      padding: 0;
-      border: 0;
+      padding-right: 0;
+      padding-left: 0;
       grid-column: 2;
     }
 
     & > a {
-      padding: 0;
+      padding-top: $gap-between-sections;
+      padding-right: 0;
       grid-column: 2;
     }
   }
