@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.315.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.314.0...v3.315.0) (2024-07-03)
+
+
+### Features
+
+* **transverse:** passer en grid sur les cartes de resultats pour passer en ssr ssg ([#3128](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3128)) ([a7f002c](https://github.com/DNUM-SocialGouv/1j1s-front/commit/a7f002cdcc92fb0b36afd4be563b4b919f43b215))
+
 ## [3.314.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.313.0...v3.314.0) (2024-07-02)
 
 
