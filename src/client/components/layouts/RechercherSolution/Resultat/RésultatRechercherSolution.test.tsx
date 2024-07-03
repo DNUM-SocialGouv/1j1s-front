@@ -5,8 +5,8 @@
 import { render, screen, within } from '@testing-library/react';
 
 import {
-	RésultatRechercherSolution,
-} from '~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution';
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockSmallScreen } from '~/client/components/window.mock';
 import { anOffreEmploi } from '~/server/offres/domain/offre.fixture';
@@ -22,7 +22,7 @@ describe('RésultatRechercherSolution', () => {
 		const offreEmploi = anOffreEmploi();
 
 		render(
-			<RésultatRechercherSolution
+			<ResultatRechercherSolution
 				intituléOffre={offreEmploi.intitulé}
 				lienOffre={`/emplois/${offreEmploi.id}`}
 				logo={offreEmploi.entreprise.logo}
@@ -46,7 +46,7 @@ describe('RésultatRechercherSolution', () => {
 			const offreEmploi = anOffreEmploi();
 
 			render(
-				<RésultatRechercherSolution
+				<ResultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
@@ -65,7 +65,7 @@ describe('RésultatRechercherSolution', () => {
 			const offreEmploi = anOffreEmploi();
 
 			render(
-				<RésultatRechercherSolution
+				<ResultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
@@ -73,7 +73,7 @@ describe('RésultatRechercherSolution', () => {
 				>
 					<div>Description 1</div>
 					<div>Description 2</div>
-				</RésultatRechercherSolution>,
+				</ResultatRechercherSolution>,
 			);
 
 			expect(screen.getByText('Description 1')).toBeVisible();
@@ -86,7 +86,7 @@ describe('RésultatRechercherSolution', () => {
 			const offreEmploi = anOffreEmploi();
 
 			render(
-				<RésultatRechercherSolution
+				<ResultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					intituléLienOffre="Candidater"
 					logo={offreEmploi.entreprise.logo}
@@ -96,7 +96,7 @@ describe('RésultatRechercherSolution', () => {
 				>
 					<div>Description 1</div>
 					<div>Description 2</div>
-				</RésultatRechercherSolution>,
+				</ResultatRechercherSolution>,
 			);
 
 			expect(screen.getByRole('link', { name: 'Candidater' })).toBeVisible();
@@ -105,7 +105,7 @@ describe('RésultatRechercherSolution', () => {
 			const offreEmploi = anOffreEmploi();
 
 			render(
-				<RésultatRechercherSolution
+				<ResultatRechercherSolution
 					intituléOffre={offreEmploi.intitulé}
 					intituléLienOffre="Candidater"
 					logo={offreEmploi.entreprise.logo}
@@ -115,7 +115,7 @@ describe('RésultatRechercherSolution', () => {
 				>
 					<div>Description 1</div>
 					<div>Description 2</div>
-				</RésultatRechercherSolution>,
+				</ResultatRechercherSolution>,
 			);
 
 			const lien = screen.getByRole('link', { name: 'Candidater' });
@@ -128,7 +128,7 @@ describe('RésultatRechercherSolution', () => {
 			const offreEmploi = anOffreEmploi();
 
 			render(
-				<RésultatRechercherSolution
+				<ResultatRechercherSolution
 					intituléOffre={'Barman'}
 					logo={offreEmploi.entreprise.logo}
 					sousTitreOffre={offreEmploi.entreprise.nom}
@@ -137,7 +137,7 @@ describe('RésultatRechercherSolution', () => {
 				>
 					<div>Description 1</div>
 					<div>Description 2</div>
-				</RésultatRechercherSolution>,
+				</ResultatRechercherSolution>,
 			);
 
 			expect(screen.getByRole('link', { name: 'Barman En savoir plus' })).toBeVisible();

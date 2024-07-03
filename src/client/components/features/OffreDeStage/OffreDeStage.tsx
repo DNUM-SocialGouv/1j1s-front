@@ -1,15 +1,14 @@
-import dynamic from 'next/dynamic';
 import React from 'react';
 
 import { OffreDeStageIndexée } from '~/client/components/features/OffreDeStage/OffreDeStageIndexee';
 import { HitProps } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
+import {
+	ResultatRechercherSolution,
+} from '~/client/components/layouts/RechercherSolution/Resultat/ResultatRechercherSolution';
 import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { DateService } from '~/client/services/date/date.service';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
-
-// NOTE (BRUJ 06/05/2024): Pour éviter les hydratation mismatch lié au usebreakpoint on désactive le srr sur des composants spécifiques cf https://nextjs.org/docs/messages/react-hydration-error#solution-2-disabling-ssr-on-specific-components
-const RésultatRechercherSolution = dynamic(() => import('~/client/components/layouts/RechercherSolution/Résultat/RésultatRechercherSolution').then((mod) => mod.RésultatRechercherSolution), { ssr: false });
 
 const IMAGE_FIXE = '/images/logos/fallback.svg';
 
@@ -44,7 +43,7 @@ export function OffreDeStage(props: HitProps<OffreDeStageIndexée>) {
 		listeEtiquettes.push(formatDate(stage.dateDeDebutMin, stage.dateDeDebutMax));
 	}
 
-	return <RésultatRechercherSolution
+	return <ResultatRechercherSolution
 		lienOffre={`/stages/${stage.slug}`}
 		intituléOffre={stage.titre}
 		logo={IMAGE_FIXE}
