@@ -4,8 +4,6 @@
 
 import '@testing-library/jest-dom';
 
-import { describe } from 'node:test';
-
 import { fireEvent,render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
@@ -36,29 +34,6 @@ describe('NavItemWithSubItems', () => {
 		render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
 		
 		expect(screen.getByRole('button', { name: 'Test Menu' })).toBeVisible();
-	});
-
-	describe('lorsque la page du sous-menu est visité', () => {
-		it('doit afficher l‘attribut aria-current à true', async () => {
-			const { rerender } = render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
-    
-			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
-			await userEvent.click(menuButton);
-
-			const linkMenu = screen.getByRole('link', { name: 'Sub Item 1' });
-    
-			// eslint-disable-next-line @typescript-eslint/no-var-requires
-			jest.spyOn(require('next/router'), 'useRouter').mockImplementation(() => ({
-				pathname: '/sub1',
-				push: jest.fn(),
-			}));
-
-			rerender(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
-
-			await waitFor(() => {
-				expect(linkMenu).toHaveAttribute('aria-current', 'true');
-			});
-		});
 	});
 
 	describe('lorsque je clique sur le bouton du menu', () => {
@@ -100,6 +75,29 @@ describe('NavItemWithSubItems', () => {
 			fireEvent.click(subItem);
 	
 			expect(mockOnClick).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('lorsque la page du sous-menu est visité', () => {
+		it('doit afficher l‘attribut aria-current à true', async () => {
+			const { rerender } = render(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+    
+			const menuButton = screen.getByRole('button', { name: 'Test Menu' });
+			await userEvent.click(menuButton);
+
+			const linkMenu = screen.getByRole('link', { name: 'Sub Item 1' });
+    
+			// eslint-disable-next-line @typescript-eslint/no-var-requires
+			jest.spyOn(require('next/router'), 'useRouter').mockImplementation(() => ({
+				pathname: '/sub1',
+				push: jest.fn(),
+			}));
+
+			rerender(<NavItemWithSubItems navigationItemWithChildren={mockNavigationItemWithChildren} />);
+
+			await waitFor(() => {
+				expect(linkMenu).toHaveAttribute('aria-current', 'true');
+			});
 		});
 	});
 
