@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FocusEvent,useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -22,7 +22,6 @@ export function NavItemWithSubItems({
 	isMobile = false,
 }: NavItemWithSubItemsProps & React.HTMLAttributes<HTMLLIElement>) {
 	const optionRef = useRef<HTMLLIElement>(null);
-	const navContainerRef = useRef<HTMLUListElement>(null);
 	const router = useRouter();
 	const [isExpanded, setIsExpanded] = useState(false);
 
@@ -50,10 +49,15 @@ export function NavItemWithSubItems({
 		}
 	}, []);
 
-	const closeNavSubOnFocusOutside = useCallback((event: FocusEvent) => {
-		if (navContainerRef.current && !navContainerRef.current.contains(event.target as Node)) {
+
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
+		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
+		
+		if (!newFocusStillInSubItems) {
 			setIsExpanded(false);
+			return;
 		}
+		
 	}, []);
 
 	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
@@ -73,25 +77,24 @@ export function NavItemWithSubItems({
 		document.addEventListener('mouseup', closeOptionsOnClickOutside);
 		document.addEventListener('keyup', closeMenuOnEscape);
 		document.addEventListener('keyup', closeOptionsOnSpaceOutside);
-		document.addEventListener('focusin', closeNavSubOnFocusOutside);
-		
+
 		return () => {
 			document.removeEventListener('mouseup', closeOptionsOnClickOutside);
 			document.removeEventListener('keyup', closeMenuOnEscape);
 			document.removeEventListener('keyup', closeOptionsOnSpaceOutside);
-			document.removeEventListener('focusin', closeNavSubOnFocusOutside);
 		};
-	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeNavSubOnFocusOutside, closeOptionsOnSpaceOutside]);
+	}, [closeMenuOnEscape, closeOptionsOnClickOutside, closeOptionsOnSpaceOutside]);
 
 	const subNav = navigationItemWithChildren.children.map((subItem) => {
 		if (isNavigationItem(subItem)) {
 			return (
 				<NavItem className={styles.subNavItem}
-								 key={subItem.label?.toString()}
-								 label={subItem.label}
-								 link={subItem.link}
-								 isActive={router.pathname === subItem.link}
-								 onClick={onNavItemSelected}/>
+					key={subItem.label?.toString()}
+					label={subItem.label}
+					link={subItem.link}
+					isActive={router.pathname === subItem.link}
+					onClick={onNavItemSelected}
+				/>
 			);
 		}
 		return <NavItemWithSubItems
@@ -103,7 +106,7 @@ export function NavItemWithSubItems({
 	});
 
 	return (
-		<li ref={optionRef} className={className}>
+		<li ref={optionRef} className={className} onBlur={onBlur}>
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
@@ -113,9 +116,7 @@ export function NavItemWithSubItems({
 				</span>
 				<Icon className={isExpanded ? styles.subNavItemButtonIconExpanded : styles.subNavItemButtonIcon} name="angle-down"/>
 			</button>
-			{isExpanded && <ul ref={navContainerRef} className={styles.subNavItemList}>{subNav}</ul>}
+			{isExpanded && <ul className={styles.subNavItemList}>{subNav}</ul>}
 		</li>
 	);
 }
-
-
