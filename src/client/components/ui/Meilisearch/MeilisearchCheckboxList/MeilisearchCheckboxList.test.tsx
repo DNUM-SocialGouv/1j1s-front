@@ -8,18 +8,18 @@ import {
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
-import { MeilisearchCustomRefinementListForModal } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
+import { MeilisearchCheckboxList } from '~/client/components/ui/Meilisearch/MeilisearchCheckboxList/MeilisearchCheckboxList';
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
 let refineMock: jest.Mock<string>;
 
-describe('MeilisearchCustomRefinementListForModal', () => {
+describe('<MeilisearchCheckboxList/>', () => {
 	beforeEach(() => {
 		// GIVEN
 		refineMock = jest.fn();
@@ -35,7 +35,7 @@ describe('MeilisearchCustomRefinementListForModal', () => {
 	});
 
 	it('affiche la liste des checkbox', async () => {
-		render(<MeilisearchCustomRefinementListForModal attribute='test' label='test'/>);
+		render(<MeilisearchCheckboxList attribute='test' label='test'/>);
 
 		const optionList = screen.getAllByRole('checkbox');
 		expect(optionList).toHaveLength(3);
@@ -45,7 +45,7 @@ describe('MeilisearchCustomRefinementListForModal', () => {
 		it('appelle la méthode refine une fois', async () => {
 	  const user = userEvent.setup();
 
-	  render(<MeilisearchCustomRefinementListForModal attribute='test' label='test' />);
+	  render(<MeilisearchCheckboxList attribute='test' label='test' />);
 
 	  const option = screen.getByLabelText('Studio');
 	  await user.click(option);
@@ -55,7 +55,7 @@ describe('MeilisearchCustomRefinementListForModal', () => {
 
 		it('appelle la méthode refine avec la valeur "studio"', async () => {
 	  const user = userEvent.setup();
-	  render(<MeilisearchCustomRefinementListForModal attribute='test' label='test' />);
+	  render(<MeilisearchCheckboxList attribute='test' label='test' />);
 
 	  const option = screen.getByLabelText('Studio');
 	  await user.click(option);
@@ -74,7 +74,7 @@ describe('MeilisearchCustomRefinementListForModal', () => {
 				}));
 		});
 		it('affiche un message informatif dans à la place de la liste de suggestions', async () => {
-			render(<MeilisearchCustomRefinementListForModal attribute='test' label='test'/>);
+			render(<MeilisearchCheckboxList attribute='test' label='test'/>);
 			const messageInformatif = screen.getByText('Malheureusement ce champ de recherche ne peut pas être affiché pour le moment.');
 			expect(messageInformatif).toBeInTheDocument();
 		});

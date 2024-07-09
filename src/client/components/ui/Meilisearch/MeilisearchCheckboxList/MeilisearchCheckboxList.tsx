@@ -1,14 +1,14 @@
 import React from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
-import { Checkbox } from '~/client/components/ui/Checkbox/Checkbox';
-import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
+import { Checkbox } from '../../Checkbox/Checkbox';
+import { getCapitalizedItems } from '../getCapitalizedItems';
 
-interface MeilisearchCustomRefinementListProps {
+interface MeilisearchCheckboxListProps {
 	label: string
 }
 
-export function MeilisearchCustomRefinementListForModal(props: UseRefinementListProps & MeilisearchCustomRefinementListProps) {
+export function MeilisearchCheckboxList(props: UseRefinementListProps & MeilisearchCheckboxListProps) {
 	const { refine, items } = useRefinementList(props);
 
 	if (items.length === 0) return <p>Malheureusement ce champ de recherche ne peut pas être affiché pour le moment.</p>;

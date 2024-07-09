@@ -1,6 +1,6 @@
-@use "@styles/utilities-deprecated";
-@use "@styles/utilities";
-@use "@styles/components/form/variables";
+@use "../../../../../styles/utilities-deprecated";
+@use "../../../../../styles/utilities";
+@use "../../../../../styles/components/form/variables";
 
 .label {
   @extend %label-champ;

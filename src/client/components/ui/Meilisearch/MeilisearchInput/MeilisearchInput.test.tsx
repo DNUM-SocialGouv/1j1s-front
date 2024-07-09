@@ -8,15 +8,15 @@ import {
 } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
+import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.spyOn(require('react-instantsearch'), 'useSearchBox');
 
-describe('MeilisearchCustomSearchBox Component', () => {
+describe('<MeilisearchInput/>', () => {
 	it('ne retourne pas de form', () => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
@@ -28,7 +28,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 
 	it('contient un input associé à label', () => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
@@ -42,7 +42,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 
 	it('ne contient pas de button reset quand le champ est vide', () => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
@@ -56,7 +56,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 
 	it('contient un button reset quand le champ est rempli', async() => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
@@ -72,7 +72,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 
 	it('rend le titre du bouton reset par défaut quand celui ci n‘est pas précisé', async () => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
@@ -88,7 +88,7 @@ describe('MeilisearchCustomSearchBox Component', () => {
 
 	it('rend le titre du bouton reset passé en paramètre quand celui ci est précisé', async () => {
 		render(
-	  <MeilisearchCustomSearchBox
+	  <MeilisearchInput
 				label='Ville'
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"

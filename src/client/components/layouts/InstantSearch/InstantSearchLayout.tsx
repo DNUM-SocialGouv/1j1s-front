@@ -9,7 +9,7 @@ import { InstantSearchErrorBoundary } from '~/client/components/layouts/InstantS
 import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayout.module.scss';
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
-import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
+import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/MeilisearchPagination/MeiliSearchPagination';
 import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
@@ -145,9 +145,9 @@ const AfficherResultatDeRecherche = React.forwardRef(function AfficherResultatDe
 				ref={ref}
 				resultats={<Hits hitComponent={resultatDeRecherche}/>}
 				skeletonRepeat={nombreDeSkeleton}
-				pagination={<MeiliSearchCustomPagination numberOfResultPerPage={nombreDeResultatParPage}
-					className={styles.pagination}
-					onPageChange={scrollToTopOfListeDesResultats}/>}
+				pagination={<MeiliSearchPagination numberOfResultPerPage={nombreDeResultatParPage}
+																					 className={styles.pagination}
+																					 onPageChange={scrollToTopOfListeDesResultats}/>}
 				isLoading={isInstantSearchLoading}
 				isAffichageListeDeResultatsDesktopDirectionRow={isAffichageListeDeResultatsDesktopDirectionRow}
 			/>

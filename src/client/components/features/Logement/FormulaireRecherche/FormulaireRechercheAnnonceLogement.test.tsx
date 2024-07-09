@@ -10,7 +10,7 @@ import {
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen, mockSmallScreen } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

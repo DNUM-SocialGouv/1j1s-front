@@ -5,14 +5,14 @@ import styles
 import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
 import { FilterAccordion } from '~/client/components/ui/FilterAccordion/FilterAccordion';
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { MeilisearchCustomRangeInput } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput';
 import {
-	MeilisearchCustomRangeInputForModal,
-} from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal';
+	MeilisearchCheckboxList,
+} from '~/client/components/ui/Meilisearch/MeilisearchCheckboxList/MeilisearchCheckboxList';
+import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
+import { MeilisearchRange } from '~/client/components/ui/Meilisearch/MeilisearchRange/MeilisearchRange';
 import {
-	MeilisearchCustomRefinementListForModal,
-} from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
-import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
+	MeilisearchRangeForModal,
+} from '~/client/components/ui/Meilisearch/MeilisearchRange/MeilisearchRangeForModal';
 import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
@@ -31,7 +31,7 @@ export function FormulaireRechercheAnnonceLogement() {
 			className={styles.RechercherLogementForm}
 			role="search"
 			onSubmit={(event) => event.preventDefault()}>
-			<MeilisearchCustomSearchBox
+			<MeilisearchInput
 				className={styles.inputVille}
 				label="Ville"
 				name="ville"
@@ -49,7 +49,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				label="Type de bien"
 				sortBy={['name:asc']}
 			/>
-			<MeilisearchCustomRangeInput
+			<MeilisearchRange
 				className={styles.filtresDesktop}
 				attribute="surface"
 				label="Surface (m²)"
@@ -58,7 +58,7 @@ export function FormulaireRechercheAnnonceLogement() {
 				min={SURFACE_MINIMUM}
 				max={SURFACE_MAXIMUM}
 			/>
-			<MeilisearchCustomRangeInput
+			<MeilisearchRange
 				className={styles.filtresDesktop}
 				attribute="prix"
 				label="Prix"
@@ -89,21 +89,21 @@ export function FormulaireRechercheAnnonceLogement() {
 					</ModalComponent.Title>
 					<ModalComponent.Content className={styles.filtresAvancésModalContenu}>
 						<FilterAccordion title="Type d‘offre" open>
-							<MeilisearchCustomRefinementListForModal
+							<MeilisearchCheckboxList
 								attribute="type"
 								label="Type d‘offre"
 								sortBy={['name:asc']}
 							/>
 						</FilterAccordion>
 						<FilterAccordion title="Type de bien">
-							<MeilisearchCustomRefinementListForModal
+							<MeilisearchCheckboxList
 								attribute="typeBien"
 								label="Type de bien"
 								sortBy={['name:asc']}
 							/>
 						</FilterAccordion>
 						<FilterAccordion title="Prix">
-							<MeilisearchCustomRangeInputForModal
+							<MeilisearchRangeForModal
 								attribute="prix"
 								unite="€"
 								min={PRIX_MINIMUM}
@@ -111,7 +111,7 @@ export function FormulaireRechercheAnnonceLogement() {
 							/>
 						</FilterAccordion>
 						<FilterAccordion title="Surface">
-							<MeilisearchCustomRangeInputForModal
+							<MeilisearchRangeForModal
 								attribute="surface"
 								unite="m²"
 								min={SURFACE_MINIMUM}

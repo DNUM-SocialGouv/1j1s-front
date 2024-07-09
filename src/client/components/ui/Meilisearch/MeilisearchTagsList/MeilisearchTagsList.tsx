@@ -1,16 +1,13 @@
 import React from 'react';
-import {
-	useCurrentRefinements,
-	UseCurrentRefinementsProps,
-} from 'react-instantsearch';
+import { useCurrentRefinements, UseCurrentRefinementsProps } from 'react-instantsearch';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
-import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
 import { Tag } from '~/client/components/ui/Tag/Tag';
 
-import styles from './MeilisearchCustomCurrentRefinements.module.scss';
+import { getCapitalizedItems } from '../getCapitalizedItems';
+import styles from './MeilisearchTagsList.module.scss';
 
-export default function MeilisearchCustomCurrentRefinements(props: UseCurrentRefinementsProps) {
+export default function MeilisearchTagsList(props: UseCurrentRefinementsProps) {
 	const { items, refine } = useCurrentRefinements(props);
 	const isItemListEmpty = items.length === 0;
 

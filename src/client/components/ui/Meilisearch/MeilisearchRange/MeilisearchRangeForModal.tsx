@@ -8,15 +8,15 @@ import React, {
 import { useRange, UseRangeProps } from 'react-instantsearch';
 import { v4 as uuidv4 } from 'uuid';
 
-import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal.module.scss';
+import styles from './MeilisearchRangeForModal.module.scss';
 
-interface MeilisearchCustomRangeInputForModalProps {
+interface MeilisearchRangeForModalProps {
   unite: string
   min: number
   max: number
 }
 
-export function MeilisearchCustomRangeInputForModal(props: UseRangeProps & MeilisearchCustomRangeInputForModalProps) {
+export function MeilisearchRangeForModal(props: UseRangeProps & MeilisearchRangeForModalProps) {
 	const {
 		refine,
 		start,

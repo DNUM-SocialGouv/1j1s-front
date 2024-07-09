@@ -4,7 +4,7 @@ import React from 'react';
 import styles
 	from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage.module.scss';
 import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation/MeilisearchComboboxLocalisation';
-import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
+import { MeilisearchInput } from '~/client/components/ui/Meilisearch/MeilisearchInput/MeilisearchInput';
 import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
@@ -44,7 +44,7 @@ export function sortByDurationAscending(a: SearchResults.FacetValue, b: SearchRe
 export function FormulaireRechercheOffreStage() {
 	return (
 		<form className={styles.RechercherStageForm} onSubmit={(event) => event.preventDefault()}>
-			<MeilisearchCustomSearchBox
+			<MeilisearchInput
 				label="Métiers, mots clés, …"
 				name="motCle"
 				placeholder="Exemples : designer, juriste…"

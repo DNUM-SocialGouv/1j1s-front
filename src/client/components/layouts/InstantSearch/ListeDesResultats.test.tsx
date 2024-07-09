@@ -10,8 +10,8 @@ import {
 import React from 'react';
 
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
-import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
-import { mockUsePagination } from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+import { MeiliSearchPagination } from '~/client/components/ui/Meilisearch/MeilisearchPagination/MeiliSearchPagination';
+import { mockUsePagination } from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockLargeScreen } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -40,7 +40,7 @@ describe('ListeDesResultats Component', () => {
 				<ListeDesResultats
 					isLoading={true}
 					resultats={<TestComponent/>}
-					pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,
@@ -60,7 +60,7 @@ describe('ListeDesResultats Component', () => {
 					<ListeDesResultats
 						isLoading={true}
 						resultats={<TestComponent/>}
-						pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={4}
 					/>,
@@ -79,7 +79,7 @@ describe('ListeDesResultats Component', () => {
 					<ListeDesResultats
 						isLoading={true}
 						resultats={<TestComponent/>}
-						pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -100,7 +100,7 @@ describe('ListeDesResultats Component', () => {
 					<ListeDesResultats
 						isLoading={true}
 						resultats={<TestComponent/>}
-						pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 						isAffichageListeDeResultatsDesktopDirectionRow={false}
 						skeletonRepeat={3}
 					/>,
@@ -125,7 +125,7 @@ describe('ListeDesResultats Component', () => {
 					<ListeDesResultats
 						isLoading={false}
 						resultats={<TestComponent/>}
-						pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -149,7 +149,7 @@ describe('ListeDesResultats Component', () => {
 					<ListeDesResultats
 						isLoading={false}
 						resultats={<TestComponent/>}
-						pagination={<MeiliSearchCustomPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
+						pagination={<MeiliSearchPagination numberOfResultPerPage={3} onPageChange={() => null}/>}
 						isAffichageListeDeResultatsDesktopDirectionRow={true}
 						skeletonRepeat={2}
 					/>,
@@ -171,7 +171,7 @@ describe('ListeDesResultats Component', () => {
 				<ListeDesResultats
 					isLoading={false}
 					resultats={<div/>}
-					pagination={<MeiliSearchCustomPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,
@@ -187,7 +187,7 @@ describe('ListeDesResultats Component', () => {
 				<ListeDesResultats
 					isLoading={false}
 					resultats={<div/>}
-					pagination={<MeiliSearchCustomPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
+					pagination={<MeiliSearchPagination numberOfResultPerPage={1} onPageChange={() => null}/>}
 					isAffichageListeDeResultatsDesktopDirectionRow={true}
 					skeletonRepeat={2}
 				/>,

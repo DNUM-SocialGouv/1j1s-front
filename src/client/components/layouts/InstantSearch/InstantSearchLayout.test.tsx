@@ -11,7 +11,7 @@ import { aRechercheClientService } from '~/client/components/layouts/InstantSear
 import {
 	mockUseInstantSearch,
 	mockUsePagination,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockUseRouter } from '~/client/components/useRouter.mock';
 import { mockLargeScreen } from '~/client/components/window.mock';
 import { DependenciesProvider } from '~/client/context/dependenciesContainer.context';

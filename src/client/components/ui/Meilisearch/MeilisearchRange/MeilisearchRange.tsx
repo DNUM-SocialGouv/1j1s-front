@@ -3,12 +3,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRange, UseRangeProps } from 'react-instantsearch';
 import { v4 as uuidv4 } from 'uuid';
 
-import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
-import { ButtonComponent } from '~/client/components/ui/Button/ButtonComponent';
-import { Icon } from '~/client/components/ui/Icon/Icon';
-import styles from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInput.module.scss';
+import { KeyBoard } from '../../../keyboard/keyboard.enum';
+import { ButtonComponent } from '../../Button/ButtonComponent';
+import { Icon } from '../../Icon/Icon';
+import styles from './MeilisearchRange.module.scss';
 
-interface MeilisearchCustomRangeInputProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
+interface MeilisearchRangeProps extends Pick<React.HTMLAttributes<unknown>, 'className'> {
     label: string
     placeholder: string
     unite: string
@@ -17,7 +17,7 @@ interface MeilisearchCustomRangeInputProps extends Pick<React.HTMLAttributes<unk
 		'data-testid'?: string // FIXME (SULI 29-03-2024): a été ajouté pour faire passer des tests car pas de CSS inclus dans le JSDOM
 }
 
-export function MeilisearchCustomRangeInput(props: UseRangeProps & MeilisearchCustomRangeInputProps) {
+export function MeilisearchRange(props: UseRangeProps & MeilisearchRangeProps) {
 	const {
 		refine,
 		start,

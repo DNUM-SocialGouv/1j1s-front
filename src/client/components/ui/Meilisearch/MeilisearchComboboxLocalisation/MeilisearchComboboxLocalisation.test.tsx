@@ -10,7 +10,7 @@ import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisea
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
-} from '~/client/components/ui/Meilisearch/tests/mockMeilisearchUseFunctions';
+} from '~/client/components/ui/Meilisearch/mockMeilisearchUseFunctions';
 import { mockScrollIntoView } from '~/client/components/window.mock';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -11,8 +11,8 @@ import {
 import { Head } from '~/client/components/head/Head';
 import ErrorUnavailableService from '~/client/components/layouts/Error/ErrorUnavailableService';
 import { InstantSearchLayout } from '~/client/components/layouts/InstantSearch/InstantSearchLayout';
-import MeilisearchCustomCurrentRefinements
-	from '~/client/components/ui/Meilisearch/MeilisearchCustomCurrentRefinements';
+import MeilisearchTagsList
+	from '~/client/components/ui/Meilisearch/MeilisearchTagsList/MeilisearchTagsList';
 import useAnalytics from '~/client/hooks/useAnalytics';
 import { transformerMeilisearchLogementsItems } from '~/client/utils/transformerMeilisearchLogementsItems.utils';
 import analytics from '~/pages/logements/annonces/index.analytics';
@@ -47,7 +47,7 @@ export default function AnnoncesPage() {
 				messageResultatRechercheLabelPluriel="annonces pour étudiants"
 				nombreDeSkeleton={3}
 				resultatDeRecherche={AnnonceDeLogement}
-				tagList={<MeilisearchCustomCurrentRefinements transformItems={transformItems} />}
+				tagList={<MeilisearchTagsList transformItems={transformItems} />}
 				isAffichageListeDeResultatsDesktopDirectionRow={false}
 			/>
 		</>
