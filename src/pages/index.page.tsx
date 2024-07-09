@@ -166,7 +166,7 @@ export default function Accueil() {
 			children: <p>Un parcours personnalisé pour vous aider à définir votre projet et trouver un emploi</p>,
 			imageUrl: '/images/cej.webp',
 			link: '/contrat-engagement-jeune',
-			linkLabel: 'Découvrir le CEJ',
+			linkLabel: 'Parcours de lancement du CEJ',
 			title: 'Contrat d’Engagement Jeune (CEJ)',
 		},
 		{
