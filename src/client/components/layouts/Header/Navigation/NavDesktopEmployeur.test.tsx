@@ -6,16 +6,11 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { useRouter } from 'next/router';
 import React from 'react';
 
+import { mockUseRouter } from '~/client/components/useRouter.mock';
+
 import { NavDesktopEmployeur } from './NavDesktopEmployeur';
-
-jest.mock('next/router', () => ({
-	useRouter: jest.fn(),
-}));
-
-const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 
 describe('NavDesktopEmployeur', () => {
 	const mockItem = {
@@ -33,9 +28,7 @@ describe('NavDesktopEmployeur', () => {
 	};
 
 	beforeEach(() => {
-		mockUseRouter.mockReturnValue({
-			pathname: '/',
-		} as ReturnType<typeof useRouter>);
+		mockUseRouter({});	
 	});
 
 	it('doit afficher le label sur le bouton du menu principal', () => {
@@ -45,31 +38,37 @@ describe('NavDesktopEmployeur', () => {
 	});
 
 	it("doit ouvrir le sous-menu lorsqu'on clique sur le bouton principal", async () => {
+		const user = userEvent.setup();
+
 		render(<NavDesktopEmployeur item={mockItem} />);
 
 		const button = screen.getByRole('button');
-		await userEvent.click(button);
+		await user.click(button);
 
 		expect(screen.getByRole('link', { name: 'Sous-section 1' })).toBeVisible();
 	});
 
 	it("doit fermer le sous-menu lorsqu'on clique à nouveau sur le bouton principal", async () => {
+		const user = userEvent.setup();
+
 		render(<NavDesktopEmployeur item={mockItem} />);
 
 		const button = screen.getByRole('button');
 
-		await userEvent.click(button);
-		expect(screen.getByRole('link', { name: 'Sous-section 1' })).toBeInTheDocument();
+		await user.click(button);
+		expect(screen.getByRole('link', { name: 'Sous-section 1' })).toBeVisible();
 
-		await userEvent.click(button);
+		await user.click(button);
 		expect(screen.getByText('Sous-section 1')).toBeVisible();
 	});
 
 	it('doit afficher correctement la structure du menu', async () => {
+		const user = userEvent.setup();
+
 		render(<NavDesktopEmployeur item={mockItem} />);
 
 		const button = screen.getByRole('button');
-		await userEvent.click(button);
+		await user.click(button);
 
 		expect(screen.getByRole('link', { name:'Sous-section 1' })).toBeVisible();
 		expect(screen.getByRole('link', { name: 'Sous-section 2' })).toBeVisible();
