@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { useMemo, useRef, useState } from 'react';
+import { FocusEvent,useCallback,useMemo, useRef, useState } from 'react';
 
 import { Icon } from '~/client/components/ui/Icon/Icon';
 import { Link } from '~/client/components/ui/Link/Link';
@@ -23,8 +23,17 @@ export function NavDesktopEmployeur({ item: root }: NavEmployeursProps) {
 
 	useExitModal(wrapper, isExpanded, () => isExpanded && setIsExpanded(false));
 
+	const onBlur = useCallback((event: FocusEvent<HTMLLIElement>) => {
+		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
+		
+		if (!newFocusStillInSubItems) {
+			setIsExpanded(false);
+			return;
+		}
+	}, []);
+
 	return (
-		<li className={styles.navItem}>
+		<li className={styles.navItem} onBlur={onBlur}>
 			<button className={styles.navItemButton}
 				onClick={(e) => {
 					e.stopPropagation();

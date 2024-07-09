@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FocusEvent,useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { Icon } from '~/client/components/ui/Icon/Icon';
@@ -49,6 +49,17 @@ export function NavItemWithSubItems({
 		}
 	}, []);
 
+
+	const onBlur = useCallback(function onBlur(event: FocusEvent<HTMLLIElement>) {
+		const newFocusStillInSubItems = event.currentTarget.contains(event.relatedTarget);
+		
+		if (!newFocusStillInSubItems) {
+			setIsExpanded(false);
+			return;
+		}
+		
+	}, []);
+
 	const closeMenuOnEscape = useCallback((event: KeyboardEvent) => {
 		if (event.key === KeyBoard.ESCAPE) {
 			setIsExpanded(false);
@@ -78,11 +89,12 @@ export function NavItemWithSubItems({
 		if (isNavigationItem(subItem)) {
 			return (
 				<NavItem className={styles.subNavItem}
-								 key={subItem.label?.toString()}
-								 label={subItem.label}
-								 link={subItem.link}
-								 isActive={router.pathname === subItem.link}
-								 onClick={onNavItemSelected}/>
+					key={subItem.label?.toString()}
+					label={subItem.label}
+					link={subItem.link}
+					isActive={router.pathname === subItem.link}
+					onClick={onNavItemSelected}
+				/>
 			);
 		}
 		return <NavItemWithSubItems
@@ -94,7 +106,7 @@ export function NavItemWithSubItems({
 	});
 
 	return (
-		<li ref={optionRef} className={className}>
+		<li ref={optionRef} className={className} onBlur={onBlur}>
 			<button
 				className={classNames(styles.subNavItemButton)}
 				onClick={() => setIsExpanded(!isExpanded)}
@@ -108,5 +120,3 @@ export function NavItemWithSubItems({
 		</li>
 	);
 }
-
-
