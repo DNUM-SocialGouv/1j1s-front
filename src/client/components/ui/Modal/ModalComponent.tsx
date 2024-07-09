@@ -103,13 +103,18 @@ export function ModalComponent(props: ModalPropsWithAccessibleDescription) {
 		}
 	}
 
-	useEffect(function sauvegardeEtRestorationFocus() {
-		if (isOpen) {
+	useEffect(function HandleFocusBeforeOpen() {
+		if (isOpen && !lastFocusBeforeOpen) {
 			setLastFocusBeforeOpen(document.activeElement as HTMLElement);
-		} else {
-			lastFocusBeforeOpen?.focus();
 		}
+
+		if(!isOpen) setLastFocusBeforeOpen(null);
+
+		return () => {
+			lastFocusBeforeOpen?.focus();
+		};
 	}, [isOpen, lastFocusBeforeOpen]);
+
 
 	useEffect(() => {
 		disableDocumentBodyScroll(isOpen);

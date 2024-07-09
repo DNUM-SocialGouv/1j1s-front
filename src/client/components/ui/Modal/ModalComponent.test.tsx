@@ -4,7 +4,7 @@
 
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
@@ -15,7 +15,8 @@ describe('ModalComponent', () => {
 			aria-label="label"
 			isOpen={true}
 			closeLabel={'Fermer'}
-			close={() => {}}
+			close={() => {
+			}}
 		>
 			<ModalComponent.Title>
 				Ceci est le titre de la modale
@@ -28,6 +29,34 @@ describe('ModalComponent', () => {
 		const boutonFermer = screen.getByRole('button', { name: 'Fermer' });
 		expect(boutonFermer).toHaveFocus();
 	});
+
+	it('lorsque je ferme la modale, le focus revient sur l‘élément qui avait le focus avant l‘ouverture', async () => {
+		const user = userEvent.setup();
+
+		function ButtonWithModale() {
+			const [isModaleOpen, setIsModaleOpen] = useState<boolean>(false);
+			return <>
+				<button onClick={() => setIsModaleOpen(true)}>Ouvrir la modale</button>
+				<ModalComponent
+					aria-label="label"
+					isOpen={isModaleOpen}
+					closeLabel={'Fermer'}
+					close={() => setIsModaleOpen(false)}>
+					<ModalComponent.Content>Ceci est le contenu de la modale</ModalComponent.Content>
+				</ModalComponent>
+			</>;
+		}
+
+		render(<ButtonWithModale/>);
+
+		await user.click(screen.getByRole('button', { name: 'Ouvrir la modale' }));
+		expect(screen.getByRole('button', { name: 'Fermer' })).toHaveFocus();
+
+		await user.click(screen.getByRole('button', { name: 'Fermer' }));
+
+		expect(screen.getByRole('button', { name: 'Ouvrir la modale' })).toHaveFocus();
+	});
+
 	it('ferme la modale quand on appuie sur Échap', async () => {
 		const user = userEvent.setup();
 		const onClose = jest.fn();
