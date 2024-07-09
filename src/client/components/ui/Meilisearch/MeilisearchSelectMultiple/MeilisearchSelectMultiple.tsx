@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
+import { getCapitalizedItems } from '~/client/components/ui/Meilisearch/getCapitalizedItems';
+
 import { OptionSelect, Select } from '../../Form/Select/Select';
 
 // TODO (BRUJ 08/07/2024): A supprimer le Omit lors du passage des options en composition
@@ -12,7 +14,7 @@ export function MeilisearchSelectMultiple(props: UseRefinementListProps & Meilis
 
 	// TODO (BRUJ 08/07/2024): A supprimer lors du passage des options en composition
 	const optionsList: Array<OptionSelect> = items.map((item) => ({
-		libellé: item.label,
+		libellé: getCapitalizedItems(item.label),
 		valeur: item.value,
 	}));
 
