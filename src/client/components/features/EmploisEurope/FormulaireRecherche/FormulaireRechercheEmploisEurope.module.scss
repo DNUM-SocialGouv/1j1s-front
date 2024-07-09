@@ -3,22 +3,12 @@
 // FIXME (DORO - 2023-10-02): Duplication de FormulaireRechercheAlternance.module.scss et FormulaireRechercheOffreEmploi.module.scss
 @use "@styles/theme/variables" as theme-variables;
 
-$color-border-filters: lighten(utilities.$color-primary, 15%);
-$border-width: 1px;
-
-.rechercheOffreForm {
+.filtresRechercherOffre {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: variables.$form-submit-button-vertical-gap-mobile;
-}
 
-.filtresRechercherOffre {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-vertical-gap-mobile;
-
-  & .inputButtonWrapper {
+  & .filtreRechercheEmploisEtLocalisation {
     display: flex;
     flex-direction: column;
     gap: variables.$form-vertical-gap-mobile;
@@ -53,52 +43,14 @@ $border-width: 1px;
 }
 
 .buttonRechercher {
-  position: relative;
-    display: flex;
-    justify-content: center;
-
-    @include utilities.media(small) {
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        border-top: $border-width solid theme-variables.$color-background-border;
-        top: 50%;
-        height: 1px;
-        width: calc(50% - 130px);
-      }
-  
-      &::before {
-        left: 0;
-      }
-  
-      &::after {
-        right: 0;
-      }
-    }
-
-  > button {
-    width: 100%;
-
-    @include utilities.media(small) {
-      width: auto;
-    }
-  }
+  @extend %buttonRechercher;
 }
 
 @include utilities.media(medium) {
-  .rechercheOffreForm {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    gap: variables.$form-horizontal-gap;
-  }
-
   .filtresRechercherOffre {
-    gap: variables.$form-vertical-gap-desktop;
+    grid-gap: variables.$form-vertical-gap-desktop;
 
-    & .inputButtonWrapper {
+    & .filtreRechercheEmploisEtLocalisation {
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -108,12 +60,7 @@ $border-width: 1px;
     }
   }
 
-  .buttonRechercher {
-    // TODO (DORO 21/03/2024): a modifier lors de la refonte des formulaires de recherche
-    margin-top: utilities.pixel-to-rem(41);
-  }
-
-  .inputButtonWrapper > div {
+  .filtreRechercheEmploisEtLocalisation > div {
     flex-grow: 1;
   }
 }

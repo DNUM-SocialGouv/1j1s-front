@@ -56,17 +56,15 @@ export function FormulaireRechercheStages3eEt2de() {
 			onSubmit={updateRechercherStage3eEt2deQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
-					<MetierDependenciesProvider metierService={metierService}>
-						<ComboboxMetiers
-							defaultValue={metierDefaultValue}
-							placeholder={'Exemples : boulanger, styliste...'}
-							label={'Métier (facultatif)'}
-							valueName={'codeMetier'}
-						/>
-					</MetierDependenciesProvider>
-					<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
-				</div>
+				<MetierDependenciesProvider metierService={metierService}>
+					<ComboboxMetiers
+						defaultValue={metierDefaultValue}
+						placeholder={'Exemples : boulanger, styliste...'}
+						label={'Métier (facultatif)'}
+						valueName={'codeMetier'}
+					/>
+				</MetierDependenciesProvider>
+				<ComboboxCommune required showRadiusInput defaultCommune={defaultCommuneValue} defaultDistance={distanceCommune}/>
 			</div>
 			<div className={styles.buttonRechercher}>
 				<ButtonComponent

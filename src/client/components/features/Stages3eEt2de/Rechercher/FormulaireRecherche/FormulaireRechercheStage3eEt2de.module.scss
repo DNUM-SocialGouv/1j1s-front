@@ -3,9 +3,7 @@
 @use "@styles/components/form/variables";
 @use "@styles/theme/variables" as theme-variables;
 
-$color-border-filters: lighten(utilities.$color-primary, 15%);
 $color-message-champs-obligatoires: utilities.$color-primary;
-$border-width: 1px;
 
 .champsInformation{
   color: $color-message-champs-obligatoires;
@@ -13,87 +11,26 @@ $border-width: 1px;
 }
 
 .rechercheOffreForm {
-  display: grid;
-  grid-template-rows: 1fr;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
+  @include utilities.media(medium) {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
 }
 
 .filtresRechercherOffre {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-vertical-gap-mobile;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: variables.$form-vertical-gap-mobile;
 
-  & .inputButtonWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: variables.$form-vertical-gap-mobile;
+  @include utilities.media(medium) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: variables.$form-vertical-gap-desktop;
   }
 }
 
-.buttonRechercher { 
-  position: relative;
-  display: flex;
-  justify-content: center;
-  
-  @include utilities.media(small) {
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      border-top: $border-width solid theme-variables.$color-background-border;
-      top: 50%;
-      height: 1px;
-      width: calc(50% - 130px);
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-  }
-
-  > button {
-    width: 100%;
-
-    @include utilities.media(small) {
-      width: auto;
-    }
-  }
-}
-
-@include utilities.media(medium) {
-  .rechercheOffreForm {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: variables.$form-horizontal-gap;
-  }
-
-  .filtresRechercherOffre {
-    gap: variables.$form-vertical-gap-desktop;
-
-    &  .inputButtonWrapper {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      gap: variables.$form-vertical-gap-desktop;
-      flex-wrap: wrap;
-      padding-block: 0;
-    }
-  }
-
-  .buttonRechercher {
-    margin-top: utilities.pixel-to-rem(28);
-  }
-
-  .inputButtonWrapper > div {
-    flex-grow: 1;
-  }
+.buttonRechercher {
+  @extend %buttonRechercher;
 }

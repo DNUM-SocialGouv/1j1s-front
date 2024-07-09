@@ -2,86 +2,25 @@
 @use "@styles/components/form/variables";
 @use "@styles/theme/variables" as theme-variables;
 
-$border-width: 1px;
-
 .rechercheOffreForm {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-gap: variables.$form-submit-button-vertical-gap-mobile;
   padding-bottom: 1rem;
 }
 
 .filtresRechercherOffre {
-  flex-grow: 1;
-}
+  display: grid;
+  grid-gap: variables.$form-vertical-gap-mobile;
 
-.inputButtonWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$form-vertical-gap-mobile;
+  @include utilities.media(medium) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: variables.$form-horizontal-gap;
+  }
 }
 
 .buttonRechercher {
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  @include utilities.media(small) {
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      border-top: $border-width solid theme-variables.$color-background-border;
-      top: 50%;
-      height: 1px;
-      width: calc(50% - 130px);
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-  }
-
-  > button {
-    width: 100%;
-
-    @include utilities.media(small) {
-      width: auto;
-    }
-  }
+  @extend %buttonRechercher;
 }
 
 .champsObligatoires {
   color: utilities.$color-primary;
   margin-block: 1.25rem;
-}
-
-@include utilities.media(medium) {
-  .rechercheOffreForm {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: variables.$form-horizontal-gap;
-    padding-bottom: 2rem;
-  }
-
-  .buttonRechercher {
-    // TODO (BRUJ 05/03/2024): a modifier lors de la refonte des formulaires de recherche
-    margin-top: utilities.pixel-to-rem(41);
-  }
-
-  .inputButtonWrapper {
-    flex-direction: row;
-    width: 100%;
-    gap: variables.$form-vertical-gap-desktop;;
-    flex-wrap: wrap;
-    padding-block: 0;
-  }
-
-  .inputButtonWrapper > div {
-    flex-grow: 1;
-  }
 }

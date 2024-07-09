@@ -109,7 +109,7 @@ export function FormulaireRechercheEmploisEurope() {
 			onSubmit={updateRechercherEmploiEuropeQueryParams}
 		>
 			<div className={styles.filtresRechercherOffre}>
-				<div className={styles.inputButtonWrapper}>
+				<div className={styles.filtreRechercheEmploisEtLocalisation}>
 					<Champ>
 						<Champ.Label>
 							Métier, mot-clé ou entreprise
