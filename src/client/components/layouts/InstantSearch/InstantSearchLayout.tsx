@@ -10,7 +10,7 @@ import styles from '~/client/components/layouts/InstantSearch/InstantSearchLayou
 import { ListeDesResultats } from '~/client/components/layouts/InstantSearch/ListeDesResultats';
 import { LightHero, LightHeroPrimaryText, LightHeroSecondaryText } from '~/client/components/ui/Hero/LightHero';
 import { MeiliSearchCustomPagination } from '~/client/components/ui/Meilisearch/MeiliSearchCustomPagination';
-import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche';
+import { MessageResultatRecherche } from '~/client/components/ui/Meilisearch/MessageResultatRecherche/MessageResultatRecherche';
 import { useDependency } from '~/client/context/dependenciesContainer.context';
 import { useSynchronizedRef } from '~/client/hooks/useSynchronizedRef';
 

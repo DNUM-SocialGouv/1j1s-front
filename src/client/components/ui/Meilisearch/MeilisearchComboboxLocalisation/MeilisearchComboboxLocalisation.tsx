@@ -3,8 +3,8 @@ import { useRefinementList, UseRefinementListProps } from 'react-instantsearch';
 
 import { KeyBoard } from '~/client/components/keyboard/keyboard.enum';
 
-import { Champ } from '../Form/Champ/Champ';
-import { Combobox } from '../Form/Combobox';
+import { Champ } from '../../Form/Champ/Champ';
+import { Combobox } from '../../Form/Combobox';
 
 const MESSAGE_PAS_DE_RESULTAT = 'Aucune proposition ne correspond à votre saisie. Vérifiez que votre saisie correspond bien à un lieu. Exemple : Paris, Marseille …';
 const NOMBRE_RESULTAT_MAXIMUM = 20;

@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
-import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
+import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import {
 	generateRefinementListItem,
 	mockUseRefinementList,
@@ -17,13 +17,13 @@ import { mockScrollIntoView } from '~/client/components/window.mock';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const spyed = jest.spyOn(require('react-instantsearch'), 'useRefinementList');
 
-describe('MeilisearchCustomRefinementList', () => {
+describe('MeilisearchSelectMultiple', () => {
 	beforeEach(() => {
 		mockScrollIntoView();
 	});
 
 	it('je vois le select avec son label', () => {
-		render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
 
 		const select = screen.getByRole('combobox', { name: 'test' });
 		expect(select).toBeVisible();
@@ -40,7 +40,7 @@ describe('MeilisearchCustomRefinementList', () => {
 			refine,
 		}));
 
-		render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
 
 		await user.click(screen.getByRole('combobox', { name: 'test' }));
 		await user.click(screen.getByRole('option', { name: 'audit' }));
@@ -60,7 +60,7 @@ describe('MeilisearchCustomRefinementList', () => {
 			refine,
 		}));
 
-		render(<MeilisearchCustomRefinementList attribute="test" label="test"/>);
+		render(<MeilisearchSelectMultiple attribute="test" label="test"/>);
 
 		expect(screen.getByRole('option', { hidden: true, name: 'audit' })).toHaveAttribute('aria-selected', 'true');
 		expect(screen.getByRole('option', { hidden: true, name: 'dev' })).toHaveAttribute('aria-selected', 'true');

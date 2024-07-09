@@ -3,9 +3,9 @@ import React from 'react';
 
 import styles
 	from '~/client/components/features/OffreDeStage/FormulaireRecherche/FormulaireRechercheOffreStage.module.scss';
-import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation';
-import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
+import { MeilisearchComboboxLocalisation } from '~/client/components/ui/Meilisearch/MeilisearchComboboxLocalisation/MeilisearchComboboxLocalisation';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
+import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { DomainesStage } from '~/server/stages/repository/domainesStage';
 
 const LIMIT_MAX_FACETS = 100000;
@@ -53,13 +53,13 @@ export function FormulaireRechercheOffreStage() {
 				attribute="localisationFiltree"
 				limit={LIMIT_MAX_FACETS}
 			/>
-			<MeilisearchCustomRefinementList
+			<MeilisearchSelectMultiple
 				attribute="domaines"
 				limit={LIMIT_MAX_DOMAINS}
 				label="Domaines"
 				sortBy={sortWithNonRenseigneAtTheEnd}
 			/>
-			<MeilisearchCustomRefinementList
+			<MeilisearchSelectMultiple
 				attribute="dureeCategorisee"
 				label="Durée de stage"
 				sortBy={sortByDurationAscending}

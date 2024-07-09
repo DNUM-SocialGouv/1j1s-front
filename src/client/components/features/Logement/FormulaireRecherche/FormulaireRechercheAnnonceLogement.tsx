@@ -9,11 +9,11 @@ import { MeilisearchCustomRangeInput } from '~/client/components/ui/Meilisearch/
 import {
 	MeilisearchCustomRangeInputForModal,
 } from '~/client/components/ui/Meilisearch/MeilisearchCustomRangeInputForModal';
-import { MeilisearchCustomRefinementList } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementList';
 import {
 	MeilisearchCustomRefinementListForModal,
 } from '~/client/components/ui/Meilisearch/MeilisearchCustomRefinementListForModal';
 import { MeilisearchCustomSearchBox } from '~/client/components/ui/Meilisearch/MeilisearchCustomSearchBox';
+import { MeilisearchSelectMultiple } from '~/client/components/ui/Meilisearch/MeilisearchSelectMultiple/MeilisearchSelectMultiple';
 import { ModalComponent } from '~/client/components/ui/Modal/ModalComponent';
 
 export const PRIX_MINIMUM = 0;
@@ -37,19 +37,17 @@ export function FormulaireRechercheAnnonceLogement() {
 				name="ville"
 				placeholder="Exemples : Paris, Toulouse"
 			/>
-			<MeilisearchCustomRefinementList
+			<MeilisearchSelectMultiple
 				className={styles.filtresDesktop}
 				attribute="type"
 				label="Type d‘offre"
 				sortBy={['name:asc']}
-				data-testid="input-type-offre-desktop"
 			/>
-			<MeilisearchCustomRefinementList
+			<MeilisearchSelectMultiple
 				className={styles.filtresDesktop}
 				attribute="typeBien"
 				label="Type de bien"
 				sortBy={['name:asc']}
-				data-testid="input-type-bien-desktop"
 			/>
 			<MeilisearchCustomRangeInput
 				className={styles.filtresDesktop}
@@ -59,7 +57,6 @@ export function FormulaireRechercheAnnonceLogement() {
 				unite={UNITE_SURFACE}
 				min={SURFACE_MINIMUM}
 				max={SURFACE_MAXIMUM}
-				data-testid="input-surface-desktop"
 			/>
 			<MeilisearchCustomRangeInput
 				className={styles.filtresDesktop}
@@ -69,7 +66,6 @@ export function FormulaireRechercheAnnonceLogement() {
 				unite={DEVISE}
 				min={PRIX_MINIMUM}
 				max={PRIX_MAXIMUM}
-				data-testid="input-prix-desktop"
 			/>
 			<div className={styles.filtresAvancesMobile}>
 				<ButtonComponent
@@ -78,7 +74,6 @@ export function FormulaireRechercheAnnonceLogement() {
 					icon={<Icon name="filter"/>}
 					iconPosition="right"
 					label="Filtrer ma recherche"
-					data-testid="bouton-filtrer-recherche-mobile"
 					onClick={() => setIsFiltresAvancésMobileOpen(true)}
 				/>
 				<ModalComponent
