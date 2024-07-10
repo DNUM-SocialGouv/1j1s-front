@@ -57,7 +57,7 @@ export function MonEspaceEntreprise() {
 						height={200}/>
 					<h2>
 						<LightHeroSecondaryText>
-							Je gère mes offres d’emploi en alternance avec La Bonne Alternance
+							Je gère mes offres d’emploi en alternance avec La bonne alternance
 						</LightHeroSecondaryText>
 					</h2>
 					<p>
@@ -65,7 +65,7 @@ export function MonEspaceEntreprise() {
 							Vous avez déjà publié une offre en alternance pour les jeunes ?
 						</strong>
 						<span>
-							Connectez-vous à votre espace sur la plateforme &quot;La Bonne Alternance&quot; pour gérer vos offres
+							Connectez-vous à votre espace sur la plateforme &quot;La bonne alternance&quot; pour gérer vos offres
 							actuelles ou en publier de nouvelles.
 						</span>
 					</p>

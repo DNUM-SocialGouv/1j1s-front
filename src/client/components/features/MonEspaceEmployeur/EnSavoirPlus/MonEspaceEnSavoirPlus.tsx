@@ -8,7 +8,7 @@ import styles from './MonEspaceEnSavoirPlus.module.scss';
 export function MonEspaceEnSavoirPlus() {
 	return (
 		<Container className={styles.objectifsContainer}>
-			<FoldingSection summary={'En savoir plus sur "Les Entreprises s‘Engagent"'} summaryAs="h2">
+			<FoldingSection summary={'En savoir plus sur "Les entreprises s‘engagent"'} summaryAs="h2">
 				<p>
 					<strong>
 						La communauté &quot;Les entreprises s’engagent&quot; a été lancée par le Président de la République en
@@ -38,10 +38,10 @@ export function MonEspaceEnSavoirPlus() {
 				</ul>
 			</FoldingSection>
 
-			<FoldingSection summary={'En savoir plus sur "La Bonne Alternance"'} summaryAs="h2">
+			<FoldingSection summary={'En savoir plus sur "La bonne alternance"'} summaryAs="h2">
 				<p>
 					<strong>
-						La plateforme &quot;La Bonne Alternance&quot; a été créée pour simplifier la mise en relation entre jeunes,
+						La plateforme &quot;La bonne alternance&quot; a été créée pour simplifier la mise en relation entre jeunes,
 						entreprises et centres de formation dans l’objectif de faciliter les entrées en alternance.
 					</strong>
 				</p>
