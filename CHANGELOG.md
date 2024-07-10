@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.316.0](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.315.3...v3.316.0) (2024-07-10)
+
+
+### Features
+
+* **a11y:** transformer le back button en lien ([#3153](https://github.com/DNUM-SocialGouv/1j1s-front/issues/3153)) ([bac3b58](https://github.com/DNUM-SocialGouv/1j1s-front/commit/bac3b580654a2af84b0bd458145932cff2a8ae28))
+
 ## [3.315.3](https://github.com/DNUM-SocialGouv/1j1s-front/compare/v3.315.2...v3.315.3) (2024-07-10)
 
 
