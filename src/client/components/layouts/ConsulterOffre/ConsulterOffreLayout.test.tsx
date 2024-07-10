@@ -24,7 +24,7 @@ describe('ConsulterOffreLayout', () => {
 				});
 				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-				await user.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
+				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
 
 				expect(routerBack).toHaveBeenCalled();
 			});
@@ -45,7 +45,7 @@ describe('ConsulterOffreLayout', () => {
 				});
 				render(<ConsulterOffreLayout><></></ConsulterOffreLayout>);
 
-				await user.click(screen.getByRole('button', { name: 'Retour vers la page précédente' }));
+				await user.click(screen.getByRole('link', { name: 'Retour vers la page précédente' }));
 
 				expect(routerBack).toHaveBeenCalled();
 			});

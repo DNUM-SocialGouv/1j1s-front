@@ -180,7 +180,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						/>
 					</DependenciesProvider>,
 				);
-				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
+				const boutonRetour = screen.getByRole('link', { name: 'Retour à la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
@@ -305,7 +305,7 @@ describe('Candidater à un stage de 3e et 2de', () => {
 						/>
 					</DependenciesProvider>,
 				);
-				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
+				const boutonRetour = screen.getByRole('link', { name: 'Retour à la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
@@ -1013,7 +1013,7 @@ En vous remerciant,
 				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
-				const boutonRetour = screen.getByRole('button', { name: 'Continuer la recherche' });
+				const boutonRetour = screen.getByRole('link', { name: 'Continuer la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
@@ -1190,7 +1190,7 @@ En vous remerciant,
 				});
 				const envoyerBouton = screen.getByRole('button', { name: 'Envoyer les informations' });
 				await user.click(envoyerBouton);
-				const boutonRetour = screen.getByRole('button', { name: 'Retour à la recherche' });
+				const boutonRetour = screen.getByRole('link', { name: 'Retour à la recherche' });
 				await user.click(boutonRetour);
 
 				// THEN
