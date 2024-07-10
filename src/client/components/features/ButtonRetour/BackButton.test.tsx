@@ -14,7 +14,7 @@ describe('BackButton', () => {
 	});
 
 	describe('Lorsque la variable IS_PREVIOUS_PAGE_LOCAL est définie dans le sessionStorage', () => {
-		it('affiche le bouton de retour', () => {
+		it('affiche le bouton de retour avec le role link', () => {
 			// Given
 			mockUseRouter({});
 			mockSessionStorage({
@@ -25,7 +25,7 @@ describe('BackButton', () => {
 			render(<BackButton />);
 
 			// Then
-			expect(screen.getByRole('button', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
+			expect(screen.getByRole('link', { name: 'Retour vers la page précédente' })).toBeInTheDocument();
 		});
 	});
 	describe('Lorsque la variable IS_PREVIOUS_PAGE_LOCAL n’est pas définie dans le sessionStorage', () => {
@@ -40,7 +40,7 @@ describe('BackButton', () => {
 			render(<BackButton />);
 
 			// Then
-			expect(screen.queryByRole('button', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();
+			expect(screen.queryByRole('link', { name: 'Retour vers la page précédente' })).not.toBeInTheDocument();
 		});
 	});
 });
