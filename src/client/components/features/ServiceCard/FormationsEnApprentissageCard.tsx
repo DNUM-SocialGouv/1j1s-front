@@ -12,7 +12,7 @@ export function FormationsEnApprentissageCard() {
 			titleAs={'h3'}
 			imageFit={'cover'}
 		>
-			Trouvez la formation qu’il vous faut pour réaliser votre projet avec La Bonne Alternance
+			Trouvez la formation qu’il vous faut pour réaliser votre projet avec La bonne alternance
 		</ServiceCard>
 	);
 }
